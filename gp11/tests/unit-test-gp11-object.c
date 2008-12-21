@@ -383,6 +383,7 @@ DEFINE_TEST(explicit_sessions)
 	g_assert (gp11_object_get_session (object) == session);
 	g_object_get (object, "session", &sess, NULL);
 	g_assert (sess == session);
+	g_object_unref (sess);
 
 	/* Simple */
 	attrs = gp11_object_get (object, &err, CKA_CLASS, CKA_LABEL, -1);

@@ -43,7 +43,8 @@ pkgconfig_DATA = gcr-$(GCR_MAJOR).pc
 
 EXTRA_DIST = \
 	gcr.pc.in \
-	gcr-marshal.list
+	gcr-marshal.list \
+	gcr-import-dialog.glade
 
 DISTCLEANFILES = \
 	gcr-$(GCR_MAJOR).pc
@@ -59,3 +60,4 @@ endif
 
 SUBDIRS = . \
 	$(TESTS_DIR)
+

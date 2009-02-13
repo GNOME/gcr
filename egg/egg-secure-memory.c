@@ -790,6 +790,10 @@ egg_secure_alloc_full (size_t length, int flags)
 		return NULL;
 	}
 
+	/* Can't allocate zero bytes */
+	if (length == 0)
+		return NULL;
+
 	DO_LOCK ();
 
 		for (block = all_blocks; block; block = block->next) {

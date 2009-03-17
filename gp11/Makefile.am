@@ -63,5 +63,4 @@ TESTS_DIR =
 endif
 
 SUBDIRS = . \
-	reference \
 	$(TESTS_DIR)

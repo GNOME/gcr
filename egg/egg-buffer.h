@@ -74,7 +74,7 @@ int             egg_buffer_init_full            (EggBuffer *buffer,
                                                  EggBufferAllocator allocator);
 
 void            egg_buffer_init_static          (EggBuffer *buffer,
-                                                 unsigned char *buf,
+                                                 const unsigned char *buf,
                                                  size_t len);
 
 void            egg_buffer_init_allocated       (EggBuffer *buffer,
@@ -83,6 +83,9 @@ void            egg_buffer_init_allocated       (EggBuffer *buffer,
                                                  EggBufferAllocator allocator);
 
 void            egg_buffer_uninit               (EggBuffer *buffer);
+
+unsigned char*  egg_buffer_uninit_steal         (EggBuffer *buffer,
+                                                 size_t *n_result);
 
 int             egg_buffer_set_allocator        (EggBuffer *buffer,
                                                  EggBufferAllocator allocator);

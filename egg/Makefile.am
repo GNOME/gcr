@@ -6,7 +6,7 @@ noinst_LTLIBRARIES = \
 	libegg-dbus.la \
 	libegg-secure.la \
 	libegg-prompt.la \
-	libegg-secure-entry.la
+	libegg-entry-buffer.la
 
 BUILT_SOURCES = \
 	asn1-def-pk.h asn1-def-pkix.h
@@ -53,12 +53,12 @@ DISTCLEANFILES = \
 # COMMON STUFF COMPILED INTO SMALLER COMPONENTS
 
 libegg_secure_la_SOURCES = \
- 	egg-secure-memory.c egg-secure-memory.h
+	egg-secure-memory.c egg-secure-memory.h
 
-libegg_secure_entry_la_SOURCES = \
- 	egg-secure-entry.c egg-secure-entry.h
+libegg_entry_buffer_la_SOURCES = \
+	egg-entry-buffer.c egg-entry-buffer.h
 
-libegg_secure_entry_la_CFLAGS = \
+libegg_entry_buffer_la_CFLAGS = \
 	$(GOBJECT_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS)

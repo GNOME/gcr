@@ -13,8 +13,6 @@ UNIT_FLAGS = \
 	-I$(top_srcdir)/gp11/ \
 	-DEXTERNAL_TEST
 
-UNIT_PROMPT =
-
 UNIT_LIBS = \
 	$(GIO_LIBS) \
 	$(top_builddir)/gp11/libgp11.la \

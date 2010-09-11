@@ -237,7 +237,8 @@ pool_free (void* item)
 	}
 
 	/* Otherwise invalid meta */
-	ASSERT (pool && *at);
+	ASSERT (at);
+	ASSERT (pool);
 	ASSERT (pool->used > 0);
 
 	/* No more meta cells used in this block, remove from list, destroy */

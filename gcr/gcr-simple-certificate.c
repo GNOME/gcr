@@ -121,7 +121,7 @@ gcr_certificate_iface (GcrCertificateIface *iface)
  */
 
 GcrCertificate*
-gcr_simple_certificate_new (const guchar *data, gsize n_data)
+gcr_simple_certificate_new (gconstpointer data, gsize n_data)
 {
 	GcrSimpleCertificate *cert;
 

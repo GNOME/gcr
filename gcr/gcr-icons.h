@@ -1,7 +1,7 @@
 /*
  * gnome-keyring
  *
- * Copyright (C) 2008 Stefan Walter
+ * Copyright (C) 2010 Stefan Walter
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -19,17 +19,18 @@
  * 02111-1307, USA.
  */
 
-#ifndef __GCR_H__
-#define __GCR_H__
+#ifndef __GCR_ICONS_H__
+#define __GCR_ICONS_H__
 
-#include <glib.h>
+#include "gcr-internal.h"
 
-#include "gcr-certificate.h"
-#include "gcr-certificate-widget.h"
-#include "gcr-importer.h"
-#include "gcr-parser.h"
-#include "gcr-simple-certificate.h"
-#include "gcr-trust.h"
-#include "gcr-types.h"
+G_BEGIN_DECLS
 
-#endif /* __GCR_H__ */
+#define GCR_ICON_FOLDER         "folder"
+#define GCR_ICON_CERTIFICATE    "application-certificate"
+
+void         _gcr_icons_register         (void);
+
+G_END_DECLS
+
+#endif /* __GCR_TOKEN_MANAGER_H__ */

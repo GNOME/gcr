@@ -1,7 +1,7 @@
 /*
  * gnome-keyring
  *
- * Copyright (C) 2008 Stefan Walter
+ * Copyright (C) 2010 Collabora Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -17,19 +17,36 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
  * 02111-1307, USA.
+ *
+ * Author: Stef Walter <stefw@collabora.co.uk>
  */
+
+#ifndef GCR_API_SUBJECT_TO_CHANGE
+#error "This API has not yet reached stability."
+#endif
 
 #ifndef __GCR_H__
 #define __GCR_H__
 
 #include <glib.h>
 
+#define __GCR_H_INSIDE__
+
 #include "gcr-certificate.h"
+#include "gcr-certificate-renderer.h"
 #include "gcr-certificate-widget.h"
+#include "gcr-key-renderer.h"
+#include "gcr-key-widget.h"
 #include "gcr-importer.h"
 #include "gcr-parser.h"
+#include "gcr-pkcs11-certificate.h"
 #include "gcr-simple-certificate.h"
 #include "gcr-trust.h"
 #include "gcr-types.h"
+#include "gcr-unlock-options.h"
+#include "gcr-unlock-options-widget.h"
+#include "gcr-viewer.h"
+
+#undef __GCR_H_INSIDE__
 
 #endif /* __GCR_H__ */

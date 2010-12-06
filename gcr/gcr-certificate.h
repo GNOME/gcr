@@ -65,6 +65,9 @@ gchar*              gcr_certificate_get_issuer_part        (GcrCertificate *self
 gpointer            gcr_certificate_get_issuer_raw         (GcrCertificate *self,
                                                             gsize *n_data);
 
+gboolean            gcr_certificate_is_issuer              (GcrCertificate *self,
+                                                            GcrCertificate *issuer);
+
 gchar*              gcr_certificate_get_subject_cn         (GcrCertificate *self);
 
 gchar*              gcr_certificate_get_subject_dn         (GcrCertificate *self);

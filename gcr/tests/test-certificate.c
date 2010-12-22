@@ -2,16 +2,17 @@
 #include "config.h"
 #include "test-suite.h"
 
-#include "gcr-certificate.h"
-#include "gcr-simple-certificate.h"
+#include "gcr/gcr.h"
 
 #include <glib.h>
 
 #include <string.h>
 
 static GcrCertificate *certificate = NULL;
+static GcrCertificate *dsa_cert = NULL;
+static GcrCertificate *dhansak_cert = NULL;
 
-DEFINE_SETUP(certificate)
+TESTING_SETUP(certificate)
 {
 	guchar *contents;
 	gsize n_contents;
@@ -20,16 +21,29 @@ DEFINE_SETUP(certificate)
 	certificate = gcr_simple_certificate_new (contents, n_contents);
 	g_assert (certificate);
 	g_free (contents);
+
+	contents = testing_data_read ("der-certificate-dsa.cer", &n_contents);
+	dsa_cert = gcr_simple_certificate_new (contents, n_contents);
+	g_assert (dsa_cert);
+	g_free (contents);
+
+	contents = testing_data_read ("dhansak-collabora.cer", &n_contents);
+	dhansak_cert = gcr_simple_certificate_new (contents, n_contents);
+	g_assert (certificate);
+	g_free (contents);
 }
 
-DEFINE_TEARDOWN(certificate)
+TESTING_TEARDOWN(certificate)
 {
-	if (certificate)
-		g_object_unref (certificate);
+	g_object_unref (certificate);
 	certificate = NULL;
+	g_object_unref (dsa_cert);
+	dsa_cert = NULL;
+	g_object_unref (dhansak_cert);
+	dhansak_cert = NULL;
 }
 
-DEFINE_TEST(issuer_cn)
+TESTING_TEST(issuer_cn)
 {
 	gchar *cn = gcr_certificate_get_issuer_cn (certificate);
 	g_assert (cn);
@@ -37,7 +51,7 @@ DEFINE_TEST(issuer_cn)
 	g_free (cn);
 }
 
-DEFINE_TEST(issuer_dn)
+TESTING_TEST(issuer_dn)
 {
 	gchar *dn = gcr_certificate_get_issuer_dn (certificate);
 	g_assert (dn);
@@ -45,7 +59,7 @@ DEFINE_TEST(issuer_dn)
 	g_free (dn);
 }
 
-DEFINE_TEST(issuer_part)
+TESTING_TEST(issuer_part)
 {
 	gchar *part = gcr_certificate_get_issuer_part (certificate, "l");
 	g_assert (part);
@@ -53,31 +67,75 @@ DEFINE_TEST(issuer_part)
 	g_free (part);
 }
 
-DEFINE_TEST(subject_cn)
+TESTING_TEST(issuer_raw)
+{
+	gpointer der;
+	gsize n_der;
+
+	der = gcr_certificate_get_issuer_raw (certificate, &n_der);
+	g_assert (der);
+	g_assert_cmpsize (n_der, ==, 190);
+	g_free (der);
+}
+
+TESTING_TEST(subject_cn)
 {
 	gchar *cn = gcr_certificate_get_subject_cn (certificate);
 	g_assert (cn);
 	g_assert_cmpstr (cn, ==, "http://www.valicert.com/");
 	g_free (cn);
+
+	cn = gcr_certificate_get_subject_cn (dhansak_cert);
+	g_assert (cn);
+	g_assert_cmpstr (cn, ==, "dhansak.collabora.co.uk");
+	g_free (cn);
 }
 
-DEFINE_TEST(subject_dn)
+TESTING_TEST(subject_dn)
 {
 	gchar *dn = gcr_certificate_get_subject_dn (certificate);
 	g_assert (dn);
 	g_assert_cmpstr (dn, ==, "L=ValiCert Validation Network, O=ValiCert, Inc., OU=ValiCert Class 3 Policy Validation Authority, CN=http://www.valicert.com/, EMAIL=info@valicert.com");
 	g_free (dn);
+
+	dn = gcr_certificate_get_subject_dn (dhansak_cert);
+	g_assert (dn);
+	g_assert_cmpstr (dn, ==, "CN=dhansak.collabora.co.uk, EMAIL=sysadmin@collabora.co.uk");
+	g_free (dn);
+
 }
 
-DEFINE_TEST(subject_part)
+TESTING_TEST(subject_part)
 {
 	gchar *part = gcr_certificate_get_subject_part (certificate, "OU");
 	g_assert (part);
 	g_assert_cmpstr (part, ==, "ValiCert Class 3 Policy Validation Authority");
 	g_free (part);
+
+	part = gcr_certificate_get_subject_part (dhansak_cert, "EMAIL");
+	g_assert (part);
+	g_assert_cmpstr (part, ==, "sysadmin@collabora.co.uk");
+	g_free (part);
+
 }
 
-DEFINE_TEST(issued_date)
+TESTING_TEST(subject_raw)
+{
+	gpointer der;
+	gsize n_der;
+
+	der = gcr_certificate_get_subject_raw (certificate, &n_der);
+	g_assert (der);
+	g_assert_cmpsize (n_der, ==, 190);
+	g_free (der);
+
+	der = gcr_certificate_get_subject_raw (dhansak_cert, &n_der);
+	g_assert (der);
+	g_assert_cmpsize (n_der, ==, 77);
+	g_free (der);
+}
+
+TESTING_TEST(issued_date)
 {
 	GDate *date = gcr_certificate_get_issued_date (certificate);
 	g_assert (date);
@@ -87,7 +145,7 @@ DEFINE_TEST(issued_date)
 	g_date_free (date);
 }
 
-DEFINE_TEST(expiry_date)
+TESTING_TEST(expiry_date)
 {
 	GDate *date = gcr_certificate_get_expiry_date (certificate);
 	g_assert (date);
@@ -97,7 +155,7 @@ DEFINE_TEST(expiry_date)
 	g_date_free (date);
 }
 
-DEFINE_TEST(serial_number)
+TESTING_TEST(serial_number)
 {
 	gsize n_serial;
 	guchar *serial;
@@ -115,7 +173,7 @@ DEFINE_TEST(serial_number)
 	g_free (hex);
 }
 
-DEFINE_TEST(fingerprint)
+TESTING_TEST(fingerprint)
 {
 	gsize n_print;
 	guchar *print = gcr_certificate_get_fingerprint (certificate, G_CHECKSUM_MD5, &n_print);
@@ -125,7 +183,7 @@ DEFINE_TEST(fingerprint)
 	g_free (print);
 }
 
-DEFINE_TEST(fingerprint_hex)
+TESTING_TEST(fingerprint_hex)
 {
 	gchar *print = gcr_certificate_get_fingerprint_hex (certificate, G_CHECKSUM_MD5);
 	g_assert (print);
@@ -133,3 +191,20 @@ DEFINE_TEST(fingerprint_hex)
 	g_free (print);
 }
 
+TESTING_TEST (certificate_key_size)
+{
+	guint key_size = gcr_certificate_get_key_size (certificate);
+	g_assert_cmpuint (key_size, ==, 1024);
+
+	key_size = gcr_certificate_get_key_size (dsa_cert);
+	g_assert_cmpuint (key_size, ==, 1024);
+}
+
+TESTING_TEST (certificate_is_issuer)
+{
+	gboolean ret = gcr_certificate_is_issuer (certificate, certificate);
+	g_assert (ret == TRUE);
+
+	ret = gcr_certificate_is_issuer (certificate, dsa_cert);
+	g_assert (ret == FALSE);
+}

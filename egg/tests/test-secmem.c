@@ -21,13 +21,18 @@
    Author: Stef Walter <stef@memberwebs.com>
 */
 
+#include "config.h"
+
+#include "egg-secure-memory.h"
+
+#include <glib.h>
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-#include "test-suite.h"
 
-#include "egg/egg-secure-memory.h"
+EGG_SECURE_GLIB_DEFINITIONS ();
 
 /* Declared in egg-secure-memory.c */
 extern int egg_secure_warnings;
@@ -58,7 +63,8 @@ find_non_zero (gpointer mem, gsize len)
 	return G_MAXSIZE;
 }
 
-TESTING_TEST(secmem_alloc_free)
+static void
+test_alloc_free (void)
 {
 	gpointer p;
 	gboolean ret;
@@ -75,7 +81,8 @@ TESTING_TEST(secmem_alloc_free)
 	egg_secure_free_full (p, 0);
 }
 
-TESTING_TEST(secmem_realloc_across)
+static void
+test_realloc_across (void)
 {
 	gpointer p, p2;
 
@@ -90,7 +97,8 @@ TESTING_TEST(secmem_realloc_across)
 	g_assert_cmpint (G_MAXSIZE, ==, find_non_zero (p2, 16200));
 }
 
-TESTING_TEST(secmem_alloc_two)
+static void
+test_alloc_two (void)
 {
 	gpointer p, p2;
 	gboolean ret;
@@ -114,7 +122,8 @@ TESTING_TEST(secmem_alloc_two)
 	egg_secure_free_full (p, 0);
 }
 
-TESTING_TEST(secmem_realloc)
+static void
+test_realloc (void)
 {
 	gchar *str = "a test string to see if realloc works properly";
 	gpointer p, p2;
@@ -138,7 +147,8 @@ TESTING_TEST(secmem_realloc)
 	g_assert (p == NULL);
 }
 
-TESTING_TEST(secmem_multialloc)
+static void
+test_multialloc (void)
 {
 	GPtrArray *memory;
 	gpointer data;
@@ -205,7 +215,8 @@ TESTING_TEST(secmem_multialloc)
 	egg_secure_warnings = 1;
 }
 
-TESTING_TEST(secmem_clear)
+static void
+test_clear (void)
 {
 	gpointer p;
 
@@ -220,7 +231,8 @@ TESTING_TEST(secmem_clear)
 	egg_secure_free_full (p, 0);
 }
 
-TESTING_TEST(secmem_strclear)
+static void
+test_strclear (void)
 {
 	gchar *str;
 
@@ -234,4 +246,20 @@ TESTING_TEST(secmem_strclear)
 	g_assert (strchr (str, 't') == NULL);
 
 	egg_secure_free_full (str, 0);
+}
+
+int
+main (int argc, char **argv)
+{
+	g_test_init (&argc, &argv, NULL);
+
+	g_test_add_func ("/secmem/alloc_free", test_alloc_free);
+	g_test_add_func ("/secmem/realloc_across", test_realloc_across);
+	g_test_add_func ("/secmem/alloc_two", test_alloc_two);
+	g_test_add_func ("/secmem/realloc", test_realloc);
+	g_test_add_func ("/secmem/multialloc", test_multialloc);
+	g_test_add_func ("/secmem/clear", test_clear);
+	g_test_add_func ("/secmem/strclear", test_strclear);
+
+	return g_test_run ();
 }

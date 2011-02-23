@@ -21,11 +21,7 @@
    Author: Stef Walter <stef@memberwebs.com>
 */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-#include "test-suite.h"
+#include "config.h"
 
 #include "egg-libgcrypt.h"
 #include "egg-secure-memory.h"
@@ -33,15 +29,11 @@
 
 #include <gcrypt.h>
 
-TESTING_SETUP(crypto_setup)
-{
-	egg_libgcrypt_initialize ();
-}
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
-TESTING_TEARDOWN(crypto_setup)
-{
-
-}
+EGG_SECURE_GLIB_DEFINITIONS ();
 
 static const struct {
 	const gchar *password;
@@ -63,7 +55,7 @@ static const struct {
 		NULL,
 		NULL,
 		NULL
-        },
+	},
 
 	{ /* 5 byte output */
 		"booo", GCRY_CIPHER_RFC2268_40, GCRY_MD_SHA1, 2048,
@@ -122,7 +114,8 @@ static const struct {
 
 #define N_GENERATION_TESTS (sizeof (all_generation_tests) / sizeof (all_generation_tests[0]))
 
-TESTING_TEST(generate_key_simple)
+static void
+test_generate_key_simple (void)
 {
 	int i;
 	gboolean ret;
@@ -134,11 +127,11 @@ TESTING_TEST(generate_key_simple)
 			continue;
 
 		ret = egg_symkey_generate_simple (all_generation_tests[i].cipher_algo,
-                                                         all_generation_tests[i].hash_algo,
-                                                         all_generation_tests[i].password, -1,
-                                                         (guchar*)all_generation_tests[i].salt, 8,
-                                                         all_generation_tests[i].iterations,
-                                                         &key, NULL);
+		                                  all_generation_tests[i].hash_algo,
+		                                  all_generation_tests[i].password, -1,
+		                                  (guchar*)all_generation_tests[i].salt, 8,
+		                                  all_generation_tests[i].iterations,
+		                                  &key, NULL);
 		g_assert (ret && "key generation failed");
 
 		ret = (memcmp (key, all_generation_tests[i].result_simple,
@@ -148,7 +141,8 @@ TESTING_TEST(generate_key_simple)
 	}
 }
 
-TESTING_TEST(generate_key_pkcs12)
+static void
+test_generate_key_pkcs12 (void)
 {
 	int i;
 	gboolean ret;
@@ -160,11 +154,11 @@ TESTING_TEST(generate_key_pkcs12)
 			continue;
 
 		ret = egg_symkey_generate_pkcs12 (all_generation_tests[i].cipher_algo,
-                                                         all_generation_tests[i].hash_algo,
-                                                         all_generation_tests[i].password, -1,
-                                                         (guchar*)all_generation_tests[i].salt, 8,
-                                                         all_generation_tests[i].iterations,
-                                                         &key, NULL);
+		                                  all_generation_tests[i].hash_algo,
+		                                  all_generation_tests[i].password, -1,
+		                                  (guchar*)all_generation_tests[i].salt, 8,
+		                                  all_generation_tests[i].iterations,
+		                                  &key, NULL);
 		g_assert ("failed to generate pkcs12 key" && ret);
 
 		ret = (memcmp (key, all_generation_tests[i].result_pkcs12,
@@ -174,7 +168,8 @@ TESTING_TEST(generate_key_pkcs12)
 	}
 }
 
-TESTING_TEST(generate_key_pbkdf2)
+static void
+test_generate_key_pbkdf2 (void)
 {
 	int i;
 	gboolean ret;
@@ -186,11 +181,11 @@ TESTING_TEST(generate_key_pbkdf2)
 			continue;
 
 		ret = egg_symkey_generate_pbkdf2 (all_generation_tests[i].cipher_algo,
-                                                         all_generation_tests[i].hash_algo,
-                                                         all_generation_tests[i].password, -1,
-                                                         (guchar*)all_generation_tests[i].salt, 8,
-                                                         all_generation_tests[i].iterations,
-                                                         &key, NULL);
+		                                  all_generation_tests[i].hash_algo,
+		                                  all_generation_tests[i].password, -1,
+		                                  (guchar*)all_generation_tests[i].salt, 8,
+		                                  all_generation_tests[i].iterations,
+		                                  &key, NULL);
 		g_assert ("failed to generate pbkdf2 key" && ret);
 
 		ret = (memcmp (key, all_generation_tests[i].result_pbkdf2,
@@ -200,7 +195,8 @@ TESTING_TEST(generate_key_pbkdf2)
 	}
 }
 
-TESTING_TEST(generate_key_pbe)
+static void
+test_generate_key_pbe (void)
 {
 	int i;
 	gboolean ret;
@@ -212,11 +208,11 @@ TESTING_TEST(generate_key_pbe)
 			continue;
 
 		ret = egg_symkey_generate_pbe (all_generation_tests[i].cipher_algo,
-                                                      all_generation_tests[i].hash_algo,
-                                                      all_generation_tests[i].password, -1,
-                                                      (guchar*)all_generation_tests[i].salt, 8,
-                                                      all_generation_tests[i].iterations,
-                                                      &key, NULL);
+		                               all_generation_tests[i].hash_algo,
+		                               all_generation_tests[i].password, -1,
+		                               (guchar*)all_generation_tests[i].salt, 8,
+		                               all_generation_tests[i].iterations,
+		                               &key, NULL);
 		g_assert ("failed to generate pbe key" && ret);
 
 		ret = (memcmp (key, all_generation_tests[i].result_pbe,
@@ -225,4 +221,18 @@ TESTING_TEST(generate_key_pbe)
 		g_assert ("invalid pbe key generated" && ret);
 
 	}
+}
+
+int
+main (int argc, char **argv)
+{
+	g_test_init (&argc, &argv, NULL);
+	egg_libgcrypt_initialize ();
+
+	g_test_add_func ("/symkey/generate_key_simple", test_generate_key_simple);
+	g_test_add_func ("/symkey/generate_key_pkcs12", test_generate_key_pkcs12);
+	g_test_add_func ("/symkey/generate_key_pbkdf2", test_generate_key_pbkdf2);
+	g_test_add_func ("/symkey/generate_key_pbe", test_generate_key_pbe);
+
+	return g_test_run ();
 }

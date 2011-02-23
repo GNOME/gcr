@@ -21,19 +21,20 @@
    Author: Stef Walter <stef@memberwebs.com>
 */
 
+#include "config.h"
+
+#include "egg-hex.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
-#include "test-suite.h"
-
-#include "egg-hex.h"
 
 static const guchar TEST_DATA[] = { 0x05, 0xD6, 0x95, 0x96, 0x10, 0x12, 0xAE, 0x35 };
 static const gchar *TEST_HEX = "05D695961012AE35";
 static const gchar *TEST_HEX_DELIM = "05 D6 95 96 10 12 AE 35";
 
-TESTING_TEST(hex_encode)
+static void
+test_encode (void)
 {
 	gchar *hex;
 
@@ -42,7 +43,8 @@ TESTING_TEST(hex_encode)
 	g_assert_cmpstr (hex, ==, TEST_HEX);
 }
 
-TESTING_TEST(hex_encode_spaces)
+static void
+test_encode_spaces (void)
 {
 	gchar *hex;
 
@@ -57,7 +59,8 @@ TESTING_TEST(hex_encode_spaces)
 	g_assert_cmpstr (hex, ==, TEST_HEX_DELIM);
 }
 
-TESTING_TEST(hex_decode)
+static void
+test_decode (void)
 {
 	guchar *data;
 	gsize n_data;
@@ -82,7 +85,8 @@ TESTING_TEST(hex_decode)
 	g_free (data);
 }
 
-TESTING_TEST(hex_decode_fail)
+static void
+test_decode_fail (void)
 {
 	guchar *data;
 	gsize n_data;
@@ -98,4 +102,17 @@ TESTING_TEST(hex_decode_fail)
 	/* Not Delimited, null out*/
 	data = egg_hex_decode_full ("ABABAB", -1, ':', 1, &n_data);
 	g_assert (!data);
+}
+
+int
+main (int argc, char **argv)
+{
+	g_test_init (&argc, &argv, NULL);
+
+	g_test_add_func ("/hex/encode", test_encode);
+	g_test_add_func ("/hex/encode_spaces", test_encode_spaces);
+	g_test_add_func ("/hex/decode", test_decode);
+	g_test_add_func ("/hex/decode_fail", test_decode_fail);
+
+	return g_test_run ();
 }

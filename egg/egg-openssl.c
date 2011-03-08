@@ -284,8 +284,6 @@ egg_openssl_pem_parse (const guchar *data, gsize n_data,
 	return nfound;
 }
 
-#ifdef UNTESTED_CODE
-
 static void
 append_each_header (gpointer key, gpointer value, gpointer user_data)
 {
@@ -303,7 +301,8 @@ egg_openssl_pem_write (const guchar *data, gsize n_data, GQuark type,
 {
 	GString *string;
 	gint state, save;
-	gsize length, n_prefix;
+	gsize i, length;
+	gsize n_prefix, estimate;
 
 	g_return_val_if_fail (data || !n_data, NULL);
 	g_return_val_if_fail (type, NULL);
@@ -324,18 +323,33 @@ egg_openssl_pem_write (const guchar *data, gsize n_data, GQuark type,
 	}
 
 	/* Resize string to fit the base64 data. Algorithm from Glib reference */
-	length = n_data * 4 / 3 + n_data * 4 / (3 * 72) + 7;
+	estimate = n_data * 4 / 3 + n_data * 4 / (3 * 65) + 7;
 	n_prefix = string->len;
+	g_string_set_size (string, n_prefix + estimate);
+
+	/* The actual base64 data, without line breaks */
+	state = save = 0;
+	length = g_base64_encode_step (data, n_data, FALSE,
+	                               string->str + n_prefix, &state, &save);
+	length += g_base64_encode_close (TRUE, string->str + n_prefix + length,
+	                                 &state, &save);
+
+	g_assert (length <= estimate);
 	g_string_set_size (string, n_prefix + length);
 
-	/* The actual base64 data */
-	state = save = 0;
-	length = g_base64_encode_step (data, n_data, TRUE,
-	                               string->str + string->len, &state, &save);
-	g_string_set_size (string, n_prefix + length);
+	/*
+	 * OpenSSL is absolutely certain that it wants its PEM base64
+	 * lines to be 64 characters in length. So go through and break
+	 * those lines up.
+	 */
+
+	for (i = 64; i < length; i += 64) {
+		g_string_insert_c (string, n_prefix + i, '\n');
+		++length;
+		++i;
+	}
 
 	/* The suffix */
-	g_string_append_c (string, '\n');
 	g_string_append_len (string, PEM_PREF_END, PEM_PREF_END_L);
 	g_string_append (string, g_quark_to_string (type));
 	g_string_append_len (string, PEM_SUFF, PEM_SUFF_L);
@@ -344,8 +358,6 @@ egg_openssl_pem_write (const guchar *data, gsize n_data, GQuark type,
 	*n_result = string->len;
 	return (guchar*)g_string_free (string, FALSE);
 }
-
-#endif /* UNTESTED_CODE */
 
 /* ----------------------------------------------------------------------------
  * DEFINITIONS

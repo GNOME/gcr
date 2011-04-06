@@ -23,8 +23,6 @@
 
 #include "config.h"
 
-#include "test-suite.h"
-
 #include "egg/egg-error.h"
 #include "egg/egg-secure-memory.h"
 
@@ -36,6 +34,7 @@
 #include <glib.h>
 #include <gcrypt.h>
 
+#include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -53,8 +52,10 @@
  * Tests be run in the order specified here.
  */
 
-static GcrParser *parser = NULL;
-static const gchar* filedesc = NULL;
+typedef struct {
+	GcrParser *parser;
+	gchar* filedesc;
+} Test;
 
 static void
 parsed_item (GcrParser *par, gpointer user_data)
@@ -62,59 +63,62 @@ parsed_item (GcrParser *par, gpointer user_data)
 	GckAttributes *attrs;
 	const gchar *description;
 	const gchar *label;
+	Test *test = user_data;
 
 	g_assert (GCR_IS_PARSER (par));
-	g_assert (par == parser);
-	g_assert (par == user_data);
+	g_assert (par == test->parser);
 
-	attrs = gcr_parser_get_parsed_attributes (parser);
-	description = gcr_parser_get_parsed_description (parser);
-	label = gcr_parser_get_parsed_label (parser);
+	attrs = gcr_parser_get_parsed_attributes (test->parser);
+	description = gcr_parser_get_parsed_description (test->parser);
+	label = gcr_parser_get_parsed_label (test->parser);
 
-	g_print ("parsed %s '%s' at: %s\n", description, label, filedesc);
+	g_print ("parsed %s '%s' at: %s\n", description, label, test->filedesc);
 }
 
 static gboolean
 authenticate (GcrParser *par, gint state, gpointer user_data)
 {
+	Test *test = user_data;
+
 	g_assert (GCR_IS_PARSER (par));
-	g_assert (par == parser);
-	g_assert (par == user_data);
+	g_assert (par == test->parser);
 
 	switch (state) {
 	case 0:
-		gcr_parser_add_password (parser, "booo");
+		gcr_parser_add_password (test->parser, "booo");
 		return TRUE;
 	default:
-		g_printerr ("decryption didn't work for: %s", filedesc);
-		g_assert (FALSE);
+		g_printerr ("decryption didn't work for: %s", test->filedesc);
+		g_assert_not_reached ();
 		return FALSE;
 	};
 }
 
-TESTING_SETUP(parser)
+static void
+setup (Test *test, gconstpointer unused)
 {
-	parser = gcr_parser_new ();
-	g_signal_connect (parser, "parsed", G_CALLBACK (parsed_item), parser);
-	g_signal_connect (parser, "authenticate", G_CALLBACK (authenticate), parser);
+	test->parser = gcr_parser_new ();
+	g_signal_connect (test->parser, "parsed", G_CALLBACK (parsed_item), test);
+	g_signal_connect (test->parser, "authenticate", G_CALLBACK (authenticate), test);
 }
 
-TESTING_TEARDOWN(parser)
+static void
+teardown (Test *test, gconstpointer unused)
 {
-	g_object_unref (parser);
-	parser = NULL;
+	g_object_unref (test->parser);
 }
 
-TESTING_TEST(parse_all)
+static void
+test_parse_all (Test *test, gconstpointer unused)
 {
-	guchar *contents;
+	gchar *contents;
 	GError *err = NULL;
 	gboolean result;
 	const gchar *filename;
 	gsize len;
 	GDir *dir;
 
-	dir = g_dir_open (testing_data_directory (), 0, NULL);
+	dir = g_dir_open ("files", 0, NULL);
 	g_assert (dir);
 
 	for (;;) {
@@ -124,19 +128,40 @@ TESTING_TEST(parse_all)
 		if (filename[0] == '.')
 			continue;
 
-		filedesc = filename;
-		contents = testing_data_read (filename, &len);
+		test->filedesc = g_build_filename ("files", filename, NULL);
+		if (!g_file_get_contents (test->filedesc, &contents, &len, NULL))
+			g_assert_not_reached ();
 
-		result = gcr_parser_parse_data (parser, contents, len, &err);
+		result = gcr_parser_parse_data (test->parser, contents, len, &err);
 		g_free (contents);
 
 		if (!result) {
 			g_warning ("couldn't parse file data: %s: %s",
 			           filename, egg_error_message (err));
 			g_error_free (err);
-			g_assert (FALSE);
+			g_assert_not_reached ();
 		}
+
+		g_free (test->filedesc);
+		test->filedesc = NULL;
 	}
 
 	g_dir_close (dir);
+}
+
+int
+main (int argc, char **argv)
+{
+	const gchar *srcdir;
+
+	g_type_init ();
+	g_test_init (&argc, &argv, NULL);
+
+	srcdir = g_getenv ("SRCDIR");
+	if (srcdir && chdir (srcdir) < 0)
+		g_error ("couldn't change directory to: %s: %s", srcdir, g_strerror (errno));
+
+	g_test_add ("/gcr/parser/parse_all", Test, NULL, setup, test_parse_all, teardown);
+
+	return g_test_run ();
 }

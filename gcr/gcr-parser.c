@@ -141,6 +141,8 @@ struct _GcrParserPrivate {
 	GckAttributes *parsed_attrs;
 	const gchar *parsed_desc;
 	gchar *parsed_label;
+	gconstpointer parsing_block;
+	gsize parsing_n_block;
 };
 
 G_DEFINE_TYPE (GcrParser, gcr_parser, G_TYPE_OBJECT);
@@ -233,8 +235,15 @@ parsed_asn1_attribute (GcrParser *self, GNode *asn, const guchar *data, gsize n_
 }
 
 static void
-parsed_clear (GcrParser *self, CK_OBJECT_CLASS klass)
+parsing_begin (GcrParser *self,
+               CK_OBJECT_CLASS klass,
+               gconstpointer block,
+               gsize n_block)
 {
+	g_assert (GCR_IS_PARSER (self));
+	g_assert (block);
+	g_assert (n_block);
+
 	if (self->pv->parsed_attrs)
 		gck_attributes_unref (self->pv->parsed_attrs);
 	if (klass == CKO_PRIVATE_KEY)
@@ -260,6 +269,9 @@ parsed_clear (GcrParser *self, CK_OBJECT_CLASS klass)
 		self->pv->parsed_desc = NULL;
 		break;
 	}
+
+	self->pv->parsing_block = block;
+	self->pv->parsing_n_block = n_block;
 }
 
 static void
@@ -275,6 +287,20 @@ parsed_attribute (GcrParser *self, CK_ATTRIBUTE_TYPE type, gconstpointer data, g
 	g_assert (GCR_IS_PARSER (self));
 	g_assert (self->pv->parsed_attrs);
 	gck_attributes_add_data (self->pv->parsed_attrs, type, data, n_data);
+}
+
+static void
+parsing_end (GcrParser *self)
+{
+	g_assert (GCR_IS_PARSER (self));
+	self->pv->parsing_block = NULL;
+	self->pv->parsing_n_block = 0;
+	if (self->pv->parsed_attrs)
+		gck_attributes_unref (self->pv->parsed_attrs);
+	self->pv->parsed_attrs = NULL;
+	g_free (self->pv->parsed_label);
+	self->pv->parsed_label = NULL;
+	self->pv->parsed_desc = NULL;
 }
 
 static void
@@ -364,7 +390,7 @@ parse_der_private_key_rsa (GcrParser *self, const guchar *data, gsize n_data)
 	if (!asn)
 		goto done;
 
-	parsed_clear (self, CKO_PRIVATE_KEY);
+	parsing_begin (self, CKO_PRIVATE_KEY, data, n_data);
 	parsed_ulong (self, CKA_KEY_TYPE, CKK_RSA);
 	parsed_boolean (self, CKA_PRIVATE, CK_TRUE);
 	res = GCR_ERROR_FAILURE;
@@ -395,6 +421,7 @@ done:
 	if (res == GCR_ERROR_FAILURE)
 		g_message ("invalid RSA key");
 
+	parsing_end (self);
 	return res;
 }
 
@@ -412,7 +439,7 @@ parse_der_private_key_dsa (GcrParser *self, const guchar *data, gsize n_data)
 	if (!asn)
 		goto done;
 
-	parsed_clear (self, CKO_PRIVATE_KEY);
+	parsing_begin (self, CKO_PRIVATE_KEY, data, n_data);
 	parsed_ulong (self, CKA_KEY_TYPE, CKK_DSA);
 	parsed_boolean (self, CKA_PRIVATE, CK_TRUE);
 	ret = GCR_ERROR_FAILURE;
@@ -431,6 +458,7 @@ done:
 	if (ret == GCR_ERROR_FAILURE)
 		g_message ("invalid DSA key");
 
+	parsing_end (self);
 	return ret;
 }
 
@@ -447,7 +475,6 @@ parse_der_private_key_dsa_parts (GcrParser *self, const guchar *keydata, gsize n
 	if (!asn_params || !asn_key)
 		goto done;
 
-	parsed_clear (self, CKO_PRIVATE_KEY);
 	parsed_ulong (self, CKA_KEY_TYPE, CKK_DSA);
 	parsed_boolean (self, CKA_PRIVATE, CK_TRUE);
 	ret = GCR_ERROR_FAILURE;
@@ -542,10 +569,12 @@ done:
 			/* Try the normal sane format */
 			ret = parse_der_private_key_dsa (self, keydata, n_keydata);
 
+			parsing_begin (self, CKO_PRIVATE_KEY, data, n_data);
 			/* Otherwise try the two part format that everyone seems to like */
 			if (ret == GCR_ERROR_UNRECOGNIZED && params && n_params)
 				ret = parse_der_private_key_dsa_parts (self, keydata, n_keydata,
 				                                       params, n_params);
+			parsing_end (self);
 			break;
 		default:
 			g_message ("invalid or unsupported key type in PKCS#8 key");
@@ -591,7 +620,7 @@ parse_der_pkcs8_encrypted (GcrParser *self, const guchar *data, gsize n_data)
 
 	params = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "encryptionAlgorithm", "parameters", NULL), &n_params);
 
-	parsed_clear (self, CKO_PRIVATE_KEY);
+	parsing_begin (self, CKO_PRIVATE_KEY, data, n_data);
 
 	/* Loop to try different passwords */
 	for (;;) {
@@ -638,6 +667,8 @@ parse_der_pkcs8_encrypted (GcrParser *self, const guchar *data, gsize n_data)
 		/* We assume unrecognized data, is a bad encryption key */
 	}
 
+	parsing_end (self);
+
 done:
 	if (cih)
 		gcry_cipher_close (cih);
@@ -673,7 +704,8 @@ parse_der_certificate (GcrParser *self, const guchar *data, gsize n_data)
 	if (asn == NULL)
 		return GCR_ERROR_UNRECOGNIZED;
 
-	parsed_clear (self, CKO_CERTIFICATE);
+	parsing_begin (self, CKO_CERTIFICATE, data, n_data);
+
 	parsed_ulong (self, CKA_CERTIFICATE_TYPE, CKC_X_509);
 
 	name = egg_dn_read_part (egg_asn1x_node (asn, "tbsCertificate", "subject", "rdnSequence", NULL), "CN");
@@ -687,6 +719,7 @@ parse_der_certificate (GcrParser *self, const guchar *data, gsize n_data)
 	parsed_attribute (self, CKA_VALUE, data, n_data);
 	parsed_fire (self);
 
+	parsing_end (self);
 	return SUCCESS;
 }
 
@@ -922,8 +955,6 @@ handle_pkcs12_encrypted_bag (GcrParser *self, const guchar *data, gsize n_data)
 	params = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "encryptedContentInfo", "contentEncryptionAlgorithm", "parameters", NULL), &n_params);
 	if (!params)
 		goto done;
-
-	parsed_clear (self, 0);
 
 	/* Loop to try different passwords */
 	for (;;) {
@@ -1204,13 +1235,14 @@ handle_encrypted_pem (GcrParser *self, GQuark type, gint subformat,
 	}
 
 	/* Fill in information necessary for prompting */
-	parsed_clear (self, pem_type_to_class (type));
+	parsing_begin (self, pem_type_to_class (type), data, n_data);
 
+	res = GCR_ERROR_FAILURE;
 	for (;;) {
 
 		res = enum_next_password (self, &pstate, &password);
 		if (res != SUCCESS)
-			return res;
+			break;
 
 		decrypted = NULL;
 		n_decrypted = 0;
@@ -1218,8 +1250,10 @@ handle_encrypted_pem (GcrParser *self, GQuark type, gint subformat,
 		/* Decrypt, this will result in garble if invalid password */
 		ret = egg_openssl_decrypt_block (val, password, -1, data, n_data,
 		                                 &decrypted, &n_decrypted);
-		if (!ret)
-			return GCR_ERROR_FAILURE;
+		if (!ret) {
+			res = GCR_ERROR_FAILURE;
+			break;
+		}
 
 		g_assert (decrypted);
 
@@ -1234,10 +1268,11 @@ handle_encrypted_pem (GcrParser *self, GQuark type, gint subformat,
 
 		/* Unrecognized is a bad password */
 		if (res != GCR_ERROR_UNRECOGNIZED)
-			return res;
+			break;
 	}
 
-	return GCR_ERROR_FAILURE;
+	parsing_end (self);
+	return res;
 }
 
 typedef struct {
@@ -1847,6 +1882,27 @@ gcr_parser_get_parsed_label (GcrParser *self)
 {
 	g_return_val_if_fail (GCR_IS_PARSER (self), NULL);
 	return self->pv->parsed_label;
+}
+
+/**
+ * gcr_parser_get_parsed_block:
+ * @self: a parser
+ * @n_block: a location to place the size of the block
+ *
+ * Get the raw data block that represents this parsed object. This is only
+ * valid during the GcrParser::parsed signal.
+ *
+ * Returns: The raw data block of the currently parsed item. The value is
+ *      owned by the parser and should not be freed.
+ */
+gconstpointer
+gcr_parser_get_parsed_block (GcrParser *self,
+                             gsize *n_block)
+{
+	g_return_val_if_fail (GCR_IS_PARSER (self), NULL);
+	g_return_val_if_fail (n_block, NULL);
+	*n_block = self->pv->parsing_n_block;
+	return self->pv->parsing_block;
 }
 
 /* ---------------------------------------------------------------------------------

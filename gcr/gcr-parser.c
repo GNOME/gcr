@@ -1615,7 +1615,7 @@ gcr_parser_class_init (GcrParserClass *klass)
 	                                G_TYPE_NONE, 0);
 
 	init_quarks ();
-	_gcr_initialize ();
+	_gcr_initialize_library ();
 
 	/* Check that the format tables are in order */
 	for (i = 1; i < G_N_ELEMENTS (parser_formats); ++i)

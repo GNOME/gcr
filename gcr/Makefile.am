@@ -70,7 +70,6 @@ inc_HEADERS = \
 INCLUDES = \
 	-I$(top_builddir) \
 	-I$(top_srcdir) \
-	$(GOBJECT_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	$(LIBGCRYPT_CFLAGS) \
 	$(P11_KIT_CFLAGS) \
@@ -190,7 +189,6 @@ libgcr_@GCR_MAJOR@_la_LDFLAGS = \
 libgcr_base_@GCR_MAJOR@_la_LIBADD = \
 	$(top_builddir)/egg/libegg.la \
 	$(top_builddir)/gck/libgck-@GCK_MAJOR@.la \
-	$(GOBJECT_LIBS) \
 	$(GLIB_LIBS) \
 	$(LIBGCRYPT_LIBS) \
 	$(P11_KIT_LIBS)
@@ -373,4 +371,6 @@ CLEANFILES = \
 DISTCLEANFILES = \
 	$(desktop_in_files) \
 	$(desktop_DATA) \
-	$(pkgconfig_DATA)
+	$(pkgconfig_DATA) \
+	$(gir_DATA) \
+	$(typelibs_DATA)

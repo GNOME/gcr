@@ -30,7 +30,7 @@
 #include "egg/egg-buffer.h"
 #include "egg/egg-decimal.h"
 
-#include "pkcs11/pkcs11.h"
+#include "gck/pkcs11.h"
 
 #include <string.h>
 

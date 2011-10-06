@@ -1,0 +1,1057 @@
+# translation of gnome-keyring.master.kn.po to Kannada
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Shankar Prasad <svenkate@redhat.com>, 2008, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-keyring.master.kn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-10-06 11:51+0200\n"
+"PO-Revision-Date: 2009-09-16 00:32+0530\n"
+"Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
+"Language-Team: Kannada <en@li.org>\n"
+"Language: kn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: ../egg/egg-oid.c:41
+msgid "Domain Component"
+msgstr "ಡೊಮೈನಿನ ಘಟಕ"
+
+#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:411
+#: ../gcr/gcr-gnupg-renderer.c:580
+msgid "User ID"
+msgstr "ಬಳಕೆದಾರ ID"
+
+#: ../egg/egg-oid.c:46
+msgid "Email Address"
+msgstr ""
+
+#: ../egg/egg-oid.c:54
+msgid "Date of Birth"
+msgstr "ಹುಟ್ಟಿದ ದಿನಾಂಕ"
+
+#: ../egg/egg-oid.c:56
+msgid "Place of Birth"
+msgstr "ಹುಟ್ಟಿದ ಸ್ಥಳ"
+
+#: ../egg/egg-oid.c:58
+msgid "Gender"
+msgstr "ಲಿಂಗ"
+
+#: ../egg/egg-oid.c:60
+msgid "Country of Citizenship"
+msgstr "ನಾಗರೀಕತ್ವವನ್ನು ಹೊಂದಿದ ದೇಶ"
+
+#: ../egg/egg-oid.c:62
+msgid "Country of Residence"
+msgstr "ವಾಸವಾಗಿರುವ ದೇಶ"
+
+#: ../egg/egg-oid.c:65
+msgid "Common Name"
+msgstr "ಸಾಮಾನ್ಯ ಹೆಸರು"
+
+#: ../egg/egg-oid.c:67
+msgid "Surname"
+msgstr "ಉಪನಾಮ"
+
+#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:652
+msgid "Serial Number"
+msgstr "ಅನುಕ್ರಮ ಸಂಖ್ಯೆ"
+
+#: ../egg/egg-oid.c:71
+msgid "Country"
+msgstr "ದೇಶ"
+
+#: ../egg/egg-oid.c:73
+msgid "Locality"
+msgstr "ಪ್ರದೇಶ"
+
+#: ../egg/egg-oid.c:75
+msgid "State"
+msgstr "ರಾಜ್ಯ"
+
+#: ../egg/egg-oid.c:77
+msgid "Street"
+msgstr "ಬೀದಿ"
+
+#: ../egg/egg-oid.c:79
+msgid "Organization"
+msgstr "ಸಂಸ್ಥೆ"
+
+#: ../egg/egg-oid.c:81
+msgid "Organizational Unit"
+msgstr "ಸಂಸ್ಥೆಯ ಘಟಕ"
+
+#: ../egg/egg-oid.c:83
+msgid "Title"
+msgstr "ಶೀರ್ಷಿಕೆ"
+
+#: ../egg/egg-oid.c:85
+msgid "Telephone Number"
+msgstr "ದೂರವಾಣಿ ಸಂಖ್ಯೆ"
+
+#: ../egg/egg-oid.c:87
+msgid "Given Name"
+msgstr "ಒದಗಿಸಲಾದ ಹೆಸರು"
+
+#: ../egg/egg-oid.c:89
+msgid "Initials"
+msgstr "ಇನಿಶಿಯಲ್‌ಗಳು"
+
+#: ../egg/egg-oid.c:91
+msgid "Generation Qualifier"
+msgstr "ಕ್ವಾಲಿಫಯರ್ ಅನ್ನು ಉತ್ಪಾದಿಸಲಾಗುತ್ತಿದೆ"
+
+#: ../egg/egg-oid.c:93
+msgid "DN Qualifier"
+msgstr "DN ಕ್ವಾಲಿಫಯರ್"
+
+#: ../egg/egg-oid.c:95
+msgid "Pseudonym"
+msgstr "ಗುಪ್ತನಾಮ"
+
+#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:202
+#: ../gcr/gcr-key-renderer.c:308
+msgid "RSA"
+msgstr "RSA"
+
+#: ../egg/egg-oid.c:99
+msgid "MD2 with RSA"
+msgstr "RSA ಯೊಂದಿಗಿನ MD2"
+
+#: ../egg/egg-oid.c:100
+msgid "MD5 with RSA"
+msgstr "RSA ಯೊಂದಿಗಿನ MD5"
+
+#: ../egg/egg-oid.c:101
+msgid "SHA1 with RSA"
+msgstr "RSA ಯೊಂದಿಗಿನ SHA1"
+
+#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:206
+#: ../gcr/gcr-key-renderer.c:310
+msgid "DSA"
+msgstr "DSA"
+
+#: ../egg/egg-oid.c:104
+msgid "SHA1 with DSA"
+msgstr "DSA ಯೊಂದಿಗಿನ SHA1"
+
+#. Extended Key Usages
+#: ../egg/egg-oid.c:107
+#, fuzzy
+msgid "Server Authentication"
+msgstr "SSL ಪರಿಚಾರಕ ಪ್ರಮಾಣಪತ್ರ"
+
+#: ../egg/egg-oid.c:108
+#, fuzzy
+msgid "Client Authentication"
+msgstr "SSL ಕ್ಲೈಂಟ್ ಪ್ರಮಾಣಪತ್ರ"
+
+#: ../egg/egg-oid.c:109
+msgid "Code Signing"
+msgstr ""
+
+#: ../egg/egg-oid.c:110
+msgid "Email Protection"
+msgstr ""
+
+#: ../egg/egg-oid.c:111
+msgid "Time Stamping"
+msgstr ""
+
+#: ../gck/gck-module.c:353
+#, c-format
+msgid "Error loading PKCS#11 module: %s"
+msgstr ""
+
+#: ../gck/gck-module.c:360
+#, c-format
+msgid "Invalid PKCS#11 module: %s"
+msgstr ""
+
+#: ../gck/gck-module.c:369
+#, fuzzy, c-format
+msgid "Couldn't setup PKCS#11 module: %s"
+msgstr "ಕಡತವನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ: %s"
+
+#: ../gck/gck-module.c:385
+#, c-format
+msgid "Couldn't initialize PKCS#11 module: %s"
+msgstr ""
+
+#: ../gck/gck-modules.c:67
+#, c-format
+msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgstr ""
+
+#: ../gcr/gcr-callback-output-stream.c:64
+#: ../gcr/gcr-callback-output-stream.c:81
+#, fuzzy, c-format
+msgid "The stream was closed"
+msgstr "ಅಧಿವೇಶನವು ಮುಚ್ಚಲ್ಪಟ್ಟಿದೆ"
+
+#. later
+#. later
+#: ../gcr/gcr-certificate.c:378 ../gcr/gcr-gnupg-key.c:521
+msgctxt "column"
+msgid "Name"
+msgstr ""
+
+#: ../gcr/gcr-certificate.c:380
+#, fuzzy
+msgctxt "column"
+msgid "Issued By"
+msgstr "ಒದಗಿಸಲಾದ ದಿನಾಂಕ"
+
+#. later
+#: ../gcr/gcr-certificate.c:382
+#, fuzzy
+msgctxt "column"
+msgid "Expires"
+msgstr "ಅವಧಿ ಮುಗಿಯುವ ದಿನಾಂಕ"
+
+#: ../gcr/gcr-certificate.c:1067 ../gcr/gcr-certificate-exporter.c:463
+#: ../gcr/gcr-certificate-renderer.c:101 ../gcr/gcr-parser.c:316
+msgid "Certificate"
+msgstr "ಪ್ರಮಾಣಪತ್ರ"
+
+#: ../gcr/gcr-certificate-exporter.c:225
+msgid ""
+"<b>A file already exists with this name.</b>\n"
+"\n"
+"Do you want to replace it with a new file?"
+msgstr ""
+
+#: ../gcr/gcr-certificate-exporter.c:228
+msgid "_Replace"
+msgstr ""
+
+#: ../gcr/gcr-certificate-exporter.c:258
+#, fuzzy, c-format
+msgid "The operation was cancelled."
+msgstr "ಕಾರ್ಯವನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ"
+
+#: ../gcr/gcr-certificate-exporter.c:302
+#, fuzzy
+msgid "Export certificate"
+msgstr "ಪ್ರಮಾಣಪತ್ರವನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡು"
+
+#: ../gcr/gcr-certificate-exporter.c:314
+#, fuzzy
+msgid "Certificate files"
+msgstr "ಪ್ರಮಾಣಪತ್ರ"
+
+#: ../gcr/gcr-certificate-exporter.c:325
+msgid "PEM files"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:141
+#, fuzzy
+msgid "Other Name"
+msgstr "ಒದಗಿಸಿದವರ ಹೆಸರು"
+
+#: ../gcr/gcr-certificate-extensions.c:150
+msgid "XMPP Addr"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:154
+msgid "DNS SRV"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:166 ../gcr/gcr-gnupg-renderer.c:424
+#: ../gcr/gcr-gnupg-renderer.c:706
+msgid "Email"
+msgstr "ಇಮೇಲ್"
+
+#: ../gcr/gcr-certificate-extensions.c:174
+#, fuzzy
+msgid "DNS"
+msgstr "DSA"
+
+#: ../gcr/gcr-certificate-extensions.c:182
+msgid "X400 Address"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:189
+#, fuzzy
+msgid "Directory Name"
+msgstr "ವಿಷಯದ ಹೆಸರು"
+
+#: ../gcr/gcr-certificate-extensions.c:197
+msgid "EDI Party Name"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:204
+msgid "URI"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:212
+msgid "IP Address"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:220
+msgid "Registered ID"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:116
+msgid "Basic Constraints"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:118
+#, fuzzy
+msgid "Certificate Authority"
+msgstr "ಪ್ರಮಾಣಪತ್ರ"
+
+#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+msgid "Yes"
+msgstr "ಹೌದು"
+
+#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+msgid "No"
+msgstr "ಇಲ್ಲ"
+
+#: ../gcr/gcr-certificate-renderer.c:122
+msgid "Max Path Length"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:123
+msgid "Unlimited"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:142
+msgid "Extended Key Usage"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:153
+msgid "Allowed Purposes"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:173
+#, fuzzy
+msgid "Subject Key Identifier"
+msgstr "ಪತ್ತೆಗಾರ"
+
+#: ../gcr/gcr-certificate-renderer.c:174
+#, fuzzy
+msgid "Key Identifier"
+msgstr "ಪತ್ತೆಗಾರ"
+
+#: ../gcr/gcr-certificate-renderer.c:185
+#, fuzzy
+msgid "Digital signature"
+msgstr "ಸಹಿ"
+
+#: ../gcr/gcr-certificate-renderer.c:186
+msgid "Key encipherment"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:187
+msgid "Data encipherment"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:188
+#, fuzzy
+msgid "Key agreement"
+msgstr "ಕೀಲಿ ನಿಯತಾಂಕಗಳು"
+
+#: ../gcr/gcr-certificate-renderer.c:189
+#, fuzzy
+msgid "Certificate signature"
+msgstr "ಪ್ರಮಾಣಪತ್ರ"
+
+#: ../gcr/gcr-certificate-renderer.c:190
+msgid "Revocation list signature"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:215
+msgid "Key Usage"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:216
+msgid "Usages"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:236
+#, fuzzy
+msgid "Subject Alternative Names"
+msgstr "ವಿಷಯದ ಹೆಸರು"
+
+#: ../gcr/gcr-certificate-renderer.c:261
+msgid "Extension"
+msgstr "ವಿಸ್ತರಣೆ"
+
+#: ../gcr/gcr-certificate-renderer.c:265
+msgid "Identifier"
+msgstr "ಪತ್ತೆಗಾರ"
+
+#: ../gcr/gcr-certificate-renderer.c:266 ../gcr/gcr-gnupg-renderer.c:415
+#: ../gcr/gcr-gnupg-renderer.c:432
+msgid "Value"
+msgstr "ಮೌಲ್ಯ"
+
+#: ../gcr/gcr-certificate-renderer.c:313
+msgid "Critical"
+msgstr "ಸಂದಿಗ್ಧ"
+
+#: ../gcr/gcr-certificate-renderer.c:386
+#, fuzzy
+msgid "Couldn't export the certificate."
+msgstr "ಪ್ರಮಾಣಪತ್ರವನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಲು ಗುಪ್ತಪದವನ್ನು ನಮೂದಿಸಿ"
+
+#: ../gcr/gcr-certificate-renderer.c:613
+#, fuzzy
+msgid "Identity"
+msgstr "ಪತ್ತೆಗಾರ"
+
+#: ../gcr/gcr-certificate-renderer.c:617
+msgid "Verified by"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:720
+#, fuzzy
+msgid "Expires"
+msgstr "ಅವಧಿ ಮುಗಿಯುವ ದಿನಾಂಕ"
+
+#. The subject
+#: ../gcr/gcr-certificate-renderer.c:634
+msgid "Subject Name"
+msgstr "ವಿಷಯದ ಹೆಸರು"
+
+#. The Issuer
+#: ../gcr/gcr-certificate-renderer.c:638
+msgid "Issuer Name"
+msgstr "ಒದಗಿಸಿದವರ ಹೆಸರು"
+
+#. The Issued Parameters
+#: ../gcr/gcr-certificate-renderer.c:642
+msgid "Issued Certificate"
+msgstr "ಒದಗಿಸಲಾದ ಪ್ರಮಾಣಪತ್ರ"
+
+#: ../gcr/gcr-certificate-renderer.c:647
+msgid "Version"
+msgstr "ಆವೃತ್ತಿ"
+
+#: ../gcr/gcr-certificate-renderer.c:658
+msgid "Not Valid Before"
+msgstr "ಇದಕ್ಕೂ ಮುಂಚೆ ಮಾನ್ಯವಲ್ಲ"
+
+#: ../gcr/gcr-certificate-renderer.c:663
+msgid "Not Valid After"
+msgstr "ಇದರ ನಂತರ ಮಾನ್ಯವಲ್ಲ"
+
+#. Fingerprints
+#: ../gcr/gcr-certificate-renderer.c:668
+#, fuzzy
+msgid "Certificate Fingerprints"
+msgstr "ಫಿಂಗರ್-ಪ್ರಿಂಟ್‌ಗಳು"
+
+#. Signature
+#: ../gcr/gcr-certificate-renderer.c:674 ../gcr/gcr-certificate-renderer.c:686
+#: ../gcr/gcr-gnupg-renderer.c:561
+msgid "Signature"
+msgstr "ಸಹಿ"
+
+#: ../gcr/gcr-certificate-renderer.c:678
+msgid "Signature Algorithm"
+msgstr "ಸಹಿ ಅಲ್ಗಾರಿತಮ್"
+
+#: ../gcr/gcr-certificate-renderer.c:682
+msgid "Signature Parameters"
+msgstr "ಸಹಿ ನಿಯತಾಂಕಗಳು"
+
+#. Public Key Info
+#: ../gcr/gcr-certificate-renderer.c:690
+msgid "Public Key Info"
+msgstr "ಸಾರ್ವಜನಿಕ ಕೀಲಿ ಮಾಹಿತಿ"
+
+#: ../gcr/gcr-certificate-renderer.c:695
+msgid "Key Algorithm"
+msgstr "ಕೀಲಿ ಅಲ್ಗಾರಿತಮ್"
+
+#: ../gcr/gcr-certificate-renderer.c:700
+msgid "Key Parameters"
+msgstr "ಕೀಲಿ ನಿಯತಾಂಕಗಳು"
+
+#: ../gcr/gcr-certificate-renderer.c:705 ../gcr/gcr-gnupg-renderer.c:354
+msgid "Key Size"
+msgstr "ಕೀಲಿ ಗಾತ್ರ"
+
+#: ../gcr/gcr-certificate-renderer.c:712
+#, fuzzy
+msgid "Key SHA1 Fingerprint"
+msgstr "SHA1 ಫಿಂಗರ್-ಪ್ರಿಂಟ್"
+
+#: ../gcr/gcr-certificate-renderer.c:718 ../gcr/gcr-gnupg-renderer.c:739
+#: ../gcr/gcr-key-renderer.c:292 ../gcr/gcr-parser.c:319
+msgid "Public Key"
+msgstr "ಸಾರ್ವಜನಿಕ ಕೀಲಿ"
+
+#: ../gcr/gcr-display-view.c:319
+msgid "_Details"
+msgstr ""
+
+#: ../gcr/gcr-failure-renderer.c:161
+#, c-format
+msgid "Could not display '%s'"
+msgstr ""
+
+#: ../gcr/gcr-failure-renderer.c:163
+#, fuzzy
+msgid "Could not display file"
+msgstr "ಕಡತವನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ: %s"
+
+#: ../gcr/gcr-failure-renderer.c:168
+msgid "Reason"
+msgstr ""
+
+#: ../gcr/gcr-failure-renderer.c:218
+#, c-format
+msgid "Cannot display a file of this type."
+msgstr ""
+
+#: ../gcr/gcr-gnupg-importer.c:93
+#, fuzzy
+msgid "GnuPG Keyring"
+msgstr "ಕೀಲಿ ಸುರುಳಿಯನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡು"
+
+#: ../gcr/gcr-gnupg-importer.c:95
+#, c-format
+msgid "GnuPG Keyring: %s"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-key.c:234 ../gcr/gcr-gnupg-renderer.c:88
+#: ../gcr/gcr-parser.c:322
+msgid "PGP Key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-key.c:523
+msgctxt "column"
+msgid "Key ID"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-process.c:860
+#, c-format
+msgid "Gnupg process exited with code: %d"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-process.c:867
+#, c-format
+msgid "Gnupg process was terminated with signal: %d"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-process.c:921 ../gcr/gcr-parser.c:2177
+#: ../gcr/gcr-parser.c:2681
+msgid "The operation was cancelled"
+msgstr "ಕಾರ್ಯವನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ"
+
+#: ../gcr/gcr-gnupg-renderer.c:204
+msgid "Elgamal"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:217
+msgid "Encrypt"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:219
+#, fuzzy
+msgid "Sign"
+msgstr "ಸಹಿ"
+
+#: ../gcr/gcr-gnupg-renderer.c:221
+#, fuzzy
+msgid "Certify"
+msgstr "ಪ್ರಮಾಣಪತ್ರ"
+
+#: ../gcr/gcr-gnupg-renderer.c:223
+#, fuzzy
+msgid "Authenticate"
+msgstr "ಪ್ರಮಾಣಪತ್ರ"
+
+#: ../gcr/gcr-gnupg-renderer.c:225 ../gcr/gcr-gnupg-renderer.c:260
+msgid "Disabled"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:256 ../gcr/gcr-gnupg-renderer.c:415
+#: ../gcr/gcr-key-renderer.c:312 ../gcr/gcr-key-renderer.c:317
+#, fuzzy
+msgid "Unknown"
+msgstr "ಗೊತ್ತಿಲ್ಲದ ದೋಷ"
+
+#: ../gcr/gcr-gnupg-renderer.c:258
+msgid "Invalid"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:262
+msgid "Revoked"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:264
+#, fuzzy
+msgid "Expired"
+msgstr "ಅವಧಿ ಮುಗಿಯುವ ದಿನಾಂಕ"
+
+#: ../gcr/gcr-gnupg-renderer.c:266
+msgid "Undefined trust"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:268
+msgid "Distrusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:270
+msgid "Marginally trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:272
+msgid "Fully trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:274
+msgid "Ultimately trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:288
+#, fuzzy
+msgid "The information in this key has not yet been verified"
+msgstr "ಮಾಹಿತಿಯು ಸೂಕ್ಷ್ಮವಾದ್ದರಿಂದ ಅದನ್ನು ಬಹಿರಂಗ ಪಡಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ"
+
+#: ../gcr/gcr-gnupg-renderer.c:291
+#, fuzzy
+msgid "This key is invalid"
+msgstr "ಅಮಾನ್ಯವಾದ ಅಧಿವೇಶನ"
+
+#: ../gcr/gcr-gnupg-renderer.c:294
+#, fuzzy
+msgid "This key has been disabled"
+msgstr "ಘಟಕವು ಇನ್ನೂ ಆರಂಭಗೊಂಡಿಲ್ಲ"
+
+#: ../gcr/gcr-gnupg-renderer.c:297
+#, fuzzy
+msgid "This key has been revoked"
+msgstr "ಕೀಲಿಸುರುಳಿಯು ಈಗಾಗಲೆ ಅನ್‌ಲಾಕ್ ಮಾಡಲ್ಪಟ್ಟಿದೆ."
+
+#: ../gcr/gcr-gnupg-renderer.c:300
+#, fuzzy
+msgid "This key has expired"
+msgstr "ಗುಪ್ತಪದ ಅಥವ PIN ನ ವಾಯಿದೆಯು ತೀರಿದೆ"
+
+#: ../gcr/gcr-gnupg-renderer.c:305
+msgid "This key is distrusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:308
+msgid "This key is marginally trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:311
+#, fuzzy
+msgid "This key is fully trusted"
+msgstr "ತಪ್ಪಾದ ಬಗೆಯ ಕೀಲಿಯಾಗಿದೆ"
+
+#: ../gcr/gcr-gnupg-renderer.c:314
+msgid "This key is ultimately trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:339 ../gcr/gcr-gnupg-renderer.c:565
+msgid "Key ID"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:347 ../gcr/gcr-gnupg-renderer.c:573
+#: ../gcr/gcr-gnupg-renderer.c:620 ../gcr/gcr-key-renderer.c:313
+#, fuzzy
+msgid "Algorithm"
+msgstr "ಕೀಲಿ ಅಲ್ಗಾರಿತಮ್"
+
+#: ../gcr/gcr-gnupg-renderer.c:362 ../gcr/gcr-gnupg-renderer.c:439
+#: ../gcr/gcr-gnupg-renderer.c:482
+#, fuzzy
+msgid "Created"
+msgstr "ರಚಿಸು(_r)"
+
+#: ../gcr/gcr-gnupg-renderer.c:371 ../gcr/gcr-gnupg-renderer.c:448
+#: ../gcr/gcr-gnupg-renderer.c:491
+#, fuzzy
+msgid "Expiry"
+msgstr "ಅವಧಿ ಮುಗಿಯುವ ದಿನಾಂಕ"
+
+#: ../gcr/gcr-gnupg-renderer.c:380
+msgid "Capabilities"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:393
+msgid "Owner trust"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:421
+msgid "Name"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:427 ../gcr/gcr-gnupg-renderer.c:709
+msgid "Comment"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:467
+msgid "User Attribute"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:474 ../gcr/gcr-key-renderer.c:320
+#, fuzzy
+msgid "Size"
+msgstr "ಕೀಲಿ ಗಾತ್ರ"
+
+#: ../gcr/gcr-gnupg-renderer.c:509
+#, fuzzy
+msgid "Signature of a binary document"
+msgstr "ಸಹಿ ನಿಯತಾಂಕಗಳು"
+
+#: ../gcr/gcr-gnupg-renderer.c:511
+msgid "Signature of a canonical text document"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:513
+#, fuzzy
+msgid "Standalone signature"
+msgstr "ಸಹಿ"
+
+#: ../gcr/gcr-gnupg-renderer.c:515
+#, fuzzy
+msgid "Generic certification of key"
+msgstr "ಪ್ರಮಾಣಪತ್ರವನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡು"
+
+#: ../gcr/gcr-gnupg-renderer.c:517
+msgid "Persona certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:519
+msgid "Casual certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:521
+msgid "Positive certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:523
+msgid "Subkey binding signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:525
+msgid "Primary key binding signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:527
+#, fuzzy
+msgid "Signature directly on key"
+msgstr "ಸಹಿ ನಿಯತಾಂಕಗಳು"
+
+#: ../gcr/gcr-gnupg-renderer.c:529
+msgid "Key revocation signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:531
+msgid "Subkey revocation signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:533
+msgid "Certification revocation signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:535
+msgid "Timestamp signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:537
+msgid "Third-party confirmation signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:598
+msgid "Class"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:592 ../gcr/gcr-gnupg-renderer.c:594
+msgid "Type"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:592
+#, fuzzy
+msgid "Local only"
+msgstr "ಪ್ರದೇಶ"
+
+#: ../gcr/gcr-gnupg-renderer.c:594
+msgid "Exportable"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:612
+msgid "Revocation Key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:626 ../gcr/gcr-gnupg-renderer.c:650
+#: ../gcr/gcr-gnupg-renderer.c:652
+#, fuzzy
+msgid "Fingerprint"
+msgstr "ಫಿಂಗರ್-ಪ್ರಿಂಟ್‌ಗಳು"
+
+#: ../gcr/gcr-gnupg-renderer.c:741
+#, fuzzy
+msgid "Public Subkey"
+msgstr "ಸಾರ್ವಜನಿಕ ಕೀಲಿ"
+
+#: ../gcr/gcr-gnupg-renderer.c:743
+msgid "Secret Key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:745
+msgid "Secret Subkey"
+msgstr ""
+
+#: ../gcr/gcr-import-button.c:108
+#, fuzzy
+msgid "Initializing..."
+msgstr "ಇನಿಶಿಯಲ್‌ಗಳು"
+
+#: ../gcr/gcr-import-button.c:116
+msgid "Import is in progress..."
+msgstr ""
+
+#: ../gcr/gcr-import-button.c:123
+#, fuzzy, c-format
+msgid "Imported to: %s"
+msgstr "ಇದಕ್ಕೆ ಆಮದು ಮಾಡು:"
+
+#: ../gcr/gcr-import-button.c:143
+#, fuzzy, c-format
+msgid "Import to: %s"
+msgstr "ಇದಕ್ಕೆ ಆಮದು ಮಾಡು:"
+
+#: ../gcr/gcr-import-button.c:156
+#, fuzzy
+msgid "Cannot import because there are no compatible importers"
+msgstr "ಕೀಲಿಯನ್ನು ಆಮದು ಮಾಡಿಕೊಳ್ಳಲು ಸಾಧ್ಯವಿಲ್ಲ ಏಕೆಂದರೆ ಅದು ಒಂದು ಅಮಾನ್ಯ ಬಗೆಯದ್ದಾಗಿದೆ"
+
+#: ../gcr/gcr-import-button.c:165
+#, fuzzy
+msgid "No data to import"
+msgstr "ಆಮದು ಮಾಡಲು ಯಾವುದೆ ಸ್ಥಳವನ್ನು ಸೂಚಿಸಲಾಗಿಲ್ಲ"
+
+#: ../gcr/gcr-key-renderer.c:82
+msgid "Key"
+msgstr ""
+
+#: ../gcr/gcr-key-renderer.c:281
+#, fuzzy
+msgid "Private RSA Key"
+msgstr "ಖಾಸಗಿ ಕೀಲಿ"
+
+#: ../gcr/gcr-key-renderer.c:283
+#, fuzzy
+msgid "Private DSA Key"
+msgstr "ಖಾಸಗಿ ಕೀಲಿ"
+
+#: ../gcr/gcr-key-renderer.c:285 ../gcr/gcr-parser.c:313
+msgid "Private Key"
+msgstr "ಖಾಸಗಿ ಕೀಲಿ"
+
+#: ../gcr/gcr-key-renderer.c:288 ../gcr/gcr-key-renderer.c:290
+#, fuzzy
+msgid "Public DSA Key"
+msgstr "ಸಾರ್ವಜನಿಕ ಕೀಲಿ"
+
+#: ../gcr/gcr-key-renderer.c:299
+#, c-format
+msgid "%d bit"
+msgid_plural "%d bits"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../gcr/gcr-key-renderer.c:300
+#, fuzzy
+msgid "Strength"
+msgstr "ಬೀದಿ"
+
+#. Fingerprints
+#: ../gcr/gcr-key-renderer.c:324
+msgid "Fingerprints"
+msgstr "ಫಿಂಗರ್-ಪ್ರಿಂಟ್‌ಗಳು"
+
+#: ../gcr/gcr-key-renderer.c:329
+msgid "SHA1"
+msgstr ""
+
+#: ../gcr/gcr-key-renderer.c:335
+msgid "SHA256"
+msgstr ""
+
+#: ../gcr/gcr-parser.c:2180
+msgid "Unrecognized or unsupported data."
+msgstr "ಗುರುತಿಸಲಾಗದ ಅಥವ ಬೆಂಬಲವಿಲ್ಲದ ದತ್ತಾಂಶ."
+
+#: ../gcr/gcr-parser.c:2183
+msgid "Could not parse invalid or corrupted data."
+msgstr "ಅಮಾನ್ಯವಾದ ಅಥವ ಭ್ರಷ್ಟಗೊಂಡ ದತ್ತಾಂಶವನ್ನು ಪಾರ್ಸ್ ಮಾಡಲಾಗಿಲ್ಲ."
+
+#: ../gcr/gcr-parser.c:2186
+msgid "The data is locked"
+msgstr "ದತ್ತಾಂಶವನ್ನು ಲಾಕ್ ಮಾಡಲಾಗಿದೆ"
+
+#: ../gcr/gcr-pkcs11-import-dialog.c:186
+#, fuzzy
+msgid "Automatically chosen"
+msgstr "ನಾನು ಒಳಗೆ ಪ್ರವೇಶಿಸಿದಾಗ ತಾನಾಗಿಯೆ ಅನ್‌ಲಾಕ್ ಆಗುವಂತೆ ಮಾಡು"
+
+#: ../gcr/gcr-pkcs11-import-dialog.c:270
+#: ../gcr/gcr-pkcs11-import-interaction.c:153
+#: ../gcr/gcr-pkcs11-import-interaction.c:171
+#, c-format
+msgid "The user cancelled the operation"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
+msgid "<b>Import settings</b>"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
+#, fuzzy
+msgid "<b>Unlock</b>"
+msgstr "ಅನ್‌ಲಾಕ್ ಮಾಡು"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
+#, fuzzy
+msgid "In order to import, please enter the password."
+msgstr "'%s' ಅನ್ನು ಆಮದುಕೊಳ್ಳಲು, ಅದು ಲಾಕ್ ಆಗಿರಬಾರದು"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
+msgid "Label"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
+msgid "Label:"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Password:"
+msgstr "ಗುಪ್ತಪದ:"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
+msgid "Token:"
+msgstr ""
+
+#. Translators: A pinned certificate is an exception which
+#. trusts a given certificate explicitly for a purpose and
+#. communication with a certain peer.
+#: ../gcr/gcr-trust.c:376
+#, fuzzy, c-format
+msgid "Couldn't find a place to store the pinned certificate"
+msgstr "ಆಮದು ಮಾಡಲಾದ ಪ್ರಮಾಣಪತ್ರಗಳನ್ನು/ಕೀಲಿಗಳನ್ನು ಇರಿಸಿಲು ಒಂದು ಸ್ಥಳವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ."
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:1
+#, fuzzy
+msgid "Automatically unlock this keyring whenever I'm logged in"
+msgstr "ನಾನು ಒಳಗೆ ಪ್ರವೇಶಿಸಿದಾಗ ಈ ಕೀಲಿ ಸುರುಳಿಯನ್ನು ತಾನಾಗಿಯೆ ಅನ್‌ಲಾಕ್ ಆಗುವಂತೆ ಮಾಡು."
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:2
+msgid "Lock this keyring after"
+msgstr ""
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:3
+msgid "Lock this keyring if idle for"
+msgstr ""
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:4
+#, fuzzy
+msgid "Lock this keyring when I log out"
+msgstr "ನಾನು ಒಳಗೆ ಪ್ರವೇಶಿಸಿದಾಗ ಈ ಕೀಲಿ ಸುರುಳಿಯನ್ನು ತಾನಾಗಿಯೆ ಅನ್‌ಲಾಕ್ ಆಗುವಂತೆ ಮಾಡು."
+
+#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#: ../gcr/gcr-unlock-options-widget.ui.h:6
+msgid "minutes"
+msgstr ""
+
+#: ../gcr/gcr-unlock-renderer.c:70
+#, fuzzy, c-format
+msgid "Unlock: %s"
+msgstr "ಅನ್‌ಲಾಕ್ ಮಾಡು"
+
+#: ../gcr/gcr-unlock-renderer.c:72 ../gcr/gcr-unlock-renderer.c:129
+msgid "Unlock"
+msgstr "ಅನ್‌ಲಾಕ್ ಮಾಡು"
+
+#: ../gcr/gcr-unlock-renderer.c:126
+#, fuzzy
+msgid "Password"
+msgstr "ಗುಪ್ತಪದ:"
+
+#: ../gcr/gcr-unlock-renderer.c:279
+#, c-format
+msgid ""
+"The contents of '%s' are locked. In order to view the contents, enter the "
+"correct password."
+msgstr ""
+
+#: ../gcr/gcr-unlock-renderer.c:282
+msgid ""
+"The contents are locked. In order to view the contents, enter the correct "
+"password."
+msgstr ""
+
+#: ../gcr/gcr-viewer-tool.c:41
+msgid "GCR Certificate and Key Viewer"
+msgstr ""
+
+#: ../gcr/gcr-viewer-tool.c:48
+#, fuzzy
+msgid "Show the application's version"
+msgstr "ಅನ್ವಯವು ಕೀಲಿ ಸುರಳಿಯನ್ನು ನಿಲುಕಿಸಿಕೊಳ್ಳಲು ಅನುಮತಿಸಬೇಕೆ?"
+
+#: ../gcr/gcr-viewer-tool.c:50
+msgid "[file...]"
+msgstr ""
+
+#: ../gcr/gcr-viewer-tool.c:104
+msgid "- View certificate and key files"
+msgstr ""
+
+#: ../gcr/gcr-viewer-tool.c:118
+#, fuzzy
+msgid "Certificate Viewer"
+msgstr "ಪ್ರಮಾಣಪತ್ರ"
+
+#: ../gcr/gcr-viewer-widget.c:191
+#, fuzzy
+msgid "The password was incorrect"
+msgstr "ಗುಪ್ತಪದ ಅಥವ PIN ಸರಿಯಾಗಿಲ್ಲ"
+
+#: ../gcr/gcr-viewer-window.c:68
+#, fuzzy
+msgid "Imported"
+msgstr "ಇದಕ್ಕೆ ಆಮದು ಮಾಡು:"
+
+#: ../gcr/gcr-viewer-window.c:72
+#, fuzzy
+msgid "Import failed"
+msgstr "ಕಾರ್ಯವು ವಿಫಲಗೊಂಡಿದೆ"
+
+#: ../gcr/gcr-viewer-window.c:103
+#, fuzzy
+msgid "Import"
+msgstr "ಇದಕ್ಕೆ ಆಮದು ಮಾಡು:"
+
+#: ../gck/gck-uri.c:223
+#, c-format
+msgid "The URI has invalid encoding."
+msgstr ""
+
+#: ../gck/gck-uri.c:227
+msgid "The URI does not have the 'pkcs11' scheme."
+msgstr ""
+
+#: ../gck/gck-uri.c:231
+msgid "The URI has bad syntax."
+msgstr ""
+
+#: ../gck/gck-uri.c:235
+msgid "The URI has a bad version number."
+msgstr ""

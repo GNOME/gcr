@@ -25,14 +25,13 @@
 
 #include "gcr-pkcs11-certificate.h"
 
-#include <gck/gck.h>
-#include <string.h>
-
 #include "gcr-certificate.h"
 #include "gcr-internal.h"
 #include "gcr-library.h"
 
-#include "pkcs11/pkcs11.h"
+#include <gck/gck.h>
+
+#include <string.h>
 
 /**
  * SECTION:gcr-pkcs11-certificate

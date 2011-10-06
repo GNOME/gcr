@@ -409,6 +409,7 @@ parse_public_key_or_subkey (GQuark schema,
                             GcrOpenpgpParseFlags flags,
                             GPtrArray *records)
 {
+	gchar *fingerprint = NULL;
 	gchar *keyid;
 	GcrRecord *record;
 	guint8 version;
@@ -417,7 +418,6 @@ parse_public_key_or_subkey (GQuark schema,
 	guint8 algo;
 	guint16 bits;
 	gulong expiry;
-	gchar *fingerprint;
 	const guchar *data;
 
 	/* Start of actual key data in packet */

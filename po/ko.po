@@ -1,0 +1,1022 @@
+# gnome-keyring Korean trnaslation
+# This file is distributed under the same license as the gnome-keyring package.
+#
+# Young-Ho Cha <ganadist@gmail.com>, 2006.
+# Changwoo Ryu <cwryu@debian.org>, 2004, 2006, 2007, 2008, 2009, 2010, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-keyring\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-10-06 11:51+0200\n"
+"PO-Revision-Date: 2011-09-23 05:52+0900\n"
+"Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
+"Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
+"Language: Korean\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../egg/egg-oid.c:41
+msgid "Domain Component"
+msgstr "도메인 구성 요소"
+
+#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:411
+#: ../gcr/gcr-gnupg-renderer.c:580
+msgid "User ID"
+msgstr "사용자 ID"
+
+#: ../egg/egg-oid.c:46
+msgid "Email Address"
+msgstr "전자메일 주소"
+
+#: ../egg/egg-oid.c:54
+msgid "Date of Birth"
+msgstr "생년월일"
+
+#: ../egg/egg-oid.c:56
+msgid "Place of Birth"
+msgstr "출생지"
+
+#: ../egg/egg-oid.c:58
+msgid "Gender"
+msgstr "성별"
+
+#: ../egg/egg-oid.c:60
+msgid "Country of Citizenship"
+msgstr "국적"
+
+#: ../egg/egg-oid.c:62
+msgid "Country of Residence"
+msgstr "거주 국가"
+
+#: ../egg/egg-oid.c:65
+msgid "Common Name"
+msgstr "공통 이름"
+
+#: ../egg/egg-oid.c:67
+msgid "Surname"
+msgstr "성"
+
+#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:652
+msgid "Serial Number"
+msgstr "일련 번호"
+
+#: ../egg/egg-oid.c:71
+msgid "Country"
+msgstr "국가"
+
+#: ../egg/egg-oid.c:73
+msgid "Locality"
+msgstr "소재지"
+
+#: ../egg/egg-oid.c:75
+msgid "State"
+msgstr "주"
+
+#: ../egg/egg-oid.c:77
+msgid "Street"
+msgstr "도로"
+
+#: ../egg/egg-oid.c:79
+msgid "Organization"
+msgstr "기관"
+
+#: ../egg/egg-oid.c:81
+msgid "Organizational Unit"
+msgstr "기관 부서"
+
+#: ../egg/egg-oid.c:83
+msgid "Title"
+msgstr "직급"
+
+#: ../egg/egg-oid.c:85
+msgid "Telephone Number"
+msgstr "전화번호"
+
+#: ../egg/egg-oid.c:87
+msgid "Given Name"
+msgstr "이름"
+
+#: ../egg/egg-oid.c:89
+msgid "Initials"
+msgstr "이니셜"
+
+#: ../egg/egg-oid.c:91
+msgid "Generation Qualifier"
+msgstr "생성 권한"
+
+#: ../egg/egg-oid.c:93
+msgid "DN Qualifier"
+msgstr "DN 권한"
+
+#: ../egg/egg-oid.c:95
+msgid "Pseudonym"
+msgstr "필명"
+
+#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:202
+#: ../gcr/gcr-key-renderer.c:308
+msgid "RSA"
+msgstr "RSA"
+
+#: ../egg/egg-oid.c:99
+msgid "MD2 with RSA"
+msgstr "MD2 및 RSA"
+
+#: ../egg/egg-oid.c:100
+msgid "MD5 with RSA"
+msgstr "MD5 및 RSA"
+
+#: ../egg/egg-oid.c:101
+msgid "SHA1 with RSA"
+msgstr "SHA1 및 RSA"
+
+#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:206
+#: ../gcr/gcr-key-renderer.c:310
+msgid "DSA"
+msgstr "DSA"
+
+#: ../egg/egg-oid.c:104
+msgid "SHA1 with DSA"
+msgstr "SHA1 및 DSA"
+
+#. Extended Key Usages
+#: ../egg/egg-oid.c:107
+msgid "Server Authentication"
+msgstr "서버 인증"
+
+#: ../egg/egg-oid.c:108
+msgid "Client Authentication"
+msgstr "클라이언트 인증"
+
+#: ../egg/egg-oid.c:109
+msgid "Code Signing"
+msgstr "코드 서명"
+
+#: ../egg/egg-oid.c:110
+msgid "Email Protection"
+msgstr "전자메일 보호"
+
+#: ../egg/egg-oid.c:111
+msgid "Time Stamping"
+msgstr "타임스탬프"
+
+#: ../gck/gck-module.c:353
+#, c-format
+msgid "Error loading PKCS#11 module: %s"
+msgstr "PKCS#11 모듈을 읽어들이는데 오류: %s"
+
+#: ../gck/gck-module.c:360
+#, c-format
+msgid "Invalid PKCS#11 module: %s"
+msgstr "잘못된 PKCS#11 모듈: %s"
+
+#: ../gck/gck-module.c:369
+#, c-format
+msgid "Couldn't setup PKCS#11 module: %s"
+msgstr "PKCS#11 모듈을 준비할 수 없습니다: %s"
+
+#: ../gck/gck-module.c:385
+#, c-format
+msgid "Couldn't initialize PKCS#11 module: %s"
+msgstr "PKCS#11 모듈을 초기화할 수 없습니다: %s"
+
+#: ../gck/gck-modules.c:67
+#, c-format
+msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgstr "등록한 PKCS#11 모듈을 초기화할 수 없습니다: %s"
+
+#: ../gcr/gcr-callback-output-stream.c:64
+#: ../gcr/gcr-callback-output-stream.c:81
+#, fuzzy, c-format
+msgid "The stream was closed"
+msgstr "데이터가 잠겨 있습니다"
+
+#. later
+#. later
+#: ../gcr/gcr-certificate.c:378 ../gcr/gcr-gnupg-key.c:521
+msgctxt "column"
+msgid "Name"
+msgstr "이름"
+
+#: ../gcr/gcr-certificate.c:380
+msgctxt "column"
+msgid "Issued By"
+msgstr "발급 날짜"
+
+#. later
+#: ../gcr/gcr-certificate.c:382
+msgctxt "column"
+msgid "Expires"
+msgstr "만료 날짜"
+
+#: ../gcr/gcr-certificate.c:1067 ../gcr/gcr-certificate-exporter.c:463
+#: ../gcr/gcr-certificate-renderer.c:101 ../gcr/gcr-parser.c:316
+msgid "Certificate"
+msgstr "인증서"
+
+#: ../gcr/gcr-certificate-exporter.c:225
+msgid ""
+"<b>A file already exists with this name.</b>\n"
+"\n"
+"Do you want to replace it with a new file?"
+msgstr ""
+"<b>같은 이름의 파일이 이미 있습니다.</b>\n"
+"\n"
+"이 파일을 새 파일로 덮어쓰시겠습니까?"
+
+#: ../gcr/gcr-certificate-exporter.c:228
+msgid "_Replace"
+msgstr "바꾸기(_R)"
+
+#: ../gcr/gcr-certificate-exporter.c:258
+#, c-format
+msgid "The operation was cancelled."
+msgstr "작업을 취소했습니다."
+
+#: ../gcr/gcr-certificate-exporter.c:302
+msgid "Export certificate"
+msgstr "인증서 내보내기"
+
+#: ../gcr/gcr-certificate-exporter.c:314
+msgid "Certificate files"
+msgstr "인증서 파일"
+
+#: ../gcr/gcr-certificate-exporter.c:325
+msgid "PEM files"
+msgstr "PEM 파일"
+
+#: ../gcr/gcr-certificate-extensions.c:141
+msgid "Other Name"
+msgstr "다른 이름"
+
+#: ../gcr/gcr-certificate-extensions.c:150
+msgid "XMPP Addr"
+msgstr "XMPP 주소"
+
+#: ../gcr/gcr-certificate-extensions.c:154
+msgid "DNS SRV"
+msgstr "DNS 서버"
+
+#: ../gcr/gcr-certificate-extensions.c:166 ../gcr/gcr-gnupg-renderer.c:424
+#: ../gcr/gcr-gnupg-renderer.c:706
+msgid "Email"
+msgstr "전자메일"
+
+#: ../gcr/gcr-certificate-extensions.c:174
+msgid "DNS"
+msgstr "DNS"
+
+#: ../gcr/gcr-certificate-extensions.c:182
+msgid "X400 Address"
+msgstr "X400 주소"
+
+#: ../gcr/gcr-certificate-extensions.c:189
+msgid "Directory Name"
+msgstr "디렉터리 이름"
+
+#: ../gcr/gcr-certificate-extensions.c:197
+msgid "EDI Party Name"
+msgstr "EDI 파티 이름"
+
+#: ../gcr/gcr-certificate-extensions.c:204
+msgid "URI"
+msgstr "URI"
+
+#: ../gcr/gcr-certificate-extensions.c:212
+msgid "IP Address"
+msgstr "IP 주소"
+
+#: ../gcr/gcr-certificate-extensions.c:220
+msgid "Registered ID"
+msgstr "등록 ID"
+
+#: ../gcr/gcr-certificate-renderer.c:116
+msgid "Basic Constraints"
+msgstr "기본 제한"
+
+#: ../gcr/gcr-certificate-renderer.c:118
+msgid "Certificate Authority"
+msgstr "인증 기관"
+
+#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+msgid "Yes"
+msgstr "예"
+
+#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+msgid "No"
+msgstr "아니요"
+
+#: ../gcr/gcr-certificate-renderer.c:122
+msgid "Max Path Length"
+msgstr "최대 경로 길이"
+
+#: ../gcr/gcr-certificate-renderer.c:123
+msgid "Unlimited"
+msgstr "무제한"
+
+#: ../gcr/gcr-certificate-renderer.c:142
+msgid "Extended Key Usage"
+msgstr "확장된 키 사용"
+
+#: ../gcr/gcr-certificate-renderer.c:153
+msgid "Allowed Purposes"
+msgstr "허용한 목적"
+
+#: ../gcr/gcr-certificate-renderer.c:173
+msgid "Subject Key Identifier"
+msgstr "제목 식별 이름"
+
+#: ../gcr/gcr-certificate-renderer.c:174
+msgid "Key Identifier"
+msgstr "키 식별 이름"
+
+#: ../gcr/gcr-certificate-renderer.c:185
+msgid "Digital signature"
+msgstr "디지털 서명"
+
+#: ../gcr/gcr-certificate-renderer.c:186
+msgid "Key encipherment"
+msgstr "키 암호화"
+
+#: ../gcr/gcr-certificate-renderer.c:187
+msgid "Data encipherment"
+msgstr "데이터 암호화"
+
+#: ../gcr/gcr-certificate-renderer.c:188
+msgid "Key agreement"
+msgstr "키 교환"
+
+#: ../gcr/gcr-certificate-renderer.c:189
+msgid "Certificate signature"
+msgstr "인증서 서명"
+
+#: ../gcr/gcr-certificate-renderer.c:190
+msgid "Revocation list signature"
+msgstr "철회 목록 서명"
+
+#: ../gcr/gcr-certificate-renderer.c:215
+msgid "Key Usage"
+msgstr "키 사용"
+
+#: ../gcr/gcr-certificate-renderer.c:216
+msgid "Usages"
+msgstr "사용"
+
+#: ../gcr/gcr-certificate-renderer.c:236
+msgid "Subject Alternative Names"
+msgstr "제목 다른 이름"
+
+#: ../gcr/gcr-certificate-renderer.c:261
+msgid "Extension"
+msgstr "확장"
+
+#: ../gcr/gcr-certificate-renderer.c:265
+msgid "Identifier"
+msgstr "식별 이름"
+
+#: ../gcr/gcr-certificate-renderer.c:266 ../gcr/gcr-gnupg-renderer.c:415
+#: ../gcr/gcr-gnupg-renderer.c:432
+msgid "Value"
+msgstr "값"
+
+#: ../gcr/gcr-certificate-renderer.c:313
+msgid "Critical"
+msgstr "중대함"
+
+#: ../gcr/gcr-certificate-renderer.c:386
+msgid "Couldn't export the certificate."
+msgstr "인증서를 내보낼 수 없습니다."
+
+#: ../gcr/gcr-certificate-renderer.c:613
+msgid "Identity"
+msgstr "신원"
+
+#: ../gcr/gcr-certificate-renderer.c:617
+msgid "Verified by"
+msgstr "확인한 곳"
+
+#: ../gcr/gcr-certificate-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:720
+msgid "Expires"
+msgstr "만료 날짜"
+
+#. The subject
+#: ../gcr/gcr-certificate-renderer.c:634
+msgid "Subject Name"
+msgstr "제목"
+
+#. The Issuer
+#: ../gcr/gcr-certificate-renderer.c:638
+msgid "Issuer Name"
+msgstr "발급자 이름"
+
+#. The Issued Parameters
+#: ../gcr/gcr-certificate-renderer.c:642
+msgid "Issued Certificate"
+msgstr "발급한 인증서"
+
+#: ../gcr/gcr-certificate-renderer.c:647
+msgid "Version"
+msgstr "버전"
+
+#: ../gcr/gcr-certificate-renderer.c:658
+msgid "Not Valid Before"
+msgstr "유효 기간 시작"
+
+#: ../gcr/gcr-certificate-renderer.c:663
+msgid "Not Valid After"
+msgstr "유효 기간 끝"
+
+#. Fingerprints
+#: ../gcr/gcr-certificate-renderer.c:668
+msgid "Certificate Fingerprints"
+msgstr "인증서 핑거프린트"
+
+#. Signature
+#: ../gcr/gcr-certificate-renderer.c:674 ../gcr/gcr-certificate-renderer.c:686
+#: ../gcr/gcr-gnupg-renderer.c:561
+msgid "Signature"
+msgstr "서명"
+
+#: ../gcr/gcr-certificate-renderer.c:678
+msgid "Signature Algorithm"
+msgstr "서명 알고리듬"
+
+#: ../gcr/gcr-certificate-renderer.c:682
+msgid "Signature Parameters"
+msgstr "서명 파라미터"
+
+#. Public Key Info
+#: ../gcr/gcr-certificate-renderer.c:690
+msgid "Public Key Info"
+msgstr "공개 키 정보"
+
+#: ../gcr/gcr-certificate-renderer.c:695
+msgid "Key Algorithm"
+msgstr "키 알고리듬"
+
+#: ../gcr/gcr-certificate-renderer.c:700
+msgid "Key Parameters"
+msgstr "키 파라미터"
+
+#: ../gcr/gcr-certificate-renderer.c:705 ../gcr/gcr-gnupg-renderer.c:354
+msgid "Key Size"
+msgstr "키 크기"
+
+#: ../gcr/gcr-certificate-renderer.c:712
+msgid "Key SHA1 Fingerprint"
+msgstr "키 SHA1 핑거프린트"
+
+#: ../gcr/gcr-certificate-renderer.c:718 ../gcr/gcr-gnupg-renderer.c:739
+#: ../gcr/gcr-key-renderer.c:292 ../gcr/gcr-parser.c:319
+msgid "Public Key"
+msgstr "공개 키"
+
+#: ../gcr/gcr-display-view.c:319
+msgid "_Details"
+msgstr "상세 정보(_D)"
+
+#: ../gcr/gcr-failure-renderer.c:161
+#, c-format
+msgid "Could not display '%s'"
+msgstr "'%s'을(를) 표시할 수 없습니다"
+
+#: ../gcr/gcr-failure-renderer.c:163
+msgid "Could not display file"
+msgstr "파일을 표시할 수 없습니다"
+
+#: ../gcr/gcr-failure-renderer.c:168
+msgid "Reason"
+msgstr "이유"
+
+#: ../gcr/gcr-failure-renderer.c:218
+#, c-format
+msgid "Cannot display a file of this type."
+msgstr "이 종류의 파일을 표시할 수 없습니다."
+
+#: ../gcr/gcr-gnupg-importer.c:93
+#, fuzzy
+msgid "GnuPG Keyring"
+msgstr "키 모음 잠금 풀기"
+
+#: ../gcr/gcr-gnupg-importer.c:95
+#, fuzzy, c-format
+msgid "GnuPG Keyring: %s"
+msgstr "PGP 키: %s"
+
+#: ../gcr/gcr-gnupg-key.c:234 ../gcr/gcr-gnupg-renderer.c:88
+#: ../gcr/gcr-parser.c:322
+msgid "PGP Key"
+msgstr "PGP 키"
+
+#: ../gcr/gcr-gnupg-key.c:523
+msgctxt "column"
+msgid "Key ID"
+msgstr "키 ID"
+
+#: ../gcr/gcr-gnupg-process.c:860
+#, c-format
+msgid "Gnupg process exited with code: %d"
+msgstr "gnupg 프로세스가 다음 리턴값으로 끝났습니다: %d"
+
+#: ../gcr/gcr-gnupg-process.c:867
+#, c-format
+msgid "Gnupg process was terminated with signal: %d"
+msgstr "gnupg 프로세스가 다음 시그널로 강제 종료되었습니다: %d"
+
+#: ../gcr/gcr-gnupg-process.c:921 ../gcr/gcr-parser.c:2177
+#: ../gcr/gcr-parser.c:2681
+msgid "The operation was cancelled"
+msgstr "작업을 취소했습니다"
+
+#: ../gcr/gcr-gnupg-renderer.c:204
+msgid "Elgamal"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:217
+msgid "Encrypt"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:219
+#, fuzzy
+msgid "Sign"
+msgstr "서명"
+
+#: ../gcr/gcr-gnupg-renderer.c:221
+#, fuzzy
+msgid "Certify"
+msgstr "인증서"
+
+#: ../gcr/gcr-gnupg-renderer.c:223
+#, fuzzy
+msgid "Authenticate"
+msgstr "서버 인증"
+
+#: ../gcr/gcr-gnupg-renderer.c:225 ../gcr/gcr-gnupg-renderer.c:260
+msgid "Disabled"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:256 ../gcr/gcr-gnupg-renderer.c:415
+#: ../gcr/gcr-key-renderer.c:312 ../gcr/gcr-key-renderer.c:317
+msgid "Unknown"
+msgstr "알 수 없음"
+
+#: ../gcr/gcr-gnupg-renderer.c:258
+msgid "Invalid"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:262
+msgid "Revoked"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:264
+#, fuzzy
+msgid "Expired"
+msgstr "만료 날짜"
+
+#: ../gcr/gcr-gnupg-renderer.c:266
+msgid "Undefined trust"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:268
+msgid "Distrusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:270
+msgid "Marginally trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:272
+msgid "Fully trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:274
+msgid "Ultimately trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:288
+msgid "The information in this key has not yet been verified"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:291
+msgid "This key is invalid"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:294
+msgid "This key has been disabled"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:297
+msgid "This key has been revoked"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:300
+msgid "This key has expired"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:305
+msgid "This key is distrusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:308
+msgid "This key is marginally trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:311
+msgid "This key is fully trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:314
+msgid "This key is ultimately trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:339 ../gcr/gcr-gnupg-renderer.c:565
+#, fuzzy
+msgid "Key ID"
+msgstr "키 ID"
+
+#: ../gcr/gcr-gnupg-renderer.c:347 ../gcr/gcr-gnupg-renderer.c:573
+#: ../gcr/gcr-gnupg-renderer.c:620 ../gcr/gcr-key-renderer.c:313
+msgid "Algorithm"
+msgstr "알고리듬"
+
+#: ../gcr/gcr-gnupg-renderer.c:362 ../gcr/gcr-gnupg-renderer.c:439
+#: ../gcr/gcr-gnupg-renderer.c:482
+msgid "Created"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:371 ../gcr/gcr-gnupg-renderer.c:448
+#: ../gcr/gcr-gnupg-renderer.c:491
+#, fuzzy
+msgid "Expiry"
+msgstr "만료 날짜"
+
+#: ../gcr/gcr-gnupg-renderer.c:380
+msgid "Capabilities"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:393
+msgid "Owner trust"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:421
+#, fuzzy
+msgid "Name"
+msgstr "이름"
+
+#: ../gcr/gcr-gnupg-renderer.c:427 ../gcr/gcr-gnupg-renderer.c:709
+msgid "Comment"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:467
+msgid "User Attribute"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:474 ../gcr/gcr-key-renderer.c:320
+msgid "Size"
+msgstr "크기"
+
+#: ../gcr/gcr-gnupg-renderer.c:509
+#, fuzzy
+msgid "Signature of a binary document"
+msgstr "서명 파라미터"
+
+#: ../gcr/gcr-gnupg-renderer.c:511
+msgid "Signature of a canonical text document"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:513
+#, fuzzy
+msgid "Standalone signature"
+msgstr "디지털 서명"
+
+#: ../gcr/gcr-gnupg-renderer.c:515
+#, fuzzy
+msgid "Generic certification of key"
+msgstr "인증서 잠금 풀기"
+
+#: ../gcr/gcr-gnupg-renderer.c:517
+msgid "Persona certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:519
+msgid "Casual certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:521
+msgid "Positive certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:523
+msgid "Subkey binding signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:525
+msgid "Primary key binding signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:527
+#, fuzzy
+msgid "Signature directly on key"
+msgstr "서명 파라미터"
+
+#: ../gcr/gcr-gnupg-renderer.c:529
+#, fuzzy
+msgid "Key revocation signature"
+msgstr "철회 목록 서명"
+
+#: ../gcr/gcr-gnupg-renderer.c:531
+#, fuzzy
+msgid "Subkey revocation signature"
+msgstr "철회 목록 서명"
+
+#: ../gcr/gcr-gnupg-renderer.c:533
+#, fuzzy
+msgid "Certification revocation signature"
+msgstr "인증서 서명"
+
+#: ../gcr/gcr-gnupg-renderer.c:535
+#, fuzzy
+msgid "Timestamp signature"
+msgstr "디지털 서명"
+
+#: ../gcr/gcr-gnupg-renderer.c:537
+msgid "Third-party confirmation signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:598
+msgid "Class"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:592 ../gcr/gcr-gnupg-renderer.c:594
+msgid "Type"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:592
+#, fuzzy
+msgid "Local only"
+msgstr "소재지"
+
+#: ../gcr/gcr-gnupg-renderer.c:594
+msgid "Exportable"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:612
+#, fuzzy
+msgid "Revocation Key"
+msgstr "철회 목록 서명"
+
+#: ../gcr/gcr-gnupg-renderer.c:626 ../gcr/gcr-gnupg-renderer.c:650
+#: ../gcr/gcr-gnupg-renderer.c:652
+#, fuzzy
+msgid "Fingerprint"
+msgstr "핑거프린트"
+
+#: ../gcr/gcr-gnupg-renderer.c:741
+#, fuzzy
+msgid "Public Subkey"
+msgstr "공개 키"
+
+#: ../gcr/gcr-gnupg-renderer.c:743
+msgid "Secret Key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:745
+msgid "Secret Subkey"
+msgstr ""
+
+#: ../gcr/gcr-import-button.c:108
+#, fuzzy
+msgid "Initializing..."
+msgstr "이니셜"
+
+#: ../gcr/gcr-import-button.c:116
+msgid "Import is in progress..."
+msgstr ""
+
+#: ../gcr/gcr-import-button.c:123
+#, fuzzy, c-format
+msgid "Imported to: %s"
+msgstr "가져와서 저장:"
+
+#: ../gcr/gcr-import-button.c:143
+#, fuzzy, c-format
+msgid "Import to: %s"
+msgstr "가져와서 저장:"
+
+#: ../gcr/gcr-import-button.c:156
+msgid "Cannot import because there are no compatible importers"
+msgstr ""
+
+#: ../gcr/gcr-import-button.c:165
+#, fuzzy
+msgid "No data to import"
+msgstr "가져와서 저장할 위치가 없습니다"
+
+#: ../gcr/gcr-key-renderer.c:82
+msgid "Key"
+msgstr "키"
+
+#: ../gcr/gcr-key-renderer.c:281
+msgid "Private RSA Key"
+msgstr "개인 RSA 키"
+
+#: ../gcr/gcr-key-renderer.c:283
+msgid "Private DSA Key"
+msgstr "개인 DSA 키"
+
+#: ../gcr/gcr-key-renderer.c:285 ../gcr/gcr-parser.c:313
+msgid "Private Key"
+msgstr "개인 키"
+
+#: ../gcr/gcr-key-renderer.c:288 ../gcr/gcr-key-renderer.c:290
+msgid "Public DSA Key"
+msgstr "공개 DSA 키"
+
+#: ../gcr/gcr-key-renderer.c:299
+#, c-format
+msgid "%d bit"
+msgid_plural "%d bits"
+msgstr[0] "%d비트"
+
+#: ../gcr/gcr-key-renderer.c:300
+msgid "Strength"
+msgstr "강도"
+
+#. Fingerprints
+#: ../gcr/gcr-key-renderer.c:324
+msgid "Fingerprints"
+msgstr "핑거프린트"
+
+#: ../gcr/gcr-key-renderer.c:329
+msgid "SHA1"
+msgstr "SHA1"
+
+#: ../gcr/gcr-key-renderer.c:335
+msgid "SHA256"
+msgstr "SHA256"
+
+#: ../gcr/gcr-parser.c:2180
+msgid "Unrecognized or unsupported data."
+msgstr "알지 못하거나 지원하지 않는 데이터."
+
+#: ../gcr/gcr-parser.c:2183
+msgid "Could not parse invalid or corrupted data."
+msgstr "잘못되었거나 손상된 데이터를 파싱할 수 없습니다."
+
+#: ../gcr/gcr-parser.c:2186
+msgid "The data is locked"
+msgstr "데이터가 잠겨 있습니다"
+
+#: ../gcr/gcr-pkcs11-import-dialog.c:186
+msgid "Automatically chosen"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.c:270
+#: ../gcr/gcr-pkcs11-import-interaction.c:153
+#: ../gcr/gcr-pkcs11-import-interaction.c:171
+#, c-format
+msgid "The user cancelled the operation"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
+msgid "<b>Import settings</b>"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
+#, fuzzy
+msgid "<b>Unlock</b>"
+msgstr "잠금 풀기"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
+#, fuzzy
+msgid "In order to import, please enter the password."
+msgstr "'%s'을(를) 가져오려면 잠금을 풀어야 합니다"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
+msgid "Label"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
+msgid "Label:"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Password:"
+msgstr "암호:"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
+msgid "Token:"
+msgstr ""
+
+#. Translators: A pinned certificate is an exception which
+#. trusts a given certificate explicitly for a purpose and
+#. communication with a certain peer.
+#: ../gcr/gcr-trust.c:376
+#, c-format
+msgid "Couldn't find a place to store the pinned certificate"
+msgstr "지정한 인증서를 저장할 위치를 찾을 수 없습니다"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:1
+msgid "Automatically unlock this keyring whenever I'm logged in"
+msgstr "로그인할 때 자동으로 이 키 모음 잠금 풀기"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:2
+msgid "Lock this keyring after"
+msgstr "다음 동작 뒤에 키 모음 잠그기"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:3
+msgid "Lock this keyring if idle for"
+msgstr "일정 시간 입력이 없으면 키 모음 잠그기"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:4
+msgid "Lock this keyring when I log out"
+msgstr "로그아웃할 때 이 키 모음 잠그기"
+
+#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#: ../gcr/gcr-unlock-options-widget.ui.h:6
+msgid "minutes"
+msgstr "분"
+
+#: ../gcr/gcr-unlock-renderer.c:70
+#, c-format
+msgid "Unlock: %s"
+msgstr "잠금 풀기: %s"
+
+#: ../gcr/gcr-unlock-renderer.c:72 ../gcr/gcr-unlock-renderer.c:129
+msgid "Unlock"
+msgstr "잠금 풀기"
+
+#: ../gcr/gcr-unlock-renderer.c:126
+msgid "Password"
+msgstr "암호"
+
+#: ../gcr/gcr-unlock-renderer.c:279
+#, c-format
+msgid ""
+"The contents of '%s' are locked. In order to view the contents, enter the "
+"correct password."
+msgstr "'%s'의 내용이 잠겨 있습니다. 내용을 보려면 올바른 암호를 입력하십시오."
+
+#: ../gcr/gcr-unlock-renderer.c:282
+msgid ""
+"The contents are locked. In order to view the contents, enter the correct "
+"password."
+msgstr "내용이 잠겨 있습니다. 내용을 보려면 올바른 암호를 입력하십시오."
+
+#: ../gcr/gcr-viewer-tool.c:41
+msgid "GCR Certificate and Key Viewer"
+msgstr "GCR 인증서 및 키 보기"
+
+#: ../gcr/gcr-viewer-tool.c:48
+msgid "Show the application's version"
+msgstr "프로그램의 버전을 표시합니다"
+
+#: ../gcr/gcr-viewer-tool.c:50
+msgid "[file...]"
+msgstr "[파일...]"
+
+# 커맨드 옵션 분류
+#: ../gcr/gcr-viewer-tool.c:104
+msgid "- View certificate and key files"
+msgstr "- 인증서 및 키 파일 보기"
+
+#: ../gcr/gcr-viewer-tool.c:118
+msgid "Certificate Viewer"
+msgstr "인증서 보기"
+
+#: ../gcr/gcr-viewer-widget.c:191
+msgid "The password was incorrect"
+msgstr "암호가 올바르지 않습니다"
+
+#: ../gcr/gcr-viewer-window.c:68
+#, fuzzy
+msgid "Imported"
+msgstr "가져와서 저장:"
+
+#: ../gcr/gcr-viewer-window.c:72
+msgid "Import failed"
+msgstr ""
+
+#: ../gcr/gcr-viewer-window.c:103
+#, fuzzy
+msgid "Import"
+msgstr "가져와서 저장:"
+
+#: ../gck/gck-uri.c:223
+#, c-format
+msgid "The URI has invalid encoding."
+msgstr "URI 인코딩이 잘못되었습니다."
+
+#: ../gck/gck-uri.c:227
+msgid "The URI does not have the 'pkcs11' scheme."
+msgstr "URI에 'pkcs11' 스킴이 들어있지 않습니다."
+
+#: ../gck/gck-uri.c:231
+msgid "The URI has bad syntax."
+msgstr "URI 형식이 잘못되었습니다."
+
+#: ../gck/gck-uri.c:235
+msgid "The URI has a bad version number."
+msgstr "URI 버전이 잘못되었습니다."

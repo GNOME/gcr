@@ -27,8 +27,6 @@
 
 #include "gck/gck-test.h"
 
-#include "pkcs11/pkcs11n.h"
-
 #include "egg/egg-testing.h"
 
 #include <glib.h>

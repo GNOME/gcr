@@ -17,7 +17,6 @@ LDADD =  \
 TEST_PROGS = \
 	test-asn1 \
 	test-dn \
-	test-cleanup \
 	test-decimal \
 	test-hex \
 	test-hkdf \
@@ -26,8 +25,7 @@ TEST_PROGS = \
 	test-padding \
 	test-symkey \
 	test-openssl \
-	test-dh \
-	test-spawn
+	test-dh
 
 test_asn1_SOURCES = \
 	test-asn1.c \

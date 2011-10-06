@@ -1,0 +1,1026 @@
+# translation of gnome-keyring.master.te.po to Telugu
+# Telugu translation of gnome-keyring.
+# Copyright (C) 2011 Gnome Contributors
+# This file is distributed under the same license as the gnome-keyring package.
+#
+# Bharat Kumar <jonnalagaddabharat@gmail.com>, 2007.
+# Krishna Babu K <kkrothap@redhat.com>, 2009.
+# Praveen Illa <mail2ipn@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-keyring.master.te\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-10-06 11:51+0200\n"
+"PO-Revision-Date: 2011-09-23 18:05+0530\n"
+"Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
+"Language-Team: తెలుగు <indlinux-telugu@lists.sourceforge.net>\n"
+"Language: Telugu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bits\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: ../egg/egg-oid.c:41
+msgid "Domain Component"
+msgstr "డొమైన్ మూలకం"
+
+#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:411
+#: ../gcr/gcr-gnupg-renderer.c:580
+msgid "User ID"
+msgstr "వాడుకరి ఐడి"
+
+#: ../egg/egg-oid.c:46
+msgid "Email Address"
+msgstr "ఈమెయిల్ చిరునామా"
+
+#: ../egg/egg-oid.c:54
+msgid "Date of Birth"
+msgstr "పుట్టిన రోజు"
+
+#: ../egg/egg-oid.c:56
+msgid "Place of Birth"
+msgstr "పుట్టిన స్థలము"
+
+#: ../egg/egg-oid.c:58
+msgid "Gender"
+msgstr "లింగము"
+
+#: ../egg/egg-oid.c:60
+msgid "Country of Citizenship"
+msgstr "పౌరసత్వం వున్న దేశము"
+
+#: ../egg/egg-oid.c:62
+msgid "Country of Residence"
+msgstr "నివసిస్తున్న దేశము"
+
+#: ../egg/egg-oid.c:65
+msgid "Common Name"
+msgstr "సాధారణ పేరు"
+
+#: ../egg/egg-oid.c:67
+msgid "Surname"
+msgstr "ఇంటిపేరు"
+
+#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:652
+msgid "Serial Number"
+msgstr "సీరియల్ నంబర్"
+
+#: ../egg/egg-oid.c:71
+msgid "Country"
+msgstr "దేశము"
+
+#: ../egg/egg-oid.c:73
+msgid "Locality"
+msgstr "ప్రాంతీయత"
+
+#: ../egg/egg-oid.c:75
+msgid "State"
+msgstr "రాష్ట్రము"
+
+#: ../egg/egg-oid.c:77
+msgid "Street"
+msgstr "వీధి"
+
+#: ../egg/egg-oid.c:79
+msgid "Organization"
+msgstr "సంస్థ"
+
+#: ../egg/egg-oid.c:81
+msgid "Organizational Unit"
+msgstr "సంస్థాపరమైన ప్రమాణము"
+
+#: ../egg/egg-oid.c:83
+msgid "Title"
+msgstr "శీర్షిక"
+
+#: ../egg/egg-oid.c:85
+msgid "Telephone Number"
+msgstr "టెలిఫోన్ నంబరు"
+
+#: ../egg/egg-oid.c:87
+msgid "Given Name"
+msgstr "ఇచ్చిన పేరు"
+
+#: ../egg/egg-oid.c:89
+msgid "Initials"
+msgstr "మొదలు"
+
+#: ../egg/egg-oid.c:91
+msgid "Generation Qualifier"
+msgstr "తరం తెలుపునది"
+
+#: ../egg/egg-oid.c:93
+msgid "DN Qualifier"
+msgstr "DN తెలుపునది"
+
+#: ../egg/egg-oid.c:95
+msgid "Pseudonym"
+msgstr "Pseudonym"
+
+#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:202
+#: ../gcr/gcr-key-renderer.c:308
+msgid "RSA"
+msgstr "RSA"
+
+#: ../egg/egg-oid.c:99
+msgid "MD2 with RSA"
+msgstr "RSA తో MD2"
+
+#: ../egg/egg-oid.c:100
+msgid "MD5 with RSA"
+msgstr "RSA తో MD5"
+
+#: ../egg/egg-oid.c:101
+msgid "SHA1 with RSA"
+msgstr "RSA తో SHA1"
+
+#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:206
+#: ../gcr/gcr-key-renderer.c:310
+msgid "DSA"
+msgstr "DSA"
+
+#: ../egg/egg-oid.c:104
+msgid "SHA1 with DSA"
+msgstr "DSA తో SHA1"
+
+#. Extended Key Usages
+#: ../egg/egg-oid.c:107
+msgid "Server Authentication"
+msgstr "సేవకం ధృవీకరణ"
+
+#: ../egg/egg-oid.c:108
+msgid "Client Authentication"
+msgstr "క్లయింటు ధృవీకరణ"
+
+#: ../egg/egg-oid.c:109
+msgid "Code Signing"
+msgstr "కోడ్ సైనింగ్"
+
+#: ../egg/egg-oid.c:110
+msgid "Email Protection"
+msgstr "ఈమెయిల్ రక్షణ"
+
+#: ../egg/egg-oid.c:111
+msgid "Time Stamping"
+msgstr "సమయ ముద్రణ"
+
+#: ../gck/gck-module.c:353
+#, c-format
+msgid "Error loading PKCS#11 module: %s"
+msgstr "PKCS#11 పర్వికాన్ని ఎక్కించుటలో దోషం: %s"
+
+#: ../gck/gck-module.c:360
+#, c-format
+msgid "Invalid PKCS#11 module: %s"
+msgstr "చెల్లని PKCS#11 పర్వికం: %s"
+
+#: ../gck/gck-module.c:369
+#, c-format
+msgid "Couldn't setup PKCS#11 module: %s"
+msgstr "PKCS#11 పర్వికాన్ని అమర్చలేకపోయింది: %s"
+
+#: ../gck/gck-module.c:385
+#, c-format
+msgid "Couldn't initialize PKCS#11 module: %s"
+msgstr "PKCS#11 పర్వికాన్ని ఆరంభించలేకపోతుంది: %s"
+
+#: ../gck/gck-modules.c:67
+#, c-format
+msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgstr "నమోదయిన PKCS#11 పర్వికాన్ని ఆరంభించుటలో దోషం: %s"
+
+#: ../gcr/gcr-callback-output-stream.c:64
+#: ../gcr/gcr-callback-output-stream.c:81
+#, fuzzy, c-format
+msgid "The stream was closed"
+msgstr "డేటా లాక్ చేయబడింది"
+
+#. later
+#. later
+#: ../gcr/gcr-certificate.c:378 ../gcr/gcr-gnupg-key.c:521
+msgctxt "column"
+msgid "Name"
+msgstr "పేరు"
+
+#: ../gcr/gcr-certificate.c:380
+msgctxt "column"
+msgid "Issued By"
+msgstr "జారీచేసినవారు"
+
+#. later
+#: ../gcr/gcr-certificate.c:382
+msgctxt "column"
+msgid "Expires"
+msgstr "కాలంచెల్లేది"
+
+#: ../gcr/gcr-certificate.c:1067 ../gcr/gcr-certificate-exporter.c:463
+#: ../gcr/gcr-certificate-renderer.c:101 ../gcr/gcr-parser.c:316
+msgid "Certificate"
+msgstr "ధృవీకరణపత్రం"
+
+#: ../gcr/gcr-certificate-exporter.c:225
+msgid ""
+"<b>A file already exists with this name.</b>\n"
+"\n"
+"Do you want to replace it with a new file?"
+msgstr ""
+"<b>ఈ పేరుతో ఇదివరకే ఒక ఫైల్ ఉన్నది.</b>\n"
+"\n"
+"దీనిని ఒక కొత్త ఫైలుతో పునఃస్థాపించాలనుకుంటున్నారా?"
+
+#: ../gcr/gcr-certificate-exporter.c:228
+msgid "_Replace"
+msgstr "పునఃస్థాపించు (_R)"
+
+#: ../gcr/gcr-certificate-exporter.c:258
+#, c-format
+msgid "The operation was cancelled."
+msgstr "ఆపరేషన్ రద్దుచేయబడింది."
+
+#: ../gcr/gcr-certificate-exporter.c:302
+msgid "Export certificate"
+msgstr "ధృవీకరణపత్రాన్ని ఎగుమతిచేయి"
+
+#: ../gcr/gcr-certificate-exporter.c:314
+msgid "Certificate files"
+msgstr "ధృవీకరణ ఫైళ్ళు"
+
+#: ../gcr/gcr-certificate-exporter.c:325
+msgid "PEM files"
+msgstr "PEM ఫైళ్ళు"
+
+#: ../gcr/gcr-certificate-extensions.c:141
+msgid "Other Name"
+msgstr "ఇతర పేరు"
+
+#: ../gcr/gcr-certificate-extensions.c:150
+msgid "XMPP Addr"
+msgstr "XMPP Addr"
+
+#: ../gcr/gcr-certificate-extensions.c:154
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: ../gcr/gcr-certificate-extensions.c:166 ../gcr/gcr-gnupg-renderer.c:424
+#: ../gcr/gcr-gnupg-renderer.c:706
+msgid "Email"
+msgstr "ఈమెయిల్"
+
+#: ../gcr/gcr-certificate-extensions.c:174
+msgid "DNS"
+msgstr "DNS"
+
+#: ../gcr/gcr-certificate-extensions.c:182
+msgid "X400 Address"
+msgstr "X400 చిరునామా"
+
+#: ../gcr/gcr-certificate-extensions.c:189
+msgid "Directory Name"
+msgstr "సంచయం పేరు"
+
+#: ../gcr/gcr-certificate-extensions.c:197
+msgid "EDI Party Name"
+msgstr "EDI పార్టీ పేరు"
+
+#: ../gcr/gcr-certificate-extensions.c:204
+msgid "URI"
+msgstr "URI"
+
+#: ../gcr/gcr-certificate-extensions.c:212
+msgid "IP Address"
+msgstr "ఐపీ చిరునామా"
+
+#: ../gcr/gcr-certificate-extensions.c:220
+msgid "Registered ID"
+msgstr "నమోదుచేసిన ఐడి"
+
+#: ../gcr/gcr-certificate-renderer.c:116
+msgid "Basic Constraints"
+msgstr "ప్రాథమిక నిరోధాలు"
+
+#: ../gcr/gcr-certificate-renderer.c:118
+msgid "Certificate Authority"
+msgstr "ధృవీకరణపత్రం నియంత్రణసంస్థ"
+
+#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+msgid "Yes"
+msgstr "అవును"
+
+#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+msgid "No"
+msgstr "కాదు"
+
+#: ../gcr/gcr-certificate-renderer.c:122
+msgid "Max Path Length"
+msgstr "గరిష్ట పథం పొడవు"
+
+#: ../gcr/gcr-certificate-renderer.c:123
+msgid "Unlimited"
+msgstr "అపరిమితం"
+
+#: ../gcr/gcr-certificate-renderer.c:142
+msgid "Extended Key Usage"
+msgstr "పొడిగించినబడిన కీ వాడుక"
+
+#: ../gcr/gcr-certificate-renderer.c:153
+msgid "Allowed Purposes"
+msgstr "అనుమతించదగిన ప్రయోజనాలు"
+
+#: ../gcr/gcr-certificate-renderer.c:173
+msgid "Subject Key Identifier"
+msgstr "విషయ కీ గుర్తింపరి"
+
+#: ../gcr/gcr-certificate-renderer.c:174
+msgid "Key Identifier"
+msgstr "కీ గుర్తింపరి"
+
+#: ../gcr/gcr-certificate-renderer.c:185
+msgid "Digital signature"
+msgstr "డిజిటల్ సంతకము"
+
+#: ../gcr/gcr-certificate-renderer.c:186
+msgid "Key encipherment"
+msgstr "కీ ఎన్‌సైఫెర్మెంట్"
+
+#: ../gcr/gcr-certificate-renderer.c:187
+msgid "Data encipherment"
+msgstr "డేటా ఎన్‌సైఫెర్మెంట్"
+
+#: ../gcr/gcr-certificate-renderer.c:188
+msgid "Key agreement"
+msgstr "కీ ఒప్పందం"
+
+#: ../gcr/gcr-certificate-renderer.c:189
+msgid "Certificate signature"
+msgstr "ధృవీకరణపత్రం సంతకం"
+
+#: ../gcr/gcr-certificate-renderer.c:190
+msgid "Revocation list signature"
+msgstr "ఉపసంహరణ జాబితా సంతకం"
+
+#: ../gcr/gcr-certificate-renderer.c:215
+msgid "Key Usage"
+msgstr "కీ వాడుక"
+
+#: ../gcr/gcr-certificate-renderer.c:216
+msgid "Usages"
+msgstr "వాడుకలు"
+
+#: ../gcr/gcr-certificate-renderer.c:236
+msgid "Subject Alternative Names"
+msgstr "విషయం ప్రత్యామ్నాయ పేర్లు"
+
+#: ../gcr/gcr-certificate-renderer.c:261
+msgid "Extension"
+msgstr "పొడిగింపు"
+
+#: ../gcr/gcr-certificate-renderer.c:265
+msgid "Identifier"
+msgstr "గుర్తింపకరి"
+
+#: ../gcr/gcr-certificate-renderer.c:266 ../gcr/gcr-gnupg-renderer.c:415
+#: ../gcr/gcr-gnupg-renderer.c:432
+msgid "Value"
+msgstr "విలువ"
+
+#: ../gcr/gcr-certificate-renderer.c:313
+msgid "Critical"
+msgstr "క్లిష్టమైనది"
+
+#: ../gcr/gcr-certificate-renderer.c:386
+msgid "Couldn't export the certificate."
+msgstr "ధృవీకరణపత్రాన్ని ఎగుమతి చేయలేకపోతుంది."
+
+#: ../gcr/gcr-certificate-renderer.c:613
+msgid "Identity"
+msgstr "గుర్తింపు"
+
+#: ../gcr/gcr-certificate-renderer.c:617
+msgid "Verified by"
+msgstr "ధృవీకరించినవారు"
+
+#: ../gcr/gcr-certificate-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:720
+msgid "Expires"
+msgstr "కాలంచెల్లేది"
+
+#. The subject
+#: ../gcr/gcr-certificate-renderer.c:634
+msgid "Subject Name"
+msgstr "విషయం పేరు"
+
+#. The Issuer
+#: ../gcr/gcr-certificate-renderer.c:638
+msgid "Issuer Name"
+msgstr "ఇచ్చువాని పేరు"
+
+#. The Issued Parameters
+#: ../gcr/gcr-certificate-renderer.c:642
+msgid "Issued Certificate"
+msgstr "ఇచ్చిన ధృవీకరణపత్రం"
+
+#: ../gcr/gcr-certificate-renderer.c:647
+msgid "Version"
+msgstr "రూపాంతరం"
+
+#: ../gcr/gcr-certificate-renderer.c:658
+msgid "Not Valid Before"
+msgstr "ఇంతకు మునుపు చెల్లునదికాదు"
+
+#: ../gcr/gcr-certificate-renderer.c:663
+msgid "Not Valid After"
+msgstr "తర్వాత చెల్లునది కాదు"
+
+#. Fingerprints
+#: ../gcr/gcr-certificate-renderer.c:668
+msgid "Certificate Fingerprints"
+msgstr "ధృవీకరణపత్రం వేలిముద్రలు"
+
+#. Signature
+#: ../gcr/gcr-certificate-renderer.c:674 ../gcr/gcr-certificate-renderer.c:686
+#: ../gcr/gcr-gnupg-renderer.c:561
+msgid "Signature"
+msgstr "సంతకము"
+
+#: ../gcr/gcr-certificate-renderer.c:678
+msgid "Signature Algorithm"
+msgstr "సంతకపు అల్గారిథమ్"
+
+#: ../gcr/gcr-certificate-renderer.c:682
+msgid "Signature Parameters"
+msgstr "సంతకం పారామితులు"
+
+#. Public Key Info
+#: ../gcr/gcr-certificate-renderer.c:690
+msgid "Public Key Info"
+msgstr "పబ్లిక్ కీ సమాచారము"
+
+#: ../gcr/gcr-certificate-renderer.c:695
+msgid "Key Algorithm"
+msgstr "కీ అల్గారిథమ్"
+
+#: ../gcr/gcr-certificate-renderer.c:700
+msgid "Key Parameters"
+msgstr "కీ పారామితులు"
+
+#: ../gcr/gcr-certificate-renderer.c:705 ../gcr/gcr-gnupg-renderer.c:354
+msgid "Key Size"
+msgstr "కీ పరిమాణం"
+
+#: ../gcr/gcr-certificate-renderer.c:712
+msgid "Key SHA1 Fingerprint"
+msgstr "కీ SHA1 వేలిముద్ర"
+
+#: ../gcr/gcr-certificate-renderer.c:718 ../gcr/gcr-gnupg-renderer.c:739
+#: ../gcr/gcr-key-renderer.c:292 ../gcr/gcr-parser.c:319
+msgid "Public Key"
+msgstr "బహిరంగ కీ"
+
+#: ../gcr/gcr-display-view.c:319
+msgid "_Details"
+msgstr "వివరాలు (_D)"
+
+#: ../gcr/gcr-failure-renderer.c:161
+#, c-format
+msgid "Could not display '%s'"
+msgstr "'%s' ప్రదర్శించబడదు"
+
+#: ../gcr/gcr-failure-renderer.c:163
+msgid "Could not display file"
+msgstr "ఫైలును ప్రదర్శించుట వీలుకాదు"
+
+#: ../gcr/gcr-failure-renderer.c:168
+msgid "Reason"
+msgstr "కారణం"
+
+#: ../gcr/gcr-failure-renderer.c:218
+#, c-format
+msgid "Cannot display a file of this type."
+msgstr "ఈ రకపు ఫైలు ప్రదర్శించబడదు."
+
+#: ../gcr/gcr-gnupg-importer.c:93
+#, fuzzy
+msgid "GnuPG Keyring"
+msgstr "కీరింగును తెరవండి"
+
+#: ../gcr/gcr-gnupg-importer.c:95
+#, fuzzy, c-format
+msgid "GnuPG Keyring: %s"
+msgstr "PGP కీ: %s"
+
+#: ../gcr/gcr-gnupg-key.c:234 ../gcr/gcr-gnupg-renderer.c:88
+#: ../gcr/gcr-parser.c:322
+msgid "PGP Key"
+msgstr "PGP కీ"
+
+#: ../gcr/gcr-gnupg-key.c:523
+msgctxt "column"
+msgid "Key ID"
+msgstr "కీ ఐడి"
+
+#: ../gcr/gcr-gnupg-process.c:860
+#, c-format
+msgid "Gnupg process exited with code: %d"
+msgstr "Gnupg ప్రక్రియి ఈ కోడ్‌తో నిష్క్రమించింది: %d"
+
+#: ../gcr/gcr-gnupg-process.c:867
+#, c-format
+msgid "Gnupg process was terminated with signal: %d"
+msgstr "Gnupg ప్రక్రియి ఈ సిగ్నల్‌తో నిష్క్రమించింది: %d"
+
+#: ../gcr/gcr-gnupg-process.c:921 ../gcr/gcr-parser.c:2177
+#: ../gcr/gcr-parser.c:2681
+msgid "The operation was cancelled"
+msgstr "ఆపరేషన్ రద్దుచేయబడింది"
+
+#: ../gcr/gcr-gnupg-renderer.c:204
+msgid "Elgamal"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:217
+msgid "Encrypt"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:219
+#, fuzzy
+msgid "Sign"
+msgstr "సంతకము"
+
+#: ../gcr/gcr-gnupg-renderer.c:221
+#, fuzzy
+msgid "Certify"
+msgstr "ధృవీకరణపత్రం"
+
+#: ../gcr/gcr-gnupg-renderer.c:223
+#, fuzzy
+msgid "Authenticate"
+msgstr "సేవకం ధృవీకరణ"
+
+#: ../gcr/gcr-gnupg-renderer.c:225 ../gcr/gcr-gnupg-renderer.c:260
+msgid "Disabled"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:256 ../gcr/gcr-gnupg-renderer.c:415
+#: ../gcr/gcr-key-renderer.c:312 ../gcr/gcr-key-renderer.c:317
+msgid "Unknown"
+msgstr "తెలియదు"
+
+#: ../gcr/gcr-gnupg-renderer.c:258
+msgid "Invalid"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:262
+msgid "Revoked"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:264
+#, fuzzy
+msgid "Expired"
+msgstr "కాలంచెల్లేది"
+
+#: ../gcr/gcr-gnupg-renderer.c:266
+msgid "Undefined trust"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:268
+msgid "Distrusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:270
+msgid "Marginally trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:272
+msgid "Fully trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:274
+msgid "Ultimately trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:288
+msgid "The information in this key has not yet been verified"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:291
+msgid "This key is invalid"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:294
+msgid "This key has been disabled"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:297
+msgid "This key has been revoked"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:300
+msgid "This key has expired"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:305
+msgid "This key is distrusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:308
+msgid "This key is marginally trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:311
+msgid "This key is fully trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:314
+msgid "This key is ultimately trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:339 ../gcr/gcr-gnupg-renderer.c:565
+#, fuzzy
+msgid "Key ID"
+msgstr "కీ ఐడి"
+
+#: ../gcr/gcr-gnupg-renderer.c:347 ../gcr/gcr-gnupg-renderer.c:573
+#: ../gcr/gcr-gnupg-renderer.c:620 ../gcr/gcr-key-renderer.c:313
+msgid "Algorithm"
+msgstr "అల్గారిథమ్"
+
+#: ../gcr/gcr-gnupg-renderer.c:362 ../gcr/gcr-gnupg-renderer.c:439
+#: ../gcr/gcr-gnupg-renderer.c:482
+msgid "Created"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:371 ../gcr/gcr-gnupg-renderer.c:448
+#: ../gcr/gcr-gnupg-renderer.c:491
+#, fuzzy
+msgid "Expiry"
+msgstr "కాలంచెల్లేది"
+
+#: ../gcr/gcr-gnupg-renderer.c:380
+msgid "Capabilities"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:393
+msgid "Owner trust"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:421
+#, fuzzy
+msgid "Name"
+msgstr "పేరు"
+
+#: ../gcr/gcr-gnupg-renderer.c:427 ../gcr/gcr-gnupg-renderer.c:709
+msgid "Comment"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:467
+msgid "User Attribute"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:474 ../gcr/gcr-key-renderer.c:320
+msgid "Size"
+msgstr "పరిమాణం"
+
+#: ../gcr/gcr-gnupg-renderer.c:509
+#, fuzzy
+msgid "Signature of a binary document"
+msgstr "సంతకం పారామితులు"
+
+#: ../gcr/gcr-gnupg-renderer.c:511
+msgid "Signature of a canonical text document"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:513
+#, fuzzy
+msgid "Standalone signature"
+msgstr "డిజిటల్ సంతకము"
+
+#: ../gcr/gcr-gnupg-renderer.c:515
+#, fuzzy
+msgid "Generic certification of key"
+msgstr "ధృవీకరణపత్నాన్ని అన్‌లాక్ చేయి"
+
+#: ../gcr/gcr-gnupg-renderer.c:517
+msgid "Persona certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:519
+msgid "Casual certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:521
+msgid "Positive certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:523
+msgid "Subkey binding signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:525
+msgid "Primary key binding signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:527
+#, fuzzy
+msgid "Signature directly on key"
+msgstr "సంతకం పారామితులు"
+
+#: ../gcr/gcr-gnupg-renderer.c:529
+#, fuzzy
+msgid "Key revocation signature"
+msgstr "ఉపసంహరణ జాబితా సంతకం"
+
+#: ../gcr/gcr-gnupg-renderer.c:531
+#, fuzzy
+msgid "Subkey revocation signature"
+msgstr "ఉపసంహరణ జాబితా సంతకం"
+
+#: ../gcr/gcr-gnupg-renderer.c:533
+#, fuzzy
+msgid "Certification revocation signature"
+msgstr "ధృవీకరణపత్రం సంతకం"
+
+#: ../gcr/gcr-gnupg-renderer.c:535
+#, fuzzy
+msgid "Timestamp signature"
+msgstr "డిజిటల్ సంతకము"
+
+#: ../gcr/gcr-gnupg-renderer.c:537
+msgid "Third-party confirmation signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:598
+msgid "Class"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:592 ../gcr/gcr-gnupg-renderer.c:594
+msgid "Type"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:592
+#, fuzzy
+msgid "Local only"
+msgstr "ప్రాంతీయత"
+
+#: ../gcr/gcr-gnupg-renderer.c:594
+msgid "Exportable"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:612
+#, fuzzy
+msgid "Revocation Key"
+msgstr "ఉపసంహరణ జాబితా సంతకం"
+
+#: ../gcr/gcr-gnupg-renderer.c:626 ../gcr/gcr-gnupg-renderer.c:650
+#: ../gcr/gcr-gnupg-renderer.c:652
+#, fuzzy
+msgid "Fingerprint"
+msgstr "వేలిముద్రలు"
+
+#: ../gcr/gcr-gnupg-renderer.c:741
+#, fuzzy
+msgid "Public Subkey"
+msgstr "బహిరంగ కీ"
+
+#: ../gcr/gcr-gnupg-renderer.c:743
+msgid "Secret Key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:745
+msgid "Secret Subkey"
+msgstr ""
+
+#: ../gcr/gcr-import-button.c:108
+#, fuzzy
+msgid "Initializing..."
+msgstr "మొదలు"
+
+#: ../gcr/gcr-import-button.c:116
+msgid "Import is in progress..."
+msgstr ""
+
+#: ../gcr/gcr-import-button.c:123
+#, fuzzy, c-format
+msgid "Imported to: %s"
+msgstr "దీనికి దిగమతిచేయి:"
+
+#: ../gcr/gcr-import-button.c:143
+#, fuzzy, c-format
+msgid "Import to: %s"
+msgstr "దీనికి దిగమతిచేయి:"
+
+#: ../gcr/gcr-import-button.c:156
+msgid "Cannot import because there are no compatible importers"
+msgstr ""
+
+#: ../gcr/gcr-import-button.c:165
+#, fuzzy
+msgid "No data to import"
+msgstr "దీనికి దిగుమతి చేయుటకు ఏ స్థానము లభ్యతలో లేదు"
+
+#: ../gcr/gcr-key-renderer.c:82
+msgid "Key"
+msgstr "కీ"
+
+#: ../gcr/gcr-key-renderer.c:281
+msgid "Private RSA Key"
+msgstr "వ్యక్తిగత RSA కీ"
+
+#: ../gcr/gcr-key-renderer.c:283
+msgid "Private DSA Key"
+msgstr "వ్యక్తిగత DSA కీ"
+
+#: ../gcr/gcr-key-renderer.c:285 ../gcr/gcr-parser.c:313
+msgid "Private Key"
+msgstr "వ్యక్తిగత కీ"
+
+#: ../gcr/gcr-key-renderer.c:288 ../gcr/gcr-key-renderer.c:290
+msgid "Public DSA Key"
+msgstr "బహిరంగ DSA కీ"
+
+#: ../gcr/gcr-key-renderer.c:299
+#, c-format
+msgid "%d bit"
+msgid_plural "%d bits"
+msgstr[0] "%d బిట్"
+msgstr[1] "%d బిట్లు"
+
+#: ../gcr/gcr-key-renderer.c:300
+msgid "Strength"
+msgstr "ధృడత్వం"
+
+#. Fingerprints
+#: ../gcr/gcr-key-renderer.c:324
+msgid "Fingerprints"
+msgstr "వేలిముద్రలు"
+
+#: ../gcr/gcr-key-renderer.c:329
+msgid "SHA1"
+msgstr "SHA1"
+
+#: ../gcr/gcr-key-renderer.c:335
+msgid "SHA256"
+msgstr "SHA256"
+
+#: ../gcr/gcr-parser.c:2180
+msgid "Unrecognized or unsupported data."
+msgstr "గుర్తించబడని లేదా సహకరించబడని డేటా."
+
+#: ../gcr/gcr-parser.c:2183
+msgid "Could not parse invalid or corrupted data."
+msgstr "సరికాని లేదా పాడైన డేటాను పార్శ్ చేయలేకపోయింది"
+
+#: ../gcr/gcr-parser.c:2186
+msgid "The data is locked"
+msgstr "డేటా లాక్ చేయబడింది"
+
+#: ../gcr/gcr-pkcs11-import-dialog.c:186
+msgid "Automatically chosen"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.c:270
+#: ../gcr/gcr-pkcs11-import-interaction.c:153
+#: ../gcr/gcr-pkcs11-import-interaction.c:171
+#, c-format
+msgid "The user cancelled the operation"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
+msgid "<b>Import settings</b>"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
+#, fuzzy
+msgid "<b>Unlock</b>"
+msgstr "అన్‌లాక్"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
+#, fuzzy
+msgid "In order to import, please enter the password."
+msgstr "'%s' దిగుమతి చేయుటకు, అది అన్‌లాక్ చేయబడాలి"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
+msgid "Label"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
+msgid "Label:"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Password:"
+msgstr "సంకేతపదం:"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
+msgid "Token:"
+msgstr ""
+
+#. Translators: A pinned certificate is an exception which
+#. trusts a given certificate explicitly for a purpose and
+#. communication with a certain peer.
+#: ../gcr/gcr-trust.c:376
+#, c-format
+msgid "Couldn't find a place to store the pinned certificate"
+msgstr "గుర్తింపు ధృవీకరణపత్రమును నిల్వవుంచుటకు స్థానమును కనుగొనలేకపోతుంది"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:1
+msgid "Automatically unlock this keyring whenever I'm logged in"
+msgstr "నేను లాగిన్ అయినప్పుడు స్వయంచాలకంగా ఈ కీరింగ్‌ను అన్‌లాక్ చేయి"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:2
+msgid "Lock this keyring after"
+msgstr "ఇంత సమయం తరువాత కీరింగును లాక్ చేయి"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:3
+msgid "Lock this keyring if idle for"
+msgstr "ఇంత సమయం వాడుకలో లేకుంటే కీరింగును లాక్ చేయి"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:4
+msgid "Lock this keyring when I log out"
+msgstr "నేను నిష్క్రమించినపుడు కీరింగును లాక్ చేయి"
+
+#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#: ../gcr/gcr-unlock-options-widget.ui.h:6
+msgid "minutes"
+msgstr "నిమిషాలు"
+
+#: ../gcr/gcr-unlock-renderer.c:70
+#, c-format
+msgid "Unlock: %s"
+msgstr "అన్‌లాక్: %s"
+
+#: ../gcr/gcr-unlock-renderer.c:72 ../gcr/gcr-unlock-renderer.c:129
+msgid "Unlock"
+msgstr "అన్‌లాక్"
+
+#: ../gcr/gcr-unlock-renderer.c:126
+msgid "Password"
+msgstr "సంకేతపదం"
+
+#: ../gcr/gcr-unlock-renderer.c:279
+#, c-format
+msgid ""
+"The contents of '%s' are locked. In order to view the contents, enter the "
+"correct password."
+msgstr "'%s' యొక్క అంశాలు తాళంవేయబడివున్నాయి. అంశాలను చూడాలంటే, సరైన సంకేతపదాన్ని ప్రవేశపెట్టండి."
+
+#: ../gcr/gcr-unlock-renderer.c:282
+msgid ""
+"The contents are locked. In order to view the contents, enter the correct "
+"password."
+msgstr "అంశాలు తాళంవేయబడివున్నాయి. అంశాలను చూడాలంటే, సరైన సంకేతపదాన్ని ప్రవేశపెట్టండి."
+
+#: ../gcr/gcr-viewer-tool.c:41
+msgid "GCR Certificate and Key Viewer"
+msgstr "GCR ధృవీకరణపత్రం మరియు కీ వీక్షకం"
+
+#: ../gcr/gcr-viewer-tool.c:48
+msgid "Show the application's version"
+msgstr "అనువర్తనం యొక్క రూపాంతరాన్ని చూపించు"
+
+#: ../gcr/gcr-viewer-tool.c:50
+msgid "[file...]"
+msgstr "[file...]"
+
+#: ../gcr/gcr-viewer-tool.c:104
+msgid "- View certificate and key files"
+msgstr "- ధృవీకరణపత్రం మరియు కీ  ఫైళ్ళను చూడు"
+
+#: ../gcr/gcr-viewer-tool.c:118
+msgid "Certificate Viewer"
+msgstr "ధృవీకరణపత్ర వీక్షకం"
+
+#: ../gcr/gcr-viewer-widget.c:191
+msgid "The password was incorrect"
+msgstr "సంకేతపదము తప్పు"
+
+#: ../gcr/gcr-viewer-window.c:68
+#, fuzzy
+msgid "Imported"
+msgstr "దీనికి దిగమతిచేయి:"
+
+#: ../gcr/gcr-viewer-window.c:72
+msgid "Import failed"
+msgstr ""
+
+#: ../gcr/gcr-viewer-window.c:103
+#, fuzzy
+msgid "Import"
+msgstr "దీనికి దిగమతిచేయి:"
+
+#: ../gck/gck-uri.c:223
+#, c-format
+msgid "The URI has invalid encoding."
+msgstr "URI చెల్లని ఎన్కోడింగు కలిగివుంది."
+
+#: ../gck/gck-uri.c:227
+msgid "The URI does not have the 'pkcs11' scheme."
+msgstr "URI 'pkcs11' పథకాన్ని కలిగిలేదు."
+
+#: ../gck/gck-uri.c:231
+msgid "The URI has bad syntax."
+msgstr "URI తప్పుడు వాక్యనిర్మాణాన్ని కలిగివుంది."
+
+#: ../gck/gck-uri.c:235
+msgid "The URI has a bad version number."
+msgstr "URI చెడ్డ రూపాంతర సంఖ్యను కలిగివుంది."

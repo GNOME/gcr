@@ -31,11 +31,10 @@
 #include "gcr-library.h"
 #include "gcr-trust.h"
 
-#include <gck/gck.h>
-
-#include "pkcs11/pkcs11n.h"
-#include "pkcs11/pkcs11i.h"
-#include "pkcs11/pkcs11x.h"
+#include "gck/gck.h"
+#include "gck/pkcs11n.h"
+#include "gck/pkcs11i.h"
+#include "gck/pkcs11x.h"
 
 #include <glib/gi18n-lib.h>
 

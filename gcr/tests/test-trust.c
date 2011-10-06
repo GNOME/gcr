@@ -27,10 +27,9 @@
 
 #include "gck/gck-mock.h"
 #include "gck/gck-test.h"
-
-#include "pkcs11/pkcs11.h"
-#include "pkcs11/pkcs11n.h"
-#include "pkcs11/pkcs11x.h"
+#include "gck/pkcs11.h"
+#include "gck/pkcs11n.h"
+#include "gck/pkcs11x.h"
 
 #include "egg/egg-testing.h"
 

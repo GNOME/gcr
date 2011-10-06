@@ -31,8 +31,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "pkcs11/pkcs11i.h"
-#include "pkcs11/pkcs11x.h"
+#include "pkcs11i.h"
+#include "pkcs11x.h"
 
 static void
 dump_class_value (gulong klass)

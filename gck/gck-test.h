@@ -23,8 +23,8 @@
 
 #include "gck/gck.h"
 
-#include "pkcs11/pkcs11.h"
-#include "pkcs11/pkcs11i.h"
+#include "pkcs11.h"
+#include "pkcs11i.h"
 
 #ifndef GCK_TEST_H
 #define GCK_TEST_H

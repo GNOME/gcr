@@ -28,8 +28,7 @@
 #include "gcr/gcr-fingerprint.h"
 
 #include "gck/gck-test.h"
-
-#include "pkcs11/pkcs11n.h"
+#include "gck/pkcs11n.h"
 
 #include "egg/egg-asn1x.h"
 #include "egg/egg-asn1-defs.h"

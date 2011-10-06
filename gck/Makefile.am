@@ -9,13 +9,15 @@ HEADER_FILES = \
 
 inc_HEADERS = \
 	$(HEADER_FILES) \
-	gck-enum-types.h
+	gck-enum-types.h \
+	pkcs11.h \
+	pkcs11n.h \
+	pkcs11x.h
 
 INCLUDES = \
 	-I$(top_builddir) \
 	-I$(top_srcdir) \
 	$(P11_KIT_CFLAGS) \
-	$(GOBJECT_CFLAGS) \
 	$(GTHREAD_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	-DG_LOG_DOMAIN=\"Gck\" \
@@ -65,7 +67,6 @@ libgck_@GCK_MAJOR@_la_LDFLAGS = \
 libgck_@GCK_MAJOR@_la_LIBADD = \
 	$(top_builddir)/egg/libegg-hex.la \
 	$(P11_KIT_LIBS) \
-	$(GOBJECT_LIBS) \
 	$(GTHREAD_LIBS) \
 	$(GIO_LIBS) \
 	$(GLIB_LIBS)
@@ -148,14 +149,18 @@ EXTRA_DIST = \
 	gck.symbols \
 	gck-enum-types.h.template \
 	gck-enum-types.c.template \
-	pkcs11-trust-assertions.h
+	pkcs11-trust-assertions.h \
+	pkcs11i.h
+
 
 CLEANFILES = \
 	gck-actual.abi \
 	gck-expected.abi
 
 DISTCLEANFILES = \
-	gck-$(GCK_MAJOR).pc
+	gck-$(GCK_MAJOR).pc \
+	$(gir_DATA) \
+	$(typelibs_DATA)
 
 gck-$(GCK_MAJOR).pc: gck.pc
 	cp gck.pc gck-$(GCK_MAJOR).pc

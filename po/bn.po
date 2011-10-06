@@ -1,0 +1,1056 @@
+# Bengali translation for gnome-keyring
+# This file is distributed under the same license as the gnome-keyring package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Runa Bhattacharjee <runa@bengalinux.org>, 2004.
+# Runa Bhattacharjee <runabh@gmail.com>, 2007.
+# Runa Bhattacharjee <runab@redhat.com>, 2008, 2009.
+# Maruf Ovee <maruf@ankur.org.bd>, 2009.
+# Loba Yeasmeen <loba@ankur.org.bd>, 2010.
+# Israt Jahan <israt@ankur.org.bd>, 2010.
+# Zenat Rahnuma <zenat@ankur.org.bd>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: bn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-10-06 11:51+0200\n"
+"PO-Revision-Date: 2011-03-30 14:35+0600\n"
+"Last-Translator: Zenat Rahnuma <zenat@ankur.org.bd>\n"
+"Language-Team: Bengali <ankur-bd-l10n@googlegroups.com>\n"
+"Language: bn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
+"X-Language: bn_BD\n"
+
+#: ../egg/egg-oid.c:41
+msgid "Domain Component"
+msgstr "ডোমেইনের অংশবিশেষ"
+
+#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:411
+#: ../gcr/gcr-gnupg-renderer.c:580
+msgid "User ID"
+msgstr "ব্যবহারকারীর ID"
+
+#: ../egg/egg-oid.c:46
+msgid "Email Address"
+msgstr "ইমেইল ঠিকানা"
+
+#: ../egg/egg-oid.c:54
+msgid "Date of Birth"
+msgstr "জন্মদিন"
+
+#: ../egg/egg-oid.c:56
+msgid "Place of Birth"
+msgstr "জন্মস্থান"
+
+#: ../egg/egg-oid.c:58
+msgid "Gender"
+msgstr "লিঙ্গ"
+
+#: ../egg/egg-oid.c:60
+msgid "Country of Citizenship"
+msgstr "নাগরিকত্ব"
+
+#: ../egg/egg-oid.c:62
+msgid "Country of Residence"
+msgstr "বসবাসের দেশ"
+
+#: ../egg/egg-oid.c:65
+msgid "Common Name"
+msgstr "নাম"
+
+#: ../egg/egg-oid.c:67
+msgid "Surname"
+msgstr "পদবি"
+
+#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:652
+msgid "Serial Number"
+msgstr "ক্রমিক সংখ্যা"
+
+#: ../egg/egg-oid.c:71
+msgid "Country"
+msgstr "দেশ"
+
+#: ../egg/egg-oid.c:73
+msgid "Locality"
+msgstr "অঞ্চল"
+
+#: ../egg/egg-oid.c:75
+msgid "State"
+msgstr "প্রদেশ"
+
+#: ../egg/egg-oid.c:77
+msgid "Street"
+msgstr "রাস্তা"
+
+#: ../egg/egg-oid.c:79
+msgid "Organization"
+msgstr "প্রতিষ্ঠান"
+
+#: ../egg/egg-oid.c:81
+msgid "Organizational Unit"
+msgstr "প্রাতিষ্ঠানিক বিভাগ"
+
+#: ../egg/egg-oid.c:83
+msgid "Title"
+msgstr "পদ"
+
+#: ../egg/egg-oid.c:85
+msgid "Telephone Number"
+msgstr "টেলিফোন নম্বর"
+
+#: ../egg/egg-oid.c:87
+msgid "Given Name"
+msgstr "প্রদত্ত নাম"
+
+#: ../egg/egg-oid.c:89
+msgid "Initials"
+msgstr "অদ্যাক্ষর"
+
+#: ../egg/egg-oid.c:91
+msgid "Generation Qualifier"
+msgstr "উৎপাদনের যোগ্যতা নির্বাচনকারী"
+
+#: ../egg/egg-oid.c:93
+msgid "DN Qualifier"
+msgstr "DN যোগ্যতা নির্বাচনকারী"
+
+#: ../egg/egg-oid.c:95
+msgid "Pseudonym"
+msgstr "ছদ্মনাম"
+
+#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:202
+#: ../gcr/gcr-key-renderer.c:308
+msgid "RSA"
+msgstr "RSA"
+
+#: ../egg/egg-oid.c:99
+msgid "MD2 with RSA"
+msgstr "RSA সহ MD2"
+
+#: ../egg/egg-oid.c:100
+msgid "MD5 with RSA"
+msgstr "RSA সহ MD5"
+
+#: ../egg/egg-oid.c:101
+msgid "SHA1 with RSA"
+msgstr "RSA সহ SHA1"
+
+#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:206
+#: ../gcr/gcr-key-renderer.c:310
+msgid "DSA"
+msgstr "DSA"
+
+#: ../egg/egg-oid.c:104
+msgid "SHA1 with DSA"
+msgstr "DSA সহ SHA1"
+
+#. Extended Key Usages
+#: ../egg/egg-oid.c:107
+#, fuzzy
+msgid "Server Authentication"
+msgstr "SSL সার্ভার সার্টিফিকেট"
+
+#: ../egg/egg-oid.c:108
+#, fuzzy
+msgid "Client Authentication"
+msgstr "SSL ক্লায়েন্ট সার্টিফিকেট"
+
+#: ../egg/egg-oid.c:109
+msgid "Code Signing"
+msgstr ""
+
+#: ../egg/egg-oid.c:110
+msgid "Email Protection"
+msgstr ""
+
+#: ../egg/egg-oid.c:111
+msgid "Time Stamping"
+msgstr ""
+
+#: ../gck/gck-module.c:353
+#, c-format
+msgid "Error loading PKCS#11 module: %s"
+msgstr ""
+
+#: ../gck/gck-module.c:360
+#, c-format
+msgid "Invalid PKCS#11 module: %s"
+msgstr ""
+
+#: ../gck/gck-module.c:369
+#, c-format
+msgid "Couldn't setup PKCS#11 module: %s"
+msgstr ""
+
+#: ../gck/gck-module.c:385
+#, c-format
+msgid "Couldn't initialize PKCS#11 module: %s"
+msgstr ""
+
+#: ../gck/gck-modules.c:67
+#, c-format
+msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgstr ""
+
+#: ../gcr/gcr-callback-output-stream.c:64
+#: ../gcr/gcr-callback-output-stream.c:81
+#, fuzzy, c-format
+msgid "The stream was closed"
+msgstr "সেশন বন্ধ হয়ে গিয়েছে"
+
+#. later
+#. later
+#: ../gcr/gcr-certificate.c:378 ../gcr/gcr-gnupg-key.c:521
+#, fuzzy
+msgctxt "column"
+msgid "Name"
+msgstr "নাম: (_N)"
+
+#: ../gcr/gcr-certificate.c:380
+#, fuzzy
+msgctxt "column"
+msgid "Issued By"
+msgstr "প্রদানের তারিখ"
+
+#. later
+#: ../gcr/gcr-certificate.c:382
+#, fuzzy
+msgctxt "column"
+msgid "Expires"
+msgstr "মেয়াদউত্তীর্ণ"
+
+#: ../gcr/gcr-certificate.c:1067 ../gcr/gcr-certificate-exporter.c:463
+#: ../gcr/gcr-certificate-renderer.c:101 ../gcr/gcr-parser.c:316
+msgid "Certificate"
+msgstr "সার্টিফিকেট"
+
+#: ../gcr/gcr-certificate-exporter.c:225
+msgid ""
+"<b>A file already exists with this name.</b>\n"
+"\n"
+"Do you want to replace it with a new file?"
+msgstr ""
+
+#: ../gcr/gcr-certificate-exporter.c:228
+msgid "_Replace"
+msgstr ""
+
+#: ../gcr/gcr-certificate-exporter.c:258
+#, fuzzy, c-format
+msgid "The operation was cancelled."
+msgstr "অপারেশন বাতিল করা হয়েছে"
+
+#: ../gcr/gcr-certificate-exporter.c:302
+#, fuzzy
+msgid "Export certificate"
+msgstr "সার্টিফিকেট আনলক "
+
+#: ../gcr/gcr-certificate-exporter.c:314
+#, fuzzy
+msgid "Certificate files"
+msgstr "সার্টিফিকেট"
+
+#: ../gcr/gcr-certificate-exporter.c:325
+msgid "PEM files"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:141
+#, fuzzy
+msgid "Other Name"
+msgstr "নির্মাণকারী নাম"
+
+#: ../gcr/gcr-certificate-extensions.c:150
+msgid "XMPP Addr"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:154
+msgid "DNS SRV"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:166 ../gcr/gcr-gnupg-renderer.c:424
+#: ../gcr/gcr-gnupg-renderer.c:706
+msgid "Email"
+msgstr "ইমেইল"
+
+#: ../gcr/gcr-certificate-extensions.c:174
+#, fuzzy
+msgid "DNS"
+msgstr "DSA"
+
+#: ../gcr/gcr-certificate-extensions.c:182
+#, fuzzy
+msgid "X400 Address"
+msgstr "ইমেইল ঠিকানা"
+
+#: ../gcr/gcr-certificate-extensions.c:189
+#, fuzzy
+msgid "Directory Name"
+msgstr "প্রসঙ্গের নাম"
+
+#: ../gcr/gcr-certificate-extensions.c:197
+msgid "EDI Party Name"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:204
+msgid "URI"
+msgstr ""
+
+#: ../gcr/gcr-certificate-extensions.c:212
+#, fuzzy
+msgid "IP Address"
+msgstr "ইমেইল ঠিকানা"
+
+#: ../gcr/gcr-certificate-extensions.c:220
+msgid "Registered ID"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:116
+msgid "Basic Constraints"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:118
+#, fuzzy
+msgid "Certificate Authority"
+msgstr "সার্টিফিকেট"
+
+#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+msgid "Yes"
+msgstr "হ্যাঁ"
+
+#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+msgid "No"
+msgstr "না"
+
+#: ../gcr/gcr-certificate-renderer.c:122
+msgid "Max Path Length"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:123
+msgid "Unlimited"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:142
+msgid "Extended Key Usage"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:153
+msgid "Allowed Purposes"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:173
+#, fuzzy
+msgid "Subject Key Identifier"
+msgstr "সনাক্তকারী"
+
+#: ../gcr/gcr-certificate-renderer.c:174
+#, fuzzy
+msgid "Key Identifier"
+msgstr "সনাক্তকারী"
+
+#: ../gcr/gcr-certificate-renderer.c:185
+#, fuzzy
+msgid "Digital signature"
+msgstr "স্বাক্ষর"
+
+#: ../gcr/gcr-certificate-renderer.c:186
+msgid "Key encipherment"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:187
+msgid "Data encipherment"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:188
+#, fuzzy
+msgid "Key agreement"
+msgstr "কী-এর প্যারামিটার"
+
+#: ../gcr/gcr-certificate-renderer.c:189
+#, fuzzy
+msgid "Certificate signature"
+msgstr "সার্টিফিকেট"
+
+#: ../gcr/gcr-certificate-renderer.c:190
+msgid "Revocation list signature"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:215
+msgid "Key Usage"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:216
+msgid "Usages"
+msgstr ""
+
+#: ../gcr/gcr-certificate-renderer.c:236
+#, fuzzy
+msgid "Subject Alternative Names"
+msgstr "প্রসঙ্গের নাম"
+
+#: ../gcr/gcr-certificate-renderer.c:261
+msgid "Extension"
+msgstr "প্রসারণ"
+
+#: ../gcr/gcr-certificate-renderer.c:265
+msgid "Identifier"
+msgstr "সনাক্তকারী"
+
+#: ../gcr/gcr-certificate-renderer.c:266 ../gcr/gcr-gnupg-renderer.c:415
+#: ../gcr/gcr-gnupg-renderer.c:432
+msgid "Value"
+msgstr "মান"
+
+#: ../gcr/gcr-certificate-renderer.c:313
+msgid "Critical"
+msgstr "গুরুতর"
+
+#: ../gcr/gcr-certificate-renderer.c:386
+#, fuzzy
+msgid "Couldn't export the certificate."
+msgstr "পিনযুক্ত সার্টিফিকেট সংরক্ষণের জন্য কোন স্থান পাওয়া যাচ্ছেনা"
+
+#: ../gcr/gcr-certificate-renderer.c:613
+msgid "Identity"
+msgstr "পরিচয়"
+
+#: ../gcr/gcr-certificate-renderer.c:617
+msgid "Verified by"
+msgstr "এর দ্বারা যাচাইকৃত"
+
+#: ../gcr/gcr-certificate-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:720
+msgid "Expires"
+msgstr "মেয়াদউত্তীর্ণ"
+
+#. The subject
+#: ../gcr/gcr-certificate-renderer.c:634
+msgid "Subject Name"
+msgstr "প্রসঙ্গের নাম"
+
+#. The Issuer
+#: ../gcr/gcr-certificate-renderer.c:638
+msgid "Issuer Name"
+msgstr "নির্মাণকারী নাম"
+
+#. The Issued Parameters
+#: ../gcr/gcr-certificate-renderer.c:642
+msgid "Issued Certificate"
+msgstr "প্রদান করা সার্টিফিকেট"
+
+#: ../gcr/gcr-certificate-renderer.c:647
+msgid "Version"
+msgstr "সংস্করণ"
+
+#: ../gcr/gcr-certificate-renderer.c:658
+msgid "Not Valid Before"
+msgstr "চিহ্নিত সময়ের পূর্বে কার্যকর হবেনা"
+
+#: ../gcr/gcr-certificate-renderer.c:663
+msgid "Not Valid After"
+msgstr "চিহ্নিত সময়ের পরে কার্যকর হবেনা"
+
+#. Fingerprints
+#: ../gcr/gcr-certificate-renderer.c:668
+#, fuzzy
+msgid "Certificate Fingerprints"
+msgstr "আঙ্গুলের ছাপ"
+
+#. Signature
+#: ../gcr/gcr-certificate-renderer.c:674 ../gcr/gcr-certificate-renderer.c:686
+#: ../gcr/gcr-gnupg-renderer.c:561
+msgid "Signature"
+msgstr "স্বাক্ষর"
+
+#: ../gcr/gcr-certificate-renderer.c:678
+msgid "Signature Algorithm"
+msgstr "স্বাক্ষরের অ্যালগরিদম"
+
+#: ../gcr/gcr-certificate-renderer.c:682
+msgid "Signature Parameters"
+msgstr "স্বাক্ষরের প্যারামিটার"
+
+#. Public Key Info
+#: ../gcr/gcr-certificate-renderer.c:690
+msgid "Public Key Info"
+msgstr "পাবলিক কী সংক্রান্ত তথ্য"
+
+#: ../gcr/gcr-certificate-renderer.c:695
+msgid "Key Algorithm"
+msgstr "কী-এর অ্যালগরিদম"
+
+#: ../gcr/gcr-certificate-renderer.c:700
+msgid "Key Parameters"
+msgstr "কী-এর প্যারামিটার"
+
+#: ../gcr/gcr-certificate-renderer.c:705 ../gcr/gcr-gnupg-renderer.c:354
+msgid "Key Size"
+msgstr "কী-এর আকার"
+
+#: ../gcr/gcr-certificate-renderer.c:712
+#, fuzzy
+msgid "Key SHA1 Fingerprint"
+msgstr "SHA1 ফিংগারপ্রিন্ট"
+
+#: ../gcr/gcr-certificate-renderer.c:718 ../gcr/gcr-gnupg-renderer.c:739
+#: ../gcr/gcr-key-renderer.c:292 ../gcr/gcr-parser.c:319
+msgid "Public Key"
+msgstr "পাবলিক কী"
+
+#: ../gcr/gcr-display-view.c:319
+#, fuzzy
+msgid "_Details"
+msgstr "বিস্তারিত: (_D)"
+
+#: ../gcr/gcr-failure-renderer.c:161
+#, c-format
+msgid "Could not display '%s'"
+msgstr ""
+
+#: ../gcr/gcr-failure-renderer.c:163
+msgid "Could not display file"
+msgstr ""
+
+#: ../gcr/gcr-failure-renderer.c:168
+msgid "Reason"
+msgstr ""
+
+#: ../gcr/gcr-failure-renderer.c:218
+#, c-format
+msgid "Cannot display a file of this type."
+msgstr ""
+
+#: ../gcr/gcr-gnupg-importer.c:93
+#, fuzzy
+msgid "GnuPG Keyring"
+msgstr "কী-রিং আনলক"
+
+#: ../gcr/gcr-gnupg-importer.c:95
+#, fuzzy, c-format
+msgid "GnuPG Keyring: %s"
+msgstr "PGP কী: %s"
+
+#: ../gcr/gcr-gnupg-key.c:234 ../gcr/gcr-gnupg-renderer.c:88
+#: ../gcr/gcr-parser.c:322
+#, fuzzy
+msgid "PGP Key"
+msgstr "PGP কী: %s"
+
+#: ../gcr/gcr-gnupg-key.c:523
+msgctxt "column"
+msgid "Key ID"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-process.c:860
+#, c-format
+msgid "Gnupg process exited with code: %d"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-process.c:867
+#, c-format
+msgid "Gnupg process was terminated with signal: %d"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-process.c:921 ../gcr/gcr-parser.c:2177
+#: ../gcr/gcr-parser.c:2681
+msgid "The operation was cancelled"
+msgstr "অপারেশন বাতিল করা হয়েছে"
+
+#: ../gcr/gcr-gnupg-renderer.c:204
+msgid "Elgamal"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:217
+msgid "Encrypt"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:219
+#, fuzzy
+msgid "Sign"
+msgstr "স্বাক্ষর"
+
+#: ../gcr/gcr-gnupg-renderer.c:221
+#, fuzzy
+msgid "Certify"
+msgstr "সার্টিফিকেট"
+
+#: ../gcr/gcr-gnupg-renderer.c:223
+#, fuzzy
+msgid "Authenticate"
+msgstr "সার্টিফিকেট"
+
+#: ../gcr/gcr-gnupg-renderer.c:225 ../gcr/gcr-gnupg-renderer.c:260
+msgid "Disabled"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:256 ../gcr/gcr-gnupg-renderer.c:415
+#: ../gcr/gcr-key-renderer.c:312 ../gcr/gcr-key-renderer.c:317
+msgid "Unknown"
+msgstr "অজানা"
+
+#: ../gcr/gcr-gnupg-renderer.c:258
+msgid "Invalid"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:262
+msgid "Revoked"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:264
+#, fuzzy
+msgid "Expired"
+msgstr "মেয়াদউত্তীর্ণ"
+
+#: ../gcr/gcr-gnupg-renderer.c:266
+msgid "Undefined trust"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:268
+msgid "Distrusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:270
+msgid "Marginally trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:272
+msgid "Fully trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:274
+msgid "Ultimately trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:288
+#, fuzzy
+msgid "The information in this key has not yet been verified"
+msgstr "তথ্যটি সংবেদনশীল ও প্রকাশ করা সম্ভব নয়"
+
+#: ../gcr/gcr-gnupg-renderer.c:291
+#, fuzzy
+msgid "This key is invalid"
+msgstr "এই সেশনটি অকার্যকর"
+
+#: ../gcr/gcr-gnupg-renderer.c:294
+#, fuzzy
+msgid "This key has been disabled"
+msgstr "মডিউল আরম্ভ করা হয়নি"
+
+#: ../gcr/gcr-gnupg-renderer.c:297
+#, fuzzy
+msgid "This key has been revoked"
+msgstr "কী মোড়ানো সম্ভব নয়"
+
+#: ../gcr/gcr-gnupg-renderer.c:300
+#, fuzzy
+msgid "This key has expired"
+msgstr "পাসওয়ার্ড অথবা PIN-এর মেয়াদ উত্তীর্ণ"
+
+#: ../gcr/gcr-gnupg-renderer.c:305
+msgid "This key is distrusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:308
+msgid "This key is marginally trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:311
+#, fuzzy
+msgid "This key is fully trusted"
+msgstr "কী-এর ধরন ভুল"
+
+#: ../gcr/gcr-gnupg-renderer.c:314
+msgid "This key is ultimately trusted"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:339 ../gcr/gcr-gnupg-renderer.c:565
+msgid "Key ID"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:347 ../gcr/gcr-gnupg-renderer.c:573
+#: ../gcr/gcr-gnupg-renderer.c:620 ../gcr/gcr-key-renderer.c:313
+msgid "Algorithm"
+msgstr "অ্যালগরিদম"
+
+#: ../gcr/gcr-gnupg-renderer.c:362 ../gcr/gcr-gnupg-renderer.c:439
+#: ../gcr/gcr-gnupg-renderer.c:482
+msgid "Created"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:371 ../gcr/gcr-gnupg-renderer.c:448
+#: ../gcr/gcr-gnupg-renderer.c:491
+#, fuzzy
+msgid "Expiry"
+msgstr "মেয়াদউত্তীর্ণ"
+
+#: ../gcr/gcr-gnupg-renderer.c:380
+msgid "Capabilities"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:393
+msgid "Owner trust"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:421
+#, fuzzy
+msgid "Name"
+msgstr "নাম: (_N)"
+
+#: ../gcr/gcr-gnupg-renderer.c:427 ../gcr/gcr-gnupg-renderer.c:709
+msgid "Comment"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:467
+msgid "User Attribute"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:474 ../gcr/gcr-key-renderer.c:320
+msgid "Size"
+msgstr "আকার"
+
+#: ../gcr/gcr-gnupg-renderer.c:509
+#, fuzzy
+msgid "Signature of a binary document"
+msgstr "স্বাক্ষরের প্যারামিটার"
+
+#: ../gcr/gcr-gnupg-renderer.c:511
+msgid "Signature of a canonical text document"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:513
+#, fuzzy
+msgid "Standalone signature"
+msgstr "স্বাক্ষর"
+
+#: ../gcr/gcr-gnupg-renderer.c:515
+#, fuzzy
+msgid "Generic certification of key"
+msgstr "সার্টিফিকেট আনলক "
+
+#: ../gcr/gcr-gnupg-renderer.c:517
+msgid "Persona certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:519
+msgid "Casual certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:521
+msgid "Positive certification of key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:523
+msgid "Subkey binding signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:525
+msgid "Primary key binding signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:527
+#, fuzzy
+msgid "Signature directly on key"
+msgstr "স্বাক্ষরের প্যারামিটার"
+
+#: ../gcr/gcr-gnupg-renderer.c:529
+msgid "Key revocation signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:531
+msgid "Subkey revocation signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:533
+msgid "Certification revocation signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:535
+msgid "Timestamp signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:537
+msgid "Third-party confirmation signature"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:598
+msgid "Class"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:592 ../gcr/gcr-gnupg-renderer.c:594
+msgid "Type"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:592
+#, fuzzy
+msgid "Local only"
+msgstr "অঞ্চল"
+
+#: ../gcr/gcr-gnupg-renderer.c:594
+msgid "Exportable"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:612
+msgid "Revocation Key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:626 ../gcr/gcr-gnupg-renderer.c:650
+#: ../gcr/gcr-gnupg-renderer.c:652
+msgid "Fingerprint"
+msgstr "আঙ্গুলের ছাপ"
+
+#: ../gcr/gcr-gnupg-renderer.c:741
+#, fuzzy
+msgid "Public Subkey"
+msgstr "পাবলিক কী"
+
+#: ../gcr/gcr-gnupg-renderer.c:743
+msgid "Secret Key"
+msgstr ""
+
+#: ../gcr/gcr-gnupg-renderer.c:745
+msgid "Secret Subkey"
+msgstr ""
+
+#: ../gcr/gcr-import-button.c:108
+#, fuzzy
+msgid "Initializing..."
+msgstr "অদ্যাক্ষর"
+
+#: ../gcr/gcr-import-button.c:116
+msgid "Import is in progress..."
+msgstr ""
+
+#: ../gcr/gcr-import-button.c:123
+#, fuzzy, c-format
+msgid "Imported to: %s"
+msgstr "চিহ্নিত স্থানে ইম্পোর্ট:"
+
+#: ../gcr/gcr-import-button.c:143
+#, fuzzy, c-format
+msgid "Import to: %s"
+msgstr "চিহ্নিত স্থানে ইম্পোর্ট:"
+
+#: ../gcr/gcr-import-button.c:156
+#, fuzzy
+msgid "Cannot import because there are no compatible importers"
+msgstr "কী ভুল ধরনের হওয়ায় ইম্পোর্ট করা যাবে না"
+
+#: ../gcr/gcr-import-button.c:165
+#, fuzzy
+msgid "No data to import"
+msgstr "ইম্পোর্ট করার উদ্দেশ্যে কোনো স্থান চিহ্নিত হয়নি"
+
+#: ../gcr/gcr-key-renderer.c:82
+msgid "Key"
+msgstr "কী"
+
+#: ../gcr/gcr-key-renderer.c:281
+msgid "Private RSA Key"
+msgstr "একান্ত RSA কী"
+
+#: ../gcr/gcr-key-renderer.c:283
+msgid "Private DSA Key"
+msgstr "একান্ত DSA কী"
+
+#: ../gcr/gcr-key-renderer.c:285 ../gcr/gcr-parser.c:313
+msgid "Private Key"
+msgstr "একান্ত কী"
+
+#: ../gcr/gcr-key-renderer.c:288 ../gcr/gcr-key-renderer.c:290
+msgid "Public DSA Key"
+msgstr "পাবলিক DSA কী"
+
+#: ../gcr/gcr-key-renderer.c:299
+#, c-format
+msgid "%d bit"
+msgid_plural "%d bits"
+msgstr[0] "%d বিট"
+msgstr[1] "%d বিট"
+
+#: ../gcr/gcr-key-renderer.c:300
+msgid "Strength"
+msgstr "প্রতিরোধশক্তি"
+
+#. Fingerprints
+#: ../gcr/gcr-key-renderer.c:324
+msgid "Fingerprints"
+msgstr "আঙ্গুলের ছাপ"
+
+#: ../gcr/gcr-key-renderer.c:329
+msgid "SHA1"
+msgstr ""
+
+#: ../gcr/gcr-key-renderer.c:335
+msgid "SHA256"
+msgstr ""
+
+#: ../gcr/gcr-parser.c:2180
+msgid "Unrecognized or unsupported data."
+msgstr "অপরিচিত অথবা অসমর্থিত ডাটা।"
+
+#: ../gcr/gcr-parser.c:2183
+msgid "Could not parse invalid or corrupted data."
+msgstr "অকার্যকর অথবা ক্ষতিগ্রস্ত ডাটা পার্স করতে ব্যর্থ।"
+
+#: ../gcr/gcr-parser.c:2186
+msgid "The data is locked"
+msgstr "ডাটা লক করা রয়েছে"
+
+#: ../gcr/gcr-pkcs11-import-dialog.c:186
+msgid "Automatically chosen"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.c:270
+#: ../gcr/gcr-pkcs11-import-interaction.c:153
+#: ../gcr/gcr-pkcs11-import-interaction.c:171
+#, c-format
+msgid "The user cancelled the operation"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
+msgid "<b>Import settings</b>"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
+#, fuzzy
+msgid "<b>Unlock</b>"
+msgstr "আনলক"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
+#, fuzzy
+msgid "In order to import, please enter the password."
+msgstr "'%s' ইম্পোর্ট করতে হলে তা আন-লক করা আবশ্যক"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
+msgid "Label"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
+msgid "Label:"
+msgstr ""
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Password:"
+msgstr "পাসওয়ার্ড:"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
+msgid "Token:"
+msgstr ""
+
+#. Translators: A pinned certificate is an exception which
+#. trusts a given certificate explicitly for a purpose and
+#. communication with a certain peer.
+#: ../gcr/gcr-trust.c:376
+#, c-format
+msgid "Couldn't find a place to store the pinned certificate"
+msgstr "পিনযুক্ত সার্টিফিকেট সংরক্ষণের জন্য কোন স্থান পাওয়া যাচ্ছেনা"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:1
+msgid "Automatically unlock this keyring whenever I'm logged in"
+msgstr "লগ-ইন করার সময় স্বয়ংক্রিয়ভাবে এই কী-রিং আন-লক করা হবে"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:2
+msgid "Lock this keyring after"
+msgstr "পরবর্তীতে এই কীরিং লক করা হবে"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:3
+msgid "Lock this keyring if idle for"
+msgstr "নিষ্ক্রিয়তার জন্য এই কীরিংটি লক করা হবে"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:4
+msgid "Lock this keyring when I log out"
+msgstr "লগআউট করার সময় স্বয়ংক্রিয়ভাবে এই কী-রিং লক করা হবে"
+
+#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#: ../gcr/gcr-unlock-options-widget.ui.h:6
+msgid "minutes"
+msgstr "মিনিট"
+
+#: ../gcr/gcr-unlock-renderer.c:70
+#, fuzzy, c-format
+msgid "Unlock: %s"
+msgstr "আনলক"
+
+#: ../gcr/gcr-unlock-renderer.c:72 ../gcr/gcr-unlock-renderer.c:129
+msgid "Unlock"
+msgstr "আনলক"
+
+#: ../gcr/gcr-unlock-renderer.c:126
+#, fuzzy
+msgid "Password"
+msgstr "পাসওয়ার্ড:"
+
+#: ../gcr/gcr-unlock-renderer.c:279
+#, c-format
+msgid ""
+"The contents of '%s' are locked. In order to view the contents, enter the "
+"correct password."
+msgstr ""
+
+#: ../gcr/gcr-unlock-renderer.c:282
+msgid ""
+"The contents are locked. In order to view the contents, enter the correct "
+"password."
+msgstr ""
+
+#: ../gcr/gcr-viewer-tool.c:41
+#, fuzzy
+msgid "GCR Certificate and Key Viewer"
+msgstr "সার্টিফিকেট এবং কী স্টোরেজ"
+
+#: ../gcr/gcr-viewer-tool.c:48
+msgid "Show the application's version"
+msgstr ""
+
+#: ../gcr/gcr-viewer-tool.c:50
+msgid "[file...]"
+msgstr ""
+
+#: ../gcr/gcr-viewer-tool.c:104
+#, fuzzy
+msgid "- View certificate and key files"
+msgstr "সার্টিফিকেট এবং কী স্টোরেজ"
+
+#: ../gcr/gcr-viewer-tool.c:118
+#, fuzzy
+msgid "Certificate Viewer"
+msgstr "সার্টিফিকেট"
+
+#: ../gcr/gcr-viewer-widget.c:191
+#, fuzzy
+msgid "The password was incorrect"
+msgstr "আনলক করার পাসওয়ার্ড সঠিক নয়"
+
+#: ../gcr/gcr-viewer-window.c:68
+#, fuzzy
+msgid "Imported"
+msgstr "চিহ্নিত স্থানে ইম্পোর্ট:"
+
+#: ../gcr/gcr-viewer-window.c:72
+#, fuzzy
+msgid "Import failed"
+msgstr "অপারেশন ব্যর্থ"
+
+#: ../gcr/gcr-viewer-window.c:103
+#, fuzzy
+msgid "Import"
+msgstr "চিহ্নিত স্থানে ইম্পোর্ট:"
+
+#: ../gck/gck-uri.c:223
+#, fuzzy, c-format
+msgid "The URI has invalid encoding."
+msgstr "URI এর সিনট্যাক্স অকার্যকর। '%s' ক্ষেত্রের এনকোডিং অকার্যকর।"
+
+#: ../gck/gck-uri.c:227
+#, fuzzy
+msgid "The URI does not have the 'pkcs11' scheme."
+msgstr "URI এর 'pkcs11' স্কীম নেই।"
+
+#: ../gck/gck-uri.c:231
+msgid "The URI has bad syntax."
+msgstr ""
+
+#: ../gck/gck-uri.c:235
+msgid "The URI has a bad version number."
+msgstr ""

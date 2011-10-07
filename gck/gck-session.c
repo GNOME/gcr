@@ -1133,24 +1133,120 @@ perform_find_objects (FindObjects *args)
 	return rv;
 }
 
-static GList*
-objlist_from_handles (GckSession *self, CK_OBJECT_HANDLE_PTR objects,
-                      CK_ULONG n_objects)
+/**
+ * gck_session_find_handles:
+ * @self: the session to find objects on
+ * @match: the attributes to match against objects
+ * @cancellable: optional cancellation object or %NULL
+ * @n_handles: location to return number of handles
+ * @error: a location to return an error or %NULL
+ *
+ * Find the objects matching the passed attributes. This call may
+ * block for an indefinite period.
+ *
+ * Returns: (transfer full) (array length=n_handles) (allow-none): a list of
+ *          the matching objects, which may be empty
+ **/
+gulong *
+gck_session_find_handles (GckSession *self,
+                          GckAttributes *match,
+                          GCancellable *cancellable,
+                          gulong *n_handles,
+                          GError **error)
 {
-	GList *results = NULL;
+	FindObjects args = { GCK_ARGUMENTS_INIT, match, NULL, 0 };
+	gulong *results = NULL;
 
-	while (n_objects > 0) {
-		results = g_list_prepend (results,
-		                gck_object_from_handle (self, objects[--n_objects]));
+	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
+	g_return_val_if_fail (match != NULL, NULL);
+	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), NULL);
+	g_return_val_if_fail (n_handles != NULL, NULL);
+	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
+
+	_gck_attributes_lock (match);
+
+	if (_gck_call_sync (self, perform_find_objects, NULL, &args, cancellable, error)) {
+		results = args.objects;
+		*n_handles = args.n_objects;
+		args.objects = NULL;
 	}
 
-	return g_list_reverse (results);
+	g_free (args.objects);
+	_gck_attributes_unlock (match);
+	return results;
+}
+
+/**
+ * gck_session_find_handles_async:
+ * @self: the session to find objects on
+ * @match: the attributes to match against the objects
+ * @cancellable: optional cancellation object or %NULL
+ * @callback: called when the operation completes
+ * @user_data: data to pass to the callback
+ *
+ * Find the objects matching the passed attributes. This call will
+ * return immediately and complete asynchronously.
+ **/
+void
+gck_session_find_handles_async (GckSession *self,
+                                GckAttributes *match,
+                                GCancellable *cancellable,
+                                GAsyncReadyCallback callback,
+                                gpointer user_data)
+{
+	FindObjects *args;
+
+	g_return_if_fail (GCK_IS_SESSION (self));
+	g_return_if_fail (match != NULL);
+	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
+
+	args = _gck_call_async_prep (self, self, perform_find_objects,
+	                             NULL, sizeof (*args), free_find_objects);
+	args->attrs = gck_attributes_ref (match);
+	_gck_attributes_lock (match);
+	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+}
+
+/**
+ * gck_session_find_handles_finish:
+ * @self: the session
+ * @result: the asynchronous result
+ * @n_handles: location to store number of handles returned
+ * @error: a location to return an error on failure
+ *
+ * Get the result of a find handles operation.
+ *
+ * Returns: (transfer full) (array length=n_handles) (allow-none): an array of
+ *          handles that matched, which may be empty, or %NULL on failure
+ **/
+gulong *
+gck_session_find_handles_finish (GckSession *self,
+                                 GAsyncResult *result,
+                                 gulong *n_handles,
+                                 GError **error)
+{
+	gulong *results = NULL;
+	FindObjects *args;
+
+	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
+	g_return_val_if_fail (n_handles != NULL, NULL);
+	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
+
+	args = _gck_call_arguments (result, FindObjects);
+	_gck_attributes_unlock (args->attrs);
+
+	if (!_gck_call_basic_finish (result, error))
+		return NULL;
+	*n_handles = args->n_objects;
+	results = args->objects;
+	args->objects = NULL;
+	return results;
 }
 
 /**
  * gck_session_find_objects:
  * @self: The session to find objects on.
- * @attrs: The attributes to match.
+ * @match: the attributes to match
  * @cancellable: Optional cancellation object or NULL.
  * @error: A location to return an error or NULL.
  *
@@ -1161,27 +1257,33 @@ objlist_from_handles (GckSession *self, CK_OBJECT_HANDLE_PTR objects,
  *          objects, which may be empty
  **/
 GList *
-gck_session_find_objects (GckSession *self, GckAttributes *attrs,
-                          GCancellable *cancellable, GError **error)
+gck_session_find_objects (GckSession *self,
+                          GckAttributes *match,
+                          GCancellable *cancellable,
+                          GError **error)
 {
-	FindObjects args = { GCK_ARGUMENTS_INIT, attrs, NULL, 0 };
 	GList *results = NULL;
+	gulong *handles;
+	gulong n_handles;
 
-	g_return_val_if_fail (attrs, NULL);
-	_gck_attributes_lock (attrs);
+	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
+	g_return_val_if_fail (match != NULL, NULL);
+	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), NULL);
+	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-	if (_gck_call_sync (self, perform_find_objects, NULL, &args, cancellable, error))
-		results = objlist_from_handles (self, args.objects, args.n_objects);
+	handles = gck_session_find_handles (self, match, cancellable, &n_handles, error);
+	if (handles == NULL)
+		return NULL;
 
-	g_free (args.objects);
-	_gck_attributes_unlock (attrs);
+	results = gck_objects_from_handle_array (self, handles, n_handles);
+	g_free (handles);
 	return results;
 }
 
 /**
  * gck_session_find_objects_async:
  * @self: The session to find objects on.
- * @attrs: The attributes to match.
+ * @match: The attributes to match.
  * @cancellable: Optional cancellation object or NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
@@ -1190,15 +1292,17 @@ gck_session_find_objects (GckSession *self, GckAttributes *attrs,
  * return immediately and complete asynchronously.
  **/
 void
-gck_session_find_objects_async (GckSession *self, GckAttributes *attrs,
-                                 GCancellable *cancellable, GAsyncReadyCallback callback,
-                                 gpointer user_data)
+gck_session_find_objects_async (GckSession *self,
+                                GckAttributes *match,
+                                GCancellable *cancellable,
+                                GAsyncReadyCallback callback,
+                                gpointer user_data)
 {
-	FindObjects *args = _gck_call_async_prep (self, self, perform_find_objects,
-	                                           NULL, sizeof (*args), free_find_objects);
-	args->attrs = gck_attributes_ref (attrs);
-	_gck_attributes_lock (attrs);
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	g_return_if_fail (GCK_IS_SESSION (self));
+	g_return_if_fail (match != NULL);
+	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
+
+	gck_session_find_handles_async (self, match, cancellable, callback, user_data);
 }
 
 /**
@@ -1213,16 +1317,25 @@ gck_session_find_objects_async (GckSession *self, GckAttributes *attrs,
  *          objects, which may be empty
  **/
 GList *
-gck_session_find_objects_finish (GckSession *self, GAsyncResult *result, GError **error)
+gck_session_find_objects_finish (GckSession *self,
+                                 GAsyncResult *result,
+                                 GError **error)
 {
-	FindObjects *args;
+	GList *results = NULL;
+	gulong *handles;
+	gulong n_handles;
 
-	args = _gck_call_arguments (result, FindObjects);
-	_gck_attributes_unlock (args->attrs);
+	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
+	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-	if (!_gck_call_basic_finish (result, error))
+	handles = gck_session_find_handles_finish (self, result, &n_handles, error);
+	if (handles == NULL)
 		return NULL;
-	return objlist_from_handles (self, args->objects, args->n_objects);
+
+	results = gck_objects_from_handle_array (self, handles, n_handles);
+	g_free (handles);
+	return results;
+
 }
 
 /* -----------------------------------------------------------------------------

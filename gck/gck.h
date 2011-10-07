@@ -803,18 +803,35 @@ GckObject*          gck_session_create_object_finish        (GckSession *self,
                                                              GError **error);
 
 GList*              gck_session_find_objects                (GckSession *self,
-                                                             GckAttributes *attrs,
+                                                             GckAttributes *match,
                                                              GCancellable *cancellable,
                                                              GError **error);
 
 void                gck_session_find_objects_async          (GckSession *self,
-                                                             GckAttributes *attrs,
+                                                             GckAttributes *match,
                                                              GCancellable *cancellable,
                                                              GAsyncReadyCallback callback,
                                                              gpointer user_data);
 
 GList*              gck_session_find_objects_finish         (GckSession *self,
                                                              GAsyncResult *result,
+                                                             GError **error);
+
+gulong *            gck_session_find_handles                (GckSession *self,
+                                                             GckAttributes *match,
+                                                             GCancellable *cancellable,
+                                                             gulong *n_handles,
+                                                             GError **error);
+
+void                gck_session_find_handles_async          (GckSession *self,
+                                                             GckAttributes *match,
+                                                             GCancellable *cancellable,
+                                                             GAsyncReadyCallback callback,
+                                                             gpointer user_data);
+
+gulong *            gck_session_find_handles_finish         (GckSession *self,
+                                                             GAsyncResult *result,
+                                                             gulong *n_handles,
                                                              GError **error);
 
 gboolean            gck_session_generate_key_pair           (GckSession *self,

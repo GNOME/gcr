@@ -63,7 +63,8 @@ IGNORE_HFILES= \
 	pkcs11.h \
 	pkcs11n.h \
 	pkcs11x.h \
-	pkcs11i.h
+	pkcs11i.h \
+	tests/mock-interaction.h
 
 # Images to copy into HTML directory.
 # e.g. HTML_IMAGES=$(top_srcdir)/gtk/stock-icons/stock_about_24.png

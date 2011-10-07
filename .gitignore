@@ -1,5 +1,6 @@
 *.abi
 *.autogen_bak
+*.bak
 *.gir
 *.gmo
 *.la

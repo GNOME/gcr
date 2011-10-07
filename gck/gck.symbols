@@ -147,6 +147,9 @@ gck_session_encrypt
 gck_session_encrypt_async
 gck_session_encrypt_finish
 gck_session_encrypt_full
+gck_session_find_handles
+gck_session_find_handles_async
+gck_session_find_handles_finish
 gck_session_find_objects
 gck_session_find_objects_async
 gck_session_find_objects_finish

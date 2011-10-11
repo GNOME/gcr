@@ -2829,7 +2829,7 @@ _gck_session_authenticate_token (CK_FUNCTION_LIST_PTR funcs,
 	gboolean request_retry;
 	CK_SLOT_ID slot_id;
 	CK_BYTE_PTR pin;
-	CK_ULONG n_pin;
+	gsize n_pin;
 	CK_RV rv = CKR_OK;
 	GError *error = NULL;
 
@@ -2918,7 +2918,7 @@ _gck_session_authenticate_token (CK_FUNCTION_LIST_PTR funcs,
 		}
 
 		/* Try to log in */
-		rv = (funcs->C_Login) (session, CKU_USER, (CK_BYTE_PTR)pin, n_pin);
+		rv = (funcs->C_Login) (session, CKU_USER, (CK_BYTE_PTR)pin, (CK_ULONG)n_pin);
 
 		/* Only one C_Login call if protected auth path */
 		if (token_info.flags & CKF_PROTECTED_AUTHENTICATION_PATH)

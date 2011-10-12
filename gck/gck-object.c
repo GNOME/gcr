@@ -44,6 +44,19 @@
  * Represents a PKCS11 object handle such as a key or certifiacte.
  */
 
+/**
+ * GckObjectClass:
+ * @parent: derived from this
+ *
+ * The class for a #GckObject.
+ *
+ * If the @attribute_types field is set by a derived class, then the a
+ * #GckEnumerator which has been setup using gck_enumerator_set_object_type()
+ * with this derived type will retrieve these attributes when enumerating. In
+ * this case the class must implement an 'attributes' property of boxed type
+ * GCK_TYPE_ATTRIBUTES.
+ */
+
 /*
  * MT safe -- Nothing in GckObjectData changes between
  * init and finalize. All GckObjectPrivate access between init
@@ -588,24 +601,6 @@ typedef struct _GetAttributes {
 	GckAttributes *attrs;
 } GetAttributes;
 
-/*
- * Certain failure return values only apply to individual attributes
- * being retrieved. These are ignored, since the attribute should
- * already have -1 set as the length.
- */
-static gboolean
-is_ok_get_attributes_rv (CK_RV rv)
-{
-	switch (rv) {
-	case CKR_OK:
-	case CKR_ATTRIBUTE_SENSITIVE:
-	case CKR_ATTRIBUTE_TYPE_INVALID:
-		return TRUE;
-	default:
-		return FALSE;
-	}
-}
-
 static CK_RV
 perform_get_attributes (GetAttributes *args)
 {
@@ -622,7 +617,7 @@ perform_get_attributes (GetAttributes *args)
 	/* Get the size of each value */
 	rv = (args->base.pkcs11->C_GetAttributeValue) (args->base.handle, args->object,
 	                                               attrs, n_attrs);
-	if (!is_ok_get_attributes_rv (rv))
+	if (!GCK_IS_GET_ATTRIBUTE_RV_OK (rv))
 		return rv;
 
 	/* Allocate memory for each value */
@@ -632,7 +627,7 @@ perform_get_attributes (GetAttributes *args)
 	rv = (args->base.pkcs11->C_GetAttributeValue) (args->base.handle, args->object,
 	                                               attrs, n_attrs);
 
-	if (is_ok_get_attributes_rv (rv))
+	if (GCK_IS_GET_ATTRIBUTE_RV_OK (rv))
 		rv = CKR_OK;
 
 	return rv;

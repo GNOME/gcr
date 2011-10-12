@@ -71,11 +71,16 @@ static void
 test_create (Test *test, gconstpointer unused)
 {
 	GckUriData *uri_data;
+	GType object_type;
 	GckEnumerator *en;
 
 	uri_data = gck_uri_data_new ();
 	en = _gck_enumerator_new (test->modules, 0, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
+
+	g_object_get (en, "object-type", &object_type, NULL);
+	g_assert (object_type == GCK_TYPE_OBJECT);
+
 	g_object_unref (en);
 }
 
@@ -221,7 +226,7 @@ test_next_async (Test *test, gconstpointer unused)
 }
 
 static void
-test_attributes (Test *test, gconstpointer unused)
+test_attribute_match (Test *test, gconstpointer unused)
 {
 	GckUriData *uri_data;
 	GError *error = NULL;
@@ -335,6 +340,133 @@ test_token_match (Test *test, gconstpointer unused)
 	g_object_unref (en);
 }
 
+enum {
+	PROP_0,
+	PROP_ATTRIBUTES,
+};
+
+static const gulong mock_attribute_types[] = {
+	CKA_CLASS,
+	CKA_ID,
+	CKA_LABEL,
+};
+
+typedef struct {
+	GckObject parent;
+	GckAttributes *attrs;
+} MockObject;
+
+typedef struct {
+	GckObjectClass parent;
+} MockObjectClass;
+
+GType mock_object_get_type (void) G_GNUC_CONST;
+static void mock_object_attributes_init (GckObjectAttributesIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (MockObject, mock_object, GCK_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (GCK_TYPE_OBJECT_ATTRIBUTES,
+                                                mock_object_attributes_init)
+);
+
+static void
+mock_object_init (MockObject *self)
+{
+
+}
+
+static void
+mock_object_get_property (GObject *obj,
+                          guint prop_id,
+                          GValue *value,
+                          GParamSpec *pspec)
+{
+	MockObject *self = (MockObject *)obj;
+
+	switch (prop_id) {
+	case PROP_ATTRIBUTES:
+		g_value_set_boxed (value, self->attrs);
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
+		break;
+	}
+}
+
+static void
+mock_object_set_property (GObject *obj,
+                          guint prop_id,
+                          const GValue *value,
+                          GParamSpec *pspec)
+{
+	MockObject *self = (MockObject *)obj;
+
+	switch (prop_id) {
+	case PROP_ATTRIBUTES:
+		g_assert (self->attrs == NULL);
+		self->attrs = g_value_dup_boxed (value);
+		g_assert (self->attrs != NULL);
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
+		break;
+	}
+}
+
+static void
+mock_object_finalize (GObject *obj)
+{
+	MockObject *self = (MockObject *)obj;
+	gck_attributes_unref (self->attrs);
+	G_OBJECT_CLASS (mock_object_parent_class)->finalize (obj);
+}
+
+static void
+mock_object_class_init (MockObjectClass *klass)
+{
+	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+	gobject_class->get_property = mock_object_get_property;
+	gobject_class->set_property = mock_object_set_property;
+	gobject_class->finalize = mock_object_finalize;
+
+	g_object_class_override_property (gobject_class, PROP_ATTRIBUTES, "attributes");
+}
+
+static void
+mock_object_attributes_init (GckObjectAttributesIface *iface)
+{
+	iface->attribute_types = mock_attribute_types;
+	iface->n_attribute_types = G_N_ELEMENTS (mock_attribute_types);
+}
+
+static void
+test_attribute_get (Test *test,
+                    gconstpointer unused)
+{
+	GckUriData *uri_data;
+	GError *error = NULL;
+	GckEnumerator *en;
+	GList *objects, *l;
+	MockObject *mock;
+
+	uri_data = gck_uri_data_new ();
+	en = _gck_enumerator_new (test->modules, 0, uri_data);
+	g_object_set (en, "object-type", mock_object_get_type (), NULL);
+
+	objects = gck_enumerator_next_n (en, -1, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (g_list_length (objects), ==, 5);
+
+	for (l = objects; l != NULL; l = g_list_next (l)) {
+		mock = l->data;
+		g_assert (G_TYPE_CHECK_INSTANCE_TYPE (mock, mock_object_get_type ()));
+		g_assert (mock->attrs != NULL);
+	}
+
+	gck_list_unref_free (objects);
+	g_object_unref (en);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -352,8 +484,9 @@ main (int argc, char **argv)
 	g_test_add ("/gck/enumerator/next_async", Test, NULL, setup, test_next_async, teardown);
 	g_test_add ("/gck/enumerator/authenticate-interaction", Test, NULL, setup, test_authenticate_interaction, teardown);
 	g_test_add ("/gck/enumerator/authenticate-compat", Test, NULL, setup, test_authenticate_compat, teardown);
-	g_test_add ("/gck/enumerator/attributes", Test, NULL, setup, test_attributes, teardown);
+	g_test_add ("/gck/enumerator/attribute_match", Test, NULL, setup, test_attribute_match, teardown);
 	g_test_add ("/gck/enumerator/token_match", Test, NULL, setup, test_token_match, teardown);
+	g_test_add ("/gck/enumerator/attribute_get", Test, NULL, setup, test_attribute_get, teardown);
 
 	return egg_tests_run_in_thread_with_loop ();
 }

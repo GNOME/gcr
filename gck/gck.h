@@ -287,6 +287,7 @@ typedef struct _GckSlot GckSlot;
 typedef struct _GckModule GckModule;
 typedef struct _GckSession GckSession;
 typedef struct _GckObject GckObject;
+typedef struct _GckObjectAttributes GckObjectAttributes;
 typedef struct _GckEnumerator GckEnumerator;
 typedef struct _GckUriData GckUriData;
 
@@ -455,7 +456,12 @@ GTlsInteraction *     gck_enumerator_get_interaction          (GckEnumerator *se
 void                  gck_enumerator_set_interaction          (GckEnumerator *self,
                                                                GTlsInteraction *interaction);
 
-GckObject*            gck_enumerator_next                     (GckEnumerator *self,
+GType                 gck_enumerator_get_object_type          (GckEnumerator *self);
+
+void                  gck_enumerator_set_object_type          (GckEnumerator *self,
+                                                               GType object_type);
+
+GckObject *           gck_enumerator_next                     (GckEnumerator *self,
                                                                GCancellable *cancellable,
                                                                GError **error);
 
@@ -1090,7 +1096,7 @@ GckObject*          gck_session_derive_key_finish            (GckSession *self,
 
 #define GCK_TYPE_OBJECT             (gck_object_get_type())
 #define GCK_OBJECT(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_OBJECT, GckObject))
-#define GCK_OBJECT_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_OBJECT, GckObject))
+#define GCK_OBJECT_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_OBJECT, GckObjectClass))
 #define GCK_IS_OBJECT(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_OBJECT))
 #define GCK_IS_OBJECT_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_OBJECT))
 #define GCK_OBJECT_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_OBJECT, GckObjectClass))
@@ -1108,6 +1114,8 @@ struct _GckObject {
 
 struct _GckObjectClass {
 	GObjectClass parent;
+
+	/*< private >*/
 	gpointer reserved[8];
 };
 
@@ -1237,6 +1245,35 @@ void                gck_object_get_template_async           (GckObject *self,
 GckAttributes*      gck_object_get_template_finish          (GckObject *self,
                                                              GAsyncResult *result,
                                                              GError **error);
+
+/* ------------------------------------------------------------------------
+ * OBJECT ATTRIBUTES
+ */
+
+#define GCK_TYPE_OBJECT_ATTRIBUTES                    (gck_object_attributes_get_type ())
+#define GCK_OBJECT_ATTRIBUTES(obj)                    (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCK_TYPE_OBJECT_ATTRIBUTES, GckObjectAttributes))
+#define GCK_IS_OBJECT_ATTRIBUTES(obj)                 (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCK_TYPE_OBJECT_ATTRIBUTES))
+#define GCK_OBJECT_ATTRIBUTES_GET_INTERFACE(inst)     (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GCK_TYPE_OBJECT_ATTRIBUTES, GckObjectAttributesIface))
+
+typedef struct _GckObjectAttributes GckObjectAttributes;
+typedef struct _GckObjectAttributesIface GckObjectAttributesIface;
+
+struct _GckObjectAttributesIface {
+	GTypeInterface interface;
+
+	const gulong *attribute_types;
+	gint n_attribute_types;
+
+	/*< private >*/
+	gpointer reserved[6];
+};
+
+GType               gck_object_attributes_get_type          (void) G_GNUC_CONST;
+
+GckAttributes *     gck_object_attributes_get_attributes    (GckObjectAttributes *object);
+
+void                gck_object_attributes_set_attributes    (GckObjectAttributes *object,
+                                                             GckAttributes *attributes);
 
 /* ------------------------------------------------------------------------
  * PASSWORD

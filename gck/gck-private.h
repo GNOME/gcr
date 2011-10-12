@@ -32,6 +32,9 @@
 
 G_BEGIN_DECLS
 
+#define GCK_IS_GET_ATTRIBUTE_RV_OK(rv) \
+	((rv) == CKR_OK || (rv) == CKR_ATTRIBUTE_SENSITIVE || (rv) == CKR_ATTRIBUTE_TYPE_INVALID)
+
 /* ---------------------------------------------------------------------------
  * ATTRIBUTE INTERNALS
  */

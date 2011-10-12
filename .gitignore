@@ -54,7 +54,6 @@ stamp-*
 /docs/reference/*/*-unused.txt
 /docs/reference/*/*.args
 /docs/reference/*/*.hierarchy
-/docs/reference/*/*.interfaces
 /docs/reference/*/*.prerequisites
 /docs/reference/*/*.signals
 /docs/reference/*/html

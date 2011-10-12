@@ -61,10 +61,10 @@ gck_attributes_unref
 gck_attributes_contains
 gck_attributes_dump
 gck_attributes_new_full
+GCK_TYPE_ATTRIBUTES
 GckAllocator
 <SUBSECTION Standard>
 gck_attributes_get_type
-GCK_TYPE_ATTRIBUTES
 gck_attributes_get_boxed_type
 </SECTION>
 
@@ -255,6 +255,7 @@ gck_session_info_get_type
 <SECTION>
 <FILE>gck-object</FILE>
 GckObject
+GckObjectClass
 gck_object_from_handle
 gck_objects_from_handle_array
 gck_object_equal
@@ -283,7 +284,6 @@ gck_object_set_template
 gck_object_set_template_async
 gck_object_set_template_finish
 <SUBSECTION Standard>
-GckObjectClass
 gck_object_get_type
 GCK_IS_OBJECT
 GCK_IS_OBJECT_CLASS
@@ -292,6 +292,20 @@ GCK_OBJECT_CLASS
 GCK_OBJECT_GET_CLASS
 GCK_TYPE_OBJECT
 GckObjectPrivate
+</SECTION>
+
+<SECTION>
+<FILE>gck-object-attributes</FILE>
+GckObjectAttributes
+GckObjectAttributesIface
+gck_object_attributes_get_attributes
+gck_object_attributes_set_attributes
+<SUBSECTION Standard>
+gck_object_attributes_get_type
+GCK_IS_OBJECT_ATTRIBUTES
+GCK_OBJECT_ATTRIBUTES
+GCK_OBJECT_ATTRIBUTES_GET_INTERFACE
+GCK_TYPE_OBJECT_ATTRIBUTES
 </SECTION>
 
 <SECTION>
@@ -329,12 +343,14 @@ gck_uri_flags_get_type
 <SECTION>
 <FILE>gck-enumerator</FILE>
 GckEnumerator
-gck_enumerator_get_interaction
-gck_enumerator_set_interaction
 gck_enumerator_next
 gck_enumerator_next_async
 gck_enumerator_next_finish
 gck_enumerator_next_n
+gck_enumerator_get_interaction
+gck_enumerator_set_interaction
+gck_enumerator_get_object_type
+gck_enumerator_set_object_type
 <SUBSECTION Standard>
 GckEnumeratorClass
 gck_enumerator_get_type

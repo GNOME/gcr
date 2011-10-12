@@ -45,7 +45,8 @@
 
 enum {
 	PROP_0,
-	PROP_INTERACTION
+	PROP_INTERACTION,
+	PROP_OBJECT_TYPE
 };
 
 /**
@@ -55,9 +56,16 @@ enum {
  * An object that allows enumerating of objects across modules, tokens.
  */
 
+typedef struct _GckEnumeratorResult {
+	gulong handle;
+	GckSession *session;
+	GckAttributes *attrs;
+} GckEnumeratorResult;
+
 typedef struct _GckEnumeratorState GckEnumeratorState;
 
-typedef gpointer (*GckEnumeratorFunc) (GckEnumeratorState *args, gboolean forward);
+typedef gpointer (*GckEnumeratorFunc)     (GckEnumeratorState *args,
+                                           gboolean forward);
 
 struct _GckEnumeratorState {
 	/* For the current call */
@@ -72,6 +80,11 @@ struct _GckEnumeratorState {
 	GckSessionOptions session_options;
 	GTlsInteraction *interaction;
 
+	/* The type of objects to create */
+	GType object_type;
+	gpointer object_class;
+	GckObjectAttributesIface *object_iface;
+
 	/* state_slots */
 	GList *slots;
 
@@ -84,30 +97,50 @@ struct _GckEnumeratorState {
 	GckSession *session;
 
 	/* state_results */
-	GArray *objects;
-
-	/* Output from enumerator */
-	GList *results;
+	GQueue *results;
 };
 
 struct _GckEnumeratorPrivate {
 	GMutex *mutex;
 	GckEnumeratorState *the_state;
 	GTlsInteraction *interaction;
+	GType object_type;
+	GckObjectClass *object_class;
 };
 
 G_DEFINE_TYPE (GckEnumerator, gck_enumerator, G_TYPE_OBJECT);
 
-static gpointer state_modules        (GckEnumeratorState *args, gboolean forward);
-static gpointer state_slots          (GckEnumeratorState *args, gboolean forward);
-static gpointer state_slot           (GckEnumeratorState *args, gboolean forward);
-static gpointer state_session        (GckEnumeratorState *args, gboolean forward);
-static gpointer state_authenticated  (GckEnumeratorState *args, gboolean forward);
-static gpointer state_results        (GckEnumeratorState *args, gboolean forward);
+static gpointer state_modules        (GckEnumeratorState *args,
+                                      gboolean forward);
 
-/* ----------------------------------------------------------------------------
- * INTERNAL
- */
+static gpointer state_slots          (GckEnumeratorState *args,
+                                      gboolean forward);
+
+static gpointer state_slot           (GckEnumeratorState *args,
+                                      gboolean forward);
+
+static gpointer state_session        (GckEnumeratorState *args,
+                                      gboolean forward);
+
+static gpointer state_authenticated  (GckEnumeratorState *args,
+                                      gboolean forward);
+
+static gpointer state_results        (GckEnumeratorState *args,
+                                      gboolean forward);
+
+static gpointer state_attributes     (GckEnumeratorState *args,
+                                      gboolean forward);
+
+
+static void
+_gck_enumerator_result_free (gpointer data)
+{
+	GckEnumeratorResult *result = data;
+	g_object_unref (result->session);
+	if (result->attrs)
+		gck_attributes_unref (result->attrs);
+	g_slice_free (GckEnumeratorResult, result);
+}
 
 static gpointer
 rewind_state (GckEnumeratorState *args, GckEnumeratorFunc handler)
@@ -144,18 +177,21 @@ cleanup_state (GckEnumeratorState *args)
 	g_assert (!args->session);
 
 	/* state_results */
-	if (args->objects)
-		g_array_free (args->objects, TRUE);
-	args->objects = NULL;
-
-	/* Other cleanup */
-	gck_list_unref_free (args->results);
-	args->results = NULL;
+	if (args->results) {
+		g_queue_foreach (args->results, (GFunc) _gck_enumerator_result_free, NULL);
+		g_queue_free (args->results);
+		args->results = NULL;
+	}
 
 	gck_list_unref_free (args->modules);
 	args->modules = NULL;
 
 	g_clear_object (&args->interaction);
+
+	if (args->object_class)
+		g_type_class_unref (args->object_class);
+	args->object_class = NULL;
+	args->object_type = 0;
 
 	if (args->match) {
 		if (args->match->attributes)
@@ -368,7 +404,8 @@ state_authenticated (GckEnumeratorState *args, gboolean forward)
 	CK_OBJECT_HANDLE objects[128];
 	CK_SESSION_HANDLE session;
 	CK_ATTRIBUTE_PTR attrs;
-	CK_ULONG n_attrs, count;
+	CK_ULONG n_attrs, i,count;
+	GckEnumeratorResult *result;
 	CK_RV rv;
 
 	/* Just go back, no logout */
@@ -377,9 +414,12 @@ state_authenticated (GckEnumeratorState *args, gboolean forward)
 
 	/* This is where we do the actual searching */
 
-	g_assert (args->session);
-	g_assert (args->want_objects);
-	g_assert (args->funcs);
+	g_assert (args->session != NULL);
+	g_assert (args->want_objects > 0);
+	g_assert (args->funcs != NULL);
+
+	if (!args->results)
+		args->results = g_queue_new ();
 
 	if (args->match->attributes) {
 		attrs = _gck_attributes_commit_out (args->match->attributes, &n_attrs);
@@ -406,73 +446,123 @@ state_authenticated (GckEnumeratorState *args, gboolean forward)
 			if (rv != CKR_OK || count == 0)
 				break;
 
-			if (!args->objects)
-				args->objects = g_array_new (FALSE, TRUE, sizeof (CK_OBJECT_HANDLE));
 			_gck_debug ("matched %lu objects", count);
-			g_array_append_vals (args->objects, objects, count);
+
+			for (i = 0; i < count; i++) {
+				result = g_slice_new0 (GckEnumeratorResult);
+				result->handle = objects[i];
+				result->session = g_object_ref (args->session);
+				g_queue_push_tail (args->results, result);
+			}
 		}
 
 		(args->funcs->C_FindObjectsFinal) (session);
 	}
 
 	_gck_debug ("finding objects completed with: %s", _gck_stringize_rv (rv));
-	return state_results;
-}
-
-static GckObject*
-extract_result (GckEnumeratorState *args)
-{
-	CK_OBJECT_HANDLE handle;
-
-	if (!args->objects || !args->objects->len)
-		return NULL;
-
-	g_assert (args->session);
-
-	handle = g_array_index (args->objects, CK_OBJECT_HANDLE, 0);
-	g_array_remove_index_fast (args->objects, 0);
-
-	return gck_object_from_handle (args->session, handle);
+	return state_attributes;
 }
 
 static gpointer
-state_results (GckEnumeratorState *args, gboolean forward)
+state_attributes (GckEnumeratorState *args,
+                  gboolean forward)
 {
-	GckObject *object;
-	guint have;
+	GckEnumeratorResult *result;
+	GckAttributes *attrs;
+	CK_ATTRIBUTE_PTR template;
+	CK_ULONG n_template;
+	CK_SESSION_HANDLE session;
+	gint count;
+	GList *l;
+	gint i;
+	CK_RV rv;
 
-	g_assert (args->session);
+	g_assert (args->funcs != NULL);
+	g_assert (args->object_class != NULL);
+	g_assert (args->results != NULL);
 
 	/* No cleanup, just unwind */
 	if (!forward)
 		return state_authenticated;
 
-	/* Create result objects from what we have */
-	have = g_list_length (args->results);
+	/* If no request for attributes, just go forward */
+	if (args->object_iface == NULL ||
+	    args->object_iface->n_attribute_types == 0)
+		return state_results;
 
-	while (have < args->want_objects) {
+	session = gck_session_get_handle (args->session);
+	g_return_val_if_fail (session, NULL);
 
-		object = extract_result (args);
-		if (!object) {
-			_gck_debug ("wanted %d objects, have %d, looking for more",
-			            args->want_objects, have);
-			return rewind_state (args, state_slots);
+	count = 0;
+
+	/* Get the attributes for want_objects */
+	for (count = 0, l = args->results->head;
+	     l != NULL && count < args->want_objects;
+	     l = g_list_next (l), count++) {
+		result = l->data;
+
+		attrs = gck_attributes_new ();
+		for (i = 0; i < args->object_iface->n_attribute_types; ++i)
+			gck_attributes_add_empty (attrs, args->object_iface->attribute_types[i]);
+		_gck_attributes_lock (attrs);
+
+		/* Ask for attribute sizes */
+		template = _gck_attributes_prepare_in (attrs, &n_template);
+
+		rv = (args->funcs->C_GetAttributeValue) (session, result->handle, template, n_template);
+		if (GCK_IS_GET_ATTRIBUTE_RV_OK (rv)) {
+
+			/* Allocate memory for each value */
+			template = _gck_attributes_commit_in (attrs, &n_template);
+
+			/* Now get the actual values */
+			rv = (args->funcs->C_GetAttributeValue) (session, result->handle, template, n_template);
 		}
 
-		args->results = g_list_append (args->results, object);
-		++have;
+		_gck_attributes_unlock (attrs);
+
+		if (GCK_IS_GET_ATTRIBUTE_RV_OK (rv)) {
+			if (_gck_debugging) {
+				gchar *string = _gck_attributes_format (attrs);
+				_gck_debug ("retrieved attributes for object %lu: %s",
+				            result->handle, string);
+				g_free (string);
+			}
+			result->attrs = attrs;
+			rv = CKR_OK;
+
+		} else {
+			g_message ("couldn't retrieve attributes when enumerating: %s",
+			           gck_message_from_rv (rv));
+			gck_attributes_unref (attrs);
+		}
+	}
+
+	return state_results;
+}
+
+static gpointer
+state_results (GckEnumeratorState *args,
+               gboolean forward)
+{
+	g_assert (args->results != NULL);
+
+	/* No cleanup, just unwind */
+	if (!forward)
+		return state_authenticated;
+
+	while (args->want_objects > g_queue_get_length (args->results)) {
+		_gck_debug ("wanted %d objects, have %d, looking for more",
+		            args->want_objects, g_queue_get_length (args->results));
+		return rewind_state (args, state_slots);
 	}
 
 	_gck_debug ("wanted %d objects, returned %d objects",
-	            args->want_objects, have);
+	            args->want_objects, g_queue_get_length (args->results));
 
 	/* We got all the results we wanted */
 	return NULL;
 }
-
-/* ----------------------------------------------------------------------------
- * OBJECT
- */
 
 static void
 gck_enumerator_init (GckEnumerator *self)
@@ -480,6 +570,9 @@ gck_enumerator_init (GckEnumerator *self)
 	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCK_TYPE_ENUMERATOR, GckEnumeratorPrivate);
 	self->pv->mutex = g_mutex_new ();
 	self->pv->the_state = g_new0 (GckEnumeratorState, 1);
+	self->pv->object_type = GCK_TYPE_OBJECT;
+	self->pv->object_class = g_type_class_ref (self->pv->object_type);
+	g_assert (self->pv->object_class);
 }
 
 static void
@@ -493,6 +586,9 @@ gck_enumerator_get_property (GObject *obj,
 	switch (prop_id) {
 	case PROP_INTERACTION:
 		g_value_take_object (value, gck_enumerator_get_interaction (self));
+		break;
+	case PROP_OBJECT_TYPE:
+		g_value_set_gtype (value, gck_enumerator_get_object_type (self));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -511,6 +607,9 @@ gck_enumerator_set_property (GObject *obj,
 	switch (prop_id) {
 	case PROP_INTERACTION:
 		gck_enumerator_set_interaction (self, g_value_get_object (value));
+		break;
+	case PROP_OBJECT_TYPE:
+		gck_enumerator_set_object_type (self, g_value_get_gtype (value));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -540,6 +639,7 @@ gck_enumerator_finalize (GObject *obj)
 	g_free (self->pv->the_state);
 
 	g_mutex_free (self->pv->mutex);
+	g_type_class_unref (self->pv->object_class);
 
 	G_OBJECT_CLASS (gck_enumerator_parent_class)->finalize (obj);
 }
@@ -566,6 +666,16 @@ gck_enumerator_class_init (GckEnumeratorClass *klass)
 	g_object_class_install_property (gobject_class, PROP_INTERACTION,
 		g_param_spec_object ("interaction", "Interaction", "Interaction asking for pins",
 		                     G_TYPE_TLS_INTERACTION, G_PARAM_READWRITE));
+
+	/**
+	 * GckEnumerator:object-type:
+	 *
+	 * The type of objects that are created by the enumerator. Must be
+	 * GckObject or derived from it.
+	 */
+	g_object_class_install_property (gobject_class, PROP_OBJECT_TYPE,
+		g_param_spec_gtype ("object-type", "Object Type", "Type of objects created",
+		                    GCK_TYPE_OBJECT, G_PARAM_READWRITE));
 }
 
 /* ----------------------------------------------------------------------------
@@ -648,6 +758,69 @@ free_enumerate_next (EnumerateNext *args)
 }
 
 /**
+ * gck_enumerator_get_object_type:
+ * @self: an enumerator
+ *
+ * Get the type of objects created by this enumerator. The type will always
+ * either be #GckObject or derived from it.
+ *
+ * Returns: (transfer none): the type of objects created
+ */
+GType
+gck_enumerator_get_object_type (GckEnumerator *self)
+{
+	GType result;
+
+	g_return_val_if_fail (GCK_IS_ENUMERATOR (self), 0);
+
+	g_mutex_lock (self->pv->mutex);
+
+		result = self->pv->object_type;
+
+	g_mutex_unlock (self->pv->mutex);
+
+	return result;
+}
+
+/**
+ * gck_enumerator_set_object_type:
+ * @self: an enumerator
+ * @object_type: the type of objects to create
+ *
+ * Set the type of objects to be created by this enumerator. The type must
+ * always be either #GckObject or derived from it.
+ *
+ * If the #GckObjectClass:attribute_types and #GckObjectClass:n_attribute_types
+ * are set in a derived class, then the derived class must have a property
+ * called 'attributes' of boxed type GCK_TYPE_ATTRIBUTE.
+ */
+void
+gck_enumerator_set_object_type (GckEnumerator *self,
+                                GType object_type)
+{
+	gpointer klass;
+
+	g_return_if_fail (GCK_IS_ENUMERATOR (self));
+
+	if (!g_type_is_a (object_type, GCK_TYPE_OBJECT)) {
+		g_warning ("the object_type '%s' is not a derived type of GckObject",
+		           g_type_name (object_type));
+		return;
+	}
+
+	klass = g_type_class_ref (object_type);
+
+	g_mutex_lock (self->pv->mutex);
+
+		if (self->pv->object_type)
+			g_type_class_unref (self->pv->object_class);
+		self->pv->object_type = object_type;
+		self->pv->object_class = klass;
+
+	g_mutex_unlock (self->pv->mutex);
+}
+
+/**
  * gck_enumerator_get_interaction:
  * @self: the enumerator
  *
@@ -717,6 +890,17 @@ check_out_enumerator_state (GckEnumerator *self)
 			g_clear_object (&state->interaction);
 			if (self->pv->interaction)
 				state->interaction = g_object_ref (self->pv->interaction);
+
+			if (state->object_class)
+				g_type_class_unref (state->object_class);
+
+			/* Must already be holding a reference, state also holds a ref */
+			state->object_type = self->pv->object_type;
+			state->object_class = g_type_class_peek (state->object_type);
+			g_assert (state->object_class == self->pv->object_class);
+			state->object_iface = g_type_interface_peek (state->object_class,
+			                                             GCK_TYPE_OBJECT_ATTRIBUTES);
+			g_type_class_ref (state->object_type);
 		}
 
 	g_mutex_unlock (self->pv->mutex);
@@ -739,6 +923,57 @@ check_in_enumerator_state (GckEnumerator *self,
 	g_mutex_unlock (self->pv->mutex);
 }
 
+static GckObject *
+extract_result (GckEnumeratorState *state)
+{
+	GckEnumeratorResult *result;
+	GckModule *module;
+	GckObject *object;
+
+	g_assert (state != NULL);
+
+	if (state->results == NULL)
+		return NULL;
+
+	result = g_queue_pop_head (state->results);
+	if (result == NULL)
+		return NULL;
+
+	module = gck_session_get_module (result->session);
+	object = g_object_new (state->object_type,
+	                       "module", module,
+	                       "handle", result->handle,
+	                       "session", result->session,
+	                       result->attrs ? "attributes" : NULL, result->attrs,
+	                       NULL);
+	g_object_unref (module);
+
+	_gck_enumerator_result_free (result);
+	return object;
+}
+
+static GList *
+extract_results (GckEnumeratorState *state,
+                 gint *want_objects)
+{
+	GList *objects = NULL;
+	GckObject *object;
+	gint i;
+
+	g_assert (state != NULL);
+	g_assert (want_objects != NULL);
+
+	for (i = 0; i < *want_objects; i++) {
+		object = extract_result (state);
+		if (object == NULL)
+			break;
+		objects = g_list_prepend (objects, object);
+	}
+
+	*want_objects -= i;
+	return g_list_reverse (objects);
+}
+
 /**
  * gck_enumerator_next:
  * @self: The enumerator
@@ -753,8 +988,10 @@ check_in_enumerator_state (GckEnumerator *self,
  * Returns: (transfer full) (allow-none): The next object, which must be released
  * using g_object_unref, or %NULL.
  */
-GckObject*
-gck_enumerator_next (GckEnumerator *self, GCancellable *cancellable, GError **error)
+GckObject *
+gck_enumerator_next (GckEnumerator *self,
+                     GCancellable *cancellable,
+                     GError **error)
 {
 	EnumerateNext args = { GCK_ARGUMENTS_INIT, NULL, };
 	GckObject *result = NULL;
@@ -767,18 +1004,12 @@ gck_enumerator_next (GckEnumerator *self, GCancellable *cancellable, GError **er
 
 	/* A result from a previous run? */
 	result = extract_result (args.state);
-	if (!result) {
+	if (result == NULL) {
 		args.state->want_objects = 1;
 
 		/* Run the operation and steal away the results */
-		if (_gck_call_sync (NULL, perform_enumerate_next, NULL, &args, cancellable, error)) {
-			if (args.state->results) {
-				g_assert (g_list_length (args.state->results) == 1);
-				result = g_object_ref (args.state->results->data);
-				gck_list_unref_free (args.state->results);
-				args.state->results = NULL;
-			}
-		}
+		if (_gck_call_sync (NULL, perform_enumerate_next, NULL, &args, cancellable, error))
+			result = extract_result (args.state);
 
 		args.state->want_objects = 0;
 	}
@@ -806,12 +1037,15 @@ gck_enumerator_next (GckEnumerator *self, GCancellable *cancellable, GError **er
  * Returns: (transfer full) (element-type Gck.Object): A list of objects, which
  * should be freed using gck_list_unref_free().
  */
-GList*
-gck_enumerator_next_n (GckEnumerator *self, gint max_objects, GCancellable *cancellable,
+GList *
+gck_enumerator_next_n (GckEnumerator *self,
+                       gint max_objects,
+                       GCancellable *cancellable,
                        GError **error)
 {
 	EnumerateNext args = { GCK_ARGUMENTS_INIT, NULL, };
 	GList *results = NULL;
+	gint want_objects;
 
 	g_return_val_if_fail (GCK_IS_ENUMERATOR (self), NULL);
 	g_return_val_if_fail (max_objects == -1 || max_objects > 0, NULL);
@@ -821,15 +1055,22 @@ gck_enumerator_next_n (GckEnumerator *self, gint max_objects, GCancellable *canc
 	args.state = check_out_enumerator_state (self);
 	g_return_val_if_fail (args.state != NULL, NULL);
 
-	args.state->want_objects = max_objects <= 0 ? G_MAXINT : max_objects;
+	want_objects = max_objects <= 0 ? G_MAXINT : max_objects;
 
-	/* Run the operation and steal away the results */
-	if (_gck_call_sync (NULL, perform_enumerate_next, NULL, &args, cancellable, error)) {
-		results = args.state->results;
-		args.state->results = NULL;
+	/* A result from a previous run? */
+	results = extract_results (args.state, &want_objects);
+	if (want_objects > 0) {
+		args.state->want_objects = want_objects;
+
+		/* Run the operation and steal away the results */
+		if (_gck_call_sync (NULL, perform_enumerate_next, NULL, &args, cancellable, error))
+			results = g_list_concat (results, extract_results (args.state, &want_objects));
+
+		args.state->want_objects = 0;
 	}
 
-	args.state->want_objects = 0;
+	if (results)
+		g_clear_error (error);
 
 	/* Put the state back */
 	check_in_enumerator_state (self, args.state);
@@ -895,18 +1136,18 @@ gck_enumerator_next_finish (GckEnumerator *self, GAsyncResult *result, GError **
 	EnumerateNext *args;
 	GckEnumeratorState *state;
 	GList *results = NULL;
+	gint want_objects;
 
 	g_object_ref (self);
 
 	args = _gck_call_arguments (result, EnumerateNext);
 	state = args->state;
 	args->state = NULL;
+	want_objects = state->want_objects;
 	state->want_objects = 0;
 
-	if (_gck_call_basic_finish (result, error)) {
-		results = state->results;
-		state->results = NULL;
-	}
+	if (_gck_call_basic_finish (result, error))
+		results = extract_results (state, &want_objects);
 
 	/* Put the state back */
 	check_in_enumerator_state (self, state);

@@ -651,8 +651,12 @@ GckSession*         gck_slot_open_session_finish            (GckSlot *self,
                                                              GAsyncResult *result,
                                                              GError **error);
 
+GckEnumerator *     gck_slot_enumerate_objects              (GckSlot *self,
+                                                             GckAttributes *match,
+                                                             GckSessionOptions options);
+
 GckEnumerator*      gck_slots_enumerate_objects             (GList *slots,
-                                                             GckAttributes *attrs,
+                                                             GckAttributes *match,
                                                              GckSessionOptions options);
 
 /* ------------------------------------------------------------------------

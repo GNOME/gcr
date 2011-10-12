@@ -999,9 +999,39 @@ gck_slot_set_interaction (GckSlot *self,
 }
 
 /**
+ * gck_slot_enumerate_objects:
+ * @self: a #GckSlot to enumerate objects on
+ * @match: attributes that the objects must match, or empty for all objects
+ * @options: options for opening a session
+ *
+ * Setup an enumerator for listing matching objects on the slot.
+ *
+ * This call will not block but will return an enumerator immediately.
+ *
+ * Returns: (transfer full): a new enumerator
+ **/
+GckEnumerator *
+gck_slot_enumerate_objects (GckSlot *self,
+                            GckAttributes *match,
+                            GckSessionOptions options)
+{
+	GList *slots = NULL;
+	GckEnumerator *enumerator;
+
+	g_return_val_if_fail (GCK_IS_SLOT (self), NULL);
+	g_return_val_if_fail (match != NULL, NULL);
+
+	slots = g_list_append (slots, self);
+	enumerator = gck_slots_enumerate_objects (slots, match, options);
+	g_list_free (slots);
+
+	return enumerator;
+}
+
+/**
  * gck_slots_enumerate_objects:
  * @slots: (element-type Gck.Slot): a list of #GckSlot to enumerate objects on.
- * @attrs: Attributes that the objects must have, or empty for all objects.
+ * @match: attributes that the objects must match, or empty for all objects
  * @options: options for opening a session
  *
  * Setup an enumerator for listing matching objects on the slots.
@@ -1012,15 +1042,15 @@ gck_slot_set_interaction (GckSlot *self,
  **/
 GckEnumerator*
 gck_slots_enumerate_objects (GList *slots,
-                             GckAttributes *attrs,
+                             GckAttributes *match,
                              GckSessionOptions options)
 {
 	GckUriData *uri_data;
 
-	g_return_val_if_fail (attrs, NULL);
+	g_return_val_if_fail (match != NULL, NULL);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_ref (attrs);
+	uri_data->attributes = gck_attributes_ref (match);
 
 	return _gck_enumerator_new (slots, options, uri_data);
 }

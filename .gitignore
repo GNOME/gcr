@@ -55,6 +55,7 @@ stamp-*
 /docs/reference/*/*.args
 /docs/reference/*/*.hierarchy
 /docs/reference/*/*.prerequisites
+/docs/reference/*/*.interfaces
 /docs/reference/*/*.signals
 /docs/reference/*/html
 /docs/reference/*/tmpl

@@ -86,7 +86,7 @@ expand_content_files=
 # e.g. GTKDOC_CFLAGS=-I$(top_srcdir) -I$(top_builddir) $(GTK_DEBUG_FLAGS)
 # e.g. GTKDOC_LIBS=$(top_builddir)/gtk/$(gtktargetlib)
 GTKDOC_CFLAGS= -I$(top_srcdir) -I$(top_builddir) $(GLIB_CFLAGS) -Wno-error
-GTKDOC_LIBS= $(GLIB_LIBS) $(top_builddir)/$(DOC_MODULE)/lib$(DOC_MODULE).la
+GTKDOC_LIBS= $(GLIB_LIBS) $(top_builddir)/$(DOC_MODULE)/lib$(DOC_MODULE)-@GCK_MAJOR@.la
 
 # This includes the standard gtk-doc make rules, copied by gtkdocize.
 include $(top_srcdir)/gtk-doc.make

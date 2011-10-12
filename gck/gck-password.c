@@ -42,7 +42,6 @@
 
 /**
  * GckPassword:
- * @parent: parent object
  *
  * A #GTlsPasswordClass that contains information about the PKCS\#11 token
  * or key the password is being requested for.

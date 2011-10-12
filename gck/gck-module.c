@@ -47,7 +47,6 @@
 
 /**
  * GckModule:
- * @parent: derived from this.
  *
  * Holds a loaded and initialized PKCS\#11 module.
  */

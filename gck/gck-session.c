@@ -44,7 +44,6 @@
 
 /**
  * GckSession:
- * @parent: derived from this.
  *
  * Represents an open PKCS11 session.
  */
@@ -301,8 +300,7 @@ gck_session_class_init (GckSessionClass *klass)
 	 * When a GckSession is being disposed of it emits this signal to allow
 	 * a session pool to pick up the handle and keep it around.
 	 *
-	 * If no signal handler claims the handle, then it is closed. This is used by
-	 * gck_module_set_pool_sessions() to implement the module session pool.
+	 * If no signal handler claims the handle, then it is closed.
 	 *
 	 * Returns: Whether or not this handle was claimed.
 	 */

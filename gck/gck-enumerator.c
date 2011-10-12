@@ -51,7 +51,6 @@ enum {
 
 /**
  * GckEnumerator:
- * @parent: derived from this.
  *
  * An object that allows enumerating of objects across modules, tokens.
  */
@@ -790,9 +789,9 @@ gck_enumerator_get_object_type (GckEnumerator *self)
  * Set the type of objects to be created by this enumerator. The type must
  * always be either #GckObject or derived from it.
  *
- * If the #GckObjectClass:attribute_types and #GckObjectClass:n_attribute_types
- * are set in a derived class, then the derived class must have a property
- * called 'attributes' of boxed type GCK_TYPE_ATTRIBUTE.
+ * If the #GckObjectAttributes interface is implemented on the derived class
+ * and the attribute_types field is set, then the enumerator will retrieve
+ * attributes for each object.
  */
 void
 gck_enumerator_set_object_type (GckEnumerator *self,

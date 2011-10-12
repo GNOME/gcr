@@ -41,7 +41,6 @@
 
 /**
  * GckSlot:
- * @parent: derived from this.
  *
  * Represents a PKCS11 slot.
  */

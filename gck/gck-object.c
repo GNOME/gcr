@@ -39,7 +39,6 @@
 
 /**
  * GckObject:
- * @parent: derived from this.
  *
  * Represents a PKCS11 object handle such as a key or certifiacte.
  */

@@ -960,6 +960,21 @@ gcr_certificate_get_icon (GcrCertificate *self)
  * </programlisting></informalexample>
  */
 
+void
+gcr_certificate_mixin_emit_notify (GcrCertificate *self)
+{
+	GObject *obj;
+
+	g_return_if_fail (GCR_IS_CERTIFICATE (self));
+
+	obj = G_OBJECT (self);
+	g_object_notify (obj, "label");
+	g_object_notify (obj, "markup");
+	g_object_notify (obj, "subject");
+	g_object_notify (obj, "issuer");
+	g_object_notify (obj, "expiry");
+}
+
 /**
  * gcr_certificate_mixin_comparable_init: (skip)
  * @iface: The interface

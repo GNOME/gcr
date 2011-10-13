@@ -116,6 +116,8 @@ GIcon*              gcr_certificate_get_icon               (GcrCertificate *self
 #define GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE() \
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_COMPARABLE, gcr_certificate_mixin_comparable_init)
 
+void                gcr_certificate_mixin_emit_notify      (GcrCertificate *self);
+
 void                gcr_certificate_mixin_comparable_init  (GcrComparableIface *iface);
 
 void                gcr_certificate_mixin_class_init       (GObjectClass *object_class);

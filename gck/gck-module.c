@@ -27,7 +27,7 @@
 #include "gck-private.h"
 #include "gck-marshal.h"
 
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 #include <p11-kit/p11-kit.h>
 

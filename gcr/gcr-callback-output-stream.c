@@ -27,7 +27,7 @@
 #define DEBUG_FLAG GCR_DEBUG_GNUPG
 #include "gcr-debug.h"
 
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 struct _GcrCallbackOutputStream {
 	GOutputStream parent;

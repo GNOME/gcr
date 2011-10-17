@@ -35,6 +35,7 @@ G_BEGIN_DECLS
 
 #define GCR_ICON_CERTIFICATE    "application-certificate"
 #define GCR_ICON_PASSWORD       "gcr-password"
+#define GCR_ICON_GNUPG          "gcr-gnupg"
 #define GCR_ICON_KEY            "gcr-key"
 #define GCR_ICON_KEY_PAIR       "gcr-key-pair"
 #define GCR_ICON_SMART_CARD     "gcr-smart-card"

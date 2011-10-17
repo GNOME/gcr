@@ -1,10 +1,5 @@
-NULL =
+include $(srcdir)/../Makefile.decl
 
 icondir = $(datadir)/icons/hicolor/22x22/apps
-icon_DATA = \
-	gcr-password.png \
-	gcr-smart-card.png \
-	$(NULL)
-
-EXTRA_DIST = \
-	$(icon_DATA)
+icon_DATA = $(ICONS_SMALL:=.png)
+EXTRA_DIST = $(icon_DATA)

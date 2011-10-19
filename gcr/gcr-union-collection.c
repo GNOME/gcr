@@ -338,3 +338,19 @@ gcr_union_collection_size (GcrUnionCollection *self)
 	g_return_val_if_fail (GCR_IS_UNION_COLLECTION (self), FALSE);
 	return g_hash_table_size (self->pv->collections);
 }
+
+/**
+ * gcr_union_collection_elements:
+ * @self: the union collection
+ *
+ * Get the collections that have been added to this union.
+ *
+ * Returns: (element-type Gcr.Collection) (transfer container): collections
+ *          added to the union
+ */
+GList *
+gcr_union_collection_elements (GcrUnionCollection *self)
+{
+	g_return_val_if_fail (GCR_IS_UNION_COLLECTION (self), NULL);
+	return g_hash_table_get_values (self->pv->collections);
+}

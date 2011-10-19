@@ -71,6 +71,8 @@ gboolean            gcr_union_collection_have                    (GcrUnionCollec
 
 guint               gcr_union_collection_size                    (GcrUnionCollection *self);
 
+GList *             gcr_union_collection_elements                (GcrUnionCollection *self);
+
 G_END_DECLS
 
 #endif /* __GCR_UNION_COLLECTION_H__ */

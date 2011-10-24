@@ -1,5 +1,5 @@
 AC_PREREQ([2.63])
-AC_INIT([gcr], [3.3.1],
+AC_INIT([gcr], [3.3.2],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&component=gcr],
         [gcr])
 

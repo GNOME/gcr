@@ -1,1 +1,11 @@
-Versions prior to 3.2.0 were released as part of gnome-keyring
+gcr 3.3.1
+ - Add function to get elements of union collection
+ - Add gck_slot_enumerate_objects() function
+ - Enumerator can now retrieve object attributes
+ - Add gck_session_find_handles() and friends
+ - Add gnupg and password icons
+ - Function to notify that certificate changed
+ - Update glib dependency for 2.30.0
+ - Build, translation and documentation fixes
+
+Versions 3.2.2 and prior were released as part of gnome-keyring

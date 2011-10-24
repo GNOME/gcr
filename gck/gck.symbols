@@ -203,6 +203,7 @@ gck_session_wrap_key
 gck_session_wrap_key_async
 gck_session_wrap_key_finish
 gck_session_wrap_key_full
+gck_slot_enumerate_objects
 gck_slot_equal
 gck_slot_from_handle
 gck_slot_get_handle

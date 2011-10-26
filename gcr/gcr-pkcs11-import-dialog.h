@@ -25,7 +25,7 @@
 #ifndef __GCR_PKCS11_IMPORT_DIALOG_H__
 #define __GCR_PKCS11_IMPORT_DIALOG_H__
 
-#include "gcr.h"
+#include <gck/gck.h>
 
 #include <gtk/gtk.h>
 

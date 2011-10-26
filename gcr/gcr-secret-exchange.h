@@ -24,7 +24,7 @@
 #ifndef __GCR_SECRET_EXCHANGE_H__
 #define __GCR_SECRET_EXCHANGE_H__
 
-#include "gcr-base.h"
+#include <gck/gck.h>
 
 #include <glib-object.h>
 

@@ -24,7 +24,6 @@
 #ifndef __GCR_SINGLE_COLLECTION_H__
 #define __GCR_SINGLE_COLLECTION_H__
 
-#include "gcr-base.h"
 #include "gcr-collection.h"
 
 #include <glib-object.h>

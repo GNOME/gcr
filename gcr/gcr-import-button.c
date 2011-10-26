@@ -25,6 +25,7 @@
 
 #include "gcr-import-button.h"
 #include "gcr-internal.h"
+#include "gcr-library.h"
 #include "gcr-marshal.h"
 #include "gcr-parser.h"
 #include "gcr-pkcs11-import-interaction.h"

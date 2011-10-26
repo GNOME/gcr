@@ -24,9 +24,9 @@
 #ifndef GCR_GNUPG_PROCESS_H
 #define GCR_GNUPG_PROCESS_H
 
-#include "gcr-base.h"
 #include "gcr-record.h"
 
+#include <gio/gio.h>
 #include <glib-object.h>
 
 G_BEGIN_DECLS

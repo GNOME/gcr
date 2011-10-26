@@ -26,6 +26,7 @@
 #ifndef __GCR_TRUST_H__
 #define __GCR_TRUST_H__
 
+#include "gcr-certificate.h"
 #include "gcr-types.h"
 
 G_BEGIN_DECLS

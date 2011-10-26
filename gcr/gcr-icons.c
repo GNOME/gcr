@@ -23,7 +23,6 @@
 
 #include "config.h"
 
-#include "gcr-base.h"
 #include "gcr-icons.h"
 
 /**

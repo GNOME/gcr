@@ -21,9 +21,9 @@
 
 #include "config.h"
 
-#include "gcr-base.h"
 #define DEBUG_FLAG GCR_DEBUG_LIBRARY
 #include "gcr-debug.h"
+#include "gcr-deprecated-base.h"
 #include "gcr-internal.h"
 #include "gcr-library.h"
 #include "gcr-types.h"

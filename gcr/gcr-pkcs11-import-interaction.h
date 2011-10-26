@@ -24,8 +24,6 @@
 #ifndef __GCR_PKCS11_IMPORT_INTERACTION_H__
 #define __GCR_PKCS11_IMPORT_INTERACTION_H__
 
-#include "gcr.h"
-
 #include "gcr-pkcs11-import-dialog.h"
 
 G_BEGIN_DECLS

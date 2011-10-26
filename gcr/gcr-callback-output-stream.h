@@ -24,7 +24,6 @@
 #ifndef GCR_CALLBACK_OUTPUT_STREAM_H
 #define GCR_CALLBACK_OUTPUT_STREAM_H
 
-#include "gcr-base.h"
 #include "gcr-collection.h"
 
 #include <glib-object.h>

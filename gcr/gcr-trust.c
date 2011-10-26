@@ -23,7 +23,6 @@
 
 #include "config.h"
 
-#include "gcr-base.h"
 #define DEBUG_FLAG GCR_DEBUG_TRUST
 #include "gcr-debug.h"
 #include "gcr-types.h"

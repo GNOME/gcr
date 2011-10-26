@@ -24,7 +24,7 @@
 #ifndef __GCR_IMPORT_BUTTON_H__
 #define __GCR_IMPORT_BUTTON_H__
 
-#include "gcr.h"
+#include "gcr-importer.h"
 
 #include <gtk/gtk.h>
 

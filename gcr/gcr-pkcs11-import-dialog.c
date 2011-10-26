@@ -22,6 +22,7 @@
 #include "config.h"
 
 #include "gcr-dialog-util.h"
+#include "gcr-icons.h"
 #include "gcr-pkcs11-import-dialog.h"
 
 #include "egg/egg-entry-buffer.h"

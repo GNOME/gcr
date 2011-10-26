@@ -26,8 +26,6 @@
 #ifndef __GCR_SIMPLE_CERTIFICATE_H__
 #define __GCR_SIMPLE_CERTIFICATE_H__
 
-#include "gcr-base.h"
-
 #include <glib-object.h>
 
 G_BEGIN_DECLS

@@ -1,3 +1,6 @@
+gcr 3.3.1.1
+ - Fix build issues
+
 gcr 3.3.1
  - Add function to get elements of union collection
  - Add gck_slot_enumerate_objects() function

@@ -300,14 +300,19 @@ if HAVE_INTROSPECTION
 include $(INTROSPECTION_MAKEFILE)
 
 INTROSPECTION_GIRS = Gcr-@GCR_MAJOR@.gir
-INTROSPECTION_SCANNER_ARGS = $(INTROSPECTION_FLAGS) --warn-all --add-include-path=$(srcdir) --add-include-path=$(top_builddir)/gck
-INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir) --includedir=$(top_builddir)/gck
+INTROSPECTION_SCANNER_ARGS = \
+	$(INTROSPECTION_FLAGS) \
+	--warn-all \
+	--include-uninstalled=$(top_builddir)/gck/Gck-@GCK_MAJOR@.gir
+INTROSPECTION_COMPILER_ARGS = \
+	--includedir=$(srcdir) \
+	--includedir=$(top_builddir)/gck
 
 Gcr-@GCR_MAJOR@.gir: libgcr-@GCR_MAJOR@.la
 
-Gcr_@GCR_MAJOR@_gir_PACKAGES = gobject-2.0 gtk+-3.0 p11-kit-1
-Gcr_@GCR_MAJOR@_gir_EXPORT_PACKAGES = gcr-3
-Gcr_@GCR_MAJOR@_gir_INCLUDES = GObject-2.0 Gtk-3.0 Gck-@GCK_MAJOR@
+Gcr_@GCR_MAJOR@_gir_PACKAGES = gtk+-3.0 gck-@GCK_MAJOR@ p11-kit-1
+Gcr_@GCR_MAJOR@_gir_EXPORT_PACKAGES = gcr-@GCR_MAJOR@
+Gcr_@GCR_MAJOR@_gir_INCLUDES = GLib-2.0 GObject-2.0 Gtk-3.0 Gck-@GCK_MAJOR@
 Gcr_@GCR_MAJOR@_gir_LIBS = libgcr-base-@GCR_MAJOR@.la libgcr-@GCR_MAJOR@.la
 Gcr_@GCR_MAJOR@_gir_CFLAGS = -I$(top_srcdir) -I$(top_builddir) -DGCR_COMPILATION -DGCR_API_SUBJECT_TO_CHANGE
 Gcr_@GCR_MAJOR@_gir_FILES = $(libgcr_base_@GCR_MAJOR@_la_SOURCES) $(libgcr_@GCR_MAJOR@_la_SOURCES)

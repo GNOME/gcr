@@ -22,9 +22,8 @@
 #include "gcr-display-view.h"
 #include "gcr-icons.h"
 #include "gcr-parser.h"
+#include "gcr-secure-entry-buffer.h"
 #include "gcr-unlock-renderer.h"
-
-#include "egg/egg-entry-buffer.h"
 
 #include <gdk/gdk.h>
 #include <glib/gi18n-lib.h>
@@ -116,7 +115,7 @@ _gcr_unlock_renderer_init (GcrUnlockRenderer *self)
 
 	box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
 
-	buffer = egg_entry_buffer_new ();
+	buffer = gcr_secure_entry_buffer_new ();
 	self->pv->entry = GTK_ENTRY (gtk_entry_new_with_buffer (buffer));
 	gtk_entry_set_visibility (self->pv->entry, FALSE);
 	gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (self->pv->entry), TRUE, FALSE, 0);

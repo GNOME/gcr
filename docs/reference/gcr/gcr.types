@@ -15,6 +15,7 @@ gcr_list_selector_get_type
 gcr_parser_get_type
 gcr_pkcs11_certificate_get_type
 gcr_renderer_get_type
+gcr_secure_entry_buffer_get_type
 gcr_simple_certificate_get_type
 gcr_simple_collection_get_type
 gcr_tree_selector_get_type

@@ -3,7 +3,6 @@ include $(top_srcdir)/Makefile.decl
 noinst_LTLIBRARIES = \
 	libegg.la \
 	libegg-asn1x.la \
-	libegg-entry-buffer.la \
 	libegg-hex.la \
 	libegg-secmem.la \
 	libegg-test.la
@@ -63,13 +62,6 @@ libegg_asn1x_la_SOURCES = \
 
 libegg_asn1x_la_CFLAGS = \
 	$(GLIB_CFLAGS)
-
-libegg_entry_buffer_la_SOURCES = \
-	egg-entry-buffer.c egg-entry-buffer.h
-
-libegg_entry_buffer_la_CFLAGS = \
-	$(GLIB_CFLAGS) \
-	$(GTK_CFLAGS)
 
 libegg_hex_la_SOURCES = \
 	egg-hex.c egg-hex.h

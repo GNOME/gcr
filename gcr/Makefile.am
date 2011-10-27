@@ -52,6 +52,7 @@ HEADER_UI_FILES = \
 	gcr-import-button.h \
 	gcr-list-selector.h \
 	gcr-renderer.h \
+	gcr-secure-entry-buffer.h \
 	gcr-simple-collection.h \
 	gcr-tree-selector.h \
 	gcr-unlock-options-widget.h \
@@ -166,6 +167,7 @@ libgcr_@GCR_MAJOR@_la_SOURCES = \
 	gcr-pkcs11-import-dialog.c gcr-pkcs11-import-dialog.h \
 	gcr-record.c gcr-record.h \
 	gcr-renderer.c gcr-renderer.h \
+	gcr-secure-entry-buffer.c gcr-secure-entry-buffer.h \
 	gcr-subject-public-key.c gcr-subject-public-key.h \
 	gcr-tree-selector.c gcr-tree-selector.h \
 	gcr-unlock-options.h \
@@ -205,7 +207,6 @@ libgcr_base_@GCR_MAJOR@_la_LIBADD = \
 libgcr_@GCR_MAJOR@_la_LIBADD = \
 	$(GTK_LIBS) \
 	$(libgcr_base_@GCR_MAJOR@_la_LIBADD) \
-	$(top_builddir)/egg/libegg-entry-buffer.la \
 	$(builddir)/libgcr-base-$(GCR_MAJOR).la
 
 noinst_LTLIBRARIES = libgcr-testable.la

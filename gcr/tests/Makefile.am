@@ -14,7 +14,6 @@ INCLUDES = \
 LDADD = \
 	$(top_builddir)/gcr/libgcr-testable.la \
 	$(top_builddir)/egg/libegg.la \
-	$(top_builddir)/egg/libegg-entry-buffer.la \
 	$(top_builddir)/gck/libgck-testable.la \
 	$(GTK_LIBS) \
 	$(GLIB_LIBS) \

@@ -49,6 +49,7 @@
 #include "gcr-import-button.h"
 #include "gcr-list-selector.h"
 #include "gcr-renderer.h"
+#include "gcr-secure-entry-buffer.h"
 #include "gcr-tree-selector.h"
 #include "gcr-union-collection.h"
 #include "gcr-unlock-options-widget.h"

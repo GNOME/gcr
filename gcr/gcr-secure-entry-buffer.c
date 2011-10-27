@@ -1,5 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
-/* egg-secure-buffer.c - secure memory gtkentry buffer
+/* gcr-secure-buffer.c - secure memory gtkentry buffer
 
    Copyright (C) 2009 Stefan Walter
 
@@ -23,17 +23,47 @@
 
 #include "config.h"
 
-#include "egg-entry-buffer.h"
-#include "egg-secure-memory.h"
+#include "gcr-secure-entry-buffer.h"
+
+#include "egg/egg-secure-memory.h"
 
 #include <string.h>
 
-EGG_SECURE_DECLARE (entry_buffer);
+/**
+ * SECTION:gcr-secure-entry-buffer
+ * @title: GcrSecureEntryBuffer
+ * @short_description: a GtkEntryBuffer that uses non-pageable memory
+ *
+ * It's good practice to try to keep passwords or sensitive secrets out of
+ * pageable memory whenever possible, so that they don't get written to disk.
+ *
+ * This is a #GtkEntryBuffer to be used with #GtkEntry which uses non-pageable
+ * memory to store a password placed in the entry. In order to make any sense
+ * at all, the entry must have it's visibility turned off, and just be displaying
+ * place holder characters for the text. That is, a password style entry.
+ *
+ * Use gtk_entry_new_with_buffer() or gtk_entry_set_buffer() to set this buffer
+ * on an entry.
+ */
+
+/**
+ * GcrSecureEntryBuffer:
+ *
+ * A #GtkEntryBuffer which uses non-pageable memory for passwords or secrets.
+ */
+
+/**
+ * GcrSecureEntryBufferClass:
+ *
+ * The class for #GcrSecureEntryBuffer.
+ */
+
+EGG_SECURE_DECLARE (secure_entry_buffer);
 
 /* Initial size of buffer, in bytes */
 #define MIN_SIZE 16
 
-struct _EggEntryBufferPrivate
+struct _GcrSecureEntryBufferPrivate
 {
 	gchar *text;
 	gsize text_size;
@@ -41,16 +71,13 @@ struct _EggEntryBufferPrivate
 	guint text_chars;
 };
 
-G_DEFINE_TYPE (EggEntryBuffer, egg_entry_buffer, GTK_TYPE_ENTRY_BUFFER);
+G_DEFINE_TYPE (GcrSecureEntryBuffer, gcr_secure_entry_buffer, GTK_TYPE_ENTRY_BUFFER);
 
-/* --------------------------------------------------------------------------------
- * SECURE IMPLEMENTATIONS OF TEXT BUFFER
- */
-
-static const gchar*
-egg_entry_buffer_real_get_text (GtkEntryBuffer *buffer, gsize *n_bytes)
+static const gchar *
+gcr_secure_entry_buffer_real_get_text (GtkEntryBuffer *buffer,
+                                       gsize *n_bytes)
 {
-	EggEntryBuffer *self = EGG_ENTRY_BUFFER (buffer);
+	GcrSecureEntryBuffer *self = GCR_SECURE_ENTRY_BUFFER (buffer);
 	if (n_bytes)
 		*n_bytes = self->priv->text_bytes;
 	if (!self->priv->text)
@@ -59,18 +86,20 @@ egg_entry_buffer_real_get_text (GtkEntryBuffer *buffer, gsize *n_bytes)
 }
 
 static guint
-egg_entry_buffer_real_get_length (GtkEntryBuffer *buffer)
+gcr_secure_entry_buffer_real_get_length (GtkEntryBuffer *buffer)
 {
-	EggEntryBuffer *self = EGG_ENTRY_BUFFER (buffer);
+	GcrSecureEntryBuffer *self = GCR_SECURE_ENTRY_BUFFER (buffer);
 	return self->priv->text_chars;
 }
 
 static guint
-egg_entry_buffer_real_insert_text (GtkEntryBuffer *buffer, guint position,
-                                    const gchar *chars, guint n_chars)
+gcr_secure_entry_buffer_real_insert_text (GtkEntryBuffer *buffer,
+                                          guint position,
+                                          const gchar *chars,
+                                          guint n_chars)
 {
-	EggEntryBuffer *self = EGG_ENTRY_BUFFER (buffer);
-	EggEntryBufferPrivate *pv = self->priv;
+	GcrSecureEntryBuffer *self = GCR_SECURE_ENTRY_BUFFER (buffer);
+	GcrSecureEntryBufferPrivate *pv = self->priv;
 	gsize n_bytes;
 	gsize at;
 
@@ -116,10 +145,12 @@ egg_entry_buffer_real_insert_text (GtkEntryBuffer *buffer, guint position,
 }
 
 static guint
-egg_entry_buffer_real_delete_text (GtkEntryBuffer *buffer, guint position, guint n_chars)
+gcr_secure_entry_buffer_real_delete_text (GtkEntryBuffer *buffer,
+                                          guint position,
+                                          guint n_chars)
 {
-	EggEntryBuffer *self = EGG_ENTRY_BUFFER (buffer);
-	EggEntryBufferPrivate *pv = self->priv;
+	GcrSecureEntryBuffer *self = GCR_SECURE_ENTRY_BUFFER (buffer);
+	GcrSecureEntryBufferPrivate *pv = self->priv;
 	gsize start, end;
 
 	if (position > pv->text_chars)
@@ -141,15 +172,11 @@ egg_entry_buffer_real_delete_text (GtkEntryBuffer *buffer, guint position, guint
 	return n_chars;
 }
 
-/* --------------------------------------------------------------------------------
- *
- */
-
 static void
-egg_entry_buffer_init (EggEntryBuffer *self)
+gcr_secure_entry_buffer_init (GcrSecureEntryBuffer *self)
 {
-	EggEntryBufferPrivate *pv;
-	pv = self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, EGG_TYPE_ENTRY_BUFFER, EggEntryBufferPrivate);
+	GcrSecureEntryBufferPrivate *pv;
+	pv = self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_SECURE_ENTRY_BUFFER, GcrSecureEntryBufferPrivate);
 
 	pv->text = NULL;
 	pv->text_chars = 0;
@@ -158,10 +185,10 @@ egg_entry_buffer_init (EggEntryBuffer *self)
 }
 
 static void
-egg_entry_buffer_finalize (GObject *obj)
+gcr_secure_entry_buffer_finalize (GObject *obj)
 {
-	EggEntryBuffer *self = EGG_ENTRY_BUFFER (obj);
-	EggEntryBufferPrivate *pv = self->priv;
+	GcrSecureEntryBuffer *self = GCR_SECURE_ENTRY_BUFFER (obj);
+	GcrSecureEntryBufferPrivate *pv = self->priv;
 
 	if (pv->text) {
 		egg_secure_strfree (pv->text);
@@ -170,31 +197,35 @@ egg_entry_buffer_finalize (GObject *obj)
 		pv->text_chars = 0;
 	}
 
-	G_OBJECT_CLASS (egg_entry_buffer_parent_class)->finalize (obj);
+	G_OBJECT_CLASS (gcr_secure_entry_buffer_parent_class)->finalize (obj);
 }
 
 static void
-egg_entry_buffer_class_init (EggEntryBufferClass *klass)
+gcr_secure_entry_buffer_class_init (GcrSecureEntryBufferClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GtkEntryBufferClass *buffer_class = GTK_ENTRY_BUFFER_CLASS (klass);
 
-	gobject_class->finalize = egg_entry_buffer_finalize;
+	gobject_class->finalize = gcr_secure_entry_buffer_finalize;
 
-	buffer_class->get_text = egg_entry_buffer_real_get_text;
-	buffer_class->get_length = egg_entry_buffer_real_get_length;
-	buffer_class->insert_text = egg_entry_buffer_real_insert_text;
-	buffer_class->delete_text = egg_entry_buffer_real_delete_text;
+	buffer_class->get_text = gcr_secure_entry_buffer_real_get_text;
+	buffer_class->get_length = gcr_secure_entry_buffer_real_get_length;
+	buffer_class->insert_text = gcr_secure_entry_buffer_real_insert_text;
+	buffer_class->delete_text = gcr_secure_entry_buffer_real_delete_text;
 
-	g_type_class_add_private (gobject_class, sizeof (EggEntryBufferPrivate));
+	g_type_class_add_private (gobject_class, sizeof (GcrSecureEntryBufferPrivate));
 }
 
-/* --------------------------------------------------------------------------------
+/**
+ * gcr_secure_entry_buffer_new:
  *
+ * Create a new #GcrSecureEntryBuffer, a #GtkEntryBuffer which uses
+ * non-pageable memory for the text.
+ *
+ * Returns: (transfer full): the new entry buffer
  */
-
-GtkEntryBuffer*
-egg_entry_buffer_new (void)
+GtkEntryBuffer *
+gcr_secure_entry_buffer_new (void)
 {
-	return g_object_new (EGG_TYPE_ENTRY_BUFFER, NULL);
+	return g_object_new (GCR_TYPE_SECURE_ENTRY_BUFFER, NULL);
 }

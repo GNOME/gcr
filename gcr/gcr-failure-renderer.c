@@ -20,11 +20,10 @@
 #include "config.h"
 
 #include "gcr-display-view.h"
+#include "gcr-failure-renderer.h"
 #include "gcr-icons.h"
 #include "gcr-parser.h"
-#include "gcr-failure-renderer.h"
-
-#include "egg/egg-entry-buffer.h"
+#include "gcr-secure-entry-buffer.h"
 
 #include <gdk/gdk.h>
 #include <glib/gi18n-lib.h>

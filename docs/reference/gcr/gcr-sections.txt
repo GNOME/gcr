@@ -643,6 +643,23 @@ gcr_fingerprint_from_subject_public_key_info
 </SECTION>
 
 <SECTION>
+<FILE>gcr-secure-entry-buffer</FILE>
+GcrSecureEntryBuffer
+GcrSecureEntryBufferClass
+gcr_secure_entry_buffer_new
+<SUBSECTION Standard>
+gcr_secure_entry_buffer_get_type
+GCR_IS_SECURE_ENTRY_BUFFER
+GCR_IS_SECURE_ENTRY_BUFFER_CLASS
+GCR_SECURE_ENTRY_BUFFER
+GCR_SECURE_ENTRY_BUFFER_CLASS
+GCR_SECURE_ENTRY_BUFFER_GET_CLASS
+GCR_TYPE_SECURE_ENTRY_BUFFER
+<SUBSECTION Private>
+GcrSecureEntryBufferPrivate
+</SECTION>
+
+<SECTION>
 <FILE>gcr-private</FILE>
 <SUBSECTION Private>
 GCR_GNUPG_COLLECTION

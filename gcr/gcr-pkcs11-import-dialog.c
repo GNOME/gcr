@@ -23,9 +23,9 @@
 
 #include "gcr-dialog-util.h"
 #include "gcr-icons.h"
+#include "gcr-secure-entry-buffer.h"
 #include "gcr-pkcs11-import-dialog.h"
 
-#include "egg/egg-entry-buffer.h"
 #include "egg/egg-secure-memory.h"
 
 #include <gtk/gtk.h>
@@ -96,7 +96,7 @@ _gcr_pkcs11_import_dialog_constructed (GObject *obj)
 	gtk_widget_hide (self->password_area);
 
 	/* Add a secure entry */
-	buffer = egg_entry_buffer_new ();
+	buffer = gcr_secure_entry_buffer_new ();
 	self->password_entry = GTK_ENTRY (gtk_builder_get_object (self->builder, "password-entry"));
 	gtk_entry_set_buffer (self->password_entry, buffer);
 	gtk_entry_set_activates_default (self->password_entry, TRUE);

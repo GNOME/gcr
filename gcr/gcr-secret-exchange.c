@@ -449,7 +449,7 @@ gcr_secret_exchange_receive (GcrSecretExchange *self,
  * is called on this object, or the object is destroyed.
  *
  * Depending on the secret passed into the other side of the secret exchange,
- * the resurt may be a binary string. It does however have a null terminator,
+ * the result may be a binary string. It does however have a null terminator,
  * so if you're certain that it is does not contain arbitrary binary data,
  * it can be used as a string.
  *

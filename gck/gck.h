@@ -1259,7 +1259,6 @@ GckAttributes*      gck_object_get_template_finish          (GckObject *self,
 #define GCK_IS_OBJECT_ATTRIBUTES(obj)                 (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCK_TYPE_OBJECT_ATTRIBUTES))
 #define GCK_OBJECT_ATTRIBUTES_GET_INTERFACE(inst)     (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GCK_TYPE_OBJECT_ATTRIBUTES, GckObjectAttributesIface))
 
-typedef struct _GckObjectAttributes GckObjectAttributes;
 typedef struct _GckObjectAttributesIface GckObjectAttributesIface;
 
 struct _GckObjectAttributesIface {

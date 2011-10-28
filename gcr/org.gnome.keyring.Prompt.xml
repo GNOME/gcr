@@ -1,0 +1,39 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+
+<node>
+	<interface name="org.gnome.keyring.Prompter.Prompt">
+		<property name="Title" type="s" access="readwrite"/>
+
+		<property name="Message" type="s" access="readwrite"/>
+
+		<property name="Description" type="s" access="readwrite"/>
+
+		<property name="Warning" type="s" access="readwrite"/>
+
+		<property name="PasswordNew" type="b" access="readwrite"/>
+
+		<property name="PasswordStrength" type="i" access="read"/>
+
+		<property name="ChoiceLabel" type="s" access="readwrite"/>
+
+		<property name="ChoiceChosen" type="b" access="readwrite"/>
+
+		<property name="CallerWindow" type="s" access="readwrite"/>
+
+		<method name="RequestPassword">
+			<arg name="properties" type="a{sv}" direction="in"/>
+			<arg name="input" type="s" direction="in"/>
+			xxx
+			<arg name="properties" type="a{sv}" direction="out"/>
+			<arg name="output" type="s" direction="out"/>
+		</method>
+
+		<method name="RequestConfirm">
+			<arg name="properties" type="a{sv}" direction="in"/>
+			xxx
+			<arg name="properties" type="a{sv}" direction="out"/>
+			<arg name="confirmed" type="b" direction="out"/>
+		</method>
+	</interface>
+</node>

@@ -37,7 +37,8 @@ TEST_PROGS = \
 	test-memory-icon \
 	test-gnupg-key \
 	test-gnupg-collection \
-	test-gnupg-process
+	test-gnupg-process \
+	test-system-prompt
 
 check_PROGRAMS = $(TEST_PROGS)
 

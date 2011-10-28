@@ -27,10 +27,13 @@ HEADER_BASE_FILES = \
 	gcr-importer.h \
 	gcr-import-interaction.h \
 	gcr-library.h \
+	gcr-mock-prompter.h \
 	gcr-parser.h \
 	gcr-pkcs11-certificate.h \
 	gcr-secret-exchange.h \
 	gcr-simple-certificate.h \
+	gcr-system-prompt.h \
+	gcr-system-prompter.h \
 	gcr-trust.h \
 	gcr-types.h \
 	gcr-union-collection.h \
@@ -76,7 +79,9 @@ INCLUDES = \
 	$(GLIB_CFLAGS) \
 	$(LIBGCRYPT_CFLAGS) \
 	$(P11_KIT_CFLAGS) \
-	-DG_LOG_DOMAIN=\"Gcr\"
+	-DG_LOG_DOMAIN=\"Gcr\" \
+	-DGCR_API_SUBJECT_TO_CHANGE \
+	-DLOCALEDIR=\""$(datadir)/locale"\"
 
 lib_LTLIBRARIES = \
 	libgcr-base-@GCR_MAJOR@.la \
@@ -85,7 +90,8 @@ lib_LTLIBRARIES = \
 BUILT_BASE_FILES = \
 	gcr-marshal.c gcr-marshal.h \
 	gcr-enum-types-base.c gcr-enum-types-base.h \
-	gcr-oids.c gcr-oids.h
+	gcr-oids.c gcr-oids.h \
+	gcr-dbus-generated.c gcr-dbus-generated.h
 
 BUILT_UI_FILES = \
 	gcr-marshal.c gcr-marshal.h \
@@ -104,6 +110,7 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-certificate-request.c gcr-certificate-request.h \
 	gcr-collection.c gcr-collection.h \
 	gcr-comparable.c gcr-comparable.h \
+	gcr-dbus-constants.h \
 	gcr-debug.c gcr-debug.h \
 	gcr-filter-collection.c gcr-filter-collection.h \
 	gcr-fingerprint.c gcr-fingerprint.h \
@@ -121,6 +128,7 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-library.c gcr-library.h \
 	gcr-memory.c \
 	gcr-memory-icon.c gcr-memory-icon.h \
+	gcr-mock-prompter.c gcr-mock-prompter.h \
 	gcr-openpgp.c gcr-openpgp.h \
 	gcr-openssh.c gcr-openssh.h \
 	gcr-parser.c gcr-parser.h \
@@ -132,6 +140,8 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-simple-collection.c gcr-simple-collection.h \
 	gcr-single-collection.c gcr-single-collection.h \
 	gcr-subject-public-key.c gcr-subject-public-key.h \
+	gcr-system-prompt.c gcr-system-prompt.h \
+	gcr-system-prompter.c gcr-system-prompter.h \
 	gcr-trust.c gcr-trust.h \
 	gcr-types.h \
 	gcr-union-collection.c gcr-union-collection.h \
@@ -180,7 +190,6 @@ libgcr_@GCR_MAJOR@_la_SOURCES = \
 
 libgcr_base_@GCR_MAJOR@_la_CFLAGS = \
 	-DGCK_API_SUBJECT_TO_CHANGE \
-	-DGCR_API_SUBJECT_TO_CHANGE \
 	-DP11_KIT_API_SUBJECT_TO_CHANGE \
 	-DGCR_COMPILATION
 
@@ -247,6 +256,18 @@ gcr-oids.c: gcr-oids.list gcr-mkoids
 
 gcr-oids.h: gcr-oids.c
 
+DBUS_XML_DEFINITIONS = \
+	org.gnome.keyring.Prompter.xml \
+	org.gnome.keyring.Prompt.xml
+
+gcr-dbus-generated.c: $(DBUS_XML_DEFINITIONS)
+	$(AM_V_GEN) gdbus-codegen --interface-prefix org.gnome.keyring. \
+		--generate-c-code gcr-dbus-generated --c-namespace Gcr \
+		$(DBUS_XML_DEFINITIONS)
+	$(AM_V_GEN) sed -i -e 's/gcr_/_gcr_/g' gcr-dbus-generated.[ch]
+
+gcr-dbus-generated.h: gcr-dbus-generated.c
+
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gcr-$(GCR_MAJOR).pc gcr-base-$(GCR_MAJOR).pc
 
@@ -302,6 +323,18 @@ gcr_viewer_LDADD = \
 	$(builddir)/libgcr-$(GCR_MAJOR).la \
 	$(top_builddir)/gck/libgck-@GCK_MAJOR@.la \
 	$(GLIB_LIBS) \
+	$(GTK_LIBS)
+
+libexec_PROGRAMS = gcr-prompter
+
+gcr_prompter_SOURCES = \
+	gcr-prompter-tool.c
+
+gcr_prompter_CFLAGS = \
+	$(GTK_CFLAGS)
+
+gcr_prompter_LDADD = \
+	$(builddir)/libgcr-$(GCR_MAJOR).la \
 	$(GTK_LIBS)
 
 # ------------------------------------------------------------------
@@ -372,6 +405,7 @@ EXTRA_DIST = \
 	gcr-mkoids \
 	$(ui_DATA) \
 	$(conf_DATA) \
+	org.gnome.keyring.Prompter.xml \
 	gcr-enum-types.h.template \
 	gcr-enum-types.c.template \
 	gcr.symbols \

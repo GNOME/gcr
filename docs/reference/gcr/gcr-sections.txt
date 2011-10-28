@@ -706,3 +706,8 @@ GcrOpensshPubCallback
 GCR_TYPE_IMPORTER_PROMPT_BEHAVIOR
 gcr_importer_prompt_behavior_get_type
 </SECTION>
+
+<SECTION>
+<FILE>GcrPrompter1</FILE>
+<SUBSECTION Private>
+</SECTION>

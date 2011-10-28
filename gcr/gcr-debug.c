@@ -43,6 +43,7 @@ static GDebugKey keys[] = {
 	{ "trust", GCR_DEBUG_TRUST },
 	{ "import", GCR_DEBUG_IMPORT },
 	{ "key", GCR_DEBUG_KEY },
+	{ "prompt", GCR_DEBUG_PROMPT },
 	{ 0, }
 };
 

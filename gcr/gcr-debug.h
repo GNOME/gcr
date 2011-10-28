@@ -35,6 +35,7 @@ typedef enum {
 	GCR_DEBUG_TRUST = 1 << 5,
 	GCR_DEBUG_IMPORT = 1 << 6,
 	GCR_DEBUG_KEY = 1 << 7,
+	GCR_DEBUG_PROMPT = 1 << 8,
 } GcrDebugFlags;
 
 gboolean           _gcr_debug_flag_is_set              (GcrDebugFlags flag);

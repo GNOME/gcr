@@ -1,0 +1,15 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+
+<node name="/org/gnome/keyring/Prompter">
+	<interface name="org.gnome.keyring.Prompter">
+		<method name="BeginPrompting">
+			<arg name="prompt" type="o" direction="out"/>
+		</method>
+		<method name="FinishPrompting">
+			<arg name="prompt" type="o" direction="in"/>
+		</method>
+		<signal name="PrompterReady">
+		</signal>
+	</interface>
+</node>

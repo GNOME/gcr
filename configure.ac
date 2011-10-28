@@ -70,7 +70,7 @@ PKG_CHECK_MODULES(GLIB,
 	gmodule-no-export-2.0
 	gthread-2.0
 	gobject-2.0
-	gio-2.0)
+	gio-2.0 gio-unix-2.0)
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 

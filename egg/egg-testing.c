@@ -25,6 +25,8 @@
 
 #include "egg-testing.h"
 
+#include <glib-object.h>
+
 #include <errno.h>
 #include <unistd.h>
 
@@ -136,7 +138,7 @@ egg_tests_run_in_thread_with_loop (void)
 	GMainLoop *loop;
 	gpointer ret;
 
-	g_thread_init (NULL);
+	g_type_init ();
 
 	loop = g_main_loop_new (NULL, FALSE);
 	wait_condition = g_cond_new ();

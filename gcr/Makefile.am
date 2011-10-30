@@ -303,6 +303,7 @@ INTROSPECTION_GIRS = Gcr-@GCR_MAJOR@.gir
 INTROSPECTION_SCANNER_ARGS = \
 	$(INTROSPECTION_FLAGS) \
 	--warn-all \
+	--add-include-path=$(top_builddir)/gck  \
 	--include-uninstalled=$(top_builddir)/gck/Gck-@GCK_MAJOR@.gir
 INTROSPECTION_COMPILER_ARGS = \
 	--includedir=$(srcdir) \

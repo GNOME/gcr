@@ -71,6 +71,8 @@ gcr_renderer_register
 gcr_renderer_register_well_known
 gcr_renderer_render
 gcr_renderer_render_view
+gcr_secure_entry_buffer_get_type
+gcr_secure_entry_buffer_new
 gcr_tree_selector_get_collection
 gcr_tree_selector_get_columns
 gcr_tree_selector_get_selected

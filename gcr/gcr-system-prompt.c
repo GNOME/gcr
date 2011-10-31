@@ -241,6 +241,7 @@ gcr_system_prompt_finalize (GObject *obj)
 {
 	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (obj);
 
+	g_free (self->pv->prompter_bus_name);
 	g_hash_table_destroy (self->pv->properties_to_write);
 	g_hash_table_destroy (self->pv->property_cache);
 

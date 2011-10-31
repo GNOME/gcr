@@ -607,39 +607,39 @@ gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 
 	g_object_class_install_property (gobject_class, PROP_TITLE,
 	            g_param_spec_string ("title", "Title", "Prompt title",
-	                                 "", G_PARAM_READABLE));
+	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_MESSAGE,
 	            g_param_spec_string ("message", "Message", "Prompt message",
-	                                 "", G_PARAM_READABLE));
+	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_DESCRIPTION,
 	            g_param_spec_string ("description", "Description", "Prompt description",
-	                                 "", G_PARAM_READABLE));
+	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_WARNING,
 	            g_param_spec_string ("warning", "Warning", "Prompt warning",
-	                                 "", G_PARAM_READABLE));
+	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_PASSWORD_NEW,
 	           g_param_spec_boolean ("password-new", "Password new", "Whether is a new password",
-	                                 FALSE, G_PARAM_READABLE));
+	                                 FALSE, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_PASSWORD_STRENGTH,
 	               g_param_spec_int ("password-strength", "Password strength", "Strength of password",
-	                                 0, G_MAXINT, 0, G_PARAM_READWRITE));
+	                                 0, G_MAXINT, 0, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_CHOICE_LABEL,
 	            g_param_spec_string ("choice-label", "Choice label", "Label for prompt choice",
-	                                 "", G_PARAM_READABLE));
+	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_CHOICE_CHOSEN,
 	           g_param_spec_boolean ("choice-chosen", "Choice chosen", "Whether choice is chosen",
-	                                 FALSE, G_PARAM_READWRITE));
+	                                 FALSE, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_CALLER_WINDOW,
 	            g_param_spec_string ("caller-window", "Caller window", "Window id of caller",
-	                                 "", G_PARAM_READABLE));
+	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	signals[OPEN] = g_signal_new ("open", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
 	                              G_STRUCT_OFFSET (GcrSystemPrompterClass, open),

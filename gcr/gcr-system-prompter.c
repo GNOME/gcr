@@ -93,59 +93,27 @@ struct _GcrSystemPrompterPrivate {
 	/* Properties */
 	GHashTable *properties;
 	GQueue *properties_changed;
-	guint changed_source;
 };
 
 static gint signals[LAST_SIGNAL] = { 0, };
 
 G_DEFINE_TYPE (GcrSystemPrompter, gcr_system_prompter, G_TYPE_OBJECT);
 
-static void
-dispatch_changed_properties (GcrSystemPrompter *self)
+static GVariant *
+build_changed_properties (GcrSystemPrompter *self)
 {
 	const gchar *property_name;
 	GVariantBuilder builder;
-	GVariantBuilder invalidated;
 	GVariant *value;
-	GError *error = NULL;
 
-	if (self->pv->changed_source) {
-		g_source_remove (self->pv->changed_source);
-		self->pv->changed_source = 0;
-	}
-
-	g_variant_builder_init (&builder, G_VARIANT_TYPE ("a{sv}"));
-	g_variant_builder_init (&invalidated, G_VARIANT_TYPE ("as"));
+	g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ssv)"));
 
 	while ((property_name = g_queue_pop_head (self->pv->properties_changed))) {
 		value = g_hash_table_lookup (self->pv->properties, property_name);
-		g_variant_builder_add (&builder, "{sv}", property_name, value);
+		g_variant_builder_add (&builder, "(ssv)", GCR_DBUS_PROMPT_INTERFACE, property_name, value);
 	}
 
-	g_dbus_connection_emit_signal (self->pv->connection,
-	                               self->pv->owner_name,
-	                               self->pv->prompt_path,
-	                               "org.freedesktop.DBus.Properties",
-	                               "PropertiesChanged",
-	                               g_variant_new ("(sa{sv}as)", GCR_DBUS_PROMPT_INTERFACE,
-	                                              &builder, &invalidated),
-	                               &error);
-
-	if (error != NULL) {
-		g_warning ("couldn't emit properties changed signal: %s", egg_error_message (error));
-		g_clear_error (&error);
-	}
-}
-
-static gboolean
-on_idle_dispatch_changed (gpointer data)
-{
-	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (data);
-
-	self->pv->changed_source = 0;
-	dispatch_changed_properties (self);
-
-	return FALSE; /* Don't run again */
+	return g_variant_builder_end (&builder);
 }
 
 static void
@@ -158,9 +126,6 @@ prompt_emit_changed (GcrSystemPrompter *self,
 
 	g_queue_push_tail (self->pv->properties_changed,
 	                   (gpointer)g_intern_string (dbus_property));
-
-	if (!self->pv->changed_source)
-		self->pv->changed_source = g_idle_add (on_idle_dispatch_changed, self);
 
 	if (g_str_equal ("Title", dbus_property))
 		object_property = "title";
@@ -247,25 +212,23 @@ static void
 prompt_update_properties (GcrSystemPrompter *self,
                           GVariant *properties)
 {
-	const gchar *prefix = GCR_DBUS_PROMPT_INTERFACE ".";
 	GObject *obj = G_OBJECT (self);
 	GVariantIter *iter;
 	GVariant *variant;
-	gchar *full_property_name;
-	const gchar *property_name;
+	gchar *property_name;
+	gchar *interface;
 
 	g_object_freeze_notify (obj);
 
-	g_variant_get (properties, "a{sv}", &iter);
-	while (g_variant_iter_loop (iter, "{sv}", &full_property_name, &variant)) {
-		if (g_str_has_prefix (full_property_name, prefix)) {
-			property_name = full_property_name + strlen (prefix);
-			if (g_hash_table_lookup (self->pv->properties, property_name)) {
-				g_hash_table_insert (self->pv->properties,
-				                     (gpointer)g_intern_string (property_name),
-				                     g_variant_ref (variant));
-				prompt_emit_changed (self, property_name);
-			}
+	g_variant_get (properties, "a(ssv)", &iter);
+	while (g_variant_iter_loop (iter, "(ssv)", &interface, &property_name, &variant)) {
+		if (g_strcmp0 (interface, GCR_DBUS_PROMPT_INTERFACE) != 0)
+			continue;
+		if (g_hash_table_lookup (self->pv->properties, property_name)) {
+			g_hash_table_insert (self->pv->properties,
+					     (gpointer)g_intern_string (property_name),
+					     g_variant_ref (variant));
+			prompt_emit_changed (self, property_name);
 		}
 	}
 
@@ -288,11 +251,6 @@ static void
 prompt_clear_properties (GcrSystemPrompter *self)
 {
 	GVariant *variant;
-
-	if (self->pv->changed_source) {
-		g_source_remove (self->pv->changed_source);
-		self->pv->changed_source = 0;
-	}
 
 	variant = g_variant_ref_sink (g_variant_new_string (""));
 	prompt_clear_property (self, GCR_DBUS_PROMPT_PROPERTY_TITLE, variant);
@@ -391,17 +349,17 @@ prompt_method_request_confirm (GcrSystemPrompter *self,
 
 static void
 prompt_method_call (GDBusConnection *connection,
-		    const gchar *sender,
-		    const gchar *object_path,
-		    const gchar *interface_name,
-		    const gchar *method_name,
-		    GVariant *parameters,
-		    GDBusMethodInvocation *invocation,
-		    gpointer user_data)
+                    const gchar *sender,
+                    const gchar *object_path,
+                    const gchar *interface_name,
+                    const gchar *method_name,
+                    GVariant *parameters,
+                    GDBusMethodInvocation *invocation,
+                    gpointer user_data)
 {
 	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (user_data);
-	GVariant *dict = NULL;
-	gchar *string = NULL;;
+	GVariant *properties = NULL;
+	gchar *string = NULL;
 
 	g_return_if_fail (method_name != NULL);
 
@@ -411,19 +369,19 @@ prompt_method_call (GDBusConnection *connection,
 		                                               "This prompt is owned by another process.");
 
 	} else if (g_str_equal (method_name, "RequestPassword")) {
-		g_variant_get (parameters, "(@a{sv}s)", &dict, &string);
-		prompt_method_request_password (self, invocation, dict, string);
+		g_variant_get (parameters, "(@a(ssv)s)", &properties, &string);
+		prompt_method_request_password (self, invocation, properties, string);
 
 	} else if (g_str_equal (method_name, "RequestConfirm")) {
-		g_variant_get (parameters, "(@a{sv})", &dict);
-		prompt_method_request_confirm (self, invocation, dict);
+		g_variant_get (parameters, "(@a(ssv))", &properties);
+		prompt_method_request_confirm (self, invocation, properties);
 
 	} else {
 		g_return_if_reached ();
 	}
 
-	if (dict)
-		g_variant_unref (dict);
+	if (properties)
+		g_variant_unref (properties);
 	g_free (string);
 }
 
@@ -1067,6 +1025,7 @@ gcr_system_prompter_respond_cancelled (GcrSystemPrompter *self)
 {
 	GDBusMethodInvocation *invocation;
 	const gchar *method;
+	GVariant *properties;
 
 	g_return_if_fail (GCR_IS_SYSTEM_PROMPTER (self));
 	g_return_if_fail (self->pv->invocation != NULL);
@@ -1074,15 +1033,18 @@ gcr_system_prompter_respond_cancelled (GcrSystemPrompter *self)
 	invocation = self->pv->invocation;
 	self->pv->invocation = NULL;
 
-	/* Send back all the properties before we respond */
-	dispatch_changed_properties (self);
+	/* Don't send back any changed properties on cancel */
+	properties = g_variant_new_array (G_VARIANT_TYPE ("(ssv)"), NULL, 0);
 
 	method = g_dbus_method_invocation_get_method_name (invocation);
 	if (method && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_PASSWORD))
-		g_dbus_method_invocation_return_value (invocation, g_variant_new ("(s)", ""));
+		g_dbus_method_invocation_return_value (invocation,
+		                                       g_variant_new ("(@a(ssv)s)",
+		                                                      properties, ""));
 
 	else if (method && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_CONFIRM))
-		g_dbus_method_invocation_return_value (invocation, g_variant_new ("(b)", FALSE));
+		g_dbus_method_invocation_return_value (invocation, g_variant_new ("(@a(ssv)b)",
+		                                                                  properties, FALSE));
 
 	else
 		g_return_if_reached ();
@@ -1104,6 +1066,7 @@ gcr_system_prompter_respond_with_password (GcrSystemPrompter *self,
 {
 	GDBusMethodInvocation *invocation;
 	const gchar *method;
+	GVariant *properties;
 	gchar *exchange;
 
 	g_return_if_fail (GCR_IS_SYSTEM_PROMPTER (self));
@@ -1114,13 +1077,14 @@ gcr_system_prompter_respond_with_password (GcrSystemPrompter *self,
 	self->pv->invocation = NULL;
 
 	/* Send back all the properties before we respond */
-	dispatch_changed_properties (self);
+	properties = build_changed_properties (self);
 
 	method = g_dbus_method_invocation_get_method_name (invocation);
 	g_return_if_fail (method != NULL && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_PASSWORD));
 
 	exchange = gcr_secret_exchange_send (self->pv->exchange, password, -1);
-	g_dbus_method_invocation_return_value (invocation, g_variant_new ("(s)", exchange));
+	g_dbus_method_invocation_return_value (invocation, g_variant_new ("(@a(ssv)s)",
+	                                                                  properties, exchange));
 	g_free (exchange);
 
 	g_signal_emit (self, signals[RESPONDED], 0);
@@ -1137,6 +1101,7 @@ void
 gcr_system_prompter_respond_confirmed (GcrSystemPrompter *self)
 {
 	GDBusMethodInvocation *invocation;
+	GVariant *properties;
 	const gchar *method;
 
 	g_return_if_fail (GCR_IS_SYSTEM_PROMPTER (self));
@@ -1146,11 +1111,12 @@ gcr_system_prompter_respond_confirmed (GcrSystemPrompter *self)
 	self->pv->invocation = NULL;
 
 	/* Send back all the properties before we respond */
-	dispatch_changed_properties (self);
+	properties = build_changed_properties (self);
 
 	method = g_dbus_method_invocation_get_method_name (invocation);
 	g_return_if_fail (method != NULL && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_CONFIRM));
-	g_dbus_method_invocation_return_value (invocation, g_variant_new ("(b)", TRUE));
+	g_dbus_method_invocation_return_value (invocation, g_variant_new ("(@a(ssv)b)",
+	                                                                  properties, TRUE));
 
 	g_signal_emit (self, signals[RESPONDED], 0);
 }

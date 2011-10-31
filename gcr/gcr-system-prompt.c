@@ -73,7 +73,6 @@ struct _GcrSystemPromptPrivate {
 	GHashTable *properties_to_write;
 	GHashTable *property_cache;
 	GDBusProxy *prompt_proxy;
-	gulong prompt_properties_sig;
 	gchar *prompt_path;
 	gboolean exchanged;
 	gboolean begun_prompting;
@@ -222,10 +221,8 @@ gcr_system_prompt_dispose (GObject *obj)
 	g_hash_table_remove_all (self->pv->property_cache);
 
 	if (self->pv->prompt_proxy) {
-		g_signal_handler_disconnect (self->pv->prompt_proxy, self->pv->prompt_properties_sig);
 		g_object_unref (self->pv->prompt_proxy);
 		self->pv->prompt_proxy = NULL;
-		self->pv->prompt_properties_sig = 0;
 	}
 
 	g_clear_object (&self->pv->connection);
@@ -350,36 +347,12 @@ lookup_property_in_caches (GcrSystemPrompt *self,
 	if (variant == NULL && self->pv->prompt_proxy) {
 		variant = g_dbus_proxy_get_cached_property (self->pv->prompt_proxy, property_name);
 		if (variant != NULL)
-			g_hash_table_insert (self->pv->property_cache, (gpointer)property_name, variant);
+			g_hash_table_insert (self->pv->property_cache,
+			                     (gpointer)g_intern_string (property_name),
+			                     variant);
 	}
 
 	return variant;
-}
-
-static void
-on_prompt_properties_changed (GDBusProxy *proxy,
-                              GVariant   *changed_properties,
-                              GStrv       invalidated_properties,
-                              gpointer    user_data)
-{
-	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (user_data);
-	GVariantIter iter;
-	GVariant *value;
-	gchar *key;
-	guint i;
-
-	g_variant_iter_init (&iter, changed_properties);
-	while (g_variant_iter_next (&iter, "{sv}", &key, &value)) {
-		if (!g_hash_table_lookup (self->pv->properties_to_write, key))
-			g_hash_table_remove (self->pv->property_cache, key);
-		g_free (key);
-		g_variant_unref (value);
-	}
-
-	for (i = 0; invalidated_properties != NULL && invalidated_properties[i] != NULL; i++) {
-		if (!g_hash_table_lookup (self->pv->properties_to_write, invalidated_properties[i]))
-			g_hash_table_remove (self->pv->property_cache, invalidated_properties[i]);
-	}
 }
 
 static const gchar *
@@ -622,8 +595,6 @@ gcr_system_prompt_real_init (GInitable *initable,
 			return FALSE;
 
 		g_dbus_proxy_set_default_timeout (self->pv->prompt_proxy, G_MAXINT);
-		self->pv->prompt_properties_sig = g_signal_connect (self->pv->prompt_proxy, "g-properties-changed",
-		                                                    G_CALLBACK (on_prompt_properties_changed), self);
 	}
 
 	return TRUE;
@@ -717,9 +688,6 @@ on_prompt_proxy_new (GObject *source,
 
 	if (error == NULL) {
 		g_return_if_fail (self->pv->prompt_proxy != NULL);
-		self->pv->prompt_properties_sig = g_signal_connect (self->pv->prompt_proxy, "g-properties-changed",
-		                                                   G_CALLBACK (on_prompt_properties_changed), self);
-
 		perform_init_async (self, res);
 
 	} else {
@@ -826,24 +794,42 @@ parameter_properties (GcrSystemPrompt *self)
 	GVariantBuilder builder;
 	const gchar *property_name;
 	GVariant *variant;
-	gchar *name;
 
-	g_variant_builder_init (&builder, G_VARIANT_TYPE ("a{sv}"));
+	g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ssv)"));
 
 	g_hash_table_iter_init (&iter, self->pv->properties_to_write);
 	while (g_hash_table_iter_next (&iter, (gpointer *)&property_name, NULL)) {
 		variant = g_hash_table_lookup (self->pv->property_cache, property_name);
-		if (variant == NULL) {
+		if (variant == NULL)
 			g_warning ("couldn't find prompt property to write: %s", property_name);
-		} else {
-			name = g_strdup_printf ("%s.%s", GCR_DBUS_PROMPT_INTERFACE, property_name);
-			g_variant_builder_add (&builder, "{sv}", name, variant);
-			g_free (name);
-		}
+		else
+			g_variant_builder_add (&builder, "(ssv)", GCR_DBUS_PROMPT_INTERFACE,
+			                       property_name, variant);
 	}
 
 	g_hash_table_remove_all (self->pv->properties_to_write);
 	return g_variant_builder_end (&builder);
+}
+
+static void
+return_properties (GcrSystemPrompt *self,
+                   GVariant *properties)
+{
+	GVariantIter *iter;
+	GVariant *value;
+	gchar *interface;
+	gchar *property_name;
+	gpointer key;
+
+	g_variant_get (properties, "a(ssv)", &iter);
+	while (g_variant_iter_loop (iter, "(ssv)", &interface, &property_name, &value)) {
+		key = (gpointer)g_intern_string (property_name);
+		if (!g_hash_table_lookup (self->pv->properties_to_write, key)) {
+			g_hash_table_insert (self->pv->property_cache,
+			                     key, g_variant_ref (value));
+		}
+	}
+	g_variant_iter_free (iter);
 }
 
 static GVariant *
@@ -863,7 +849,7 @@ parameters_for_password (GcrSystemPrompt *self)
 	self->pv->exchanged = TRUE;
 
 	properties = parameter_properties (self);
-	params = g_variant_new ("(@a{sv}s)", properties, input);
+	params = g_variant_new ("(@a(ssv)s)", properties, input);
 	g_free (input);
 
 	return params;
@@ -875,11 +861,14 @@ return_for_password (GcrSystemPrompt *self,
                      GError **error)
 {
 	GcrSecretExchange *exchange;
+	GVariant *properties;
 	const gchar *ret = NULL;
 	gchar *output;
 
 	exchange = gcr_system_prompt_get_secret_exchange (self);
-	g_variant_get (retval, "(s)", &output);
+	g_variant_get (retval, "(@a(ssv)s)", &properties, &output);
+
+	return_properties (self, properties);
 
 	if (output && output[0]) {
 		if (!gcr_secret_exchange_receive (exchange, output)) {
@@ -890,6 +879,7 @@ return_for_password (GcrSystemPrompt *self,
 		}
 	}
 
+	g_variant_unref (properties);
 	g_free (output);
 
 	return ret;
@@ -1000,7 +990,24 @@ parameters_for_confirm (GcrSystemPrompt *self)
 	GVariant *properties;
 
 	properties = parameter_properties (self);
-	return g_variant_new ("(@a{sv})", properties);
+	return g_variant_new ("(@a(ssv))", properties);
+}
+
+static gboolean
+return_for_confirm (GcrSystemPrompt *self,
+                    GVariant *retval,
+                    GError **error)
+{
+	GVariant *properties;
+	gboolean confirm = FALSE;
+
+	g_variant_get (retval, "(@a(ssv)b)", &properties, &confirm);
+
+	return_properties (self, properties);
+
+	g_variant_unref (properties);
+
+	return confirm;
 }
 
 static void
@@ -1012,12 +1019,13 @@ on_prompt_requested_confirm (GObject *source,
 	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
 	GError *error = NULL;
 	GVariant *retval;
+	gboolean ret;
 
 	retval = g_dbus_proxy_call_finish (self->pv->prompt_proxy, result, &error);
 
 	if (retval != NULL) {
-		g_simple_async_result_set_op_res_gpointer (res, retval,
-		                                           (GDestroyNotify)g_variant_unref);
+		ret = return_for_confirm (self, retval, &error);
+		g_simple_async_result_set_op_res_gboolean (res, ret);
 	}
 
 	if (error != NULL)
@@ -1064,7 +1072,6 @@ gcr_system_prompt_confirm_finish (GcrSystemPrompt *self,
                                   GError **error)
 {
 	GSimpleAsyncResult *res;
-	gboolean ret = FALSE;
 
 	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPT (self), FALSE);
 	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (self),
@@ -1074,9 +1081,7 @@ gcr_system_prompt_confirm_finish (GcrSystemPrompt *self,
 	if (g_simple_async_result_propagate_error (res, error))
 		return FALSE;
 
-	g_variant_get (g_simple_async_result_get_op_res_gpointer (res),
-	               "(b)", &ret);
-	return ret;
+	return g_simple_async_result_get_op_res_gboolean (res);
 }
 
 /**
@@ -1120,7 +1125,7 @@ gcr_system_prompt_confirm (GcrSystemPrompt *self,
 	                                 cancellable, error);
 
 	if (retval != NULL) {
-		g_variant_get (retval, "(b)", &ret);
+		ret = return_for_confirm (self, retval, error);
 		g_variant_unref (retval);
 	}
 

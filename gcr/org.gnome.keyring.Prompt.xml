@@ -21,18 +21,21 @@
 
 		<property name="CallerWindow" type="s" access="readwrite"/>
 
+		<!--
+		 * In addition to PropertiesChanged, we send back changed
+		 * properties with the method response. To avoid race conditions
+		-->
+
 		<method name="RequestPassword">
-			<arg name="properties" type="a{sv}" direction="in"/>
+			<arg name="properties" type="a(ssv)" direction="in"/>
 			<arg name="input" type="s" direction="in"/>
-			xxx
-			<arg name="properties" type="a{sv}" direction="out"/>
+			<arg name="changed" type="a(ssv)" direction="out"/>
 			<arg name="output" type="s" direction="out"/>
 		</method>
 
 		<method name="RequestConfirm">
-			<arg name="properties" type="a{sv}" direction="in"/>
-			xxx
-			<arg name="properties" type="a{sv}" direction="out"/>
+			<arg name="properties" type="a(ssv)" direction="in"/>
+			<arg name="changed" type="a(ssv)" direction="out"/>
 			<arg name="confirmed" type="b" direction="out"/>
 		</method>
 	</interface>

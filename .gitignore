@@ -1,6 +1,8 @@
 *.abi
 *.autogen_bak
 *.bak
+*.gcno
+*.gcov
 *.gir
 *.gmo
 *.la
@@ -91,3 +93,5 @@ stamp-*
 /po/*.c
 /po/messages
 
+/testing/coverage
+/testing/coverage.info

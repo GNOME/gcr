@@ -24,11 +24,19 @@
 
 #include <glib.h>
 
-static inline const gchar*
+static inline const gchar *
 egg_error_message (GError *error)
 {
 	g_return_val_if_fail (error, "(unknown)");
 	return error->message ? error->message : "(null)";
+}
+
+static inline const gchar *
+egg_error_result_message (GError **error)
+{
+	if (error == NULL)
+		return "(unknown)";
+	return (*error) && (*error)->message ? (*error)->message : "(null)";
 }
 
 #endif /* EGG_ERROR_H_ */

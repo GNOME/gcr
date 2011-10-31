@@ -105,6 +105,9 @@ egg_assertion_message_cmpmem (const char     *domain,
   g_free (s);
 }
 
+static void (*wait_stop_impl) (void);
+static gboolean (*wait_until_impl) (int timeout);
+
 void
 egg_assertion_not_object (const char *domain,
                           const char *file,
@@ -131,6 +134,20 @@ egg_assertion_not_object (const char *domain,
 void
 egg_test_wait_stop (void)
 {
+	g_assert (wait_stop_impl != NULL);
+	(wait_stop_impl) ();
+}
+
+gboolean
+egg_test_wait_until (int timeout)
+{
+	g_assert (wait_until_impl != NULL);
+	return (wait_until_impl) (timeout);
+}
+
+static void
+thread_wait_stop (void)
+{
 	GTimeVal tv;
 
 	g_get_current_time (&tv);
@@ -146,8 +163,8 @@ egg_test_wait_stop (void)
 	g_mutex_unlock (wait_mutex);
 }
 
-gboolean
-egg_test_wait_until (int timeout)
+static gboolean
+thread_wait_until (int timeout)
 {
 	GTimeVal tv;
 	gboolean ret;
@@ -169,11 +186,70 @@ egg_test_wait_until (int timeout)
 	return ret;
 }
 
+static GMainLoop *wait_loop = NULL;
+
+static void
+loop_wait_stop (void)
+{
+	g_assert (wait_loop != NULL);
+	g_main_loop_quit (wait_loop);
+}
+
+static gboolean
+on_loop_wait_timeout (gpointer data)
+{
+	gboolean *timed_out = data;
+	*timed_out = TRUE;
+
+	g_assert (wait_loop != NULL);
+	g_main_loop_quit (wait_loop);
+
+	return TRUE; /* we remove this source later */
+}
+
+static gboolean
+loop_wait_until (int timeout)
+{
+	gboolean ret = FALSE;
+	gboolean timed_out = FALSE;
+	guint source;
+
+	g_assert (wait_loop == NULL);
+	wait_loop = g_main_loop_new (g_main_context_get_thread_default (), FALSE);
+
+	source = g_timeout_add (timeout, on_loop_wait_timeout, &timed_out);
+
+	g_main_loop_run (wait_loop);
+
+	if (timed_out) {
+		g_source_remove (source);
+		ret = FALSE;
+	} else {
+		ret = TRUE;
+	}
+
+	g_main_loop_unref (wait_loop);
+	wait_loop = NULL;
+	return ret;
+
+	g_assert (wait_loop != NULL);
+	g_main_loop_quit (wait_loop);
+}
+
 static gpointer
 testing_thread (gpointer loop)
 {
-	/* Must have been defined by the test including this file */
-	gint ret = g_test_run ();
+	gint ret;
+
+	wait_stop_impl = thread_wait_stop;
+	wait_until_impl = thread_wait_until;
+
+	ret = g_test_run ();
+
+	wait_stop_impl = NULL;
+	wait_until_impl = NULL;
+
+	/* Quit the main loop now that tests are done */
 	g_main_loop_quit (loop);
 	return GINT_TO_POINTER (ret);
 }
@@ -205,6 +281,7 @@ egg_tests_run_with_loop (void)
 
 	return GPOINTER_TO_INT (ret);
 }
+<<<<<<< HEAD
 #endif
 
 

@@ -25,6 +25,8 @@
 
 #include "gcr-dbus-constants.h"
 #include "gcr-dbus-generated.h"
+#define DEBUG_FLAG GCR_DEBUG_PROMPT
+#include "gcr-debug.h"
 #include "gcr-internal.h"
 #include "gcr-library.h"
 #include "gcr-secret-exchange.h"
@@ -69,11 +71,11 @@ enum {
 };
 
 enum {
-	SHOW_PROMPT,
+	OPEN,
 	PROMPT_PASSWORD,
 	PROMPT_CONFIRM,
 	RESPONDED,
-	HIDE_PROMPT,
+	CLOSE,
 	LAST_SIGNAL
 };
 
@@ -88,7 +90,7 @@ struct _GcrSystemPrompterPrivate {
 	guint owner_watching_id;
 	GcrSecretExchange *exchange;
 	GDBusMethodInvocation *invocation;
-	gboolean shown;
+	gboolean opened;
 
 	/* Properties */
 	GHashTable *properties;
@@ -297,9 +299,10 @@ prompt_method_request_password (GcrSystemPrompter *self,
 
 	prompt_update_properties (self, properties);
 
-	if (!self->pv->shown) {
-		self->pv->shown = TRUE;
-		g_signal_emit (self, signals[SHOW_PROMPT], 0);
+	if (!self->pv->opened) {
+		self->pv->opened = TRUE;
+		_gcr_debug ("prompter opening prompt");
+		g_signal_emit (self, signals[OPEN], 0);
 	}
 
 	self->pv->invocation = invocation;
@@ -330,9 +333,10 @@ prompt_method_request_confirm (GcrSystemPrompter *self,
 
 	prompt_update_properties (self, properties);
 
-	if (!self->pv->shown) {
-		self->pv->shown = TRUE;
-		g_signal_emit (self, signals[SHOW_PROMPT], 0);
+	if (!self->pv->opened) {
+		self->pv->opened = TRUE;
+		_gcr_debug ("prompter opening prompt");
+		g_signal_emit (self, signals[OPEN], 0);
 	}
 
 	self->pv->invocation = invocation;
@@ -400,6 +404,7 @@ begin_prompting (GcrSystemPrompter *self,
 	g_assert (self->pv->prompt_path == NULL);
 
 	self->pv->prompt_path = g_strdup (GCR_DBUS_PROMPTER_OBJECT_PATH "/prompt0");
+	_gcr_debug ("prompter registering prompt: %s", self->pv->prompt_path);
 	self->pv->prompt_registered = g_dbus_connection_register_object (connection, self->pv->prompt_path,
 	                                                                 _gcr_prompter_prompt_interface_info (),
 	                                                                 &prompt_dbus_vtable, self, NULL, &error);
@@ -424,12 +429,14 @@ finish_prompting (GcrSystemPrompter *self)
 	prompt_clear_properties (self);
 
 	/* Tell the implementation to hide the display */
-	if (self->pv->shown) {
-		self->pv->shown = FALSE;
-		g_signal_emit (self, signals[HIDE_PROMPT], 0);
+	if (self->pv->opened) {
+		_gcr_debug ("prompter closing prompt");
+		self->pv->opened = FALSE;
+		g_signal_emit (self, signals[CLOSE], 0);
 	}
 
 	if (self->pv->owner_watching_id) {
+		_gcr_debug ("prompter stopping watch of client: %s", self->pv->owner_name);
 		g_bus_unwatch_name (self->pv->owner_watching_id);
 		self->pv->owner_watching_id = 0;
 	}
@@ -438,6 +445,7 @@ finish_prompting (GcrSystemPrompter *self)
 	self->pv->owner_name = NULL;
 
 	if (self->pv->prompt_registered) {
+		_gcr_debug ("prompter unregistering prompt: %s", self->pv->prompt_path);
 		if (!g_dbus_connection_unregister_object (self->pv->connection,
 		                                          self->pv->prompt_registered))
 			g_return_if_reached ();
@@ -530,6 +538,8 @@ gcr_system_prompter_dispose (GObject *obj)
 {
 	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (obj);
 
+	_gcr_debug ("disposing prompter");
+
 	if (self->pv->invocation)
 		gcr_system_prompter_respond_cancelled (self);
 
@@ -545,6 +555,8 @@ static void
 gcr_system_prompter_finalize (GObject *obj)
 {
 	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (obj);
+
+	_gcr_debug ("finalizing prompter");
 
 	g_hash_table_destroy (self->pv->properties);
 	g_queue_free (self->pv->properties_changed);
@@ -586,10 +598,10 @@ gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 	gobject_class->dispose = gcr_system_prompter_dispose;
 	gobject_class->finalize = gcr_system_prompter_finalize;
 
-	klass->show_prompt = gcr_system_prompter_real_show_prompt;
+	klass->open = gcr_system_prompter_real_show_prompt;
 	klass->prompt_password= gcr_system_prompter_real_prompt_password;
 	klass->prompt_confirm = gcr_system_prompter_real_prompt_confirm;
-	klass->hide_prompt = gcr_system_prompter_real_hide_prompt;
+	klass->close = gcr_system_prompter_real_hide_prompt;
 
 	g_type_class_add_private (gobject_class, sizeof (GcrSystemPrompterPrivate));
 
@@ -629,9 +641,9 @@ gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 	            g_param_spec_string ("caller-window", "Caller window", "Window id of caller",
 	                                 "", G_PARAM_READABLE));
 
-	signals[SHOW_PROMPT] = g_signal_new ("show-prompt", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
-	                                     G_STRUCT_OFFSET (GcrSystemPrompterClass, show_prompt),
-	                                     NULL, NULL, NULL, G_TYPE_NONE, 0);
+	signals[OPEN] = g_signal_new ("open", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
+	                              G_STRUCT_OFFSET (GcrSystemPrompterClass, open),
+	                              NULL, NULL, NULL, G_TYPE_NONE, 0);
 
 	signals[PROMPT_PASSWORD] = g_signal_new ("prompt-password", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
 	                                         G_STRUCT_OFFSET (GcrSystemPrompterClass, prompt_password),
@@ -647,9 +659,9 @@ gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 	                                   G_STRUCT_OFFSET (GcrSystemPrompterClass, responded),
 	                                   NULL, NULL, NULL, G_TYPE_NONE, 0);
 
-	signals[HIDE_PROMPT] = g_signal_new ("hide-prompt", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
-	                                     G_STRUCT_OFFSET (GcrSystemPrompterClass, hide_prompt),
-	                                     NULL, NULL, NULL, G_TYPE_NONE, 0);
+	signals[CLOSE] = g_signal_new ("close", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
+	                               G_STRUCT_OFFSET (GcrSystemPrompterClass, close),
+	                               NULL, NULL, NULL, G_TYPE_NONE, 0);
 }
 
 static void
@@ -713,6 +725,7 @@ prompter_method_begin_prompting (GcrSystemPrompter *self,
 	g_return_if_fail (self->pv->owner_name != NULL);
 
 	connection = g_dbus_method_invocation_get_connection (invocation);
+	_gcr_debug ("prompter starting watch of dbus client: %s", self->pv->owner_name);
 	self->pv->owner_watching_id = g_bus_watch_name_on_connection (connection,
 	                                                              self->pv->owner_name,
 	                                                              G_BUS_NAME_WATCHER_FLAGS_NONE,
@@ -730,6 +743,7 @@ prompter_method_finish_prompting (GcrSystemPrompter *self,
                                   const gchar *prompt)
 {
 	if (g_strcmp0 (prompt, self->pv->prompt_path) != 0) {
+		_gcr_debug ("caller passed invalid prompt: %s != %s", prompt, self->pv->prompt_path);
 		g_dbus_method_invocation_return_error_literal (invocation,
 		                                               G_DBUS_ERROR,
 		                                               G_DBUS_ERROR_INVALID_ARGS,
@@ -738,12 +752,15 @@ prompter_method_finish_prompting (GcrSystemPrompter *self,
 	}
 
 	if (self->pv->owner_name == NULL) {
+		_gcr_debug ("prompting is not in progress");
 		g_dbus_method_invocation_return_error_literal (invocation,
 		                                               GCR_SYSTEM_PROMPT_ERROR,
 		                                               GCR_SYSTEM_PROMPT_NOT_HAPPENING,
 		                                               "The prompt is not in progress");
 		return;
 	}
+
+	_gcr_debug ("finishing prompting owned by caller %s", self->pv->owner_name);
 
 	/* Close a prompt that's prompting */
 	if (self->pv->invocation != NULL)
@@ -800,6 +817,8 @@ gcr_system_prompter_register (GcrSystemPrompter *self,
 	g_return_if_fail (self->pv->prompter_registered == 0);
 	g_return_if_fail (self->pv->connection == NULL);
 
+	_gcr_debug ("registering prompter");
+
 	self->pv->connection = connection;
 	g_object_add_weak_pointer (G_OBJECT (connection), (gpointer *)&self->pv->connection);
 
@@ -824,6 +843,8 @@ gcr_system_prompter_unregister (GcrSystemPrompter *self,
 	g_return_if_fail (G_DBUS_CONNECTION (connection));
 	g_return_if_fail (self->pv->prompter_registered != 0);
 	g_return_if_fail (self->pv->connection == connection);
+
+	_gcr_debug ("unregistering prompter");
 
 	if (self->pv->invocation)
 		gcr_system_prompter_respond_cancelled (self);
@@ -1036,6 +1057,8 @@ gcr_system_prompter_respond_cancelled (GcrSystemPrompter *self)
 	/* Don't send back any changed properties on cancel */
 	properties = g_variant_new_array (G_VARIANT_TYPE ("(ssv)"), NULL, 0);
 
+	_gcr_debug ("responding to with cancelled");
+
 	method = g_dbus_method_invocation_get_method_name (invocation);
 	if (method && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_PASSWORD))
 		g_dbus_method_invocation_return_value (invocation,
@@ -1076,11 +1099,13 @@ gcr_system_prompter_respond_with_password (GcrSystemPrompter *self,
 	invocation = self->pv->invocation;
 	self->pv->invocation = NULL;
 
+	method = g_dbus_method_invocation_get_method_name (invocation);
+	g_return_if_fail (method != NULL && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_PASSWORD));
+
 	/* Send back all the properties before we respond */
 	properties = build_changed_properties (self);
 
-	method = g_dbus_method_invocation_get_method_name (invocation);
-	g_return_if_fail (method != NULL && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_PASSWORD));
+	_gcr_debug ("responding to prompt with password");
 
 	exchange = gcr_secret_exchange_send (self->pv->exchange, password, -1);
 	g_dbus_method_invocation_return_value (invocation, g_variant_new ("(@a(ssv)s)",
@@ -1115,6 +1140,9 @@ gcr_system_prompter_respond_confirmed (GcrSystemPrompter *self)
 
 	method = g_dbus_method_invocation_get_method_name (invocation);
 	g_return_if_fail (method != NULL && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_CONFIRM));
+
+	_gcr_debug ("responding to prompt with confirm");
+
 	g_dbus_method_invocation_return_value (invocation, g_variant_new ("(@a(ssv)b)",
 	                                                                  properties, TRUE));
 

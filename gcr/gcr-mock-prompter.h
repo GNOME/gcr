@@ -34,28 +34,26 @@
 
 G_BEGIN_DECLS
 
-#define GCR_TYPE_MOCK_PROMPTER            (gcr_mock_prompter_get_type ())
-#define GCR_MOCK_PROMPTER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_MOCK_PROMPTER, GcrMockPrompter))
-#define GCR_IS_MOCK_PROMPTER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_MOCK_PROMPTER))
+const gchar *        gcr_mock_prompter_start                     (void);
 
-typedef struct _GcrMockPrompter GcrMockPrompter;
+void                 gcr_mock_prompter_stop                      (void);
 
-GType                gcr_mock_prompter_get_type                  (void) G_GNUC_CONST;
+gboolean             gcr_mock_prompter_get_showing               (void);
 
-GcrMockPrompter *    gcr_mock_prompter_new                       (void);
+guint                gcr_mock_prompter_get_delay_msec            (void);
 
-void                 gcr_mock_prompter_expect_confirm_ok         (GcrMockPrompter *self,
+void                 gcr_mock_prompter_set_delay_msec            (guint delay_msec);
+
+void                 gcr_mock_prompter_expect_confirm_ok         (const gchar *property_name,
+                                                                  ...);
+
+void                 gcr_mock_prompter_expect_confirm_cancel     (void);
+
+void                 gcr_mock_prompter_expect_password_ok        (const gchar *password,
                                                                   const gchar *property_name,
                                                                   ...);
 
-void                 gcr_mock_prompter_expect_confirm_cancel     (GcrMockPrompter *self);
-
-void                 gcr_mock_prompter_expect_password_ok        (GcrMockPrompter *self,
-                                                                  const gchar *password,
-                                                                  const gchar *property_name,
-                                                                  ...);
-
-void                 gcr_mock_prompter_expect_password_cancel    (GcrMockPrompter *self);
+void                 gcr_mock_prompter_expect_password_cancel    (void);
 
 G_END_DECLS
 

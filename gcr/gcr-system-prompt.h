@@ -39,7 +39,8 @@ G_BEGIN_DECLS
 typedef enum {
 	GCR_SYSTEM_PROMPT_IN_PROGRESS = 1,
 	GCR_SYSTEM_PROMPT_NOT_HAPPENING,
-	GCR_SYSTEM_PROMPT_FAILED
+	GCR_SYSTEM_PROMPT_FAILED,
+	GCR_SYSTEM_PROMPT_CLOSED
 } GcrSystemPromptError;
 
 #define GCR_SYSTEM_PROMPT_ERROR              (gcr_system_prompt_error_get_domain ())
@@ -167,7 +168,18 @@ gboolean             gcr_system_prompt_confirm                   (GcrSystemPromp
                                                                   GCancellable *cancellable,
                                                                   GError **error);
 
-void                 gcr_system_prompt_close                     (GcrSystemPrompt *self);
+gboolean             gcr_system_prompt_close                     (GcrSystemPrompt *self,
+                                                                  GCancellable *cancellable,
+                                                                  GError **error);
+
+void                 gcr_system_prompt_close_async               (GcrSystemPrompt *self,
+                                                                  GCancellable *cancellable,
+                                                                  GAsyncReadyCallback callback,
+                                                                  gpointer user_data);
+
+gboolean             gcr_system_prompt_close_finish              (GcrSystemPrompt *self,
+                                                                  GAsyncResult *result,
+                                                                  GError **error);
 
 G_END_DECLS
 

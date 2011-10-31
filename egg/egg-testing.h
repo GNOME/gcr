@@ -73,4 +73,6 @@ gboolean   egg_test_wait_until                 (int timeout);
 
 gint       egg_tests_run_with_loop             (void);
 
+gint       egg_tests_run_with_loop             (void);
+
 #endif /* EGG_DH_H_ */

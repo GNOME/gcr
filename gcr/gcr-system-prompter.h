@@ -53,7 +53,7 @@ struct _GcrSystemPrompter {
 struct _GcrSystemPrompterClass {
 	GObjectClass parent_class;
 
-	void         (*show_prompt)             (GcrSystemPrompter *self);
+	void         (*open)                    (GcrSystemPrompter *self);
 
 	gboolean     (*prompt_password)         (GcrSystemPrompter *self);
 
@@ -61,7 +61,7 @@ struct _GcrSystemPrompterClass {
 
 	void         (*responded)               (GcrSystemPrompter *self);
 
-	void         (*hide_prompt)             (GcrSystemPrompter *self);
+	void         (*close)                   (GcrSystemPrompter *self);
 };
 
 GType                gcr_system_prompter_get_type                  (void) G_GNUC_CONST;

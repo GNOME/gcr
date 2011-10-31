@@ -25,10 +25,14 @@
 
 #include "gcr-dbus-constants.h"
 #include "gcr-dbus-generated.h"
+#define DEBUG_FLAG GCR_DEBUG_PROMPT
+#include "gcr-debug.h"
 #include "gcr-internal.h"
 #include "gcr-library.h"
 #include "gcr-secret-exchange.h"
 #include "gcr-system-prompt.h"
+
+#include "egg/egg-error.h"
 
 /**
  * SECTION:gcr-system-prompt
@@ -205,12 +209,14 @@ gcr_system_prompt_dispose (GObject *obj)
 	g_clear_object (&self->pv->exchange);
 
 	if (self->pv->prompt_path) {
+		_gcr_debug ("closing prompt asynchronously: %s", self->pv->prompt_path);
+
 		g_dbus_connection_call (self->pv->connection,
 		                        self->pv->prompter_bus_name,
 		                        GCR_DBUS_PROMPTER_OBJECT_PATH,
 		                        GCR_DBUS_PROMPTER_INTERFACE,
 		                        GCR_DBUS_PROMPTER_METHOD_FINISH,
-		                        g_variant_new ("()"),
+		                        g_variant_new ("(o)", self->pv->prompt_path),
 		                        NULL, G_DBUS_CALL_FLAGS_NO_AUTO_START,
 		                        -1, NULL, NULL, NULL);
 		g_free (self->pv->prompt_path);
@@ -315,8 +321,10 @@ gcr_system_prompt_get_secret_exchange (GcrSystemPrompt *self)
 {
 	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPT (self), NULL);
 
-	if (!self->pv->exchange)
+	if (!self->pv->exchange) {
+		_gcr_debug ("creating new secret exchange");
 		self->pv->exchange = gcr_secret_exchange_new (NULL);
+	}
 
 	return self->pv->exchange;
 }
@@ -554,10 +562,16 @@ gcr_system_prompt_real_init (GInitable *initable,
 
 	/* 1. Connect to the session bus */
 	if (!self->pv->connection) {
+
 		self->pv->connection = g_bus_get_sync (G_BUS_TYPE_SESSION,
 		                                       cancellable, error);
-		if (self->pv->connection == NULL)
+		if (self->pv->connection == NULL) {
+			_gcr_debug ("failed to connect to bus: %s",
+			            egg_error_result_message (error));
 			return FALSE;
+		}
+
+		_gcr_debug ("connected to bus");
 	}
 
 	/* 2. Tell the prompter we want to begin prompting */
@@ -573,13 +587,18 @@ gcr_system_prompt_real_init (GInitable *initable,
 		                                   G_VARIANT_TYPE ("(o)"),
 		                                   G_DBUS_CALL_FLAGS_NONE,
 		                                   -1, cancellable, error);
-		if (ret == NULL)
+		if (ret == NULL) {
+			_gcr_debug ("failed to open prompt: %s",
+			            egg_error_result_message (error));
 			return FALSE;
+		}
 
 		self->pv->begun_prompting = TRUE;
 		g_assert (self->pv->prompt_path == NULL);
 		g_variant_get (ret, "(o)", &self->pv->prompt_path);
 		g_variant_unref (ret);
+
+		_gcr_debug ("opened prompt: %s", self->pv->prompt_path);
 	}
 
 	/* 3. Create a dbus proxy */
@@ -591,10 +610,14 @@ gcr_system_prompt_real_init (GInitable *initable,
 		                                                self->pv->prompt_path,
 		                                                GCR_DBUS_PROMPT_INTERFACE,
 		                                                cancellable, error);
-		if (self->pv->prompt_proxy == NULL)
+		if (self->pv->prompt_proxy == NULL) {
+			_gcr_debug ("failed to create prompt proxy: %s",
+			            egg_error_result_message (error));
 			return FALSE;
+		}
 
 		g_dbus_proxy_set_default_timeout (self->pv->prompt_proxy, G_MAXINT);
+		_gcr_debug ("created prompt proxy");
 	}
 
 	return TRUE;
@@ -633,9 +656,12 @@ on_bus_connected (GObject *source,
 
 	if (error == NULL) {
 		g_return_if_fail (self->pv->connection != NULL);
+
+		_gcr_debug ("connected to bus");
 		perform_init_async (self, res);
 
 	} else {
+		_gcr_debug ("failed to connect to bus: %s", egg_error_message (error));
 		g_simple_async_result_take_error (res, error);
 		g_simple_async_result_complete (res);
 	}
@@ -662,10 +688,14 @@ on_prompter_begin_prompting (GObject *source,
 		g_variant_get (ret, "(o)", &self->pv->prompt_path);
 		g_variant_unref (ret);
 
+		_gcr_debug ("opened prompt: %s", self->pv->prompt_path);
+
 		g_return_if_fail (self->pv->prompt_path != NULL);
 		perform_init_async (self, res);
 
 	} else {
+		_gcr_debug ("failed to open prompt: %s", egg_error_message (error));
+
 		g_simple_async_result_take_error (res, error);
 		g_simple_async_result_complete (res);
 	}
@@ -687,11 +717,16 @@ on_prompt_proxy_new (GObject *source,
 	self->pv->prompt_proxy = g_dbus_proxy_new_finish (result, &error);
 
 	if (error == NULL) {
+		_gcr_debug ("created prompt proxy");
+
 		g_return_if_fail (self->pv->prompt_proxy != NULL);
 		perform_init_async (self, res);
 
 	} else {
+		_gcr_debug ("failed to create prompt proxy: %s", egg_error_message (error));
+
 		g_simple_async_result_take_error (res, error);
+		g_simple_async_result_complete (res);
 	}
 
 	g_object_unref (self);
@@ -706,11 +741,13 @@ perform_init_async (GcrSystemPrompt *self,
 
 	/* 1. Connect to the session bus */
 	if (!self->pv->connection) {
+		_gcr_debug ("connecting to bus");
 		g_bus_get (G_BUS_TYPE_SESSION, closure->cancellable,
 		           on_bus_connected, g_object_ref (res));
 
 	/* 2. Tell the prompter we want to begin prompting */
 	} else if (!self->pv->prompt_path) {
+		_gcr_debug ("opening prompt");
 		g_dbus_connection_call (self->pv->connection,
 		                        self->pv->prompter_bus_name,
 		                        GCR_DBUS_PROMPTER_OBJECT_PATH,
@@ -725,6 +762,7 @@ perform_init_async (GcrSystemPrompt *self,
 
 	/* 3. Create a dbus proxy */
 	} else if (!self->pv->prompt_proxy) {
+		_gcr_debug ("creating prompt proxy");
 		g_dbus_proxy_new (self->pv->connection,
 		                  G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
 		                  _gcr_prompter_prompt_interface_info (),
@@ -735,9 +773,11 @@ perform_init_async (GcrSystemPrompt *self,
 		                  on_prompt_proxy_new,
 		                  g_object_ref (res));
 
+	/* 4. All done */
+	} else {
+		_gcr_debug ("successfully initialized prompt");
+		g_simple_async_result_complete (res);
 	}
-
-	g_simple_async_result_complete (res);
 }
 
 static void
@@ -799,6 +839,7 @@ parameter_properties (GcrSystemPrompt *self)
 
 	g_hash_table_iter_init (&iter, self->pv->properties_to_write);
 	while (g_hash_table_iter_next (&iter, (gpointer *)&property_name, NULL)) {
+		_gcr_debug ("sending prompt property: %s", property_name);
 		variant = g_hash_table_lookup (self->pv->property_cache, property_name);
 		if (variant == NULL)
 			g_warning ("couldn't find prompt property to write: %s", property_name);
@@ -823,6 +864,7 @@ return_properties (GcrSystemPrompt *self,
 
 	g_variant_get (properties, "a(ssv)", &iter);
 	while (g_variant_iter_loop (iter, "(ssv)", &interface, &property_name, &value)) {
+		_gcr_debug ("received prompt property: %s", property_name);
 		key = (gpointer)g_intern_string (property_name);
 		if (!g_hash_table_lookup (self->pv->properties_to_write, key)) {
 			g_hash_table_insert (self->pv->property_cache,
@@ -842,10 +884,13 @@ parameters_for_password (GcrSystemPrompt *self)
 
 	exchange = gcr_system_prompt_get_secret_exchange (self);
 
-	if (self->pv->exchanged)
+	if (self->pv->exchanged) {
+		_gcr_debug ("sending secret exchange");
 		input = gcr_secret_exchange_send (exchange, NULL, 0);
-	else
+	} else {
+		_gcr_debug ("beginning secret exchange");
 		input = gcr_secret_exchange_begin (exchange);
+	}
 	self->pv->exchanged = TRUE;
 
 	properties = parameter_properties (self);
@@ -872,11 +917,15 @@ return_for_password (GcrSystemPrompt *self,
 
 	if (output && output[0]) {
 		if (!gcr_secret_exchange_receive (exchange, output)) {
+			_gcr_debug ("received invalid secret exchange");
 			g_set_error (error, GCR_SYSTEM_PROMPT_ERROR,
 			             GCR_SYSTEM_PROMPT_FAILED, "Invalid secret exchanged");
 		} else {
+			_gcr_debug ("received password in secret exchange");
 			ret = gcr_secret_exchange_get_secret (exchange, NULL);
 		}
+	} else {
+		_gcr_debug ("password prompt was cancelled");
 	}
 
 	g_variant_unref (properties);
@@ -904,8 +953,10 @@ on_prompt_requested_password (GObject *source,
 		g_variant_unref (retval);
 	}
 
-	if (error != NULL)
+	if (error != NULL) {
+		_gcr_debug ("failed to prompt for password: %s", egg_error_message (error));
 		g_simple_async_result_take_error (res, error);
+	}
 
 	g_simple_async_result_complete (res);
 	g_object_unref (self);
@@ -925,6 +976,8 @@ gcr_system_prompt_password_async (GcrSystemPrompt *self,
 
 	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
 	                                 gcr_system_prompt_password_async);
+
+	_gcr_debug ("prompting for password");
 
 	g_dbus_proxy_call (G_DBUS_PROXY (self->pv->prompt_proxy),
 	                   GCR_DBUS_PROMPT_METHOD_PASSWORD,
@@ -970,6 +1023,8 @@ gcr_system_prompt_password (GcrSystemPrompt *self,
 		return NULL;
 	}
 
+	_gcr_debug ("prompting for password");
+
 	retval = g_dbus_proxy_call_sync (self->pv->prompt_proxy,
 	                                 GCR_DBUS_PROMPT_METHOD_PASSWORD,
 	                                 parameters_for_password (self),
@@ -1007,6 +1062,11 @@ return_for_confirm (GcrSystemPrompt *self,
 
 	g_variant_unref (properties);
 
+	if (confirm)
+		_gcr_debug ("prompt confirmed");
+	else
+		_gcr_debug ("prompt was cancelled");
+
 	return confirm;
 }
 
@@ -1028,8 +1088,10 @@ on_prompt_requested_confirm (GObject *source,
 		g_simple_async_result_set_op_res_gboolean (res, ret);
 	}
 
-	if (error != NULL)
+	if (error != NULL) {
+		_gcr_debug ("failed to prompt for confirm: %s", egg_error_message (error));
 		g_simple_async_result_take_error (res, error);
+	}
 
 	g_simple_async_result_complete (res);
 	g_object_unref (self);
@@ -1056,6 +1118,8 @@ gcr_system_prompt_confirm_async (GcrSystemPrompt *self,
 
 	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
 	                                 gcr_system_prompt_confirm_async);
+
+	_gcr_debug ("prompting for confirm");
 
 	g_dbus_proxy_call (G_DBUS_PROXY (self->pv->prompt_proxy),
 	                   GCR_DBUS_PROMPT_METHOD_CONFIRM,
@@ -1117,6 +1181,8 @@ gcr_system_prompt_confirm (GcrSystemPrompt *self,
 		g_warning ("GcrSystemPrompt was not successfully opened");
 		return FALSE;
 	}
+
+	_gcr_debug ("prompting for confirm");
 
 	retval = g_dbus_proxy_call_sync (self->pv->prompt_proxy,
 	                                 GCR_DBUS_PROMPT_METHOD_CONFIRM,
@@ -1189,6 +1255,11 @@ gcr_system_prompt_open_for_prompter_async (const gchar *prompter_name,
 {
 	g_return_if_fail (timeout_seconds >= -1);
 	g_return_if_fail (cancellable == NULL || G_CANCELLABLE (cancellable));
+
+	if (prompter_name == NULL)
+		_gcr_debug ("opening prompt");
+	else
+		_gcr_debug ("opening prompt for prompter: %s", prompter_name);
 
 	g_async_initable_new_async (GCR_TYPE_SYSTEM_PROMPT,
 	                            G_PRIORITY_DEFAULT,
@@ -1294,6 +1365,11 @@ gcr_system_prompt_open_for_prompter (const gchar *prompter_name,
 	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), NULL);
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
+	if (prompter_name == NULL)
+		_gcr_debug ("opening prompt");
+	else
+		_gcr_debug ("opening prompt for prompter: %s", prompter_name);
+
 	return g_initable_new (GCR_TYPE_SYSTEM_PROMPT, cancellable, error,
 	                       "timeout-seconds", timeout_seconds,
 	                       "bus-name", prompter_name,
@@ -1308,12 +1384,103 @@ gcr_system_prompt_open_for_prompter (const gchar *prompter_name,
  * called on this object. The prompt object is not unreferenced by this
  * function, and you must unreference it once done.
  */
-void
-gcr_system_prompt_close (GcrSystemPrompt *self)
+gboolean
+gcr_system_prompt_close (GcrSystemPrompt *self,
+                         GCancellable *cancellable,
+                         GError **error)
 {
-	g_return_if_fail (GCR_IS_SYSTEM_PROMPT (self));
+	GVariant *retval;
 
-	g_object_run_dispose (G_OBJECT (self));
+	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPT (self), FALSE);
+	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+	g_return_val_if_fail (self->pv->prompt_path != NULL, FALSE);
+
+	_gcr_debug ("closing prompt");
+
+	retval = g_dbus_connection_call_sync (self->pv->connection,
+	                                      self->pv->prompter_bus_name,
+	                                      GCR_DBUS_PROMPTER_OBJECT_PATH,
+	                                      GCR_DBUS_PROMPTER_INTERFACE,
+	                                      GCR_DBUS_PROMPTER_METHOD_FINISH,
+	                                      g_variant_new ("(o)", self->pv->prompt_path),
+	                                      NULL, G_DBUS_CALL_FLAGS_NO_AUTO_START,
+	                                      -1, cancellable, error);
+	if (retval == NULL) {
+		_gcr_debug ("failed to close prompt: %s",
+		            egg_error_result_message (error));
+		return FALSE;
+	}
+
+	g_variant_unref (retval);
+	g_free (self->pv->prompt_path);
+	self->pv->prompt_path = NULL;
+	return TRUE;
+}
+
+static void
+on_prompt_close_async (GObject *source,
+                       GAsyncResult *result,
+                       gpointer user_data)
+{
+	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
+	GError *error = NULL;
+
+	if (!g_dbus_connection_call_finish (self->pv->connection, result, &error)) {
+		_gcr_debug ("failed to close prompt: %s", egg_error_message (error));
+		g_simple_async_result_take_error (res, error);
+	}
+
+	g_simple_async_result_complete (res);
+	g_object_unref (self);
+	g_object_unref (res);
+}
+
+void
+gcr_system_prompt_close_async (GcrSystemPrompt *self,
+                               GCancellable *cancellable,
+                               GAsyncReadyCallback callback,
+                               gpointer user_data)
+{
+	GSimpleAsyncResult *res;
+
+	g_return_if_fail (GCR_SYSTEM_PROMPT (self));
+	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
+	g_return_if_fail (self->pv->prompt_path != NULL);
+
+	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
+	                                 gcr_system_prompt_close_async);
+
+	_gcr_debug ("closing prompt");
+
+	g_dbus_connection_call (self->pv->connection,
+	                        self->pv->prompter_bus_name,
+	                        GCR_DBUS_PROMPTER_OBJECT_PATH,
+	                        GCR_DBUS_PROMPTER_INTERFACE,
+	                        GCR_DBUS_PROMPTER_METHOD_FINISH,
+	                        g_variant_new ("(o)", self->pv->prompt_path),
+	                        NULL, G_DBUS_CALL_FLAGS_NO_AUTO_START,
+	                        -1, NULL, on_prompt_close_async, g_object_ref (res));
+
+	g_object_unref (res);
+}
+
+gboolean
+gcr_system_prompt_close_finish (GcrSystemPrompt *self,
+                                GAsyncResult *result,
+                                GError **error)
+{
+	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPT (self), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (self),
+	                      gcr_system_prompt_close_async), FALSE);
+
+	if (!g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
+		return FALSE;
+
+	return TRUE;
 }
 
 static const GDBusErrorEntry SYSTEM_PROMPT_ERRORS[] = {

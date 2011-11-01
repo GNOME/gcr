@@ -31,6 +31,7 @@
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#include <gdk/gdkx.h>
 #include <pango/pango.h>
 
 #include <locale.h>
@@ -39,6 +40,7 @@
 
 #define LOG_ERRORS 1
 #define GRAB_KEYBOARD 1
+#define QUIT_TIMEOUT 10
 
 static GcrSystemPrompter *the_prompter = NULL;
 
@@ -70,6 +72,7 @@ typedef struct {
 	PromptMode mode;
 	GdkDevice *grabbed_device;
 	gulong grab_broken_id;
+	guint quit_timeout;
 } GcrPrompterDialog;
 
 typedef struct {
@@ -78,20 +81,47 @@ typedef struct {
 
 G_DEFINE_TYPE (GcrPrompterDialog, gcr_prompter_dialog, GTK_TYPE_DIALOG);
 
+static gboolean
+on_timeout_quit ()
+{
+	gtk_main_quit ();
+	return FALSE; /* Don't run again */
+}
+
 static void
-on_show_prompt (GcrSystemPrompter *prompter,
+start_timeout (GcrPrompterDialog *self)
+{
+	if (g_getenv ("GCR_PERSIST") != NULL)
+		return;
+
+	if (!self->quit_timeout)
+		self->quit_timeout = g_timeout_add_seconds (QUIT_TIMEOUT, on_timeout_quit, NULL);
+}
+
+static void
+stop_timeout (GcrPrompterDialog *self)
+{
+	if (self->quit_timeout)
+		g_source_remove (self->quit_timeout);
+	self->quit_timeout = 0;
+}
+
+static void
+on_open_prompt (GcrSystemPrompter *prompter,
                 gpointer user_data)
 {
 	GcrPrompterDialog *self = GCR_PROMPTER_DIALOG (user_data);
 	gtk_widget_show (GTK_WIDGET (self));
+	stop_timeout (self);
 }
 
 static void
-on_hide_prompt (GcrSystemPrompter *prompter,
-                gpointer user_data)
+on_close_prompt (GcrSystemPrompter *prompter,
+                 gpointer user_data)
 {
 	GcrPrompterDialog *self = GCR_PROMPTER_DIALOG (user_data);
 	gtk_widget_hide (GTK_WIDGET (self));
+	start_timeout (self);
 }
 
 static gboolean
@@ -154,6 +184,7 @@ on_responded (GcrSystemPrompter *prompter,
 	gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
 	gtk_widget_hide (GTK_WIDGET (self->image));
 	gtk_widget_show (GTK_WIDGET (self->spinner));
+	self->mode = PROMPT_NONE;
 }
 
 static const gchar *
@@ -370,6 +401,37 @@ handle_password_response (GcrPrompterDialog *self)
 }
 
 static void
+gcr_prompter_dialog_realize (GtkWidget *widget)
+{
+	gboolean modal = FALSE;
+	const gchar *value;
+	gulong caller_window_id;
+	GdkWindow *caller_window;
+	GdkWindow *self_window;
+	GdkDisplay *display;
+	gchar *end;
+
+	GTK_WIDGET_CLASS (gcr_prompter_dialog_parent_class)->realize (widget);
+
+	value= gcr_system_prompter_get_caller_window (the_prompter);
+	if (value) {
+		caller_window_id = strtoul (value, &end, 10);
+		if (caller_window_id && end && end[0] == '\0') {
+			display = gtk_widget_get_display (widget);
+			caller_window = gdk_x11_window_foreign_new_for_display (display, caller_window_id);
+			if (caller_window) {
+				self_window = gtk_widget_get_window (widget);
+				gdk_window_set_transient_for (self_window, caller_window);
+				g_object_unref (caller_window);
+				modal = TRUE;
+			}
+		}
+	}
+
+	gtk_window_set_modal (GTK_WINDOW (widget), modal);
+}
+
+static void
 gcr_prompter_dialog_response (GtkDialog *dialog,
                               gint response_id)
 {
@@ -395,54 +457,70 @@ gcr_prompter_dialog_init (GcrPrompterDialog *self)
 	GtkDialog *dialog;
 	GtkWidget *widget;
 	GtkWidget *entry;
+	GtkWidget *content;
 	GtkGrid *grid;
 
 	g_assert (GCR_IS_SYSTEM_PROMPTER (the_prompter));
 
-	g_signal_connect (the_prompter, "show-prompt", G_CALLBACK (on_show_prompt), self);
+	g_signal_connect (the_prompter, "open", G_CALLBACK (on_open_prompt), self);
 	g_signal_connect (the_prompter, "prompt-password", G_CALLBACK (on_prompt_password), self);
 	g_signal_connect (the_prompter, "prompt-confirm", G_CALLBACK (on_prompt_confirm), self);
 	g_signal_connect (the_prompter, "responded", G_CALLBACK (on_responded), self);
-	g_signal_connect (the_prompter, "hide-prompt", G_CALLBACK (on_hide_prompt), self);
+	g_signal_connect (the_prompter, "close", G_CALLBACK (on_close_prompt), self);
 
 	dialog = GTK_DIALOG (self);
 	gtk_dialog_add_buttons (dialog,
-	                        _("Continue"), GTK_RESPONSE_OK,
 	                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                        _("Continue"), GTK_RESPONSE_OK,
 	                        NULL);
 
+	content = gtk_dialog_get_content_area (dialog);
+
 	grid = GTK_GRID (gtk_grid_new ());
+	gtk_container_set_border_width (GTK_CONTAINER (grid), 6);
+	gtk_widget_set_hexpand (GTK_WIDGET (grid), TRUE);
+	gtk_grid_set_column_spacing (grid, 12);
+	gtk_grid_set_row_spacing (grid, 6);
 
 	/* The prompt image */
 	self->image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_AUTHENTICATION,
-	                                        GTK_ICON_SIZE_DIALOG),
+	                                        GTK_ICON_SIZE_DIALOG);
+	gtk_widget_set_valign (self->image, GTK_ALIGN_START);
 	gtk_grid_attach (grid, self->image, -1, 0, 1, 4);
 	gtk_widget_show (self->image);
 
 	/* The prompt spinner */
 	self->spinner = gtk_spinner_new ();
+	gtk_widget_set_valign (self->image, GTK_ALIGN_START);
 	gtk_grid_attach (grid, self->spinner, -2, -1, 1, 4);
 	gtk_widget_show (self->spinner);
 
-	/* The title label */
+	/* The message label */
 	widget = gtk_label_new ("");
 	attrs = pango_attr_list_new ();
 	pango_attr_list_insert (attrs, pango_attr_weight_new (PANGO_WEIGHT_BOLD));
 	pango_attr_list_insert (attrs, pango_attr_scale_new (PANGO_SCALE_LARGE));
 	gtk_label_set_attributes (GTK_LABEL (widget), attrs);
 	pango_attr_list_unref (attrs);
-	g_object_bind_property (the_prompter, "title", widget, "label", G_BINDING_DEFAULT);
+	gtk_widget_set_halign (widget, GTK_ALIGN_START);
+	gtk_widget_set_hexpand (widget, TRUE);
+	gtk_widget_set_margin_bottom (widget, 8);
+	g_object_bind_property (the_prompter, "message", widget, "label", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, widget, 0, 0, 2, 1);
 	gtk_widget_show (widget);
 
 	/* The description label */
 	widget = gtk_label_new ("");
+	gtk_widget_set_halign (widget, GTK_ALIGN_START);
+	gtk_widget_set_hexpand (widget, TRUE);
+	gtk_widget_set_margin_bottom (widget, 4);
 	g_object_bind_property (the_prompter, "description", widget, "label", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, widget, 0, 1, 2, 1);
 	gtk_widget_show (widget);
 
 	/* The password label */
 	widget = gtk_label_new (_("Password:"));
+	gtk_widget_set_halign (widget, GTK_ALIGN_START);
 	g_object_bind_property (self, "password-visible", widget, "visible", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, widget, 0, 2, 1, 1);
 
@@ -450,23 +528,27 @@ gcr_prompter_dialog_init (GcrPrompterDialog *self)
 	self->password_buffer = gcr_secure_entry_buffer_new ();
 	entry = gtk_entry_new_with_buffer (self->password_buffer);
 	gtk_entry_set_visibility (GTK_ENTRY (entry), FALSE);
+	gtk_widget_set_hexpand (widget, TRUE);
 	g_object_bind_property (self, "password-visible", entry, "visible", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, entry, 1, 2, 1, 1);
 
 	/* The confirm label */
 	widget = gtk_label_new (_("Confirm:"));
+	gtk_widget_set_halign (widget, GTK_ALIGN_START);
 	g_object_bind_property (self, "confirm-visible", widget, "visible", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, widget, 0, 3, 1, 1);
 
 	/* The confirm entry */
 	self->confirm_buffer = gcr_secure_entry_buffer_new ();
 	widget = gtk_entry_new_with_buffer (self->password_buffer);
+	gtk_widget_set_hexpand (widget, TRUE);
 	gtk_entry_set_visibility (GTK_ENTRY (widget), FALSE);
 	g_object_bind_property (self, "confirm-visible", widget, "visible", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, widget, 1, 3, 1, 1);
 
 	/* The quality progress bar */
 	widget = gtk_progress_bar_new ();
+	gtk_widget_set_hexpand (widget, TRUE);
 	g_object_bind_property (self, "confirm-visible", widget, "visible", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, widget, 1, 4, 1, 1);
 	g_signal_connect (entry, "changed", G_CALLBACK (on_password_changed), widget);
@@ -489,8 +571,7 @@ gcr_prompter_dialog_init (GcrPrompterDialog *self)
 	g_object_bind_property (the_prompter, "choice-chosen", widget, "active", G_BINDING_BIDIRECTIONAL);
 	gtk_grid_attach (grid, widget, 0, 6, 2, 1);
 
-	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (dialog)),
-	                   GTK_WIDGET (grid));
+	gtk_container_add (GTK_CONTAINER (content), GTK_WIDGET (grid));
 	gtk_widget_show (GTK_WIDGET (grid));
 
 	g_signal_connect (self, "map-event", G_CALLBACK (grab_keyboard), self);
@@ -541,6 +622,9 @@ gcr_prompter_dialog_class_init (GcrPrompterDialogClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GtkDialogClass *dialog_class = GTK_DIALOG_CLASS (klass);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+	widget_class->realize = gcr_prompter_dialog_realize;
 
 	gobject_class->finalize = gcr_prompter_dialog_finalize;
 	gobject_class->get_property = gcr_prompter_dialog_get_property;
@@ -577,7 +661,7 @@ on_name_acquired (GDBusConnection *connection,
                   const gchar *name,
                   gpointer user_data)
 {
-	g_printerr ("bus name acquired");
+
 }
 
 static void
@@ -585,7 +669,6 @@ on_name_lost (GDBusConnection *connection,
               const gchar *name,
               gpointer user_data)
 {
-	g_printerr ("bus name lost, quitting");
 	gtk_main_quit ();
 }
 

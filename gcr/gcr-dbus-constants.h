@@ -38,6 +38,8 @@ G_BEGIN_DECLS
 #define GCR_DBUS_PROMPTER_METHOD_BEGIN               "BeginPrompting"
 #define GCR_DBUS_PROMPTER_METHOD_FINISH              "FinishPrompting"
 
+#define GCR_DBUS_PROMPTER_SIGNAL_READY               "PrompterReady"
+
 #define GCR_DBUS_PROMPT_INTERFACE                    "org.gnome.keyring.Prompter.Prompt"
 
 #define GCR_DBUS_PROMPT_ERROR_IN_PROGRESS            "org.gnome.keyring.Prompter.InProgress"

@@ -665,6 +665,25 @@ gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 }
 
 static void
+emit_prompter_ready (GcrSystemPrompter *self)
+{
+	GError *error = NULL;
+
+	/* Now let everyone else know, we're ready! */
+	g_dbus_connection_emit_signal (self->pv->connection, NULL,
+	                               GCR_DBUS_PROMPTER_OBJECT_PATH,
+	                               GCR_DBUS_PROMPTER_INTERFACE,
+	                               GCR_DBUS_PROMPTER_SIGNAL_READY,
+	                               g_variant_new ("()"),
+	                               &error);
+
+	if (error != NULL) {
+		g_warning ("couldn't emit prompter ready signal: %s", egg_error_message (error));
+		g_error_free (error);
+	}
+}
+
+static void
 on_owner_vanished (GDBusConnection *connection,
                    const gchar *name,
                    gpointer user_data)
@@ -675,9 +694,7 @@ on_owner_vanished (GDBusConnection *connection,
 		gcr_system_prompter_respond_cancelled (self);
 
 	finish_prompting (self);
-
-	/* Now let everyone else know, we're ready! */
-	_gcr_prompter_emit_prompter_ready (GCR_PROMPTER (self));
+	emit_prompter_ready (self);
 }
 
 static GVariant *
@@ -769,6 +786,8 @@ prompter_method_finish_prompting (GcrSystemPrompter *self,
 	finish_prompting (self);
 
 	g_dbus_method_invocation_return_value (invocation, g_variant_new ("()"));
+
+	emit_prompter_ready (self);
 }
 
 static void
@@ -1022,16 +1041,27 @@ gcr_system_prompter_set_choice_chosen (GcrSystemPrompter *self,
 	prompt_emit_changed (self, GCR_DBUS_PROMPT_PROPERTY_CHOICE_CHOSEN);
 }
 
+/**
+ * gcr_system_prompter_get_caller_window:
+ * @self: a prompter
+ *
+ * Get a string containing the callers window identifier. If the prompter
+ * supports making its prompts transient for
+ */
 const gchar *
 gcr_system_prompter_get_caller_window (GcrSystemPrompter *self)
 {
 	GVariant *variant;
+	const gchar *window;
 
 	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), NULL);
 
 	variant = g_hash_table_lookup (self->pv->properties, GCR_DBUS_PROMPT_PROPERTY_CALLER_WINDOW);
 	g_return_val_if_fail (variant != NULL, NULL);
-	return g_variant_get_string (variant, NULL);
+	window = g_variant_get_string (variant, NULL);
+	if (!window || !window[0])
+		return NULL;
+	return window;
 }
 
 /**
@@ -1149,6 +1179,14 @@ gcr_system_prompter_respond_confirmed (GcrSystemPrompter *self)
 	g_signal_emit (self, signals[RESPONDED], 0);
 }
 
+/**
+ * gcr_system_prompter_new:
+ *
+ * Create a new system prompter service. This prompter won't do anything unless
+ * you connect to its signals and show appropriate prompts.
+ *
+ * Returns: (transfer full): a new prompter service
+ */
 GcrSystemPrompter *
 gcr_system_prompter_new (void)
 {

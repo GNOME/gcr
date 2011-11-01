@@ -170,6 +170,20 @@ AC_ARG_ENABLE(update-mime,
 	[don't run update-mime-database utility (useful for packages) ]))
 AM_CONDITIONAL(WITH_UPDATE_MIME, test "$enable_update_mime" != "no")
 
+# ----------------------------------------------------------------------
+# DBus services
+
+AC_ARG_WITH(dbus-services,
+		  [AC_HELP_STRING([--with-dbus-services=<dir>],
+		  [where D-BUS session services directory is])])
+if ! test -z "$with_dbus_services" ; then
+	DBUS_SERVICES_DIR="$with_dbus_services"
+else
+	DBUS_SERVICES_DIR="$datadir/dbus-1/services"
+fi
+
+AC_SUBST(DBUS_SERVICES_DIR)
+
 # --------------------------------------------------------------------
 # Compilation and linking options
 #

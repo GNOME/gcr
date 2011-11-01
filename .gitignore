@@ -20,6 +20,7 @@ frob-*
 *.o
 *.plist
 *.pot
+*.service
 *.stamp
 *.tar.gz
 *.typelib

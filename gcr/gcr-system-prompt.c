@@ -202,6 +202,17 @@ gcr_system_prompt_get_property (GObject *obj,
 }
 
 static void
+gcr_system_prompt_constructed (GObject *obj)
+{
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (obj);
+
+	G_OBJECT_CLASS (gcr_system_prompt_parent_class)->constructed (obj);
+
+	if (self->pv->prompter_bus_name == NULL)
+		self->pv->prompter_bus_name = g_strdup (GCR_DBUS_PROMPTER_BUS_NAME);
+}
+
+static void
 gcr_system_prompt_dispose (GObject *obj)
 {
 	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (obj);
@@ -253,6 +264,7 @@ gcr_system_prompt_class_init (GcrSystemPromptClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
+	gobject_class->constructed = gcr_system_prompt_constructed;
 	gobject_class->get_property = gcr_system_prompt_get_property;
 	gobject_class->set_property = gcr_system_prompt_set_property;
 	gobject_class->dispose = gcr_system_prompt_dispose;
@@ -589,7 +601,7 @@ gcr_system_prompt_real_init (GInitable *initable,
 		                                   G_DBUS_CALL_FLAGS_NONE,
 		                                   -1, cancellable, error);
 		if (ret == NULL) {
-			_gcr_debug ("failed to open prompt: %s",
+			_gcr_debug ("failed to open prompt %s: %s", self->pv->prompter_bus_name,
 			            egg_error_result_message (error));
 			return FALSE;
 		}
@@ -599,7 +611,7 @@ gcr_system_prompt_real_init (GInitable *initable,
 		g_variant_get (ret, "(o)", &self->pv->prompt_path);
 		g_variant_unref (ret);
 
-		_gcr_debug ("opened prompt: %s", self->pv->prompt_path);
+		_gcr_debug ("opened prompt %s: %s", self->pv->prompter_bus_name, self->pv->prompt_path);
 	}
 
 	/* 3. Create a dbus proxy */
@@ -689,13 +701,15 @@ on_prompter_begin_prompting (GObject *source,
 		g_variant_get (ret, "(o)", &self->pv->prompt_path);
 		g_variant_unref (ret);
 
-		_gcr_debug ("opened prompt: %s", self->pv->prompt_path);
+		_gcr_debug ("opened prompt %s: %s",
+		            self->pv->prompter_bus_name, self->pv->prompt_path);
 
 		g_return_if_fail (self->pv->prompt_path != NULL);
 		perform_init_async (self, res);
 
 	} else {
-		_gcr_debug ("failed to open prompt: %s", egg_error_message (error));
+		_gcr_debug ("failed to open prompt %s: %s",
+		            self->pv->prompter_bus_name, egg_error_message (error));
 
 		g_simple_async_result_take_error (res, error);
 		g_simple_async_result_complete (res);

@@ -305,6 +305,13 @@ desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
+service_in_files = org.gnome.keyring.Prompter.service.in
+servicedir       = $(DBUS_SERVICES_DIR)
+service_DATA     = $(service_in_files:.service.in=.service)
+
+$(service_DATA): $(service_in_files) Makefile
+	@sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 # ----------------------------------------------------------------
 # TOOLS
 
@@ -413,11 +420,13 @@ EXTRA_DIST = \
 	$(desktop_in_in_files) \
 	$(desktop_in_files) \
 	$(desktop_DATA) \
+	$(service_in_files ) \
 	$(mime_DATA)
 
 CLEANFILES = \
 	$(BUILT_SOURCES) \
 	$(pkgconfig_DATA) \
+	$(service_DATA) \
 	gcr-actual.abi \
 	gcr-actual-base.abi \
 	gcr-expected.abi \

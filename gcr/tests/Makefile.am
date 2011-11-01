@@ -67,6 +67,7 @@ noinst_PROGRAMS = \
 	frob-openpgp \
 	frob-parser \
 	frob-request \
+	frob-system-prompt \
 	frob-unlock \
 	frob-unlock-options
 

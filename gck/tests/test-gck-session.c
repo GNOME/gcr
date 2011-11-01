@@ -23,6 +23,8 @@
 
 #include "config.h"
 
+#include "mock-interaction.h"
+
 #include "gck/gck.h"
 #include "gck/gck-test.h"
 
@@ -140,6 +142,126 @@ test_open_close_session (Test *test, gconstpointer unused)
 }
 
 static void
+test_session_initable (Test *test,
+                       gconstpointer unused)
+{
+	GckSession *sess;
+	GAsyncResult *result = NULL;
+	GError *err = NULL;
+
+	sess = gck_session_open (test->slot, 0, NULL, NULL, &err);
+	g_assert_no_error (err);
+	g_assert (GCK_IS_SESSION (sess));
+
+	g_object_unref (sess);
+
+	/* Test opening async */
+	gck_session_open_async (test->slot, 0, NULL, NULL, fetch_async_result, &result);
+
+	egg_test_wait_until (500);
+	g_assert (result != NULL);
+
+	/* Get the result */
+	sess = gck_session_open_finish (result, &err);
+	g_assert_no_error (err);
+	g_assert (GCK_IS_SESSION (sess));
+
+	g_object_unref (result);
+	g_object_unref (sess);
+}
+
+static void
+test_session_already (Test *test,
+                      gconstpointer unused)
+{
+	CK_FUNCTION_LIST_PTR funcs;
+	gulong handle;
+	GckSession *session;
+	GAsyncResult *result = NULL;
+	GError *error = NULL;
+	GObject *source;
+	CK_RV rv;
+
+	funcs = gck_module_get_functions (test->module);
+	g_assert (funcs != NULL);
+
+	rv = funcs->C_OpenSession (gck_slot_get_handle (test->slot), CKF_SERIAL_SESSION,
+	                           NULL, NULL, &handle);
+	gck_assert_cmprv (rv, ==, CKR_OK);
+	g_assert (handle != 0);
+
+	session = g_initable_new (GCK_TYPE_SESSION, NULL, &error,
+	                          "slot", test->slot,
+	                          "handle", handle,
+	                          NULL);
+
+	g_assert_no_error (error);
+	g_assert (GCK_IS_SESSION (session));
+	gck_assert_cmpulong (handle, ==, gck_session_get_handle (session));
+	g_object_unref (session);
+
+	rv = funcs->C_OpenSession (gck_slot_get_handle (test->slot), CKF_SERIAL_SESSION,
+	                           NULL, NULL, &handle);
+	gck_assert_cmprv (rv, ==, CKR_OK);
+	g_assert (handle != 0);
+
+	/* Test opening async */
+	g_async_initable_new_async (GCK_TYPE_SESSION, G_PRIORITY_DEFAULT, NULL,
+	                            fetch_async_result, &result,
+	                            "slot", test->slot,
+	                            "handle", handle,
+	                            NULL);
+
+	egg_test_wait_until (500);
+	g_assert (result != NULL);
+
+	/* Get the result */
+	source = g_async_result_get_source_object (result);
+	session = GCK_SESSION (g_async_initable_new_finish (G_ASYNC_INITABLE (source), result, &error));
+	g_object_unref (source);
+	g_assert_no_error (error);
+	g_assert (GCK_IS_SESSION (session));
+	gck_assert_cmpulong (handle, ==, gck_session_get_handle (session));
+
+	g_object_unref (result);
+	g_object_unref (session);
+}
+
+static void
+test_open_interaction (Test *test,
+                       gconstpointer unused)
+{
+	GckSession *sess;
+	GAsyncResult *result = NULL;
+	GError *err = NULL;
+	GTlsInteraction *interaction;
+
+	interaction = mock_interaction_new ("booo");
+
+	sess = gck_session_open (test->slot, GCK_SESSION_LOGIN_USER, interaction, NULL, &err);
+	g_assert_no_error (err);
+	g_assert (GCK_IS_SESSION (sess));
+
+	g_object_unref (sess);
+
+	/* Test opening async */
+	gck_session_open_async (test->slot, GCK_SESSION_LOGIN_USER, interaction, NULL, fetch_async_result, &result);
+
+	egg_test_wait_until (500);
+	g_assert (result != NULL);
+
+	/* Get the result */
+	sess = gck_session_open_finish (result, &err);
+	g_assert_no_error (err);
+	g_assert (GCK_IS_SESSION (sess));
+
+	g_object_unref (interaction);
+	g_object_unref (result);
+	g_object_unref (sess);
+
+}
+
+static void
 test_init_set_pin (Test *test, gconstpointer unused)
 {
 	GAsyncResult *result = NULL;
@@ -177,22 +299,28 @@ test_init_set_pin (Test *test, gconstpointer unused)
 	result = NULL;
 }
 
-
 static void
 test_login_logout (Test *test, gconstpointer unused)
 {
 	GAsyncResult *result = NULL;
 	GError *err = NULL;
 	gboolean ret;
+	gulong state;
 
 	/* login/logout */
 	ret = gck_session_login (test->session, CKU_USER, (guchar*)"booo", 4, NULL, &err);
 	g_assert_no_error (err);
 	g_assert (ret);
 
+	state = gck_session_get_state (test->session);
+	gck_assert_cmpulong (state, ==, CKS_RO_USER_FUNCTIONS);
+
 	ret = gck_session_logout (test->session, NULL, &err);
 	g_assert_no_error (err);
 	g_assert (ret);
+
+	state = gck_session_get_state (test->session);
+	gck_assert_cmpulong (state, ==, CKS_RO_PUBLIC_SESSION);
 
 	/* login async */
 	gck_session_login_async (test->session, CKU_USER, (guchar*)"booo", 4, NULL, fetch_async_result, &result);
@@ -206,6 +334,9 @@ test_login_logout (Test *test, gconstpointer unused)
 	g_object_unref (result);
 	result = NULL;
 
+	state = gck_session_get_state (test->session);
+	gck_assert_cmpulong (state, ==, CKS_RO_USER_FUNCTIONS);
+
 	/* logout async */
 	gck_session_logout_async (test->session, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
@@ -215,9 +346,63 @@ test_login_logout (Test *test, gconstpointer unused)
 	g_assert_no_error (err);
 	g_assert (ret);
 
+	state = gck_session_get_state (test->session);
+	gck_assert_cmpulong (state, ==, CKS_RO_PUBLIC_SESSION);
+
+	g_object_unref (result);
+	result = NULL;
+}
+
+static void
+test_login_interactive (Test *test,
+                        gconstpointer unused)
+{
+	GAsyncResult *result = NULL;
+	GError *error = NULL;
+	gboolean ret;
+	gulong state;
+	GTlsInteraction *interaction;
+
+	interaction = mock_interaction_new ("booo");
+
+	/* login/logout */
+	ret = gck_session_login_interactive (test->session, CKU_USER, interaction, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (ret);
+
+	state = gck_session_get_state (test->session);
+	gck_assert_cmpulong (state, ==, CKS_RO_USER_FUNCTIONS);
+
+	ret = gck_session_logout (test->session, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (ret);
+
+	state = gck_session_get_state (test->session);
+	gck_assert_cmpulong (state, ==, CKS_RO_PUBLIC_SESSION);
+
+	/* login async */
+	gck_session_login_interactive_async (test->session, CKU_USER, interaction, NULL, fetch_async_result, &result);
+	egg_test_wait_until (500);
+	g_assert (result != NULL);
+
+	ret = gck_session_login_interactive_finish (test->session, result, &error);
+	g_assert_no_error (error);
+	g_assert (ret);
+
 	g_object_unref (result);
 	result = NULL;
 
+	state = gck_session_get_state (test->session);
+	gck_assert_cmpulong (state, ==, CKS_RO_USER_FUNCTIONS);
+
+	ret = gck_session_logout (test->session, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (ret);
+
+	state = gck_session_get_state (test->session);
+	gck_assert_cmpulong (state, ==, CKS_RO_PUBLIC_SESSION);
+
+	g_object_unref (interaction);
 }
 
 static gboolean
@@ -311,8 +496,12 @@ main (int argc, char **argv)
 	g_test_add ("/gck/session/session_props", Test, NULL, setup, test_session_props, teardown);
 	g_test_add ("/gck/session/session_info", Test, NULL, setup, test_session_info, teardown);
 	g_test_add ("/gck/session/open_close_session", Test, NULL, setup, test_open_close_session, teardown);
+	g_test_add ("/gck/session/open_initable", Test, NULL, setup, test_session_initable, teardown);
+	g_test_add ("/gck/session/open_already", Test, NULL, setup, test_session_already, teardown);
+	g_test_add ("/gck/session/open_interaction", Test, NULL, setup, test_open_interaction, teardown);
 	g_test_add ("/gck/session/init_set_pin", Test, NULL, setup, test_init_set_pin, teardown);
 	g_test_add ("/gck/session/login_logout", Test, NULL, setup, test_login_logout, teardown);
+	g_test_add ("/gck/session/login_interactive", Test, NULL, setup, test_login_interactive, teardown);
 	g_test_add ("/gck/session/auto_login", Test, NULL, setup, test_auto_login, teardown);
 
 	return egg_tests_run_in_thread_with_loop ();

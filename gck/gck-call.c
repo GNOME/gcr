@@ -257,8 +257,12 @@ _gck_call_get_user_data (GAsyncResult *async_result)
 static GObject*
 _gck_call_get_source_object (GAsyncResult *async_result)
 {
+	GObject *source;
+
 	g_return_val_if_fail (GCK_IS_CALL (async_result), NULL);
-	return GCK_CALL (async_result)->object;
+
+	source = GCK_CALL (async_result)->object;
+	return source ? g_object_ref (source): NULL;
 }
 
 static void

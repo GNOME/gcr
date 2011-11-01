@@ -727,6 +727,22 @@ GckSessionOptions   gck_session_get_options                 (GckSession *self);
 
 GTlsInteraction *   gck_session_get_interaction             (GckSession *self);
 
+GckSession *        gck_session_open                        (GckSlot *slot,
+                                                             GckSessionOptions options,
+                                                             GTlsInteraction *interaction,
+                                                             GCancellable *cancellable,
+                                                             GError **error);
+
+void                gck_session_open_async                  (GckSlot *slot,
+                                                             GckSessionOptions options,
+                                                             GTlsInteraction *interaction,
+                                                             GCancellable *cancellable,
+                                                             GAsyncReadyCallback callback,
+                                                             gpointer user_data);
+
+GckSession *        gck_session_open_finish                 (GAsyncResult *result,
+                                                             GError **error);
+
 gboolean            gck_session_init_pin                    (GckSession *self,
                                                              const guchar *pin,
                                                              gsize n_pin,
@@ -781,6 +797,23 @@ void                gck_session_login_async                 (GckSession *self,
                                                              gpointer user_data);
 
 gboolean            gck_session_login_finish                (GckSession *self,
+                                                             GAsyncResult *result,
+                                                             GError **error);
+
+gboolean            gck_session_login_interactive           (GckSession *self,
+                                                             gulong user_type,
+                                                             GTlsInteraction *interaction,
+                                                             GCancellable *cancellable,
+                                                             GError **error);
+
+void                gck_session_login_interactive_async     (GckSession *self,
+                                                             gulong user_type,
+                                                             GTlsInteraction *interaction,
+                                                             GCancellable *cancellable,
+                                                             GAsyncReadyCallback callback,
+                                                             gpointer user_data);
+
+gboolean            gck_session_login_interactive_finish    (GckSession *self,
                                                              GAsyncResult *result,
                                                              GError **error);
 

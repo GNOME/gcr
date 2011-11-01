@@ -79,20 +79,31 @@ enum {
 	PROP_INTERACTION,
 	PROP_SLOT,
 	PROP_OPTIONS,
+	PROP_OPENING_FLAGS,
+	PROP_APP_DATA
 };
 
 struct _GckSessionPrivate {
+	/* Not modified after construct/init */
 	GckSlot *slot;
-	GckModule *module;
 	CK_SESSION_HANDLE handle;
 	GTlsInteraction *interaction;
 	GckSessionOptions options;
+	gulong opening_flags;
+	gpointer app_data;
 
 	/* Modified atomically */
 	gint discarded;
 };
 
-G_DEFINE_TYPE (GckSession, gck_session, G_TYPE_OBJECT);
+static void    gck_session_initable_iface        (GInitableIface *iface);
+
+static void    gck_session_async_initable_iface  (GAsyncInitableIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (GckSession, gck_session, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (G_TYPE_INITABLE, gck_session_initable_iface);
+                         G_IMPLEMENT_INTERFACE (G_TYPE_ASYNC_INITABLE, gck_session_async_initable_iface);
+);
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
@@ -104,14 +115,15 @@ static gboolean
 gck_session_real_discard_handle (GckSession *self, CK_OBJECT_HANDLE handle)
 {
 	CK_FUNCTION_LIST_PTR funcs;
+	GckModule *module;
 	CK_RV rv;
 
 	/* The default functionality, close the handle */
 
-	g_return_val_if_fail (self->pv->module, FALSE);
-	g_object_ref (self->pv->module);
+	module = gck_session_get_module (self);
+	g_return_val_if_fail (module != NULL, FALSE);
 
-	funcs = gck_module_get_functions (self->pv->module);
+	funcs = gck_module_get_functions (module);
 	g_return_val_if_fail (funcs, FALSE);
 
 	rv = (funcs->C_CloseSession) (handle);
@@ -120,7 +132,7 @@ gck_session_real_discard_handle (GckSession *self, CK_OBJECT_HANDLE handle)
 		           gck_message_from_rv (rv));
 	}
 
-	g_object_unref (self->pv->module);
+	g_object_unref (module);
 	return TRUE;
 }
 
@@ -167,11 +179,6 @@ gck_session_set_property (GObject *obj, guint prop_id, const GValue *value,
 	/* Only valid calls are from constructor */
 
 	switch (prop_id) {
-	case PROP_MODULE:
-		g_return_if_fail (!self->pv->module);
-		self->pv->module = g_value_dup_object (value);
-		g_return_if_fail (self->pv->module);
-		break;
 	case PROP_HANDLE:
 		g_return_if_fail (!self->pv->handle);
 		self->pv->handle = g_value_get_ulong (value);
@@ -189,10 +196,28 @@ gck_session_set_property (GObject *obj, guint prop_id, const GValue *value,
 		g_return_if_fail (!self->pv->options);
 		self->pv->options = g_value_get_flags (value);
 		break;
+	case PROP_OPENING_FLAGS:
+		self->pv->opening_flags = g_value_get_ulong (value);
+		break;
+	case PROP_APP_DATA:
+		self->pv->app_data = g_value_get_pointer (value);
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
 		break;
 	}
+}
+
+static void
+gck_session_constructed (GObject *obj)
+{
+	GckSession *self = GCK_SESSION (obj);
+
+	G_OBJECT_CLASS (gck_session_parent_class)->constructed (obj);
+
+	self->pv->opening_flags |= CKF_SERIAL_SESSION;
+	if (self->pv->options & GCK_SESSION_READ_WRITE)
+		self->pv->opening_flags |= CKF_RW_SESSION;
 }
 
 static void
@@ -226,7 +251,6 @@ gck_session_finalize (GObject *obj)
 
 	g_clear_object (&self->pv->interaction);
 	g_clear_object (&self->pv->slot);
-	g_clear_object (&self->pv->module);
 
 	G_OBJECT_CLASS (gck_session_parent_class)->finalize (obj);
 }
@@ -237,6 +261,7 @@ gck_session_class_init (GckSessionClass *klass)
 	GObjectClass *gobject_class = (GObjectClass*)klass;
 	gck_session_parent_class = g_type_class_peek_parent (klass);
 
+	gobject_class->constructed = gck_session_constructed;
 	gobject_class->get_property = gck_session_get_property;
 	gobject_class->set_property = gck_session_set_property;
 	gobject_class->dispose = gck_session_dispose;
@@ -250,8 +275,8 @@ gck_session_class_init (GckSessionClass *klass)
 	 * The GckModule that this session is opened on.
 	 */
 	g_object_class_install_property (gobject_class, PROP_MODULE,
-		g_param_spec_object ("module", "Module", "PKCS11 Module",
-		                     GCK_TYPE_MODULE, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	            g_param_spec_object ("module", "Module", "PKCS11 Module",
+	                                 GCK_TYPE_MODULE, G_PARAM_READABLE));
 
 	/**
 	 * GckSession:handle:
@@ -293,6 +318,24 @@ gck_session_class_init (GckSessionClass *klass)
 		                     G_TYPE_TLS_INTERACTION, G_PARAM_READWRITE));
 
 	/**
+	 * GckSession:opening-flags:
+	 *
+	 * Raw PKCS#11 flags used to open the PKCS#11 session.
+	 */
+	g_object_class_install_property (gobject_class, PROP_OPENING_FLAGS,
+	             g_param_spec_ulong ("opening-flags", "Opening flags", "PKCS#11 open session flags",
+	                                 0, G_MAXULONG, 0, G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
+
+	/**
+	 * GckSession:app-data:
+	 *
+	 * Raw PKCS#11 application data used to open the PKCS#11 session.
+	 */
+	g_object_class_install_property (gobject_class, PROP_APP_DATA,
+	           g_param_spec_pointer ("app-data", "App data", "PKCS#11 application data",
+	                                 G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
+
+	/**
 	 * GckSession::discard-handle:
 	 * @session: The session.
 	 * @handle: The handle being discarded.
@@ -310,6 +353,173 @@ gck_session_class_init (GckSessionClass *klass)
 			_gck_marshal_BOOLEAN__ULONG, G_TYPE_BOOLEAN, 1, G_TYPE_ULONG);
 
 	g_type_class_add_private (klass, sizeof (GckSessionPrivate));
+}
+
+typedef struct OpenSession {
+	GckArguments base;
+	GTlsInteraction *interaction;
+	GckSlot *slot;
+	gulong flags;
+	gpointer app_data;
+	CK_NOTIFY notify;
+	gboolean auto_login;
+	CK_SESSION_HANDLE session;
+} OpenSession;
+
+static void
+free_open_session (OpenSession *args)
+{
+	g_clear_object (&args->interaction);
+	g_clear_object (&args->slot);
+	g_free (args);
+}
+
+static CK_RV
+perform_open_session (OpenSession *args)
+{
+	GTlsInteraction *interaction;
+	CK_RV rv = CKR_OK;
+
+	/* First step, open session */
+	if (!args->session) {
+		rv = (args->base.pkcs11->C_OpenSession) (args->base.handle, args->flags,
+		                                         args->app_data, args->notify, &args->session);
+	}
+
+	if (rv != CKR_OK || !args->auto_login)
+		return rv;
+
+	/* Compatibility, hook into GckModule signals if no interaction set */
+	if (args->interaction)
+		interaction = g_object_ref (args->interaction);
+	else
+		interaction = _gck_interaction_new (args->slot);
+
+	rv = _gck_session_authenticate_token (args->base.pkcs11, args->session,
+	                                      args->slot, interaction, NULL);
+
+	g_object_unref (interaction);
+
+	return rv;
+}
+
+static gboolean
+gck_session_initable_init (GInitable *initable,
+                           GCancellable *cancellable,
+                           GError **error)
+{
+	GckSession *self = GCK_SESSION (initable);
+	OpenSession args = { GCK_ARGUMENTS_INIT, 0,  };
+	GckModule *module = NULL;
+	gboolean ret = FALSE;
+	gboolean want_login;
+
+	want_login = (self->pv->options & GCK_SESSION_LOGIN_USER) == GCK_SESSION_LOGIN_USER;
+
+	/* Already have a session setup? */
+	if (self->pv->handle && !want_login)
+		return TRUE;
+
+	g_object_ref (self);
+	module = gck_session_get_module (self);
+
+	/* Open a new session */
+	args.slot = self->pv->slot;
+	args.app_data = self->pv->app_data;
+	args.notify = NULL;
+	args.session = self->pv->handle;
+	args.flags = self->pv->opening_flags;
+	args.interaction = self->pv->interaction ? g_object_ref (self->pv->interaction) : NULL;
+	args.auto_login = want_login;
+
+	if (_gck_call_sync (self->pv->slot, perform_open_session, NULL, &args, cancellable, error)) {
+		self->pv->handle = args.session;
+		ret = TRUE;
+	}
+
+	g_clear_object (&args.interaction);
+	g_object_unref (module);
+	g_object_unref (self);
+
+	return ret;
+}
+
+static void
+gck_session_initable_iface (GInitableIface *iface)
+{
+	iface->init = gck_session_initable_init;
+}
+
+static void
+gck_session_initable_init_async (GAsyncInitable *initable,
+                                 int io_priority,
+                                 GCancellable *cancellable,
+                                 GAsyncReadyCallback callback,
+                                 gpointer user_data)
+{
+	GckSession *self = GCK_SESSION (initable);
+	OpenSession *args;
+	gboolean want_login;
+	GckCall *call;
+
+	g_object_ref (self);
+
+	args =  _gck_call_async_prep (self->pv->slot, self, perform_open_session, NULL,
+	                              sizeof (*args), free_open_session);
+
+	want_login = (self->pv->options & GCK_SESSION_LOGIN_USER) == GCK_SESSION_LOGIN_USER;
+	args->session = self->pv->handle;
+
+	call = 	_gck_call_async_ready (args, cancellable, callback, user_data);
+
+	/* Already have a session setup? */
+	if (self->pv->handle && !want_login) {
+		_gck_call_async_short (call, CKR_OK);
+		g_object_unref (self);
+		return;
+	}
+
+	args->app_data = self->pv->app_data;
+	args->notify = NULL;
+	args->slot = g_object_ref (self->pv->slot);
+	args->interaction = self->pv->interaction ? g_object_ref (self->pv->interaction) : NULL;
+	args->auto_login = want_login;
+	args->flags = self->pv->opening_flags;
+
+	_gck_call_async_go (call);
+	g_object_unref (self);
+}
+
+static gboolean
+gck_session_initable_init_finish (GAsyncInitable *initable,
+                                  GAsyncResult *result,
+                                  GError **error)
+{
+	GckSession *self = GCK_SESSION (initable);
+	gboolean ret = FALSE;
+
+	g_object_ref (self);
+
+	{
+		OpenSession *args;
+
+		if (_gck_call_basic_finish (result, error)) {
+			args = _gck_call_arguments (result, OpenSession);
+			self->pv->handle = args->session;
+			ret = TRUE;
+		}
+	}
+
+	g_object_unref (self);
+
+	return ret;
+}
+
+static void
+gck_session_async_initable_iface (GAsyncInitableIface *iface)
+{
+	iface->init_async = gck_session_initable_init_async;
+	iface->init_finish = gck_session_initable_init_finish;
 }
 
 /* ----------------------------------------------------------------------------
@@ -397,7 +607,6 @@ gck_session_from_handle (GckSlot *slot,
 	interaction = gck_slot_get_interaction (slot);
 
 	session = g_object_new (GCK_TYPE_SESSION,
-	                        "module", module,
 	                        "interaction", interaction,
 	                        "handle", session_handle,
 	                        "slot", slot,
@@ -437,8 +646,7 @@ GckModule *
 gck_session_get_module (GckSession *self)
 {
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
-	g_return_val_if_fail (GCK_IS_MODULE (self->pv->module), NULL);
-	return g_object_ref (self->pv->module);
+	return gck_slot_get_module (self->pv->slot);
 }
 
 /**
@@ -472,20 +680,21 @@ gck_session_get_info (GckSession *self)
 	GckSessionInfo *sessioninfo;
 	CK_FUNCTION_LIST_PTR funcs;
 	CK_SESSION_INFO info;
+	GckModule *module;
 	CK_RV rv;
 
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
-	g_return_val_if_fail (GCK_IS_MODULE (self->pv->module), NULL);
 
-	g_object_ref (self->pv->module);
+	module = gck_session_get_module (self);
+	g_return_val_if_fail (GCK_IS_MODULE (module), NULL);
 
-	funcs = gck_module_get_functions (self->pv->module);
+	funcs = gck_module_get_functions (module);
 	g_return_val_if_fail (funcs, NULL);
 
 	memset (&info, 0, sizeof (info));
 	rv = (funcs->C_GetSessionInfo) (self->pv->handle, &info);
 
-	g_object_unref (self->pv->module);
+	g_object_unref (module);
 
 	if (rv != CKR_OK) {
 		g_warning ("couldn't get session info: %s", gck_message_from_rv (rv));
@@ -514,20 +723,21 @@ gck_session_get_state (GckSession *self)
 {
 	CK_FUNCTION_LIST_PTR funcs;
 	CK_SESSION_INFO info;
+	GckModule *module;
 	CK_RV rv;
 
 	g_return_val_if_fail (GCK_IS_SESSION (self), 0);
-	g_return_val_if_fail (GCK_IS_MODULE (self->pv->module), 0);
 
-	g_object_ref (self->pv->module);
+	module = gck_session_get_module (self);
+	g_return_val_if_fail (GCK_IS_MODULE (module), 0);
 
-	funcs = gck_module_get_functions (self->pv->module);
+	funcs = gck_module_get_functions (module);
 	g_return_val_if_fail (funcs, 0);
 
 	memset (&info, 0, sizeof (info));
 	rv = (funcs->C_GetSessionInfo) (self->pv->handle, &info);
 
-	g_object_unref (self->pv->module);
+	g_object_unref (module);
 
 	if (rv != CKR_OK) {
 		g_warning ("couldn't get session info: %s", gck_message_from_rv (rv));
@@ -570,6 +780,82 @@ gck_session_get_interaction (GckSession *self)
 		return g_object_ref (self->pv->interaction);
 
 	return NULL;
+}
+
+/**
+ * gck_session_open:
+ * @slot: the slot to open session on
+ * @options: session options
+ * @interaction: (allow-none): optional interaction for logins or object authentication
+ * @cancellable: optional cancellation object
+ * @error: location to place error or %NULL
+ *
+ * Open a session on the slot. This call may block for an indefinite period.
+ *
+ * Returns: (transfer full): the new session
+ */
+GckSession *
+gck_session_open (GckSlot *slot,
+                  GckSessionOptions options,
+                  GTlsInteraction *interaction,
+                  GCancellable *cancellable,
+                  GError **error)
+{
+	return g_initable_new (GCK_TYPE_SESSION, cancellable, error,
+	                       "slot", slot,
+	                       "interaction", interaction,
+	                       "options", options,
+	                       NULL);
+}
+
+/**
+ * gck_session_open_async:
+ * @slot: the slot to open session on
+ * @options: session options
+ * @interaction: (allow-none): optional interaction for logins or object authentication
+ * @callback: called when the operation completes
+ * @user_data: data to pass to callback
+ *
+ * Open a session on the slot. This call will return immediately and complete
+ * asynchronously.
+ */
+void
+gck_session_open_async (GckSlot *slot,
+                        GckSessionOptions options,
+                        GTlsInteraction *interaction,
+                        GCancellable *cancellable,
+                        GAsyncReadyCallback callback,
+                        gpointer user_data)
+{
+	g_async_initable_new_async (GCK_TYPE_SESSION, G_PRIORITY_DEFAULT,
+	                            cancellable, callback, user_data,
+	                            "slot", slot,
+	                            "interaction", interaction,
+	                            "options", options,
+	                            NULL);
+}
+
+/**
+ * gck_session_open_finish:
+ * @result: the result passed to the callback
+ * @error: location to return an error or %NULL
+ *
+ * Get the result of an open session operation.
+ *
+ * Returns: (transfer full): the new session
+ */
+GckSession *
+gck_session_open_finish (GAsyncResult *result,
+                         GError **error)
+{
+	GObject *ret;
+	GObject *source;
+
+	source = g_async_result_get_source_object (result);
+	ret = g_async_initable_new_finish (G_ASYNC_INITABLE (source), result, error);
+	g_object_unref (source);
+
+	return ret ? GCK_SESSION (ret) : NULL;
 }
 
 /* ---------------------------------------------------------------------------------------------
@@ -843,7 +1129,6 @@ gck_session_login_async (GckSession *self, gulong user_type, const guchar *pin,
 	args->n_pin = n_pin;
 
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
-
 }
 
 /**
@@ -862,8 +1147,112 @@ gck_session_login_finish (GckSession *self, GAsyncResult *result, GError **error
 	return _gck_call_basic_finish (result, error);
 }
 
+typedef struct _Interactive {
+	GckArguments base;
+	GTlsInteraction *interaction;
+	GCancellable *cancellable;
+	GckSlot *token;
+} Interactive;
 
+static void
+free_interactive (Interactive *args)
+{
+	g_clear_object (&args->token);
+	g_clear_object (&args->cancellable);
+	g_clear_object (&args->interaction);
+	g_free (args);
+}
 
+static CK_RV
+perform_interactive (Interactive *args)
+{
+	return _gck_session_authenticate_token (args->base.pkcs11, args->base.handle,
+	                                        args->token, args->interaction, args->cancellable);
+}
+
+/**
+ * gck_session_login_interactive:
+ * @self: session to use for login
+ * @user_type: the type of login user
+ * @interaction: interaction to request PIN when necessary
+ * @cancellable: optional cancellation object, or %NULL
+ * @error: location to return an error
+ *
+ * Login the user on the session requesting the password interactively
+ * when necessary. This call may block for an indefinite period.
+ *
+ * Return value: Whether successful or not.
+ */
+gboolean
+gck_session_login_interactive (GckSession *self,
+                               gulong user_type,
+                               GTlsInteraction *interaction,
+                               GCancellable *cancellable,
+                               GError **error)
+{
+	Interactive args = { GCK_ARGUMENTS_INIT, interaction, cancellable, NULL, };
+
+	g_return_val_if_fail (GCK_IS_SESSION (self), FALSE);
+
+	/* TODO: For now this is all we support */
+	g_return_val_if_fail (user_type == CKU_USER, FALSE);
+
+	args.token = self->pv->slot;
+
+	return _gck_call_sync (self, perform_interactive, NULL, &args, cancellable, error);
+}
+
+/**
+ * gck_session_login_interactive_async:
+ * @self: session to use for login
+ * @user_type: the type of login user
+ * @interaction: interaction to request PIN when necessary
+ * @cancellable: optional cancellation object, or %NULL
+ * @callback: called when the operation completes
+ * @user_data: data to pass to the callback
+ *
+ * Login the user on the session prompting for passwords interactively when
+ * necessary. This call will return immediately and completes asynchronously.
+ **/
+void
+gck_session_login_interactive_async (GckSession *self,
+                                     gulong user_type,
+                                     GTlsInteraction *interaction,
+                                     GCancellable *cancellable,
+                                     GAsyncReadyCallback callback,
+                                     gpointer user_data)
+{
+	Interactive* args = _gck_call_async_prep (self, self, perform_interactive, NULL, sizeof (*args), free_interactive);
+
+	g_return_if_fail (GCK_IS_SESSION (self));
+
+	/* TODO: For now this is all we support */
+	g_return_if_fail (user_type == CKU_USER);
+
+	args->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
+	args->interaction = interaction ? g_object_ref (interaction) : NULL;
+	args->token = g_object_ref (self->pv->slot);
+
+	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+}
+
+/**
+ * gck_session_login_interactive_finish:
+ * @self: the session logged into
+ * @result: the result passed to the callback
+ * @error: location to return an error
+ *
+ * Get the result of a login operation.
+ *
+ * Return value: Whether the operation was successful or not.
+ **/
+gboolean
+gck_session_login_interactive_finish (GckSession *self,
+                                      GAsyncResult *result,
+                                      GError **error)
+{
+	return _gck_call_basic_finish (result, error);
+}
 
 /* LOGOUT */
 

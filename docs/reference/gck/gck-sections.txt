@@ -175,6 +175,9 @@ gck_session_options_get_type
 <FILE>gck-session</FILE>
 GckSession
 gck_session_from_handle
+gck_session_open
+gck_session_open_async
+gck_session_open_finish
 gck_session_get_module
 gck_session_get_slot
 gck_session_get_handle
@@ -203,6 +206,9 @@ gck_session_decrypt
 gck_session_decrypt_full
 gck_session_decrypt_async
 gck_session_decrypt_finish
+gck_session_login_interactive
+gck_session_login_interactive_async
+gck_session_login_interactive_finish
 gck_session_sign
 gck_session_sign_full
 gck_session_sign_async

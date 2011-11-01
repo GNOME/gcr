@@ -64,30 +64,6 @@ struct _GckSlotPrivate {
 G_DEFINE_TYPE (GckSlot, gck_slot, G_TYPE_OBJECT);
 
 /* ----------------------------------------------------------------------------
- * HELPERS
- */
-
-static GckSession*
-make_session_object (GckSlot *self,
-                     GckSessionOptions options,
-                     CK_SESSION_HANDLE handle)
-{
-	GckSession *session;
-	GckModule *module;
-
-	g_return_val_if_fail (handle != 0, NULL);
-
-	module = gck_slot_get_module (self);
-
-	session = gck_session_from_handle (self, handle, options);
-	g_return_val_if_fail (session != NULL, NULL);
-
-	g_object_unref (module);
-
-	return session;
-}
-
-/* ----------------------------------------------------------------------------
  * OBJECT
  */
 
@@ -1056,58 +1032,6 @@ gck_slots_enumerate_objects (GList *slots,
 }
 
 
-typedef struct OpenSession {
-	GckArguments base;
-	GTlsInteraction *interaction;
-	GckSlot *slot;
-	gulong flags;
-	gpointer app_data;
-	CK_NOTIFY notify;
-	gchar *password;
-	gboolean auto_login;
-	CK_SESSION_HANDLE session;
-} OpenSession;
-
-static CK_RV
-perform_open_session (OpenSession *args)
-{
-	GTlsInteraction *interaction;
-	CK_RV rv = CKR_OK;
-
-	/* Can be called multiple times */
-
-	/* First step, open session */
-	if (!args->session) {
-		rv = (args->base.pkcs11->C_OpenSession) (args->base.handle, args->flags,
-		                                         args->app_data, args->notify, &args->session);
-	}
-
-	if (rv != CKR_OK || !args->auto_login)
-		return rv;
-
-	/* Compatibility, hook into GckModule signals if no interaction set */
-	if (args->interaction)
-		interaction = g_object_ref (args->interaction);
-	else
-		interaction = _gck_interaction_new (args->slot);
-
-	rv = _gck_session_authenticate_token (args->base.pkcs11, args->session,
-	                                      args->slot, interaction, NULL);
-
-	g_object_unref (interaction);
-
-	return rv;
-}
-
-static void
-free_open_session (OpenSession *args)
-{
-	g_clear_object (&args->interaction);
-	g_clear_object (&args->slot);
-	g_assert (!args->password);
-	g_free (args);
-}
-
 /**
  * gck_slot_open_session:
  * @self: The slot ot open a session on.
@@ -1157,36 +1081,12 @@ gck_slot_open_session_full (GckSlot *self,
                             GCancellable *cancellable,
                             GError **error)
 {
-	OpenSession args = { GCK_ARGUMENTS_INIT, 0,  };
-	GckSession *session = NULL;
-	GckModule *module = NULL;
-
-	g_object_ref (self);
-
-	module = gck_slot_get_module (self);
-
-	/* Open a new session */
-	args.slot = self;
-	args.app_data = app_data;
-	args.notify = notify;
-	args.password = NULL;
-	args.session = 0;
-	args.interaction = gck_slot_get_interaction (self);
-
-	args.auto_login = ((options & GCK_SESSION_LOGIN_USER) == GCK_SESSION_LOGIN_USER);
-
-	args.flags = pkcs11_flags | CKF_SERIAL_SESSION;
-	if ((options & GCK_SESSION_READ_WRITE) == GCK_SESSION_READ_WRITE)
-		args.flags |= CKF_RW_SESSION;
-
-	if (_gck_call_sync (self, perform_open_session, NULL, &args, cancellable, error))
-		session = make_session_object (self, options, args.session);
-
-	g_clear_object (&args.interaction);
-	g_object_unref (module);
-	g_object_unref (self);
-
-	return session;
+	return g_initable_new (GCK_TYPE_SESSION, cancellable, error,
+	                       "options", options,
+	                       "slot", self,
+	                       "opening-flags", pkcs11_flags,
+	                       "app-data", app_data,
+	                       NULL);
 }
 
 /**
@@ -1238,26 +1138,13 @@ gck_slot_open_session_full_async (GckSlot *self,
                                   GAsyncReadyCallback callback,
                                   gpointer user_data)
 {
-	OpenSession *args;
-
-	g_object_ref (self);
-
-	args =  _gck_call_async_prep (self, self, perform_open_session, NULL,
-	                              sizeof (*args), free_open_session);
-
-	args->app_data = app_data;
-	args->notify = notify;
-	args->slot = g_object_ref (self);
-	args->interaction = gck_slot_get_interaction (self);
-
-	args->auto_login = ((options & GCK_SESSION_LOGIN_USER) == GCK_SESSION_LOGIN_USER);
-
-	args->flags = pkcs11_flags | CKF_SERIAL_SESSION;
-	if ((options & GCK_SESSION_READ_WRITE) == GCK_SESSION_READ_WRITE)
-		args->flags |= CKF_RW_SESSION;
-
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
-	g_object_unref (self);
+	g_async_initable_new_async (GCK_TYPE_SESSION, G_PRIORITY_DEFAULT,
+	                            cancellable, callback, user_data,
+	                            "options", options,
+	                            "slot", self,
+	                            "opening-flags", pkcs11_flags,
+	                            "app-data", app_data,
+	                            NULL);
 }
 
 /**
@@ -1271,25 +1158,10 @@ gck_slot_open_session_full_async (GckSlot *self,
  *
  * Returns: (transfer full): the new session or %NULL if an error occurs
  */
-GckSession*
+GckSession *
 gck_slot_open_session_finish (GckSlot *self, GAsyncResult *result, GError **err)
 {
-	GckSession *session = NULL;
-
-	g_object_ref (self);
-
-	{
-		OpenSession *args;
-
-		if (_gck_call_basic_finish (result, err)) {
-			args = _gck_call_arguments (result, OpenSession);
-			session = make_session_object (self, args->flags, args->session);
-		}
-	}
-
-	g_object_unref (self);
-
-	return session;
+	return gck_session_open_finish (result, err);
 }
 
 /**

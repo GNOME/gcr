@@ -283,6 +283,7 @@ gcr_viewer_SOURCES = \
 	gcr-viewer-tool.c
 
 gcr_viewer_CFLAGS = \
+	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	-DLOCALEDIR=\""$(datadir)/locale"\" \
 	-DGCR_API_SUBJECT_TO_CHANGE
@@ -290,6 +291,7 @@ gcr_viewer_CFLAGS = \
 gcr_viewer_LDADD = \
 	$(builddir)/libgcr-$(GCR_MAJOR).la \
 	$(top_builddir)/gck/libgck-@GCK_MAJOR@.la \
+	$(GLIB_LIBS) \
 	$(GTK_LIBS)
 
 # ------------------------------------------------------------------

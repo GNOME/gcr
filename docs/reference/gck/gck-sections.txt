@@ -128,8 +128,6 @@ gck_slot_hash
 gck_slot_get_module
 gck_slot_get_handle
 gck_slot_get_info
-gck_slot_get_interaction
-gck_slot_set_interaction
 gck_slot_match
 gck_slot_get_token_info
 gck_slot_get_mechanisms
@@ -209,6 +207,7 @@ gck_session_decrypt_finish
 gck_session_login_interactive
 gck_session_login_interactive_async
 gck_session_login_interactive_finish
+gck_session_set_interaction
 gck_session_sign
 gck_session_sign_full
 gck_session_sign_async

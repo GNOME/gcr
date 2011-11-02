@@ -48,17 +48,12 @@
 enum {
 	PROP_0,
 	PROP_MODULE,
-	PROP_HANDLE,
-	PROP_INTERACTION
+	PROP_HANDLE
 };
 
 struct _GckSlotPrivate {
 	GckModule *module;
 	CK_SLOT_ID handle;
-
-	/* Changable data locked by mutex */
-	GMutex *mutex;
-	GTlsInteraction *interaction;
 };
 
 G_DEFINE_TYPE (GckSlot, gck_slot, G_TYPE_OBJECT);
@@ -71,7 +66,6 @@ static void
 gck_slot_init (GckSlot *self)
 {
 	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCK_TYPE_SLOT, GckSlotPrivate);
-	self->pv->mutex = g_mutex_new ();
 }
 
 static void
@@ -86,9 +80,6 @@ gck_slot_get_property (GObject *obj, guint prop_id, GValue *value,
 		break;
 	case PROP_HANDLE:
 		g_value_set_ulong (value, gck_slot_get_handle (self));
-		break;
-	case PROP_INTERACTION:
-		g_value_take_object (value, gck_slot_get_interaction (self));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -115,9 +106,6 @@ gck_slot_set_property (GObject *obj, guint prop_id, const GValue *value,
 		g_assert (!self->pv->handle);
 		self->pv->handle = g_value_get_ulong (value);
 		break;
-	case PROP_INTERACTION:
-		gck_slot_set_interaction (self, g_value_get_object (value));
-		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
 		break;
@@ -125,25 +113,11 @@ gck_slot_set_property (GObject *obj, guint prop_id, const GValue *value,
 }
 
 static void
-gck_slot_dispose (GObject *obj)
-{
-	GckSlot *self = GCK_SLOT (obj);
-
-	gck_slot_set_interaction (self, NULL);
-
-	G_OBJECT_CLASS (gck_slot_parent_class)->dispose (obj);
-}
-
-static void
 gck_slot_finalize (GObject *obj)
 {
 	GckSlot *self = GCK_SLOT (obj);
 
-	g_assert (self->pv->interaction == NULL);
-
-	self->pv->handle = 0;
 	g_clear_object (&self->pv->module);
-	g_mutex_free (self->pv->mutex);
 
 	G_OBJECT_CLASS (gck_slot_parent_class)->finalize (obj);
 }
@@ -156,7 +130,6 @@ gck_slot_class_init (GckSlotClass *klass)
 
 	gobject_class->get_property = gck_slot_get_property;
 	gobject_class->set_property = gck_slot_set_property;
-	gobject_class->dispose = gck_slot_dispose;
 	gobject_class->finalize = gck_slot_finalize;
 
 	/**
@@ -176,17 +149,6 @@ gck_slot_class_init (GckSlotClass *klass)
 	g_object_class_install_property (gobject_class, PROP_HANDLE,
 		g_param_spec_ulong ("handle", "Handle", "PKCS11 Slot ID",
 		                   0, G_MAXULONG, 0, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-
-	/**
-	 * GckSlot:interaction:
-	 *
-	 * Interaction object used to ask the user for pins when opening
-	 * sessions. Used if the session_options of the enumerator have
-	 * %GCK_SESSION_LOGIN_USER or %GCK_SESSION_AUTHENTICATE
-	 */
-	g_object_class_install_property (gobject_class, PROP_INTERACTION,
-		g_param_spec_object ("interaction", "Interaction", "Interaction asking for pins",
-		                     G_TYPE_TLS_INTERACTION, G_PARAM_READWRITE));
 
 	g_type_class_add_private (gobject_class, sizeof (GckSlotPrivate));
 }
@@ -916,62 +878,6 @@ gck_slot_has_flags (GckSlot *self, gulong flags)
 	}
 
 	return (info.flags & flags) != 0;
-}
-
-/**
- * gck_slot_get_interaction:
- * @self: the slot
- *
- * Get the interaction used when a pin is needed
- *
- * Returns: (transfer full) (allow-none): the interaction or %NULL
- */
-GTlsInteraction *
-gck_slot_get_interaction (GckSlot *self)
-{
-	GTlsInteraction *result = NULL;
-
-	g_return_val_if_fail (GCK_IS_SLOT (self), NULL);
-
-	g_mutex_lock (self->pv->mutex);
-
-		if (self->pv->interaction)
-			result = g_object_ref (self->pv->interaction);
-
-	g_mutex_unlock (self->pv->mutex);
-
-	return result;
-}
-
-/**
- * gck_slot_set_interaction:
- * @self: the slot
- * @interaction: (allow-none): the interaction or %NULL
- *
- * Set the interaction used when a pin is needed
- */
-void
-gck_slot_set_interaction (GckSlot *self,
-                          GTlsInteraction *interaction)
-{
-	GTlsInteraction *previous = NULL;
-
-	g_return_if_fail (GCK_IS_SLOT (self));
-	g_return_if_fail (interaction == NULL || G_IS_TLS_INTERACTION (interaction));
-
-	g_mutex_lock (self->pv->mutex);
-
-		if (interaction != self->pv->interaction) {
-			previous = self->pv->interaction;
-			self->pv->interaction = interaction;
-			if (interaction)
-				g_object_ref (interaction);
-		}
-
-	g_mutex_unlock (self->pv->mutex);
-
-	g_clear_object (&previous);
-	g_object_notify (G_OBJECT (self), "interaction");
 }
 
 /**

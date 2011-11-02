@@ -190,6 +190,7 @@ gck_session_open
 gck_session_open_async
 gck_session_open_finish
 gck_session_options_get_type
+gck_session_set_interaction
 gck_session_set_pin
 gck_session_set_pin_async
 gck_session_set_pin_finish
@@ -214,7 +215,6 @@ gck_slot_equal
 gck_slot_from_handle
 gck_slot_get_handle
 gck_slot_get_info
-gck_slot_get_interaction
 gck_slot_get_mechanism_info
 gck_slot_get_mechanisms
 gck_slot_get_module
@@ -231,7 +231,6 @@ gck_slot_open_session_async
 gck_slot_open_session_finish
 gck_slot_open_session_full
 gck_slot_open_session_full_async
-gck_slot_set_interaction
 gck_slots_enumerate_objects
 gck_string_from_chars
 gck_string_to_chars

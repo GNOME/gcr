@@ -34,6 +34,7 @@ GtkTreeViewAccessible AtkComponent AtkTable AtkSelection GtkCellAccessibleParent
 GtkScrolledWindowAccessible AtkComponent
 GtkWindowAccessible AtkComponent AtkWindow
 GtkAction GtkBuildable
+GckSession GInitable GAsyncInitable
 GdkPixbuf GIcon
 GApplication GActionGroup
 GtkApplication GActionGroup

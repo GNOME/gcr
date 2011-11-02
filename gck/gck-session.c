@@ -87,13 +87,14 @@ struct _GckSessionPrivate {
 	/* Not modified after construct/init */
 	GckSlot *slot;
 	CK_SESSION_HANDLE handle;
-	GTlsInteraction *interaction;
 	GckSessionOptions options;
 	gulong opening_flags;
 	gpointer app_data;
 
-	/* Modified atomically */
-	gint discarded;
+	/* Changable data locked by mutex */
+	GMutex *mutex;
+	GTlsInteraction *interaction;
+	gboolean discarded;
 };
 
 static void    gck_session_initable_iface        (GInitableIface *iface);
@@ -140,6 +141,7 @@ static void
 gck_session_init (GckSession *self)
 {
 	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCK_TYPE_SESSION, GckSessionPrivate);
+	self->pv->mutex = g_mutex_new ();
 }
 
 static void
@@ -162,7 +164,7 @@ gck_session_get_property (GObject *obj, guint prop_id, GValue *value,
 		g_value_set_uint (value, gck_session_get_options (self));
 		break;
 	case PROP_INTERACTION:
-		g_value_take_object (value, self->pv->interaction);
+		g_value_take_object (value, gck_session_get_interaction (self));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -184,8 +186,7 @@ gck_session_set_property (GObject *obj, guint prop_id, const GValue *value,
 		self->pv->handle = g_value_get_ulong (value);
 		break;
 	case PROP_INTERACTION:
-		g_return_if_fail (self->pv->interaction == NULL);
-		self->pv->interaction = g_value_dup_object (value);
+		gck_session_set_interaction (self, g_value_get_object (value));
 		break;
 	case PROP_SLOT:
 		g_return_if_fail (!self->pv->slot);
@@ -224,13 +225,19 @@ static void
 gck_session_dispose (GObject *obj)
 {
 	GckSession *self = GCK_SESSION (obj);
+	gboolean discard = FALSE;
 	gboolean handled;
 
 	g_return_if_fail (GCK_IS_SESSION (self));
 
-	if (self->pv->handle != 0 &&
-	    g_atomic_int_compare_and_exchange (&self->pv->discarded, 0, 1)) {
+	if (self->pv->handle != 0) {
+		g_mutex_lock (self->pv->mutex);
+			discard = !self->pv->discarded;
+			self->pv->discarded = TRUE;
+		g_mutex_unlock (self->pv->mutex);
+	}
 
+	if (discard) {
 		/*
 		 * Let the world know that we're discarding the session
 		 * handle. This allows any necessary session reuse to work.
@@ -248,11 +255,12 @@ gck_session_finalize (GObject *obj)
 {
 	GckSession *self = GCK_SESSION (obj);
 
-	g_assert (self->pv->handle == 0 ||
-	          g_atomic_int_get (&self->pv->discarded) != 0);
+	g_assert (self->pv->handle == 0 || self->pv->discarded);
 
 	g_clear_object (&self->pv->interaction);
 	g_clear_object (&self->pv->slot);
+
+	g_mutex_free (self->pv->mutex);
 
 	G_OBJECT_CLASS (gck_session_parent_class)->finalize (obj);
 }
@@ -599,21 +607,15 @@ gck_session_from_handle (GckSlot *slot,
                          gulong session_handle,
                          GckSessionOptions options)
 {
-	GTlsInteraction *interaction;
 	GckSession *session;
 
 	g_return_val_if_fail (GCK_IS_SLOT (slot), NULL);
 
-	interaction = gck_slot_get_interaction (slot);
-
 	session = g_object_new (GCK_TYPE_SESSION,
-	                        "interaction", interaction,
 	                        "handle", session_handle,
 	                        "slot", slot,
 	                        "options", options,
 	                        NULL);
-
-	g_clear_object (&interaction);
 
 	return session;
 }
@@ -782,6 +784,36 @@ gck_session_get_interaction (GckSession *self)
 }
 
 /**
+ * gck_session_set_interaction:
+ * @self: the session
+ * @interaction: (allow-none): the interaction or %NULL
+ *
+ * Set the interaction object on this session, which is used to prompt for
+ * pins and the like.
+ */
+void
+gck_session_set_interaction (GckSession *self,
+                             GTlsInteraction *interaction)
+{
+	GTlsInteraction *previous;
+	g_return_if_fail (GCK_IS_SESSION (self));
+	g_return_if_fail (interaction == NULL || G_IS_TLS_INTERACTION (interaction));
+
+	if (interaction)
+		g_object_ref (interaction);
+
+	g_mutex_lock (self->pv->mutex);
+
+		previous = self->pv->interaction;
+		self->pv->interaction = interaction;
+
+	g_mutex_unlock (self->pv->mutex);
+
+	if (previous)
+		g_object_unref (previous);
+}
+
+/**
  * gck_session_open:
  * @slot: the slot to open session on
  * @options: session options
@@ -812,6 +844,7 @@ gck_session_open (GckSlot *slot,
  * @slot: the slot to open session on
  * @options: session options
  * @interaction: (allow-none): optional interaction for logins or object authentication
+ * @cancellable: optional cancellation object
  * @callback: called when the operation completes
  * @user_data: data to pass to callback
  *
@@ -1192,6 +1225,9 @@ gck_session_login_interactive (GckSession *self,
 	Interactive args = { GCK_ARGUMENTS_INIT, interaction, cancellable, NULL, };
 
 	g_return_val_if_fail (GCK_IS_SESSION (self), FALSE);
+	g_return_val_if_fail (interaction == NULL || G_IS_TLS_INTERACTION (interaction), FALSE);
+	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	/* TODO: For now this is all we support */
 	g_return_val_if_fail (user_type == CKU_USER, FALSE);
@@ -1224,6 +1260,8 @@ gck_session_login_interactive_async (GckSession *self,
 	Interactive* args = _gck_call_async_prep (self, self, perform_interactive, NULL, sizeof (*args), free_interactive);
 
 	g_return_if_fail (GCK_IS_SESSION (self));
+	g_return_if_fail (interaction == NULL || G_IS_TLS_INTERACTION (interaction));
+	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
 	/* TODO: For now this is all we support */
 	g_return_if_fail (user_type == CKU_USER);
@@ -1250,6 +1288,8 @@ gck_session_login_interactive_finish (GckSession *self,
                                       GAsyncResult *result,
                                       GError **error)
 {
+	g_return_val_if_fail (GCK_IS_SESSION (self), FALSE);
+
 	return _gck_call_basic_finish (result, error);
 }
 
@@ -2566,14 +2606,16 @@ crypt_sync (GckSession *self, GckObject *key, GckMechanism *mechanism, const guc
 	args.complete_func = complete_func;
 
 	args.key_object = key;
-	args.interaction = self->pv->interaction;
+	args.interaction = gck_session_get_interaction (self);
 
 	if (!_gck_call_sync (self, perform_crypt, NULL, &args, cancellable, error)) {
 		g_free (args.result);
-		return NULL;
+		args.result = NULL;
+	} else {
+		*n_result = args.n_result;
 	}
 
-	*n_result = args.n_result;
+	g_clear_object (&args.interaction);
 	return args.result;
 }
 
@@ -3096,6 +3138,7 @@ gck_session_verify_full (GckSession *self, GckObject *key, GckMechanism *mechani
                           gsize n_signature, GCancellable *cancellable, GError **error)
 {
 	Verify args;
+	gboolean ret;
 
 	g_return_val_if_fail (GCK_IS_OBJECT (key), FALSE);
 	g_return_val_if_fail (mechanism, FALSE);
@@ -3114,9 +3157,13 @@ gck_session_verify_full (GckSession *self, GckObject *key, GckMechanism *mechani
 	args.n_signature = n_signature;
 
 	args.key_object = key;
-	args.interaction = self->pv->interaction;
+	args.interaction = gck_session_get_interaction (self);
 
-	return _gck_call_sync (self, perform_verify, NULL, &args, cancellable, error);
+	ret = _gck_call_sync (self, perform_verify, NULL, &args, cancellable, error);
+
+	g_clear_object (&args.interaction);
+
+	return ret;
 }
 
 /**

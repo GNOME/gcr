@@ -535,12 +535,11 @@ state_open_session (GSimpleAsyncResult *res,
 	GError *error = NULL;
 
 	if (async) {
-		gck_slot_open_session_async (self->slot, options,
-		                             data->cancellable, on_open_session,
-		                             g_object_ref (res));
+		gck_session_open_async (self->slot, options, self->interaction,
+		                        data->cancellable, on_open_session, g_object_ref (res));
 	} else {
-		session = gck_slot_open_session_full (self->slot, options, 0,
-		                                      NULL, NULL, data->cancellable, &error);
+		session = gck_session_open (self->slot, options, self->interaction,
+		                            data->cancellable, &error);
 		complete_open_session (res, session, error);
 	}
 }
@@ -817,7 +816,6 @@ _gcr_pkcs11_importer_import_async (GcrImporter *importer,
                                    GAsyncReadyCallback callback,
                                    gpointer user_data)
 {
-	GcrPkcs11Importer *self = GCR_PKCS11_IMPORTER (importer);
 	GSimpleAsyncResult *res;
 	GcrImporterData *data;
 
@@ -830,7 +828,6 @@ _gcr_pkcs11_importer_import_async (GcrImporter *importer,
 	g_simple_async_result_set_op_res_gpointer (res, data, gcr_importer_data_free);
 
 	supplement_prep (res);
-	gck_slot_set_interaction (self->slot, self->interaction);
 
 	next_state (res, state_open_session);
 	g_object_unref (res);

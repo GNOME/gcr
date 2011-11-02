@@ -614,11 +614,6 @@ GckMechanismInfo*   gck_slot_get_mechanism_info             (GckSlot *self,
 gboolean            gck_slot_has_flags                      (GckSlot *self,
                                                              gulong flags);
 
-GTlsInteraction *   gck_slot_get_interaction                (GckSlot *self);
-
-void                gck_slot_set_interaction                (GckSlot *self,
-                                                             GTlsInteraction *interaction);
-
 GckSession*         gck_slot_open_session                   (GckSlot *self,
                                                              GckSessionOptions options,
                                                              GCancellable *cancellable,
@@ -726,6 +721,9 @@ gulong              gck_session_get_state                   (GckSession *self);
 GckSessionOptions   gck_session_get_options                 (GckSession *self);
 
 GTlsInteraction *   gck_session_get_interaction             (GckSession *self);
+
+void                gck_session_set_interaction             (GckSession *self,
+                                                             GTlsInteraction *interaction);
 
 GckSession *        gck_session_open                        (GckSlot *slot,
                                                              GckSessionOptions options,

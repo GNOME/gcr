@@ -228,7 +228,8 @@ gck_session_dispose (GObject *obj)
 
 	g_return_if_fail (GCK_IS_SESSION (self));
 
-	if (g_atomic_int_compare_and_exchange (&self->pv->discarded, 0, 1)) {
+	if (self->pv->handle != 0 &&
+	    g_atomic_int_compare_and_exchange (&self->pv->discarded, 0, 1)) {
 
 		/*
 		 * Let the world know that we're discarding the session
@@ -247,7 +248,8 @@ gck_session_finalize (GObject *obj)
 {
 	GckSession *self = GCK_SESSION (obj);
 
-	g_assert (g_atomic_int_get (&self->pv->discarded) != 0);
+	g_assert (self->pv->handle == 0 ||
+	          g_atomic_int_get (&self->pv->discarded) != 0);
 
 	g_clear_object (&self->pv->interaction);
 	g_clear_object (&self->pv->slot);

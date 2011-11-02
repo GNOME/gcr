@@ -600,12 +600,10 @@ gck_session_from_handle (GckSlot *slot,
                          GckSessionOptions options)
 {
 	GTlsInteraction *interaction;
-	GckModule *module;
 	GckSession *session;
 
 	g_return_val_if_fail (GCK_IS_SLOT (slot), NULL);
 
-	module = gck_slot_get_module (slot);
 	interaction = gck_slot_get_interaction (slot);
 
 	session = g_object_new (GCK_TYPE_SESSION,
@@ -615,7 +613,6 @@ gck_session_from_handle (GckSlot *slot,
 	                        "options", options,
 	                        NULL);
 
-	g_object_unref (module);
 	g_clear_object (&interaction);
 
 	return session;

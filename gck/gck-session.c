@@ -339,7 +339,7 @@ gck_session_class_init (GckSessionClass *klass)
 	/**
 	 * GckSession:app-data:
 	 *
-	 * Raw PKCS\#11 application data used to open the PKCS#11 session.
+	 * Raw PKCS\#11 application data used to open the PKCS\#11 session.
 	 */
 	g_object_class_install_property (gobject_class, PROP_APP_DATA,
 	           g_param_spec_pointer ("app-data", "App data", "PKCS#11 application data",
@@ -1762,6 +1762,31 @@ gck_session_find_objects_finish (GckSession *self,
 	g_free (handles);
 	return results;
 
+}
+
+/**
+ * gck_session_enumerate_objects:
+ * @self: session to enumerate objects on
+ * @match: attributes that the objects must match, or empty for all objects
+ *
+ * Setup an enumerator for listing matching objects available via this session.
+ *
+ * This call will not block but will return an enumerator immediately.
+ *
+ * Returns: (transfer full): a new enumerator
+ **/
+GckEnumerator *
+gck_session_enumerate_objects (GckSession *session,
+                               GckAttributes *match)
+{
+	GckUriData *uri_data;
+
+	g_return_val_if_fail (match != NULL, NULL);
+
+	uri_data = gck_uri_data_new ();
+	uri_data->attributes = gck_attributes_ref (match);
+
+	return _gck_enumerator_new_for_session (session, uri_data);
 }
 
 /* -----------------------------------------------------------------------------

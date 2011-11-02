@@ -934,7 +934,7 @@ gck_slots_enumerate_objects (GList *slots,
 	uri_data = gck_uri_data_new ();
 	uri_data->attributes = gck_attributes_ref (match);
 
-	return _gck_enumerator_new (slots, options, uri_data);
+	return _gck_enumerator_new_for_slots (slots, options, uri_data);
 }
 
 

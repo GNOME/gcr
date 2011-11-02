@@ -218,7 +218,7 @@ gck_modules_enumerate_objects (GList *modules,
 	uri_data = gck_uri_data_new ();
 	uri_data->attributes = gck_attributes_ref (attrs);
 
-	return _gck_enumerator_new (modules, session_options, uri_data);
+	return _gck_enumerator_new_for_modules (modules, session_options, uri_data);
 }
 
 static GList *
@@ -429,5 +429,5 @@ gck_modules_enumerate_uri (GList *modules,
 		return NULL;
 
 	/* Takes ownership of uri_info */
-	return _gck_enumerator_new (modules, session_options, uri_data);
+	return _gck_enumerator_new_for_modules (modules, session_options, uri_data);
 }

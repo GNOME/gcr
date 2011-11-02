@@ -677,14 +677,24 @@ gck_enumerator_class_init (GckEnumeratorClass *klass)
 		                    GCK_TYPE_OBJECT, G_PARAM_READWRITE));
 }
 
-/* ----------------------------------------------------------------------------
- * PUBLIC
- */
+static void
+created_enumerator (GckUriData *uri_data,
+                    const gchar *type)
+{
+	if (_gck_debugging) {
+		gchar *attrs, *uri;
+		attrs = uri_data->attributes ? _gck_attributes_format (uri_data->attributes) : NULL;
+		uri = uri_data ? gck_uri_build (uri_data, GCK_URI_FOR_TOKEN | GCK_URI_FOR_MODULE) : NULL;
+		_gck_debug ("for = %s, tokens = %s, objects = %s", type, uri, attrs);
+		g_free (attrs);
+		g_free (uri);
+	}
+}
 
-GckEnumerator*
-_gck_enumerator_new (GList *modules_or_slots,
-                     GckSessionOptions session_options,
-                     GckUriData *uri_data)
+GckEnumerator *
+_gck_enumerator_new_for_modules (GList *modules,
+                                 GckSessionOptions session_options,
+                                 GckUriData *uri_data)
 {
 	GckEnumerator *self;
 	GckEnumeratorState *state;
@@ -694,29 +704,71 @@ _gck_enumerator_new (GList *modules_or_slots,
 
 	state->session_options = session_options;
 
-	if (modules_or_slots && GCK_IS_SLOT (modules_or_slots->data)) {
-		state->slots = gck_list_ref_copy (modules_or_slots);
-		state->modules = NULL;
-		state->handler = state_slots;
-	} else {
-		state->modules = gck_list_ref_copy (modules_or_slots);
-		state->slots = NULL;
-		state->handler = state_modules;
-	}
-
+	state->modules = gck_list_ref_copy (modules);
+	state->slots = NULL;
+	state->handler = state_modules;
 	state->match = uri_data;
+
 	if (uri_data->attributes)
 		_gck_attributes_lock (uri_data->attributes);
 
-	if (_gck_debugging) {
-		gchar *attrs, *uri;
-		attrs = uri_data->attributes ? _gck_attributes_format (uri_data->attributes) : NULL;
-		uri = uri_data ? gck_uri_build (uri_data, GCK_URI_FOR_TOKEN | GCK_URI_FOR_MODULE) : NULL;
-		_gck_debug ("new enumerator: tokens = %s, objects = %s", uri, attrs);
-		g_free (attrs);
-		g_free (uri);
-	}
+	created_enumerator (uri_data, "modules");
+	return self;
+}
 
+GckEnumerator *
+_gck_enumerator_new_for_slots (GList *slots,
+                               GckSessionOptions session_options,
+                               GckUriData *uri_data)
+{
+	GckEnumerator *self;
+	GckEnumeratorState *state;
+
+	self = g_object_new (GCK_TYPE_ENUMERATOR, NULL);
+	state = self->pv->the_state;
+
+	state->session_options = session_options;
+
+	state->slots = gck_list_ref_copy (slots);
+	state->modules = NULL;
+	state->handler = state_slots;
+	state->match = uri_data;
+
+	if (uri_data->attributes)
+		_gck_attributes_lock (uri_data->attributes);
+
+	created_enumerator (uri_data, "slots");
+	return self;
+}
+
+GckEnumerator *
+_gck_enumerator_new_for_session (GckSession *session,
+                                 GckUriData *uri_data)
+{
+	GckEnumerator *self;
+	GckEnumeratorState *state;
+	GckModule *module;
+
+	self = g_object_new (GCK_TYPE_ENUMERATOR, NULL);
+	state = self->pv->the_state;
+
+	state->session = g_object_ref (session);
+	state->modules = NULL;
+	state->slots = NULL;
+	state->handler = state_session;
+	state->match = uri_data;
+
+	state->slot = gck_session_get_slot (session);
+	state->token_info = gck_slot_get_token_info (state->slot);
+
+	module = gck_session_get_module (session);
+	state->funcs = gck_module_get_functions (module);
+	g_object_unref (module);
+
+	if (uri_data->attributes)
+		_gck_attributes_lock (uri_data->attributes);
+
+	created_enumerator (uri_data, "session");
 	return self;
 }
 

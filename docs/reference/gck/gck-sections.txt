@@ -190,6 +190,7 @@ gck_session_logout_finish
 gck_session_create_object
 gck_session_create_object_async
 gck_session_create_object_finish
+gck_session_enumerate_objects
 gck_session_find_handles
 gck_session_find_handles_async
 gck_session_find_handles_finish

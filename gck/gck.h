@@ -875,6 +875,9 @@ gulong *            gck_session_find_handles_finish         (GckSession *self,
                                                              gulong *n_handles,
                                                              GError **error);
 
+GckEnumerator *     gck_session_enumerate_objects           (GckSession *self,
+                                                             GckAttributes *match);
+
 gboolean            gck_session_generate_key_pair           (GckSession *self,
                                                              gulong mech_type,
                                                              GckAttributes *public_attrs,

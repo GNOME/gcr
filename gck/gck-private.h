@@ -86,8 +86,15 @@ gboolean            _gck_module_info_match                  (GckModuleInfo *matc
  * ENUMERATOR
  */
 
-GckEnumerator*      _gck_enumerator_new                     (GList *modules,
+GckEnumerator *     _gck_enumerator_new_for_modules         (GList *modules,
                                                              GckSessionOptions session_options,
+                                                             GckUriData *uri_data);
+
+GckEnumerator *     _gck_enumerator_new_for_slots           (GList *slots,
+                                                             GckSessionOptions session_options,
+                                                             GckUriData *uri_data);
+
+GckEnumerator *     _gck_enumerator_new_for_session         (GckSession *session,
                                                              GckUriData *uri_data);
 
 /* ----------------------------------------------------------------------------

@@ -75,7 +75,7 @@ test_create (Test *test, gconstpointer unused)
 	GckEnumerator *en;
 
 	uri_data = gck_uri_data_new ();
-	en = _gck_enumerator_new (test->modules, 0, uri_data);
+	en = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 
 	g_object_get (en, "object-type", &object_type, NULL);
@@ -93,7 +93,7 @@ test_create_slots (Test *test, gconstpointer unused)
 
 	uri_data = gck_uri_data_new ();
 	slots = gck_module_get_slots (test->module, FALSE);
-	en = _gck_enumerator_new (slots, 0, uri_data);
+	en = _gck_enumerator_new_for_slots (slots, 0, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 	g_object_unref (en);
 	gck_list_unref_free (slots);
@@ -108,7 +108,7 @@ test_next (Test *test, gconstpointer unused)
 	GckObject *obj;
 
 	uri_data = gck_uri_data_new ();
-	en = _gck_enumerator_new (test->modules, 0, uri_data);
+	en = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 
 	obj = gck_enumerator_next (en, NULL, &error);
@@ -129,7 +129,7 @@ test_next_slots (Test *test, gconstpointer unused)
 
 	uri_data = gck_uri_data_new ();
 	slots = gck_module_get_slots (test->module, FALSE);
-	en = _gck_enumerator_new (slots, 0, uri_data);
+	en = _gck_enumerator_new_for_slots (slots, 0, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 
 	obj = gck_enumerator_next (en, NULL, &error);
@@ -149,7 +149,7 @@ test_next_and_resume (Test *test, gconstpointer unused)
 	GckObject *obj, *obj2;
 
 	uri_data = gck_uri_data_new ();
-	en = _gck_enumerator_new (test->modules, 0, uri_data);
+	en = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 
 	obj = gck_enumerator_next (en, NULL, &error);
@@ -176,7 +176,7 @@ test_next_n (Test *test, gconstpointer unused)
 	GList *objects, *l;
 
 	uri_data = gck_uri_data_new ();
-	en = _gck_enumerator_new (test->modules, 0, uri_data);
+	en = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 
 	objects = gck_enumerator_next_n (en, -1, NULL, &error);
@@ -207,7 +207,7 @@ test_next_async (Test *test, gconstpointer unused)
 	GList *objects, *l;
 
 	uri_data = gck_uri_data_new ();
-	en = _gck_enumerator_new (test->modules, 0, uri_data);
+	en = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 
 	gck_enumerator_next_async (en, -1, NULL, fetch_async_result, &result);
@@ -225,6 +225,38 @@ test_next_async (Test *test, gconstpointer unused)
 	g_object_unref (en);
 }
 
+
+static void
+test_enumerate_session (Test *test,
+                        gconstpointer unused)
+{
+	GckEnumerator *en;
+	GckAttributes *attrs;
+	GError *error = NULL;
+	GckSession *session;
+	GckObject *obj;
+	GList *slots;
+
+	slots = gck_module_get_slots (test->module, FALSE);
+	g_assert (slots != NULL && GCK_IS_SLOT (slots->data));
+
+	session = gck_session_open (slots->data, 0, NULL, NULL, &error);
+	g_assert_no_error (error);
+
+	attrs = gck_attributes_new ();
+	en = gck_session_enumerate_objects (session, attrs);
+	g_assert (GCK_IS_ENUMERATOR (en));
+	gck_attributes_unref (attrs);
+
+	obj = gck_enumerator_next (en, NULL, &error);
+	g_assert (GCK_IS_OBJECT (obj));
+
+	g_object_unref (obj);
+	g_object_unref (en);
+	g_object_unref (session);
+	gck_list_unref_free (slots);
+}
+
 static void
 test_attribute_match (Test *test, gconstpointer unused)
 {
@@ -236,7 +268,7 @@ test_attribute_match (Test *test, gconstpointer unused)
 	uri_data = gck_uri_data_new ();
 	uri_data->attributes = gck_attributes_new ();
 	gck_attributes_add_string (uri_data->attributes, CKA_LABEL, "Private Capitalize Key");
-	en = _gck_enumerator_new (test->modules, 0, uri_data);
+	en = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 
 	objects = gck_enumerator_next_n (en, -1, NULL, &error);
@@ -260,7 +292,7 @@ test_authenticate_interaction (Test *test,
 	GckObject *obj;
 
 	uri_data = gck_uri_data_new ();
-	en = _gck_enumerator_new (test->modules, GCK_SESSION_LOGIN_USER, uri_data);
+	en = _gck_enumerator_new_for_modules (test->modules, GCK_SESSION_LOGIN_USER, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 
 	interaction = mock_interaction_new ("booo");
@@ -308,7 +340,7 @@ test_authenticate_compat (Test *test,
 	                  G_CALLBACK (on_authenticate_token), GUINT_TO_POINTER (35));
 
 	uri_data = gck_uri_data_new ();
-	en = _gck_enumerator_new (test->modules, GCK_SESSION_LOGIN_USER, uri_data);
+	en = _gck_enumerator_new_for_modules (test->modules, GCK_SESSION_LOGIN_USER, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 
 	obj = gck_enumerator_next (en, NULL, &error);
@@ -329,7 +361,7 @@ test_token_match (Test *test, gconstpointer unused)
 	uri_data = gck_uri_data_new ();
 	uri_data->token_info = g_new0 (GckTokenInfo, 1);
 	uri_data->token_info->label = g_strdup ("Invalid token name");
-	en = _gck_enumerator_new (test->modules, 0, uri_data);
+	en = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 
 	objects = gck_enumerator_next_n (en, -1, NULL, &error);
@@ -450,7 +482,7 @@ test_attribute_get (Test *test,
 	MockObject *mock;
 
 	uri_data = gck_uri_data_new ();
-	en = _gck_enumerator_new (test->modules, 0, uri_data);
+	en = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	g_object_set (en, "object-type", mock_object_get_type (), NULL);
 
 	objects = gck_enumerator_next_n (en, -1, NULL, &error);
@@ -482,6 +514,7 @@ main (int argc, char **argv)
 	g_test_add ("/gck/enumerator/next_and_resume", Test, NULL, setup, test_next_and_resume, teardown);
 	g_test_add ("/gck/enumerator/next_n", Test, NULL, setup, test_next_n, teardown);
 	g_test_add ("/gck/enumerator/next_async", Test, NULL, setup, test_next_async, teardown);
+	g_test_add ("/gck/enumerator/session", Test, NULL, setup, test_enumerate_session, teardown);
 	g_test_add ("/gck/enumerator/authenticate-interaction", Test, NULL, setup, test_authenticate_interaction, teardown);
 	g_test_add ("/gck/enumerator/authenticate-compat", Test, NULL, setup, test_authenticate_compat, teardown);
 	g_test_add ("/gck/enumerator/attribute_match", Test, NULL, setup, test_attribute_match, teardown);

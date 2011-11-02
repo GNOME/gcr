@@ -46,7 +46,8 @@
 enum {
 	PROP_0,
 	PROP_INTERACTION,
-	PROP_OBJECT_TYPE
+	PROP_OBJECT_TYPE,
+	PROP_CHAINED
 };
 
 /**
@@ -67,6 +68,9 @@ typedef gpointer (*GckEnumeratorFunc)     (GckEnumeratorState *args,
                                            gboolean forward);
 
 struct _GckEnumeratorState {
+	gpointer enumerator;
+	GckEnumeratorState *chained;
+
 	/* For the current call */
 	gint want_objects;
 
@@ -105,6 +109,7 @@ struct _GckEnumeratorPrivate {
 	GTlsInteraction *interaction;
 	GType object_type;
 	GckObjectClass *object_class;
+	GckEnumerator *chained;
 };
 
 G_DEFINE_TYPE (GckEnumerator, gck_enumerator, G_TYPE_OBJECT);
@@ -492,8 +497,6 @@ state_attributes (GckEnumeratorState *args,
 	session = gck_session_get_handle (args->session);
 	g_return_val_if_fail (session, NULL);
 
-	count = 0;
-
 	/* Get the attributes for want_objects */
 	for (count = 0, l = args->results->head;
 	     l != NULL && count < args->want_objects;
@@ -545,19 +548,22 @@ state_results (GckEnumeratorState *args,
                gboolean forward)
 {
 	g_assert (args->results != NULL);
+	gint length;
 
 	/* No cleanup, just unwind */
 	if (!forward)
 		return state_authenticated;
 
-	while (args->want_objects > g_queue_get_length (args->results)) {
+	length = g_queue_get_length (args->results);
+
+	while (args->want_objects > length) {
 		_gck_debug ("wanted %d objects, have %d, looking for more",
-		            args->want_objects, g_queue_get_length (args->results));
+		            args->want_objects, length);
 		return rewind_state (args, state_slots);
 	}
 
 	_gck_debug ("wanted %d objects, returned %d objects",
-	            args->want_objects, g_queue_get_length (args->results));
+	            args->want_objects, length);
 
 	/* We got all the results we wanted */
 	return NULL;
@@ -589,6 +595,9 @@ gck_enumerator_get_property (GObject *obj,
 	case PROP_OBJECT_TYPE:
 		g_value_set_gtype (value, gck_enumerator_get_object_type (self));
 		break;
+	case PROP_CHAINED:
+		g_value_set_object (value, gck_enumerator_get_chained (self));
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
 		break;
@@ -610,6 +619,9 @@ gck_enumerator_set_property (GObject *obj,
 	case PROP_OBJECT_TYPE:
 		gck_enumerator_set_object_type (self, g_value_get_gtype (value));
 		break;
+	case PROP_CHAINED:
+		gck_enumerator_set_chained (self, g_value_get_object (value));
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
 		break;
@@ -622,6 +634,7 @@ gck_enumerator_dispose (GObject *obj)
 	GckEnumerator *self = GCK_ENUMERATOR (obj);
 
 	gck_enumerator_set_interaction (self, NULL);
+	gck_enumerator_set_chained (self, NULL);
 
 	G_OBJECT_CLASS (gck_enumerator_parent_class)->dispose (obj);
 }
@@ -675,6 +688,16 @@ gck_enumerator_class_init (GckEnumeratorClass *klass)
 	g_object_class_install_property (gobject_class, PROP_OBJECT_TYPE,
 		g_param_spec_gtype ("object-type", "Object Type", "Type of objects created",
 		                    GCK_TYPE_OBJECT, G_PARAM_READWRITE));
+
+	/**
+	 * GckEnumerator:chained:
+	 *
+	 * Chained enumerator, which will be enumerated when this enumerator
+	 * has enumerated all its objects.
+	 */
+	g_object_class_install_property (gobject_class, PROP_CHAINED,
+	            g_param_spec_object ("chained", "Chained", "Chained enumerator",
+	                                 GCK_TYPE_ENUMERATOR, G_PARAM_READWRITE));
 }
 
 static void
@@ -775,6 +798,7 @@ _gck_enumerator_new_for_session (GckSession *session,
 typedef struct _EnumerateNext {
 	GckArguments base;
 	GckEnumeratorState *state;
+	gint want_objects;
 } EnumerateNext;
 
 static CK_RV
@@ -782,17 +806,23 @@ perform_enumerate_next (EnumerateNext *args)
 {
 	GckEnumeratorFunc handler;
 	GckEnumeratorState *state;
+	gint count = 0;
 
 	g_assert (args->state);
-	state = args->state;
 
-	g_assert (state->handler);
+	for (state = args->state; state != NULL; state = state->chained) {
+		g_assert (state->handler);
+		state->want_objects = args->want_objects - count;
+		for (;;) {
+			handler = (state->handler) (state, TRUE);
+			if (!handler)
+				break;
+			state->handler = handler;
+		}
 
-	for (;;) {
-		handler = (state->handler) (state, TRUE);
-		if (!handler)
+		count += state->results ? g_queue_get_length (state->results) : 0;
+		if (count >= args->want_objects)
 			break;
-		state->handler = handler;
 	}
 
 	/* TODO: In some modes, errors */
@@ -872,6 +902,64 @@ gck_enumerator_set_object_type (GckEnumerator *self,
 }
 
 /**
+ * gck_enumerator_get_chained:
+ * @self: the enumerator
+ *
+ * Get the enumerator that will be run after all objects from this one
+ * are seen.
+ *
+ * Returns: (transfer full) (allow-none): the chained enumerator or %NULL
+ */
+GckEnumerator *
+gck_enumerator_get_chained (GckEnumerator *self)
+{
+	GckEnumerator *chained = NULL;
+
+	g_return_val_if_fail (GCK_IS_ENUMERATOR (self), NULL);
+
+	g_mutex_lock (self->pv->mutex);
+
+		if (self->pv->chained)
+			chained = g_object_ref (self->pv->chained);
+
+	g_mutex_unlock (self->pv->mutex);
+
+	return chained;
+}
+
+/**
+ * gck_enumerator_set_interaction:
+ * @self: the enumerator
+ * @chained: (allow-none): the chained enumerator or %NULL
+ *
+ * Set a chained enumerator that will be run after all objects from this one
+ * are seen.
+ */
+void
+gck_enumerator_set_chained (GckEnumerator *self,
+                            GckEnumerator *chained)
+{
+	GckEnumerator *old_chained = NULL;
+
+	g_return_if_fail (GCK_IS_ENUMERATOR (self));
+	g_return_if_fail (chained == NULL || GCK_IS_ENUMERATOR (chained));
+
+	g_mutex_lock (self->pv->mutex);
+
+		old_chained = self->pv->chained;
+		if (chained)
+			g_object_ref (chained);
+		self->pv->chained = chained;
+
+	g_mutex_unlock (self->pv->mutex);
+
+	if (old_chained)
+		g_object_unref (old_chained);
+
+	g_object_notify (G_OBJECT (self), "chained");
+}
+
+/**
  * gck_enumerator_get_interaction:
  * @self: the enumerator
  *
@@ -931,6 +1019,16 @@ static GckEnumeratorState *
 check_out_enumerator_state (GckEnumerator *self)
 {
 	GckEnumeratorState *state = NULL;
+	GTlsInteraction *old_interaction = NULL;
+	gpointer old_object_class = NULL;
+	GckEnumeratorState *chained_state = NULL;
+	GckEnumerator *chained;
+
+	chained = gck_enumerator_get_chained (self);
+	if (chained) {
+		chained_state = check_out_enumerator_state (chained);
+		g_object_unref (chained);
+	}
 
 	g_mutex_lock (self->pv->mutex);
 
@@ -938,12 +1036,17 @@ check_out_enumerator_state (GckEnumerator *self)
 			state = self->pv->the_state;
 			self->pv->the_state = NULL;
 
-			g_clear_object (&state->interaction);
+			state->enumerator = g_object_ref (self);
+			g_assert (state->chained == NULL);
+			state->chained = chained_state;
+
+			old_interaction = state->interaction;
 			if (self->pv->interaction)
 				state->interaction = g_object_ref (self->pv->interaction);
+			else
+				state->interaction = NULL;
 
-			if (state->object_class)
-				g_type_class_unref (state->object_class);
+			old_object_class = state->object_class;
 
 			/* Must already be holding a reference, state also holds a ref */
 			state->object_type = self->pv->object_type;
@@ -959,36 +1062,57 @@ check_out_enumerator_state (GckEnumerator *self)
 	if (state == NULL)
 		g_warning ("this enumerator is already running a next operation");
 
+	/* Free these outside the lock */
+	if (old_interaction)
+		g_object_unref (old_interaction);
+	if (old_object_class)
+		g_type_class_unref (old_object_class);
+
 	return state;
 }
 
 static void
-check_in_enumerator_state (GckEnumerator *self,
-                           GckEnumeratorState *state)
+check_in_enumerator_state (GckEnumeratorState *state)
 {
+	GckEnumeratorState *chained = NULL;
+	GckEnumerator *self;
+
+	g_assert (GCK_IS_ENUMERATOR (state->enumerator));
+	self = state->enumerator;
+
 	g_mutex_lock (self->pv->mutex);
 
+		state->enumerator = NULL;
 		g_assert (self->pv->the_state == NULL);
 		self->pv->the_state = state;
+		chained = state->chained;
+		state->chained = NULL;
 
 	g_mutex_unlock (self->pv->mutex);
+
+	/* matches ref in check_in */
+	g_object_unref (self);
+
+	if (chained)
+		check_in_enumerator_state (chained);
 }
 
 static GckObject *
 extract_result (GckEnumeratorState *state)
 {
-	GckEnumeratorResult *result;
+	GckEnumeratorResult *result = NULL;
 	GckModule *module;
 	GckObject *object;
 
 	g_assert (state != NULL);
 
-	if (state->results == NULL)
+	if (state->results != NULL)
+		result = g_queue_pop_head (state->results);
+	if (result == NULL) {
+		if (state->chained)
+			return extract_result (state->chained);
 		return NULL;
-
-	result = g_queue_pop_head (state->results);
-	if (result == NULL)
-		return NULL;
+	}
 
 	module = gck_session_get_module (result->session);
 	object = g_object_new (state->object_type,
@@ -1044,7 +1168,7 @@ gck_enumerator_next (GckEnumerator *self,
                      GCancellable *cancellable,
                      GError **error)
 {
-	EnumerateNext args = { GCK_ARGUMENTS_INIT, NULL, };
+	EnumerateNext args = { GCK_ARGUMENTS_INIT, NULL, 0, };
 	GckObject *result = NULL;
 
 	g_return_val_if_fail (GCK_IS_ENUMERATOR (self), NULL);
@@ -1056,17 +1180,17 @@ gck_enumerator_next (GckEnumerator *self,
 	/* A result from a previous run? */
 	result = extract_result (args.state);
 	if (result == NULL) {
-		args.state->want_objects = 1;
+		args.want_objects = 1;
 
 		/* Run the operation and steal away the results */
 		if (_gck_call_sync (NULL, perform_enumerate_next, NULL, &args, cancellable, error))
 			result = extract_result (args.state);
 
-		args.state->want_objects = 0;
+		args.want_objects = 0;
 	}
 
 	/* Put the state back */
-	check_in_enumerator_state (self, args.state);
+	check_in_enumerator_state (args.state);
 
 	return result;
 }
@@ -1094,7 +1218,7 @@ gck_enumerator_next_n (GckEnumerator *self,
                        GCancellable *cancellable,
                        GError **error)
 {
-	EnumerateNext args = { GCK_ARGUMENTS_INIT, NULL, };
+	EnumerateNext args = { GCK_ARGUMENTS_INIT, NULL, 0, };
 	GList *results = NULL;
 	gint want_objects;
 
@@ -1111,20 +1235,20 @@ gck_enumerator_next_n (GckEnumerator *self,
 	/* A result from a previous run? */
 	results = extract_results (args.state, &want_objects);
 	if (want_objects > 0) {
-		args.state->want_objects = want_objects;
+		args.want_objects = want_objects;
 
 		/* Run the operation and steal away the results */
 		if (_gck_call_sync (NULL, perform_enumerate_next, NULL, &args, cancellable, error))
 			results = g_list_concat (results, extract_results (args.state, &want_objects));
 
-		args.state->want_objects = 0;
+		args.want_objects = 0;
 	}
+
+	/* Put the state back */
+	check_in_enumerator_state (args.state);
 
 	if (results)
 		g_clear_error (error);
-
-	/* Put the state back */
-	check_in_enumerator_state (self, args.state);
 
 	return results;
 }
@@ -1158,9 +1282,9 @@ gck_enumerator_next_async (GckEnumerator *self, gint max_objects, GCancellable *
 	state = check_out_enumerator_state (self);
 	g_return_if_fail (state != NULL);
 
-	state->want_objects = max_objects <= 0 ? G_MAXINT : max_objects;
 	args =  _gck_call_async_prep (NULL, self, perform_enumerate_next, NULL,
 	                               sizeof (*args), free_enumerate_next);
+	args->want_objects = max_objects <= 0 ? G_MAXINT : max_objects;
 
 	args->state = state;
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
@@ -1194,14 +1318,14 @@ gck_enumerator_next_finish (GckEnumerator *self, GAsyncResult *result, GError **
 	args = _gck_call_arguments (result, EnumerateNext);
 	state = args->state;
 	args->state = NULL;
-	want_objects = state->want_objects;
-	state->want_objects = 0;
+	want_objects = args->want_objects;
+	args->want_objects = 0;
 
 	if (_gck_call_basic_finish (result, error))
 		results = extract_results (state, &want_objects);
 
 	/* Put the state back */
-	check_in_enumerator_state (self, state);
+	check_in_enumerator_state (state);
 
 	g_object_unref (self);
 

@@ -358,6 +358,8 @@ gck_enumerator_get_interaction
 gck_enumerator_set_interaction
 gck_enumerator_get_object_type
 gck_enumerator_set_object_type
+gck_enumerator_get_chained
+gck_enumerator_set_chained
 <SUBSECTION Standard>
 GckEnumeratorClass
 gck_enumerator_get_type

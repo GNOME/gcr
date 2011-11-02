@@ -499,6 +499,45 @@ test_attribute_get (Test *test,
 	g_object_unref (en);
 }
 
+static void
+test_chained (Test *test,
+              gconstpointer unused)
+{
+	GckEnumerator *one;
+	GckEnumerator *two;
+	GckEnumerator *three;
+	GckUriData *uri_data;
+	GError *error = NULL;
+	GList *objects;
+
+	uri_data = gck_uri_data_new ();
+	uri_data->attributes = gck_attributes_new ();
+	gck_attributes_add_ulong (uri_data->attributes, CKA_CLASS, CKO_PUBLIC_KEY);
+	one = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
+
+	uri_data = gck_uri_data_new ();
+	uri_data->attributes = gck_attributes_new ();
+	gck_attributes_add_ulong (uri_data->attributes, CKA_CLASS, CKO_PRIVATE_KEY);
+	two = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
+	gck_enumerator_set_chained (one, two);
+
+	uri_data = gck_uri_data_new ();
+	uri_data->attributes = gck_attributes_new ();
+	gck_attributes_add_ulong (uri_data->attributes, CKA_CLASS, CKO_DATA);
+	three = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
+	gck_enumerator_set_chained (two, three);
+
+	g_object_unref (two);
+	g_object_unref (three);
+
+	objects = gck_enumerator_next_n (one, -1, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (g_list_length (objects), ==, 5);
+
+	gck_list_unref_free (objects);
+	g_object_unref (one);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -520,6 +559,7 @@ main (int argc, char **argv)
 	g_test_add ("/gck/enumerator/attribute_match", Test, NULL, setup, test_attribute_match, teardown);
 	g_test_add ("/gck/enumerator/token_match", Test, NULL, setup, test_token_match, teardown);
 	g_test_add ("/gck/enumerator/attribute_get", Test, NULL, setup, test_attribute_get, teardown);
+	g_test_add ("/gck/enumerator/chained", Test, NULL, setup, test_chained, teardown);
 
 	return egg_tests_run_in_thread_with_loop ();
 }

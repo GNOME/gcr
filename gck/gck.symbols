@@ -57,6 +57,7 @@ gck_attributes_set_date
 gck_attributes_set_string
 gck_attributes_set_ulong
 gck_attributes_unref
+gck_enumerator_get_chained
 gck_enumerator_get_interaction
 gck_enumerator_get_object_type
 gck_enumerator_get_type
@@ -64,6 +65,7 @@ gck_enumerator_next
 gck_enumerator_next_async
 gck_enumerator_next_finish
 gck_enumerator_next_n
+gck_enumerator_set_chained
 gck_enumerator_set_interaction
 gck_enumerator_set_object_type
 gck_error_get_quark

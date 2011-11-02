@@ -461,6 +461,11 @@ GType                 gck_enumerator_get_object_type          (GckEnumerator *se
 void                  gck_enumerator_set_object_type          (GckEnumerator *self,
                                                                GType object_type);
 
+GckEnumerator *       gck_enumerator_get_chained              (GckEnumerator *self);
+
+void                  gck_enumerator_set_chained              (GckEnumerator *self,
+                                                               GckEnumerator *chained);
+
 GckObject *           gck_enumerator_next                     (GckEnumerator *self,
                                                                GCancellable *cancellable,
                                                                GError **error);

@@ -641,39 +641,41 @@ gck_attribute_clear (GckAttribute *attr)
 
 /**
  * gck_attribute_free:
- * @attr: Attribute to free.
+ * @attr: (type Gck.Attribute): attribute to free
  *
  * Free an attribute and its allocated memory. These is usually
  * used with attributes that are allocated by gck_attribute_new()
  * or a similar function.
  **/
 void
-gck_attribute_free (GckAttribute *attr)
+gck_attribute_free (gpointer attr)
 {
+	GckAttribute *a = attr;
 	if (attr) {
-		attribute_clear (attr, g_realloc);
-		g_slice_free (GckAttribute, attr);
+		attribute_clear (a, g_realloc);
+		g_slice_free (GckAttribute, a);
 	}
 }
 
 /**
  * gck_attribute_equal:
- * @a: (type Gck.Attribute): first attribute to compare
- * @b: (type Gck.Attribute): second attribute to compare
+ * @attr1: (type Gck.Attribute): first attribute to compare
+ * @attr2: (type Gck.Attribute): second attribute to compare
  *
  * Compare two attributes. Useful with <code>GHashTable</code>.
  *
  * Returns: %TRUE if the attributes are equal.
  */
 gboolean
-gck_attribute_equal (gconstpointer a, gconstpointer b)
+gck_attribute_equal (gconstpointer attr1,
+                     gconstpointer attr2)
 {
-	const GckAttribute *aa = a;
-	const GckAttribute *ab = b;
+	const GckAttribute *aa = attr1;
+	const GckAttribute *ab = attr2;
 
-	if (!a && !b)
+	if (!aa && !ab)
 		return TRUE;
-	if (!a || !b)
+	if (!aa || !ab)
 		return FALSE;
 
 	if (aa->type != ab->type)
@@ -685,6 +687,29 @@ gck_attribute_equal (gconstpointer a, gconstpointer b)
 	if (!aa->value || !ab->value)
 		return FALSE;
 	return memcmp (aa->value, ab->value, aa->length) == 0;
+}
+
+/**
+ * gck_attribute_hash:
+ * @attr: (type Gck.Attribute): attribute to hash
+ *
+ * Hash an attribute for use in <code>GHashTable</code> keys.
+ *
+ * Returns: the hash code
+ */
+guint
+gck_attribute_hash (gconstpointer attr)
+{
+	const GckAttribute *a = attr;
+	const signed char *p, *e;
+	guint32 h = 5381;
+
+	h ^= _gck_ulong_hash (&a->type);
+
+	for (p = (signed char *)a->value, e = p + a->length; p != e; p++)
+		h = (h << 5) + h + *p;
+
+	return h;
 }
 
 /**

@@ -26,6 +26,7 @@ gck_attribute_clear
 gck_attribute_free
 gck_attribute_dump
 gck_attribute_equal
+gck_attribute_hash
 <SUBSECTION Private>
 GCK_TYPE_ATTRIBUTE
 gck_attribute_get_type

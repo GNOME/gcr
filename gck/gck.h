@@ -174,14 +174,16 @@ gchar*              gck_attribute_get_string                (GckAttribute *attr)
 void                gck_attribute_get_date                  (GckAttribute *attr,
                                                              GDate* value);
 
-gboolean            gck_attribute_equal                     (gconstpointer a,
-                                                             gconstpointer b);
+gboolean            gck_attribute_equal                     (gconstpointer attr1,
+                                                             gconstpointer attr2);
+
+guint               gck_attribute_hash                      (gconstpointer attr);
 
 GckAttribute*       gck_attribute_dup                       (GckAttribute *attr);
 
 void                gck_attribute_clear                     (GckAttribute *attr);
 
-void                gck_attribute_free                      (GckAttribute *attr);
+void                gck_attribute_free                      (gpointer attr);
 
 void                gck_attribute_dump                      (GckAttribute *attr);
 

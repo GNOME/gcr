@@ -1306,6 +1306,7 @@ gboolean
 gck_attributes_find_string (GckAttributes *attrs, gulong attr_type, gchar **value)
 {
 	GckAttribute *attr;
+	gchar *string;
 
 	g_return_val_if_fail (value, FALSE);
 	g_return_val_if_fail (!attrs->locked, FALSE);
@@ -1313,7 +1314,10 @@ gck_attributes_find_string (GckAttributes *attrs, gulong attr_type, gchar **valu
 	attr = gck_attributes_find (attrs, attr_type);
 	if (!attr || gck_attribute_is_invalid (attr))
 		return FALSE;
-	*value = gck_attribute_get_string (attr);
+	string = gck_attribute_get_string (attr);
+	if (string == NULL)
+		return FALSE;
+	*value = string;
 	return TRUE;
 }
 

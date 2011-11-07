@@ -174,6 +174,7 @@ static GQuark PEM_ENCRYPTED_PRIVATE_KEY;
 static GQuark PEM_PRIVATE_KEY;
 static GQuark PEM_PKCS7;
 static GQuark PEM_PKCS12;
+static GQuark PEM_CERTIFICATE_REQUEST;
 
 static GQuark ARMOR_PGP_PUBLIC_KEY_BLOCK;
 static GQuark ARMOR_PGP_PRIVATE_KEY_BLOCK;
@@ -198,6 +199,8 @@ init_quarks (void)
 		QUARK (PEM_ENCRYPTED_PRIVATE_KEY, "ENCRYPTED PRIVATE KEY");
 		QUARK (PEM_PKCS7, "PKCS7");
 		QUARK (PEM_PKCS12, "PKCS12");
+		QUARK (PEM_CERTIFICATE_REQUEST, "CERTIFICATE REQUEST");
+
 		QUARK (ARMOR_PGP_PRIVATE_KEY_BLOCK, "PGP PRIVATE KEY BLOCK");
 		QUARK (ARMOR_PGP_PUBLIC_KEY_BLOCK, "PGP PUBLIC KEY BLOCK");
 
@@ -326,6 +329,9 @@ parsed_description (GcrParsed *parsed,
 		break;
 	case CKO_GCR_GNUPG_RECORDS:
 		parsed->description = _("PGP Key");
+		break;
+	case CKO_GCR_CERTIFICATE_REQUEST:
+		parsed->description = _("Certificate Request");
 		break;
 	default:
 		parsed->description = NULL;
@@ -1207,7 +1213,7 @@ handle_pkcs12_encrypted_bag (GcrParser *self,
 		cih = NULL;
 
 		if (gcry != 0) {
-			g_warning ("couldn't decrypt pkcs7 data: %s", gcry_strerror (gcry));
+			g_warning ("couldn't decrypt pkcs12 data: %s", gcry_strerror (gcry));
 			goto done;
 		}
 
@@ -1476,6 +1482,115 @@ done:
 	return ret;
 }
 
+/* -----------------------------------------------------------------------------
+ * CERTIFICATE REQUESTS
+ */
+
+static gint
+parse_der_pkcs10 (GcrParser *self,
+                  EggBytes *data)
+{
+	GNode *asn = NULL;
+	GNode *node;
+	GcrParsed *parsed;
+	gchar *name;
+
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-10-CertificationRequest", data);
+	if (!asn)
+		return GCR_ERROR_UNRECOGNIZED;
+
+	parsed = push_parsed (self, FALSE);
+	parsing_block (parsed, GCR_FORMAT_DER_PKCS10, data);
+
+	parsing_object (parsed, CKO_GCR_CERTIFICATE_REQUEST);
+	parsed_ulong_attribute (parsed, CKA_GCR_CERTIFICATE_REQUEST_TYPE, CKQ_GCR_PKCS10);
+
+	node = egg_asn1x_node (asn, "certificationRequestInfo", NULL);
+	g_return_val_if_fail (node != NULL, GCR_ERROR_FAILURE);
+
+	if (gcr_parser_get_parsed_label (self) == NULL)
+		name = egg_dn_read_part (egg_asn1x_node (node, "subject", "rdnSequence", NULL), "CN");
+
+	if (name != NULL) {
+		parsed_label (parsed, name);
+		g_free (name);
+	}
+
+	parsed_attribute_bytes (parsed, CKA_VALUE, data);
+	parsed_asn1_element (parsed, node, "subject", CKA_SUBJECT);
+	parsed_fire (self, parsed);
+
+	egg_asn1x_destroy (asn);
+
+	pop_parsed (self, parsed);
+	return SUCCESS;
+}
+
+static gint
+parse_der_spkac (GcrParser *self,
+                 EggBytes *data)
+{
+	GNode *asn = NULL;
+	GcrParsed *parsed;
+
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "SignedPublicKeyAndChallenge", data);
+	if (!asn)
+		return GCR_ERROR_UNRECOGNIZED;
+
+	parsed = push_parsed (self, FALSE);
+	parsing_block (parsed, GCR_FORMAT_DER_SPKAC, data);
+
+	parsing_object (parsed, CKO_GCR_CERTIFICATE_REQUEST);
+	parsed_ulong_attribute (parsed, CKA_GCR_CERTIFICATE_REQUEST_TYPE, CKQ_GCR_SPKAC);
+
+	parsed_attribute_bytes (parsed, CKA_VALUE, data);
+	parsed_fire (self, parsed);
+
+	egg_asn1x_destroy (asn);
+
+	pop_parsed (self, parsed);
+	return SUCCESS;
+}
+
+static gint
+parse_base64_spkac (GcrParser *self,
+                    EggBytes *dat)
+{
+	const gchar *PREFIX = "SPKAC=";
+	const gsize PREFIX_LEN = 6;
+
+	GcrParsed *parsed;
+	guchar *spkac;
+	gsize n_spkac;
+	const guchar *data;
+	EggBytes *bytes;
+	gsize n_data;
+	gint ret;
+
+	data = egg_bytes_get_data (dat);
+	n_data = egg_bytes_get_size (dat);
+
+	if (n_data > PREFIX_LEN && memcmp (PREFIX, data, PREFIX_LEN))
+		return GCR_ERROR_UNRECOGNIZED;
+
+	parsed = push_parsed (self, FALSE);
+	parsing_block (parsed, GCR_FORMAT_DER_SPKAC, dat);
+
+	data += PREFIX_LEN;
+	n_data -= PREFIX_LEN;
+
+	spkac = g_base64_decode ((const gchar *)data, &n_spkac);
+	if (spkac != NULL) {
+		bytes = egg_bytes_new_take (spkac, n_spkac);
+		ret = parse_der_spkac (self, bytes);
+		egg_bytes_unref (bytes);
+	} else {
+		ret = GCR_ERROR_FAILURE;
+	}
+
+	pop_parsed (self, parsed);
+	return ret;
+}
 
 /* -----------------------------------------------------------------------------
  * OPENPGP
@@ -1563,6 +1678,9 @@ formats_for_armor_type (GQuark armor_type,
 	} else if (armor_type == PEM_PKCS7) {
 		*inner_format = GCR_FORMAT_DER_PKCS7;
 		*outer_format = GCR_FORMAT_PEM_PKCS7;
+	} else if (armor_type == PEM_CERTIFICATE_REQUEST) {
+		*inner_format = GCR_FORMAT_DER_PKCS10;
+		*outer_format = GCR_FORMAT_PEM_PKCS10;
 	} else if (armor_type == PEM_PKCS12) {
 		*inner_format = GCR_FORMAT_DER_PKCS12;
 		*outer_format = GCR_FORMAT_PEM_PKCS12;
@@ -1784,6 +1902,13 @@ parse_pem_pkcs7 (GcrParser *self,
 }
 
 static gint
+parse_pem_pkcs10 (GcrParser *self,
+                  EggBytes *data)
+{
+	return handle_pem_format (self, GCR_FORMAT_DER_PKCS10, data);
+}
+
+static gint
 parse_pem_pkcs12 (GcrParser *self,
                   EggBytes *data)
 {
@@ -1848,6 +1973,7 @@ parse_openssh_public (GcrParser *self,
  * @GCR_FORMAT_DER_PKCS8: DER encoded PKCS\#8 file which can contain a key
  * @GCR_FORMAT_DER_PKCS8_PLAIN: Unencrypted DER encoded PKCS\#8 file which can contain a key
  * @GCR_FORMAT_DER_PKCS8_ENCRYPTED: Encrypted DER encoded PKCS\#8 file which can contain a key
+ * @GCR_FORMAT_DER_PKCS10: DER encoded PKCS\#10 certificate request file
  * @GCR_FORMAT_DER_PKCS12: DER encoded PKCS\#12 file which can contain certificates and/or keys
  * @GCR_FORMAT_OPENSSH_PUBLIC: OpenSSH v1 or v2 public key
  * @GCR_FORMAT_OPENPGP_PACKET: OpenPGP key packet(s)
@@ -1860,14 +1986,22 @@ parse_openssh_public (GcrParser *self,
  * @GCR_FORMAT_PEM_PKCS7: An OpenSSL style PEM file containing PKCS\#7
  * @GCR_FORMAT_PEM_PKCS8_PLAIN: Unencrypted OpenSSL style PEM file containing PKCS\#8
  * @GCR_FORMAT_PEM_PKCS8_ENCRYPTED: Encrypted OpenSSL style PEM file containing PKCS\#8
+ * @GCR_FORMAT_PEM_PKCS10: An OpenSSL style PEM file containing PKCS\#10
  * @GCR_FORMAT_PEM_PKCS12: An OpenSSL style PEM file containing PKCS\#12
+ * @GCR_FORMAT_DER_SPKAC: DER encoded SPKAC as generated by HTML5 keygen element
+ * @GCR_FORMAT_BASE64_SPKAC: OpenSSL style SPKAC data
  *
  * The various format identifiers.
  */
 
-/* In order of parsing when no formats specified */
+/*
+ * In order of parsing when no formats specified. We put formats earlier
+ * if the parser can quickly detect whether GCR_ERROR_UNRECOGNIZED or not
+ */
+
 static const ParserFormat parser_normal[] = {
 	{ GCR_FORMAT_PEM, parse_pem },
+	{ GCR_FORMAT_BASE64_SPKAC, parse_base64_spkac },
 	{ GCR_FORMAT_DER_PRIVATE_KEY_RSA, parse_der_private_key_rsa },
 	{ GCR_FORMAT_DER_PRIVATE_KEY_DSA, parse_der_private_key_dsa },
 	{ GCR_FORMAT_DER_CERTIFICATE_X509, parse_der_certificate },
@@ -1878,6 +2012,8 @@ static const ParserFormat parser_normal[] = {
 	{ GCR_FORMAT_OPENSSH_PUBLIC, parse_openssh_public },
 	{ GCR_FORMAT_OPENPGP_PACKET, parse_openpgp_packets },
 	{ GCR_FORMAT_OPENPGP_ARMOR, parse_openpgp_armor },
+	{ GCR_FORMAT_DER_PKCS10, parse_der_pkcs10 },
+	{ GCR_FORMAT_DER_SPKAC, parse_der_spkac },
 };
 
 /* Must be in format_id numeric order */
@@ -1890,6 +2026,9 @@ static const ParserFormat parser_formats[] = {
 	{ GCR_FORMAT_DER_PKCS8, parse_der_pkcs8 },
 	{ GCR_FORMAT_DER_PKCS8_PLAIN, parse_der_pkcs8_plain },
 	{ GCR_FORMAT_DER_PKCS8_ENCRYPTED, parse_der_pkcs8_encrypted },
+	{ GCR_FORMAT_DER_PKCS10, parse_der_pkcs10 },
+	{ GCR_FORMAT_DER_SPKAC, parse_der_spkac },
+	{ GCR_FORMAT_BASE64_SPKAC, parse_base64_spkac },
 	{ GCR_FORMAT_DER_PKCS12, parse_der_pkcs12 },
 	{ GCR_FORMAT_OPENSSH_PUBLIC, parse_openssh_public },
 	{ GCR_FORMAT_OPENPGP_PACKET, parse_openpgp_packets },
@@ -1902,6 +2041,7 @@ static const ParserFormat parser_formats[] = {
 	{ GCR_FORMAT_PEM_PKCS8_PLAIN, parse_pem_pkcs8_plain },
 	{ GCR_FORMAT_PEM_PKCS8_ENCRYPTED, parse_pem_pkcs8_encrypted },
 	{ GCR_FORMAT_PEM_PKCS12, parse_pem_pkcs12 },
+	{ GCR_FORMAT_PEM_PKCS10, parse_pem_pkcs10 },
 };
 
 static int

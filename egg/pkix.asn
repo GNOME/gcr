@@ -1226,4 +1226,18 @@ id-pda-countryOfResidence   AttributeType ::= { id-pda 5 }
 CountryOfResidence ::=      PrintableString (SIZE (2))
                             -- ISO 3166 Country Code
 
+-- spkac: added by gnome-keyring
+-- http://dev.w3.org/html5/spec/Overview.html
+
+PublicKeyAndChallenge ::= SEQUENCE {
+	spki SubjectPublicKeyInfo,
+	challenge IA5String
+}
+
+SignedPublicKeyAndChallenge ::= SEQUENCE {
+	publicKeyAndChallenge PublicKeyAndChallenge,
+	signatureAlgorithm AlgorithmIdentifier,
+	signature BIT STRING
+}
+
 END

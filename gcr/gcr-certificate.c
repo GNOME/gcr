@@ -25,6 +25,7 @@
 #include "gcr-comparable.h"
 #include "gcr-icons.h"
 #include "gcr-internal.h"
+#include "gcr-key-size.h"
 #include "gcr-oids.h"
 
 #include "egg/egg-asn1x.h"
@@ -175,97 +176,6 @@ certificate_info_load (GcrCertificate *cert)
 
 	g_object_set_qdata_full (G_OBJECT (cert), CERTIFICATE_INFO, info, certificate_info_free);
 	return info;
-}
-
-static guint
-calculate_rsa_key_size (EggBytes *data)
-{
-	EggBytes *content;
-	guint key_size;
-	GNode *asn;
-
-	asn = egg_asn1x_create_and_decode (pk_asn1_tab, "RSAPublicKey", data);
-	g_return_val_if_fail (asn != NULL, 0);
-
-	content = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "modulus", NULL));
-	if (!content)
-		g_return_val_if_reached (0);
-
-	egg_asn1x_destroy (asn);
-
-	/* Removes the complement */
-	key_size = (egg_bytes_get_size (content) / 2) * 2 * 8;
-
-	egg_bytes_unref (content);
-	return key_size;
-}
-
-static guint
-calculate_dsa_params_size (EggBytes *data)
-{
-	EggBytes *content;
-	gsize params_size;
-	GNode *asn;
-
-	asn = egg_asn1x_create_and_decode (pk_asn1_tab, "DSAParameters", data);
-	g_return_val_if_fail (asn != NULL, 0);
-
-	content = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "p", NULL));
-	if (!content)
-		g_return_val_if_reached (0);
-
-	egg_asn1x_destroy (asn);
-
-	/* Removes the complement */
-	params_size = (egg_bytes_get_size (content) / 2) * 2 * 8;
-
-	egg_bytes_unref (content);
-	return params_size;
-}
-
-static guint
-calculate_key_size (GcrCertificateInfo *info)
-{
-	GNode *asn;
-	EggBytes *data;
-	guint key_size = 0, n_bits;
-	EggBytes *key;
-	GQuark oid;
-
-	data = egg_asn1x_get_raw_element (egg_asn1x_node (info->asn1, "tbsCertificate", "subjectPublicKeyInfo", NULL));
-	g_return_val_if_fail (data != NULL, 0);
-
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "SubjectPublicKeyInfo", data);
-	g_return_val_if_fail (asn != NULL, 0);
-
-	egg_bytes_unref (data);
-
-	/* Figure out the algorithm */
-	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (asn, "algorithm", "algorithm", NULL));
-	g_return_val_if_fail (oid, 0);
-
-	/* RSA keys are stored in the main subjectPublicKey field */
-	if (oid == GCR_OID_PKIX1_RSA) {
-
-		/* A bit string so we cannot process in place */
-		key = egg_asn1x_get_bits_as_raw (egg_asn1x_node (asn, "subjectPublicKey", NULL), &n_bits);
-		g_return_val_if_fail (key != NULL, 0);
-		key_size = calculate_rsa_key_size (key);
-		egg_bytes_unref (key);
-
-	/* The DSA key size is discovered by the prime in params */
-	} else if (oid == GCR_OID_PKIX1_DSA) {
-		key = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "algorithm", "parameters", NULL));
-		key_size = calculate_dsa_params_size (key);
-		egg_bytes_unref (key);
-
-	} else {
-		g_message ("unsupported key algorithm in certificate: %s", g_quark_to_string (oid));
-	}
-
-	egg_asn1x_destroy (asn);
-
-	return key_size;
 }
 
 static GChecksum*
@@ -815,14 +725,18 @@ guint
 gcr_certificate_get_key_size (GcrCertificate *self)
 {
 	GcrCertificateInfo *info;
+	GNode *subject_public_key;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), 0);
 
 	info = certificate_info_load (self);
 	g_return_val_if_fail (info, 0);
 
-	if (!info->key_size)
-		info->key_size = calculate_key_size (info);
+	if (!info->key_size) {
+		subject_public_key = egg_asn1x_node (info->asn1, "tbsCertificate",
+		                                     "subjectPublicKeyInfo", NULL);
+		info->key_size = _gcr_key_size_calculate (subject_public_key);
+	}
 
 	return info->key_size;
 }

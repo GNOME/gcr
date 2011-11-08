@@ -23,6 +23,7 @@
 #include "gcr-certificate-exporter.h"
 #include "gcr-certificate-extensions.h"
 #include "gcr-certificate-renderer.h"
+#include "gcr-certificate-renderer-private.h"
 #include "gcr-display-view.h"
 #include "gcr-fingerprint.h"
 #include "gcr-icons.h"
@@ -102,11 +103,10 @@ calculate_label (GcrCertificateRenderer *self)
 }
 
 static gboolean
-append_extension_basic_constraints (GcrCertificateRenderer *self,
+append_extension_basic_constraints (GcrRenderer *renderer,
                                     GcrDisplayView *view,
                                     EggBytes *data)
 {
-	GcrRenderer *renderer = GCR_RENDERER (self);
 	gboolean is_ca = FALSE;
 	gint path_len = -1;
 	gchar *number;
@@ -128,11 +128,10 @@ append_extension_basic_constraints (GcrCertificateRenderer *self,
 }
 
 static gboolean
-append_extension_extended_key_usage (GcrCertificateRenderer *self,
+append_extension_extended_key_usage (GcrRenderer *renderer,
                                      GcrDisplayView *view,
                                      EggBytes *data)
 {
-	GcrRenderer *renderer = GCR_RENDERER (self);
 	GQuark *oids;
 	GString *text;
 	guint i;
@@ -161,11 +160,10 @@ append_extension_extended_key_usage (GcrCertificateRenderer *self,
 }
 
 static gboolean
-append_extension_subject_key_identifier (GcrCertificateRenderer *self,
+append_extension_subject_key_identifier (GcrRenderer *renderer,
                                          GcrDisplayView *view,
                                          EggBytes *data)
 {
-	GcrRenderer *renderer = GCR_RENDERER (self);
 	gpointer keyid;
 	gsize n_keyid;
 
@@ -194,11 +192,10 @@ static const struct {
 };
 
 static gboolean
-append_extension_key_usage (GcrCertificateRenderer *self,
+append_extension_key_usage (GcrRenderer *renderer,
                             GcrDisplayView *view,
                             EggBytes *data)
 {
-	GcrRenderer *renderer = GCR_RENDERER (self);
 	gulong key_usage;
 	GString *text;
 	guint i;
@@ -225,11 +222,10 @@ append_extension_key_usage (GcrCertificateRenderer *self,
 }
 
 static gboolean
-append_extension_subject_alt_name (GcrCertificateRenderer *self,
+append_extension_subject_alt_name (GcrRenderer *renderer,
                                    GcrDisplayView *view,
                                    EggBytes *data)
 {
-	GcrRenderer *renderer = GCR_RENDERER (self);
 	GArray *general_names;
 	GcrGeneralName *general;
 	guint i;
@@ -256,12 +252,13 @@ append_extension_subject_alt_name (GcrCertificateRenderer *self,
 	return TRUE;
 }
 
-
 static gboolean
-append_extension_hex (GcrCertificateRenderer *self, GcrDisplayView *view,
-                      GQuark oid, gconstpointer data, gsize n_data)
+append_extension_hex (GcrRenderer *renderer,
+                      GcrDisplayView *view,
+                      GQuark oid,
+                      gconstpointer data,
+                      gsize n_data)
 {
-	GcrRenderer *renderer = GCR_RENDERER (self);
 	const gchar *text;
 
 	_gcr_display_view_append_heading (view, renderer, _("Extension"));
@@ -272,107 +269,6 @@ append_extension_hex (GcrCertificateRenderer *self, GcrDisplayView *view,
 	_gcr_display_view_append_hex (view, renderer, _("Value"), data, n_data);
 
 	return TRUE;
-}
-
-static gboolean
-append_extension (GcrCertificateRenderer *self,
-                  GcrDisplayView *view,
-                  GNode *asn,
-                  gint index)
-{
-	GcrRenderer *renderer = GCR_RENDERER (self);
-	GNode *node;
-	GQuark oid;
-	EggBytes *value;
-	gboolean critical;
-	gboolean ret = FALSE;
-
-	/* Make sure it is present */
-	node = egg_asn1x_node (asn, "tbsCertificate", "extensions", index, NULL);
-	if (node == NULL)
-		return FALSE;
-
-	/* Dig out the OID */
-	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (node, "extnID", NULL));
-	g_return_val_if_fail (oid, FALSE);
-
-	/* Extension value */
-	value = egg_asn1x_get_raw_value (egg_asn1x_node (node, "extnValue", NULL));
-
-	/* The custom parsers */
-	if (oid == GCR_OID_BASIC_CONSTRAINTS)
-		ret = append_extension_basic_constraints (self, view, value);
-	else if (oid == GCR_OID_EXTENDED_KEY_USAGE)
-		ret = append_extension_extended_key_usage (self, view, value);
-	else if (oid == GCR_OID_SUBJECT_KEY_IDENTIFIER)
-		ret = append_extension_subject_key_identifier (self, view, value);
-	else if (oid == GCR_OID_KEY_USAGE)
-		ret = append_extension_key_usage (self, view, value);
-	else if (oid == GCR_OID_SUBJECT_ALT_NAME)
-		ret = append_extension_subject_alt_name (self, view, value);
-
-	/* Otherwise the default raw display */
-	if (ret == FALSE)
-		ret = append_extension_hex (self, view, oid,
-		                            egg_bytes_get_data (value),
-		                            egg_bytes_get_size (value));
-
-	/* Critical */
-	if (ret == TRUE && egg_asn1x_get_boolean (egg_asn1x_node (node, "critical", NULL), &critical)) {
-		_gcr_display_view_append_value (view, renderer, _("Critical"),
-		                                critical ? _("Yes") : _("No"), FALSE);
-	}
-
-	egg_bytes_unref (value);
-	return ret;
-}
-
-typedef struct _on_parsed_dn_args {
-	GcrCertificateRenderer *renderer;
-	GcrDisplayView *view;
-} on_parsed_dn_args;
-
-static void
-on_parsed_dn_part (guint index,
-                   GQuark oid,
-                   EggBytes *value,
-                   gpointer user_data)
-{
-	GcrCertificateRenderer *self = ((on_parsed_dn_args*)user_data)->renderer;
-	GcrDisplayView *view = ((on_parsed_dn_args*)user_data)->view;
-	const gchar *attr;
-	const gchar *desc;
-	gchar *field = NULL;
-	gchar *display;
-
-	g_return_if_fail (GCR_IS_CERTIFICATE_RENDERER (self));
-
-	attr = egg_oid_get_name (oid);
-	desc = egg_oid_get_description (oid);
-
-	/* Combine them into something sane */
-	if (attr && desc) {
-		if (strcmp (attr, desc) == 0)
-			field = g_strdup (attr);
-		else
-			field = g_strdup_printf ("%s (%s)", attr, desc);
-	} else if (!attr && !desc) {
-		field = g_strdup ("");
-	} else if (attr) {
-		field = g_strdup (attr);
-	} else if (desc) {
-		field = g_strdup (desc);
-	} else {
-		g_assert_not_reached ();
-	}
-
-	display = egg_dn_print_value (oid, value);
-	if (display == NULL)
-		display = g_strdup ("");
-
-	_gcr_display_view_append_value (view, GCR_RENDERER (self), field, display, FALSE);
-	g_free (field);
-	g_free (display);
 }
 
 static gboolean
@@ -574,21 +470,17 @@ static void
 gcr_certificate_renderer_render (GcrRenderer *renderer, GcrViewer *viewer)
 {
 	GcrCertificateRenderer *self;
+	GNode *extension;
 	gconstpointer data;
-	gsize n_data, n_raw;
+	gsize n_data;
 	GcrDisplayView *view;
-	on_parsed_dn_args args;
-	const gchar *text;
 	GcrCertificate *cert;
-	gpointer raw;
 	EggBytes *number;
 	gulong version;
 	guint bits, index;
 	gchar *display;
 	EggBytes *bytes;
-	EggBytes *value;
 	GNode *asn;
-	GQuark oid;
 	GDate date;
 	GIcon *icon;
 
@@ -643,16 +535,15 @@ gcr_certificate_renderer_render (GcrRenderer *renderer, GcrViewer *viewer)
 
 	_gcr_display_view_start_details (view, renderer);
 
-	args.renderer = self;
-	args.view = view;
-
 	/* The subject */
 	_gcr_display_view_append_heading (view, renderer, _("Subject Name"));
-	egg_dn_parse (egg_asn1x_node (asn, "tbsCertificate", "subject", "rdnSequence", NULL), on_parsed_dn_part, &args);
+	_gcr_certificate_renderer_append_distinguished_name (renderer, view,
+	                                                     egg_asn1x_node (asn, "tbsCertificate", "subject", "rdnSequence", NULL));
 
 	/* The Issuer */
 	_gcr_display_view_append_heading (view, renderer, _("Issuer Name"));
-	egg_dn_parse (egg_asn1x_node (asn, "tbsCertificate", "issuer", "rdnSequence", NULL), on_parsed_dn_part, &args);
+	_gcr_certificate_renderer_append_distinguished_name (renderer, view,
+	                                                     egg_asn1x_node (asn, "tbsCertificate", "issuer", "rdnSequence", NULL));
 
 	/* The Issued Parameters */
 	_gcr_display_view_append_heading (view, renderer, _("Issued Certificate"));
@@ -689,72 +580,24 @@ gcr_certificate_renderer_render (GcrRenderer *renderer, GcrViewer *viewer)
 	_gcr_display_view_append_fingerprint (view, renderer, data, n_data, "SHA1", G_CHECKSUM_SHA1);
 	_gcr_display_view_append_fingerprint (view, renderer, data, n_data, "MD5", G_CHECKSUM_MD5);
 
-	/* Signature */
-	_gcr_display_view_append_heading (view, renderer, _("Signature"));
-
-	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (asn, "signatureAlgorithm", "algorithm", NULL));
-	text = egg_oid_get_description (oid);
-	_gcr_display_view_append_value (view, renderer, _("Signature Algorithm"), text, FALSE);
-
-	value = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "signatureAlgorithm", "parameters", NULL));
-	if (value) {
-		_gcr_display_view_append_hex (view, renderer, _("Signature Parameters"),
-		                              egg_bytes_get_data (value),
-		                              egg_bytes_get_size (value));
-		egg_bytes_unref (value);
-	}
-
-	value = egg_asn1x_get_bits_as_raw (egg_asn1x_node (asn, "signature", NULL), &bits);
-	g_return_if_fail (value != NULL);
-	_gcr_display_view_append_hex (view, renderer, _("Signature"),
-	                              egg_bytes_get_data (value), bits / 8);
-	egg_bytes_unref (value);
-
 	/* Public Key Info */
 	_gcr_display_view_append_heading (view, renderer, _("Public Key Info"));
-
-	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (asn, "tbsCertificate", "subjectPublicKeyInfo",
-	                                                  "algorithm", "algorithm", NULL));
-	text = egg_oid_get_description (oid);
-	_gcr_display_view_append_value (view, renderer, _("Key Algorithm"), text, FALSE);
-
-	value = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "tbsCertificate", "subjectPublicKeyInfo",
-	                                                   "algorithm", "parameters", NULL));
-	if (value) {
-		_gcr_display_view_append_hex (view, renderer, _("Key Parameters"),
-		                              egg_bytes_get_data (value),
-		                              egg_bytes_get_size (value));
-		egg_bytes_unref (value);
-	}
-
 	bits = gcr_certificate_get_key_size (cert);
-	if (bits > 0) {
-		display = g_strdup_printf ("%u", bits);
-		_gcr_display_view_append_value (view, renderer, _("Key Size"), display, FALSE);
-		g_free (display);
-	}
-
-	value = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "tbsCertificate",
-	                                                   "subjectPublicKeyInfo", NULL));
-	raw = gcr_fingerprint_from_subject_public_key_info (egg_bytes_get_data (value),
-	                                                    egg_bytes_get_size (value),
-	                                                    G_CHECKSUM_SHA1, &n_raw);
-	_gcr_display_view_append_hex (view, renderer, _("Key SHA1 Fingerprint"), raw, n_raw);
-	egg_bytes_unref (value);
-	g_free (raw);
-
-	value = egg_asn1x_get_bits_as_raw (egg_asn1x_node (asn, "tbsCertificate", "subjectPublicKeyInfo",
-	                                                   "subjectPublicKey", NULL), &bits);
-	g_return_if_fail (value != NULL);
-	_gcr_display_view_append_hex (view, renderer, _("Public Key"),
-	                              egg_bytes_get_data (value), bits / 8);
-	egg_bytes_unref (value);
+	_gcr_certificate_renderer_append_subject_public_key (renderer, view, bits,
+	                                                     egg_asn1x_node (asn, "tbsCertificate",
+	                                                                     "subjectPublicKeyInfo", NULL));
 
 	/* Extensions */
 	for (index = 1; TRUE; ++index) {
-		if (!append_extension (self, view, asn, index))
+		extension = egg_asn1x_node (asn, "tbsCertificate", "extensions", index, NULL);
+		if (extension == NULL)
 			break;
+		_gcr_certificate_renderer_append_extension (renderer, view, extension);
 	}
+
+	/* Signature */
+	_gcr_display_view_append_heading (view, renderer, _("Signature"));
+	_gcr_certificate_renderer_append_signature (renderer, view, asn);
 
 	egg_asn1x_destroy (asn);
 	_gcr_display_view_end (view, renderer);
@@ -938,4 +781,185 @@ gcr_certificate_renderer_set_attributes (GcrCertificateRenderer *self, GckAttrib
 	gcr_renderer_emit_data_changed (GCR_RENDERER (self));
 	g_object_notify (G_OBJECT (self), "attributes");
 
+}
+
+typedef struct {
+	GcrRenderer *renderer;
+	GcrDisplayView *view;
+} AppendDnClosure;
+
+static void
+on_parsed_dn_part (guint index,
+                   GQuark oid,
+                   EggBytes *value,
+                   gpointer user_data)
+{
+	GcrRenderer *renderer = ((AppendDnClosure *)user_data)->renderer;
+	GcrDisplayView *view = ((AppendDnClosure *)user_data)->view;
+	const gchar *attr;
+	const gchar *desc;
+	gchar *field = NULL;
+	gchar *display;
+
+	attr = egg_oid_get_name (oid);
+	desc = egg_oid_get_description (oid);
+
+	/* Combine them into something sane */
+	if (attr && desc) {
+		if (strcmp (attr, desc) == 0)
+			field = g_strdup (attr);
+		else
+			field = g_strdup_printf ("%s (%s)", attr, desc);
+	} else if (!attr && !desc) {
+		field = g_strdup ("");
+	} else if (attr) {
+		field = g_strdup (attr);
+	} else if (desc) {
+		field = g_strdup (desc);
+	} else {
+		g_assert_not_reached ();
+	}
+
+	display = egg_dn_print_value (oid, value);
+	if (display == NULL)
+		display = g_strdup ("");
+
+	_gcr_display_view_append_value (view, renderer, field, display, FALSE);
+	g_free (field);
+	g_free (display);
+}
+
+
+void
+_gcr_certificate_renderer_append_distinguished_name (GcrRenderer *renderer,
+                                                     GcrDisplayView *view,
+                                                     GNode *dn)
+{
+	AppendDnClosure closure;
+
+	g_return_if_fail (GCR_IS_RENDERER (renderer));
+	g_return_if_fail (GCR_IS_DISPLAY_VIEW (view));
+	g_return_if_fail (dn != NULL);
+
+	closure.renderer = renderer;
+	closure.view = view;
+	egg_dn_parse (dn, on_parsed_dn_part, &closure);
+}
+
+void
+_gcr_certificate_renderer_append_subject_public_key (GcrRenderer *renderer,
+                                                     GcrDisplayView *view,
+                                                     guint key_nbits,
+                                                     GNode *subject_public_key)
+{
+	const gchar *text;
+	gchar *display;
+	EggBytes *value;
+	guchar *raw;
+	gsize n_raw;
+	GQuark oid;
+	guint bits;
+
+	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (subject_public_key,
+	                                                  "algorithm", "algorithm", NULL));
+	text = egg_oid_get_description (oid);
+	_gcr_display_view_append_value (view, renderer, _("Key Algorithm"), text, FALSE);
+
+	value = egg_asn1x_get_raw_element (egg_asn1x_node (subject_public_key,
+	                                                   "algorithm", "parameters", NULL));
+	if (value) {
+		_gcr_display_view_append_hex (view, renderer, _("Key Parameters"),
+		                              egg_bytes_get_data (value),
+		                              egg_bytes_get_size (value));
+		egg_bytes_unref (value);
+	}
+
+	if (key_nbits > 0) {
+		display = g_strdup_printf ("%u", key_nbits);
+		_gcr_display_view_append_value (view, renderer, _("Key Size"), display, FALSE);
+		g_free (display);
+	}
+
+	value = egg_asn1x_get_raw_element (subject_public_key);
+	raw = gcr_fingerprint_from_subject_public_key_info (egg_bytes_get_data (value),
+	                                                    egg_bytes_get_size (value),
+	                                                    G_CHECKSUM_SHA1, &n_raw);
+	_gcr_display_view_append_hex (view, renderer, _("Key SHA1 Fingerprint"), raw, n_raw);
+	egg_bytes_unref (value);
+	g_free (raw);
+
+	value = egg_asn1x_get_bits_as_raw (egg_asn1x_node (subject_public_key, "subjectPublicKey", NULL), &bits);
+	_gcr_display_view_append_hex (view, renderer, _("Public Key"),
+	                              egg_bytes_get_data (value), bits / 8);
+	egg_bytes_unref (value);
+}
+
+void
+_gcr_certificate_renderer_append_signature (GcrRenderer *renderer,
+                                            GcrDisplayView *view,
+                                            GNode *asn)
+{
+	const gchar *text;
+	EggBytes *value;
+	GQuark oid;
+	guint bits;
+
+	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (asn, "signatureAlgorithm", "algorithm", NULL));
+	text = egg_oid_get_description (oid);
+	_gcr_display_view_append_value (view, renderer, _("Signature Algorithm"), text, FALSE);
+
+	value = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "signatureAlgorithm", "parameters", NULL));
+	if (value) {
+		_gcr_display_view_append_hex (view, renderer, _("Signature Parameters"),
+		                              egg_bytes_get_data (value),
+		                              egg_bytes_get_size (value));
+		egg_bytes_unref (value);
+	}
+
+	value = egg_asn1x_get_bits_as_raw (egg_asn1x_node (asn, "signature", NULL), &bits);
+	_gcr_display_view_append_hex (view, renderer, _("Signature"),
+	                              egg_bytes_get_data (value), bits / 8);
+	egg_bytes_unref (value);
+}
+
+void
+_gcr_certificate_renderer_append_extension (GcrRenderer *renderer,
+                                            GcrDisplayView *view,
+                                            GNode *node)
+{
+	GQuark oid;
+	EggBytes *value;
+	gboolean critical;
+	gboolean ret = FALSE;
+
+	/* Dig out the OID */
+	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (node, "extnID", NULL));
+	g_return_if_fail (oid);
+
+	/* Extension value */
+	value = egg_asn1x_get_raw_value (egg_asn1x_node (node, "extnValue", NULL));
+
+	/* The custom parsers */
+	if (oid == GCR_OID_BASIC_CONSTRAINTS)
+		ret = append_extension_basic_constraints (renderer, view, value);
+	else if (oid == GCR_OID_EXTENDED_KEY_USAGE)
+		ret = append_extension_extended_key_usage (renderer, view, value);
+	else if (oid == GCR_OID_SUBJECT_KEY_IDENTIFIER)
+		ret = append_extension_subject_key_identifier (renderer, view, value);
+	else if (oid == GCR_OID_KEY_USAGE)
+		ret = append_extension_key_usage (renderer, view, value);
+	else if (oid == GCR_OID_SUBJECT_ALT_NAME)
+		ret = append_extension_subject_alt_name (renderer, view, value);
+
+	/* Otherwise the default raw display */
+	if (ret == FALSE)
+		ret = append_extension_hex (renderer, view, oid,
+		                            egg_bytes_get_data (value),
+		                            egg_bytes_get_size (value));
+
+	/* Critical */
+	if (ret == TRUE && egg_asn1x_get_boolean (egg_asn1x_node (node, "critical", NULL), &critical)) {
+		_gcr_display_view_append_value (view, renderer, _("Critical"),
+		                                critical ? _("Yes") : _("No"), FALSE);
+	}
 }

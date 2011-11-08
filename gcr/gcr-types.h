@@ -120,7 +120,7 @@ enum {
 };
 
 enum {
-	CKQ_GCR_PKCS10,
+	CKQ_GCR_PKCS10 = 1,
 	CKQ_GCR_SPKAC
 };
 

@@ -127,6 +127,7 @@
 		<comment>PKCS#10 Certificate Request</comment>
 		<acronym>PKCS#10</acronym>
 		<glob pattern="*.p10"/>
+		<glob pattern="*.csr"/>
 	</mime-type>
 
 	<!-- Non standard: OpenSSL PEM format -->
@@ -136,6 +137,21 @@
 		<magic priority="75">
 			<match type="string" value="-----BEGIN CERTIFICATE REQUEST-----" offset="0"/>
 			<match type="string" value="-----BEGIN NEW CERTIFICATE REQUEST-----" offset="0"/>
+		</magic>
+	</mime-type>
+
+	<!-- Non standard: SPKAC DER format -->
+	<mime-type type="application/x-spkac">
+		<comment>SPKAC Certificate Request</comment>
+		<glob pattern="*.spkac"/>
+	</mime-type>
+
+	<!-- Non standard: SPKAC DER format -->
+	<mime-type type="application/x-spkac+base64">
+		<comment>SPKAC Certificate Request in OpenSSL format</comment>
+		<sub-class-of type="text/plain"/>
+		<magic priority="75">
+			<match type="string" value="SPKAC=" offset="0"/>
 		</magic>
 	</mime-type>
 

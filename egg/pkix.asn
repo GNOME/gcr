@@ -1240,4 +1240,9 @@ SignedPublicKeyAndChallenge ::= SEQUENCE {
 	signature BIT STRING
 }
 
+-- pkcs-9 extension requests: added by gnome-keyring
+-- http://mirror.switch.ch/ftp/doc/standard/pkcs/pkcs-9/pkcs-9.txt
+
+ExtensionRequest ::= SEQUENCE OF Extension
+
 END

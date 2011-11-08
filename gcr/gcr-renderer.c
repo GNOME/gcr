@@ -25,6 +25,7 @@
 #include "gcr-renderer.h"
 
 #include "gcr-certificate-renderer.h"
+#include "gcr-certificate-req-renderer.h"
 #include "gcr-gnupg-renderer.h"
 #include "gcr-key-renderer.h"
 
@@ -289,6 +290,7 @@ void
 gcr_renderer_register_well_known (void)
 {
 	g_type_class_unref (g_type_class_ref (GCR_TYPE_CERTIFICATE_RENDERER));
+	g_type_class_unref (g_type_class_ref (GCR_TYPE_CERTIFICATE_REQ_RENDERER));
 	g_type_class_unref (g_type_class_ref (GCR_TYPE_KEY_RENDERER));
 	g_type_class_unref (g_type_class_ref (GCR_TYPE_GNUPG_RENDERER));
 }

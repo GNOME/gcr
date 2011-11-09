@@ -486,14 +486,16 @@ add_children_to_sequence (GcrCollectionModel *self,
                           GSequence *sequence,
                           GSequenceIter *parent,
                           GcrCollection *collection,
+                          GList *children,
+                          GHashTable *exclude,
                           gboolean emit)
 {
-	GList *children, *l;
+	GList *l;
 
-	children = gcr_collection_get_objects (collection);
-	for (l = children; l; l = g_list_next (l))
-		add_object_to_sequence (self, sequence, parent, l->data, emit);
-	g_list_free (children);
+	for (l = children; l; l = g_list_next (l)) {
+		if (!exclude || g_hash_table_lookup (exclude, l->data) == NULL)
+			add_object_to_sequence (self, sequence, parent, l->data, emit);
+	}
 
 	/* Now listen in for any changes */
 	g_signal_connect_after (collection, "added", G_CALLBACK (on_collection_added), self);
@@ -508,9 +510,11 @@ add_object_to_sequence (GcrCollectionModel *self,
                         gboolean emit)
 {
 	GcrCollectionRow *row;
+	GcrCollection *collection;
 	GSequenceIter *seq;
 	GtkTreeIter iter;
 	GtkTreePath *path;
+	GList *children;
 
 	g_assert (GCR_IS_COLLECTION_MODEL (self));
 	g_assert (G_IS_OBJECT (object));
@@ -544,8 +548,11 @@ add_object_to_sequence (GcrCollectionModel *self,
 	if (self->pv->mode == GCR_COLLECTION_MODEL_TREE &&
 	    GCR_IS_COLLECTION (object)) {
 		row->children = g_sequence_new (NULL);
+		collection = GCR_COLLECTION (object);
+		children = gcr_collection_get_objects (collection);
 		add_children_to_sequence (self, row->children, seq,
-		                          GCR_COLLECTION (object), emit);
+		                          collection, children, NULL, emit);
+		g_list_free (children);
 	}
 }
 
@@ -576,6 +583,7 @@ static void
 remove_children_from_sequence (GcrCollectionModel *self,
                                GSequence *sequence,
                                GcrCollection *collection,
+                               GHashTable *exclude,
                                gboolean emit)
 {
 	GSequenceIter *seq, *next;
@@ -588,7 +596,8 @@ remove_children_from_sequence (GcrCollectionModel *self,
 	     !g_sequence_iter_is_end (seq); seq = next) {
 		next = g_sequence_iter_next (seq);
 		row = g_sequence_get (seq);
-		remove_object_from_sequence (self, sequence, seq, row->object, emit);
+		if (!exclude || g_hash_table_lookup (exclude, row->object) == NULL)
+			remove_object_from_sequence (self, sequence, seq, row->object, emit);
 	}
 }
 
@@ -616,7 +625,8 @@ remove_object_from_sequence (GcrCollectionModel *self,
 	if (row->children) {
 		g_assert (self->pv->mode == GCR_COLLECTION_MODEL_TREE);
 		g_assert (GCR_IS_COLLECTION (object));
-		remove_children_from_sequence (self, row->children, GCR_COLLECTION (object), emit);
+		remove_children_from_sequence (self, row->children,
+		                               GCR_COLLECTION (object), NULL, emit);
 		g_assert (g_sequence_get_length (row->children) == 0);
 		g_sequence_free (row->children);
 		row->children = NULL;
@@ -1145,22 +1155,13 @@ gcr_collection_model_set_property (GObject *object, guint prop_id,
 		self->pv->mode = g_value_get_enum (value);
 		break;
 	case PROP_COLLECTION:
-		g_return_if_fail (self->pv->collection == NULL);
-		self->pv->collection = g_value_dup_object (value);
-
-		/* During construction, so we don't emit anything */
-		if (self->pv->collection) {
-			add_children_to_sequence (self, self->pv->root_sequence,
-			                          NULL, self->pv->collection, FALSE);
-		}
+		gcr_collection_model_set_collection (self, g_value_get_object (value));
 		break;
-
 	case PROP_COLUMNS:
 		columns = g_value_get_pointer (value);
 		if (columns)
 			gcr_collection_model_set_columns (self, columns);
 		break;
-
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -1197,7 +1198,7 @@ gcr_collection_model_dispose (GObject *object)
 	/* Disconnect from all rows */
 	if (self->pv->collection) {
 		remove_children_from_sequence (self, self->pv->root_sequence,
-		                               self->pv->collection, FALSE);
+		                               self->pv->collection, NULL, FALSE);
 		g_object_unref (self->pv->collection);
 		self->pv->collection = NULL;
 	}
@@ -1250,8 +1251,8 @@ gcr_collection_model_class_init (GcrCollectionModelClass *klass)
 	                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
 	g_object_class_install_property (gobject_class, PROP_COLLECTION,
-		g_param_spec_object ("collection", "Object Collection", "Collection to get objects from",
-		                     GCR_TYPE_COLLECTION, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	            g_param_spec_object ("collection", "Object Collection", "Collection to get objects from",
+	                                 GCR_TYPE_COLLECTION, G_PARAM_READWRITE));
 
 	g_object_class_install_property (gobject_class, PROP_COLUMNS,
 		g_param_spec_pointer ("columns", "Columns", "Columns for the model",
@@ -1380,6 +1381,51 @@ gcr_collection_model_get_collection (GcrCollectionModel *self)
 {
 	g_return_val_if_fail (GCR_IS_COLLECTION_MODEL (self), NULL);
 	return self->pv->collection;
+}
+
+void
+gcr_collection_model_set_collection (GcrCollectionModel *self,
+                                     GcrCollection *collection)
+{
+	GcrCollection *previous;
+	GHashTable *exclude;
+	GList *children = NULL;
+	GList *l;
+
+	g_return_if_fail (GCR_IS_COLLECTION_MODEL (self));
+	g_return_if_fail (collection == NULL || GCR_IS_COLLECTION (collection));
+
+	if (collection == self->pv->collection)
+		return;
+
+	if (collection)
+		g_object_ref (collection);
+	previous = self->pv->collection;
+	self->pv->collection = collection;
+
+	if (collection)
+		children = gcr_collection_get_objects (collection);
+
+	if (previous) {
+		exclude = g_hash_table_new (g_direct_hash, g_direct_equal);
+		for (l = children; l != NULL; l = g_list_next (l))
+			g_hash_table_insert (exclude, l->data, l->data);
+
+		remove_children_from_sequence (self, self->pv->root_sequence,
+		                               previous, exclude, TRUE);
+
+		g_hash_table_destroy (exclude);
+		g_object_unref (previous);
+	}
+
+	if (collection) {
+		add_children_to_sequence (self, self->pv->root_sequence,
+		                          NULL, collection, children,
+		                          self->pv->object_to_seq, TRUE);
+		g_list_free (children);
+	}
+
+	g_object_notify (G_OBJECT (self), "collection");
 }
 
 /**

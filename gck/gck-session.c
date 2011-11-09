@@ -1835,8 +1835,8 @@ perform_generate_key_pair (GenerateKeyPair *args)
  * @mech_type: The mechanism type to use for key generation.
  * @public_attrs: Additional attributes for the generated public key.
  * @private_attrs: Additional attributes for the generated private key.
- * @public_key: A location to return the resulting public key.
- * @private_key: A location to return the resulting private key.
+ * @public_key: (allow-none) (out): location to return the resulting public key
+ * @private_key: (allow-none) (out): location to return the resulting private key.
  * @cancellable: Optional cancellation object, or NULL.
  * @error: A location to return an error, or NULL.
  *
@@ -1861,8 +1861,8 @@ gck_session_generate_key_pair (GckSession *self, gulong mech_type,
  * @mechanism: The mechanism to use for key generation.
  * @public_attrs: Additional attributes for the generated public key.
  * @private_attrs: Additional attributes for the generated private key.
- * @public_key: A location to return the resulting public key.
- * @private_key: A location to return the resulting private key.
+ * @public_key: (allow-none) (out): a location to return the resulting public key
+ * @private_key: (allow-none) (out): a location to return the resulting private key
  * @cancellable: Optional cancellation object, or NULL.
  * @error: A location to return an error, or NULL.
  *
@@ -1872,10 +1872,14 @@ gck_session_generate_key_pair (GckSession *self, gulong mech_type,
  * Return value: TRUE if the operation succeeded.
  **/
 gboolean
-gck_session_generate_key_pair_full (GckSession *self, GckMechanism *mechanism,
-                                     GckAttributes *public_attrs, GckAttributes *private_attrs,
-                                     GckObject **public_key, GckObject **private_key,
-                                     GCancellable *cancellable, GError **error)
+gck_session_generate_key_pair_full (GckSession *self,
+                                    GckMechanism *mechanism,
+                                    GckAttributes *public_attrs,
+                                    GckAttributes *private_attrs,
+                                    GckObject **public_key,
+                                    GckObject **private_key,
+                                    GCancellable *cancellable,
+                                    GError **error)
 {
 	GenerateKeyPair args = { GCK_ARGUMENTS_INIT, GCK_MECHANISM_EMPTY, public_attrs, private_attrs, 0, 0 };
 	gboolean ret;
@@ -1884,8 +1888,6 @@ gck_session_generate_key_pair_full (GckSession *self, GckMechanism *mechanism,
 	g_return_val_if_fail (mechanism, FALSE);
 	g_return_val_if_fail (public_attrs, FALSE);
 	g_return_val_if_fail (private_attrs, FALSE);
-	g_return_val_if_fail (public_key, FALSE);
-	g_return_val_if_fail (private_key, FALSE);
 
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args.mechanism, mechanism, sizeof (args.mechanism));
@@ -1901,8 +1903,10 @@ gck_session_generate_key_pair_full (GckSession *self, GckMechanism *mechanism,
 	if (!ret)
 		return FALSE;
 
-	*public_key = gck_object_from_handle (self, args.public_key);
-	*private_key = gck_object_from_handle (self, args.private_key);
+	if (public_key)
+		*public_key = gck_object_from_handle (self, args.public_key);
+	if (private_key)
+		*private_key = gck_object_from_handle (self, args.private_key);
 	return TRUE;
 }
 
@@ -1949,8 +1953,8 @@ gck_session_generate_key_pair_async (GckSession *self, GckMechanism *mechanism,
  * gck_session_generate_key_pair_finish:
  * @self: The session to use.
  * @result: The async result passed to the callback.
- * @public_key: A location to return the resulting public key.
- * @private_key: A location to return the resulting private key.
+ * @public_key: (allow-none): a location to return the resulting public key
+ * @private_key: (allow-none): a location to return the resulting private key
  * @error: A location to return an error.
  *
  * Get the result of a generate key pair operation.
@@ -1958,15 +1962,17 @@ gck_session_generate_key_pair_async (GckSession *self, GckMechanism *mechanism,
  * Return value: TRUE if the operation succeeded.
  **/
 gboolean
-gck_session_generate_key_pair_finish (GckSession *self, GAsyncResult *result,
-                                       GckObject **public_key, GckObject **private_key,
-                                       GError **error)
+gck_session_generate_key_pair_finish (GckSession *self,
+                                      GAsyncResult *result,
+                                      GckObject **public_key,
+                                      GckObject **private_key,
+                                      GError **error)
 {
 	GenerateKeyPair *args;
 
 	g_return_val_if_fail (GCK_IS_SESSION (self), FALSE);
-	g_return_val_if_fail (public_key, FALSE);
-	g_return_val_if_fail (private_key, FALSE);
+	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	args = _gck_call_arguments (result, GenerateKeyPair);
 	_gck_attributes_unlock (args->public_attrs);
@@ -1976,8 +1982,10 @@ gck_session_generate_key_pair_finish (GckSession *self, GAsyncResult *result,
 	if (!_gck_call_basic_finish (result, error))
 		return FALSE;
 
-	*public_key = gck_object_from_handle (self, args->public_key);
-	*private_key = gck_object_from_handle (self, args->private_key);
+	if (public_key)
+		*public_key = gck_object_from_handle (self, args->public_key);
+	if (private_key)
+		*private_key = gck_object_from_handle (self, args->private_key);
 	return TRUE;
 }
 

@@ -22,6 +22,7 @@
 #include "config.h"
 
 #include "gcr-collection-model.h"
+#include "gcr-enum-types.h"
 
 #include <gtk/gtk.h>
 
@@ -66,12 +67,23 @@
  * The class for #GcrCollectionModel.
  */
 
+/**
+ * GcrCollectionModelMode:
+ * @GCR_COLLECTION_MODEL_LIST: only objects in the top collection, no child objects
+ * @GCR_COLLECTION_MODEL_TREE: show objects in the collection, and child objects in a tree form
+ *
+ * If set GcrCollectionModel is created with a mode of %GCR_COLLECTION_MODEL_TREE,
+ * then any included objects that are themselves a #GcrCollection, will have all child
+ * objects include as child rows in a tree form.
+ */
+
 #define COLLECTION_MODEL_STAMP 0xAABBCCDD
 
 enum {
 	PROP_0,
 	PROP_COLLECTION,
-	PROP_COLUMNS
+	PROP_COLUMNS,
+	PROP_MODE
 };
 
 typedef struct {
@@ -95,6 +107,7 @@ typedef struct _GcrCollectionColumn {
 } GcrCollectionColumn;
 
 struct _GcrCollectionModelPrivate {
+	GcrCollectionModelMode mode;
 	GcrCollection *collection;
 	GHashTable *selected;
 	GSequence *root_sequence;
@@ -528,7 +541,8 @@ add_object_to_sequence (GcrCollectionModel *self,
 		gtk_tree_path_free (path);
 	}
 
-	if (GCR_IS_COLLECTION (object)) {
+	if (self->pv->mode == GCR_COLLECTION_MODEL_TREE &&
+	    GCR_IS_COLLECTION (object)) {
 		row->children = g_sequence_new (NULL);
 		add_children_to_sequence (self, row->children, seq,
 		                          GCR_COLLECTION (object), emit);
@@ -600,6 +614,7 @@ remove_object_from_sequence (GcrCollectionModel *self,
 	g_signal_handlers_disconnect_by_func (object, on_object_notify, self);
 
 	if (row->children) {
+		g_assert (self->pv->mode == GCR_COLLECTION_MODEL_TREE);
 		g_assert (GCR_IS_COLLECTION (object));
 		remove_children_from_sequence (self, row->children, GCR_COLLECTION (object), emit);
 		g_assert (g_sequence_get_length (row->children) == 0);
@@ -1126,6 +1141,9 @@ gcr_collection_model_set_property (GObject *object, guint prop_id,
 	GcrColumn *columns;
 
 	switch (prop_id) {
+	case PROP_MODE:
+		self->pv->mode = g_value_get_enum (value);
+		break;
 	case PROP_COLLECTION:
 		g_return_if_fail (self->pv->collection == NULL);
 		self->pv->collection = g_value_dup_object (value);
@@ -1156,14 +1174,15 @@ gcr_collection_model_get_property (GObject *object, guint prop_id,
 	GcrCollectionModel *self = GCR_COLLECTION_MODEL (object);
 
 	switch (prop_id) {
+	case PROP_MODE:
+		g_value_set_enum (value, self->pv->mode);
+		break;
 	case PROP_COLLECTION:
 		g_value_set_object (value, self->pv->collection);
 		break;
-
 	case PROP_COLUMNS:
 		g_value_set_pointer (value, (gpointer)self->pv->columns);
 		break;
-
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -1225,6 +1244,11 @@ gcr_collection_model_class_init (GcrCollectionModelClass *klass)
 	gobject_class->set_property = gcr_collection_model_set_property;
 	gobject_class->get_property = gcr_collection_model_get_property;
 
+	g_object_class_install_property (gobject_class, PROP_MODE,
+	              g_param_spec_enum ("mode", "Mode", "Tree or list mode",
+	                                 GCR_TYPE_COLLECTION_MODEL_MODE, GCR_COLLECTION_MODEL_TREE,
+	                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+
 	g_object_class_install_property (gobject_class, PROP_COLLECTION,
 		g_param_spec_object ("collection", "Object Collection", "Collection to get objects from",
 		                     GCR_TYPE_COLLECTION, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
@@ -1236,14 +1260,11 @@ gcr_collection_model_class_init (GcrCollectionModelClass *klass)
 	g_type_class_add_private (klass, sizeof (GcrCollectionModelPrivate));
 }
 
-/* -----------------------------------------------------------------------------
- * PUBLIC
- */
-
 /**
  * gcr_collection_model_new: (skip)
- * @collection: The collection to represent
- * @...: The column names and types.
+ * @collection: the collection to represent
+ * @mode: whether list or tree mode
+ * @...: the column names and types
  *
  * Create a new #GcrCollectionModel. The variable argument list should contain
  * pairs of property names, and #GType values. The variable argument list should
@@ -1253,7 +1274,9 @@ gcr_collection_model_class_init (GcrCollectionModelClass *klass)
  *          with g_object_unref().
  */
 GcrCollectionModel*
-gcr_collection_model_new (GcrCollection *collection, ...)
+gcr_collection_model_new (GcrCollection *collection,
+                          GcrCollectionModelMode mode,
+                          ...)
 {
 	GcrColumn column;
 	GcrCollectionModel *self;
@@ -1264,7 +1287,7 @@ gcr_collection_model_new (GcrCollection *collection, ...)
 	/* With a null terminator */
 	array = g_array_new (TRUE, TRUE, sizeof (GcrColumn));
 
-	va_start (va, collection);
+	va_start (va, mode);
 	while ((arg = va_arg (va, const gchar*)) != NULL) {
 		memset (&column, 0, sizeof (column));
 		column.property_name = g_strdup (arg);
@@ -1274,7 +1297,7 @@ gcr_collection_model_new (GcrCollection *collection, ...)
 	}
 	va_end (va);
 
-	self = gcr_collection_model_new_full (collection, (GcrColumn*)array->data);
+	self = gcr_collection_model_new_full (collection, mode, (GcrColumn*)array->data);
 	g_object_set_data_full (G_OBJECT (self), "gcr_collection_model_new",
 	                        g_array_free (array, FALSE), free_owned_columns);
 	return self;
@@ -1282,8 +1305,9 @@ gcr_collection_model_new (GcrCollection *collection, ...)
 
 /**
  * gcr_collection_model_new_full: (skip)
- * @collection: The collection to represent
- * @columns: The columns the model should contain
+ * @collection: the collection to represent
+ * @mode: whether list or tree mode
+ * @columns: the columns the model should contain
  *
  * Create a new #GcrCollectionModel.
  *
@@ -1291,9 +1315,14 @@ gcr_collection_model_new (GcrCollection *collection, ...)
  *          with g_object_unref()
  */
 GcrCollectionModel*
-gcr_collection_model_new_full (GcrCollection *collection, const GcrColumn *columns)
+gcr_collection_model_new_full (GcrCollection *collection,
+                               GcrCollectionModelMode mode,
+                               const GcrColumn *columns)
 {
-	GcrCollectionModel *self = g_object_new (GCR_TYPE_COLLECTION_MODEL, "collection", collection, NULL);
+	GcrCollectionModel *self = g_object_new (GCR_TYPE_COLLECTION_MODEL,
+	                                         "collection", collection,
+	                                         "mode", mode,
+	                                         NULL);
 	gcr_collection_model_set_columns (self, columns);
 	return self;
 }

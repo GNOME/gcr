@@ -79,6 +79,7 @@ gcr_combo_selector_constructor (GType type, guint n_props, GObjectConstructParam
 	g_return_val_if_fail (self, NULL);
 
 	self->pv->model = gcr_collection_model_new (self->pv->collection,
+	                                            GCR_COLLECTION_MODEL_LIST,
 	                                            "icon", G_TYPE_ICON,
 	                                            "markup", G_TYPE_STRING,
 	                                            NULL);

@@ -148,6 +148,7 @@ gcr_tree_selector_constructor (GType type, guint n_props, GObjectConstructParam 
 	g_return_val_if_fail (self->pv->columns, NULL);
 
 	self->pv->model = gcr_collection_model_new_full (self->pv->collection,
+	                                                 GCR_COLLECTION_MODEL_TREE,
 	                                                 self->pv->columns);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (self), GTK_TREE_MODEL (self->pv->model));

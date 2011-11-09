@@ -220,6 +220,7 @@ gcr_list_selector_constructed (GObject *object)
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (self), FALSE);
 
 	self->pv->model = gcr_collection_model_new (self->pv->collection,
+	                                            GCR_COLLECTION_MODEL_LIST,
 	                                            "icon", G_TYPE_ICON,
 	                                            "markup", G_TYPE_STRING,
 	                                            NULL);

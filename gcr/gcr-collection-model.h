@@ -27,6 +27,11 @@
 #include "gcr-collection.h"
 #include "gcr-column.h"
 
+typedef enum {
+	GCR_COLLECTION_MODEL_LIST = 0,
+	GCR_COLLECTION_MODEL_TREE
+} GcrCollectionModelMode;
+
 #define GCR_TYPE_COLLECTION_MODEL               (gcr_collection_model_get_type ())
 #define GCR_COLLECTION_MODEL(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_COLLECTION_MODEL, GcrCollectionModel))
 #define GCR_COLLECTION_MODEL_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_COLLECTION_MODEL, GcrCollectionModelClass))
@@ -52,9 +57,11 @@ struct _GcrCollectionModelClass {
 GType                 gcr_collection_model_get_type            (void);
 
 GcrCollectionModel*   gcr_collection_model_new                 (GcrCollection *collection,
+                                                                GcrCollectionModelMode mode,
                                                                 ...) G_GNUC_NULL_TERMINATED;
 
 GcrCollectionModel*   gcr_collection_model_new_full            (GcrCollection *collection,
+                                                                GcrCollectionModelMode mode,
                                                                 const GcrColumn *columns);
 
 guint                 gcr_collection_model_set_columns         (GcrCollectionModel *self,

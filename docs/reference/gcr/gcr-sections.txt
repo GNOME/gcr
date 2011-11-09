@@ -344,6 +344,7 @@ gcr_union_collection_get_type
 <FILE>gcr-collection-model</FILE>
 GcrCollectionModel
 GcrCollectionModelClass
+GcrCollectionModelMode
 gcr_collection_model_new
 gcr_collection_model_new_full
 gcr_collection_model_set_columns
@@ -364,6 +365,9 @@ GCR_COLLECTION_MODEL_GET_CLASS
 GCR_IS_COLLECTION_MODEL
 GCR_IS_COLLECTION_MODEL_CLASS
 GCR_TYPE_COLLECTION_MODEL
+GCR_TYPE_COLLECTION_MODEL_MODE
+gcr_collection_model_mode_get_type
+<SUBSECTION Private>
 GcrCollectionModelPrivate
 </SECTION>
 

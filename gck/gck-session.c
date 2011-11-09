@@ -918,8 +918,9 @@ perform_init_pin (InitPin *args)
 /**
  * gck_session_init_pin:
  * @self: Initialize PIN for this session's slot.
- * @pin: The user's PIN, or NULL for protected authentication path.
- * @n_pin: The length of the PIN.
+ * @pin: (allow-none) (array length=n_pin): the user's PIN, or %NULL for
+ *       protected authentication path
+ * @n_pin: the length of the PIN
  * @cancellable: Optional cancellation object, or NULL.
  * @error: A location to return an error.
  *
@@ -943,8 +944,8 @@ gck_session_init_pin (GckSession *self, const guchar *pin, gsize n_pin,
 /**
  * gck_session_init_pin_async:
  * @self: Initialize PIN for this session's slot.
- * @pin: (allow-none) (array length=n_pin): The user's PIN, or NULL for protected authentication path.
- * @n_pin: The length of the PIN.
+ * @pin: (allow-none) (array length=n_pin): the user's PIN, or %NULL for protected authentication path
+ * @n_pin: the length of the PIN
  * @cancellable: Optional cancellation object, or NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
@@ -1042,10 +1043,12 @@ gck_session_set_pin (GckSession *self, const guchar *old_pin, gsize n_old_pin,
 /**
  * gck_session_set_pin_async:
  * @self: Change the PIN for this session's slot.
- * @old_pin: The user's old PIN, or NULL for protected authentication path.
- * @n_old_pin: The length of the PIN.
- * @new_pin: The user's new PIN, or NULL for protected authentication path.
- * @n_new_pin: The length of the PIN.
+ * @old_pin: (allow-none) (array length=n_new_pin): the user's old PIN, or %NULL
+ *           for protected authentication path
+ * @n_old_pin: the length of the old PIN
+ * @new_pin: (allow-none) (array length=n_new_pin): the user's new PIN, or %NULL
+ *           for protected authentication path
+ * @n_new_pin: the length of the new PIN
  * @cancellable: Optional cancellation object, or NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
@@ -1206,7 +1209,7 @@ perform_interactive (Interactive *args)
  * gck_session_login_interactive:
  * @self: session to use for login
  * @user_type: the type of login user
- * @interaction: interaction to request PIN when necessary
+ * @interaction: (allow-none): interaction to request PIN when necessary
  * @cancellable: optional cancellation object, or %NULL
  * @error: location to return an error
  *
@@ -1241,7 +1244,7 @@ gck_session_login_interactive (GckSession *self,
  * gck_session_login_interactive_async:
  * @self: session to use for login
  * @user_type: the type of login user
- * @interaction: interaction to request PIN when necessary
+ * @interaction: (allow-none): interaction to request PIN when necessary
  * @cancellable: optional cancellation object, or %NULL
  * @callback: called when the operation completes
  * @user_data: data to pass to the callback
@@ -1953,8 +1956,8 @@ gck_session_generate_key_pair_async (GckSession *self, GckMechanism *mechanism,
  * gck_session_generate_key_pair_finish:
  * @self: The session to use.
  * @result: The async result passed to the callback.
- * @public_key: (allow-none): a location to return the resulting public key
- * @private_key: (allow-none): a location to return the resulting private key
+ * @public_key: (allow-none) (out): a location to return the resulting public key
+ * @private_key: (allow-none) (out): a location to return the resulting private key
  * @error: A location to return an error.
  *
  * Get the result of a generate key pair operation.
@@ -2710,9 +2713,9 @@ crypt_finish (GckSession *self, GAsyncResult *result, gsize *n_result, GError **
  * @self: The session.
  * @key: The key to encrypt with.
  * @mech_type: The mechanism type to use for encryption.
- * @input: The data to encrypt.
- * @n_input: The length of the data to encrypt.
- * @n_result: A location to store the length of the result data.
+ * @input: (array length=n_input): the data to encrypt
+ * @n_input: the length of the data to encrypt
+ * @n_result: location to store the length of the result data
  * @cancellable: Optional cancellation object, or %NULL
  * @error: A location to place error information.
  *
@@ -2735,9 +2738,9 @@ gck_session_encrypt (GckSession *self, GckObject *key, gulong mech_type, const g
  * @self: The session.
  * @key: The key to encrypt with.
  * @mechanism: The mechanism type and parameters to use for encryption.
- * @input: The data to encrypt.
- * @n_input: The length of the data to encrypt.
- * @n_result: A location to store the length of the result data.
+ * @input: (array length=n_input): the data to encrypt
+ * @n_input: the length of the data to encrypt
+ * @n_result: location to store the length of the result data
  * @cancellable: A GCancellable which can be used to cancel the operation.
  * @error: A location to place error information.
  *
@@ -2774,8 +2777,8 @@ gck_session_encrypt_full (GckSession *self, GckObject *key, GckMechanism *mechan
  * @self: The session.
  * @key: The key to encrypt with.
  * @mechanism: The mechanism type and parameters to use for encryption.
- * @input: The data to encrypt.
- * @n_input: The length of the data to encrypt.
+ * @input: (array length=n_input): the data to encrypt
+ * @n_input: length of the data to encrypt
  * @cancellable: A GCancellable which can be used to cancel the operation.
  * @callback: Called when the operation completes.
  * @user_data: A pointer to pass to the callback.
@@ -2831,9 +2834,9 @@ gck_session_encrypt_finish (GckSession *self, GAsyncResult *result, gsize *n_res
  * @self: The session.
  * @key: The key to decrypt with.
  * @mech_type: The mechanism type to use for decryption.
- * @input: The data to decrypt.
- * @n_input: The length of the data to decrypt.
- * @n_result: A location to store the length of the result data.
+ * @input: (array length=n_input): data to decrypt
+ * @n_input: length of the data to decrypt
+ * @n_result: location to store the length of the result data
  * @cancellable: Optional cancellation object, or %NULL
  * @error: A location to place an error.
  *
@@ -2856,9 +2859,9 @@ gck_session_decrypt (GckSession *self, GckObject *key, gulong mech_type, const g
  * @self: The session.
  * @key: The key to decrypt with.
  * @mechanism: The mechanism type and parameters to use for decryption.
- * @input: The data to decrypt.
- * @n_input: The length of the data to decrypt.
- * @n_result: A location to store the length of the result data.
+ * @input: (array length=n_input): data to decrypt
+ * @n_input: length of the data to decrypt
+ * @n_result: location to store the length of the result data
  * @cancellable: A GCancellable which can be used to cancel the operation.
  * @error: A location to place error information.
  *
@@ -2894,8 +2897,8 @@ gck_session_decrypt_full (GckSession *self, GckObject *key, GckMechanism *mechan
  * @self: The session.
  * @key: The key to decrypt with.
  * @mechanism: The mechanism type and parameters to use for decryption.
- * @input: The data to decrypt.
- * @n_input: The length of the data to decrypt.
+ * @input: (array length=n_input): data to decrypt
+ * @n_input: length of the data to decrypt
  * @cancellable: A GCancellable which can be used to cancel the operation.
  * @callback: Called when the operation completes.
  * @user_data: A pointer to pass to the callback.
@@ -2950,9 +2953,9 @@ gck_session_decrypt_finish (GckSession *self, GAsyncResult *result,
  * @self: The session.
  * @key: The key to sign with.
  * @mech_type: The mechanism type to use for signing.
- * @input: The data to sign.
- * @n_input: The length of the data to sign.
- * @n_result: A location to store the length of the result data.
+ * @input: (array length=n_input): data to sign
+ * @n_input: length of the data to sign
+ * @n_result: location to store the length of the result data
  * @cancellable: Optional cancellation object, or %NULL
  * @error: A location to place an error.
  *
@@ -2975,9 +2978,9 @@ gck_session_sign (GckSession *self, GckObject *key, gulong mech_type, const guch
  * @self: The session.
  * @key: The key to sign with.
  * @mechanism: The mechanism type and parameters to use for signing.
- * @input: The data to sign.
- * @n_input: The length of the data to sign.
- * @n_result: A location to store the length of the result data.
+ * @input: (array length=n_input): data to sign
+ * @n_input: length of the data to sign
+ * @n_result: location to store the length of the result data
  * @cancellable: A GCancellable which can be used to cancel the operation.
  * @error: A location to place error information.
  *
@@ -3012,8 +3015,8 @@ gck_session_sign_full (GckSession *self, GckObject *key, GckMechanism *mechanism
  * @self: The session.
  * @key: The key to sign with.
  * @mechanism: The mechanism type and parameters to use for signing.
- * @input: The data to sign.
- * @n_input: The length of the data to sign.
+ * @input: (array length=n_input): data to sign
+ * @n_input: length of the data to sign
  * @cancellable: A GCancellable which can be used to cancel the operation.
  * @callback: Called when the operation completes.
  * @user_data: A pointer to pass to the callback.
@@ -3127,10 +3130,10 @@ free_verify (Verify *args)
  * @self: The session.
  * @key: The key to verify with.
  * @mech_type: The mechanism type to use for verifying.
- * @input: The data to verify.
- * @n_input: The length of the data to verify.
- * @signature: The signature.
- * @n_signature: The length of the signature.
+ * @input: (array length=n_input): data to verify
+ * @n_input: length of the data to verify
+ * @signature: (array length=n_signature): the signature
+ * @n_signature: length of the signature
  * @cancellable: Optional cancellation object, or %NULL
  * @error: A location to place an error.
  *
@@ -3153,10 +3156,10 @@ gck_session_verify (GckSession *self, GckObject *key, gulong mech_type, const gu
  * @self: The session.
  * @key: The key to verify with.
  * @mechanism: The mechanism type and parameters to use for signing.
- * @input: The data to verify.
- * @n_input: The length of the data to verify.
- * @signature: The signature.
- * @n_signature: The length of the signature.
+ * @input: (array length=n_input): data to verify
+ * @n_input: the length of the data to verify
+ * @signature: (array length=n_signature): the signature
+ * @n_signature: length of the signature
  * @cancellable: A GCancellable which can be used to cancel the operation.
  * @error: A location to place an error.
  *
@@ -3204,10 +3207,10 @@ gck_session_verify_full (GckSession *self, GckObject *key, GckMechanism *mechani
  * @self: The session.
  * @key: The key to verify with.
  * @mechanism: The mechanism type and parameters to use for signing.
- * @input: The data to verify.
- * @n_input: The length of the data to verify.
- * @signature: The signature.
- * @n_signature: The length of the signature.
+ * @input: (array length=n_input): data to verify
+ * @n_input: the length of the data to verify
+ * @signature: (array length=n_signature): the signature
+ * @n_signature: the length of the signature
  * @cancellable: A GCancellable which can be used to cancel the operation.
  * @callback: Called when the operation completes.
  * @user_data: A pointer to pass to the callback.

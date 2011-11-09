@@ -21,6 +21,7 @@ HEADER_BASE_FILES = \
 	gcr-comparable.h \
 	gcr-deprecated-base.h \
 	gcr-fingerprint.h \
+	gcr-filter-collection.h \
 	gcr-icons.h \
 	gcr-importer.h \
 	gcr-import-interaction.h \
@@ -100,6 +101,7 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-collection.c gcr-collection.h \
 	gcr-comparable.c gcr-comparable.h \
 	gcr-debug.c gcr-debug.h \
+	gcr-filter-collection.c gcr-filter-collection.h \
 	gcr-fingerprint.c gcr-fingerprint.h \
 	gcr-gnupg-collection.c gcr-gnupg-collection.h \
 	gcr-gnupg-importer.c gcr-gnupg-importer.h \

@@ -6,6 +6,7 @@ gcr_collection_get_type
 gcr_collection_model_get_type
 gcr_combo_selector_get_type
 gcr_comparable_get_type
+gcr_filter_collection_get_type
 gcr_import_button_get_type
 gcr_importer_get_type
 gcr_key_renderer_get_type

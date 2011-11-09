@@ -298,6 +298,27 @@ GcrSimpleCollectionPrivate
 </SECTION>
 
 <SECTION>
+<FILE>gcr-filter-collection</FILE>
+GcrFilterCollection
+GcrFilterCollectionClass
+GcrFilterCollectionFunc
+gcr_filter_collection_new_with_callback
+gcr_filter_collection_set_callback
+gcr_filter_collection_get_underlying
+gcr_filter_collection_refilter
+<SUBSECTION Standard>
+gcr_filter_collection_get_type
+GCR_FILTER_COLLECTION
+GCR_FILTER_COLLECTION_CLASS
+GCR_FILTER_COLLECTION_GET_CLASS
+GCR_IS_FILTER_COLLECTION
+GCR_IS_FILTER_COLLECTION_CLASS
+GCR_TYPE_FILTER_COLLECTION
+<SUBSECTION Private>
+GcrFilterCollectionPrivate
+</SECTION>
+
+<SECTION>
 <FILE>gcr-union-collection</FILE>
 GcrUnionCollection
 GcrUnionCollectionClass

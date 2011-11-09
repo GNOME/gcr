@@ -21,6 +21,7 @@ GcrTreeSelector AtkImplementorIface GtkBuildable GtkScrollable
 GtkCellArea GtkCellLayout GtkBuildable
 GtkTreeViewColumn GtkCellLayout GtkBuildable
 GcrCollectionModel GtkTreeModel GtkTreeSortable
+GcrFilterCollection GcrCollection
 GcrKeyRenderer GcrRenderer
 GcrPkcs11Certificate GcrComparableIface GcrCertificate
 GcrSimpleCertificate GcrComparableIface GcrCertificate

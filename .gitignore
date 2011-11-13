@@ -1,6 +1,14 @@
+# Unit test builds
+test-*
+!test-*.*
+frob-*
+!frob-*.*
+
+# Common file extensions
 *.abi
 *.autogen_bak
 *.bak
+*.gcda
 *.gcno
 *.gcov
 *.gir
@@ -20,7 +28,6 @@
 .deps
 .libs
 .project
-
 aclocal.m4
 autom4te.cache
 compile
@@ -65,16 +72,12 @@ stamp-*
 /docs/reference/*/version.xml
 /docs/reference/*/xml
 
-/egg/tests/test-*
-!/egg/test/test-*.c
 /egg/asn1-def-*.c
 /egg/tests/asn1-def-*.c
 
 /gck/*.pc
 /gck/gck-enum-types*
 /gck/gck-marshal.*
-/gck/tests/test-*
-!/gck/test/test-*.c
 
 /gcr/*.pc
 /gcr/gcr-enum-types*
@@ -82,10 +85,6 @@ stamp-*
 /gcr/gcr-marshal.*
 /gcr/gcr-viewer
 /gcr/gcr-viewer.desktop
-/gcr/tests/frob-*
-!/gcr/test/frob-*.c
-/gcr/tests/test-*
-!/gcr/test/test-*.c
 
 /po/Makefile.in.in
 /po/*.sed

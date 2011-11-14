@@ -1018,6 +1018,23 @@ gck_slot_open_session_async (GckSlot *self,
 	gck_slot_open_session_full_async (self, options, 0UL, NULL, NULL, cancellable, callback, user_data);
 }
 
+static void
+on_open_session_complete (GObject *source,
+                          GAsyncResult *result,
+                          gpointer user_data)
+{
+	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
+	GError *error = NULL;
+
+	if (g_async_initable_new_finish (G_ASYNC_INITABLE (source), result, &error))
+		g_simple_async_result_set_op_res_gpointer (res, g_object_ref (source), g_object_unref);
+	else
+		g_simple_async_result_take_error (res, error);
+
+	g_simple_async_result_complete (res);
+	g_object_unref (res);
+}
+
 /**
  * gck_slot_open_session_full_async: (skip)
  * @self: The slot to open a session on.
@@ -1044,8 +1061,14 @@ gck_slot_open_session_full_async (GckSlot *self,
                                   GAsyncReadyCallback callback,
                                   gpointer user_data)
 {
+	GSimpleAsyncResult *res;
+
+	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
+	                                 gck_slot_open_session_full_async);
+
 	g_async_initable_new_async (GCK_TYPE_SESSION, G_PRIORITY_DEFAULT,
-	                            cancellable, callback, user_data,
+	                            cancellable, on_open_session_complete,
+	                            g_object_ref (res),
 	                            "options", options,
 	                            "slot", self,
 	                            "opening-flags", pkcs11_flags,
@@ -1065,9 +1088,20 @@ gck_slot_open_session_full_async (GckSlot *self,
  * Returns: (transfer full): the new session or %NULL if an error occurs
  */
 GckSession *
-gck_slot_open_session_finish (GckSlot *self, GAsyncResult *result, GError **err)
+gck_slot_open_session_finish (GckSlot *self, GAsyncResult *result, GError **error)
 {
-	return gck_session_open_finish (result, err);
+	GSimpleAsyncResult *res;
+
+	g_return_val_if_fail (GCK_IS_SLOT (self), NULL);
+	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
+	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (self),
+	                      gck_slot_open_session_full_async), NULL);
+
+	res = G_SIMPLE_ASYNC_RESULT (result);
+	if (g_simple_async_result_propagate_error (res, error))
+		return NULL;
+
+	return g_object_ref (g_simple_async_result_get_op_res_gpointer (res));
 }
 
 /**

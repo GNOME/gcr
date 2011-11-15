@@ -333,6 +333,7 @@ gck_mock_C_Initialize (CK_VOID_PTR pInitArgs)
 	gck_attributes_add_string (attrs, CKA_GNOME_UNIQUE, "unique4");
 	g_hash_table_insert (the_objects, GUINT_TO_POINTER (PUBLIC_KEY_PREFIX), attrs);
 
+	logged_in = FALSE;
 	initialized = TRUE;
 	return CKR_OK;
 }

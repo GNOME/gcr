@@ -1025,9 +1025,11 @@ on_open_session_complete (GObject *source,
 {
 	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
 	GError *error = NULL;
+	GObject *session;
 
-	if (g_async_initable_new_finish (G_ASYNC_INITABLE (source), result, &error))
-		g_simple_async_result_set_op_res_gpointer (res, g_object_ref (source), g_object_unref);
+	session = g_async_initable_new_finish (G_ASYNC_INITABLE (source), result, &error);
+	if (session != NULL)
+		g_simple_async_result_set_op_res_gpointer (res, session, g_object_unref);
 	else
 		g_simple_async_result_take_error (res, error);
 
@@ -1063,6 +1065,9 @@ gck_slot_open_session_full_async (GckSlot *self,
 {
 	GSimpleAsyncResult *res;
 
+	g_return_if_fail (GCK_IS_SLOT (self));
+	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
+
 	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
 	                                 gck_slot_open_session_full_async);
 
@@ -1074,6 +1079,8 @@ gck_slot_open_session_full_async (GckSlot *self,
 	                            "opening-flags", pkcs11_flags,
 	                            "app-data", app_data,
 	                            NULL);
+
+	g_object_unref (res);
 }
 
 /**

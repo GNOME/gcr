@@ -72,6 +72,7 @@ teardown (Test *test, gconstpointer unused)
 	g_object_unref (test->session);
 	g_object_unref (test->slot);
 	g_object_unref (test->module);
+	g_assert (!G_IS_OBJECT (test->module));
 }
 
 static void
@@ -138,7 +139,10 @@ test_open_close_session (Test *test, gconstpointer unused)
 	g_assert (GCK_IS_SESSION (sess));
 
 	g_object_unref (result);
+	g_assert (!G_IS_OBJECT (result));
+
 	g_object_unref (sess);
+	g_assert (!G_IS_OBJECT (sess));
 }
 
 static void

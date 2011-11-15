@@ -22,6 +22,7 @@ frob-*
 *.tar.gz
 *.typelib
 *.valid
+*~
 
 .*-cache
 .cproject

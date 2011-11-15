@@ -1375,21 +1375,22 @@ gck_attributes_ref (GckAttributes *attrs)
  * When all outstanding references are NULL, the array will be freed.
  */
 void
-gck_attributes_unref (GckAttributes *attrs)
+gck_attributes_unref (gpointer attrs)
 {
+	GckAttributes *attrs_ = attrs;
 	guint i;
 
-	if (!attrs)
+	if (!attrs_)
 		return;
 
-	if (g_atomic_int_dec_and_test (&attrs->refs)) {
-		g_return_if_fail (attrs->array);
-		g_return_if_fail (!attrs->locked);
-		for (i = 0; i < attrs->array->len; ++i)
-			attribute_clear (gck_attributes_at (attrs, i), attrs->allocator);
-		g_array_free (attrs->array, TRUE);
-		attrs->array = NULL;
-		g_slice_free (GckAttributes, attrs);
+	if (g_atomic_int_dec_and_test (&attrs_->refs)) {
+		g_return_if_fail (attrs_->array);
+		g_return_if_fail (!attrs_->locked);
+		for (i = 0; i < attrs_->array->len; ++i)
+			attribute_clear (gck_attributes_at (attrs_, i), attrs_->allocator);
+		g_array_free (attrs_->array, TRUE);
+		attrs_->array = NULL;
+		g_slice_free (GckAttributes, attrs_);
 	}
 }
 

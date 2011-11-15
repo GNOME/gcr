@@ -275,7 +275,7 @@ gulong              gck_attributes_count                    (GckAttributes *attr
 
 GckAttributes*      gck_attributes_ref                      (GckAttributes *attrs);
 
-void                gck_attributes_unref                    (GckAttributes *attrs);
+void                gck_attributes_unref                    (gpointer attrs);
 
 gboolean            gck_attributes_contains                 (GckAttributes *attrs,
                                                              GckAttribute *match);

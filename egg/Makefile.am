@@ -20,7 +20,7 @@ libegg_la_SOURCES = \
 	egg-armor.c egg-armor.h \
 	egg-asn1x.c egg-asn1x.h \
 	egg-buffer.c egg-buffer.h \
-	egg-byte-array.c egg-byte-array.h \
+	egg-bytes.c egg-bytes.h \
 	egg-dh.c egg-dh.h \
 	egg-dn.c egg-dn.h \
 	egg-error.h \

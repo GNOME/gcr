@@ -30,6 +30,8 @@
 
 #include <glib.h>
 
+#include <egg/egg-bytes.h>
+
 #include <gck/gck.h>
 
 typedef enum {
@@ -51,12 +53,10 @@ typedef enum {
 G_BEGIN_DECLS
 
 typedef void             (*GcrOpenpgpCallback)             (GPtrArray *records,
-                                                            const guchar *outer,
-                                                            gsize n_outer,
+                                                            EggBytes *outer,
                                                             gpointer user_data);
 
-guint                    _gcr_openpgp_parse                (gconstpointer data,
-                                                            gsize n_data,
+guint                    _gcr_openpgp_parse                (EggBytes *data,
                                                             GcrOpenpgpParseFlags flags,
                                                             GcrOpenpgpCallback callback,
                                                             gpointer user_data);

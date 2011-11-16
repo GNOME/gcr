@@ -26,6 +26,8 @@
 
 #include <gcrypt.h>
 
+#include <egg/egg-bytes.h>
+
 gboolean                 egg_symkey_generate_simple             (int cipher_algo,
                                                                  int hash_algo,
                                                                  const gchar *password,
@@ -77,15 +79,13 @@ gboolean                 egg_symkey_generate_pbkdf2             (int cipher_algo
 gboolean                 egg_symkey_read_cipher                 (GQuark oid_scheme,
                                                                  const gchar *password,
                                                                  gsize n_password,
-                                                                 const guchar *data,
-                                                                 gsize n_data,
+                                                                 EggBytes *data,
                                                                  gcry_cipher_hd_t *cih);
 
 gboolean                 egg_symkey_read_mac                    (GQuark oid_scheme,
                                                                  const gchar *password,
                                                                  gsize n_password,
-                                                                 const guchar *data,
-                                                                 gsize n_data,
+                                                                 EggBytes *data,
                                                                  gcry_md_hd_t *mdh,
                                                                  gsize *digest_len);
 

@@ -32,18 +32,18 @@
 #include <glib/gi18n-lib.h>
 
 gboolean
-_gcr_certificate_extension_basic_constraints (gconstpointer data, gsize n_data,
-                                              gboolean *is_ca, gint *path_len)
+_gcr_certificate_extension_basic_constraints (EggBytes *data,
+                                              gboolean *is_ca,
+                                              gint *path_len)
 {
 	gboolean ret = TRUE;
 	GNode *asn = NULL;
 	GNode *node;
 	gulong value;
 
-	g_return_val_if_fail (data, FALSE);
-	g_return_val_if_fail (n_data, FALSE);
+	g_return_val_if_fail (data != NULL, FALSE);
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "BasicConstraints", data, n_data);
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "BasicConstraints", data);
 	if (asn == NULL)
 		return FALSE;
 
@@ -69,8 +69,8 @@ _gcr_certificate_extension_basic_constraints (gconstpointer data, gsize n_data,
 	return ret;
 }
 
-GQuark*
-_gcr_certificate_extension_extended_key_usage (gconstpointer data, gsize n_data)
+GQuark *
+_gcr_certificate_extension_extended_key_usage (EggBytes *data)
 {
 	GNode *asn = NULL;
 	GNode *node;
@@ -78,7 +78,9 @@ _gcr_certificate_extension_extended_key_usage (gconstpointer data, gsize n_data)
 	GQuark oid;
 	int i;
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "ExtKeyUsageSyntax", data, n_data);
+	g_return_val_if_fail (data != NULL, NULL);
+
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "ExtKeyUsageSyntax", data);
 	if (asn == NULL)
 		return NULL;
 
@@ -96,13 +98,15 @@ _gcr_certificate_extension_extended_key_usage (gconstpointer data, gsize n_data)
 }
 
 gpointer
-_gcr_certificate_extension_subject_key_identifier (gconstpointer data, gsize n_data,
+_gcr_certificate_extension_subject_key_identifier (EggBytes *data,
                                                    gsize *n_keyid)
 {
 	GNode *asn = NULL;
 	gpointer result;
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "SubjectKeyIdentifier", data, n_data);
+	g_return_val_if_fail (data != NULL, NULL);
+
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "SubjectKeyIdentifier", data);
 	if (asn == NULL)
 		return NULL;
 
@@ -113,14 +117,16 @@ _gcr_certificate_extension_subject_key_identifier (gconstpointer data, gsize n_d
 }
 
 gboolean
-_gcr_certificate_extension_key_usage (gconstpointer data, gsize n_data,
+_gcr_certificate_extension_key_usage (EggBytes *data,
                                       gulong *key_usage)
 {
 	GNode *asn = NULL;
 	gboolean ret = TRUE;
 	guint n_bits;
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "KeyUsage", data, n_data);
+	g_return_val_if_fail (data != NULL, FALSE);
+
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "KeyUsage", data);
 	if (asn == NULL)
 		return FALSE;
 
@@ -134,28 +140,28 @@ general_name_parse_other (GNode *node, GcrGeneralName *general)
 {
 	GNode *decode = NULL;
 	GQuark oid;
-	gconstpointer value;
-	gsize n_value;
+	EggBytes *value;
 
 	general->type = GCR_GENERAL_NAME_OTHER;
 	general->description = _("Other Name");
 
 	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (node, "type-id", NULL));
-	value = egg_asn1x_get_raw_element (egg_asn1x_node (node, "value", NULL), &n_value);
+	value = egg_asn1x_get_raw_element (egg_asn1x_node (node, "value", NULL));
 
 	if (value == NULL)
 		return;
 
 	if (oid == GCR_OID_ALT_NAME_XMPP_ADDR) {
 		general->description = _("XMPP Addr");
-		decode = egg_asn1x_create_and_decode (pkix_asn1_tab, "UTF8String", value, n_value);
+		decode = egg_asn1x_create_and_decode (pkix_asn1_tab, "UTF8String", value);
 		general->display = egg_asn1x_get_string_as_utf8 (decode, g_realloc);
 	} else if (oid == GCR_OID_ALT_NAME_DNS_SRV) {
 		general->description = _("DNS SRV");
-		decode = egg_asn1x_create_and_decode (pkix_asn1_tab, "IA5String", value, n_value);
+		decode = egg_asn1x_create_and_decode (pkix_asn1_tab, "IA5String", value);
 		general->display = egg_asn1x_get_string_as_utf8 (decode, g_realloc);
 	}
 
+	egg_bytes_unref (value);
 	egg_asn1x_destroy (decode);
 }
 
@@ -222,7 +228,7 @@ general_name_parse_registered (GNode *node, GcrGeneralName *general)
 }
 
 GArray*
-_gcr_certificate_extension_subject_alt_name (gconstpointer data, gsize n_data)
+_gcr_certificate_extension_subject_alt_name (EggBytes *data)
 {
 	GNode *asn = NULL;
 	guint count, i;
@@ -233,7 +239,7 @@ _gcr_certificate_extension_subject_alt_name (gconstpointer data, gsize n_data)
 
 	_gcr_oids_init ();
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "SubjectAltName", data, n_data);
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "SubjectAltName", data);
 	if (asn == NULL)
 		return NULL;
 
@@ -276,7 +282,7 @@ _gcr_certificate_extension_subject_alt_name (gconstpointer data, gsize n_data)
 		else if (g_str_equal (node_name, "registeredID"))
 			general_name_parse_registered (choice, &general);
 
-		general.raw = egg_asn1x_get_raw_element (choice, &general.n_raw);
+		general.raw = egg_asn1x_get_raw_element (choice);
 		g_array_append_val (names, general);
 	}
 
@@ -287,9 +293,13 @@ _gcr_certificate_extension_subject_alt_name (gconstpointer data, gsize n_data)
 void
 _gcr_general_names_free (GArray *names)
 {
+	GcrGeneralName *name;
 	guint i;
 
-	for (i = 0; names && i < names->len; i++)
-		g_free (g_array_index (names, GcrGeneralName, i).display);
+	for (i = 0; names && i < names->len; i++) {
+		name = &g_array_index (names, GcrGeneralName, i);
+		g_free (name->display);
+		egg_bytes_unref (name->raw);
+	}
 	g_array_free (names, TRUE);
 }

@@ -1197,6 +1197,7 @@ typedef struct {
 	GcrOpenpgpCallback callback;
 	gpointer user_data;
 	guint count;
+	EggBytes *backing;
 	GPtrArray *records;
 } openpgp_parse_closure;
 
@@ -1205,6 +1206,7 @@ openpgp_parse_free (gpointer data)
 {
 	openpgp_parse_closure *closure = data;
 	g_ptr_array_unref (closure->records);
+	egg_bytes_unref (closure->backing);
 	g_free (closure);
 }
 
@@ -1213,6 +1215,7 @@ maybe_emit_openpgp_block (openpgp_parse_closure *closure,
                           const guchar *block,
                           const guchar *end)
 {
+	EggBytes *outer;
 	gsize length;
 	GPtrArray *records;
 
@@ -1228,15 +1231,17 @@ maybe_emit_openpgp_block (openpgp_parse_closure *closure,
 	records = closure->records;
 	closure->records = g_ptr_array_new_with_free_func (_gcr_record_free);
 
+	outer = egg_bytes_new_with_free_func (block, length, egg_bytes_unref,
+	                                      egg_bytes_ref (closure->backing));
 	if (closure->callback)
-		(closure->callback) (records, block, length, closure->user_data);
+		(closure->callback) (records, outer, closure->user_data);
+	egg_bytes_unref (outer);
 
 	g_ptr_array_unref (records);
 }
 
 guint
-_gcr_openpgp_parse (gconstpointer data,
-                    gsize n_data,
+_gcr_openpgp_parse (EggBytes *data,
                     GcrOpenpgpParseFlags flags,
                     GcrOpenpgpCallback callback,
                     gpointer user_data)
@@ -1257,13 +1262,14 @@ _gcr_openpgp_parse (gconstpointer data,
 	/* For libgcrypt */
 	_gcr_initialize_library ();
 
-	at = data;
-	end = at + n_data;
+	at = egg_bytes_get_data (data);
+	end = at + egg_bytes_get_size (data);
 	block = NULL;
 
 	closure = g_new0 (openpgp_parse_closure, 1);
 	closure->callback = callback;
 	closure->user_data = user_data;
+	closure->backing = egg_bytes_ref (data);
 	closure->records = g_ptr_array_new_with_free_func (_gcr_record_free);
 
 	while (at != NULL && at != end) {

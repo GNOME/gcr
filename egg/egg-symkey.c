@@ -658,14 +658,17 @@ egg_symkey_generate_pbkdf2 (int cipher_algo, int hash_algo,
 
 
 static gboolean
-read_cipher_pkcs5_pbe (int cipher_algo, int cipher_mode, int hash_algo,
-                       const gchar *password, gsize n_password, const guchar *data,
-                       gsize n_data, gcry_cipher_hd_t *cih)
+read_cipher_pkcs5_pbe (int cipher_algo,
+                       int cipher_mode,
+                       int hash_algo,
+                       const gchar *password,
+                       gsize n_password,
+                       EggBytes *data,
+                       gcry_cipher_hd_t *cih)
 {
 	GNode *asn = NULL;
 	gcry_error_t gcry;
-	gconstpointer salt;
-	gsize n_salt;
+	EggBytes *salt = NULL;
 	gsize n_block, n_key;
 	gulong iterations;
 	guchar *key = NULL;
@@ -674,7 +677,7 @@ read_cipher_pkcs5_pbe (int cipher_algo, int cipher_mode, int hash_algo,
 
 	g_return_val_if_fail (cipher_algo != 0 && cipher_mode != 0, FALSE);
 	g_return_val_if_fail (cih != NULL, FALSE);
-	g_return_val_if_fail (data != NULL && n_data != 0, FALSE);
+	g_return_val_if_fail (data != NULL, FALSE);
 
 	*cih = NULL;
 	ret = FALSE;
@@ -687,10 +690,10 @@ read_cipher_pkcs5_pbe (int cipher_algo, int cipher_mode, int hash_algo,
 	asn = egg_asn1x_create (pkix_asn1_tab, "pkcs-5-PBE-params");
 	g_return_val_if_fail (asn, FALSE);
 
-	if (!egg_asn1x_decode (asn, data, n_data))
+	if (!egg_asn1x_decode (asn, data))
 		goto done;
 
-	salt = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "salt", NULL), &n_salt);
+	salt = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "salt", NULL));
 	if (!salt)
 		goto done;
 	if (!egg_asn1x_get_integer_as_ulong (egg_asn1x_node (asn, "iterationCount", NULL), &iterations))
@@ -700,8 +703,9 @@ read_cipher_pkcs5_pbe (int cipher_algo, int cipher_mode, int hash_algo,
 	g_return_val_if_fail (n_key > 0, FALSE);
 	n_block = gcry_cipher_get_algo_blklen (cipher_algo);
 
-	if (!egg_symkey_generate_pbe (cipher_algo, hash_algo, password, n_password, salt,
-	                              n_salt, iterations, &key, n_block > 1 ? &iv : NULL))
+	if (!egg_symkey_generate_pbe (cipher_algo, hash_algo, password, n_password,
+	                              egg_bytes_get_data (salt), egg_bytes_get_size (salt),
+	                              iterations, &key, n_block > 1 ? &iv : NULL))
 		goto done;
 
 	gcry = gcry_cipher_open (cih, cipher_algo, cipher_mode, 0);
@@ -718,6 +722,8 @@ read_cipher_pkcs5_pbe (int cipher_algo, int cipher_mode, int hash_algo,
 
 done:
 	g_free (iv);
+	if (salt != NULL)
+		egg_bytes_unref (salt);
 	egg_secure_free (key);
 	egg_asn1x_destroy (asn);
 
@@ -725,12 +731,12 @@ done:
 }
 
 static gboolean
-setup_pkcs5_rc2_params (const guchar *data, guchar n_data, gcry_cipher_hd_t cih)
+setup_pkcs5_rc2_params (EggBytes *data,
+                        gcry_cipher_hd_t cih)
 {
 	GNode *asn = NULL;
 	gcry_error_t gcry;
-	const guchar *iv;
-	gsize n_iv;
+	EggBytes *iv = NULL;
 	gulong version;
 	gboolean ret = FALSE;
 
@@ -739,90 +745,99 @@ setup_pkcs5_rc2_params (const guchar *data, guchar n_data, gcry_cipher_hd_t cih)
 	asn = egg_asn1x_create (pkix_asn1_tab, "pkcs-5-rc2-CBC-params");
 	g_return_val_if_fail (asn, FALSE);
 
-	if (!egg_asn1x_decode (asn, data, n_data))
+	if (!egg_asn1x_decode (asn, data))
 		goto done;
 
 	if (!egg_asn1x_get_integer_as_ulong (egg_asn1x_node (asn, "rc2ParameterVersion", NULL), &version))
 		goto done;
 
-	iv = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "iv", NULL), &n_iv);
+	iv = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "iv", NULL));
 	if (!iv)
 		goto done;
 
-	gcry = gcry_cipher_setiv (cih, iv, n_iv);
+	gcry = gcry_cipher_setiv (cih, egg_bytes_get_data (iv), egg_bytes_get_size (iv));
 	if (gcry != 0) {
-		g_message ("couldn't set %lu byte iv on cipher", (gulong)n_iv);
+		g_message ("couldn't set %lu byte iv on cipher", (gulong)egg_bytes_get_size (iv));
 		goto done;
 	}
 
 	ret = TRUE;
 
 done:
+	if (iv != NULL)
+		egg_bytes_unref (iv);
 	egg_asn1x_destroy (asn);
 	return ret;
 }
 
 static gboolean
-setup_pkcs5_des_params (const guchar *data, guchar n_data, gcry_cipher_hd_t cih)
+setup_pkcs5_des_params (EggBytes *data,
+                        gcry_cipher_hd_t cih)
 {
 	GNode *asn = NULL;
 	gcry_error_t gcry;
-	gconstpointer iv;
-	gsize n_iv;
+	EggBytes *iv;
+	gboolean ret;
 
 	g_assert (data);
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-5-des-EDE3-CBC-params", data, n_data);
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-5-des-EDE3-CBC-params", data);
 	if (!asn)
-		asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-5-des-CBC-params", data, n_data);
+		asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-5-des-CBC-params", data);
 	if (!asn)
 		return FALSE;
 
-	iv = egg_asn1x_get_raw_value (asn, &n_iv);
+	iv = egg_asn1x_get_raw_value (asn);
 	egg_asn1x_destroy (asn);
 
 	if (!iv)
 		return FALSE;
 
-	gcry = gcry_cipher_setiv (cih, iv, n_iv);
-
+	gcry = gcry_cipher_setiv (cih, egg_bytes_get_data (iv), egg_bytes_get_size (iv));
 	if (gcry != 0) {
-		g_message ("couldn't set %lu byte iv on cipher", (gulong)n_iv);
-		return FALSE;
+		g_message ("couldn't set %lu byte iv on cipher", (gulong)egg_bytes_get_size (iv));
+		ret = FALSE;
+	} else {
+		ret = TRUE;
 	}
 
-	return TRUE;
+	egg_bytes_unref (iv);
+	return ret;
 }
 
 static gboolean
-setup_pkcs5_pbkdf2_params (const gchar *password, gsize n_password, const guchar *data,
-                           gsize n_data, int cipher_algo, gcry_cipher_hd_t cih)
+setup_pkcs5_pbkdf2_params (const gchar *password,
+                           gsize n_password,
+                           EggBytes *data,
+                           int cipher_algo,
+                           gcry_cipher_hd_t cih)
 {
 	GNode *asn = NULL;
 	gboolean ret;
 	gcry_error_t gcry;
 	guchar *key = NULL;
-	const guchar *salt;
-	gsize n_salt, n_key;
+	EggBytes *salt = NULL;
+	gsize n_key;
 	gulong iterations;
 
 	g_assert (cipher_algo);
-	g_assert (data);
+	g_assert (data != NULL);
 
 	ret = FALSE;
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-5-PBKDF2-params", data, n_data);
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-5-PBKDF2-params", data);
 	if (!asn)
 		goto done;
 
 	if (!egg_asn1x_get_integer_as_ulong (egg_asn1x_node (asn, "iterationCount", NULL), &iterations))
 		iterations = 1;
-	salt = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "salt", "specified", NULL), &n_salt);
+	salt = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "salt", "specified", NULL));
 	if (!salt)
 		goto done;
 
 	if (!egg_symkey_generate_pbkdf2 (cipher_algo, GCRY_MD_SHA1, password, n_password,
-	                                 salt, n_salt, iterations, &key, NULL))
+	                                 egg_bytes_get_data (salt), egg_bytes_get_size (salt),
+	                                 iterations, &key, NULL))
 		goto done;
 
 	n_key = gcry_cipher_get_algo_keylen (cipher_algo);
@@ -837,32 +852,35 @@ setup_pkcs5_pbkdf2_params (const gchar *password, gsize n_password, const guchar
 	ret = TRUE;
 
 done:
+	if (salt != NULL)
+		egg_bytes_unref (salt);
 	egg_secure_free (key);
 	egg_asn1x_destroy (asn);
 	return ret;
 }
 
 static gboolean
-read_cipher_pkcs5_pbes2 (const gchar *password, gsize n_password, const guchar *data,
-                         gsize n_data, gcry_cipher_hd_t *cih)
+read_cipher_pkcs5_pbes2 (const gchar *password,
+                         gsize n_password,
+                         EggBytes *data,
+                         gcry_cipher_hd_t *cih)
 {
 	GNode *asn = NULL;
 	gboolean r, ret;
 	GQuark key_deriv_algo, enc_oid;
+	EggBytes *params = NULL;
 	gcry_error_t gcry;
 	int algo, mode;
-	gconstpointer params;
-	gsize n_params;
 
 	g_return_val_if_fail (cih != NULL, FALSE);
-	g_return_val_if_fail (data != NULL && n_data != 0, FALSE);
+	g_return_val_if_fail (data != NULL, FALSE);
 
 	init_quarks ();
 
 	*cih = NULL;
 	ret = FALSE;
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-5-PBES2-params", data, n_data);
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-5-PBES2-params", data);
 	if (!asn)
 		goto done;
 
@@ -893,17 +911,17 @@ read_cipher_pkcs5_pbes2 (const gchar *password, gsize n_password, const guchar *
 	}
 
 	/* Read out the parameters */
-	params = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "encryptionScheme", "parameters", NULL), &n_params);
+	params = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "encryptionScheme", "parameters", NULL));
 	if (!params)
 		goto done;
 
 	switch (algo) {
 	case GCRY_CIPHER_3DES:
 	case GCRY_CIPHER_DES:
-		r = setup_pkcs5_des_params (params, n_params, *cih);
+		r = setup_pkcs5_des_params (params, *cih);
 		break;
 	case GCRY_CIPHER_RFC2268_128:
-		r = setup_pkcs5_rc2_params (params, n_params, *cih);
+		r = setup_pkcs5_rc2_params (params, *cih);
 		break;
 	default:
 		/* Should have been caught on the oid check above */
@@ -924,11 +942,12 @@ read_cipher_pkcs5_pbes2 (const gchar *password, gsize n_password, const guchar *
 		goto done;
 	}
 
-	params = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "keyDerivationFunc", "parameters", NULL), &n_params);
+	egg_bytes_unref (params);
+	params = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "keyDerivationFunc", "parameters", NULL));
 	if (!params)
 		goto done;
 
-	ret = setup_pkcs5_pbkdf2_params (password, n_password, params, n_params, algo, *cih);
+	ret = setup_pkcs5_pbkdf2_params (password, n_password, params, algo, *cih);
 
 done:
 	if (ret != TRUE && *cih) {
@@ -936,20 +955,24 @@ done:
 		*cih = NULL;
 	}
 
+	if (params != NULL)
+		egg_bytes_unref (params);
 	egg_asn1x_destroy (asn);
 	return ret;
 }
 
 static gboolean
-read_cipher_pkcs12_pbe (int cipher_algo, int cipher_mode, const gchar *password,
-                        gsize n_password, const guchar *data, gsize n_data,
+read_cipher_pkcs12_pbe (int cipher_algo,
+                        int cipher_mode,
+                        const gchar *password,
+                        gsize n_password,
+                        EggBytes *data,
                         gcry_cipher_hd_t *cih)
 {
 	GNode *asn = NULL;
 	gcry_error_t gcry;
 	gboolean ret;
-	const guchar *salt;
-	gsize n_salt;
+	EggBytes *salt = NULL;
 	gsize n_block, n_key;
 	gulong iterations;
 	guchar *key = NULL;
@@ -957,7 +980,7 @@ read_cipher_pkcs12_pbe (int cipher_algo, int cipher_mode, const gchar *password,
 
 	g_return_val_if_fail (cipher_algo != 0 && cipher_mode != 0, FALSE);
 	g_return_val_if_fail (cih != NULL, FALSE);
-	g_return_val_if_fail (data != NULL && n_data != 0, FALSE);
+	g_return_val_if_fail (data != NULL, FALSE);
 
 	*cih = NULL;
 	ret = FALSE;
@@ -966,11 +989,11 @@ read_cipher_pkcs12_pbe (int cipher_algo, int cipher_mode, const gchar *password,
 	if (gcry_cipher_algo_info (cipher_algo, GCRYCTL_TEST_ALGO, NULL, 0) != 0)
 		goto done;
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-12-PbeParams", data, n_data);
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-12-PbeParams", data);
 	if (!asn)
 		goto done;
 
-	salt = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "salt", NULL), &n_salt);
+	salt = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "salt", NULL));
 	if (!salt)
 		goto done;
 	if (!egg_asn1x_get_integer_as_ulong (egg_asn1x_node (asn, "iterations", NULL), &iterations))
@@ -980,9 +1003,9 @@ read_cipher_pkcs12_pbe (int cipher_algo, int cipher_mode, const gchar *password,
 	n_key = gcry_cipher_get_algo_keylen (cipher_algo);
 
 	/* Generate IV and key using salt read above */
-	if (!egg_symkey_generate_pkcs12 (cipher_algo, GCRY_MD_SHA1, password,
-	                                        n_password, salt, n_salt, iterations, &key,
-	                                        n_block > 1 ? &iv : NULL))
+	if (!egg_symkey_generate_pkcs12 (cipher_algo, GCRY_MD_SHA1, password, n_password,
+	                                 egg_bytes_get_data (salt), egg_bytes_get_size (salt),
+	                                 iterations, &key, n_block > 1 ? &iv : NULL))
 		goto done;
 
 	gcry = gcry_cipher_open (cih, cipher_algo, cipher_mode, 0);
@@ -1003,6 +1026,8 @@ done:
 		*cih = NULL;
 	}
 
+	if (salt != NULL)
+		egg_bytes_unref (salt);
 	g_free (iv);
 	egg_secure_free (key);
 	egg_asn1x_destroy (asn);
@@ -1013,8 +1038,7 @@ static gboolean
 read_mac_pkcs12_pbe (int hash_algo,
                      const gchar *password,
                      gsize n_password,
-                     const guchar *data,
-                     gsize n_data,
+                     EggBytes *data,
                      gcry_md_hd_t *mdh,
                      gsize *digest_len)
 {
@@ -1022,14 +1046,13 @@ read_mac_pkcs12_pbe (int hash_algo,
 	gcry_error_t gcry;
 	gboolean ret;
 	gsize n_key;
-	const guchar *salt;
-	gsize n_salt;
+	EggBytes *salt = NULL;
 	gulong iterations;
 	guchar *key = NULL;
 
 	g_return_val_if_fail (hash_algo != 0, FALSE);
 	g_return_val_if_fail (mdh != NULL, FALSE);
-	g_return_val_if_fail (data != NULL && n_data != 0, FALSE);
+	g_return_val_if_fail (data != NULL, FALSE);
 
 	*mdh = NULL;
 	ret = FALSE;
@@ -1038,11 +1061,11 @@ read_mac_pkcs12_pbe (int hash_algo,
 	if (gcry_md_algo_info (hash_algo, GCRYCTL_TEST_ALGO, NULL, 0) != 0)
 		goto done;
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-12-MacData", data, n_data);
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-12-MacData", data);
 	if (!asn)
 		goto done;
 
-	salt = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "macSalt", NULL), &n_salt);
+	salt = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "macSalt", NULL));
 	if (!salt)
 		goto done;
 	if (!egg_asn1x_get_integer_as_ulong (egg_asn1x_node (asn, "iterations", NULL), &iterations))
@@ -1052,7 +1075,8 @@ read_mac_pkcs12_pbe (int hash_algo,
 
 	/* Generate IV and key using salt read above */
 	if (!egg_symkey_generate_pkcs12_mac (hash_algo, password, n_password,
-	                                     salt, n_salt, iterations, &key))
+	                                     egg_bytes_get_data (salt), egg_bytes_get_size (salt),
+	                                     iterations, &key))
 		goto done;
 
 	gcry = gcry_md_open (mdh, hash_algo, GCRY_MD_FLAG_HMAC);
@@ -1073,82 +1097,86 @@ done:
 		*mdh = NULL;
 	}
 
+	if (salt != NULL)
+		egg_bytes_unref (salt);
 	egg_secure_free (key);
 	egg_asn1x_destroy (asn);
 	return ret;
 }
 
 gboolean
-egg_symkey_read_cipher (GQuark oid_scheme, const gchar *password, gsize n_password,
-                        const guchar *data, gsize n_data, gcry_cipher_hd_t *cih)
+egg_symkey_read_cipher (GQuark oid_scheme,
+                        const gchar *password,
+                        gsize n_password,
+                        EggBytes *data,
+                        gcry_cipher_hd_t *cih)
 {
 	gboolean ret = FALSE;
 
 	g_return_val_if_fail (oid_scheme != 0, FALSE);
 	g_return_val_if_fail (cih != NULL, FALSE);
-	g_return_val_if_fail (data != NULL && n_data != 0, FALSE);
+	g_return_val_if_fail (data != NULL, FALSE);
 
 	init_quarks ();
 
 	/* PKCS#5 PBE */
 	if (oid_scheme == OID_PBE_MD2_DES_CBC)
 		ret = read_cipher_pkcs5_pbe (GCRY_CIPHER_DES, GCRY_CIPHER_MODE_CBC,
-		                             GCRY_MD_MD2, password, n_password, data, n_data, cih);
+		                             GCRY_MD_MD2, password, n_password, data, cih);
 
 	else if (oid_scheme == OID_PBE_MD2_RC2_CBC)
 		/* RC2-64 has no implementation in libgcrypt */;
 
 	else if (oid_scheme == OID_PBE_MD5_DES_CBC)
 		ret = read_cipher_pkcs5_pbe (GCRY_CIPHER_DES, GCRY_CIPHER_MODE_CBC,
-		                             GCRY_MD_MD5, password, n_password, data, n_data, cih);
+		                             GCRY_MD_MD5, password, n_password, data, cih);
 	else if (oid_scheme == OID_PBE_MD5_RC2_CBC)
 		/* RC2-64 has no implementation in libgcrypt */;
 
 	else if (oid_scheme == OID_PBE_SHA1_DES_CBC)
 		ret = read_cipher_pkcs5_pbe (GCRY_CIPHER_DES, GCRY_CIPHER_MODE_CBC,
-		                             GCRY_MD_SHA1, password, n_password, data, n_data, cih);
+		                             GCRY_MD_SHA1, password, n_password, data, cih);
 	else if (oid_scheme == OID_PBE_SHA1_RC2_CBC)
 		/* RC2-64 has no implementation in libgcrypt */;
 
 
 	/* PKCS#5 PBES2 */
 	else if (oid_scheme == OID_PBES2)
-		ret = read_cipher_pkcs5_pbes2 (password, n_password, data, n_data, cih);
+		ret = read_cipher_pkcs5_pbes2 (password, n_password, data, cih);
 
 
 	/* PKCS#12 PBE */
 	else if (oid_scheme == OID_PKCS12_PBE_ARCFOUR_SHA1)
 		ret = read_cipher_pkcs12_pbe (GCRY_CIPHER_ARCFOUR, GCRY_CIPHER_MODE_STREAM,
-		                              password, n_password, data, n_data, cih);
+		                              password, n_password, data, cih);
 	else if (oid_scheme == OID_PKCS12_PBE_RC4_40_SHA1)
 		/* RC4-40 has no implementation in libgcrypt */;
 
 	else if (oid_scheme == OID_PKCS12_PBE_3DES_SHA1)
 		ret = read_cipher_pkcs12_pbe (GCRY_CIPHER_3DES, GCRY_CIPHER_MODE_CBC,
-		                              password, n_password, data, n_data, cih);
+		                              password, n_password, data, cih);
 	else if (oid_scheme == OID_PKCS12_PBE_2DES_SHA1)
 		/* 2DES has no implementation in libgcrypt */;
 
 	else if (oid_scheme == OID_PKCS12_PBE_RC2_128_SHA1)
 		ret = read_cipher_pkcs12_pbe (GCRY_CIPHER_RFC2268_128, GCRY_CIPHER_MODE_CBC,
-		                              password, n_password, data, n_data, cih);
+		                              password, n_password, data, cih);
 
 	else if (oid_scheme == OID_PKCS12_PBE_RC2_40_SHA1)
 		ret = read_cipher_pkcs12_pbe (GCRY_CIPHER_RFC2268_40, GCRY_CIPHER_MODE_CBC,
-		                              password, n_password, data, n_data, cih);
+		                              password, n_password, data, cih);
 
 	if (ret == FALSE)
-    		g_message ("unsupported or invalid cipher: %s", g_quark_to_string (oid_scheme));
+		g_message ("unsupported or invalid cipher: %s", g_quark_to_string (oid_scheme));
 
-    	return ret;
+	return ret;
 }
 
 gboolean
 egg_symkey_read_mac (GQuark oid_scheme,
                      const gchar *password,
                      gsize n_password,
-                     const guchar *data,
-                     gsize n_data,
+                     EggBytes *data,
                      gcry_md_hd_t *mdh,
                      gsize *digest_len)
 {
@@ -1156,17 +1184,18 @@ egg_symkey_read_mac (GQuark oid_scheme,
 
 	g_return_val_if_fail (oid_scheme != 0, FALSE);
 	g_return_val_if_fail (mdh != NULL, FALSE);
-	g_return_val_if_fail (data != NULL && n_data != 0, FALSE);
+	g_return_val_if_fail (data != NULL, FALSE);
 
 	init_quarks ();
 
 	/* PKCS#12 MAC with SHA-1 */
 	if (oid_scheme == OID_SHA1)
 		ret = read_mac_pkcs12_pbe (GCRY_MD_SHA1, password, n_password,
-		                           data, n_data, mdh, digest_len);
+		                           data, mdh, digest_len);
 
 	if (ret == FALSE)
 		g_message ("unsupported or invalid mac: %s", g_quark_to_string (oid_scheme));
 
+	egg_bytes_unref (data);
 	return ret;
 }

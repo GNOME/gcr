@@ -32,17 +32,17 @@
 
 #include <gck/gck.h>
 
+#include <egg/egg-bytes.h>
+
 G_BEGIN_DECLS
 
 typedef void             (*GcrOpensshPubCallback)          (GckAttributes *attrs,
                                                             const gchar *label,
                                                             const gchar *options,
-                                                            const gchar *outer,
-                                                            gsize n_outer,
+                                                            EggBytes *outer,
                                                             gpointer user_data);
 
-guint                    _gcr_openssh_pub_parse            (gconstpointer data,
-                                                            gsize n_data,
+guint                    _gcr_openssh_pub_parse            (EggBytes *data,
                                                             GcrOpensshPubCallback callback,
                                                             gpointer user_data);
 

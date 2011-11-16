@@ -202,10 +202,12 @@ done:
 	return success;
 }
 
-gboolean
-egg_openssl_decrypt_block (const gchar *dekinfo, const gchar *password,
-                           gssize n_password, const guchar *data, gsize n_data,
-                           guchar **decrypted, gsize *n_decrypted)
+guchar *
+egg_openssl_decrypt_block (const gchar *dekinfo,
+                           const gchar *password,
+                           gssize n_password,
+                           EggBytes *data,
+                           gsize *n_decrypted)
 {
 	gcry_cipher_hd_t ch;
 	guchar *key = NULL;
@@ -213,6 +215,7 @@ egg_openssl_decrypt_block (const gchar *dekinfo, const gchar *password,
 	int gcry, ivlen;
 	int algo = 0;
 	int mode = 0;
+	guchar *decrypted;
 
 	if (!parse_dekinfo (dekinfo, &algo, &mode, &iv))
 		return FALSE;
@@ -224,43 +227,46 @@ egg_openssl_decrypt_block (const gchar *dekinfo, const gchar *password,
 
 	/* IV is already set from the DEK info */
 	if (!egg_symkey_generate_simple (algo, GCRY_MD_MD5, password,
-	                                        n_password, iv, 8, 1, &key, NULL)) {
+	                                 n_password, iv, 8, 1, &key, NULL)) {
 		g_free (iv);
-		return FALSE;
+		return NULL;
 	}
 
-	/* TODO: Use secure memory */
 	gcry = gcry_cipher_open (&ch, algo, mode, 0);
-	g_return_val_if_fail (!gcry, FALSE);
+	g_return_val_if_fail (!gcry, NULL);
 
 	gcry = gcry_cipher_setkey (ch, key, gcry_cipher_get_algo_keylen (algo));
-	g_return_val_if_fail (!gcry, FALSE);
+	g_return_val_if_fail (!gcry, NULL);
 	egg_secure_free (key);
 
 	/* 16 = 128 bits */
 	gcry = gcry_cipher_setiv (ch, iv, ivlen);
-	g_return_val_if_fail (!gcry, FALSE);
+	g_return_val_if_fail (!gcry, NULL);
 	g_free (iv);
 
 	/* Allocate output area */
-	*n_decrypted = n_data;
-	*decrypted = egg_secure_alloc (n_data);
+	*n_decrypted = egg_bytes_get_size (data);
+	decrypted = egg_secure_alloc (*n_decrypted);
 
-	gcry = gcry_cipher_decrypt (ch, *decrypted, *n_decrypted, (void*)data, n_data);
+	gcry = gcry_cipher_decrypt (ch, decrypted, *n_decrypted,
+	                            egg_bytes_get_data (data),
+	                            egg_bytes_get_size (data));
 	if (gcry) {
-		egg_secure_free (*decrypted);
-		g_return_val_if_reached (FALSE);
+		egg_secure_free (decrypted);
+		g_return_val_if_reached (NULL);
 	}
 
 	gcry_cipher_close (ch);
 
-	return TRUE;
+	return decrypted;
 }
 
-gboolean
-egg_openssl_encrypt_block (const gchar *dekinfo, const gchar *password,
-                                gssize n_password, const guchar *data, gsize n_data,
-                                guchar **encrypted, gsize *n_encrypted)
+guchar *
+egg_openssl_encrypt_block (const gchar *dekinfo,
+                           const gchar *password,
+                           gssize n_password,
+                           EggBytes *data,
+                           gsize *n_encrypted)
 {
 	gsize n_overflow, n_batch, n_padding;
 	gcry_cipher_hd_t ch;
@@ -270,65 +276,71 @@ egg_openssl_encrypt_block (const gchar *dekinfo, const gchar *password,
 	int gcry, ivlen;
 	int algo = 0;
 	int mode = 0;
+	gsize n_data;
+	guchar *encrypted;
+	const guchar *dat;
 
 	if (!parse_dekinfo (dekinfo, &algo, &mode, &iv))
-		g_return_val_if_reached (FALSE);
+		g_return_val_if_reached (NULL);
 
 	ivlen = gcry_cipher_get_algo_blklen (algo);
 
 	/* We assume the iv is at least as long as at 8 byte salt */
-	g_return_val_if_fail (ivlen >= 8, FALSE);
+	g_return_val_if_fail (ivlen >= 8, NULL);
 
 	/* IV is already set from the DEK info */
 	if (!egg_symkey_generate_simple (algo, GCRY_MD_MD5, password,
 	                                        n_password, iv, 8, 1, &key, NULL))
-		g_return_val_if_reached (FALSE);
+		g_return_val_if_reached (NULL);
 
 	gcry = gcry_cipher_open (&ch, algo, mode, 0);
-	g_return_val_if_fail (!gcry, FALSE);
+	g_return_val_if_fail (!gcry, NULL);
 
 	gcry = gcry_cipher_setkey (ch, key, gcry_cipher_get_algo_keylen (algo));
-	g_return_val_if_fail (!gcry, FALSE);
+	g_return_val_if_fail (!gcry, NULL);
 	egg_secure_free (key);
 
 	/* 16 = 128 bits */
 	gcry = gcry_cipher_setiv (ch, iv, ivlen);
-	g_return_val_if_fail (!gcry, FALSE);
+	g_return_val_if_fail (!gcry, NULL);
 	g_free (iv);
+
+	dat = egg_bytes_get_data (data);
+	n_data = egg_bytes_get_size (data);
 
 	/* Allocate output area */
 	n_overflow = (n_data % ivlen);
 	n_padding = n_overflow ? (ivlen - n_overflow) : 0;
 	n_batch = n_data - n_overflow;
 	*n_encrypted = n_data + n_padding;
-	*encrypted = g_malloc0 (*n_encrypted);
+	encrypted = g_malloc0 (*n_encrypted);
 
 	g_assert (*n_encrypted % ivlen == 0);
 	g_assert (*n_encrypted >= n_data);
 	g_assert (*n_encrypted == n_batch + n_overflow + n_padding);
 
 	/* Encrypt everything but the last bit */
-	gcry = gcry_cipher_encrypt (ch, *encrypted, n_batch, (void*)data, n_batch);
+	gcry = gcry_cipher_encrypt (ch, encrypted, n_batch, dat, n_batch);
 	if (gcry) {
-		g_free (*encrypted);
-		g_return_val_if_reached (FALSE);
+		g_free (encrypted);
+		g_return_val_if_reached (NULL);
 	}
 
 	/* Encrypt the padded block */
 	if (n_overflow) {
 		padded = egg_secure_alloc (ivlen);
 		memset (padded, 0, ivlen);
-		memcpy (padded, data + n_batch, n_overflow);
-		gcry = gcry_cipher_encrypt (ch, *encrypted + n_batch, ivlen, padded, ivlen);
+		memcpy (padded, dat + n_batch, n_overflow);
+		gcry = gcry_cipher_encrypt (ch, encrypted + n_batch, ivlen, padded, ivlen);
 		egg_secure_free (padded);
 		if (gcry) {
-			g_free (*encrypted);
-			g_return_val_if_reached (FALSE);
+			g_free (encrypted);
+			g_return_val_if_reached (NULL);
 		}
 	}
 
 	gcry_cipher_close (ch);
-	return TRUE;
+	return encrypted;
 }
 
 const gchar*

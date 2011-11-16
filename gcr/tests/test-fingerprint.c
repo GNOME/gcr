@@ -39,49 +39,43 @@
 #include <errno.h>
 
 typedef struct {
-	gpointer cert_rsa;
-	gsize n_cert_rsa;
-	gpointer key_rsa;
-	gsize n_key_rsa;
-	gpointer cert_dsa;
-	gsize n_cert_dsa;
-	gpointer key_dsa;
-	gsize n_key_dsa;
+	EggBytes *cert_rsa;
+	EggBytes *key_rsa;
+	EggBytes *cert_dsa;
+	EggBytes *key_dsa;
 } Test;
 
 static void
 setup (Test *test, gconstpointer unused)
 {
 	GError *error = NULL;
+	gchar *contents;
+	gsize length;
 
-	g_file_get_contents (SRCDIR "/files/client.crt", (gchar**)&test->cert_rsa,
-	                     &test->n_cert_rsa, &error);
+	g_file_get_contents (SRCDIR "/files/client.crt", &contents, &length, &error);
 	g_assert_no_error (error);
-	g_assert (test->cert_rsa);
+	test->cert_rsa = egg_bytes_new_take (contents, length);
 
-	g_file_get_contents (SRCDIR "/files/client.key", (gchar**)&test->key_rsa,
-	                     &test->n_key_rsa, &error);
+	g_file_get_contents (SRCDIR "/files/client.key", &contents, &length, &error);
 	g_assert_no_error (error);
-	g_assert (test->key_rsa);
+	test->key_rsa = egg_bytes_new_take (contents, length);
 
-	g_file_get_contents (SRCDIR "/files/generic-dsa.crt", (gchar**)&test->cert_dsa,
-	                     &test->n_cert_dsa, &error);
+	g_file_get_contents (SRCDIR "/files/generic-dsa.crt", &contents, &length, &error);
 	g_assert_no_error (error);
-	g_assert (test->cert_dsa);
+	test->cert_dsa = egg_bytes_new_take (contents, length);
 
-	g_file_get_contents (SRCDIR "/files/generic-dsa.key", (gchar**)&test->key_dsa,
-	                     &test->n_key_dsa, &error);
+	g_file_get_contents (SRCDIR "/files/generic-dsa.key", &contents, &length, &error);
 	g_assert_no_error (error);
-	g_assert (test->key_dsa);
+	test->key_dsa = egg_bytes_new_take (contents, length);
 }
 
 static void
 teardown (Test *test, gconstpointer unused)
 {
-	g_free (test->cert_rsa);
-	g_free (test->key_rsa);
-	g_free (test->cert_dsa);
-	g_free (test->key_dsa);
+	egg_bytes_unref (test->cert_rsa);
+	egg_bytes_unref (test->key_rsa);
+	egg_bytes_unref (test->cert_dsa);
+	egg_bytes_unref (test->key_dsa);
 }
 
 static void
@@ -96,7 +90,7 @@ on_parser_parsed (GcrParser *parser,
 }
 
 static GckAttributes*
-parse_attributes_for_key (gpointer data, gsize n_data)
+parse_attributes_for_key (EggBytes *data)
 {
 	GcrParser *parser;
 	GckAttributes *attrs = NULL;
@@ -104,7 +98,8 @@ parse_attributes_for_key (gpointer data, gsize n_data)
 
 	parser = gcr_parser_new ();
 	g_signal_connect (parser, "parsed", G_CALLBACK (on_parser_parsed), &attrs);
-	gcr_parser_parse_data (parser, data, n_data, &error);
+	gcr_parser_parse_data (parser, egg_bytes_get_data (data),
+	                       egg_bytes_get_size (data), &error);
 	g_assert_no_error (error);
 	g_object_unref (parser);
 
@@ -113,30 +108,30 @@ parse_attributes_for_key (gpointer data, gsize n_data)
 }
 
 static GckAttributes *
-build_attributes_for_cert (guchar *data,
-                           gsize n_data)
+build_attributes_for_cert (EggBytes *data)
 {
 	GckAttributes *attrs;
 
 	attrs = gck_attributes_new ();
-	gck_attributes_add_data (attrs, CKA_VALUE, data, n_data);
+	gck_attributes_add_data (attrs, CKA_VALUE, egg_bytes_get_data (data),
+	                         egg_bytes_get_size (data));
 	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_CERTIFICATE);
 	gck_attributes_add_ulong (attrs, CKA_CERTIFICATE_TYPE, CKC_X_509);
 
 	return attrs;
 }
 
-static gconstpointer
-parse_subject_public_key_info_for_cert (gpointer data, gsize n_data, gsize *n_info)
+static EggBytes *
+parse_subject_public_key_info_for_cert (EggBytes *data)
 {
-	gconstpointer info;
+	EggBytes *info;
 	GNode *asn;
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate", data, n_data);
-	g_assert (asn);
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate", data);
+	g_assert (asn != NULL);
 
-	info = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "tbsCertificate", "subjectPublicKeyInfo", NULL), n_info);
-	g_assert (info);
+	info = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "tbsCertificate", "subjectPublicKeyInfo", NULL));
+	g_assert (info != NULL);
 
 	egg_asn1x_destroy (asn);
 	return info;
@@ -146,16 +141,17 @@ static void
 test_rsa (Test *test, gconstpointer unused)
 {
 	GckAttributes *key, *cert;
-	gconstpointer info;
-	gsize n_info;
+	EggBytes *info;
 	guchar *fingerprint1, *fingerprint2, *fingerprint3;
 	gsize n_fingerprint1, n_fingerprint2, n_fingerprint3;
 
-	key = parse_attributes_for_key (test->key_rsa, test->n_key_rsa);
-	info = parse_subject_public_key_info_for_cert (test->cert_rsa, test->n_cert_rsa, &n_info);
-	cert = build_attributes_for_cert (test->cert_rsa, test->n_cert_rsa);
+	key = parse_attributes_for_key (test->key_rsa);
+	info = parse_subject_public_key_info_for_cert (test->cert_rsa);
+	cert = build_attributes_for_cert (test->cert_rsa);
 
-	fingerprint1 = gcr_fingerprint_from_subject_public_key_info (info, n_info, G_CHECKSUM_SHA1, &n_fingerprint1);
+	fingerprint1 = gcr_fingerprint_from_subject_public_key_info (egg_bytes_get_data (info),
+	                                                             egg_bytes_get_size (info),
+	                                                             G_CHECKSUM_SHA1, &n_fingerprint1);
 	fingerprint2 = gcr_fingerprint_from_attributes (key, G_CHECKSUM_SHA1, &n_fingerprint2);
 	fingerprint3 = gcr_fingerprint_from_attributes (cert, G_CHECKSUM_SHA1, &n_fingerprint3);
 
@@ -166,6 +162,7 @@ test_rsa (Test *test, gconstpointer unused)
 	g_free (fingerprint2);
 	g_free (fingerprint3);
 
+	egg_bytes_unref (info);
 	gck_attributes_unref (key);
 	gck_attributes_unref (cert);
 }
@@ -174,16 +171,17 @@ static void
 test_dsa (Test *test, gconstpointer unused)
 {
 	GckAttributes *key, *cert;
-	gconstpointer info;
-	gsize n_info;
+	EggBytes *info;
 	guchar *fingerprint1, *fingerprint2, *fingerprint3;
 	gsize n_fingerprint1, n_fingerprint2, n_fingerprint3;
 
-	key = parse_attributes_for_key (test->key_dsa, test->n_key_dsa);
-	info = parse_subject_public_key_info_for_cert (test->cert_dsa, test->n_cert_dsa, &n_info);
-	cert = build_attributes_for_cert (test->cert_dsa, test->n_cert_dsa);
+	key = parse_attributes_for_key (test->key_dsa);
+	info = parse_subject_public_key_info_for_cert (test->cert_dsa);
+	cert = build_attributes_for_cert (test->cert_dsa);
 
-	fingerprint1 = gcr_fingerprint_from_subject_public_key_info (info, n_info, G_CHECKSUM_SHA1, &n_fingerprint1);
+	fingerprint1 = gcr_fingerprint_from_subject_public_key_info (egg_bytes_get_data (info),
+	                                                             egg_bytes_get_size (info),
+	                                                             G_CHECKSUM_SHA1, &n_fingerprint1);
 	fingerprint2 = gcr_fingerprint_from_attributes (key, G_CHECKSUM_SHA1, &n_fingerprint2);
 	fingerprint3 = gcr_fingerprint_from_attributes (cert, G_CHECKSUM_SHA1, &n_fingerprint3);
 
@@ -194,6 +192,7 @@ test_dsa (Test *test, gconstpointer unused)
 	g_free (fingerprint2);
 	g_free (fingerprint3);
 
+	egg_bytes_unref (info);
 	gck_attributes_unref (key);
 	gck_attributes_unref (cert);
 }

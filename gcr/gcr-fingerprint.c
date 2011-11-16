@@ -91,10 +91,11 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs, GNode *info_asn)
 {
 	GckAttribute *modulus;
 	GckAttribute *exponent;
+	EggBytes *key;
+	EggBytes *params;
 	GNode *key_asn;
 	GNode *params_asn;
-	gpointer key, params;
-	gsize n_key, n_params;
+	EggBytes *usg;
 
 	_gcr_oids_init ();
 
@@ -109,27 +110,34 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs, GNode *info_asn)
 	params_asn = egg_asn1x_create (pk_asn1_tab, "RSAParameters");
 	g_return_val_if_fail (params_asn, FALSE);
 
-	egg_asn1x_set_integer_as_usg (egg_asn1x_node (key_asn, "modulus", NULL),
-	                              modulus->value, modulus->length, NULL);
+	usg = egg_bytes_new_with_free_func (modulus->value, modulus->length,
+	                                    gck_attributes_unref,
+	                                    gck_attributes_ref (attrs));
+	egg_asn1x_set_integer_as_usg (egg_asn1x_node (key_asn, "modulus", NULL), usg);
+	egg_bytes_unref (usg);
 
-	egg_asn1x_set_integer_as_usg (egg_asn1x_node (key_asn, "publicExponent", NULL),
-	                              exponent->value, exponent->length, NULL);
+	usg = egg_bytes_new_with_free_func (exponent->value, exponent->length,
+	                                    gck_attributes_unref,
+	                                    gck_attributes_ref (attrs));
+	egg_asn1x_set_integer_as_usg (egg_asn1x_node (key_asn, "publicExponent", NULL), usg);
+	egg_bytes_unref (usg);
 
-	key = egg_asn1x_encode (key_asn, g_realloc, &n_key);
+	key = egg_asn1x_encode (key_asn, NULL);
 	egg_asn1x_destroy (key_asn);
 
 	egg_asn1x_set_null (params_asn);
 
-	params = egg_asn1x_encode (params_asn, g_realloc, &n_params);
+	params = egg_asn1x_encode (params_asn, g_realloc);
 	egg_asn1x_destroy (params_asn);
 
 	egg_asn1x_set_bits_as_raw (egg_asn1x_node (info_asn, "subjectPublicKey", NULL),
-	                           key, n_key * 8, g_free);
+	                           key, egg_bytes_get_size (key) * 8);
 
 	egg_asn1x_set_oid_as_quark (egg_asn1x_node (info_asn, "algorithm", "algorithm", NULL), GCR_OID_PKIX1_RSA);
-	egg_asn1x_set_raw_element (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL),
-	                           params, n_params, g_free);
+	egg_asn1x_set_raw_element (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params);
 
+	egg_bytes_unref (key);
+	egg_bytes_unref (params);
 	return TRUE;
 }
 
@@ -161,7 +169,8 @@ dsa_subject_public_key_from_private (GNode *key_asn, GckAttribute *ap,
 
 	gcry = gcry_mpi_aprint (GCRYMPI_FMT_STD, &buffer, &n_buffer, my);
 	g_return_val_if_fail (gcry == 0, FALSE);
-	egg_asn1x_set_integer_as_raw (key_asn, buffer, n_buffer, gcry_free);
+	egg_asn1x_take_integer_as_raw (key_asn, egg_bytes_new_with_free_func (buffer, n_buffer,
+	                                                                      gcry_free, buffer));
 
 	gcry_mpi_release (mp);
 	gcry_mpi_release (mq);
@@ -179,8 +188,8 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 {
 	GckAttribute *value, *g, *q, *p;
 	GNode *key_asn, *params_asn;
-	gpointer key, params;
-	gsize n_key, n_params;
+	EggBytes *key;
+	EggBytes *params;
 
 	_gcr_oids_init ();
 
@@ -198,9 +207,18 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	params_asn = egg_asn1x_create (pk_asn1_tab, "DSAParameters");
 	g_return_val_if_fail (params_asn, FALSE);
 
-	egg_asn1x_set_integer_as_usg (egg_asn1x_node (params_asn, "p", NULL), p->value, p->length, NULL);
-	egg_asn1x_set_integer_as_usg (egg_asn1x_node (params_asn, "q", NULL), q->value, q->length, NULL);
-	egg_asn1x_set_integer_as_usg (egg_asn1x_node (params_asn, "g", NULL), g->value, g->length, NULL);
+	egg_asn1x_take_integer_as_usg (egg_asn1x_node (params_asn, "p", NULL),
+	                               egg_bytes_new_with_free_func (p->value, p->length,
+	                                                             gck_attributes_unref,
+	                                                             gck_attributes_ref (attrs)));
+	egg_asn1x_take_integer_as_usg (egg_asn1x_node (params_asn, "q", NULL),
+	                               egg_bytes_new_with_free_func (q->value, q->length,
+	                                                             gck_attributes_unref,
+	                                                             gck_attributes_ref (attrs)));
+	egg_asn1x_take_integer_as_usg (egg_asn1x_node (params_asn, "g", NULL),
+	                               egg_bytes_new_with_free_func (g->value, g->length,
+	                                                             gck_attributes_unref,
+	                                                             gck_attributes_ref (attrs)));
 
 	/* Are these attributes for a public or private key? */
 	if (klass == CKO_PRIVATE_KEY) {
@@ -210,25 +228,29 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 			g_return_val_if_reached (FALSE);
 
 	} else if (klass == CKO_PUBLIC_KEY) {
-		egg_asn1x_set_integer_as_usg (key_asn, value->value, value->length, NULL);
+		egg_asn1x_take_integer_as_usg (key_asn,
+		                               egg_bytes_new_with_free_func (value->value, value->length,
+		                                                             gck_attributes_unref,
+		                                                             gck_attributes_ref (attrs)));
 
 	} else {
 		g_assert_not_reached ();
 	}
 
-	key = egg_asn1x_encode (key_asn, g_realloc, &n_key);
+	key = egg_asn1x_encode (key_asn, NULL);
 	egg_asn1x_destroy (key_asn);
 
-	params = egg_asn1x_encode (params_asn, g_realloc, &n_params);
+	params = egg_asn1x_encode (params_asn, NULL);
 	egg_asn1x_destroy (params_asn);
 
-	egg_asn1x_set_bits_as_raw (egg_asn1x_node (info_asn, "subjectPublicKey", NULL),
-	                           key, n_key * 8, g_free);
-	egg_asn1x_set_raw_element (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL),
-	                           params, n_params, g_free);
+	egg_asn1x_take_bits_as_raw (egg_asn1x_node (info_asn, "subjectPublicKey", NULL),
+	                            key, egg_bytes_get_size (key) * 8);
+	egg_asn1x_set_raw_element (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params);
 
 	egg_asn1x_set_oid_as_quark (egg_asn1x_node (info_asn, "algorithm", "algorithm", NULL), GCR_OID_PKIX1_DSA);
 
+	egg_bytes_unref (key);
+	egg_bytes_unref (params);
 	return TRUE;
 }
 
@@ -241,9 +263,8 @@ fingerprint_from_key_attributes (GckAttributes *attrs,
 	gpointer fingerprint = NULL;
 	gboolean ret = FALSE;
 	GNode *info_asn;
-	gpointer info;
+	EggBytes *info;
 	gulong key_type;
-	gsize n_info;
 
 	if (!gck_attributes_find_ulong (attrs, CKA_KEY_TYPE, &key_type))
 		return NULL;
@@ -261,11 +282,12 @@ fingerprint_from_key_attributes (GckAttributes *attrs,
 		ret = FALSE;
 
 	if (ret) {
-		info = egg_asn1x_encode (info_asn, g_realloc, &n_info);
-		fingerprint = gcr_fingerprint_from_subject_public_key_info (info, n_info,
+		info = egg_asn1x_encode (info_asn, NULL);
+		fingerprint = gcr_fingerprint_from_subject_public_key_info (egg_bytes_get_data (info),
+		                                                            egg_bytes_get_size (info),
 		                                                            checksum_type,
 		                                                            n_fingerprint);
-		g_free (info);
+		egg_bytes_unref (info);
 	}
 
 	egg_asn1x_destroy (info_asn);
@@ -273,25 +295,23 @@ fingerprint_from_key_attributes (GckAttributes *attrs,
 }
 
 static guchar *
-fingerprint_from_cert_value (const guchar *der_data,
-                             gsize n_der_data,
+fingerprint_from_cert_value (EggBytes *der_data,
                              GChecksumType checksum_type,
                              gsize *n_fingerprint)
 {
 	guchar *fingerprint;
 	GNode *cert_asn;
-	gconstpointer info;
-	gsize n_info;
+	EggBytes *info;
 
-	cert_asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate",
-	                                        der_data, n_der_data);
+	cert_asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate", der_data);
 	if (cert_asn == NULL)
 		return NULL;
 
-	info = egg_asn1x_get_raw_element (egg_asn1x_node (cert_asn, "tbsCertificate", "subjectPublicKeyInfo", NULL), &n_info);
+	info = egg_asn1x_get_raw_element (egg_asn1x_node (cert_asn, "tbsCertificate", "subjectPublicKeyInfo", NULL));
 	g_return_val_if_fail (info != NULL, NULL);
 
-	fingerprint = gcr_fingerprint_from_subject_public_key_info (info, n_info,
+	fingerprint = gcr_fingerprint_from_subject_public_key_info (egg_bytes_get_data (info),
+	                                                            egg_bytes_get_size (info),
 	                                                            checksum_type,
 	                                                            n_fingerprint);
 
@@ -305,13 +325,20 @@ fingerprint_from_cert_attributes (GckAttributes *attrs,
                                   gsize *n_fingerprint)
 {
 	GckAttribute *attr;
+	EggBytes *bytes;
+	guchar *fingerprint;
 
 	attr = gck_attributes_find (attrs, CKA_VALUE);
 	if (attr == NULL)
 		return NULL;
 
-	return fingerprint_from_cert_value (attr->value, attr->length, checksum_type,
-	                                    n_fingerprint);
+	bytes = egg_bytes_new_with_free_func (attr->value, attr->length,
+	                                      gck_attributes_unref,
+	                                      gck_attributes_ref (attrs));
+	fingerprint = fingerprint_from_cert_value (bytes, checksum_type, n_fingerprint);
+
+	egg_bytes_unref (bytes);
+	return fingerprint;
 }
 
 /**
@@ -373,12 +400,18 @@ gcr_fingerprint_from_certificate_public_key (GcrCertificate *certificate,
 {
 	const guchar *der_data;
 	gsize n_der_data;
+	EggBytes *bytes;
+	guchar *fingerprint;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (certificate), NULL);
 
 	der_data = gcr_certificate_get_der_data (certificate, &n_der_data);
 	g_return_val_if_fail (der_data != NULL, NULL);
 
-	return fingerprint_from_cert_value (der_data, n_der_data, checksum_type,
-	                                    n_fingerprint);
+	bytes = egg_bytes_new_with_free_func (der_data, n_der_data, g_object_unref,
+	                                      g_object_ref (certificate));
+	fingerprint = fingerprint_from_cert_value (bytes, checksum_type, n_fingerprint);
+	egg_bytes_unref (bytes);
+
+	return fingerprint;
 }

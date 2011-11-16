@@ -53,8 +53,8 @@ setup (Test *test, gconstpointer unused)
 	GckAttributes *attrs;
 	CK_FUNCTION_LIST_PTR f;
 	GckModule *module;
-	gconstpointer subject;
-	gsize n_subject;
+	EggBytes *subject;
+	EggBytes *bytes;
 	GNode *asn, *node;
 	CK_RV rv;
 
@@ -82,20 +82,24 @@ setup (Test *test, gconstpointer unused)
 	gcr_pkcs11_set_modules (modules);
 	gck_list_unref_free (modules);
 
-	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate",
-	                                   test->cert_data, test->n_cert_data);
+	bytes = egg_bytes_new_static (test->cert_data, test->n_cert_data);
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate", bytes);
 	g_assert (asn);
 	node = egg_asn1x_node (asn, "tbsCertificate", "subject", NULL);
-	subject = egg_asn1x_get_raw_element (node, &n_subject);
+	subject = egg_asn1x_get_raw_element (node);
 
 	/* Add a certificate to the module */
 	attrs = gck_attributes_new ();
 	gck_attributes_add_data (attrs, CKA_VALUE, test->cert_data, test->n_cert_data);
 	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_CERTIFICATE);
 	gck_attributes_add_ulong (attrs, CKA_CERTIFICATE_TYPE, CKC_X_509);
-	gck_attributes_add_data (attrs, CKA_SUBJECT, subject, n_subject);
+	gck_attributes_add_data (attrs, CKA_SUBJECT,
+	                         egg_bytes_get_data (subject),
+	                         egg_bytes_get_size (subject));
 	gck_mock_module_take_object (attrs);
 
+	egg_bytes_unref (bytes);
+	egg_bytes_unref (subject);
 	egg_asn1x_destroy (asn);
 }
 

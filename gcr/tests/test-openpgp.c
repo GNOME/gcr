@@ -240,15 +240,14 @@ compare_fixture_with_records (const gchar *fixture,
 
 static void
 on_openpgp_packet  (GPtrArray *records,
-                    const guchar *outer,
-                    gsize n_outer,
+                    EggBytes *outer,
                     gpointer user_data)
 {
 	Test *test = user_data;
 	guint seen;
 
 	/* Should be parseable again */
-	seen = _gcr_openpgp_parse (outer, n_outer, test->fixture->flags |
+	seen = _gcr_openpgp_parse (outer, test->fixture->flags |
 	                           GCR_OPENPGP_PARSE_NO_RECORDS, NULL, NULL);
 	g_assert_cmpuint (seen, ==, 1);
 
@@ -263,10 +262,8 @@ on_openpgp_packet  (GPtrArray *records,
 
 static void
 on_armor_parsed (GQuark type,
-                 const guchar *data,
-                 gsize n_data,
-                 const gchar *outer,
-                 gsize n_outer,
+                 EggBytes *data,
+                 EggBytes *outer,
                  GHashTable *headers,
                  gpointer user_data)
 {
@@ -279,7 +276,7 @@ on_armor_parsed (GQuark type,
 		g_assert_cmpstr (value, ==, test->fixture->version);
 	}
 
-	seen = _gcr_openpgp_parse (data, n_data, test->fixture->flags,
+	seen = _gcr_openpgp_parse (data, test->fixture->flags,
 	                           on_openpgp_packet, test);
 	g_assert_cmpuint (seen, >, 0);
 
@@ -294,6 +291,7 @@ test_openpgp_armor (Test *test,
                     gconstpointer data)
 {
 	GError *error = NULL;
+	EggBytes *bytes;
 	gchar *armor;
 	gsize length;
 	guint parts;
@@ -301,10 +299,11 @@ test_openpgp_armor (Test *test,
 	g_file_get_contents (test->fixture->filename, &armor, &length, &error);
 	g_assert_no_error (error);
 
-	parts = egg_armor_parse (armor, length, on_armor_parsed, test);
+	bytes = egg_bytes_new_take (armor, length);
+	parts = egg_armor_parse (bytes, on_armor_parsed, test);
 	g_assert_cmpuint (parts, ==, 1);
 
-	g_free (armor);
+	egg_bytes_unref (bytes);
 }
 
 static void
@@ -312,6 +311,7 @@ test_openpgp_binary (Test *test,
                      gconstpointer data)
 {
 	GError *error = NULL;
+	EggBytes *bytes;
 	gchar *binary;
 	gsize length;
 	guint seen;
@@ -319,8 +319,8 @@ test_openpgp_binary (Test *test,
 	g_file_get_contents (test->fixture->filename, &binary, &length, &error);
 	g_assert_no_error (error);
 
-	seen = _gcr_openpgp_parse (binary, length, test->fixture->flags,
-	                           on_openpgp_packet, test);
+	bytes = egg_bytes_new_take (binary, length);
+	seen = _gcr_openpgp_parse (bytes, test->fixture->flags, on_openpgp_packet, test);
 	g_assert_cmpuint (seen, >, 0);
 
 	if (*(test->at) != NULL) {
@@ -328,7 +328,7 @@ test_openpgp_binary (Test *test,
 		g_assert_not_reached ();
 	}
 
-	g_free (binary);
+	egg_bytes_unref (binary);
 }
 
 int

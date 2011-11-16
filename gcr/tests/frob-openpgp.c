@@ -31,8 +31,7 @@
 
 static void
 on_packet_print_records (GPtrArray *records,
-                         const guchar *packet,
-                         gsize n_packet,
+                         EggBytes *packet,
                          gpointer user_data)
 {
 	gchar *string;
@@ -46,12 +45,11 @@ on_packet_print_records (GPtrArray *records,
 }
 
 static gboolean
-parse_binary (gconstpointer contents,
-              gsize length)
+parse_binary (EggBytes *contents)
 {
 	guint packets;
 
-	packets = _gcr_openpgp_parse (contents, length,
+	packets = _gcr_openpgp_parse (contents,
 	                              GCR_OPENPGP_PARSE_KEYS |
 	                              GCR_OPENPGP_PARSE_ATTRIBUTES,
 	                              on_packet_print_records, NULL);
@@ -61,10 +59,8 @@ parse_binary (gconstpointer contents,
 
 static void
 on_armor_parsed (GQuark type,
-                 const guchar *data,
-                 gsize n_data,
-                 const gchar *outer,
-                 gsize n_outer,
+                 EggBytes *data,
+                 EggBytes *outer,
                  GHashTable *headers,
                  gpointer user_data)
 {
@@ -74,19 +70,18 @@ on_armor_parsed (GQuark type,
 	value = g_hash_table_lookup (headers, "Version");
 	g_assert_cmpstr (value, ==, "GnuPG v1.4.11 (GNU/Linux)");
 
-	*result = parse_binary (data, n_data);
+	*result = parse_binary (data);
 }
 
 static gboolean
-parse_armor_or_binary (gconstpointer contents,
-                       gsize length)
+parse_armor_or_binary (EggBytes *contents)
 {
 	gboolean result;
 	guint parts;
 
-	parts = egg_armor_parse (contents, length, on_armor_parsed, &result);
+	parts = egg_armor_parse (contents, on_armor_parsed, &result);
 	if (parts == 0)
-		result = parse_binary (contents, length);
+		result = parse_binary (contents);
 	return result;
 }
 
@@ -96,6 +91,7 @@ main(int argc, char *argv[])
 	GError *error = NULL;
 	gchar *contents;
 	gsize length;
+	EggBytes *bytes;
 	int ret;
 
 	g_set_prgname ("frob-openpgp");
@@ -111,12 +107,13 @@ main(int argc, char *argv[])
 		return 1;
 	}
 
+	bytes = egg_bytes_new_take (contents, length);
 	ret = 0;
-	if (!parse_armor_or_binary (contents, length)) {
+	if (!parse_armor_or_binary (bytes)) {
 		g_printerr ("frob-openpgp: no openpgp data found in data");
 		ret = 1;
 	}
 
-	g_free (contents);
+	egg_bytes_unref (bytes);
 	return ret;
 }

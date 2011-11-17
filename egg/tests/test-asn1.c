@@ -67,6 +67,8 @@ test_boolean (void)
 	asn = egg_asn1x_create (test_asn1_tab, "TestBoolean");
 	g_assert (asn);
 
+	g_assert_cmpint (EGG_ASN1X_BOOLEAN, ==, egg_asn1x_type (asn));
+
 	/* Shouldn't succeed */
 	if (egg_asn1x_get_boolean (asn, &value))
 		g_assert_not_reached ();
@@ -109,6 +111,8 @@ test_null (void)
 	asn = egg_asn1x_create (test_asn1_tab, "TestNull");
 	g_assert (asn);
 
+	g_assert_cmpint (EGG_ASN1X_NULL, ==, egg_asn1x_type (asn));
+
 	if (!egg_asn1x_set_null (asn))
 		g_assert_not_reached ();
 
@@ -131,6 +135,8 @@ test_integer (void)
 
 	asn = egg_asn1x_create (test_asn1_tab, "TestInteger");
 	g_assert (asn);
+
+	g_assert_cmpint (EGG_ASN1X_INTEGER, ==, egg_asn1x_type (asn));
 
 	/* Shouldn't succeed */
 	if (egg_asn1x_get_integer_as_ulong (asn, &value))
@@ -166,6 +172,8 @@ test_unsigned (void)
 
 	asn = egg_asn1x_create (test_asn1_tab, "TestInteger");
 	g_assert (asn);
+
+	g_assert_cmpint (EGG_ASN1X_INTEGER, ==, egg_asn1x_type (asn));
 
 	/* Check with ulong */
 	bytes = egg_bytes_new_static (I253, XL (I253));
@@ -218,6 +226,8 @@ test_octet_string (void)
 	asn = egg_asn1x_create (test_asn1_tab, "TestOctetString");
 	g_assert (asn);
 
+	g_assert_cmpint (EGG_ASN1X_OCTET_STRING, ==, egg_asn1x_type (asn));
+
 	/* Shouldn't succeed */
 	if (egg_asn1x_get_string_as_utf8 (asn, NULL))
 		g_assert_not_reached ();
@@ -250,6 +260,8 @@ test_generalized_time (void)
 
 	asn = egg_asn1x_create (test_asn1_tab, "TestGeneralized");
 	g_assert (asn);
+
+	g_assert_cmpint (EGG_ASN1X_TIME, ==, egg_asn1x_type (asn));
 
 	/* Shouldn't succeed */
 	value = egg_asn1x_get_time_as_long (asn);
@@ -328,6 +340,8 @@ test_bit_string_decode (void)
 
 	asn = egg_asn1x_create (test_asn1_tab, "TestBitString");
 	g_assert (asn);
+
+	g_assert_cmpint (EGG_ASN1X_BIT_STRING, ==, egg_asn1x_type (asn));
 
 	/* Should work */
 	bytes = egg_bytes_new_static (BITS_TEST, XL (BITS_TEST));
@@ -601,6 +615,8 @@ test_choice_not_chosen (void)
 	asn = egg_asn1x_create (test_asn1_tab, "TestAnyChoice");
 	g_assert (asn);
 
+	g_assert_cmpint (EGG_ASN1X_CHOICE, ==, egg_asn1x_type (asn));
+
 	node = egg_asn1x_node (asn, "choiceShortTag", NULL);
 	g_assert (node);
 
@@ -628,6 +644,8 @@ perform_asn1_any_choice_set_raw (const gchar *choice, const gchar *encoding, gsi
 
 	asn = egg_asn1x_create (test_asn1_tab, "TestAnyChoice");
 	g_assert (asn);
+
+	g_assert_cmpint (EGG_ASN1X_CHOICE, ==, egg_asn1x_type (asn));
 
 	is_freed = FALSE;
 	node = egg_asn1x_node (asn, choice, NULL);
@@ -694,6 +712,8 @@ test_append (void)
 	g_assert (asn);
 	egg_bytes_unref (bytes);
 
+	g_assert_cmpint (EGG_ASN1X_SEQUENCE_OF, ==, egg_asn1x_type (asn));
+
 	child = egg_asn1x_append (asn);
 	g_assert (child);
 
@@ -758,6 +778,8 @@ test_setof (void)
 	g_assert (asn != NULL);
 	egg_bytes_unref (bytes);
 
+	g_assert_cmpint (EGG_ASN1X_SET_OF, ==, egg_asn1x_type (asn));
+
 	/* Add integer 1, in SET OF DER should sort to front */
 	if (!egg_asn1x_set_integer_as_ulong (egg_asn1x_append (asn), 1))
 		g_assert_not_reached ();
@@ -814,6 +836,8 @@ test_enumerated (void)
 	asn = egg_asn1x_create_and_decode (test_asn1_tab, "TestEnumerated", bytes);
 	g_assert (asn != NULL);
 	egg_bytes_unref (bytes);
+
+	g_assert_cmpint (EGG_ASN1X_ENUMERATED, ==, egg_asn1x_type (asn));
 
 	value = egg_asn1x_get_enumerated (asn);
 	g_assert (value);
@@ -1064,12 +1088,16 @@ test_oid (Test* test, gconstpointer unused)
 {
 	EggBytes *buffer;
 	GNode *asn = NULL;
+	GNode *node;
 	GQuark oid, check;
 
 	asn = egg_asn1x_create (test_asn1_tab, "TestOid");
 	g_assert ("asn test structure is null" && asn != NULL);
 
-	if (!egg_asn1x_set_oid_as_string (egg_asn1x_node (asn, "oid", NULL), "1.2.34567.89"))
+	node = egg_asn1x_node (asn, "oid", NULL);
+	g_assert_cmpint (EGG_ASN1X_OBJECT_ID, ==, egg_asn1x_type (node));
+
+	if (!egg_asn1x_set_oid_as_string (node, "1.2.34567.89"))
 		g_assert_not_reached ();
 
 	buffer = egg_asn1x_encode (asn, NULL);

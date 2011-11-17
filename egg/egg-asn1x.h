@@ -35,6 +35,31 @@ typedef void* (*EggAllocator) (void* p, gsize);
 
 typedef struct _EggAsn1xDef EggAsn1xDef;
 
+typedef enum {
+	EGG_ASN1X_CONSTANT = 1,
+	EGG_ASN1X_IDENTIFIER = 2,
+	EGG_ASN1X_INTEGER = 3,
+	EGG_ASN1X_BOOLEAN = 4,
+	EGG_ASN1X_SEQUENCE = 5,
+	EGG_ASN1X_BIT_STRING = 6,
+	EGG_ASN1X_OCTET_STRING = 7,
+	EGG_ASN1X_TAG = 8,
+	EGG_ASN1X_DEFAULT = 9,
+	EGG_ASN1X_SIZE = 10,
+	EGG_ASN1X_SEQUENCE_OF = 11,
+	EGG_ASN1X_OBJECT_ID = 12,
+	EGG_ASN1X_ANY = 13,
+	EGG_ASN1X_SET = 14,
+	EGG_ASN1X_SET_OF = 15,
+	EGG_ASN1X_DEFINITIONS = 16,
+	EGG_ASN1X_TIME = 17,
+	EGG_ASN1X_CHOICE = 18,
+	EGG_ASN1X_IMPORTS = 19,
+	EGG_ASN1X_NULL = 20,
+	EGG_ASN1X_ENUMERATED = 21,
+	EGG_ASN1X_GENERALSTRING = 27
+} EggAsn1xType;
+
 GNode*              egg_asn1x_create                 (const EggAsn1xDef *defs,
                                                       const gchar *type);
 
@@ -67,6 +92,8 @@ GNode*              egg_asn1x_node                   (GNode *asn,
                                                       ...) G_GNUC_NULL_TERMINATED;
 
 const gchar*        egg_asn1x_name                   (GNode *asn);
+
+EggAsn1xType        egg_asn1x_type                   (GNode *asn);
 
 guint               egg_asn1x_count                  (GNode *node);
 

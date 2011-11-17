@@ -77,30 +77,6 @@
 
 
 /* From libtasn1's int.h */
-enum {
-	TYPE_CONSTANT = 1,
-	TYPE_IDENTIFIER = 2,
-	TYPE_INTEGER = 3,
-	TYPE_BOOLEAN = 4,
-	TYPE_SEQUENCE = 5,
-	TYPE_BIT_STRING = 6,
-	TYPE_OCTET_STRING = 7,
-	TYPE_TAG = 8,
-	TYPE_DEFAULT = 9,
-	TYPE_SIZE = 10,
-	TYPE_SEQUENCE_OF = 11,
-	TYPE_OBJECT_ID = 12,
-	TYPE_ANY = 13,
-	TYPE_SET = 14,
-	TYPE_SET_OF = 15,
-	TYPE_DEFINITIONS = 16,
-	TYPE_TIME = 17,
-	TYPE_CHOICE = 18,
-	TYPE_IMPORTS = 19,
-	TYPE_NULL = 20,
-	TYPE_ENUMERATED = 21,
-	TYPE_GENERALSTRING = 27
-};
 
 enum {
 	FLAG_UNIVERSAL = (1<<8),
@@ -236,30 +212,30 @@ static gboolean
 anode_def_type_is_real (GNode *node)
 {
 	switch (anode_def_type (node)) {
-	case TYPE_INTEGER:
-	case TYPE_BOOLEAN:
-	case TYPE_BIT_STRING:
-	case TYPE_OCTET_STRING:
-	case TYPE_OBJECT_ID:
-	case TYPE_TIME:
-	case TYPE_NULL:
-	case TYPE_ENUMERATED:
-	case TYPE_GENERALSTRING:
+	case EGG_ASN1X_INTEGER:
+	case EGG_ASN1X_BOOLEAN:
+	case EGG_ASN1X_BIT_STRING:
+	case EGG_ASN1X_OCTET_STRING:
+	case EGG_ASN1X_OBJECT_ID:
+	case EGG_ASN1X_TIME:
+	case EGG_ASN1X_NULL:
+	case EGG_ASN1X_ENUMERATED:
+	case EGG_ASN1X_GENERALSTRING:
 		return TRUE;
-	case TYPE_SEQUENCE:
-	case TYPE_SEQUENCE_OF:
-	case TYPE_ANY:
-	case TYPE_SET:
-	case TYPE_SET_OF:
-	case TYPE_CHOICE:
+	case EGG_ASN1X_SEQUENCE:
+	case EGG_ASN1X_SEQUENCE_OF:
+	case EGG_ASN1X_ANY:
+	case EGG_ASN1X_SET:
+	case EGG_ASN1X_SET_OF:
+	case EGG_ASN1X_CHOICE:
 		return TRUE;
-	case TYPE_CONSTANT:
-	case TYPE_IDENTIFIER:
-	case TYPE_TAG:
-	case TYPE_DEFAULT:
-	case TYPE_SIZE:
-	case TYPE_DEFINITIONS:
-	case TYPE_IMPORTS:
+	case EGG_ASN1X_CONSTANT:
+	case EGG_ASN1X_IDENTIFIER:
+	case EGG_ASN1X_TAG:
+	case EGG_ASN1X_DEFAULT:
+	case EGG_ASN1X_SIZE:
+	case EGG_ASN1X_DEFINITIONS:
+	case EGG_ASN1X_IMPORTS:
 		return FALSE;
 	default:
 		g_return_val_if_reached (FALSE);
@@ -560,56 +536,56 @@ anode_calc_tag_for_flags (GNode *node, gint flags)
 
 	/* A context specific tag */
 	if (flags & FLAG_TAG) {
-		def = anode_opt_lookup (node, TYPE_TAG, NULL);
+		def = anode_opt_lookup (node, EGG_ASN1X_TAG, NULL);
 		g_return_val_if_fail (def, G_MAXULONG);
 		return anode_def_value_as_ulong (def);
 	}
 
 	/* A tag from the universal set */
 	switch (anode_def_type (node)) {
-	case TYPE_INTEGER:
+	case EGG_ASN1X_INTEGER:
 		return ASN1_TAG_INTEGER;
-	case TYPE_ENUMERATED:
+	case EGG_ASN1X_ENUMERATED:
 		return ASN1_TAG_ENUMERATED;
-	case TYPE_BOOLEAN:
+	case EGG_ASN1X_BOOLEAN:
 		return ASN1_TAG_BOOLEAN;
-	case TYPE_BIT_STRING:
+	case EGG_ASN1X_BIT_STRING:
 		return ASN1_TAG_BIT_STRING;
-	case TYPE_OCTET_STRING:
+	case EGG_ASN1X_OCTET_STRING:
 		return ASN1_TAG_OCTET_STRING;
-	case TYPE_OBJECT_ID:
+	case EGG_ASN1X_OBJECT_ID:
 		return ASN1_TAG_OBJECT_ID;
-	case TYPE_NULL:
+	case EGG_ASN1X_NULL:
 		return ASN1_TAG_NULL;
-	case TYPE_GENERALSTRING:
+	case EGG_ASN1X_GENERALSTRING:
 		return ASN1_TAG_GENERALSTRING;
-	case TYPE_TIME:
+	case EGG_ASN1X_TIME:
 		if (flags & FLAG_GENERALIZED)
 			return ASN1_TAG_GENERALIZEDTime;
 		else if (flags & FLAG_UTC)
 			return ASN1_TAG_UTCTime;
 		else
 			g_return_val_if_reached (G_MAXULONG);
-	case TYPE_SEQUENCE:
-	case TYPE_SEQUENCE_OF:
+	case EGG_ASN1X_SEQUENCE:
+	case EGG_ASN1X_SEQUENCE_OF:
 		return ASN1_TAG_SEQUENCE;
-	case TYPE_SET:
-	case TYPE_SET_OF:
+	case EGG_ASN1X_SET:
+	case EGG_ASN1X_SET_OF:
 		return ASN1_TAG_SET;
 
 	/* These should be handled specially */
-	case TYPE_ANY:
-	case TYPE_CHOICE:
+	case EGG_ASN1X_ANY:
+	case EGG_ASN1X_CHOICE:
 		return G_MAXULONG;
 
 	/* These are not real nodes */
-	case TYPE_CONSTANT:
-	case TYPE_IDENTIFIER:
-	case TYPE_TAG:
-	case TYPE_DEFAULT:
-	case TYPE_SIZE:
-	case TYPE_DEFINITIONS:
-	case TYPE_IMPORTS:
+	case EGG_ASN1X_CONSTANT:
+	case EGG_ASN1X_IDENTIFIER:
+	case EGG_ASN1X_TAG:
+	case EGG_ASN1X_DEFAULT:
+	case EGG_ASN1X_SIZE:
+	case EGG_ASN1X_DEFINITIONS:
+	case EGG_ASN1X_IMPORTS:
 		g_return_val_if_reached (G_MAXULONG);
 
 	/* Unknown value */
@@ -630,7 +606,7 @@ anode_calc_explicit_for_flags (GNode *node, gint flags)
 	const EggAsn1xDef *opt;
 	if ((flags & FLAG_TAG) != FLAG_TAG)
 		return FALSE;
-	opt = anode_opt_lookup (node, TYPE_TAG, NULL);
+	opt = anode_opt_lookup (node, EGG_ASN1X_TAG, NULL);
 	g_return_val_if_fail (opt, FALSE);
 	if ((opt->type & FLAG_IMPLICIT) == FLAG_IMPLICIT)
 		return FALSE;
@@ -1033,24 +1009,24 @@ anode_decode_primitive (GNode *node,
 	switch (type) {
 
 	/* The primitive value types */
-	case TYPE_INTEGER:
-	case TYPE_ENUMERATED:
-	case TYPE_BOOLEAN:
-	case TYPE_BIT_STRING:
-	case TYPE_OCTET_STRING:
-	case TYPE_OBJECT_ID:
-	case TYPE_NULL:
-	case TYPE_GENERALSTRING:
-	case TYPE_TIME:
+	case EGG_ASN1X_INTEGER:
+	case EGG_ASN1X_ENUMERATED:
+	case EGG_ASN1X_BOOLEAN:
+	case EGG_ASN1X_BIT_STRING:
+	case EGG_ASN1X_OCTET_STRING:
+	case EGG_ASN1X_OBJECT_ID:
+	case EGG_ASN1X_NULL:
+	case EGG_ASN1X_GENERALSTRING:
+	case EGG_ASN1X_TIME:
 		anode_set_tlv_data (node, backing, tlv);
 		return TRUE;
 
 	/* Transparent types */
-	case TYPE_ANY:
+	case EGG_ASN1X_ANY:
 		anode_set_tlv_data (node, backing, tlv);
 		return TRUE;
 
-	case TYPE_CHOICE:
+	case EGG_ASN1X_CHOICE:
 		if (!anode_decode_choice (node, backing, tlv))
 			return FALSE;
 		anode_set_tlv_data (node, backing, tlv);
@@ -1101,26 +1077,26 @@ anode_decode_structured (GNode *node,
 	/* Other structured types */
 	} else {
 		switch (anode_def_type (node)) {
-		case TYPE_ANY:
+		case EGG_ASN1X_ANY:
 			if (!anode_decode_struct_any (node, tlv))
 				return FALSE;
 			break;
-		case TYPE_CHOICE:
+		case EGG_ASN1X_CHOICE:
 			if (!anode_decode_choice (node, backing, tlv))
 				return FALSE;
 			break;
-		case TYPE_GENERALSTRING:
-		case TYPE_OCTET_STRING:
+		case EGG_ASN1X_GENERALSTRING:
+		case EGG_ASN1X_OCTET_STRING:
 			if (!anode_decode_struct_string (node, tlv))
 				return FALSE;
 			break;
-		case TYPE_SEQUENCE:
-		case TYPE_SET:
+		case EGG_ASN1X_SEQUENCE:
+		case EGG_ASN1X_SET:
 			if (!anode_decode_sequence_or_set (node, backing, tlv))
 				return FALSE;
 			break;
-		case TYPE_SEQUENCE_OF:
-		case TYPE_SET_OF:
+		case EGG_ASN1X_SEQUENCE_OF:
+		case EGG_ASN1X_SET_OF:
 			if (!anode_decode_sequence_or_set_of (node, backing, tlv))
 				return FALSE;
 			break;
@@ -1351,28 +1327,28 @@ anode_encode_tlv_and_enc (GNode *node,
 
 	/* Figure out the basis if the class */
 	switch (anode_def_type (node)) {
-	case TYPE_INTEGER:
-	case TYPE_BOOLEAN:
-	case TYPE_BIT_STRING:
-	case TYPE_OCTET_STRING:
-	case TYPE_OBJECT_ID:
-	case TYPE_TIME:
-	case TYPE_ENUMERATED:
-	case TYPE_GENERALSTRING:
-	case TYPE_NULL:
+	case EGG_ASN1X_INTEGER:
+	case EGG_ASN1X_BOOLEAN:
+	case EGG_ASN1X_BIT_STRING:
+	case EGG_ASN1X_OCTET_STRING:
+	case EGG_ASN1X_OBJECT_ID:
+	case EGG_ASN1X_TIME:
+	case EGG_ASN1X_ENUMERATED:
+	case EGG_ASN1X_GENERALSTRING:
+	case EGG_ASN1X_NULL:
 		tlv.cls = ASN1_CLASS_UNIVERSAL;
 		break;
 	/* Container types */
-	case TYPE_SEQUENCE:
-	case TYPE_SET:
-	case TYPE_SEQUENCE_OF:
-	case TYPE_SET_OF:
+	case EGG_ASN1X_SEQUENCE:
+	case EGG_ASN1X_SET:
+	case EGG_ASN1X_SEQUENCE_OF:
+	case EGG_ASN1X_SET_OF:
 		tlv.cls = (ASN1_CLASS_STRUCTURED | ASN1_CLASS_UNIVERSAL);
 		break;
 
 	/* Transparent types shouldn't get here */
-	case TYPE_ANY:
-	case TYPE_CHOICE:
+	case EGG_ASN1X_ANY:
+	case EGG_ASN1X_CHOICE:
 		g_return_if_reached ();
 
 	default:
@@ -1433,7 +1409,7 @@ anode_encode_build (GNode *node,
 	g_return_val_if_fail (enc, FALSE);
 
 	/* If it's a choice node, use the choice for calculations */
-	if (type == TYPE_CHOICE) {
+	if (type == EGG_ASN1X_CHOICE) {
 		node = egg_asn1x_get_choice (node);
 		g_return_val_if_fail (node, FALSE);
 	}
@@ -1523,7 +1499,7 @@ traverse_and_sort_set_of (GNode *node, gpointer user_data)
 		allocator = g_realloc;
 
 	/* We have to sort any SET OF :( */
-	if (anode_def_type (node) != TYPE_SET_OF)
+	if (anode_def_type (node) != EGG_ASN1X_SET_OF)
 		return FALSE;
 
 	bufs = NULL;
@@ -1735,7 +1711,7 @@ anode_encode_prepare_choice (GNode *node, gboolean want)
 	Atlv *tlv;
 	GNode *child;
 
-	g_assert (anode_def_type (node) == TYPE_CHOICE);
+	g_assert (anode_def_type (node) == EGG_ASN1X_CHOICE);
 
 	child = egg_asn1x_get_choice (node);
 	if (!child)
@@ -1769,7 +1745,7 @@ anode_encode_prepare_structured (GNode *node, gboolean want)
 	had = FALSE;
 	length = 0;
 
-	if (type == TYPE_SEQUENCE_OF || type == TYPE_SET_OF)
+	if (type == EGG_ASN1X_SEQUENCE_OF || type == EGG_ASN1X_SET_OF)
 		child_want = FALSE;
 	if (anode_def_flags (node) & FLAG_OPTION)
 		want = FALSE;
@@ -1785,7 +1761,7 @@ anode_encode_prepare_structured (GNode *node, gboolean want)
 
 	if (had == FALSE) {
 		/* See if we should encode an empty set or seq of */
-		if (type == TYPE_SEQUENCE_OF || type == TYPE_SET_OF) {
+		if (type == EGG_ASN1X_SEQUENCE_OF || type == EGG_ASN1X_SET_OF) {
 			if (!want)
 				return FALSE;
 		} else {
@@ -1801,25 +1777,25 @@ static gboolean
 anode_encode_prepare (GNode *node, gboolean want)
 {
 	switch (anode_def_type (node)) {
-	case TYPE_INTEGER:
-	case TYPE_BOOLEAN:
-	case TYPE_BIT_STRING:
-	case TYPE_OCTET_STRING:
-	case TYPE_OBJECT_ID:
-	case TYPE_TIME:
-	case TYPE_ENUMERATED:
-	case TYPE_GENERALSTRING:
-	case TYPE_ANY:
-	case TYPE_NULL:
+	case EGG_ASN1X_INTEGER:
+	case EGG_ASN1X_BOOLEAN:
+	case EGG_ASN1X_BIT_STRING:
+	case EGG_ASN1X_OCTET_STRING:
+	case EGG_ASN1X_OBJECT_ID:
+	case EGG_ASN1X_TIME:
+	case EGG_ASN1X_ENUMERATED:
+	case EGG_ASN1X_GENERALSTRING:
+	case EGG_ASN1X_ANY:
+	case EGG_ASN1X_NULL:
 		return anode_encode_prepare_simple (node, want);
 		break;
-	case TYPE_SEQUENCE:
-	case TYPE_SEQUENCE_OF:
-	case TYPE_SET:
-	case TYPE_SET_OF:
+	case EGG_ASN1X_SEQUENCE:
+	case EGG_ASN1X_SEQUENCE_OF:
+	case EGG_ASN1X_SET:
+	case EGG_ASN1X_SET_OF:
 		return anode_encode_prepare_structured (node, want);
 		break;
-	case TYPE_CHOICE:
+	case EGG_ASN1X_CHOICE:
 		return anode_encode_prepare_choice (node, want);
 		break;
 	default:
@@ -2464,7 +2440,7 @@ egg_asn1x_node (GNode *asn, ...)
 		type = anode_def_type (node);
 
 		/* Use integer indexes for these */
-		if (type == TYPE_SEQUENCE_OF || type == TYPE_SET_OF) {
+		if (type == EGG_ASN1X_SEQUENCE_OF || type == EGG_ASN1X_SET_OF) {
 			index = va_arg (va, gint);
 			if (index == 0)
 				return node;
@@ -2507,6 +2483,13 @@ egg_asn1x_name (GNode *node)
 	return anode_def_name (node);
 }
 
+EggAsn1xType
+egg_asn1x_type (GNode *node)
+{
+	g_return_val_if_fail (node, 0);
+	return anode_def_type (node);
+}
+
 guint
 egg_asn1x_count (GNode *node)
 {
@@ -2517,7 +2500,7 @@ egg_asn1x_count (GNode *node)
 	g_return_val_if_fail (node, 0);
 
 	type = anode_def_type (node);
-	if (type != TYPE_SEQUENCE_OF && type != TYPE_SET_OF) {
+	if (type != EGG_ASN1X_SEQUENCE_OF && type != EGG_ASN1X_SET_OF) {
 		g_warning ("node passed to egg_asn1x_count was not a sequence of or set of");
 		return 0;
 	}
@@ -2539,7 +2522,7 @@ egg_asn1x_append (GNode *node)
 	g_return_val_if_fail (node, NULL);
 
 	type = anode_def_type (node);
-	if (type != TYPE_SEQUENCE_OF && type != TYPE_SET_OF) {
+	if (type != EGG_ASN1X_SEQUENCE_OF && type != EGG_ASN1X_SET_OF) {
 		g_warning ("node passed to egg_asn1x_append was not a sequence of or set of");
 		return NULL;
 	}
@@ -2576,7 +2559,7 @@ egg_asn1x_get_boolean (GNode *node, gboolean *value)
 
 	g_return_val_if_fail (node, FALSE);
 	g_return_val_if_fail (value, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_BOOLEAN, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_BOOLEAN, FALSE);
 
 	tlv = anode_get_tlv_data (node);
 	if (tlv == NULL || tlv->buf == NULL) {
@@ -2585,7 +2568,7 @@ egg_asn1x_get_boolean (GNode *node, gboolean *value)
 			return FALSE;
 
 		/* Try to get a default */
-		opt = anode_opt_lookup (node, TYPE_DEFAULT, NULL);
+		opt = anode_opt_lookup (node, EGG_ASN1X_DEFAULT, NULL);
 		g_return_val_if_fail (opt, FALSE);
 
 		/* Parse out the default value */
@@ -2608,7 +2591,7 @@ egg_asn1x_set_boolean (GNode *node, gboolean value)
 	gsize n_data;
 
 	g_return_val_if_fail (node, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_BOOLEAN, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_BOOLEAN, FALSE);
 
 	/* TODO: Handle default values */
 
@@ -2624,7 +2607,7 @@ gboolean
 egg_asn1x_set_null (GNode *node)
 {
 	g_return_val_if_fail (node, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_NULL, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_NULL, FALSE);
 
 	/* Encode zero characters */
 	anode_encode_tlv_and_enc (node, 0, anode_encoder_data, "", NULL);
@@ -2640,7 +2623,7 @@ egg_asn1x_get_enumerated (GNode *node)
 	Atlv *tlv;
 
 	g_return_val_if_fail (node, 0);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_ENUMERATED, 0);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_ENUMERATED, 0);
 
 	tlv = anode_get_tlv_data (node);
 
@@ -2659,7 +2642,7 @@ egg_asn1x_get_enumerated (GNode *node)
 		g_return_val_if_reached (0);
 
 	/* Lookup that value in our table */
-	opt = anode_opt_lookup_value (node, TYPE_CONSTANT, buf);
+	opt = anode_opt_lookup_value (node, EGG_ASN1X_CONSTANT, buf);
 	if (opt == NULL || opt->name == NULL)
 		return 0;
 
@@ -2677,14 +2660,14 @@ egg_asn1x_set_enumerated (GNode *node, GQuark value)
 
 	g_return_val_if_fail (node, FALSE);
 	g_return_val_if_fail (value, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_ENUMERATED, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_ENUMERATED, FALSE);
 
 	/* TODO: Handle default values */
 
 	name = g_quark_to_string (value);
 	g_return_val_if_fail (name, FALSE);
 
-	opt = anode_opt_lookup (node, TYPE_CONSTANT, name);
+	opt = anode_opt_lookup (node, EGG_ASN1X_CONSTANT, name);
 	g_return_val_if_fail (opt && opt->value, FALSE);
 
 	/* TODO: Signed values */
@@ -2711,7 +2694,7 @@ egg_asn1x_get_integer_as_ulong (GNode *node, gulong *value)
 
 	g_return_val_if_fail (node, FALSE);
 	g_return_val_if_fail (value, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_INTEGER, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_INTEGER, FALSE);
 
 	tlv = anode_get_tlv_data (node);
 	if (tlv == NULL || tlv->buf == NULL) {
@@ -2720,12 +2703,12 @@ egg_asn1x_get_integer_as_ulong (GNode *node, gulong *value)
 			return FALSE;
 
 		/* Try to get a default */
-		opt = anode_opt_lookup (node, TYPE_DEFAULT, NULL);
+		opt = anode_opt_lookup (node, EGG_ASN1X_DEFAULT, NULL);
 		g_return_val_if_fail (opt, FALSE);
 		g_return_val_if_fail (opt->value, FALSE);
 		defval = opt->value;
 
-		opt = anode_opt_lookup (node, TYPE_CONSTANT, defval);
+		opt = anode_opt_lookup (node, EGG_ASN1X_CONSTANT, defval);
 		if (opt != NULL) {
 			g_return_val_if_fail (opt->value, FALSE);
 			defval = opt->value;
@@ -2747,7 +2730,7 @@ egg_asn1x_set_integer_as_ulong (GNode *node, gulong value)
 	gsize n_data;
 
 	g_return_val_if_fail (node, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_INTEGER, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_INTEGER, FALSE);
 
 	/* TODO: Handle default values */
 
@@ -2766,7 +2749,7 @@ egg_asn1x_get_integer_as_raw (GNode *node)
 	Atlv *tlv;
 
 	g_return_val_if_fail (node, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_INTEGER, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_INTEGER, FALSE);
 
 	tlv = anode_get_tlv_data (node);
 	if (tlv == NULL || tlv->buf == NULL)
@@ -2791,7 +2774,7 @@ egg_asn1x_get_integer_as_usg (GNode *node)
 	gsize len;
 
 	g_return_val_if_fail (node != NULL, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_INTEGER, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_INTEGER, FALSE);
 
 	tlv = anode_get_tlv_data (node);
 	if (tlv == NULL || tlv->buf == NULL)
@@ -2843,7 +2826,7 @@ egg_asn1x_take_integer_as_raw (GNode *node,
 
 	g_return_if_fail (node != NULL);
 	g_return_if_fail (value != NULL);
-	g_return_if_fail (anode_def_type (node) == TYPE_INTEGER);
+	g_return_if_fail (anode_def_type (node) == EGG_ASN1X_INTEGER);
 
 	/* Make sure the integer is properly encoded in twos complement*/
 	p = egg_bytes_get_data (value);
@@ -2875,7 +2858,7 @@ egg_asn1x_take_integer_as_usg (GNode *node,
 
 	g_return_if_fail (node != NULL);
 	g_return_if_fail (value != NULL);
-	g_return_if_fail (anode_def_type (node) == TYPE_INTEGER);
+	g_return_if_fail (anode_def_type (node) == EGG_ASN1X_INTEGER);
 
 	/* Make sure the integer is properly encoded in twos complement*/
 	p = egg_bytes_get_data (value);
@@ -3021,7 +3004,7 @@ egg_asn1x_get_string_as_raw (GNode *node, EggAllocator allocator, gsize *n_strin
 		allocator = g_realloc;
 
 	type = anode_def_type (node);
-	g_return_val_if_fail (type == TYPE_OCTET_STRING || type == TYPE_GENERALSTRING, NULL);
+	g_return_val_if_fail (type == EGG_ASN1X_OCTET_STRING || type == EGG_ASN1X_GENERALSTRING, NULL);
 
 	tlv = anode_get_tlv_data (node);
 	if (tlv == NULL || tlv->buf == NULL)
@@ -3054,7 +3037,7 @@ egg_asn1x_set_string_as_raw (GNode *node, guchar *data, gsize n_data, GDestroyNo
 	g_return_val_if_fail (data, FALSE);
 
 	type = anode_def_type (node);
-	g_return_val_if_fail (type == TYPE_OCTET_STRING || type == TYPE_GENERALSTRING, FALSE);
+	g_return_val_if_fail (type == EGG_ASN1X_OCTET_STRING || type == EGG_ASN1X_GENERALSTRING, FALSE);
 
 	anode_encode_tlv_and_enc (node, n_data, anode_encoder_data, data, destroy);
 	return TRUE;
@@ -3141,7 +3124,7 @@ egg_asn1x_get_bits_as_raw (GNode *node, guint *n_bits)
 
 	g_return_val_if_fail (node, FALSE);
 	g_return_val_if_fail (n_bits, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_BIT_STRING, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_BIT_STRING, FALSE);
 
 	tlv = anode_get_tlv_data (node);
 	if (tlv == NULL || tlv->buf == NULL)
@@ -3182,7 +3165,7 @@ egg_asn1x_take_bits_as_raw (GNode *node,
 	g_return_if_fail (value != NULL);
 
 	type = anode_def_type (node);
-	g_return_if_fail (type == TYPE_BIT_STRING);
+	g_return_if_fail (type == EGG_ASN1X_BIT_STRING);
 
 	length = (n_bits / 8);
 	if (n_bits % 8)
@@ -3207,7 +3190,7 @@ egg_asn1x_get_bits_as_ulong (GNode *node, gulong *bits, guint *n_bits)
 	g_return_val_if_fail (node, FALSE);
 	g_return_val_if_fail (bits, FALSE);
 	g_return_val_if_fail (n_bits, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_BIT_STRING, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_BIT_STRING, FALSE);
 
 	tlv = anode_get_tlv_data (node);
 	if (tlv == NULL || tlv->buf == NULL)
@@ -3247,7 +3230,7 @@ egg_asn1x_set_bits_as_ulong (GNode *node, gulong bits, guint n_bits)
 	g_return_val_if_fail (n_bits <= sizeof (gulong) * 8, FALSE);
 
 	type = anode_def_type (node);
-	g_return_val_if_fail (type == TYPE_BIT_STRING, FALSE);
+	g_return_val_if_fail (type == EGG_ASN1X_BIT_STRING, FALSE);
 
 	empty = n_bits % 8;
 	if (empty > 0)
@@ -3280,15 +3263,15 @@ egg_asn1x_get_time_as_long (GNode *node)
 	type = anode_def_type (node);
 
 	/* Time is often represented as a choice, so work than in here */
-	if (type == TYPE_CHOICE) {
+	if (type == EGG_ASN1X_CHOICE) {
 		node = egg_asn1x_get_choice (node);
 		if (node == NULL)
 			return -1;
-		g_return_val_if_fail (anode_def_type (node) == TYPE_TIME, -1);
+		g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_TIME, -1);
 		return egg_asn1x_get_time_as_long (node);
 	}
 
-	g_return_val_if_fail (type == TYPE_TIME, -1);
+	g_return_val_if_fail (type == EGG_ASN1X_TIME, -1);
 
 	tlv = anode_get_tlv_data (node);
 	if (tlv == NULL || tlv->buf == NULL)
@@ -3311,15 +3294,15 @@ egg_asn1x_get_time_as_date (GNode *node, GDate *date)
 	type = anode_def_type (node);
 
 	/* Time is often represented as a choice, so work than in here */
-	if (type == TYPE_CHOICE) {
+	if (type == EGG_ASN1X_CHOICE) {
 		node = egg_asn1x_get_choice (node);
 		if (node == NULL)
 			return FALSE;
-		g_return_val_if_fail (anode_def_type (node) == TYPE_TIME, FALSE);
+		g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_TIME, FALSE);
 		return egg_asn1x_get_time_as_date (node, date);
 	}
 
-	g_return_val_if_fail (type == TYPE_TIME, FALSE);
+	g_return_val_if_fail (type == EGG_ASN1X_TIME, FALSE);
 
 	tlv = anode_get_tlv_data (node);
 	if (tlv == NULL || tlv->buf == NULL)
@@ -3339,7 +3322,7 @@ egg_asn1x_get_oid_as_string (GNode *node)
 	Atlv *tlv;
 
 	g_return_val_if_fail (node, NULL);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_OBJECT_ID, NULL);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_OBJECT_ID, NULL);
 
 	tlv = anode_get_tlv_data (node);
 	if (tlv == NULL || tlv->buf == NULL)
@@ -3359,7 +3342,7 @@ egg_asn1x_set_oid_as_string (GNode *node, const gchar *oid)
 
 	g_return_val_if_fail (oid, FALSE);
 	g_return_val_if_fail (node, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_OBJECT_ID, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_OBJECT_ID, FALSE);
 
 	/* Encoding will always be shorter than string */
 	n_data = strlen (oid);
@@ -3425,7 +3408,7 @@ egg_asn1x_set_choice (GNode *node, GNode *choice)
 	Anode *an;
 
 	g_return_val_if_fail (node, FALSE);
-	g_return_val_if_fail (anode_def_type (node) == TYPE_CHOICE, FALSE);
+	g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_CHOICE, FALSE);
 
 	/* One and only one of the children must be set */
 	for (child = node->children; child; child = child->next) {
@@ -3461,7 +3444,7 @@ anode_parse_size (GNode *node, const gchar *text, gulong *value)
 		*value = G_MAXULONG;
 		return TRUE;
 	} else if (g_ascii_isalpha (text[0])) {
-		def = anode_opt_lookup (node, TYPE_INTEGER, text);
+		def = anode_opt_lookup (node, EGG_ASN1X_INTEGER, text);
 		g_return_val_if_fail (def, FALSE);
 		return anode_parse_size (node, def->value, value);
 	}
@@ -3480,7 +3463,7 @@ anode_validate_size (GNode *node, gulong length)
 	gulong value2 = G_MAXULONG;
 
 	if (anode_def_flags (node) & FLAG_SIZE) {
-		size = anode_opt_lookup (node, TYPE_SIZE, NULL);
+		size = anode_opt_lookup (node, EGG_ASN1X_SIZE, NULL);
 		g_return_val_if_fail (size, FALSE);
 		if (!anode_parse_size (node, size->value, &value1))
 			g_return_val_if_reached (FALSE);
@@ -3520,7 +3503,7 @@ anode_validate_integer (GNode *node, Atlv *tlv)
 
 		/* Look through the list of constants */
 		found = FALSE;
-		constants = anode_opts_lookup (node, TYPE_CONSTANT, NULL);
+		constants = anode_opts_lookup (node, EGG_ASN1X_CONSTANT, NULL);
 		for (l = constants; l; l = g_list_next (l)) {
 			check = anode_def_value_as_ulong (l->data);
 			g_return_val_if_fail (check != G_MAXULONG, FALSE);
@@ -3662,7 +3645,7 @@ anode_validate_sequence_or_set (GNode *node,
 
 		/* Tags must be in ascending order */
 		tlv = anode_get_tlv_data (child);
-		if (tlv && type == TYPE_SET) {
+		if (tlv && type == EGG_ASN1X_SET) {
 			if (count > 0 && tag > tlv->tag)
 				return anode_failure (node, "content must be in ascending order");
 			tag = tlv->tag;
@@ -3703,7 +3686,7 @@ anode_validate_sequence_or_set_of (GNode *node,
 				return anode_failure (node, "invalid mismatched content");
 
 			/* Set of must be in ascending order */
-			if (strict && type == TYPE_SET_OF &&
+			if (strict && type == EGG_ASN1X_SET_OF &&
 			    ptlv != NULL && compare_tlvs (ptlv, tlv) > 0)
 				return anode_failure (node, "content must be in ascending order");
 			ptlv = tlv;
@@ -3737,38 +3720,38 @@ anode_validate_anything (GNode *node,
 	switch (type) {
 
 	/* The primitive value types */
-	case TYPE_INTEGER:
+	case EGG_ASN1X_INTEGER:
 		return anode_validate_integer (node, tlv);
-	case TYPE_ENUMERATED:
+	case EGG_ASN1X_ENUMERATED:
 		return anode_validate_enumerated (node, tlv);
-	case TYPE_BOOLEAN:
+	case EGG_ASN1X_BOOLEAN:
 		return anode_validate_boolean (node, tlv);
-	case TYPE_BIT_STRING:
+	case EGG_ASN1X_BIT_STRING:
 		return anode_validate_bit_string (node, tlv);
-	case TYPE_OCTET_STRING:
+	case EGG_ASN1X_OCTET_STRING:
 		return anode_validate_string (node, tlv);
-	case TYPE_OBJECT_ID:
+	case EGG_ASN1X_OBJECT_ID:
 		return anode_validate_object_id (node, tlv);
-	case TYPE_NULL:
+	case EGG_ASN1X_NULL:
 		return anode_validate_null (node, tlv);
-	case TYPE_GENERALSTRING:
+	case EGG_ASN1X_GENERALSTRING:
 		return anode_validate_string (node, tlv);
-	case TYPE_TIME:
+	case EGG_ASN1X_TIME:
 		return anode_validate_time (node, tlv);
 
 	/* Transparent types */
-	case TYPE_ANY:
+	case EGG_ASN1X_ANY:
 		return TRUE;
-	case TYPE_CHOICE:
+	case EGG_ASN1X_CHOICE:
 		return anode_validate_choice (node, strict);
 
 	/* Structured types */
-	case TYPE_SEQUENCE:
-	case TYPE_SET:
+	case EGG_ASN1X_SEQUENCE:
+	case EGG_ASN1X_SET:
 		return anode_validate_sequence_or_set (node, strict);
 
-	case TYPE_SEQUENCE_OF:
-	case TYPE_SET_OF:
+	case EGG_ASN1X_SEQUENCE_OF:
+	case EGG_ASN1X_SET_OF:
 		return anode_validate_sequence_or_set_of (node, strict);
 
 	default:
@@ -3881,7 +3864,7 @@ traverse_and_prepare (GNode *node, gpointer data)
 	GList *list = NULL, *l;
 
 	/* A while, because the stuff we join, could also be an identifier */
-	while (anode_def_type (node) == TYPE_IDENTIFIER) {
+	while (anode_def_type (node) == EGG_ASN1X_IDENTIFIER) {
 		an = node->data;
 		identifier = an->join ? an->join->value : an->def->value;
 		g_return_val_if_fail (identifier, TRUE);
@@ -3908,11 +3891,11 @@ traverse_and_prepare (GNode *node, gpointer data)
 	}
 
 	/* Lookup the max set size */
-	if (anode_def_type (node) == TYPE_SIZE) {
+	if (anode_def_type (node) == EGG_ASN1X_SIZE) {
 		identifier = anode_def_name (node);
 		if (identifier && !g_str_equal (identifier, "MAX") &&
 		    g_ascii_isalpha (identifier[0])) {
-			def = lookup_def_of_type (defs, identifier, TYPE_INTEGER);
+			def = lookup_def_of_type (defs, identifier, EGG_ASN1X_INTEGER);
 			g_return_val_if_fail (def, TRUE);
 			anode_opt_add (node, def);
 		}
@@ -3943,7 +3926,7 @@ traverse_and_prepare (GNode *node, gpointer data)
 	}
 
 	/* Sort the children of any sets */
-	if (anode_def_type (node) == TYPE_SET) {
+	if (anode_def_type (node) == EGG_ASN1X_SET) {
 		for (child = node->children; child; child = child->next)
 			list = g_list_prepend (list, child);
 		list = g_list_sort (list, compare_nodes_by_tag);
@@ -3975,7 +3958,7 @@ match_oid_in_definition (const EggAsn1xDef *def,
 	g_assert (names);
 
 	for (odef = adef_first_child (def); odef; odef = adef_next_sibling (odef)) {
-		if ((odef->type & 0xFF) != TYPE_CONSTANT)
+		if ((odef->type & 0xFF) != EGG_ASN1X_CONSTANT)
 			continue;
 
 		g_return_val_if_fail (odef->value, NULL);
@@ -4032,7 +4015,7 @@ match_oid_in_definitions (const EggAsn1xDef *defs,
 		for (def = adef_first_child (defs); def; def = adef_next_sibling (def)) {
 
 			/* Only work with object ids, and ones with names */
-			if ((def->type & 0xFF) != TYPE_OBJECT_ID || !def->name)
+			if ((def->type & 0xFF) != EGG_ASN1X_OBJECT_ID || !def->name)
 				continue;
 
 			/* If we've already seen this one, skip */
@@ -4178,7 +4161,7 @@ egg_asn1x_create_and_decode (const EggAsn1xDef *defs,
 static void
 dump_append_type (GString *output, gint type)
 {
-	#define XX(x) if (type == TYPE_##x) g_string_append (output, #x " ")
+	#define XX(x) if (type == EGG_ASN1X_##x) g_string_append (output, #x " ")
 	XX(CONSTANT); XX(IDENTIFIER); XX(INTEGER); XX(BOOLEAN); XX(SEQUENCE); XX(BIT_STRING);
 	XX(OCTET_STRING); XX(TAG); XX(DEFAULT); XX(SIZE); XX(SEQUENCE_OF); XX(OBJECT_ID); XX(ANY);
 	XX(SET); XX(SET_OF); XX(DEFINITIONS); XX(TIME); XX(CHOICE); XX(IMPORTS); XX(NULL);
@@ -4281,7 +4264,7 @@ traverse_and_clear (GNode *node, gpointer unused)
 	anode_clear (node);
 
 	type = anode_def_type (node);
-	if (type == TYPE_SET_OF || type == TYPE_SEQUENCE_OF) {
+	if (type == EGG_ASN1X_SET_OF || type == EGG_ASN1X_SEQUENCE_OF) {
 
 		/* The first 'real' child is the template */
 		child = node->children;

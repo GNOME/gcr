@@ -205,6 +205,7 @@ egg_dn_read_part (GNode *asn, const gchar *match)
 	GNode *node;
 	GQuark oid;
 	gint i, j;
+	gchar *result;
 
 	g_return_val_if_fail (asn, NULL);
 	g_return_val_if_fail (match, NULL);
@@ -236,7 +237,9 @@ egg_dn_read_part (GNode *asn, const gchar *match)
 			value = egg_asn1x_get_raw_element (node);
 			g_return_val_if_fail (value, NULL);
 
-			return dn_print_oid_value (oid, egg_oid_get_flags (oid), value);
+			result = dn_print_oid_value (oid, egg_oid_get_flags (oid), value);
+			egg_bytes_unref (value);
+			return result;
 		}
 	}
 

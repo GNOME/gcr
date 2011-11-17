@@ -55,8 +55,18 @@ setup (Test *test, gconstpointer unused)
 static void
 teardown (Test *test, gconstpointer unused)
 {
-	g_assert (!test->result);
-	g_assert (!test->process);
+	if (test->result)
+		g_object_unref (test->result);
+	if (test->process)
+		g_object_unref (test->process);
+
+	while (g_main_context_iteration (NULL, FALSE));
+
+	if (test->result)
+		egg_assert_not_object (test->result);
+	if (test->process)
+		egg_assert_not_object (test->process);
+
 	if (test->output_buf)
 		g_string_free (test->output_buf, TRUE);
 	if (test->error_buf)
@@ -80,18 +90,20 @@ test_create (Test *test, gconstpointer unused)
 	g_object_get (test->process, "executable", &value, NULL);
 	g_assert_cmpstr (value, ==, "/path/to/executable");
 	g_free (value);
-
-	g_clear_object (&test->process);
 }
 
 static void
 on_async_ready (GObject *source, GAsyncResult *result, gpointer user_data)
 {
 	Test *test = user_data;
+	GObject *result_source;
 
 	g_assert (G_OBJECT (test->process) == source);
 	g_assert (test->result == NULL);
-	g_assert (g_async_result_get_source_object (result) == source);
+
+	result_source = g_async_result_get_source_object (result);
+	g_assert (result_source == source);
+	g_object_unref (result_source);
 
 	test->result = g_object_ref (result);
 	egg_test_wait_stop ();
@@ -181,9 +193,6 @@ test_run_simple_output (Test *test, gconstpointer unused)
 	g_assert (ret == TRUE);
 
 	g_assert_cmpstr ("simple-output\n", ==, test->output_buf->str);
-
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
 }
 
 static void
@@ -209,9 +218,6 @@ test_run_simple_error (Test *test, gconstpointer unused)
 	g_assert (ret == TRUE);
 
 	g_assert_cmpstr ("line 1: more line 1\nline 2\nline 3\n", ==, test->error_buf->str);
-
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
 }
 
 static void
@@ -250,9 +256,6 @@ test_run_status_and_output (Test *test, gconstpointer unused)
 	g_assert_cmpstr (_gcr_record_get_raw (test->record, 4), ==, "four");
 	g_assert_cmpstr (_gcr_record_get_raw (test->record, 5), ==, NULL);
 	g_assert_cmpstr ("Here's some output\nMore output\n", ==, test->output_buf->str);
-
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
 }
 
 static void
@@ -292,9 +295,6 @@ test_run_status_and_attribute (Test *test, gconstpointer unused)
 	g_assert_cmpstr (_gcr_record_get_raw (test->record, 4), ==, "four");
 	g_assert_cmpstr (_gcr_record_get_raw (test->record, 5), ==, NULL);
 	g_assert_cmpstr ("1lc923g4laoeurc23rc241lcg2r23c4gr3", ==, test->attribute_buf->str);
-
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
 }
 
 
@@ -341,9 +341,6 @@ test_run_arguments_and_environment (Test *test, gconstpointer unused)
 
 	g_assert_cmpstr ("value1\nvalue2\n", ==, test->output_buf->str);
 	g_assert_cmpstr ("VALUE1VALUE2\n", ==, test->error_buf->str);
-
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
 }
 
 static void
@@ -375,9 +372,6 @@ test_run_with_homedir (Test *test, gconstpointer unused)
 	check = g_strdup_printf ("DIR: %s\n", SRCDIR);
 	g_assert_cmpstr (check, ==, test->output_buf->str);
 	g_free (check);
-
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
 }
 
 static void
@@ -418,9 +412,6 @@ test_run_with_input_and_output (Test *test,
 
 	g_clear_object (&input);
 	g_clear_object (&output);
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
-
 }
 
 static void
@@ -443,9 +434,6 @@ test_run_bad_executable (Test *test, gconstpointer unused)
 	g_assert_error (error, G_SPAWN_ERROR, G_SPAWN_ERROR_NOENT);
 	g_clear_error (&error);
 	g_assert (ret == FALSE);
-
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
 }
 
 static void
@@ -453,7 +441,7 @@ test_run_fail_exit (Test *test, gconstpointer unused)
 {
 	GError *error = NULL;
 	gchar *script;
-	const gchar *argv[] = { "55" };
+	const gchar *argv[] = { "55", NULL };
 	gboolean ret;
 
 	script = build_script_path ("mock-fail-exit");
@@ -469,9 +457,6 @@ test_run_fail_exit (Test *test, gconstpointer unused)
 	g_assert_cmpstr (error->message, ==, "Gnupg process exited with code: 55");
 	g_clear_error (&error);
 	g_assert (ret == FALSE);
-
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
 }
 
 static void
@@ -479,7 +464,7 @@ test_run_fail_signal (Test *test, gconstpointer unused)
 {
 	GError *error = NULL;
 	gchar *script;
-	const gchar *argv[] = { "15" };
+	const gchar *argv[] = { "15", NULL };
 	gboolean ret;
 
 	script = build_script_path ("mock-fail-signal");
@@ -495,9 +480,6 @@ test_run_fail_signal (Test *test, gconstpointer unused)
 	g_assert_cmpstr (error->message, ==, "Gnupg process was terminated with signal: 15");
 	g_clear_error (&error);
 	g_assert (ret == FALSE);
-
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
 }
 
 static void
@@ -505,7 +487,7 @@ test_run_and_cancel (Test *test, gconstpointer unused)
 {
 	GError *error = NULL;
 	gchar *script;
-	const gchar *argv[] = { "15" };
+	const gchar *argv[] = { "15", NULL };
 	GCancellable *cancellable;
 	gboolean ret;
 
@@ -526,8 +508,6 @@ test_run_and_cancel (Test *test, gconstpointer unused)
 	g_assert (ret == FALSE);
 
 	g_object_unref (cancellable);
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
 }
 
 static gssize
@@ -548,7 +528,7 @@ test_run_and_cancel_later (Test *test, gconstpointer unused)
 	GError *error = NULL;
 	GOutputStream *output;
 	gchar *script;
-	const gchar *argv[] = { "15" };
+	const gchar *argv[] = { "15", NULL };
 	GCancellable *cancellable;
 	gboolean ret;
 
@@ -571,8 +551,6 @@ test_run_and_cancel_later (Test *test, gconstpointer unused)
 	g_assert (ret == FALSE);
 
 	g_object_unref (cancellable);
-	g_clear_object (&test->result);
-	g_clear_object (&test->process);
 }
 
 int
@@ -590,11 +568,14 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/gnupg-process/run_arguments_and_environment", Test, NULL, setup, test_run_arguments_and_environment, teardown);
 	g_test_add ("/gcr/gnupg-process/run_with_homedir", Test, NULL, setup, test_run_with_homedir, teardown);
 	g_test_add ("/gcr/gnupg-process/run_with_input_and_output", Test, NULL, setup, test_run_with_input_and_output, teardown);
-	g_test_add ("/gcr/gnupg-process/run_bad_executable", Test, NULL, setup, test_run_bad_executable, teardown);
 	g_test_add ("/gcr/gnupg-process/run_fail_exit", Test, NULL, setup, test_run_fail_exit, teardown);
 	g_test_add ("/gcr/gnupg-process/run_fail_signal", Test, NULL, setup, test_run_fail_signal, teardown);
 	g_test_add ("/gcr/gnupg-process/run_and_cancel", Test, NULL, setup, test_run_and_cancel, teardown);
 	g_test_add ("/gcr/gnupg-process/run_and_cancel_later", Test, NULL, setup, test_run_and_cancel_later, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	/* Valgrind seems to have problems with g_spawn_async_xxx() failing */
+	if (!egg_testing_on_valgrind ())
+		g_test_add ("/gcr/gnupg-process/run_bad_executable", Test, NULL, setup, test_run_bad_executable, teardown);
+
+	return egg_tests_run_with_loop ();
 }

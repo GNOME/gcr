@@ -167,7 +167,7 @@ dsa_subject_public_key_from_private (GNode *key_asn, GckAttribute *ap,
 	g_return_val_if_fail (my, FALSE);
 	gcry_mpi_powm (my, mg, mx, mp);
 
-	gcry = gcry_mpi_aprint (GCRYMPI_FMT_STD, &buffer, &n_buffer, my);
+	gcry = gcry_mpi_aprint (GCRYMPI_FMT_USG, &buffer, &n_buffer, my);
 	g_return_val_if_fail (gcry == 0, FALSE);
 	egg_asn1x_take_integer_as_raw (key_asn, egg_bytes_new_with_free_func (buffer, n_buffer,
 	                                                                      gcry_free, buffer));
@@ -243,8 +243,8 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	params = egg_asn1x_encode (params_asn, NULL);
 	egg_asn1x_destroy (params_asn);
 
-	egg_asn1x_take_bits_as_raw (egg_asn1x_node (info_asn, "subjectPublicKey", NULL),
-	                            key, egg_bytes_get_size (key) * 8);
+	egg_asn1x_set_bits_as_raw (egg_asn1x_node (info_asn, "subjectPublicKey", NULL),
+	                           key, egg_bytes_get_size (key) * 8);
 	egg_asn1x_set_raw_element (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params);
 
 	egg_asn1x_set_oid_as_quark (egg_asn1x_node (info_asn, "algorithm", "algorithm", NULL), GCR_OID_PKIX1_DSA);
@@ -315,6 +315,7 @@ fingerprint_from_cert_value (EggBytes *der_data,
 	                                                            checksum_type,
 	                                                            n_fingerprint);
 
+	egg_bytes_unref (info);
 	egg_asn1x_destroy (cert_asn);
 	return fingerprint;
 }

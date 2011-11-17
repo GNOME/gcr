@@ -328,7 +328,7 @@ test_openpgp_binary (Test *test,
 		g_assert_not_reached ();
 	}
 
-	egg_bytes_unref (binary);
+	egg_bytes_unref (bytes);
 }
 
 int

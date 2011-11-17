@@ -11,7 +11,9 @@ BUILT_SOURCES = \
 
 INCLUDES = \
 	-I$(top_srcdir) \
-	-I$(top_builddir)
+	-I$(top_builddir) \
+	-I$(top_srcdir)/build \
+	-DWITH_VALGRIND
 
 libegg_la_CFLAGS = \
 	$(GLIB_CFLAGS)
@@ -90,3 +92,6 @@ libegg_test_la_LIBS = \
 # -------------------------------------------------------------------
 
 SUBDIRS = . tests
+
+check-memory:
+	make -C tests check-memory

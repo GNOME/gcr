@@ -393,6 +393,8 @@ pop_parsed (GcrParser *self,
 	self->pv->parsed = parsed->next;
 
 	gck_attributes_unref (parsed->attrs);
+	if (parsed->data)
+		egg_bytes_unref (parsed->data);
 	g_free (parsed->label);
 	g_free (parsed);
 }
@@ -1102,8 +1104,10 @@ handle_pkcs12_bag (GcrParser *self,
 		parsed = push_parsed (self, FALSE);
 
 		friendly = parse_pkcs12_bag_friendly_name (egg_asn1x_node (asn, i, "bagAttributes", NULL));
-		if (friendly != NULL)
+		if (friendly != NULL) {
 			parsed_label (parsed, friendly);
+			g_free (friendly);
+		}
 
 		/* A normal unencrypted key */
 		if (oid == GCR_OID_PKCS12_BAG_PKCS8_KEY) {
@@ -1246,7 +1250,7 @@ handle_pkcs12_safe (GcrParser *self,
 	GNode *asn = NULL;
 	GNode *asn_content = NULL;
 	gint ret, r;
-	EggBytes *bag;
+	EggBytes *bag = NULL;
 	EggBytes *content;
 	GQuark oid;
 	guint i;
@@ -1993,6 +1997,10 @@ gcr_parser_dispose (GObject *obj)
 
 	g_assert (!self->pv->parsed);
 
+	if (self->pv->specific_formats)
+		g_tree_destroy (self->pv->specific_formats);
+	self->pv->specific_formats = NULL;
+
 	for (i = 0; i < self->pv->passwords->len; ++i)
 		egg_secure_strfree (g_ptr_array_index (self->pv->passwords, i));
 	g_ptr_array_set_size (self->pv->passwords, 0);
@@ -2208,6 +2216,8 @@ gcr_parser_parse_data (GcrParser *self,
 					break;
 			}
 		}
+
+		egg_bytes_unref (args.data);
 	}
 
 	switch (args.result) {

@@ -415,14 +415,14 @@ gcr_secret_exchange_receive (GcrSecretExchange *self,
 		self->pv->generated = TRUE;
 	}
 
-	if (!self->pv->derived) {
-		if (!derive_key (self, input))
-			return FALSE;
-	}
-
 	ret = TRUE;
 
-	if (g_key_file_has_key (input, GCR_SECRET_EXCHANGE_PROTOCOL_1, "secret", NULL)) {
+	if (!self->pv->derived) {
+		if (!derive_key (self, input))
+			ret = FALSE;
+	}
+
+	if (ret && g_key_file_has_key (input, GCR_SECRET_EXCHANGE_PROTOCOL_1, "secret", NULL)) {
 
 		/* Remember that this can return a NULL secret */
 		if (!perform_decrypt (self, input, (guchar **)&secret, &n_secret)) {
@@ -434,6 +434,7 @@ gcr_secret_exchange_receive (GcrSecretExchange *self,
 		}
 	}
 
+	g_key_file_free (input);
 	return ret;
 }
 

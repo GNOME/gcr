@@ -142,6 +142,8 @@ test_write_reference (Test *test, gconstpointer unused)
 
 	g_assert ("data length doesn't match input length" && n_encrypted == test->n_refenc);
 	g_assert ("data doesn't match input" && memcmp (encrypted, test->refenc, n_encrypted) == 0);
+
+	g_free (encrypted);
 }
 
 static void
@@ -206,6 +208,8 @@ test_openssl_roundtrip (Test *test, gconstpointer unused)
 	/* Check that the remainder is all zeros */
 	for (i = TEST_DATA_L; i < n_decrypted; ++i)
 		g_assert ("non null byte in padding" && decrypted[i] == 0);
+
+	egg_secure_free (decrypted);
 }
 
 int

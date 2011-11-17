@@ -450,6 +450,8 @@ test_new_empty_attributes (void)
 		g_assert (attr->value == NULL);
 		g_assert (attr->length == 0);
 	}
+
+	gck_attributes_unref (attrs);
 }
 
 static void

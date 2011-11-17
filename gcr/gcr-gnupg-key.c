@@ -185,9 +185,9 @@ _gcr_gnupg_key_finalize (GObject *obj)
 	GcrGnupgKey *self = GCR_GNUPG_KEY (obj);
 
 	if (self->pv->public_records)
-		g_ptr_array_free (self->pv->public_records, TRUE);
+		g_ptr_array_unref (self->pv->public_records);
 	if (self->pv->secret_records)
-		g_ptr_array_free (self->pv->secret_records, TRUE);
+		g_ptr_array_unref (self->pv->secret_records);
 
 	G_OBJECT_CLASS (_gcr_gnupg_key_parent_class)->finalize (obj);
 }

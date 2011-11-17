@@ -218,5 +218,5 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/gnupg-collection/load", Test, NULL, setup, test_load, teardown);
 	g_test_add ("/gcr/gnupg-collection/reload", Test, NULL, setup, test_reload, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	return egg_tests_run_with_loop ();
 }

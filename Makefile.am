@@ -1,5 +1,8 @@
+include $(top_srcdir)/Makefile.decl
+
 SUBDIRS = \
 	. \
+	build \
 	egg \
 	gck \
 	gcr \
@@ -8,7 +11,7 @@ SUBDIRS = \
 	po \
 	docs
 
-ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
+ACLOCAL_AMFLAGS = -I build/m4 ${ACLOCAL_FLAGS}
 
 EXTRA_DIST = \
 	intltool-extract.in \
@@ -42,16 +45,7 @@ dist-hook:
 		echo A git clone is required to generate a ChangeLog >&2; \
 	fi
 
-if WITH_COVERAGE
-coverage:
-	mkdir -p testing/coverage
-	$(LCOV) --directory docs/ --zerocounters
-	$(LCOV) --directory . --capture --output-file testing/coverage.info
-	$(GENHTML) --output-directory testing/coverage testing/coverage.info
-	$(LCOV) --directory . --zerocounters
-	@echo "file://$(abs_top_builddir)/testing/coverage/index.html"
-
-clear-coverage:
-	$(LCOV) --directory . --zerocounters
-
-endif
+check-memory:
+	make -C egg check-memory
+	make -C gck check-memory
+	make -C gcr check-memory

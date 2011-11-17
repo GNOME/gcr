@@ -245,6 +245,7 @@ egg_bytes_unref (gpointer bytes)
     {
       if (bytes_->free_func != NULL)
         bytes_->free_func (bytes_->user_data);
+      g_slice_free (EggBytes, bytes);
     }
 }
 

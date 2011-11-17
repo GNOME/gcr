@@ -113,6 +113,8 @@ teardown (Test *test, gconstpointer unused)
 
 	rv = (test->funcs.C_Finalize) (NULL);
 	gck_assert_cmprv (rv, ==, CKR_OK);
+
+	_gcr_uninitialize_library ();
 }
 
 static void
@@ -278,5 +280,5 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/pkcs11-certificate/lookup_certificate_issuer_failure", Test, NULL, setup, test_lookup_certificate_issuer_failure, teardown);
 	g_test_add ("/gcr/pkcs11-certificate/lookup_certificate_issuer_fail_async", Test, NULL, setup, test_lookup_certificate_issuer_fail_async, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	return egg_tests_run_with_loop ();
 }

@@ -132,6 +132,7 @@ _gck_interaction_ask_password (GTlsInteraction *interaction,
 		g_signal_emit_by_name (self->module, "authenticate-object", key,
 		                       g_tls_password_get_description (password),
 		                       &value, &ret);
+		g_object_unref (key);
 	}
 
 	if (ret) {

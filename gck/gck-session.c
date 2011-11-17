@@ -1497,6 +1497,7 @@ free_find_objects (FindObjects *args)
 {
 	gck_attributes_unref (args->attrs);
 	g_free (args->objects);
+	g_free (args);
 }
 
 static CK_RV

@@ -1196,6 +1196,5 @@ egg_symkey_read_mac (GQuark oid_scheme,
 	if (ret == FALSE)
 		g_message ("unsupported or invalid mac: %s", g_quark_to_string (oid_scheme));
 
-	egg_bytes_unref (data);
 	return ret;
 }

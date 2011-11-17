@@ -72,7 +72,10 @@ teardown (Test *test, gconstpointer unused)
 	g_object_unref (test->session);
 	g_object_unref (test->slot);
 	g_object_unref (test->module);
-	g_assert (!G_IS_OBJECT (test->module));
+
+	egg_assert_not_object (test->session);
+	egg_assert_not_object (test->slot);
+	egg_assert_not_object (test->module);
 }
 
 static void
@@ -139,10 +142,10 @@ test_open_close_session (Test *test, gconstpointer unused)
 	g_assert (GCK_IS_SESSION (sess));
 
 	g_object_unref (result);
-	g_assert (!G_IS_OBJECT (result));
+	egg_assert_not_object (result);
 
 	g_object_unref (sess);
-	g_assert (!G_IS_OBJECT (sess));
+	egg_assert_not_object (sess);
 }
 
 static void
@@ -486,6 +489,7 @@ test_auto_login (Test *test, gconstpointer unused)
 	g_assert_no_error (err);
 	g_assert (ret);
 
+	gck_attributes_unref (attrs);
 	g_object_unref (new_session);
 }
 
@@ -508,5 +512,5 @@ main (int argc, char **argv)
 	g_test_add ("/gck/session/login_interactive", Test, NULL, setup, test_login_interactive, teardown);
 	g_test_add ("/gck/session/auto_login", Test, NULL, setup, test_auto_login, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	return egg_tests_run_with_loop ();
 }

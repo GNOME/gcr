@@ -93,5 +93,6 @@ stamp-*
 /po/*.c
 /po/messages
 
-/testing/coverage
-/testing/coverage.info
+/build/coverage
+/build/coverage.info
+/build/valgrind-suppressions

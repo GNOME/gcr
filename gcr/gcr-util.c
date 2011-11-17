@@ -51,9 +51,11 @@ _gcr_util_parse_lines (GString *string, gboolean last_line,
 	/* Print all stderr lines as messages */
 	while ((ptr = strchr (string->str, '\n')) != NULL) {
 		*ptr = '\0';
-		prev = ptr - 1;
-		if (*prev == '\r')
-			*prev = '\0';
+		if (ptr != string->str) {
+			prev = ptr - 1;
+			if (*prev == '\r')
+				*prev = '\0';
+		}
 
 		(callback) (string->str, user_data);
 		g_string_erase (string, 0, ptr - string->str + 1);

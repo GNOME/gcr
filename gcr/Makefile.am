@@ -353,6 +353,9 @@ check-symbols: gcr-expected.abi gcr-actual.abi gcr-expected-base.abi gcr-actual-
 
 check-local: check-symbols
 
+check-memory:
+	make -C tests check-memory
+
 EXTRA_DIST = \
 	gcr.pc.in \
 	gcr-base.pc.in \

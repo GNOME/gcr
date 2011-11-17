@@ -250,6 +250,8 @@ teardown (Test *test, gconstpointer unused)
 
 	rv = (test->funcs.C_Finalize) (NULL);
 	gck_assert_cmprv (rv, ==, CKR_OK);
+
+	_gcr_uninitialize_library ();
 }
 
 static void
@@ -653,5 +655,5 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/certificate-chain/with_anchor_error", Test, NULL, setup, test_with_anchor_error, teardown);
 	g_test_add ("/gcr/certificate-chain/with_anchor_error_async", Test, NULL, setup, test_with_anchor_error_async, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	return egg_tests_run_with_loop ();
 }

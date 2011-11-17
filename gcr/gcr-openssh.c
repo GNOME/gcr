@@ -135,6 +135,7 @@ read_decimal_mpi (const gchar *decimal,
 		return FALSE;
 
 	gck_attributes_add_data (attrs, attribute_type, data, n_data);
+	g_free (data);
 	return TRUE;
 }
 

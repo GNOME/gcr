@@ -340,6 +340,7 @@ test_build_with_attributes (void)
 	if (!gck_attributes_find_string (check->attributes, CKA_LABEL, &string))
 		g_assert_not_reached ();
 	g_assert_cmpstr (string, ==, "The Label");
+	g_free (string);
 
 	if (!gck_attributes_find_ulong (check->attributes, CKA_CLASS, &value))
 		g_assert_not_reached ();

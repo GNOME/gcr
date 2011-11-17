@@ -111,6 +111,27 @@ gcr_error_get_domain (void)
  */
 
 void
+_gcr_uninitialize_library (void)
+{
+	G_LOCK (modules);
+
+	gck_list_unref_free (all_modules);
+	all_modules = NULL;
+	initialized_modules = FALSE;
+
+	G_UNLOCK (modules);
+
+	G_LOCK (uris);
+
+	initialized_uris = FALSE;
+	g_free (trust_store_uri);
+	trust_store_uri = NULL;
+	g_strfreev (trust_lookup_uris);
+	trust_lookup_uris = NULL;
+
+	G_UNLOCK (uris);
+}
+void
 _gcr_initialize_library (void)
 {
 	static gint gcr_initialize = 0;

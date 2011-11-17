@@ -85,6 +85,10 @@ teardown (Test *test, gconstpointer unused)
 	g_object_unref (test->session);
 	g_object_unref (test->module);
 	g_object_unref (test->session_with_auth);
+
+	egg_assert_not_object (test->session);
+	egg_assert_not_object (test->session_with_auth);
+	egg_assert_not_object (test->module);
 }
 
 static void
@@ -102,6 +106,7 @@ find_key (GckSession *session, CK_ATTRIBUTE_TYPE method, CK_MECHANISM_TYPE mech)
 	GckAttributes *attrs;
 	GckObject *object = NULL;
 	CK_MECHANISM_TYPE_PTR mechs;
+	gboolean match;
 	gsize n_mechs;
 
 	attrs = gck_attributes_new ();
@@ -116,8 +121,12 @@ find_key (GckSession *session, CK_ATTRIBUTE_TYPE method, CK_MECHANISM_TYPE mech)
 			                                       NULL, &n_mechs, NULL);
 			g_assert (mechs);
 			g_assert (n_mechs == sizeof (CK_MECHANISM_TYPE));
+
 			/* We know all of them only have one allowed mech */
-			if (*mechs != mech)
+			match = (*mechs != mech);
+			g_free (mechs);
+
+			if (match)
 				continue;
 		}
 		object = l->data;
@@ -274,14 +283,16 @@ test_login_context_specific (Test *test, gconstpointer unused)
 
 	/* Find the right key */
 	key = find_key (test->session, CKA_SIGN, CKM_MOCK_PREFIX);
-	g_assert (key);
+	g_assert (GCK_IS_OBJECT (key));
 
 	/* Simple one */
 	output = gck_session_sign (test->session, key, CKM_MOCK_PREFIX, (const guchar*)"TV Monster", 11, &n_output, NULL, &error);
 	g_assert_error (error, GCK_ERROR, CKR_USER_NOT_LOGGED_IN);
 	g_assert (output == NULL);
+	g_error_free (error);
 
 	g_object_unref (key);
+	egg_assert_not_object (key);
 }
 
 static void
@@ -341,7 +352,7 @@ test_verify (Test *test, gconstpointer unused)
 
 	/* Find the right key */
 	key = find_key (test->session, CKA_VERIFY, CKM_MOCK_PREFIX);
-	g_assert (key);
+	g_assert (GCK_IS_OBJECT (key));
 
 	/* Simple one */
 	ret = gck_session_verify (test->session, key, CKM_MOCK_PREFIX, (const guchar*)"Labarbara", 10,
@@ -379,6 +390,7 @@ test_verify (Test *test, gconstpointer unused)
 	g_object_unref (result);
 
 	g_object_unref (key);
+	egg_assert_not_object (key);
 }
 
 static void
@@ -625,6 +637,13 @@ test_derive_key (Test *test, gconstpointer unused)
 	gck_attributes_unref (attrs);
 }
 
+static void
+null_log_handler (const gchar *log_domain, GLogLevelFlags log_level,
+                  const gchar *message, gpointer user_data)
+{
+
+}
+
 int
 main (int argc, char **argv)
 {
@@ -632,6 +651,10 @@ main (int argc, char **argv)
 	g_test_init (&argc, &argv, NULL);
 
 	g_set_prgname ("test-gck-crypto");
+
+	/* Suppress these messages in tests */
+	g_log_set_handler (G_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE | G_LOG_LEVEL_INFO | G_LOG_LEVEL_DEBUG,
+	                   null_log_handler, NULL);
 
 	g_test_add ("/gck/crypto/encrypt", Test, NULL, setup, test_encrypt, teardown);
 	g_test_add ("/gck/crypto/decrypt", Test, NULL, setup, test_decrypt, teardown);
@@ -643,5 +666,5 @@ main (int argc, char **argv)
 	g_test_add ("/gck/crypto/unwrap_key", Test, NULL, setup, test_unwrap_key, teardown);
 	g_test_add ("/gck/crypto/derive_key", Test, NULL, setup, test_derive_key, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	return egg_tests_run_with_loop ();
 }

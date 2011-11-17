@@ -375,6 +375,7 @@ egg_openssl_prep_dekinfo (GHashTable *headers)
 	g_return_val_if_fail (hex, NULL);
 	dekinfo = g_strdup_printf ("DES-EDE3-CBC,%s", hex);
 	g_free (hex);
+	g_free (iv);
 
 	g_hash_table_insert (headers, g_strdup ("DEK-Info"), (void*)dekinfo);
 	g_hash_table_insert (headers, g_strdup ("Proc-Type"), g_strdup ("4,ENCRYPTED"));

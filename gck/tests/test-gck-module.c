@@ -51,6 +51,7 @@ static void
 teardown (Test *test, gconstpointer unused)
 {
 	g_object_unref (test->module);
+	egg_assert_not_object (test->module);
 }
 
 static void
@@ -172,5 +173,5 @@ main (int argc, char **argv)
 	g_test_add ("/gck/module/module_props", Test, NULL, setup, test_module_props, teardown);
 	g_test_add ("/gck/module/module_info", Test, NULL, setup, test_module_info, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	return egg_tests_run_with_loop ();
 }

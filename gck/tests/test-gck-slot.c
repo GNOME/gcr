@@ -156,7 +156,7 @@ test_slot_equals_hash (Test *test, gconstpointer unused)
 	g_object_unref (obj);
 
 	other_slot = g_object_new (GCK_TYPE_SLOT, "module", test->module, "handle", 8909, NULL);
-	g_assert (!gck_slot_equal (test->slot, obj));
+	g_assert (!gck_slot_equal (test->slot, other_slot));
 	g_object_unref (other_slot);
 }
 

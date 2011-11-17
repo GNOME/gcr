@@ -3164,7 +3164,7 @@ egg_asn1x_take_bits_as_raw (GNode *node,
 		length += 1;
 
 	ab = g_slice_new0 (Abits);
-	ab->bits = egg_bytes_ref (value);
+	ab->bits = value;
 	ab->n_bits = n_bits;
 
 	anode_encode_tlv_and_enc (node, length + 1, anode_encoder_bit_string, ab, abits_destroy);
@@ -4027,6 +4027,27 @@ match_oid_in_definitions (const ASN1_ARRAY_TYPE *defs, const gchar *match)
 	return result;
 }
 
+static gboolean
+is_oid_number (const gchar *p)
+{
+	gboolean must = TRUE;
+	gint i;
+
+	for (i = 0; p[i] != '\0'; i++) {
+		if (g_ascii_isdigit (p[i])) {
+			must = FALSE;
+		} else if (must) {
+			return FALSE;
+		} else {
+			if (p[i] != '.')
+				return FALSE;
+			must = TRUE;
+		}
+	}
+
+	return !must;
+}
+
 GNode*
 egg_asn1x_create (const ASN1_ARRAY_TYPE *defs, const gchar *type)
 {
@@ -4038,7 +4059,7 @@ egg_asn1x_create (const ASN1_ARRAY_TYPE *defs, const gchar *type)
 	g_return_val_if_fail (type, NULL);
 
 	/* An OID */
-	if (strspn (type, "0123456789.") == strlen (type)) {
+	if (is_oid_number (type)) {
 		def = match_oid_in_definitions (defs, type);
 
 	/* An Identifier */

@@ -24,6 +24,8 @@
 
 #include "gcr/gcr.h"
 
+#include "egg/egg-testing.h"
+
 #include <glib.h>
 
 #include <errno.h>
@@ -47,9 +49,10 @@ teardown (Test *test,
           gconstpointer unused)
 {
 	g_object_unref (test->caller);
-	g_assert (!GCR_IS_SECRET_EXCHANGE (test->caller));
+	egg_assert_not_object (test->caller);
+
 	g_object_unref (test->callee);
-	g_assert (!GCR_IS_SECRET_EXCHANGE (test->callee));
+	egg_assert_not_object (test->callee);
 }
 
 static void

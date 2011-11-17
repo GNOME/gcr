@@ -144,6 +144,9 @@ check-symbols: gck-expected.abi gck-actual.abi
 
 check-local: check-symbols
 
+check-memory:
+	make -C tests check-memory
+
 EXTRA_DIST = \
 	gck.pc.in \
 	gck-marshal.list \

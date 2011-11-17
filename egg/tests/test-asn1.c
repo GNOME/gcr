@@ -405,7 +405,7 @@ test_bit_string_encode_decode (void)
 	asn = egg_asn1x_create (test_asn1_tab, "TestBitString");
 	g_assert (asn);
 
-	egg_asn1x_set_bits_as_raw (asn, egg_bytes_new (bits, 3), n_bits);
+	egg_asn1x_take_bits_as_raw (asn, egg_bytes_new (bits, 3), n_bits);
 
 	data = egg_asn1x_encode (asn, NULL);
 	g_assert (data);
@@ -467,7 +467,7 @@ test_bit_string_encode_decode_zero (void)
 	asn = egg_asn1x_create (test_asn1_tab, "TestBitString");
 	g_assert (asn);
 
-	egg_asn1x_set_bits_as_raw (asn, egg_bytes_new_static ("", 0), 0);
+	egg_asn1x_take_bits_as_raw (asn, egg_bytes_new_static ("", 0), 0);
 
 	data = egg_asn1x_encode (asn, NULL);
 	g_assert (data);
@@ -911,6 +911,7 @@ test_asn1_integers (Test* test, gconstpointer unused)
 	g_assert ("couldn't read integer from asn1" && ret);
 	g_assert_cmpuint (val, ==, 209384022);
 
+	egg_asn1x_destroy (asn);
 	egg_bytes_unref (data);
 }
 
@@ -1047,11 +1048,12 @@ test_read_element (Test* test, gconstpointer unused)
 	data = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "data", NULL));
 	g_assert (data != NULL);
 	g_assert_cmpint (egg_bytes_get_size (data), ==, 11);
+	egg_bytes_unref (data);
 
 	data = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "data", NULL));
 	g_assert (data != NULL);
-
 	egg_assert_equal_bytes (data, "SOME DATA", 9);
+	egg_bytes_unref (data);
 
 	egg_asn1x_destroy (asn);
 	egg_bytes_unref (buffer);

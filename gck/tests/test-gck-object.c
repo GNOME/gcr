@@ -216,6 +216,8 @@ test_destroy_object (Test *test, gconstpointer unused)
 	g_assert_no_error (err);
 	g_assert (ret);
 	g_object_unref (object);
+
+	gck_attributes_unref (attrs);
 }
 
 static void
@@ -335,6 +337,7 @@ test_set_attributes (Test *test, gconstpointer unused)
 
 	/* Async */
 	gck_object_set_async (test->object, templ, NULL, fetch_async_result, &result);
+	gck_attributes_unref (templ);
 	egg_test_wait_until (500);
 	g_assert (result != NULL);
 
@@ -398,6 +401,7 @@ test_find_objects (Test *test, gconstpointer unused)
 	g_object_unref (result);
 	g_assert (objects == NULL);
 	gck_list_unref_free (objects);
+	gck_attributes_unref (templ);
 }
 
 int
@@ -415,5 +419,5 @@ main (int argc, char **argv)
 	g_test_add ("/gck/object/set_attributes", Test, NULL, setup, test_set_attributes, teardown);
 	g_test_add ("/gck/object/find_objects", Test, NULL, setup, test_find_objects, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	return egg_tests_run_with_loop ();
 }

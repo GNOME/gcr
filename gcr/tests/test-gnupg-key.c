@@ -78,7 +78,7 @@ static void
 teardown (Test *test, gconstpointer unused)
 {
 	g_object_unref (test->key);
-	g_assert (!GCR_IS_GNUPG_KEY (test->key));
+	egg_assert_not_object (test->key);
 
 	g_ptr_array_unref (test->records);
 	g_ptr_array_unref (test->pubset);
@@ -177,6 +177,7 @@ test_with_secret (Test *test, gconstpointer unused)
 	g_object_get (key, "secret-records", &secset, NULL);
 	g_assert (secset == _gcr_gnupg_key_get_secret_records (key));
 	g_object_set (key, "secret-records", secset, NULL);
+	g_ptr_array_unref (secset);
 
 	g_object_unref (key);
 }
@@ -221,8 +222,12 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/gnupg-key/short_keyid", Test, NULL, setup, test_short_keyid, teardown);
 	g_test_add ("/gcr/gnupg-key/keyid_for_records", Test, NULL, setup, test_keyid_for_records, teardown);
 	g_test_add ("/gcr/gnupg-key/with_secret", Test, NULL, setup, test_with_secret, teardown);
-	g_test_add ("/gcr/gnupg-key/no_change_keyid", Test, NULL, setup, test_no_change_keyid, teardown);
-	g_test_add ("/gcr/gnupg-key/secret_mismatched_keyid", Test, NULL, setup, test_secret_mismatched_keyid, teardown);
+
+	/* Valgrind seems to have problems with g_test_trap_fork() */
+	if (!egg_testing_on_valgrind ()) {
+		g_test_add ("/gcr/gnupg-key/no_change_keyid", Test, NULL, setup, test_no_change_keyid, teardown);
+		g_test_add ("/gcr/gnupg-key/secret_mismatched_keyid", Test, NULL, setup, test_secret_mismatched_keyid, teardown);
+	}
 
 	return g_test_run ();
 }

@@ -34,6 +34,7 @@ GCR_AGE=0
 
 dnl ****************************************************************************
 
+AC_CONFIG_MACRO_DIR([build/m4])
 AM_INIT_AUTOMAKE([1.11 tar-ustar foreign -Wno-portability])
 AM_SANITY_CHECK
 AM_CONFIG_HEADER(config.h)
@@ -353,6 +354,7 @@ AC_SUBST(GCR_MINOR)
 
 AC_OUTPUT([
 Makefile
+build/Makefile
 docs/Makefile
 docs/reference/Makefile
 docs/reference/gck/Makefile

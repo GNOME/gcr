@@ -25,6 +25,7 @@
 
 #include "egg/egg-error.h"
 #include "egg/egg-secure-memory.h"
+#include "egg/egg-testing.h"
 
 #include "gcr/gcr-base.h"
 #include "gcr/gcr-internal.h"
@@ -81,6 +82,7 @@ ensure_block_can_be_parsed (GcrDataFormat format,
 	}
 
 	g_object_unref (parser);
+	egg_assert_not_object (parser);
 }
 
 static void

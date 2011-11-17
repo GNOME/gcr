@@ -1,3 +1,4 @@
+include $(top_srcdir)/Makefile.decl
 
 INCLUDES = \
 	-I$(top_builddir) \
@@ -5,6 +6,7 @@ INCLUDES = \
 	-DSRCDIR="\"@abs_srcdir@\"" \
 	-DBUILDDIR="\"@abs_builddir@\"" \
 	-DGCK_API_SUBJECT_TO_CHANGE \
+	-DG_LOG_DOMAIN=\"Gck\" \
 	$(GLIB_CFLAGS)
 
 LDADD =  \
@@ -41,6 +43,8 @@ test: $(TEST_PROGS)
 	gtester --verbose -m $(TEST_MODE) --g-fatal-warnings $(TEST_PROGS)
 
 check-local: test
+
+check-memory: perform-memcheck
 
 all-local: $(check_PROGRAMS)
 

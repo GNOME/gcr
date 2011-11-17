@@ -205,5 +205,5 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/openssh/parse_v1_options", Test, NULL, setup, test_parse_v1_options, teardown);
 	g_test_add ("/gcr/openssh/parse_v2_options", Test, NULL, setup, test_parse_v2_options, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	return egg_tests_run_with_loop ();
 }

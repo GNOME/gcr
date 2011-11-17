@@ -206,5 +206,5 @@ main (int argc, char **argv)
 	g_test_add ("/gck/modules/objects_for_uri", Test, NULL, setup, test_objects_for_uri, teardown);
 	g_test_add ("/gck/modules/enumerate_uri", Test, NULL, setup, test_enumerate_uri, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	return egg_tests_run_with_loop ();
 }

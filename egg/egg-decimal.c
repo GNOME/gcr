@@ -97,5 +97,7 @@ egg_decimal_decode (const gchar *data,
 	memmove (usg, at_byte, length);
 	if (n_decoded)
 		*n_decoded = length;
+
+	g_free (digits);
 	return usg;
 }

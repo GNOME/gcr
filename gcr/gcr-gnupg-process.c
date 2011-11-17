@@ -81,7 +81,6 @@ typedef struct _GnupgSource {
 	GByteArray *input_buf;
 	GString *error_buf;
 	GString *status_buf;
-	guint source_sig;
 
 	GPid child_pid;
 	guint child_sig;
@@ -101,6 +100,7 @@ struct _GcrGnupgProcessPrivate {
 	gboolean running;
 	gboolean complete;
 	GError *error;
+	guint source_sig;
 
 	GAsyncReadyCallback async_callback;
 	gpointer user_data;
@@ -206,6 +206,7 @@ _gcr_gnupg_process_finalize (GObject *obj)
 {
 	GcrGnupgProcess *self = GCR_GNUPG_PROCESS (obj);
 
+	g_assert (self->pv->source_sig == 0);
 	g_assert (!self->pv->running);
 	g_free (self->pv->directory);
 	g_free (self->pv->executable);
@@ -308,7 +309,7 @@ static GObject*
 _gcr_gnupg_process_get_source_object (GAsyncResult *result)
 {
 	g_return_val_if_fail (GCR_IS_GNUPG_PROCESS (result), NULL);
-	return G_OBJECT (result);
+	return g_object_ref (result);
 }
 
 static void
@@ -465,20 +466,27 @@ complete_run_process (GcrGnupgProcess *self)
 	}
 }
 
-static gboolean
+static void
 complete_source_is_done (GnupgSource *gnupg_source)
 {
+	GcrGnupgProcess *self = gnupg_source->process;
+
 	_gcr_debug ("all fds closed and process exited, completing");
 
 	g_assert (gnupg_source->child_sig == 0);
-	g_assert (gnupg_source->source_sig == 0);
 
-	complete_run_process (gnupg_source->process);
-	run_async_ready_callback (gnupg_source->process);
+	if (gnupg_source->cancel_sig) {
+		g_signal_handler_disconnect (gnupg_source->cancellable, gnupg_source->cancel_sig);
+		gnupg_source->cancel_sig = 0;
+	}
+
+	g_clear_object (&gnupg_source->cancellable);
+
+	complete_run_process (self);
+	run_async_ready_callback (self);
 
 	/* All done, the source can go away now */
 	g_source_unref ((GSource*)gnupg_source);
-	return TRUE;
 }
 
 static void
@@ -542,10 +550,8 @@ on_gnupg_source_finalize (GSource *source)
 	GnupgSource *gnupg_source = (GnupgSource*)source;
 	gint i;
 
-	if (gnupg_source->cancel_sig)
-		g_signal_handler_disconnect (gnupg_source->cancellable, gnupg_source->cancel_sig);
-	if (gnupg_source->cancellable)
-		g_object_unref (gnupg_source->cancellable);
+	g_assert (gnupg_source->cancellable == NULL);
+	g_assert (gnupg_source->cancel_sig == 0);
 
 	for (i = 0; i < NUM_FDS; ++i)
 		close_fd (&gnupg_source->polls[i].fd);
@@ -823,7 +829,7 @@ on_gnupg_source_dispatch (GSource *source, GSourceFunc unused, gpointer user_dat
 	}
 
 	/* Because we return below */
-	gnupg_source->source_sig = 0;
+	self->pv->source_sig = 0;
 
 	if (!gnupg_source->child_pid)
 		complete_source_is_done (gnupg_source);
@@ -1108,11 +1114,12 @@ _gcr_gnupg_process_run_async (GcrGnupgProcess *self, const gchar **argv, const g
 		                                                  (GDestroyNotify)g_source_unref);
 	}
 
+	g_assert (self->pv->source_sig == 0);
 	g_source_set_callback (source, unused_callback, NULL, NULL);
-	gnupg_source->source_sig = g_source_attach (source, g_main_context_default ());
+	self->pv->source_sig = g_source_attach (source, g_main_context_default ());
 
 	/* This assumes the outstanding reference to source */
-	g_assert (!gnupg_source->child_sig);
+	g_assert (gnupg_source->child_sig == 0);
 	gnupg_source->child_sig = g_child_watch_add_full (G_PRIORITY_DEFAULT, pid,
 	                                                  on_gnupg_process_child_exited,
 	                                                  g_source_ref (source),

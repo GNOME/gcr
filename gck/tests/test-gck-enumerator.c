@@ -61,10 +61,11 @@ static void
 teardown (Test *test, gconstpointer unused)
 {
 	gck_list_unref_free (test->modules);
-	test->modules = NULL;
 
 	g_object_unref (test->module);
-	test->module = NULL;
+	egg_assert_not_object (test->module);
+
+	g_thread_pool_stop_unused_threads ();
 }
 
 static void
@@ -302,12 +303,17 @@ test_authenticate_interaction (Test *test,
 	g_object_get (en, "interaction", &check, NULL);
 	g_assert (interaction == check);
 	g_object_unref (interaction);
+	g_object_unref (check);
 
 	obj = gck_enumerator_next (en, NULL, &error);
 	g_assert (GCK_IS_OBJECT (obj));
 
 	g_object_unref (obj);
 	g_object_unref (en);
+
+	egg_assert_not_object (en);
+	egg_assert_not_object (obj);
+	egg_assert_not_object (interaction);
 }
 
 static gboolean
@@ -335,9 +341,10 @@ test_authenticate_compat (Test *test,
 	GError *error = NULL;
 	GckEnumerator *en;
 	GckObject *obj;
+	gulong sig;
 
-	g_signal_connect (test->modules->data, "authenticate-slot",
-	                  G_CALLBACK (on_authenticate_token), GUINT_TO_POINTER (35));
+	sig = g_signal_connect (test->modules->data, "authenticate-slot",
+	                        G_CALLBACK (on_authenticate_token), GUINT_TO_POINTER (35));
 
 	uri_data = gck_uri_data_new ();
 	en = _gck_enumerator_new_for_modules (test->modules, GCK_SESSION_LOGIN_USER, uri_data);
@@ -348,6 +355,11 @@ test_authenticate_compat (Test *test,
 
 	g_object_unref (obj);
 	g_object_unref (en);
+
+	g_signal_handler_disconnect (test->modules->data, sig);
+
+	egg_assert_not_object (obj);
+	egg_assert_not_object (en);
 }
 
 static void
@@ -561,5 +573,5 @@ main (int argc, char **argv)
 	g_test_add ("/gck/enumerator/attribute_get", Test, NULL, setup, test_attribute_get, teardown);
 	g_test_add ("/gck/enumerator/chained", Test, NULL, setup, test_chained, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	return egg_tests_run_with_loop ();
 }

@@ -30,21 +30,39 @@
 #include <errno.h>
 #include <unistd.h>
 
+#ifdef WITH_VALGRIND
+#include <valgrind/valgrind.h>
+#endif
+
+#if 0
 static GCond *wait_condition = NULL;
 static GCond *wait_start = NULL;
 static GMutex *wait_mutex = NULL;
 static gboolean wait_waiting = FALSE;
+#endif
+
+gboolean
+egg_testing_on_valgrind (void)
+{
+#ifdef WITH_VALGRIND
+	return RUNNING_ON_VALGRIND;
+#else
+	return FALSE
+#endif
+}
+
 
 static const char HEXC[] = "0123456789ABCDEF";
 
-static gchar*
-hex_dump (const guchar *data, gsize n_data)
+gchar *
+egg_test_escape_data (const guchar *data,
+                      gsize n_data)
 {
 	GString *result;
 	gsize i;
 	guchar j;
 
-	g_assert (data);
+	g_assert (data != NULL);
 
 	result = g_string_sized_new (n_data * 2 + 1);
 	for (i = 0; i < n_data; ++i) {
@@ -72,8 +90,8 @@ egg_assertion_message_cmpmem (const char     *domain,
                               gsize           n_arg2)
 {
   char *a1, *a2, *s;
-  a1 = arg1 ? hex_dump (arg1, n_arg1) : g_strdup ("NULL");
-  a2 = arg2 ? hex_dump (arg2, n_arg2) : g_strdup ("NULL");
+  a1 = arg1 ? egg_test_escape_data (arg1, n_arg1) : g_strdup ("NULL");
+  a2 = arg2 ? egg_test_escape_data (arg2, n_arg2) : g_strdup ("NULL");
   s = g_strdup_printf ("assertion failed (%s): (%s %s %s)", expr, a1, cmp, a2);
   g_free (a1);
   g_free (a2);
@@ -81,6 +99,29 @@ egg_assertion_message_cmpmem (const char     *domain,
   g_free (s);
 }
 
+void
+egg_assertion_not_object (const char *domain,
+                          const char *file,
+                          int         line,
+                          const char *func,
+                          const char *expr,
+                          gpointer was_object)
+{
+	gchar *s;
+
+#ifdef WITH_VALGRIND
+	if (RUNNING_ON_VALGRIND)
+		return;
+#endif
+
+	if (G_IS_OBJECT (was_object)) {
+		s = g_strdup_printf ("assertion failed: %s is still referenced", expr);
+		g_assertion_message (domain, file, line, func, s);
+		g_free (s);
+	}
+}
+
+#if 0
 void
 egg_test_wait_stop (void)
 {
@@ -132,7 +173,7 @@ testing_thread (gpointer loop)
 }
 
 gint
-egg_tests_run_in_thread_with_loop (void)
+egg_tests_run_with_loop (void)
 {
 	GThread *thread;
 	GMainLoop *loop;
@@ -153,7 +194,85 @@ egg_tests_run_in_thread_with_loop (void)
 	g_main_loop_unref (loop);
 
 	g_cond_free (wait_condition);
+	g_cond_free (wait_start);
 	g_mutex_free (wait_mutex);
 
 	return GPOINTER_TO_INT (ret);
+}
+#endif
+
+
+static void (*wait_stop_impl) (void);
+static gboolean (*wait_until_impl) (int timeout);
+
+void
+egg_test_wait_stop (void)
+{
+	g_assert (wait_stop_impl != NULL);
+	(wait_stop_impl) ();
+}
+
+gboolean
+egg_test_wait_until (int timeout)
+{
+	g_assert (wait_until_impl != NULL);
+	return (wait_until_impl) (timeout);
+}
+
+static GMainLoop *wait_loop = NULL;
+
+static void
+loop_wait_stop (void)
+{
+	g_assert (wait_loop != NULL);
+	g_main_loop_quit (wait_loop);
+}
+
+static gboolean
+on_loop_wait_timeout (gpointer data)
+{
+	gboolean *timed_out = data;
+	*timed_out = TRUE;
+
+	g_assert (wait_loop != NULL);
+	g_main_loop_quit (wait_loop);
+
+	return TRUE; /* we remove this source later */
+}
+
+static gboolean
+loop_wait_until (int timeout)
+{
+	gboolean timed_out = FALSE;
+	guint source;
+
+	g_assert (wait_loop == NULL);
+	wait_loop = g_main_loop_new (g_main_context_get_thread_default (), FALSE);
+
+	source = g_timeout_add (timeout, on_loop_wait_timeout, &timed_out);
+
+	g_main_loop_run (wait_loop);
+
+	g_source_remove (source);
+	g_main_loop_unref (wait_loop);
+	wait_loop = NULL;
+	return !timed_out;
+}
+
+gint
+egg_tests_run_with_loop (void)
+{
+	gint ret;
+
+	wait_stop_impl = loop_wait_stop;
+	wait_until_impl = loop_wait_until;
+
+	ret = g_test_run ();
+
+	wait_stop_impl = NULL;
+	wait_until_impl = NULL;
+
+	while (g_main_context_iteration (NULL, FALSE));
+
+	return ret;
 }

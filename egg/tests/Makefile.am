@@ -1,3 +1,4 @@
+include $(top_srcdir)/Makefile.decl
 
 asn1-def-test.c: test.asn
 	$(ASN1PARSER) -o asn1-def-test.c $(srcdir)/test.asn
@@ -37,6 +38,8 @@ test: $(TEST_PROGS)
 	gtester --verbose -m $(TEST_MODE) --g-fatal-warnings $(TEST_PROGS)
 
 check-local: test
+
+check-memory: perform-memcheck
 
 all-local: $(check_PROGRAMS)
 

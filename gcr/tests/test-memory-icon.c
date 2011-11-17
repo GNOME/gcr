@@ -67,9 +67,15 @@ static void
 teardown (Test *test, gconstpointer unused)
 {
 	g_object_unref (test->icon);
-	if (test->result)
+
+	if (test->result) {
 		g_object_unref (test->result);
+		egg_assert_not_object (test->result);
+	}
+
+	egg_assert_not_object (test->icon);
 }
+
 
 static void
 test_equal_same (Test *test, gconstpointer unused)
@@ -151,10 +157,14 @@ static void
 on_async_ready (GObject *source, GAsyncResult *result, gpointer user_data)
 {
 	Test *test = user_data;
+	GObject *result_source;
 
 	g_assert (G_OBJECT (test->icon) == source);
 	g_assert (test->result == NULL);
-	g_assert (g_async_result_get_source_object (result) == source);
+
+	result_source = g_async_result_get_source_object (result);
+	g_assert (result_source == source);
+	g_object_unref (result_source);
 
 	test->result = g_object_ref (result);
 	egg_test_wait_stop ();
@@ -186,6 +196,7 @@ test_load_async (Test *test, gconstpointer unused)
 
 	g_free (type);
 	g_object_unref (is);
+	egg_assert_not_object (is);
 }
 
 int
@@ -202,5 +213,5 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/memory-icon/load_sync", Test, NULL, setup, test_load_sync, teardown);
 	g_test_add ("/gcr/memory-icon/load_async", Test, NULL, setup, test_load_async, teardown);
 
-	return egg_tests_run_in_thread_with_loop ();
+	return egg_tests_run_with_loop ();
 }

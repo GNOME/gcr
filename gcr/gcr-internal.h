@@ -32,6 +32,8 @@
 
 void              _gcr_initialize_library          (void);
 
+void              _gcr_uninitialize_library        (void);
+
 void              _gcr_set_pkcs11_config_dir       (const gchar *dir);
 
 #endif /* GCR_INTERNAL_H_ */

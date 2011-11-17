@@ -86,7 +86,7 @@ setup (Test *test, gconstpointer unused)
 	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate", bytes);
 	g_assert (asn);
 	node = egg_asn1x_node (asn, "tbsCertificate", "subject", NULL);
-	subject = egg_asn1x_get_raw_element (node);
+	subject = egg_asn1x_get_element_raw (node);
 
 	/* Add a certificate to the module */
 	attrs = gck_attributes_new ();

@@ -116,9 +116,9 @@ void                egg_asn1x_take_integer_as_usg    (GNode *node,
 
 EggBytes *          egg_asn1x_get_raw_value          (GNode *node);
 
-EggBytes *          egg_asn1x_get_raw_element        (GNode *node);
+EggBytes *          egg_asn1x_get_element_raw        (GNode *node);
 
-gboolean            egg_asn1x_set_raw_element        (GNode *node,
+gboolean            egg_asn1x_set_element_raw        (GNode *node,
                                                       EggBytes *value);
 
 guchar*             egg_asn1x_get_string_as_raw      (GNode *node,

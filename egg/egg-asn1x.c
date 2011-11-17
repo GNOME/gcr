@@ -2895,7 +2895,7 @@ egg_asn1x_take_integer_as_usg (GNode *node,
 }
 
 EggBytes *
-egg_asn1x_get_raw_element (GNode *node)
+egg_asn1x_get_element_raw (GNode *node)
 {
 	EggBytes *backing;
 	const guchar *p;
@@ -2925,7 +2925,7 @@ egg_asn1x_get_raw_element (GNode *node)
 }
 
 gboolean
-egg_asn1x_set_raw_element (GNode *node,
+egg_asn1x_set_element_raw (GNode *node,
                            EggBytes *element)
 {
 	Atlv dtlv, *tlv;

@@ -130,7 +130,7 @@ parse_subject_public_key_info_for_cert (EggBytes *data)
 	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate", data);
 	g_assert (asn != NULL);
 
-	info = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "tbsCertificate", "subjectPublicKeyInfo", NULL));
+	info = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "tbsCertificate", "subjectPublicKeyInfo", NULL));
 	g_assert (info != NULL);
 
 	egg_asn1x_destroy (asn);

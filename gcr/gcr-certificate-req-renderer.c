@@ -237,7 +237,7 @@ append_extension_request (GcrRenderer *renderer,
 	if (node == NULL)
 		return FALSE;
 
-	value = egg_asn1x_get_raw_element (node);
+	value = egg_asn1x_get_element_raw (node);
 	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "ExtensionRequest", value);
 	if (asn == NULL)
 		return FALSE;
@@ -283,7 +283,7 @@ append_attribute (GcrRenderer *renderer,
 			node = egg_asn1x_node (attribute, "values", i, NULL);
 			if (node == NULL)
 				break;
-			value = egg_asn1x_get_raw_element (node);
+			value = egg_asn1x_get_element_raw (node);
 			_gcr_display_view_append_hex (view, renderer, _("Value"),
 			                              egg_bytes_get_data (value),
 			                              egg_bytes_get_size (value));

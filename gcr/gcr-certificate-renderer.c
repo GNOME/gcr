@@ -865,7 +865,7 @@ _gcr_certificate_renderer_append_subject_public_key (GcrRenderer *renderer,
 	text = egg_oid_get_description (oid);
 	_gcr_display_view_append_value (view, renderer, _("Key Algorithm"), text, FALSE);
 
-	value = egg_asn1x_get_raw_element (egg_asn1x_node (subject_public_key,
+	value = egg_asn1x_get_element_raw (egg_asn1x_node (subject_public_key,
 	                                                   "algorithm", "parameters", NULL));
 	if (value) {
 		_gcr_display_view_append_hex (view, renderer, _("Key Parameters"),
@@ -880,7 +880,7 @@ _gcr_certificate_renderer_append_subject_public_key (GcrRenderer *renderer,
 		g_free (display);
 	}
 
-	value = egg_asn1x_get_raw_element (subject_public_key);
+	value = egg_asn1x_get_element_raw (subject_public_key);
 	raw = gcr_fingerprint_from_subject_public_key_info (egg_bytes_get_data (value),
 	                                                    egg_bytes_get_size (value),
 	                                                    G_CHECKSUM_SHA1, &n_raw);
@@ -908,7 +908,7 @@ _gcr_certificate_renderer_append_signature (GcrRenderer *renderer,
 	text = egg_oid_get_description (oid);
 	_gcr_display_view_append_value (view, renderer, _("Signature Algorithm"), text, FALSE);
 
-	value = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "signatureAlgorithm", "parameters", NULL));
+	value = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "signatureAlgorithm", "parameters", NULL));
 	if (value) {
 		_gcr_display_view_append_hex (view, renderer, _("Signature Parameters"),
 		                              egg_bytes_get_data (value),

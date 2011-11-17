@@ -146,7 +146,7 @@ general_name_parse_other (GNode *node, GcrGeneralName *general)
 	general->description = _("Other Name");
 
 	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (node, "type-id", NULL));
-	value = egg_asn1x_get_raw_element (egg_asn1x_node (node, "value", NULL));
+	value = egg_asn1x_get_element_raw (egg_asn1x_node (node, "value", NULL));
 
 	if (value == NULL)
 		return;
@@ -282,7 +282,7 @@ _gcr_certificate_extension_subject_alt_name (EggBytes *data)
 		else if (g_str_equal (node_name, "registeredID"))
 			general_name_parse_registered (choice, &general);
 
-		general.raw = egg_asn1x_get_raw_element (choice);
+		general.raw = egg_asn1x_get_element_raw (choice);
 		g_array_append_val (names, general);
 	}
 

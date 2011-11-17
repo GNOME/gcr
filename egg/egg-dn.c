@@ -142,7 +142,7 @@ dn_parse_rdn (GNode *asn)
 	flags = egg_oid_get_flags (oid);
 	name = egg_oid_get_name (oid);
 
-	value = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "value", NULL));
+	value = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "value", NULL));
 	g_return_val_if_fail (value, NULL);
 
 	display = dn_print_oid_value (oid, flags, value);
@@ -234,7 +234,7 @@ egg_dn_read_part (GNode *asn, const gchar *match)
 			node = egg_asn1x_node (asn, i, j, "value", NULL);
 			g_return_val_if_fail (node, NULL);
 
-			value = egg_asn1x_get_raw_element (node);
+			value = egg_asn1x_get_element_raw (node);
 			g_return_val_if_fail (value, NULL);
 
 			result = dn_print_oid_value (oid, egg_oid_get_flags (oid), value);
@@ -280,7 +280,7 @@ egg_dn_parse (GNode *asn, EggDnCallback callback, gpointer user_data)
 				break;
 			}
 
-			value = egg_asn1x_get_raw_element (node);
+			value = egg_asn1x_get_element_raw (node);
 
 			if (callback)
 				(callback) (i, oid, value, user_data);

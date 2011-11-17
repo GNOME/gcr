@@ -268,7 +268,7 @@ parsed_asn1_element (GcrParsed *parsed,
 	g_assert (asn);
 	g_assert (parsed);
 
-	value = egg_asn1x_get_raw_element (egg_asn1x_node (asn, part, NULL));
+	value = egg_asn1x_get_element_raw (egg_asn1x_node (asn, part, NULL));
 	if (value == NULL)
 		return FALSE;
 
@@ -665,7 +665,7 @@ parse_der_pkcs8_plain (GcrParser *self,
 	if (!keydata)
 		goto done;
 
-	params = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "privateKeyAlgorithm", "parameters", NULL));
+	params = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "privateKeyAlgorithm", "parameters", NULL));
 
 	ret = SUCCESS;
 
@@ -735,7 +735,7 @@ parse_der_pkcs8_encrypted (GcrParser *self,
 	if (!scheme)
 		goto done;
 
-	params = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "encryptionAlgorithm", "parameters", NULL));
+	params = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "encryptionAlgorithm", "parameters", NULL));
 
 	/* Loop to try different passwords */
 	for (;;) {
@@ -885,7 +885,7 @@ handle_pkcs7_signed_data (GcrParser *self,
 		if (node == NULL)
 			break;
 
-		certificate = egg_asn1x_get_raw_element (node);
+		certificate = egg_asn1x_get_element_raw (node);
 		ret = parse_der_certificate (self, certificate);
 		egg_bytes_unref (certificate);
 
@@ -936,7 +936,7 @@ parse_der_pkcs7 (GcrParser *self,
 		goto done;
 	}
 
-	content = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "content", NULL));
+	content = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "content", NULL));
 	if (!content)
 		goto done;
 
@@ -1006,7 +1006,7 @@ handle_pkcs12_cert_bag (GcrParser *self,
 
 	ret = GCR_ERROR_FAILURE;
 
-	element = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "certValue", NULL));
+	element = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "certValue", NULL));
 	if (!element)
 		goto done;
 
@@ -1049,7 +1049,7 @@ parse_pkcs12_bag_friendly_name (GNode *asn)
 		if (oid == GCR_OID_PKCS9_ATTRIBUTE_FRIENDLY) {
 			node = egg_asn1x_node (asn, i, "values", 1, NULL);
 			if (node != NULL) {
-				element = egg_asn1x_get_raw_element (node);
+				element = egg_asn1x_get_element_raw (node);
 				asn_str = egg_asn1x_create_and_decode (pkix_asn1_tab, "BMPString",
 				                                       element);
 				egg_bytes_unref (element);
@@ -1101,7 +1101,7 @@ handle_pkcs12_bag (GcrParser *self,
 		if (!oid)
 			goto done;
 
-		element = egg_asn1x_get_raw_element (egg_asn1x_node (asn, i, "bagValue", NULL));
+		element = egg_asn1x_get_element_raw (egg_asn1x_node (asn, i, "bagValue", NULL));
 		if (!element)
 			goto done;
 
@@ -1182,7 +1182,7 @@ handle_pkcs12_encrypted_bag (GcrParser *self,
 	if (!scheme)
 		goto done;
 
-	params = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "encryptedContentInfo", "contentEncryptionAlgorithm", "parameters", NULL));
+	params = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "encryptedContentInfo", "contentEncryptionAlgorithm", "parameters", NULL));
 	if (!params)
 		goto done;
 
@@ -1286,7 +1286,7 @@ handle_pkcs12_safe (GcrParser *self,
 		if (!node)
 			goto done;
 
-		bag = egg_asn1x_get_raw_element (node);
+		bag = egg_asn1x_get_element_raw (node);
 		g_return_val_if_fail (bag != NULL, ret);
 
 		/* A non encrypted bag, just parse */
@@ -1370,7 +1370,7 @@ verify_pkcs12_safe (GcrParser *self,
 	if (!algorithm)
 		goto done;
 
-	params = egg_asn1x_get_raw_element (mac_data);
+	params = egg_asn1x_get_element_raw (mac_data);
 	if (!params)
 		goto done;
 
@@ -1455,7 +1455,7 @@ parse_der_pkcs12 (GcrParser *self,
 		goto done;
 	}
 
-	element = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "authSafe", "content", NULL));
+	element = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "authSafe", "content", NULL));
 	if (!element)
 		goto done;
 

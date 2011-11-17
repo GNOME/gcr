@@ -532,7 +532,7 @@ test_any_set_raw (void)
 
 	bytes = egg_bytes_new_with_free_func (SFARNSWORTH, XL (SFARNSWORTH),
 	                                      test_is_freed, NULL);
-	if (!egg_asn1x_set_raw_element (node, bytes))
+	if (!egg_asn1x_set_element_raw (node, bytes))
 		g_assert_not_reached ();
 	egg_bytes_unref (bytes);
 
@@ -541,7 +541,7 @@ test_any_set_raw (void)
 
 	egg_assert_equal_bytes (data, SEQ_ENCODING, XL (SEQ_ENCODING));
 
-	check = egg_asn1x_get_raw_element (node);
+	check = egg_asn1x_get_element_raw (node);
 	g_assert (check);
 
 	egg_assert_equal_bytes (check, SFARNSWORTH, XL (SFARNSWORTH));
@@ -571,7 +571,7 @@ test_any_set_raw_explicit (void)
 	g_assert (node);
 
 	bytes = egg_bytes_new_with_free_func (SFARNSWORTH, XL (SFARNSWORTH), test_is_freed, NULL);
-	if (!egg_asn1x_set_raw_element (node, bytes))
+	if (!egg_asn1x_set_element_raw (node, bytes))
 		g_assert_not_reached ();
 	egg_bytes_unref (bytes);
 
@@ -580,7 +580,7 @@ test_any_set_raw_explicit (void)
 
 	egg_assert_equal_bytes (data, SEQ_ENCODING, XL (SEQ_ENCODING));
 
-	check = egg_asn1x_get_raw_element (node);
+	check = egg_asn1x_get_element_raw (node);
 	g_assert (check);
 
 	egg_assert_equal_bytes (check, SFARNSWORTH, XL (SFARNSWORTH));
@@ -605,7 +605,7 @@ test_choice_not_chosen (void)
 	g_assert (node);
 
 	bytes = egg_bytes_new_static (SFARNSWORTH, XL (SFARNSWORTH));
-	if (!egg_asn1x_set_raw_element (node, bytes))
+	if (!egg_asn1x_set_element_raw (node, bytes))
 		g_assert_not_reached ();
 	egg_bytes_unref (bytes);
 
@@ -637,7 +637,7 @@ perform_asn1_any_choice_set_raw (const gchar *choice, const gchar *encoding, gsi
 		g_assert_not_reached ();
 
 	bytes = egg_bytes_new_with_free_func (SFARNSWORTH, XL (SFARNSWORTH), test_is_freed, NULL);
-	if (!egg_asn1x_set_raw_element (node, bytes))
+	if (!egg_asn1x_set_element_raw (node, bytes))
 		g_assert_not_reached ();
 	egg_bytes_unref (bytes);
 
@@ -650,7 +650,7 @@ perform_asn1_any_choice_set_raw (const gchar *choice, const gchar *encoding, gsi
 
 	egg_assert_equal_bytes (data, encoding, n_encoding);
 
-	check = egg_asn1x_get_raw_element (node);
+	check = egg_asn1x_get_element_raw (node);
 	g_assert (check != NULL);
 
 	egg_assert_equal_bytes (check, SFARNSWORTH, XL (SFARNSWORTH));
@@ -1045,7 +1045,7 @@ test_read_element (Test* test, gconstpointer unused)
 	g_assert (buffer != NULL);
 
 	/* Now the real test */
-	data = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "data", NULL));
+	data = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "data", NULL));
 	g_assert (data != NULL);
 	g_assert_cmpint (egg_bytes_get_size (data), ==, 11);
 	egg_bytes_unref (data);

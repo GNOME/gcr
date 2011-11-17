@@ -134,7 +134,7 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs, GNode *info_asn)
 	                           key, egg_bytes_get_size (key) * 8);
 
 	egg_asn1x_set_oid_as_quark (egg_asn1x_node (info_asn, "algorithm", "algorithm", NULL), GCR_OID_PKIX1_RSA);
-	egg_asn1x_set_raw_element (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params);
+	egg_asn1x_set_element_raw (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params);
 
 	egg_bytes_unref (key);
 	egg_bytes_unref (params);
@@ -244,8 +244,8 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	egg_asn1x_destroy (params_asn);
 
 	egg_asn1x_set_bits_as_raw (egg_asn1x_node (info_asn, "subjectPublicKey", NULL),
-	                           key, egg_bytes_get_size (key) * 8);
-	egg_asn1x_set_raw_element (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params);
+	                            key, egg_bytes_get_size (key) * 8);
+	egg_asn1x_set_element_raw (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params);
 
 	egg_asn1x_set_oid_as_quark (egg_asn1x_node (info_asn, "algorithm", "algorithm", NULL), GCR_OID_PKIX1_DSA);
 
@@ -307,7 +307,7 @@ fingerprint_from_cert_value (EggBytes *der_data,
 	if (cert_asn == NULL)
 		return NULL;
 
-	info = egg_asn1x_get_raw_element (egg_asn1x_node (cert_asn, "tbsCertificate", "subjectPublicKeyInfo", NULL));
+	info = egg_asn1x_get_element_raw (egg_asn1x_node (cert_asn, "tbsCertificate", "subjectPublicKeyInfo", NULL));
 	g_return_val_if_fail (info != NULL, NULL);
 
 	fingerprint = gcr_fingerprint_from_subject_public_key_info (egg_bytes_get_data (info),

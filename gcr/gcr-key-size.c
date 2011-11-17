@@ -94,7 +94,7 @@ _gcr_key_size_calculate (GNode *subject_public_key)
 
 	/* The DSA key size is discovered by the prime in params */
 	} else if (oid == GCR_OID_PKIX1_DSA) {
-		key = egg_asn1x_get_raw_element (egg_asn1x_node (subject_public_key, "algorithm", "parameters", NULL));
+		key = egg_asn1x_get_element_raw (egg_asn1x_node (subject_public_key, "algorithm", "parameters", NULL));
 		key_size = calculate_dsa_params_size (key);
 		egg_bytes_unref (key);
 

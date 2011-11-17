@@ -910,7 +910,7 @@ read_cipher_pkcs5_pbes2 (const gchar *password,
 	}
 
 	/* Read out the parameters */
-	params = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "encryptionScheme", "parameters", NULL));
+	params = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "encryptionScheme", "parameters", NULL));
 	if (!params)
 		goto done;
 
@@ -942,7 +942,7 @@ read_cipher_pkcs5_pbes2 (const gchar *password,
 	}
 
 	egg_bytes_unref (params);
-	params = egg_asn1x_get_raw_element (egg_asn1x_node (asn, "keyDerivationFunc", "parameters", NULL));
+	params = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "keyDerivationFunc", "parameters", NULL));
 	if (!params)
 		goto done;
 

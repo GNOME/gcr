@@ -434,7 +434,7 @@ _gcr_certificate_get_issuer_const (GcrCertificate *self)
 	info = certificate_info_load (self);
 	g_return_val_if_fail (info, NULL);
 
-	return egg_asn1x_get_raw_element (egg_asn1x_node (info->asn1, "tbsCertificate", "issuer", NULL));
+	return egg_asn1x_get_element_raw (egg_asn1x_node (info->asn1, "tbsCertificate", "issuer", NULL));
 }
 
 /**
@@ -614,7 +614,7 @@ _gcr_certificate_get_subject_const (GcrCertificate *self)
 	info = certificate_info_load (self);
 	g_return_val_if_fail (info, NULL);
 
-	return egg_asn1x_get_raw_element (egg_asn1x_node (info->asn1, "tbsCertificate", "subject", NULL));
+	return egg_asn1x_get_element_raw (egg_asn1x_node (info->asn1, "tbsCertificate", "subject", NULL));
 }
 
 /**

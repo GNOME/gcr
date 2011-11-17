@@ -255,6 +255,9 @@ gboolean            gck_attributes_find_date                (GckAttributes *attr
                                                              gulong attr_type,
                                                              GDate *value);
 
+void                gck_attributes_set                      (GckAttributes *attrs,
+                                                             GckAttribute *attr);
+
 void                gck_attributes_set_boolean              (GckAttributes *attrs,
                                                              gulong attr_type,
                                                              gboolean value);
@@ -271,6 +274,9 @@ void                gck_attributes_set_date                 (GckAttributes *attr
                                                              gulong attr_type,
                                                              const GDate *value);
 
+void                gck_attributes_set_all                  (GckAttributes *attrs,
+                                                             GckAttributes *from);
+
 gulong              gck_attributes_count                    (GckAttributes *attrs);
 
 GckAttributes*      gck_attributes_ref                      (GckAttributes *attrs);
@@ -279,6 +285,8 @@ void                gck_attributes_unref                    (gpointer attrs);
 
 gboolean            gck_attributes_contains                 (GckAttributes *attrs,
                                                              GckAttribute *match);
+
+GckAttributes *     gck_attributes_dup                      (GckAttributes *attrs);
 
 void                gck_attributes_dump                     (GckAttributes *attrs);
 

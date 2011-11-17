@@ -893,6 +893,36 @@ gck_attributes_add (GckAttributes *attrs, GckAttribute *attr)
 }
 
 /**
+ * gck_attributes_set:
+ * @attrs: attributes array to add to
+ * @attr: attribute to set
+ *
+ * Set an attribute on the array.
+ *
+ * The value stored in the attribute will be copied.
+ *
+ * Returns: (transfer none): the attribute that was added
+ **/
+void
+gck_attributes_set (GckAttributes *attrs,
+                    GckAttribute *attr)
+{
+	GckAttribute *orig;
+
+	g_return_if_fail (attrs != NULL);
+	g_return_if_fail (!attrs->locked);
+	g_return_if_fail (attr != NULL);
+
+	orig = gck_attributes_find (attrs, attr->type);
+	if (orig == NULL) {
+		gck_attributes_add (attrs, attr);
+	} else {
+		attribute_clear (orig, attrs->allocator);
+		attribute_init_copy (orig, attr, attrs->allocator);
+	}
+}
+
+/**
  * gck_attributes_add_data:
  * @attrs: The attributes array to add to.
  * @attr_type: The type of attribute to add.
@@ -1186,6 +1216,31 @@ gck_attributes_add_all (GckAttributes *attrs, GckAttributes *from)
 	}
 }
 
+
+/**
+ * gck_attributes_set_all:
+ * @attrs: set of attributes
+ * @from: attributes to add
+ *
+ * Set all attributes in @from on @attrs.
+ */
+void
+gck_attributes_set_all (GckAttributes *attrs,
+                        GckAttributes *from)
+{
+	GckAttribute *attr;
+	guint i;
+
+	g_return_if_fail (attrs && attrs->array);
+	g_return_if_fail (from && from->array);
+	g_return_if_fail (!attrs->locked);
+
+	for (i = 0; i < from->array->len; ++i) {
+		attr = &g_array_index (from->array, GckAttribute, i);
+		gck_attributes_set (attrs, attr);
+	}
+}
+
 /**
  * gck_attributes_count:
  * @attrs: The attributes array to count.
@@ -1392,6 +1447,28 @@ gck_attributes_unref (gpointer attrs)
 		attrs_->array = NULL;
 		g_slice_free (GckAttributes, attrs_);
 	}
+}
+
+/**
+ * gck_attributes_dup:
+ * @attrs: an attribute array
+ *
+ * Make a complete copy of the attributes and all values.
+ *
+ * Returns: (transfer full): the copy
+ */
+GckAttributes *
+gck_attributes_dup (GckAttributes *attrs)
+{
+	GckAttributes *copy;
+
+	if (!attrs)
+		return NULL;
+
+	copy = gck_attributes_new_full (attrs->allocator);
+	gck_attributes_add_all (copy, attrs);
+
+	return copy;
 }
 
 /**

@@ -27,6 +27,7 @@
 #include <string.h>
 
 #include "gck/gck.h"
+#include "gck/gck-test.h"
 
 #define ATTR_TYPE 55
 #define ATTR_DATA "TEST DATA"
@@ -384,15 +385,17 @@ test_new_attributes (void)
 }
 
 static void
-test_attributes_contents (GckAttributes *attrs, gboolean extras)
+test_attributes_contents (GckAttributes *attrs,
+                          gboolean extras,
+                          gint count)
 {
 	GckAttribute *attr;
 	gchar *value;
 	GDate date, *check;
-	guint count;
 
 	g_assert (attrs != NULL);
-	count = extras ? 7 : 5;
+	if (count < 0)
+		count = extras ? 7 : 5;
 	g_assert_cmpuint (gck_attributes_count (attrs), ==, count);
 
 	attr = gck_attributes_at (attrs, 0);
@@ -401,7 +404,7 @@ test_attributes_contents (GckAttributes *attrs, gboolean extras)
 
 	attr = gck_attributes_at (attrs, 1);
 	g_assert (attr->type == 101);
-	g_assert (gck_attribute_get_ulong (attr) == 888);
+	gck_assert_cmpulong (gck_attribute_get_ulong (attr), ==, 888);
 
 	attr = gck_attributes_at (attrs, 2);
 	g_assert (attr->type == 202);
@@ -468,7 +471,7 @@ test_add_data_attributes (void)
 	gck_attributes_add_data (attrs, 404UL, (const guchar *)ATTR_DATA, N_ATTR_DATA);
 	gck_attributes_add_invalid (attrs, 505UL);
 	gck_attributes_add_empty (attrs, 606UL);
-	test_attributes_contents (attrs, TRUE);
+	test_attributes_contents (attrs, TRUE, -1);
 	gck_attributes_unref (attrs);
 }
 
@@ -509,12 +512,81 @@ test_add_attributes (void)
 	gck_attributes_add (attrs, &attr);
 	gck_attribute_clear (&attr);
 
-	test_attributes_contents (attrs, TRUE);
+	test_attributes_contents (attrs, TRUE, -1);
 	gck_attributes_unref (attrs);
 }
 
 static void
 test_add_all_attributes (void)
+{
+	GckAttributes *attrs;
+	GckAttributes *copy;
+	GDate *date = g_date_new_dmy (11, 12, 2008);
+	attrs = gck_attributes_new ();
+	gck_attributes_add_ulong (attrs, 101UL, 888);
+	gck_attributes_add_string (attrs, 202UL, "string");
+	gck_attributes_add_date (attrs, 303UL, date);
+	g_date_free (date);
+	gck_attributes_add_data (attrs, 404UL, (const guchar *)ATTR_DATA, N_ATTR_DATA);
+	gck_attributes_add_invalid (attrs, 505UL);
+	gck_attributes_add_empty (attrs, 606UL);
+	gck_attributes_add_boolean (attrs, 0UL, FALSE);
+
+	copy = gck_attributes_new ();
+	gck_attributes_add_boolean (copy, 0UL, TRUE); /* shouldn't be overriden */
+	gck_attributes_add_all (copy, attrs);
+	test_attributes_contents (copy, TRUE, 8);
+
+	gck_attributes_unref (attrs);
+	gck_attributes_unref (copy);
+}
+
+static void
+test_set_attributes (void)
+{
+	GckAttributes *attrs;
+	GckAttribute attr;
+
+	GDate *date = g_date_new_dmy (11, 12, 2008);
+	attrs = gck_attributes_new ();
+	gck_attributes_add_boolean (attrs, 0UL, FALSE);
+	gck_attributes_add_ulong (attrs, 101UL, 999);
+	gck_attributes_add_string (attrs, 202UL, "invalid");
+
+	gck_attribute_init_boolean (&attr, 0UL, TRUE);
+	gck_attributes_set (attrs, &attr);
+	gck_attribute_clear (&attr);
+
+	gck_attribute_init_ulong (&attr, 101UL, 888);
+	gck_attributes_set (attrs, &attr);
+	gck_attribute_clear (&attr);
+	gck_attribute_init_string (&attr, 202UL, "string");
+	gck_attributes_set (attrs, &attr);
+	gck_attribute_clear (&attr);
+
+	gck_attribute_init_date (&attr, 303UL, date);
+	gck_attributes_set (attrs, &attr);
+	gck_attribute_clear (&attr);
+	g_date_free (date);
+
+	gck_attribute_init (&attr, 404UL, (const guchar *)ATTR_DATA, N_ATTR_DATA);
+	gck_attributes_set (attrs, &attr);
+	gck_attribute_clear (&attr);
+
+	gck_attribute_init_invalid (&attr, 505UL);
+	gck_attributes_set (attrs, &attr);
+	gck_attribute_clear (&attr);
+
+	gck_attribute_init_empty (&attr, 606UL);
+	gck_attributes_set (attrs, &attr);
+	gck_attribute_clear (&attr);
+
+	test_attributes_contents (attrs, TRUE, -1);
+	gck_attributes_unref (attrs);
+}
+
+static void
+test_set_all_attributes (void)
 {
 	GckAttributes *attrs;
 	GckAttributes *copy;
@@ -530,13 +602,36 @@ test_add_all_attributes (void)
 	gck_attributes_add_empty (attrs, 606UL);
 
 	copy = gck_attributes_new ();
-	gck_attributes_add_all (copy, attrs);
-	test_attributes_contents (copy, TRUE);
+	gck_attributes_add_ulong (copy, 0UL, TRUE); /* should be overridden */
+	gck_attributes_set_all (copy, attrs);
+	test_attributes_contents (copy, TRUE, 7);
 
 	gck_attributes_unref (attrs);
 	gck_attributes_unref (copy);
 }
 
+static void
+test_dup_attributes (void)
+{
+	GckAttributes *attrs;
+	GckAttributes *copy;
+	GDate *date = g_date_new_dmy (11, 12, 2008);
+	attrs = gck_attributes_new ();
+	gck_attributes_add_boolean (attrs, 0UL, TRUE);
+	gck_attributes_add_ulong (attrs, 101UL, 888);
+	gck_attributes_add_string (attrs, 202UL, "string");
+	gck_attributes_add_date (attrs, 303UL, date);
+	g_date_free (date);
+	gck_attributes_add_data (attrs, 404UL, (const guchar *)ATTR_DATA, N_ATTR_DATA);
+	gck_attributes_add_invalid (attrs, 505UL);
+	gck_attributes_add_empty (attrs, 606UL);
+
+	copy = gck_attributes_dup (attrs);
+	gck_attributes_unref (attrs);
+
+	test_attributes_contents (copy, TRUE, -1);
+	gck_attributes_unref (copy);
+}
 
 static void
 test_find_attributes (void)
@@ -613,6 +708,9 @@ main (int argc, char **argv)
 	g_test_add_func ("/gck/attributes/add_data_attributes", test_add_data_attributes);
 	g_test_add_func ("/gck/attributes/add_attributes", test_add_attributes);
 	g_test_add_func ("/gck/attributes/add_all_attributes", test_add_all_attributes);
+	g_test_add_func ("/gck/attributes/set_attributes", test_set_attributes);
+	g_test_add_func ("/gck/attributes/set_all_attributes", test_set_all_attributes);
+	g_test_add_func ("/gck/attributes/dup_attributes", test_dup_attributes);
 	g_test_add_func ("/gck/attributes/find_attributes", test_find_attributes);
 
 	return g_test_run ();

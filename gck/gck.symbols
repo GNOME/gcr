@@ -42,6 +42,7 @@ gck_attributes_at
 gck_attributes_contains
 gck_attributes_count
 gck_attributes_dump
+gck_attributes_dup
 gck_attributes_find
 gck_attributes_find_boolean
 gck_attributes_find_date
@@ -53,6 +54,8 @@ gck_attributes_new
 gck_attributes_new_empty
 gck_attributes_new_full
 gck_attributes_ref
+gck_attributes_set
+gck_attributes_set_all
 gck_attributes_set_boolean
 gck_attributes_set_date
 gck_attributes_set_string

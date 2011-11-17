@@ -42,7 +42,8 @@ const gchar BFALSE[] =        "\x01\x01\x00";
 const gchar BTRUE[] =         "\x01\x01\xFF";
 const gchar SFARNSWORTH[] =   "\x04\x0A""farnsworth";
 const gchar SIMPLICIT[] =     "\x85\x08""implicit";
-const gchar SEXPLICIT[] =     "\xE5\x0A\x04\x08""explicit";
+const gchar SEXPLICIT[] =     "\xA5\x0A\x04\x08""explicit";
+const gchar SUNIVERSAL[] =    "\x05\x09""universal";
 const gchar TGENERALIZED[] =  "\x18\x0F""20070725130528Z";
 const gchar BITS_TEST[] =  "\x03\x04\x06\x6e\x5d\xc0";
 const gchar BITS_BAD[] =  "\x03\x04\x06\x6e\x5d\xc1";
@@ -285,7 +286,7 @@ test_generalized_time (void)
 }
 
 static void
-test_implicit (void)
+test_implicit_encode (void)
 {
 	EggBytes *bytes;
 	GNode *asn;
@@ -307,7 +308,26 @@ test_implicit (void)
 }
 
 static void
-test_explicit (void)
+test_implicit_decode (void)
+{
+	EggBytes *bytes;
+	GNode *asn;
+
+	asn = egg_asn1x_create (test_asn1_tab, "TestImplicit");
+	g_assert (asn);
+
+	if (!egg_asn1x_set_string_as_utf8 (asn, g_strdup ("implicit"), g_free))
+		g_assert_not_reached ();
+
+	bytes = egg_asn1x_encode (asn, NULL);
+	egg_assert_cmpbytes (bytes, ==, SIMPLICIT, XL (SIMPLICIT));
+
+	egg_asn1x_destroy (asn);
+	egg_bytes_unref (bytes);
+}
+
+static void
+test_explicit_decode (void)
 {
 	EggBytes *bytes;
 	GNode *asn;
@@ -327,6 +347,67 @@ test_explicit (void)
 	g_free (value);
 
 	egg_asn1x_destroy (asn);
+}
+
+static void
+test_explicit_encode (void)
+{
+	EggBytes *bytes;
+	GNode *asn;
+
+	asn = egg_asn1x_create (test_asn1_tab, "TestExplicit");
+	g_assert (asn);
+
+	if (!egg_asn1x_set_string_as_utf8 (asn, g_strdup ("explicit"), g_free))
+		g_assert_not_reached ();
+
+	bytes = egg_asn1x_encode (asn, NULL);
+	egg_assert_cmpbytes (bytes, ==, SEXPLICIT, XL (SEXPLICIT));
+
+	egg_asn1x_destroy (asn);
+	egg_bytes_unref (bytes);
+}
+
+static void
+test_universal_decode (void)
+{
+	EggBytes *bytes;
+	GNode *asn;
+	gchar *value;
+
+	asn = egg_asn1x_create (test_asn1_tab, "TestUniversal");
+	g_assert (asn);
+
+	/* Should work */
+	bytes = egg_bytes_new_static (SUNIVERSAL, XL (SUNIVERSAL));
+	if (!egg_asn1x_decode (asn, bytes))
+		g_assert_not_reached ();
+	egg_bytes_unref (bytes);
+
+	value = egg_asn1x_get_string_as_utf8 (asn, NULL);
+	g_assert_cmpstr (value, ==, "universal");
+	g_free (value);
+
+	egg_asn1x_destroy (asn);
+}
+
+static void
+test_universal_encode (void)
+{
+	EggBytes *bytes;
+	GNode *asn;
+
+	asn = egg_asn1x_create (test_asn1_tab, "TestUniversal");
+	g_assert (asn);
+
+	if (!egg_asn1x_set_string_as_utf8 (asn, g_strdup ("universal"), g_free))
+		g_assert_not_reached ();
+
+	bytes = egg_asn1x_encode (asn, NULL);
+	egg_assert_cmpbytes (bytes, ==, SUNIVERSAL, XL (SUNIVERSAL));
+
+	egg_asn1x_destroy (asn);
+	egg_bytes_unref (bytes);
 }
 
 static void
@@ -1278,8 +1359,12 @@ main (int argc, char **argv)
 	g_test_add_func ("/asn1/unsigned", test_unsigned);
 	g_test_add_func ("/asn1/octet_string", test_octet_string);
 	g_test_add_func ("/asn1/generalized_time", test_generalized_time);
-	g_test_add_func ("/asn1/implicit", test_implicit);
-	g_test_add_func ("/asn1/explicit", test_explicit);
+	g_test_add_func ("/asn1/implicit/decode", test_implicit_decode);
+	g_test_add_func ("/asn1/implicit/encode", test_implicit_encode);
+	g_test_add_func ("/asn1/explicit/decode", test_explicit_decode);
+	g_test_add_func ("/asn1/explicit/encode", test_explicit_encode);
+	g_test_add_func ("/asn1/universal/decode", test_universal_decode);
+	g_test_add_func ("/asn1/universal/encode", test_universal_encode);
 	g_test_add_func ("/asn1/bit_string_decode", test_bit_string_decode);
 	g_test_add_func ("/asn1/bit_string_decode_bad", test_bit_string_decode_bad);
 	g_test_add_func ("/asn1/bit_string_decode_ulong", test_bit_string_decode_ulong);

@@ -601,22 +601,35 @@ anode_calc_tag (GNode *node)
 }
 
 static gboolean
-anode_calc_explicit_for_flags (GNode *node, gint flags)
+anode_calc_explicit_for_flags (GNode *node,
+                               gint flags,
+                               guchar *cls_type)
 {
 	const EggAsn1xDef *opt;
 	if ((flags & FLAG_TAG) != FLAG_TAG)
 		return FALSE;
 	opt = anode_opt_lookup (node, EGG_ASN1X_TAG, NULL);
 	g_return_val_if_fail (opt, FALSE);
+	if (cls_type) {
+		if (opt->type & FLAG_UNIVERSAL)
+			*cls_type = ASN1_CLASS_UNIVERSAL;
+		else if (opt->type & FLAG_APPLICATION)
+			*cls_type = ASN1_CLASS_APPLICATION;
+		else if (opt->type & FLAG_PRIVATE)
+			*cls_type = ASN1_CLASS_PRIVATE;
+		else
+			*cls_type = ASN1_CLASS_CONTEXT_SPECIFIC;
+	}
 	if ((opt->type & FLAG_IMPLICIT) == FLAG_IMPLICIT)
 		return FALSE;
 	return TRUE;
 }
 
 static gboolean
-anode_calc_explicit (GNode *node)
+anode_calc_explicit (GNode *node,
+                     guchar *cls_type)
 {
-	return anode_calc_explicit_for_flags (node, anode_def_flags (node));
+	return anode_calc_explicit_for_flags (node, anode_def_flags (node), cls_type);
 }
 
 /* -------------------------------------------------------------------------
@@ -1057,7 +1070,7 @@ anode_decode_structured (GNode *node,
 	end = tlv->end;
 
 	/* An explicit, wrapped tag */
-	if (anode_calc_explicit_for_flags (node, flags)) {
+	if (anode_calc_explicit_for_flags (node, flags, NULL)) {
 		if ((tlv->cls & ASN1_CLASS_CONTEXT_SPECIFIC) == 0)
 			return anode_failure (node, "missing context specific tag");
 		if (!anode_decode_tlv_for_contents (tlv, TRUE, &ctlv))
@@ -1314,6 +1327,7 @@ anode_encode_tlv_and_enc (GNode *node,
                           GDestroyNotify destroy)
 {
 	gboolean explicit = FALSE;
+	guchar cls_type;
 	gulong tag;
 	gint flags;
 	Atlv tlv;
@@ -1358,11 +1372,11 @@ anode_encode_tlv_and_enc (GNode *node,
 	/* Build up the class */
 	flags = anode_def_flags (node);
 	if (flags & FLAG_TAG) {
-		explicit = anode_calc_explicit_for_flags (node, flags);
+		explicit = anode_calc_explicit_for_flags (node, flags, &cls_type);
 		if (explicit)
 			flags &= ~FLAG_TAG;
 		else
-			tlv.cls |= ASN1_CLASS_CONTEXT_SPECIFIC;
+			tlv.cls |= cls_type;
 	}
 
 	/* And now the tag */
@@ -1393,6 +1407,7 @@ anode_encode_build (GNode *node,
                     guchar *data,
                     gsize n_data)
 {
+	guchar cls_type;
 	gint type;
 	guchar cls;
 	gulong tag;
@@ -1415,10 +1430,10 @@ anode_encode_build (GNode *node,
 	}
 
 	/* Encode any explicit tag */
-	if (anode_calc_explicit (node)) {
+	if (anode_calc_explicit (node, &cls_type)) {
 		tag = anode_calc_tag (node);
 		g_return_val_if_fail (tag != G_MAXULONG, FALSE);
-		cls = (ASN1_CLASS_STRUCTURED | ASN1_CLASS_CONTEXT_SPECIFIC);
+		cls = (ASN1_CLASS_STRUCTURED | cls_type);
 		g_assert (tlv->oft > 0 && tlv->oft < tlv->off);
 		off = anode_encode_cls_tag_len (data, n_data, cls, tag, (tlv->off - tlv->oft) + tlv->len);
 		g_assert (off == tlv->oft);
@@ -2895,7 +2910,7 @@ egg_asn1x_get_element_raw (GNode *node)
 	if (backing == NULL)
 		return NULL;
 
-	if (anode_calc_explicit (node)) {
+	if (anode_calc_explicit (node, NULL)) {
 		len = (tlv->len + tlv->off) - tlv->oft;
 		p = tlv->buf + tlv->oft;
 	} else {
@@ -2914,6 +2929,7 @@ egg_asn1x_set_element_raw (GNode *node,
 	Atlv dtlv, *tlv;
 	gint oft, flags;
 	const guchar *data;
+	guchar cls_type;
 	EggBytes *sub;
 	gsize size;
 
@@ -2952,8 +2968,8 @@ egg_asn1x_set_element_raw (GNode *node,
 	tlv->buf = tlv->end = NULL;
 
 	/* Explicit tagging: leave space for the outer tag */
-	if (anode_calc_explicit (node)) {
-		oft = anode_encode_cls_tag_len (NULL, 0, (ASN1_CLASS_STRUCTURED | ASN1_CLASS_CONTEXT_SPECIFIC),
+	if (anode_calc_explicit (node, &cls_type)) {
+		oft = anode_encode_cls_tag_len (NULL, 0, (ASN1_CLASS_STRUCTURED | cls_type),
 		                                anode_calc_tag (node), size);
 
 		tlv->off += oft;

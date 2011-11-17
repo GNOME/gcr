@@ -301,3 +301,88 @@ egg_dn_print_value (GQuark oid,
 
 	return dn_print_oid_value (oid, egg_oid_get_flags (oid), value);
 }
+
+static gboolean
+is_ascii_string (const gchar *string)
+{
+	const gchar *p = string;
+
+	g_return_val_if_fail (string != NULL, FALSE);
+
+	for (p = string; *p != '\0'; p++) {
+		if (!g_ascii_isspace (*p) && *p < ' ')
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+static gboolean
+is_printable_string (const gchar *string)
+{
+	const gchar *p = string;
+
+	g_return_val_if_fail (string != NULL, FALSE);
+
+	for (p = string; *p != '\0'; p++) {
+		if (!g_ascii_isalnum (*p) && !strchr (" '()+,-./:=?", *p))
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+void
+egg_dn_add_string_part (GNode *asn,
+                        GQuark oid,
+                        const gchar *string)
+{
+	EggBytes *bytes;
+	GNode *node;
+	GNode *value;
+	GNode *val;
+	guint flags;
+
+	g_return_if_fail (asn != NULL);
+	g_return_if_fail (oid != 0);
+	g_return_if_fail (string != NULL);
+
+	flags = egg_oid_get_flags (oid);
+	g_return_if_fail (flags & EGG_OID_PRINTABLE);
+
+	/* Add the RelativeDistinguishedName */
+	node = egg_asn1x_append (asn);
+
+	/* Add the AttributeTypeAndValue */
+	node = egg_asn1x_append (node);
+
+	egg_asn1x_set_oid_as_quark (egg_asn1x_node (node, "type", NULL), oid);
+
+	value = egg_asn1x_create_quark (pkix_asn1_tab, oid);
+
+	if (egg_asn1x_type (value) == EGG_ASN1X_CHOICE) {
+		if (is_printable_string (string))
+			val = egg_asn1x_node (value, "printableString", NULL);
+		else if (is_ascii_string (string))
+			val = egg_asn1x_node (value, "ia5String", NULL);
+		else
+			val = egg_asn1x_node (value, "utf8String", NULL);
+		egg_asn1x_set_choice (value, val);
+	} else {
+		val = value;
+	}
+
+	egg_asn1x_set_string_as_utf8 (val, g_strdup (string), g_free);
+
+	bytes = egg_asn1x_encode (value, NULL);
+	if (bytes == NULL) {
+		g_warning ("couldn't build dn string value: %s", egg_asn1x_message (value));
+		return;
+	}
+
+	if (!egg_asn1x_set_element_raw (egg_asn1x_node (node, "value", NULL), bytes))
+		g_return_if_reached ();
+
+	egg_asn1x_destroy (value);
+	egg_bytes_unref (bytes);
+}

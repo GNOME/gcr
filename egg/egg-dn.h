@@ -45,4 +45,8 @@ gboolean           egg_dn_parse                           (GNode *node,
 gchar*             egg_dn_print_value                     (GQuark oid,
                                                            EggBytes *value);
 
+void               egg_dn_add_string_part                 (GNode *node,
+                                                           GQuark oid,
+                                                           const gchar *string);
+
 #endif /* EGG_DN_H_ */

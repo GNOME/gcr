@@ -27,6 +27,7 @@
 #include "egg/egg-asn1x.h"
 #include "egg/egg-dn.h"
 #include "egg/egg-oid.h"
+#include "egg/egg-testing.h"
 
 #include <glib.h>
 #include <gcrypt.h>
@@ -175,6 +176,43 @@ test_read_dn_part (Test* test, gconstpointer unused)
 	g_assert (value == NULL);
 }
 
+static void
+test_add_dn_part (Test *test,
+                  gconstpointer unused)
+{
+	EggBytes *check;
+	EggBytes *dn;
+	GNode *check_dn;
+	GNode *asn;
+	GNode *node;
+
+	asn = egg_asn1x_create (pkix_asn1_tab, "Name");
+	node = egg_asn1x_node (asn, "rdnSequence", NULL);
+	egg_asn1x_set_choice (asn, node);
+	egg_dn_add_string_part (node, g_quark_from_static_string ("2.5.4.6"), "ZA");
+	egg_dn_add_string_part (node, g_quark_from_static_string ("2.5.4.8"), "Western Cape");
+	egg_dn_add_string_part (node, g_quark_from_static_string ("2.5.4.7"), "Cape Town");
+	egg_dn_add_string_part (node, g_quark_from_static_string ("2.5.4.10"), "Thawte Consulting");
+	egg_dn_add_string_part (node, g_quark_from_static_string ("2.5.4.11"), "Certification Services Division");
+	egg_dn_add_string_part (node, g_quark_from_static_string ("2.5.4.3"), "Thawte Personal Premium CA");
+	egg_dn_add_string_part (node, g_quark_from_static_string ("1.2.840.113549.1.9.1"), "personal-premium@thawte.com");
+
+	dn = egg_asn1x_encode (asn, NULL);
+	if (dn == NULL) {
+		g_warning ("couldn't encode dn: %s", egg_asn1x_message (asn));
+		g_assert_not_reached ();
+	}
+
+	check_dn = egg_asn1x_node (test->asn1, "tbsCertificate", "issuer", "rdnSequence", NULL);
+	check = egg_asn1x_encode (check_dn, NULL);
+	egg_asn1x_destroy (asn);
+
+	egg_assert_cmpbytes (dn, ==, egg_bytes_get_data (check), egg_bytes_get_size (check));
+
+	egg_bytes_unref (dn);
+	egg_bytes_unref (check);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -184,6 +222,7 @@ main (int argc, char **argv)
 	g_test_add ("/dn/dn_value", Test, NULL, setup, test_dn_value, teardown);
 	g_test_add ("/dn/parse_dn", Test, NULL, setup, test_parse_dn, teardown);
 	g_test_add ("/dn/read_dn_part", Test, NULL, setup, test_read_dn_part, teardown);
+	g_test_add ("/dn/add_dn_part", Test, NULL, setup, test_add_dn_part, teardown);
 
 	return g_test_run ();
 }

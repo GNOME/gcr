@@ -1611,10 +1611,11 @@ anode_encoder_unsigned (gpointer user_data,
 
 static gboolean
 anode_encoder_structured (gpointer user_data,
-                          GNode *node,
+                          GNode *unused,
                           guchar *data,
                           gsize n_data)
 {
+	GNode *node = user_data;
 	GNode *child;
 	gsize length;
 	Atlv *tlv;
@@ -1657,7 +1658,7 @@ anode_encoder_choice (gpointer user_data,
 
 	enc = anode_get_enc_data (child);
 	g_return_val_if_fail (enc, FALSE);
-	if (!(enc->encoder) (enc->data, node, data, n_data))
+	if (!(enc->encoder) (enc->data, child, data, n_data))
 		return FALSE;
 
 	/* Child's buffer matches ours */

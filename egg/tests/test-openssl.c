@@ -165,7 +165,7 @@ test_write_exactly_same (Test *test, gconstpointer unused)
 	 * and line endings.
 	 */
 
-	egg_assert_equal_bytes (test->input, result, n_result);
+	egg_assert_cmpbytes (test->input, ==, result, n_result);
 	g_free (result);
 }
 

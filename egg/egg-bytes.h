@@ -99,7 +99,4 @@ gboolean        egg_bytes_equal                   (gconstpointer   bytes1,
 gint            egg_bytes_compare                 (gconstpointer   bytes1,
                                                  gconstpointer   bytes2);
 
-#define egg_assert_equal_bytes(b, p, s) \
-	egg_assert_cmpmem (egg_bytes_get_data (b), egg_bytes_get_size (b), ==, (p), (s))
-
 #endif /* __EGG_BYTES_H__ */

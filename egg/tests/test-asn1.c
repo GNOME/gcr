@@ -553,12 +553,12 @@ test_any_set_raw (void)
 	data = egg_asn1x_encode (asn, NULL);
 	g_assert (data != NULL);
 
-	egg_assert_equal_bytes (data, SEQ_ENCODING, XL (SEQ_ENCODING));
+	egg_assert_cmpbytes (data, ==, SEQ_ENCODING, XL (SEQ_ENCODING));
 
 	check = egg_asn1x_get_element_raw (node);
 	g_assert (check);
 
-	egg_assert_equal_bytes (check, SFARNSWORTH, XL (SFARNSWORTH));
+	egg_assert_cmpbytes (check, ==, SFARNSWORTH, XL (SFARNSWORTH));
 
 	egg_bytes_unref (data);
 	egg_bytes_unref (check);
@@ -592,12 +592,12 @@ test_any_set_raw_explicit (void)
 	data = egg_asn1x_encode (asn, NULL);
 	g_assert (data != NULL);
 
-	egg_assert_equal_bytes (data, SEQ_ENCODING, XL (SEQ_ENCODING));
+	egg_assert_cmpbytes (data, ==, SEQ_ENCODING, XL (SEQ_ENCODING));
 
 	check = egg_asn1x_get_element_raw (node);
 	g_assert (check);
 
-	egg_assert_equal_bytes (check, SFARNSWORTH, XL (SFARNSWORTH));
+	egg_assert_cmpbytes (check, ==, SFARNSWORTH, XL (SFARNSWORTH));
 
 	egg_bytes_unref (data);
 	egg_bytes_unref (check);
@@ -666,12 +666,12 @@ perform_asn1_any_choice_set_raw (const gchar *choice, const gchar *encoding, gsi
 	}
 	g_assert (data != NULL);
 
-	egg_assert_equal_bytes (data, encoding, n_encoding);
+	egg_assert_cmpbytes (data, ==, encoding, n_encoding);
 
 	check = egg_asn1x_get_element_raw (node);
 	g_assert (check != NULL);
 
-	egg_assert_equal_bytes (check, SFARNSWORTH, XL (SFARNSWORTH));
+	egg_assert_cmpbytes (check, ==, SFARNSWORTH, XL (SFARNSWORTH));
 
 	egg_bytes_unref (data);
 	egg_bytes_unref (check);
@@ -724,7 +724,7 @@ test_append (void)
 	data = egg_asn1x_encode (asn, NULL);
 	g_assert (data != NULL);
 
-	egg_assert_equal_bytes (data, SEQOF_TWO, XL (SEQOF_TWO));
+	egg_assert_cmpbytes (data, ==, SEQOF_TWO, XL (SEQOF_TWO));
 
 	egg_bytes_unref (data);
 	egg_asn1x_destroy (asn);
@@ -794,7 +794,7 @@ test_setof (void)
 		g_assert_not_reached ();
 	}
 
-	egg_assert_equal_bytes (data, SETOF_THREE, XL (SETOF_THREE));
+	egg_assert_cmpbytes (data, ==, SETOF_THREE, XL (SETOF_THREE));
 
 	egg_bytes_unref (data);
 	egg_asn1x_destroy (asn);
@@ -818,7 +818,7 @@ test_setof_empty (void)
 		g_assert_not_reached ();
 	}
 
-	egg_assert_equal_bytes (data, SETOF_NONE, XL (SETOF_NONE));
+	egg_assert_cmpbytes (data, ==, SETOF_NONE, XL (SETOF_NONE));
 
 	egg_bytes_unref (data);
 	egg_asn1x_destroy (asn);
@@ -849,7 +849,7 @@ test_enumerated (void)
 	data = egg_asn1x_encode (asn, NULL);
 	g_assert (data != NULL);
 
-	egg_assert_equal_bytes (data, ENUM_THREE, XL (ENUM_THREE));
+	egg_assert_cmpbytes (data, ==, ENUM_THREE, XL (ENUM_THREE));
 
 	egg_bytes_unref (data);
 	egg_asn1x_destroy (asn);
@@ -1076,7 +1076,7 @@ test_read_element (Test* test, gconstpointer unused)
 
 	data = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "data", NULL));
 	g_assert (data != NULL);
-	egg_assert_equal_bytes (data, "SOME DATA", 9);
+	egg_assert_cmpbytes (data, ==, "SOME DATA", 9);
 	egg_bytes_unref (data);
 
 	egg_asn1x_destroy (asn);

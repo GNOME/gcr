@@ -28,6 +28,7 @@
 #include <glib-object.h>
 
 #include <errno.h>
+#include <string.h>
 #include <unistd.h>
 
 #ifdef WITH_VALGRIND
@@ -68,7 +69,7 @@ egg_test_escape_data (const guchar *data,
 	result = g_string_sized_new (n_data * 2 + 1);
 	for (i = 0; i < n_data; ++i) {
 		c = data[i];
-		if (g_ascii_isprint (c)) {
+		if (g_ascii_isprint (c) && !strchr ("\n\r\v", c)) {
 			g_string_append_c (result, c);
 		} else {
 			g_string_append (result, "\\x");

@@ -113,7 +113,6 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-importer.c gcr-importer.h \
 	gcr-import-interaction.c gcr-import-interaction.h \
 	gcr-internal.h \
-	gcr-key-size.c gcr-key-size.h \
 	gcr-library.c gcr-library.h \
 	gcr-memory.c \
 	gcr-memory-icon.c gcr-memory-icon.h \
@@ -127,6 +126,7 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-simple-certificate.c gcr-simple-certificate.h \
 	gcr-simple-collection.c gcr-simple-collection.h \
 	gcr-single-collection.c gcr-single-collection.h \
+	gcr-subject-public-key.c gcr-subject-public-key.h \
 	gcr-trust.c gcr-trust.h \
 	gcr-types.h \
 	gcr-union-collection.c gcr-union-collection.h \
@@ -152,7 +152,6 @@ libgcr_@GCR_MAJOR@_la_SOURCES = \
 	gcr-gnupg-records.c gcr-gnupg-records.h \
 	gcr-import-button.c gcr-import-button.h \
 	gcr-key-renderer.c gcr-key-renderer.h \
-	gcr-key-size.c gcr-key-size.h \
 	gcr-key-widget.c gcr-key-widget.h \
 	gcr-list-selector.c gcr-list-selector.h gcr-list-selector-private.h \
 	gcr-live-search.c gcr-live-search.h \
@@ -163,6 +162,7 @@ libgcr_@GCR_MAJOR@_la_SOURCES = \
 	gcr-pkcs11-import-dialog.c gcr-pkcs11-import-dialog.h \
 	gcr-record.c gcr-record.h \
 	gcr-renderer.c gcr-renderer.h \
+	gcr-subject-public-key.c gcr-subject-public-key.h \
 	gcr-tree-selector.c gcr-tree-selector.h \
 	gcr-unlock-options.h \
 	gcr-unlock-options-widget.c gcr-unlock-options-widget.h \

@@ -24,6 +24,7 @@ gcr/gcr-parser.c
 gcr/gcr-pkcs11-import-dialog.c
 [type: gettext/glade]gcr/gcr-pkcs11-import-dialog.ui
 gcr/gcr-pkcs11-import-interaction.c
+gcr/gcr-subject-public-key.c
 gcr/gcr-trust.c
 [type: gettext/glade]gcr/gcr-unlock-options-widget.ui
 gcr/gcr-unlock-renderer.c

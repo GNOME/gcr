@@ -913,13 +913,12 @@ gck_mock_C_GetAttributeValue (CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObje
 	CK_ULONG i;
 
 	session = g_hash_table_lookup (the_sessions, GUINT_TO_POINTER (hSession));
-	g_return_val_if_fail (session, CKR_SESSION_HANDLE_INVALID);
+	if (session == NULL)
+		return CKR_SESSION_HANDLE_INVALID;
 
 	attrs = lookup_object (session, hObject);
-	if (!attrs) {
-		g_assert_not_reached (); /* "invalid object handle passed" */
+	if (!attrs)
 		return CKR_OBJECT_HANDLE_INVALID;
-	}
 
 	for (i = 0; i < ulCount; ++i) {
 		result = pTemplate + i;

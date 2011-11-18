@@ -1703,6 +1703,8 @@ anode_encoder_bit_string (gpointer user_data,
 static gboolean
 anode_encode_prepare_simple (GNode *node, gboolean want)
 {
+	EggBytes *backing;
+	EggBytes *bytes;
 	Aenc *enc;
 	Atlv *tlv;
 
@@ -1713,8 +1715,13 @@ anode_encode_prepare_simple (GNode *node, gboolean want)
 	/* Transfer the tlv data over to enc */
 	enc = anode_get_enc_data (node);
 	if (enc == NULL) {
-		anode_set_enc_data (node, anode_encoder_data,
-		                    (guchar *)tlv->buf + tlv->off, NULL);
+		backing = anode_get_backing (node);
+		if (backing == NULL)
+			return FALSE;
+
+		bytes = egg_bytes_new_with_free_func ((guchar *)tlv->buf + tlv->off, tlv->len,
+		                                      egg_bytes_unref, egg_bytes_ref (backing));
+		anode_set_enc_data (node, anode_encoder_bytes, bytes, egg_bytes_unref);
 	}
 
 	tlv->buf = tlv->end = NULL;

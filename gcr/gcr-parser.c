@@ -622,6 +622,120 @@ parse_der_private_key (GcrParser *self,
 }
 
 /* -----------------------------------------------------------------------------
+ * SUBJECT PUBLIC KEY
+ */
+
+static gint
+handle_subject_public_key_rsa (GcrParser *self,
+                               GcrParsed *parsed,
+                               EggBytes *key,
+                               EggBytes *params)
+{
+	gint res = GCR_ERROR_FAILURE;
+	GNode *asn = NULL;
+
+	asn = egg_asn1x_create_and_decode (pk_asn1_tab, "RSAPublicKey", key);
+	if (!asn)
+		goto done;
+
+	parsing_object (parsed, CKO_PUBLIC_KEY);
+	parsed_ulong_attribute (parsed, CKA_KEY_TYPE, CKK_RSA);
+
+	if (!parsed_asn1_number (parsed, asn, "modulus", CKA_MODULUS) ||
+	    !parsed_asn1_number (parsed, asn, "publicExponent", CKA_PUBLIC_EXPONENT))
+		goto done;
+
+	res = SUCCESS;
+
+done:
+	egg_asn1x_destroy (asn);
+	return res;
+}
+
+static gint
+handle_subject_public_key_dsa (GcrParser *self,
+                               GcrParsed *parsed,
+                               EggBytes *key,
+                               EggBytes *params)
+{
+	gint res = GCR_ERROR_FAILURE;
+	GNode *key_asn = NULL;
+	GNode *param_asn = NULL;
+
+	key_asn = egg_asn1x_create_and_decode (pk_asn1_tab, "DSAPublicPart", key);
+	param_asn = egg_asn1x_create_and_decode (pk_asn1_tab, "DSAParameters", params);
+
+	if (!key_asn || !param_asn)
+		goto done;
+
+	parsing_object (parsed, CKO_PUBLIC_KEY);
+	parsed_ulong_attribute (parsed, CKA_KEY_TYPE, CKK_DSA);
+
+	if (!parsed_asn1_number (parsed, param_asn, "p", CKA_PRIME) ||
+	    !parsed_asn1_number (parsed, param_asn, "q", CKA_SUBPRIME) ||
+	    !parsed_asn1_number (parsed, param_asn, "g", CKA_BASE) ||
+	    !parsed_asn1_number (parsed, key_asn, NULL, CKA_VALUE))
+		goto done;
+
+	res = SUCCESS;
+
+done:
+	egg_asn1x_destroy (key_asn);
+	egg_asn1x_destroy (param_asn);
+	return res;
+}
+
+static gint
+parse_der_subject_public_key (GcrParser *self,
+                              EggBytes *data)
+{
+	GcrParsed *parsed;
+	EggBytes *params;
+	EggBytes *key;
+	GNode *asn = NULL;
+	GNode *node;
+	GQuark oid;
+	guint bits;
+	gint ret;
+
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "SubjectPublicKeyInfo", data);
+	if (asn == NULL)
+		return GCR_ERROR_UNRECOGNIZED;
+
+	parsed = push_parsed (self, TRUE);
+	parsing_block (parsed, GCR_FORMAT_DER_SUBJECT_PUBLIC_KEY, data);
+
+	node = egg_asn1x_node (asn, "algorithm", "algorithm", NULL);
+	oid = egg_asn1x_get_oid_as_quark (node);
+
+	node = egg_asn1x_node (asn, "algorithm", "parameters", NULL);
+	params = egg_asn1x_get_element_raw (node);
+
+	node = egg_asn1x_node (asn, "subjectPublicKey", NULL);
+	key = egg_asn1x_get_bits_as_raw (node, &bits);
+
+	if (oid == GCR_OID_PKIX1_RSA)
+		ret = handle_subject_public_key_rsa (self, parsed, key, params);
+
+	else if (oid == GCR_OID_PKIX1_DSA)
+		ret = handle_subject_public_key_dsa (self, parsed, key, params);
+
+	else
+		ret = GCR_ERROR_UNRECOGNIZED;
+
+	egg_bytes_unref (key);
+	egg_bytes_unref (params);
+
+	if (ret == SUCCESS)
+		parsed_fire (self, parsed);
+
+	pop_parsed (self, parsed);
+
+	egg_asn1x_destroy (asn);
+	return ret;
+}
+
+/* -----------------------------------------------------------------------------
  * PKCS8
  */
 
@@ -1968,6 +2082,7 @@ parse_openssh_public (GcrParser *self,
  * @GCR_FORMAT_DER_PRIVATE_KEY: DER encoded private key
  * @GCR_FORMAT_DER_PRIVATE_KEY_RSA: DER encoded RSA private key
  * @GCR_FORMAT_DER_PRIVATE_KEY_DSA: DER encoded DSA private key
+ * @GCR_FORMAT_DER_SUBJECT_PUBLIC_KEY: DER encoded SubjectPublicKeyInfo
  * @GCR_FORMAT_DER_CERTIFICATE_X509: DER encoded X.509 certificate
  * @GCR_FORMAT_DER_PKCS7: DER encoded PKCS\#7 container file which can contain certificates
  * @GCR_FORMAT_DER_PKCS8: DER encoded PKCS\#8 file which can contain a key
@@ -2004,6 +2119,7 @@ static const ParserFormat parser_normal[] = {
 	{ GCR_FORMAT_BASE64_SPKAC, parse_base64_spkac },
 	{ GCR_FORMAT_DER_PRIVATE_KEY_RSA, parse_der_private_key_rsa },
 	{ GCR_FORMAT_DER_PRIVATE_KEY_DSA, parse_der_private_key_dsa },
+	{ GCR_FORMAT_DER_SUBJECT_PUBLIC_KEY, parse_der_subject_public_key },
 	{ GCR_FORMAT_DER_CERTIFICATE_X509, parse_der_certificate },
 	{ GCR_FORMAT_DER_PKCS7, parse_der_pkcs7 },
 	{ GCR_FORMAT_DER_PKCS8_PLAIN, parse_der_pkcs8_plain },
@@ -2021,6 +2137,7 @@ static const ParserFormat parser_formats[] = {
 	{ GCR_FORMAT_DER_PRIVATE_KEY, parse_der_private_key },
 	{ GCR_FORMAT_DER_PRIVATE_KEY_RSA, parse_der_private_key_rsa },
 	{ GCR_FORMAT_DER_PRIVATE_KEY_DSA, parse_der_private_key_dsa },
+	{ GCR_FORMAT_DER_SUBJECT_PUBLIC_KEY, parse_der_subject_public_key },
 	{ GCR_FORMAT_DER_CERTIFICATE_X509, parse_der_certificate },
 	{ GCR_FORMAT_DER_PKCS7, parse_der_pkcs7 },
 	{ GCR_FORMAT_DER_PKCS8, parse_der_pkcs8 },

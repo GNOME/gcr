@@ -42,8 +42,4 @@ guchar *        gcr_fingerprint_from_attributes                 (GckAttributes *
                                                                  GChecksumType checksum_type,
                                                                  gsize *n_fingerprint);
 
-guchar *        gcr_fingerprint_from_certificate_public_key     (GcrCertificate *certificate,
-                                                                 GChecksumType checksum_type,
-                                                                 gsize *n_fingerprint);
-
 #endif /* GCR_FINGERPRINT_H_ */

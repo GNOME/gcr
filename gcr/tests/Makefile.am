@@ -27,6 +27,7 @@ TEST_PROGS = \
 	test-simple-certificate \
 	test-certificate \
 	test-certificate-chain \
+	test-subject-public-key \
 	test-fingerprint \
 	test-pkcs11-certificate \
 	test-openpgp \

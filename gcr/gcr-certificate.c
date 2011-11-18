@@ -25,8 +25,8 @@
 #include "gcr-comparable.h"
 #include "gcr-icons.h"
 #include "gcr-internal.h"
-#include "gcr-key-size.h"
 #include "gcr-oids.h"
+#include "gcr-subject-public-key.h"
 
 #include "egg/egg-asn1x.h"
 #include "egg/egg-asn1-defs.h"
@@ -735,7 +735,7 @@ gcr_certificate_get_key_size (GcrCertificate *self)
 	if (!info->key_size) {
 		subject_public_key = egg_asn1x_node (info->asn1, "tbsCertificate",
 		                                     "subjectPublicKeyInfo", NULL);
-		info->key_size = _gcr_key_size_calculate (subject_public_key);
+		info->key_size = _gcr_subject_public_key_calculate_size (subject_public_key);
 	}
 
 	return info->key_size;

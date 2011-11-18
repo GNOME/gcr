@@ -616,7 +616,6 @@ GcrSecretExchangePrivate
 <SECTION>
 <FILE>gcr-fingerprint</FILE>
 gcr_fingerprint_from_attributes
-gcr_fingerprint_from_certificate_public_key
 gcr_fingerprint_from_subject_public_key_info
 </SECTION>
 

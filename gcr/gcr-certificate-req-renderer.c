@@ -22,20 +22,8 @@
 #include "gcr-certificate-renderer-private.h"
 #include "gcr-certificate-req-renderer.h"
 #include "gcr-display-view.h"
-#include "gcr-key-size.h"
 #include "gcr-oids.h"
-
-#if 0
-#include "gcr-certificate.h"
-#include "gcr-certificate-exporter.h"
-#include "gcr-certificate-extensions.h"
-#include "gcr-certificate-renderer.h"
-#include "gcr-fingerprint.h"
-#include "gcr-icons.h"
-#include "gcr-oids.h"
-#include "gcr-simple-certificate.h"
-#include "gcr-renderer.h"
-#endif
+#include "gcr-subject-public-key.h"
 
 #include "egg/egg-asn1x.h"
 #include "egg/egg-asn1-defs.h"
@@ -299,7 +287,7 @@ ensure_key_size (GcrCertificateReqRenderer *self,
 	if (self->pv->key_size)
 		return self->pv->key_size;
 
-	self->pv->key_size = _gcr_key_size_calculate (public_key);
+	self->pv->key_size = _gcr_subject_public_key_calculate_size (public_key);
 	return self->pv->key_size;
 }
 

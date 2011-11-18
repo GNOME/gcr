@@ -1,0 +1,114 @@
+/*
+ * gnome-keyring
+ *
+ * Copyright (C) 2010 Collabora Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * Author: Stef Walter <stefw@collabora.co.uk>
+ */
+
+#include "config.h"
+
+#include "console-interaction.h"
+
+#include "gcr/gcr-base.h"
+
+#include "egg/egg-armor.h"
+
+#include <gtk/gtk.h>
+
+#include <unistd.h>
+#include <string.h>
+#include <errno.h>
+
+const gchar *cn_name = NULL;
+
+static GckObject *
+load_key_for_uri (const gchar *uri)
+{
+	GError *error = NULL;
+	GTlsInteraction *interaction;
+	GckEnumerator *enumerator;
+	GList *modules;
+	GckObject *key;
+
+	gcr_pkcs11_initialize (NULL, &error);
+	g_assert_no_error (error);
+
+	modules = gcr_pkcs11_get_modules ();
+	enumerator = gck_modules_enumerate_uri (modules, uri, GCK_SESSION_LOGIN_USER |
+	                                        GCK_SESSION_READ_ONLY, &error);
+	gck_list_unref_free (modules);
+
+	interaction = console_interaction_new ();
+	gck_enumerator_set_interaction (enumerator, interaction);
+	g_object_unref (interaction);
+
+	key = gck_enumerator_next (enumerator, NULL, &error);
+	g_assert_no_error (error);
+	g_object_unref (enumerator);
+
+	return key;
+}
+
+static void
+test_request (const gchar *uri)
+{
+	GcrCertificateRequest *req;
+	GError *error = NULL;
+	GckObject *key;
+	guchar *data, *output;
+	gsize n_data, n_output;
+
+	key = load_key_for_uri (uri);
+	if (key == NULL)
+		g_error ("couldn't find key for uri: %s", uri);
+
+	req = gcr_certificate_request_prepare (GCR_CERTIFICATE_REQUEST_PKCS10, key);
+	g_object_unref (key);
+
+	gcr_certificate_request_set_cn (req, cn_name);
+	gcr_certificate_request_complete (req, NULL, &error);
+	g_assert_no_error (error);
+
+	data = gcr_certificate_request_get_der_data (req, &n_data);
+
+	output = egg_armor_write (data, n_data,
+	                          g_quark_from_static_string ("CERTIFICATE REQUEST"),
+	                          NULL, &n_output);
+
+	g_free (data);
+
+	write (1, output, n_output);
+	g_free (output);
+}
+
+int
+main(int argc, char *argv[])
+{
+	gtk_init (&argc, &argv);
+	g_set_prgname ("frob-certificate-request");
+
+	if (argc <= 1)
+		g_printerr ("frob-certificate-request: specify pkcs11: url of key");
+
+	if (cn_name == NULL)
+		cn_name = g_strdup ("name.example.com");
+
+	test_request (argv[1]);
+	return 0;
+}

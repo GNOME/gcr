@@ -59,6 +59,7 @@ EXTRA_DIST = \
 
 noinst_PROGRAMS = \
 	frob-certificate \
+	frob-certificate-request \
 	frob-combo-selector \
 	frob-gnupg-selector \
 	frob-key \
@@ -72,3 +73,7 @@ noinst_PROGRAMS = \
 frob_unlock_SOURCES = \
 	frob-unlock.c \
 	../gcr-viewer-window.c
+
+frob_certificate_request_SOURCES = \
+	frob-certificate-request.c \
+	console-interaction.c console-interaction.h

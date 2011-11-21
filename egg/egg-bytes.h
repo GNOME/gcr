@@ -24,8 +24,7 @@
 #ifndef __EGG_BYTES_H__
 #define __EGG_BYTES_H__
 
-#include <glib/gtypes.h>
-#include <glib/garray.h>
+#include <glib.h>
 
 /**
  * EggBytes:

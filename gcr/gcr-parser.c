@@ -951,7 +951,7 @@ done:
  */
 
 static GNode *
-decode_pkcs12_asn1_accepting_invalid_crap (const ASN1_ARRAY_TYPE *defs,
+decode_pkcs12_asn1_accepting_invalid_crap (const EggAsn1xDef *defs,
                                            const gchar *identifier,
                                            EggBytes *data)
 {

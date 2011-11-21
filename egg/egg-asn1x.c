@@ -48,12 +48,33 @@
 #include "config.h"
 
 #include "egg-asn1x.h"
+#include "egg-asn1-defs.h"
 #include "egg-timegm.h"
-
-#include <libtasn1.h>
 
 #include <stdlib.h>
 #include <string.h>
+
+/* From libtasn1's libtasn.h */
+
+#define ASN1_CLASS_UNIVERSAL		0x00
+#define ASN1_CLASS_APPLICATION		0x40
+#define ASN1_CLASS_CONTEXT_SPECIFIC	0x80
+#define ASN1_CLASS_PRIVATE		0xC0
+#define ASN1_CLASS_STRUCTURED		0x20
+
+#define ASN1_TAG_BOOLEAN		0x01
+#define ASN1_TAG_INTEGER		0x02
+#define ASN1_TAG_SEQUENCE		0x10
+#define ASN1_TAG_SET			0x11
+#define ASN1_TAG_OCTET_STRING		0x04
+#define ASN1_TAG_BIT_STRING		0x03
+#define ASN1_TAG_UTCTime		0x17
+#define ASN1_TAG_GENERALIZEDTime	0x18
+#define ASN1_TAG_OBJECT_ID		0x06
+#define ASN1_TAG_ENUMERATED		0x0A
+#define ASN1_TAG_NULL			0x05
+#define ASN1_TAG_GENERALSTRING		0x1B
+
 
 /* From libtasn1's int.h */
 enum {
@@ -135,8 +156,8 @@ struct _Atlv {
 };
 
 struct _Anode {
-	const ASN1_ARRAY_TYPE *def;
-	const ASN1_ARRAY_TYPE *join;
+	const EggAsn1xDef *def;
+	const EggAsn1xDef *join;
 	GList *opts;
 
 	Atlv *tlv;
@@ -179,7 +200,7 @@ atoin (const char *p, gint digits)
 }
 
 static GNode*
-anode_new (const ASN1_ARRAY_TYPE *def)
+anode_new (const EggAsn1xDef *def)
 {
 	Anode *an = g_slice_new0 (Anode);
 	an->def = def;
@@ -270,7 +291,7 @@ anode_def_value (GNode *node)
 }
 
 static gulong
-anode_def_value_as_ulong (const ASN1_ARRAY_TYPE *def)
+anode_def_value_as_ulong (const EggAsn1xDef *def)
 {
 	gchar *end = NULL;
 	gulong lval;
@@ -295,17 +316,20 @@ anode_child_with_name (GNode *node, const gchar *name)
 }
 
 static void
-anode_opt_add (GNode *node, const ASN1_ARRAY_TYPE *def)
+anode_opt_add (GNode *node,
+               const EggAsn1xDef *def)
 {
 	Anode *an = node->data;
 	an->opts = g_list_append (an->opts, (gpointer)def);
 }
 
-static ASN1_ARRAY_TYPE*
-anode_opt_lookup (GNode *node, gint type, const gchar *name)
+static EggAsn1xDef *
+anode_opt_lookup (GNode *node,
+                  gint type,
+                  const gchar *name)
 {
 	Anode *an = node->data;
-	ASN1_ARRAY_TYPE* def;
+	EggAsn1xDef *def;
 	GList *l;
 
 	for (l = an->opts; l; l = g_list_next (l)) {
@@ -319,11 +343,13 @@ anode_opt_lookup (GNode *node, gint type, const gchar *name)
 	return NULL;
 }
 
-static ASN1_ARRAY_TYPE*
-anode_opt_lookup_value (GNode *node, gint type, const gchar *value)
+static EggAsn1xDef *
+anode_opt_lookup_value (GNode *node,
+                        gint type,
+                        const gchar *value)
 {
 	Anode *an = node->data;
-	ASN1_ARRAY_TYPE* def;
+	EggAsn1xDef *def;
 	GList *l;
 
 	for (l = an->opts; l; l = g_list_next (l)) {
@@ -341,7 +367,7 @@ static GList*
 anode_opts_lookup (GNode *node, gint type, const gchar *name)
 {
 	Anode *an = node->data;
-	ASN1_ARRAY_TYPE* def;
+	EggAsn1xDef *def;
 	GList *l, *res = NULL;
 
 	for (l = an->opts; l; l = g_list_next (l)) {
@@ -530,7 +556,7 @@ anode_destroy (GNode *node)
 static gulong
 anode_calc_tag_for_flags (GNode *node, gint flags)
 {
-	ASN1_ARRAY_TYPE *def;
+	EggAsn1xDef *def;
 
 	/* A context specific tag */
 	if (flags & FLAG_TAG) {
@@ -601,7 +627,7 @@ anode_calc_tag (GNode *node)
 static gboolean
 anode_calc_explicit_for_flags (GNode *node, gint flags)
 {
-	const ASN1_ARRAY_TYPE *opt;
+	const EggAsn1xDef *opt;
 	if ((flags & FLAG_TAG) != FLAG_TAG)
 		return FALSE;
 	opt = anode_opt_lookup (node, TYPE_TAG, NULL);
@@ -2546,7 +2572,7 @@ egg_asn1x_have (GNode *node)
 gboolean
 egg_asn1x_get_boolean (GNode *node, gboolean *value)
 {
-	ASN1_ARRAY_TYPE *opt;
+	EggAsn1xDef *opt;
 	Atlv *tlv;
 
 	g_return_val_if_fail (node, FALSE);
@@ -2610,7 +2636,7 @@ GQuark
 egg_asn1x_get_enumerated (GNode *node)
 {
 	gchar buf[sizeof (gulong) * 3];
-	ASN1_ARRAY_TYPE *opt;
+	EggAsn1xDef *opt;
 	gulong val;
 	Atlv *tlv;
 
@@ -2644,7 +2670,7 @@ egg_asn1x_get_enumerated (GNode *node)
 gboolean
 egg_asn1x_set_enumerated (GNode *node, GQuark value)
 {
-	ASN1_ARRAY_TYPE *opt;
+	EggAsn1xDef *opt;
 	const gchar *name;
 	gpointer data;
 	gsize n_data;
@@ -2679,7 +2705,7 @@ egg_asn1x_set_enumerated (GNode *node, GQuark value)
 gboolean
 egg_asn1x_get_integer_as_ulong (GNode *node, gulong *value)
 {
-	const ASN1_ARRAY_TYPE *opt;
+	const EggAsn1xDef *opt;
 	const gchar *defval;
 	Atlv *tlv;
 	gchar *end;
@@ -3426,7 +3452,7 @@ egg_asn1x_set_choice (GNode *node, GNode *choice)
 static gboolean
 anode_parse_size (GNode *node, const gchar *text, gulong *value)
 {
-	ASN1_ARRAY_TYPE *def;
+	EggAsn1xDef *def;
 	gchar *end = NULL;
 
 	if (text == NULL) {
@@ -3450,7 +3476,7 @@ anode_parse_size (GNode *node, const gchar *text, gulong *value)
 static gboolean
 anode_validate_size (GNode *node, gulong length)
 {
-	ASN1_ARRAY_TYPE *size;
+	EggAsn1xDef *size;
 	gulong value1 = 0;
 	gulong value2 = G_MAXULONG;
 
@@ -3784,8 +3810,8 @@ compare_nodes_by_tag (gconstpointer a, gconstpointer b)
 	return (taga < tagb) ? -1 : 1;
 }
 
-static const ASN1_ARRAY_TYPE*
-adef_next_sibling (const ASN1_ARRAY_TYPE *def)
+static const EggAsn1xDef *
+adef_next_sibling (const EggAsn1xDef *def)
 {
 	int depth = 0;
 
@@ -3812,8 +3838,8 @@ adef_next_sibling (const ASN1_ARRAY_TYPE *def)
 	return def;
 }
 
-static const ASN1_ARRAY_TYPE*
-adef_first_child (const ASN1_ARRAY_TYPE *def)
+static const EggAsn1xDef *
+adef_first_child (const EggAsn1xDef *def)
 {
 	g_assert (def);
 	g_assert (def->value || def->type || def->name);
@@ -3826,10 +3852,12 @@ adef_first_child (const ASN1_ARRAY_TYPE *def)
 	return def;
 }
 
-static const ASN1_ARRAY_TYPE*
-lookup_def_of_type (const ASN1_ARRAY_TYPE *defs, const gchar *name, gint type)
+static const EggAsn1xDef *
+lookup_def_of_type (const EggAsn1xDef *defs,
+                    const gchar *name,
+                    gint type)
 {
-	const ASN1_ARRAY_TYPE *def;
+	const EggAsn1xDef *def;
 
 	g_assert (defs);
 	g_assert (defs->value || defs->type || defs->name);
@@ -3845,8 +3873,8 @@ lookup_def_of_type (const ASN1_ARRAY_TYPE *defs, const gchar *name, gint type)
 static gboolean
 traverse_and_prepare (GNode *node, gpointer data)
 {
-	const ASN1_ARRAY_TYPE *defs = data;
-	const ASN1_ARRAY_TYPE *def;
+	const EggAsn1xDef *defs = data;
+	const EggAsn1xDef *def;
 	const gchar *identifier;
 	Anode *an, *anj;
 	GNode *join = NULL;
@@ -3932,12 +3960,14 @@ traverse_and_prepare (GNode *node, gpointer data)
 	return FALSE;
 }
 
-static const ASN1_ARRAY_TYPE*
-match_oid_in_definition (const ASN1_ARRAY_TYPE *def, GHashTable *names,
-                          const gchar *match, const gchar **problem)
+static const EggAsn1xDef *
+match_oid_in_definition (const EggAsn1xDef *def,
+                         GHashTable *names,
+                         const gchar *match,
+                         const gchar **problem)
 {
-	const ASN1_ARRAY_TYPE *result = NULL;
-	const ASN1_ARRAY_TYPE *odef;
+	const EggAsn1xDef *result = NULL;
+	const EggAsn1xDef *odef;
 	const gchar *value;
 	GString *oid = NULL;
 
@@ -3983,11 +4013,12 @@ match_oid_in_definition (const ASN1_ARRAY_TYPE *def, GHashTable *names,
 	return result;
 }
 
-static const ASN1_ARRAY_TYPE*
-match_oid_in_definitions (const ASN1_ARRAY_TYPE *defs, const gchar *match)
+static const EggAsn1xDef *
+match_oid_in_definitions (const EggAsn1xDef *defs,
+                          const gchar *match)
 {
-	const ASN1_ARRAY_TYPE *def;
-	const ASN1_ARRAY_TYPE *result;
+	const EggAsn1xDef *def;
+	const EggAsn1xDef *result;
 	GHashTable *names;
 	gboolean progress;
 	const gchar *problem;
@@ -4049,9 +4080,10 @@ is_oid_number (const gchar *p)
 }
 
 GNode*
-egg_asn1x_create (const ASN1_ARRAY_TYPE *defs, const gchar *type)
+egg_asn1x_create (const EggAsn1xDef *defs,
+                  const gchar *type)
 {
-	const ASN1_ARRAY_TYPE *def;
+	const EggAsn1xDef *def;
 	GNode *root, *parent, *node;
 	int flags;
 
@@ -4112,14 +4144,15 @@ egg_asn1x_create (const ASN1_ARRAY_TYPE *defs, const gchar *type)
 }
 
 GNode*
-egg_asn1x_create_quark (const ASN1_ARRAY_TYPE *defs, GQuark type)
+egg_asn1x_create_quark (const EggAsn1xDef *defs,
+                        GQuark type)
 {
 	g_return_val_if_fail (type, NULL);
 	return egg_asn1x_create (defs, g_quark_to_string (type));
 }
 
 GNode*
-egg_asn1x_create_and_decode (const ASN1_ARRAY_TYPE *defs,
+egg_asn1x_create_and_decode (const EggAsn1xDef *defs,
                              const gchar *identifier,
                              EggBytes *data)
 {
@@ -4170,7 +4203,7 @@ dump_append_flags (GString *output, gint flags)
 static gboolean
 traverse_and_dump (GNode *node, gpointer unused)
 {
-	ASN1_ARRAY_TYPE *def;
+	EggAsn1xDef *def;
 	guint i, depth;
 	GString *output;
 	gchar *string;

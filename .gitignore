@@ -6,6 +6,7 @@ frob-*
 
 # Common file extensions
 *.abi
+*.asn.h
 *.autogen_bak
 *.bak
 *.gcda
@@ -71,7 +72,7 @@ stamp-*
 /docs/reference/*/tmpl
 /docs/reference/*/version.xml
 /docs/reference/*/version.xml
-/docs/reference/*/xml
+/docs/reference/*/
 
 /egg/asn1-def-*.c
 /egg/tests/asn1-def-*.c

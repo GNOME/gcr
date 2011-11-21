@@ -28,13 +28,13 @@
 #include "egg/egg-testing.h"
 
 #include <glib.h>
-#include <libtasn1.h>
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-extern const ASN1_ARRAY_TYPE test_asn1_tab[];
+typedef struct _EggAsn1xDef ASN1_ARRAY_TYPE;
+#include "test.asn.h"
 
 const gchar I33[] =           "\x02\x01\x2A";
 const gchar I253[] =           "\x02\x02\x00\xFD";

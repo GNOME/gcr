@@ -33,15 +33,15 @@ typedef void* (*EggAllocator) (void* p, gsize);
 #define HAVE_EGG_ALLOCATOR
 #endif
 
-struct static_struct_asn;
+typedef struct _EggAsn1xDef EggAsn1xDef;
 
-GNode*              egg_asn1x_create                 (const struct static_struct_asn *defs,
+GNode*              egg_asn1x_create                 (const EggAsn1xDef *defs,
                                                       const gchar *type);
 
-GNode*              egg_asn1x_create_quark           (const struct static_struct_asn *defs,
+GNode*              egg_asn1x_create_quark           (const EggAsn1xDef *defs,
                                                       GQuark type);
 
-GNode*              egg_asn1x_create_and_decode      (const struct static_struct_asn *defs,
+GNode*              egg_asn1x_create_and_decode      (const EggAsn1xDef *defs,
                                                       const gchar *type,
                                                       EggBytes *data);
 

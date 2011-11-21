@@ -30,7 +30,6 @@
 
 #include <glib.h>
 #include <gcrypt.h>
-#include <libtasn1.h>
 
 #include <stdlib.h>
 #include <stdio.h>

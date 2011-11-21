@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
-/* egg-asn1-defs.h - ASN.1 definitions
+/* egg-asn1-defs.c - ASN.1 definitions
 
-   Copyright (C) 2010 Stefan Walter
+   Copyright (C) 2011 Collabora Ltd.
 
    The Gnome Keyring Library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public License as
@@ -18,19 +18,16 @@
    write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 
-   Author: Stef Walter <stef@memberwebs.com>
+   Author: Stef Walter <stefw@collabora.co.uk>
 */
 
-#ifndef EGG_ASN1_DEFS_H_
-#define EGG_ASN1_DEFS_H_
+#include "config.h"
 
-struct _EggAsn1xDef {
-	const char *name;
-	unsigned int type;
-	const void *value;
-};
+#include "egg-asn1-defs.h"
 
-extern const struct _EggAsn1xDef pkix_asn1_tab[];
-extern const struct _EggAsn1xDef pk_asn1_tab[];
+#include <stdlib.h>
 
-#endif /* EGG_ASN1_DEFS_H_ */
+typedef struct _EggAsn1xDef ASN1_ARRAY_TYPE;
+
+#include "pk.asn.h"
+#include "pkix.asn.h"

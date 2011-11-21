@@ -64,7 +64,9 @@ build_personal_name (void)
 #endif
 
 static void
-test_some_asn1_stuff (const ASN1_ARRAY_TYPE *defs, const gchar *file, const gchar *identifier)
+test_some_asn1_stuff (const EggAsn1xDef *defs,
+                      const gchar *file,
+                      const gchar *identifier)
 {
 	GNode *asn;
 	EggBytes *encoded;

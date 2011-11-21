@@ -141,7 +141,7 @@ libgcr_@GCR_MAJOR@_la_SOURCES = \
 	gcr-certificate-exporter.c gcr-certificate-exporter.h \
 	gcr-certificate-extensions.c gcr-certificate-extensions.h \
 	gcr-certificate-renderer.c gcr-certificate-renderer.h \
-	gcr-certificate-req-renderer.c gcr-certificate-req-renderer.h \
+	gcr-certificate-request-renderer.c gcr-certificate-request-renderer.h \
 	gcr-certificate-widget.c gcr-certificate-widget.h \
 	gcr-collection-model.c gcr-collection-model.h \
 	gcr-combo-selector.c gcr-combo-selector.h \

@@ -24,7 +24,7 @@
 #include "config.h"
 
 #include "gcr/gcr.h"
-#include "gcr/gcr-certificate-req-renderer.h"
+#include "gcr/gcr-certificate-request-renderer.h"
 
 #include <gtk/gtk.h>
 
@@ -41,7 +41,7 @@ on_parser_parsed (GcrParser *parser,
 	GtkDialog *dialog = GTK_DIALOG (user_data);
 
 	viewer = gcr_viewer_new_scrolled ();
-	renderer = _gcr_certificate_req_renderer_new_for_attributes (gcr_parser_get_parsed_label (parser),
+	renderer = _gcr_certificate_request_renderer_new_for_attributes (gcr_parser_get_parsed_label (parser),
 	                                                             gcr_parser_get_parsed_attributes (parser));
 	gcr_viewer_add_renderer (viewer, renderer);
 	g_object_unref (renderer);

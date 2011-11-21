@@ -20,7 +20,7 @@
 #include "config.h"
 
 #include "gcr-certificate-renderer-private.h"
-#include "gcr-certificate-req-renderer.h"
+#include "gcr-certificate-request-renderer.h"
 #include "gcr-display-view.h"
 #include "gcr-oids.h"
 #include "gcr-subject-public-key.h"
@@ -35,16 +35,16 @@
 #include <glib/gi18n-lib.h>
 
 /**
- * GcrCertificateReqRenderer:
+ * GcrCertificateRequestRenderer:
  *
  * An implementation of #GcrRenderer which renders certificate requests
  */
 
 /**
- * GcrCertificateReqRendererClass:
+ * GcrCertificateRequestRendererClass:
  * @parent_class: The parent class
  *
- * The class for #GcrCertificateReqRenderer
+ * The class for #GcrCertificateRequestRenderer
  */
 
 enum {
@@ -53,7 +53,7 @@ enum {
 	PROP_ATTRIBUTES
 };
 
-struct _GcrCertificateReqRendererPrivate {
+struct _GcrCertificateRequestRendererPrivate {
 	GckAttributes *attrs;
 	gchar *label;
 
@@ -62,14 +62,14 @@ struct _GcrCertificateReqRendererPrivate {
 	GNode *asn;
 };
 
-static void     _gcr_certificate_req_renderer_iface    (GcrRendererIface *iface);
+static void     _gcr_certificate_request_renderer_iface    (GcrRendererIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (GcrCertificateReqRenderer, _gcr_certificate_req_renderer, G_TYPE_OBJECT,
-	G_IMPLEMENT_INTERFACE (GCR_TYPE_RENDERER, _gcr_certificate_req_renderer_iface);
+G_DEFINE_TYPE_WITH_CODE (GcrCertificateRequestRenderer, _gcr_certificate_request_renderer, G_TYPE_OBJECT,
+	G_IMPLEMENT_INTERFACE (GCR_TYPE_RENDERER, _gcr_certificate_request_renderer_iface);
 );
 
 static gchar*
-calculate_label (GcrCertificateReqRenderer *self)
+calculate_label (GcrCertificateRequestRenderer *self)
 {
 	gchar *label = NULL;
 
@@ -96,16 +96,16 @@ calculate_label (GcrCertificateReqRenderer *self)
 }
 
 static void
-_gcr_certificate_req_renderer_init (GcrCertificateReqRenderer *self)
+_gcr_certificate_request_renderer_init (GcrCertificateRequestRenderer *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_CERTIFICATE_REQ_RENDERER,
-	                                         GcrCertificateReqRendererPrivate));
+	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_CERTIFICATE_REQUEST_RENDERER,
+	                                         GcrCertificateRequestRendererPrivate));
 }
 
 static void
-_gcr_certificate_req_renderer_finalize (GObject *obj)
+_gcr_certificate_request_renderer_finalize (GObject *obj)
 {
-	GcrCertificateReqRenderer *self = GCR_CERTIFICATE_REQ_RENDERER (obj);
+	GcrCertificateRequestRenderer *self = GCR_CERTIFICATE_REQUEST_RENDERER (obj);
 
 	if (self->pv->attrs)
 		gck_attributes_unref (self->pv->attrs);
@@ -116,16 +116,16 @@ _gcr_certificate_req_renderer_finalize (GObject *obj)
 
 	egg_asn1x_destroy (self->pv->asn);
 
-	G_OBJECT_CLASS (_gcr_certificate_req_renderer_parent_class)->finalize (obj);
+	G_OBJECT_CLASS (_gcr_certificate_request_renderer_parent_class)->finalize (obj);
 }
 
 static void
-_gcr_certificate_req_renderer_set_property (GObject *obj,
+_gcr_certificate_request_renderer_set_property (GObject *obj,
                                             guint prop_id,
                                             const GValue *value,
                                             GParamSpec *pspec)
 {
-	GcrCertificateReqRenderer *self = GCR_CERTIFICATE_REQ_RENDERER (obj);
+	GcrCertificateRequestRenderer *self = GCR_CERTIFICATE_REQUEST_RENDERER (obj);
 
 	switch (prop_id) {
 	case PROP_LABEL:
@@ -135,7 +135,7 @@ _gcr_certificate_req_renderer_set_property (GObject *obj,
 		gcr_renderer_emit_data_changed (GCR_RENDERER (self));
 		break;
 	case PROP_ATTRIBUTES:
-		_gcr_certificate_req_renderer_set_attributes (self, g_value_get_boxed (value));
+		_gcr_certificate_request_renderer_set_attributes (self, g_value_get_boxed (value));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -144,12 +144,12 @@ _gcr_certificate_req_renderer_set_property (GObject *obj,
 }
 
 static void
-_gcr_certificate_req_renderer_get_property (GObject *obj,
+_gcr_certificate_request_renderer_get_property (GObject *obj,
                                             guint prop_id,
                                             GValue *value,
                                             GParamSpec *pspec)
 {
-	GcrCertificateReqRenderer *self = GCR_CERTIFICATE_REQ_RENDERER (obj);
+	GcrCertificateRequestRenderer *self = GCR_CERTIFICATE_REQUEST_RENDERER (obj);
 
 	switch (prop_id) {
 	case PROP_LABEL:
@@ -165,21 +165,21 @@ _gcr_certificate_req_renderer_get_property (GObject *obj,
 }
 
 static void
-_gcr_certificate_req_renderer_class_init (GcrCertificateReqRendererClass *klass)
+_gcr_certificate_request_renderer_class_init (GcrCertificateRequestRendererClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GckAttributes *registered;
 
 	_gcr_oids_init ();
 
-	g_type_class_add_private (klass, sizeof (GcrCertificateReqRendererPrivate));
+	g_type_class_add_private (klass, sizeof (GcrCertificateRequestRendererPrivate));
 
-	gobject_class->finalize = _gcr_certificate_req_renderer_finalize;
-	gobject_class->set_property = _gcr_certificate_req_renderer_set_property;
-	gobject_class->get_property = _gcr_certificate_req_renderer_get_property;
+	gobject_class->finalize = _gcr_certificate_request_renderer_finalize;
+	gobject_class->set_property = _gcr_certificate_request_renderer_set_property;
+	gobject_class->get_property = _gcr_certificate_request_renderer_get_property;
 
 	/**
-	 * GcrCertificateReqRenderer:attributes:
+	 * GcrCertificateRequestRenderer:attributes:
 	 *
 	 * The certificate attributes to display. One of the attributes must be
 	 * a CKA_VALUE type attribute which contains a DER encoded certificate.
@@ -189,7 +189,7 @@ _gcr_certificate_req_renderer_class_init (GcrCertificateReqRendererClass *klass)
 	                               GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE));
 
 	/**
-	 * GcrCertificateReqRenderer:label:
+	 * GcrCertificateRequestRenderer:label:
 	 *
 	 * The label to display.
 	 */
@@ -201,13 +201,13 @@ _gcr_certificate_req_renderer_class_init (GcrCertificateReqRendererClass *klass)
 	registered = gck_attributes_new ();
 	gck_attributes_add_ulong (registered, CKA_CLASS, CKO_GCR_CERTIFICATE_REQUEST);
 	gck_attributes_add_ulong (registered, CKA_GCR_CERTIFICATE_REQUEST_TYPE, CKQ_GCR_PKCS10);
-	gcr_renderer_register (GCR_TYPE_CERTIFICATE_REQ_RENDERER, registered);
+	gcr_renderer_register (GCR_TYPE_CERTIFICATE_REQUEST_RENDERER, registered);
 	gck_attributes_unref (registered);
 
 	registered = gck_attributes_new ();
 	gck_attributes_add_ulong (registered, CKA_CLASS, CKO_GCR_CERTIFICATE_REQUEST);
 	gck_attributes_add_ulong (registered, CKA_GCR_CERTIFICATE_REQUEST_TYPE, CKQ_GCR_SPKAC);
-	gcr_renderer_register (GCR_TYPE_CERTIFICATE_REQ_RENDERER, registered);
+	gcr_renderer_register (GCR_TYPE_CERTIFICATE_REQUEST_RENDERER, registered);
 	gck_attributes_unref (registered);
 }
 
@@ -281,7 +281,7 @@ append_attribute (GcrRenderer *renderer,
 }
 
 static guint
-ensure_key_size (GcrCertificateReqRenderer *self,
+ensure_key_size (GcrCertificateRequestRenderer *self,
                  GNode *public_key)
 {
 	if (self->pv->key_size)
@@ -292,7 +292,7 @@ ensure_key_size (GcrCertificateReqRenderer *self,
 }
 
 static void
-render_pkcs10_certificate_req (GcrCertificateReqRenderer *self,
+render_pkcs10_certificate_req (GcrCertificateRequestRenderer *self,
                                GcrDisplayView *view)
 {
 	GcrRenderer *renderer = GCR_RENDERER (self);
@@ -354,7 +354,7 @@ render_pkcs10_certificate_req (GcrCertificateReqRenderer *self,
 }
 
 static void
-render_spkac_certificate_req (GcrCertificateReqRenderer *self,
+render_spkac_certificate_req (GcrCertificateRequestRenderer *self,
                               GcrDisplayView *view)
 {
 	GcrRenderer *renderer = GCR_RENDERER (self);
@@ -391,20 +391,20 @@ render_spkac_certificate_req (GcrCertificateReqRenderer *self,
 }
 
 static void
-gcr_certificate_req_renderer_render (GcrRenderer *renderer,
+gcr_certificate_request_renderer_render (GcrRenderer *renderer,
                                      GcrViewer *viewer)
 {
-	GcrCertificateReqRenderer *self;
+	GcrCertificateRequestRenderer *self;
 	GcrDisplayView *view;
 	GIcon *icon;
 
-	self = GCR_CERTIFICATE_REQ_RENDERER (renderer);
+	self = GCR_CERTIFICATE_REQUEST_RENDERER (renderer);
 
 	if (GCR_IS_DISPLAY_VIEW (viewer)) {
 		view = GCR_DISPLAY_VIEW (viewer);
 
 	} else {
-		g_warning ("GcrCertificateReqRenderer only works with internal specific "
+		g_warning ("GcrCertificateRequestRenderer only works with internal specific "
 		           "GcrViewer returned by gcr_viewer_new().");
 		return;
 	}
@@ -423,7 +423,7 @@ gcr_certificate_req_renderer_render (GcrRenderer *renderer,
 		render_spkac_certificate_req (self, view);
 		break;
 	default:
-		g_warning ("unknown request type in GcrCertificateReqRenderer");
+		g_warning ("unknown request type in GcrCertificateRequestRenderer");
 		break;
 	}
 
@@ -431,13 +431,13 @@ gcr_certificate_req_renderer_render (GcrRenderer *renderer,
 }
 
 static void
-_gcr_certificate_req_renderer_iface (GcrRendererIface *iface)
+_gcr_certificate_request_renderer_iface (GcrRendererIface *iface)
 {
-	iface->render_view = gcr_certificate_req_renderer_render;
+	iface->render_view = gcr_certificate_request_renderer_render;
 }
 
 /**
- * gcr_certificate_req_renderer_new_for_attributes:
+ * gcr_certificate_request_renderer_new_for_attributes:
  * @label: (allow-none): the label to display
  * @attrs: the attributes to display
  *
@@ -445,21 +445,21 @@ _gcr_certificate_req_renderer_iface (GcrRendererIface *iface)
  * One of the attributes should be a CKA_VALUE type attribute containing a DER
  * encoded PKCS\#10 certificate request or an SPKAC request.
  *
- * Returns: (transfer full): a newly allocated #GcrCertificateReqRenderer, which
+ * Returns: (transfer full): a newly allocated #GcrCertificateRequestRenderer, which
  *          should be released with g_object_unref()
  */
 GcrRenderer *
-_gcr_certificate_req_renderer_new_for_attributes (const gchar *label,
+_gcr_certificate_request_renderer_new_for_attributes (const gchar *label,
                                                   GckAttributes *attrs)
 {
-	return g_object_new (GCR_TYPE_CERTIFICATE_REQ_RENDERER,
+	return g_object_new (GCR_TYPE_CERTIFICATE_REQUEST_RENDERER,
 	                     "label", label,
 	                     "attributes", attrs,
 	                     NULL);
 }
 
 /**
- * gcr_certificate_req_renderer_get_attributes:
+ * gcr_certificate_request_renderer_get_attributes:
  * @self: the renderer
  *
  * Get the PKCS\#11 attributes, if any, set for this renderer to display.
@@ -467,14 +467,14 @@ _gcr_certificate_req_renderer_new_for_attributes (const gchar *label,
  * Returns: (allow-none) (transfer none): the attributes, owned by the renderer
  */
 GckAttributes *
-_gcr_certificate_req_renderer_get_attributes (GcrCertificateReqRenderer *self)
+_gcr_certificate_request_renderer_get_attributes (GcrCertificateRequestRenderer *self)
 {
-	g_return_val_if_fail (GCR_IS_CERTIFICATE_REQ_RENDERER (self), NULL);
+	g_return_val_if_fail (GCR_IS_CERTIFICATE_REQUEST_RENDERER (self), NULL);
 	return self->pv->attrs;
 }
 
 /**
- * gcr_certificate_req_renderer_set_attributes:
+ * gcr_certificate_request_renderer_set_attributes:
  * @self: the renderer
  * @attrs: (allow-none): attributes to set
  *
@@ -483,7 +483,7 @@ _gcr_certificate_req_renderer_get_attributes (GcrCertificateReqRenderer *self)
  * certificate request or an SPKAC request.
  */
 void
-_gcr_certificate_req_renderer_set_attributes (GcrCertificateReqRenderer *self,
+_gcr_certificate_request_renderer_set_attributes (GcrCertificateRequestRenderer *self,
                                               GckAttributes *attrs)
 {
 	GckAttribute *value;
@@ -491,13 +491,13 @@ _gcr_certificate_req_renderer_set_attributes (GcrCertificateReqRenderer *self,
 	gulong type = 0;
 	EggBytes *bytes;
 
-	g_return_if_fail (GCR_IS_CERTIFICATE_REQ_RENDERER (self));
+	g_return_if_fail (GCR_IS_CERTIFICATE_REQUEST_RENDERER (self));
 
 	if (attrs) {
 		value = gck_attributes_find (attrs, CKA_VALUE);
 		if (value == NULL) {
 			g_warning ("no CKA_VALUE found in attributes passed to "
-				   "GcrCertificateReqRenderer attributes property");
+				   "GcrCertificateRequestRenderer attributes property");
 			return;
 		}
 
@@ -513,7 +513,7 @@ _gcr_certificate_req_renderer_set_attributes (GcrCertificateReqRenderer *self,
 				type = CKQ_GCR_SPKAC;
 			} else {
 				g_warning ("the data contained in the CKA_VALUE attribute passed to "
-				           "GcrCertificateReqRenderer was not valid DER encoded PKCS#10 "
+				           "GcrCertificateRequestRenderer was not valid DER encoded PKCS#10 "
 				           "or SPKAC");
 			}
 		}

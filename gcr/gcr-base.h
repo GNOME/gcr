@@ -46,6 +46,7 @@
 #include "gcr-mock-prompter.h"
 #include "gcr-parser.h"
 #include "gcr-pkcs11-certificate.h"
+#include "gcr-prompt.h"
 #include "gcr-secret-exchange.h"
 #include "gcr-simple-certificate.h"
 #include "gcr-simple-collection.h"

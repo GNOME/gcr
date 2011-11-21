@@ -378,7 +378,10 @@ perform_decrypt (GcrSecretExchange *self,
  * @exchange: the string received
  *
  * Receive a string from the other side of secret exchange. This string will
- * have been created by gcr_secret_exchange_begin() or gcr_secret_exchange_send()
+ * have been created by gcr_secret_exchange_begin() or gcr_secret_exchange_send().
+ *
+ * After this call completes successfully the value returned from
+ * gcr_secret_exchange_get_secret() will have changed.
  *
  * Returns: whether the string was successfully parsed and received
  */
@@ -387,9 +390,9 @@ gcr_secret_exchange_receive (GcrSecretExchange *self,
                              const gchar *exchange)
 {
 	GcrSecretExchangeClass *klass;
+	gchar *secret = NULL;
+	gsize n_secret = 0;
 	GKeyFile *input;
-	gchar *secret;
-	gsize n_secret;
 	gboolean ret;
 
 	g_return_val_if_fail (GCR_IS_SECRET_EXCHANGE (self), FALSE);
@@ -422,16 +425,13 @@ gcr_secret_exchange_receive (GcrSecretExchange *self,
 			ret = FALSE;
 	}
 
-	if (ret && g_key_file_has_key (input, GCR_SECRET_EXCHANGE_PROTOCOL_1, "secret", NULL)) {
+	if (ret && g_key_file_has_key (input, GCR_SECRET_EXCHANGE_PROTOCOL_1, "secret", NULL))
+		ret = perform_decrypt (self, input, (guchar **)&secret, &n_secret);
 
-		/* Remember that this can return a NULL secret */
-		if (!perform_decrypt (self, input, (guchar **)&secret, &n_secret)) {
-			ret = FALSE;
-		} else {
-			egg_secure_free (self->pv->secret);
-			self->pv->secret = secret;
-			self->pv->n_secret = n_secret;
-		}
+	if (ret) {
+		egg_secure_free (self->pv->secret);
+		self->pv->secret = secret;
+		self->pv->n_secret = n_secret;
 	}
 
 	g_key_file_free (input);

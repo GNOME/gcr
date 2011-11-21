@@ -32,32 +32,28 @@ G_BEGIN_DECLS
 #define GCR_DBUS_PROMPTER_MOCK_BUS_NAME              "org.gnome.keyring.MockPrompter"
 
 #define GCR_DBUS_PROMPTER_OBJECT_PATH                "/org/gnome/keyring/Prompter"
+#define GCR_DBUS_PROMPT_OBJECT_PREFIX                "/org/gnome/keyring/internal/Prompt"
 
-#define GCR_DBUS_PROMPTER_INTERFACE                  "org.gnome.keyring.Prompter"
+#define GCR_DBUS_PROMPTER_INTERFACE                  "org.gnome.keyring.internal.Prompter"
 
 #define GCR_DBUS_PROMPTER_METHOD_BEGIN               "BeginPrompting"
-#define GCR_DBUS_PROMPTER_METHOD_FINISH              "FinishPrompting"
+#define GCR_DBUS_PROMPTER_METHOD_STOP                "StopPrompting"
+#define GCR_DBUS_PROMPTER_METHOD_PERFORM             "PerformPrompt"
 
-#define GCR_DBUS_PROMPTER_SIGNAL_READY               "PrompterReady"
-
-#define GCR_DBUS_PROMPT_INTERFACE                    "org.gnome.keyring.Prompter.Prompt"
+#define GCR_DBUS_CALLBACK_INTERFACE                  "org.gnome.keyring.internal.Prompter.Callback"
 
 #define GCR_DBUS_PROMPT_ERROR_IN_PROGRESS            "org.gnome.keyring.Prompter.InProgress"
-#define GCR_DBUS_PROMPT_ERROR_NOT_HAPPENING          "org.gnome.keyring.Prompter.NotHappening"
 #define GCR_DBUS_PROMPT_ERROR_FAILED                 "org.gnome.keyring.Prompter.Failed"
 
-#define GCR_DBUS_PROMPT_PROPERTY_TITLE               "Title"
-#define GCR_DBUS_PROMPT_PROPERTY_MESSAGE             "Message"
-#define GCR_DBUS_PROMPT_PROPERTY_DESCRIPTION         "Description"
-#define GCR_DBUS_PROMPT_PROPERTY_WARNING             "Warning"
-#define GCR_DBUS_PROMPT_PROPERTY_CHOICE_LABEL        "ChoiceLabel"
-#define GCR_DBUS_PROMPT_PROPERTY_CHOICE_CHOSEN       "ChoiceChosen"
-#define GCR_DBUS_PROMPT_PROPERTY_PASSWORD_NEW        "PasswordNew"
-#define GCR_DBUS_PROMPT_PROPERTY_PASSWORD_STRENGTH   "PasswordStrength"
-#define GCR_DBUS_PROMPT_PROPERTY_CALLER_WINDOW       "CallerWindow"
+#define GCR_DBUS_CALLBACK_METHOD_READY               "PromptReady"
+#define GCR_DBUS_CALLBACK_METHOD_DONE                "PromptDone"
 
-#define GCR_DBUS_PROMPT_METHOD_PASSWORD              "RequestPassword"
-#define GCR_DBUS_PROMPT_METHOD_CONFIRM               "RequestConfirm"
+#define GCR_DBUS_PROMPT_TYPE_NONE                    ""
+#define GCR_DBUS_PROMPT_TYPE_PASSWORD                "password"
+#define GCR_DBUS_PROMPT_TYPE_CONFIRM                 "confirm"
+
+#define GCR_DBUS_PROMPT_REPLY_YES                    "yes"
+#define GCR_DBUS_PROMPT_REPLY_NO                     "no"
 
 G_END_DECLS
 

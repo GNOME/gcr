@@ -49,15 +49,15 @@ on_prompt_clicked (GtkToolButton *button,
 		return;
 	}
 
-	gcr_system_prompt_set_title (prompt, "This is the title");
-	gcr_system_prompt_set_message (prompt, "This is the message");
-	gcr_system_prompt_set_description (prompt, "This is the description");
+	gcr_prompt_set_title (GCR_PROMPT (prompt), "This is the title");
+	gcr_prompt_set_message (GCR_PROMPT (prompt), "This is the message");
+	gcr_prompt_set_description (GCR_PROMPT (prompt), "This is the description");
 
 	caller_id = g_strdup_printf ("%lu", (gulong)GDK_WINDOW_XID (gtk_widget_get_window (parent)));
-	gcr_system_prompt_set_caller_window (prompt, caller_id);
+	gcr_prompt_set_caller_window (GCR_PROMPT (prompt), caller_id);
 	g_free (caller_id);
 
-	password = gcr_system_prompt_password (prompt, NULL, &error);
+	password = gcr_prompt_password_run (GCR_PROMPT (prompt), NULL, &error);
 	if (error != NULL) {
 		g_warning ("couldn't prompt for password: %s", error->message);
 		g_error_free (error);

@@ -38,7 +38,7 @@ const gchar *        gcr_mock_prompter_start                     (void);
 
 void                 gcr_mock_prompter_stop                      (void);
 
-gboolean             gcr_mock_prompter_get_showing               (void);
+gboolean             gcr_mock_prompter_is_prompting              (void);
 
 guint                gcr_mock_prompter_get_delay_msec            (void);
 
@@ -54,6 +54,8 @@ void                 gcr_mock_prompter_expect_password_ok        (const gchar *p
                                                                   ...);
 
 void                 gcr_mock_prompter_expect_password_cancel    (void);
+
+gboolean             gcr_mock_prompter_is_expecting              (void);
 
 G_END_DECLS
 

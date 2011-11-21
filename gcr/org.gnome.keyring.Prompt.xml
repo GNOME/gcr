@@ -2,41 +2,5 @@
  "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 
 <node>
-	<interface name="org.gnome.keyring.Prompter.Prompt">
-		<property name="Title" type="s" access="readwrite"/>
 
-		<property name="Message" type="s" access="readwrite"/>
-
-		<property name="Description" type="s" access="readwrite"/>
-
-		<property name="Warning" type="s" access="readwrite"/>
-
-		<property name="PasswordNew" type="b" access="readwrite"/>
-
-		<property name="PasswordStrength" type="i" access="read"/>
-
-		<property name="ChoiceLabel" type="s" access="readwrite"/>
-
-		<property name="ChoiceChosen" type="b" access="readwrite"/>
-
-		<property name="CallerWindow" type="s" access="readwrite"/>
-
-		<!--
-		 * In addition to PropertiesChanged, we send back changed
-		 * properties with the method response. To avoid race conditions
-		-->
-
-		<method name="RequestPassword">
-			<arg name="properties" type="a(ssv)" direction="in"/>
-			<arg name="input" type="s" direction="in"/>
-			<arg name="changed" type="a(ssv)" direction="out"/>
-			<arg name="output" type="s" direction="out"/>
-		</method>
-
-		<method name="RequestConfirm">
-			<arg name="properties" type="a(ssv)" direction="in"/>
-			<arg name="changed" type="a(ssv)" direction="out"/>
-			<arg name="confirmed" type="b" direction="out"/>
-		</method>
-	</interface>
 </node>

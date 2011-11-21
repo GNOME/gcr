@@ -35,10 +35,13 @@
 
 G_BEGIN_DECLS
 
+typedef enum {
+	GCR_SYSTEM_PROMPT_CANCEL = 0,
+	GCR_SYSTEM_PROMPT_OK = 1,
+} GcrSystemPromptResponse;
 
 typedef enum {
 	GCR_SYSTEM_PROMPT_IN_PROGRESS = 1,
-	GCR_SYSTEM_PROMPT_NOT_HAPPENING,
 	GCR_SYSTEM_PROMPT_FAILED,
 	GCR_SYSTEM_PROMPT_CLOSED
 } GcrSystemPromptError;
@@ -73,51 +76,6 @@ GType                gcr_system_prompt_get_type                  (void);
 
 GcrSecretExchange *  gcr_system_prompt_get_secret_exchange       (GcrSystemPrompt *self);
 
-void                 gcr_system_prompt_set_secret_exchange       (GcrSystemPrompt *self,
-                                                                  GcrSecretExchange *exchange);
-
-const gchar *        gcr_system_prompt_get_title                 (GcrSystemPrompt *self);
-
-void                 gcr_system_prompt_set_title                 (GcrSystemPrompt *self,
-                                                                  const gchar *title);
-
-const gchar *        gcr_system_prompt_get_message               (GcrSystemPrompt *self);
-
-void                 gcr_system_prompt_set_message               (GcrSystemPrompt *self,
-                                                                  const gchar *message);
-
-const gchar *        gcr_system_prompt_get_description           (GcrSystemPrompt *self);
-
-void                 gcr_system_prompt_set_description           (GcrSystemPrompt *self,
-                                                                  const gchar *description);
-
-const gchar *        gcr_system_prompt_get_warning               (GcrSystemPrompt *self);
-
-void                 gcr_system_prompt_set_warning               (GcrSystemPrompt *self,
-                                                                  const gchar *warning);
-
-const gchar *        gcr_system_prompt_get_choice_label          (GcrSystemPrompt *self);
-
-void                 gcr_system_prompt_set_choice_label          (GcrSystemPrompt *self,
-                                                                  const gchar *warning);
-
-gboolean             gcr_system_prompt_get_choice_chosen         (GcrSystemPrompt *self);
-
-void                 gcr_system_prompt_set_choice_chosen         (GcrSystemPrompt *self,
-                                                                  gboolean chosen);
-
-gboolean             gcr_system_prompt_get_password_new          (GcrSystemPrompt *self);
-
-void                 gcr_system_prompt_set_password_new          (GcrSystemPrompt *self,
-                                                                  gboolean new_password);
-
-gint                 gcr_system_prompt_get_password_strength     (GcrSystemPrompt *self);
-
-const gchar *        gcr_system_prompt_get_caller_window         (GcrSystemPrompt *self);
-
-void                 gcr_system_prompt_set_caller_window         (GcrSystemPrompt *self,
-                                                                  const gchar *window_id);
-
 void                 gcr_system_prompt_open_async                (gint timeout_seconds,
                                                                   GCancellable *cancellable,
                                                                   GAsyncReadyCallback callback,
@@ -139,32 +97,6 @@ GcrSystemPrompt *    gcr_system_prompt_open_for_prompter         (const gchar *p
                                                                   GError **error);
 
 GcrSystemPrompt *    gcr_system_prompt_open                      (gint timeout_seconds,
-                                                                  GCancellable *cancellable,
-                                                                  GError **error);
-
-void                 gcr_system_prompt_password_async            (GcrSystemPrompt *self,
-                                                                  GCancellable *cancellable,
-                                                                  GAsyncReadyCallback callback,
-                                                                  gpointer user_data);
-
-const gchar *        gcr_system_prompt_password_finish           (GcrSystemPrompt *self,
-                                                                  GAsyncResult *result,
-                                                                  GError **error);
-
-const gchar *        gcr_system_prompt_password                  (GcrSystemPrompt *self,
-                                                                  GCancellable *cancellable,
-                                                                  GError **error);
-
-void                 gcr_system_prompt_confirm_async             (GcrSystemPrompt *self,
-                                                                  GCancellable *cancellable,
-                                                                  GAsyncReadyCallback callback,
-                                                                  gpointer user_data);
-
-gboolean             gcr_system_prompt_confirm_finish            (GcrSystemPrompt *self,
-                                                                  GAsyncResult *result,
-                                                                  GError **error);
-
-gboolean             gcr_system_prompt_confirm                   (GcrSystemPrompt *self,
                                                                   GCancellable *cancellable,
                                                                   GError **error);
 

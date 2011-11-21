@@ -24,6 +24,7 @@
 #include "config.h"
 
 #include "gcr-mock-prompter.h"
+#include "gcr-prompt.h"
 
 #include "egg/egg-error.h"
 
@@ -52,45 +53,47 @@
  */
 
 
-GType   gcr_mock_prompter_get_type        (void) G_GNUC_CONST;
-#define GCR_TYPE_MOCK_PROMPTER            (gcr_mock_prompter_get_type ())
-#define GCR_MOCK_PROMPTER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_MOCK_PROMPTER, GcrMockPrompter))
-#define GCR_IS_MOCK_PROMPTER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_MOCK_PROMPTER))
-#define GCR_IS_MOCK_PROMPTER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_MOCK_PROMPTER))
-#define GCR_MOCK_PROMPTER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_MOCK_PROMPTER, GcrMockPromptClass))
-#define GCR_MOCK_PROMPTER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_MOCK_PROMPTER, GcrMockPromptClass))
+GType   _gcr_mock_prompt_get_type       (void) G_GNUC_CONST;
+#define GCR_TYPE_MOCK_PROMPT            (_gcr_mock_prompt_get_type ())
+#define GCR_MOCK_PROMPT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_MOCK_PROMPT, GcrMockPrompt))
+#define GCR_IS_MOCK_PROMPT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_MOCK_PROMPT))
+#define GCR_IS_MOCK_PROMPT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_MOCK_PROMPT))
+#define GCR_MOCK_PROMPT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_MOCK_PROMPT, GcrMockPromptClass))
+#define GCR_MOCK_PROMPT_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_MOCK_PROMPT, GcrMockPromptClass))
 
-typedef struct _GcrMockPrompter GcrMockPrompter;
-typedef struct _GcrMockPrompterClass GcrMockPrompterClass;
-typedef struct _GcrMockPrompterPrivate GcrMockPrompterPrivate;
+typedef struct _GcrMockPrompt GcrMockPrompt;
+typedef struct _GcrMockPromptClass GcrMockPromptClass;
+typedef struct _GcrMockPromptPrivate GcrMockPromptPrivate;
 
 enum {
 	PROP_0,
-	PROP_CONNECTION,
-	PROP_SHOWING,
-	PROP_DELAY_MSEC
+
+	PROP_TITLE,
+	PROP_MESSAGE,
+	PROP_DESCRIPTION,
+	PROP_WARNING,
+	PROP_PASSWORD_NEW,
+	PROP_PASSWORD_STRENGTH,
+	PROP_CHOICE_LABEL,
+	PROP_CHOICE_CHOSEN,
+	PROP_CALLER_WINDOW
 };
 
-struct _GcrMockPrompter {
-	GcrSystemPrompter parent;
-	GDBusConnection *connection;
-	GQueue *responses;
-	gboolean showing;
-	guint delay_msec;
+struct _GcrMockPrompt {
+	GObject parent;
+	GHashTable *properties;
 	guint delay_source;
+	gboolean disposed;
 };
 
-struct _GcrMockPrompterClass {
-	GcrSystemPrompterClass parent_class;
+struct _GcrMockPromptClass {
+	GObjectClass parent_class;
 };
 
 typedef struct {
 	gboolean proceed;
 	gchar *password;
 	GList *properties;
-
-	/* Used while responding */
-	GcrMockPrompter *prompter;
 } MockResponse;
 
 typedef struct {
@@ -99,15 +102,23 @@ typedef struct {
 	GCond *start_cond;
 	GThread *thread;
 
+	guint delay_msec;
+	GQueue responses;
+
 	/* Owned by the prompter thread*/
-	GcrMockPrompter *prompter;
+	GcrSystemPrompter *prompter;
 	const gchar *bus_name;
 	GMainLoop *loop;
 } ThreadData;
 
+static gint prompts_a_prompting = 0;
 static ThreadData *running = NULL;
 
-G_DEFINE_TYPE (GcrMockPrompter, gcr_mock_prompter, GCR_TYPE_SYSTEM_PROMPTER);
+static void    gcr_mock_prompt_iface     (GcrPromptIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (GcrMockPrompt, _gcr_mock_prompt, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (GCR_TYPE_PROMPT, gcr_mock_prompt_iface);
+);
 
 static void
 mock_property_free (gpointer data)
@@ -121,32 +132,100 @@ static void
 mock_response_free (gpointer data)
 {
 	MockResponse *response = data;
+
+	if (response == NULL)
+		return;
+
 	g_free (response->password);
 	g_list_free_full (response->properties, mock_property_free);
-	g_clear_object (&response->prompter);
 	g_free (response);
 }
 
 static void
-gcr_mock_prompter_init (GcrMockPrompter *self)
+blank_string_property (GHashTable *properties,
+                       const gchar *property)
 {
-	self->responses = g_queue_new ();
+	GParameter *param;
+
+	param = g_new0 (GParameter, 1);
+	param->name = property;
+	g_value_init (&param->value, G_TYPE_STRING);
+	g_value_set_string (&param->value, "");
+	g_hash_table_insert (properties, (gpointer)param->name, param);
+}
+
+
+static void
+blank_boolean_property (GHashTable *properties,
+                        const gchar *property)
+{
+	GParameter *param;
+
+	param = g_new0 (GParameter, 1);
+	param->name = property;
+	g_value_init (&param->value, G_TYPE_BOOLEAN);
+	g_value_set_boolean (&param->value, FALSE);
+	g_hash_table_insert (properties, (gpointer)param->name, param);
 }
 
 static void
-gcr_mock_prompter_set_property (GObject *obj,
-                                guint prop_id,
-                                const GValue *value,
-                                GParamSpec *pspec)
+blank_int_property (GHashTable *properties,
+                    const gchar *property)
 {
-	GcrMockPrompter *self = GCR_MOCK_PROMPTER (obj);
+	GParameter *param;
+
+	param = g_new0 (GParameter, 1);
+	param->name = property;
+	g_value_init (&param->value, G_TYPE_INT);
+	g_value_set_int (&param->value, 0);
+	g_hash_table_insert (properties, (gpointer)param->name, param);
+}
+
+static void
+_gcr_mock_prompt_init (GcrMockPrompt *self)
+{
+	g_atomic_int_add (&prompts_a_prompting, 1);
+
+	self->properties = g_hash_table_new_full (g_str_hash, g_str_equal,
+	                                          NULL, mock_property_free);
+
+	blank_string_property (self->properties, "title");
+	blank_string_property (self->properties, "message");
+	blank_string_property (self->properties, "description");
+	blank_string_property (self->properties, "warning");
+	blank_string_property (self->properties, "choice-label");
+	blank_string_property (self->properties, "caller-window");
+
+	blank_boolean_property (self->properties, "choice-chosen");
+	blank_boolean_property (self->properties, "password-new");
+
+	blank_int_property (self->properties, "password-strength");
+}
+
+static void
+_gcr_mock_prompt_set_property (GObject *obj,
+                              guint prop_id,
+                              const GValue *value,
+                              GParamSpec *pspec)
+{
+	GcrMockPrompt *self = GCR_MOCK_PROMPT (obj);
+	GParameter *param;
 
 	switch (prop_id) {
-	case PROP_CONNECTION:
-		self->connection = g_value_get_object (value);
-		break;
-	case PROP_DELAY_MSEC:
-		self->delay_msec = g_value_get_uint (value);
+	case PROP_TITLE:
+	case PROP_MESSAGE:
+	case PROP_DESCRIPTION:
+	case PROP_WARNING:
+	case PROP_PASSWORD_NEW:
+	case PROP_CHOICE_LABEL:
+	case PROP_CHOICE_CHOSEN:
+	case PROP_CALLER_WINDOW:
+		param = g_new0 (GParameter, 1);
+		param->name = pspec->name;
+		g_value_init (&param->value, pspec->value_type);
+		g_value_copy (value, &param->value);
+		g_hash_table_replace (self->properties, (gpointer)param->name, param);
+		g_object_notify (G_OBJECT (self), param->name);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -155,22 +234,27 @@ gcr_mock_prompter_set_property (GObject *obj,
 }
 
 static void
-gcr_mock_prompter_get_property (GObject *obj,
-                                guint prop_id,
-                                GValue *value,
-                                GParamSpec *pspec)
+_gcr_mock_prompt_get_property (GObject *obj,
+                              guint prop_id,
+                              GValue *value,
+                              GParamSpec *pspec)
 {
-	GcrMockPrompter *self = GCR_MOCK_PROMPTER (obj);
+	GcrMockPrompt *self = GCR_MOCK_PROMPT (obj);
+	GParameter *param;
 
 	switch (prop_id) {
-	case PROP_CONNECTION:
-		g_value_set_object (value, self->connection);
-		break;
-	case PROP_SHOWING:
-		g_value_set_boolean (value, self->showing);
-		break;
-	case PROP_DELAY_MSEC:
-		g_value_set_uint (value, self->delay_msec);
+	case PROP_TITLE:
+	case PROP_MESSAGE:
+	case PROP_DESCRIPTION:
+	case PROP_WARNING:
+	case PROP_PASSWORD_NEW:
+	case PROP_PASSWORD_STRENGTH:
+	case PROP_CHOICE_LABEL:
+	case PROP_CHOICE_CHOSEN:
+	case PROP_CALLER_WINDOW:
+		param = g_hash_table_lookup (self->properties, pspec->name);
+		g_return_if_fail (param != NULL);
+		g_value_copy (&param->value, value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -180,37 +264,31 @@ gcr_mock_prompter_get_property (GObject *obj,
 
 
 static void
-gcr_mock_prompter_dispose (GObject *obj)
+_gcr_mock_prompt_dispose (GObject *obj)
 {
-	GcrMockPrompter *self = GCR_MOCK_PROMPTER (obj);
-	MockResponse *response;
+	GcrMockPrompt *self = GCR_MOCK_PROMPT (obj);
 
 	if (self->delay_source) {
 		g_source_remove (self->delay_source);
 		self->delay_source = 0;
 	}
 
-	if (self->connection) {
-		gcr_system_prompter_unregister (GCR_SYSTEM_PROMPTER (self), self->connection);
-		g_object_remove_weak_pointer (G_OBJECT (self->connection),
-		                              (gpointer *)&self->connection);
-		self->connection = NULL;
+	if (!self->disposed) {
+		g_atomic_int_add (&prompts_a_prompting, -1);
+		self->disposed = TRUE;
 	}
 
-	while ((response = g_queue_pop_head (self->responses)))
-		mock_response_free (response);
-
-	G_OBJECT_CLASS (gcr_mock_prompter_parent_class)->dispose (obj);
+	G_OBJECT_CLASS (_gcr_mock_prompt_parent_class)->dispose (obj);
 }
 
 static void
-gcr_mock_prompter_finalize (GObject *obj)
+_gcr_mock_prompt_finalize (GObject *obj)
 {
-	GcrMockPrompter *self = GCR_MOCK_PROMPTER (obj);
+	GcrMockPrompt *self = GCR_MOCK_PROMPT (obj);
 
-	g_queue_free (self->responses);
+	g_hash_table_destroy(self->properties);
 
-	G_OBJECT_CLASS (gcr_mock_prompter_parent_class)->finalize (obj);
+	G_OBJECT_CLASS (_gcr_mock_prompt_parent_class)->finalize (obj);
 }
 
 static gboolean
@@ -254,9 +332,10 @@ value_equal (const GValue *a, const GValue *b)
 }
 
 static void
-prompter_set_properties (GcrMockPrompter *self,
-                         GList *properties)
+prompt_set_or_check_properties (GcrMockPrompt *self,
+                                GList *properties)
 {
+	GValue value = G_VALUE_INIT;
 	GObjectClass *object_class;
 	GParameter *param;
 	GParamSpec *spec;
@@ -269,188 +348,211 @@ prompter_set_properties (GcrMockPrompter *self,
 		spec = g_object_class_find_property (object_class, param->name);
 		g_assert (spec != NULL);
 
-		/* A writable property, set it */
-		if ((spec->flags & G_PARAM_WRITABLE)) {
+		/* For these we set the value */
+		if (g_str_equal (param->name, "choice-chosen")) {
 			g_object_set_property (G_OBJECT (self), param->name, &param->value);
 
-		/* Other properties get checked */
+		/* For others we check that the value is correct */
 		} else {
-			GValue value = G_VALUE_INIT;
-
-			g_value_init (&value, spec->value_type);
+			g_value_init (&value, G_VALUE_TYPE (&param->value));
 			g_object_get_property (G_OBJECT (self), param->name, &value);
 			if (!value_equal (&value, &param->value)) {
 				gchar *expected = g_strdup_value_contents (&param->value);
 				gchar *actual = g_strdup_value_contents (&value);
-
 				g_critical ("expected prompt property '%s' to be %s, but it "
 				            "is instead %s", param->name, expected, actual);
-
 				g_free (expected);
 				g_free (actual);
 			}
-
 			g_value_unset (&value);
 		}
 	}
 }
 
 static void
-gcr_mock_prompter_open (GcrSystemPrompter *prompter)
+_gcr_mock_prompt_class_init (GcrMockPromptClass *klass)
 {
-	GcrMockPrompter *self = GCR_MOCK_PROMPTER (prompter);
-	self->showing = TRUE;
+	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+	gobject_class->get_property = _gcr_mock_prompt_get_property;
+	gobject_class->set_property = _gcr_mock_prompt_set_property;
+	gobject_class->dispose = _gcr_mock_prompt_dispose;
+	gobject_class->finalize = _gcr_mock_prompt_finalize;
+
+	g_object_class_override_property (gobject_class, PROP_TITLE, "title");
+	g_object_class_override_property (gobject_class, PROP_MESSAGE, "message");
+	g_object_class_override_property (gobject_class, PROP_DESCRIPTION, "description");
+	g_object_class_override_property (gobject_class, PROP_WARNING, "warning");
+	g_object_class_override_property (gobject_class, PROP_CALLER_WINDOW, "caller-window");
+	g_object_class_override_property (gobject_class, PROP_CHOICE_LABEL, "choice-label");
+	g_object_class_override_property (gobject_class, PROP_CHOICE_CHOSEN, "choice-chosen");
+	g_object_class_override_property (gobject_class, PROP_PASSWORD_NEW, "password-new");
+	g_object_class_override_property (gobject_class, PROP_PASSWORD_STRENGTH, "password-strength");
+}
+
+static gboolean
+on_timeout_complete_response (gpointer data)
+{
+	GSimpleAsyncResult *res = data;
+	g_simple_async_result_complete_in_idle (res);
+	return FALSE;
 }
 
 static void
-gcr_mock_prompter_close (GcrSystemPrompter *prompter)
+gcr_mock_prompt_confirm_async (GcrPrompt *prompt,
+                               GCancellable *cancellable,
+                               GAsyncReadyCallback callback,
+                               gpointer user_data)
 {
-	GcrMockPrompter *self = GCR_MOCK_PROMPTER (prompter);
+	GcrMockPrompt *self = GCR_MOCK_PROMPT (prompt);
+	GSimpleAsyncResult *res;
+	MockResponse *response;
+	guint delay_msec;
 
-	if (self->delay_source != 0) {
-		g_source_remove (self->delay_source);
-		self->delay_source = 0;
-	}
+	g_mutex_lock (running->mutex);
+	delay_msec = running->delay_msec;
+	response = g_queue_pop_head (&running->responses);
+	g_mutex_unlock (running->mutex);
 
-	self->showing = FALSE;
-}
-
-static gboolean
-on_timeout_prompt_confirm (gpointer data)
-{
-	MockResponse *response = data;
-	GcrSystemPrompter *prompter = GCR_SYSTEM_PROMPTER (response->prompter);
-
-	response->prompter->delay_source = 0;
-
-	if (!response->proceed)
-		gcr_system_prompter_respond_cancelled (prompter);
-	else
-		gcr_system_prompter_respond_confirmed (prompter);
-
-	return FALSE;
-}
-
-static gboolean
-gcr_mock_prompter_prompt_confirm (GcrSystemPrompter *prompter)
-{
-	GcrMockPrompter *self = GCR_MOCK_PROMPTER (prompter);
-	MockResponse *response = g_queue_pop_head (self->responses);
-
-	if (response == NULL) {
-		g_critical ("confirmation prompt requested, but not expected");
-		return FALSE;
-
-	} else if (response->password) {
-		g_critical ("confirmation prompt requested, but password prompt expected");
-		mock_response_free (response);
-		return FALSE;
-	}
-
-	prompter_set_properties (self, response->properties);
-	response->prompter = g_object_ref (prompter);
-
-	if (self->delay_msec > 0) {
-		g_assert (!self->delay_source);
-		self->delay_source = g_timeout_add_full (G_PRIORITY_DEFAULT, self->delay_msec,
-		                                         on_timeout_prompt_confirm,
-		                                         response, mock_response_free);
-	} else {
-		on_timeout_prompt_confirm (response);
-		mock_response_free (response);
-	}
-
-	return TRUE;
-}
-
-static gboolean
-on_timeout_prompt_password (gpointer data)
-{
-	MockResponse *response = data;
-	GcrSystemPrompter *prompter = GCR_SYSTEM_PROMPTER (response->prompter);
-
-	response->prompter->delay_source = 0;
-
-	if (!response->proceed)
-		gcr_system_prompter_respond_cancelled (prompter);
-	else
-		gcr_system_prompter_respond_with_password (prompter, response->password);
-
-	return FALSE;
-}
-
-static gboolean
-gcr_mock_prompter_prompt_password (GcrSystemPrompter *prompter)
-{
-	GcrMockPrompter *self = GCR_MOCK_PROMPTER (prompter);
-	MockResponse *response = g_queue_pop_head (self->responses);
+	res = g_simple_async_result_new (G_OBJECT (prompt), callback, user_data,
+	                                 gcr_mock_prompt_confirm_async);
 
 	if (response == NULL) {
 		g_critical ("password prompt requested, but not expected");
-		return FALSE;
+		g_simple_async_result_set_op_res_gboolean (res, FALSE);
 
-	} else if (!response->password) {
-		g_critical ("password prompt requested, but confirmation prompt expected");
-		mock_response_free (response);
-		return FALSE;
+	} else if (response->password) {
+		g_critical ("confirmation prompt requested, but password prompt expected");
+		g_simple_async_result_set_op_res_gboolean (res, FALSE);
 
-	}
-
-	prompter_set_properties (self, response->properties);
-	response->prompter = g_object_ref (prompter);
-
-	if (self->delay_msec > 0) {
-		g_assert (!self->delay_source);
-		self->delay_source = g_timeout_add_full (G_PRIORITY_DEFAULT, self->delay_msec,
-		                                         on_timeout_prompt_password,
-		                                         response, mock_response_free);
 	} else {
-		on_timeout_prompt_password (response);
-		mock_response_free (response);
+		prompt_set_or_check_properties (self, response->properties);
+		g_simple_async_result_set_op_res_gboolean (res, response->proceed);
 	}
 
-	return TRUE;
+	mock_response_free (response);
+
+	if (delay_msec > 0) {
+		g_assert (!self->delay_source);
+		self->delay_source = g_timeout_add_full (G_PRIORITY_DEFAULT, delay_msec,
+		                                         on_timeout_complete_response,
+		                                         g_object_ref (res), g_object_unref);
+	} else {
+		on_timeout_complete_response (res);
+	}
+
+	g_object_unref (res);
+}
+
+static GcrPromptReply
+gcr_mock_prompt_confirm_finish (GcrPrompt *prompt,
+                                GAsyncResult *result,
+                                GError **error)
+{
+	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (prompt),
+	                      gcr_mock_prompt_confirm_async), GCR_PROMPT_REPLY_CANCEL);
+
+	return g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (result)) ?
+	               GCR_PROMPT_REPLY_OK : GCR_PROMPT_REPLY_CANCEL;
 }
 
 static void
-gcr_mock_prompter_class_init (GcrMockPrompterClass *klass)
+ensure_password_strength (GcrMockPrompt *self,
+                          const gchar *password)
 {
-	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-	GcrSystemPrompterClass *prompter_class = GCR_SYSTEM_PROMPTER_CLASS (klass);
+	GParameter *param;
+	gint strength;
 
-	gobject_class->get_property = gcr_mock_prompter_get_property;
-	gobject_class->set_property = gcr_mock_prompter_set_property;
-	gobject_class->dispose = gcr_mock_prompter_dispose;
-	gobject_class->finalize = gcr_mock_prompter_finalize;
+	strength = strlen (password) > 0 ? 1 : 0;
+	param = g_new0 (GParameter, 1);
+	param->name = "password-strength";
+	g_value_init (&param->value, G_TYPE_INT);
+	g_value_set_int (&param->value, strength);
+	g_hash_table_replace (self->properties, (gpointer)param->name, param);
+	g_object_notify (G_OBJECT (self), param->name);
+}
 
-	prompter_class->open = gcr_mock_prompter_open;
-	prompter_class->close = gcr_mock_prompter_close;
-	prompter_class->prompt_password= gcr_mock_prompter_prompt_password;
-	prompter_class->prompt_confirm = gcr_mock_prompter_prompt_confirm;
+static void
+gcr_mock_prompt_password_async (GcrPrompt *prompt,
+                                GCancellable *cancellable,
+                                GAsyncReadyCallback callback,
+                                gpointer user_data)
+{
+	GcrMockPrompt *self = GCR_MOCK_PROMPT (prompt);
+	GSimpleAsyncResult *res;
+	MockResponse *response;
+	guint delay_msec;
 
-	g_object_class_install_property (gobject_class, PROP_CONNECTION,
-	            g_param_spec_object ("connection", "Connection", "DBus connection",
-	                                 G_TYPE_DBUS_CONNECTION, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	g_mutex_lock (running->mutex);
+	delay_msec = running->delay_msec;
+	response = g_queue_pop_head (&running->responses);
+	g_mutex_unlock (running->mutex);
 
-	g_object_class_install_property (gobject_class, PROP_SHOWING,
-	            g_param_spec_boolean ("showing", "Showing", "Whether showing a prompt",
-	                                  FALSE, G_PARAM_READABLE));
+	res = g_simple_async_result_new (G_OBJECT (prompt), callback, user_data,
+	                                 gcr_mock_prompt_password_async);
 
-	g_object_class_install_property (gobject_class, PROP_DELAY_MSEC,
-	              g_param_spec_uint ("delay-msec", "Delay msec", "Prompt delay in milliseconds",
-	                                 0, G_MAXUINT, 0, G_PARAM_READWRITE));
+	if (response == NULL) {
+		g_critical ("password prompt requested, but not expected");
+		g_simple_async_result_set_op_res_gpointer (res, NULL, NULL);
+
+	} else if (!response->password) {
+		g_critical ("password prompt requested, but confirmation prompt expected");
+		g_simple_async_result_set_op_res_gpointer (res, NULL, NULL);
+
+	} else if (!response->proceed) {
+		prompt_set_or_check_properties (self, response->properties);
+		g_simple_async_result_set_op_res_gpointer (res, NULL, NULL);
+
+	} else {
+		ensure_password_strength (self, response->password);
+		prompt_set_or_check_properties (self, response->properties);
+		g_simple_async_result_set_op_res_gpointer (res, response->password, g_free);
+		response->password = NULL;
+	}
+
+	mock_response_free (response);
+
+	if (delay_msec > 0) {
+		g_assert (!self->delay_source);
+		self->delay_source = g_timeout_add_full (G_PRIORITY_DEFAULT, delay_msec,
+		                                         on_timeout_complete_response,
+		                                         g_object_ref (res), g_object_unref);
+	} else {
+		on_timeout_complete_response (res);
+	}
+
+	g_object_unref (res);
+}
+
+
+static const gchar *
+gcr_mock_prompt_password_finish (GcrPrompt *prompt,
+                                 GAsyncResult *result,
+                                 GError **error)
+{
+	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (prompt),
+	                      gcr_mock_prompt_password_async), NULL);
+
+	return g_simple_async_result_get_op_res_gpointer (G_SIMPLE_ASYNC_RESULT (result));
+
+}
+
+static void
+gcr_mock_prompt_iface (GcrPromptIface *iface)
+{
+	iface->prompt_confirm_async = gcr_mock_prompt_confirm_async;
+	iface->prompt_confirm_finish = gcr_mock_prompt_confirm_finish;
+	iface->prompt_password_async = gcr_mock_prompt_password_async;
+	iface->prompt_password_finish = gcr_mock_prompt_password_finish;
 }
 
 static GList *
-build_properties (GcrMockPrompter *self,
+build_properties (GObjectClass *object_class,
                   const gchar *first_property,
                   va_list var_args)
 {
-	GObjectClass *object_class;
 	GList *result = NULL;
 	const gchar *name;
-
-	object_class = G_OBJECT_GET_CLASS (self);
 
 	name = first_property;
 	while (name) {
@@ -461,14 +563,12 @@ build_properties (GcrMockPrompter *self,
 
 		spec = g_object_class_find_property (object_class, name);
 		if (spec == NULL) {
-			g_warning ("%s object class has no property named '%s'",
-			           G_OBJECT_TYPE_NAME (self), name);
+			g_warning ("prompt object class has no property named '%s'", name);
 			break;
 		}
 
 		if ((spec->flags & G_PARAM_CONSTRUCT_ONLY) && !(spec->flags & G_PARAM_READABLE)) {
-			g_warning ("%s property '%s' can't be set after construction",
-			           G_OBJECT_TYPE_NAME (self), name);
+			g_warning ("prompt property '%s' can't be set after construction", name);
 			break;
 		}
 
@@ -492,16 +592,9 @@ build_properties (GcrMockPrompter *self,
 }
 
 gboolean
-gcr_mock_prompter_get_showing (void)
+gcr_mock_prompter_is_prompting (void)
 {
-	gboolean showing = FALSE;
-
-	g_assert (running != NULL);
-	g_mutex_lock (running->mutex);
-	g_object_get (running->prompter, "showing", &showing, NULL);
-	g_mutex_unlock (running->mutex);
-
-	return showing;
+	return g_atomic_int_get (&prompts_a_prompting) > 0;
 }
 
 guint
@@ -511,7 +604,7 @@ gcr_mock_prompter_get_delay_msec (void)
 
 	g_assert (running != NULL);
 	g_mutex_lock (running->mutex);
-	g_object_get (running->prompter, "delay-msec", &delay_msec, NULL);
+	delay_msec = running->delay_msec;
 	g_mutex_unlock (running->mutex);
 
 	return delay_msec;
@@ -522,7 +615,7 @@ gcr_mock_prompter_set_delay_msec (guint delay_msec)
 {
 	g_assert (running != NULL);
 	g_mutex_lock (running->mutex);
-	g_object_set (running->prompter, "delay-msec", delay_msec, NULL);
+	running->delay_msec = delay_msec;
 	g_mutex_unlock (running->mutex);
 }
 
@@ -531,6 +624,7 @@ gcr_mock_prompter_expect_confirm_ok (const gchar *first_property_name,
                                      ...)
 {
 	MockResponse *response;
+	gpointer klass;
 	va_list var_args;
 
 	g_assert (running != NULL);
@@ -541,11 +635,14 @@ gcr_mock_prompter_expect_confirm_ok (const gchar *first_property_name,
 	response->password = NULL;
 	response->proceed = TRUE;
 
+	klass = g_type_class_ref (gcr_system_prompter_get_prompt_type (running->prompter));
+
 	va_start (var_args, first_property_name);
-	response->properties = build_properties (running->prompter, first_property_name, var_args);
+	response->properties = build_properties (G_OBJECT_CLASS (klass), first_property_name, var_args);
 	va_end (var_args);
 
-	g_queue_push_tail (running->prompter->responses, response);
+	g_type_class_unref (klass);
+	g_queue_push_tail (&running->responses, response);
 	g_mutex_unlock (running->mutex);
 }
 
@@ -562,7 +659,7 @@ gcr_mock_prompter_expect_confirm_cancel (void)
 	response->password = NULL;
 	response->proceed = FALSE;
 
-	g_queue_push_tail (running->prompter->responses, response);
+	g_queue_push_tail (&running->responses, response);
 
 	g_mutex_unlock (running->mutex);
 }
@@ -573,6 +670,7 @@ gcr_mock_prompter_expect_password_ok (const gchar *password,
                                       ...)
 {
 	MockResponse *response;
+	gpointer klass;
 	va_list var_args;
 
 	g_assert (running != NULL);
@@ -584,11 +682,14 @@ gcr_mock_prompter_expect_password_ok (const gchar *password,
 	response->password = g_strdup (password);
 	response->proceed = TRUE;
 
+	klass = g_type_class_ref (gcr_system_prompter_get_prompt_type (running->prompter));
+
 	va_start (var_args, first_property_name);
-	response->properties = build_properties (running->prompter, first_property_name, var_args);
+	response->properties = build_properties (G_OBJECT_CLASS (klass), first_property_name, var_args);
 	va_end (var_args);
 
-	g_queue_push_tail (running->prompter->responses, response);
+	g_type_class_unref (klass);
+	g_queue_push_tail (&running->responses, response);
 
 	g_mutex_unlock (running->mutex);
 }
@@ -606,9 +707,33 @@ gcr_mock_prompter_expect_password_cancel (void)
 	response->password = g_strdup ("");
 	response->proceed = FALSE;
 
-	g_queue_push_tail (running->prompter->responses, response);
+	g_queue_push_tail (&running->responses, response);
 
 	g_mutex_unlock (running->mutex);
+}
+
+gboolean
+gcr_mock_prompter_is_expecting (void)
+{
+	gboolean expecting;
+
+	g_assert (running != NULL);
+
+	g_mutex_lock (running->mutex);
+
+	expecting = !g_queue_is_empty (&running->responses);
+
+	g_mutex_unlock (running->mutex);
+
+	return expecting;
+}
+
+static gboolean
+on_idle_signal_cond (gpointer user_data)
+{
+	GCond *cond = user_data;
+	g_cond_signal (cond);
+	return FALSE; /* Don't run again */
 }
 
 static gpointer
@@ -618,13 +743,15 @@ mock_prompter_thread (gpointer data)
 	GDBusConnection *connection;
 	GMainContext *context;
 	GError *error = NULL;
+	GSource *idle;
 	gchar *address;
 
 	g_mutex_lock (thread_data->mutex);
 	context = g_main_context_new ();
 	g_main_context_push_thread_default (context);
 
-	thread_data->prompter = g_object_new (GCR_TYPE_MOCK_PROMPTER, NULL);
+	thread_data->prompter = gcr_system_prompter_new (GCR_SYSTEM_PROMPTER_SINGLE,
+	                                                 GCR_TYPE_MOCK_PROMPT);
 
 	address = g_dbus_address_get_for_bus_sync (G_BUS_TYPE_SESSION, NULL, &error);
 	if (error == NULL) {
@@ -636,6 +763,9 @@ mock_prompter_thread (gpointer data)
 			gcr_system_prompter_register (GCR_SYSTEM_PROMPTER (thread_data->prompter),
 			                              connection);
 			thread_data->bus_name = g_dbus_connection_get_unique_name (connection);
+		} else {
+			g_critical ("couldn't create connection: %s", error->message);
+			g_error_free (error);
 		}
 
 		g_free (address);
@@ -648,20 +778,34 @@ mock_prompter_thread (gpointer data)
 	}
 
 	thread_data->loop = g_main_loop_new (context, FALSE);
-	g_cond_signal (thread_data->start_cond);
 	g_mutex_unlock (thread_data->mutex);
+
+	idle = g_idle_source_new ();
+	g_source_set_callback (idle, on_idle_signal_cond, thread_data->start_cond, NULL);
+	g_source_attach (idle, context);
+	g_source_unref (idle);
 
 	g_main_loop_run (thread_data->loop);
 
 	g_mutex_lock (thread_data->mutex);
 	g_main_context_pop_thread_default (context);
-	g_main_context_unref (context);
 
-	if (connection) {
-		gcr_system_prompter_unregister (GCR_SYSTEM_PROMPTER (thread_data->prompter),
-		                                connection);
-		g_object_unref (connection);
+	gcr_system_prompter_unregister (thread_data->prompter, TRUE);
+	g_object_unref (thread_data->prompter);
+	thread_data->prompter = NULL;
+
+	if (!g_dbus_connection_flush_sync (connection, NULL, &error)) {
+		g_critical ("connection flush failed: %s", error->message);
+		g_error_free (error);
 	}
+
+	g_object_unref (connection);
+
+	while (g_main_context_iteration (context, FALSE));
+
+	g_main_context_unref (context);
+	g_main_loop_unref (thread_data->loop);
+	thread_data->loop = NULL;
 
 	g_mutex_unlock (thread_data->mutex);
 	return thread_data;
@@ -677,6 +821,7 @@ gcr_mock_prompter_start (void)
 	running = g_new0 (ThreadData, 1);
 	running->mutex = g_mutex_new ();
 	running->start_cond = g_cond_new ();
+	g_queue_init (&running->responses);
 
 	g_mutex_lock (running->mutex);
 	running->thread = g_thread_create (mock_prompter_thread, running, TRUE, &error);
@@ -706,6 +851,9 @@ gcr_mock_prompter_stop (void)
 
 	check = g_thread_join (running->thread);
 	g_assert (check == running);
+
+	g_queue_foreach (&running->responses, (GFunc)mock_response_free, NULL);
+	g_queue_clear (&running->responses);
 
 	g_cond_free (running->start_cond);
 	g_mutex_free (running->mutex);

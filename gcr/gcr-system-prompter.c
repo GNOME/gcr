@@ -27,8 +27,10 @@
 #include "gcr-dbus-generated.h"
 #define DEBUG_FLAG GCR_DEBUG_PROMPT
 #include "gcr-debug.h"
+#include "gcr-enum-types-base.h"
 #include "gcr-internal.h"
 #include "gcr-library.h"
+#include "gcr-prompt.h"
 #include "gcr-secret-exchange.h"
 #include "gcr-system-prompter.h"
 #include "gcr-system-prompt.h"
@@ -59,415 +61,125 @@
 
 enum {
 	PROP_0,
-	PROP_TITLE,
-	PROP_MESSAGE,
-	PROP_DESCRIPTION,
-	PROP_WARNING,
-	PROP_PASSWORD_NEW,
-	PROP_PASSWORD_STRENGTH,
-	PROP_CHOICE_LABEL,
-	PROP_CHOICE_CHOSEN,
-	PROP_CALLER_WINDOW,
-};
-
-enum {
-	OPEN,
-	PROMPT_PASSWORD,
-	PROMPT_CONFIRM,
-	RESPONDED,
-	CLOSE,
-	LAST_SIGNAL
+	PROP_MODE,
+	PROP_PROMPT_TYPE
 };
 
 struct _GcrSystemPrompterPrivate {
+	GcrSystemPrompterMode mode;
+	GType prompt_type;
+
 	guint prompter_registered;
 	GDBusConnection *connection;
 
-	/* Prompt state */
-	gchar *prompt_path;
-	guint prompt_registered;
-	gchar *owner_name;
-	guint owner_watching_id;
-	GcrSecretExchange *exchange;
-	GDBusMethodInvocation *invocation;
-	gboolean opened;
-
-	/* Properties */
-	GHashTable *properties;
-	GQueue *properties_changed;
+	GHashTable *pending;          /* callback path (string) -> sender (string) */
+	GHashTable *active;           /* callback path (string) -> active (ActivePrompt) */
 };
-
-static gint signals[LAST_SIGNAL] = { 0, };
 
 G_DEFINE_TYPE (GcrSystemPrompter, gcr_system_prompter, G_TYPE_OBJECT);
 
-static GVariant *
-build_changed_properties (GcrSystemPrompter *self)
+typedef struct {
+	gint refs;
+	gchar *callback_path;
+	gchar *callback_name;
+	GcrSystemPrompter *prompter;
+	GCancellable *cancellable;
+	GcrPrompt *prompt;
+	gboolean ready;
+	guint notify_sig;
+	GHashTable *changed;
+	GcrSecretExchange *exchange;
+	gboolean received;
+} ActivePrompt;
+
+static void    prompt_send_ready               (ActivePrompt *active,
+                                                const gchar *response,
+                                                const gchar *secret);
+
+static void    prompt_possibly_ready           (GcrSystemPrompter *self,
+                                                const gchar *callback);
+
+static void    prompt_stop_prompting           (ActivePrompt *active,
+                                                gboolean send_done_message,
+                                                gboolean wait_for_reply);
+
+static ActivePrompt *
+active_prompt_ref (ActivePrompt *active)
 {
-	const gchar *property_name;
-	GVariantBuilder builder;
-	GVariant *value;
-
-	g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ssv)"));
-
-	while ((property_name = g_queue_pop_head (self->pv->properties_changed))) {
-		value = g_hash_table_lookup (self->pv->properties, property_name);
-		g_variant_builder_add (&builder, "(ssv)", GCR_DBUS_PROMPT_INTERFACE, property_name, value);
-	}
-
-	return g_variant_builder_end (&builder);
+	g_atomic_int_inc (&active->refs);
+	return active;
 }
 
 static void
-prompt_emit_changed (GcrSystemPrompter *self,
-                     const gchar *dbus_property)
+on_prompt_notify (GObject *object,
+                  GParamSpec *param,
+                  gpointer user_data)
 {
-	const gchar *object_property;
-
-	g_assert (dbus_property);
-
-	g_queue_push_tail (self->pv->properties_changed,
-	                   (gpointer)g_intern_string (dbus_property));
-
-	if (g_str_equal ("Title", dbus_property))
-		object_property = "title";
-	else if (g_str_equal ("Message", dbus_property))
-		object_property = "message";
-	else if (g_str_equal ("Warning", dbus_property))
-		object_property = "warning";
-	else if (g_str_equal ("Description", dbus_property))
-		object_property = "description";
-	else if (g_str_equal ("PasswordNew", dbus_property))
-		object_property = "password-new";
-	else if (g_str_equal ("PasswordStrength", dbus_property))
-		object_property = "password-strength";
-	else if (g_str_equal ("ChoiceLabel", dbus_property))
-		object_property = "choice-label";
-	else if (g_str_equal ("ChoiceChosen", dbus_property))
-		object_property = "choice-chosen";
-	else if (g_str_equal ("CallerWindow", dbus_property))
-		object_property = "caller-window";
-	else
-		g_assert_not_reached ();
-
-	g_object_notify (G_OBJECT (self), object_property);
-}
-
-static GVariant *
-prompt_get_property (GDBusConnection *connection,
-                     const gchar *sender,
-                     const gchar *object_path,
-                     const gchar *interface_name,
-                     const gchar *property_name,
-                     GError **error,
-                     gpointer user_data)
-{
-	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (user_data);
-	GVariant *ret;
-
-	g_return_val_if_fail (property_name != NULL, NULL);
-
-	if (g_strcmp0 (self->pv->owner_name, sender) != 0) {
-		g_error_new_literal (G_DBUS_ERROR, G_DBUS_ERROR_ACCESS_DENIED,
-		                     "This prompt is owned by another process.");
-		return NULL;
-	}
-
-	ret = g_hash_table_lookup (self->pv->properties, property_name);
-	g_return_val_if_fail (ret != NULL, NULL);
-
-	return g_variant_ref (ret);
-}
-
-static gboolean
-prompt_set_property (GDBusConnection *connection,
-                     const gchar *sender,
-                     const gchar *object_path,
-                     const gchar *interface_name,
-                     const gchar *property_name,
-                     GVariant *value,
-                     GError **error,
-                     gpointer user_data)
-{
-	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (user_data);
-
-	g_return_val_if_fail (property_name != NULL, FALSE);
-
-	if (g_strcmp0 (self->pv->owner_name, sender) != 0) {
-		g_error_new_literal (G_DBUS_ERROR, G_DBUS_ERROR_ACCESS_DENIED,
-		                     "This prompt is owned by another process.");
-		return FALSE;
-	}
-
-	if (!g_hash_table_lookup (self->pv->properties, property_name))
-		g_return_val_if_reached (FALSE);
-
-	g_hash_table_insert (self->pv->properties,
-	                     (gpointer)g_intern_string (property_name),
-	                     g_variant_ref (value));
-
-	prompt_emit_changed (self, property_name);
-	return TRUE;
+	ActivePrompt *active = user_data;
+	gpointer key = (gpointer)g_intern_string (param->name);
+	g_hash_table_replace (active->changed, key, key);
 }
 
 static void
-prompt_update_properties (GcrSystemPrompter *self,
-                          GVariant *properties)
+active_prompt_unref (gpointer data)
 {
-	GObject *obj = G_OBJECT (self);
-	GVariantIter *iter;
-	GVariant *variant;
-	gchar *property_name;
-	gchar *interface;
+	ActivePrompt *active = data;
 
-	g_object_freeze_notify (obj);
-
-	g_variant_get (properties, "a(ssv)", &iter);
-	while (g_variant_iter_loop (iter, "(ssv)", &interface, &property_name, &variant)) {
-		if (g_strcmp0 (interface, GCR_DBUS_PROMPT_INTERFACE) != 0)
-			continue;
-		if (g_hash_table_lookup (self->pv->properties, property_name)) {
-			g_hash_table_insert (self->pv->properties,
-					     (gpointer)g_intern_string (property_name),
-					     g_variant_ref (variant));
-			prompt_emit_changed (self, property_name);
-		}
-	}
-
-	g_variant_iter_free (iter);
-
-	g_object_thaw_notify (obj);
-}
-
-static void
-prompt_clear_property (GcrSystemPrompter *self,
-                       const gchar *property_name,
-                       GVariant *value)
-{
-	g_hash_table_insert (self->pv->properties,
-	                     (gpointer)g_intern_string (property_name),
-	                     g_variant_ref (value));
-}
-
-static void
-prompt_clear_properties (GcrSystemPrompter *self)
-{
-	GVariant *variant;
-
-	variant = g_variant_ref_sink (g_variant_new_string (""));
-	prompt_clear_property (self, GCR_DBUS_PROMPT_PROPERTY_TITLE, variant);
-	prompt_clear_property (self, GCR_DBUS_PROMPT_PROPERTY_MESSAGE, variant);
-	prompt_clear_property (self, GCR_DBUS_PROMPT_PROPERTY_WARNING, variant);
-	prompt_clear_property (self, GCR_DBUS_PROMPT_PROPERTY_DESCRIPTION, variant);
-	prompt_clear_property (self, GCR_DBUS_PROMPT_PROPERTY_CHOICE_LABEL, variant);
-	prompt_clear_property (self, GCR_DBUS_PROMPT_PROPERTY_CALLER_WINDOW, variant);
-	g_variant_unref (variant);
-
-	variant = g_variant_ref_sink (g_variant_new_boolean (FALSE));
-	prompt_clear_property (self, GCR_DBUS_PROMPT_PROPERTY_PASSWORD_NEW, variant);
-	prompt_clear_property (self, GCR_DBUS_PROMPT_PROPERTY_CHOICE_CHOSEN, variant);
-	g_variant_unref (variant);
-
-	variant = g_variant_ref_sink (g_variant_new_int32 (0));
-	prompt_clear_property (self, GCR_DBUS_PROMPT_PROPERTY_PASSWORD_STRENGTH, variant);
-	g_variant_unref (variant);
-
-	g_queue_clear (self->pv->properties_changed);
-}
-
-static void
-prompt_method_request_password (GcrSystemPrompter *self,
-                                GDBusMethodInvocation *invocation,
-                                GVariant *properties,
-                                const gchar *exchange)
-{
-	gboolean result;
-
-	if (self->pv->invocation != NULL) {
-		g_dbus_method_invocation_return_error_literal (invocation, GCR_SYSTEM_PROMPT_ERROR,
-		                                               GCR_SYSTEM_PROMPT_IN_PROGRESS,
-		                                               "The prompt is already requesting.");
-		return;
-	}
-
-	if (!gcr_secret_exchange_receive (self->pv->exchange, exchange)) {
-		g_dbus_method_invocation_return_error_literal (invocation, G_DBUS_ERROR,
-		                                               G_DBUS_ERROR_INVALID_ARGS,
-		                                               "The exchange argument was invalid.");
-		return;
-	}
-
-	prompt_update_properties (self, properties);
-
-	if (!self->pv->opened) {
-		self->pv->opened = TRUE;
-		_gcr_debug ("prompter opening prompt");
-		g_signal_emit (self, signals[OPEN], 0);
-	}
-
-	self->pv->invocation = invocation;
-	g_signal_emit (self, signals[PROMPT_PASSWORD], 0, &result);
-
-	if (!result) {
-		g_return_if_fail (self->pv->invocation == invocation);
-		self->pv->invocation = NULL;
-		g_dbus_method_invocation_return_error_literal (invocation, G_DBUS_ERROR,
-		                                               G_DBUS_ERROR_NOT_SUPPORTED,
-		                                               "Prompting for confirmation not supported.");
+	if (g_atomic_int_dec_and_test (&active->refs)) {
+		g_free (active->callback_path);
+		g_free (active->callback_name);
+		g_object_unref (active->prompter);
+		g_object_unref (active->cancellable);
+		g_signal_handlers_disconnect_by_func (active->prompt, on_prompt_notify, active);
+		g_object_unref (active->prompt);
+		g_hash_table_destroy (active->changed);
+		if (active->exchange)
+			g_object_unref (active->exchange);
+		g_slice_free (ActivePrompt, active);
 	}
 }
 
-static void
-prompt_method_request_confirm (GcrSystemPrompter *self,
-                               GDBusMethodInvocation *invocation,
-                               GVariant *properties)
+static GcrSecretExchange *
+active_prompt_get_secret_exchange (ActivePrompt *active)
 {
-	gboolean result;
-
-	if (self->pv->invocation != NULL) {
-		g_dbus_method_invocation_return_error_literal (invocation, GCR_SYSTEM_PROMPT_ERROR,
-		                                               GCR_SYSTEM_PROMPT_IN_PROGRESS,
-		                                               "The prompt is already requesting.");
-		return;
-	}
-
-	prompt_update_properties (self, properties);
-
-	if (!self->pv->opened) {
-		self->pv->opened = TRUE;
-		_gcr_debug ("prompter opening prompt");
-		g_signal_emit (self, signals[OPEN], 0);
-	}
-
-	self->pv->invocation = invocation;
-	g_signal_emit (self, signals[PROMPT_CONFIRM], 0, &result);
-
-	if (!result) {
-		g_return_if_fail (self->pv->invocation == invocation);
-		self->pv->invocation = NULL;
-		g_dbus_method_invocation_return_error_literal (invocation, G_DBUS_ERROR,
-		                                               G_DBUS_ERROR_NOT_SUPPORTED,
-		                                               "Prompting for confirmation not supported.");
-	}
+	if (active->exchange == NULL)
+		active->exchange = gcr_secret_exchange_new (NULL);
+	return active->exchange;
 }
 
-static void
-prompt_method_call (GDBusConnection *connection,
-                    const gchar *sender,
-                    const gchar *object_path,
-                    const gchar *interface_name,
-                    const gchar *method_name,
-                    GVariant *parameters,
-                    GDBusMethodInvocation *invocation,
-                    gpointer user_data)
+static ActivePrompt *
+active_prompt_create (GcrSystemPrompter *self,
+                      const gchar *callback)
 {
-	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (user_data);
-	GVariant *properties = NULL;
-	gchar *string = NULL;
+	ActivePrompt *active;
 
-	g_return_if_fail (method_name != NULL);
+	active = g_slice_new0 (ActivePrompt);
+	if (!g_hash_table_lookup_extended (self->pv->pending, callback,
+	                                   (gpointer *)&active->callback_path,
+	                                   (gpointer *)&active->callback_name))
+		g_return_val_if_reached (NULL);
+	if (!g_hash_table_steal (self->pv->pending, callback))
+		g_return_val_if_reached (NULL);
 
-	if (g_strcmp0 (self->pv->owner_name, sender) != 0) {
-		g_dbus_method_invocation_return_error_literal (invocation, G_DBUS_ERROR,
-		                                               G_DBUS_ERROR_ACCESS_DENIED,
-		                                               "This prompt is owned by another process.");
+	active->refs = 1;
+	active->prompter = g_object_ref (self);
+	active->cancellable = g_cancellable_new ();
+	active->prompt = g_object_new (self->pv->prompt_type, NULL);
+	active->notify_sig = g_signal_connect (active->prompt, "notify", G_CALLBACK (on_prompt_notify), active);
+	active->changed = g_hash_table_new (g_direct_hash, g_direct_equal);
 
-	} else if (g_str_equal (method_name, "RequestPassword")) {
-		g_variant_get (parameters, "(@a(ssv)s)", &properties, &string);
-		prompt_method_request_password (self, invocation, properties, string);
-
-	} else if (g_str_equal (method_name, "RequestConfirm")) {
-		g_variant_get (parameters, "(@a(ssv))", &properties);
-		prompt_method_request_confirm (self, invocation, properties);
-
-	} else {
-		g_return_if_reached ();
-	}
-
-	if (properties)
-		g_variant_unref (properties);
-	g_free (string);
+	/* Insert us into the active hash table */
+	g_hash_table_replace (self->pv->active, active->callback_path, active);
+	return active;
 }
-
-static GDBusInterfaceVTable prompt_dbus_vtable = {
-	prompt_method_call,
-	prompt_get_property,
-	prompt_set_property,
-};
-
-static const gchar *
-begin_prompting (GcrSystemPrompter *self,
-                 GDBusConnection *connection)
-{
-	GError *error = NULL;
-
-	g_assert (self->pv->prompt_path == NULL);
-
-	self->pv->prompt_path = g_strdup (GCR_DBUS_PROMPTER_OBJECT_PATH "/prompt0");
-	_gcr_debug ("prompter registering prompt: %s", self->pv->prompt_path);
-	self->pv->prompt_registered = g_dbus_connection_register_object (connection, self->pv->prompt_path,
-	                                                                 _gcr_prompter_prompt_interface_info (),
-	                                                                 &prompt_dbus_vtable, self, NULL, &error);
-
-	if (error != NULL) {
-		g_warning ("couldn't register prompt object: %s", error->message);
-		g_clear_object (&error);
-	}
-
-	/* Setup the secret exchange */
-	g_assert (self->pv->exchange == NULL);
-	self->pv->exchange = gcr_secret_exchange_new (NULL);
-
-	return self->pv->prompt_path;
-}
-
-static void
-finish_prompting (GcrSystemPrompter *self)
-{
-	g_assert (self->pv->invocation == NULL);
-
-	prompt_clear_properties (self);
-
-	/* Tell the implementation to hide the display */
-	if (self->pv->opened) {
-		_gcr_debug ("prompter closing prompt");
-		self->pv->opened = FALSE;
-		g_signal_emit (self, signals[CLOSE], 0);
-	}
-
-	if (self->pv->owner_watching_id) {
-		_gcr_debug ("prompter stopping watch of client: %s", self->pv->owner_name);
-		g_bus_unwatch_name (self->pv->owner_watching_id);
-		self->pv->owner_watching_id = 0;
-	}
-
-	g_free (self->pv->owner_name);
-	self->pv->owner_name = NULL;
-
-	if (self->pv->prompt_registered) {
-		_gcr_debug ("prompter unregistering prompt: %s", self->pv->prompt_path);
-		if (!g_dbus_connection_unregister_object (self->pv->connection,
-		                                          self->pv->prompt_registered))
-			g_return_if_reached ();
-		self->pv->prompt_registered = 0;
-	}
-
-	g_free (self->pv->prompt_path);
-	self->pv->prompt_path = NULL;
-
-	g_clear_object (&self->pv->exchange);
-}
-
 
 static void
 gcr_system_prompter_init (GcrSystemPrompter *self)
 {
 	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_SYSTEM_PROMPTER,
 	                                        GcrSystemPrompterPrivate);
-	self->pv->properties = g_hash_table_new_full (g_str_hash, g_str_equal, NULL,
-	                                              (GDestroyNotify)g_variant_unref);
-	self->pv->properties_changed = g_queue_new ();
-	prompt_clear_properties (self);
+	self->pv->pending = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	self->pv->active = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, active_prompt_unref);
 }
 
 static void
@@ -479,11 +191,11 @@ gcr_system_prompter_set_property (GObject *obj,
 	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (obj);
 
 	switch (prop_id) {
-	case PROP_CHOICE_CHOSEN:
-		gcr_system_prompter_set_choice_chosen (self, g_value_get_boolean (value));
+	case PROP_MODE:
+		self->pv->mode = g_value_get_enum (value);
 		break;
-	case PROP_PASSWORD_STRENGTH:
-		gcr_system_prompter_set_password_strength (self, g_value_get_int (value));
+	case PROP_PROMPT_TYPE:
+		self->pv->prompt_type = g_value_get_gtype (value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -500,32 +212,11 @@ gcr_system_prompter_get_property (GObject *obj,
 	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (obj);
 
 	switch (prop_id) {
-	case PROP_TITLE:
-		g_value_set_string (value, gcr_system_prompter_get_title (self));
+	case PROP_MODE:
+		g_value_set_enum (value, gcr_system_prompter_get_mode (self));
 		break;
-	case PROP_MESSAGE:
-		g_value_set_string (value, gcr_system_prompter_get_message (self));
-		break;
-	case PROP_DESCRIPTION:
-		g_value_set_string (value, gcr_system_prompter_get_description (self));
-		break;
-	case PROP_WARNING:
-		g_value_set_string (value, gcr_system_prompter_get_warning (self));
-		break;
-	case PROP_PASSWORD_NEW:
-		g_value_set_boolean (value, gcr_system_prompter_get_password_new (self));
-		break;
-	case PROP_PASSWORD_STRENGTH:
-		g_value_set_int (value, gcr_system_prompter_get_password_strength (self));
-		break;
-	case PROP_CHOICE_LABEL:
-		g_value_set_string (value, gcr_system_prompter_get_choice_label (self));
-		break;
-	case PROP_CHOICE_CHOSEN:
-		g_value_set_boolean (value, gcr_system_prompter_get_choice_chosen (self));
-		break;
-	case PROP_CALLER_WINDOW:
-		g_value_set_string (value, gcr_system_prompter_get_caller_window (self));
+	case PROP_PROMPT_TYPE:
+		g_value_set_gtype (value, gcr_system_prompter_get_prompt_type (self));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -540,13 +231,11 @@ gcr_system_prompter_dispose (GObject *obj)
 
 	_gcr_debug ("disposing prompter");
 
-	if (self->pv->invocation)
-		gcr_system_prompter_respond_cancelled (self);
-
-	finish_prompting (self);
-
 	if (self->pv->prompter_registered)
-		gcr_system_prompter_unregister (self, self->pv->connection);
+		gcr_system_prompter_unregister (self, FALSE);
+
+	g_hash_table_remove_all (self->pv->active);
+	g_hash_table_remove_all (self->pv->pending);
 
 	G_OBJECT_CLASS (gcr_system_prompter_parent_class)->dispose (obj);
 }
@@ -558,34 +247,13 @@ gcr_system_prompter_finalize (GObject *obj)
 
 	_gcr_debug ("finalizing prompter");
 
-	g_hash_table_destroy (self->pv->properties);
-	g_queue_free (self->pv->properties_changed);
+	g_assert (self->pv->connection == NULL);
+	g_assert (self->pv->prompter_registered == 0);
+
+	g_hash_table_destroy (self->pv->active);
+	g_hash_table_destroy (self->pv->pending);
 
 	G_OBJECT_CLASS (gcr_system_prompter_parent_class)->finalize (obj);
-}
-
-static void
-gcr_system_prompter_real_show_prompt (GcrSystemPrompter *self)
-{
-
-}
-
-static gboolean
-gcr_system_prompter_real_prompt_confirm (GcrSystemPrompter *self)
-{
-	return FALSE;
-}
-
-static gboolean
-gcr_system_prompter_real_prompt_password (GcrSystemPrompter *self)
-{
-	return FALSE;
-}
-
-static void
-gcr_system_prompter_real_hide_prompt (GcrSystemPrompter *self)
-{
-
 }
 
 static void
@@ -598,103 +266,230 @@ gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 	gobject_class->dispose = gcr_system_prompter_dispose;
 	gobject_class->finalize = gcr_system_prompter_finalize;
 
-	klass->open = gcr_system_prompter_real_show_prompt;
-	klass->prompt_password= gcr_system_prompter_real_prompt_password;
-	klass->prompt_confirm = gcr_system_prompter_real_prompt_confirm;
-	klass->close = gcr_system_prompter_real_hide_prompt;
-
 	g_type_class_add_private (gobject_class, sizeof (GcrSystemPrompterPrivate));
 
-	g_object_class_install_property (gobject_class, PROP_TITLE,
-	            g_param_spec_string ("title", "Title", "Prompt title",
-	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
+	g_object_class_install_property (gobject_class, PROP_MODE,
+	              g_param_spec_enum ("mode", "Mode", "Prompting mode",
+	                                 GCR_TYPE_SYSTEM_PROMPTER_MODE, GCR_SYSTEM_PROMPTER_SINGLE,
+	                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
-	g_object_class_install_property (gobject_class, PROP_MESSAGE,
-	            g_param_spec_string ("message", "Message", "Prompt message",
-	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
-
-	g_object_class_install_property (gobject_class, PROP_DESCRIPTION,
-	            g_param_spec_string ("description", "Description", "Prompt description",
-	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
-
-	g_object_class_install_property (gobject_class, PROP_WARNING,
-	            g_param_spec_string ("warning", "Warning", "Prompt warning",
-	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
-
-	g_object_class_install_property (gobject_class, PROP_PASSWORD_NEW,
-	           g_param_spec_boolean ("password-new", "Password new", "Whether is a new password",
-	                                 FALSE, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
-
-	g_object_class_install_property (gobject_class, PROP_PASSWORD_STRENGTH,
-	               g_param_spec_int ("password-strength", "Password strength", "Strength of password",
-	                                 0, G_MAXINT, 0, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
-
-	g_object_class_install_property (gobject_class, PROP_CHOICE_LABEL,
-	            g_param_spec_string ("choice-label", "Choice label", "Label for prompt choice",
-	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
-
-	g_object_class_install_property (gobject_class, PROP_CHOICE_CHOSEN,
-	           g_param_spec_boolean ("choice-chosen", "Choice chosen", "Whether choice is chosen",
-	                                 FALSE, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
-
-	g_object_class_install_property (gobject_class, PROP_CALLER_WINDOW,
-	            g_param_spec_string ("caller-window", "Caller window", "Window id of caller",
-	                                 "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
-
-	signals[OPEN] = g_signal_new ("open", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
-	                              G_STRUCT_OFFSET (GcrSystemPrompterClass, open),
-	                              NULL, NULL, NULL, G_TYPE_NONE, 0);
-
-	signals[PROMPT_PASSWORD] = g_signal_new ("prompt-password", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
-	                                         G_STRUCT_OFFSET (GcrSystemPrompterClass, prompt_password),
-	                                         g_signal_accumulator_true_handled, NULL, NULL,
-	                                         G_TYPE_BOOLEAN, 0);
-
-	signals[PROMPT_CONFIRM] = g_signal_new ("prompt-confirm", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
-	                                        G_STRUCT_OFFSET (GcrSystemPrompterClass, prompt_confirm),
-	                                        g_signal_accumulator_true_handled, NULL, NULL,
-	                                        G_TYPE_BOOLEAN, 0);
-
-	signals[RESPONDED] = g_signal_new ("responded", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
-	                                   G_STRUCT_OFFSET (GcrSystemPrompterClass, responded),
-	                                   NULL, NULL, NULL, G_TYPE_NONE, 0);
-
-	signals[CLOSE] = g_signal_new ("close", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
-	                               G_STRUCT_OFFSET (GcrSystemPrompterClass, close),
-	                               NULL, NULL, NULL, G_TYPE_NONE, 0);
+	g_object_class_install_property (gobject_class, PROP_PROMPT_TYPE,
+	             g_param_spec_gtype ("prompt-type", "Prompt GType", "GObject type of prompts",
+	                                 GCR_TYPE_PROMPT,
+	                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
-static void
-emit_prompter_ready (GcrSystemPrompter *self)
+static GVariantBuilder *
+prompt_build_properties (GcrPrompt *prompt,
+                         GHashTable *changed)
 {
-	GError *error = NULL;
+	GObject *obj = G_OBJECT (prompt);
+	GVariantBuilder *builder;
+	const gchar *property_name;
+	GParamSpec *pspec;
+	GHashTableIter iter;
+	const GVariantType *type;
+	GVariant *variant;
+	GValue value;
 
-	/* Now let everyone else know, we're ready! */
-	g_dbus_connection_emit_signal (self->pv->connection, NULL,
-	                               GCR_DBUS_PROMPTER_OBJECT_PATH,
-	                               GCR_DBUS_PROMPTER_INTERFACE,
-	                               GCR_DBUS_PROMPTER_SIGNAL_READY,
-	                               g_variant_new ("()"),
-	                               &error);
+	builder = g_variant_builder_new (G_VARIANT_TYPE ("a{sv}"));
+	g_hash_table_iter_init (&iter, changed);
+	while (g_hash_table_iter_next (&iter, (gpointer *)&property_name, NULL)) {
 
-	if (error != NULL) {
-		g_warning ("couldn't emit prompter ready signal: %s", egg_error_message (error));
-		g_error_free (error);
+		/* Make sure this property is on the prompt interface */
+		pspec = g_object_interface_find_property (GCR_PROMPT_GET_INTERFACE (obj),
+		                                          property_name);
+		if (pspec == NULL)
+			continue;
+
+		memset (&value, 0, sizeof (GValue));
+		g_value_init (&value, pspec->value_type);
+		g_object_get_property (obj, property_name, &value);
+
+		switch (pspec->value_type) {
+		case G_TYPE_STRING:
+			type = G_VARIANT_TYPE ("s");
+			break;
+		case G_TYPE_INT:
+			type = G_VARIANT_TYPE ("i");
+			break;
+		case G_TYPE_BOOLEAN:
+			type = G_VARIANT_TYPE ("b");
+			break;
+		default:
+			g_critical ("encountered unsupported property type on GcrPrompt: %s",
+			            g_type_name (pspec->value_type));
+			continue;
+		}
+
+		variant = g_dbus_gvalue_to_gvariant (&value, type);
+		g_variant_builder_add (builder, "{sv}", property_name,
+		                       g_variant_new_variant (variant));
+		g_value_unset (&value);
+		g_variant_unref (variant);
 	}
+	g_hash_table_remove_all (changed);
+	return builder;
 }
 
 static void
-on_owner_vanished (GDBusConnection *connection,
-                   const gchar *name,
-                   gpointer user_data)
+prompt_stop_prompting (ActivePrompt *active,
+                       gboolean send_done_message,
+                       gboolean wait_for_reply)
 {
-	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (user_data);
+	GcrSystemPrompter *self = g_object_ref (active->prompter);
+	GVariant *retval;
 
-	if (self->pv->invocation != NULL)
-		gcr_system_prompter_respond_cancelled (self);
+	if (!active->ready)
+		g_cancellable_cancel (active->cancellable);
 
-	finish_prompting (self);
-	emit_prompter_ready (self);
+	if (send_done_message && wait_for_reply) {
+		retval = g_dbus_connection_call_sync (self->pv->connection,
+		                                      active->callback_name,
+		                                      active->callback_path,
+		                                      GCR_DBUS_CALLBACK_INTERFACE,
+		                                      GCR_DBUS_CALLBACK_METHOD_DONE,
+		                                      g_variant_new ("()"),
+		                                      G_VARIANT_TYPE ("()"),
+		                                      G_DBUS_CALL_FLAGS_NO_AUTO_START,
+		                                      -1, NULL, NULL);
+		if (retval)
+			g_variant_unref (retval);
+	} else if (send_done_message) {
+		g_dbus_connection_call (self->pv->connection,
+		                        active->callback_name,
+		                        active->callback_path,
+		                        GCR_DBUS_CALLBACK_INTERFACE,
+		                        GCR_DBUS_CALLBACK_METHOD_DONE,
+		                        g_variant_new ("()"),
+		                        G_VARIANT_TYPE ("()"),
+		                        G_DBUS_CALL_FLAGS_NO_AUTO_START,
+		                        -1, NULL, NULL, NULL);
+	}
+
+	g_object_run_dispose (G_OBJECT (active->prompt));
+	if (!g_hash_table_remove (self->pv->active, active->callback_path))
+		g_assert_not_reached ();
+
+	g_object_unref (self);
+}
+
+static void
+on_prompt_ready_complete (GObject *source,
+                          GAsyncResult *result,
+                          gpointer user_data)
+{
+	ActivePrompt *active = user_data;
+	GcrSystemPrompter *self = g_object_ref (active->prompter);
+	GError *error = NULL;
+	GVariant *retval;
+
+	active->ready = TRUE;
+	retval = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source), result, &error);
+
+	/* The ready call failed,  */
+	if (error != NULL) {
+		if (g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_UNKNOWN_METHOD))
+			_gcr_debug ("prompt disappeared or does not exist: %s: %s",
+			            active->callback_name, active->callback_path);
+		else
+			g_message ("received an error from the prompt callback: %s", error->message);
+		g_error_free (error);
+		prompt_stop_prompting (active, FALSE, FALSE);
+
+		/* Another new prompt may be ready to go active? */
+		prompt_possibly_ready (self, NULL);
+	}
+
+	if (retval != NULL)
+		g_variant_unref (retval);
+
+	active_prompt_unref (active);
+	g_object_unref (self);
+}
+
+static void
+prompt_send_ready (ActivePrompt *active,
+                   const gchar *response,
+                   const gchar *secret)
+{
+	GcrSystemPrompter *self;
+	GVariantBuilder *builder;
+	GcrSecretExchange *exchange;
+	gchar *sent;
+
+	exchange = active_prompt_get_secret_exchange (active);
+	if (!active->received) {
+		g_return_if_fail (secret == NULL);
+		sent = gcr_secret_exchange_begin (exchange);
+	} else {
+		sent = gcr_secret_exchange_send (exchange, secret, -1);
+	}
+
+	self = active->prompter;
+	builder = prompt_build_properties (active->prompt, active->changed);
+
+	g_dbus_connection_call (self->pv->connection,
+	                        active->callback_name,
+	                        active->callback_path,
+	                        GCR_DBUS_CALLBACK_INTERFACE,
+	                        GCR_DBUS_CALLBACK_METHOD_READY,
+	                        g_variant_new ("(sa{sv}s)", response, builder, sent),
+	                        G_VARIANT_TYPE ("()"),
+	                        G_DBUS_CALL_FLAGS_NO_AUTO_START,
+	                        -1, active->cancellable,
+	                        on_prompt_ready_complete,
+	                        active_prompt_ref (active));
+
+	g_variant_builder_unref (builder);
+	g_free (sent);
+}
+
+static void
+prompt_possibly_ready (GcrSystemPrompter *self,
+                       const gchar *callback)
+{
+	ActivePrompt *active;
+	GHashTableIter iter;
+
+	if (callback == NULL) {
+		g_hash_table_iter_init (&iter, self->pv->pending);
+		if (!g_hash_table_iter_next (&iter, (gpointer *)&callback, NULL))
+			return;
+		g_assert (callback != NULL);
+	}
+
+	active = g_hash_table_lookup (self->pv->active, callback);
+
+	/* Only one prompt at a time, and only one active */
+	if (active == NULL) {
+		if (self->pv->mode == GCR_SYSTEM_PROMPTER_SINGLE &&
+		    g_hash_table_size (self->pv->active) > 0)
+			return;
+
+		active = active_prompt_create (self, callback);
+	}
+
+	prompt_send_ready (active, GCR_DBUS_PROMPT_REPLY_YES, NULL);
+}
+
+static void
+prompt_update_properties (GcrPrompt *prompt,
+                          GVariantIter *iter)
+{
+	GObject *obj = G_OBJECT (prompt);
+	gchar *property_name;
+	GVariant *variant;
+	GValue value;
+
+	g_object_freeze_notify (obj);
+	while (g_variant_iter_loop (iter, "{&sv}", &property_name, &variant)) {
+		memset (&value, 0, sizeof (GValue));
+		g_dbus_gvariant_to_gvalue (variant, &value);
+		g_object_set_property (obj, property_name, &value);
+		g_value_unset (&value);
+	}
+	g_object_thaw_notify (obj);
 }
 
 static GVariant *
@@ -724,70 +519,173 @@ prompter_set_property (GDBusConnection *connection,
 
 static void
 prompter_method_begin_prompting (GcrSystemPrompter *self,
-                                 GDBusMethodInvocation *invocation)
+                                 GDBusMethodInvocation *invocation,
+                                 GVariant *parameters)
 {
-	GDBusConnection *connection;
-	const gchar *path;
+	gchar *callback;
+	const gchar *sender;
 
-	if (self->pv->owner_name != NULL) {
-		g_dbus_method_invocation_return_error_literal (invocation,
-		                                               GCR_SYSTEM_PROMPT_ERROR,
-		                                               GCR_SYSTEM_PROMPT_IN_PROGRESS,
-		                                               "There is already a prompt in progress");
+	g_variant_get (parameters, "(o)", &callback);
+
+	if (g_hash_table_lookup (self->pv->pending, callback) ||
+	    g_hash_table_lookup (self->pv->active, callback)) {
+		g_dbus_method_invocation_return_error_literal (invocation, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+		                                               "Already begun prompting for this prompt callback");
 		return;
 	}
 
-	/* Setup the owner of the prompting */
-	self->pv->owner_name = g_strdup (g_dbus_method_invocation_get_sender (invocation));
-	g_return_if_fail (self->pv->owner_name != NULL);
+	sender = g_dbus_method_invocation_get_sender (invocation);
+	g_hash_table_insert (self->pv->pending, g_strdup (callback), g_strdup (sender));
 
-	connection = g_dbus_method_invocation_get_connection (invocation);
-	_gcr_debug ("prompter starting watch of dbus client: %s", self->pv->owner_name);
-	self->pv->owner_watching_id = g_bus_watch_name_on_connection (connection,
-	                                                              self->pv->owner_name,
-	                                                              G_BUS_NAME_WATCHER_FLAGS_NONE,
-	                                                              NULL, on_owner_vanished,
-	                                                              self, NULL);
-
-	/* And respond */
-	path = begin_prompting (self, connection);
-	g_dbus_method_invocation_return_value (invocation, g_variant_new ("(o)", path));
+	g_dbus_method_invocation_return_value (invocation, g_variant_new ("()"));
+	prompt_possibly_ready (self, callback);
+	g_free (callback);
 }
 
 static void
-prompter_method_finish_prompting (GcrSystemPrompter *self,
-                                  GDBusMethodInvocation *invocation,
-                                  const gchar *prompt)
+on_prompt_password (GObject *source,
+                    GAsyncResult *result,
+                    gpointer user_data)
 {
-	if (g_strcmp0 (prompt, self->pv->prompt_path) != 0) {
-		_gcr_debug ("caller passed invalid prompt: %s != %s", prompt, self->pv->prompt_path);
-		g_dbus_method_invocation_return_error_literal (invocation,
-		                                               G_DBUS_ERROR,
-		                                               G_DBUS_ERROR_INVALID_ARGS,
-		                                               "The prompt argument is not valid");
+	ActivePrompt *active = user_data;
+	const gchar *reply;
+	GError *error = NULL;
+	const gchar *response;
+
+	g_assert (active->ready == FALSE);
+
+	reply = gcr_prompt_password_finish (GCR_PROMPT (source), result, &error);
+	if (error != NULL) {
+		if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+			g_warning ("prompting failed: %s", error->message);
+		g_clear_error (&error);
+	}
+
+	if (reply == NULL)
+		response = "no";
+	else
+		response = "yes";
+
+	prompt_send_ready (active, response, reply);
+	active_prompt_unref (active);
+}
+
+static void
+on_prompt_confirm (GObject *source,
+                   GAsyncResult *result,
+                   gpointer user_data)
+{
+	ActivePrompt *active = user_data;
+	GcrPromptReply reply;
+	GError *error = NULL;
+	const gchar *response;
+
+	g_assert (active->ready == FALSE);
+
+	reply = gcr_prompt_confirm_finish (GCR_PROMPT (source), result, &error);
+	if (error != NULL) {
+		if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+			g_warning ("prompting failed: %s", error->message);
+		g_clear_error (&error);
+	}
+
+	switch (reply) {
+	case GCR_PROMPT_REPLY_OK:
+		response = GCR_DBUS_PROMPT_REPLY_YES;
+		break;
+	case GCR_PROMPT_REPLY_CANCEL:
+		response = GCR_DBUS_PROMPT_REPLY_NO;
+		break;
+	}
+
+	prompt_send_ready (active, response, NULL);
+	active_prompt_unref (active);
+}
+
+static void
+prompter_method_perform_prompt (GcrSystemPrompter *self,
+                                GDBusMethodInvocation *invocation,
+                                GVariant *parameters)
+{
+	GcrSecretExchange *exchange;
+	GError *error = NULL;
+	ActivePrompt *active;
+	const gchar *callback;
+	const gchar *type;
+	GVariantIter *iter;
+	const gchar *received;
+
+	g_variant_get (parameters, "(&o&sa{sv}&s)",
+	               &callback, &type, &iter, &received);
+
+	active = g_hash_table_lookup (self->pv->active, callback);
+	if (active == NULL) {
+		error = g_error_new (G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+		                     "Not begun prompting for this prompt callback");
+
+	} else if (!g_str_equal (active->callback_name, g_dbus_method_invocation_get_sender (invocation))) {
+		error = g_error_new (G_DBUS_ERROR, G_DBUS_ERROR_ACCESS_DENIED,
+		                     "This prompt is not owned by this application");
+
+	} else if (!active->ready) {
+		error = g_error_new (G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+		                     "Already performing a prompt for this prompt callback");
+	}
+
+	if (error != NULL) {
+		g_dbus_method_invocation_take_error (invocation, error);
+		g_variant_iter_free (iter);
 		return;
 	}
 
-	if (self->pv->owner_name == NULL) {
-		_gcr_debug ("prompting is not in progress");
-		g_dbus_method_invocation_return_error_literal (invocation,
-		                                               GCR_SYSTEM_PROMPT_ERROR,
-		                                               GCR_SYSTEM_PROMPT_NOT_HAPPENING,
-		                                               "The prompt is not in progress");
+	g_assert (active != NULL);
+	prompt_update_properties (active->prompt, iter);
+	g_variant_iter_free (iter);
+
+	exchange = active_prompt_get_secret_exchange (active);
+	if (!gcr_secret_exchange_receive (exchange, received)) {
+		g_dbus_method_invocation_return_error (invocation, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
+		                                       "Invalid secret exchange received");
 		return;
 	}
 
-	_gcr_debug ("finishing prompting owned by caller %s", self->pv->owner_name);
+	active->received = TRUE;
 
-	/* Close a prompt that's prompting */
-	if (self->pv->invocation != NULL)
-		gcr_system_prompter_respond_cancelled (self);
+	if (g_strcmp0 (type, GCR_DBUS_PROMPT_TYPE_CONFIRM) == 0) {
+		active->ready = FALSE;
+		gcr_prompt_confirm_async (active->prompt, active->cancellable,
+		                          on_prompt_confirm, active_prompt_ref (active));
 
-	finish_prompting (self);
+	} else if (g_strcmp0 (type, GCR_DBUS_PROMPT_TYPE_PASSWORD) == 0) {
+		active->ready = FALSE;
+		gcr_prompt_password_async (active->prompt, active->cancellable,
+		                           on_prompt_password, active_prompt_ref (active));
+
+	} else {
+		g_dbus_method_invocation_return_error_literal (invocation, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
+		                                               "Invalid type argument");
+		return;
+	}
 
 	g_dbus_method_invocation_return_value (invocation, g_variant_new ("()"));
+}
 
-	emit_prompter_ready (self);
+static void
+prompter_method_stop_prompting (GcrSystemPrompter *self,
+                                GDBusMethodInvocation *invocation,
+                                GVariant *parameters)
+{
+	const gchar *callback;
+	ActivePrompt *active;
+
+	g_variant_get (parameters, "(&o)", &callback);
+
+	active = g_hash_table_lookup (self->pv->active, callback);
+	if (active != NULL)
+		prompt_stop_prompting (active, TRUE, FALSE);
+
+	g_dbus_method_invocation_return_value (invocation, g_variant_new ("()"));
+	prompt_possibly_ready (self, NULL);
 }
 
 static void
@@ -801,22 +699,21 @@ prompter_method_call (GDBusConnection *connection,
                       gpointer user_data)
 {
 	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (user_data);
-	gchar *path = NULL;
 
 	g_return_if_fail (method_name != NULL);
 
 	if (g_str_equal (method_name, GCR_DBUS_PROMPTER_METHOD_BEGIN)) {
-		prompter_method_begin_prompting (self, invocation);
+		prompter_method_begin_prompting (self, invocation, parameters);
 
-	} else if (g_str_equal (method_name, GCR_DBUS_PROMPTER_METHOD_FINISH)) {
-		g_variant_get (parameters, "(o)", &path);
-		prompter_method_finish_prompting (self, invocation, path);
+	} else if (g_str_equal (method_name, GCR_DBUS_PROMPTER_METHOD_PERFORM)) {
+		prompter_method_perform_prompt (self, invocation, parameters);
+
+	} else if (g_str_equal (method_name, GCR_DBUS_PROMPTER_METHOD_STOP)) {
+		prompter_method_stop_prompting (self, invocation, parameters);
 
 	} else {
 		g_return_if_reached ();
 	}
-
-	g_free (path);
 }
 
 static GDBusInterfaceVTable prompter_dbus_vtable = {
@@ -838,16 +735,13 @@ gcr_system_prompter_register (GcrSystemPrompter *self,
 
 	_gcr_debug ("registering prompter");
 
-	self->pv->connection = connection;
-	g_object_add_weak_pointer (G_OBJECT (connection), (gpointer *)&self->pv->connection);
+	self->pv->connection = g_object_ref (connection);
 
 	self->pv->prompter_registered = g_dbus_connection_register_object (connection,
 	                                                                   GCR_DBUS_PROMPTER_OBJECT_PATH,
-	                                                                   _gcr_prompter_interface_info (),
+	                                                                   _gcr_dbus_prompter_interface_info (),
 	                                                                   &prompter_dbus_vtable,
-	                                                                   g_object_ref (self),
-	                                                                   g_object_unref,
-	                                                                   &error);
+	                                                                   self, NULL, &error);
 	if (error != NULL) {
 		g_warning ("error registering prompter %s", egg_error_message (error));
 		g_clear_error (&error);
@@ -856,327 +750,67 @@ gcr_system_prompter_register (GcrSystemPrompter *self,
 
 void
 gcr_system_prompter_unregister (GcrSystemPrompter *self,
-                                GDBusConnection *connection)
+                                gboolean wait)
 {
+	ActivePrompt *active;
+	GVariantBuilder builder;
+	const gchar *sender;
+	GVariant *retval;
+	GList *paths;
+	GList *l;
+
 	g_return_if_fail (GCR_IS_SYSTEM_PROMPTER (self));
-	g_return_if_fail (G_DBUS_CONNECTION (connection));
 	g_return_if_fail (self->pv->prompter_registered != 0);
-	g_return_if_fail (self->pv->connection == connection);
 
 	_gcr_debug ("unregistering prompter");
 
-	if (self->pv->invocation)
-		gcr_system_prompter_respond_cancelled (self);
+	paths = g_hash_table_get_keys (self->pv->active);
+	for (l = paths; l != NULL; l = g_list_next (l)) {
+		active = g_hash_table_lookup (self->pv->active, l->data);
+		prompt_stop_prompting (active, TRUE, wait);
+	}
+	g_assert (g_hash_table_size (self->pv->active) == 0);
+	g_list_free (paths);
 
-	finish_prompting (self);
+	paths = g_hash_table_get_keys (self->pv->pending);
+	for (l = paths; l != NULL; l = g_list_next (l)) {
+		sender = g_hash_table_lookup (self->pv->pending, l->data);
+		g_variant_builder_init (&builder, G_VARIANT_TYPE ("a{sv}"));
 
-	g_dbus_connection_unregister_object (connection, self->pv->prompter_registered);
+		if (wait) {
+			retval = g_dbus_connection_call_sync (self->pv->connection,
+			                                      sender, l->data,
+			                                      GCR_DBUS_CALLBACK_INTERFACE,
+			                                      GCR_DBUS_CALLBACK_METHOD_DONE,
+			                                      g_variant_new ("()"),
+			                                      G_VARIANT_TYPE ("()"),
+			                                      G_DBUS_CALL_FLAGS_NO_AUTO_START,
+			                                      -1, NULL, NULL);
+			if (retval)
+				g_variant_unref (retval);
+
+		} else {
+			g_dbus_connection_call (self->pv->connection,
+			                        sender, l->data,
+			                        GCR_DBUS_CALLBACK_INTERFACE,
+			                        GCR_DBUS_CALLBACK_METHOD_DONE,
+			                        g_variant_new ("()"),
+			                        G_VARIANT_TYPE ("()"),
+			                        G_DBUS_CALL_FLAGS_NO_AUTO_START,
+			                        -1, NULL, NULL, NULL);
+		}
+
+		if (!g_hash_table_remove (self->pv->pending, l->data))
+			g_assert_not_reached ();
+	}
+	g_assert (g_hash_table_size (self->pv->pending) == 0);
+	g_list_free (paths);
+
+	if (!g_dbus_connection_unregister_object (self->pv->connection, self->pv->prompter_registered))
+		g_assert_not_reached ();
 	self->pv->prompter_registered = 0;
 
-	g_object_remove_weak_pointer (G_OBJECT (connection), (gpointer *)&self->pv->connection);
-	self->pv->connection = NULL;
-}
-
-const gchar *
-gcr_system_prompter_get_title (GcrSystemPrompter *self)
-{
-	GVariant *variant;
-
-	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), NULL);
-
-	variant = g_hash_table_lookup (self->pv->properties, GCR_DBUS_PROMPT_PROPERTY_TITLE);
-	g_return_val_if_fail (variant != NULL, NULL);
-	return g_variant_get_string (variant, NULL);
-}
-
-const gchar *
-gcr_system_prompter_get_message (GcrSystemPrompter *self)
-{
-	GVariant *variant;
-
-	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), NULL);
-
-	variant = g_hash_table_lookup (self->pv->properties, GCR_DBUS_PROMPT_PROPERTY_MESSAGE);
-	g_return_val_if_fail (variant != NULL, NULL);
-	return g_variant_get_string (variant, NULL);
-}
-
-const gchar *
-gcr_system_prompter_get_description (GcrSystemPrompter *self)
-{
-	GVariant *variant;
-
-	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), NULL);
-
-	variant = g_hash_table_lookup (self->pv->properties, GCR_DBUS_PROMPT_PROPERTY_DESCRIPTION);
-	g_return_val_if_fail (variant != NULL, NULL);
-	return g_variant_get_string (variant, NULL);
-}
-
-const gchar *
-gcr_system_prompter_get_warning (GcrSystemPrompter *self)
-{
-	GVariant *variant;
-
-	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), NULL);
-
-	variant = g_hash_table_lookup (self->pv->properties, GCR_DBUS_PROMPT_PROPERTY_WARNING);
-	g_return_val_if_fail (variant != NULL, NULL);
-	return g_variant_get_string (variant, NULL);
-}
-
-void
-gcr_system_prompter_set_warning (GcrSystemPrompter *self,
-                                 const gchar *warning)
-{
-	GVariant *variant;
-
-	g_return_if_fail (GCR_IS_SYSTEM_PROMPTER (self));
-
-	if (warning == NULL)
-		warning = "";
-
-	variant = g_variant_new_string (warning ? warning : "");
-	g_hash_table_insert (self->pv->properties,
-	                     (gpointer)GCR_DBUS_PROMPT_PROPERTY_WARNING,
-	                     g_variant_ref_sink (variant));
-
-	prompt_emit_changed (self, GCR_DBUS_PROMPT_PROPERTY_WARNING);
-}
-
-gboolean
-gcr_system_prompter_get_password_new (GcrSystemPrompter *self)
-{
-	GVariant *variant;
-
-	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), FALSE);
-
-	variant = g_hash_table_lookup (self->pv->properties, GCR_DBUS_PROMPT_PROPERTY_PASSWORD_NEW);
-	g_return_val_if_fail (variant != NULL, FALSE);
-	return g_variant_get_boolean (variant);
-}
-
-gint
-gcr_system_prompter_get_password_strength (GcrSystemPrompter *self)
-{
-	GVariant *variant;
-
-	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), 0);
-
-	variant = g_hash_table_lookup (self->pv->properties, GCR_DBUS_PROMPT_PROPERTY_PASSWORD_STRENGTH);
-	g_return_val_if_fail (variant != NULL, 0);
-	return g_variant_get_int32 (variant);
-}
-
-void
-gcr_system_prompter_set_password_strength (GcrSystemPrompter *self,
-                                           gint strength)
-{
-	GVariant *variant;
-
-	g_return_if_fail (GCR_IS_SYSTEM_PROMPTER (self));
-
-	variant = g_variant_new_int32 (strength);
-	g_hash_table_insert (self->pv->properties,
-	                     (gpointer) GCR_DBUS_PROMPT_PROPERTY_PASSWORD_STRENGTH,
-	                     g_variant_ref_sink (variant));
-
-	prompt_emit_changed (self, GCR_DBUS_PROMPT_PROPERTY_PASSWORD_STRENGTH);
-}
-
-const gchar *
-gcr_system_prompter_get_choice_label (GcrSystemPrompter *self)
-{
-	GVariant *variant;
-
-	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), NULL);
-
-	variant = g_hash_table_lookup (self->pv->properties, GCR_DBUS_PROMPT_PROPERTY_CHOICE_LABEL);
-	g_return_val_if_fail (variant != NULL, NULL);
-	return g_variant_get_string (variant, NULL);
-}
-
-/**
- * gcr_system_prompter_get_choice_chosen:
- * @self: a prompter
- *
- * Used by prompter implementations to check if the choice offered by the
- * prompt should be checked or unchecked.
- *
- * Returns: whether the choice is chosen
- */
-gboolean
-gcr_system_prompter_get_choice_chosen (GcrSystemPrompter *self)
-{
-	GVariant *variant;
-
-	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), FALSE);
-
-	variant = g_hash_table_lookup (self->pv->properties, GCR_DBUS_PROMPT_PROPERTY_CHOICE_CHOSEN);
-	g_return_val_if_fail (variant != NULL, FALSE);
-	return g_variant_get_boolean (variant);
-}
-
-/**
- * gcr_system_prompter_set_choice_chosen:
- * @self: a prompter
- * @chosen: the user's choice
- *
- * Used by prompter implementations to let the prompter know when the user
- * has checked or unchecked the choice offered by the prompt.
- */
-void
-gcr_system_prompter_set_choice_chosen (GcrSystemPrompter *self,
-                                       gboolean chosen)
-{
-	GVariant *variant;
-
-	g_return_if_fail (GCR_IS_SYSTEM_PROMPTER (self));
-
-	variant = g_variant_new_boolean (chosen);
-	g_hash_table_insert (self->pv->properties,
-	                     (gpointer)GCR_DBUS_PROMPT_PROPERTY_CHOICE_CHOSEN,
-	                     g_variant_ref_sink (variant));
-
-	prompt_emit_changed (self, GCR_DBUS_PROMPT_PROPERTY_CHOICE_CHOSEN);
-}
-
-/**
- * gcr_system_prompter_get_caller_window:
- * @self: a prompter
- *
- * Get a string containing the callers window identifier. If the prompter
- * supports making its prompts transient for
- */
-const gchar *
-gcr_system_prompter_get_caller_window (GcrSystemPrompter *self)
-{
-	GVariant *variant;
-	const gchar *window;
-
-	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), NULL);
-
-	variant = g_hash_table_lookup (self->pv->properties, GCR_DBUS_PROMPT_PROPERTY_CALLER_WINDOW);
-	g_return_val_if_fail (variant != NULL, NULL);
-	window = g_variant_get_string (variant, NULL);
-	if (!window || !window[0])
-		return NULL;
-	return window;
-}
-
-/**
- * gcr_system_prompter_respond_cancelled:
- * @self: a prompter
- *
- * Used by prompter implementations to let the prompter know when the user
- * has cancelled the current prompt.
- */
-void
-gcr_system_prompter_respond_cancelled (GcrSystemPrompter *self)
-{
-	GDBusMethodInvocation *invocation;
-	const gchar *method;
-	GVariant *properties;
-
-	g_return_if_fail (GCR_IS_SYSTEM_PROMPTER (self));
-	g_return_if_fail (self->pv->invocation != NULL);
-
-	invocation = self->pv->invocation;
-	self->pv->invocation = NULL;
-
-	/* Don't send back any changed properties on cancel */
-	properties = g_variant_new_array (G_VARIANT_TYPE ("(ssv)"), NULL, 0);
-
-	_gcr_debug ("responding to with cancelled");
-
-	method = g_dbus_method_invocation_get_method_name (invocation);
-	if (method && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_PASSWORD))
-		g_dbus_method_invocation_return_value (invocation,
-		                                       g_variant_new ("(@a(ssv)s)",
-		                                                      properties, ""));
-
-	else if (method && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_CONFIRM))
-		g_dbus_method_invocation_return_value (invocation, g_variant_new ("(@a(ssv)b)",
-		                                                                  properties, FALSE));
-
-	else
-		g_return_if_reached ();
-
-	g_signal_emit (self, signals[RESPONDED], 0);
-}
-
-/**
- * gcr_system_prompter_respond_confirmed:
- * @self: a prompter
- * @password: the password
- *
- * Used by prompter implementations to let the prompter know when the user
- * has entered a password and clicked 'OK'.
- */
-void
-gcr_system_prompter_respond_with_password (GcrSystemPrompter *self,
-                                           const gchar *password)
-{
-	GDBusMethodInvocation *invocation;
-	const gchar *method;
-	GVariant *properties;
-	gchar *exchange;
-
-	g_return_if_fail (GCR_IS_SYSTEM_PROMPTER (self));
-	g_return_if_fail (password != NULL);
-	g_return_if_fail (self->pv->invocation != NULL);
-
-	invocation = self->pv->invocation;
-	self->pv->invocation = NULL;
-
-	method = g_dbus_method_invocation_get_method_name (invocation);
-	g_return_if_fail (method != NULL && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_PASSWORD));
-
-	/* Send back all the properties before we respond */
-	properties = build_changed_properties (self);
-
-	_gcr_debug ("responding to prompt with password");
-
-	exchange = gcr_secret_exchange_send (self->pv->exchange, password, -1);
-	g_dbus_method_invocation_return_value (invocation, g_variant_new ("(@a(ssv)s)",
-	                                                                  properties, exchange));
-	g_free (exchange);
-
-	g_signal_emit (self, signals[RESPONDED], 0);
-}
-
-/**
- * gcr_system_prompter_respond_confirmed:
- * @self: a prompter
- *
- * Used by prompter implementations to let the prompter know when the user
- * has confirmed the request, ie: clicked 'OK'.
- */
-void
-gcr_system_prompter_respond_confirmed (GcrSystemPrompter *self)
-{
-	GDBusMethodInvocation *invocation;
-	GVariant *properties;
-	const gchar *method;
-
-	g_return_if_fail (GCR_IS_SYSTEM_PROMPTER (self));
-	g_return_if_fail (self->pv->invocation != NULL);
-
-	invocation = self->pv->invocation;
-	self->pv->invocation = NULL;
-
-	/* Send back all the properties before we respond */
-	properties = build_changed_properties (self);
-
-	method = g_dbus_method_invocation_get_method_name (invocation);
-	g_return_if_fail (method != NULL && g_str_equal (method, GCR_DBUS_PROMPT_METHOD_CONFIRM));
-
-	_gcr_debug ("responding to prompt with confirm");
-
-	g_dbus_method_invocation_return_value (invocation, g_variant_new ("(@a(ssv)b)",
-	                                                                  properties, TRUE));
-
-	g_signal_emit (self, signals[RESPONDED], 0);
+	g_clear_object (&self->pv->connection);
 }
 
 /**
@@ -1188,7 +822,25 @@ gcr_system_prompter_respond_confirmed (GcrSystemPrompter *self)
  * Returns: (transfer full): a new prompter service
  */
 GcrSystemPrompter *
-gcr_system_prompter_new (void)
+gcr_system_prompter_new (GcrSystemPrompterMode mode,
+                         GType prompt_type)
 {
-	return g_object_new (GCR_TYPE_SYSTEM_PROMPTER, NULL);
+	return g_object_new (GCR_TYPE_SYSTEM_PROMPTER,
+	                     "mode", mode,
+	                     "prompt-type", prompt_type,
+	                     NULL);
+}
+
+GcrSystemPrompterMode
+gcr_system_prompter_get_mode (GcrSystemPrompter *self)
+{
+	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), GCR_SYSTEM_PROMPTER_SINGLE);
+	return self->pv->mode;
+}
+
+GType
+gcr_system_prompter_get_prompt_type (GcrSystemPrompter *self)
+{
+	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), 0);
+	return self->pv->prompt_type;
 }

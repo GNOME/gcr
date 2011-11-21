@@ -63,6 +63,7 @@ gcr_list_selector_get_selected
 gcr_list_selector_get_type
 gcr_list_selector_new
 gcr_list_selector_set_selected
+gcr_prompt_dialog_get_type
 gcr_renderer_create
 gcr_renderer_emit_data_changed
 gcr_renderer_get_type

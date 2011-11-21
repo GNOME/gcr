@@ -28,11 +28,17 @@
 #ifndef __GCR_SYSTEM_PROMPTER_H__
 #define __GCR_SYSTEM_PROMPTER_H__
 
+#include "gcr-secret-exchange.h"
 #include "gcr-types.h"
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
+
+typedef enum {
+	GCR_SYSTEM_PROMPTER_SINGLE,
+	GCR_SYSTEM_PROMPTER_MULTIPLE
+} GcrSystemPrompterMode;
 
 #define GCR_TYPE_SYSTEM_PROMPTER               (gcr_system_prompter_get_type ())
 #define GCR_SYSTEM_PROMPTER(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_SYSTEM_PROMPTER, GcrSystemPrompter))
@@ -52,61 +58,26 @@ struct _GcrSystemPrompter {
 
 struct _GcrSystemPrompterClass {
 	GObjectClass parent_class;
-
-	void         (*open)                    (GcrSystemPrompter *self);
-
-	gboolean     (*prompt_password)         (GcrSystemPrompter *self);
-
-	gboolean     (*prompt_confirm)          (GcrSystemPrompter *self);
-
-	void         (*responded)               (GcrSystemPrompter *self);
-
-	void         (*close)                   (GcrSystemPrompter *self);
 };
 
-GType                gcr_system_prompter_get_type                  (void) G_GNUC_CONST;
+GType                  gcr_system_prompter_get_type                (void) G_GNUC_CONST;
 
-GcrSystemPrompter *  gcr_system_prompter_new                       (void);
+GcrSystemPrompter *    gcr_system_prompter_new                     (GcrSystemPrompterMode mode,
+                                                                    GType prompt_type);
 
-void                 gcr_system_prompter_register                  (GcrSystemPrompter *self,
+GcrSystemPrompterMode  gcr_system_prompter_get_mode                (GcrSystemPrompter *self);
+
+GType                  gcr_system_prompter_get_prompt_type         (GcrSystemPrompter *self);
+
+gint                   gcr_system_prompter_get_showing             (GcrSystemPrompter *self);
+
+void                   gcr_system_prompter_stop_all                (GcrSystemPrompter *self);
+
+void                   gcr_system_prompter_register                (GcrSystemPrompter *self,
                                                                     GDBusConnection *connection);
 
-void                 gcr_system_prompter_unregister                (GcrSystemPrompter *self,
-                                                                    GDBusConnection *connection);
-
-const gchar *        gcr_system_prompter_get_title                 (GcrSystemPrompter *self);
-
-const gchar *        gcr_system_prompter_get_message               (GcrSystemPrompter *self);
-
-const gchar *        gcr_system_prompter_get_description           (GcrSystemPrompter *self);
-
-const gchar *        gcr_system_prompter_get_warning               (GcrSystemPrompter *self);
-
-void                 gcr_system_prompter_set_warning               (GcrSystemPrompter *self,
-                                                                    const gchar *warning);
-
-gboolean             gcr_system_prompter_get_password_new          (GcrSystemPrompter *self);
-
-gint                 gcr_system_prompter_get_password_strength     (GcrSystemPrompter *self);
-
-void                 gcr_system_prompter_set_password_strength     (GcrSystemPrompter *self,
-                                                                    gint strength);
-
-const gchar *        gcr_system_prompter_get_choice_label          (GcrSystemPrompter *self);
-
-gboolean             gcr_system_prompter_get_choice_chosen         (GcrSystemPrompter *self);
-
-void                 gcr_system_prompter_set_choice_chosen         (GcrSystemPrompter *self,
-                                                                    gboolean chosen);
-
-const gchar *        gcr_system_prompter_get_caller_window         (GcrSystemPrompter *self);
-
-void                 gcr_system_prompter_respond_cancelled         (GcrSystemPrompter *self);
-
-void                 gcr_system_prompter_respond_with_password     (GcrSystemPrompter *self,
-                                                                    const gchar *password);
-
-void                 gcr_system_prompter_respond_confirmed         (GcrSystemPrompter *self);
+void                   gcr_system_prompter_unregister              (GcrSystemPrompter *self,
+                                                                    gboolean wait);
 
 G_END_DECLS
 

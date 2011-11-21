@@ -30,6 +30,7 @@ HEADER_BASE_FILES = \
 	gcr-mock-prompter.h \
 	gcr-parser.h \
 	gcr-pkcs11-certificate.h \
+	gcr-prompt.h \
 	gcr-secret-exchange.h \
 	gcr-simple-certificate.h \
 	gcr-system-prompt.h \
@@ -54,6 +55,7 @@ HEADER_UI_FILES = \
 	gcr-key-widget.h \
 	gcr-import-button.h \
 	gcr-list-selector.h \
+	gcr-prompt-dialog.h \
 	gcr-renderer.h \
 	gcr-secure-entry-buffer.h \
 	gcr-simple-collection.h \
@@ -134,6 +136,7 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-parser.c gcr-parser.h \
 	gcr-pkcs11-certificate.c gcr-pkcs11-certificate.h \
 	gcr-pkcs11-importer.c gcr-pkcs11-importer.h \
+	gcr-prompt.c gcr-prompt.h \
 	gcr-record.c gcr-record.h \
 	gcr-secret-exchange.c gcr-secret-exchange.h \
 	gcr-simple-certificate.c gcr-simple-certificate.h \
@@ -175,6 +178,7 @@ libgcr_@GCR_MAJOR@_la_SOURCES = \
 	gcr-menu-button.c gcr-menu-button.h \
 	gcr-pkcs11-import-interaction.c gcr-pkcs11-import-interaction.h \
 	gcr-pkcs11-import-dialog.c gcr-pkcs11-import-dialog.h \
+	gcr-prompt-dialog.c gcr-prompt-dialog.h \
 	gcr-record.c gcr-record.h \
 	gcr-renderer.c gcr-renderer.h \
 	gcr-secure-entry-buffer.c gcr-secure-entry-buffer.h \
@@ -261,10 +265,10 @@ DBUS_XML_DEFINITIONS = \
 	org.gnome.keyring.Prompt.xml
 
 gcr-dbus-generated.c: $(DBUS_XML_DEFINITIONS)
-	$(AM_V_GEN) gdbus-codegen --interface-prefix org.gnome.keyring. \
-		--generate-c-code gcr-dbus-generated --c-namespace Gcr \
+	$(AM_V_GEN) gdbus-codegen --interface-prefix org.gnome.keyring.internal. \
+		--generate-c-code gcr-dbus-generated --c-namespace GcrDBus \
 		$(DBUS_XML_DEFINITIONS)
-	$(AM_V_GEN) sed -i -e 's/gcr_/_gcr_/g' gcr-dbus-generated.[ch]
+	$(AM_V_GEN) sed -i -e 's/gcr_dbus/_gcr_dbus/g' gcr-dbus-generated.[ch]
 
 gcr-dbus-generated.h: gcr-dbus-generated.c
 

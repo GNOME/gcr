@@ -48,6 +48,7 @@
 #include "gcr-key-widget.h"
 #include "gcr-import-button.h"
 #include "gcr-list-selector.h"
+#include "gcr-prompt-dialog.h"
 #include "gcr-renderer.h"
 #include "gcr-secure-entry-buffer.h"
 #include "gcr-tree-selector.h"

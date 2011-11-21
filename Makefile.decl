@@ -1,5 +1,7 @@
 NULL =
 
+TEST_ARGS =
+
 TEST_SUPPRESSIONS = $(top_builddir)/build/valgrind-suppressions
 
 perform-memcheck: $(TEST_PROGS)
@@ -10,7 +12,7 @@ perform-memcheck: $(TEST_PROGS)
 			--suppressions=$(TEST_SUPPRESSIONS) \
 			--leak-check=full --show-reachable=yes --num-callers=16 \
 			--quiet --error-exitcode=3 \
-			$(builddir)/$$test || exit 3; \
+			$(builddir)/$$test $(TEST_ARGS) || exit 3; \
 	done
 
 coverage:

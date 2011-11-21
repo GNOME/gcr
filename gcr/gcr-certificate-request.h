@@ -42,28 +42,32 @@ typedef enum {
 
 typedef struct _GcrCertificateRequest GcrCertificateRequest;
 
-GType                     gcr_certificate_request_get_type            (void) G_GNUC_CONST;
+GType                        gcr_certificate_request_get_type         (void) G_GNUC_CONST;
 
-GcrCertificateRequest *   gcr_certificate_request_prepare             (GcrCertificateRequestFormat format,
+GcrCertificateRequest *      gcr_certificate_request_prepare          (GcrCertificateRequestFormat format,
                                                                        GckObject *private_key);
 
-void                      gcr_certificate_request_set_cn              (GcrCertificateRequest *self,
+GckObject *                  gcr_certificate_request_get_private_key  (GcrCertificateRequest *self);
+
+GcrCertificateRequestFormat  gcr_certificate_request_get_format       (GcrCertificateRequest *self);
+
+void                         gcr_certificate_request_set_cn           (GcrCertificateRequest *self,
                                                                        const gchar *cn);
 
-gboolean                  gcr_certificate_request_complete            (GcrCertificateRequest *self,
+gboolean                     gcr_certificate_request_complete         (GcrCertificateRequest *self,
                                                                        GCancellable *cancellable,
                                                                        GError **error);
 
-void                      gcr_certificate_request_complete_async      (GcrCertificateRequest *self,
+void                         gcr_certificate_request_complete_async   (GcrCertificateRequest *self,
                                                                        GCancellable *cancellable,
                                                                        GAsyncReadyCallback callback,
                                                                        gpointer user_data);
 
-gboolean                  gcr_certificate_request_complete_finish     (GcrCertificateRequest *self,
+gboolean                     gcr_certificate_request_complete_finish  (GcrCertificateRequest *self,
                                                                        GAsyncResult *result,
                                                                        GError **error);
 
-guchar *                  gcr_certificate_request_get_der_data        (GcrCertificateRequest *request,
+guchar *                     gcr_certificate_request_encode           (GcrCertificateRequest *self,
                                                                        gsize *length);
 
 G_END_DECLS

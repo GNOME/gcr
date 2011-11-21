@@ -85,7 +85,7 @@ test_request (const gchar *uri)
 	gcr_certificate_request_complete (req, NULL, &error);
 	g_assert_no_error (error);
 
-	data = gcr_certificate_request_get_der_data (req, &n_data);
+	data = gcr_certificate_request_encode (req, &n_data);
 
 	output = egg_armor_write (data, n_data,
 	                          g_quark_from_static_string ("CERTIFICATE REQUEST"),

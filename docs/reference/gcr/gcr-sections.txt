@@ -90,6 +90,34 @@ GcrGeneralNameType
 </SECTION>
 
 <SECTION>
+<FILE>gcr-certificate-request</FILE>
+GcrCertificateRequest
+GcrCertificateRequestFormat
+gcr_certificate_request_prepare
+gcr_certificate_request_complete
+gcr_certificate_request_complete_async
+gcr_certificate_request_complete_finish
+gcr_certificate_request_encode
+gcr_certificate_request_set_cn
+<SUBSECTION Private>
+GCR_CERTIFICATE_REQUEST
+GCR_CERTIFICATE_REQ_RENDERER
+GCR_CERTIFICATE_REQ_RENDERER_CLASS
+GCR_CERTIFICATE_REQ_RENDERER_GET_CLASS
+GCR_IS_CERTIFICATE_REQUEST
+GCR_IS_CERTIFICATE_REQ_RENDERER
+GCR_IS_CERTIFICATE_REQ_RENDERER_CLASS
+GCR_TYPE_CERTIFICATE_REQUEST
+GCR_TYPE_CERTIFICATE_REQUEST_FORMAT
+GCR_TYPE_CERTIFICATE_REQ_RENDERER
+GcrCertificateReqRenderer
+GcrCertificateReqRendererClass
+GcrCertificateReqRendererPrivate
+gcr_certificate_request_get_type
+gcr_certificate_request_format_get_type
+</SECTION>
+
+<SECTION>
 <FILE>gcr-importer</FILE>
 GcrImporter
 GcrImporterIface

@@ -32,6 +32,34 @@
 
 #include <glib/gi18n-lib.h>
 
+/**
+ * SECTION:gcr-certificate-request
+ * @title: GcrCertificateRequest
+ * @short_description: Represents a certificate request
+ *
+ * This is an object that allows creation of certificate requests. A
+ * certificate request is sent to a certificate authority to request an
+ * X.509 certificate.
+ *
+ * Use gcr_certificate_request_prepare() to create a blank certificate
+ * request for a given private key. Set the common name on the certificate
+ * request with gcr_certificate_request_set_cn(), and then sign the request
+ * with gcr_certificate_request_complete_async().
+ */
+
+/**
+ * GcrCertificateRequest:
+ *
+ * Represents a certificate request.
+ */
+
+/**
+ * GcrCertificateRequestFormat:
+ * @GCR_CERTIFICATE_REQUEST_PKCS10: certificate request is in PKCS\#10 format
+ *
+ * The format of a certificate request. Currently only PKCS\#10 is supported.
+ */
+
 #define GCR_CERTIFICATE_REQUEST_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_CERTIFICATE_REQUEST, GcrCertificateRequestClass))
 #define GCR_IS_CERTIFICATE_REQUEST_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_CERTIFICATE_REQUEST))
 #define GCR_CERTIFICATE_REQUEST_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_CERTIFICATE_REQUEST, GcrCertificateRequestClass))
@@ -125,10 +153,10 @@ gcr_certificate_request_get_property (GObject *obj,
 
 	switch (prop_id) {
 	case PROP_PRIVATE_KEY:
-		g_value_set_object (value, self->private_key);
+		g_value_set_object (value, gcr_certificate_request_get_private_key (self));
 		break;
 	case PROP_FORMAT:
-		g_value_set_enum (value, GCR_CERTIFICATE_REQUEST_PKCS10);
+		g_value_set_enum (value, gcr_certificate_request_get_format (self));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -148,10 +176,20 @@ gcr_certificate_request_class_init (GcrCertificateRequestClass *klass)
 	gobject_class->set_property = gcr_certificate_request_set_property;
 	gobject_class->get_property = gcr_certificate_request_get_property;
 
+	/**
+	 * GcrCertificateRequest:private-key:
+	 *
+	 * The private key that this certificate request is for.
+	 */
 	g_object_class_install_property (gobject_class, PROP_PRIVATE_KEY,
 	            g_param_spec_object ("private-key", "Private key", "Private key for request",
 	                                 GCK_TYPE_OBJECT, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
+	/**
+	 * GcrCertificateRequest:format:
+	 *
+	 * The format of the certificate request.
+	 */
 	g_object_class_install_property (gobject_class, PROP_FORMAT,
 	              g_param_spec_enum ("format", "Format", "Format of certificate request",
 	                                 GCR_TYPE_CERTIFICATE_REQUEST_FORMAT, GCR_CERTIFICATE_REQUEST_PKCS10,
@@ -163,7 +201,7 @@ gcr_certificate_request_class_init (GcrCertificateRequestClass *klass)
  * @format: the format for the certificate request
  * @private_key: the private key the the certificate is being requested for
  *
- * xxx
+ * Create a new certificate request, in the given format for the private key.
  *
  * Returns: (transfer full): a new #GcrCertificate request
  */
@@ -180,6 +218,43 @@ gcr_certificate_request_prepare (GcrCertificateRequestFormat format,
 	                     NULL);
 }
 
+/**
+ * gcr_certificate_request_get_private_key:
+ * @self: the certificate request
+ *
+ * Get the private key this certificate request is for.
+ *
+ * Returns: (transfer none): the private key,
+ */
+GckObject *
+gcr_certificate_request_get_private_key (GcrCertificateRequest *self)
+{
+	g_return_val_if_fail (GCR_IS_CERTIFICATE_REQUEST (self), NULL);
+	return self->private_key;
+}
+
+/**
+ * gcr_certificate_request_get_format:
+ * @self: the certificate request
+ *
+ * Get the format of this certificate request.
+ *
+ * Returns: the format
+ */
+GcrCertificateRequestFormat
+gcr_certificate_request_get_format (GcrCertificateRequest *self)
+{
+	g_return_val_if_fail (GCR_IS_CERTIFICATE_REQUEST (self), 0);
+	return GCR_CERTIFICATE_REQUEST_PKCS10;
+}
+
+/**
+ * gcr_certificate_request_set_cn:
+ * @self: the certificate request
+ * @cn: common name to set on the request
+ *
+ * Set the common name encoded in the certificate request.
+ */
 void
 gcr_certificate_request_set_cn (GcrCertificateRequest *self,
                                 const gchar *cn)
@@ -277,6 +352,19 @@ encode_take_signature_into_request (GcrCertificateRequest *self,
 	egg_bytes_unref (data);
 }
 
+/**
+ * gcr_certificate_request_complete:
+ * @self: a certificate request
+ * @cancellable: a cancellation object
+ * @error: location to place an error on failure
+ *
+ * Complete and sign a certificate request, so that it can be encoded
+ * and sent to a certificate authority.
+ *
+ * This call may block as it signs the request using the private key.
+ *
+ * Returns: whether certificate request was successfully completed or not
+ */
 gboolean
 gcr_certificate_request_complete (GcrCertificateRequest *self,
                                   GCancellable *cancellable,
@@ -414,6 +502,18 @@ on_subject_public_key_loaded (GObject *source,
 	g_object_unref (res);
 }
 
+/**
+ * gcr_certificate_request_complete_async:
+ * @self: a certificate request
+ * @cancellable: a cancellation object
+ * @callback: called when the operation completes
+ * @user_data: data to pass to the callback
+ *
+ * Asynchronously complete and sign a certificate request, so that it can
+ * be encoded and sent to a certificate authority.
+ *
+ * This call will return immediately and complete later.
+ */
 void
 gcr_certificate_request_complete_async (GcrCertificateRequest *self,
                                         GCancellable *cancellable,
@@ -442,7 +542,15 @@ gcr_certificate_request_complete_async (GcrCertificateRequest *self,
 }
 
 /**
+ * gcr_certificate_request_complete_finish:
+ * @self: a certificate request
+ * @result: result of the asynchronous operation
+ * @error: location to place an error on failure
  *
+ * Finish an asynchronous operation to complete and sign a certificate
+ * request.
+ *
+ * Returns: whether certificate request was successfully completed or not
  */
 gboolean
 gcr_certificate_request_complete_finish (GcrCertificateRequest *self,

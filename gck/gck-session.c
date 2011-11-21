@@ -330,7 +330,7 @@ gck_session_class_init (GckSessionClass *klass)
 	/**
 	 * GckSession:opening-flags:
 	 *
-	 * Raw PKCS\#11 flags used to open the PKCS#11 session.
+	 * Raw PKCS\#11 flags used to open the PKCS\#11 session.
 	 */
 	g_object_class_install_property (gobject_class, PROP_OPENING_FLAGS,
 	             g_param_spec_ulong ("opening-flags", "Opening flags", "PKCS#11 open session flags",

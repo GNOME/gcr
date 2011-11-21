@@ -1,3 +1,13 @@
+gcr 3.3.2
+ - Allow changing collection on a GcrCollectionModel, add tree/list
+   mode to GcrCollectionModel
+ - Allow chaining of GckEnumerator objects, so that when objects from
+   one is listed, then chained enumerator is enumerated.
+ - Integrate GTlsInteraction into libgck for logging in or key auth.
+ - Refactor internal DER parsing to use reference counted memory
+   using the prototyped GBytes API.
+ - Build fixes, documentation fixes, testing fixes, memory leak fixes
+
 gcr 3.3.1.1
  - Fix build issues
 

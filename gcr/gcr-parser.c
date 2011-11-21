@@ -871,8 +871,6 @@ handle_pkcs7_signed_data (GcrParser *self,
 	if (!asn)
 		goto done;
 
-	ret = GCR_ERROR_FAILURE;
-
 	for (i = 0; TRUE; ++i) {
 
 		node = egg_asn1x_node (asn, "certificates", i + 1, NULL);
@@ -1624,7 +1622,6 @@ handle_encrypted_pem (GcrParser *self,
 		return GCR_ERROR_FAILURE;
 	}
 
-	res = GCR_ERROR_FAILURE;
 	for (;;) {
 
 		res = enum_next_password (self, &pstate, &password);

@@ -370,7 +370,6 @@ generate_pkcs12 (int hash_algo, int type, const gchar *utf8_password,
 		}
 	} else {
 		memset (p, 0, 64);
-		p += 64;
 	}
 
 	/* Hash and bash */

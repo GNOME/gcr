@@ -2401,7 +2401,6 @@ anode_write_oid (const gchar *oid, guchar *data, gsize *n_data)
 	gboolean had;
 	gint i, k, at;
 
-	p = oid;
 	at = 0;
 	num1 = 0;
 
@@ -3686,7 +3685,7 @@ anode_validate_sequence_or_set_of (GNode *node,
 
 	tag = 0;
 	count = 0;
-	tlv = ptlv = NULL;
+	ptlv = NULL;
 
 	type = anode_def_type (node);
 

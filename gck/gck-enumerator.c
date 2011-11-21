@@ -531,7 +531,6 @@ state_attributes (GckEnumeratorState *args,
 				g_free (string);
 			}
 			result->attrs = attrs;
-			rv = CKR_OK;
 
 		} else {
 			g_message ("couldn't retrieve attributes when enumerating: %s",

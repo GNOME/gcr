@@ -18,6 +18,7 @@ frob-*
 *.lo
 *.mo
 *.o
+*.plist
 *.pot
 *.stamp
 *.tar.gz

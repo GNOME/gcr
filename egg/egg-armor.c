@@ -162,14 +162,14 @@ armor_find_end (const gchar *data,
 	/* Next comes the type string */
 	stype = g_quark_to_string (type);
 	n_type = strlen (stype);
-	if (strncmp ((gchar*)data, stype, n_type) != 0)
+	if (n_type > n_data || strncmp ((gchar*)data, stype, n_type) != 0)
 		return NULL;
 
 	n_data -= n_type;
 	data += n_type;
 
 	/* Next comes the suffix */
-	if (strncmp ((gchar*)data, ARMOR_SUFF, ARMOR_SUFF_L) != 0)
+	if (ARMOR_SUFF_L > n_data && strncmp ((gchar*)data, ARMOR_SUFF, ARMOR_SUFF_L) != 0)
 		return NULL;
 
 	/*

@@ -66,7 +66,7 @@ static gchar *
 calculate_label (GcrGnupgRenderer *self)
 {
 	gchar *userid;
-	gchar *label;
+	gchar *label = NULL;
 
 	if (self->pv->attrs) {
 		if (gck_attributes_find_string (self->pv->attrs, CKA_LABEL, &label))

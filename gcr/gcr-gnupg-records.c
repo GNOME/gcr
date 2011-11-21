@@ -101,7 +101,6 @@ _gcr_gnupg_records_parse_user_id (const gchar *user_id,
 		if (!name) {
 			name = tail;
 			*src = 0;
-			tail = src + 1;
 		}
 	}
 

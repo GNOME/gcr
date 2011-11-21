@@ -1607,7 +1607,7 @@ parse_der_pkcs10 (GcrParser *self,
 	GNode *asn = NULL;
 	GNode *node;
 	GcrParsed *parsed;
-	gchar *name;
+	gchar *name = NULL;
 
 	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-10-CertificationRequest", data);
 	if (!asn)

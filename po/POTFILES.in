@@ -7,7 +7,8 @@ gcr/gcr-callback-output-stream.c
 gcr/gcr-certificate.c
 gcr/gcr-certificate-exporter.c
 gcr/gcr-certificate-extensions.c
-gcr/gcr-certificate-req-renderer.c
+gcr/gcr-certificate-request.c
+gcr/gcr-certificate-request-renderer.c
 gcr/gcr-certificate-renderer.c
 gcr/gcr-certificate-widget.c
 gcr/gcr-display-view.c

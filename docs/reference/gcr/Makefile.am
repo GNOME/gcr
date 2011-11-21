@@ -63,6 +63,7 @@ IGNORE_HFILES= \
 	gcr-certificate-exporter.h \
 	gcr-certificate-basics-widget.h \
 	gcr-certificate-details-widget.h \
+	gcr-certificate-request-renderer.h \
 	gcr-deprecated.h \
 	gcr-deprecated-base.h \
 	gcr-display-scrolled.h \

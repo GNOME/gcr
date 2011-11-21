@@ -728,7 +728,7 @@ _gcr_subject_public_key_for_attributes (GckAttributes *attributes)
 	gboolean ret = FALSE;
 	gulong key_type;
 	gulong klass;
-	GNode *asn;
+	GNode *asn = NULL;
 
 	if (!gck_attributes_find_ulong (attributes, CKA_CLASS, &klass)) {
 		_gcr_debug ("no class in attributes");

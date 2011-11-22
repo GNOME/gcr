@@ -1,3 +1,6 @@
+gcr 3.3.2.1
+ - Fix build issues
+
 gcr 3.3.2
  - Allow changing collection on a GcrCollectionModel, add tree/list
    mode to GcrCollectionModel

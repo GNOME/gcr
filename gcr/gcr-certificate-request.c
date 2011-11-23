@@ -26,6 +26,7 @@
 #include "gcr-oids.h"
 #include "gcr-subject-public-key.h"
 
+#include <egg/egg-armor.h>
 #include <egg/egg-asn1x.h>
 #include <egg/egg-asn1-defs.h>
 #include <egg/egg-dn.h>
@@ -571,20 +572,28 @@ gcr_certificate_request_complete_finish (GcrCertificateRequest *self,
 /**
  * gcr_certificate_request_encode:
  * @self: a certificate request
+ * @textual: whether to encode output as text
  * @length: location to place length of returned data
  *
  * Encode the certificate request. It must have been completed with
  * gcr_certificate_request_complete() or gcr_certificate_request_complete_async()
  *
- * The output is a DER encoded certificate request.
+ * If @textual is %FALSE, the output is a DER encoded certificate request.
+ *
+ * If @textual is %TRUE, the output is encoded as text. For PKCS\#10 requests this
+ * is done using the OpenSSL style PEM encoding.
  *
  * Returns: (transfer full) (array length=length): the encoded certificate request
  */
 guchar *
 gcr_certificate_request_encode (GcrCertificateRequest *self,
+                                gboolean textual,
                                 gsize *length)
 {
 	EggBytes *bytes;
+	gpointer encoded;
+	gpointer data;
+	gsize size;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE_REQUEST (self), NULL);
 	g_return_val_if_fail (length != NULL, NULL);
@@ -596,6 +605,19 @@ gcr_certificate_request_encode (GcrCertificateRequest *self,
 		return NULL;
 	}
 
-	*length = egg_bytes_get_size (bytes);
-	return g_byte_array_free (egg_bytes_unref_to_array (bytes), FALSE);
+	size = egg_bytes_get_size (bytes);
+	encoded = g_byte_array_free (egg_bytes_unref_to_array (bytes), FALSE);
+
+	if (textual) {
+		data = egg_armor_write (encoded, size,
+		                        g_quark_from_static_string ("CERTIFICATE REQUEST"),
+		                        NULL, length);
+		g_free (encoded);
+		encoded = data;
+
+	} else {
+		*length = size;
+	}
+
+	return encoded;
 }

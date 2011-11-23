@@ -71,8 +71,8 @@ test_request (const gchar *uri)
 	GcrCertificateRequest *req;
 	GError *error = NULL;
 	GckObject *key;
-	guchar *data, *output;
-	gsize n_data, n_output;
+	guchar *data;
+	gsize n_data;
 
 	key = load_key_for_uri (uri);
 	if (key == NULL)
@@ -85,16 +85,10 @@ test_request (const gchar *uri)
 	gcr_certificate_request_complete (req, NULL, &error);
 	g_assert_no_error (error);
 
-	data = gcr_certificate_request_encode (req, &n_data);
+	data = gcr_certificate_request_encode (req, TRUE, &n_data);
 
-	output = egg_armor_write (data, n_data,
-	                          g_quark_from_static_string ("CERTIFICATE REQUEST"),
-	                          NULL, &n_output);
-
+	write (1, data, n_data);
 	g_free (data);
-
-	write (1, output, n_output);
-	g_free (output);
 }
 
 int

@@ -68,6 +68,7 @@ gboolean                     gcr_certificate_request_complete_finish  (GcrCertif
                                                                        GError **error);
 
 guchar *                     gcr_certificate_request_encode           (GcrCertificateRequest *self,
+                                                                       gboolean textual,
                                                                        gsize *length);
 
 G_END_DECLS

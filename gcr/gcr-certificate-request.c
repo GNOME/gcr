@@ -22,6 +22,7 @@
 #include "config.h"
 
 #include "gcr-certificate-request.h"
+#include "gcr-key-mechanisms.h"
 #include "gcr-enum-types-base.h"
 #include "gcr-oids.h"
 #include "gcr-subject-public-key.h"
@@ -72,6 +73,8 @@ struct _GcrCertificateRequest {
 
 	GckObject *private_key;
 	GNode *asn;
+	gulong *mechanisms;
+	gulong n_mechanisms;
 };
 
 struct _GcrCertificateRequestClass {
@@ -86,6 +89,27 @@ enum {
 
 /* Forward declarations */
 G_DEFINE_TYPE (GcrCertificateRequest, gcr_certificate_request, G_TYPE_OBJECT);
+
+/* When updating here, update prepare_to_be_signed() */
+static const gulong RSA_MECHANISMS[] = {
+	CKM_SHA1_RSA_PKCS,
+	CKM_RSA_PKCS,
+};
+
+/* When updating here, update prepare_to_be_signed() */
+static const gulong DSA_MECHANISMS[] = {
+	CKM_DSA_SHA1,
+	CKM_DSA,
+};
+
+static const gulong ALL_MECHANISMS[] = {
+	CKM_SHA1_RSA_PKCS,
+	CKM_DSA_SHA1,
+	CKM_RSA_PKCS,
+	CKM_DSA,
+};
+
+G_STATIC_ASSERT (sizeof (ALL_MECHANISMS) == sizeof (RSA_MECHANISMS) + sizeof (DSA_MECHANISMS));
 
 static void
 gcr_certificate_request_init (GcrCertificateRequest *self)
@@ -115,6 +139,7 @@ gcr_certificate_request_finalize (GObject *obj)
 	GcrCertificateRequest *self = GCR_CERTIFICATE_REQUEST (obj);
 
 	egg_asn1x_destroy (self->asn);
+	g_free (self->mechanisms);
 
 	G_OBJECT_CLASS (gcr_certificate_request_parent_class)->finalize (obj);
 }
@@ -275,29 +300,101 @@ gcr_certificate_request_set_cn (GcrCertificateRequest *self,
 	egg_dn_add_string_part (dn, GCR_OID_NAME_CN, cn);
 }
 
+static EggBytes *
+hash_sha1_pkcs1 (EggBytes *data)
+{
+	const guchar SHA1_ASN[15] = /* Object ID is 1.3.14.3.2.26 */
+		{ 0x30, 0x21, 0x30, 0x09, 0x06, 0x05, 0x2b, 0x0e, 0x03,
+		  0x02, 0x1a, 0x05, 0x00, 0x04, 0x14 };
+
+	GChecksum *checksum;
+	guchar *hash;
+	gsize n_hash;
+	gsize n_digest;
+
+	n_digest = g_checksum_type_get_length (G_CHECKSUM_SHA1);
+	n_hash = n_digest + sizeof (SHA1_ASN);
+	hash = g_malloc (n_hash);
+	memcpy (hash, SHA1_ASN, sizeof (SHA1_ASN));
+
+	checksum = g_checksum_new (G_CHECKSUM_SHA1);
+	g_checksum_update (checksum, egg_bytes_get_data (data), egg_bytes_get_size (data));
+	g_checksum_get_digest (checksum, hash + sizeof (SHA1_ASN), &n_digest);
+	g_checksum_free (checksum);
+
+	return egg_bytes_new_take (hash, n_hash);
+}
 
 static EggBytes *
-prepare_to_be_signed (GcrCertificateRequest *self)
+hash_sha1 (EggBytes *data)
+{
+	GChecksum *checksum;
+	guchar *hash;
+	gsize n_hash;
+
+	n_hash = g_checksum_type_get_length (G_CHECKSUM_SHA1);
+	hash = g_malloc (n_hash);
+
+	checksum = g_checksum_new (G_CHECKSUM_SHA1);
+	g_checksum_update (checksum, egg_bytes_get_data (data), egg_bytes_get_size (data));
+	g_checksum_get_digest (checksum, hash, &n_hash);
+	g_checksum_free (checksum);
+
+	return egg_bytes_new_take (hash, n_hash);
+}
+
+static EggBytes *
+prepare_to_be_signed (GcrCertificateRequest *self,
+                      GckMechanism *mechanism)
 {
 	GNode *node;
+	EggBytes *data;
+	EggBytes *hash;
+
+	g_assert (mechanism != NULL);
 
 	node = egg_asn1x_node (self->asn, "certificationRequestInfo", NULL);
-	return egg_asn1x_encode (node, NULL);
+	data = egg_asn1x_encode (node, NULL);
+
+	mechanism->parameter = NULL;
+	mechanism->n_parameter = 0;
+
+	switch (mechanism->type) {
+	case CKM_SHA1_RSA_PKCS:
+	case CKM_DSA_SHA1:
+		return data;
+
+	case CKM_RSA_PKCS:
+		hash = hash_sha1_pkcs1 (data);
+		egg_bytes_unref (data);
+		return hash;
+
+	case CKM_DSA:
+		hash = hash_sha1 (data);
+		egg_bytes_unref (data);
+		return hash;
+
+	default:
+		g_assert_not_reached ();
+		return NULL;
+	}
 }
 
 static gboolean
-prepare_subject_public_key_and_mechanism (GcrCertificateRequest *self,
-                                          GNode *subject_public_key,
-                                          GQuark *algorithm,
-                                          GckMechanism *mechanism,
-                                          GError **error)
+prepare_subject_public_key_and_mechanisms (GcrCertificateRequest *self,
+                                           GNode *subject_public_key,
+                                           GQuark *algorithm,
+                                           const gulong **mechanisms,
+                                           gsize *n_mechanisms,
+                                           GError **error)
 {
 	EggBytes *encoded;
 	GNode *node;
 	GQuark oid;
 
 	g_assert (algorithm != NULL);
-	g_assert (mechanism != NULL);
+	g_assert (mechanisms != NULL);
+	g_assert (n_mechanisms != NULL);
 
 	encoded = egg_asn1x_encode (subject_public_key, NULL);
 	g_return_val_if_fail (encoded != NULL, FALSE);
@@ -305,13 +402,14 @@ prepare_subject_public_key_and_mechanism (GcrCertificateRequest *self,
 	node = egg_asn1x_node (subject_public_key, "algorithm", "algorithm", NULL);
 	oid = egg_asn1x_get_oid_as_quark (node);
 
-	memset (mechanism, 0, sizeof (GckMechanism));
 	if (oid == GCR_OID_PKIX1_RSA) {
-		mechanism->type = CKM_SHA1_RSA_PKCS;
+		*mechanisms = RSA_MECHANISMS;
+		*n_mechanisms = G_N_ELEMENTS (RSA_MECHANISMS);
 		*algorithm = GCR_OID_PKIX1_SHA1_WITH_RSA;
 
 	} else if (oid == GCR_OID_PKIX1_DSA) {
-		mechanism->type = CKM_DSA_SHA1;
+		*mechanisms = DSA_MECHANISMS;
+		*n_mechanisms = G_N_ELEMENTS (DSA_MECHANISMS);
 		*algorithm = GCR_OID_PKIX1_SHA1_WITH_DSA;
 
 	} else {
@@ -372,6 +470,8 @@ gcr_certificate_request_complete (GcrCertificateRequest *self,
                                   GError **error)
 {
 	GNode *subject_public_key;
+	const gulong *mechanisms;
+	gsize n_mechanisms;
 	GckMechanism mechanism = { 0, };
 	GQuark algorithm = 0;
 	EggBytes *tbs;
@@ -389,15 +489,27 @@ gcr_certificate_request_complete (GcrCertificateRequest *self,
 	if (subject_public_key == NULL)
 		return FALSE;
 
-	ret = prepare_subject_public_key_and_mechanism (self, subject_public_key,
-	                                                &algorithm, &mechanism, error);
+	ret = prepare_subject_public_key_and_mechanisms (self, subject_public_key,
+	                                                 &algorithm, &mechanisms,
+	                                                 &n_mechanisms, error);
 
 	if (!ret) {
 		egg_asn1x_destroy (subject_public_key);
 		return FALSE;
 	}
 
-	tbs = prepare_to_be_signed (self);
+	/* Figure out which mechanism to use */
+	mechanism.type = _gcr_key_mechanisms_check (self->private_key, mechanisms,
+	                                            n_mechanisms, CKA_SIGN,
+	                                            cancellable, NULL);
+	if (mechanism.type == GCK_INVALID) {
+		egg_asn1x_destroy (subject_public_key);
+		g_set_error (error, GCK_ERROR, CKR_KEY_TYPE_INCONSISTENT,
+		             _("The key cannot be used to sign the request"));
+		return FALSE;
+	}
+
+	tbs = prepare_to_be_signed (self, &mechanism);
 	session = gck_object_get_session (self->private_key);
 	signature = gck_session_sign_full (session, self->private_key, &mechanism,
 	                                   egg_bytes_get_data (tbs),
@@ -452,7 +564,7 @@ on_certificate_request_signed (GObject *source,
 	gsize n_signature;
 
 	signature = gck_session_sign_finish (closure->session, result, &n_signature, &error);
-	if (result == NULL) {
+	if (error == NULL) {
 		encode_take_signature_into_request (closure->request,
 		                                    closure->algorithm,
 		                                    closure->subject_public_key,
@@ -467,29 +579,22 @@ on_certificate_request_signed (GObject *source,
 }
 
 static void
-on_subject_public_key_loaded (GObject *source,
-                              GAsyncResult *result,
-                              gpointer user_data)
+on_mechanism_check (GObject *source,
+                    GAsyncResult *result,
+                    gpointer user_data)
 {
 	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
 	CompleteClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
-	GError *error = NULL;
 
-	closure->subject_public_key = _gcr_subject_public_key_load_finish (result, &error);
-	if (error == NULL) {
-		prepare_subject_public_key_and_mechanism (closure->request,
-		                                          closure->subject_public_key,
-		                                          &closure->algorithm,
-		                                          &closure->mechanism,
-		                                          &error);
-	}
-
-	if (error != NULL) {
-		g_simple_async_result_take_error (res, error);
+	closure->mechanism.type =  _gcr_key_mechanisms_check_finish (closure->request->private_key,
+	                                                             result, NULL);
+	if (closure->mechanism.type == GCK_INVALID) {
+		g_simple_async_result_set_error (res, GCK_ERROR, CKR_KEY_TYPE_INCONSISTENT,
+		                                 _("The key cannot be used to sign the request"));
 		g_simple_async_result_complete (res);
 
 	} else {
-		closure->tbs = prepare_to_be_signed (closure->request);
+		closure->tbs = prepare_to_be_signed (closure->request, &closure->mechanism);
 		gck_session_sign_async (closure->session,
 		                        closure->request->private_key,
 		                        &closure->mechanism,
@@ -498,6 +603,41 @@ on_subject_public_key_loaded (GObject *source,
 		                        closure->cancellable,
 		                        on_certificate_request_signed,
 		                        g_object_ref (res));
+	}
+
+	g_object_unref (res);
+}
+
+static void
+on_subject_public_key_loaded (GObject *source,
+                              GAsyncResult *result,
+                              gpointer user_data)
+{
+	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
+	CompleteClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
+	const gulong *mechanisms;
+	gsize n_mechanisms;
+	GError *error = NULL;
+
+	closure->subject_public_key = _gcr_subject_public_key_load_finish (result, &error);
+	if (error == NULL) {
+		prepare_subject_public_key_and_mechanisms (closure->request,
+		                                           closure->subject_public_key,
+		                                           &closure->algorithm,
+		                                           &mechanisms,
+		                                           &n_mechanisms,
+		                                           &error);
+	}
+
+	if (error != NULL) {
+		g_simple_async_result_take_error (res, error);
+		g_simple_async_result_complete (res);
+
+	} else {
+		_gcr_key_mechanisms_check_async (closure->request->private_key,
+		                                 mechanisms, n_mechanisms, CKA_SIGN,
+		                                 closure->cancellable, on_mechanism_check,
+		                                 g_object_ref (res));
 	}
 
 	g_object_unref (res);
@@ -620,4 +760,49 @@ gcr_certificate_request_encode (GcrCertificateRequest *self,
 	}
 
 	return encoded;
+}
+
+gboolean
+gcr_certificate_request_capable (GckObject *private_key,
+                                 GCancellable *cancellable,
+                                 GError **error)
+{
+	g_return_val_if_fail (GCK_IS_OBJECT (private_key), FALSE);
+	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+	return _gcr_key_mechanisms_check (private_key, ALL_MECHANISMS,
+	                                  G_N_ELEMENTS (ALL_MECHANISMS),
+	                                 CKA_SIGN, cancellable, error);
+}
+
+void
+gcr_certificate_request_capable_async (GckObject *private_key,
+                                       GCancellable *cancellable,
+                                       GAsyncReadyCallback callback,
+                                       gpointer user_data)
+{
+	g_return_if_fail (GCK_IS_OBJECT (private_key));
+	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
+
+	_gcr_key_mechanisms_check_async (private_key, ALL_MECHANISMS,
+	                                 G_N_ELEMENTS (ALL_MECHANISMS),
+	                                 CKA_SIGN, cancellable,
+	                                 callback, user_data);
+}
+
+gboolean
+gcr_certificate_request_capable_finish (GAsyncResult *result,
+                                        GError **error)
+{
+	GObject *source;
+	gulong mech;
+
+	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
+
+	source = g_async_result_get_source_object (result);
+	mech = _gcr_key_mechanisms_check_finish (GCK_OBJECT (source), result, error);
+	g_object_unref (source);
+
+	return mech != GCK_INVALID;
 }

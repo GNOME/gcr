@@ -42,6 +42,19 @@ typedef enum {
 
 typedef struct _GcrCertificateRequest GcrCertificateRequest;
 
+gboolean                     gcr_certificate_request_capable          (GckObject *private_key,
+                                                                       GCancellable *cancellable,
+                                                                       GError **error);
+
+void                         gcr_certificate_request_capable_async    (GckObject *private_key,
+                                                                       GCancellable *cancellable,
+                                                                       GAsyncReadyCallback callback,
+                                                                       gpointer user_data);
+
+
+gboolean                     gcr_certificate_request_capable_finish   (GAsyncResult *result,
+                                                                       GError **error);
+
 GType                        gcr_certificate_request_get_type         (void) G_GNUC_CONST;
 
 GcrCertificateRequest *      gcr_certificate_request_prepare          (GcrCertificateRequestFormat format,

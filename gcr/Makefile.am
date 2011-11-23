@@ -115,6 +115,7 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-importer.c gcr-importer.h \
 	gcr-import-interaction.c gcr-import-interaction.h \
 	gcr-internal.h \
+	gcr-key-mechanisms.h gcr-key-mechanisms.c \
 	gcr-library.c gcr-library.h \
 	gcr-memory.c \
 	gcr-memory-icon.c gcr-memory-icon.h \

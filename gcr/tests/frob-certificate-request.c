@@ -78,6 +78,15 @@ test_request (const gchar *uri)
 	if (key == NULL)
 		g_error ("couldn't find key for uri: %s", uri);
 
+	if (!gcr_certificate_request_capable (key, NULL, &error)) {
+		if (error != NULL)
+			g_error ("error checking key capabilities: %s", error->message);
+		g_clear_error (&error);
+		g_printerr ("frob-certificate-request: key doesn't have right capabilities");
+		g_object_unref (key);
+		return;
+	}
+
 	req = gcr_certificate_request_prepare (GCR_CERTIFICATE_REQUEST_PKCS10, key);
 	g_object_unref (key);
 

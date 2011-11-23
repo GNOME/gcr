@@ -1226,13 +1226,13 @@ GckAttributes*      gck_object_get                          (GckObject *self,
                                                              ...);
 
 GckAttributes*      gck_object_get_full                     (GckObject *self,
-                                                             gulong *attr_types,
+                                                             const gulong *attr_types,
                                                              guint n_attr_types,
                                                              GCancellable *cancellable,
                                                              GError **error);
 
 void                gck_object_get_async                    (GckObject *self,
-                                                             gulong *attr_types,
+                                                             const gulong *attr_types,
                                                              guint n_attr_types,
                                                              GCancellable *cancellable,
                                                              GAsyncReadyCallback callback,

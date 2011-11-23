@@ -701,8 +701,11 @@ gck_object_get (GckObject *self, GCancellable *cancellable, GError **error, ...)
  *          or %NULL if not
  **/
 GckAttributes *
-gck_object_get_full (GckObject *self, gulong *attr_types, guint n_attr_types,
-                      GCancellable *cancellable, GError **error)
+gck_object_get_full (GckObject *self,
+                     const gulong *attr_types,
+                     guint n_attr_types,
+                     GCancellable *cancellable,
+                     GError **error)
 {
 	GetAttributes args;
 	GckAttributes *attrs;
@@ -750,8 +753,12 @@ gck_object_get_full (GckObject *self, gulong *attr_types, guint n_attr_types,
  * This call returns immediately and completes asynchronously.
  **/
 void
-gck_object_get_async (GckObject *self, gulong *attr_types, guint n_attr_types, GCancellable *cancellable,
-                      GAsyncReadyCallback callback, gpointer user_data)
+gck_object_get_async (GckObject *self,
+                      const gulong *attr_types,
+                      guint n_attr_types,
+                      GCancellable *cancellable,
+                      GAsyncReadyCallback callback,
+                      gpointer user_data)
 {
 	GckAttributes *attrs;
 	GetAttributes *args;

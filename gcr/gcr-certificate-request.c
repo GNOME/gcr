@@ -762,6 +762,17 @@ gcr_certificate_request_encode (GcrCertificateRequest *self,
 	return encoded;
 }
 
+/**
+ * gcr_certificate_request_capable:
+ * @private_key: a private key
+ * @cancellable: cancellation object
+ * @error: location to place an error
+ *
+ * Check whether #GcrCertificateRequest is capable of creating a request
+ * for the given @private_key.
+ *
+ * Returns: whether a request can be created
+ */
 gboolean
 gcr_certificate_request_capable (GckObject *private_key,
                                  GCancellable *cancellable,
@@ -776,6 +787,16 @@ gcr_certificate_request_capable (GckObject *private_key,
 	                                 CKA_SIGN, cancellable, error);
 }
 
+/**
+ * gcr_certificate_request_capable_async:
+ * @private_key: a private key
+ * @cancellable: cancellation object
+ * @callback: will be called when the operation completes
+ * @user_data: data to be passed to callback
+ *
+ * Asynchronously check whether #GcrCertificateRequest is capable of creating
+ * a request for the given @private_key.
+ */
 void
 gcr_certificate_request_capable_async (GckObject *private_key,
                                        GCancellable *cancellable,
@@ -791,6 +812,16 @@ gcr_certificate_request_capable_async (GckObject *private_key,
 	                                 callback, user_data);
 }
 
+/**
+ * gcr_certificate_request_capable_finish:
+ * @result: asynchronous result
+ * @error: location to place an error
+ *
+ * Get the result for asynchronously check whether #GcrCertificateRequest is
+ * capable of creating a request for the given @private_key.
+ *
+ * Returns: whether a request can be created
+ */
 gboolean
 gcr_certificate_request_capable_finish (GAsyncResult *result,
                                         GError **error)

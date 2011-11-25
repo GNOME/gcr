@@ -84,7 +84,7 @@ find_first_usable_mechanism (GckObject *key,
 gulong
 _gcr_key_mechanisms_check (GckObject *key,
                            const gulong *mechanisms,
-                           gulong n_mechanisms,
+                           gsize n_mechanisms,
                            gulong action_attr_type,
                            GCancellable *cancellable,
                            GError **error)
@@ -154,7 +154,7 @@ on_check_get_attributes (GObject *source,
 void
 _gcr_key_mechanisms_check_async (GckObject *key,
                                  const gulong *mechanisms,
-                                 gulong n_mechanisms,
+                                 gsize n_mechanisms,
                                  gulong action_attr_type,
                                  GCancellable *cancellable,
                                  GAsyncReadyCallback callback,

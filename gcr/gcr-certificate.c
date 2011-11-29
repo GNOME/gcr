@@ -205,7 +205,7 @@ calculate_markup (GcrCertificate *self)
 	gchar *markup;
 
 	g_object_get (self, "label", &label, NULL);
-	issuer = gcr_certificate_get_issuer_cn (self);
+	issuer = gcr_certificate_get_issuer_name (self);
 
 	if (issuer)
 		markup = g_markup_printf_escaped ("%s\n<small>Issued by: %s</small>", label, issuer);
@@ -374,6 +374,31 @@ gcr_certificate_get_der_data (GcrCertificate *self,
 	g_return_val_if_fail (n_data != NULL, NULL);
 	g_return_val_if_fail (GCR_CERTIFICATE_GET_INTERFACE (self)->get_der_data, NULL);
 	return GCR_CERTIFICATE_GET_INTERFACE (self)->get_der_data (self, n_data);
+}
+
+/**
+ * gcr_certificate_get_issuer_name:
+ * @self: a #GcrCertificate
+ *
+ * Get a name to represent the issuer of this certificate.
+ *
+ * This will try to lookup the common name, orianizational unit,
+ * organization in that order.
+ *
+ * Returns: the allocated issuer name, or NULL if no issuer name
+ */
+gchar *
+gcr_certificate_get_issuer_name (GcrCertificate *self)
+{
+	gchar *name;
+
+	name = gcr_certificate_get_issuer_part (self, "cn");
+	if (name == NULL)
+		name = gcr_certificate_get_issuer_part (self, "ou");
+	if (name == NULL)
+		name = gcr_certificate_get_issuer_part (self, "o");
+
+	return name;
 }
 
 /**
@@ -546,6 +571,31 @@ gchar*
 gcr_certificate_get_subject_cn (GcrCertificate *self)
 {
 	return gcr_certificate_get_subject_part (self, "cn");
+}
+
+/**
+ * gcr_certificate_get_subject_name:
+ * @self: a #GcrCertificate
+ *
+ * Get a name to represent the subject of this certificate.
+ *
+ * This will try to lookup the common name, orianizational unit,
+ * organization in that order.
+ *
+ * Returns: the allocated subject name, or NULL if no subject name
+ */
+gchar *
+gcr_certificate_get_subject_name (GcrCertificate *self)
+{
+	gchar *name;
+
+	name = gcr_certificate_get_subject_part (self, "cn");
+	if (name == NULL)
+		name = gcr_certificate_get_subject_part (self, "ou");
+	if (name == NULL)
+		name = gcr_certificate_get_subject_part (self, "o");
+
+	return name;
 }
 
 /**
@@ -1026,10 +1076,10 @@ gcr_certificate_mixin_get_property (GObject *obj, guint prop_id,
 
 	switch (prop_id) {
 	case PROP_LABEL:
-		g_value_take_string (value, gcr_certificate_get_subject_cn (cert));
+		g_value_take_string (value, gcr_certificate_get_subject_name (cert));
 		break;
 	case PROP_SUBJECT:
-		g_value_take_string (value, gcr_certificate_get_subject_cn (cert));
+		g_value_take_string (value, gcr_certificate_get_subject_name (cert));
 		break;
 	case PROP_ICON:
 		g_value_set_object (value, gcr_certificate_get_icon (cert));
@@ -1041,7 +1091,7 @@ gcr_certificate_mixin_get_property (GObject *obj, guint prop_id,
 		g_value_take_string (value, calculate_markup (cert));
 		break;
 	case PROP_ISSUER:
-		g_value_take_string (value, gcr_certificate_get_issuer_cn (cert));
+		g_value_take_string (value, gcr_certificate_get_issuer_name (cert));
 		break;
 	case PROP_EXPIRY:
 		g_value_take_boxed (value, gcr_certificate_get_expiry_date (cert));

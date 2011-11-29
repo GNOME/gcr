@@ -70,6 +70,8 @@ const GcrColumn*    gcr_certificate_get_columns            (void);
 gint                gcr_certificate_compare                (GcrComparable *first,
                                                             GcrComparable *other);
 
+gchar *             gcr_certificate_get_issuer_name        (GcrCertificate *self);
+
 gchar*              gcr_certificate_get_issuer_cn          (GcrCertificate *self);
 
 gchar*              gcr_certificate_get_issuer_dn          (GcrCertificate *self);
@@ -82,6 +84,8 @@ guchar *            gcr_certificate_get_issuer_raw         (GcrCertificate *self
 
 gboolean            gcr_certificate_is_issuer              (GcrCertificate *self,
                                                             GcrCertificate *issuer);
+
+gchar *             gcr_certificate_get_subject_name       (GcrCertificate *self);
 
 gchar*              gcr_certificate_get_subject_cn         (GcrCertificate *self);
 

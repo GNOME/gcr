@@ -34,6 +34,10 @@
 
 G_BEGIN_DECLS
 
+EggBytes * _gcr_certificate_extension_find                    (GNode *cert,
+                                                               GQuark oid,
+                                                               gboolean *critical);
+
 gboolean   _gcr_certificate_extension_basic_constraints       (EggBytes *data,
                                                                gboolean *is_ca,
                                                                gint *path_len);

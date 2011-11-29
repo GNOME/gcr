@@ -99,6 +99,7 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-callback-output-stream.c gcr-callback-output-stream.h \
 	gcr-certificate.c gcr-certificate.h \
 	gcr-certificate-chain.c gcr-certificate-chain.h \
+	gcr-certificate-extensions.c gcr-certificate-extensions.h \
 	gcr-certificate-request.c gcr-certificate-request.h \
 	gcr-collection.c gcr-collection.h \
 	gcr-comparable.c gcr-comparable.h \

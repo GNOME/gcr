@@ -31,6 +31,38 @@
 
 #include <glib/gi18n-lib.h>
 
+EggBytes *
+_gcr_certificate_extension_find (GNode *cert,
+                                 GQuark oid,
+                                 gboolean *critical)
+{
+	GNode *node;
+	gint index;
+
+	g_return_val_if_fail (cert != NULL, NULL);
+
+	/* Extensions */
+	for (index = 1; TRUE; ++index) {
+		node = egg_asn1x_node (cert, "tbsCertificate", "extensions", index, NULL);
+		if (node == NULL)
+			return NULL;
+
+		/* Dig out the OID */
+		if (egg_asn1x_get_oid_as_quark (egg_asn1x_node (node, "extnID", NULL)) == oid) {
+
+			if (critical) {
+				if (!egg_asn1x_get_boolean (egg_asn1x_node (node, "critical", NULL), critical))
+					g_return_val_if_reached (NULL);
+			}
+
+			/* Extension value */
+			return egg_asn1x_get_raw_value (egg_asn1x_node (node, "extnValue", NULL));
+		}
+	}
+
+	g_assert_not_reached ();
+}
+
 gboolean
 _gcr_certificate_extension_basic_constraints (EggBytes *data,
                                               gboolean *is_ca,

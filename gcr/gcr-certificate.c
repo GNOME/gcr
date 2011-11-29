@@ -22,6 +22,7 @@
 #include "config.h"
 
 #include "gcr-certificate.h"
+#include "gcr-certificate-extensions.h"
 #include "gcr-comparable.h"
 #include "gcr-icons.h"
 #include "gcr-internal.h"
@@ -947,6 +948,42 @@ gcr_certificate_get_icon (GcrCertificate *self)
 {
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), FALSE);
 	return g_themed_icon_new (GCR_ICON_CERTIFICATE);
+}
+
+/**
+ * gcr_certificate_get_basic_constraints:
+ * @self: the certificate
+ * @is_ca: (allow-none): location to place a %TRUE if is an authority
+ * @path_len: (allow-none): location to place the max path length
+ *
+ * Get the basic constraints for the certificate if present. If %FALSE is
+ * returned then no basic constraints are present and the @is_ca and
+ * @path_len arguments are not changed.
+ *
+ * Returns: whether basic constraints are present or not
+ */
+gboolean
+gcr_certificate_get_basic_constraints (GcrCertificate *self,
+                                       gboolean *is_ca,
+                                       gint *path_len)
+{
+	GcrCertificateInfo *info;
+	EggBytes *value;
+
+	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), FALSE);
+
+	info = certificate_info_load (self);
+	g_return_val_if_fail (info, FALSE);
+
+	value = _gcr_certificate_extension_find (info->asn1, GCR_OID_BASIC_CONSTRAINTS, NULL);
+	if (!value)
+		return FALSE;
+
+	if (!_gcr_certificate_extension_basic_constraints (value, is_ca, path_len))
+		g_return_val_if_reached (FALSE);
+
+	egg_bytes_unref (value);
+	return TRUE;
 }
 
 /* -----------------------------------------------------------------------------

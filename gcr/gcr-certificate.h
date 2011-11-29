@@ -117,6 +117,10 @@ gchar*              gcr_certificate_get_fingerprint_hex    (GcrCertificate *self
 
 GIcon*              gcr_certificate_get_icon               (GcrCertificate *self);
 
+gboolean            gcr_certificate_get_basic_constraints  (GcrCertificate *self,
+                                                            gboolean *is_ca,
+                                                            gint *path_len);
+
 #define GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE() \
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_COMPARABLE, gcr_certificate_mixin_comparable_init)
 

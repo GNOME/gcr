@@ -252,6 +252,20 @@ test_certificate_is_issuer (Test *test, gconstpointer unused)
 	g_assert (ret == FALSE);
 }
 
+static void
+test_basic_constraints (Test *test,
+                        gconstpointer unused)
+{
+	gboolean is_ca = TRUE;
+	gint path_len = 0;
+
+	if (!gcr_certificate_get_basic_constraints (test->dsa_cert, &is_ca, &path_len))
+		g_assert_not_reached ();
+
+	g_assert (is_ca == FALSE);
+	g_assert (path_len == -1);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -272,8 +286,9 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/certificate/serial_number", Test, NULL, setup, test_serial_number, teardown);
 	g_test_add ("/gcr/certificate/fingerprint", Test, NULL, setup, test_fingerprint, teardown);
 	g_test_add ("/gcr/certificate/fingerprint_hex", Test, NULL, setup, test_fingerprint_hex, teardown);
-	g_test_add ("/gcr/certificate/certificate_key_size", Test, NULL, setup, test_certificate_key_size, teardown);
-	g_test_add ("/gcr/certificate/certificate_is_issuer", Test, NULL, setup, test_certificate_is_issuer, teardown);
+	g_test_add ("/gcr/certificate/key_size", Test, NULL, setup, test_certificate_key_size, teardown);
+	g_test_add ("/gcr/certificate/is_issuer", Test, NULL, setup, test_certificate_is_issuer, teardown);
+	g_test_add ("/gcr/certificate/basic_constraints", Test, NULL, setup, test_basic_constraints, teardown);
 
 	return g_test_run ();
 }

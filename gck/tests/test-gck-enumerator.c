@@ -407,9 +407,13 @@ typedef struct {
 GType mock_object_get_type (void) G_GNUC_CONST;
 static void mock_object_attributes_init (GckObjectAttributesIface *iface);
 
+#define MOCK_TYPE_OBJECT     (mock_object_get_type())
+#define MOCK_OBJECT(obj)     (G_TYPE_CHECK_INSTANCE_CAST((obj), MOCK_TYPE_OBJECT, MockObject))
+#define MOCK_IS_OBJECT(obj)  (G_TYPE_CHECK_INSTANCE_TYPE((obj), MOCK_TYPE_OBJECT))
+
 G_DEFINE_TYPE_WITH_CODE (MockObject, mock_object, GCK_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (GCK_TYPE_OBJECT_ATTRIBUTES,
-                                                mock_object_attributes_init)
+                                                mock_object_attributes_init);
 );
 
 static void
@@ -512,6 +516,35 @@ test_attribute_get (Test *test,
 }
 
 static void
+test_attribute_get_one_at_a_time (Test *test,
+                                  gconstpointer unused)
+{
+	GckUriData *uri_data;
+	GError *error = NULL;
+	GckEnumerator *en;
+	MockObject *mock;
+	GckObject *object;
+
+	uri_data = gck_uri_data_new ();
+	en = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
+	g_object_set (en, "object-type", mock_object_get_type (), NULL);
+
+	for (;;) {
+		object = gck_enumerator_next (en, NULL, &error);
+		g_assert_no_error (error);
+		if (object == NULL)
+			break;
+
+		g_assert (G_TYPE_CHECK_INSTANCE_TYPE (object, mock_object_get_type ()));
+		mock = (MockObject *)object;
+		g_assert (mock->attrs != NULL);
+		g_object_unref (object);
+	}
+
+	g_object_unref (en);
+}
+
+static void
 test_chained (Test *test,
               gconstpointer unused)
 {
@@ -571,6 +604,7 @@ main (int argc, char **argv)
 	g_test_add ("/gck/enumerator/attribute_match", Test, NULL, setup, test_attribute_match, teardown);
 	g_test_add ("/gck/enumerator/token_match", Test, NULL, setup, test_token_match, teardown);
 	g_test_add ("/gck/enumerator/attribute_get", Test, NULL, setup, test_attribute_get, teardown);
+	g_test_add ("/gck/enumerator/attribute_get_one_at_a_time", Test, NULL, setup, test_attribute_get_one_at_a_time, teardown);
 	g_test_add ("/gck/enumerator/chained", Test, NULL, setup, test_chained, teardown);
 
 	return egg_tests_run_with_loop ();

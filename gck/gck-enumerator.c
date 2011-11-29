@@ -99,6 +99,9 @@ struct _GckEnumeratorState {
 	/* state_session */
 	GckSession *session;
 
+	/* state_find */
+	GQueue *found;
+
 	/* state_results */
 	GQueue *results;
 };
@@ -126,13 +129,10 @@ static gpointer state_slot           (GckEnumeratorState *args,
 static gpointer state_session        (GckEnumeratorState *args,
                                       gboolean forward);
 
-static gpointer state_authenticated  (GckEnumeratorState *args,
+static gpointer state_find           (GckEnumeratorState *args,
                                       gboolean forward);
 
 static gpointer state_results        (GckEnumeratorState *args,
-                                      gboolean forward);
-
-static gpointer state_attributes     (GckEnumeratorState *args,
                                       gboolean forward);
 
 
@@ -179,6 +179,13 @@ cleanup_state (GckEnumeratorState *args)
 
 	/* state_session */
 	g_assert (!args->session);
+
+	/* state_find */
+	if (args->found) {
+		g_queue_foreach (args->found, (GFunc) _gck_enumerator_result_free, NULL);
+		g_queue_free (args->found);
+		args->found = NULL;
+	}
 
 	/* state_results */
 	if (args->results) {
@@ -373,7 +380,7 @@ state_session (GckEnumeratorState *args, gboolean forward)
 		/* Don't want to authenticate? */
 		if ((args->session_options & GCK_SESSION_LOGIN_USER) == 0) {
 			_gck_debug ("no authentication necessary, skipping");
-			return state_authenticated;
+			return state_find;
 		}
 
 		/* Compatibility, hook into GckModule signals if no interaction set */
@@ -392,7 +399,7 @@ state_session (GckEnumeratorState *args, gboolean forward)
 			g_message ("couldn't authenticate when enumerating: %s", gck_message_from_rv (rv));
 
 		/* We try to proceed anyway with the enumeration */
-		return state_authenticated;
+		return state_find;
 
 	/* Session to slot state */
 	} else {
@@ -403,7 +410,8 @@ state_session (GckEnumeratorState *args, gboolean forward)
 }
 
 static gpointer
-state_authenticated (GckEnumeratorState *args, gboolean forward)
+state_find (GckEnumeratorState *args,
+            gboolean forward)
 {
 	CK_OBJECT_HANDLE objects[128];
 	CK_SESSION_HANDLE session;
@@ -422,8 +430,8 @@ state_authenticated (GckEnumeratorState *args, gboolean forward)
 	g_assert (args->want_objects > 0);
 	g_assert (args->funcs != NULL);
 
-	if (!args->results)
-		args->results = g_queue_new ();
+	if (!args->found)
+		args->found = g_queue_new ();
 
 	if (args->match->attributes) {
 		attrs = _gck_attributes_commit_out (args->match->attributes, &n_attrs);
@@ -456,7 +464,7 @@ state_authenticated (GckEnumeratorState *args, gboolean forward)
 				result = g_slice_new0 (GckEnumeratorResult);
 				result->handle = objects[i];
 				result->session = g_object_ref (args->session);
-				g_queue_push_tail (args->results, result);
+				g_queue_push_tail (args->found, result);
 			}
 		}
 
@@ -464,12 +472,12 @@ state_authenticated (GckEnumeratorState *args, gboolean forward)
 	}
 
 	_gck_debug ("finding objects completed with: %s", _gck_stringize_rv (rv));
-	return state_attributes;
+	return state_results;
 }
 
 static gpointer
-state_attributes (GckEnumeratorState *args,
-                  gboolean forward)
+state_results (GckEnumeratorState *args,
+               gboolean forward)
 {
 	GckEnumeratorResult *result;
 	GckAttributes *attrs;
@@ -477,31 +485,37 @@ state_attributes (GckEnumeratorState *args,
 	CK_ULONG n_template;
 	CK_SESSION_HANDLE session;
 	gint count;
-	GList *l;
-	gint i;
 	CK_RV rv;
+	gint i;
 
 	g_assert (args->funcs != NULL);
 	g_assert (args->object_class != NULL);
-	g_assert (args->results != NULL);
+	g_assert (args->found != NULL);
 
 	/* No cleanup, just unwind */
 	if (!forward)
-		return state_authenticated;
+		return state_find;
 
-	/* If no request for attributes, just go forward */
-	if (args->object_iface == NULL ||
-	    args->object_iface->n_attribute_types == 0)
-		return state_results;
+	if (!args->results)
+		args->results = g_queue_new ();
 
 	session = gck_session_get_handle (args->session);
 	g_return_val_if_fail (session, NULL);
 
 	/* Get the attributes for want_objects */
-	for (count = 0, l = args->results->head;
-	     l != NULL && count < args->want_objects;
-	     l = g_list_next (l), count++) {
-		result = l->data;
+	for (count = 0; count < args->want_objects; count++) {
+		result = g_queue_pop_head (args->found);
+		if (result == NULL) {
+			_gck_debug ("wanted %d objects, have %d, looking for more",
+			            args->want_objects, g_queue_get_length (args->results));
+			return rewind_state (args, state_slots);
+		}
+
+		/* If no request for attributes, just go forward */
+		if (args->object_iface == NULL || args->object_iface->n_attribute_types == 0) {
+			g_queue_push_tail (args->results, result);
+			continue;
+		}
 
 		attrs = gck_attributes_new ();
 		for (i = 0; i < args->object_iface->n_attribute_types; ++i)
@@ -531,38 +545,18 @@ state_attributes (GckEnumeratorState *args,
 				g_free (string);
 			}
 			result->attrs = attrs;
+			g_queue_push_tail (args->results, result);
 
 		} else {
 			g_message ("couldn't retrieve attributes when enumerating: %s",
 			           gck_message_from_rv (rv));
 			gck_attributes_unref (attrs);
+			_gck_enumerator_result_free (result);
 		}
 	}
 
-	return state_results;
-}
-
-static gpointer
-state_results (GckEnumeratorState *args,
-               gboolean forward)
-{
-	g_assert (args->results != NULL);
-	gint length;
-
-	/* No cleanup, just unwind */
-	if (!forward)
-		return state_authenticated;
-
-	length = g_queue_get_length (args->results);
-
-	while (args->want_objects > length) {
-		_gck_debug ("wanted %d objects, have %d, looking for more",
-		            args->want_objects, length);
-		return rewind_state (args, state_slots);
-	}
-
 	_gck_debug ("wanted %d objects, returned %d objects",
-	            args->want_objects, length);
+	            args->want_objects, g_queue_get_length (args->results));
 
 	/* We got all the results we wanted */
 	return NULL;

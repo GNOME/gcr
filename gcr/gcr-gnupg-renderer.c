@@ -375,7 +375,7 @@ append_key_record (GcrGnupgRenderer *self,
 
 	/* Capabilities */
 	value = _gcr_record_get_raw (record, GCR_RECORD_PUB_CAPS);
-	if (value != NULL) {
+	if (value != NULL && value[0] != '\0') {
 		display = capabilities_for_codes (value);
 		_gcr_display_view_append_value (view, renderer, _("Capabilities"), display, FALSE);
 		g_free (display);

@@ -607,8 +607,12 @@ _gcr_record_get_date (GcrRecord *record,
 
 	/* Try to parse as a number */
 	result = strtoul (raw, &end, 10);
-	if (end != NULL && end[0] == '\0')
-		return g_date_time_new_from_unix_utc (result);
+	if (end != NULL && end[0] == '\0') {
+		if (result == 0)
+			return NULL;
+		else
+			return g_date_time_new_from_unix_utc (result);
+	}
 
 	/* Try to parse as a date */
 	memset (&tm, 0, sizeof (tm));

@@ -42,6 +42,7 @@ struct _GcrGnupgImporterPrivate {
 	GcrGnupgProcess *process;
 	GMemoryInputStream *packets;
 	GTlsInteraction *interaction;
+	gchar *first_error;
 	GArray *imported;
 };
 
@@ -79,6 +80,7 @@ _gcr_gnupg_importer_finalize (GObject *obj)
 	GcrGnupgImporter *self = GCR_GNUPG_IMPORTER (obj);
 
 	g_array_free (self->pv->imported, TRUE);
+	g_free (self->pv->first_error);
 
 	G_OBJECT_CLASS (_gcr_gnupg_importer_parent_class)->finalize (obj);
 }
@@ -105,6 +107,30 @@ calculate_icon (GcrGnupgImporter *self)
 		return g_themed_icon_new ("user-home");
 	else
 		return g_themed_icon_new ("folder");
+}
+
+static gboolean
+on_process_error_line (GcrGnupgProcess *process,
+                       const gchar *line,
+                       gpointer user_data)
+{
+	GcrGnupgImporter *self = GCR_GNUPG_IMPORTER (user_data);
+
+	if (self->pv->first_error)
+		return TRUE;
+
+	if (g_str_has_prefix (line, "gpg: ")) {
+		line += 5;
+		if (g_pattern_match_simple ("key ????????:*", line))
+			line += 13;
+	}
+
+	while (line[0] && g_ascii_isspace (line[0]))
+		line++;
+
+	self->pv->first_error = g_strdup (line);
+	g_strstrip (self->pv->first_error);
+	return TRUE;
 }
 
 static gboolean
@@ -138,9 +164,9 @@ _gcr_gnupg_importer_set_property (GObject *obj,
 
 	switch (prop_id) {
 	case PROP_DIRECTORY:
-		self->pv->process = _gcr_gnupg_process_new (g_value_get_string (value),
-		                                            NULL);
+		self->pv->process = _gcr_gnupg_process_new (g_value_get_string (value), NULL);
 		_gcr_gnupg_process_set_input_stream (self->pv->process, G_INPUT_STREAM (self->pv->packets));
+		g_signal_connect (self->pv->process, "error-line", G_CALLBACK (on_process_error_line), self);
 		g_signal_connect (self->pv->process, "status-record", G_CALLBACK (on_process_status_record), self);
 		break;
 	case PROP_INTERACTION:
@@ -258,12 +284,21 @@ on_process_run_complete (GObject *source,
                          gpointer user_data)
 {
 	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
+	GcrGnupgImporter *self = GCR_GNUPG_IMPORTER (g_async_result_get_source_object (user_data));
 	GError *error = NULL;
 
-	if (!_gcr_gnupg_process_run_finish (GCR_GNUPG_PROCESS (source), result, &error))
-		g_simple_async_result_take_error (res, error);
+	if (!_gcr_gnupg_process_run_finish (GCR_GNUPG_PROCESS (source), result, &error)) {
+		if (g_error_matches (error, G_SPAWN_ERROR, G_SPAWN_ERROR_FAILED) && self->pv->first_error) {
+			g_simple_async_result_set_error (res, G_SPAWN_ERROR, G_SPAWN_ERROR_FAILED,
+			                                 "%s", self->pv->first_error);
+			g_error_free (error);
+		} else {
+			g_simple_async_result_take_error (res, error);
+		}
+	}
 
 	g_simple_async_result_complete (res);
+	g_object_unref (self);
 	g_object_unref (res);
 }
 
@@ -276,6 +311,9 @@ _gcr_gnupg_importer_import_async (GcrImporter *importer,
 	GcrGnupgImporter *self = GCR_GNUPG_IMPORTER (importer);
 	GSimpleAsyncResult *res;
 	const gchar *argv[] = { "--import", NULL };
+
+	g_free (self->pv->first_error);
+	self->pv->first_error = NULL;
 
 	res = g_simple_async_result_new (G_OBJECT (importer), callback, user_data,
 	                                 _gcr_gnupg_importer_import_async);

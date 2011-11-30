@@ -70,14 +70,21 @@ enum {
  * implementation, the parent class we derive from.
  */
 
+#define GCR_VIEWER_WIDGET_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_VIEWER_WIDGET, GcrViewerWidgetClass))
+#define GCR_IS_VIEWER_WIDGET_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_VIEWER_WIDGET))
+#define GCR_VIEWER_WIDGET_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_VIEWER_WIDGET, GcrViewerWidgetClass))
+
+typedef struct _GcrViewerWidgetClass GcrViewerWidgetClass;
+typedef struct _GcrViewerWidgetPrivate GcrViewerWidgetPrivate;
+
 struct _GcrViewerWidget {
 	/*< private >*/
-	GcrDisplayScrolled parent;
+	GtkBox parent;
 	GcrViewerWidgetPrivate *pv;
 };
 
 struct _GcrViewerWidgetClass {
-	GcrDisplayScrolledClass parent_class;
+	GtkBoxClass parent_class;
 
 	void       (*added)        (GcrViewerWidget *widget,
 	                            GcrRenderer *renderer,
@@ -85,6 +92,9 @@ struct _GcrViewerWidgetClass {
 };
 
 struct _GcrViewerWidgetPrivate {
+	GcrViewer *viewer;
+	GtkInfoBar *message_bar;
+	GtkLabel *message_label;
 	GQueue *files_to_load;
 	GcrParser *parser;
 	GCancellable *cancellable;
@@ -103,7 +113,7 @@ static guint signals[LAST_SIGNAL] = { 0, };
 static void viewer_load_next_file (GcrViewerWidget *self);
 static void viewer_stop_loading_files (GcrViewerWidget *self);
 
-G_DEFINE_TYPE (GcrViewerWidget, gcr_viewer_widget, GCR_TYPE_DISPLAY_SCROLLED);
+G_DEFINE_TYPE (GcrViewerWidget, gcr_viewer_widget, GTK_TYPE_BOX);
 
 static const gchar *
 get_parsed_label_or_display_name (GcrViewerWidget *self,
@@ -139,7 +149,7 @@ on_parser_parsed (GcrParser *parser,
 	}
 
 	/* And show the data */
-	gcr_viewer_add_renderer (GCR_VIEWER (self), renderer);
+	gcr_viewer_add_renderer (self->pv->viewer, renderer);
 
 	/* Let callers know we're rendering data */
 	if (actual == TRUE)
@@ -183,7 +193,7 @@ on_unlock_renderer_clicked (GcrUnlockRenderer *unlock,
 	if (gcr_parser_parse_data (self->pv->parser, data, n_data, &error)) {
 
 		/* Done with this unlock renderer */
-		gcr_viewer_remove_renderer (GCR_VIEWER (self), GCR_RENDERER (unlock));
+		gcr_viewer_remove_renderer (self->pv->viewer, GCR_RENDERER (unlock));
 		self->pv->unlocks = g_list_remove (self->pv->unlocks, unlock);
 		g_object_unref (unlock);
 
@@ -210,7 +220,7 @@ on_parser_authenticate_for_data (GcrParser *parser,
 	unlock = _gcr_unlock_renderer_new_for_parsed (parser);
 	if (unlock != NULL) {
 		g_object_set (unlock, "label", get_parsed_label_or_display_name (self, parser), NULL);
-		gcr_viewer_add_renderer (GCR_VIEWER (self), GCR_RENDERER (unlock));
+		gcr_viewer_add_renderer (self->pv->viewer, GCR_RENDERER (unlock));
 		g_signal_connect (unlock, "unlock-clicked", G_CALLBACK (on_unlock_renderer_clicked), self);
 		self->pv->unlocks = g_list_prepend (self->pv->unlocks, unlock);
 	}
@@ -221,8 +231,27 @@ on_parser_authenticate_for_data (GcrParser *parser,
 static void
 gcr_viewer_widget_init (GcrViewerWidget *self)
 {
+	GtkWidget *area;
+
 	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_VIEWER_WIDGET,
 	                                        GcrViewerWidgetPrivate);
+
+	gtk_orientable_set_orientation (GTK_ORIENTABLE (self),
+	                                GTK_ORIENTATION_VERTICAL);
+
+	self->pv->viewer = gcr_viewer_new_scrolled ();
+	gtk_box_pack_start (GTK_BOX (self), GTK_WIDGET (self->pv->viewer), TRUE, TRUE, 0);
+	gtk_widget_show (GTK_WIDGET (self->pv->viewer));
+
+	self->pv->message_label = GTK_LABEL (gtk_label_new (""));
+	gtk_label_set_use_markup (self->pv->message_label, TRUE);
+	gtk_label_set_ellipsize (self->pv->message_label, PANGO_ELLIPSIZE_END);
+	gtk_widget_show (GTK_WIDGET (self->pv->message_label));
+
+	self->pv->message_bar = GTK_INFO_BAR (gtk_info_bar_new ());
+	gtk_box_pack_start (GTK_BOX (self), GTK_WIDGET (self->pv->message_bar), FALSE, TRUE, 0);
+	area = gtk_info_bar_get_content_area (self->pv->message_bar);
+	gtk_container_add (GTK_CONTAINER (area), GTK_WIDGET (self->pv->message_label));
 
 	self->pv->files_to_load = g_queue_new ();
 	self->pv->parser = gcr_parser_new ();
@@ -298,6 +327,8 @@ gcr_viewer_widget_class_init (GcrViewerWidgetClass *klass)
 	gobject_class->finalize = gcr_viewer_widget_finalize;
 	gobject_class->get_property = gcr_viewer_widget_get_property;
 
+	g_type_class_add_private (klass, sizeof (GcrViewerWidgetPrivate));
+
 	/**
 	 * GcrViewerWidget:parser:
 	 *
@@ -306,8 +337,6 @@ gcr_viewer_widget_class_init (GcrViewerWidgetClass *klass)
 	g_object_class_install_property (gobject_class, PROP_PARSER,
 	           g_param_spec_object ("parser", "Parser", "Parser used to parse viewable items",
 	                                GCR_TYPE_PARSER, G_PARAM_READABLE));
-
-	g_type_class_add_private (klass, sizeof (GcrViewerWidget));
 
 	/**
 	 * GcrViewerWidget::added:
@@ -343,7 +372,7 @@ on_parser_parse_stream_returned (GObject *source,
 
 	} else if (error) {
 		renderer = gcr_failure_renderer_new (self->pv->display_name, error);
-		gcr_viewer_add_renderer (GCR_VIEWER (self), renderer);
+		gcr_viewer_add_renderer (self->pv->viewer, renderer);
 		g_object_unref (renderer);
 		g_error_free (error);
 	}
@@ -384,7 +413,7 @@ on_file_read_returned (GObject *source,
 
 	} else if (error) {
 		renderer = gcr_failure_renderer_new (self->pv->display_name, error);
-		gcr_viewer_add_renderer (GCR_VIEWER (self), renderer);
+		gcr_viewer_add_renderer (self->pv->viewer, renderer);
 		g_object_unref (renderer);
 		g_error_free (error);
 
@@ -482,7 +511,7 @@ gcr_viewer_widget_load_data (GcrViewerWidget *self,
 
 	if (!gcr_parser_parse_data (self->pv->parser, data, n_data, &error)) {
 		renderer = gcr_failure_renderer_new (display_name, error);
-		gcr_viewer_add_renderer (GCR_VIEWER (self), renderer);
+		gcr_viewer_add_renderer (self->pv->viewer, renderer);
 		g_object_unref (renderer);
 		g_error_free (error);
 	}
@@ -501,4 +530,32 @@ gcr_viewer_widget_get_parser (GcrViewerWidget *self)
 {
 	g_return_val_if_fail (GCR_IS_VIEWER_WIDGET (self), NULL);
 	return self->pv->parser;
+}
+
+void
+gcr_viewer_widget_show_error (GcrViewerWidget *self,
+                              const gchar *message,
+                              GError *error)
+{
+	gchar *markup;
+
+	g_return_if_fail (GCR_IS_VIEWER_WIDGET (self));
+	g_return_if_fail (message != NULL);
+
+	if (error)
+		markup = g_markup_printf_escaped ("<b>%s</b>: %s", message, error->message);
+	else
+		markup = g_markup_printf_escaped ("%s", message);
+
+	gtk_info_bar_set_message_type (self->pv->message_bar, GTK_MESSAGE_ERROR);
+	gtk_label_set_markup (self->pv->message_label, markup);
+	gtk_widget_show (GTK_WIDGET (self->pv->message_bar));
+	g_free (markup);
+}
+
+void
+gcr_viewer_widget_clear_error (GcrViewerWidget *self)
+{
+	g_return_if_fail (GCR_IS_VIEWER_WIDGET (self));
+	gtk_widget_hide (GTK_WIDGET (self->pv->message_bar));
 }

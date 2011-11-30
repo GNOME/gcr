@@ -601,21 +601,17 @@ GcrUnlockOptionsWidgetPrivate
 <SECTION>
 <FILE>gcr-viewer-widget</FILE>
 GcrViewerWidget
-GcrViewerWidgetClass
 gcr_viewer_widget_new
 gcr_viewer_widget_load_data
 gcr_viewer_widget_load_file
 gcr_viewer_widget_get_parser
+gcr_viewer_widget_show_error
+gcr_viewer_widget_clear_error
 <SUBSECTION Standard>
 gcr_viewer_widget_get_type
 GCR_TYPE_VIEWER_WIDGET
 GCR_IS_VIEWER_WIDGET
-GCR_IS_VIEWER_WIDGET_CLASS
 GCR_VIEWER_WIDGET
-GCR_VIEWER_WIDGET_CLASS
-GCR_VIEWER_WIDGET_GET_CLASS
-<SUBSECTION Private>
-GcrViewerWidgetPrivate
 </SECTION>
 
 <SECTION>

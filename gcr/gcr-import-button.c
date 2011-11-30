@@ -56,6 +56,7 @@ enum {
 /**
  * GcrImportButtonClass:
  * @parent_class: The parent class
+ * @importing: Emitted when the import begins.
  * @imported: Emitted when the import completes, or fails.
  *
  * Class for #GcrImportButton.
@@ -76,6 +77,7 @@ struct _GcrImportButtonPrivate {
 };
 
 enum {
+	IMPORTING,
 	IMPORTED,
 	LAST_SIGNAL
 };
@@ -313,6 +315,8 @@ begin_import (GcrImportButton *self,
 
 	g_return_if_fail (self->pv->importing == FALSE);
 
+	g_signal_emit (self, signals[IMPORTING], 0, importer);
+
 	self->pv->importing = TRUE;
 	g_free (self->pv->imported);
 	self->pv->imported = NULL;
@@ -487,6 +491,18 @@ gcr_import_button_class_init (GcrImportButtonClass *klass)
 	button_class->clicked = gcr_import_button_clicked;
 
 	g_object_class_override_property (gobject_class, PROP_LABEL, "label");
+
+	/**
+	 * GcrImportButton::importing:
+	 * @self: the import button
+	 * @importer: the importer that will be imported to
+	 *
+	 * Signal emitted when an import begins.
+	 */
+	signals[IMPORTING] = g_signal_new ("importing", GCR_TYPE_IMPORT_BUTTON, G_SIGNAL_RUN_LAST,
+	                                  G_STRUCT_OFFSET (GcrImportButtonClass, importing),
+	                                  NULL, NULL, g_cclosure_marshal_VOID__OBJECT,
+	                                  G_TYPE_NONE, 1, G_TYPE_OBJECT);
 
 	/**
 	 * GcrImportButton::imported:

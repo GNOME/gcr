@@ -56,23 +56,28 @@ gcr_viewer_window_init (GcrViewerWindow *self)
 }
 
 static void
+on_import_button_importing (GcrImportButton *button,
+                            GcrImporter *importer,
+                            gpointer user_data)
+{
+	GcrViewerWindow *self = GCR_VIEWER_WINDOW (user_data);
+	gcr_viewer_widget_clear_error (self->pv->viewer);
+}
+
+static void
 on_import_button_imported (GcrImportButton *button,
                            GcrImporter *importer,
                            GError *error,
                            gpointer user_data)
 {
 	GcrViewerWindow *self = GCR_VIEWER_WINDOW (user_data);
-	GcrRenderer *renderer;
 
 	if (error == NULL) {
 		g_object_set (button, "label", _("Imported"), NULL);
 
 	} else {
-		if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
-			renderer = gcr_failure_renderer_new (_("Import failed"), error);
-			gcr_viewer_add_renderer (GCR_VIEWER (self->pv->viewer), renderer);
-			g_object_unref (renderer);
-		}
+		if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+			gcr_viewer_widget_show_error (self->pv->viewer, _("Import failed"), error);
 	}
 }
 
@@ -101,6 +106,9 @@ gcr_viewer_window_constructed (GObject *obj)
 	gtk_widget_show (bbox);
 
 	self->pv->import = gcr_import_button_new (_("Import"));
+	g_signal_connect_object (self->pv->import, "importing",
+	                         G_CALLBACK (on_import_button_importing),
+	                         self, 0);
 	g_signal_connect_object (self->pv->import, "imported",
 	                         G_CALLBACK (on_import_button_imported),
 	                         self, 0);

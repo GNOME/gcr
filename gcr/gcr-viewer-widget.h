@@ -28,14 +28,9 @@
 
 #define GCR_TYPE_VIEWER_WIDGET               (gcr_viewer_widget_get_type ())
 #define GCR_VIEWER_WIDGET(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_VIEWER_WIDGET, GcrViewerWidget))
-#define GCR_VIEWER_WIDGET_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_VIEWER_WIDGET, GcrViewerWidgetClass))
 #define GCR_IS_VIEWER_WIDGET(obj)            (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_VIEWER_WIDGET))
-#define GCR_IS_VIEWER_WIDGET_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_VIEWER_WIDGET))
-#define GCR_VIEWER_WIDGET_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_VIEWER_WIDGET, GcrViewerWidgetClass))
 
 typedef struct _GcrViewerWidget GcrViewerWidget;
-typedef struct _GcrViewerWidgetClass GcrViewerWidgetClass;
-typedef struct _GcrViewerWidgetPrivate GcrViewerWidgetPrivate;
 
 
 GType              gcr_viewer_widget_get_type         (void);
@@ -51,5 +46,11 @@ void               gcr_viewer_widget_load_data        (GcrViewerWidget *self,
                                                        gsize n_data);
 
 GcrParser *        gcr_viewer_widget_get_parser       (GcrViewerWidget *self);
+
+void               gcr_viewer_widget_show_error       (GcrViewerWidget *self,
+                                                       const gchar *message,
+                                                       GError *error);
+
+void               gcr_viewer_widget_clear_error      (GcrViewerWidget *self);
 
 #endif /* GCR_VIEWER_WIDGET_H */

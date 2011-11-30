@@ -51,9 +51,15 @@ struct _GcrImportButton {
 struct _GcrImportButtonClass {
 	GtkButtonClass parent_class;
 
+	void    (*importing)   (GcrImportButton *self,
+	                        GcrImporter *importer);
+
 	void    (*imported)    (GcrImportButton *self,
 	                        GcrImporter *importer,
 	                        GError *error);
+
+	/*< private >*/
+	gpointer padding[10];
 };
 
 GType               gcr_import_button_get_type               (void) G_GNUC_CONST;

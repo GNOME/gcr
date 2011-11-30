@@ -290,6 +290,8 @@ GckAttributes *     gck_attributes_dup                      (GckAttributes *attr
 
 void                gck_attributes_dump                     (GckAttributes *attrs);
 
+gchar *             gck_attributes_to_string                (GckAttributes *attrs);
+
 /* -------------------------------------------------------------------------
  * FORWARDS
  */

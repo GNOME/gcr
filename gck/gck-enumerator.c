@@ -436,7 +436,7 @@ state_find (GckEnumeratorState *args,
 	if (args->match->attributes) {
 		attrs = _gck_attributes_commit_out (args->match->attributes, &n_attrs);
 		if (_gck_debugging) {
-			gchar *string = _gck_attributes_format (args->match->attributes);
+			gchar *string = gck_attributes_to_string (args->match->attributes);
 			_gck_debug ("finding objects matching: %s", string);
 			g_free (string);
 		}
@@ -539,7 +539,7 @@ state_results (GckEnumeratorState *args,
 
 		if (GCK_IS_GET_ATTRIBUTE_RV_OK (rv)) {
 			if (_gck_debugging) {
-				gchar *string = _gck_attributes_format (attrs);
+				gchar *string = gck_attributes_to_string (attrs);
 				_gck_debug ("retrieved attributes for object %lu: %s",
 				            result->handle, string);
 				g_free (string);
@@ -699,7 +699,7 @@ created_enumerator (GckUriData *uri_data,
 {
 	if (_gck_debugging) {
 		gchar *attrs, *uri;
-		attrs = uri_data->attributes ? _gck_attributes_format (uri_data->attributes) : NULL;
+		attrs = uri_data->attributes ? gck_attributes_to_string (uri_data->attributes) : NULL;
 		uri = uri_data ? gck_uri_build (uri_data, GCK_URI_FOR_TOKEN | GCK_URI_FOR_MODULE) : NULL;
 		_gck_debug ("for = %s, tokens = %s, objects = %s", type, uri, attrs);
 		g_free (attrs);

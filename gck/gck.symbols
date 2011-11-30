@@ -60,6 +60,7 @@ gck_attributes_set_boolean
 gck_attributes_set_date
 gck_attributes_set_string
 gck_attributes_set_ulong
+gck_attributes_to_string
 gck_attributes_unref
 gck_enumerator_get_chained
 gck_enumerator_get_interaction

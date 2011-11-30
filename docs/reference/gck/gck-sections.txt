@@ -63,6 +63,7 @@ gck_attributes_count
 gck_attributes_ref
 gck_attributes_unref
 gck_attributes_contains
+gck_attributes_to_string
 gck_attributes_dump
 gck_attributes_new_full
 GCK_TYPE_ATTRIBUTES

@@ -1975,8 +1975,19 @@ _gck_format_attributes (GString *output,
 	g_string_append (output, " ]");
 }
 
+/**
+ * gck_attributes_to_string:
+ * attrs: the attributes
+ *
+ * Print out attributes to a string in aform that's useful for debugging
+ * or logging.
+ *
+ * The format of the string returned may change in the future.
+ *
+ * Returns: a newly allocated string
+ */
 gchar *
-_gck_attributes_format (GckAttributes *attrs)
+gck_attributes_to_string (GckAttributes *attrs)
 {
 	GString *output = g_string_sized_new (128);
 	_gck_format_attributes (output, attrs);

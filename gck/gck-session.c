@@ -1387,7 +1387,7 @@ perform_create_object (CreateObject *args)
 	                                          &args->object);
 
 	if (_gck_debugging) {
-		gchar *string = _gck_attributes_format (args->attrs);
+		gchar *string = gck_attributes_to_string (args->attrs);
 		if (rv == CKR_OK)
 			_gck_debug ("created object: %s", string);
 		else
@@ -1511,7 +1511,7 @@ perform_find_objects (FindObjects *args)
 	CK_RV rv;
 
 	if (_gck_debugging) {
-		gchar *string = _gck_attributes_format (args->attrs);
+		gchar *string = gck_attributes_to_string (args->attrs);
 		_gck_debug ("matching: %s", string);
 		g_free (string);
 	}

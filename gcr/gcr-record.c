@@ -776,6 +776,54 @@ _gcr_records_format (GPtrArray *records)
 	return g_string_free (string, FALSE);
 }
 
+static gchar **
+strnsplit (const gchar *string,
+           gsize length,
+           gchar delimiter)
+{
+  GSList *string_list = NULL, *slist;
+  gchar **str_array, *s;
+  guint n = 0;
+  const gchar *remainder;
+  const gchar *end;
+
+  g_return_val_if_fail (string != NULL, NULL);
+  g_return_val_if_fail (delimiter != '\0', NULL);
+
+  end = string + length;
+  remainder = string;
+  s = memchr (remainder, delimiter, end - remainder);
+  if (s)
+    {
+      while (s)
+        {
+          gsize len;
+
+          len = s - remainder;
+          string_list = g_slist_prepend (string_list,
+                                         g_strndup (remainder, len));
+          n++;
+          remainder = s + 1;
+          s = memchr (remainder, delimiter, end - remainder);
+        }
+    }
+  if (*string)
+    {
+      n++;
+      string_list = g_slist_prepend (string_list, g_strndup (remainder, end - remainder));
+    }
+
+  str_array = g_new (gchar*, n + 1);
+
+  str_array[n--] = NULL;
+  for (slist = string_list; slist; slist = slist->next)
+    str_array[n--] = slist->data;
+
+  g_slist_free (string_list);
+
+  return str_array;
+}
+
 GPtrArray *
 _gcr_records_parse_colons (gconstpointer data,
                            gssize n_data)
@@ -786,7 +834,7 @@ _gcr_records_parse_colons (gconstpointer data,
 	gchar **lines;
 	guint i;
 
-	lines = g_strsplit (data, "\n", n_data);
+	lines = strnsplit (data, n_data, '\n');
 	result = g_ptr_array_new_with_free_func (_gcr_record_free);
 
 	for (i = 0; lines[i] != NULL; i++) {

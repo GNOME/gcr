@@ -23,6 +23,8 @@
 
 #include "config.h"
 
+#define DEBUG_FLAG GCR_DEBUG_IMPORT
+#include "gcr-debug.h"
 #include "gcr-deprecated-base.h"
 #include "gcr-importer.h"
 #include "gcr-internal.h"
@@ -220,6 +222,12 @@ gcr_importer_create_for_parsed (GcrParsed *parsed)
 
 	seen = g_hash_table_new (g_direct_hash, g_direct_equal);
 
+	if (_gcr_debugging) {
+		gchar *a = gck_attributes_to_string (attrs);
+		_gcr_debug ("looking for importer for: %s", a);
+		g_free (a);
+	}
+
 	for (i = 0; i < registered_importers->len; ++i) {
 		registered = &(g_array_index (registered_importers, GcrRegistered, i));
 		n_attrs = gck_attributes_count (registered->attrs);
@@ -231,6 +239,12 @@ gcr_importer_create_for_parsed (GcrParsed *parsed)
 				matched = FALSE;
 				break;
 			}
+		}
+
+		if (_gcr_debugging) {
+			gchar *a = gck_attributes_to_string (registered->attrs);
+			_gcr_debug ("importer %s: %s", matched ? "matched" : "didn't match", a);
+			g_free (a);
 		}
 
 		if (matched) {

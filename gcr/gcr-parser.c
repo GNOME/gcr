@@ -2639,6 +2639,7 @@ gcr_parsed_ref (GcrParsed *parsed)
 	copy->refs = 1;
 	copy->label = g_strdup (gcr_parsed_get_label (parsed));
 	copy->attrs = gcr_parsed_get_attributes (parsed);
+	copy->format = gcr_parsed_get_format (parsed);
 	if (copy->attrs)
 		gck_attributes_ref (copy->attrs);
 	copy->description = gcr_parsed_get_description (parsed);
@@ -2648,6 +2649,7 @@ gcr_parsed_ref (GcrParsed *parsed)
 	while (parsed != NULL) {
 		if (parsed->data != NULL) {
 			copy->data = egg_bytes_ref (parsed->data);
+			copy->sensitive = parsed->sensitive;
 			break;
 		}
 		parsed = parsed->next;

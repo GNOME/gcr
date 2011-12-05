@@ -26,9 +26,13 @@
 #include "gck.h"
 #include "gck-private.h"
 
+#include "egg/egg-secure-memory.h"
+
 #include <p11-kit/p11-kit.h>
 
 #include <glib/gi18n-lib.h>
+
+EGG_SECURE_DEFINE_GLIB_GLOBALS ();
 
 /**
  * SECTION:gck-error

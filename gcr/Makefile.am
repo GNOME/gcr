@@ -190,7 +190,7 @@ libgcr_@GCR_MAJOR@_la_CFLAGS = \
 libgcr_base_@GCR_MAJOR@_la_LDFLAGS = \
 	-version-info $(GCR_LT_RELEASE) \
 	-no-undefined \
-	-export-symbols-regex '^gcr_*'
+	-export-symbols-regex '^gcr_.*|^SECMEM_.*'
 
 libgcr_@GCR_MAJOR@_la_LDFLAGS = \
 	$(libgcr_base_@GCR_MAJOR@_la_LDFLAGS)

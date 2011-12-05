@@ -5,6 +5,7 @@ noinst_LTLIBRARIES = \
 	libegg-asn1x.la \
 	libegg-entry-buffer.la \
 	libegg-hex.la \
+	libegg-secmem.la \
 	libegg-test.la
 
 ASN_FILES = \
@@ -78,6 +79,9 @@ libegg_hex_la_CFLAGS = \
 
 libegg_hex_la_LIBS = \
 	$(GLIB_LIBS)
+
+libegg_secmem_la_SOURCES = \
+	egg-secure-memory.c egg-secure-memory.h
 
 libegg_test_la_SOURCES = \
 	egg-testing.c egg-testing.h

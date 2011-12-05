@@ -63,10 +63,11 @@ libgck_@GCK_MAJOR@_la_SOURCES = \
 libgck_@GCK_MAJOR@_la_LDFLAGS = \
 	-version-info $(GCK_LT_RELEASE) \
 	-no-undefined \
-	-export-symbols-regex '^gck_*'
+	-export-symbols-regex '^gck_.*|^SECMEM_.*'
 
 libgck_@GCK_MAJOR@_la_LIBADD = \
 	$(top_builddir)/egg/libegg-hex.la \
+	$(top_builddir)/egg/libegg-secmem.la \
 	$(P11_KIT_LIBS) \
 	$(GTHREAD_LIBS) \
 	$(GIO_LIBS) \

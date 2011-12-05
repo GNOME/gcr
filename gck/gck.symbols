@@ -257,3 +257,4 @@ gck_uri_get_error_quark
 gck_uri_parse
 gck_value_to_boolean
 gck_value_to_ulong
+SECMEM_pool_data_v1_0

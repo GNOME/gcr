@@ -66,12 +66,12 @@
 #endif
 
 #define DO_LOCK() \
-	egg_memory_lock (); 
-	
-#define DO_UNLOCK() \
-	egg_memory_unlock ();
+	EGG_SECURE_GLOBALS.lock ();
 
-static int lock_warning = 1;
+#define DO_UNLOCK() \
+	EGG_SECURE_GLOBALS.unlock ();
+
+static int show_warning = 1;
 int egg_secure_warnings = 1;
 
 /* 
@@ -163,17 +163,25 @@ typedef struct _Pool {
 	Item items[1];         /* Actual items hang off here */
 } Pool;
 
-static Pool *all_pools = NULL;
-
-static void*
+static void *
 pool_alloc (void)
 {
 	Pool *pool;
 	void *pages, *item;
 	size_t len, i;
-	
+
+	if (!EGG_SECURE_GLOBALS.pool_version ||
+	    strcmp (EGG_SECURE_GLOBALS.pool_version, EGG_SECURE_POOL_VER_STR) != 0) {
+		if (show_warning && egg_secure_warnings)
+			fprintf (stderr, "the secure memory pool version does not match the code '%s' != '%s'\n",
+			         EGG_SECURE_GLOBALS.pool_version ? EGG_SECURE_GLOBALS.pool_version : "(null)",
+			         EGG_SECURE_POOL_VER_STR);
+		show_warning = 0;
+		return NULL;
+	}
+
 	/* A pool with an available item */
-	for (pool = all_pools; pool; pool = pool->next) {
+	for (pool = EGG_SECURE_GLOBALS.pool_data; pool; pool = pool->next) {
 		if (unused_peek (&pool->unused))
 			break;
 	}
@@ -187,8 +195,8 @@ pool_alloc (void)
 
 		/* Fill in the block header, and inlude in block list */
 		pool = pages;
-		pool->next = all_pools;
-		all_pools = pool;
+		pool->next = EGG_SECURE_GLOBALS.pool_data;
+		EGG_SECURE_GLOBALS.pool_data = pool;
 		pool->length = len;
 		pool->used = 0;
 		pool->unused = NULL;
@@ -223,7 +231,8 @@ pool_free (void* item)
 	ptr = item;
 	
 	/* Find which block this one belongs to */
-	for (at = &all_pools, pool = *at; pool; at = &pool->next, pool = *at) {
+	for (at = (Pool **)&EGG_SECURE_GLOBALS.pool_data, pool = *at;
+	     pool != NULL; at = &pool->next, pool = *at) {
 		beg = (char*)pool->items;
 		end = (char*)pool + pool->length - sizeof (Item);
 		if (ptr >= beg && ptr <= end) {
@@ -270,7 +279,7 @@ pool_valid (void* item)
 	ptr = item;
 	
 	/* Find which block this one belongs to */
-	for (pool = all_pools; pool; pool = pool->next) {
+	for (pool = EGG_SECURE_GLOBALS.pool_data; pool; pool = pool->next) {
 		beg = (char*)pool->items;
 		end = (char*)pool + pool->length - sizeof (Item);
 		if (ptr >= beg && ptr <= end) 
@@ -858,18 +867,18 @@ sec_acquire_pages (size_t *sz,
 #if defined(HAVE_MLOCK)
 	pages = mmap (0, *sz, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
 	if (pages == MAP_FAILED) {
-		if (lock_warning && egg_secure_warnings)
+		if (show_warning && egg_secure_warnings)
 			fprintf (stderr, "couldn't map %lu bytes of memory (%s): %s\n",
 			         (unsigned long)*sz, during_tag, strerror (errno));
-		lock_warning = 0;
+		show_warning = 0;
 		return NULL;
 	}
 	
 	if (mlock (pages, *sz) < 0) {
-		if (lock_warning && egg_secure_warnings && errno != EPERM) {
+		if (show_warning && egg_secure_warnings && errno != EPERM) {
 			fprintf (stderr, "couldn't lock %lu bytes of memory (%s): %s\n",
 			         (unsigned long)*sz, during_tag, strerror (errno));
-			lock_warning = 0;
+			show_warning = 0;
 		}
 		munmap (pages, *sz);
 		return NULL;
@@ -877,13 +886,13 @@ sec_acquire_pages (size_t *sz,
 	
 	DEBUG_ALLOC ("gkr-secure-memory: new block ", *sz);
 	
-	lock_warning = 1;
+	show_warning = 1;
 	return pages;
 	
 #else
-	if (lock_warning && egg_secure_warnings)
+	if (show_warning && egg_secure_warnings)
 		fprintf (stderr, "your system does not support private memory");
-	lock_warning = 0;
+	show_warning = 0;
 	return NULL;
 #endif
 
@@ -1050,8 +1059,8 @@ egg_secure_alloc_full (const char *tag,
 	
 	DO_UNLOCK ();
 
-	if (!memory && (flags & EGG_SECURE_USE_FALLBACK)) {
-		memory = egg_memory_fallback (NULL, length);
+	if (!memory && (flags & EGG_SECURE_USE_FALLBACK) && EGG_SECURE_GLOBALS.fallback != NULL) {
+		memory = EGG_SECURE_GLOBALS.fallback (NULL, length);
 		if (memory) /* Our returned memory is always zeroed */
 			memset (memory, 0, length);
 	}
@@ -1124,17 +1133,17 @@ egg_secure_realloc_full (const char *tag,
 	DO_UNLOCK ();		
 	
 	if (!block) {
-		if ((flags & EGG_SECURE_USE_FALLBACK)) {
+		if ((flags & EGG_SECURE_USE_FALLBACK) && EGG_SECURE_GLOBALS.fallback) {
 			/* 
 			 * In this case we can't zero the returned memory, 
 			 * because we don't know what the block size was.
 			 */
-			return egg_memory_fallback (memory, length);
+			return EGG_SECURE_GLOBALS.fallback (memory, length);
 		} else {
 			if (egg_secure_warnings)
-				fprintf (stderr, "memory does not belong to gnome-keyring: 0x%08lx\n", 
+				fprintf (stderr, "memory does not belong to secure memory pool: 0x%08lx\n",
 				         (unsigned long)memory);
-			ASSERT (0 && "memory does does not belong to gnome-keyring");
+			ASSERT (0 && "memory does does not belong to secure memory pool");
 			return NULL;
 		}
 	}
@@ -1190,13 +1199,13 @@ egg_secure_free_full (void *memory, int flags)
 	DO_UNLOCK ();
 	
 	if (!block) {
-		if ((flags & EGG_SECURE_USE_FALLBACK)) {
-			egg_memory_fallback (memory, 0);
+		if ((flags & EGG_SECURE_USE_FALLBACK) && EGG_SECURE_GLOBALS.fallback) {
+			EGG_SECURE_GLOBALS.fallback (memory, 0);
 		} else {
 			if (egg_secure_warnings)
-				fprintf (stderr, "memory does not belong to gnome-keyring: 0x%08lx\n", 
+				fprintf (stderr, "memory does not belong to secure memory pool: 0x%08lx\n",
 				         (unsigned long)memory);
-			ASSERT (0 && "memory does does not belong to gnome-keyring");
+			ASSERT (0 && "memory does does not belong to secure memory pool");
 		}
 	}
 } 

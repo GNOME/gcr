@@ -33,7 +33,17 @@
 
 #include <gcrypt.h>
 
-EGG_SECURE_GLIB_DEFINITIONS ();
+/*
+	static GStaticMutex memory_mutex = G_STATIC_MUTEX_INIT;
+	static void egg_memory_lock (void)
+		{ g_static_mutex_lock (&memory_mutex); }
+	static void egg_memory_unlock (void)
+		{ g_static_mutex_unlock (&memory_mutex); }
+	EGG_SECURE_DEFINE_GLOBALS (egg_memory_lock, egg_memory_unlock, g_realloc);
+*/
+
+EGG_SECURE_DEFINE_GLIB_GLOBALS ();
+
 
 static void
 test_hkdf_test_case_1 (void)

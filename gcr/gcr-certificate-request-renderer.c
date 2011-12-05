@@ -168,6 +168,7 @@ static void
 _gcr_certificate_request_renderer_class_init (GcrCertificateRequestRendererClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *registered;
 
 	_gcr_oids_init ();
@@ -193,20 +194,21 @@ _gcr_certificate_request_renderer_class_init (GcrCertificateRequestRendererClass
 	 *
 	 * The label to display.
 	 */
+
 	g_object_class_install_property (gobject_class, PROP_LABEL,
 	           g_param_spec_string ("label", "Label", "Certificate Label",
 	                                "", G_PARAM_READWRITE));
 
 	/* Register this as a renderer which can be loaded */
-	registered = gck_attributes_new ();
-	gck_attributes_add_ulong (registered, CKA_CLASS, CKO_GCR_CERTIFICATE_REQUEST);
-	gck_attributes_add_ulong (registered, CKA_GCR_CERTIFICATE_REQUEST_TYPE, CKQ_GCR_PKCS10);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_GCR_CERTIFICATE_REQUEST);
+	gck_builder_add_ulong (&builder, CKA_GCR_CERTIFICATE_REQUEST_TYPE, CKQ_GCR_PKCS10);
+	registered = gck_builder_end (&builder);
 	gcr_renderer_register (GCR_TYPE_CERTIFICATE_REQUEST_RENDERER, registered);
 	gck_attributes_unref (registered);
 
-	registered = gck_attributes_new ();
-	gck_attributes_add_ulong (registered, CKA_CLASS, CKO_GCR_CERTIFICATE_REQUEST);
-	gck_attributes_add_ulong (registered, CKA_GCR_CERTIFICATE_REQUEST_TYPE, CKQ_GCR_SPKAC);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_GCR_CERTIFICATE_REQUEST);
+	gck_builder_add_ulong (&builder, CKA_GCR_CERTIFICATE_REQUEST_TYPE, CKQ_GCR_SPKAC);
+	registered = gck_builder_end (&builder);
 	gcr_renderer_register (GCR_TYPE_CERTIFICATE_REQUEST_RENDERER, registered);
 	gck_attributes_unref (registered);
 }
@@ -486,7 +488,7 @@ void
 _gcr_certificate_request_renderer_set_attributes (GcrCertificateRequestRenderer *self,
                                               GckAttributes *attrs)
 {
-	GckAttribute *value;
+	const GckAttribute *value;
 	GNode *asn = NULL;
 	gulong type = 0;
 	EggBytes *bytes;

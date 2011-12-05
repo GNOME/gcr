@@ -520,15 +520,12 @@ gck_object_set (GckObject *self, GckAttributes *attrs,
 	g_return_val_if_fail (attrs != NULL, FALSE);
 	g_return_val_if_fail (!error || !*error, FALSE);
 
-	_gck_attributes_lock (attrs);
-
 	memset (&args, 0, sizeof (args));
 	args.attrs = attrs;
 	args.object = self->pv->handle;
 
 	ret = _gck_call_sync (self->pv->session, perform_set_attributes, NULL, &args, cancellable, error);
 
-	_gck_attributes_unlock (attrs);
 	return ret;
 }
 
@@ -555,7 +552,6 @@ gck_object_set_async (GckObject *self, GckAttributes *attrs, GCancellable *cance
 	args = _gck_call_async_prep (self->pv->session, self, perform_set_attributes,
 	                             NULL, sizeof (*args), free_set_attributes);
 
-	_gck_attributes_lock (attrs);
 	args->attrs = gck_attributes_ref (attrs);
 	args->object = self->pv->handle;
 
@@ -585,7 +581,6 @@ gck_object_set_finish (GckObject *self, GAsyncResult *result, GError **error)
 	/* Unlock the attributes we were using */
 	args = _gck_call_arguments (result, SetAttributes);
 	g_assert (args->attrs);
-	_gck_attributes_unlock (args->attrs);
 
 	return _gck_call_basic_finish (result, error);
 }
@@ -597,7 +592,7 @@ gck_object_set_finish (GckObject *self, GAsyncResult *result, GError **error)
 typedef struct _GetAttributes {
 	GckArguments base;
 	CK_OBJECT_HANDLE object;
-	GckAttributes *attrs;
+	GckBuilder builder;
 } GetAttributes;
 
 static CK_RV
@@ -607,11 +602,10 @@ perform_get_attributes (GetAttributes *args)
 	CK_ULONG n_attrs;
 	CK_RV rv;
 
-	g_assert (args);
-	g_assert (args->attrs);
+	g_assert (args != NULL);
 
 	/* Prepare all the attributes */
-	attrs = _gck_attributes_prepare_in (args->attrs, &n_attrs);
+	attrs = _gck_builder_prepare_in (&args->builder, &n_attrs);
 
 	/* Get the size of each value */
 	rv = (args->base.pkcs11->C_GetAttributeValue) (args->base.handle, args->object,
@@ -620,7 +614,7 @@ perform_get_attributes (GetAttributes *args)
 		return rv;
 
 	/* Allocate memory for each value */
-	attrs = _gck_attributes_commit_in (args->attrs, &n_attrs);
+	attrs = _gck_builder_commit_in (&args->builder, &n_attrs);
 
 	/* Now get the actual values */
 	rv = (args->base.pkcs11->C_GetAttributeValue) (args->base.handle, args->object,
@@ -635,9 +629,8 @@ perform_get_attributes (GetAttributes *args)
 static void
 free_get_attributes (GetAttributes *args)
 {
-	g_assert (args);
-	g_assert (args->attrs);
-	gck_attributes_unref (args->attrs);
+	g_assert (args != NULL);
+	gck_builder_clear (&args->builder);
 	g_free (args);
 }
 
@@ -708,32 +701,28 @@ gck_object_get_full (GckObject *self,
                      GError **error)
 {
 	GetAttributes args;
-	GckAttributes *attrs;
 	gboolean ret;
 	guint i;
 
 	g_return_val_if_fail (GCK_IS_OBJECT (self), NULL);
 	g_return_val_if_fail (!error || !*error, NULL);
 
-	attrs = gck_attributes_new ();
-	for (i = 0; i < n_attr_types; ++i)
-		gck_attributes_add_empty (attrs, attr_types[i]);
-
-	_gck_attributes_lock (attrs);
-
 	memset (&args, 0, sizeof (args));
-	args.attrs = attrs;
+
+	gck_builder_init (&args.builder);
+	for (i = 0; i < n_attr_types; ++i)
+		gck_builder_add_empty (&args.builder, attr_types[i]);
+
 	args.object = self->pv->handle;
 
 	ret = _gck_call_sync (self->pv->session, perform_get_attributes, NULL, &args, cancellable, error);
-	_gck_attributes_unlock (attrs);
 
-	if (!ret) {
-		gck_attributes_unref (attrs);
-		attrs = NULL;
+	if (ret) {
+		return gck_builder_end (&args.builder);
+	} else {
+		gck_builder_clear (&args.builder);
+		return NULL;
 	}
-
-	return attrs;
 }
 
 /**
@@ -760,21 +749,18 @@ gck_object_get_async (GckObject *self,
                       GAsyncReadyCallback callback,
                       gpointer user_data)
 {
-	GckAttributes *attrs;
 	GetAttributes *args;
 	guint i;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
 
-	attrs = gck_attributes_new ();
-	for (i = 0; i < n_attr_types; ++i)
-		gck_attributes_add_empty (attrs, attr_types[i]);
-
 	args = _gck_call_async_prep (self->pv->session, self, perform_get_attributes,
 	                             NULL, sizeof (*args), free_get_attributes);
 
-	_gck_attributes_lock (attrs);
-	args->attrs = attrs;
+	gck_builder_init (&args->builder);
+	for (i = 0; i < n_attr_types; ++i)
+		gck_builder_add_empty (&args->builder, attr_types[i]);
+
 	args->object = self->pv->handle;
 
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
@@ -798,22 +784,17 @@ GckAttributes*
 gck_object_get_finish (GckObject *self, GAsyncResult *result, GError **error)
 {
 	GetAttributes *args;
-	GckAttributes *attrs;
 
 	g_return_val_if_fail (GCK_IS_OBJECT (self), NULL);
 	g_return_val_if_fail (GCK_IS_CALL (result), NULL);
 	g_return_val_if_fail (!error || !*error, NULL);
 
 	args = _gck_call_arguments (result, GetAttributes);
-	_gck_attributes_unlock (args->attrs);
-	attrs = gck_attributes_ref (args->attrs);
 
-	if (!_gck_call_basic_finish (result, error)) {
-		gck_attributes_unref (attrs);
-		attrs = NULL;
-	}
+	if (!_gck_call_basic_finish (result, error))
+		return NULL;
 
-	return attrs;
+	return gck_builder_end (&args->builder);
 }
 
 /* ---------------------------------------------------------------------------------
@@ -1087,8 +1068,6 @@ gck_object_set_template (GckObject *self, gulong attr_type, GckAttributes *attrs
 	g_return_val_if_fail (attrs, FALSE);
 	g_return_val_if_fail (!error || !*error, FALSE);
 
-	_gck_attributes_lock (attrs);
-
 	memset (&args, 0, sizeof (args));
 	args.attrs = attrs;
 	args.type = attr_type;
@@ -1096,7 +1075,6 @@ gck_object_set_template (GckObject *self, gulong attr_type, GckAttributes *attrs
 
 	ret = _gck_call_sync (self->pv->session, perform_set_template, NULL, &args, cancellable, error);
 
-	_gck_attributes_unlock (attrs);
 	return ret;
 }
 
@@ -1127,7 +1105,6 @@ gck_object_set_template_async (GckObject *self, gulong attr_type, GckAttributes 
 	args = _gck_call_async_prep (self->pv->session, self, perform_set_template,
 	                             NULL, sizeof (*args), free_set_template);
 
-	_gck_attributes_lock (attrs);
 	args->attrs = gck_attributes_ref (attrs);
 	args->type = attr_type;
 	args->object = self->pv->handle;
@@ -1158,7 +1135,6 @@ gck_object_set_template_finish (GckObject *self, GAsyncResult *result, GError **
 	/* Unlock the attributes we were using */
 	args = _gck_call_arguments (result, set_template_args);
 	g_assert (args->attrs);
-	_gck_attributes_unlock (args->attrs);
 
 	return _gck_call_basic_finish (result, error);
 }
@@ -1171,7 +1147,7 @@ typedef struct _get_template_args {
 	GckArguments base;
 	CK_OBJECT_HANDLE object;
 	CK_ATTRIBUTE_TYPE type;
-	GckAttributes *attrs;
+	GckBuilder builder;
 } get_template_args;
 
 static CK_RV
@@ -1182,9 +1158,8 @@ perform_get_template (get_template_args *args)
 	CK_RV rv;
 
 	g_assert (args);
-	g_assert (!args->attrs);
 
-	args->attrs = gck_attributes_new ();
+	gck_builder_init (&args->builder);
 	attr.type = args->type;
 	attr.ulValueLen = 0;
 	attr.pValue = 0;
@@ -1197,11 +1172,10 @@ perform_get_template (get_template_args *args)
 	/* Number of attributes, rounded down */
 	n_attrs = (attr.ulValueLen / sizeof (CK_ATTRIBUTE));
 	for (i = 0; i < n_attrs; ++i)
-		gck_attributes_add_empty (args->attrs, 0);
+		gck_builder_add_empty (&args->builder, 0);
 
 	/* Prepare all the attributes */
-	_gck_attributes_lock (args->attrs);
-	attr.pValue = _gck_attributes_prepare_in (args->attrs, &n_attrs);
+	attr.pValue = _gck_builder_prepare_in (&args->builder, &n_attrs);
 
 	/* Get the size of each value */
 	rv = (args->base.pkcs11->C_GetAttributeValue) (args->base.handle, args->object, &attr, 1);
@@ -1209,7 +1183,7 @@ perform_get_template (get_template_args *args)
 		return rv;
 
 	/* Allocate memory for each value */
-	attr.pValue = _gck_attributes_commit_in (args->attrs, &n_attrs);
+	attr.pValue = _gck_builder_commit_in (&args->builder, &n_attrs);
 
 	/* Now get the actual values */
 	return (args->base.pkcs11->C_GetAttributeValue) (args->base.handle, args->object, &attr, 1);
@@ -1218,8 +1192,8 @@ perform_get_template (get_template_args *args)
 static void
 free_get_template (get_template_args *args)
 {
-	g_assert (args);
-	gck_attributes_unref (args->attrs);
+	g_assert (args != NULL);
+	gck_builder_clear (&args->builder);
 	g_free (args);
 }
 
@@ -1254,15 +1228,13 @@ gck_object_get_template (GckObject *self, gulong attr_type,
 
 	ret = _gck_call_sync (self->pv->session, perform_get_template, NULL, &args, cancellable, error);
 
-	_gck_attributes_unlock (args.attrs);
-
 	/* Free any value if failed */
 	if (!ret) {
-		gck_attributes_unref (args.attrs);
-		args.attrs = NULL;
+		gck_builder_clear (&args.builder);
+		return NULL;
 	}
 
-	return args.attrs;
+	return gck_builder_end (&args.builder);
 }
 
 /**
@@ -1322,6 +1294,5 @@ gck_object_get_template_finish (GckObject *self, GAsyncResult *result,
 		return NULL;
 
 	args = _gck_call_arguments (result, get_template_args);
-	_gck_attributes_unlock (args->attrs);
-	return gck_attributes_ref (args->attrs);
+	return gck_builder_end (&args->builder);
 }

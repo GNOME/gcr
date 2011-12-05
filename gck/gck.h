@@ -144,7 +144,7 @@ void                gck_attribute_init_copy                 (GckAttribute *dest,
 GType               gck_attribute_get_type                  (void) G_GNUC_CONST;
 
 GckAttribute*       gck_attribute_new                       (gulong attr_type,
-                                                             gpointer value,
+                                                             const guchar *value,
                                                              gsize length);
 
 GckAttribute*       gck_attribute_new_invalid               (gulong attr_type);
@@ -163,15 +163,15 @@ GckAttribute*       gck_attribute_new_ulong                 (gulong attr_type,
 GckAttribute*       gck_attribute_new_string                (gulong attr_type,
                                                              const gchar *value);
 
-gboolean            gck_attribute_is_invalid                (GckAttribute *attr);
+gboolean            gck_attribute_is_invalid                (const GckAttribute *attr);
 
-gboolean            gck_attribute_get_boolean               (GckAttribute *attr);
+gboolean            gck_attribute_get_boolean               (const GckAttribute *attr);
 
-gulong              gck_attribute_get_ulong                 (GckAttribute *attr);
+gulong              gck_attribute_get_ulong                 (const GckAttribute *attr);
 
-gchar*              gck_attribute_get_string                (GckAttribute *attr);
+gchar*              gck_attribute_get_string                (const GckAttribute *attr);
 
-void                gck_attribute_get_date                  (GckAttribute *attr,
+void                gck_attribute_get_date                  (const GckAttribute *attr,
                                                              GDate* value);
 
 gboolean            gck_attribute_equal                     (gconstpointer attr1,
@@ -179,118 +179,203 @@ gboolean            gck_attribute_equal                     (gconstpointer attr1
 
 guint               gck_attribute_hash                      (gconstpointer attr);
 
-GckAttribute*       gck_attribute_dup                       (GckAttribute *attr);
+GckAttribute*       gck_attribute_dup                       (const GckAttribute *attr);
 
 void                gck_attribute_clear                     (GckAttribute *attr);
 
 void                gck_attribute_free                      (gpointer attr);
 
-void                gck_attribute_dump                      (GckAttribute *attr);
+void                gck_attribute_dump                      (const GckAttribute *attr);
+
+typedef struct _GckBuilder GckBuilder;
+
+struct _GckBuilder {
+	/*< private >*/
+	gsize x[16];
+};
+
+typedef enum {
+	GCK_BUILDER_NONE,
+	GCK_BUILDER_SECURE_MEMORY = 1,
+} GckBuilderFlags;
 
 typedef struct _GckAttributes GckAttributes;
 
-#define             GCK_TYPE_ATTRIBUTES                     (gck_attributes_get_boxed_type ())
+GckBuilder *         gck_builder_new                        (GckBuilderFlags flags);
 
-GType               gck_attributes_get_type                 (void) G_GNUC_CONST;
+#define              GCK_BUILDER_INIT                       { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 } }
 
-GckAttributes*      gck_attributes_new                      (void);
+GckBuilder *         gck_builder_ref                        (GckBuilder *builder);
 
-GckAttributes*      gck_attributes_new_empty                (gulong attr_type,
-                                                             ...);
+void                 gck_builder_unref                      (gpointer builder);
 
-GckAttributes*      gck_attributes_new_full                 (GckAllocator allocator);
+void                 gck_builder_init                       (GckBuilder *builder);
 
-GckAttribute*       gck_attributes_at                       (GckAttributes *attrs,
-                                                             guint index);
+void                 gck_builder_init_full                  (GckBuilder *builder,
+                                                             GckBuilderFlags flags);
 
-GckAttribute*       gck_attributes_add                      (GckAttributes *attrs,
-                                                             GckAttribute *attr);
+#define              GCK_TYPE_BUILDER                       (gck_builder_get_type ())
 
-void                gck_attributes_add_all                  (GckAttributes *attrs,
-                                                             GckAttributes *from);
+GType                gck_builder_get_type                   (void) G_GNUC_CONST;
 
-GckAttribute*       gck_attributes_add_data                 (GckAttributes *attrs,
+void                 gck_builder_take_data                  (GckBuilder *builder,
+                                                             gulong attr_type,
+                                                             guchar *value,
+                                                             gsize length);
+
+void                 gck_builder_add_data                   (GckBuilder *builder,
                                                              gulong attr_type,
                                                              const guchar *value,
                                                              gsize length);
 
-GckAttribute*       gck_attributes_add_invalid              (GckAttributes *attrs,
+void                 gck_builder_add_empty                  (GckBuilder *builder,
                                                              gulong attr_type);
 
-GckAttribute*       gck_attributes_add_empty                (GckAttributes *attrs,
+void                 gck_builder_add_invalid                (GckBuilder *builder,
                                                              gulong attr_type);
 
-GckAttribute*       gck_attributes_add_boolean              (GckAttributes *attrs,
-                                                             gulong attr_type,
-                                                             gboolean value);
-
-GckAttribute*       gck_attributes_add_string               (GckAttributes *attrs,
-                                                             gulong attr_type,
-                                                             const gchar *value);
-
-GckAttribute*       gck_attributes_add_date                 (GckAttributes *attrs,
-                                                             gulong attr_type,
-                                                             const GDate *value);
-
-GckAttribute*       gck_attributes_add_ulong                (GckAttributes *attrs,
+void                 gck_builder_add_ulong                  (GckBuilder *builder,
                                                              gulong attr_type,
                                                              gulong value);
 
-GckAttribute*       gck_attributes_find                     (GckAttributes *attrs,
+void                 gck_builder_add_boolean                (GckBuilder *builder,
+                                                             gulong attr_type,
+                                                             gboolean value);
+
+void                 gck_builder_add_date                   (GckBuilder *builder,
+                                                             gulong attr_type,
+                                                             const GDate *value);
+
+void                 gck_builder_add_string                 (GckBuilder *builder,
+                                                             gulong attr_type,
+                                                             const gchar *value);
+
+void                 gck_builder_add_attribute              (GckBuilder *builder,
+                                                             const GckAttribute *attr);
+
+void                 gck_builder_add_owned                  (GckBuilder *builder,
+                                                             const GckAttribute *attr);
+
+void                 gck_builder_add_all                    (GckBuilder *builder,
+                                                             GckAttributes *attrs);
+
+void                 gck_builder_add_only                   (GckBuilder *builder,
+                                                             GckAttributes *attrs,
+                                                             gulong only_type,
+                                                             ...);
+
+void                 gck_builder_add_onlyv                  (GckBuilder *builder,
+                                                             GckAttributes *attrs,
+                                                             const gulong *only_types,
+                                                             guint n_only_types);
+
+void                 gck_builder_add_except                 (GckBuilder *builder,
+                                                             GckAttributes *attrs,
+                                                             gulong except_type,
+                                                             ...);
+
+void                 gck_builder_add_exceptv                (GckBuilder *builder,
+                                                             GckAttributes *attrs,
+                                                             const gulong *except_types,
+                                                             guint n_except_types);
+
+void                 gck_builder_set_data                   (GckBuilder *builder,
+                                                             gulong attr_type,
+                                                             const guchar *value,
+                                                             gsize length);
+
+void                 gck_builder_set_empty                  (GckBuilder *builder,
                                                              gulong attr_type);
 
-gboolean            gck_attributes_find_boolean             (GckAttributes *attrs,
+void                 gck_builder_set_invalid                (GckBuilder *builder,
+                                                             gulong attr_type);
+
+void                 gck_builder_set_ulong                  (GckBuilder *builder,
+                                                             gulong attr_type,
+                                                             gulong value);
+
+void                 gck_builder_set_boolean                (GckBuilder *builder,
+                                                             gulong attr_type,
+                                                             gboolean value);
+
+void                 gck_builder_set_date                   (GckBuilder *builder,
+                                                             gulong attr_type,
+                                                             const GDate *value);
+
+void                 gck_builder_set_string                 (GckBuilder *builder,
+                                                             gulong attr_type,
+                                                             const gchar *value);
+
+void                 gck_builder_set_all                    (GckBuilder *builder,
+                                                             GckAttributes *attrs);
+
+const GckAttribute * gck_builder_find                       (GckBuilder *builder,
+                                                             gulong attr_type);
+
+gboolean             gck_builder_find_boolean               (GckBuilder *builder,
                                                              gulong attr_type,
                                                              gboolean *value);
 
-gboolean            gck_attributes_find_ulong               (GckAttributes *attrs,
+gboolean             gck_builder_find_ulong                 (GckBuilder *builder,
                                                              gulong attr_type,
                                                              gulong *value);
 
-gboolean            gck_attributes_find_string              (GckAttributes *attrs,
+gboolean             gck_builder_find_string                (GckBuilder *builder,
                                                              gulong attr_type,
                                                              gchar **value);
 
-gboolean            gck_attributes_find_date                (GckAttributes *attrs,
+gboolean             gck_builder_find_date                  (GckBuilder *builder,
                                                              gulong attr_type,
                                                              GDate *value);
 
-void                gck_attributes_set                      (GckAttributes *attrs,
-                                                             GckAttribute *attr);
+GckAttributes *      gck_builder_steal                      (GckBuilder *builder);
 
-void                gck_attributes_set_boolean              (GckAttributes *attrs,
+GckAttributes *      gck_builder_end                        (GckBuilder *builder);
+
+GckBuilder *         gck_builder_copy                       (GckBuilder *builder);
+
+void                 gck_builder_clear                      (GckBuilder *builder);
+
+#define              GCK_TYPE_ATTRIBUTES                    (gck_attributes_get_boxed_type ())
+
+GType                gck_attributes_get_type                (void) G_GNUC_CONST;
+
+GckAttributes *      gck_attributes_new_empty               (void);
+
+const GckAttribute * gck_attributes_at                      (GckAttributes *attrs,
+                                                             guint index);
+
+const GckAttribute * gck_attributes_find                    (GckAttributes *attrs,
+                                                             gulong attr_type);
+
+gboolean             gck_attributes_find_boolean            (GckAttributes *attrs,
                                                              gulong attr_type,
-                                                             gboolean value);
+                                                             gboolean *value);
 
-void                gck_attributes_set_ulong                (GckAttributes *attrs,
+gboolean             gck_attributes_find_ulong              (GckAttributes *attrs,
                                                              gulong attr_type,
-                                                             gulong value);
+                                                             gulong *value);
 
-void                gck_attributes_set_string               (GckAttributes *attrs,
+gboolean             gck_attributes_find_string             (GckAttributes *attrs,
                                                              gulong attr_type,
-                                                             const gchar *value);
+                                                             gchar **value);
 
-void                gck_attributes_set_date                 (GckAttributes *attrs,
+gboolean             gck_attributes_find_date               (GckAttributes *attrs,
                                                              gulong attr_type,
-                                                             const GDate *value);
+                                                             GDate *value);
 
-void                gck_attributes_set_all                  (GckAttributes *attrs,
-                                                             GckAttributes *from);
+gulong               gck_attributes_count                   (GckAttributes *attrs);
 
-gulong              gck_attributes_count                    (GckAttributes *attrs);
+GckAttributes *      gck_attributes_ref                     (GckAttributes *attrs);
 
-GckAttributes*      gck_attributes_ref                      (GckAttributes *attrs);
+void                 gck_attributes_unref                   (gpointer attrs);
 
-void                gck_attributes_unref                    (gpointer attrs);
+gboolean             gck_attributes_contains                (GckAttributes *attrs,
+                                                             const GckAttribute *match);
 
-gboolean            gck_attributes_contains                 (GckAttributes *attrs,
-                                                             GckAttribute *match);
+void                 gck_attributes_dump                    (GckAttributes *attrs);
 
-GckAttributes *     gck_attributes_dup                      (GckAttributes *attrs);
-
-void                gck_attributes_dump                     (GckAttributes *attrs);
-
-gchar *             gck_attributes_to_string                (GckAttributes *attrs);
+gchar *              gck_attributes_to_string               (GckAttributes *attrs);
 
 /* -------------------------------------------------------------------------
  * FORWARDS

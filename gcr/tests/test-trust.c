@@ -268,21 +268,20 @@ test_is_certificate_anchored_not (Test *test, gconstpointer unused)
 static void
 test_is_certificate_anchored_yes (Test *test, gconstpointer unused)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GError *error = NULL;
-	GckAttributes *attrs;
 	gconstpointer der;
 	gsize n_der;
 	gboolean ret;
 
 	/* Create a certificate root trust */
-	attrs = gck_attributes_new ();
 	der = gcr_certificate_get_der_data (test->certificate, &n_der);
-	gck_attributes_add_data (attrs, CKA_X_CERTIFICATE_VALUE, der, n_der);
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_X_TRUST_ASSERTION);
-	gck_attributes_add_boolean (attrs, CKA_TOKEN, TRUE);
-	gck_attributes_add_string (attrs, CKA_X_PURPOSE, GCR_PURPOSE_CLIENT_AUTH);
-	gck_attributes_add_ulong (attrs, CKA_X_ASSERTION_TYPE, CKT_X_ANCHORED_CERTIFICATE);
-	gck_mock_module_take_object (attrs);
+	gck_builder_add_data (&builder, CKA_X_CERTIFICATE_VALUE, der, n_der);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_X_TRUST_ASSERTION);
+	gck_builder_add_boolean (&builder, CKA_TOKEN, TRUE);
+	gck_builder_add_string (&builder, CKA_X_PURPOSE, GCR_PURPOSE_CLIENT_AUTH);
+	gck_builder_add_ulong (&builder, CKA_X_ASSERTION_TYPE, CKT_X_ANCHORED_CERTIFICATE);
+	gck_mock_module_take_object (gck_builder_end (&builder));
 
 	ret = gcr_trust_is_certificate_anchored (test->certificate, GCR_PURPOSE_CLIENT_AUTH, NULL, &error);
 	g_assert (ret == TRUE);

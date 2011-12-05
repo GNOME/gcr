@@ -120,6 +120,7 @@ static guint signals[LAST_SIGNAL] = { 0 };
 
 struct _GcrParsed {
 	gint refs;
+	GckBuilder builder;
 	GckAttributes *attrs;
 	const gchar *description;
 	gchar *label;
@@ -221,8 +222,7 @@ parsed_attribute (GcrParsed *parsed,
                   gsize n_data)
 {
 	g_assert (parsed != NULL);
-	g_assert (parsed->attrs != NULL);
-	gck_attributes_add_data (parsed->attrs, type, data, n_data);
+	gck_builder_add_data (&parsed->builder, type, data, n_data);
 }
 
 static void
@@ -231,10 +231,9 @@ parsed_attribute_bytes (GcrParsed *parsed,
                         EggBytes *data)
 {
 	g_assert (parsed != NULL);
-	g_assert (parsed->attrs != NULL);
-	gck_attributes_add_data (parsed->attrs, type,
-	                         egg_bytes_get_data (data),
-	                         egg_bytes_get_size (data));
+	gck_builder_add_data (&parsed->builder, type,
+	                      egg_bytes_get_data (data),
+	                      egg_bytes_get_size (data));
 }
 
 static gboolean
@@ -283,8 +282,7 @@ parsed_ulong_attribute (GcrParsed *parsed,
                         gulong value)
 {
 	g_assert (parsed != NULL);
-	g_assert (parsed->attrs != NULL);
-	gck_attributes_add_ulong (parsed->attrs, type, value);
+	gck_builder_add_ulong (&parsed->builder, type, value);
 }
 
 static void
@@ -293,8 +291,7 @@ parsed_boolean_attribute (GcrParsed *parsed,
                           gboolean value)
 {
 	g_assert (parsed != NULL);
-	g_assert (parsed->attrs != NULL);
-	gck_attributes_add_boolean (parsed->attrs, type, value);
+	gck_builder_add_boolean (&parsed->builder, type, value);
 }
 
 
@@ -344,13 +341,13 @@ parsing_object (GcrParsed *parsed,
                 CK_OBJECT_CLASS klass)
 {
 	g_assert (parsed != NULL);
-	g_assert (parsed->attrs == NULL);
 
+	gck_builder_clear (&parsed->builder);
 	if (parsed->sensitive)
-		parsed->attrs = gck_attributes_new_full ((GckAllocator)egg_secure_realloc);
+		gck_builder_init_full (&parsed->builder, GCK_BUILDER_SECURE_MEMORY);
 	else
-		parsed->attrs = gck_attributes_new ();
-	gck_attributes_add_ulong (parsed->attrs, CKA_CLASS, klass);
+		gck_builder_init_full (&parsed->builder, GCK_BUILDER_NONE);
+	gck_builder_add_ulong (&parsed->builder, CKA_CLASS, klass);
 	parsed_description (parsed, klass);
 }
 
@@ -362,11 +359,10 @@ parsed_attributes (GcrParsed *parsed,
 
 	g_assert (parsed != NULL);
 	g_assert (attrs != NULL);
-	g_assert (parsed->attrs == NULL);
 
-	parsed->attrs = gck_attributes_ref (attrs);
 	if (gck_attributes_find_ulong (attrs, CKA_CLASS, &klass))
 		parsed_description (parsed, klass);
+	gck_builder_add_all (&parsed->builder, attrs);
 }
 
 static void
@@ -398,6 +394,7 @@ pop_parsed (GcrParser *self,
 
 	self->pv->parsed = parsed->next;
 
+	gck_builder_clear (&parsed->builder);
 	gck_attributes_unref (parsed->attrs);
 	if (parsed->data)
 		egg_bytes_unref (parsed->data);
@@ -458,6 +455,9 @@ parsed_fire (GcrParser *self,
 	g_assert (GCR_IS_PARSER (self));
 	g_assert (parsed != NULL);
 	g_assert (parsed == self->pv->parsed);
+	g_assert (parsed->attrs == NULL);
+
+	parsed->attrs = gck_builder_end (&parsed->builder);
 
 	g_object_notify (G_OBJECT (self), "parsed-description");
 	g_object_notify (G_OBJECT (self), "parsed-attributes");
@@ -2672,6 +2672,7 @@ gcr_parsed_unref (gpointer parsed)
 	g_return_if_fail (parsed != NULL);
 
 	if (g_atomic_int_dec_and_test (&par->refs)) {
+		gck_builder_clear (&par->builder);
 		if (par->attrs)
 			gck_attributes_unref (par->attrs);
 		g_free (par->label);

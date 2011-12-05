@@ -428,6 +428,7 @@ authenticate_token (GckModule *module, GckSlot *slot, gchar *label, gchar **pass
 static void
 test_auto_login (Test *test, gconstpointer unused)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckObject *object;
 	GckSession *new_session;
 	GAsyncResult *result = NULL;
@@ -435,10 +436,10 @@ test_auto_login (Test *test, gconstpointer unused)
 	GckAttributes *attrs;
 	gboolean ret;
 
-	attrs = gck_attributes_new ();
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_DATA);
-	gck_attributes_add_string (attrs, CKA_LABEL, "TEST OBJECT");
-	gck_attributes_add_boolean (attrs, CKA_PRIVATE, CK_TRUE);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
+	gck_builder_add_string (&builder, CKA_LABEL, "TEST OBJECT");
+	gck_builder_add_boolean (&builder, CKA_PRIVATE, CK_TRUE);
+	attrs = gck_builder_end (&builder);
 
 	/* Try to do something that requires a login */
 	object = gck_session_create_object (test->session, attrs, NULL, &err);

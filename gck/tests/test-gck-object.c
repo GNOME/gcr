@@ -142,17 +142,18 @@ fetch_async_result (GObject *source, GAsyncResult *result, gpointer user_data)
 static void
 test_create_object (Test *test, gconstpointer unused)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GAsyncResult *result = NULL;
 	GckAttributes *attrs;
 	GckObject *object;
 	CK_OBJECT_HANDLE last_handle;
 	GError *err = NULL;
 
-	attrs = gck_attributes_new ();
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_DATA);
-	gck_attributes_add_string (attrs, CKA_LABEL, "TEST LABEL");
-	gck_attributes_add_boolean (attrs, CKA_TOKEN, CK_FALSE);
-	gck_attributes_add_data (attrs, CKA_VALUE, (const guchar *)"BLAH", 4);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
+	gck_builder_add_string (&builder, CKA_LABEL, "TEST LABEL");
+	gck_builder_add_boolean (&builder, CKA_TOKEN, CK_FALSE);
+	gck_builder_add_data (&builder, CKA_VALUE, (const guchar *)"BLAH", 4);
+	attrs = gck_builder_end (&builder);
 
 	object = gck_session_create_object (test->session, attrs, NULL, &err);
 	g_assert (GCK_IS_OBJECT (object));
@@ -180,16 +181,17 @@ test_create_object (Test *test, gconstpointer unused)
 static void
 test_destroy_object (Test *test, gconstpointer unused)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GAsyncResult *result = NULL;
 	GckAttributes *attrs;
 	GckObject *object;
 	GError *err = NULL;
 	gboolean ret;
 
-	attrs = gck_attributes_new ();
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_DATA);
-	gck_attributes_add_string (attrs, CKA_LABEL, "TEST OBJECT");
-	gck_attributes_add_boolean (attrs, CKA_TOKEN, CK_TRUE);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
+	gck_builder_add_string (&builder, CKA_LABEL, "TEST OBJECT");
+	gck_builder_add_boolean (&builder, CKA_TOKEN, CK_TRUE);
+	attrs = gck_builder_end (&builder);
 
 	/* Using simple */
 	object = gck_session_create_object (test->session, attrs, NULL, &err);
@@ -309,6 +311,7 @@ test_get_data_attribute (Test *test, gconstpointer unused)
 static void
 test_set_attributes (Test *test, gconstpointer unused)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GAsyncResult *result = NULL;
 	GckAttributes *attrs, *templ;
 	GError *err = NULL;
@@ -316,9 +319,9 @@ test_set_attributes (Test *test, gconstpointer unused)
 	gchar *value = NULL;
 	gboolean ret;
 
-	templ = gck_attributes_new ();
-	gck_attributes_add_ulong (templ, CKA_CLASS, 6);
-	gck_attributes_add_string (templ, CKA_LABEL, "CHANGE TWO");
+	gck_builder_add_ulong (&builder, CKA_CLASS, 6);
+	gck_builder_add_string (&builder, CKA_LABEL, "CHANGE TWO");
+	templ = gck_builder_end (&builder);
 
 	/* Full */
 	ret = gck_object_set (test->object, templ, NULL, &err);
@@ -331,9 +334,9 @@ test_set_attributes (Test *test, gconstpointer unused)
 	g_free (value); value = NULL;
 	gck_attributes_unref (attrs);
 
-	templ = gck_attributes_new ();
-	gck_attributes_add_ulong (templ, CKA_CLASS, 7);
-	gck_attributes_add_string (templ, CKA_LABEL, "CHANGE THREE");
+	gck_builder_add_ulong (&builder, CKA_CLASS, 7);
+	gck_builder_add_string (&builder, CKA_LABEL, "CHANGE THREE");
+	templ = gck_builder_end (&builder);
 
 	/* Async */
 	gck_object_set_async (test->object, templ, NULL, fetch_async_result, &result);
@@ -355,29 +358,30 @@ test_set_attributes (Test *test, gconstpointer unused)
 static void
 test_find_objects (Test *test, gconstpointer unused)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GAsyncResult *result = NULL;
 	GckAttributes *templ, *attrs;
 	GList *objects;
 	GckObject *testobj;
 	GError *err = NULL;
 
-	attrs = gck_attributes_new ();
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_DATA);
-	gck_attributes_add_string (attrs, CKA_LABEL, "UNIQUE LABEL");
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
+	gck_builder_add_string (&builder, CKA_LABEL, "UNIQUE LABEL");
+	attrs = gck_builder_end (&builder);
 	testobj = gck_session_create_object (test->session, attrs, NULL, &err);
 	gck_attributes_unref (attrs);
 	g_object_unref (testobj);
 
-	attrs = gck_attributes_new ();
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_DATA);
-	gck_attributes_add_string (attrs, CKA_LABEL, "OTHER LABEL");
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
+	gck_builder_add_string (&builder, CKA_LABEL, "OTHER LABEL");
+	attrs = gck_builder_end (&builder);
 	testobj = gck_session_create_object (test->session, attrs, NULL, &err);
 	gck_attributes_unref (attrs);
 	g_object_unref (testobj);
 
 	/* Simple, "TEST LABEL" */
-	attrs = gck_attributes_new ();
-	gck_attributes_add_string (attrs, CKA_LABEL, "UNIQUE LABEL");
+	gck_builder_add_string (&builder, CKA_LABEL, "UNIQUE LABEL");
+	attrs = gck_builder_end (&builder);
 	objects = gck_session_find_objects (test->session, attrs, NULL, &err);
 	g_assert_no_error (err);
 	g_assert (g_list_length (objects) == 1);
@@ -385,14 +389,16 @@ test_find_objects (Test *test, gconstpointer unused)
 	gck_attributes_unref (attrs);
 
 	/* Full, All */
-	templ = gck_attributes_new ();
+	templ = gck_builder_end (&builder);
 	objects = gck_session_find_objects (test->session, templ, NULL, &err);
 	g_assert_no_error (err);
 	g_assert (g_list_length (objects) > 1);
 	gck_list_unref_free (objects);
+	gck_attributes_unref (templ);
 
 	/* Async, None */
-	gck_attributes_add_string (templ, CKA_LABEL, "blah blah");
+	gck_builder_add_string (&builder, CKA_LABEL, "blah blah");
+	templ = gck_builder_end (&builder);
 	gck_session_find_objects_async (test->session, templ, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
 	g_assert (result != NULL);

@@ -272,22 +272,26 @@ static void
 setup_loading (TestLoading *test,
                gconstpointer fixture)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	const gchar *id = "test-id";
 	gulong handle;
 
 	setup_attributes (&test->at, fixture);
 	setup_module (&test->mo, NULL);
 
-	gck_attributes_add_string (test->at.crt_attrs, CKA_ID, id);
-	handle = gck_mock_module_take_object (gck_attributes_ref (test->at.crt_attrs));
+	gck_builder_add_all (&builder, test->at.crt_attrs);
+	gck_builder_add_string (&builder, CKA_ID, id);
+	handle = gck_mock_module_take_object (gck_builder_end (&builder));
 	test->crt_object = gck_object_from_handle (test->mo.session, handle);
 
-	gck_attributes_add_string (test->at.pub_attrs, CKA_ID, id);
-	handle = gck_mock_module_take_object (gck_attributes_ref (test->at.pub_attrs));
+	gck_builder_add_all (&builder, test->at.pub_attrs);
+	gck_builder_add_string (&builder, CKA_ID, id);
+	handle = gck_mock_module_take_object (gck_builder_end (&builder));
 	test->pub_object = gck_object_from_handle (test->mo.session, handle);
 
-	gck_attributes_add_string (test->at.prv_attrs, CKA_ID, id);
-	handle = gck_mock_module_take_object (gck_attributes_ref (test->at.prv_attrs));
+	gck_builder_add_all (&builder, test->at.prv_attrs);
+	gck_builder_add_string (&builder, CKA_ID, id);
+	handle = gck_mock_module_take_object (gck_builder_end (&builder));
 	test->prv_object = gck_object_from_handle (test->mo.session, handle);
 }
 
@@ -527,6 +531,7 @@ perform_load_partial (TestLoading *test,
                       GckObject *original,
                       GckAttributes *attributes)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *partial;
 	GckObject *object;
 	GError *error = NULL;
@@ -534,9 +539,9 @@ perform_load_partial (TestLoading *test,
 	GNode *info;
 	guint i;
 
-	partial = gck_attributes_new ();
 	for (i = 0; i < gck_attributes_count (attributes); i += 2)
-		gck_attributes_add (partial, gck_attributes_at (attributes, i));
+		gck_builder_add_owned (&builder, gck_attributes_at (attributes, i));
+	partial = gck_builder_end (&builder);
 
 	object = g_object_new (mock_object_get_type (),
 	                       "module", test->mo.module,
@@ -607,16 +612,17 @@ static void
 test_load_failure_build (TestModule *test,
                          gconstpointer fixture)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *attributes;
 	const gulong INVALID = 0xFFF00FF; /* invalid handle, shouldn't be used */
 	GckObject *object;
 	GError *error = NULL;
 	GNode *info;
 
-	attributes = gck_attributes_new ();
-	gck_attributes_add_ulong (attributes, CKA_CLASS, CKO_CERTIFICATE);
-	gck_attributes_add_ulong (attributes, CKA_CERTIFICATE_TYPE, CKC_X_509);
-	gck_attributes_add_string (attributes, CKA_VALUE, "invalid value");
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
+	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
+	gck_builder_add_string (&builder, CKA_VALUE, "invalid value");
+	attributes = gck_builder_end (&builder);
 
 	object = g_object_new (mock_object_get_type (),
 	                       "module", test->module,

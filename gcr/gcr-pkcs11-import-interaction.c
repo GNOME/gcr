@@ -123,17 +123,17 @@ _gcr_pkcs11_import_interaction_ask_password (GTlsInteraction *interaction,
 
 static void
 _gcr_pkcs11_import_interaction_supplement_prep (GcrImportInteraction *interaction,
-                                                GckAttributes *attributes)
+                                                GckBuilder *builder)
 {
 	GcrPkcs11ImportInteraction *self = GCR_PKCS11_IMPORT_INTERACTION (interaction);
 
 	self->supplemented = FALSE;
-	_gcr_pkcs11_import_dialog_set_supplements (self->dialog, attributes);
+	_gcr_pkcs11_import_dialog_set_supplements (self->dialog, builder);
 }
 
 static GTlsInteractionResult
 _gcr_pkcs11_import_interaction_supplement (GcrImportInteraction *interaction,
-                                           GckAttributes *attributes,
+                                           GckBuilder *builder,
                                            GCancellable *cancellable,
                                            GError **error)
 {
@@ -146,7 +146,7 @@ _gcr_pkcs11_import_interaction_supplement (GcrImportInteraction *interaction,
 
 	self->supplemented = TRUE;
 	if (_gcr_pkcs11_import_dialog_run (self->dialog)) {
-		_gcr_pkcs11_import_dialog_get_supplements (self->dialog, attributes);
+		_gcr_pkcs11_import_dialog_get_supplements (self->dialog, builder);
 		return G_TLS_INTERACTION_HANDLED;
 
 	} else {
@@ -161,10 +161,10 @@ on_dialog_run_async (GObject *source,
                      gpointer user_data)
 {
 	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GckAttributes *attributes = g_simple_async_result_get_op_res_gpointer (res);
+	GckBuilder *builder = g_simple_async_result_get_op_res_gpointer (res);
 
 	if (_gcr_pkcs11_import_dialog_run_finish (GCR_PKCS11_IMPORT_DIALOG (source), result)) {
-		_gcr_pkcs11_import_dialog_get_supplements (GCR_PKCS11_IMPORT_DIALOG  (source), attributes);
+		_gcr_pkcs11_import_dialog_get_supplements (GCR_PKCS11_IMPORT_DIALOG  (source), builder);
 
 	} else {
 		g_simple_async_result_set_error (res, G_IO_ERROR, G_IO_ERROR_CANCELLED,
@@ -177,7 +177,7 @@ on_dialog_run_async (GObject *source,
 
 static void
 _gcr_pkcs11_import_interaction_supplement_async (GcrImportInteraction *interaction,
-                                                 GckAttributes *attributes,
+                                                 GckBuilder *builder,
                                                  GCancellable *cancellable,
                                                  GAsyncReadyCallback callback,
                                                  gpointer user_data)
@@ -196,8 +196,8 @@ _gcr_pkcs11_import_interaction_supplement_async (GcrImportInteraction *interacti
 
 	} else {
 		self->supplemented = TRUE;
-		g_simple_async_result_set_op_res_gpointer (res, gck_attributes_ref (attributes),
-		                                           (GDestroyNotify)gck_attributes_unref);
+		g_simple_async_result_set_op_res_gpointer (res, gck_builder_ref (builder),
+		                                           (GDestroyNotify)gck_builder_unref);
 		_gcr_pkcs11_import_dialog_run_async (self->dialog, cancellable,
 		                                     on_dialog_run_async, g_object_ref (res));
 	}

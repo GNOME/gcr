@@ -199,6 +199,7 @@ GckUriData*
 gck_uri_parse (const gchar *string, GckUriFlags flags, GError **error)
 {
 	GckUriData *uri_data = NULL;
+	GckBuilder builder;
 	CK_ATTRIBUTE_PTR attrs;
 	CK_ULONG i, n_attrs;
 	P11KitUri *p11_uri;
@@ -249,9 +250,10 @@ gck_uri_parse (const gchar *string, GckUriFlags flags, GError **error)
 		uri_data->token_info = _gck_token_info_from_pkcs11 (p11_kit_uri_get_token_info (p11_uri));
 	if (flags & GCK_URI_FOR_OBJECT) {
 		attrs = p11_kit_uri_get_attributes (p11_uri, &n_attrs);
-		uri_data->attributes = gck_attributes_new ();
+		gck_builder_init (&builder);
 		for (i = 0; i < n_attrs; ++i)
-			gck_attributes_add (uri_data->attributes, (GckAttribute*)&attrs[i]);
+			gck_builder_add_data (&builder, attrs[i].type, attrs[i].pValue, attrs[i].ulValueLen);
+		uri_data->attributes = gck_builder_end (&builder);
 	}
 	uri_data->any_unrecognized = p11_kit_uri_any_unrecognized (p11_uri);
 
@@ -272,7 +274,7 @@ gck_uri_parse (const gchar *string, GckUriFlags flags, GError **error)
 gchar*
 gck_uri_build (GckUriData *uri_data, GckUriFlags flags)
 {
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	P11KitUri *p11_uri = 0;
 	gchar *string;
 	int res;
@@ -337,8 +339,7 @@ gck_uri_data_copy (GckUriData *uri_data)
 	GckUriData *copy;
 
 	copy = g_memdup (uri_data, sizeof (GckUriData));
-	copy->attributes = gck_attributes_new ();
-	gck_attributes_add_all (copy->attributes, uri_data->attributes);
+	copy->attributes = gck_attributes_ref (uri_data->attributes);
 	copy->module_info = gck_module_info_copy (copy->module_info);
 	copy->token_info = gck_token_info_copy (copy->token_info);
 	return copy;

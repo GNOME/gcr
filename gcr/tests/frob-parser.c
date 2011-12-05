@@ -32,7 +32,7 @@
 static gboolean
 dump_certificate (GckAttributes *attrs, const gchar *filename)
 {
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	GcrCertificate *cert;
 	gchar *subject;
 	gulong klass;

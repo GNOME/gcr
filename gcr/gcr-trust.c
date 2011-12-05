@@ -114,22 +114,20 @@ trust_closure_free (gpointer data)
 	g_free (closure);
 }
 
-static GckAttributes*
-prepare_trust_attrs (GcrCertificate *certificate, CK_X_ASSERTION_TYPE type)
+static void
+prepare_trust_attrs (GcrCertificate *certificate,
+                     CK_X_ASSERTION_TYPE type,
+                     GckBuilder *builder)
 {
-	GckAttributes *attrs;
 	gconstpointer data;
 	gsize n_data;
 
-	attrs = gck_attributes_new ();
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_X_TRUST_ASSERTION);
-	gck_attributes_add_ulong (attrs, CKA_X_ASSERTION_TYPE, type);
+	gck_builder_add_ulong (builder, CKA_CLASS, CKO_X_TRUST_ASSERTION);
+	gck_builder_add_ulong (builder, CKA_X_ASSERTION_TYPE, type);
 
 	data = gcr_certificate_get_der_data (certificate, &n_data);
-	g_return_val_if_fail (data, NULL);
-	gck_attributes_add_data (attrs, CKA_X_CERTIFICATE_VALUE, data, n_data);
-
-	return attrs;
+	g_return_if_fail (data);
+	gck_builder_add_data (builder, CKA_X_CERTIFICATE_VALUE, data, n_data);
 }
 
 /* ----------------------------------------------------------------------------------
@@ -139,15 +137,14 @@ prepare_trust_attrs (GcrCertificate *certificate, CK_X_ASSERTION_TYPE type)
 static GckAttributes *
 prepare_is_certificate_pinned (GcrCertificate *certificate, const gchar *purpose, const gchar *peer)
 {
-	GckAttributes *attrs;
+	GckBuilder builder = GCK_BUILDER_INIT;
 
-	attrs = prepare_trust_attrs (certificate, CKT_X_PINNED_CERTIFICATE);
-	g_return_val_if_fail (attrs, NULL);
+	prepare_trust_attrs (certificate, CKT_X_PINNED_CERTIFICATE, &builder);
 
-	gck_attributes_add_string (attrs, CKA_X_PURPOSE, purpose);
-	gck_attributes_add_string (attrs, CKA_X_PEER, peer);
+	gck_builder_add_string (&builder, CKA_X_PURPOSE, purpose);
+	gck_builder_add_string (&builder, CKA_X_PEER, peer);
 
-	return attrs;
+	return gck_builder_end (&builder);
 }
 
 static gboolean
@@ -311,16 +308,15 @@ gcr_trust_is_certificate_pinned_finish (GAsyncResult *result, GError **error)
 static GckAttributes *
 prepare_add_pinned_certificate (GcrCertificate *certificate, const gchar *purpose, const gchar *peer)
 {
-	GckAttributes *attrs;
+	GckBuilder builder = GCK_BUILDER_INIT;
 
-	attrs = prepare_trust_attrs (certificate, CKT_X_PINNED_CERTIFICATE);
-	g_return_val_if_fail (attrs, NULL);
+	prepare_trust_attrs (certificate, CKT_X_PINNED_CERTIFICATE, &builder);
 
-	gck_attributes_add_string (attrs, CKA_X_PURPOSE, purpose);
-	gck_attributes_add_string (attrs, CKA_X_PEER, peer);
-	gck_attributes_add_boolean (attrs, CKA_TOKEN, TRUE);
+	gck_builder_add_string (&builder, CKA_X_PURPOSE, purpose);
+	gck_builder_add_string (&builder, CKA_X_PEER, peer);
+	gck_builder_add_boolean (&builder, CKA_TOKEN, TRUE);
 
-	return attrs;
+	return gck_builder_end (&builder);
 }
 
 static gboolean
@@ -328,6 +324,7 @@ perform_add_pinned_certificate (GckAttributes *search,
                                 GCancellable *cancellable,
                                 GError **error)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *attrs;
 	gboolean ret = FALSE;
 	GError *lerr = NULL;
@@ -360,8 +357,8 @@ perform_add_pinned_certificate (GckAttributes *search,
 		return TRUE;
 	}
 
-	attrs = gck_attributes_new ();
-	gck_attributes_add_all (attrs, search);
+	gck_builder_add_all (&builder, search);
+	attrs = gck_builder_end (&builder);
 
 	/* TODO: Add relevant label */
 
@@ -530,15 +527,13 @@ static GckAttributes *
 prepare_remove_pinned_certificate (GcrCertificate *certificate, const gchar *purpose,
                                    const gchar *peer)
 {
-	GckAttributes *attrs;
+	GckBuilder builder = GCK_BUILDER_INIT;
 
-	attrs = prepare_trust_attrs (certificate, CKT_X_PINNED_CERTIFICATE);
-	g_return_val_if_fail (attrs, NULL);
+	prepare_trust_attrs (certificate, CKT_X_PINNED_CERTIFICATE, &builder);
+	gck_builder_add_string (&builder, CKA_X_PURPOSE, purpose);
+	gck_builder_add_string (&builder, CKA_X_PEER, peer);
 
-	gck_attributes_add_string (attrs, CKA_X_PURPOSE, purpose);
-	gck_attributes_add_string (attrs, CKA_X_PEER, peer);
-
-	return attrs;
+	return gck_builder_end (&builder);
 }
 
 static gboolean
@@ -714,14 +709,12 @@ gcr_trust_remove_pinned_certificate_finish (GAsyncResult *result, GError **error
 static GckAttributes *
 prepare_is_certificate_anchored (GcrCertificate *certificate, const gchar *purpose)
 {
-	GckAttributes *attrs;
+	GckBuilder builder = GCK_BUILDER_INIT;
 
-	attrs = prepare_trust_attrs (certificate, CKT_X_ANCHORED_CERTIFICATE);
-	g_return_val_if_fail (attrs, NULL);
+	prepare_trust_attrs (certificate, CKT_X_ANCHORED_CERTIFICATE, &builder);
+	gck_builder_add_string (&builder, CKA_X_PURPOSE, purpose);
 
-	gck_attributes_add_string (attrs, CKA_X_PURPOSE, purpose);
-
-	return attrs;
+	return gck_builder_end (&builder);
 }
 
 static gboolean

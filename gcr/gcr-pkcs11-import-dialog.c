@@ -159,28 +159,28 @@ _gcr_pkcs11_import_dialog_new (GtkWindow *parent)
 
 void
 _gcr_pkcs11_import_dialog_get_supplements (GcrPkcs11ImportDialog *self,
-                                           GckAttributes *attributes)
+                                           GckBuilder *builder)
 {
 	const gchar *label;
 
 	g_return_if_fail (GCR_IS_PKCS11_IMPORT_DIALOG (self));
-	g_return_if_fail (attributes != NULL);
+	g_return_if_fail (builder != NULL);
 
 	label = gtk_entry_get_text (self->label_entry);
 	if (self->label_changed && label != NULL && label[0])
-		gck_attributes_set_string (attributes, CKA_LABEL, label);
+		gck_builder_set_string (builder, CKA_LABEL, label);
 }
 
 void
 _gcr_pkcs11_import_dialog_set_supplements (GcrPkcs11ImportDialog *self,
-                                           GckAttributes *attributes)
+                                           GckBuilder *builder)
 {
 	gchar *label;
 
 	g_return_if_fail (GCR_IS_PKCS11_IMPORT_DIALOG (self));
-	g_return_if_fail (attributes != NULL);
+	g_return_if_fail (builder != NULL);
 
-	if (!gck_attributes_find_string (attributes, CKA_LABEL, &label))
+	if (!gck_builder_find_string (builder, CKA_LABEL, &label))
 		label = NULL;
 
 	if (label == NULL)

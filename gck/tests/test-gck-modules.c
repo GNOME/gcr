@@ -65,13 +65,14 @@ teardown (Test *test, gconstpointer unused)
 static void
 test_enumerate_objects (Test *test, gconstpointer unused)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *attrs;
 	GError *error = NULL;
 	GckEnumerator *en;
 	GList *objects;
 
-	attrs = gck_attributes_new ();
-	gck_attributes_add_string (attrs, CKA_LABEL, "Private Capitalize Key");
+	gck_builder_add_string (&builder, CKA_LABEL, "Private Capitalize Key");
+	attrs = gck_builder_end (&builder);
 	en = gck_modules_enumerate_objects (test->modules, attrs, 0);
 	g_assert (GCK_IS_ENUMERATOR (en));
 	gck_attributes_unref (attrs);

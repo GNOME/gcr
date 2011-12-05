@@ -110,15 +110,14 @@ parse_attributes_for_key (EggBytes *data)
 static GckAttributes *
 build_attributes_for_cert (EggBytes *data)
 {
-	GckAttributes *attrs;
+	GckBuilder builder = GCK_BUILDER_INIT;
 
-	attrs = gck_attributes_new ();
-	gck_attributes_add_data (attrs, CKA_VALUE, egg_bytes_get_data (data),
-	                         egg_bytes_get_size (data));
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_CERTIFICATE);
-	gck_attributes_add_ulong (attrs, CKA_CERTIFICATE_TYPE, CKC_X_509);
+	gck_builder_add_data (&builder, CKA_VALUE, egg_bytes_get_data (data),
+	                      egg_bytes_get_size (data));
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
+	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
 
-	return attrs;
+	return gck_builder_end (&builder);
 }
 
 static EggBytes *

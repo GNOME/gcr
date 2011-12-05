@@ -74,7 +74,7 @@ typedef struct  {
 	GCancellable *cancellable;
 	gboolean prompted;
 	gboolean async;
-	GckAttributes *supplement;
+	GckBuilder *supplement;
 } GcrImporterData;
 
 /* State forward declarations */
@@ -231,21 +231,21 @@ typedef struct {
 } CertificateKeyPair;
 
 static void
-supplement_with_attributes (GckAttributes *attrs,
+supplement_with_attributes (GckBuilder *builder,
                             GckAttributes *supplements)
 {
-	GckAttribute *supplement;
+	const GckAttribute *supplement;
 	gint i;
 
 	for (i = 0; i < gck_attributes_count (supplements); i++) {
 		supplement = gck_attributes_at (supplements, i);
 		if (!gck_attribute_is_invalid (supplement) && supplement->length != 0)
-			gck_attributes_add (attrs, supplement);
+			gck_builder_add_owned (builder, supplement);
 	}
 }
 
 static void
-supplement_id_for_data (GckAttributes *attrs,
+supplement_id_for_data (GckBuilder *builder,
                         guchar *nonce,
                         gsize n_once,
                         gpointer data,
@@ -254,7 +254,7 @@ supplement_id_for_data (GckAttributes *attrs,
 	gcry_md_hd_t mdh;
 	gcry_error_t gcry;
 
-	if (gck_attributes_find (attrs, CKA_ID) != NULL)
+	if (gck_builder_find (builder, CKA_ID) != NULL)
 		return;
 
 	gcry = gcry_md_open (&mdh, GCRY_MD_SHA1, 0);
@@ -263,9 +263,9 @@ supplement_id_for_data (GckAttributes *attrs,
 	gcry_md_write (mdh, nonce, n_once);
 	gcry_md_write (mdh, data, n_data);
 
-	gck_attributes_add_data (attrs, CKA_ID,
-	                         gcry_md_read (mdh, 0),
-	                         gcry_md_get_algo_dlen (GCRY_MD_SHA1));
+	gck_builder_add_data (builder, CKA_ID,
+	                      gcry_md_read (mdh, 0),
+	                      gcry_md_get_algo_dlen (GCRY_MD_SHA1));
 
 	gcry_md_close (mdh);
 }
@@ -274,6 +274,7 @@ static void
 supplement_attributes (GcrPkcs11Importer *self,
                        GckAttributes *supplements)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GHashTable *pairs;
 	GHashTable *paired;
 	CertificateKeyPair *pair;
@@ -316,22 +317,32 @@ supplement_attributes (GcrPkcs11Importer *self,
 		}
 
 		fingerprint = NULL;
-
-		gck_attributes_set_boolean (attrs, CKA_TOKEN, CK_TRUE);
+		gck_builder_add_all (&builder, attrs);
+		gck_builder_set_boolean (&builder, CKA_TOKEN, CK_TRUE);
 
 		switch (klass) {
 		case CKO_CERTIFICATE:
-			gck_attributes_set_boolean (attrs, CKA_PRIVATE, FALSE);
+			gck_builder_set_boolean (&builder, CKA_PRIVATE, FALSE);
+			break;
+		case CKO_PRIVATE_KEY:
+			gck_builder_set_boolean (&builder, CKA_PRIVATE, TRUE);
+			gck_builder_add_boolean (&builder, CKA_DECRYPT, TRUE);
+			gck_builder_add_boolean (&builder, CKA_SIGN, TRUE);
+			gck_builder_add_boolean (&builder, CKA_SIGN_RECOVER, TRUE);
+			gck_builder_add_boolean (&builder, CKA_UNWRAP, TRUE);
+			gck_builder_add_boolean (&builder, CKA_SENSITIVE, TRUE);
+			break;
+		}
+
+		gck_attributes_unref (attrs);
+		l->data = attrs = gck_builder_end (&builder);
+
+		switch (klass) {
+		case CKO_CERTIFICATE:
 			if (pair != NULL && pair->certificate == NULL)
 				pair->certificate = attrs;
 			break;
 		case CKO_PRIVATE_KEY:
-			gck_attributes_set_boolean (attrs, CKA_PRIVATE, TRUE);
-			gck_attributes_add_boolean (attrs, CKA_DECRYPT, TRUE);
-			gck_attributes_add_boolean (attrs, CKA_SIGN, TRUE);
-			gck_attributes_add_boolean (attrs, CKA_SIGN_RECOVER, TRUE);
-			gck_attributes_add_boolean (attrs, CKA_UNWRAP, TRUE);
-			gck_attributes_add_boolean (attrs, CKA_SENSITIVE, TRUE);
 			if (pair != NULL && pair->private_key == NULL)
 				pair->private_key = attrs;
 			break;
@@ -354,16 +365,18 @@ supplement_attributes (GcrPkcs11Importer *self,
 			 * and do the same CKA_ID for both private key and certificate.
 			 */
 
-			supplement_with_attributes (pair->private_key, supplements);
-			supplement_id_for_data (pair->private_key, nonce, sizeof (nonce),
+			gck_builder_add_all (&builder, pair->private_key);
+			supplement_with_attributes (&builder, supplements);
+			supplement_id_for_data (&builder, nonce, sizeof (nonce),
 			                        fingerprint, strlen (fingerprint));
-			g_queue_push_tail (queue, pair->private_key);
+			g_queue_push_tail (queue, gck_builder_end (&builder));
 			g_hash_table_insert (paired, pair->private_key, "present");
 
-			supplement_with_attributes (pair->private_key, supplements);
-			supplement_id_for_data (pair->certificate, nonce, sizeof (nonce),
+			gck_builder_add_all (&builder, pair->certificate);
+			supplement_with_attributes (&builder, supplements);
+			supplement_id_for_data (&builder, nonce, sizeof (nonce),
 			                        fingerprint, strlen (fingerprint));
-			g_queue_push_tail (queue, pair->certificate);
+			g_queue_push_tail (queue, gck_builder_end (&builder));
 			g_hash_table_insert (paired, pair->certificate, "present");
 
 			/* Used the suplements for the pairs, don't use for unpaired stuff */
@@ -375,22 +388,24 @@ supplement_attributes (GcrPkcs11Importer *self,
 	for (l = self->queue->head; l != NULL; l = g_list_next (l)) {
 		attrs = l->data;
 		if (!g_hash_table_lookup (paired, attrs)) {
+			gck_builder_add_all (&builder, attrs);
 			if (!supplemented)
-				supplement_with_attributes (attrs, supplements);
+				supplement_with_attributes (&builder, supplements);
 
 			/*
 			 * Generate a CKA_ID based on the location of attrs in,
 			 * memory, since this together with the nonce should
 			 * be unique.
 			 */
-			supplement_id_for_data (attrs, nonce, sizeof (nonce),
+			supplement_id_for_data (&builder, nonce, sizeof (nonce),
 			                        &attrs, sizeof (gpointer));
 
-			g_queue_push_tail (queue, l->data);
+			g_queue_push_tail (queue, gck_builder_end (&builder));
 		}
 	}
 
 	/* And swap the new queue into place */
+	g_queue_foreach (self->queue, (GFunc)gck_attributes_unref, NULL);
 	g_queue_free (self->queue);
 	self->queue = queue;
 
@@ -403,9 +418,13 @@ complete_supplement (GSimpleAsyncResult *res,
                      GError *error)
 {
 	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
+	GckAttributes *attributes;
 
 	if (error == NULL) {
-		supplement_attributes (data->importer, data->supplement);
+		attributes = gck_builder_end (data->supplement);
+		supplement_attributes (data->importer, attributes);
+		gck_attributes_unref (attributes);
+
 		next_state (res, state_create_object);
 	} else {
 		g_simple_async_result_take_error (res, error);
@@ -457,14 +476,14 @@ supplement_prep (GSimpleAsyncResult *res)
 {
 	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
 	GcrPkcs11Importer *self = data->importer;
-	GckAttribute *the_label = NULL;
-	GckAttribute *attr;
+	const GckAttribute *the_label = NULL;
+	const GckAttribute *attr;
 	gboolean first = TRUE;
 	GList *l;
 
 	if (data->supplement)
-		gck_attributes_unref (data->supplement);
-	data->supplement = gck_attributes_new ();
+		gck_builder_unref (data->supplement);
+	data->supplement = gck_builder_new (GCK_BUILDER_NONE);
 
 	/* Do we have a consistent label across all objects? */
 	for (l = self->queue->head; l != NULL; l = g_list_next (l)) {
@@ -478,9 +497,9 @@ supplement_prep (GSimpleAsyncResult *res)
 
 	/* If consistent label, set that in supplement data */
 	if (the_label != NULL)
-		gck_attributes_add (data->supplement, the_label);
+		gck_builder_add_data (data->supplement, CKA_LABEL, the_label->value, the_label->length);
 	else
-		gck_attributes_add_empty (data->supplement, CKA_LABEL);
+		gck_builder_add_empty (data->supplement, CKA_LABEL);
 
 	if (GCR_IS_IMPORT_INTERACTION (self->interaction))
 		gcr_import_interaction_supplement_prep (GCR_IMPORT_INTERACTION (self->interaction),
@@ -665,6 +684,7 @@ static void
 _gcr_pkcs11_importer_class_init (GcrPkcs11ImporterClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *registered;
 
 	gobject_class->dispose = _gcr_pkcs11_importer_dispose;
@@ -690,14 +710,14 @@ _gcr_pkcs11_importer_class_init (GcrPkcs11ImporterClass *klass)
 	           g_param_spec_pointer ("queued", "Queued", "Queued attributes",
 	                                 G_PARAM_READABLE));
 
-	registered = gck_attributes_new ();
-	gck_attributes_add_ulong (registered, CKA_CLASS, CKO_CERTIFICATE);
-	gck_attributes_add_ulong (registered, CKA_CERTIFICATE_TYPE, CKC_X_509);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
+	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
+	registered = gck_builder_end (&builder);
 	gcr_importer_register (GCR_TYPE_PKCS11_IMPORTER, registered);
 	gck_attributes_unref (registered);
 
-	registered = gck_attributes_new ();
-	gck_attributes_add_ulong (registered, CKA_CLASS, CKO_PRIVATE_KEY);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);
+	registered = gck_builder_end (&builder);
 	gcr_importer_register (GCR_TYPE_PKCS11_IMPORTER, registered);
 	gck_attributes_unref (registered);
 
@@ -897,11 +917,18 @@ _gcr_pkcs11_importer_queue (GcrPkcs11Importer *self,
                             const gchar *label,
                             GckAttributes *attrs)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
+
 	g_return_if_fail (GCR_IS_PKCS11_IMPORTER (self));
 	g_return_if_fail (attrs != NULL);
 
-	if (label != NULL && !gck_attributes_find (attrs, CKA_LABEL))
-		gck_attributes_add_string (attrs, CKA_LABEL, label);
+	if (label != NULL && !gck_attributes_find (attrs, CKA_LABEL)) {
+		gck_builder_add_all (&builder, attrs);
+		gck_builder_add_string (&builder, CKA_LABEL, label);
+		attrs = gck_builder_end (&builder);
+	} else {
+		attrs = gck_attributes_ref (attrs);
+	}
 
-	g_queue_push_tail (self->queue, gck_attributes_ref (attrs));
+	g_queue_push_tail (self->queue, attrs);
 }

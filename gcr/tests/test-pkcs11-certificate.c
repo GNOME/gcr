@@ -49,8 +49,8 @@ typedef struct {
 static void
 setup (Test *test, gconstpointer unused)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GList *modules = NULL;
-	GckAttributes *attrs;
 	CK_FUNCTION_LIST_PTR f;
 	GckModule *module;
 	EggBytes *subject;
@@ -89,14 +89,13 @@ setup (Test *test, gconstpointer unused)
 	subject = egg_asn1x_get_element_raw (node);
 
 	/* Add a certificate to the module */
-	attrs = gck_attributes_new ();
-	gck_attributes_add_data (attrs, CKA_VALUE, test->cert_data, test->n_cert_data);
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_CERTIFICATE);
-	gck_attributes_add_ulong (attrs, CKA_CERTIFICATE_TYPE, CKC_X_509);
-	gck_attributes_add_data (attrs, CKA_SUBJECT,
-	                         egg_bytes_get_data (subject),
-	                         egg_bytes_get_size (subject));
-	gck_mock_module_take_object (attrs);
+	gck_builder_add_data (&builder, CKA_VALUE, test->cert_data, test->n_cert_data);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
+	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
+	gck_builder_add_data (&builder, CKA_SUBJECT,
+	                      egg_bytes_get_data (subject),
+	                      egg_bytes_get_size (subject));
+	gck_mock_module_take_object (gck_builder_end (&builder));
 
 	egg_bytes_unref (bytes);
 	egg_bytes_unref (subject);
@@ -123,7 +122,7 @@ test_lookup_certificate_issuer (Test *test, gconstpointer unused)
 	GcrCertificate *cert, *issuer;
 	GError *error = NULL;
 	GckAttributes *attrs;
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	gconstpointer der;
 	gsize n_der;
 

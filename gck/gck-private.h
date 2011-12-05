@@ -39,18 +39,14 @@ G_BEGIN_DECLS
  * ATTRIBUTE INTERNALS
  */
 
-void                _gck_attributes_lock                   (GckAttributes *attrs);
-
-void                _gck_attributes_unlock                 (GckAttributes *attrs);
-
-CK_ATTRIBUTE_PTR    _gck_attributes_prepare_in             (GckAttributes *attrs,
-                                                             CK_ULONG_PTR n_attrs);
-
-CK_ATTRIBUTE_PTR    _gck_attributes_commit_in              (GckAttributes *attrs,
-                                                             CK_ULONG_PTR n_attrs);
-
 CK_ATTRIBUTE_PTR    _gck_attributes_commit_out             (GckAttributes *attrs,
                                                              CK_ULONG_PTR n_attrs);
+
+CK_ATTRIBUTE_PTR    _gck_builder_prepare_in                (GckBuilder *attrs,
+                                                            CK_ULONG_PTR n_attrs);
+
+CK_ATTRIBUTE_PTR    _gck_builder_commit_in                 (GckBuilder *attrs,
+                                                            CK_ULONG_PTR n_attrs);
 
 /* ----------------------------------------------------------------------------
  * MISC

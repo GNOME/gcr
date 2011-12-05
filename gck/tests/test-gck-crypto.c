@@ -102,6 +102,7 @@ fetch_async_result (GObject *source, GAsyncResult *result, gpointer user_data)
 static GckObject*
 find_key (GckSession *session, CK_ATTRIBUTE_TYPE method, CK_MECHANISM_TYPE mech)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GList *objects, *l;
 	GckAttributes *attrs;
 	GckObject *object = NULL;
@@ -109,8 +110,8 @@ find_key (GckSession *session, CK_ATTRIBUTE_TYPE method, CK_MECHANISM_TYPE mech)
 	gboolean match;
 	gsize n_mechs;
 
-	attrs = gck_attributes_new ();
-	gck_attributes_add_boolean (attrs, method, TRUE);
+	gck_builder_add_boolean (&builder, method, TRUE);
+	attrs = gck_builder_end (&builder);
 	objects = gck_session_find_objects (session, attrs, NULL, NULL);
 	gck_attributes_unref (attrs);
 	g_assert (objects);
@@ -141,12 +142,13 @@ find_key (GckSession *session, CK_ATTRIBUTE_TYPE method, CK_MECHANISM_TYPE mech)
 static GckObject*
 find_key_with_value (GckSession *session, const gchar *value)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GList *objects;
 	GckAttributes *attrs;
 	GckObject *object;
 
-	attrs = gck_attributes_new ();
-	gck_attributes_add_string (attrs, CKA_VALUE, value);
+	gck_builder_add_string (&builder, CKA_VALUE, value);
+	attrs = gck_builder_end (&builder);
 	objects = gck_session_find_objects (session, attrs, NULL, NULL);
 	gck_attributes_unref (attrs);
 	g_assert (objects);
@@ -160,7 +162,7 @@ static void
 check_key_with_value (GckSession *session, GckObject *key, CK_OBJECT_CLASS klass, const gchar *value)
 {
 	GckAttributes *attrs;
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	gulong check;
 
 	attrs = gck_object_get (key, NULL, NULL, CKA_CLASS, CKA_VALUE, GCK_INVALID);
@@ -397,16 +399,17 @@ static void
 test_generate_key_pair (Test *test, gconstpointer unused)
 {
 	GckMechanism mech = { CKM_MOCK_GENERATE, (guchar *)"generate", 9 };
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *pub_attrs, *prv_attrs;
 	GError *error = NULL;
 	GAsyncResult *result = NULL;
 	GckObject *pub_key, *prv_key;
 	gboolean ret;
 
-	pub_attrs = gck_attributes_new ();
-	gck_attributes_add_ulong (pub_attrs, CKA_CLASS, CKO_PUBLIC_KEY);
-	prv_attrs = gck_attributes_new ();
-	gck_attributes_add_ulong (prv_attrs, CKA_CLASS, CKO_PRIVATE_KEY);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
+	pub_attrs =  gck_builder_end (&builder);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);
+	prv_attrs =  gck_builder_end (&builder);
 
 	/* Full One*/
 	ret = gck_session_generate_key_pair_full (test->session, &mech, pub_attrs, prv_attrs,
@@ -531,14 +534,15 @@ static void
 test_unwrap_key (Test *test, gconstpointer unused)
 {
 	GckMechanism mech = { CKM_MOCK_WRAP, (guchar *)"wrap", 4 };
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GError *error = NULL;
 	GAsyncResult *result = NULL;
 	GckObject *wrapper, *unwrapped;
 	GckAttributes *attrs;
 
 	wrapper = find_key (test->session, CKA_UNWRAP, 0);
-	attrs = gck_attributes_new ();
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_SECRET_KEY);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_SECRET_KEY);
+	attrs = gck_builder_end (&builder);
 
 	/* Full One*/
 	unwrapped = gck_session_unwrap_key_full (test->session, wrapper, &mech, (const guchar *)"special", 7, attrs, NULL, &error);
@@ -586,14 +590,15 @@ static void
 test_derive_key (Test *test, gconstpointer unused)
 {
 	GckMechanism mech = { CKM_MOCK_DERIVE, (guchar *)"derive", 6 };
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GError *error = NULL;
 	GAsyncResult *result = NULL;
 	GckObject *wrapper, *derived;
 	GckAttributes *attrs;
 
 	wrapper = find_key (test->session, CKA_DERIVE, 0);
-	attrs = gck_attributes_new ();
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_SECRET_KEY);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_SECRET_KEY);
+	attrs = gck_builder_end (&builder);
 
 	/* Full One*/
 	derived = gck_session_derive_key_full (test->session, wrapper, &mech, attrs, NULL, &error);

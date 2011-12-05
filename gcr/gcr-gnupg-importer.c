@@ -213,6 +213,7 @@ static void
 _gcr_gnupg_importer_class_init (GcrGnupgImporterClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *registered;
 
 	gobject_class->dispose = _gcr_gnupg_importer_dispose;
@@ -236,8 +237,8 @@ _gcr_gnupg_importer_class_init (GcrGnupgImporterClass *klass)
 	           g_param_spec_string ("directory", "Directory", "Directory to import keys to",
 	                                NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
-	registered = gck_attributes_new ();
-	gck_attributes_add_ulong (registered, CKA_CLASS, CKO_GCR_GNUPG_RECORDS);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_GCR_GNUPG_RECORDS);
+	registered = gck_builder_end (&builder);
 	gcr_importer_register (GCR_TYPE_GNUPG_IMPORTER, registered);
 	gck_attributes_unref (registered);
 

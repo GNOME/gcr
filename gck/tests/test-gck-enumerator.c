@@ -231,6 +231,7 @@ static void
 test_enumerate_session (Test *test,
                         gconstpointer unused)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckEnumerator *en;
 	GckAttributes *attrs;
 	GError *error = NULL;
@@ -244,7 +245,7 @@ test_enumerate_session (Test *test,
 	session = gck_session_open (slots->data, 0, NULL, NULL, &error);
 	g_assert_no_error (error);
 
-	attrs = gck_attributes_new ();
+	attrs = gck_builder_end (&builder);
 	en = gck_session_enumerate_objects (session, attrs);
 	g_assert (GCK_IS_ENUMERATOR (en));
 	gck_attributes_unref (attrs);
@@ -261,14 +262,15 @@ test_enumerate_session (Test *test,
 static void
 test_attribute_match (Test *test, gconstpointer unused)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckUriData *uri_data;
 	GError *error = NULL;
 	GckEnumerator *en;
 	GList *objects;
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_new ();
-	gck_attributes_add_string (uri_data->attributes, CKA_LABEL, "Private Capitalize Key");
+	gck_builder_add_string (&builder, CKA_LABEL, "Private Capitalize Key");
+	uri_data->attributes = gck_builder_end (&builder);
 	en = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
 
@@ -548,6 +550,7 @@ static void
 test_chained (Test *test,
               gconstpointer unused)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckEnumerator *one;
 	GckEnumerator *two;
 	GckEnumerator *three;
@@ -556,19 +559,19 @@ test_chained (Test *test,
 	GList *objects;
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_new ();
-	gck_attributes_add_ulong (uri_data->attributes, CKA_CLASS, CKO_PUBLIC_KEY);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
+	uri_data->attributes = gck_builder_end (&builder);
 	one = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_new ();
-	gck_attributes_add_ulong (uri_data->attributes, CKA_CLASS, CKO_PRIVATE_KEY);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);
+	uri_data->attributes = gck_builder_end (&builder);
 	two = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	gck_enumerator_set_chained (one, two);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_new ();
-	gck_attributes_add_ulong (uri_data->attributes, CKA_CLASS, CKO_DATA);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
+	uri_data->attributes = gck_builder_end (&builder);
 	three = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	gck_enumerator_set_chained (two, three);
 

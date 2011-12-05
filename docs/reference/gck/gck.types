@@ -1,5 +1,5 @@
-gck_attribute_get_type
 gck_attributes_get_type
+gck_builder_get_type
 gck_module_info_get_type
 gck_module_get_type
 gck_enumerator_get_type

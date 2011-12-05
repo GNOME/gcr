@@ -105,3 +105,4 @@ gcr_viewer_widget_load_data
 gcr_viewer_widget_load_file
 gcr_viewer_widget_new
 gcr_viewer_widget_show_error
+SECMEM_pool_data_v1_0

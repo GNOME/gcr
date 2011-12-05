@@ -92,19 +92,18 @@ lookup_issuer_free (gpointer data)
 static GckAttributes *
 prepare_lookup_certificate_issuer (GcrCertificate *cert)
 {
-	GckAttributes *search;
+	GckBuilder builder = GCK_BUILDER_INIT;
 	gpointer data;
 	gsize n_data;
 
-	search = gck_attributes_new ();
-	gck_attributes_add_ulong (search, CKA_CLASS, CKO_CERTIFICATE);
-	gck_attributes_add_ulong (search, CKA_CERTIFICATE_TYPE, CKC_X_509);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
+	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
 
 	data = gcr_certificate_get_issuer_raw (cert, &n_data);
-	gck_attributes_add_data (search, CKA_SUBJECT, data, n_data);
+	gck_builder_add_data (&builder, CKA_SUBJECT, data, n_data);
 	g_free (data);
 
-	return search;
+	return gck_builder_end (&builder);
 }
 
 static GcrCertificate*
@@ -193,7 +192,7 @@ gcr_pkcs11_certificate_constructor (GType type, guint n_props, GObjectConstructP
 {
 	gpointer obj = G_OBJECT_CLASS (gcr_pkcs11_certificate_parent_class)->constructor (type, n_props, props);
 	GckAttributes *attrs;
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	gulong value;
 
 	attrs = gcr_pkcs11_certificate_get_attributes (obj);
@@ -302,7 +301,7 @@ gcr_pkcs11_certificate_get_der_data (GcrCertificate *cert,
                                      gsize *n_data)
 {
 	GcrPkcs11Certificate *self = GCR_PKCS11_CERTIFICATE (cert);
-	GckAttribute *attr;
+	const GckAttribute *attr;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 	g_return_val_if_fail (n_data, NULL);

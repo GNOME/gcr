@@ -42,10 +42,10 @@ GType                   _gcr_pkcs11_import_dialog_get_type          (void) G_GNU
 GcrPkcs11ImportDialog * _gcr_pkcs11_import_dialog_new               (GtkWindow *parent);
 
 void                    _gcr_pkcs11_import_dialog_get_supplements   (GcrPkcs11ImportDialog *self,
-                                                                     GckAttributes *attributes);
+                                                                     GckBuilder *builder);
 
 void                    _gcr_pkcs11_import_dialog_set_supplements   (GcrPkcs11ImportDialog *self,
-                                                                     GckAttributes *attributes);
+                                                                     GckBuilder *builder);
 
 gboolean                _gcr_pkcs11_import_dialog_run               (GcrPkcs11ImportDialog *self);
 

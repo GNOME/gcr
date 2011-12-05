@@ -37,21 +37,21 @@
 #include <gcrypt.h>
 
 static gboolean
-check_object_basics (GckAttributes *attributes,
+check_object_basics (GckBuilder *builder,
                      gulong *klass,
                      gulong *type)
 {
 	g_assert (klass != NULL);
 	g_assert (type != NULL);
 
-	if (!gck_attributes_find_ulong (attributes, CKA_CLASS, klass))
+	if (!gck_builder_find_ulong (builder, CKA_CLASS, klass))
 		return FALSE;
 
 	if (*klass == CKO_PUBLIC_KEY || *klass == CKO_PRIVATE_KEY)
-		return gck_attributes_find_ulong (attributes, CKA_KEY_TYPE, type);
+		return gck_builder_find_ulong (builder, CKA_KEY_TYPE, type);
 
 	else if (*klass == CKO_CERTIFICATE)
-		return gck_attributes_find_ulong (attributes, CKA_CERTIFICATE_TYPE, type);
+		return gck_builder_find_ulong (builder, CKA_CERTIFICATE_TYPE, type);
 
 	*type = GCK_INVALID;
 	return FALSE;
@@ -59,7 +59,7 @@ check_object_basics (GckAttributes *attributes,
 
 static gboolean
 load_object_basics (GckObject *object,
-                    GckAttributes *attributes,
+                    GckBuilder *builder,
                     GCancellable *cancellable,
                     gulong *klass,
                     gulong *type,
@@ -71,7 +71,7 @@ load_object_basics (GckObject *object,
 	g_assert (klass != NULL);
 	g_assert (type != NULL);
 
-	if (check_object_basics (attributes, klass, type)) {
+	if (check_object_basics (builder, klass, type)) {
 		_gcr_debug ("already loaded: class = %lu, type = %lu", *klass, *type);
 		return TRUE;
 	}
@@ -84,10 +84,10 @@ load_object_basics (GckObject *object,
 		return FALSE;
 	}
 
-	gck_attributes_set_all (attributes, attrs);
+	gck_builder_set_all (builder, attrs);
 	gck_attributes_unref (attrs);
 
-	if (!check_object_basics (attributes, klass, type))
+	if (!check_object_basics (builder, klass, type))
 		return FALSE;
 
 	_gcr_debug ("loaded: class = %lu, type = %lu", *klass, *type);
@@ -95,22 +95,22 @@ load_object_basics (GckObject *object,
 }
 
 static gboolean
-check_x509_attributes (GckAttributes *attributes)
+check_x509_attributes (GckBuilder *builder)
 {
-	GckAttribute *value = gck_attributes_find (attributes, CKA_VALUE);
+	const GckAttribute *value = gck_builder_find (builder, CKA_VALUE);
 	return (value && !gck_attribute_is_invalid (value));
 }
 
 static gboolean
 load_x509_attributes (GckObject *object,
-                      GckAttributes *attributes,
+                      GckBuilder *builder,
                       GCancellable *cancellable,
                       GError **lerror)
 {
 	GckAttributes *attrs;
 	GError *error = NULL;
 
-	if (check_x509_attributes (attributes)) {
+	if (check_x509_attributes (builder)) {
 		_gcr_debug ("already loaded");
 		return TRUE;
 	}
@@ -123,20 +123,20 @@ load_x509_attributes (GckObject *object,
 		return FALSE;
 	}
 
-	gck_attributes_set_all (attributes, attrs);
+	gck_builder_set_all (builder, attrs);
 	gck_attributes_unref (attrs);
 
-	return check_x509_attributes (attributes);
+	return check_x509_attributes (builder);
 }
 
 static gboolean
-check_rsa_attributes (GckAttributes *attributes)
+check_rsa_attributes (GckBuilder *builder)
 {
-	GckAttribute *modulus;
-	GckAttribute *exponent;
+	const GckAttribute *modulus;
+	const GckAttribute *exponent;
 
-	modulus = gck_attributes_find (attributes, CKA_MODULUS);
-	exponent = gck_attributes_find (attributes, CKA_PUBLIC_EXPONENT);
+	modulus = gck_builder_find (builder, CKA_MODULUS);
+	exponent = gck_builder_find (builder, CKA_PUBLIC_EXPONENT);
 
 	return (modulus && !gck_attribute_is_invalid (modulus) &&
 	        exponent && !gck_attribute_is_invalid (exponent));
@@ -144,14 +144,14 @@ check_rsa_attributes (GckAttributes *attributes)
 
 static gboolean
 load_rsa_attributes (GckObject *object,
-                     GckAttributes *attributes,
+                     GckBuilder *builder,
                      GCancellable *cancellable,
                      GError **lerror)
 {
 	GckAttributes *attrs;
 	GError *error = NULL;
 
-	if (check_rsa_attributes (attributes)) {
+	if (check_rsa_attributes (builder)) {
 		_gcr_debug ("rsa attributes already loaded");
 		return TRUE;
 	}
@@ -164,10 +164,10 @@ load_rsa_attributes (GckObject *object,
 		return FALSE;
 	}
 
-	gck_attributes_set_all (attributes, attrs);
+	gck_builder_set_all (builder, attrs);
 	gck_attributes_unref (attrs);
 
-	return check_rsa_attributes (attributes);
+	return check_rsa_attributes (builder);
 }
 
 static GckObject *
@@ -175,6 +175,7 @@ lookup_public_key (GckObject *object,
                    GCancellable *cancellable,
                    GError **lerror)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *match;
 	GError *error = NULL;
 	GckSession *session;
@@ -190,9 +191,9 @@ lookup_public_key (GckObject *object,
 		return NULL;
 	}
 
-	match = gck_attributes_new ();
-	gck_attributes_add_ulong (match, CKA_CLASS, CKO_PUBLIC_KEY);
-	gck_attributes_add_data (match, CKA_ID, id, n_id);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
+	gck_builder_add_data (&builder, CKA_ID, id, n_id);
+	match = gck_builder_end (&builder);
 	session = gck_object_get_session (object);
 	g_free (id);
 
@@ -217,17 +218,17 @@ lookup_public_key (GckObject *object,
 }
 
 static gboolean
-check_dsa_attributes (GckAttributes *attributes)
+check_dsa_attributes (GckBuilder *builder)
 {
-	GckAttribute *prime;
-	GckAttribute *subprime;
-	GckAttribute *base;
-	GckAttribute *value;
+	const GckAttribute *prime;
+	const GckAttribute *subprime;
+	const GckAttribute *base;
+	const GckAttribute *value;
 
-	prime = gck_attributes_find (attributes, CKA_PRIME);
-	subprime = gck_attributes_find (attributes, CKA_SUBPRIME);
-	base = gck_attributes_find (attributes, CKA_BASE);
-	value = gck_attributes_find (attributes, CKA_VALUE);
+	prime = gck_builder_find (builder, CKA_PRIME);
+	subprime = gck_builder_find (builder, CKA_SUBPRIME);
+	base = gck_builder_find (builder, CKA_BASE);
+	value = gck_builder_find (builder, CKA_VALUE);
 
 	return (prime && !gck_attribute_is_invalid (prime) &&
 	        subprime && !gck_attribute_is_invalid (subprime) &&
@@ -237,7 +238,7 @@ check_dsa_attributes (GckAttributes *attributes)
 
 static gboolean
 load_dsa_attributes (GckObject *object,
-                     GckAttributes *attributes,
+                     GckBuilder *builder,
                      GCancellable *cancellable,
                      GError **lerror)
 {
@@ -246,10 +247,10 @@ load_dsa_attributes (GckObject *object,
 	GckObject *publi;
 	gulong klass;
 
-	if (check_dsa_attributes (attributes))
+	if (check_dsa_attributes (builder))
 		return TRUE;
 
-	if (!gck_attributes_find_ulong (attributes, CKA_CLASS, &klass))
+	if (!gck_builder_find_ulong (builder, CKA_CLASS, &klass))
 		g_return_val_if_reached (FALSE);
 
 	/* If it's a private key, find the public one */
@@ -274,17 +275,17 @@ load_dsa_attributes (GckObject *object,
 	}
 
 	/* We've made sure to load info from the public key, so change class */
-	gck_attributes_set_ulong (attributes, CKA_CLASS, CKO_PUBLIC_KEY);
+	gck_builder_set_ulong (builder, CKA_CLASS, CKO_PUBLIC_KEY);
 
-	gck_attributes_set_all (attributes, loaded);
+	gck_builder_set_all (builder, loaded);
 	gck_attributes_unref (loaded);
 
-	return check_dsa_attributes (attributes);
+	return check_dsa_attributes (builder);
 }
 
 static gboolean
 load_attributes (GckObject *object,
-                 GckAttributes *attributes,
+                 GckBuilder *builder,
                  GCancellable *cancellable,
                  GError **lerror)
 {
@@ -292,7 +293,7 @@ load_attributes (GckObject *object,
 	gulong klass;
 	gulong type;
 
-	if (!load_object_basics (object, attributes, cancellable,
+	if (!load_object_basics (object, builder, cancellable,
 	                         &klass, &type, lerror))
 		return FALSE;
 
@@ -301,7 +302,7 @@ load_attributes (GckObject *object,
 	case CKO_CERTIFICATE:
 		switch (type) {
 		case CKC_X_509:
-			ret = load_x509_attributes (object, attributes, cancellable, lerror);
+			ret = load_x509_attributes (object, builder, cancellable, lerror);
 			break;
 		default:
 			_gcr_debug ("unsupported certificate type: %lu", type);
@@ -313,10 +314,10 @@ load_attributes (GckObject *object,
 	case CKO_PRIVATE_KEY:
 		switch (type) {
 		case CKK_RSA:
-			ret = load_rsa_attributes (object, attributes, cancellable, lerror);
+			ret = load_rsa_attributes (object, builder, cancellable, lerror);
 			break;
 		case CKK_DSA:
-			ret = load_dsa_attributes (object, attributes, cancellable, lerror);
+			ret = load_dsa_attributes (object, builder, cancellable, lerror);
 			break;
 		default:
 			_gcr_debug ("unsupported key type: %lu", type);
@@ -338,12 +339,12 @@ load_attributes (GckObject *object,
 }
 
 static gboolean
-check_attributes (GckAttributes *attributes)
+check_attributes (GckBuilder *builder)
 {
 	gulong klass;
 	gulong type;
 
-	if (!check_object_basics (attributes, &klass, &type))
+	if (!check_object_basics (builder, &klass, &type))
 		return FALSE;
 
 	switch (klass) {
@@ -351,7 +352,7 @@ check_attributes (GckAttributes *attributes)
 	case CKO_CERTIFICATE:
 		switch (type) {
 		case CKC_X_509:
-			return check_x509_attributes (attributes);
+			return check_x509_attributes (builder);
 		default:
 			return FALSE;
 		}
@@ -360,9 +361,9 @@ check_attributes (GckAttributes *attributes)
 	case CKO_PRIVATE_KEY:
 		switch (type) {
 		case CKK_RSA:
-			return check_rsa_attributes (attributes);
+			return check_rsa_attributes (builder);
 		case CKK_DSA:
-			return check_dsa_attributes (attributes);
+			return check_dsa_attributes (builder);
 		default:
 			return FALSE;
 		}
@@ -372,30 +373,20 @@ check_attributes (GckAttributes *attributes)
 	}
 }
 
-static GckAttributes *
-lookup_attributes (GckObject *object)
+static void
+lookup_attributes (GckObject *object,
+                   GckBuilder *builder)
 {
 	GckObjectAttributes *oakey;
+	GckAttributes *attrs;
 
 	if (GCK_IS_OBJECT_ATTRIBUTES (object)) {
 		oakey = GCK_OBJECT_ATTRIBUTES (object);
-		return gck_object_attributes_get_attributes (oakey);
-	}
-
-	return NULL;
-}
-
-static void
-attributes_replace_with_copy_or_new (GckAttributes **attributes)
-{
-	g_assert (attributes);
-
-	if (*attributes) {
-		GckAttributes *copy = gck_attributes_dup (*attributes);
-		gck_attributes_unref (*attributes);
-		*attributes = copy;
-	} else {
-		*attributes = gck_attributes_new ();
+		attrs = gck_object_attributes_get_attributes (oakey);
+		if (attrs != NULL) {
+			gck_builder_add_all (builder, attrs);
+			gck_attributes_unref (attrs);
+		}
 	}
 }
 
@@ -404,6 +395,7 @@ _gcr_subject_public_key_load (GckObject *key,
                               GCancellable *cancellable,
                               GError **error)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *attributes;
 	GNode *asn;
 
@@ -411,17 +403,16 @@ _gcr_subject_public_key_load (GckObject *key,
 	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), NULL);
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-	attributes = lookup_attributes (key);
+	lookup_attributes (key, &builder);
 
-	if (!attributes || !check_attributes (attributes)) {
-		attributes_replace_with_copy_or_new (&attributes);
-
-		if (!load_attributes (key, attributes, cancellable, error)) {
-			gck_attributes_unref (attributes);
+	if (!check_attributes (&builder)) {
+		if (!load_attributes (key, &builder, cancellable, error)) {
+			gck_builder_clear (&builder);
 			return NULL;
 		}
 	}
 
+	attributes = gck_builder_end (&builder);
 	asn = _gcr_subject_public_key_for_attributes (attributes);
 	if (asn == NULL) {
 		g_set_error_literal (error, GCK_ERROR, CKR_TEMPLATE_INCONSISTENT,
@@ -434,7 +425,7 @@ _gcr_subject_public_key_load (GckObject *key,
 
 typedef struct {
 	GckObject *object;
-	GckAttributes *attributes;
+	GckBuilder builder;
 } LoadClosure;
 
 static void
@@ -442,7 +433,7 @@ load_closure_free (gpointer data)
 {
 	LoadClosure *closure = data;
 	g_object_unref (closure->object);
-	gck_attributes_unref (closure->attributes);
+	gck_builder_clear (&closure->builder);
 	g_slice_free (LoadClosure, closure);
 }
 
@@ -454,7 +445,7 @@ thread_key_attributes (GSimpleAsyncResult *res,
 	LoadClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
 	GError *error = NULL;
 
-	if (!load_attributes (closure->object, closure->attributes, cancellable, &error))
+	if (!load_attributes (closure->object, &closure->builder, cancellable, &error))
 		g_simple_async_result_take_error (res, error);
 }
 
@@ -475,16 +466,15 @@ _gcr_subject_public_key_load_async (GckObject *key,
 
 	closure = g_slice_new0 (LoadClosure);
 	closure->object = g_object_ref (key);
-	closure->attributes = lookup_attributes (key);
+	lookup_attributes (key, &closure->builder);
 	g_simple_async_result_set_op_res_gpointer (res, closure, load_closure_free);
 
-	if (closure->attributes && check_attributes (closure->attributes)) {
+	if (check_attributes (&closure->builder)) {
 		g_simple_async_result_complete_in_idle (res);
 		g_object_unref (res);
 		return;
 	}
 
-	attributes_replace_with_copy_or_new (&closure->attributes);
 	g_simple_async_result_run_in_thread (res, thread_key_attributes,
 	                                     G_PRIORITY_DEFAULT, cancellable);
 	g_object_unref (res);
@@ -494,6 +484,7 @@ GNode *
 _gcr_subject_public_key_load_finish (GAsyncResult *result,
                                      GError **error)
 {
+	GckAttributes *attributes;
 	GSimpleAsyncResult *res;
 	LoadClosure *closure;
 	GNode *asn;
@@ -507,12 +498,14 @@ _gcr_subject_public_key_load_finish (GAsyncResult *result,
 		return NULL;
 
 	closure = g_simple_async_result_get_op_res_gpointer (res);
-	asn = _gcr_subject_public_key_for_attributes (closure->attributes);
+	attributes = gck_builder_end (&closure->builder);
+	asn = _gcr_subject_public_key_for_attributes (attributes);
 	if (asn == NULL) {
 		g_set_error_literal (error, GCK_ERROR, CKR_TEMPLATE_INCONSISTENT,
 		                     _("Couldn't build public key"));
 	}
 
+	gck_attributes_unref (attributes);
 	return asn;
 }
 
@@ -520,8 +513,8 @@ static gboolean
 rsa_subject_public_key_from_attributes (GckAttributes *attrs,
                                         GNode *info_asn)
 {
-	GckAttribute *modulus;
-	GckAttribute *exponent;
+	const GckAttribute *modulus;
+	const GckAttribute *exponent;
 	GNode *key_asn;
 	GNode *params_asn;
 	EggBytes *key;
@@ -574,10 +567,10 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs,
 
 static gboolean
 dsa_subject_public_key_from_private (GNode *key_asn,
-                                     GckAttribute *ap,
-                                     GckAttribute *aq,
-                                     GckAttribute *ag,
-                                     GckAttribute *ax)
+                                     const GckAttribute *ap,
+                                     const GckAttribute *aq,
+                                     const GckAttribute *ag,
+                                     const GckAttribute *ax)
 {
 	gcry_mpi_t mp, mq, mg, mx, my;
 	size_t n_buffer;
@@ -620,7 +613,7 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
                                         gulong klass,
                                         GNode *info_asn)
 {
-	GckAttribute *value, *g, *q, *p;
+	const GckAttribute *value, *g, *q, *p;
 	GNode *key_asn, *params_asn;
 	EggBytes *key;
 	EggBytes *params;
@@ -690,7 +683,7 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 static GNode *
 cert_subject_public_key_from_attributes (GckAttributes *attributes)
 {
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	EggBytes *bytes;
 	GNode *cert;
 	GNode *asn;

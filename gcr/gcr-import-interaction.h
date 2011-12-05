@@ -48,15 +48,15 @@ struct _GcrImportInteractionIface {
 	GTypeInterface parent;
 
 	void                    (*supplement_prep)   (GcrImportInteraction *interaction,
-	                                              GckAttributes *attributes);
+	                                              GckBuilder *builder);
 
 	GTlsInteractionResult   (*supplement)        (GcrImportInteraction *interaction,
-	                                              GckAttributes *attributes,
+	                                              GckBuilder *builder,
 	                                              GCancellable *cancellable,
 	                                              GError **error);
 
 	void                    (*supplement_async)  (GcrImportInteraction *interaction,
-	                                              GckAttributes *attributes,
+	                                              GckBuilder *builder,
 	                                              GCancellable *cancellable,
 	                                              GAsyncReadyCallback callback,
 	                                              gpointer user_data);
@@ -72,15 +72,15 @@ struct _GcrImportInteractionIface {
 GType                  gcr_import_interaction_get_type             (void);
 
 void                   gcr_import_interaction_supplement_prep      (GcrImportInteraction *interaction,
-                                                                    GckAttributes *attributes);
+                                                                    GckBuilder *builder);
 
 GTlsInteractionResult  gcr_import_interaction_supplement           (GcrImportInteraction *interaction,
-                                                                    GckAttributes *attributes,
+                                                                    GckBuilder *builder,
                                                                     GCancellable *cancellable,
                                                                     GError **error);
 
 void                   gcr_import_interaction_supplement_async     (GcrImportInteraction *interaction,
-                                                                    GckAttributes *attributes,
+                                                                    GckBuilder *builder,
                                                                     GCancellable *cancellable,
                                                                     GAsyncReadyCallback callback,
                                                                     gpointer user_data);

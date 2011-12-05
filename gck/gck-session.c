@@ -1431,9 +1431,7 @@ gck_session_create_object (GckSession *self, GckAttributes *attrs,
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
 	g_return_val_if_fail (attrs != NULL, NULL);
 
-	_gck_attributes_lock (attrs);
 	ret = _gck_call_sync (self, perform_create_object, NULL, &args, cancellable, error);
-	_gck_attributes_unlock (attrs);
 
 	if (!ret)
 		return NULL;
@@ -1463,7 +1461,6 @@ gck_session_create_object_async (GckSession *self, GckAttributes *attrs,
 	g_return_if_fail (attrs);
 
 	args->attrs = gck_attributes_ref (attrs);
-	_gck_attributes_lock (attrs);
 
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
 }
@@ -1484,7 +1481,6 @@ gck_session_create_object_finish (GckSession *self, GAsyncResult *result, GError
 	CreateObject *args;
 
 	args = _gck_call_arguments (result, CreateObject);
-	_gck_attributes_unlock (args->attrs);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
@@ -1603,8 +1599,6 @@ gck_session_find_handles (GckSession *self,
 	g_return_val_if_fail (n_handles != NULL, NULL);
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-	_gck_attributes_lock (match);
-
 	if (_gck_call_sync (self, perform_find_objects, NULL, &args, cancellable, error)) {
 		results = args.objects;
 		*n_handles = args.n_objects;
@@ -1612,7 +1606,6 @@ gck_session_find_handles (GckSession *self,
 	}
 
 	g_free (args.objects);
-	_gck_attributes_unlock (match);
 	return results;
 }
 
@@ -1643,7 +1636,6 @@ gck_session_find_handles_async (GckSession *self,
 	args = _gck_call_async_prep (self, self, perform_find_objects,
 	                             NULL, sizeof (*args), free_find_objects);
 	args->attrs = gck_attributes_ref (match);
-	_gck_attributes_lock (match);
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
 }
 
@@ -1673,7 +1665,6 @@ gck_session_find_handles_finish (GckSession *self,
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
 	args = _gck_call_arguments (result, FindObjects);
-	_gck_attributes_unlock (args->attrs);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
@@ -1906,13 +1897,7 @@ gck_session_generate_key_pair_full (GckSession *self,
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args.mechanism, mechanism, sizeof (args.mechanism));
 
-	_gck_attributes_lock (public_attrs);
-	if (public_attrs != private_attrs)
-		_gck_attributes_lock (private_attrs);
 	ret = _gck_call_sync (self, perform_generate_key_pair, NULL, &args, cancellable, error);
-	if (public_attrs != private_attrs)
-		_gck_attributes_unlock (private_attrs);
-	_gck_attributes_unlock (public_attrs);
 
 	if (!ret)
 		return FALSE;
@@ -1955,10 +1940,7 @@ gck_session_generate_key_pair_async (GckSession *self, GckMechanism *mechanism,
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
 	args->public_attrs = gck_attributes_ref (public_attrs);
-	_gck_attributes_lock (public_attrs);
 	args->private_attrs = gck_attributes_ref (private_attrs);
-	if (public_attrs != private_attrs)
-		_gck_attributes_lock (private_attrs);
 
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
 }
@@ -1989,9 +1971,6 @@ gck_session_generate_key_pair_finish (GckSession *self,
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	args = _gck_call_arguments (result, GenerateKeyPair);
-	_gck_attributes_unlock (args->public_attrs);
-	if (args->public_attrs != args->private_attrs)
-		_gck_attributes_unlock (args->private_attrs);
 
 	if (!_gck_call_basic_finish (result, error))
 		return FALSE;
@@ -2299,9 +2278,7 @@ gck_session_unwrap_key_full (GckSession *self,
 	g_object_get (wrapper, "handle", &args.wrapper, NULL);
 	g_return_val_if_fail (args.wrapper != 0, NULL);
 
-	_gck_attributes_lock (attrs);
 	ret = _gck_call_sync (self, perform_unwrap_key, NULL, &args, cancellable, error);
-	_gck_attributes_unlock (attrs);
 
 	if (!ret)
 		return NULL;
@@ -2351,7 +2328,6 @@ gck_session_unwrap_key_async (GckSession *self,
 	args->attrs = gck_attributes_ref (attrs);
 	args->input = input;
 	args->n_input = n_input;
-	_gck_attributes_lock (attrs);
 
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
 }
@@ -2375,7 +2351,6 @@ gck_session_unwrap_key_finish (GckSession *self, GAsyncResult *result, GError **
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
 
 	args = _gck_call_arguments (result, UnwrapKey);
-	_gck_attributes_unlock (args->attrs);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
@@ -2473,9 +2448,7 @@ gck_session_derive_key_full (GckSession *self, GckObject *base, GckMechanism *me
 	g_object_get (base, "handle", &args.key, NULL);
 	g_return_val_if_fail (args.key != 0, NULL);
 
-	_gck_attributes_lock (attrs);
 	ret = _gck_call_sync (self, perform_derive_key, NULL, &args, cancellable, error);
-	_gck_attributes_unlock (attrs);
 
 	if (!ret)
 		return NULL;
@@ -2515,7 +2488,6 @@ gck_session_derive_key_async (GckSession *self, GckObject *base, GckMechanism *m
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
 	args->attrs = gck_attributes_ref (attrs);
-	_gck_attributes_lock (attrs);
 
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
 }
@@ -2539,7 +2511,6 @@ gck_session_derive_key_finish (GckSession *self, GAsyncResult *result, GError **
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
 
 	args = _gck_call_arguments (result, DeriveKey);
-	_gck_attributes_unlock (args->attrs);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;

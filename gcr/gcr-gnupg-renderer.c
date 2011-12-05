@@ -163,6 +163,7 @@ static void
 _gcr_gnupg_renderer_class_init (GcrGnupgRendererClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *registered;
 
 	_gcr_gnupg_renderer_parent_class = g_type_class_peek_parent (klass);
@@ -185,8 +186,8 @@ _gcr_gnupg_renderer_class_init (GcrGnupgRendererClass *klass)
 	                                "", G_PARAM_READWRITE));
 
 	/* Register this as a renderer which can be loaded */
-	registered = gck_attributes_new ();
-	gck_attributes_add_ulong (registered, CKA_CLASS, CKO_GCR_GNUPG_RECORDS);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_GCR_GNUPG_RECORDS);
+	registered = gck_builder_end (&builder);
 	gcr_renderer_register (GCR_TYPE_GNUPG_RENDERER, registered);
 	gck_attributes_unref (registered);
 }
@@ -827,7 +828,7 @@ void
 _gcr_gnupg_renderer_set_attributes (GcrGnupgRenderer *self,
                                     GckAttributes *attrs)
 {
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	GPtrArray *records;
 
 	g_return_if_fail (GCR_IS_GNUPG_RENDERER (self));

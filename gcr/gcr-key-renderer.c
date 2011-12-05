@@ -85,7 +85,7 @@ calculate_label (GcrKeyRenderer *self)
 static gint
 calculate_rsa_key_size (GckAttributes *attrs)
 {
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	gulong bits;
 
 	attr = gck_attributes_find (attrs, CKA_MODULUS);
@@ -103,7 +103,7 @@ calculate_rsa_key_size (GckAttributes *attrs)
 static guint
 calculate_dsa_key_size (GckAttributes *attrs)
 {
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	gulong bits;
 
 	attr = gck_attributes_find (attrs, CKA_PRIME);
@@ -212,6 +212,7 @@ static void
 gcr_key_renderer_class_init (GcrKeyRendererClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *registered;
 
 	gcr_key_renderer_parent_class = g_type_class_peek_parent (klass);
@@ -226,8 +227,8 @@ gcr_key_renderer_class_init (GcrKeyRendererClass *klass)
 	g_object_class_override_property (gobject_class, PROP_ATTRIBUTES, "attributes");
 
 	/* Register this as a view which can be loaded */
-	registered = gck_attributes_new ();
-	gck_attributes_add_ulong (registered, CKA_CLASS, CKO_PRIVATE_KEY);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);
+	registered = gck_builder_end (&builder);
 	gcr_renderer_register (GCR_TYPE_KEY_RENDERER, registered);
 	gck_attributes_unref (registered);
 }

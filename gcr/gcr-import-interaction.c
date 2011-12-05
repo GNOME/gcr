@@ -81,7 +81,7 @@ gcr_import_interaction_default_init (GcrImportInteractionIface *iface)
 /**
  * gcr_import_interaction_supplement_prep:
  * @interaction: the interaction
- * @attributes: attributes to supplement
+ * @builder: attributes to supplement
  *
  * Prepare for supplementing the given attributes before import. This means
  * prompting the user for things like labels and the like. The attributes
@@ -93,22 +93,22 @@ gcr_import_interaction_default_init (GcrImportInteractionIface *iface)
  */
 void
 gcr_import_interaction_supplement_prep (GcrImportInteraction *interaction,
-                                        GckAttributes *attributes)
+                                        GckBuilder *builder)
 {
 	GcrImportInteractionIface *iface;
 
 	g_return_if_fail (GCR_IS_IMPORT_INTERACTION (interaction));
-	g_return_if_fail (attributes != NULL);
+	g_return_if_fail (builder != NULL);
 
 	iface = GCR_IMPORT_INTERACTION_GET_INTERFACE (interaction);
 	if (iface->supplement != NULL)
-		(iface->supplement_prep) (interaction, attributes);
+		(iface->supplement_prep) (interaction, builder);
 }
 
 /**
  * gcr_import_interaction_supplement:
  * @interaction: the interaction
- * @attributes: supplemented attributes
+ * @builder: supplemented attributes
  * @cancellable: optional cancellable object
  * @error: location to store error on failure
  *
@@ -123,28 +123,28 @@ gcr_import_interaction_supplement_prep (GcrImportInteraction *interaction,
  */
 GTlsInteractionResult
 gcr_import_interaction_supplement (GcrImportInteraction *interaction,
-                                   GckAttributes *attributes,
+                                   GckBuilder *builder,
                                    GCancellable *cancellable,
                                    GError **error)
 {
 	GcrImportInteractionIface *iface;
 
 	g_return_val_if_fail (GCR_IS_IMPORT_INTERACTION (interaction), G_TLS_INTERACTION_UNHANDLED);
-	g_return_val_if_fail (attributes != NULL, G_TLS_INTERACTION_UNHANDLED);
+	g_return_val_if_fail (builder != NULL, G_TLS_INTERACTION_UNHANDLED);
 	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), G_TLS_INTERACTION_UNHANDLED);
 	g_return_val_if_fail (error == NULL || *error == NULL, G_TLS_INTERACTION_UNHANDLED);
 
 	iface = GCR_IMPORT_INTERACTION_GET_INTERFACE (interaction);
 	g_return_val_if_fail (iface->supplement != NULL, G_TLS_INTERACTION_UNHANDLED);
 
-	return (iface->supplement) (interaction, attributes, cancellable, error);
+	return (iface->supplement) (interaction, builder, cancellable, error);
 }
 
 
 /**
  * gcr_import_interaction_supplement_async:
  * @interaction: the interaction
- * @attributes: supplemented attributes
+ * @builder: supplemented attributes
  * @cancellable: optional cancellable object
  * @callback: called when the operation completes
  * @user_data: data to be passed to the callback
@@ -157,7 +157,7 @@ gcr_import_interaction_supplement (GcrImportInteraction *interaction,
  */
 void
 gcr_import_interaction_supplement_async (GcrImportInteraction *interaction,
-                                         GckAttributes *attributes,
+                                         GckBuilder *builder,
                                          GCancellable *cancellable,
                                          GAsyncReadyCallback callback,
                                          gpointer user_data)
@@ -165,13 +165,13 @@ gcr_import_interaction_supplement_async (GcrImportInteraction *interaction,
 	GcrImportInteractionIface *iface;
 
 	g_return_if_fail (GCR_IS_IMPORT_INTERACTION (interaction));
-	g_return_if_fail (attributes != NULL);
+	g_return_if_fail (builder != NULL);
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
 	iface = GCR_IMPORT_INTERACTION_GET_INTERFACE (interaction);
 	g_return_if_fail (iface->supplement != NULL);
 
-	(iface->supplement_async) (interaction, attributes, cancellable, callback, user_data);
+	(iface->supplement_async) (interaction, builder, cancellable, callback, user_data);
 }
 
 /**

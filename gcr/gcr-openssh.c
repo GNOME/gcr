@@ -124,7 +124,7 @@ keytype_to_algo (const gchar *algo,
 static gboolean
 read_decimal_mpi (const gchar *decimal,
                   gsize n_decimal,
-                  GckAttributes *attrs,
+                  GckBuilder *builder,
                   gulong attribute_type)
 {
 	gpointer data;
@@ -134,7 +134,7 @@ read_decimal_mpi (const gchar *decimal,
 	if (data == NULL)
 		return FALSE;
 
-	gck_attributes_add_data (attrs, attribute_type, data, n_data);
+	gck_builder_add_data (builder, attribute_type, data, n_data);
 	g_free (data);
 	return TRUE;
 }
@@ -161,6 +161,7 @@ parse_v1_public_line (const gchar *line,
 {
 	const gchar *word_bits, *word_exponent, *word_modulus, *word_options, *outer;
 	gsize len_bits, len_exponent, len_modulus, len_options, n_outer;
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *attrs;
 	gchar *label, *options;
 	EggBytes *bytes;
@@ -206,26 +207,26 @@ parse_v1_public_line (const gchar *line,
 	if (bits <= 0)
 		return GCR_ERROR_UNRECOGNIZED;
 
-	attrs = gck_attributes_new ();
-
-	if (!read_decimal_mpi (word_exponent, len_exponent, attrs, CKA_PUBLIC_EXPONENT) ||
-	    !read_decimal_mpi (word_modulus, len_modulus, attrs, CKA_MODULUS)) {
-		gck_attributes_unref (attrs);
+	if (!read_decimal_mpi (word_exponent, len_exponent, &builder, CKA_PUBLIC_EXPONENT) ||
+	    !read_decimal_mpi (word_modulus, len_modulus, &builder, CKA_MODULUS)) {
+		gck_builder_clear (&builder);
 		return GCR_ERROR_UNRECOGNIZED;
 	}
 
-	gck_attributes_add_ulong (attrs, CKA_KEY_TYPE, CKK_RSA);
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_PUBLIC_KEY);
+	gck_builder_add_ulong (&builder, CKA_KEY_TYPE, CKK_RSA);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
 
 	skip_spaces (&line, &length);
 	if (length > 0) {
 		label = g_strndup (line, length);
 		g_strstrip (label);
-		gck_attributes_add_string (attrs, CKA_LABEL, label);
+		gck_builder_add_string (&builder, CKA_LABEL, label);
 	}
 
 	if (word_options)
 		options = g_strndup (word_options, len_options);
+
+	attrs = gck_builder_end (&builder);
 
 	if (callback != NULL) {
 		bytes = egg_bytes_new_with_free_func (outer, n_outer,
@@ -244,7 +245,7 @@ parse_v1_public_line (const gchar *line,
 static gboolean
 read_buffer_mpi (EggBuffer *buffer,
                  gsize *offset,
-                 GckAttributes *attrs,
+                 GckBuilder *builder,
                  gulong attribute_type)
 {
 	const guchar *data;
@@ -253,59 +254,52 @@ read_buffer_mpi (EggBuffer *buffer,
 	if (!egg_buffer_get_byte_array (buffer, *offset, offset, &data, &len))
 		return FALSE;
 
-	gck_attributes_add_data (attrs, attribute_type, data, len);
+	gck_builder_add_data (builder, attribute_type, data, len);
 	return TRUE;
 }
 
-static GckAttributes *
+static gboolean
 read_v2_public_dsa (EggBuffer *buffer,
-                    gsize *offset)
+                    gsize *offset,
+                    GckBuilder *builder)
 {
-	GckAttributes *attrs;
-
-	attrs = gck_attributes_new ();
-
-	if (!read_buffer_mpi (buffer, offset, attrs, CKA_PRIME) ||
-	    !read_buffer_mpi (buffer, offset, attrs, CKA_SUBPRIME) ||
-	    !read_buffer_mpi (buffer, offset, attrs, CKA_BASE) ||
-	    !read_buffer_mpi (buffer, offset, attrs, CKA_VALUE)) {
-		gck_attributes_unref (attrs);
-		return NULL;
+	if (!read_buffer_mpi (buffer, offset, builder, CKA_PRIME) ||
+	    !read_buffer_mpi (buffer, offset, builder, CKA_SUBPRIME) ||
+	    !read_buffer_mpi (buffer, offset, builder, CKA_BASE) ||
+	    !read_buffer_mpi (buffer, offset, builder, CKA_VALUE)) {
+		return FALSE;
 	}
 
-	gck_attributes_add_ulong (attrs, CKA_KEY_TYPE, CKK_DSA);
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_PUBLIC_KEY);
+	gck_builder_add_ulong (builder, CKA_KEY_TYPE, CKK_DSA);
+	gck_builder_add_ulong (builder, CKA_CLASS, CKO_PUBLIC_KEY);
 
-	return attrs;
+	return TRUE;
 }
 
-static GckAttributes *
+static gboolean
 read_v2_public_rsa (EggBuffer *buffer,
-                    gsize *offset)
+                    gsize *offset,
+                    GckBuilder *builder)
 {
-	GckAttributes *attrs;
-
-	attrs = gck_attributes_new ();
-
-	if (!read_buffer_mpi (buffer, offset, attrs, CKA_PUBLIC_EXPONENT) ||
-	    !read_buffer_mpi (buffer, offset, attrs, CKA_MODULUS)) {
-		gck_attributes_unref (attrs);
-		return NULL;
+	if (!read_buffer_mpi (buffer, offset, builder, CKA_PUBLIC_EXPONENT) ||
+	    !read_buffer_mpi (buffer, offset, builder, CKA_MODULUS)) {
+		return FALSE;
 	}
 
-	gck_attributes_add_ulong (attrs, CKA_KEY_TYPE, CKK_RSA);
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_PUBLIC_KEY);
+	gck_builder_add_ulong (builder, CKA_KEY_TYPE, CKK_RSA);
+	gck_builder_add_ulong (builder, CKA_CLASS, CKO_PUBLIC_KEY);
 
-	return attrs;
+	return TRUE;
 }
 
-static GckAttributes *
+static gboolean
 read_v2_public_key (gulong algo,
                     gconstpointer data,
-                    gsize n_data)
+                    gsize n_data,
+                    GckBuilder *builder)
 {
-	GckAttributes *attrs;
 	EggBuffer buffer;
+	gboolean ret;
 	gsize offset;
 	gchar *stype;
 	int alg;
@@ -316,7 +310,7 @@ read_v2_public_key (gulong algo,
 	/* The string algorithm */
 	if (!egg_buffer_get_string (&buffer, offset, &offset,
 	                            &stype, (EggBufferAllocator)g_realloc))
-		return NULL;
+		return FALSE;
 
 	alg = keytype_to_algo (stype, stype ? strlen (stype) : 0);
 	g_free (stype);
@@ -324,15 +318,15 @@ read_v2_public_key (gulong algo,
 	if (alg != algo) {
 		g_message ("invalid or mis-matched algorithm in ssh public key: %s", stype);
 		egg_buffer_uninit (&buffer);
-		return NULL;
+		return FALSE;
 	}
 
 	switch (algo) {
 	case CKK_RSA:
-		attrs = read_v2_public_rsa (&buffer, &offset);
+		ret = read_v2_public_rsa (&buffer, &offset, builder);
 		break;
 	case CKK_DSA:
-		attrs = read_v2_public_dsa (&buffer, &offset);
+		ret = read_v2_public_dsa (&buffer, &offset, builder);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -340,17 +334,18 @@ read_v2_public_key (gulong algo,
 	}
 
 	egg_buffer_uninit (&buffer);
-	return attrs;
+	return ret;
 }
 
-static GckAttributes *
+static gboolean
 decode_v2_public_key (gulong algo,
                       const gchar *data,
-                      gsize n_data)
+                      gsize n_data,
+                      GckBuilder *builder)
 {
-	GckAttributes *attrs;
 	gpointer decoded;
 	gsize n_decoded;
+	gboolean ret;
 	guint save;
 	gint state;
 
@@ -361,15 +356,15 @@ decode_v2_public_key (gulong algo,
 
 	if (!n_decoded) {
 		g_free (decoded);
-		return NULL;
+		return FALSE;
 	}
 
 	/* Parse the actual key */
-	attrs = read_v2_public_key (algo, decoded, n_decoded);
+	ret = read_v2_public_key (algo, decoded, n_decoded, builder);
 
 	g_free (decoded);
 
-	return attrs;
+	return ret;
 }
 
 static GcrDataError
@@ -381,6 +376,7 @@ parse_v2_public_line (const gchar *line,
 {
 	const gchar *word_options, *word_algo, *word_key;
 	gsize len_options, len_algo, len_key;
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *attrs;
 	gchar *options;
 	gchar *label = NULL;
@@ -428,9 +424,10 @@ parse_v2_public_line (const gchar *line,
 	if (!next_word (&line, &length, &word_key, &len_key))
 		return GCR_ERROR_FAILURE;
 
-	attrs = decode_v2_public_key (algo, word_key, len_key);
-	if (attrs == NULL)
+	if (!decode_v2_public_key (algo, word_key, len_key, &builder)) {
+		gck_builder_clear (&builder);
 		return GCR_ERROR_FAILURE;
+	}
 
 	if (word_options)
 		options = g_strndup (word_options, len_options);
@@ -442,8 +439,10 @@ parse_v2_public_line (const gchar *line,
 	if (length > 0) {
 		label = g_strndup (line, length);
 		g_strstrip (label);
-		gck_attributes_add_string (attrs, CKA_LABEL, label);
+		gck_builder_add_string (&builder, CKA_LABEL, label);
 	}
+
+	attrs = gck_builder_end (&builder);
 
 	if (callback != NULL) {
 		bytes = egg_bytes_new_with_free_func (outer, n_outer,

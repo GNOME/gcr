@@ -113,7 +113,7 @@ static void
 test_parse_with_id (void)
 {
 	GError *error = NULL;
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	GckUriData *uri_data;
 
 	uri_data = gck_uri_parse ("pkcs11:id=%54%45%53%54%00", GCK_URI_FOR_OBJECT, &error);
@@ -315,18 +315,19 @@ test_build_with_token_empty_info (void)
 static void
 test_build_with_attributes (void)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	gchar *uri = NULL;
 	GckUriData uri_data;
 	GckUriData *check;
 	gchar *string;
 	gulong value;
-	GckAttribute *attr;
+	const GckAttribute *attr;
 
 	memset (&uri_data, 0, sizeof (uri_data));
-	uri_data.attributes = gck_attributes_new ();
-	gck_attributes_add_string (uri_data.attributes, CKA_LABEL, "The Label");
-	gck_attributes_add_ulong (uri_data.attributes, CKA_CLASS, CKO_DATA);
-	gck_attributes_add_data (uri_data.attributes, CKA_ID, (const guchar *)"TEST", 5);
+	gck_builder_add_string (&builder, CKA_LABEL, "The Label");
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
+	gck_builder_add_data (&builder, CKA_ID, (const guchar *)"TEST", 5);
+	uri_data.attributes = gck_builder_end (&builder);
 
 	uri = gck_uri_build (&uri_data, GCK_URI_FOR_OBJECT);
 	g_assert (uri);
@@ -422,12 +423,13 @@ test_parse_unknown_objecttype (void)
 static void
 test_build_objecttype_cert (void)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckUriData *uri_data;
 	gchar *uri;
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_new ();
-	gck_attributes_add_ulong (uri_data->attributes, CKA_CLASS, CKO_CERTIFICATE);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
+	uri_data->attributes = gck_builder_end (&builder);
 
 	uri = gck_uri_build (uri_data, GCK_URI_FOR_OBJECT);
 	g_assert (uri);
@@ -440,12 +442,13 @@ test_build_objecttype_cert (void)
 static void
 test_build_objecttype_private (void)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckUriData *uri_data;
 	gchar *uri;
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_new ();
-	gck_attributes_add_ulong (uri_data->attributes, CKA_CLASS, CKO_PRIVATE_KEY);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);
+	uri_data->attributes = gck_builder_end (&builder);
 
 	uri = gck_uri_build (uri_data, GCK_URI_FOR_OBJECT);
 	g_assert (uri);
@@ -458,12 +461,13 @@ test_build_objecttype_private (void)
 static void
 test_build_objecttype_public (void)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckUriData *uri_data;
 	gchar *uri;
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_new ();
-	gck_attributes_add_ulong (uri_data->attributes, CKA_CLASS, CKO_PUBLIC_KEY);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
+	uri_data->attributes = gck_builder_end (&builder);
 
 	uri = gck_uri_build (uri_data, GCK_URI_FOR_OBJECT);
 	g_assert (uri);
@@ -476,12 +480,13 @@ test_build_objecttype_public (void)
 static void
 test_build_objecttype_secret (void)
 {
+	GckBuilder builder = GCK_BUILDER_INIT;
 	GckUriData *uri_data;
 	gchar *uri;
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_new ();
-	gck_attributes_add_ulong (uri_data->attributes, CKA_CLASS, CKO_SECRET_KEY);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_SECRET_KEY);
+	uri_data->attributes = gck_builder_end (&builder);
 
 	uri = gck_uri_build (uri_data, GCK_URI_FOR_OBJECT);
 	g_assert (uri);

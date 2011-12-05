@@ -205,8 +205,6 @@ cleanup_state (GckEnumeratorState *args)
 	args->object_type = 0;
 
 	if (args->match) {
-		if (args->match->attributes)
-			_gck_attributes_unlock (args->match->attributes);
 		gck_uri_data_free (args->match);
 		args->match = NULL;
 	}
@@ -480,6 +478,7 @@ state_results (GckEnumeratorState *args,
                gboolean forward)
 {
 	GckEnumeratorResult *result;
+	GckBuilder builder;
 	GckAttributes *attrs;
 	CK_ATTRIBUTE_PTR template;
 	CK_ULONG n_template;
@@ -517,25 +516,25 @@ state_results (GckEnumeratorState *args,
 			continue;
 		}
 
-		attrs = gck_attributes_new ();
+		gck_builder_init (&builder);
+
 		for (i = 0; i < args->object_iface->n_attribute_types; ++i)
-			gck_attributes_add_empty (attrs, args->object_iface->attribute_types[i]);
-		_gck_attributes_lock (attrs);
+			gck_builder_add_empty (&builder, args->object_iface->attribute_types[i]);
 
 		/* Ask for attribute sizes */
-		template = _gck_attributes_prepare_in (attrs, &n_template);
+		template = _gck_builder_prepare_in (&builder, &n_template);
 
 		rv = (args->funcs->C_GetAttributeValue) (session, result->handle, template, n_template);
 		if (GCK_IS_GET_ATTRIBUTE_RV_OK (rv)) {
 
 			/* Allocate memory for each value */
-			template = _gck_attributes_commit_in (attrs, &n_template);
+			template = _gck_builder_commit_in (&builder, &n_template);
 
 			/* Now get the actual values */
 			rv = (args->funcs->C_GetAttributeValue) (session, result->handle, template, n_template);
 		}
 
-		_gck_attributes_unlock (attrs);
+		attrs = gck_builder_end (&builder);
 
 		if (GCK_IS_GET_ATTRIBUTE_RV_OK (rv)) {
 			if (_gck_debugging) {
@@ -735,9 +734,6 @@ _gck_enumerator_new_for_modules (GList *modules,
 	state->handler = state_modules;
 	state->match = uri_data;
 
-	if (uri_data->attributes)
-		_gck_attributes_lock (uri_data->attributes);
-
 	created_enumerator (uri_data, "modules");
 	return self;
 }
@@ -759,9 +755,6 @@ _gck_enumerator_new_for_slots (GList *slots,
 	state->modules = NULL;
 	state->handler = state_slots;
 	state->match = uri_data;
-
-	if (uri_data->attributes)
-		_gck_attributes_lock (uri_data->attributes);
 
 	created_enumerator (uri_data, "slots");
 	return self;
@@ -790,9 +783,6 @@ _gck_enumerator_new_for_session (GckSession *session,
 	module = gck_session_get_module (session);
 	state->funcs = gck_module_get_functions (module);
 	g_object_unref (module);
-
-	if (uri_data->attributes)
-		_gck_attributes_lock (uri_data->attributes);
 
 	created_enumerator (uri_data, "session");
 	return self;

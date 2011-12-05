@@ -27,8 +27,874 @@
 #include "gck-private.h"
 #include "pkcs11-trust-assertions.h"
 
+#include "egg/egg-secure-memory.h"
+
 #include <stdlib.h>
 #include <string.h>
+
+/**
+ * SECTION:gck-attribute
+ * @title: GckAttribute
+ * @short_description: A PKCS11 attribute.
+ *
+ * This structure represents a PKCS11 CK_ATTRIBUTE. These attributes contain i
+ * about a PKCS11 object. Use gck_object_get() or gck_object_set() to set and
+ * attributes on an object.
+ */
+
+/**
+ * GckAttribute:
+ * @type: The attribute type, such as CKA_LABEL.
+ * @value: (array length=length): The value of the attribute. May be NULL.
+ * @length: The length of the attribute. May be G_MAXULONG if the attribute is
+ *
+ * This structure represents a PKCS11 CK_ATTRIBUTE.
+ */
+
+G_STATIC_ASSERT (sizeof (GckAttribute) == sizeof (CK_ATTRIBUTE));
+
+struct _GckAttributes {
+	GckAttribute *data;
+	gulong count;
+	gint refs;
+};
+
+typedef struct {
+	GArray *array;
+	gboolean secure;
+	gint refs;
+} GckRealBuilder;
+
+G_STATIC_ASSERT (sizeof (GckRealBuilder) <= sizeof (GckBuilder));
+
+EGG_SECURE_DECLARE (attributes);
+
+static guchar *
+value_take (gpointer data,
+            gsize length,
+            gboolean secure)
+{
+	gsize len = length + sizeof (gint);
+	gint *value;
+
+	if (secure)
+		value = egg_secure_realloc (data, len);
+	else
+		value = g_realloc (data, len);
+	g_assert (value != NULL);
+
+	memmove (value + 1, value, length);
+	g_atomic_int_set (value, 1);
+	return (guchar *)(value + 1);
+}
+
+static guchar *
+value_blank (gsize length,
+             gboolean secure)
+{
+	gsize len = length + sizeof (gint);
+	gint *value;
+
+	if (secure)
+		value = egg_secure_alloc (len);
+	else
+		value = g_malloc (len);
+	g_assert (value != NULL);
+
+	g_atomic_int_set (value, 1);
+	return (guchar *)(value + 1);
+}
+
+static guchar *
+value_new (gconstpointer data,
+           gsize length,
+           gboolean secure)
+{
+	guchar *result;
+
+	result = value_blank (length, secure);
+	memcpy (result, data, length);
+	return result;
+}
+
+static guchar *
+value_ref (guchar *data)
+{
+	gint *value = ((gint *)data) - 1;
+	gint previous;
+
+	g_assert (data != NULL);
+
+#if GLIB_CHECK_VERSION (2,29,90)
+	previous = g_atomic_int_add (value, 1);
+#else
+	previous = g_atomic_int_exchange_and_add (value, 1);
+#endif
+
+	if (G_UNLIKELY (previous <= 0)) {
+		g_warning ("An owned GckAttribute value has been modified outside of the "
+		           "gck library or an invalid attribute was passed to gck_builder_add_attribute()");
+		return NULL;
+	}
+
+	return data;
+}
+
+static void
+value_unref (gpointer data)
+{
+	gint *value = ((gint *)data) - 1;
+
+	g_assert (data != NULL);
+
+	if (g_atomic_int_dec_and_test (value)) {
+		if (egg_secure_check (value))
+			egg_secure_free (value);
+		else
+			g_free (value);
+	}
+}
+
+GType
+gck_builder_get_type (void)
+{
+	static volatile gsize initialized = 0;
+	static GType type = 0;
+	if (g_once_init_enter (&initialized)) {
+		type = g_boxed_type_register_static ("GckBuilder",
+		                                     (GBoxedCopyFunc)gck_builder_ref,
+		                                     (GBoxedFreeFunc)gck_builder_unref);
+		g_once_init_leave (&initialized, 1);
+	}
+	return type;
+}
+
+GckBuilder *
+gck_builder_new (GckBuilderFlags flags)
+{
+	GckBuilder *builder;
+	GckRealBuilder *real;
+	builder = g_slice_new (GckBuilder);
+	gck_builder_init_full (builder, flags);
+	real = (GckRealBuilder *)builder;
+	real->refs = 1;
+	return builder;
+}
+
+GckBuilder *
+gck_builder_ref (GckBuilder *builder)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+	gboolean stack;
+
+	g_return_val_if_fail (builder != NULL, NULL);
+
+#if GLIB_CHECK_VERSION (2,29,90)
+	stack = g_atomic_int_add (&real->refs, 1) == 0;
+#else
+	stack = g_atomic_int_exchange_and_add (&real->refs, 1) == 0;
+#endif
+
+	if G_UNLIKELY (stack) {
+		g_warning ("Never call gck_builder_ref() on a stack allocated GckBuilder structure");
+		return NULL;
+	}
+
+	return builder;
+}
+
+void
+gck_builder_unref (gpointer builder)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+
+	if (builder == NULL)
+		return;
+
+	if (g_atomic_int_dec_and_test (&real->refs)) {
+		gck_builder_clear (builder);
+		g_slice_free (GckBuilder, builder);
+	}
+}
+
+void
+gck_builder_init_full (GckBuilder *builder,
+                       GckBuilderFlags flags)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+
+	g_return_if_fail (builder != NULL);
+
+	memset (builder, 0, sizeof (GckBuilder));
+	real->secure = flags & GCK_BUILDER_SECURE_MEMORY;
+}
+
+void
+gck_builder_init (GckBuilder *builder)
+{
+	gck_builder_init_full (builder, GCK_BUILDER_NONE);
+}
+
+static GckAttribute *
+builder_push (GckBuilder *builder,
+              gulong attr_type)
+{
+	GckAttribute attr = { attr_type, NULL, 0 };
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+	if (real->array == NULL)
+		real->array = g_array_new (FALSE, TRUE, sizeof (GckAttribute));
+	g_array_append_val (real->array, attr);
+	return &g_array_index (real->array, GckAttribute, real->array->len - 1);
+}
+
+static void
+builder_clear (GckAttribute *attr)
+{
+	attr->length = 0;
+	if (attr->value)
+		value_unref (attr->value);
+	attr->value = NULL;
+}
+
+static GckAttribute *
+find_attribute (GckAttribute *attrs,
+                gsize n_attrs,
+                gulong attr_type)
+{
+	guint i;
+
+	for (i = 0; i < n_attrs; ++i) {
+		if (attrs[i].type == attr_type)
+			return attrs + i;
+	}
+
+	return NULL;
+}
+
+static GckAttribute *
+builder_clear_or_push (GckBuilder *builder,
+                       gulong attr_type)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+	GckAttribute *attr = NULL;
+
+	if (real->array)
+		attr = find_attribute ((GckAttribute *)real->array->data,
+		                       real->array->len, attr_type);
+	if (attr == NULL)
+		attr = builder_push (builder, attr_type);
+	else
+		builder_clear (attr);
+	return attr;
+}
+
+static void
+builder_copy (GckBuilder *builder,
+              const GckAttribute *attr,
+              gboolean performing_set)
+{
+	GckAttribute *copy;
+
+	if (performing_set)
+		copy = builder_clear_or_push (builder, attr->type);
+	else
+		copy = builder_push (builder, attr->type);
+	if (attr->length == G_MAXULONG) {
+		copy->value = NULL;
+		copy->length = G_MAXULONG;
+	} else if (attr->value == NULL) {
+		copy->value = NULL;
+		copy->length = 0;
+	} else {
+		copy->value = value_ref (attr->value);
+		copy->length = attr->length;
+	}
+}
+
+GckBuilder *
+gck_builder_copy (GckBuilder *builder)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+	GckBuilder *copy;
+	guint i;
+
+	if (builder == NULL)
+		return NULL;
+
+	copy = gck_builder_new (real->secure ? GCK_BUILDER_SECURE_MEMORY : GCK_BUILDER_NONE);
+	for (i = 0; real->array && i < real->array->len; i++)
+		builder_copy (copy, &g_array_index (real->array, GckAttribute, i), FALSE);
+
+	return copy;
+}
+
+void
+gck_builder_take_data (GckBuilder *builder,
+                       gulong attr_type,
+                       guchar *value,
+                       gsize length)
+{
+	GckAttribute *attr;
+	gboolean secure;
+
+	g_return_if_fail (builder != NULL);
+
+	secure = value && egg_secure_check (value);
+
+	attr = builder_push (builder, attr_type);
+	if (length == G_MAXULONG) {
+		if (secure)
+			egg_secure_free (value);
+		else
+			g_free (value);
+		attr->value = NULL;
+		attr->length = G_MAXULONG;
+	} else if (value == NULL) {
+		attr->value = NULL;
+		attr->length = 0;
+	} else {
+		attr->value = value_take (value, length, secure);
+		attr->length = length;
+	}
+}
+
+void
+gck_builder_add_data (GckBuilder *builder,
+                      gulong attr_type,
+                      const guchar *value,
+                      gsize length)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+	GckAttribute *attr;
+
+	g_return_if_fail (builder != NULL);
+
+	attr = builder_push (builder, attr_type);
+	if (length == G_MAXULONG) {
+		attr->value = NULL;
+		attr->length = G_MAXULONG;
+	} else if (value == NULL) {
+		attr->value = NULL;
+		attr->length = 0;
+	} else {
+		attr->value = value_new (value, length,
+		                         real->secure || egg_secure_check (value));
+		attr->length = length;
+	}
+}
+
+void
+gck_builder_set_data (GckBuilder *builder,
+                      gulong attr_type,
+                      const guchar *value,
+                      gsize length)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+	GckAttribute *attr;
+
+	g_return_if_fail (builder != NULL);
+
+	attr = builder_clear_or_push (builder, attr_type);
+	if (length == G_MAXULONG) {
+		attr->value = NULL;
+		attr->length = G_MAXULONG;
+	} else if (value == NULL) {
+		attr->value = NULL;
+		attr->length = 0;
+	} else {
+		attr->value = value_new (value, length,
+		                         real->secure || egg_secure_check (value));
+		attr->length = length;
+	}
+}
+
+void
+gck_builder_add_empty (GckBuilder *builder,
+                       gulong attr_type)
+{
+	g_return_if_fail (builder != NULL);
+
+	builder_push (builder, attr_type);
+}
+
+void
+gck_builder_set_empty (GckBuilder *builder,
+                       gulong attr_type)
+{
+	g_return_if_fail (builder != NULL);
+
+	builder_clear_or_push (builder, attr_type);
+}
+
+void
+gck_builder_add_invalid (GckBuilder *builder,
+                         gulong attr_type)
+{
+	GckAttribute *attr;
+
+	g_return_if_fail (builder != NULL);
+
+	attr = builder_push (builder, attr_type);
+	attr->length = (gulong)-1;
+}
+
+void
+gck_builder_set_invalid (GckBuilder *builder,
+                         gulong attr_type)
+{
+	GckAttribute *attr;
+
+	g_return_if_fail (builder != NULL);
+
+	attr = builder_clear_or_push (builder, attr_type);
+	attr->length = (gulong)-1;
+}
+
+void
+gck_builder_add_ulong (GckBuilder *builder,
+                       gulong attr_type,
+                       gulong value)
+{
+	CK_ULONG uval = value;
+	gck_builder_add_data (builder, attr_type,
+	                      (const guchar *)&uval, sizeof (uval));
+}
+
+void
+gck_builder_set_ulong (GckBuilder *builder,
+                       gulong attr_type,
+                       gulong value)
+{
+	CK_ULONG uval = value;
+	gck_builder_set_data (builder, attr_type,
+	                      (const guchar *)&uval, sizeof (uval));
+}
+
+void
+gck_builder_add_boolean (GckBuilder *builder,
+                         gulong attr_type,
+                         gboolean value)
+{
+	CK_BBOOL bval = value ? CK_TRUE : CK_FALSE;
+	gck_builder_add_data (builder, attr_type,
+	                      (const guchar *)&bval, sizeof (bval));
+}
+
+void
+gck_builder_set_boolean (GckBuilder *builder,
+                         gulong attr_type,
+                         gboolean value)
+{
+	CK_BBOOL bval = value ? CK_TRUE : CK_FALSE;
+	gck_builder_set_data (builder, attr_type,
+	                      (const guchar *)&bval, sizeof (bval));
+}
+
+static void
+convert_gdate_to_ckdate (const GDate *value,
+                         CK_DATE *date)
+{
+	gchar buffer[9];
+	g_snprintf (buffer, sizeof (buffer), "%04d%02d%02d",
+	            (int)g_date_get_year (value),
+	            (int)g_date_get_month (value),
+	            (int)g_date_get_day (value));
+	memcpy (&date->year, buffer + 0, 4);
+	memcpy (&date->month, buffer + 4, 2);
+	memcpy (&date->day, buffer + 6, 2);
+}
+
+void
+gck_builder_add_date (GckBuilder *builder,
+                      gulong attr_type,
+                      const GDate *value)
+{
+	CK_DATE date;
+
+	g_return_if_fail (value != NULL);
+
+	convert_gdate_to_ckdate (value, &date);
+	gck_builder_add_data (builder, attr_type,
+	                      (const guchar *)&date, sizeof (CK_DATE));
+}
+
+void
+gck_builder_set_date (GckBuilder *builder,
+                      gulong attr_type,
+                      const GDate *value)
+{
+	CK_DATE date;
+
+	g_return_if_fail (value != NULL);
+
+	convert_gdate_to_ckdate (value, &date);
+	gck_builder_set_data (builder, attr_type,
+	                      (const guchar *)&date, sizeof (CK_DATE));
+}
+
+void
+gck_builder_add_string (GckBuilder *builder,
+                        gulong attr_type,
+                        const gchar *value)
+{
+	gck_builder_add_data (builder, attr_type,
+	                      (const guchar *)value, value ? strlen (value) : 0);
+}
+
+void
+gck_builder_set_string (GckBuilder *builder,
+                        gulong attr_type,
+                        const gchar *value)
+{
+	gck_builder_set_data (builder, attr_type,
+	                      (const guchar *)value, value ? strlen (value) : 0);
+}
+
+void
+gck_builder_add_attribute (GckBuilder *builder,
+                           const GckAttribute *attr)
+{
+	g_return_if_fail (builder != NULL);
+	g_return_if_fail (attr != NULL);
+
+	gck_builder_add_data (builder, attr->type, attr->value, attr->length);
+}
+
+void
+gck_builder_add_owned (GckBuilder *builder,
+                       const GckAttribute *attr)
+{
+	g_return_if_fail (builder != NULL);
+	g_return_if_fail (attr != NULL);
+
+	builder_copy (builder, attr, FALSE);
+}
+
+void
+gck_builder_add_all (GckBuilder *builder,
+                     GckAttributes *attrs)
+{
+	gulong i;
+
+	g_return_if_fail (builder != NULL);
+	g_return_if_fail (attrs != NULL);
+
+	for (i = 0; i < attrs->count; i++)
+		builder_copy (builder, &attrs->data[i], FALSE);
+}
+
+void
+gck_builder_add_only (GckBuilder *builder,
+                      GckAttributes *attrs,
+                      gulong only_type,
+                      ...)
+{
+	GArray *types;
+	va_list va;
+
+	g_return_if_fail (builder != NULL);
+	g_return_if_fail (attrs != NULL);
+
+	types = g_array_new (FALSE, FALSE, sizeof (gulong));
+
+	va_start (va, only_type);
+	while (only_type != GCK_INVALID) {
+		g_array_append_val (types, only_type);
+		only_type = va_arg (va, gulong);
+	}
+	va_end (va);
+
+	gck_builder_add_onlyv (builder, attrs, (gulong *)types->data, types->len);
+	g_array_free (types, TRUE);
+}
+
+void
+gck_builder_add_onlyv (GckBuilder *builder,
+                       GckAttributes *attrs,
+                       const gulong *only_types,
+                       guint n_only_types)
+{
+	gulong i;
+	guint j;
+
+	g_return_if_fail (builder != NULL);
+	g_return_if_fail (attrs != NULL);
+
+	for (i = 0; i < attrs->count; i++) {
+		for (j = 0; j < n_only_types; j++) {
+			if (attrs->data[i].type == only_types[j])
+				builder_copy (builder, &attrs->data[i], FALSE);
+		}
+	}
+}
+
+void
+gck_builder_add_except (GckBuilder *builder,
+                        GckAttributes *attrs,
+                        gulong except_type,
+                        ...)
+{
+	GArray *types;
+	va_list va;
+
+	g_return_if_fail (builder != NULL);
+	g_return_if_fail (attrs != NULL);
+
+	types = g_array_new (FALSE, FALSE, sizeof (gulong));
+
+	va_start (va, except_type);
+	while (except_type != GCK_INVALID) {
+		g_array_append_val (types, except_type);
+		except_type = va_arg (va, gulong);
+	}
+	va_end (va);
+
+	gck_builder_add_exceptv (builder, attrs, (gulong *)types->data, types->len);
+	g_array_free (types, TRUE);
+}
+
+void
+gck_builder_add_exceptv (GckBuilder *builder,
+                         GckAttributes *attrs,
+                         const gulong *except_types,
+                         guint n_except_types)
+{
+	gulong i;
+	guint j;
+
+	g_return_if_fail (builder != NULL);
+	g_return_if_fail (attrs != NULL);
+
+	for (i = 0; i < attrs->count; i++) {
+		for (j = 0; j < n_except_types; j++) {
+			if (attrs->data[i].type == except_types[j])
+				break;
+		}
+		if (j == n_except_types)
+			builder_copy (builder, &attrs->data[i], FALSE);
+	}
+}
+
+void
+gck_builder_set_all (GckBuilder *builder,
+                     GckAttributes *attrs)
+{
+	gulong i;
+
+	g_return_if_fail (builder != NULL);
+	g_return_if_fail (attrs != NULL);
+
+	for (i = 0; i < attrs->count; i++)
+		builder_copy (builder, &attrs->data[i], TRUE);
+}
+
+const GckAttribute *
+gck_builder_find (GckBuilder *builder,
+                  gulong attr_type)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+
+	g_return_val_if_fail (builder != NULL, NULL);
+
+	if (real->array == NULL)
+		return NULL;
+
+	return find_attribute ((GckAttribute *)real->array->data,
+	                       real->array->len, attr_type);
+}
+
+static gboolean
+find_attribute_boolean (GckAttribute *attrs,
+                        gsize n_attrs,
+                        gulong attr_type,
+                        gboolean *value)
+{
+	GckAttribute *attr;
+
+	attr = find_attribute (attrs, n_attrs, attr_type);
+	if (!attr || gck_attribute_is_invalid (attr))
+		return FALSE;
+	*value = gck_attribute_get_boolean (attr);
+	return TRUE;
+}
+
+
+gboolean
+gck_builder_find_boolean (GckBuilder *builder,
+                          gulong attr_type,
+                          gboolean *value)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+
+	g_return_val_if_fail (builder != NULL, FALSE);
+	g_return_val_if_fail (value != NULL, FALSE);
+
+	if (real->array == NULL)
+		return FALSE;
+
+	return find_attribute_boolean ((GckAttribute *)real->array->data,
+	                               real->array->len, attr_type, value);
+}
+
+static gboolean
+find_attribute_ulong (GckAttribute *attrs,
+                      gsize n_attrs,
+                      gulong attr_type,
+                      gulong *value)
+{
+	GckAttribute *attr;
+
+	attr = find_attribute (attrs, n_attrs, attr_type);
+	if (!attr || gck_attribute_is_invalid (attr))
+		return FALSE;
+	*value = gck_attribute_get_ulong (attr);
+	return TRUE;
+}
+
+gboolean
+gck_builder_find_ulong (GckBuilder *builder,
+                        gulong attr_type,
+                        gulong *value)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+
+	g_return_val_if_fail (builder != NULL, FALSE);
+	g_return_val_if_fail (value != NULL, FALSE);
+
+	if (real->array == NULL)
+		return FALSE;
+
+	return find_attribute_ulong ((GckAttribute *)real->array->data,
+	                             real->array->len, attr_type, value);
+}
+
+static gboolean
+find_attribute_string (GckAttribute *attrs,
+                       gsize n_attrs,
+                       gulong attr_type,
+                       gchar **value)
+{
+	GckAttribute *attr;
+	gchar *string;
+
+	attr = find_attribute (attrs, n_attrs, attr_type);
+	if (!attr || gck_attribute_is_invalid (attr))
+		return FALSE;
+	string = gck_attribute_get_string (attr);
+	if (string == NULL)
+		return FALSE;
+	*value = string;
+	return TRUE;
+}
+
+gboolean
+gck_builder_find_string (GckBuilder *builder,
+                         gulong attr_type,
+                         gchar **value)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+
+	g_return_val_if_fail (builder != NULL, FALSE);
+	g_return_val_if_fail (value != NULL, FALSE);
+
+	if (real->array == NULL)
+		return FALSE;
+
+	return find_attribute_string ((GckAttribute *)real->array->data,
+	                              real->array->len, attr_type, value);
+}
+
+static gboolean
+find_attribute_date (GckAttribute *attrs,
+                     gsize n_attrs,
+                     gulong attr_type,
+                     GDate *value)
+{
+	GckAttribute *attr;
+
+	attr = find_attribute (attrs, n_attrs, attr_type);
+	if (!attr || gck_attribute_is_invalid (attr))
+		return FALSE;
+	gck_attribute_get_date (attr, value);
+	return TRUE;
+}
+gboolean
+gck_builder_find_date (GckBuilder *builder,
+                       gulong attr_type,
+                       GDate *value)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+
+	g_return_val_if_fail (builder != NULL, FALSE);
+	g_return_val_if_fail (value != NULL, FALSE);
+
+	if (real->array == NULL)
+		return FALSE;
+
+	return find_attribute_date ((GckAttribute *)real->array->data,
+	                            real->array->len, attr_type, value);
+}
+
+GckAttributes *
+gck_builder_steal (GckBuilder *builder)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+	GckAttributes *attrs;
+	gpointer data;
+	gulong length;
+
+	g_return_val_if_fail (builder != NULL, NULL);
+
+	if (real->array) {
+		length = real->array->len;
+		data = g_array_free (real->array, FALSE);
+		real->array = NULL;
+	} else {
+		length = 0;
+		data = NULL;
+	}
+
+	attrs = g_slice_new0 (GckAttributes);
+	attrs->count = length;
+	attrs->data = data;
+	attrs->refs = 1;
+
+	return attrs;
+}
+
+GckAttributes *
+gck_builder_end (GckBuilder *builder)
+{
+	GckAttributes *attrs;
+
+	g_return_val_if_fail (builder != NULL, NULL);
+
+	attrs = gck_builder_steal (builder);
+	gck_builder_clear (builder);
+
+	return attrs;
+}
+
+void
+gck_builder_clear (GckBuilder *builder)
+{
+	GckRealBuilder *real = (GckRealBuilder *)builder;
+	GckAttribute *attr;
+	guint i;
+
+	g_return_if_fail (builder != NULL);
+
+	if (real->array == NULL)
+		return;
+
+	for (i = 0; i < real->array->len; i++) {
+		attr = &g_array_index (real->array, GckAttribute, i);
+		builder_clear (attr);
+	}
+
+	g_array_free (real->array, TRUE);
+	real->array = NULL;
+}
 
 /**
  * SECTION:gck-attribute
@@ -38,6 +904,9 @@
  * This structure represents a PKCS11 CK_ATTRIBUTE. These attributes contain information
  * about a PKCS11 object. Use gck_object_get() or gck_object_set() to set and retrieve
  * attributes on an object.
+ *
+ * Although you are free to allocate a #GckAttribute in your own code, no functions in
+ * this library will operate on such an attribute.
  */
 
 /**
@@ -50,369 +919,6 @@
  */
 
 /**
- * GCK_TYPE_ATTRIBUTES:
- *
- * Boxed type for #GckAttributes
- */
-
-static void
-attribute_init (GckAttribute *attr, gulong attr_type,
-                gconstpointer value, gsize length,
-                GckAllocator allocator)
-{
-	g_assert (sizeof (GckAttribute) == sizeof (CK_ATTRIBUTE));
-	g_assert (allocator);
-
-	memset (attr, 0, sizeof (GckAttribute));
-	attr->type = attr_type;
-	attr->length = length;
-	if (value) {
-		attr->value = (allocator) (NULL, length ? length : 1);
-		g_assert (attr->value);
-		memcpy ((gpointer)attr->value, value, length);
-	}
-}
-
-/**
- * gck_attribute_init: (skip)
- * @attr: An uninitialized attribute.
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- * @value: (array length=length): The raw value of the attribute.
- * @length: The length of the raw value.
- *
- * Initialize a PKCS\#11 attribute. This copies the value memory
- * into an internal buffer.
- *
- * When done with the attribute you should use gck_attribute_clear()
- * to free the internal memory.
- **/
-void
-gck_attribute_init (GckAttribute *attr,
-                    gulong attr_type,
-                    const guchar *value,
-                    gsize length)
-{
-	g_return_if_fail (attr);
-	attribute_init (attr, attr_type, value, length, g_realloc);
-}
-
-/**
- * gck_attribute_init_invalid: (skip)
- * @attr: An uninitialized attribute.
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- *
- * Initialize a PKCS\#11 attribute to an 'invalid' or 'not found'
- * state. Specifically this sets the value length to (CK_ULONG)-1
- * as specified in the PKCS\#11 specification.
- *
- * When done with the attribute you should use gck_attribute_clear()
- * to free the internal memory.
- **/
-void
-gck_attribute_init_invalid (GckAttribute *attr, gulong attr_type)
-{
-	g_return_if_fail (attr);
-	g_assert (sizeof (GckAttribute) == sizeof (CK_ATTRIBUTE));
-	memset (attr, 0, sizeof (GckAttribute));
-	attr->type = attr_type;
-	attr->length = (gulong)-1;
-}
-
-/**
- * gck_attribute_init_empty: (skip)
- * @attr: An uninitialized attribute.
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- *
- * Initialize a PKCS\#11 attribute to an empty state. The attribute
- * type will be set, but no data will be set.
- *
- * When done with the attribute you should use gck_attribute_clear()
- * to free the internal memory.
- **/
-void
-gck_attribute_init_empty (GckAttribute *attr, gulong attr_type)
-{
-	g_return_if_fail (attr);
-	g_assert (sizeof (GckAttribute) == sizeof (CK_ATTRIBUTE));
-	memset (attr, 0, sizeof (GckAttribute));
-	attr->type = attr_type;
-	attr->length = 0;
-	attr->value = 0;
-}
-
-static void
-attribute_init_boolean (GckAttribute *attr, gulong attr_type,
-                        gboolean value, GckAllocator allocator)
-{
-	CK_BBOOL bvalue = value ? CK_TRUE : CK_FALSE;
-	attribute_init (attr, attr_type, &bvalue, sizeof (bvalue), allocator);
-}
-
-/**
- * gck_attribute_init_boolean: (skip)
- * @attr: An uninitialized attribute.
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- * @value: The boolean value of the attribute.
- *
- * Initialize a PKCS\#11 attribute to boolean. This will result
- * in a CK_BBOOL attribute from the PKCS\#11 specs.
- *
- * When done with the attribute you should use gck_attribute_clear()
- * to free the internal memory.
- **/
-void
-gck_attribute_init_boolean (GckAttribute *attr, gulong attr_type,
-                             gboolean value)
-{
-	g_return_if_fail (attr);
-	attribute_init_boolean (attr, attr_type, value, g_realloc);
-}
-
-static void
-attribute_init_date (GckAttribute *attr, gulong attr_type,
-                     const GDate *value, GckAllocator allocator)
-{
-	gchar buffer[9];
-	CK_DATE date;
-	g_assert (value);
-	g_snprintf (buffer, sizeof (buffer), "%04d%02d%02d",
-	            (int)g_date_get_year (value),
-	            (int)g_date_get_month (value),
-	            (int)g_date_get_day (value));
-	memcpy (&date.year, buffer + 0, 4);
-	memcpy (&date.month, buffer + 4, 2);
-	memcpy (&date.day, buffer + 6, 2);
-	attribute_init (attr, attr_type, &date, sizeof (CK_DATE), allocator);
-}
-
-/**
- * gck_attribute_init_date: (skip)
- * @attr: An uninitialized attribute.
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- * @value: The date value of the attribute.
- *
- * Initialize a PKCS\#11 attribute to a date. This will result
- * in a CK_DATE attribute from the PKCS\#11 specs.
- *
- * When done with the attribute you should use gck_attribute_clear()
- * to free the internal memory.
- **/
-void
-gck_attribute_init_date (GckAttribute *attr, gulong attr_type,
-                          const GDate *value)
-{
-	g_return_if_fail (attr);
-	g_return_if_fail (value);
-	attribute_init_date (attr, attr_type, value, g_realloc);
-}
-
-static void
-attribute_init_ulong (GckAttribute *attr, gulong attr_type,
-                      gulong value, GckAllocator allocator)
-{
-	CK_ULONG uvalue = value;
-	attribute_init (attr, attr_type, &uvalue, sizeof (uvalue), allocator);
-}
-
-/**
- * gck_attribute_init_ulong: (skip)
- * @attr: An uninitialized attribute.
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- * @value: The ulong value of the attribute.
- *
- * Initialize a PKCS\#11 attribute to a unsigned long. This will result
- * in a CK_ULONG attribute from the PKCS\#11 specs.
- *
- * When done with the attribute you should use gck_attribute_clear()
- * to free the internal memory.
- **/
-void
-gck_attribute_init_ulong (GckAttribute *attr, gulong attr_type,
-                           gulong value)
-{
-	g_return_if_fail (attr);
-	attribute_init_ulong (attr, attr_type, value, g_realloc);
-}
-
-static void
-attribute_init_string (GckAttribute *attr, gulong attr_type,
-                       const gchar *value, GckAllocator allocator)
-{
-	gsize len = value ? strlen (value) : 0;
-	attribute_init (attr, attr_type, (gpointer)value, len, allocator);
-}
-
-/**
- * gck_attribute_init_string: (skip)
- * @attr: An uninitialized attribute.
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- * @value: The null terminated string value of the attribute.
- *
- * Initialize a PKCS\#11 attribute to a string. This will result
- * in an attribute containing the text, but not the null terminator.
- * The text in the attribute will be of the same encoding as you pass
- * to this function.
- *
- * When done with the attribute you should use gck_attribute_clear()
- * to free the internal memory.
- **/
-void
-gck_attribute_init_string (GckAttribute *attr, gulong attr_type,
-                            const gchar *value)
-{
-	g_return_if_fail (attr);
-	attribute_init_string (attr, attr_type, value, g_realloc);
-}
-
-GType
-gck_attribute_get_type (void)
-{
-	static volatile gsize initialized = 0;
-	static GType type = 0;
-	if (g_once_init_enter (&initialized)) {
-		type = g_boxed_type_register_static ("GckAttribute",
-		                                     (GBoxedCopyFunc)gck_attribute_dup,
-		                                     (GBoxedFreeFunc)gck_attribute_free);
-		g_once_init_leave (&initialized, 1);
-	}
-	return type;
-}
-
-/**
- * gck_attribute_new:
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- * @value: The raw value of the attribute.
- * @length: The length of the attribute.
- *
- * Create a new PKCS\#11 attribute. The value will be copied
- * into the new attribute.
- *
- * Returns: (transfer full): the new attribute; when done with the attribute
- *          use gck_attribute_free() to free it
- **/
-GckAttribute*
-gck_attribute_new (gulong attr_type, gpointer value, gsize length)
-{
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
-	attribute_init (attr, attr_type, value, length, g_realloc);
-	return attr;
-}
-
-/**
- * gck_attribute_new_invalid:
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- *
- * Create a new PKCS\#11 attribute as 'invalid' or 'not found'
- * state. Specifically this sets the value length to (CK_ULONG)-1
- * as specified in the PKCS\#11 specification.
- *
- * Returns: (transfer full): the new attribute; when done with the attribute
- *          use gck_attribute_free() to free it
- **/
-GckAttribute*
-gck_attribute_new_invalid (gulong attr_type)
-{
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
-	gck_attribute_init_invalid (attr, attr_type);
-	return attr;
-}
-
-/**
- * gck_attribute_new_empty:
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- *
- * Create a new PKCS\#11 attribute with empty data.
- *
- * Returns: (transfer full): the new attribute; when done with the attribute
- *          use gck_attribute_free() to free it
- */
-GckAttribute*
-gck_attribute_new_empty (gulong attr_type)
-{
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
-	gck_attribute_init_empty (attr, attr_type);
-	return attr;
-}
-
-/**
- * gck_attribute_new_boolean:
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- * @value: The boolean value of the attribute.
- *
- * Initialize a PKCS\#11 attribute to boolean. This will result
- * in a CK_BBOOL attribute from the PKCS\#11 specs.
- *
- * Returns: (transfer full): the new attribute; when done with the attribute use
- *          gck_attribute_free() to free it
- **/
-GckAttribute*
-gck_attribute_new_boolean (gulong attr_type, gboolean value)
-{
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
-	attribute_init_boolean (attr, attr_type, value, g_realloc);
-	return attr;
-}
-
-/**
- * gck_attribute_new_date:
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- * @value: The date value of the attribute.
- *
- * Initialize a PKCS\#11 attribute to a date. This will result
- * in a CK_DATE attribute from the PKCS\#11 specs.
- *
- * Returns: (transfer full): the new attribute; when done with the attribute use
- *          gck_attribute_free() to free it
- **/
-GckAttribute*
-gck_attribute_new_date (gulong attr_type, const GDate *value)
-{
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
-	attribute_init_date (attr, attr_type, value, g_realloc);
-	return attr;
-}
-
-/**
- * gck_attribute_new_ulong:
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- * @value: The ulong value of the attribute.
- *
- * Initialize a PKCS\#11 attribute to a unsigned long. This will result
- * in a CK_ULONG attribute from the PKCS\#11 specs.
- *
- * Returns: (transfer full): the new attribute; when done with the attribute use
- *          gck_attribute_free() to free it
- **/
-GckAttribute*
-gck_attribute_new_ulong (gulong attr_type, gulong value)
-{
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
-	attribute_init_ulong (attr, attr_type, value, g_realloc);
-	return attr;
-}
-
-/**
- * gck_attribute_new_string:
- * @attr_type: The PKCS\#11 attribute type to set on the attribute.
- * @value: The null terminated string value of the attribute.
- *
- * Initialize a PKCS\#11 attribute to a string. This will result
- * in an attribute containing the text, but not the null terminator.
- * The text in the attribute will be of the same encoding as you pass
- * to this function.
- *
- * Returns: (transfer full): the new attribute; when done with the attribute use
- *          gck_attribute_free() to free it
- **/
-GckAttribute*
-gck_attribute_new_string (gulong attr_type, const gchar *value)
-{
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
-	attribute_init_string (attr, attr_type, value, g_realloc);
-	return attr;
-}
-
-/**
  * gck_attribute_is_invalid:
  * @attr: The attribute to check.
  *
@@ -423,7 +929,7 @@ gck_attribute_new_string (gulong attr_type, const gchar *value)
  * Return value: Whether the attribute represents invalid or not.
  */
 gboolean
-gck_attribute_is_invalid (GckAttribute *attr)
+gck_attribute_is_invalid (const GckAttribute *attr)
 {
 	g_return_val_if_fail (attr, TRUE);
 	return attr->length == (gulong)-1;
@@ -441,7 +947,7 @@ gck_attribute_is_invalid (GckAttribute *attr)
  * Return value: The boolean value of the attribute.
  */
 gboolean
-gck_attribute_get_boolean (GckAttribute *attr)
+gck_attribute_get_boolean (const GckAttribute *attr)
 {
 	gboolean value;
 
@@ -465,7 +971,7 @@ gck_attribute_get_boolean (GckAttribute *attr)
  * Return value: The ulong value of the attribute.
  */
 gulong
-gck_attribute_get_ulong (GckAttribute *attr)
+gck_attribute_get_ulong (const GckAttribute *attr)
 {
 	gulong value;
 
@@ -490,7 +996,7 @@ gck_attribute_get_ulong (GckAttribute *attr)
  *               g_free(), or %NULL if the value was invalid
  */
 gchar*
-gck_attribute_get_string (GckAttribute *attr)
+gck_attribute_get_string (const GckAttribute *attr)
 {
 	g_return_val_if_fail (attr, NULL);
 
@@ -513,7 +1019,8 @@ gck_attribute_get_string (GckAttribute *attr)
  * a value of the right type.
  */
 void
-gck_attribute_get_date (GckAttribute *attr, GDate *value)
+gck_attribute_get_date (const GckAttribute *attr,
+                        GDate *value)
 {
 	guint year, month, day;
 	gchar buffer[5];
@@ -550,17 +1057,345 @@ gck_attribute_get_date (GckAttribute *attr, GDate *value)
 }
 
 /**
+ * gck_attribute_init: (skip)
+ * @attr: an uninitialized attribute
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @value: (array length=length): The raw value of the attribute.
+ * @length: The length of the raw value.
+ *
+ * Initialize a PKCS\#11 attribute. This copies the value memory
+ * into an internal buffer.
+ *
+ * When done with the attribute you should use gck_attribute_clear()
+ * to free the internal memory.
+ **/
+void
+gck_attribute_init (GckAttribute *attr,
+                    gulong attr_type,
+                    const guchar *value,
+                    gsize length)
+{
+	g_return_if_fail (attr != NULL);
+
+	attr->type = attr_type;
+	if (length == G_MAXULONG) {
+		attr->value = NULL;
+		attr->length = G_MAXULONG;
+	} else if (value == NULL) {
+		attr->value = NULL;
+		attr->length = 0;
+	} else {
+		attr->value = value_new (value, length, egg_secure_check (value));
+		attr->length = length;
+	}
+}
+
+/**
+ * gck_attribute_init_invalid: (skip)
+ * @attr: an uninitialized attribute
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ *
+ * Initialize a PKCS\#11 attribute to an 'invalid' or 'not found'
+ * state. Specifically this sets the value length to (CK_ULONG)-1
+ * as specified in the PKCS\#11 specification.
+ *
+ * When done with the attribute you should use gck_attribute_clear()
+ * to free the internal memory.
+ **/
+void
+gck_attribute_init_invalid (GckAttribute *attr,
+                            gulong attr_type)
+{
+	g_return_if_fail (attr != NULL);
+	attr->type = attr_type;
+	attr->value = NULL;
+	attr->length = G_MAXULONG;
+}
+
+/**
+ * gck_attribute_init_empty: (skip)
+ * @attr: an uninitialized attribute
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ *
+ * Initialize a PKCS\#11 attribute to an empty state. The attribute
+ * type will be set, but no data will be set.
+ *
+ * When done with the attribute you should use gck_attribute_clear()
+ * to free the internal memory.
+ **/
+void
+gck_attribute_init_empty (GckAttribute *attr, gulong attr_type)
+{
+	g_return_if_fail (attr != NULL);
+
+	attr->type = attr_type;
+	attr->length = 0;
+	attr->value = 0;
+}
+
+/**
+ * gck_attribute_init_boolean: (skip)
+ * @attr: an uninitialized attribute
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @value: the boolean value of the attribute
+ *
+ * Initialize a PKCS\#11 attribute to boolean. This will result
+ * in a CK_BBOOL attribute from the PKCS\#11 specs.
+ *
+ * When done with the attribute you should use gck_attribute_clear()
+ * to free the internal memory.
+ **/
+void
+gck_attribute_init_boolean (GckAttribute *attr,
+                            gulong attr_type,
+                            gboolean value)
+{
+	CK_BBOOL val = value ? CK_TRUE : CK_FALSE;
+	g_return_if_fail (attr != NULL);
+	gck_attribute_init (attr, attr_type, &val, sizeof (val));
+}
+
+/**
+ * gck_attribute_init_date: (skip)
+ * @attr: an uninitialized attribute
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @value: the date value of the attribute
+ *
+ * Initialize a PKCS\#11 attribute to a date. This will result
+ * in a CK_DATE attribute from the PKCS\#11 specs.
+ *
+ * When done with the attribute you should use gck_attribute_clear()
+ * to free the internal memory.
+ **/
+void
+gck_attribute_init_date (GckAttribute *attr,
+                         gulong attr_type,
+                         const GDate *value)
+{
+	CK_DATE date;
+
+	g_return_if_fail (attr != NULL);
+	g_return_if_fail (value != NULL);
+
+	convert_gdate_to_ckdate (value, &date);
+	gck_attribute_init (attr, attr_type, (const guchar *)&date, sizeof (CK_DATE));
+}
+
+/**
+ * gck_attribute_init_ulong: (skip)
+ * @attr: an uninitialized attribute
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @value: the ulong value of the attribute
+ *
+ * Initialize a PKCS\#11 attribute to a unsigned long. This will result
+ * in a CK_ULONG attribute from the PKCS\#11 specs.
+ *
+ * When done with the attribute you should use gck_attribute_clear()
+ * to free the internal memory.
+ **/
+void
+gck_attribute_init_ulong (GckAttribute *attr,
+                          gulong attr_type,
+                          gulong value)
+{
+	CK_ULONG val = value;
+	g_return_if_fail (attr != NULL);
+	gck_attribute_init (attr, attr_type, (const guchar *)&val, sizeof (val));
+}
+
+/**
+ * gck_attribute_init_string: (skip)
+ * @attr: an uninitialized attribute
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @value: the null terminated string value of the attribute
+ *
+ * Initialize a PKCS\#11 attribute to a string. This will result
+ * in an attribute containing the text, but not the null terminator.
+ * The text in the attribute will be of the same encoding as you pass
+ * to this function.
+ *
+ * When done with the attribute you should use gck_attribute_clear()
+ * to free the internal memory.
+ **/
+void
+gck_attribute_init_string (GckAttribute *attr,
+                           gulong attr_type,
+                           const gchar *value)
+{
+	g_return_if_fail (attr != NULL);
+	gck_attribute_init (attr, attr_type, (const guchar *)value,
+	                    value ? strlen (value) : 0);
+}
+
+GType
+gck_attribute_get_type (void)
+{
+	static volatile gsize initialized = 0;
+	static GType type = 0;
+	if (g_once_init_enter (&initialized)) {
+		type = g_boxed_type_register_static ("GckAttribute",
+		                                     (GBoxedCopyFunc)gck_attribute_dup,
+		                                     (GBoxedFreeFunc)gck_attribute_free);
+		g_once_init_leave (&initialized, 1);
+	}
+	return type;
+}
+
+/**
+ * gck_attribute_new:
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @value: the raw value of the attribute
+ * @length: the length of the attribute
+ *
+ * Create a new PKCS\#11 attribute. The value will be copied
+ * into the new attribute.
+ *
+ * Returns: (transfer full): the new attribute; when done with the attribute
+ *          use gck_attribute_free() to free it
+ **/
+GckAttribute *
+gck_attribute_new (gulong attr_type,
+                   const guchar *value,
+                   gsize length)
+{
+	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	gck_attribute_init (attr, attr_type, value, length);
+	return attr;
+}
+
+/**
+ * gck_attribute_new_invalid:
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ *
+ * Create a new PKCS\#11 attribute as 'invalid' or 'not found'
+ * state. Specifically this sets the value length to (CK_ULONG)-1
+ * as specified in the PKCS\#11 specification.
+ *
+ * Returns: (transfer full): the new attribute; when done with the attribute
+ *          use gck_attribute_free() to free it
+ **/
+GckAttribute *
+gck_attribute_new_invalid (gulong attr_type)
+{
+	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	gck_attribute_init_invalid (attr, attr_type);
+	return attr;
+}
+
+/**
+ * gck_attribute_new_empty:
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ *
+ * Create a new PKCS\#11 attribute with empty data.
+ *
+ * Returns: (transfer full): the new attribute; when done with the attribute
+ *          use gck_attribute_free() to free it
+ */
+GckAttribute *
+gck_attribute_new_empty (gulong attr_type)
+{
+	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	gck_attribute_init_empty (attr, attr_type);
+	return attr;
+}
+
+/**
+ * gck_attribute_new_boolean:
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @value: the boolean value of the attribute
+ *
+ * Initialize a PKCS\#11 attribute to boolean. This will result
+ * in a CK_BBOOL attribute from the PKCS\#11 specs.
+ *
+ * Returns: (transfer full): the new attribute; when done with the attribute u
+ *          gck_attribute_free() to free it
+ **/
+GckAttribute *
+gck_attribute_new_boolean (gulong attr_type,
+                           gboolean value)
+{
+	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	gck_attribute_init_boolean (attr, attr_type, value);
+	return attr;
+}
+
+/**
+ * gck_attribute_new_date:
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @value: the date value of the attribute
+ *
+ * Initialize a PKCS\#11 attribute to a date. This will result
+ * in a CK_DATE attribute from the PKCS\#11 specs.
+ *
+ * Returns: (transfer full): the new attribute; when done with the attribute u
+ *          gck_attribute_free() to free it
+ **/
+GckAttribute *
+gck_attribute_new_date (gulong attr_type,
+                        const GDate *value)
+{
+	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	gck_attribute_init_date (attr, attr_type, value);
+	return attr;
+}
+
+/**
+ * gck_attribute_new_ulong:
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @value: the ulong value of the attribute
+ *
+ * Initialize a PKCS\#11 attribute to a unsigned long. This will result
+ * in a CK_ULONG attribute from the PKCS\#11 specs.
+ *
+ * Returns: (transfer full): the new attribute; when done with the attribute u
+ *          gck_attribute_free() to free it
+ **/
+GckAttribute *
+gck_attribute_new_ulong (gulong attr_type,
+                         gulong value)
+{
+	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	gck_attribute_init_ulong (attr, attr_type, value);
+	return attr;
+}
+
+/**
+ * gck_attribute_new_string:
+ * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @value: the null-terminated string value of the attribute
+ *
+ * Initialize a PKCS\#11 attribute to a string. This will result
+ * in an attribute containing the text, but not the null terminator.
+ * The text in the attribute will be of the same encoding as you pass
+ * to this function.
+ *
+ * Returns: (transfer full): the new attribute; when done with the attribute u
+ *          gck_attribute_free() to free it
+ **/
+GckAttribute *
+gck_attribute_new_string (gulong attr_type,
+                          const gchar *value)
+{
+	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	gck_attribute_init_string (attr, attr_type, value);
+	return attr;
+}
+
+/**
  * gck_attribute_dup:
- * @attr: The attribute to duplicate.
+ * @attr: the attribute to duplicate
  *
  * Duplicate the PKCS\#11 attribute. All value memory is
  * also copied.
  *
+ * The @attr must have been allocated or initialized by a Gck function or
+ * the results of this function are undefined.
+ *
  * Returns: (transfer full): the duplicated attribute; use gck_attribute_free()
  *          to free it
  */
-GckAttribute*
-gck_attribute_dup (GckAttribute *attr)
+GckAttribute *
+gck_attribute_dup (const GckAttribute *attr)
 {
 	GckAttribute *copy;
 
@@ -570,26 +1405,6 @@ gck_attribute_dup (GckAttribute *attr)
 	copy = g_slice_new0 (GckAttribute);
 	gck_attribute_init_copy (copy, attr);
 	return copy;
-}
-
-static void
-attribute_init_copy (GckAttribute *dest, const GckAttribute *src, GckAllocator allocator)
-{
-	g_assert (dest);
-	g_assert (src);
-	g_assert (allocator);
-
-	/*
-	 * TODO: Handle stupid, dumb, broken, special cases like
-	 * CKA_WRAP_TEMPLATE and CKA_UNWRAP_TEMPLATE.
-	 */
-
-	memcpy (dest, src, sizeof (GckAttribute));
-	if (src->value) {
-		dest->value = (allocator) (NULL, src->length ? src->length : 1);
-		g_assert (dest->value);
-		memcpy ((gpointer)dest->value, src->value, src->length);
-	}
 }
 
 /**
@@ -604,39 +1419,45 @@ attribute_init_copy (GckAttribute *dest, const GckAttribute *src, GckAllocator a
  * gck_attribute_clear() to free the internal memory.
  **/
 void
-gck_attribute_init_copy (GckAttribute *dest, const GckAttribute *src)
+gck_attribute_init_copy (GckAttribute *dest,
+                         const GckAttribute *src)
 {
-	g_return_if_fail (dest);
-	g_return_if_fail (src);
-	attribute_init_copy (dest, src, g_realloc);
-}
+	g_return_if_fail (dest != NULL);
+	g_return_if_fail (src != NULL);
 
-static void
-attribute_clear (GckAttribute *attr, GckAllocator allocator)
-{
-	g_assert (attr);
-	g_assert (allocator);
-	if (attr->value)
-		(allocator) ((gpointer)attr->value, 0);
-	attr->value = NULL;
-	attr->length = 0;
+	dest->type = src->type;
+	if (src->length == G_MAXULONG) {
+		dest->value = NULL;
+		dest->length = G_MAXULONG;
+	} else if (src->value == NULL) {
+		dest->value = NULL;
+		dest->length = 0;
+	} else {
+		dest->value = value_ref (src->value);
+		dest->length = src->length;
+	}
 }
 
 /**
  * gck_attribute_clear:
  * @attr: Attribute to clear.
  *
- * Clear allocated memory held by a statically allocated attribute.
- * These are usually initialized with gck_attribute_init() or a
- * similar function.
+ * Clear allocated memory held by a #GckAttribute.
+ *
+ * This attribute must have been allocated by a Gck library function, or
+ * the results of this method are undefined.
  *
  * The type of the attribute will remain set.
  **/
 void
 gck_attribute_clear (GckAttribute *attr)
 {
-	g_return_if_fail (attr);
-	attribute_clear (attr, g_realloc);
+	g_return_if_fail (attr != NULL);
+
+	if (attr->value != NULL)
+		value_unref (attr->value);
+	attr->value = NULL;
+	attr->length = 0;
 }
 
 /**
@@ -652,7 +1473,7 @@ gck_attribute_free (gpointer attr)
 {
 	GckAttribute *a = attr;
 	if (attr) {
-		attribute_clear (a, g_realloc);
+		gck_attribute_clear (a);
 		g_slice_free (GckAttribute, a);
 	}
 }
@@ -727,12 +1548,6 @@ gck_attribute_hash (gconstpointer attr)
  *
  * A set of GckAttribute structures.
  */
-struct _GckAttributes {
-	GArray *array;
-	GckAllocator allocator;
-	gboolean locked;
-	gint refs;
-};
 
 /**
  * GckAllocator:
@@ -770,72 +1585,18 @@ gck_attributes_get_boxed_type (void)
 }
 
 /**
- * gck_attributes_new:
+ * gck_attributes_new_empty:
  *
- * Create a new GckAttributes array.
- *
- * Returns: (transfer full): the new attributes array; when done with the array
- *          release it with gck_attributes_unref().
- **/
-GckAttributes*
-gck_attributes_new (void)
-{
-	return gck_attributes_new_full (g_realloc);
-}
-
-/**
- * gck_attributes_new_full: (skip)
- * @allocator: Memory allocator for attribute data, or NULL for default.
- *
- * Create a new GckAttributes array.
+ * Creates an GckAttributes array with no attributes.
  *
  * Returns: (transfer full): the new attributes array; when done with the array
  *          release it with gck_attributes_unref()
  **/
-GckAttributes*
-gck_attributes_new_full (GckAllocator allocator)
+GckAttributes *
+gck_attributes_new_empty (void)
 {
-	GckAttributes *attrs;
-
-	if (!allocator)
-		allocator = g_realloc;
-
-	g_assert (sizeof (GckAttribute) == sizeof (CK_ATTRIBUTE));
-	attrs = g_slice_new0 (GckAttributes);
-	attrs->array = g_array_new (0, 1, sizeof (GckAttribute));
-	attrs->allocator = allocator;
-	attrs->refs = 1;
-	attrs->locked = FALSE;
-	return attrs;
-}
-
-/**
- * gck_attributes_new_empty: (skip)
- * @attr_type: The first attribute type to add as empty.
- * @...: The arguments should be values of attribute types, terminated with gck_INVALID.
- *
- * Creates an GckAttributes array with empty attributes. The arguments
- * should be values of attribute types, terminated with gck_INVALID.
- *
- * Returns: (transfer full): the new attributes array; when done with the array
- *          release it with gck_attributes_unref()
- **/
-GckAttributes*
-gck_attributes_new_empty (gulong attr_type, ...)
-{
-	GckAttributes *attrs = gck_attributes_new_full (g_realloc);
-	va_list va;
-
-	va_start (va, attr_type);
-
-	while (attr_type != GCK_INVALID) {
-		gck_attributes_add_empty (attrs, attr_type);
-		attr_type = va_arg (va, gulong);
-	}
-
-	va_end (va);
-
-	return attrs;
+	GckBuilder builder = GCK_BUILDER_INIT;
+	return gck_builder_end (&builder);
 }
 
 /**
@@ -850,395 +1611,13 @@ gck_attributes_new_empty (gulong attr_type, ...)
  *
  * Returns: (transfer none): the specified attribute
  **/
-GckAttribute*
-gck_attributes_at (GckAttributes *attrs, guint index)
+const GckAttribute *
+gck_attributes_at (GckAttributes *attrs,
+                   guint index)
 {
-	g_return_val_if_fail (attrs && attrs->array, NULL);
-	g_return_val_if_fail (index < attrs->array->len, NULL);
-	g_return_val_if_fail (!attrs->locked, NULL);
-	return &g_array_index (attrs->array, GckAttribute, index);
-}
-
-static GckAttribute*
-attributes_push (GckAttributes *attrs)
-{
-	GckAttribute attr;
-	g_assert (!attrs->locked);
-	memset (&attr, 0, sizeof (attr));
-	g_array_append_val (attrs->array, attr);
-	return &g_array_index (attrs->array, GckAttribute, attrs->array->len - 1);
-}
-
-/**
- * gck_attributes_add:
- * @attrs: The attributes array to add to
- * @attr: The attribute to add.
- *
- * Add the specified attribute to the array.
- *
- * The value stored in the attribute will be copied.
- *
- * Returns: (transfer none): the attribute that was added
- **/
-GckAttribute *
-gck_attributes_add (GckAttributes *attrs, GckAttribute *attr)
-{
-	GckAttribute *added;
-	g_return_val_if_fail (attrs && attrs->array, NULL);
-	g_return_val_if_fail (!attrs->locked, NULL);
-	g_return_val_if_fail (attr, NULL);
-	added = attributes_push (attrs);
-	attribute_init_copy (added, attr, attrs->allocator);
-	return added;
-}
-
-/**
- * gck_attributes_set:
- * @attrs: attributes array to add to
- * @attr: attribute to set
- *
- * Set an attribute on the array.
- *
- * The value stored in the attribute will be copied.
- *
- * Returns: (transfer none): the attribute that was added
- **/
-void
-gck_attributes_set (GckAttributes *attrs,
-                    GckAttribute *attr)
-{
-	GckAttribute *orig;
-
-	g_return_if_fail (attrs != NULL);
-	g_return_if_fail (!attrs->locked);
-	g_return_if_fail (attr != NULL);
-
-	orig = gck_attributes_find (attrs, attr->type);
-	if (orig == NULL) {
-		gck_attributes_add (attrs, attr);
-	} else {
-		attribute_clear (orig, attrs->allocator);
-		attribute_init_copy (orig, attr, attrs->allocator);
-	}
-}
-
-/**
- * gck_attributes_add_data:
- * @attrs: The attributes array to add to.
- * @attr_type: The type of attribute to add.
- * @value: (array length=length): the raw memory of the attribute value
- * @length: The length of the attribute value.
- *
- * Add an attribute with the specified type and value to the array.
- *
- * The value stored in the attribute will be copied.
- *
- * Returns: (transfer none): the attribute that was added
- **/
-GckAttribute *
-gck_attributes_add_data (GckAttributes *attrs,
-                         gulong attr_type,
-                         const guchar *value,
-                         gsize length)
-{
-	GckAttribute *added;
-	g_return_val_if_fail (attrs, NULL);
-	g_return_val_if_fail (!attrs->locked, NULL);
-	added = attributes_push (attrs);
-	attribute_init (added, attr_type, value, length, attrs->allocator);
-	return added;
-}
-
-/**
- * gck_attributes_add_invalid:
- * @attrs: The attributes array to add to.
- * @attr_type: The type of attribute to add.
- *
- * Add an attribute with the specified type and an 'invalid' value to the array.
- *
- * Returns: (transfer none): the attribute that was added
- **/
-GckAttribute *
-gck_attributes_add_invalid (GckAttributes *attrs, gulong attr_type)
-{
-	GckAttribute *added;
-	g_return_val_if_fail (attrs, NULL);
-	g_return_val_if_fail (!attrs->locked, NULL);
-	added = attributes_push (attrs);
-	gck_attribute_init_invalid (added, attr_type);
-	return added;
-}
-
-/**
- * gck_attributes_add_empty:
- * @attrs: The attributes array to add.
- * @attr_type: The type of attribute to add.
- *
- * Add an attribute with the specified type, with empty data.
- *
- * Returns: (transfer none): the attribute that was added
- **/
-GckAttribute *
-gck_attributes_add_empty (GckAttributes *attrs, gulong attr_type)
-{
-	GckAttribute *added;
-	g_return_val_if_fail (attrs, NULL);
-	g_return_val_if_fail (!attrs->locked, NULL);
-	added = attributes_push (attrs);
-	gck_attribute_init_empty (added, attr_type);
-	return added;
-}
-
-/**
- * gck_attributes_add_boolean:
- * @attrs: The attributes array to add to.
- * @attr_type: The type of attribute to add.
- * @value: The boolean value to add.
- *
- * Add an attribute with the specified type and value to the array.
- *
- * The value will be stored as a CK_BBOOL PKCS\#11 style attribute.
- *
- * Returns: (transfer none): the attribute that was added
- **/
-GckAttribute *
-gck_attributes_add_boolean (GckAttributes *attrs, gulong attr_type, gboolean value)
-{
-	GckAttribute *added;
-	g_return_val_if_fail (attrs, NULL);
-	g_return_val_if_fail (!attrs->locked, NULL);
-	added = attributes_push (attrs);
-	attribute_init_boolean (added, attr_type, value, attrs->allocator);
-	return added;
-}
-
-/**
- * gck_attributes_set_boolean:
- * @attrs: the attributes
- * @attr_type: the type of attribute to set
- * @value: boolean value to set
- *
- * Set the attribute of attr_type in the attribute array to the given value.
- * If no such value exists, then add one.
- */
-void
-gck_attributes_set_boolean (GckAttributes *attrs,
-                            gulong attr_type,
-                            gboolean value)
-{
-	GckAttribute *attr;
-
-	g_return_if_fail (attrs != NULL);
-	g_return_if_fail (!attrs->locked);
-
-	attr = gck_attributes_find (attrs, attr_type);
-	if (attr == NULL) {
-		gck_attributes_add_boolean (attrs, attr_type, value);
-	} else {
-		attribute_clear (attr, attrs->allocator);
-		attribute_init_boolean (attr, attr_type, value, attrs->allocator);
-	}
-}
-
-/**
- * gck_attributes_add_string:
- * @attrs: The attributes array to add to.
- * @attr_type: The type of attribute to add.
- * @value: The null terminated string value to add.
- *
- * Add an attribute with the specified type and value to the array.
- *
- * The value will be copied into the attribute.
- *
- * Returns: (transfer none): the attribute that was added
- **/
-GckAttribute *
-gck_attributes_add_string (GckAttributes *attrs, gulong attr_type, const gchar *value)
-{
-	GckAttribute *added;
-	g_return_val_if_fail (attrs, NULL);
-	g_return_val_if_fail (!attrs->locked, NULL);
-	added = attributes_push (attrs);
-	attribute_init_string (added, attr_type, value, attrs->allocator);
-	return added;
-}
-
-/**
- * gck_attributes_set_string:
- * @attrs: the attributes
- * @attr_type: the type of attribute to set
- * @value: null terminated string value to set
- *
- * Set the attribute of attr_type in the attribute array to the given value.
- * If no such value exists, then add one.
- */
-void
-gck_attributes_set_string (GckAttributes *attrs,
-                           gulong attr_type,
-                           const gchar *value)
-{
-	GckAttribute *attr;
-
-	g_return_if_fail (attrs != NULL);
-	g_return_if_fail (!attrs->locked);
-
-	attr = gck_attributes_find (attrs, attr_type);
-	if (attr == NULL) {
-		gck_attributes_add_string (attrs, attr_type, value);
-	} else {
-		attribute_clear (attr, attrs->allocator);
-		attribute_init_string (attr, attr_type, value, attrs->allocator);
-	}
-}
-
-/**
- * gck_attributes_add_date:
- * @attrs: The attributes array to add to.
- * @attr_type: The type of attribute to add.
- * @value: The GDate value to add.
- *
- * Add an attribute with the specified type and value to the array.
- *
- * The value will be stored as a CK_DATE PKCS\#11 style attribute.
- *
- * Returns: (transfer none): the attribute that was added
- **/
-GckAttribute *
-gck_attributes_add_date (GckAttributes *attrs, gulong attr_type, const GDate *value)
-{
-	GckAttribute *added;
-	g_return_val_if_fail (attrs, NULL);
-	g_return_val_if_fail (!attrs->locked, NULL);
-	added = attributes_push (attrs);
-	attribute_init_date (added, attr_type, value, attrs->allocator);
-	return added;
-}
-
-/**
- * gck_attributes_set_date:
- * @attrs: the attributes
- * @attr_type: the type of attribute to set
- * @value: date value to set
- *
- * Set the attribute of attr_type in the attribute array to the given value.
- * If no such value exists, then add one.
- */
-void
-gck_attributes_set_date (GckAttributes *attrs,
-                         gulong attr_type,
-                         const GDate *value)
-{
-	GckAttribute *attr;
-
-	g_return_if_fail (attrs != NULL);
-	g_return_if_fail (!attrs->locked);
-
-	attr = gck_attributes_find (attrs, attr_type);
-	if (attr == NULL) {
-		gck_attributes_add_date (attrs, attr_type, value);
-	} else {
-		attribute_clear (attr, attrs->allocator);
-		attribute_init_date (attr, attr_type, value, attrs->allocator);
-	}
-}
-
-/**
- * gck_attributes_add_ulong:
- * @attrs: The attributes array to add to.
- * @attr_type: The type of attribute to add.
- * @value: The gulong value to add.
- *
- * Add an attribute with the specified type and value to the array.
- *
- * The value will be stored as a CK_ULONG PKCS\#11 style attribute.
- *
- * Returns: (transfer none): the attribute that was added
- **/
-GckAttribute *
-gck_attributes_add_ulong (GckAttributes *attrs, gulong attr_type, gulong value)
-{
-	GckAttribute *added;
-	g_return_val_if_fail (attrs, NULL);
-	g_return_val_if_fail (!attrs->locked, NULL);
-	added = attributes_push (attrs);
-	attribute_init_ulong (added, attr_type, value, attrs->allocator);
-	return added;
-}
-
-/**
- * gck_attributes_set_ulong:
- * @attrs: the attributes
- * @attr_type: the type of attribute to set
- * @value: gulong value to set
- *
- * Set the attribute of attr_type in the attribute array to the given value.
- * If no such value exists, then add one.
- */
-void
-gck_attributes_set_ulong (GckAttributes *attrs,
-                          gulong attr_type,
-                          gulong value)
-{
-	GckAttribute *attr;
-
-	g_return_if_fail (attrs != NULL);
-	g_return_if_fail (!attrs->locked);
-
-	attr = gck_attributes_find (attrs, attr_type);
-	if (attr == NULL) {
-		gck_attributes_add_ulong (attrs, attr_type, value);
-	} else {
-		attribute_clear (attr, attrs->allocator);
-		attribute_init_ulong (attr, attr_type, value, attrs->allocator);
-	}
-}
-
-/**
- * gck_attributes_add_all:
- * @attrs: A set of attributes
- * @from: Attributes to add
- *
- * Add all attributes in @from to @attrs.
- */
-void
-gck_attributes_add_all (GckAttributes *attrs, GckAttributes *from)
-{
-	GckAttribute *attr;
-	guint i;
-
-	g_return_if_fail (attrs && attrs->array);
-	g_return_if_fail (from && from->array);
-	g_return_if_fail (!attrs->locked);
-
-	for (i = 0; i < from->array->len; ++i) {
-		attr = &g_array_index (from->array, GckAttribute, i);
-		gck_attributes_add (attrs, attr);
-	}
-}
-
-
-/**
- * gck_attributes_set_all:
- * @attrs: set of attributes
- * @from: attributes to add
- *
- * Set all attributes in @from on @attrs.
- */
-void
-gck_attributes_set_all (GckAttributes *attrs,
-                        GckAttributes *from)
-{
-	GckAttribute *attr;
-	guint i;
-
-	g_return_if_fail (attrs && attrs->array);
-	g_return_if_fail (from && from->array);
-	g_return_if_fail (!attrs->locked);
-
-	for (i = 0; i < from->array->len; ++i) {
-		attr = &g_array_index (from->array, GckAttribute, i);
-		gck_attributes_set (attrs, attr);
-	}
+	g_return_val_if_fail (attrs != NULL, NULL);
+	g_return_val_if_fail (index < attrs->count, NULL);
+	return attrs->data + index;
 }
 
 /**
@@ -1252,9 +1631,8 @@ gck_attributes_set_all (GckAttributes *attrs,
 gulong
 gck_attributes_count (GckAttributes *attrs)
 {
-	g_return_val_if_fail (attrs, 0);
-	g_return_val_if_fail (!attrs->locked, 0);
-	return attrs->array->len;
+	g_return_val_if_fail (attrs != NULL, 0);
+	return attrs->count;
 }
 
 /**
@@ -1267,22 +1645,13 @@ gck_attributes_count (GckAttributes *attrs)
  * Returns: (transfer none): the first attribute found with the specified type,
  *          or %NULL
  **/
-GckAttribute *
-gck_attributes_find (GckAttributes *attrs, gulong attr_type)
+const GckAttribute *
+gck_attributes_find (GckAttributes *attrs,
+                     gulong attr_type)
 {
-	GckAttribute *attr;
-	guint i;
+	g_return_val_if_fail (attrs != NULL, NULL);
 
-	g_return_val_if_fail (attrs && attrs->array, NULL);
-	g_return_val_if_fail (!attrs->locked, NULL);
-
-	for (i = 0; i < attrs->array->len; ++i) {
-		attr = gck_attributes_at (attrs, i);
-		if (attr->type == attr_type)
-			return attr;
-	}
-
-	return NULL;
+	return find_attribute (attrs->data, attrs->count, attr_type);
 }
 
 /**
@@ -1302,16 +1671,9 @@ gck_attributes_find (GckAttributes *attrs, gulong attr_type)
 gboolean
 gck_attributes_find_boolean (GckAttributes *attrs, gulong attr_type, gboolean *value)
 {
-	GckAttribute *attr;
-
 	g_return_val_if_fail (value, FALSE);
-	g_return_val_if_fail (!attrs->locked, FALSE);
 
-	attr = gck_attributes_find (attrs, attr_type);
-	if (!attr || gck_attribute_is_invalid (attr))
-		return FALSE;
-	*value = gck_attribute_get_boolean (attr);
-	return TRUE;
+	return find_attribute_boolean (attrs->data, attrs->count, attr_type, value);
 }
 
 /**
@@ -1331,16 +1693,9 @@ gck_attributes_find_boolean (GckAttributes *attrs, gulong attr_type, gboolean *v
 gboolean
 gck_attributes_find_ulong (GckAttributes *attrs, gulong attr_type, gulong *value)
 {
-	GckAttribute *attr;
-
 	g_return_val_if_fail (value, FALSE);
-	g_return_val_if_fail (!attrs->locked, FALSE);
 
-	attr = gck_attributes_find (attrs, attr_type);
-	if (!attr || gck_attribute_is_invalid (attr))
-		return FALSE;
-	*value = gck_attribute_get_ulong (attr);
-	return TRUE;
+	return find_attribute_ulong (attrs->data, attrs->count, attr_type, value);
 }
 
 /**
@@ -1360,20 +1715,9 @@ gck_attributes_find_ulong (GckAttributes *attrs, gulong attr_type, gulong *value
 gboolean
 gck_attributes_find_string (GckAttributes *attrs, gulong attr_type, gchar **value)
 {
-	GckAttribute *attr;
-	gchar *string;
-
 	g_return_val_if_fail (value, FALSE);
-	g_return_val_if_fail (!attrs->locked, FALSE);
 
-	attr = gck_attributes_find (attrs, attr_type);
-	if (!attr || gck_attribute_is_invalid (attr))
-		return FALSE;
-	string = gck_attribute_get_string (attr);
-	if (string == NULL)
-		return FALSE;
-	*value = string;
-	return TRUE;
+	return find_attribute_string (attrs->data, attrs->count, attr_type, value);
 }
 
 /**
@@ -1393,16 +1737,9 @@ gck_attributes_find_string (GckAttributes *attrs, gulong attr_type, gchar **valu
 gboolean
 gck_attributes_find_date (GckAttributes *attrs, gulong attr_type, GDate *value)
 {
-	GckAttribute *attr;
-
 	g_return_val_if_fail (value, FALSE);
-	g_return_val_if_fail (!attrs->locked, FALSE);
 
-	attr = gck_attributes_find (attrs, attr_type);
-	if (!attr || gck_attribute_is_invalid (attr))
-		return FALSE;
-	gck_attribute_get_date (attr, value);
-	return TRUE;
+	return find_attribute_date (attrs->data, attrs->count, attr_type, value);
 }
 
 /**
@@ -1433,42 +1770,21 @@ void
 gck_attributes_unref (gpointer attrs)
 {
 	GckAttributes *attrs_ = attrs;
+	const GckAttribute *attr;
 	guint i;
 
 	if (!attrs_)
 		return;
 
 	if (g_atomic_int_dec_and_test (&attrs_->refs)) {
-		g_return_if_fail (attrs_->array);
-		g_return_if_fail (!attrs_->locked);
-		for (i = 0; i < attrs_->array->len; ++i)
-			attribute_clear (gck_attributes_at (attrs_, i), attrs_->allocator);
-		g_array_free (attrs_->array, TRUE);
-		attrs_->array = NULL;
+		for (i = 0; i < attrs_->count; ++i) {
+			attr = gck_attributes_at (attrs_, i);
+			if (attr->value)
+				value_unref (attr->value);
+		}
+		g_free (attrs_->data);
 		g_slice_free (GckAttributes, attrs_);
 	}
-}
-
-/**
- * gck_attributes_dup:
- * @attrs: an attribute array
- *
- * Make a complete copy of the attributes and all values.
- *
- * Returns: (transfer full): the copy
- */
-GckAttributes *
-gck_attributes_dup (GckAttributes *attrs)
-{
-	GckAttributes *copy;
-
-	if (!attrs)
-		return NULL;
-
-	copy = gck_attributes_new_full (attrs->allocator);
-	gck_attributes_add_all (copy, attrs);
-
-	return copy;
 }
 
 /**
@@ -1481,14 +1797,15 @@ gck_attributes_dup (GckAttributes *attrs)
  * Returns: %TRUE if the attributes contain the attribute.
  */
 gboolean
-gck_attributes_contains (GckAttributes *attrs, GckAttribute *match)
+gck_attributes_contains (GckAttributes *attrs,
+                         const GckAttribute *match)
 {
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	guint i;
 
-	g_return_val_if_fail (attrs && attrs->array, FALSE);
+	g_return_val_if_fail (attrs != NULL, FALSE);
 
-	for (i = 0; i < attrs->array->len; ++i) {
+	for (i = 0; i < attrs->count; ++i) {
 		attr = gck_attributes_at (attrs, i);
 		if (gck_attribute_equal (attr, match))
 			return TRUE;
@@ -1497,96 +1814,76 @@ gck_attributes_contains (GckAttributes *attrs, GckAttribute *match)
 	return FALSE;
 }
 
-
-
-/* -------------------------------------------------------------------------------------------
- * INTERNAL
- *
- * The idea is that while we're processing a GckAttributes array (via PKCS#11
- * C_GetAtributeValue for example) the calling application shouldn't access those
- * attributes at all, except to ref or unref them.
- *
- * We try to help debug this with our 'locked' states. The various processing
- * functions that accept GckAttributes lock the attributes while handing
- * them off to be processed (perhaps in a different thread). We check this locked
- * flag in all public functions accessing GckAttributes.
- *
- * The reason we don't use thread safe or atomic primitives here, is because:
- *  a) The attributes are 'locked' by the same thread that prepares the call.
- *  b) This is a debugging feature, and should not be relied on for correctness.
- */
-
-void
-_gck_attributes_lock (GckAttributes *attrs)
-{
-	g_assert (attrs);
-	g_assert (!attrs->locked);
-	attrs->locked = TRUE;
-}
-
-void
-_gck_attributes_unlock (GckAttributes *attrs)
-{
-	g_assert (attrs);
-	g_assert (attrs->locked);
-	attrs->locked = FALSE;
-}
-
 CK_ATTRIBUTE_PTR
-_gck_attributes_prepare_in (GckAttributes *attrs, CK_ULONG_PTR n_attrs)
+_gck_builder_prepare_in (GckBuilder *builder,
+                         CK_ULONG_PTR n_attrs)
 {
+	GckRealBuilder *real = (GckRealBuilder *)builder;
 	GckAttribute *attr;
 	guint i;
 
-	g_assert (attrs);
-	g_assert (n_attrs);
-	g_assert (attrs->locked);
+	g_return_val_if_fail (builder != NULL, NULL);
+	g_return_val_if_fail (n_attrs != NULL, NULL);
+
+	if (real->array == NULL) {
+		*n_attrs = 0;
+		return NULL;
+	}
 
 	/* Prepare the attributes to receive their length */
 
-	for (i = 0; i < attrs->array->len; ++i) {
-		attr = &g_array_index (attrs->array, GckAttribute, i);
-		attribute_clear (attr, attrs->allocator);
+	for (i = 0; i < real->array->len; ++i) {
+		attr = &g_array_index (real->array, GckAttribute, i);
+		if (attr->value != NULL) {
+			value_unref (attr->value);
+			attr->value = NULL;
+		}
+		attr->length = 0;
 	}
 
-	*n_attrs = attrs->array->len;
-	return (CK_ATTRIBUTE_PTR)attrs->array->data;
+	*n_attrs = real->array->len;
+	return (CK_ATTRIBUTE_PTR)real->array->data;
 }
 
 CK_ATTRIBUTE_PTR
-_gck_attributes_commit_in (GckAttributes *attrs, CK_ULONG_PTR n_attrs)
+_gck_builder_commit_in (GckBuilder *builder,
+                        CK_ULONG_PTR n_attrs)
 {
+	GckRealBuilder *real = (GckRealBuilder *)builder;
 	GckAttribute *attr;
 	guint i;
 
-	g_assert (attrs);
-	g_assert (n_attrs);
-	g_assert (attrs->locked);
+	g_return_val_if_fail (builder != NULL, NULL);
+	g_return_val_if_fail (n_attrs != NULL, NULL);
+
+	if (real->array == NULL) {
+		*n_attrs = 0;
+		return NULL;
+	}
 
 	/* Allocate each attribute with the length that was set */
 
-	for (i = 0; i < attrs->array->len; ++i) {
-		attr = &g_array_index (attrs->array, GckAttribute, i);
-		g_assert (!attr->value);
-		if (attr->length != 0 && attr->length != (gulong)-1) {
-			attr->value = (attrs->allocator) (NULL, attr->length);
-			g_assert (attr->value);
-		}
+	for (i = 0; i < real->array->len; ++i) {
+		attr = &g_array_index (real->array, GckAttribute, i);
+		if (attr->length != 0 && attr->length != (gulong)-1)
+			attr->value = value_blank (attr->length, real->secure);
+		else
+			attr->value = NULL;
 	}
 
-	*n_attrs = attrs->array->len;
-	return (CK_ATTRIBUTE_PTR)attrs->array->data;
+	*n_attrs = real->array->len;
+	return (CK_ATTRIBUTE_PTR)real->array->data;
 }
 
 CK_ATTRIBUTE_PTR
-_gck_attributes_commit_out (GckAttributes *attrs, CK_ULONG_PTR n_attrs)
+_gck_attributes_commit_out (GckAttributes *attrs,
+                            CK_ULONG_PTR n_attrs)
 {
-	g_assert (attrs);
-	g_assert (n_attrs);
-	g_assert (attrs->locked);
+	g_return_val_if_fail (attrs != NULL, NULL);
+	g_return_val_if_fail (n_attrs != NULL, NULL);
 
-	*n_attrs = attrs->array->len;
-	return (CK_ATTRIBUTE_PTR)attrs->array->data;
+	*n_attrs = attrs->count;
+	return (CK_ATTRIBUTE_PTR)attrs->data;
 }
 
 static gboolean
@@ -1945,10 +2242,10 @@ _gck_format_attributes (GString *output,
 	GckAttribute *attr;
 	guint count, i;
 
-	count = attrs->array->len;
+	count = attrs->count;
 	g_string_append_printf (output, "(%d) [", count);
 	for (i = 0; i < count; i++) {
-		attr = &g_array_index (attrs->array, GckAttribute, i);
+		attr = attrs->data + i;
 		if (i > 0)
 			g_string_append_c (output, ',');
 		g_string_append (output, " { ");
@@ -1977,7 +2274,7 @@ _gck_format_attributes (GString *output,
 
 /**
  * gck_attributes_to_string:
- * attrs: the attributes
+ * @attrs: the attributes
  *
  * Print out attributes to a string in aform that's useful for debugging
  * or logging.

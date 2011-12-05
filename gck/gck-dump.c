@@ -79,7 +79,7 @@ dump_assertion_type_value (gulong type)
 }
 
 static void
-dump_attribute_value (GckAttribute *attr)
+dump_attribute_value (const GckAttribute *attr)
 {
 	gchar *data;
 	gsize len;
@@ -204,7 +204,7 @@ dump_attribute_value (GckAttribute *attr)
 }
 
 static void
-dump_attribute_type (GckAttribute *attr)
+dump_attribute_type (const GckAttribute *attr)
 {
 	switch (attr->type) {
 	#define DX(x) case x: g_printerr ("%s", #x); break;
@@ -330,7 +330,7 @@ dump_attribute_type (GckAttribute *attr)
  * Dump the specified attribute using g_printerr().
  */
 void
-gck_attribute_dump (GckAttribute *attr)
+gck_attribute_dump (const GckAttribute *attr)
 {
 	dump_attribute_type (attr);
 	if (attr->length == G_MAXULONG) {
@@ -351,7 +351,7 @@ gck_attribute_dump (GckAttribute *attr)
 void
 gck_attributes_dump (GckAttributes *attrs)
 {
-	GckAttribute *attr;
+	const GckAttribute *attr;
 	guint i, count;
 
 	for (i = 0, count = gck_attributes_count (attrs); i < count; ++i) {

@@ -178,7 +178,7 @@ setup (Test *test, gconstpointer unused)
 static void
 add_certificate_to_module (GcrCertificate *certificate)
 {
-	GckAttributes *attrs;
+	GckBuilder builder = GCK_BUILDER_INIT;
 	gconstpointer data;
 	gsize n_data, n_subject;
 	gpointer subject;
@@ -190,12 +190,11 @@ add_certificate_to_module (GcrCertificate *certificate)
 	g_assert (subject);
 
 	/* Add a certificate to the module */
-	attrs = gck_attributes_new ();
-	gck_attributes_add_data (attrs, CKA_VALUE, data, n_data);
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_CERTIFICATE);
-	gck_attributes_add_ulong (attrs, CKA_CERTIFICATE_TYPE, CKC_X_509);
-	gck_attributes_add_data (attrs, CKA_SUBJECT, subject, n_subject);
-	gck_mock_module_take_object (attrs);
+	gck_builder_add_data (&builder, CKA_VALUE, data, n_data);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
+	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
+	gck_builder_add_data (&builder, CKA_SUBJECT, subject, n_subject);
+	gck_mock_module_take_object (gck_builder_end (&builder));
 
 	g_free (subject);
 }
@@ -203,7 +202,7 @@ add_certificate_to_module (GcrCertificate *certificate)
 static void
 add_anchor_to_module (GcrCertificate *certificate, const gchar *purpose)
 {
-	GckAttributes *attrs;
+	GckBuilder builder = GCK_BUILDER_INIT;
 	gconstpointer data;
 	gsize n_data;
 
@@ -211,18 +210,17 @@ add_anchor_to_module (GcrCertificate *certificate, const gchar *purpose)
 	g_assert (data);
 
 	/* And add a pinned certificate for the signed certificate */
-	attrs = gck_attributes_new ();
-	gck_attributes_add_data (attrs, CKA_X_CERTIFICATE_VALUE, data, n_data);
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_X_TRUST_ASSERTION);
-	gck_attributes_add_ulong (attrs, CKA_X_ASSERTION_TYPE, CKT_X_ANCHORED_CERTIFICATE);
-	gck_attributes_add_string (attrs, CKA_X_PURPOSE, purpose);
-	gck_mock_module_take_object (attrs);
+	gck_builder_add_data (&builder, CKA_X_CERTIFICATE_VALUE, data, n_data);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_X_TRUST_ASSERTION);
+	gck_builder_add_ulong (&builder, CKA_X_ASSERTION_TYPE, CKT_X_ANCHORED_CERTIFICATE);
+	gck_builder_add_string (&builder, CKA_X_PURPOSE, purpose);
+	gck_mock_module_take_object (gck_builder_end (&builder));
 }
 
 static void
 add_pinned_to_module (GcrCertificate *certificate, const gchar *purpose, const gchar *host)
 {
-	GckAttributes *attrs;
+	GckBuilder builder = GCK_BUILDER_INIT;
 	gconstpointer data;
 	gsize n_data;
 
@@ -230,13 +228,12 @@ add_pinned_to_module (GcrCertificate *certificate, const gchar *purpose, const g
 	g_assert (data);
 
 	/* And add a pinned certificate for the signed certificate */
-	attrs = gck_attributes_new ();
-	gck_attributes_add_data (attrs, CKA_X_CERTIFICATE_VALUE, data, n_data);
-	gck_attributes_add_ulong (attrs, CKA_CLASS, CKO_X_TRUST_ASSERTION);
-	gck_attributes_add_ulong (attrs, CKA_X_ASSERTION_TYPE, CKT_X_PINNED_CERTIFICATE);
-	gck_attributes_add_string (attrs, CKA_X_PURPOSE, purpose);
-	gck_attributes_add_string (attrs, CKA_X_PEER, host);
-	gck_mock_module_take_object (attrs);
+	gck_builder_add_data (&builder, CKA_X_CERTIFICATE_VALUE, data, n_data);
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_X_TRUST_ASSERTION);
+	gck_builder_add_ulong (&builder, CKA_X_ASSERTION_TYPE, CKT_X_PINNED_CERTIFICATE);
+	gck_builder_add_string (&builder, CKA_X_PURPOSE, purpose);
+	gck_builder_add_string (&builder, CKA_X_PEER, host);
+	gck_mock_module_take_object (gck_builder_end (&builder));
 }
 
 static void

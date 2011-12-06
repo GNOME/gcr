@@ -566,7 +566,12 @@ static void
 gck_enumerator_init (GckEnumerator *self)
 {
 	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCK_TYPE_ENUMERATOR, GckEnumeratorPrivate);
+#if GLIB_CHECK_VERSION(2,31,2)
+	self->pv->mutex = g_new0 (GMutex, 1);
+	g_mutex_init (self->pv->mutex);
+#else
 	self->pv->mutex = g_mutex_new ();
+#endif
 	self->pv->the_state = g_new0 (GckEnumeratorState, 1);
 	self->pv->object_type = GCK_TYPE_OBJECT;
 	self->pv->object_class = g_type_class_ref (self->pv->object_type);
@@ -643,7 +648,12 @@ gck_enumerator_finalize (GObject *obj)
 	cleanup_state (self->pv->the_state);
 	g_free (self->pv->the_state);
 
+#if GLIB_CHECK_VERSION(2,31,2)
+	g_mutex_clear (self->pv->mutex);
+	g_free (self->pv->mutex);
+#else
 	g_mutex_free (self->pv->mutex);
+#endif
 	g_type_class_unref (self->pv->object_class);
 
 	G_OBJECT_CLASS (gck_enumerator_parent_class)->finalize (obj);

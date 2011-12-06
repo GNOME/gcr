@@ -382,3 +382,39 @@
    fun:g_thread_pool_start_thread
    fun:g_thread_pool_push
 }
+{
+   thread_memory_from_self
+   Memcheck:Leak
+   ...
+   fun:thread_memory_from_self
+   ...
+   fun:g_object_new
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:standard_malloc
+   fun:g_malloc
+   fun:g_slice_alloc
+   fun:g_slice_alloc0
+   fun:get_dispatch
+   fun:g_main_dispatch
+   fun:g_main_context_dispatch
+   fun:g_main_context_iterate
+   fun:g_main_loop_run
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:standard_malloc
+   fun:g_malloc
+   fun:g_memdup
+   fun:g_hash_table_insert_node
+   fun:g_hash_table_insert_internal
+   fun:g_hash_table_insert
+   fun:handler_list_ensure
+   fun:handler_insert
+   fun:g_signal_connect_data
+}

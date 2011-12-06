@@ -141,7 +141,12 @@ static void
 gck_session_init (GckSession *self)
 {
 	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCK_TYPE_SESSION, GckSessionPrivate);
+#if GLIB_CHECK_VERSION(2,31,2)
+	self->pv->mutex = g_new0 (GMutex, 1);
+	g_mutex_init (self->pv->mutex);
+#else
 	self->pv->mutex = g_mutex_new ();
+#endif
 }
 
 static void
@@ -260,7 +265,12 @@ gck_session_finalize (GObject *obj)
 	g_clear_object (&self->pv->interaction);
 	g_clear_object (&self->pv->slot);
 
+#if GLIB_CHECK_VERSION(2,31,2)
+	g_mutex_clear (self->pv->mutex);
+	g_free (self->pv->mutex);
+#else
 	g_mutex_free (self->pv->mutex);
+#endif
 
 	G_OBJECT_CLASS (gck_session_parent_class)->finalize (obj);
 }

@@ -378,7 +378,6 @@
    g_child_watch_source_new
    Memcheck:Leak
    ...
-   fun:g_thread_create_full
    fun:ensure_unix_signal_handler_installed_unlocked
    fun:g_child_watch_source_new
 }
@@ -391,4 +390,30 @@
    ...
    fun:g_async_queue_timed_pop
    fun:g_thread_pool_thread_proxy
+}
+{
+   g_module_open
+   Memcheck:Leak
+   ...
+   fun:g_private_impl_new
+   ...
+   fun:g_module_open
+}
+{
+   g_system_thread_new
+   Memcheck:Leak
+   ...
+   fun:g_system_thread_new
+}
+{
+   thread_memory_from_self
+   Memcheck:Leak
+   ...
+   fun:thread_memory_from_self
+}
+{
+   g_get_language_names
+   Memcheck:Leak
+   ...
+   fun:g_get_language_names
 }

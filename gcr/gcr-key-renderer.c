@@ -213,7 +213,6 @@ gcr_key_renderer_class_init (GcrKeyRendererClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GckBuilder builder = GCK_BUILDER_INIT;
-	GckAttributes *registered;
 
 	gcr_key_renderer_parent_class = g_type_class_peek_parent (klass);
 	g_type_class_add_private (klass, sizeof (GcrKeyRendererPrivate));
@@ -228,9 +227,7 @@ gcr_key_renderer_class_init (GcrKeyRendererClass *klass)
 
 	/* Register this as a view which can be loaded */
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);
-	registered = gck_builder_end (&builder);
-	gcr_renderer_register (GCR_TYPE_KEY_RENDERER, registered);
-	gck_attributes_unref (registered);
+	gcr_renderer_register (GCR_TYPE_KEY_RENDERER, gck_builder_end (&builder));
 }
 
 static void

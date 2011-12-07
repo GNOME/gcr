@@ -176,7 +176,6 @@ lookup_public_key (GckObject *object,
                    GError **lerror)
 {
 	GckBuilder builder = GCK_BUILDER_INIT;
-	GckAttributes *match;
 	GError *error = NULL;
 	GckSession *session;
 	GckObject *result;
@@ -192,14 +191,11 @@ lookup_public_key (GckObject *object,
 	}
 
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
-	gck_builder_add_data (&builder, CKA_ID, id, n_id);
-	match = gck_builder_end (&builder);
+	gck_builder_take_data (&builder, CKA_ID, id, n_id);
 	session = gck_object_get_session (object);
-	g_free (id);
 
-	objects = gck_session_find_objects (session, match, cancellable, &error);
+	objects = gck_session_find_objects (session, gck_builder_end (&builder), cancellable, &error);
 
-	gck_attributes_unref (match);
 	g_object_unref (session);
 
 	if (error != NULL) {
@@ -498,7 +494,7 @@ _gcr_subject_public_key_load_finish (GAsyncResult *result,
 		return NULL;
 
 	closure = g_simple_async_result_get_op_res_gpointer (res);
-	attributes = gck_builder_end (&closure->builder);
+	attributes = gck_attributes_ref_sink (gck_builder_end (&closure->builder));
 	asn = _gcr_subject_public_key_for_attributes (attributes);
 	if (asn == NULL) {
 		g_set_error_literal (error, GCK_ERROR, CKR_TEMPLATE_INCONSISTENT,

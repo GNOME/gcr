@@ -281,7 +281,7 @@ test_is_certificate_anchored_yes (Test *test, gconstpointer unused)
 	gck_builder_add_boolean (&builder, CKA_TOKEN, TRUE);
 	gck_builder_add_string (&builder, CKA_X_PURPOSE, GCR_PURPOSE_CLIENT_AUTH);
 	gck_builder_add_ulong (&builder, CKA_X_ASSERTION_TYPE, CKT_X_ANCHORED_CERTIFICATE);
-	gck_mock_module_take_object (gck_builder_end (&builder));
+	gck_mock_module_add_object (gck_builder_end (&builder));
 
 	ret = gcr_trust_is_certificate_anchored (test->certificate, GCR_PURPOSE_CLIENT_AUTH, NULL, &error);
 	g_assert (ret == TRUE);

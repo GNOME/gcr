@@ -194,7 +194,7 @@ add_certificate_to_module (GcrCertificate *certificate)
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
 	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
 	gck_builder_add_data (&builder, CKA_SUBJECT, subject, n_subject);
-	gck_mock_module_take_object (gck_builder_end (&builder));
+	gck_mock_module_add_object (gck_builder_end (&builder));
 
 	g_free (subject);
 }
@@ -214,7 +214,7 @@ add_anchor_to_module (GcrCertificate *certificate, const gchar *purpose)
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_X_TRUST_ASSERTION);
 	gck_builder_add_ulong (&builder, CKA_X_ASSERTION_TYPE, CKT_X_ANCHORED_CERTIFICATE);
 	gck_builder_add_string (&builder, CKA_X_PURPOSE, purpose);
-	gck_mock_module_take_object (gck_builder_end (&builder));
+	gck_mock_module_add_object (gck_builder_end (&builder));
 }
 
 static void
@@ -233,7 +233,7 @@ add_pinned_to_module (GcrCertificate *certificate, const gchar *purpose, const g
 	gck_builder_add_ulong (&builder, CKA_X_ASSERTION_TYPE, CKT_X_PINNED_CERTIFICATE);
 	gck_builder_add_string (&builder, CKA_X_PURPOSE, purpose);
 	gck_builder_add_string (&builder, CKA_X_PEER, host);
-	gck_mock_module_take_object (gck_builder_end (&builder));
+	gck_mock_module_add_object (gck_builder_end (&builder));
 }
 
 static void

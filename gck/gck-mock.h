@@ -376,7 +376,7 @@ void                gck_mock_module_enumerate_objects              (CK_SESSION_H
                                                                     GckMockEnumerator func,
                                                                     gpointer user_data);
 
-CK_OBJECT_HANDLE    gck_mock_module_take_object                    (GckAttributes *attrs);
+CK_OBJECT_HANDLE    gck_mock_module_add_object                     (GckAttributes *attrs);
 
 void                gck_mock_module_set_object                     (CK_OBJECT_HANDLE object,
                                                                     CK_ATTRIBUTE_PTR attrs,

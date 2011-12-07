@@ -335,7 +335,7 @@ supplement_attributes (GcrPkcs11Importer *self,
 		}
 
 		gck_attributes_unref (attrs);
-		l->data = attrs = gck_builder_end (&builder);
+		l->data = attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
 
 		switch (klass) {
 		case CKO_CERTIFICATE:
@@ -369,14 +369,14 @@ supplement_attributes (GcrPkcs11Importer *self,
 			supplement_with_attributes (&builder, supplements);
 			supplement_id_for_data (&builder, nonce, sizeof (nonce),
 			                        fingerprint, strlen (fingerprint));
-			g_queue_push_tail (queue, gck_builder_end (&builder));
+			g_queue_push_tail (queue, gck_attributes_ref_sink (gck_builder_end (&builder)));
 			g_hash_table_insert (paired, pair->private_key, "present");
 
 			gck_builder_add_all (&builder, pair->certificate);
 			supplement_with_attributes (&builder, supplements);
 			supplement_id_for_data (&builder, nonce, sizeof (nonce),
 			                        fingerprint, strlen (fingerprint));
-			g_queue_push_tail (queue, gck_builder_end (&builder));
+			g_queue_push_tail (queue, gck_attributes_ref_sink (gck_builder_end (&builder)));
 			g_hash_table_insert (paired, pair->certificate, "present");
 
 			/* Used the suplements for the pairs, don't use for unpaired stuff */
@@ -400,7 +400,7 @@ supplement_attributes (GcrPkcs11Importer *self,
 			supplement_id_for_data (&builder, nonce, sizeof (nonce),
 			                        &attrs, sizeof (gpointer));
 
-			g_queue_push_tail (queue, gck_builder_end (&builder));
+			g_queue_push_tail (queue, gck_attributes_ref_sink (gck_builder_end (&builder)));
 		}
 	}
 
@@ -421,7 +421,7 @@ complete_supplement (GSimpleAsyncResult *res,
 	GckAttributes *attributes;
 
 	if (error == NULL) {
-		attributes = gck_builder_end (data->supplement);
+		attributes = gck_attributes_ref_sink (gck_builder_end (data->supplement));
 		supplement_attributes (data->importer, attributes);
 		gck_attributes_unref (attributes);
 
@@ -685,7 +685,6 @@ _gcr_pkcs11_importer_class_init (GcrPkcs11ImporterClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GckBuilder builder = GCK_BUILDER_INIT;
-	GckAttributes *registered;
 
 	gobject_class->dispose = _gcr_pkcs11_importer_dispose;
 	gobject_class->finalize = _gcr_pkcs11_importer_finalize;
@@ -712,14 +711,10 @@ _gcr_pkcs11_importer_class_init (GcrPkcs11ImporterClass *klass)
 
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
 	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
-	registered = gck_builder_end (&builder);
-	gcr_importer_register (GCR_TYPE_PKCS11_IMPORTER, registered);
-	gck_attributes_unref (registered);
+	gcr_importer_register (GCR_TYPE_PKCS11_IMPORTER, gck_builder_end (&builder));
 
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);
-	registered = gck_builder_end (&builder);
-	gcr_importer_register (GCR_TYPE_PKCS11_IMPORTER, registered);
-	gck_attributes_unref (registered);
+	gcr_importer_register (GCR_TYPE_PKCS11_IMPORTER, gck_builder_end (&builder));
 
 	_gcr_initialize_library ();
 }
@@ -926,9 +921,7 @@ _gcr_pkcs11_importer_queue (GcrPkcs11Importer *self,
 		gck_builder_add_all (&builder, attrs);
 		gck_builder_add_string (&builder, CKA_LABEL, label);
 		attrs = gck_builder_end (&builder);
-	} else {
-		attrs = gck_attributes_ref (attrs);
 	}
 
-	g_queue_push_tail (self->queue, attrs);
+	g_queue_push_tail (self->queue, gck_attributes_ref_sink (attrs));
 }

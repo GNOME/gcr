@@ -42,6 +42,7 @@ gck_attributes_get_boxed_type
 gck_attributes_get_type
 gck_attributes_new_empty
 gck_attributes_ref
+gck_attributes_ref_sink
 gck_attributes_to_string
 gck_attributes_unref
 gck_builder_add_all

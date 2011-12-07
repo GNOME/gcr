@@ -53,10 +53,14 @@
 
 G_STATIC_ASSERT (sizeof (GckAttribute) == sizeof (CK_ATTRIBUTE));
 
+#define STATE_LOCKED     1
+#define STATE_FLOATING   8
+
 struct _GckAttributes {
 	GckAttribute *data;
 	gulong count;
 	gint refs;
+	gint state;
 };
 
 typedef struct {
@@ -835,6 +839,18 @@ gck_builder_find_date (GckBuilder *builder,
 	                            real->array->len, attr_type, value);
 }
 
+/**
+ * gck_builder_steal:
+ * @builder: the builder
+ *
+ * Take the attributes that have been built in the #GckBuilder. The builder
+ * will no longer contain any attributes after this function call.
+ *
+ * The returned set of attributes is a full reference, not floating.
+ *
+ * Returns: (transfer full): the stolen attributes, which should be freed with
+ *          gck_attributes_unref()
+ */
 GckAttributes *
 gck_builder_steal (GckBuilder *builder)
 {
@@ -862,16 +878,35 @@ gck_builder_steal (GckBuilder *builder)
 	return attrs;
 }
 
+/**
+ * gck_builder_end:
+ * @builder: the builder
+ *
+ * Complete the #GckBuilder, and return the attributes contained in the builder.
+ * The #GckBuilder will be cleared after this function call, and it is no
+ * longer necessary to use gck_builder_clear() on it, although it is also
+ * permitted.
+ *
+ * The returned set of attributes is floating, and should either be passed to
+ * another gck library function which consumes this floating reference, or if
+ * you wish to keep these attributes around you should ref them with
+ * gck_attributes_ref_sink() and unref them later with gck_attributes_unref().
+ *
+ * Returns: (transfer none): a floating reference to the attributes created
+ *          in the builder
+ */
 GckAttributes *
 gck_builder_end (GckBuilder *builder)
 {
+	GckRealBuilder *real = (GckRealBuilder *)builder;
 	GckAttributes *attrs;
 
 	g_return_val_if_fail (builder != NULL, NULL);
 
 	attrs = gck_builder_steal (builder);
-	gck_builder_clear (builder);
+	attrs->state |= STATE_FLOATING;
 
+	g_assert (real->array == NULL);
 	return attrs;
 }
 
@@ -1589,8 +1624,12 @@ gck_attributes_get_boxed_type (void)
  *
  * Creates an GckAttributes array with no attributes.
  *
- * Returns: (transfer full): the new attributes array; when done with the array
- *          release it with gck_attributes_unref()
+ * The returned set of attributes is floating, and should either be passed to
+ * another gck library function which consumes this floating reference, or if
+ * you wish to keep these attributes around you should ref them with
+ * gck_attributes_ref_sink() and unref them later with gck_attributes_unref().
+ *
+ * Returns: (transfer none): a floating reference to an empty set of attributes
  **/
 GckAttributes *
 gck_attributes_new_empty (void)
@@ -1755,6 +1794,21 @@ gck_attributes_ref (GckAttributes *attrs)
 {
 	g_return_val_if_fail (attrs, NULL);
 	g_atomic_int_inc (&attrs->refs);
+	return attrs;
+}
+
+GckAttributes *
+gck_attributes_ref_sink (GckAttributes *attrs)
+{
+	g_return_val_if_fail (attrs, NULL);
+	g_bit_lock (&attrs->state, STATE_LOCKED);
+
+	if (~attrs->state & STATE_FLOATING)
+		gck_attributes_ref (attrs);
+	else
+		attrs->state &= ~STATE_FLOATING;
+
+	g_bit_unlock (&attrs->state, STATE_LOCKED);
 	return attrs;
 }
 

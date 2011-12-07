@@ -214,7 +214,6 @@ _gcr_gnupg_importer_class_init (GcrGnupgImporterClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GckBuilder builder = GCK_BUILDER_INIT;
-	GckAttributes *registered;
 
 	gobject_class->dispose = _gcr_gnupg_importer_dispose;
 	gobject_class->finalize = _gcr_gnupg_importer_finalize;
@@ -238,9 +237,7 @@ _gcr_gnupg_importer_class_init (GcrGnupgImporterClass *klass)
 	                                NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_GCR_GNUPG_RECORDS);
-	registered = gck_builder_end (&builder);
-	gcr_importer_register (GCR_TYPE_GNUPG_IMPORTER, registered);
-	gck_attributes_unref (registered);
+	gcr_importer_register (GCR_TYPE_GNUPG_IMPORTER, gck_builder_end (&builder));
 
 	_gcr_initialize_library ();
 }

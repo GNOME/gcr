@@ -524,7 +524,11 @@ gck_object_set (GckObject *self, GckAttributes *attrs,
 	args.attrs = attrs;
 	args.object = self->pv->handle;
 
+	gck_attributes_ref_sink (attrs);
+
 	ret = _gck_call_sync (self->pv->session, perform_set_attributes, NULL, &args, cancellable, error);
+
+	gck_attributes_unref (attrs);
 
 	return ret;
 }
@@ -552,7 +556,7 @@ gck_object_set_async (GckObject *self, GckAttributes *attrs, GCancellable *cance
 	args = _gck_call_async_prep (self->pv->session, self, perform_set_attributes,
 	                             NULL, sizeof (*args), free_set_attributes);
 
-	args->attrs = gck_attributes_ref (attrs);
+	args->attrs = gck_attributes_ref_sink (attrs);
 	args->object = self->pv->handle;
 
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
@@ -718,7 +722,7 @@ gck_object_get_full (GckObject *self,
 	ret = _gck_call_sync (self->pv->session, perform_get_attributes, NULL, &args, cancellable, error);
 
 	if (ret) {
-		return gck_builder_end (&args.builder);
+		return gck_attributes_ref_sink (gck_builder_end (&args.builder));
 	} else {
 		gck_builder_clear (&args.builder);
 		return NULL;
@@ -794,7 +798,7 @@ gck_object_get_finish (GckObject *self, GAsyncResult *result, GError **error)
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
 
-	return gck_builder_end (&args->builder);
+	return gck_attributes_ref_sink (gck_builder_end (&args->builder));
 }
 
 /* ---------------------------------------------------------------------------------
@@ -1073,7 +1077,11 @@ gck_object_set_template (GckObject *self, gulong attr_type, GckAttributes *attrs
 	args.type = attr_type;
 	args.object = self->pv->handle;
 
+	gck_attributes_ref_sink (attrs);
+
 	ret = _gck_call_sync (self->pv->session, perform_set_template, NULL, &args, cancellable, error);
+
+	gck_attributes_unref (attrs);
 
 	return ret;
 }
@@ -1105,7 +1113,7 @@ gck_object_set_template_async (GckObject *self, gulong attr_type, GckAttributes 
 	args = _gck_call_async_prep (self->pv->session, self, perform_set_template,
 	                             NULL, sizeof (*args), free_set_template);
 
-	args->attrs = gck_attributes_ref (attrs);
+	args->attrs = gck_attributes_ref_sink (attrs);
 	args->type = attr_type;
 	args->object = self->pv->handle;
 
@@ -1234,7 +1242,7 @@ gck_object_get_template (GckObject *self, gulong attr_type,
 		return NULL;
 	}
 
-	return gck_builder_end (&args.builder);
+	return gck_attributes_ref_sink (gck_builder_end (&args.builder));
 }
 
 /**
@@ -1294,5 +1302,5 @@ gck_object_get_template_finish (GckObject *self, GAsyncResult *result,
 		return NULL;
 
 	args = _gck_call_arguments (result, get_template_args);
-	return gck_builder_end (&args->builder);
+	return gck_attributes_ref_sink (gck_builder_end (&args->builder));
 }

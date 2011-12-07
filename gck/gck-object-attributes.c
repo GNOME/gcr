@@ -102,5 +102,10 @@ gck_object_attributes_set_attributes (GckObjectAttributes *object,
                                       GckAttributes *attributes)
 {
 	g_return_if_fail (GCK_IS_OBJECT_ATTRIBUTES (object));
+
+	gck_attributes_ref_sink (attributes);
+
 	g_object_set (object, "attributes", attributes, NULL);
+
+	gck_attributes_unref (attributes);
 }

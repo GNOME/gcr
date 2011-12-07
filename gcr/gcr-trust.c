@@ -144,7 +144,7 @@ prepare_is_certificate_pinned (GcrCertificate *certificate, const gchar *purpose
 	gck_builder_add_string (&builder, CKA_X_PURPOSE, purpose);
 	gck_builder_add_string (&builder, CKA_X_PEER, peer);
 
-	return gck_builder_end (&builder);
+	return gck_attributes_ref_sink (gck_builder_end (&builder));
 }
 
 static gboolean
@@ -316,7 +316,7 @@ prepare_add_pinned_certificate (GcrCertificate *certificate, const gchar *purpos
 	gck_builder_add_string (&builder, CKA_X_PEER, peer);
 	gck_builder_add_boolean (&builder, CKA_TOKEN, TRUE);
 
-	return gck_builder_end (&builder);
+	return gck_attributes_ref_sink (gck_builder_end (&builder));
 }
 
 static gboolean
@@ -325,7 +325,6 @@ perform_add_pinned_certificate (GckAttributes *search,
                                 GError **error)
 {
 	GckBuilder builder = GCK_BUILDER_INIT;
-	GckAttributes *attrs;
 	gboolean ret = FALSE;
 	GError *lerr = NULL;
 	GckObject *object;
@@ -358,7 +357,6 @@ perform_add_pinned_certificate (GckAttributes *search,
 	}
 
 	gck_builder_add_all (&builder, search);
-	attrs = gck_builder_end (&builder);
 
 	/* TODO: Add relevant label */
 
@@ -374,7 +372,8 @@ perform_add_pinned_certificate (GckAttributes *search,
 	} else {
 		session = gck_slot_open_session (slot, CKF_RW_SESSION, NULL, error);
 		if (session != NULL) {
-			object = gck_session_create_object (session, attrs, cancellable, error);
+			object = gck_session_create_object (session, gck_builder_end (&builder),
+			                                    cancellable, error);
 			if (object != NULL) {
 				g_object_unref (object);
 				ret = TRUE;
@@ -386,7 +385,7 @@ perform_add_pinned_certificate (GckAttributes *search,
 		g_object_unref (slot);
 	}
 
-	gck_attributes_unref (attrs);
+	gck_builder_clear (&builder);
 
 	/* Our own local error pointer */
 	g_clear_error (&lerr);
@@ -533,7 +532,7 @@ prepare_remove_pinned_certificate (GcrCertificate *certificate, const gchar *pur
 	gck_builder_add_string (&builder, CKA_X_PURPOSE, purpose);
 	gck_builder_add_string (&builder, CKA_X_PEER, peer);
 
-	return gck_builder_end (&builder);
+	return gck_attributes_ref_sink (gck_builder_end (&builder));
 }
 
 static gboolean
@@ -714,7 +713,7 @@ prepare_is_certificate_anchored (GcrCertificate *certificate, const gchar *purpo
 	prepare_trust_attrs (certificate, CKT_X_ANCHORED_CERTIFICATE, &builder);
 	gck_builder_add_string (&builder, CKA_X_PURPOSE, purpose);
 
-	return gck_builder_end (&builder);
+	return gck_attributes_ref_sink (gck_builder_end (&builder));
 }
 
 static gboolean

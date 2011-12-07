@@ -275,7 +275,7 @@ gcr_renderer_register (GType renderer_type, GckAttributes *attrs)
 		registered_renderers = g_array_new (FALSE, FALSE, sizeof (GcrRegistered));
 
 	registered.renderer_type = renderer_type;
-	registered.attrs = gck_attributes_ref (attrs);
+	registered.attrs = gck_attributes_ref_sink (attrs);
 	g_array_append_val (registered_renderers, registered);
 	registered_sorted = FALSE;
 }

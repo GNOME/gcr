@@ -104,16 +104,13 @@ find_key (GckSession *session, CK_ATTRIBUTE_TYPE method, CK_MECHANISM_TYPE mech)
 {
 	GckBuilder builder = GCK_BUILDER_INIT;
 	GList *objects, *l;
-	GckAttributes *attrs;
 	GckObject *object = NULL;
 	CK_MECHANISM_TYPE_PTR mechs;
 	gboolean match;
 	gsize n_mechs;
 
 	gck_builder_add_boolean (&builder, method, TRUE);
-	attrs = gck_builder_end (&builder);
-	objects = gck_session_find_objects (session, attrs, NULL, NULL);
-	gck_attributes_unref (attrs);
+	objects = gck_session_find_objects (session, gck_builder_end (&builder), NULL, NULL);
 	g_assert (objects);
 
 	for (l = objects; l; l = g_list_next (l)) {
@@ -144,13 +141,10 @@ find_key_with_value (GckSession *session, const gchar *value)
 {
 	GckBuilder builder = GCK_BUILDER_INIT;
 	GList *objects;
-	GckAttributes *attrs;
 	GckObject *object;
 
 	gck_builder_add_string (&builder, CKA_VALUE, value);
-	attrs = gck_builder_end (&builder);
-	objects = gck_session_find_objects (session, attrs, NULL, NULL);
-	gck_attributes_unref (attrs);
+	objects = gck_session_find_objects (session, gck_builder_end (&builder), NULL, NULL);
 	g_assert (objects);
 
 	object = g_object_ref (objects->data);
@@ -407,9 +401,9 @@ test_generate_key_pair (Test *test, gconstpointer unused)
 	gboolean ret;
 
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
-	pub_attrs =  gck_builder_end (&builder);
+	pub_attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);
-	prv_attrs =  gck_builder_end (&builder);
+	prv_attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
 
 	/* Full One*/
 	ret = gck_session_generate_key_pair_full (test->session, &mech, pub_attrs, prv_attrs,
@@ -542,7 +536,7 @@ test_unwrap_key (Test *test, gconstpointer unused)
 
 	wrapper = find_key (test->session, CKA_UNWRAP, 0);
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_SECRET_KEY);
-	attrs = gck_builder_end (&builder);
+	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
 
 	/* Full One*/
 	unwrapped = gck_session_unwrap_key_full (test->session, wrapper, &mech, (const guchar *)"special", 7, attrs, NULL, &error);
@@ -598,7 +592,7 @@ test_derive_key (Test *test, gconstpointer unused)
 
 	wrapper = find_key (test->session, CKA_DERIVE, 0);
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_SECRET_KEY);
-	attrs = gck_builder_end (&builder);
+	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
 
 	/* Full One*/
 	derived = gck_session_derive_key_full (test->session, wrapper, &mech, attrs, NULL, &error);

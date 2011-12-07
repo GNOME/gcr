@@ -1431,7 +1431,9 @@ gck_session_create_object (GckSession *self, GckAttributes *attrs,
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
 	g_return_val_if_fail (attrs != NULL, NULL);
 
+	gck_attributes_ref_sink (attrs);
 	ret = _gck_call_sync (self, perform_create_object, NULL, &args, cancellable, error);
+	gck_attributes_unref (attrs);
 
 	if (!ret)
 		return NULL;
@@ -1460,7 +1462,7 @@ gck_session_create_object_async (GckSession *self, GckAttributes *attrs,
 
 	g_return_if_fail (attrs);
 
-	args->attrs = gck_attributes_ref (attrs);
+	args->attrs = gck_attributes_ref_sink (attrs);
 
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
 }
@@ -1599,11 +1601,13 @@ gck_session_find_handles (GckSession *self,
 	g_return_val_if_fail (n_handles != NULL, NULL);
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
+	gck_attributes_ref_sink (match);
 	if (_gck_call_sync (self, perform_find_objects, NULL, &args, cancellable, error)) {
 		results = args.objects;
 		*n_handles = args.n_objects;
 		args.objects = NULL;
 	}
+	gck_attributes_unref (match);
 
 	g_free (args.objects);
 	return results;
@@ -1635,7 +1639,7 @@ gck_session_find_handles_async (GckSession *self,
 
 	args = _gck_call_async_prep (self, self, perform_find_objects,
 	                             NULL, sizeof (*args), free_find_objects);
-	args->attrs = gck_attributes_ref (match);
+	args->attrs = gck_attributes_ref_sink (match);
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
 }
 
@@ -1789,7 +1793,7 @@ gck_session_enumerate_objects (GckSession *session,
 	g_return_val_if_fail (match != NULL, NULL);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_ref (match);
+	uri_data->attributes = gck_attributes_ref_sink (match);
 
 	return _gck_enumerator_new_for_session (session, uri_data);
 }
@@ -1897,7 +1901,13 @@ gck_session_generate_key_pair_full (GckSession *self,
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args.mechanism, mechanism, sizeof (args.mechanism));
 
+	gck_attributes_ref_sink (public_attrs);
+	gck_attributes_ref_sink (private_attrs);
+
 	ret = _gck_call_sync (self, perform_generate_key_pair, NULL, &args, cancellable, error);
+
+	gck_attributes_unref (private_attrs);
+	gck_attributes_unref (public_attrs);
 
 	if (!ret)
 		return FALSE;
@@ -1939,8 +1949,8 @@ gck_session_generate_key_pair_async (GckSession *self, GckMechanism *mechanism,
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
-	args->public_attrs = gck_attributes_ref (public_attrs);
-	args->private_attrs = gck_attributes_ref (private_attrs);
+	args->public_attrs = gck_attributes_ref_sink (public_attrs);
+	args->private_attrs = gck_attributes_ref_sink (private_attrs);
 
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
 }
@@ -2278,7 +2288,11 @@ gck_session_unwrap_key_full (GckSession *self,
 	g_object_get (wrapper, "handle", &args.wrapper, NULL);
 	g_return_val_if_fail (args.wrapper != 0, NULL);
 
+	gck_attributes_ref_sink (attrs);
+
 	ret = _gck_call_sync (self, perform_unwrap_key, NULL, &args, cancellable, error);
+
+	gck_attributes_unref (attrs);
 
 	if (!ret)
 		return NULL;
@@ -2325,7 +2339,7 @@ gck_session_unwrap_key_async (GckSession *self,
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
-	args->attrs = gck_attributes_ref (attrs);
+	args->attrs = gck_attributes_ref_sink (attrs);
 	args->input = input;
 	args->n_input = n_input;
 
@@ -2448,7 +2462,11 @@ gck_session_derive_key_full (GckSession *self, GckObject *base, GckMechanism *me
 	g_object_get (base, "handle", &args.key, NULL);
 	g_return_val_if_fail (args.key != 0, NULL);
 
+	gck_attributes_ref_sink (attrs);
+
 	ret = _gck_call_sync (self, perform_derive_key, NULL, &args, cancellable, error);
+
+	gck_attributes_unref (attrs);
 
 	if (!ret)
 		return NULL;
@@ -2487,7 +2505,7 @@ gck_session_derive_key_async (GckSession *self, GckObject *base, GckMechanism *m
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
-	args->attrs = gck_attributes_ref (attrs);
+	args->attrs = gck_attributes_ref_sink (attrs);
 
 	_gck_call_async_ready_go (args, cancellable, callback, user_data);
 }

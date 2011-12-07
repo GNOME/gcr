@@ -418,7 +418,6 @@ gcr_certificate_renderer_class_init (GcrCertificateRendererClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GckBuilder builder = GCK_BUILDER_INIT;
-	GckAttributes *registered;
 
 	_gcr_oids_init ();
 
@@ -462,9 +461,7 @@ gcr_certificate_renderer_class_init (GcrCertificateRendererClass *klass)
 
 	/* Register this as a renderer which can be loaded */
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
-	registered = gck_builder_end (&builder);
-	gcr_renderer_register (GCR_TYPE_CERTIFICATE_RENDERER, registered);
-	gck_attributes_unref (registered);
+	gcr_renderer_register (GCR_TYPE_CERTIFICATE_RENDERER, gck_builder_end (&builder));
 }
 
 static void

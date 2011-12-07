@@ -216,7 +216,7 @@ gck_modules_enumerate_objects (GList *modules,
 	g_return_val_if_fail (attrs, NULL);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_ref (attrs);
+	uri_data->attributes = gck_attributes_ref_sink (attrs);
 
 	return _gck_enumerator_new_for_modules (modules, session_options, uri_data);
 }

@@ -281,17 +281,17 @@ setup_loading (TestLoading *test,
 
 	gck_builder_add_all (&builder, test->at.crt_attrs);
 	gck_builder_add_string (&builder, CKA_ID, id);
-	handle = gck_mock_module_take_object (gck_builder_end (&builder));
+	handle = gck_mock_module_add_object (gck_builder_end (&builder));
 	test->crt_object = gck_object_from_handle (test->mo.session, handle);
 
 	gck_builder_add_all (&builder, test->at.pub_attrs);
 	gck_builder_add_string (&builder, CKA_ID, id);
-	handle = gck_mock_module_take_object (gck_builder_end (&builder));
+	handle = gck_mock_module_add_object (gck_builder_end (&builder));
 	test->pub_object = gck_object_from_handle (test->mo.session, handle);
 
 	gck_builder_add_all (&builder, test->at.prv_attrs);
 	gck_builder_add_string (&builder, CKA_ID, id);
-	handle = gck_mock_module_take_object (gck_builder_end (&builder));
+	handle = gck_mock_module_add_object (gck_builder_end (&builder));
 	test->prv_object = gck_object_from_handle (test->mo.session, handle);
 }
 
@@ -541,7 +541,7 @@ perform_load_partial (TestLoading *test,
 
 	for (i = 0; i < gck_attributes_count (attributes); i += 2)
 		gck_builder_add_owned (&builder, gck_attributes_at (attributes, i));
-	partial = gck_builder_end (&builder);
+	partial = gck_attributes_ref_sink (gck_builder_end (&builder));
 
 	object = g_object_new (mock_object_get_type (),
 	                       "module", test->mo.module,
@@ -622,7 +622,7 @@ test_load_failure_build (TestModule *test,
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
 	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
 	gck_builder_add_string (&builder, CKA_VALUE, "invalid value");
-	attributes = gck_builder_end (&builder);
+	attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
 
 	object = g_object_new (mock_object_get_type (),
 	                       "module", test->module,

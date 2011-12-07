@@ -95,7 +95,7 @@ setup (Test *test, gconstpointer unused)
 	gck_builder_add_data (&builder, CKA_SUBJECT,
 	                      egg_bytes_get_data (subject),
 	                      egg_bytes_get_size (subject));
-	gck_mock_module_take_object (gck_builder_end (&builder));
+	gck_mock_module_add_object (gck_builder_end (&builder));
 
 	egg_bytes_unref (bytes);
 	egg_bytes_unref (subject);

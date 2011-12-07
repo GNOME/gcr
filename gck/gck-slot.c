@@ -932,7 +932,7 @@ gck_slots_enumerate_objects (GList *slots,
 	g_return_val_if_fail (match != NULL, NULL);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_ref (match);
+	uri_data->attributes = gck_attributes_ref_sink (match);
 
 	return _gck_enumerator_new_for_slots (slots, options, uri_data);
 }

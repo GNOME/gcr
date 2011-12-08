@@ -48,6 +48,7 @@ EGG_SECURE_DEFINE_GLIB_GLOBALS ();
  * @title: Private, not used in docs
  * @short_description: Should not show up in docs
  *
+ * Should not show up in the docs
  */
 
 /**

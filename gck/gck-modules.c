@@ -196,13 +196,15 @@ gck_modules_get_slots (GList *modules, gboolean token_present)
 /**
  * gck_modules_enumerate_objects:
  * @modules: (element-type Gck.Module): The modules
- * @attrs: Attributes that the objects must have, or empty for all objects
+ * @attrs: attributes that the objects must have, or empty for all objects
  * @session_options: Options from GckSessionOptions
  *
  * Setup an enumerator for listing matching objects on the modules.
  *
  * This call will not block but will return an enumerator immediately.
-
+ *
+ * If the @attrs #GckAttributes is floating, it is consumed.
+ *
  * Return value: (transfer full): A new enumerator, which should be released
  * with g_object_unref().
  **/

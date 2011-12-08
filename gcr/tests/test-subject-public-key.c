@@ -471,8 +471,8 @@ mock_object_class_init (MockObjectClass *klass)
 }
 
 static void
-mock_object_add_attributes (GckObjectCache *object,
-                            GckAttributes *attrs)
+mock_object_fill (GckObjectCache *object,
+                  GckAttributes *attrs)
 {
 	GckBuilder builder = GCK_BUILDER_INIT;
 	MockObject *self = (MockObject *)object;
@@ -489,7 +489,7 @@ mock_object_cache_init (GckObjectCacheIface *iface)
 {
 	iface->default_types = NULL;
 	iface->n_default_types = 0;
-	iface->add_attributes = mock_object_add_attributes;
+	iface->fill = mock_object_fill;
 }
 
 static void

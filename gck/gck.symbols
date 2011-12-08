@@ -131,7 +131,7 @@ gck_modules_object_for_uri
 gck_modules_objects_for_uri
 gck_modules_token_for_uri
 gck_modules_tokens_for_uri
-gck_object_cache_add_attributes
+gck_object_cache_fill
 gck_object_cache_get_attributes
 gck_object_cache_get_type
 gck_object_cache_lookup

@@ -40,15 +40,25 @@
  */
 
 /**
+ * GckObjectCache:
+ *
+ * An interface implemented on an #GckObject which contains a cache of attributes.
+ */
+
+/**
  * GckObjectCacheIface:
  * @interface: parent interface
  * @default_types: (array length=n_default_types): attribute types that an
  *                   enumerator should retrieve
  * @n_default_types: number of attribute types to be retrieved
+ * @fill: virtual method to add attributes to the cache
  *
  * Interface for #GckObjectCache. If the @default_types field is set by
  * a implementing class, then the a #GckEnumerator which has been setup using
  * gck_enumerator_set_object_type()
+ *
+ * The implementation for @populate should add the attributes to the
+ * cache. It must be thread safe.
  */
 
 typedef GckObjectCacheIface GckObjectCacheInterface;
@@ -75,7 +85,7 @@ gck_object_cache_default_init (GckObjectCacheIface *iface)
 
 /**
  * gck_object_cache_get_attributes:
- * @object: an object with attributes
+ * @object: an object with an attribute cache
  *
  * Gets the attributes cached on this object.
  *
@@ -90,41 +100,71 @@ gck_object_cache_get_attributes (GckObjectCache *object)
 	return attributes;
 }
 
+/**
+ * gck_object_cache_set_attributes:
+ * @object: an object with an attribute cache
+ * @attrs: (allow-none): the attributes to set
+ *
+ * Sets the attributes cached on this object.
+ *
+ * If the @attrs #GckAttributes is floating, it is consumed.
+ *
+ */
 void
 gck_object_cache_set_attributes (GckObjectCache *object,
-                                 GckAttributes *attributes)
+                                 GckAttributes *attrs)
 {
 	g_return_if_fail (GCK_IS_OBJECT_CACHE (object));
 
-	gck_attributes_ref_sink (attributes);
-	g_object_set (object, "attributes", attributes, NULL);
-	gck_attributes_unref (attributes);
+	gck_attributes_ref_sink (attrs);
+	g_object_set (object, "attributes", attrs, NULL);
+	gck_attributes_unref (attrs);
 }
 
 /**
- * gck_object_cache_add_attributes:
- * @object: an object with attributes
- * @attributes: the attributes to cache
+ * gck_object_cache_fill:
+ * @object: an object with the cache
+ * @attrs: the attributes to cache
  *
- * Adds the attributes to the set cached on this object.
+ * Adds the attributes to the set cached on this object. If an attribute is
+ * already present in the cache it will be overridden by this value.
+ *
+ * This will be done in a thread-safe manner.
+ *
+ * If the @attrs #GckAttributes is floating, it is consumed.
  */
 void
-gck_object_cache_add_attributes (GckObjectCache *object,
-                                 GckAttributes *attributes)
+gck_object_cache_fill (GckObjectCache *object,
+                       GckAttributes *attrs)
 {
 	GckObjectCacheIface *iface;
 
 	g_return_if_fail (GCK_IS_OBJECT_CACHE (object));
-	g_return_if_fail (attributes != NULL);
+	g_return_if_fail (attrs != NULL);
 
 	iface = GCK_OBJECT_CACHE_GET_INTERFACE (object);
-	g_return_if_fail (iface->add_attributes != NULL);
+	g_return_if_fail (iface->fill != NULL);
 
-	gck_attributes_ref_sink (attributes);
-	(iface->add_attributes) (object, attributes);
-	gck_attributes_unref (attributes);
+	gck_attributes_ref_sink (attrs);
+	(iface->fill) (object, attrs);
+	gck_attributes_unref (attrs);
 }
 
+/**
+ * gck_object_cache_update:
+ * @object: the object with the cache
+ * @attr_types: (array length=n_attr_types): the types of attributes to update
+ * @n_attr_types: the number of attribute types
+ * @cancellable: optional cancellation object
+ * @error: location to place an error
+ *
+ * Update the object cache with given attributes. If an attribute already
+ * exists in the cache, it will be updated, and if it doesn't it will be added.
+ *
+ * This may block, use the asynchronous version when this is not desirable
+ *
+ * Returns: whether the cache update was successful
+ */
 gboolean
 gck_object_cache_update (GckObjectCache *object,
                          const gulong *attr_types,
@@ -158,7 +198,7 @@ gck_object_cache_update (GckObjectCache *object,
 	                             cancellable, error);
 
 	if (attrs != NULL) {
-		gck_object_cache_add_attributes (object, attrs);
+		gck_object_cache_fill (object, attrs);
 		gck_attributes_unref (attrs);
 	}
 
@@ -176,7 +216,7 @@ on_cache_object_get (GObject *source,
 
 	attrs = gck_object_get_finish (GCK_OBJECT (source), result, &error);
 	if (error == NULL) {
-		gck_object_cache_add_attributes (GCK_OBJECT_CACHE (source), attrs);
+		gck_object_cache_fill (GCK_OBJECT_CACHE (source), attrs);
 		gck_attributes_unref (attrs);
 	} else {
 		g_simple_async_result_take_error (res, error);
@@ -185,6 +225,21 @@ on_cache_object_get (GObject *source,
 	g_simple_async_result_complete (res);
 	g_object_unref (res);
 }
+
+/**
+ * gck_object_cache_update_async:
+ * @object: the object with the cache
+ * @attr_types: (array length=n_attr_types): the types of attributes to update
+ * @n_attr_types: the number of attribute types
+ * @cancellable: optional cancellation object
+ * @callback: called when the operation completes
+ * @user_data: data to be passed to the callback
+ *
+ * Update the object cache with given attributes. If an attribute already
+ * exists in the cache, it will be updated, and if it doesn't it will be added.
+ *
+ * This call will return immediately and complete asynchronously.
+ */
 void
 gck_object_cache_update_async (GckObjectCache *object,
                                const gulong *attr_types,
@@ -222,6 +277,17 @@ gck_object_cache_update_async (GckObjectCache *object,
 	g_object_unref (res);
 }
 
+/**
+ * gck_object_cache_update_finish:
+ * @object: the object with the cache
+ * @result: the asynchronous result passed to the callback
+ * @error: location to place an error
+ *
+ * Complete an asynchronous operation to update the object cache with given
+ * attributes.
+ *
+ * Returns: whether the cache update was successful
+ */
 gboolean
 gck_object_cache_update_finish (GckObjectCache *object,
                                 GAsyncResult *result,
@@ -256,6 +322,27 @@ check_have_attributes (GckAttributes *attrs,
 	return TRUE;
 }
 
+/**
+ * gck_object_cache_lookup:
+ * @object: the object
+ * @attr_types: (array length=n_attr_types): the types of attributes to update
+ * @n_attr_types: the number of attribute types
+ * @cancellable: optional cancellation object
+ * @error: location to place an error
+ *
+ * Lookup attributes in the cache, or retrieve them from the object if necessary.
+ *
+ * If @object is a #GckObjectCache then this will lookup the attributes there
+ * first if available, otherwise will read them from the object and update
+ * the cache.
+ *
+ * If @object is not a #GckObjectCache, then the attributes will simply be
+ * read from the object.
+ *
+ * This may block, use the asynchronous version when this is not desirable
+ *
+ * Returns: (transfer full): the attributes retrieved or %NULL on failure
+ */
 GckAttributes *
 gck_object_cache_lookup (GckObject *object,
                          const gulong *attr_types,
@@ -290,6 +377,26 @@ gck_object_cache_lookup (GckObject *object,
 	}
 }
 
+/**
+ * gck_object_cache_lookup_async:
+ * @object: the object
+ * @attr_types: (array length=n_attr_types): the types of attributes to update
+ * @n_attr_types: the number of attribute types
+ * @cancellable: optional cancellation object
+ * @callback: called when the operation completes
+ * @user_data: data to pass to the callback
+ *
+ * Lookup attributes in the cache, or retrieve them from the object if necessary.
+ *
+ * If @object is a #GckObjectCache then this will lookup the attributes there
+ * first if available, otherwise will read them from the object and update
+ * the cache.
+ *
+ * If @object is not a #GckObjectCache, then the attributes will simply be
+ * read from the object.
+ *
+ * This will return immediately and complete asynchronously
+ */
 void
 gck_object_cache_lookup_async (GckObject *object,
                                const gulong *attr_types,
@@ -328,6 +435,17 @@ gck_object_cache_lookup_async (GckObject *object,
 	}
 }
 
+/**
+ * gck_object_cache_lookup_finish:
+ * @object: the object
+ * @result: the asynchrounous result passed to the callback
+ * @error: location to place an error
+ *
+ * Complete an operation to lookup attributes in the cache or retrieve them
+ * from the object if necessary.
+ *
+ * Returns: (transfer full): the attributes retrieved or %NULL on failure
+ */
 GckAttributes *
 gck_object_cache_lookup_finish (GckObject *object,
                                 GAsyncResult *result,

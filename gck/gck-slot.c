@@ -888,6 +888,8 @@ gck_slot_has_flags (GckSlot *self, gulong flags)
  *
  * Setup an enumerator for listing matching objects on the slot.
  *
+ * If the @match #GckAttributes is floating, it is consumed.
+ *
  * This call will not block but will return an enumerator immediately.
  *
  * Returns: (transfer full): a new enumerator
@@ -917,6 +919,8 @@ gck_slot_enumerate_objects (GckSlot *self,
  * @options: options for opening a session
  *
  * Setup an enumerator for listing matching objects on the slots.
+ *
+ * If the @match #GckAttributes is floating, it is consumed.
  *
  * This call will not block but will return an enumerator immediately.
  *

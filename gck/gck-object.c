@@ -507,6 +507,8 @@ free_set_attributes (SetAttributes *args)
  *
  * Set PKCS\#11 attributes on an object. This call may block for an indefinite period.
  *
+ * If the @attrs #GckAttributes is floating, it is consumed.
+ *
  * Return value: Whether the call was successful or not.
  **/
 gboolean
@@ -543,6 +545,8 @@ gck_object_set (GckObject *self, GckAttributes *attrs,
  *
  * Set PKCS\#11 attributes on an object. This call will return
  * immediately and completes asynchronously.
+ *
+ * If the @attrs #GckAttributes is floating, it is consumed.
  **/
 void
 gck_object_set_async (GckObject *self, GckAttributes *attrs, GCancellable *cancellable,
@@ -1057,6 +1061,8 @@ free_set_template (set_template_args *args)
  * Set an attribute template on the object. The attr_type must be for
  * an attribute which contains a template.
  *
+ * If the @attrs #GckAttributes is floating, it is consumed.
+ *
  * This call may block for an indefinite period.
  *
  * Return value: TRUE if the operation succeeded.
@@ -1097,6 +1103,8 @@ gck_object_set_template (GckObject *self, gulong attr_type, GckAttributes *attrs
  *
  * Set an attribute template on the object. The attr_type must be for
  * an attribute which contains a template.
+ *
+ * If the @attrs #GckAttributes is floating, it is consumed.
  *
  * This call will return immediately and complete asynchronously.
  **/

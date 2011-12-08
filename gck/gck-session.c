@@ -1419,6 +1419,8 @@ perform_create_object (CreateObject *args)
  * Create a new PKCS\#11 object. This call may block for an
  * indefinite period.
  *
+ * If the @attrs #GckAttributes is floating, it is consumed.
+ *
  * Returns: (transfer full): the newly created object or %NULL if an error occurred
  **/
 GckObject *
@@ -1451,6 +1453,8 @@ gck_session_create_object (GckSession *self, GckAttributes *attrs,
  *
  * Create a new PKCS\#11 object. This call will return immediately
  * and complete asynchronously.
+ *
+ * If the @attrs #GckAttributes is floating, it is consumed.
  **/
 void
 gck_session_create_object_async (GckSession *self, GckAttributes *attrs,
@@ -1582,6 +1586,8 @@ perform_find_objects (FindObjects *args)
  * Find the objects matching the passed attributes. This call may
  * block for an indefinite period.
  *
+ * If the @match #GckAttributes is floating, it is consumed.
+ *
  * Returns: (transfer full) (array length=n_handles) (allow-none): a list of
  *          the matching objects, which may be empty
  **/
@@ -1623,6 +1629,8 @@ gck_session_find_handles (GckSession *self,
  *
  * Find the objects matching the passed attributes. This call will
  * return immediately and complete asynchronously.
+ *
+ * If the @match #GckAttributes is floating, it is consumed.
  **/
 void
 gck_session_find_handles_async (GckSession *self,
@@ -1688,6 +1696,8 @@ gck_session_find_handles_finish (GckSession *self,
  * Find the objects matching the passed attributes. This call may
  * block for an indefinite period.
  *
+ * If the @match #GckAttributes is floating, it is consumed.
+ *
  * Returns: (transfer full) (element-type Gck.Object): a list of the matching
  *          objects, which may be empty
  **/
@@ -1725,6 +1735,8 @@ gck_session_find_objects (GckSession *self,
  *
  * Find the objects matching the passed attributes. This call will
  * return immediately and complete asynchronously.
+ *
+ * If the @match #GckAttributes is floating, it is consumed.
  **/
 void
 gck_session_find_objects_async (GckSession *self,
@@ -1779,6 +1791,8 @@ gck_session_find_objects_finish (GckSession *self,
  * @match: attributes that the objects must match, or empty for all objects
  *
  * Setup an enumerator for listing matching objects available via this session.
+ *
+ * If the @match #GckAttributes is floating, it is consumed.
  *
  * This call will not block but will return an enumerator immediately.
  *
@@ -1852,6 +1866,9 @@ perform_generate_key_pair (GenerateKeyPair *args)
  * Generate a new key pair of public and private keys. This call may block for an
  * indefinite period.
  *
+ * If the @public_attrs and/or @private_attrs #GckAttributes is floating, it is
+ * consumed.
+ *
  * Return value: TRUE if the operation succeeded.
  **/
 gboolean
@@ -1877,6 +1894,9 @@ gck_session_generate_key_pair (GckSession *self, gulong mech_type,
  *
  * Generate a new key pair of public and private keys. This call may block for an
  * indefinite period.
+ *
+ * If the @public_attrs and/or @private_attrs #GckAttributes is floating, it is
+ * consumed.
  *
  * Return value: TRUE if the operation succeeded.
  **/
@@ -1931,6 +1951,9 @@ gck_session_generate_key_pair_full (GckSession *self,
  *
  * Generate a new key pair of public and private keys. This call will
  * return immediately and complete asynchronously.
+ *
+ * If the @public_attrs and/or @private_attrs #GckAttributes is floating, it is
+ * consumed.
  **/
 void
 gck_session_generate_key_pair_async (GckSession *self, GckMechanism *mechanism,
@@ -2230,6 +2253,8 @@ perform_unwrap_key (UnwrapKey *args)
  * Unwrap a key from a byte stream. This call may block for an
  * indefinite period.
  *
+ * If the @attrs #GckAttributes is floating, it is consumed.
+ *
  * Returns: (transfer full): the new unwrapped key or NULL if the
  *          operation failed
  **/
@@ -2260,6 +2285,8 @@ gck_session_unwrap_key (GckSession *self,
  *
  * Unwrap a key from a byte stream. This call may block for an
  * indefinite period.
+ *
+ * If the @attrs #GckAttributes is floating, it is consumed.
  *
  * Returns: (transfer full): the new unwrapped key or NULL if the operation
  *          failed
@@ -2314,6 +2341,8 @@ gck_session_unwrap_key_full (GckSession *self,
  *
  * Unwrap a key from a byte stream. This call will
  * return immediately and complete asynchronously.
+ *
+ * If the @attrs #GckAttributes is floating, it is consumed.
  **/
 void
 gck_session_unwrap_key_async (GckSession *self,
@@ -2418,6 +2447,8 @@ perform_derive_key (DeriveKey *args)
  * Derive a key from another key. This call may block for an
  * indefinite period.
  *
+ * If the @attrs #GckAttributes is floating, it is consumed.
+ *
  * Returns: (transfer full): the new derived key or NULL if the operation
  *          failed
  **/
@@ -2440,6 +2471,8 @@ gck_session_derive_key (GckSession *self, GckObject *base, gulong mech_type,
  *
  * Derive a key from another key. This call may block for an
  * indefinite period.
+ *
+ * If the @attrs #GckAttributes is floating, it is consumed.
  *
  * Returns: (transfer full): the new derived key or NULL if the operation
  *          failed
@@ -2486,6 +2519,8 @@ gck_session_derive_key_full (GckSession *self, GckObject *base, GckMechanism *me
  *
  * Derive a key from another key. This call will
  * return immediately and complete asynchronously.
+ *
+ * If the @attrs #GckAttributes is floating, it is consumed.
  **/
 void
 gck_session_derive_key_async (GckSession *self, GckObject *base, GckMechanism *mechanism,

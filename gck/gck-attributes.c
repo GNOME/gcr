@@ -173,6 +173,47 @@ gck_builder_get_type (void)
 	return type;
 }
 
+/**
+ * GckBuilder:
+ *
+ * A builder for a set of attributes. Add attributes to a builder, and then use
+ * gck_builder_end() to get the completed #GckAttributes.
+ *
+ * The fields of #GckBuilder are private and not to be accessed directly.
+ */
+
+/**
+ * GckBuilderFlags:
+ * @GCK_BUILDER_NONE: no special flags
+ * @GCK_BUILDER_SECURE_MEMORY: use non-pageable memory for the values of the attributes
+ *
+ * Flags to be used with a gck_builder_init_full() and gck_builder_new().
+ */
+
+/**
+ * GCK_BUILDER_INIT:
+ *
+ * Values that can be assigned to a #GckBuilder allocated on the stack.
+ *
+ * <informalexample><programlisting>
+ * GckBuilder builder = GCK_BUILDER_INIT;
+ * </programlisting></informalexample>
+ */
+
+/**
+ * gck_builder_new:
+ * @flags: flags for the new builder
+ *
+ * Create a new #GckBuilder not allocated on the stack, so it can be shared
+ * across a single scope, and referenced / unreferenced.
+ *
+ * Normally a #GckBuilder is created on the stack, and simply initialized.
+ *
+ * If the %GCK_BUILDER_SECURE_MEMORY flag is specified then non-pageable memory
+ * will be used for the various values of the attributes in the builder
+ *
+ * Returns: (transfer full): a new builder, to be freed with gck_builder_unref()
+ */
 GckBuilder *
 gck_builder_new (GckBuilderFlags flags)
 {
@@ -185,6 +226,18 @@ gck_builder_new (GckBuilderFlags flags)
 	return builder;
 }
 
+/**
+ * gck_builder_ref:
+ * @builder: the builder
+ *
+ * Add a reference to a builder that was created with gck_builder_new(). The
+ * builder must later be unreferenced again with gck_builder_unref().
+ *
+ * It is an error to use this function on builders that were allocated on the
+ * stack.
+ *
+ * Returns: the builder
+ */
 GckBuilder *
 gck_builder_ref (GckBuilder *builder)
 {
@@ -207,6 +260,16 @@ gck_builder_ref (GckBuilder *builder)
 	return builder;
 }
 
+/**
+ * gck_builder_unref:
+ * @builder: the builder
+ *
+ * Unreferences a builder. If this was the last reference then the builder
+ * is freed.
+ *
+ * It is an error to use this function on builders that were allocated on the
+ * stack.
+ */
 void
 gck_builder_unref (gpointer builder)
 {
@@ -221,6 +284,16 @@ gck_builder_unref (gpointer builder)
 	}
 }
 
+/**
+ * gck_builder_init_full:
+ * @builder: the builder
+ * @flags: the flags for the new builder
+ *
+ * Initialize a stack allocated builder, with the appropriate flags.
+ *
+ * If the %GCK_BUILDER_SECURE_MEMORY flag is specified then non-pageable memory
+ * will be used for the various values of the attributes in the builder
+ */
 void
 gck_builder_init_full (GckBuilder *builder,
                        GckBuilderFlags flags)
@@ -233,6 +306,26 @@ gck_builder_init_full (GckBuilder *builder,
 	real->secure = flags & GCK_BUILDER_SECURE_MEMORY;
 }
 
+/**
+ * gck_builder_init:
+ * @builder: the builder
+ *
+ * Initialize a stack allocated builder, with the default flags.
+ *
+ * This is equivalent to initializing a builder variable with the
+ * %GCK_BUILDER_INIT constant, or setting it to zeroed memory.
+ *
+ * <informalexample><programlisting>
+ * /<!-- -->* Equivalent ways of initializing a GckBuilder *<!-- -->/
+ * GckBuilder builder = GCK_BUILDER_INIT;
+ * GckBuilder builder2;
+ * GckBuilder builder3;
+ *
+ * gck_builder_init (&builder2);
+ *
+ * memset (&builder3, 0, sizeof (builder3));
+ * </programlisting></informalexample>
+ */
 void
 gck_builder_init (GckBuilder *builder)
 {
@@ -315,6 +408,19 @@ builder_copy (GckBuilder *builder,
 	}
 }
 
+/**
+ * gck_builder_copy:
+ * @builder: the builder to copy
+ *
+ * Make a copy of the builder and its state. The new builder is allocated
+ * with gck_builder_new() and should be freed with gck_builder_unref().
+ *
+ * Attribute value memory is automatically shared between the two builders,
+ * and is only freed when both are gone.
+ *
+ * Returns: (transfer full): the builder copy, which should be freed with
+ *          gck_builder_unref().
+ */
 GckBuilder *
 gck_builder_copy (GckBuilder *builder)
 {
@@ -332,6 +438,25 @@ gck_builder_copy (GckBuilder *builder)
 	return copy;
 }
 
+/**
+ * gck_builder_take_data:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ * @value: (transfer full): (array length=length): (allow-none): the new
+ *         attribute memory
+ * @length: the length of the memory
+ *
+ * Add a new attribute to the builder with an arbitrary value. Unconditionally
+ * adds a new attribute, even if one with the same @attr_type already exists.
+ *
+ * Ownership of the @value memory is taken by the builder, may be reallocated,
+ * and is eventually freed with g_free(). The memory must have been allocated
+ * using the standard GLib memory allocation routines.
+ *
+ * %NULL may be specified for the @value argument, in which case an empty
+ * attribute is created. GCK_INVALID may be specified for the length, in
+ * which case an invalid attribute is created in the PKCS\#11 style.
+ */
 void
 gck_builder_take_data (GckBuilder *builder,
                        gulong attr_type,
@@ -362,6 +487,22 @@ gck_builder_take_data (GckBuilder *builder,
 	}
 }
 
+/**
+ * gck_builder_add_data:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ * @value: (array length=length): (allow-none): the new attribute memory
+ * @length: the length of the memory
+ *
+ * Add a new attribute to the builder with an arbitrary value. Unconditionally
+ * adds a new attribute, even if one with the same @attr_type already exists.
+ *
+ * The memory in @value is copied by the builder.
+ *
+ * %NULL may be specified for the @value argument, in which case an empty
+ * attribute is created. GCK_INVALID may be specified for the length, in
+ * which case an invalid attribute is created in the PKCS\#11 style.
+ */
 void
 gck_builder_add_data (GckBuilder *builder,
                       gulong attr_type,
@@ -387,6 +528,23 @@ gck_builder_add_data (GckBuilder *builder,
 	}
 }
 
+/**
+ * gck_builder_set_data:
+ * @builder: the builder
+ * @attr_type: the attribute type
+ * @value: (array length=length): (allow-none): the new attribute memory
+ * @length: the length of the memory
+ *
+ * Set a new attribute to the builder with an arbitrary value. If an attribute
+ * with @attr_type already exists in the builder then it is changed to the new
+ * value, otherwise an attribute is added.
+ *
+ * The memory in @value is copied by the builder.
+ *
+ * %NULL may be specified for the @value argument, in which case an empty
+ * attribute is created. GCK_INVALID may be specified for the length, in
+ * which case an invalid attribute is created in the PKCS\#11 style.
+ */
 void
 gck_builder_set_data (GckBuilder *builder,
                       gulong attr_type,
@@ -412,6 +570,14 @@ gck_builder_set_data (GckBuilder *builder,
 	}
 }
 
+/**
+ * gck_builder_add_empty:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ *
+ * Add a new attribute to the builder that is empty. Unconditionally
+ * adds a new attribute, even if one with the same @attr_type already exists.
+ */
 void
 gck_builder_add_empty (GckBuilder *builder,
                        gulong attr_type)
@@ -421,6 +587,15 @@ gck_builder_add_empty (GckBuilder *builder,
 	builder_push (builder, attr_type);
 }
 
+/**
+ * gck_builder_set_empty:
+ * @builder: the builder
+ * @attr_type: the attribute type
+ *
+ * Set an attribute on the builder that is empty. If an attribute
+ * with @attr_type already exists in the builder then it is changed to the new
+ * value, otherwise an attribute is added.
+ */
 void
 gck_builder_set_empty (GckBuilder *builder,
                        gulong attr_type)
@@ -430,6 +605,15 @@ gck_builder_set_empty (GckBuilder *builder,
 	builder_clear_or_push (builder, attr_type);
 }
 
+/**
+ * gck_builder_add_invalid:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ *
+ * Add a new attribute to the builder that is invalid in the PKCS\#11 sense.
+ * Unconditionally adds a new attribute, even if one with the same @attr_type
+ * already exists.
+ */
 void
 gck_builder_add_invalid (GckBuilder *builder,
                          gulong attr_type)
@@ -442,6 +626,15 @@ gck_builder_add_invalid (GckBuilder *builder,
 	attr->length = (gulong)-1;
 }
 
+/**
+ * gck_builder_set_invalid:
+ * @builder: the builder
+ * @attr_type: the attribute type
+ *
+ * Set an attribute on the builder that is invalid in the PKCS\#11 sense.
+ * If an attribute with @attr_type already exists in the builder then it is
+ * changed to the new value, otherwise an attribute is added.
+ */
 void
 gck_builder_set_invalid (GckBuilder *builder,
                          gulong attr_type)
@@ -454,6 +647,16 @@ gck_builder_set_invalid (GckBuilder *builder,
 	attr->length = (gulong)-1;
 }
 
+/**
+ * gck_builder_add_ulong:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ * @value: the attribute value
+ *
+ * Add a new attribute to the builder for the unsigned long @value.
+ * Unconditionally adds a new attribute, even if one with the same @attr_type
+ * already exists.
+ */
 void
 gck_builder_add_ulong (GckBuilder *builder,
                        gulong attr_type,
@@ -464,6 +667,16 @@ gck_builder_add_ulong (GckBuilder *builder,
 	                      (const guchar *)&uval, sizeof (uval));
 }
 
+/**
+ * gck_builder_set_ulong:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ * @value: the attribute value
+ *
+ * Set an attribute on the builder for the unsigned long @value.
+ * If an attribute with @attr_type already exists in the builder then it is
+ * changed to the new value, otherwise an attribute is added.
+ */
 void
 gck_builder_set_ulong (GckBuilder *builder,
                        gulong attr_type,
@@ -474,6 +687,16 @@ gck_builder_set_ulong (GckBuilder *builder,
 	                      (const guchar *)&uval, sizeof (uval));
 }
 
+/**
+ * gck_builder_add_boolean:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ * @value: the attribute value
+ *
+ * Add a new attribute to the builder for the boolean @value.
+ * Unconditionally adds a new attribute, even if one with the same @attr_type
+ * already exists.
+ */
 void
 gck_builder_add_boolean (GckBuilder *builder,
                          gulong attr_type,
@@ -484,6 +707,16 @@ gck_builder_add_boolean (GckBuilder *builder,
 	                      (const guchar *)&bval, sizeof (bval));
 }
 
+/**
+ * gck_builder_set_boolean:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ * @value: the attribute value
+ *
+ * Set an attribute on the builder for the boolean @value.
+ * If an attribute with @attr_type already exists in the builder then it is
+ * changed to the new value, otherwise an attribute is added.
+ */
 void
 gck_builder_set_boolean (GckBuilder *builder,
                          gulong attr_type,
@@ -508,6 +741,16 @@ convert_gdate_to_ckdate (const GDate *value,
 	memcpy (&date->day, buffer + 6, 2);
 }
 
+/**
+ * gck_builder_add_date:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ * @value: the attribute value
+ *
+ * Add a new attribute to the builder for the date @value.
+ * Unconditionally adds a new attribute, even if one with the same @attr_type
+ * already exists.
+ */
 void
 gck_builder_add_date (GckBuilder *builder,
                       gulong attr_type,
@@ -522,6 +765,16 @@ gck_builder_add_date (GckBuilder *builder,
 	                      (const guchar *)&date, sizeof (CK_DATE));
 }
 
+/**
+ * gck_builder_set_date:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ * @value: the attribute value
+ *
+ * Set an attribute on the builder for the date @value.
+ * If an attribute with @attr_type already exists in the builder then it is
+ * changed to the new value, otherwise an attribute is added.
+ */
 void
 gck_builder_set_date (GckBuilder *builder,
                       gulong attr_type,
@@ -536,6 +789,16 @@ gck_builder_set_date (GckBuilder *builder,
 	                      (const guchar *)&date, sizeof (CK_DATE));
 }
 
+/**
+ * gck_builder_add_string:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ * @value: (allow-none): the attribute value
+ *
+ * Add a new attribute to the builder for the string @value or %NULL.
+ * Unconditionally adds a new attribute, even if one with the same @attr_type
+ * already exists.
+ */
 void
 gck_builder_add_string (GckBuilder *builder,
                         gulong attr_type,
@@ -545,6 +808,16 @@ gck_builder_add_string (GckBuilder *builder,
 	                      (const guchar *)value, value ? strlen (value) : 0);
 }
 
+/**
+ * gck_builder_set_string:
+ * @builder: the builder
+ * @attr_type: the new attribute type
+ * @value: the attribute value
+ *
+ * Set an attribute on the builder for the string @value or %NULL.
+ * If an attribute with @attr_type already exists in the builder then it is
+ * changed to the new value, otherwise an attribute is added.
+ */
 void
 gck_builder_set_string (GckBuilder *builder,
                         gulong attr_type,
@@ -554,6 +827,17 @@ gck_builder_set_string (GckBuilder *builder,
 	                      (const guchar *)value, value ? strlen (value) : 0);
 }
 
+/**
+ * gck_builder_add_attribute:
+ * @builder: the builder
+ * @attr: the attribute to add
+ *
+ * Add a copy of the attribute to the builder. The attribute is added
+ * unconditionally whether or not an attribute with the same type already
+ * exists on the builder.
+ *
+ * The memory in the attribute is copied.
+ */
 void
 gck_builder_add_attribute (GckBuilder *builder,
                            const GckAttribute *attr)
@@ -564,6 +848,21 @@ gck_builder_add_attribute (GckBuilder *builder,
 	gck_builder_add_data (builder, attr->type, attr->value, attr->length);
 }
 
+/**
+ * gck_builder_add_owned:
+ * @builder: the builder
+ * @attr: the attribute to add
+ *
+ * Add an attribute to the builder. The attribute is added unconditionally whether
+ * or not an attribute with the same type already exists on the builder.
+ *
+ * The @attr attribute must already be owned by a #GckAttributes or #GckBuilder.
+ * If you call this function on an arbitrary #GckAttribute that is not owned
+ * it will result in undefined behavior.
+ *
+ * As an optimization, the attribute memory value is automatically shared
+ * between the attribute and the builder.
+ */
 void
 gck_builder_add_owned (GckBuilder *builder,
                        const GckAttribute *attr)
@@ -574,6 +873,18 @@ gck_builder_add_owned (GckBuilder *builder,
 	builder_copy (builder, attr, FALSE);
 }
 
+/**
+ * gck_builder_add_all:
+ * @builder: the builder
+ * @attrs: the attributes to add
+ *
+ * Add all the @attrs attributes to the builder. The attributes are added
+ * uncondititionally whether or not attributes with the same types already
+ * exist in the builder.
+ *
+ * As an optimization, the attribute memory values are automatically shared
+ * between the attributes and the builder.
+ */
 void
 gck_builder_add_all (GckBuilder *builder,
                      GckAttributes *attrs)
@@ -587,6 +898,27 @@ gck_builder_add_all (GckBuilder *builder,
 		builder_copy (builder, &attrs->data[i], FALSE);
 }
 
+/**
+ * gck_builder_add_only: (skip)
+ * @builder: the builder
+ * @attrs: the attributes to add
+ * @only_type: the first type of attribute to add
+ * @...: the remaining attribute types to add, ending with %GCK_INVALID
+ *
+ * Add the attributes specified in the argument list from @attrs to the
+ * builder. The attributes are added uncondititionally whether or not
+ * attributes with the same types already exist in the builder.
+ *
+ * The variable arguments must be unsigned longs.
+ *
+ * <informalexample><programlisting>
+ * /<!-- -->* Add the CKA_ID and CKA_CLASS attributes from attrs to builder *<!-- -->/
+ * gck_builder_add_only (builder, attrs, CKA_ID, CKA_CLASS, GCK_INVALID);
+ * </programlisting></informalexample>
+ *
+ * As an optimization, the attribute memory values are automatically shared
+ * between the attributes and the builder.
+ */
 void
 gck_builder_add_only (GckBuilder *builder,
                       GckAttributes *attrs,
@@ -612,6 +944,28 @@ gck_builder_add_only (GckBuilder *builder,
 	g_array_free (types, TRUE);
 }
 
+/**
+ * gck_builder_add_onlyv:
+ * @builder: the builder
+ * @attrs: the attributes to add
+ * @only_types: (array length=n_only_types): the types of attributes to add
+ * @n_only_types: the number of attributes
+ *
+ * Add the attributes with the types in @only_types from @attrs to the
+ * builder. The attributes are added uncondititionally whether or not
+ * attributes with the same types already exist in the builder.
+ *
+ * <informalexample><programlisting>
+ * /<!-- -->* Add the CKA_ID and CKA_CLASS attributes from attrs to builder *<!-- -->/
+ * gulong only[] = { CKA_ID, CKA_CLASS };
+ * gck_builder_add_onlyv (builder, attrs, only, 2);
+ * </programlisting></informalexample>
+ *
+ * As an optimization, the attribute memory values are automatically shared
+ * between the attributes and the builder.
+ *
+ * Rename to: gck_builder_add_only
+ */
 void
 gck_builder_add_onlyv (GckBuilder *builder,
                        GckAttributes *attrs,
@@ -632,6 +986,27 @@ gck_builder_add_onlyv (GckBuilder *builder,
 	}
 }
 
+/**
+ * gck_builder_add_except: (skip)
+ * @builder: the builder
+ * @attrs: the attributes to add
+ * @except_type: the first type of attribute to to exclude
+ * @...: the remaining attribute types to exclude, ending with %GCK_INVALID
+ *
+ * Add the attributes in @attrs to the builder, with the exception of those
+ * in the argument list. The attributes are added uncondititionally whether or
+ * not attributes with the same types already exist in the builder.
+ *
+ * The variable arguments must be unsigned longs.
+ *
+ * <informalexample><programlisting>
+ * /<!-- -->* Add all attributes in attrs except CKA_CLASS to the builder *<!-- -->/
+ * gck_builder_add_except (builder, attrs, CKA_CLASS, GCK_INVALID);
+ * </programlisting></informalexample>
+ *
+ * As an optimization, the attribute memory values are automatically shared
+ * between the attributes and the builder.
+ */
 void
 gck_builder_add_except (GckBuilder *builder,
                         GckAttributes *attrs,
@@ -657,6 +1032,27 @@ gck_builder_add_except (GckBuilder *builder,
 	g_array_free (types, TRUE);
 }
 
+/**
+ * gck_builder_add_exceptv: (skip)
+ * @builder: the builder
+ * @attrs: the attributes to add
+ * @except_types: (array length=n_except_types): the except types
+ * @n_except_types: the number of except types
+ *
+ * Add the attributes in @attrs to the builder, with the exception of those
+ * whose types are specified in @except_types. The attributes are added
+ * uncondititionally whether or not attributes with the same types already
+ * exist in the builder.
+ *
+ * <informalexample><programlisting>
+ * /<!-- -->* Add all attributes in attrs except CKA_CLASS to the builder *<!-- -->/
+ * gulong except_types[] = { CKA_CLASS };
+ * gck_builder_add_exceptv (builder, attrs, except_types, 1);
+ * </programlisting></informalexample>
+ *
+ * As an optimization, the attribute memory values are automatically shared
+ * between the attributes and the builder.
+ */
 void
 gck_builder_add_exceptv (GckBuilder *builder,
                          GckAttributes *attrs,
@@ -679,6 +1075,18 @@ gck_builder_add_exceptv (GckBuilder *builder,
 	}
 }
 
+/**
+ * gck_builder_set_all:
+ * @builder: the builder
+ * @attrs: the attributes to set
+ *
+ * Set all the @attrs attributes to the builder. If any attributes with the
+ * same types are already present in the builder, then those attributes are
+ * changed to the new values.
+ *
+ * As an optimization, the attribute memory values are automatically shared
+ * between the attributes and the builder.
+ */
 void
 gck_builder_set_all (GckBuilder *builder,
                      GckAttributes *attrs)
@@ -692,6 +1100,21 @@ gck_builder_set_all (GckBuilder *builder,
 		builder_copy (builder, &attrs->data[i], TRUE);
 }
 
+/**
+ * gck_builder_find:
+ * @builder: the builder
+ * @attr_type: the type of attribute to find
+ *
+ * Find an attribute in the builder. Both valid and invalid attributes (in
+ * the PKCS\#11 sense) are returned. If multiple attributes exist for the given
+ * attribute type, then the first one is returned.
+ *
+ * The returned #GckAttribute is owned by the builder and may not be modified
+ * in any way. It is only valid until another attribute is added to or set on
+ * the builder, or until the builder is cleared or unreferenced.
+ *
+ * Returns: the attribute or %NULL if not found
+ */
 const GckAttribute *
 gck_builder_find (GckBuilder *builder,
                   gulong attr_type)
@@ -718,11 +1141,22 @@ find_attribute_boolean (GckAttribute *attrs,
 	attr = find_attribute (attrs, n_attrs, attr_type);
 	if (!attr || gck_attribute_is_invalid (attr))
 		return FALSE;
-	*value = gck_attribute_get_boolean (attr);
-	return TRUE;
+	return gck_value_to_boolean (attr->value, attr->length, value);
 }
 
-
+/**
+ * gck_builder_find_boolean:
+ * @builder: the builder
+ * @attr_type: the type of attribute to find
+ * @value: (out): the location to place the found value
+ *
+ * Find a boolean attribute in the builder that has the type @attr_type, is
+ * of the correct boolean size, and is not invalid in the PKCS\#11 sense.
+ * If multiple attributes exist for the given attribute type, then the first\
+ * one is returned.
+ *
+ * Returns: whether a valid boolean attribute was found
+ */
 gboolean
 gck_builder_find_boolean (GckBuilder *builder,
                           gulong attr_type,
@@ -751,10 +1185,22 @@ find_attribute_ulong (GckAttribute *attrs,
 	attr = find_attribute (attrs, n_attrs, attr_type);
 	if (!attr || gck_attribute_is_invalid (attr))
 		return FALSE;
-	*value = gck_attribute_get_ulong (attr);
-	return TRUE;
+	return gck_value_to_ulong (attr->value, attr->length, value);
 }
 
+/**
+ * gck_builder_find_ulong:
+ * @builder: the builder
+ * @attr_type: the type of attribute to find
+ * @value: (out): the location to place the found value
+ *
+ * Find a unsigned long attribute in the builder that has the type @attr_type,
+ * is of the correct unsigned long size, and is not invalid in the PKCS\#11 sense.
+ * If multiple attributes exist for the given attribute type, then the first\
+ * one is returned.
+ *
+ * Returns: whether a valid unsigned long attribute was found
+ */
 gboolean
 gck_builder_find_ulong (GckBuilder *builder,
                         gulong attr_type,
@@ -791,6 +1237,19 @@ find_attribute_string (GckAttribute *attrs,
 	return TRUE;
 }
 
+/**
+ * gck_builder_find_string:
+ * @builder: the builder
+ * @attr_type: the type of attribute to find
+ * @value: (out): the location to place the found value
+ *
+ * Find a string attribute in the builder that has the type @attr_type, has a
+ * non %NULL value pointer, and is not invalid in the PKCS\#11 sense.
+ * If multiple attributes exist for the given attribute type, then the first
+ * one is returned.
+ *
+ * Returns: whether a valid string attribute was found
+ */
 gboolean
 gck_builder_find_string (GckBuilder *builder,
                          gulong attr_type,
@@ -822,6 +1281,20 @@ find_attribute_date (GckAttribute *attrs,
 	gck_attribute_get_date (attr, value);
 	return TRUE;
 }
+
+/**
+ * gck_builder_find_date:
+ * @builder: the builder
+ * @attr_type: the type of attribute to find
+ * @value: (out): the location to place the found value
+ *
+ * Find a date attribute in the builder that has the type @attr_type, is of
+ * the correct date size, and is not invalid in the PKCS\#11 sense.
+ * If multiple attributes exist for the given attribute type, then the first
+ * one is returned.
+ *
+ * Returns: whether a valid date attribute was found
+ */
 gboolean
 gck_builder_find_date (GckBuilder *builder,
                        gulong attr_type,
@@ -885,7 +1358,8 @@ gck_builder_steal (GckBuilder *builder)
  * Complete the #GckBuilder, and return the attributes contained in the builder.
  * The #GckBuilder will be cleared after this function call, and it is no
  * longer necessary to use gck_builder_clear() on it, although it is also
- * permitted.
+ * permitted. The builder may be used again to build another set of attributes
+ * after this function call.
  *
  * The returned set of attributes is floating, and should either be passed to
  * another gck library function which consumes this floating reference, or if
@@ -910,6 +1384,16 @@ gck_builder_end (GckBuilder *builder)
 	return attrs;
 }
 
+/**
+ * gck_builder_clear:
+ * @builder: the builder
+ *
+ * Clear the builder and release all allocated memory. The builder may be used
+ * again to build another set of attributes after this function call.
+ *
+ * If memory is shared between this builder and other attributes, then that
+ * memory is only freed when both of them are cleared or unreferenced.
+ */
 void
 gck_builder_clear (GckBuilder *builder)
 {
@@ -1787,7 +2271,7 @@ gck_attributes_find_date (GckAttributes *attrs, gulong attr_type, GDate *value)
  *
  * Reference this attributes array.
  *
- * Returns: (transfer full): the attributes
+ * Returns: the attributes
  **/
 GckAttributes *
 gck_attributes_ref (GckAttributes *attrs)
@@ -1797,6 +2281,30 @@ gck_attributes_ref (GckAttributes *attrs)
 	return attrs;
 }
 
+/**
+ * gck_attributes_ref_sink:
+ * @attrs: an attribute array
+ *
+ * #GckAttributes uses a floating reference count system. gck_builder_end()
+ * and gck_attributes_new_empty() both return floating references.
+ *
+ * Calling gck_attributes_ref_sink() on a #GckAttributes with a floating
+ * reference will convert the floating reference into a full reference.
+ * Calling gck_attributes_ref_sink() on a non-floating #GckAttributes results
+ * in an additional normal reference being added.
+ *
+ * In other words, if the @attrs is floating, then this call "assumes
+ * ownership" of the floating reference, converting it to a normal
+ * reference.  If the @attrs is not floating, then this call adds a
+ * new normal reference increasing the reference count by one.
+ *
+ * All Gck library functions that assume ownership of floating references
+ * are documented as such. Essentially any Gck function that performs
+ * an operation using a #GckAttributes argument rather than operating on the
+ * atributes themselves, will accept a floating reference.
+ *
+ * Returns: the referenced attributes
+ */
 GckAttributes *
 gck_attributes_ref_sink (GckAttributes *attrs)
 {
@@ -1814,11 +2322,11 @@ gck_attributes_ref_sink (GckAttributes *attrs)
 
 /**
  * gck_attributes_unref:
- * @attrs: An attribute array
+ * @attrs: (allow-none): (type Gck.Attributes): An attribute array
  *
  * Unreference this attribute array.
  *
- * When all outstanding references are NULL, the array will be freed.
+ * When all outstanding references are gone, the array will be freed.
  */
 void
 gck_attributes_unref (gpointer attrs)

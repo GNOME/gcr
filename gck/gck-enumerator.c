@@ -864,7 +864,7 @@ gck_enumerator_get_object_type (GckEnumerator *self)
  * Set the type of objects to be created by this enumerator. The type must
  * always be either #GckObject or derived from it.
  *
- * If the #GckObjectAttributes interface is implemented on the derived class
+ * If the #GckObjectCache interface is implemented on the derived class
  * and the attribute_types field is set, then the enumerator will retrieve
  * attributes for each object.
  */

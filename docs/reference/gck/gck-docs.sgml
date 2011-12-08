@@ -21,7 +21,7 @@
 		<xi:include href="xml/gck-object.xml"/>
 		<xi:include href="xml/gck-attribute.xml"/>
 		<xi:include href="xml/gck-attributes.xml"/>
-		<xi:include href="xml/gck-object-attributes.xml"/>
+		<xi:include href="xml/gck-object-cache.xml"/>
 		<xi:include href="xml/gck-enumerator.xml"/>
 		<xi:include href="xml/gck-modules.xml"/>
 		<xi:include href="xml/gck-error.xml"/>

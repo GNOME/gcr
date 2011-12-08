@@ -250,7 +250,7 @@ gck_module_class_init (GckModuleClass *klass)
 	 * @string: A displayable label which describes the object.
 	 * @password: A gchar** where a password should be returned.
 	 *
-	 * Use gck_slot_set_interaction() instead of connecting to this signal.
+	 * Use gck_session_set_interaction() instead of connecting to this signal.
 	 *
 	 * Deprecated: Since 3.4
 	 */
@@ -266,7 +266,7 @@ gck_module_class_init (GckModuleClass *klass)
 	 * @label: A displayable label which describes the object.
 	 * @password: A gchar** where a password should be returned.
 	 *
-	 * Use gck_slot_set_interaction() instead of connecting to this signal.
+	 * Use gck_session_set_interaction() instead of connecting to this signal.
 	 *
 	 * Deprecated: Since 3.4
 	 */

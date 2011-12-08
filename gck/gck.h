@@ -1405,8 +1405,8 @@ struct _GckObjectCacheIface {
 	const gulong *  default_types;
 	gint            n_default_types;
 
-	void            (* add_attributes)                 (GckObjectCache *object,
-	                                                    GckAttributes *attributes);
+	void         (* fill)                              (GckObjectCache *object,
+	                                                    GckAttributes *attrs);
 
 	/*< private >*/
 	gpointer reserved[6];
@@ -1417,10 +1417,10 @@ GType               gck_object_cache_get_type              (void) G_GNUC_CONST;
 GckAttributes *     gck_object_cache_get_attributes        (GckObjectCache *object);
 
 void                gck_object_cache_set_attributes        (GckObjectCache *object,
-                                                            GckAttributes *attributes);
+                                                            GckAttributes *attrs);
 
-void                gck_object_cache_add_attributes        (GckObjectCache *object,
-                                                            GckAttributes *attributes);
+void                gck_object_cache_fill                  (GckObjectCache *object,
+                                                            GckAttributes *attrs);
 
 gboolean            gck_object_cache_update                (GckObjectCache *object,
                                                             const gulong *attr_types,

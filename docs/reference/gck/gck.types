@@ -10,6 +10,6 @@ gck_slot_get_type
 gck_session_info_get_type
 gck_session_get_type
 gck_object_get_type
-gck_object_attributes_get_type
+gck_object_cache_get_type
 gck_password_get_type
 gck_uri_data_get_type

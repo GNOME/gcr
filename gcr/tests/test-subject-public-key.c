@@ -419,9 +419,9 @@ typedef struct { GckObject parent; GckAttributes *attrs; } MockObject;
 typedef struct { GckObjectClass parent; } MockObjectClass;
 
 GType mock_object_get_type (void) G_GNUC_CONST;
-static void mock_object_attributes_init (GckObjectAttributesIface *iface);
+static void mock_object_cache_init (GckObjectCacheIface *iface);
 G_DEFINE_TYPE_WITH_CODE (MockObject, mock_object, GCK_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (GCK_TYPE_OBJECT_ATTRIBUTES, mock_object_attributes_init)
+                         G_IMPLEMENT_INTERFACE (GCK_TYPE_OBJECT_CACHE, mock_object_cache_init)
 );
 
 static void
@@ -462,17 +462,34 @@ static void
 mock_object_class_init (MockObjectClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
 	gobject_class->get_property = mock_object_get_property;
 	gobject_class->set_property = mock_object_set_property;
 	gobject_class->finalize = mock_object_finalize;
+
 	g_object_class_override_property (gobject_class, PROP_ATTRIBUTES, "attributes");
 }
 
 static void
-mock_object_attributes_init (GckObjectAttributesIface *iface)
+mock_object_add_attributes (GckObjectCache *object,
+                            GckAttributes *attrs)
 {
-	iface->attribute_types = NULL;
-	iface->n_attribute_types = 0;
+	GckBuilder builder = GCK_BUILDER_INIT;
+	MockObject *self = (MockObject *)object;
+
+	gck_builder_add_all (&builder, self->attrs);
+	gck_builder_set_all (&builder, attrs);
+
+	gck_attributes_unref (self->attrs);
+	self->attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+}
+
+static void
+mock_object_cache_init (GckObjectCacheIface *iface)
+{
+	iface->default_types = NULL;
+	iface->n_default_types = 0;
+	iface->add_attributes = mock_object_add_attributes;
 }
 
 static void

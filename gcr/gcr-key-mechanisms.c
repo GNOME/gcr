@@ -97,8 +97,8 @@ _gcr_key_mechanisms_check (GckObject *key,
 	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), GCK_INVALID);
 	g_return_val_if_fail (error == NULL || *error == NULL, GCK_INVALID);
 
-	if (GCK_IS_OBJECT_ATTRIBUTES (key)) {
-		attrs = gck_object_attributes_get_attributes (GCK_OBJECT_ATTRIBUTES (key));
+	if (GCK_IS_OBJECT_CACHE (key)) {
+		attrs = gck_object_cache_get_attributes (GCK_OBJECT_CACHE (key));
 		if (!check_have_attributes (attrs, attr_types, G_N_ELEMENTS (attr_types))) {
 			gck_attributes_unref (attrs);
 			attrs = NULL;
@@ -143,7 +143,7 @@ on_check_get_attributes (GObject *source,
 	CheckClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
 	GError *error = NULL;
 
-	closure->attrs = gck_object_get_finish (GCK_OBJECT (source), result, &error);
+	closure->attrs = gck_object_cache_lookup_finish (GCK_OBJECT (source), result, &error);
 	if (error != NULL)
 		g_simple_async_result_take_error (res, error);
 
@@ -163,7 +163,6 @@ _gcr_key_mechanisms_check_async (GckObject *key,
 	gulong attr_types[] = { action_attr_type };
 	CheckClosure *closure;
 	GSimpleAsyncResult *res;
-	GckAttributes *attrs;
 
 	g_return_if_fail (GCK_IS_OBJECT (key));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
@@ -176,20 +175,8 @@ _gcr_key_mechanisms_check_async (GckObject *key,
 	closure->action_attr_type = action_attr_type;
 	g_simple_async_result_set_op_res_gpointer (res, closure, check_closure_free);
 
-	if (GCK_IS_OBJECT_ATTRIBUTES (key)) {
-		attrs = gck_object_attributes_get_attributes (GCK_OBJECT_ATTRIBUTES (key));
-		if (check_have_attributes (attrs, attr_types, G_N_ELEMENTS (attr_types))) {
-			g_simple_async_result_set_op_res_gpointer (res, attrs, gck_attributes_unref);
-			g_simple_async_result_complete_in_idle (res);
-			g_object_unref (res);
-			return;
-		}
-
-		gck_attributes_unref (attrs);
-	}
-
-	gck_object_get_async (key, attr_types, G_N_ELEMENTS (attr_types),
-	                      cancellable, on_check_get_attributes, g_object_ref (res));
+	gck_object_cache_lookup_async (key, attr_types, G_N_ELEMENTS (attr_types),
+	                               cancellable, on_check_get_attributes, g_object_ref (res));
 
 	g_object_unref (res);
 

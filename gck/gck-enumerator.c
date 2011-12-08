@@ -86,7 +86,7 @@ struct _GckEnumeratorState {
 	/* The type of objects to create */
 	GType object_type;
 	gpointer object_class;
-	GckObjectAttributesIface *object_iface;
+	GckObjectCacheIface *object_iface;
 
 	/* state_slots */
 	GList *slots;
@@ -511,15 +511,15 @@ state_results (GckEnumeratorState *args,
 		}
 
 		/* If no request for attributes, just go forward */
-		if (args->object_iface == NULL || args->object_iface->n_attribute_types == 0) {
+		if (args->object_iface == NULL || args->object_iface->n_default_types == 0) {
 			g_queue_push_tail (args->results, result);
 			continue;
 		}
 
 		gck_builder_init (&builder);
 
-		for (i = 0; i < args->object_iface->n_attribute_types; ++i)
-			gck_builder_add_empty (&builder, args->object_iface->attribute_types[i]);
+		for (i = 0; i < args->object_iface->n_default_types; ++i)
+			gck_builder_add_empty (&builder, args->object_iface->default_types[i]);
 
 		/* Ask for attribute sizes */
 		template = _gck_builder_prepare_in (&builder, &n_template);
@@ -1046,7 +1046,7 @@ check_out_enumerator_state (GckEnumerator *self)
 			state->object_class = g_type_class_peek (state->object_type);
 			g_assert (state->object_class == self->pv->object_class);
 			state->object_iface = g_type_interface_peek (state->object_class,
-			                                             GCK_TYPE_OBJECT_ATTRIBUTES);
+			                                             GCK_TYPE_OBJECT_CACHE);
 			g_type_class_ref (state->object_type);
 		}
 

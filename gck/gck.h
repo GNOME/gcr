@@ -386,7 +386,7 @@ typedef struct _GckSlot GckSlot;
 typedef struct _GckModule GckModule;
 typedef struct _GckSession GckSession;
 typedef struct _GckObject GckObject;
-typedef struct _GckObjectAttributes GckObjectAttributes;
+typedef struct _GckObjectCache GckObjectCache;
 typedef struct _GckEnumerator GckEnumerator;
 typedef struct _GckUriData GckUriData;
 
@@ -1392,29 +1392,69 @@ GckAttributes*      gck_object_get_template_finish          (GckObject *self,
  * OBJECT ATTRIBUTES
  */
 
-#define GCK_TYPE_OBJECT_ATTRIBUTES                    (gck_object_attributes_get_type ())
-#define GCK_OBJECT_ATTRIBUTES(obj)                    (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCK_TYPE_OBJECT_ATTRIBUTES, GckObjectAttributes))
-#define GCK_IS_OBJECT_ATTRIBUTES(obj)                 (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCK_TYPE_OBJECT_ATTRIBUTES))
-#define GCK_OBJECT_ATTRIBUTES_GET_INTERFACE(inst)     (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GCK_TYPE_OBJECT_ATTRIBUTES, GckObjectAttributesIface))
+#define GCK_TYPE_OBJECT_CACHE                    (gck_object_cache_get_type ())
+#define GCK_OBJECT_CACHE(obj)                    (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCK_TYPE_OBJECT_CACHE, GckObjectCache))
+#define GCK_IS_OBJECT_CACHE(obj)                 (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCK_TYPE_OBJECT_CACHE))
+#define GCK_OBJECT_CACHE_GET_INTERFACE(inst)     (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GCK_TYPE_OBJECT_CACHE, GckObjectCacheIface))
 
-typedef struct _GckObjectAttributesIface GckObjectAttributesIface;
+typedef struct _GckObjectCacheIface GckObjectCacheIface;
 
-struct _GckObjectAttributesIface {
+struct _GckObjectCacheIface {
 	GTypeInterface interface;
 
-	const gulong *attribute_types;
-	gint n_attribute_types;
+	const gulong *  default_types;
+	gint            n_default_types;
+
+	void            (* add_attributes)                 (GckObjectCache *object,
+	                                                    GckAttributes *attributes);
 
 	/*< private >*/
 	gpointer reserved[6];
 };
 
-GType               gck_object_attributes_get_type          (void) G_GNUC_CONST;
+GType               gck_object_cache_get_type              (void) G_GNUC_CONST;
 
-GckAttributes *     gck_object_attributes_get_attributes    (GckObjectAttributes *object);
+GckAttributes *     gck_object_cache_get_attributes        (GckObjectCache *object);
 
-void                gck_object_attributes_set_attributes    (GckObjectAttributes *object,
-                                                             GckAttributes *attributes);
+void                gck_object_cache_set_attributes        (GckObjectCache *object,
+                                                            GckAttributes *attributes);
+
+void                gck_object_cache_add_attributes        (GckObjectCache *object,
+                                                            GckAttributes *attributes);
+
+gboolean            gck_object_cache_update                (GckObjectCache *object,
+                                                            const gulong *attr_types,
+                                                            gint n_attr_types,
+                                                            GCancellable *cancellable,
+                                                            GError **error);
+
+void                gck_object_cache_update_async          (GckObjectCache *object,
+                                                            const gulong *attr_types,
+                                                            gint n_attr_types,
+                                                            GCancellable *cancellable,
+                                                            GAsyncReadyCallback callback,
+                                                            gpointer user_data);
+
+gboolean            gck_object_cache_update_finish         (GckObjectCache *object,
+                                                            GAsyncResult *result,
+                                                            GError **error);
+
+GckAttributes *     gck_object_cache_lookup                (GckObject *object,
+                                                            const gulong *attr_types,
+                                                            gint n_attr_types,
+                                                            GCancellable *cancellable,
+                                                            GError **error);
+
+void                gck_object_cache_lookup_async          (GckObject *object,
+                                                            const gulong *attr_types,
+                                                            gint n_attr_types,
+                                                            GCancellable *cancellable,
+                                                            GAsyncReadyCallback callback,
+                                                            gpointer user_data);
+
+GckAttributes *     gck_object_cache_lookup_finish         (GckObject *object,
+                                                            GAsyncResult *result,
+                                                            GError **error);
 
 /* ------------------------------------------------------------------------
  * PASSWORD

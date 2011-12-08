@@ -65,6 +65,7 @@ load_object_basics (GckObject *object,
                     gulong *type,
                     GError **lerror)
 {
+	gulong attr_types[] = { CKA_CLASS, CKA_KEY_TYPE, CKA_CERTIFICATE_TYPE };
 	GckAttributes *attrs;
 	GError *error = NULL;
 
@@ -76,8 +77,8 @@ load_object_basics (GckObject *object,
 		return TRUE;
 	}
 
-	attrs = gck_object_get (object, cancellable, &error,
-	                        CKA_CLASS, CKA_KEY_TYPE, CKA_CERTIFICATE_TYPE, GCK_INVALID);
+	attrs = gck_object_cache_lookup (object, attr_types, G_N_ELEMENTS (attr_types),
+	                                 cancellable, &error);
 	if (error != NULL) {
 		_gcr_debug ("couldn't load: %s", error->message);
 		g_propagate_error (lerror, error);
@@ -107,6 +108,7 @@ load_x509_attributes (GckObject *object,
                       GCancellable *cancellable,
                       GError **lerror)
 {
+	gulong attr_types[] = { CKA_VALUE };
 	GckAttributes *attrs;
 	GError *error = NULL;
 
@@ -115,8 +117,8 @@ load_x509_attributes (GckObject *object,
 		return TRUE;
 	}
 
-	attrs = gck_object_get (object, cancellable, &error,
-	                        CKA_VALUE, GCK_INVALID);
+	attrs = gck_object_cache_lookup (object, attr_types, G_N_ELEMENTS (attr_types),
+	                                 cancellable, &error);
 	if (error != NULL) {
 		_gcr_debug ("couldn't load: %s", error->message);
 		g_propagate_error (lerror, error);
@@ -148,6 +150,7 @@ load_rsa_attributes (GckObject *object,
                      GCancellable *cancellable,
                      GError **lerror)
 {
+	gulong attr_types[] = { CKA_MODULUS, CKA_PUBLIC_EXPONENT };
 	GckAttributes *attrs;
 	GError *error = NULL;
 
@@ -156,8 +159,8 @@ load_rsa_attributes (GckObject *object,
 		return TRUE;
 	}
 
-	attrs = gck_object_get (object, cancellable, &error,
-	                        CKA_MODULUS, CKA_PUBLIC_EXPONENT, GCK_INVALID);
+	attrs = gck_object_cache_lookup (object, attr_types, G_N_ELEMENTS (attr_types),
+	                                 cancellable, &error);
 	if (error != NULL) {
 		_gcr_debug ("couldn't load rsa attributes: %s", error->message);
 		g_propagate_error (lerror, error);
@@ -176,26 +179,37 @@ lookup_public_key (GckObject *object,
                    GError **lerror)
 {
 	GckBuilder builder = GCK_BUILDER_INIT;
+	gulong attr_types[] = { CKA_ID };
+	GckAttributes *attrs;
 	GError *error = NULL;
 	GckSession *session;
 	GckObject *result;
+	const GckAttribute *id;
 	GList *objects;
-	guchar *id;
-	gsize n_id;
 
-	id = gck_object_get_data (object, CKA_ID, cancellable, &n_id, &error);
+	attrs = gck_object_cache_lookup (object, attr_types, G_N_ELEMENTS (attr_types),
+	                                 cancellable, &error);
 	if (error != NULL) {
 		_gcr_debug ("couldn't load private key id: %s", error->message);
 		g_propagate_error (lerror, error);
 		return NULL;
 	}
 
+	id = gck_attributes_find (attrs, CKA_ID);
+	if (id == NULL || gck_attribute_is_invalid (id)) {
+		gck_attributes_unref (attrs);
+		_gcr_debug ("couldn't load private key id");
+		g_set_error (lerror, GCK_ERROR, CKR_ATTRIBUTE_TYPE_INVALID,
+		             gck_message_from_rv (CKR_ATTRIBUTE_TYPE_INVALID));
+		return NULL;
+	}
+
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
-	gck_builder_take_data (&builder, CKA_ID, id, n_id);
+	gck_builder_add_owned (&builder, id);
+	gck_attributes_unref (attrs);
+
 	session = gck_object_get_session (object);
-
 	objects = gck_session_find_objects (session, gck_builder_end (&builder), cancellable, &error);
-
 	g_object_unref (session);
 
 	if (error != NULL) {
@@ -238,6 +252,7 @@ load_dsa_attributes (GckObject *object,
                      GCancellable *cancellable,
                      GError **lerror)
 {
+	gulong attr_types[] = { CKA_PRIME, CKA_SUBPRIME, CKA_BASE, CKA_VALUE };
 	GError *error = NULL;
 	GckAttributes *loaded;
 	GckObject *publi;
@@ -259,9 +274,8 @@ load_dsa_attributes (GckObject *object,
 	if (!publi)
 		return FALSE;
 
-	loaded = gck_object_get (publi, cancellable, &error,
-	                         CKA_PRIME, CKA_SUBPRIME, CKA_BASE, CKA_VALUE,
-	                         GCK_INVALID);
+	loaded = gck_object_cache_lookup (publi, attr_types, G_N_ELEMENTS (attr_types),
+	                                  cancellable, &error);
 	g_object_unref (publi);
 
 	if (error != NULL) {
@@ -373,12 +387,12 @@ static void
 lookup_attributes (GckObject *object,
                    GckBuilder *builder)
 {
-	GckObjectAttributes *oakey;
+	GckObjectCache *oakey;
 	GckAttributes *attrs;
 
-	if (GCK_IS_OBJECT_ATTRIBUTES (object)) {
-		oakey = GCK_OBJECT_ATTRIBUTES (object);
-		attrs = gck_object_attributes_get_attributes (oakey);
+	if (GCK_IS_OBJECT_CACHE (object)) {
+		oakey = GCK_OBJECT_CACHE (object);
+		attrs = gck_object_cache_get_attributes (oakey);
 		if (attrs != NULL) {
 			gck_builder_add_all (builder, attrs);
 			gck_attributes_unref (attrs);

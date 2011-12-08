@@ -41,7 +41,7 @@ PUBLIC_FILES = \
 	gck-module.c \
 	gck-modules.c \
 	gck-object.c \
-	gck-object-attributes.c \
+	gck-object-cache.c \
 	gck-password.c \
 	gck-session.c \
 	gck-slot.c \

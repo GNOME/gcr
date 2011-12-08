@@ -2096,13 +2096,6 @@ gck_attributes_get_type (void)
 	return type;
 }
 
-GType
-gck_attributes_get_boxed_type (void)
-{
-	/* Deprecated version */
-	return gck_attributes_get_type ();
-}
-
 /**
  * gck_attributes_new_empty:
  *

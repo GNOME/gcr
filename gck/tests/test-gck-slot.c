@@ -178,7 +178,7 @@ test_slot_mechanisms (Test *test, gconstpointer unused)
 		gck_mechanism_info_free (info);
 	}
 
-	gck_mechanisms_free (mechs);
+	g_array_free (mechs, TRUE);
 }
 
 static void

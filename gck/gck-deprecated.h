@@ -30,19 +30,7 @@ G_BEGIN_DECLS
 
 #ifndef GCK_DISABLE_DEPRECATED
 
-typedef             GArray                                  GckMechanisms;
-
-#define             gck_mechanisms_free(a)                  (g_array_free (a, TRUE))
-
-#define             CKR_GCK_MODULE_PROBLEM                  GCK_ERROR_MODULE_PROBLEM
-
-GQuark              gck_get_error_quark                     (void);
-
-GQuark              gck_uri_get_error_quark                 (void);
-
-#define             GCK_URI_BAD_PREFIX                      GCK_URI_BAD_SCHEME
-
-GType               gck_attributes_get_boxed_type           (void) G_GNUC_CONST;
+/* No deprecated functions at this time */
 
 #endif /* GCK_DISABLE_DEPRECATED */
 

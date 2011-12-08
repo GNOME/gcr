@@ -94,14 +94,14 @@ test_invalid_modules (Test *test, gconstpointer unused)
 
 	/* Shouldn't be able to load modules */
 	invalid = gck_module_initialize ("blah-blah-non-existant", NULL, &error);
-	g_assert_error (error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM);
+	g_assert_error (error, GCK_ERROR, (int)GCK_ERROR_MODULE_PROBLEM);
 	g_assert (invalid == NULL);
 
 	g_clear_error (&error);
 
 	/* Shouldn't be able to load any file successfully */
 	invalid = gck_module_initialize ("/usr/lib/libm.so", NULL, &error);
-	g_assert_error (error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM);
+	g_assert_error (error, GCK_ERROR, (int)GCK_ERROR_MODULE_PROBLEM);
 	g_assert (invalid == NULL);
 
 	g_clear_error (&error);

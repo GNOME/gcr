@@ -94,7 +94,6 @@ GCK_TYPE_BUILDER
 GCK_TYPE_BUILDER_FLAGS
 GCK_TYPE_ATTRIBUTES
 gck_attributes_get_type
-gck_attributes_get_boxed_type
 gck_builder_flags_get_type
 gck_builder_get_type
 GckAllocator
@@ -192,8 +191,6 @@ GckSlotPrivate
 GCK_TYPE_MECHANISM_INFO
 GCK_TYPE_SLOT_INFO
 GCK_TYPE_TOKEN_INFO
-GckMechanisms
-gck_mechanisms_free
 gck_mechanism_info_get_type
 gck_slot_info_get_type
 gck_token_info_get_type
@@ -376,7 +373,6 @@ gck_uri_data_copy
 gck_uri_data_free
 GCK_URI_ERROR
 <SUBSECTION Private>
-gck_uri_get_error_quark
 GCK_URI_DATA_TYPE
 gck_uri_data_get_type
 gck_uri_error_get_quark
@@ -440,7 +436,6 @@ gck_value_to_boolean
 gck_value_to_ulong
 GCK_INVALID
 <SUBSECTION Private>
-gck_get_error_quark
 gck_error_get_quark
 GCK_TYPE_LIST
 gck_list_get_boxed_type
@@ -451,6 +446,4 @@ gck_error_get_type
 <SECTION>
 <FILE>gck-private</FILE>
 <SUBSECTION Private>
-GCK_URI_BAD_PREFIX
-CKR_GCK_MODULE_PROBLEM
 </SECTION>

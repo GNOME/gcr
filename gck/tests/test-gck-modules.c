@@ -116,7 +116,7 @@ test_token_for_uri_error (Test *test, gconstpointer unused)
 	slot = gck_modules_token_for_uri (test->modules, "http://invalid.uri", &error);
 	g_assert (slot == NULL);
 	g_assert (error != NULL);
-	g_assert (g_error_matches (error, GCK_URI_ERROR, GCK_URI_BAD_PREFIX));
+	g_assert (g_error_matches (error, GCK_URI_ERROR, GCK_URI_BAD_SCHEME));
 	g_error_free (error);
 }
 
@@ -151,7 +151,7 @@ test_object_for_uri_error (Test *test, gconstpointer unused)
 	object = gck_modules_object_for_uri (test->modules, "http://invalid.uri", 0, &error);
 	g_assert (object == NULL);
 	g_assert (error != NULL);
-	g_assert (g_error_matches (error, GCK_URI_ERROR, GCK_URI_BAD_PREFIX));
+	g_assert (g_error_matches (error, GCK_URI_ERROR, GCK_URI_BAD_SCHEME));
 	g_error_free (error);
 }
 

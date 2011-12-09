@@ -277,19 +277,26 @@ gcr_key_renderer_set_property (GObject *obj, guint prop_id, const GValue *value,
 		gcr_renderer_emit_data_changed (GCR_RENDERER (self));
 		break;
 	case PROP_ATTRIBUTES:
-		g_return_if_fail (!self->pv->attributes);
+		gck_attributes_unref (self->pv->attributes);
 		self->pv->attributes = g_value_dup_boxed (value);
 		gcr_renderer_emit_data_changed (GCR_RENDERER (self));
 		break;
 	case PROP_OBJECT:
-		g_return_if_fail (!self->pv->object);
+		g_clear_object (&self->pv->object);
 		self->pv->object = g_value_dup_object (value);
-		if (self->pv->object && GCK_IS_OBJECT_CACHE (self->pv->object))
+		if (self->pv->object) {
+			gck_attributes_unref (self->pv->attributes);
+			self->pv->attributes = NULL;
+		}
+		if (GCK_IS_OBJECT_CACHE (self->pv->object)) {
 			self->pv->notify_sig = g_signal_connect (self->pv->object,
 			                                         "notify::attributes",
 			                                         G_CALLBACK (on_object_cache_attributes),
 			                                         self);
-		on_object_cache_attributes (G_OBJECT (self->pv->object), NULL, self);
+			on_object_cache_attributes (G_OBJECT (self->pv->object), NULL, self);
+		}
+		g_object_notify (obj, "attributes");
+		g_object_notify (obj, "object");
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -338,7 +345,7 @@ gcr_key_renderer_class_init (GcrKeyRendererClass *klass)
 
 	g_object_class_install_property (gobject_class, PROP_OBJECT,
 	            g_param_spec_object ("object", "Object", "Key Object", GCK_TYPE_OBJECT,
-	                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
+	                                 G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/* Register this as a view which can be loaded */
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);

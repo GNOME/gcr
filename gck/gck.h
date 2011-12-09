@@ -32,7 +32,6 @@
 
 #define __GCK_INSIDE_HEADER__
 
-#include "gck-deprecated.h"
 #include "gck-enum-types.h"
 
 G_BEGIN_DECLS
@@ -336,11 +335,14 @@ GckBuilder *         gck_builder_copy                       (GckBuilder *builder
 
 void                 gck_builder_clear                      (GckBuilder *builder);
 
-#define              GCK_TYPE_ATTRIBUTES                    (gck_attributes_get_type ())
+#define              GCK_TYPE_ATTRIBUTES                    (gck_attributes_get_boxed_type ())
 
 GType                gck_attributes_get_type                (void) G_GNUC_CONST;
 
-GckAttributes *      gck_attributes_new_empty               (void);
+GckAttributes *      gck_attributes_new                     (gulong reserved);
+
+GckAttributes *      gck_attributes_new_empty               (gulong first_type,
+                                                             ...);
 
 const GckAttribute * gck_attributes_at                      (GckAttributes *attrs,
                                                              guint index);
@@ -1553,6 +1555,8 @@ GckUriData *        gck_uri_data_copy                       (GckUriData *uri_dat
 void                gck_uri_data_free                       (GckUriData *uri_data);
 
 G_END_DECLS
+
+#include "gck-deprecated.h"
 
 #undef __GCK_INSIDE_HEADER__
 

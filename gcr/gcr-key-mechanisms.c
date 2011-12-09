@@ -74,7 +74,7 @@ find_first_usable_mechanism (GckObject *key,
 			break;
 	}
 
-	g_array_free (mechs, TRUE);
+	gck_mechanisms_free (mechs);
 
 	if (i < n_mechanisms)
 		return mechanisms[i];

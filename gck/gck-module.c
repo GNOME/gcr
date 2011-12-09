@@ -348,17 +348,17 @@ perform_initialize (Initialize *args)
 	/* Load the actual module */
 	module = g_module_open (args->path, 0);
 	if (!module) {
-		g_set_error (&args->error, GCK_ERROR, (int)GCK_ERROR_MODULE_PROBLEM,
+		g_set_error (&args->error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM,
 		             _("Error loading PKCS#11 module: %s"), g_module_error ());
-		return GCK_ERROR_MODULE_PROBLEM;
+		return CKR_GCK_MODULE_PROBLEM;
 	}
 
 	/* Get the entry point */
 	if (!g_module_symbol (module, "C_GetFunctionList", (void**)&get_function_list)) {
-		g_set_error (&args->error, GCK_ERROR, (int)GCK_ERROR_MODULE_PROBLEM,
+		g_set_error (&args->error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM,
 		             _("Invalid PKCS#11 module: %s"), g_module_error ());
 		g_module_close (module);
-		return GCK_ERROR_MODULE_PROBLEM;
+		return CKR_GCK_MODULE_PROBLEM;
 	}
 
 	/* Get the function list */

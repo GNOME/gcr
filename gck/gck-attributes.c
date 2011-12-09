@@ -2096,10 +2096,21 @@ gck_attributes_get_type (void)
 	return type;
 }
 
+GType
+gck_attributes_get_boxed_type (void)
+{
+	/* Deprecated version */
+	return gck_attributes_get_type ();
+}
+
 /**
  * gck_attributes_new_empty:
+ * @first_type: the first empty attribute type
+ * @...: the other empty attribute types
  *
- * Creates an GckAttributes array with no attributes.
+ * Creates an GckAttributes array with empty attributes
+ *
+ * Terminate the argument list with %GCK_INVALID.
  *
  * The returned set of attributes is floating, and should either be passed to
  * another gck library function which consumes this floating reference, or if
@@ -2109,9 +2120,20 @@ gck_attributes_get_type (void)
  * Returns: (transfer none): a floating reference to an empty set of attributes
  **/
 GckAttributes *
-gck_attributes_new_empty (void)
+gck_attributes_new_empty (gulong first_type,
+                          ...)
 {
 	GckBuilder builder = GCK_BUILDER_INIT;
+	va_list va;
+
+	va_start (va, first_type);
+
+	while (first_type != GCK_INVALID) {
+		gck_builder_add_empty (&builder, first_type);
+		first_type = va_arg (va, gulong);
+	}
+
+	va_end (va);
 	return gck_builder_end (&builder);
 }
 
@@ -2844,4 +2866,353 @@ gck_attributes_to_string (GckAttributes *attrs)
 	GString *output = g_string_sized_new (128);
 	_gck_format_attributes (output, attrs);
 	return g_string_free (output, FALSE);
+}
+
+/**
+ * gck_attributes_new:
+ * @reserved: Should be set to always be GCK_INVALID
+ *
+ * Create a new empty GckAttributes array.
+ *
+ * The returned set of attributes is floating, and should either be passed to
+ * another gck library function which consumes this floating reference, or if
+ * you wish to keep these attributes around you should ref them with
+ * gck_attributes_ref_sink() and unref them later with gck_attributes_unref().
+ *
+ * Returns: (transfer none): a floating reference to the new attributes array;
+ *          when done with the array release it with gck_attributes_unref().
+ **/
+GckAttributes *
+gck_attributes_new (gulong reserved)
+{
+	GckBuilder builder = GCK_BUILDER_INIT;
+	return gck_builder_end (&builder);
+}
+
+/**
+ * gck_attributes_new_full: (skip)
+ * @allocator: memory allocator for attribute data, or %NULL for default
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_set_all() instead.
+ *
+ * Returns: returns %NULL
+ **/
+GckAttributes *
+gck_attributes_new_full (GckAllocator allocator)
+{
+	g_warning ("gck_attributes_new_full() is no no longer supported");
+	return NULL;
+}
+
+/**
+ * gck_attributes_add:
+ * @attrs: the attributes array to add to
+ * @attr: the attribute to add
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_set_all() instead.
+ *
+ * Returns: (transfer none): returns %NULL
+ **/
+GckAttribute *
+gck_attributes_add (GckAttributes *attrs,
+                    GckAttribute *attr)
+{
+	g_warning ("gck_attributes_add() is no no longer supported");
+	return NULL;
+}
+
+/**
+ * gck_attributes_set:
+ * @attrs: attributes array to add to
+ * @attr: attribute to set
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_set() instead.
+ *
+ * Returns: (transfer none): returns %NULL
+ **/
+void
+gck_attributes_set (GckAttributes *attrs,
+                    GckAttribute *attr)
+{
+	g_warning ("gck_attributes_set() is no no longer supported");
+}
+
+/**
+ * gck_attributes_add_data:
+ * @attrs: The attributes array to add to.
+ * @attr_type: The type of attribute to add.
+ * @value: (array length=length): the raw memory of the attribute value
+ * @length: The length of the attribute value.
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_add_data() instead.
+ *
+ * Returns: (transfer none): returns %NULL
+ **/
+GckAttribute *
+gck_attributes_add_data (GckAttributes *attrs,
+                         gulong attr_type,
+                         const guchar *value,
+                         gsize length)
+{
+	g_warning ("gck_attributes_add_data() is no no longer supported");
+	return NULL;
+}
+
+/**
+ * gck_attributes_add_invalid:
+ * @attrs: The attributes array to add to.
+ * @attr_type: The type of attribute to add.
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_add_invalid() instead
+ *
+ * Returns: (transfer none): returns %NULL
+ **/
+GckAttribute *
+gck_attributes_add_invalid (GckAttributes *attrs,
+                            gulong attr_type)
+{
+	g_warning ("gck_attributes_add_invalid() is no no longer supported");
+	return NULL;
+}
+
+/**
+ * gck_attributes_add_empty:
+ * @attrs: The attributes array to add.
+ * @attr_type: The type of attribute to add.
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_add_empty() instead.
+ *
+ * Returns: (transfer none): returns %NULL
+ **/
+GckAttribute *
+gck_attributes_add_empty (GckAttributes *attrs,
+                          gulong attr_type)
+{
+	g_warning ("gck_attributes_add_empty() is no no longer supported");
+	return NULL;
+}
+
+/**
+ * gck_attributes_add_boolean:
+ * @attrs: the attributes array to add to
+ * @attr_type: the type of attribute to add
+ * @value: the boolean value to add
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_add_boolean() instead.
+ *
+ * Returns: (transfer none): returns %NULL
+ **/
+GckAttribute *
+gck_attributes_add_boolean (GckAttributes *attrs,
+                            gulong attr_type,
+                            gboolean value)
+{
+	g_warning ("gck_attributes_add_boolean() is no no longer supported");
+	return NULL;
+}
+
+/**
+ * gck_attributes_set_boolean:
+ * @attrs: the attributes
+ * @attr_type: the type of attribute to set
+ * @value: boolean value to set
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_set_boolean() instead.
+ */
+void
+gck_attributes_set_boolean (GckAttributes *attrs,
+                            gulong attr_type,
+                            gboolean value)
+{
+	g_warning ("gck_attributes_set_boolean() is no no longer supported");
+
+}
+
+/**
+ * gck_attributes_add_string:
+ * @attrs: the attributes array to add to
+ * @attr_type: the type of attribute to add
+ * @value: the null terminated string value to add
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_add_string() instead.
+ *
+ * Returns: (transfer none): returns %NULL
+ **/
+GckAttribute *
+gck_attributes_add_string (GckAttributes *attrs,
+                           gulong attr_type,
+                           const gchar *value)
+{
+	g_warning ("gck_attributes_add_string() is no no longer supported");
+	return NULL;
+}
+
+/**
+ * gck_attributes_set_string:
+ * @attrs: the attributes
+ * @attr_type: the type of attribute to set
+ * @value: null terminated string value to set
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_set_string() instead.
+ */
+void
+gck_attributes_set_string (GckAttributes *attrs,
+                           gulong attr_type,
+                           const gchar *value)
+{
+	g_warning ("gck_attributes_set_string() is no no longer supported");
+}
+
+/**
+ * gck_attributes_add_date:
+ * @attrs: the attributes array to add to
+ * @attr_type: the type of attribute to add
+ * @value: the GDate value to add
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_add_date() instead.
+ *
+ * Returns: (transfer none): returns %NULL
+ **/
+GckAttribute *
+gck_attributes_add_date (GckAttributes *attrs,
+                         gulong attr_type,
+                         const GDate *value)
+{
+	g_warning ("gck_attributes_add_date() is no no longer supported");
+	return NULL;
+}
+
+/**
+ * gck_attributes_set_date:
+ * @attrs: the attributes
+ * @attr_type: the type of attribute to set
+ * @value: date value to set
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_set_date() instead.
+ *
+ * Returns: (transfer none): returns %NULL
+ */
+void
+gck_attributes_set_date (GckAttributes *attrs,
+                         gulong attr_type,
+                         const GDate *value)
+{
+	g_warning ("gck_attributes_set_date() is no no longer supported");
+}
+
+/**
+ * gck_attributes_add_ulong:
+ * @attrs: the attributes array to add to
+ * @attr_type: the type of attribute to add
+ * @value: the gulong value to add
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_add_ulong() instead.
+ *
+ * Returns: (transfer none): returns %NULL
+ **/
+GckAttribute *
+gck_attributes_add_ulong (GckAttributes *attrs,
+                          gulong attr_type,
+                          gulong value)
+{
+	g_warning ("gck_attributes_add_ulong() is no no longer supported");
+	return NULL;
+}
+
+/**
+ * gck_attributes_set_ulong:
+ * @attrs: the attributes
+ * @attr_type: the type of attribute to set
+ * @value: gulong value to set
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_set_ulong() instead.
+ */
+void
+gck_attributes_set_ulong (GckAttributes *attrs,
+                          gulong attr_type,
+                          gulong value)
+{
+	g_warning ("gck_attributes_set_ulong() is no no longer supported");
+}
+
+/**
+ * gck_attributes_add_all:
+ * @attrs: a set of attributes
+ * @from: attributes to add
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_add_all() instead.
+ */
+void
+gck_attributes_add_all (GckAttributes *attrs,
+                        GckAttributes *from)
+{
+	g_warning ("gck_attributes_add_all() is no no longer supported");
+}
+
+/**
+ * gck_attributes_set_all:
+ * @attrs: set of attributes
+ * @from: attributes to add
+ *
+ * #GckAttributes are now immutable. This method no longer does anything.
+ *
+ * Deprecated: 3.4: Use gtk_builder_set_all() instead.
+ */
+void
+gck_attributes_set_all (GckAttributes *attrs,
+                        GckAttributes *from)
+{
+	g_warning ("gck_attributes_set_all() is no no longer supported");
+}
+
+/**
+ * gck_attributes_dup:
+ * @attrs: set of attributes to copy
+ *
+ * #GckAttributes are now immutable, and can be used in mulitple places.
+ *
+ * Deprecated: 3.4: Use gtk_attributes_ref() or gck_builder_add_all() instead.
+ *
+ * Returns: (transfer none): a new floating #GckAttributes
+ */
+GckAttributes *
+gck_attributes_dup (GckAttributes *attrs)
+{
+	GckBuilder builder = GCK_BUILDER_INIT;
+
+	if (attrs == NULL)
+		return NULL;
+
+	gck_builder_add_all (&builder, attrs);
+	return gck_builder_end (&builder);
 }

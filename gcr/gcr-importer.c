@@ -218,7 +218,7 @@ gcr_importer_create_for_parsed (GcrParsed *parsed)
 	if (attrs != NULL)
 		gck_attributes_ref (attrs);
 	else
-		attrs = gck_attributes_new_empty ();
+		attrs = gck_attributes_new_empty (GCK_INVALID);
 
 	seen = g_hash_table_new (g_direct_hash, g_direct_equal);
 

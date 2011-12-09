@@ -60,7 +60,7 @@ test_parse_bad_scheme (void)
 
 	uri_data = gck_uri_parse ("http:\\example.com\test", GCK_URI_FOR_ANY, &error);
 	g_assert (uri_data == NULL);
-	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_SCHEME);
+	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_PREFIX);
 	g_error_free (error);
 }
 

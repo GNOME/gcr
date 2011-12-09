@@ -371,8 +371,14 @@ gck_mechanism_info_free (GckMechanismInfo *mech_info)
 }
 
 /**
+ * GckMechanisms:
+ *
+ * A set of GckMechanismInfo structures.
+ */
+
+/**
  * gck_mechanisms_length:
- * @a: an array of unsigned long mechanism types set
+ * @a: A GckMechanisms set.
  *
  * Get the number of GckMechanismInfo in the set.
  *
@@ -381,12 +387,19 @@ gck_mechanism_info_free (GckMechanismInfo *mech_info)
 
 /**
  * gck_mechanisms_at:
- * @a: an array of unsigned long mechanism types set
- * @i: the index of a mechanism type
+ * @a: A GckMechanisms set.
+ * @i: The index of a mechanism
  *
  * Get a specific mechanism in a the set.
  *
  * Returns: the mechanism
+ */
+
+/**
+ * gck_mechanisms_free:
+ * @a: A GckMechanism set.
+ *
+ * Free a GckMechanisms set.
  */
 
 /**

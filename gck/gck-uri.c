@@ -119,7 +119,15 @@
  */
 
 /**
- * GCK_ERROR_MODULE_PROBLEM:
+ * GCK_URI_BAD_PREFIX:
+ *
+ * Use %GCK_URI_BAD_SCHEME instead.
+ *
+ * Deprecated: Since 3.2
+ */
+
+/**
+ * CKR_GCK_MODULE_PROBLEM:
  *
  * Use %GCK_ERROR_MODULE_PROBLEM instead.
  *
@@ -135,6 +143,13 @@ struct _GckUri {
 	GckTokenInfo *token_info;
 	GckAttributes *attributes;
 };
+
+GQuark
+gck_uri_get_error_quark (void)
+{
+	/* This is deprecated version */
+	return gck_uri_get_error_quark ();
+}
 
 GQuark
 gck_uri_error_get_quark (void)

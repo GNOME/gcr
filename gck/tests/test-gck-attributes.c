@@ -1040,9 +1040,22 @@ static void
 test_attributes_new_empty (void)
 {
 	GckAttributes *attrs;
+	const GckAttribute *attr;
 
-	attrs = gck_attributes_new_empty ();
+	attrs = gck_attributes_new_empty (GCK_INVALID);
 	g_assert_cmpuint (gck_attributes_count (attrs), ==, 0);
+	gck_attributes_unref (attrs);
+
+	attrs = gck_attributes_new_empty (CKA_ID, CKA_LABEL, GCK_INVALID);
+	g_assert_cmpuint (gck_attributes_count (attrs), ==, 2);
+	attr = gck_attributes_at (attrs, 0);
+	g_assert (attr->type == CKA_ID);
+	g_assert (attr->length == 0);
+	g_assert (attr->value == NULL);
+	attr = gck_attributes_at (attrs, 1);
+	g_assert (attr->type == CKA_LABEL);
+	g_assert (attr->length == 0);
+	g_assert (attr->value == NULL);
 	gck_attributes_unref (attrs);
 }
 

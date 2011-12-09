@@ -80,6 +80,13 @@ EGG_SECURE_DEFINE_GLIB_GLOBALS ();
  */
 
 GQuark
+gck_get_error_quark (void)
+{
+	/* This is the deprecated version */
+	return gck_error_get_quark ();
+}
+
+GQuark
 gck_error_get_quark (void)
 {
 	static GQuark domain = 0;

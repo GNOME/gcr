@@ -30,7 +30,78 @@ G_BEGIN_DECLS
 
 #ifndef GCK_DISABLE_DEPRECATED
 
-/* No deprecated functions at this time */
+typedef             GArray                                  GckMechanisms;
+
+#define             gck_mechanisms_free(a)                  (g_array_free (a, TRUE))
+
+#define             CKR_GCK_MODULE_PROBLEM                  GCK_ERROR_MODULE_PROBLEM
+
+GQuark              gck_get_error_quark                     (void);
+
+GQuark              gck_uri_get_error_quark                 (void);
+
+#define             GCK_URI_BAD_PREFIX                      GCK_URI_BAD_SCHEME
+
+GType               gck_attributes_get_boxed_type           (void) G_GNUC_CONST;
+
+GckAttributes *     gck_attributes_new_full                 (GckAllocator allocator);
+
+GckAttribute *      gck_attributes_add                      (GckAttributes *attrs,
+                                                             GckAttribute *attr);
+
+void                gck_attributes_add_all                  (GckAttributes *attrs,
+                                                             GckAttributes *from);
+
+GckAttribute *      gck_attributes_add_data                 (GckAttributes *attrs,
+                                                             gulong attr_type,
+                                                             const guchar *value,
+                                                             gsize length);
+
+GckAttribute *      gck_attributes_add_invalid              (GckAttributes *attrs,
+                                                             gulong attr_type);
+
+GckAttribute *      gck_attributes_add_empty                (GckAttributes *attrs,
+                                                             gulong attr_type);
+
+GckAttribute*       gck_attributes_add_boolean              (GckAttributes *attrs,
+                                                             gulong attr_type,
+                                                             gboolean value);
+
+GckAttribute*       gck_attributes_add_string               (GckAttributes *attrs,
+                                                             gulong attr_type,
+                                                             const gchar *value);
+
+GckAttribute*       gck_attributes_add_date                 (GckAttributes *attrs,
+                                                             gulong attr_type,
+                                                             const GDate *value);
+
+GckAttribute*       gck_attributes_add_ulong                (GckAttributes *attrs,
+                                                             gulong attr_type,
+                                                             gulong value);
+
+void                gck_attributes_set                      (GckAttributes *attrs,
+                                                             GckAttribute *attr);
+
+void                gck_attributes_set_boolean              (GckAttributes *attrs,
+                                                             gulong attr_type,
+                                                             gboolean value);
+
+void                gck_attributes_set_ulong                (GckAttributes *attrs,
+                                                             gulong attr_type,
+                                                             gulong value);
+
+void                gck_attributes_set_string               (GckAttributes *attrs,
+                                                             gulong attr_type,
+                                                             const gchar *value);
+
+void                gck_attributes_set_date                 (GckAttributes *attrs,
+                                                             gulong attr_type,
+                                                             const GDate *value);
+
+void                gck_attributes_set_all                  (GckAttributes *attrs,
+                                                             GckAttributes *from);
+
+GckAttributes *     gck_attributes_dup                      (GckAttributes *attrs);
 
 #endif /* GCK_DISABLE_DEPRECATED */
 

@@ -535,7 +535,8 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs,
 
 	modulus = gck_attributes_find (attrs, CKA_MODULUS);
 	exponent = gck_attributes_find (attrs, CKA_PUBLIC_EXPONENT);
-	if (modulus == NULL || exponent == NULL)
+	if (modulus == NULL || gck_attribute_is_invalid (modulus) ||
+	    exponent == NULL || gck_attribute_is_invalid (exponent))
 		return FALSE;
 
 	key_asn = egg_asn1x_create (pk_asn1_tab, "RSAPublicKey");
@@ -635,7 +636,10 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	g = gck_attributes_find (attrs, CKA_BASE);
 	value = gck_attributes_find (attrs, CKA_VALUE);
 
-	if (p == NULL || q == NULL || g == NULL || value == NULL)
+	if (p == NULL || gck_attribute_is_invalid (p) ||
+	    q == NULL || gck_attribute_is_invalid (q) ||
+	    g == NULL || gck_attribute_is_invalid (g) ||
+	    value == NULL || gck_attribute_is_invalid (value))
 		return FALSE;
 
 	key_asn = egg_asn1x_create (pk_asn1_tab, "DSAPublicPart");
@@ -699,7 +703,7 @@ cert_subject_public_key_from_attributes (GckAttributes *attributes)
 	GNode *asn;
 
 	attr = gck_attributes_find (attributes, CKA_VALUE);
-	if (attr == NULL) {
+	if (attr == NULL || gck_attribute_is_invalid (attr)) {
 		_gcr_debug ("no value attribute for certificate");
 		return NULL;
 	}

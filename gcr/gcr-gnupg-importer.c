@@ -35,7 +35,8 @@ enum {
 	PROP_ICON,
 	PROP_IMPORTED,
 	PROP_DIRECTORY,
-	PROP_INTERACTION
+	PROP_INTERACTION,
+	PROP_URI
 };
 
 struct _GcrGnupgImporterPrivate {
@@ -107,6 +108,18 @@ calculate_icon (GcrGnupgImporter *self)
 		return g_themed_icon_new ("user-home");
 	else
 		return g_themed_icon_new ("folder");
+}
+
+static gchar *
+calculate_uri (GcrGnupgImporter *self)
+{
+	const gchar *directory;
+
+	directory = _gcr_gnupg_process_get_directory (self->pv->process);
+	if (directory == NULL)
+		return g_strdup ("gnupg://");
+	else
+		return g_strdup_printf ("gnupg://%s", directory);
 }
 
 static gboolean
@@ -203,6 +216,9 @@ _gcr_gnupg_importer_get_property (GObject *obj,
 	case PROP_INTERACTION:
 		g_value_set_object (value, self->pv->interaction);
 		break;
+	case PROP_URI:
+		g_value_take_string (value, calculate_uri (self));
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
 		break;
@@ -223,10 +239,9 @@ _gcr_gnupg_importer_class_init (GcrGnupgImporterClass *klass)
 	g_type_class_add_private (gobject_class, sizeof (GcrGnupgImporterPrivate));
 
 	g_object_class_override_property (gobject_class, PROP_LABEL, "label");
-
 	g_object_class_override_property (gobject_class, PROP_ICON, "icon");
-
 	g_object_class_override_property (gobject_class, PROP_INTERACTION, "interaction");
+	g_object_class_override_property (gobject_class, PROP_URI, "uri");
 
 	g_object_class_install_property (gobject_class, PROP_IMPORTED,
 	           g_param_spec_boxed ("imported", "Imported", "Fingerprints of imported keys",

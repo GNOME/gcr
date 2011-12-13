@@ -50,7 +50,8 @@ enum {
 	PROP_INTERACTION,
 	PROP_SLOT,
 	PROP_IMPORTED,
-	PROP_QUEUED
+	PROP_QUEUED,
+	PROP_URI
 };
 
 typedef struct _GcrPkcs11ImporterClass GcrPkcs11ImporterClass;
@@ -647,6 +648,21 @@ calculate_icon (GcrPkcs11Importer *self,
 	return result;
 }
 
+static gchar *
+calculate_uri (GcrPkcs11Importer *self)
+{
+	GckUriData *data;
+	gchar *uri;
+
+	data = gck_uri_data_new ();
+	data->token_info = gck_slot_get_token_info (self->slot);
+	uri = gck_uri_build (data, GCK_URI_FOR_TOKEN);
+	data->token_info = NULL;
+	gck_uri_data_free (data);
+
+	return uri;
+}
+
 static void
 _gcr_pkcs11_importer_get_property (GObject *obj,
                                    guint prop_id,
@@ -674,6 +690,9 @@ _gcr_pkcs11_importer_get_property (GObject *obj,
 	case PROP_INTERACTION:
 		g_value_set_object (value, self->interaction);
 		break;
+	case PROP_URI:
+		g_value_take_string (value, calculate_uri (self));
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
 		break;
@@ -692,10 +711,9 @@ _gcr_pkcs11_importer_class_init (GcrPkcs11ImporterClass *klass)
 	gobject_class->get_property = _gcr_pkcs11_importer_get_property;
 
 	g_object_class_override_property (gobject_class, PROP_LABEL, "label");
-
 	g_object_class_override_property (gobject_class, PROP_ICON, "icon");
-
 	g_object_class_override_property (gobject_class, PROP_INTERACTION, "interaction");
+	g_object_class_override_property (gobject_class, PROP_URI, "uri");
 
 	g_object_class_install_property (gobject_class, PROP_SLOT,
 	           g_param_spec_object ("slot", "Slot", "PKCS#11 slot to import data into",

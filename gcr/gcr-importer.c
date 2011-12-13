@@ -121,6 +121,15 @@ gcr_importer_default_init (GcrImporterIface *iface)
 		                              "Interaction for prompts",
 		                              G_TYPE_TLS_INTERACTION, G_PARAM_READWRITE));
 
+		/**
+		 * GcrImporter:uri:
+		 *
+		 * The URI of the location imported to.
+		 */
+		g_object_interface_install_property (iface,
+		                g_param_spec_string ("uri", "URI", "URI of location",
+		                                     NULL, G_PARAM_READABLE));
+
 		g_once_init_leave (&initialized, 1);
 	}
 }

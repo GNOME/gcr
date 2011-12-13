@@ -538,7 +538,7 @@ on_open_session (GObject *source,
 	GError *error = NULL;
 	GckSession *session;
 
-	session = gck_slot_open_session_finish (GCK_SLOT (source), result, &error);
+	session = gck_session_open_finish (result, &error);
 	complete_open_session (res, session, error);
 	g_object_unref (res);
 }

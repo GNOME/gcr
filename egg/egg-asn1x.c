@@ -1214,6 +1214,8 @@ egg_asn1x_decode_no_validate (GNode *asn,
 	egg_asn1x_clear (asn);
 
 	dat = egg_bytes_get_data (data);
+	g_return_val_if_fail (dat != NULL, FALSE);
+
 	size = egg_bytes_get_size (data);
 	if (!anode_decode_tlv_for_data (dat, dat + size, &tlv))
 		return anode_failure (asn, "content is not encoded properly");
@@ -1597,6 +1599,8 @@ anode_encoder_unsigned (gpointer user_data,
 	 */
 
 	p = egg_bytes_get_data (value);
+	g_return_val_if_fail (p != NULL, FALSE);
+
 	sign = !!(p[0] & 0x80);
 	if (sign) {
 		g_assert (n_data > 1);
@@ -2853,6 +2857,8 @@ egg_asn1x_take_integer_as_raw (GNode *node,
 
 	/* Make sure the integer is properly encoded in twos complement*/
 	p = egg_bytes_get_data (value);
+	g_return_if_fail (p != NULL);
+
 	sign = !!(p[0] & 0x80);
 	if (sign) {
 		g_warning ("integer in egg_asn1x_set_integer_as_raw is not two's complement");
@@ -2885,6 +2891,8 @@ egg_asn1x_take_integer_as_usg (GNode *node,
 
 	/* Make sure the integer is properly encoded in twos complement*/
 	p = egg_bytes_get_data (value);
+	g_return_if_fail (p != NULL);
+
 	sign = !!(p[0] & 0x80);
 	len = egg_bytes_get_size (value);
 
@@ -2948,6 +2956,8 @@ egg_asn1x_set_element_raw (GNode *node,
 	memset (&dtlv, 0, sizeof (dtlv));
 
 	data = egg_bytes_get_data (element);
+	g_return_val_if_fail (data != NULL, FALSE);
+
 	size = egg_bytes_get_size (element);
 
 	/* Decode the beginning TLV */

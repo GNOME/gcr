@@ -47,11 +47,13 @@ typedef struct _GcrPromptDialogPrivate GcrPromptDialogPrivate;
 
 struct _GcrPromptDialog {
 	GtkDialog parent;
+
+	/*< private >*/
 	GcrPromptDialogPrivate *pv;
 };
 
 struct _GcrPromptDialogClass {
-	GtkDialogClass parent;
+	GtkDialogClass parent_class;
 };
 
 GType                gcr_prompt_dialog_get_type                  (void);

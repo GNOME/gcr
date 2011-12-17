@@ -43,10 +43,11 @@ typedef struct _GcrSecureEntryBuffer            GcrSecureEntryBuffer;
 typedef struct _GcrSecureEntryBufferClass       GcrSecureEntryBufferClass;
 typedef struct _GcrSecureEntryBufferPrivate     GcrSecureEntryBufferPrivate;
 
-struct _GcrSecureEntryBuffer
-{
+struct _GcrSecureEntryBuffer {
 	GtkEntryBuffer parent;
-	GcrSecureEntryBufferPrivate *priv;
+
+	/*< private >*/
+	GcrSecureEntryBufferPrivate *pv;
 };
 
 struct _GcrSecureEntryBufferClass

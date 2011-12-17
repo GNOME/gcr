@@ -44,13 +44,13 @@ guint                gcr_mock_prompter_get_delay_msec            (void);
 
 void                 gcr_mock_prompter_set_delay_msec            (guint delay_msec);
 
-void                 gcr_mock_prompter_expect_confirm_ok         (const gchar *property_name,
+void                 gcr_mock_prompter_expect_confirm_ok         (const gchar *first_property_name,
                                                                   ...);
 
 void                 gcr_mock_prompter_expect_confirm_cancel     (void);
 
 void                 gcr_mock_prompter_expect_password_ok        (const gchar *password,
-                                                                  const gchar *property_name,
+                                                                  const gchar *first_property_name,
                                                                   ...);
 
 void                 gcr_mock_prompter_expect_password_cancel    (void);

@@ -591,12 +591,27 @@ build_properties (GObjectClass *object_class,
 	return result;
 }
 
+/**
+ * gcr_mock_prompter_is_prompting:
+ *
+ * Check if the mock prompter is showing any prompts.
+ *
+ * Returns: whether prompting
+ */
 gboolean
 gcr_mock_prompter_is_prompting (void)
 {
 	return g_atomic_int_get (&prompts_a_prompting) > 0;
 }
 
+/**
+ * gcr_mock_prompter_get_delay_msec:
+ *
+ * Get the delay in milliseconds before the mock prompter completes
+ * an expected prompt.
+ *
+ * Returns: the delay
+ */
 guint
 gcr_mock_prompter_get_delay_msec (void)
 {
@@ -610,6 +625,13 @@ gcr_mock_prompter_get_delay_msec (void)
 	return delay_msec;
 }
 
+/**
+ * gcr_mock_prompter_set_delay_msec:
+ * @delay_msec: prompt response delay in milliseconds
+ *
+ * Set the delay in milliseconds before the mock prompter completes
+ * an expected prompt.
+ */
 void
 gcr_mock_prompter_set_delay_msec (guint delay_msec)
 {
@@ -619,6 +641,25 @@ gcr_mock_prompter_set_delay_msec (guint delay_msec)
 	g_mutex_unlock (running->mutex);
 }
 
+/**
+ * gcr_mock_prompter_expect_confirm_ok:
+ * @first_property_name: the first property name in the argument list or %NULL
+ * @...: properties to expect
+ *
+ * Queue an expected response on the mock prompter.
+ *
+ * Expects a confirmation prompt, and then confirms that prompt by
+ * simulating a click on the ok button.
+ *
+ * Additional property pairs for the prompt can be added in the argument
+ * list, in the same way that you would with g_object_new().
+ *
+ * If the "choice-chosen" property is specified then that value will be
+ * set on the prompt as if the user had changed the value.
+ *
+ * All other properties will be checked against the prompt, and an error
+ * will occur if they do not match the value set on the prompt.
+ */
 void
 gcr_mock_prompter_expect_confirm_ok (const gchar *first_property_name,
                                      ...)
@@ -646,6 +687,13 @@ gcr_mock_prompter_expect_confirm_ok (const gchar *first_property_name,
 	g_mutex_unlock (running->mutex);
 }
 
+/**
+ * gcr_mock_prompter_expect_confirm_cancel:
+ *
+ * Queue an expected response on the mock prompter.
+ *
+ * Expects a confirmation prompt, and then cancels that prompt.
+ */
 void
 gcr_mock_prompter_expect_confirm_cancel (void)
 {
@@ -664,6 +712,26 @@ gcr_mock_prompter_expect_confirm_cancel (void)
 	g_mutex_unlock (running->mutex);
 }
 
+/**
+ * gcr_mock_prompter_expect_password_ok:
+ * @password: the password to return from the prompt
+ * @first_property_name: the first property name in the argument list or %NULL
+ * @...: properties to expect
+ *
+ * Queue an expected response on the mock prompter.
+ *
+ * Expects a password prompt, and returns @password as if the user had entered
+ * it and clicked the ok button.
+ *
+ * Additional property pairs for the prompt can be added in the argument
+ * list, in the same way that you would with g_object_new().
+ *
+ * If the "choice-chosen" property is specified then that value will be
+ * set on the prompt as if the user had changed the value.
+ *
+ * All other properties will be checked against the prompt, and an error
+ * will occur if they do not match the value set on the prompt.
+ */
 void
 gcr_mock_prompter_expect_password_ok (const gchar *password,
                                       const gchar *first_property_name,
@@ -694,6 +762,13 @@ gcr_mock_prompter_expect_password_ok (const gchar *password,
 	g_mutex_unlock (running->mutex);
 }
 
+/**
+ * gcr_mock_prompter_expect_password_cancel:
+ *
+ * Queue an expected response on the mock prompter.
+ *
+ * Expects a password prompt, and then cancels that prompt.
+ */
 void
 gcr_mock_prompter_expect_password_cancel (void)
 {
@@ -712,6 +787,16 @@ gcr_mock_prompter_expect_password_cancel (void)
 	g_mutex_unlock (running->mutex);
 }
 
+/**
+ * gcr_mock_prompter_is_expecting:
+ *
+ * Check if the mock prompter is expecting a response. This will be %TRUE
+ * when one of the <literal>gcr_mock_prompter_expect_xxx<!-- -->()</literal>
+ * functions have been used to queue an expected prompt, but that prompt
+ * response has not be 'used' yet.
+ *
+ * Returns: whether expecting a prompt
+ */
 gboolean
 gcr_mock_prompter_is_expecting (void)
 {
@@ -811,6 +896,17 @@ mock_prompter_thread (gpointer data)
 	return thread_data;
 }
 
+/**
+ * gcr_mock_prompter_start:
+ *
+ * Start the mock prompter. This is often used from the
+ * <literal>setup<!-- -->()</literal> function of tests.
+ *
+ * Starts the mock prompter in an additional thread. Use the returned DBus bus
+ * name with gcr_system_prompt_open_for_prompter() to connect to this prompter.
+ *
+ * Returns: the bus name that the mock prompter is listening on
+ */
 const gchar *
 gcr_mock_prompter_start (void)
 {
@@ -837,6 +933,12 @@ gcr_mock_prompter_start (void)
 	return running->bus_name;
 }
 
+/**
+ * gcr_mock_prompter_stop:
+ *
+ * Stop the mock prompter. This is often used from the
+ * <literal>teardown<!-- -->()</literal> function of tests.
+ */
 void
 gcr_mock_prompter_stop (void)
 {

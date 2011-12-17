@@ -112,6 +112,8 @@ _gcr_callback_output_stream_class_init (GcrCallbackOutputStreamClass *klass)
 /**
  * _gcr_callback_output_stream_new: (skip)
  *
+ * Create a new output stream which invokes the callback.
+ *
  * Returns: (transfer full) (type Gcr.CallbackOutputStream): the new stream
  */
 GOutputStream *

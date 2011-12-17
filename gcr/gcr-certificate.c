@@ -1003,6 +1003,14 @@ gcr_certificate_get_basic_constraints (GcrCertificate *self,
  * </programlisting></informalexample>
  */
 
+/**
+ * gcr_certificate_mixin_emit_notify:
+ * @self: the #GcrCertificate
+ *
+ * Implementers of the #GcrCertificate mixin should call this function to notify
+ * when the certificate has changed to emit notifications on the various
+ * properties.
+ */
 void
 gcr_certificate_mixin_emit_notify (GcrCertificate *self)
 {

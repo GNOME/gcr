@@ -53,6 +53,8 @@ typedef struct _GcrSystemPrompterPrivate GcrSystemPrompterPrivate;
 
 struct _GcrSystemPrompter {
 	GObject parent;
+
+	/*< private >*/
 	GcrSystemPrompterPrivate *pv;
 };
 
@@ -68,10 +70,6 @@ GcrSystemPrompter *    gcr_system_prompter_new                     (GcrSystemPro
 GcrSystemPrompterMode  gcr_system_prompter_get_mode                (GcrSystemPrompter *self);
 
 GType                  gcr_system_prompter_get_prompt_type         (GcrSystemPrompter *self);
-
-gint                   gcr_system_prompter_get_showing             (GcrSystemPrompter *self);
-
-void                   gcr_system_prompter_stop_all                (GcrSystemPrompter *self);
 
 void                   gcr_system_prompter_register                (GcrSystemPrompter *self,
                                                                     GDBusConnection *connection);

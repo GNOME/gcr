@@ -28,6 +28,7 @@
 
 G_BEGIN_DECLS
 
+#define GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME            "org.gnome.keyring.SystemPrompter"
 #define GCR_DBUS_PROMPTER_BUS_NAME                   "org.gnome.keyring.Prompter"
 #define GCR_DBUS_PROMPTER_MOCK_BUS_NAME              "org.gnome.keyring.MockPrompter"
 

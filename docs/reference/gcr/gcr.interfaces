@@ -11,6 +11,8 @@ GcrComboSelector AtkImplementorIface GtkBuildable GtkCellLayout GtkCellEditable
 GtkButton AtkImplementorIface GtkBuildable GtkActivatable
 GcrImportButton AtkImplementorIface GtkBuildable GtkActivatable
 GtkWindow AtkImplementorIface GtkBuildable
+GtkDialog AtkImplementorIface GtkBuildable
+GcrPromptDialog AtkImplementorIface GtkBuildable GcrPrompt
 GcrViewerWindow AtkImplementorIface GtkBuildable
 GtkTreeView AtkImplementorIface GtkBuildable GtkScrollable
 GcrListSelector AtkImplementorIface GtkBuildable GtkScrollable
@@ -25,14 +27,15 @@ GcrKeyRenderer GcrRenderer
 GcrPkcs11Certificate GcrComparableIface GcrCertificate
 GcrSimpleCertificate GcrComparableIface GcrCertificate
 GcrSimpleCollection GcrCollection
+GcrSystemPrompt GcrPrompt GInitable GAsyncInitable
 GcrUnionCollection GcrCollection
 GtkWidgetAccessible AtkComponent
 GtkContainerAccessible AtkComponent
 GtkComboBoxAccessible AtkComponent AtkAction AtkSelection
 GtkButtonAccessible AtkComponent AtkAction AtkImage
 GtkTreeViewAccessible AtkComponent AtkTable AtkSelection GtkCellAccessibleParent
-GtkBoxAccessible AtkComponent
 GtkWindowAccessible AtkComponent AtkWindow
+GtkBoxAccessible AtkComponent
 GtkAction GtkBuildable
 GckSession GInitable GAsyncInitable
 GdkPixbuf GIcon

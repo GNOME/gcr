@@ -35,6 +35,8 @@ gcr_certificate_details_widget_get_type (void)
 /**
  * gcr_certificate_details_widget_new: (skip)
  *
+ * Create a new certificate viewer.
+ *
  * Deprecated: Since 2.30
  *
  * Returns: (transfer full) (type Gcr.CertificateWidget): a new certificate widget
@@ -47,6 +49,8 @@ gcr_certificate_details_widget_new (GcrCertificate *cert)
 
 /**
  * gcr_certificate_details_widget_get_certificate: (skip)
+ *
+ * Get certificate displayed in viewer.
  *
  * Deprecated: Since 2.30
  *
@@ -62,6 +66,8 @@ gcr_certificate_details_widget_get_certificate (GcrCertificateDetailsWidget *det
  * gcr_certificate_details_widget_set_certificate: (skip)
  * @details: the certificate widget
  * @cert: the certificate
+ *
+ * Set certificate displayed in viewer.
  *
  * Deprecated: Since 2.30
  */

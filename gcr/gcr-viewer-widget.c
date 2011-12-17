@@ -532,6 +532,15 @@ gcr_viewer_widget_get_parser (GcrViewerWidget *self)
 	return self->pv->parser;
 }
 
+/**
+ * gcr_viewer_widget_show_error:
+ * @self: a viewer widget
+ * @message: descriptive error message
+ * @error: (allow-none): detailed error
+ *
+ * Show an error on the viewer widget. This is displayed on a info bar near
+ * the edge of the widget.
+ */
 void
 gcr_viewer_widget_show_error (GcrViewerWidget *self,
                               const gchar *message,
@@ -553,6 +562,12 @@ gcr_viewer_widget_show_error (GcrViewerWidget *self,
 	g_free (markup);
 }
 
+/**
+ * gcr_viewer_widget_clear_error:
+ * @self: a viewer widget
+ *
+ * Clear the error displayed on the viewer widget.
+ */
 void
 gcr_viewer_widget_clear_error (GcrViewerWidget *self)
 {

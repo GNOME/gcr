@@ -54,6 +54,7 @@
 
 /**
  * GcrSecureEntryBufferClass:
+ * @parent_class: parent class
  *
  * The class for #GcrSecureEntryBuffer.
  */
@@ -79,17 +80,17 @@ gcr_secure_entry_buffer_real_get_text (GtkEntryBuffer *buffer,
 {
 	GcrSecureEntryBuffer *self = GCR_SECURE_ENTRY_BUFFER (buffer);
 	if (n_bytes)
-		*n_bytes = self->priv->text_bytes;
-	if (!self->priv->text)
+		*n_bytes = self->pv->text_bytes;
+	if (!self->pv->text)
 		return "";
-	return self->priv->text;
+	return self->pv->text;
 }
 
 static guint
 gcr_secure_entry_buffer_real_get_length (GtkEntryBuffer *buffer)
 {
 	GcrSecureEntryBuffer *self = GCR_SECURE_ENTRY_BUFFER (buffer);
-	return self->priv->text_chars;
+	return self->pv->text_chars;
 }
 
 static guint
@@ -99,7 +100,7 @@ gcr_secure_entry_buffer_real_insert_text (GtkEntryBuffer *buffer,
                                           guint n_chars)
 {
 	GcrSecureEntryBuffer *self = GCR_SECURE_ENTRY_BUFFER (buffer);
-	GcrSecureEntryBufferPrivate *pv = self->priv;
+	GcrSecureEntryBufferPrivate *pv = self->pv;
 	gsize n_bytes;
 	gsize at;
 
@@ -150,7 +151,7 @@ gcr_secure_entry_buffer_real_delete_text (GtkEntryBuffer *buffer,
                                           guint n_chars)
 {
 	GcrSecureEntryBuffer *self = GCR_SECURE_ENTRY_BUFFER (buffer);
-	GcrSecureEntryBufferPrivate *pv = self->priv;
+	GcrSecureEntryBufferPrivate *pv = self->pv;
 	gsize start, end;
 
 	if (position > pv->text_chars)
@@ -176,7 +177,7 @@ static void
 gcr_secure_entry_buffer_init (GcrSecureEntryBuffer *self)
 {
 	GcrSecureEntryBufferPrivate *pv;
-	pv = self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_SECURE_ENTRY_BUFFER, GcrSecureEntryBufferPrivate);
+	pv = self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_SECURE_ENTRY_BUFFER, GcrSecureEntryBufferPrivate);
 
 	pv->text = NULL;
 	pv->text_chars = 0;
@@ -188,7 +189,7 @@ static void
 gcr_secure_entry_buffer_finalize (GObject *obj)
 {
 	GcrSecureEntryBuffer *self = GCR_SECURE_ENTRY_BUFFER (obj);
-	GcrSecureEntryBufferPrivate *pv = self->priv;
+	GcrSecureEntryBufferPrivate *pv = self->pv;
 
 	if (pv->text) {
 		egg_secure_strfree (pv->text);

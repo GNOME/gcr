@@ -115,7 +115,7 @@ main (int argc, char *argv[])
 	the_prompter = gcr_system_prompter_new (GCR_SYSTEM_PROMPTER_SINGLE,
 	                                        GCR_TYPE_PROMPT_DIALOG);
 	owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-	                           GCR_DBUS_PROMPTER_BUS_NAME,
+	                           GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME,
 	                           G_BUS_NAME_OWNER_FLAGS_NONE,
 	                           on_bus_acquired,
 	                           on_name_acquired,

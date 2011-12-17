@@ -42,21 +42,37 @@
 /**
  * SECTION:gcr-system-prompter
  * @title: GcrSystemPrompter
- * @short_description: XXX
+ * @short_description: a prompter which displays system prompts
  *
- * XXXX
+ * This is a DBus service which is rarely implemented. Use #GcrSystemPrompt
+ * to display system prompts.
+ *
+ * The GcrSystemPrompter service responds to dbus requests to create system
+ * prompts and creates #GcrPrompt type objects to display those prompts.
+ *
+ * Pass the GType of the implementation of #GcrPrompt to gcr_system_prompter_new().
  */
 
 /**
  * GcrSystemPrompter:
  *
- * XXX
+ * A prompter used by implementations of system prompts.
  */
 
 /**
  * GcrSystemPrompterClass:
+ * @parent_class: prompter class
  *
  * The class for #GcrSystemPrompter.
+ */
+
+/**
+ * GcrSystemPrompterMode:
+ * @GCR_SYSTEM_PROMPTER_SINGLE: only one prompt shown at a time
+ * @GCR_SYSTEM_PROMPTER_MULTIPLE: more than one prompt shown at a time
+ *
+ * The mode for the system prompter. Most system prompters can only show
+ * one prompt at a time and would use the %GCR_SYSTEM_PROMPTER_SINGLE mode.
  */
 
 enum {
@@ -268,11 +284,25 @@ gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 
 	g_type_class_add_private (gobject_class, sizeof (GcrSystemPrompterPrivate));
 
+	/**
+	 * GcrSystemPrompter:mode:
+	 *
+	 * The mode for this prompter.
+	 *
+	 * Most system prompters only display one prompt at a time and therefore
+	 * return %GCR_SYSTEM_PROMPTER_SINGLE.
+	 */
 	g_object_class_install_property (gobject_class, PROP_MODE,
 	              g_param_spec_enum ("mode", "Mode", "Prompting mode",
 	                                 GCR_TYPE_SYSTEM_PROMPTER_MODE, GCR_SYSTEM_PROMPTER_SINGLE,
 	                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
+	/**
+	 * GcrSystemPrompter:prompt-type:
+	 *
+	 * The #GType for prompts created by this prompter. This must be a
+	 * #GcrPrompt implementation.
+	 */
 	g_object_class_install_property (gobject_class, PROP_PROMPT_TYPE,
 	             g_param_spec_gtype ("prompt-type", "Prompt GType", "GObject type of prompts",
 	                                 GCR_TYPE_PROMPT,
@@ -722,6 +752,17 @@ static GDBusInterfaceVTable prompter_dbus_vtable = {
 	prompter_set_property,
 };
 
+/**
+ * gcr_system_prompter_register:
+ * @self: the system prompter
+ * @connection: a DBus connection
+ *
+ * Register this system prompter on the DBus @connection.
+ *
+ * This makes the prompter available for clients to call. The prompter will
+ * remain registered until gcr_system_prompter_unregister() is called, or the
+ * prompter is unreferenced.
+ */
 void
 gcr_system_prompter_register (GcrSystemPrompter *self,
                               GDBusConnection *connection)
@@ -748,6 +789,18 @@ gcr_system_prompter_register (GcrSystemPrompter *self,
 	}
 }
 
+/**
+ * gcr_system_prompter_unregister:
+ * @self: the system prompter
+ * @wait: whether to wait for closing prompts
+ *
+ * Unregister this system prompter on the DBus @connection.
+ *
+ * The prompter must have previously been registered with gcr_system_prompter_register().
+ *
+ * If @wait is set then this function will wait until all prompts have been closed
+ * or cancelled. This is usually only used by tests.
+ */
 void
 gcr_system_prompter_unregister (GcrSystemPrompter *self,
                                 gboolean wait)
@@ -815,9 +868,13 @@ gcr_system_prompter_unregister (GcrSystemPrompter *self,
 
 /**
  * gcr_system_prompter_new:
+ * @mode: the mode for the prompt
+ * @prompt_type: the gobject type for prompts created by this prompter
  *
  * Create a new system prompter service. This prompter won't do anything unless
  * you connect to its signals and show appropriate prompts.
+ *
+ * The @prompt_type #GType must implement the #GcrPrompt interface.
  *
  * Returns: (transfer full): a new prompter service
  */
@@ -831,6 +888,17 @@ gcr_system_prompter_new (GcrSystemPrompterMode mode,
 	                     NULL);
 }
 
+/**
+ * gcr_system_prompter_get_mode:
+ * @self: the prompter
+ *
+ * Get the mode for this prompter.
+ *
+ * Most system prompters only display one prompt at a time and therefore
+ * return %GCR_SYSTEM_PROMPTER_SINGLE.
+ *
+ * Returns: the prompter mode
+ */
 GcrSystemPrompterMode
 gcr_system_prompter_get_mode (GcrSystemPrompter *self)
 {
@@ -838,6 +906,16 @@ gcr_system_prompter_get_mode (GcrSystemPrompter *self)
 	return self->pv->mode;
 }
 
+/**
+ * gcr_system_prompter_get_prompt_type:
+ * @self: the prompter
+ *
+ * Get the #GType for prompts created by this prompter.
+ *
+ * The returned #GType will be a #GcrPrompt implementation.
+ *
+ * Returns: the prompt #GType
+ */
 GType
 gcr_system_prompter_get_prompt_type (GcrSystemPrompter *self)
 {

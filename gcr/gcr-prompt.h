@@ -48,7 +48,7 @@ typedef struct _GcrPrompt GcrPrompt;
 typedef struct _GcrPromptIface GcrPromptIface;
 
 struct _GcrPromptIface {
-	GTypeInterface parent_class;
+	GTypeInterface parent_iface;
 
 	void               (* prompt_password_async)    (GcrPrompt *prompt,
 	                                                 GCancellable *cancellable,
@@ -94,12 +94,12 @@ void                 gcr_prompt_set_warning               (GcrPrompt *prompt,
 gchar *              gcr_prompt_get_choice_label          (GcrPrompt *prompt);
 
 void                 gcr_prompt_set_choice_label          (GcrPrompt *prompt,
-                                                           const gchar *warning);
+                                                           const gchar *choice_label);
 
 gboolean             gcr_prompt_get_choice_chosen         (GcrPrompt *prompt);
 
 void                 gcr_prompt_set_choice_chosen         (GcrPrompt *prompt,
-                                                                  gboolean chosen);
+                                                           gboolean chosen);
 
 gboolean             gcr_prompt_get_password_new          (GcrPrompt *prompt);
 

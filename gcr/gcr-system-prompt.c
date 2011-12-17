@@ -40,21 +40,51 @@
 /**
  * SECTION:gcr-system-prompt
  * @title: GcrSystemPrompt
- * @short_description: XXX
+ * @short_description: a system modal prompt
  *
- * XXXX
+ * A #GcrPrompt implementation which calls to the system prompter to
+ * display prompts in a system modal fashion.
+ *
+ * Since the system prompter usually only displays one prompt at a time, you
+ * may have to wait for the prompt to be displayed. Use gcr_system_prompt_open()
+ * or a related function to open a prompt. Since this can take a long time, you
+ * should always check that the prompt is still needed after it is opened. A
+ * previous prompt may have already provided the information needed and you
+ * may no longer need to prompt.
+ *
+ * Use gcr_system_prompt_close() to close the prompt when you're done with it.
  */
 
 /**
  * GcrSystemPrompt:
  *
- * XXX
+ * A #GcrPrompt which shows a system prompt. This is usually a system modal
+ * dialog.
  */
 
 /**
  * GcrSystemPromptClass:
+ * @parent_class: parent class
  *
  * The class for #GcrSystemPrompt.
+ */
+
+/**
+ * GCR_SYSTEM_PROMPT_ERROR:
+ *
+ * The domain for errors returned from GcrSystemPrompt methods.
+ */
+
+/**
+ * GcrSystemPromptError:
+ * @GCR_SYSTEM_PROMPT_IN_PROGRESS: another prompt is already in progress
+ *
+ * No error returned by the #GcrSystemPrompt is suitable for display or
+ * to the user.
+ *
+ * If the system prompter can only show one prompt at a time, and there is
+ * already a prompt being displayed, and the timeout waiting to open the
+ * prompt expires, then %GCR_SYSTEM_PROMPT_IN_PROGRESS is returned.
  */
 
 enum {
@@ -62,6 +92,7 @@ enum {
 	PROP_BUS_NAME,
 	PROP_SECRET_EXCHANGE,
 	PROP_TIMEOUT_SECONDS,
+
 	PROP_TITLE,
 	PROP_MESSAGE,
 	PROP_DESCRIPTION,
@@ -139,8 +170,10 @@ gcr_system_prompt_init (GcrSystemPrompt *self)
 
 static const gchar *
 prompt_get_string_property (GcrSystemPrompt *self,
-                            const gchar *property_name)
+                            const gchar *property_name,
+                            gboolean collapse_empty_to_null)
 {
+	const gchar *value = NULL;
 	GVariant *variant;
 	gconstpointer key;
 
@@ -148,10 +181,13 @@ prompt_get_string_property (GcrSystemPrompt *self,
 
 	key = g_intern_string (property_name);
 	variant = g_hash_table_lookup (self->pv->properties, key);
-	if (variant != NULL)
-		return g_variant_get_string (variant, NULL);
+	if (variant != NULL) {
+		value = g_variant_get_string (variant, NULL);
+		if (collapse_empty_to_null && value != NULL && value[0] == '\0')
+			value = NULL;
+	}
 
-	return NULL;
+	return value;
 }
 
 static void
@@ -292,16 +328,16 @@ gcr_system_prompt_get_property (GObject *obj,
 		g_value_set_object (value, gcr_system_prompt_get_secret_exchange (self));
 		break;
 	case PROP_TITLE:
-		g_value_set_string (value, prompt_get_string_property (self, "title"));
+		g_value_set_string (value, prompt_get_string_property (self, "title", FALSE));
 		break;
 	case PROP_MESSAGE:
-		g_value_set_string (value, prompt_get_string_property (self, "message"));
+		g_value_set_string (value, prompt_get_string_property (self, "message", FALSE));
 		break;
 	case PROP_DESCRIPTION:
-		g_value_set_string (value, prompt_get_string_property (self, "description"));
+		g_value_set_string (value, prompt_get_string_property (self, "description", FALSE));
 		break;
 	case PROP_WARNING:
-		g_value_set_string (value, prompt_get_string_property (self, "warning"));
+		g_value_set_string (value, prompt_get_string_property (self, "warning", TRUE));
 		break;
 	case PROP_PASSWORD_NEW:
 		g_value_set_boolean (value, prompt_get_boolean_property (self, "password-new"));
@@ -310,13 +346,13 @@ gcr_system_prompt_get_property (GObject *obj,
 		g_value_set_int (value, prompt_get_int_property (self, "password-strength"));
 		break;
 	case PROP_CHOICE_LABEL:
-		g_value_set_string (value, prompt_get_string_property (self, "choice-label"));
+		g_value_set_string (value, prompt_get_string_property (self, "choice-label", TRUE));
 		break;
 	case PROP_CHOICE_CHOSEN:
 		g_value_set_boolean (value, prompt_get_boolean_property (self, "choice-chosen"));
 		break;
 	case PROP_CALLER_WINDOW:
-		g_value_set_string (value, prompt_get_string_property (self, "caller-window"));
+		g_value_set_string (value, prompt_get_string_property (self, "caller-window", TRUE));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -341,7 +377,7 @@ gcr_system_prompt_constructed (GObject *obj)
 	self->pv->prompt_path = g_strdup_printf ("%s/p%d", GCR_DBUS_PROMPT_OBJECT_PREFIX, seed);
 
 	if (self->pv->prompter_bus_name == NULL)
-		self->pv->prompter_bus_name = g_strdup (GCR_DBUS_PROMPTER_BUS_NAME);
+		self->pv->prompter_bus_name = g_strdup (GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME);
 }
 
 static void
@@ -386,14 +422,31 @@ gcr_system_prompt_class_init (GcrSystemPromptClass *klass)
 
 	g_type_class_add_private (gobject_class, sizeof (GcrSystemPromptPrivate));
 
+	/**
+	 * GcrSystemPrompt:bus-name
+	 *
+	 * The DBus bus name of the prompter to use for prompting, or %NULL
+	 * for the default prompter.
+	 */
 	g_object_class_install_property (gobject_class, PROP_BUS_NAME,
 	            g_param_spec_string ("bus-name", "Bus name", "Prompter bus name",
 	                                 NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
+	/**
+	 * GcrSystemPrompt:timeout-seconds
+	 *
+	 * The timeout in seconds to wait when opening the prompt.
+	 */
 	g_object_class_install_property (gobject_class, PROP_TIMEOUT_SECONDS,
 	               g_param_spec_int ("timeout-seconds", "Timeout seconds", "Timeout (in seconds) for opening prompt",
 	                                 -1, G_MAXINT, -1, G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
 
+	/**
+	 * GcrSystemPrompt:secret-exchange
+	 *
+	 * The #GcrSecretExchange to use when transferring passwords. A default
+	 * secret exchange will be used if this is not set.
+	 */
 	g_object_class_install_property (gobject_class, PROP_SECRET_EXCHANGE,
 	            g_param_spec_object ("secret-exchange", "Secret exchange", "Secret exchange for passing passwords",
 	                                 GCR_TYPE_SECRET_EXCHANGE, G_PARAM_READWRITE));
@@ -958,23 +1011,23 @@ perform_prompt_async (GcrSystemPrompt *self,
 	g_free (sent);
 }
 
-static GcrSystemPromptResponse
+static GcrPromptReply
 handle_last_response (GcrSystemPrompt *self)
 {
-	GcrSystemPromptResponse response;
+	GcrPromptReply response;
 
 	g_return_val_if_fail (self->pv->last_response != NULL,
-	                      GCR_SYSTEM_PROMPT_CANCEL);
+	                      GCR_PROMPT_REPLY_CANCEL);
 
 	if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_YES)) {
-		response = GCR_SYSTEM_PROMPT_OK;
+		response = GCR_PROMPT_REPLY_OK;
 
 	} else if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NO)) {
-		response = GCR_SYSTEM_PROMPT_CANCEL;
+		response = GCR_PROMPT_REPLY_CANCEL;
 
 	} else {
 		g_warning ("unknown response from prompter: %s", self->pv->last_response);
-		response = GCR_SYSTEM_PROMPT_CANCEL;
+		response = GCR_PROMPT_REPLY_CANCEL;
 	}
 
 	return response;
@@ -1007,7 +1060,7 @@ gcr_system_prompt_password_finish (GcrPrompt *prompt,
 	if (g_simple_async_result_propagate_error (res, error))
 		return FALSE;
 
-	if (handle_last_response (self) == GCR_SYSTEM_PROMPT_OK)
+	if (handle_last_response (self) == GCR_PROMPT_REPLY_OK)
 		return gcr_secret_exchange_get_secret (self->pv->exchange, NULL);
 
 	return NULL;
@@ -1234,10 +1287,20 @@ gcr_system_prompt_open_for_prompter (const gchar *prompter_name,
 /**
  * gcr_system_prompt_close:
  * @self: the prompt
+ * @cancellable: an optional cancellation object
+ * @error: location to place an error on failure
  *
- * Close this prompt. After closing the prompt, no further methods may be
+ * Close this prompt. After calling this function, no further methods may be
  * called on this object. The prompt object is not unreferenced by this
  * function, and you must unreference it once done.
+ *
+ * This call may block, use the gcr_system_prompt_close_async() to perform
+ * this action indefinitely.
+ *
+ * Whether or not this function returns %TRUE, the system prompt object is
+ * still closed and may not be further used.
+ *
+ * Returns: whether close was cleanly completed
  */
 gboolean
 gcr_system_prompt_close (GcrSystemPrompt *self,
@@ -1285,6 +1348,19 @@ on_prompter_stop_prompting (GObject *source,
 	g_object_unref (res);
 }
 
+/**
+ * gcr_system_prompt_close_async:
+ * @self: the prompt
+ * @cancellable: an optional cancellation object
+ * @callback: called when the operation completes
+ * @user_data: data to pass to the callback
+ *
+ * Close this prompt asynchronously. After calling this function, no further
+ * methods may be called on this object. The prompt object is not unreferenced
+ * by this function, and you must unreference it once done.
+ *
+ * This call returns immediately and completes asynchronously.
+ */
 void
 gcr_system_prompt_close_async (GcrSystemPrompt *self,
                                GCancellable *cancellable,
@@ -1355,6 +1431,19 @@ gcr_system_prompt_close_async (GcrSystemPrompt *self,
 	g_object_unref (res);
 }
 
+/**
+ * gcr_system_prompt_close_finish:
+ * @self: the prompt
+ * @result: asynchronous operation result
+ * @error: location to place an error on failure
+ *
+ * Complete operation to close this prompt.
+ *
+ * Whether or not this function returns %TRUE, the system prompt object is
+ * still closed and may not be further used.
+ *
+ * Returns: whether close was cleanly completed
+ */
 gboolean
 gcr_system_prompt_close_finish (GcrSystemPrompt *self,
                                 GAsyncResult *result,
@@ -1374,7 +1463,6 @@ gcr_system_prompt_close_finish (GcrSystemPrompt *self,
 
 static const GDBusErrorEntry SYSTEM_PROMPT_ERRORS[] = {
 	{ GCR_SYSTEM_PROMPT_IN_PROGRESS, GCR_DBUS_PROMPT_ERROR_IN_PROGRESS },
-	{ GCR_SYSTEM_PROMPT_FAILED, GCR_DBUS_PROMPT_ERROR_FAILED },
 };
 
 GQuark
@@ -1385,6 +1473,6 @@ gcr_system_prompt_error_get_domain (void)
 	                                    &quark_volatile,
 	                                    SYSTEM_PROMPT_ERRORS,
 	                                    G_N_ELEMENTS (SYSTEM_PROMPT_ERRORS));
-	G_STATIC_ASSERT (G_N_ELEMENTS (SYSTEM_PROMPT_ERRORS) == GCR_SYSTEM_PROMPT_FAILED);
+	G_STATIC_ASSERT (G_N_ELEMENTS (SYSTEM_PROMPT_ERRORS) == GCR_SYSTEM_PROMPT_IN_PROGRESS);
 	return (GQuark) quark_volatile;
 }

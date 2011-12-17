@@ -25,6 +25,54 @@
 
 #include "gcr-prompt.h"
 
+/**
+ * SECTION:gcr-prompt
+ * @title: GcrPrompt
+ * @short_description: a user prompt
+ *
+ * A #GcrPrompt represents a prompt displayed to the user. It is an interface
+ * with various implementations.
+ *
+ * Various properties are set on the prompt, and then the prompt is displayed
+ * the various prompt methods like gcr_prompt_password_run().
+ *
+ * A #GcrPrompt may be used to display multiple related prompts. Most
+ * implemantions do not hide the window between display of multiple related
+ * prompts, and the #GcrPrompt must be closed or destroyed in order to make
+ * it go away. This allows the user to see that the prompts are related.
+ *
+ * Use #GcrPromptDialog to create an in-process GTK+ dialog prompt. Use
+ * #GcrSystemPrompt to create a system prompt in a prompter process.
+ *
+ * The prompt implementation will always display the GcrPrompt:message property,
+ * but may choose not to display the GcrPrompt:description or GcrPrompt:title
+ * properties.
+ */
+
+/**
+ * GcrPrompt:
+ *
+ * Represents a #GcrPrompt displayed to the user.
+ */
+
+/**
+ * GcrPromptIface:
+ * @parent_iface: parent interface
+ * @prompt_password_async: begin a password prompt
+ * @prompt_password_finish: complete a password prompt
+ * @prompt_confirm_async: begin a confirm prompt
+ * @prompt_confirm_finish: complete a confirm prompt
+ *
+ * The interface for implementing #GcrPrompt.
+ */
+
+/**
+ * GcrPromptReply:
+ * @GCR_PROMPT_REPLY_OK: the user replied with 'ok'
+ * @GCR_PROMPT_REPLY_CANCEL: the prompt was cancelled
+ *
+ * Various replies returned by gcr_prompt_confirm() and friends.
+ */
 typedef struct {
 	GAsyncResult *result;
 	GMainLoop *loop;
@@ -44,38 +92,116 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 
 	if (g_once_init_enter (&initialized)) {
 
+		/**
+		 * GcrPrompt:title:
+		 *
+		 * The title of the prompt.
+		 *
+		 * A prompt implementation may choose not to display the prompt title. The
+		 * #GcrPrompt:message should contain relevant information.
+		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("title", "Title", "Prompt title",
 		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
+		/**
+		 * GcrPrompt:message:
+		 *
+		 * The prompt message for the user.
+		 *
+		 * A prompt implementation should always display this message.
+		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("message", "Message", "Prompt message",
 		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
+		/**
+		 * GcrPrompt:description:
+		 *
+		 * The detailed description of the prompt.
+		 *
+		 * A prompt implementation may choose not to display this detailed description.
+		 * The prompt message should contain relevant information.
+		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("description", "Description", "Prompt description",
 		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
+		/**
+		 * GcrPrompt:warning:
+		 *
+		 * A prompt warning displayed on the prompt, or %NULL for no warning.
+		 *
+		 * This is a warning like "The password is incorrect." usually displayed to the
+		 * user about a previous 'unsuccessful' prompt.
+		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("warning", "Warning", "Prompt warning",
 		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
+		/**
+		 * GcrPrompt:password-new:
+		 *
+		 * Whether the prompt will prompt for a new password.
+		 *
+		 * This will cause the prompt implementation to ask the user to confirm the
+		 * password and/or display other relevant user interface for creating a new
+		 * password.
+		 */
 		g_object_interface_install_property (iface,
 		               g_param_spec_boolean ("password-new", "Password new", "Whether prompting for a new password",
 		                                     FALSE, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
+		/**
+		 * GcrPrompt:password-strength:
+		 *
+		 * Indication of the password strength.
+		 *
+		 * Prompts will return a zero value if the password is empty, and a value
+		 * greater than zero if the password has any characters.
+		 *
+		 * This is only valid after a successful prompt for a password.
+		 */
 		g_object_interface_install_property (iface,
 		                   g_param_spec_int ("password-strength", "Password strength", "String of new password",
 		                                     0, G_MAXINT, 0, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
+		/**
+		 * GcrPrompt:choice-label:
+		 *
+		 * The label for the additional choice.
+		 *
+		 * If this is a non-%NULL value then an additional boolean choice will be
+		 * displayed by the prompt allowing the user to select or deselect it.
+		 *
+		 * If %NULL, then no additional choice is displayed.
+		 *
+		 * The initial value of the choice can be set with #GcrPrompt:choice-chosen.
+		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("choice-label", "Choice label", "Label for prompt choice",
 		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
+		/**
+		 * GcrPrompt:choice-chosen:
+		 *
+		 * Whether the additional choice is chosen or not.
+		 *
+		 * The additional choice would have been setup using #GcrPrompt:choice-label.
+		 */
 		g_object_interface_install_property (iface,
 		               g_param_spec_boolean ("choice-chosen", "Choice chosen", "Whether prompt choice is chosen",
 		                                     FALSE, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
+		/**
+		 * GcrPrompt:caller-window:
+		 *
+		 * The string handle of the caller's window.
+		 *
+		 * The caller window indicates to the prompt which window is prompting the
+		 * user. The prompt may choose to ignore this information or use it in whatever
+		 * way it sees fit.
+		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("caller-window", "Caller window", "Window ID of application window requesting prompt",
 		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
@@ -123,6 +249,18 @@ on_run_complete (GObject *source,
 	g_main_loop_quit (closure->loop);
 }
 
+/**
+ * gcr_prompt_get_title:
+ * @prompt: the prompt
+ *
+ * Gets the title of the prompt.
+ *
+ * A prompt implementation may choose not to display the prompt title. The
+ * prompt message should contain relevant information.
+ *
+ * Returns: (transfer full): a newly allocated string containing the prompt
+ *          title.
+ */
 gchar *
 gcr_prompt_get_title (GcrPrompt *prompt)
 {
@@ -131,6 +269,16 @@ gcr_prompt_get_title (GcrPrompt *prompt)
 	return title;
 }
 
+/**
+ * gcr_prompt_set_title:
+ * @prompt: the prompt
+ * @title: the prompt title
+ *
+ * Sets the title of the prompt.
+ *
+ * A prompt implementation may choose not to display the prompt title. The
+ * prompt message should contain relevant information.
+ */
 void
 gcr_prompt_set_title (GcrPrompt *prompt,
                       const gchar *title)
@@ -139,6 +287,17 @@ gcr_prompt_set_title (GcrPrompt *prompt,
 	g_object_set (prompt, "title", title, NULL);
 }
 
+/**
+ * gcr_prompt_get_message:
+ * @prompt: the prompt
+ *
+ * Gets the prompt message for the user.
+ *
+ * A prompt implementation should always display this message.
+ *
+ * Returns: (transfer full): a newly allocated string containing the detailed
+ *          description of the prompt
+ */
 gchar *
 gcr_prompt_get_message (GcrPrompt *prompt)
 {
@@ -147,6 +306,15 @@ gcr_prompt_get_message (GcrPrompt *prompt)
 	return message;
 }
 
+/**
+ * gcr_prompt_set_message:
+ * @prompt: the prompt
+ * @message: the prompt message
+ *
+ * Sets the prompt message for the user.
+ *
+ * A prompt implementation should always display this message.
+ */
 void
 gcr_prompt_set_message (GcrPrompt *prompt,
                         const gchar *message)
@@ -155,6 +323,18 @@ gcr_prompt_set_message (GcrPrompt *prompt,
 	g_object_set (prompt, "message", message, NULL);
 }
 
+/**
+ * gcr_prompt_get_description:
+ * @prompt: the prompt
+ *
+ * Get the detailed description of the prompt.
+ *
+ * A prompt implementation may choose not to display this detailed description.
+ * The prompt message should contain relevant information.
+ *
+ * Returns: (transfer full): a newly allocated string containing the detailed
+ *          description of the prompt
+ */
 gchar *
 gcr_prompt_get_description (GcrPrompt *prompt)
 {
@@ -163,6 +343,17 @@ gcr_prompt_get_description (GcrPrompt *prompt)
 	return description;
 }
 
+/**
+ * gcr_prompt_set_description:
+ * @prompt: the prompt
+ * @description: the detailed description
+ *
+ * Set the detailed description of the prompt.
+ *
+ * A prompt implementation may choose not to display this detailed description.
+ * Use gcr_prompt_set_message() to set a general message containing relevant
+ * information.
+ */
 void
 gcr_prompt_set_description (GcrPrompt *prompt,
                             const gchar *description)
@@ -171,6 +362,20 @@ gcr_prompt_set_description (GcrPrompt *prompt,
 	g_object_set (prompt, "description", description, NULL);
 }
 
+/**
+ * gcr_prompt_get_warning:
+ * @prompt: the prompt
+ *
+ * Get a prompt warning displayed on the prompt.
+ *
+ * This is a warning like "The password is incorrect." usually displayed to the
+ * user about a previous 'unsuccessful' prompt.
+ *
+ * If this string is %NULL then no warning is displayed.
+ *
+ * Returns: (transfer full): a newly allocated string containing the prompt
+ *          warning, or %NULL if no warning
+ */
 gchar *
 gcr_prompt_get_warning (GcrPrompt *prompt)
 {
@@ -179,6 +384,18 @@ gcr_prompt_get_warning (GcrPrompt *prompt)
 	return warning;
 }
 
+/**
+ * gcr_prompt_set_warning:
+ * @prompt: the prompt
+ * @warning: (allow-none): the warning or %NULL
+ *
+ * Set a prompt warning displayed on the prompt.
+ *
+ * This is a warning like "The password is incorrect." usually displayed to the
+ * user about a previous 'unsuccessful' prompt.
+ *
+ * If this string is %NULL then no warning is displayed.
+ */
 void
 gcr_prompt_set_warning (GcrPrompt *prompt,
                         const gchar *warning)
@@ -187,6 +404,17 @@ gcr_prompt_set_warning (GcrPrompt *prompt,
 	g_object_set (prompt, "warning", warning, NULL);
 }
 
+/**
+ * gcr_prompt_get_choice_label:
+ * @prompt: the prompt
+ *
+ * Get the label for the additional choice.
+ *
+ * This will be %NULL if no additional choice is being displayed.
+ *
+ * Returns: (transfer full): a newly allocated string containing the additional
+ *          choice or %NULL
+ */
 gchar *
 gcr_prompt_get_choice_label (GcrPrompt *prompt)
 {
@@ -195,6 +423,21 @@ gcr_prompt_get_choice_label (GcrPrompt *prompt)
 	return choice_label;
 }
 
+/**
+ * gcr_prompt_set_choice_label:
+ * @prompt: the prompt
+ * @choice_label: (allow-none): the additional choice or %NULL
+ *
+ * Set the label for the additional choice.
+ *
+ * If this is a non-%NULL value then an additional boolean choice will be
+ * displayed by the prompt allowing the user to select or deselect it.
+ *
+ * The initial value of the choice can be set with the
+ * gcr_prompt_set_choice_label() method.
+ *
+ * If this is %NULL, then no additional choice is being displayed.
+ */
 void
 gcr_prompt_set_choice_label (GcrPrompt *prompt,
                              const gchar *choice_label)
@@ -203,6 +446,17 @@ gcr_prompt_set_choice_label (GcrPrompt *prompt,
 	g_object_set (prompt, "choice-label", choice_label, NULL);
 }
 
+/**
+ * gcr_prompt_get_choice_chosen:
+ * @prompt: the prompt
+ *
+ * Get whether the additional choice was chosen or not.
+ *
+ * The additional choice would have been setup using
+ * gcr_prompt_set_choice_label().
+ *
+ * Returns: whether chosen
+ */
 gboolean
 gcr_prompt_get_choice_chosen (GcrPrompt *prompt)
 {
@@ -211,6 +465,15 @@ gcr_prompt_get_choice_chosen (GcrPrompt *prompt)
 	return choice_chosen;
 }
 
+/**
+ * gcr_prompt_set_choice_chosen:
+ * @prompt: the prompt
+ * @chosen: whether chosen
+ *
+ * Set whether the additional choice is chosen or not.
+ *
+ * The additional choice should be set up using gcr_prompt_set_choice_label().
+ */
 void
 gcr_prompt_set_choice_chosen (GcrPrompt *prompt,
                               gboolean chosen)
@@ -219,6 +482,18 @@ gcr_prompt_set_choice_chosen (GcrPrompt *prompt,
 	g_object_set (prompt, "choice-chosen", chosen, NULL);
 }
 
+/**
+ * gcr_prompt_get_password_new:
+ * @prompt: the prompt
+ *
+ * Get whether the prompt will prompt for a new password.
+ *
+ * This will cause the prompt implementation to ask the user to confirm the
+ * password and/or display other relevant user interface for creating a new
+ * password.
+ *
+ * Returns: whether in new password mode or not
+ */
 gboolean
 gcr_prompt_get_password_new (GcrPrompt *prompt)
 {
@@ -227,6 +502,17 @@ gcr_prompt_get_password_new (GcrPrompt *prompt)
 	return password_new;
 }
 
+/**
+ * gcr_prompt_set_password_new:
+ * @prompt: the prompt
+ * @new_password: whether in new password mode or not
+ *
+ * Set whether the prompt will prompt for a new password.
+ *
+ * This will cause the prompt implementation to ask the user to confirm the
+ * password and/or display other relevant user interface for creating a new
+ * password.
+ */
 void
 gcr_prompt_set_password_new (GcrPrompt *prompt,
                              gboolean new_password)
@@ -235,6 +521,19 @@ gcr_prompt_set_password_new (GcrPrompt *prompt,
 	g_object_set (prompt, "password-new", new_password, NULL);
 }
 
+/**
+ * gcr_prompt_get_password_strength:
+ * @prompt: the prompt
+ *
+ * Get indication of the password strength.
+ *
+ * Prompts will return a zero value if the password is empty, and a value
+ * greater than zero if the password has any characters.
+ *
+ * This is only valid after a successful prompt for a password.
+ *
+ * Returns: zero if the password is empty, greater than zero if not
+ */
 gint
 gcr_prompt_get_password_strength (GcrPrompt *prompt)
 {
@@ -243,6 +542,19 @@ gcr_prompt_get_password_strength (GcrPrompt *prompt)
 	return password_strength;
 }
 
+/**
+ * gcr_prompt_get_caller_window:
+ * @prompt: the prompt
+ *
+ * Get the string handle of the caller's window.
+ *
+ * The caller window indicates to the prompt which window is prompting the
+ * user. The prompt may choose to ignore this information or use it in whatever
+ * way it sees fit.
+ *
+ * Returns: (transfer full): a newly allocated string containing the string
+ *          handle of the window.
+ */
 gchar *
 gcr_prompt_get_caller_window (GcrPrompt *prompt)
 {
@@ -251,6 +563,17 @@ gcr_prompt_get_caller_window (GcrPrompt *prompt)
 	return caller_window;
 }
 
+/**
+ * gcr_prompt_set_caller_window:
+ * @prompt: the prompt
+ * @window_id: the window id
+ *
+ * Set the string handle of the caller's window.
+ *
+ * The caller window indicates to the prompt which window is prompting the
+ * user. The prompt may choose to ignore this information or use it in whatever
+ * way it sees fit.
+ */
 void
 gcr_prompt_set_caller_window (GcrPrompt *prompt,
                               const gchar *window_id)
@@ -259,6 +582,18 @@ gcr_prompt_set_caller_window (GcrPrompt *prompt,
 	g_object_set (prompt, "caller-window", window_id, NULL);
 }
 
+/**
+ * gcr_prompt_password_async:
+ * @prompt: a prompt
+ * @cancellable: optional cancellation object
+ * @callback: called when the operation completes
+ * @user_data: data to pass to the callback
+ *
+ * Prompts for password. Set the various properties on the prompt before calling
+ * this method to explain which password should be entered.
+ *
+ * This method will return immediately and complete asynchronously.
+ */
 void
 gcr_prompt_password_async (GcrPrompt *prompt,
                            GCancellable *cancellable,
@@ -276,6 +611,23 @@ gcr_prompt_password_async (GcrPrompt *prompt,
 	(iface->prompt_password_async) (prompt, cancellable, callback, user_data);
 }
 
+/**
+ * gcr_prompt_password_finish:
+ * @prompt: a prompt
+ * @result: asynchronous result passed to callback
+ * @error: location to place error on failure
+ *
+ * Complete an operation to prompt for a password.
+ *
+ * A password will be returned if the user enters a password successfully.
+ * The returned password is valid until the next time a method is called
+ * to display another prompt.
+ *
+ * %NULL will be returned if the user cancels or if an error occurs. Check the
+ * @error argument to tell the difference.
+ *
+ * Returns: the password owned by the prompt, or %NULL
+ */
 const gchar *
 gcr_prompt_password_finish (GcrPrompt *prompt,
                             GAsyncResult *result,
@@ -293,6 +645,26 @@ gcr_prompt_password_finish (GcrPrompt *prompt,
 	return (iface->prompt_password_finish) (prompt, result, error);
 }
 
+/**
+ * gcr_prompt_password:
+ * @prompt: a prompt
+ * @cancellable: optional cancellation object
+ * @error: location to place error on failure
+ *
+ * Prompts for password. Set the various properties on the prompt before calling
+ * this method to explain which password should be entered.
+ *
+ * This method will block until the a response is returned from the prompter.
+ *
+ * A password will be returned if the user enters a password successfully.
+ * The returned password is valid until the next time a method is called
+ * to display another prompt.
+ *
+ * %NULL will be returned if the user cancels or if an error occurs. Check the
+ * @error argument to tell the difference.
+ *
+ * Returns: the password owned by the prompt, or %NULL
+ */
 const gchar *
 gcr_prompt_password (GcrPrompt *prompt,
                      GCancellable *cancellable,
@@ -317,6 +689,28 @@ gcr_prompt_password (GcrPrompt *prompt,
 	return reply;
 }
 
+/**
+ * gcr_prompt_password_run:
+ * @prompt: a prompt
+ * @cancellable: optional cancellation object
+ * @error: location to place error on failure
+ *
+ * Prompts for password. Set the various properties on the prompt before calling
+ * this method to explain which password should be entered.
+ *
+ * This method will block until the a response is returned from the prompter
+ * and will run a main loop similar to a gtk_dialog_run(). The application
+ * will remain responsive but care must be taken to handle reentrancy issues.
+ *
+ * A password will be returned if the user enters a password successfully.
+ * The returned password is valid until the next time a method is called
+ * to display another prompt.
+ *
+ * %NULL will be returned if the user cancels or if an error occurs. Check the
+ * @error argument to tell the difference.
+ *
+ * Returns: the password owned by the prompt, or %NULL
+ */
 const gchar *
 gcr_prompt_password_run (GcrPrompt *prompt,
                          GCancellable *cancellable,
@@ -341,6 +735,19 @@ gcr_prompt_password_run (GcrPrompt *prompt,
 	return reply;
 }
 
+/**
+ * gcr_prompt_confirm_async:
+ * @prompt: a prompt
+ * @cancellable: optional cancellation object
+ * @callback: called when the operation completes
+ * @user_data: data to pass to the callback
+ *
+ * Prompts for confirmation asking a cancel/continue style question.
+ * Set the various properties on the prompt before calling this method to
+ * represent the question correctly.
+ *
+ * This method will return immediately and complete asynchronously.
+ */
 void
 gcr_prompt_confirm_async (GcrPrompt *prompt,
                           GCancellable *cancellable,
@@ -358,6 +765,20 @@ gcr_prompt_confirm_async (GcrPrompt *prompt,
 	(iface->prompt_confirm_async) (prompt, cancellable, callback, user_data);
 }
 
+/**
+ * gcr_prompt_confirm_finish:
+ * @prompt: a prompt
+ * @result: asynchronous result passed to callback
+ * @error: location to place error on failure
+ *
+ * Complete an operation to prompt for confirmation.
+ *
+ * %GCR_PROMPT_REPLY_OK will be returned if the user confirms the prompt. The
+ * return value will also be %GCR_PROMPT_REPLY_CANCEL if the user cancels or if
+ * an error occurs. Check the @error argument to tell the difference.
+ *
+ * Returns: the reply from the prompt
+ */
 GcrPromptReply
 gcr_prompt_confirm_finish (GcrPrompt *prompt,
                            GAsyncResult *result,
@@ -375,6 +796,24 @@ gcr_prompt_confirm_finish (GcrPrompt *prompt,
 	return (iface->prompt_confirm_finish) (prompt, result, error);
 }
 
+/**
+ * gcr_prompt_confirm:
+ * @prompt: a prompt
+ * @cancellable: optional cancellation object
+ * @error: location to place error on failure
+ *
+ * Prompts for confirmation asking a cancel/continue style question.
+ * Set the various properties on the prompt before calling this function to
+ * represent the question correctly.
+ *
+ * This method will block until the a response is returned from the prompter.
+ *
+ * %GCR_PROMPT_REPLY_OK will be returned if the user confirms the prompt. The
+ * return value will also be %GCR_PROMPT_REPLY_CANCEL if the user cancels or if
+ * an error occurs. Check the @error argument to tell the difference.
+ *
+ * Returns: the reply from the prompt
+ */
 GcrPromptReply
 gcr_prompt_confirm (GcrPrompt *prompt,
                     GCancellable *cancellable,
@@ -400,21 +839,24 @@ gcr_prompt_confirm (GcrPrompt *prompt,
 }
 
 /**
- * gcr_system_prompt_confirm:
- * @self: a prompt
+ * gcr_prompt_confirm_run:
+ * @prompt: a prompt
  * @cancellable: optional cancellation object
  * @error: location to place error on failure
  *
  * Prompts for confirmation asking a cancel/continue style question.
- * Set the various properties on the prompt to represent the question
- * correctly.
+ * Set the various properties on the prompt before calling this function to
+ * represent the question correctly.
  *
- * This method will block until the a response is returned from the prompter.
- * and %TRUE or %FALSE will be returned based on the response. The return value
- * will also be %FALSE if an error occurs. Check the @error argument to tell
- * the difference.
+ * This method will block until the a response is returned from the prompter
+ * and will run a main loop similar to a gtk_dialog_run(). The application
+ * will remain responsive but care must be taken to handle reentrancy issues.
  *
- * Returns: whether the prompt was confirmed or not
+ * %GCR_PROMPT_REPLY_OK will be returned if the user confirms the prompt. The
+ * return value will also be %GCR_PROMPT_REPLY_CANCEL if the user cancels or if
+ * an error occurs. Check the @error argument to tell the difference.
+ *
+ * Returns: the reply from the prompt
  */
 GcrPromptReply
 gcr_prompt_confirm_run (GcrPrompt *prompt,

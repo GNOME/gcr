@@ -892,6 +892,8 @@ _gcr_pkcs11_importer_init_iface (GcrImporterIface *iface)
 /**
  * _gcr_pkcs11_importer_new:
  *
+ * Create a new #GcrPkcs11Importer.
+ *
  * Returns: (transfer full) (type Gcr.Pkcs11Importer): the new importer
  */
 GcrImporter *

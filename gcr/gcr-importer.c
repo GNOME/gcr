@@ -635,6 +635,8 @@ gcr_importer_set_slot (GcrImporter *self,
  * gcr_importer_get_prompt_behavior:
  * @self: The importer
  *
+ * Does nothing.
+ *
  * Returns: zero
  *
  * Deprecated: since 3.4.0

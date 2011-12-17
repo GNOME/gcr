@@ -36,14 +36,7 @@
 G_BEGIN_DECLS
 
 typedef enum {
-	GCR_SYSTEM_PROMPT_CANCEL = 0,
-	GCR_SYSTEM_PROMPT_OK = 1,
-} GcrSystemPromptResponse;
-
-typedef enum {
 	GCR_SYSTEM_PROMPT_IN_PROGRESS = 1,
-	GCR_SYSTEM_PROMPT_FAILED,
-	GCR_SYSTEM_PROMPT_CLOSED
 } GcrSystemPromptError;
 
 #define GCR_SYSTEM_PROMPT_ERROR              (gcr_system_prompt_error_get_domain ())
@@ -63,13 +56,13 @@ typedef struct _GcrSystemPromptPrivate GcrSystemPromptPrivate;
 
 struct _GcrSystemPrompt {
 	GObject parent;
+
+	/*< private >*/
 	GcrSystemPromptPrivate *pv;
 };
 
 struct _GcrSystemPromptClass {
 	GObjectClass parent_class;
-
-	void   (*prompt_ready)   ();
 };
 
 GType                gcr_system_prompt_get_type                  (void);

@@ -567,6 +567,8 @@ _gcr_live_search_init (GcrLiveSearch *self)
  * _gcr_live_search_new:
  * @hook: (allow-none): the widget to hook
  *
+ * Create a new #GcrLiveSearch.
+ *
  * Returns: (transfer full) (type Gcr.LiveSearch): The new widget
  */
 GtkWidget *

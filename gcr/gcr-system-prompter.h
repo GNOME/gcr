@@ -58,10 +58,6 @@ struct _GcrSystemPrompter {
 	GcrSystemPrompterPrivate *pv;
 };
 
-struct _GcrSystemPrompterClass {
-	GObjectClass parent_class;
-};
-
 GType                  gcr_system_prompter_get_type                (void) G_GNUC_CONST;
 
 GcrSystemPrompter *    gcr_system_prompter_new                     (GcrSystemPrompterMode mode,
@@ -70,6 +66,8 @@ GcrSystemPrompter *    gcr_system_prompter_new                     (GcrSystemPro
 GcrSystemPrompterMode  gcr_system_prompter_get_mode                (GcrSystemPrompter *self);
 
 GType                  gcr_system_prompter_get_prompt_type         (GcrSystemPrompter *self);
+
+gboolean               gcr_system_prompter_get_prompting           (GcrSystemPrompter *self);
 
 void                   gcr_system_prompter_register                (GcrSystemPrompter *self,
                                                                     GDBusConnection *connection);

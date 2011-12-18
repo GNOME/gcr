@@ -802,6 +802,7 @@ gcr_system_prompter_register
 gcr_system_prompter_unregister
 gcr_system_prompter_get_mode
 gcr_system_prompter_get_prompt_type
+gcr_system_prompter_get_prompting
 <SUBSECTION Private>
 GcrSystemPrompterPrivate
 gcr_system_prompter_get_type

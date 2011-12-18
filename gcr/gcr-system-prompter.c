@@ -61,7 +61,6 @@
 
 /**
  * GcrSystemPrompterClass:
- * @parent_class: prompter class
  *
  * The class for #GcrSystemPrompter.
  */
@@ -78,7 +77,12 @@
 enum {
 	PROP_0,
 	PROP_MODE,
-	PROP_PROMPT_TYPE
+	PROP_PROMPT_TYPE,
+	PROP_PROMPTING
+};
+
+struct _GcrSystemPrompterClass {
+	GObjectClass parent_class;
 };
 
 struct _GcrSystemPrompterPrivate {
@@ -278,6 +282,9 @@ gcr_system_prompter_get_property (GObject *obj,
 	case PROP_PROMPT_TYPE:
 		g_value_set_gtype (value, gcr_system_prompter_get_prompt_type (self));
 		break;
+	case PROP_PROMPTING:
+		g_value_set_boolean (value, gcr_system_prompter_get_prompting (self));
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
 		break;
@@ -296,6 +303,7 @@ gcr_system_prompter_dispose (GObject *obj)
 
 	g_hash_table_remove_all (self->pv->callbacks);
 	g_hash_table_remove_all (self->pv->active);
+	g_object_notify (obj, "prompting");
 
 	G_OBJECT_CLASS (gcr_system_prompter_parent_class)->dispose (obj);
 }
@@ -351,6 +359,16 @@ gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 	             g_param_spec_gtype ("prompt-type", "Prompt GType", "GObject type of prompts",
 	                                 GCR_TYPE_PROMPT,
 	                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
+
+	/**
+	 * GcrSystemPrompter:prompting:
+	 *
+	 * Whether the prompter is prompting or not.
+	 */
+	g_object_class_install_property (gobject_class, PROP_PROMPTING,
+	           g_param_spec_boolean ("prompting", "Prompting", "Whether prompting or not",
+	                                 FALSE, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
+
 }
 
 static GVariantBuilder *
@@ -459,6 +477,7 @@ prompt_stop_prompting (GcrSystemPrompter *self,
 
 	/* And all traces gone, including watch */
 	g_hash_table_remove (self->pv->callbacks, callback);
+	g_object_notify (G_OBJECT (self), "prompting");
 }
 
 static void
@@ -489,8 +508,8 @@ on_prompt_ready_complete (GObject *source,
 		else
 			g_message ("received an error from the prompt callback: %s", error->message);
 		g_error_free (error);
+
 		prompt_stop_prompting (self, active->callback, FALSE, FALSE);
-		g_hash_table_remove (self->pv->callbacks, active->callback);
 
 		/* Another new prompt may be ready to go active? */
 		prompt_next_ready (self);
@@ -656,6 +675,8 @@ prompter_method_begin_prompting (GcrSystemPrompter *self,
 	g_dbus_method_invocation_return_value (invocation, g_variant_new ("()"));
 
 	g_queue_push_tail (&self->pv->waiting, callback);
+	g_object_notify (G_OBJECT (self), "prompting");
+
 	prompt_next_ready (self);
 }
 
@@ -965,4 +986,19 @@ gcr_system_prompter_get_prompt_type (GcrSystemPrompter *self)
 {
 	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), 0);
 	return self->pv->prompt_type;
+}
+
+/**
+ * gcr_system_prompter_get_prompting:
+ * @self: the prompter
+ *
+ * Get whether prompting or not.
+ *
+ * Returns: whether prompting or not
+ */
+gboolean
+gcr_system_prompter_get_prompting (GcrSystemPrompter *self)
+{
+	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (self), FALSE);
+	return g_hash_table_size (self->pv->callbacks);
 }

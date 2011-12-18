@@ -341,7 +341,8 @@ gcr_viewer_LDADD = \
 libexec_PROGRAMS = gcr-prompter
 
 gcr_prompter_SOURCES = \
-	gcr-prompter-tool.c
+	gcr-prompter-tool.c \
+	gcr-debug.c gcr-debug.h
 
 gcr_prompter_CFLAGS = \
 	$(GTK_CFLAGS)

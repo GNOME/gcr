@@ -196,6 +196,7 @@ gcr_simple_collection_new
 gcr_simple_collection_remove
 gcr_system_prompter_get_mode
 gcr_system_prompter_get_prompt_type
+gcr_system_prompter_get_prompting
 gcr_system_prompter_get_type
 gcr_system_prompter_mode_get_type
 gcr_system_prompter_new

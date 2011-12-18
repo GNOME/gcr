@@ -37,6 +37,7 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <string.h>
+#include <syslog.h>
 
 #define QUIT_TIMEOUT 10
 
@@ -44,41 +45,56 @@ static GcrSystemPrompter *the_prompter = NULL;
 static gboolean registered_prompter = FALSE;
 static gboolean acquired_system_prompter = FALSE;
 static gboolean acquired_private_prompter = FALSE;
+static guint timeout_source = 0;
 
-#if 0
 static gboolean
 on_timeout_quit (gpointer unused)
 {
+	_gcr_debug ("%d second inactivity timeout, quitting", QUIT_TIMEOUT);
 	gtk_main_quit ();
+
 	return FALSE; /* Don't run again */
 }
 
 static void
-start_timeout (GcrPrompterDialog *self)
+start_timeout (void)
 {
 	if (g_getenv ("GCR_PERSIST") != NULL)
 		return;
 
-	if (!self->quit_timeout)
-		self->quit_timeout = g_timeout_add_seconds (QUIT_TIMEOUT, on_timeout_quit, NULL);
+	if (!timeout_source)
+		timeout_source = g_timeout_add_seconds (QUIT_TIMEOUT, on_timeout_quit, NULL);
 }
 
 static void
-stop_timeout (GcrPrompterDialog *self)
+stop_timeout (void)
 {
-	if (self->quit_timeout)
-		g_source_remove (self->quit_timeout);
-	self->quit_timeout = 0;
+	if (timeout_source)
+		g_source_remove (timeout_source);
+	timeout_source = 0;
 }
-#endif
+
+static void
+on_prompter_prompting (GObject *obj,
+                       GParamSpec param,
+                       gpointer user_data)
+{
+	if (gcr_system_prompter_get_prompting (the_prompter))
+		stop_timeout ();
+	else
+		start_timeout ();
+}
 
 static void
 on_bus_acquired (GDBusConnection *connection,
                  const gchar *name,
                  gpointer user_data)
 {
+	_gcr_debug ("bus acquired: %s", name);
+
 	if (!registered_prompter)
 		gcr_system_prompter_register (the_prompter, connection);
+
 	registered_prompter = TRUE;
 }
 
@@ -87,6 +103,8 @@ on_name_acquired (GDBusConnection *connection,
                   const gchar *name,
                   gpointer user_data)
 {
+	_gcr_debug ("acquired name: %s", name);
+
 	if (g_strcmp0 (name, GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME) == 0)
 		acquired_system_prompter = TRUE;
 
@@ -99,6 +117,8 @@ on_name_lost (GDBusConnection *connection,
               const gchar *name,
               gpointer user_data)
 {
+	_gcr_debug ("lost name: %s", name);
+
 	/* Called like so when no connection can be made */
 	if (connection == NULL) {
 		g_warning ("couldn't connect to session bus");
@@ -111,6 +131,77 @@ on_name_lost (GDBusConnection *connection,
 		acquired_private_prompter = TRUE;
 
 	}
+}
+
+static void
+log_handler (const gchar *log_domain,
+             GLogLevelFlags log_level,
+             const gchar *message,
+             gpointer user_data)
+{
+	int level;
+
+	/* Note that crit and err are the other way around in syslog */
+
+	switch (G_LOG_LEVEL_MASK & log_level) {
+	case G_LOG_LEVEL_ERROR:
+		level = LOG_CRIT;
+		break;
+	case G_LOG_LEVEL_CRITICAL:
+		level = LOG_ERR;
+		break;
+	case G_LOG_LEVEL_WARNING:
+		level = LOG_WARNING;
+		break;
+	case G_LOG_LEVEL_MESSAGE:
+		level = LOG_NOTICE;
+		break;
+	case G_LOG_LEVEL_INFO:
+		level = LOG_INFO;
+		break;
+	case G_LOG_LEVEL_DEBUG:
+		level = LOG_DEBUG;
+		break;
+	default:
+		level = LOG_ERR;
+		break;
+	}
+
+	/* Log to syslog first */
+	if (log_domain)
+		syslog (level, "%s: %s", log_domain, message);
+	else
+		syslog (level, "%s", message);
+
+	/* And then to default handler for aborting and stuff like that */
+	g_log_default_handler (log_domain, log_level, message, user_data);
+}
+
+static void
+printerr_handler (const gchar *string)
+{
+	/* Print to syslog and stderr */
+	syslog (LOG_WARNING, "%s", string);
+	fprintf (stderr, "%s", string);
+}
+
+static void
+prepare_logging ()
+{
+	GLogLevelFlags flags = G_LOG_FLAG_FATAL | G_LOG_LEVEL_ERROR |
+	                       G_LOG_LEVEL_CRITICAL | G_LOG_LEVEL_WARNING |
+	                       G_LOG_LEVEL_MESSAGE | G_LOG_LEVEL_INFO;
+
+	openlog ("gcr-prompter", LOG_PID, LOG_AUTH);
+
+	g_log_set_handler (NULL, flags, log_handler, NULL);
+	g_log_set_handler ("Glib", flags, log_handler, NULL);
+	g_log_set_handler ("Gtk", flags, log_handler, NULL);
+	g_log_set_handler ("Gnome", flags, log_handler, NULL);
+	g_log_set_handler ("Gcr", flags, log_handler, NULL);
+	g_log_set_handler ("Gck", flags, log_handler, NULL);
+	g_log_set_default_handler (log_handler, NULL);
+	g_set_printerr_handler (printerr_handler);
 }
 
 int
@@ -133,8 +224,12 @@ main (int argc, char *argv[])
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 #endif
 
+	prepare_logging ();
+
 	the_prompter = gcr_system_prompter_new (GCR_SYSTEM_PROMPTER_SINGLE,
 	                                        GCR_TYPE_PROMPT_DIALOG);
+	g_signal_connect (the_prompter, "notify::prompting",
+	                  G_CALLBACK (on_prompter_prompting), NULL);
 
 	system_owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
 	                                  GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME,
@@ -154,6 +249,7 @@ main (int argc, char *argv[])
 	                                   NULL,
 	                                   NULL);
 
+	start_timeout ();
 	gtk_main ();
 
 	if (registered_prompter)

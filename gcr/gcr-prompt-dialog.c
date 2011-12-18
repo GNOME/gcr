@@ -56,8 +56,7 @@
  * The class for #GcrPromptDialog.
  */
 
-#define LOG_ERRORS 1
-#define GRAB_KEYBOARD 1
+#define GRAB_KEYBOARD 0
 
 typedef enum {
 	PROMPT_NONE,
@@ -67,7 +66,6 @@ typedef enum {
 
 enum {
 	PROP_0,
-	PROP_TITLE,
 	PROP_MESSAGE,
 	PROP_DESCRIPTION,
 	PROP_WARNING,
@@ -157,6 +155,12 @@ gcr_prompt_dialog_init (GcrPromptDialog *self)
 {
 	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_PROMPT_DIALOG,
 	                                        GcrPromptDialogPrivate);
+
+	/*
+	 * This is a stupid hack to work around to help the window act like
+	 * a normal object with regards to reference counting and unref.
+	 */
+	gtk_window_set_has_user_ref_count (GTK_WINDOW (self), FALSE);
 }
 
 static void
@@ -168,11 +172,6 @@ gcr_prompt_dialog_set_property (GObject *obj,
 	GcrPromptDialog *self = GCR_PROMPT_DIALOG (obj);
 
 	switch (prop_id) {
-	case PROP_TITLE:
-		g_free (self->pv->title);
-		self->pv->title = g_value_dup_string (value);
-		g_object_notify (obj, "title");
-		break;
 	case PROP_MESSAGE:
 		g_free (self->pv->message);
 		self->pv->message = g_value_dup_string (value);
@@ -191,6 +190,7 @@ gcr_prompt_dialog_set_property (GObject *obj,
 			self->pv->warning = NULL;
 		}
 		g_object_notify (obj, "warning");
+		g_object_notify (obj, "warning-visible");
 		break;
 	case PROP_CHOICE_LABEL:
 		g_free (self->pv->choice_label);
@@ -200,9 +200,16 @@ gcr_prompt_dialog_set_property (GObject *obj,
 			self->pv->choice_label = NULL;
 		}
 		g_object_notify (obj, "choice-label");
+		g_object_notify (obj, "choice-visible");
+		break;
+	case PROP_CHOICE_CHOSEN:
+		self->pv->choice_chosen = g_value_get_boolean (value);
+		g_object_notify (obj, "choice-chosen");
 		break;
 	case PROP_PASSWORD_NEW:
 		self->pv->password_new = g_value_get_boolean (value);
+		g_object_notify (obj, "password-new");
+		g_object_notify (obj, "confirm-visible");
 		break;
 	case PROP_CALLER_WINDOW:
 		g_free (self->pv->caller_window);
@@ -229,9 +236,6 @@ gcr_prompt_dialog_get_property (GObject *obj,
 	GcrPromptDialog *self = GCR_PROMPT_DIALOG (obj);
 
 	switch (prop_id) {
-	case PROP_TITLE:
-		g_value_set_string (value, self->pv->title);
-		break;
 	case PROP_MESSAGE:
 		g_value_set_string (value, self->pv->message);
 		break;
@@ -251,7 +255,7 @@ gcr_prompt_dialog_get_property (GObject *obj,
 		g_value_set_boolean (value, self->pv->password_new);
 		break;
 	case PROP_PASSWORD_STRENGTH:
-		g_value_set_uint (value, self->pv->password_strength);
+		g_value_set_int (value, self->pv->password_strength);
 		break;
 	case PROP_CALLER_WINDOW:
 		g_value_set_string (value, self->pv->caller_window);
@@ -357,9 +361,10 @@ grab_status_message (GdkGrabStatus status)
 
 static gboolean
 on_grab_broken (GtkWidget *widget,
-                GdkEventGrabBroken * event)
+                GdkEventGrabBroken * event,
+                gpointer user_data)
 {
-	ungrab_keyboard (widget, (GdkEvent *)event, NULL);
+	ungrab_keyboard (widget, (GdkEvent *)event, user_data);
 	return TRUE;
 }
 
@@ -400,7 +405,7 @@ grab_keyboard (GtkWidget *widget,
 	                          GDK_KEY_PRESS | GDK_KEY_RELEASE, NULL, at);
 	if (status == GDK_GRAB_SUCCESS) {
 		self->pv->grab_broken_id = g_signal_connect (widget, "grab-broken-event",
-		                                             G_CALLBACK (on_grab_broken), NULL);
+		                                             G_CALLBACK (on_grab_broken), self);
 		gtk_device_grab_add (widget, device, TRUE);
 		self->pv->grabbed_device = device;
 	} else {
@@ -466,11 +471,16 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	                        _("Continue"), GTK_RESPONSE_OK,
 	                        NULL);
 
+	gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+	gtk_window_set_keep_above (GTK_WINDOW (dialog), TRUE);
+	gtk_dialog_set_default_response (dialog, GTK_RESPONSE_OK);
+
 	content = gtk_dialog_get_content_area (dialog);
 
 	grid = GTK_GRID (gtk_grid_new ());
 	gtk_container_set_border_width (GTK_CONTAINER (grid), 6);
 	gtk_widget_set_hexpand (GTK_WIDGET (grid), TRUE);
+	gtk_grid_set_column_homogeneous (grid, FALSE);
 	gtk_grid_set_column_spacing (grid, 12);
 	gtk_grid_set_row_spacing (grid, 6);
 
@@ -513,6 +523,7 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	/* The password label */
 	widget = gtk_label_new (_("Password:"));
 	gtk_widget_set_halign (widget, GTK_ALIGN_START);
+	gtk_widget_set_hexpand (widget, FALSE);
 	g_object_bind_property (self, "password-visible", widget, "visible", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, widget, 0, 2, 1, 1);
 
@@ -520,21 +531,24 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	self->pv->password_buffer = gcr_secure_entry_buffer_new ();
 	entry = gtk_entry_new_with_buffer (self->pv->password_buffer);
 	gtk_entry_set_visibility (GTK_ENTRY (entry), FALSE);
-	gtk_widget_set_hexpand (widget, TRUE);
+	gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
+	gtk_widget_set_hexpand (entry, TRUE);
 	g_object_bind_property (self, "password-visible", entry, "visible", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, entry, 1, 2, 1, 1);
 
 	/* The confirm label */
 	widget = gtk_label_new (_("Confirm:"));
 	gtk_widget_set_halign (widget, GTK_ALIGN_START);
+	gtk_widget_set_hexpand (widget, FALSE);
 	g_object_bind_property (self, "confirm-visible", widget, "visible", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, widget, 0, 3, 1, 1);
 
 	/* The confirm entry */
 	self->pv->confirm_buffer = gcr_secure_entry_buffer_new ();
-	widget = gtk_entry_new_with_buffer (self->pv->password_buffer);
+	widget = gtk_entry_new_with_buffer (self->pv->confirm_buffer);
 	gtk_widget_set_hexpand (widget, TRUE);
 	gtk_entry_set_visibility (GTK_ENTRY (widget), FALSE);
+	gtk_entry_set_activates_default (GTK_ENTRY (widget), TRUE);
 	g_object_bind_property (self, "confirm-visible", widget, "visible", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, widget, 1, 3, 1, 1);
 
@@ -551,6 +565,7 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	pango_attr_list_insert (attrs, pango_attr_style_new (PANGO_STYLE_ITALIC));
 	gtk_label_set_attributes (GTK_LABEL (widget), attrs);
 	pango_attr_list_unref (attrs);
+	gtk_widget_set_hexpand (widget, FALSE);
 	g_object_bind_property (self, "warning", widget, "label", G_BINDING_DEFAULT);
 	g_object_bind_property (self, "warning-visible", widget, "visible", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, widget, 0, 5, 2, 1);
@@ -561,6 +576,7 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	g_object_bind_property (self, "choice-label", widget, "label", G_BINDING_DEFAULT);
 	g_object_bind_property (self, "choice-visible", widget, "visible", G_BINDING_DEFAULT);
 	g_object_bind_property (self, "choice-chosen", widget, "active", G_BINDING_BIDIRECTIONAL);
+	gtk_widget_set_hexpand (widget, FALSE);
 	gtk_grid_attach (grid, widget, 0, 6, 2, 1);
 
 	gtk_container_add (GTK_CONTAINER (content), GTK_WIDGET (grid));
@@ -700,8 +716,6 @@ gcr_prompt_dialog_class_init (GcrPromptDialogClass *klass)
 
 	g_type_class_add_private (gobject_class, sizeof (GcrPromptDialogPrivate));
 
-	g_object_class_override_property (gobject_class, PROP_TITLE, "title");
-
 	g_object_class_override_property (gobject_class, PROP_MESSAGE, "message");
 
 	g_object_class_override_property (gobject_class, PROP_DESCRIPTION, "description");
@@ -780,11 +794,16 @@ gcr_prompt_dialog_password_async (GcrPrompt *prompt,
 	gtk_widget_show (self->pv->image);
 	gtk_widget_hide (self->pv->spinner);
 
+	gtk_entry_buffer_set_text (self->pv->password_buffer, "", 0);
+	gtk_entry_buffer_set_text (self->pv->confirm_buffer, "", 0);
+
 	obj = G_OBJECT (self);
 	g_object_notify (obj, "password-visible");
 	g_object_notify (obj, "confirm-visible");
 	g_object_notify (obj, "warning-visible");
 	g_object_notify (obj, "choice-visible");
+
+	gtk_widget_show (GTK_WIDGET (self));
 }
 
 static const gchar *
@@ -821,7 +840,7 @@ gcr_prompt_dialog_confirm_async (GcrPrompt *prompt,
 
 	self->pv->mode = PROMPT_CONFIRMING;
 	self->pv->async_result = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
-	                                                    gcr_prompt_dialog_password_async);
+	                                                    gcr_prompt_dialog_confirm_async);
 
 	gtk_image_set_from_stock (GTK_IMAGE (self->pv->image),
 	                          GTK_STOCK_DIALOG_QUESTION,
@@ -835,6 +854,8 @@ gcr_prompt_dialog_confirm_async (GcrPrompt *prompt,
 	g_object_notify (obj, "confirm-visible");
 	g_object_notify (obj, "warning-visible");
 	g_object_notify (obj, "choice-visible");
+
+	gtk_widget_show (GTK_WIDGET (self));
 }
 
 static GcrPromptReply

@@ -1,0 +1,28 @@
+[three]
+type = password
+title = Unlock Keyring
+message = Enter password for keyring 'sean' to unlock
+description = An application wants access to the keyring 'sean', but it is locked
+choice-label = Always unlock this keyring whenever I'm logged in.
+password-new = false
+
+[one]
+type = password
+title = The title
+message = The message
+description = Description
+
+[two]
+type = password
+title = New Password
+message = Enter a new password here
+description = This is a test of the new password prompt
+password-new = true
+
+[four]
+type = confirm
+title = Question
+message = A nice question here
+description = This is why you really should be asking this question
+warning =
+

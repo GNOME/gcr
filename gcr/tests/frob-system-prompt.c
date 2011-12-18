@@ -36,7 +36,7 @@ static void
 on_prompt_clicked (GtkToolButton *button,
                    gpointer user_data)
 {
-	GcrSystemPrompt *prompt;
+	GcrPrompt *prompt;
 	GError *error = NULL;
 	const gchar *password;
 	GtkWidget *parent = user_data;

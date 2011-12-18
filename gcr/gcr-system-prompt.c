@@ -1186,10 +1186,10 @@ gcr_system_prompt_open_for_prompter_async (const gchar *prompter_name,
  *
  * Complete an operation to asynchronously open a system prompt.
  *
- * Returns: (transfer full): the prompt, or %NULL if prompt could not
- *          be opened
+ * Returns: (transfer full) (type Gcr.SystemPrompt): the prompt, or %NULL if
+ *          prompt could not be opened
  */
-GcrSystemPrompt *
+GcrPrompt *
 gcr_system_prompt_open_finish (GAsyncResult *result,
                                GError **error)
 {
@@ -1207,7 +1207,7 @@ gcr_system_prompt_open_finish (GAsyncResult *result,
 	g_object_unref (source_object);
 
 	if (object != NULL)
-		return GCR_SYSTEM_PROMPT (object);
+		return GCR_PROMPT (object);
 	else
 		return NULL;
 }
@@ -1227,10 +1227,10 @@ gcr_system_prompt_open_finish (GAsyncResult *result,
  * expires, then this function will fail with a %GCR_SYSTEM_PROMPT_IN_PROGRESS
  * error.
  *
- * Returns: (transfer full): the prompt, or %NULL if prompt could not
- *          be opened
+ * Returns: (transfer full) (type Gcr.SystemPrompt): the prompt, or %NULL if
+ *          prompt could not be opened
  */
-GcrSystemPrompt *
+GcrPrompt *
 gcr_system_prompt_open (gint timeout_seconds,
                         GCancellable *cancellable,
                         GError **error)
@@ -1260,10 +1260,10 @@ gcr_system_prompt_open (gint timeout_seconds,
  * expires, then this function will fail with a %GCR_SYSTEM_PROMPT_IN_PROGRESS
  * error.
  *
- * Returns: (transfer full): the prompt, or %NULL if prompt could not
- *          be opened
+ * Returns: (transfer full) (type Gcr.SystemPrompt): the prompt, or %NULL if
+ *          prompt could not be opened
  */
-GcrSystemPrompt *
+GcrPrompt *
 gcr_system_prompt_open_for_prompter (const gchar *prompter_name,
                                      gint timeout_seconds,
                                      GCancellable *cancellable,

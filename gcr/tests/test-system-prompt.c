@@ -51,7 +51,7 @@ static void
 test_open_prompt (Test *test,
                   gconstpointer unused)
 {
-	GcrSystemPrompt *prompt;
+	GcrPrompt *prompt;
 	GError *error = NULL;
 	gboolean ret;
 	gchar *bus_name;
@@ -63,7 +63,7 @@ test_open_prompt (Test *test,
 	g_object_get (prompt, "bus-name", &bus_name, NULL);
 	g_assert_cmpstr (bus_name, ==, test->prompter_name);
 
-	ret = gcr_system_prompt_close (prompt, NULL, &error);
+	ret = gcr_system_prompt_close (GCR_SYSTEM_PROMPT (prompt), NULL, &error);
 	g_assert_no_error (error);
 	g_assert (ret == TRUE);
 
@@ -75,7 +75,7 @@ static void
 test_open_failure (Test *test,
                    gconstpointer unused)
 {
-	GcrSystemPrompt *prompt;
+	GcrPrompt *prompt;
 	GDBusConnection *connection;
 	GError *error = NULL;
 
@@ -96,7 +96,7 @@ static void
 test_prompt_password (Test *test,
                       gconstpointer unused)
 {
-	GcrSystemPrompt *prompt;
+	GcrPrompt *prompt;
 	GError *error = NULL;
 	const gchar *password;
 
@@ -106,7 +106,7 @@ test_prompt_password (Test *test,
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 
-	password = gcr_prompt_password_run (GCR_PROMPT (prompt), NULL, &error);
+	password = gcr_prompt_password_run (prompt, NULL, &error);
 	g_assert_no_error (error);
 	g_assert_cmpstr (password, ==, "booo");
 
@@ -118,7 +118,7 @@ static void
 test_password_in_exchange (Test *test,
                            gconstpointer unused)
 {
-	GcrSystemPrompt *prompt;
+	GcrPrompt *prompt;
 	GError *error = NULL;
 	GcrSecretExchange *exchange;
 
@@ -128,7 +128,7 @@ test_password_in_exchange (Test *test,
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 
-	gcr_prompt_password_run (GCR_PROMPT (prompt), NULL, &error);
+	gcr_prompt_password_run (prompt, NULL, &error);
 	g_assert_no_error (error);
 
 	g_object_get (prompt, "secret-exchange", &exchange, NULL);
@@ -187,7 +187,7 @@ test_async_password (Test *test,
                      gconstpointer unused)
 {
 	GAsyncResult *result = NULL;
-	GcrSystemPrompt *prompt;
+	GcrPrompt *prompt;
 	GError *error = NULL;
 	const gchar *password;
 
@@ -204,12 +204,12 @@ test_async_password (Test *test,
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 	g_clear_object (&result);
 
-	gcr_prompt_password_async (GCR_PROMPT (prompt), NULL,
+	gcr_prompt_password_async (prompt, NULL,
 	                           on_async_result, &result);
 	g_assert (result == NULL);
 	egg_test_wait ();
 
-	password = gcr_prompt_password_finish (GCR_PROMPT (prompt), result, &error);
+	password = gcr_prompt_password_finish (prompt, result, &error);
 	g_assert_no_error (error);
 	g_assert_cmpstr (password, ==, "booo");
 	g_clear_object (&result);
@@ -221,7 +221,7 @@ static void
 test_prompt_confirm (Test *test,
                      gconstpointer unused)
 {
-	GcrSystemPrompt *prompt;
+	GcrPrompt *prompt;
 	GError *error = NULL;
 	gboolean ret;
 
@@ -231,7 +231,7 @@ test_prompt_confirm (Test *test,
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 
-	ret = gcr_prompt_confirm_run (GCR_PROMPT (prompt), NULL, &error);
+	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (ret == TRUE);
 
@@ -244,7 +244,7 @@ test_async_confirm (Test *test,
                     gconstpointer unused)
 {
 	GAsyncResult *result = NULL;
-	GcrSystemPrompt *prompt;
+	GcrPrompt *prompt;
 	GError *error = NULL;
 	gboolean confirm;
 
@@ -261,12 +261,11 @@ test_async_confirm (Test *test,
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 	g_clear_object (&result);
 
-	gcr_prompt_confirm_async (GCR_PROMPT (prompt), NULL,
-	                          on_async_result, &result);
+	gcr_prompt_confirm_async (prompt, NULL, on_async_result, &result);
 	g_assert (result == NULL);
 	egg_test_wait ();
 
-	confirm = gcr_prompt_confirm_finish (GCR_PROMPT (prompt), result, &error);
+	confirm = gcr_prompt_confirm_finish (prompt, result, &error);
 	g_assert_no_error (error);
 	g_assert (confirm == TRUE);
 	g_clear_object (&result);
@@ -279,7 +278,7 @@ static void
 test_cancel_password (Test *test,
                       gconstpointer unused)
 {
-	GcrSystemPrompt *prompt;
+	GcrPrompt *prompt;
 	GError *error = NULL;
 	const gchar *password;
 
@@ -289,7 +288,7 @@ test_cancel_password (Test *test,
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 
-	password = gcr_prompt_password_run (GCR_PROMPT (prompt), NULL, &error);
+	password = gcr_prompt_password_run (prompt, NULL, &error);
 	g_assert_no_error (error);
 	g_assert_cmpstr (password, ==, NULL);
 
@@ -301,7 +300,7 @@ static void
 test_cancel_confirm (Test *test,
                      gconstpointer unused)
 {
-	GcrSystemPrompt *prompt;
+	GcrPrompt *prompt;
 	GError *error = NULL;
 	gboolean ret;
 
@@ -311,7 +310,7 @@ test_cancel_confirm (Test *test,
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 
-	ret = gcr_prompt_confirm_run (GCR_PROMPT (prompt), NULL, &error);
+	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (ret == FALSE);
 
@@ -323,7 +322,6 @@ static void
 test_prompt_properties (Test *test,
                         gconstpointer unused)
 {
-	GcrSystemPrompt *sprompt;
 	GcrPrompt *prompt;
 	GError *error = NULL;
 	gboolean ret;
@@ -339,11 +337,10 @@ test_prompt_properties (Test *test,
 	                                     "password-strength", 0,
 	                                     NULL);
 
-	sprompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
+	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (GCR_IS_SYSTEM_PROMPT (sprompt));
+	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 
-	prompt = GCR_PROMPT (sprompt);
 	g_object_set (prompt,
 	              "title", "Other Title",
 	              "choice-label", "Other Choice",
@@ -388,14 +385,12 @@ static void
 test_prompt_properties_unset (Test *test,
                               gconstpointer unused)
 {
-	GcrSystemPrompt *sprompt;
 	GcrPrompt *prompt;
 	GError *error = NULL;
 
-	sprompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
+	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (GCR_IS_SYSTEM_PROMPT (sprompt));
-	prompt = GCR_PROMPT (sprompt);
+	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 
 	g_assert_cmpstr (gcr_prompt_get_title (prompt), ==, NULL);
 	g_assert_cmpstr (gcr_prompt_get_choice_label (prompt), ==, NULL);
@@ -415,8 +410,8 @@ static void
 test_prompt_close (Test *test,
                    gconstpointer unused)
 {
-	GcrSystemPrompt *prompt;
-	GcrSystemPrompt *prompt2;
+	GcrPrompt *prompt;
+	GcrPrompt *prompt2;
 	GError *error = NULL;
 	gboolean ret;
 
@@ -431,7 +426,7 @@ test_prompt_close (Test *test,
 	g_clear_error (&error);
 	g_assert (prompt2 == NULL);
 
-	ret = gcr_prompt_confirm_run (GCR_PROMPT (prompt), NULL, &error);
+	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (ret == TRUE);
 
@@ -440,7 +435,7 @@ test_prompt_close (Test *test,
 	g_clear_error (&error);
 	g_assert (prompt2 == NULL);
 
-	gcr_system_prompt_close (prompt, NULL, &error);
+	gcr_system_prompt_close (GCR_SYSTEM_PROMPT (prompt), NULL, &error);
 	g_assert_no_error (error);
 
 	prompt2 = gcr_system_prompt_open_for_prompter (test->prompter_name, 1, NULL, &error);
@@ -458,7 +453,7 @@ static void
 test_close_cancels (Test *test,
                     gconstpointer unused)
 {
-	GcrSystemPrompt *prompt;
+	GcrPrompt *prompt;
 	GError *error = NULL;
 	const gchar *password = NULL;
 	GAsyncResult *result = NULL;
@@ -470,14 +465,14 @@ test_close_cancels (Test *test,
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 
-	gcr_prompt_password_async (GCR_PROMPT (prompt), NULL, on_async_result, &result);
+	gcr_prompt_password_async (prompt, NULL, on_async_result, &result);
 
-	gcr_system_prompt_close (prompt, NULL, &error);
+	gcr_system_prompt_close (GCR_SYSTEM_PROMPT (prompt), NULL, &error);
 	g_assert_no_error (error);
 
 	egg_test_wait ();
 
-	password = gcr_prompt_password_finish (GCR_PROMPT (prompt), result, &error);
+	password = gcr_prompt_password_finish (prompt, result, &error);
 	g_assert_no_error (error);
 	g_assert (password == NULL);
 	g_clear_object (&result);

@@ -29,11 +29,11 @@
 G_BEGIN_DECLS
 
 #define GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME            "org.gnome.keyring.SystemPrompter"
-#define GCR_DBUS_PROMPTER_BUS_NAME                   "org.gnome.keyring.Prompter"
+#define GCR_DBUS_PROMPTER_PRIVATE_BUS_NAME           "org.gnome.keyring.PrivatePrompter"
 #define GCR_DBUS_PROMPTER_MOCK_BUS_NAME              "org.gnome.keyring.MockPrompter"
 
 #define GCR_DBUS_PROMPTER_OBJECT_PATH                "/org/gnome/keyring/Prompter"
-#define GCR_DBUS_PROMPT_OBJECT_PREFIX                "/org/gnome/keyring/internal/Prompt"
+#define GCR_DBUS_PROMPT_OBJECT_PREFIX                "/org/gnome/keyring/Prompt"
 
 #define GCR_DBUS_PROMPTER_INTERFACE                  "org.gnome.keyring.internal.Prompter"
 

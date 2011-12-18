@@ -88,16 +88,21 @@ struct _GcrSystemPrompterPrivate {
 	guint prompter_registered;
 	GDBusConnection *connection;
 
-	GHashTable *pending;          /* callback path (string) -> sender (string) */
-	GHashTable *active;           /* callback path (string) -> active (ActivePrompt) */
+	GHashTable *callbacks;       /* Callback -> guint watch_id */
+	GHashTable *active;          /* Callback -> active (ActivePrompt) */
+	GQueue waiting;
 };
 
 G_DEFINE_TYPE (GcrSystemPrompter, gcr_system_prompter, G_TYPE_OBJECT);
 
 typedef struct {
+	const gchar *path;
+	const gchar *name;
+} Callback;
+
+typedef struct {
 	gint refs;
-	gchar *callback_path;
-	gchar *callback_name;
+	Callback *callback;
 	GcrSystemPrompter *prompter;
 	GCancellable *cancellable;
 	GcrPrompt *prompt;
@@ -112,10 +117,10 @@ static void    prompt_send_ready               (ActivePrompt *active,
                                                 const gchar *response,
                                                 const gchar *secret);
 
-static void    prompt_possibly_ready           (GcrSystemPrompter *self,
-                                                const gchar *callback);
+static void    prompt_next_ready               (GcrSystemPrompter *self);
 
-static void    prompt_stop_prompting           (ActivePrompt *active,
+static void    prompt_stop_prompting           (GcrSystemPrompter *self,
+                                                Callback *callback,
                                                 gboolean send_done_message,
                                                 gboolean wait_for_reply);
 
@@ -136,14 +141,50 @@ on_prompt_notify (GObject *object,
 	g_hash_table_replace (active->changed, key, key);
 }
 
+static Callback *
+callback_dup (Callback *original)
+{
+	Callback *callback = g_slice_new0 (Callback);
+	g_assert (original != NULL);
+	g_assert (original->path != NULL);
+	g_assert (original->name != NULL);
+	callback->path = g_strdup (original->path);
+	callback->name = g_strdup (original->name);
+	return callback;
+}
+
+static void
+callback_free (gpointer data)
+{
+	Callback *callback = data;
+	g_free ((gchar *)callback->path);
+	g_free ((gchar *)callback->name);
+	g_slice_free (Callback, callback);
+}
+
+static guint
+callback_hash (gconstpointer data)
+{
+	const Callback *callback = data;
+	return g_str_hash (callback->name) ^ g_str_hash (callback->path);
+}
+
+static gboolean
+callback_equal (gconstpointer one,
+                gconstpointer two)
+{
+	const Callback *cone = one;
+	const Callback *ctwo = two;
+	return g_str_equal (cone->name, ctwo->name) &&
+	       g_str_equal (cone->path, ctwo->path);
+}
+
 static void
 active_prompt_unref (gpointer data)
 {
 	ActivePrompt *active = data;
 
 	if (g_atomic_int_dec_and_test (&active->refs)) {
-		g_free (active->callback_path);
-		g_free (active->callback_name);
 		g_object_unref (active->prompter);
 		g_object_unref (active->cancellable);
 		g_signal_handlers_disconnect_by_func (active->prompt, on_prompt_notify, active);
@@ -165,16 +206,13 @@ active_prompt_get_secret_exchange (ActivePrompt *active)
 
 static ActivePrompt *
 active_prompt_create (GcrSystemPrompter *self,
-                      const gchar *callback)
+                      Callback *lookup)
 {
 	ActivePrompt *active;
 
 	active = g_slice_new0 (ActivePrompt);
-	if (!g_hash_table_lookup_extended (self->pv->pending, callback,
-	                                   (gpointer *)&active->callback_path,
-	                                   (gpointer *)&active->callback_name))
-		g_return_val_if_reached (NULL);
-	if (!g_hash_table_steal (self->pv->pending, callback))
+	if (!g_hash_table_lookup_extended (self->pv->callbacks, lookup,
+	                                   (gpointer *)&active->callback, NULL))
 		g_return_val_if_reached (NULL);
 
 	active->refs = 1;
@@ -185,8 +223,14 @@ active_prompt_create (GcrSystemPrompter *self,
 	active->changed = g_hash_table_new (g_direct_hash, g_direct_equal);
 
 	/* Insert us into the active hash table */
-	g_hash_table_replace (self->pv->active, active->callback_path, active);
+	g_hash_table_replace (self->pv->active, active->callback, active);
 	return active;
+}
+
+static void
+unwatch_name (gpointer data)
+{
+	g_bus_unwatch_name (GPOINTER_TO_UINT (data));
 }
 
 static void
@@ -194,8 +238,8 @@ gcr_system_prompter_init (GcrSystemPrompter *self)
 {
 	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_SYSTEM_PROMPTER,
 	                                        GcrSystemPrompterPrivate);
-	self->pv->pending = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-	self->pv->active = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, active_prompt_unref);
+	self->pv->callbacks = g_hash_table_new_full (callback_hash, callback_equal, callback_free, unwatch_name);
+	self->pv->active = g_hash_table_new_full (callback_hash, callback_equal, NULL, active_prompt_unref);
 }
 
 static void
@@ -250,8 +294,8 @@ gcr_system_prompter_dispose (GObject *obj)
 	if (self->pv->prompter_registered)
 		gcr_system_prompter_unregister (self, FALSE);
 
+	g_hash_table_remove_all (self->pv->callbacks);
 	g_hash_table_remove_all (self->pv->active);
-	g_hash_table_remove_all (self->pv->pending);
 
 	G_OBJECT_CLASS (gcr_system_prompter_parent_class)->dispose (obj);
 }
@@ -266,8 +310,8 @@ gcr_system_prompter_finalize (GObject *obj)
 	g_assert (self->pv->connection == NULL);
 	g_assert (self->pv->prompter_registered == 0);
 
+	g_hash_table_destroy (self->pv->callbacks);
 	g_hash_table_destroy (self->pv->active);
-	g_hash_table_destroy (self->pv->pending);
 
 	G_OBJECT_CLASS (gcr_system_prompter_parent_class)->finalize (obj);
 }
@@ -363,20 +407,36 @@ prompt_build_properties (GcrPrompt *prompt,
 }
 
 static void
-prompt_stop_prompting (ActivePrompt *active,
+prompt_stop_prompting (GcrSystemPrompter *self,
+                       Callback *callback,
                        gboolean send_done_message,
                        gboolean wait_for_reply)
 {
-	GcrSystemPrompter *self = g_object_ref (active->prompter);
+	ActivePrompt *active;
 	GVariant *retval;
 
-	if (!active->ready)
-		g_cancellable_cancel (active->cancellable);
+	/* Get a pointer to our actual callback */
+	if (!g_hash_table_lookup_extended (self->pv->callbacks, callback,
+	                                   (gpointer *)&callback, NULL))
+		return;
 
+	/* Removed from the waiting queue */
+	g_queue_remove (&self->pv->waiting, callback);
+
+	/* Close any active prompt */
+	active = g_hash_table_lookup (self->pv->active, callback);
+	if (active != NULL) {
+		if (!active->ready)
+			g_cancellable_cancel (active->cancellable);
+		g_object_run_dispose (G_OBJECT (active->prompt));
+		g_hash_table_remove (self->pv->active, callback);
+	}
+
+	/* Notify the caller */
 	if (send_done_message && wait_for_reply) {
 		retval = g_dbus_connection_call_sync (self->pv->connection,
-		                                      active->callback_name,
-		                                      active->callback_path,
+		                                      callback->name,
+		                                      callback->path,
 		                                      GCR_DBUS_CALLBACK_INTERFACE,
 		                                      GCR_DBUS_CALLBACK_METHOD_DONE,
 		                                      g_variant_new ("()"),
@@ -387,8 +447,8 @@ prompt_stop_prompting (ActivePrompt *active,
 			g_variant_unref (retval);
 	} else if (send_done_message) {
 		g_dbus_connection_call (self->pv->connection,
-		                        active->callback_name,
-		                        active->callback_path,
+		                        callback->name,
+		                        callback->path,
 		                        GCR_DBUS_CALLBACK_INTERFACE,
 		                        GCR_DBUS_CALLBACK_METHOD_DONE,
 		                        g_variant_new ("()"),
@@ -397,11 +457,8 @@ prompt_stop_prompting (ActivePrompt *active,
 		                        -1, NULL, NULL, NULL);
 	}
 
-	g_object_run_dispose (G_OBJECT (active->prompt));
-	if (!g_hash_table_remove (self->pv->active, active->callback_path))
-		g_assert_not_reached ();
-
-	g_object_unref (self);
+	/* And all traces gone, including watch */
+	g_hash_table_remove (self->pv->callbacks, callback);
 }
 
 static void
@@ -414,21 +471,29 @@ on_prompt_ready_complete (GObject *source,
 	GError *error = NULL;
 	GVariant *retval;
 
+	g_assert (active->ready == FALSE);
+
 	active->ready = TRUE;
 	retval = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source), result, &error);
 
+	/* Was cancelled, prompter probably unregistered */
+	if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED) &&
+	    g_cancellable_is_cancelled (active->cancellable)) {
+		g_error_free (error);
+
 	/* The ready call failed,  */
-	if (error != NULL) {
+	} else if (error != NULL) {
 		if (g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_UNKNOWN_METHOD))
 			_gcr_debug ("prompt disappeared or does not exist: %s: %s",
-			            active->callback_name, active->callback_path);
+			            active->callback->name, active->callback->path);
 		else
 			g_message ("received an error from the prompt callback: %s", error->message);
 		g_error_free (error);
-		prompt_stop_prompting (active, FALSE, FALSE);
+		prompt_stop_prompting (self, active->callback, FALSE, FALSE);
+		g_hash_table_remove (self->pv->callbacks, active->callback);
 
 		/* Another new prompt may be ready to go active? */
-		prompt_possibly_ready (self, NULL);
+		prompt_next_ready (self);
 	}
 
 	if (retval != NULL)
@@ -448,6 +513,8 @@ prompt_send_ready (ActivePrompt *active,
 	GcrSecretExchange *exchange;
 	gchar *sent;
 
+	g_assert (active->ready == FALSE);
+
 	exchange = active_prompt_get_secret_exchange (active);
 	if (!active->received) {
 		g_return_if_fail (secret == NULL);
@@ -460,8 +527,8 @@ prompt_send_ready (ActivePrompt *active,
 	builder = prompt_build_properties (active->prompt, active->changed);
 
 	g_dbus_connection_call (self->pv->connection,
-	                        active->callback_name,
-	                        active->callback_path,
+	                        active->callback->name,
+	                        active->callback->path,
 	                        GCR_DBUS_CALLBACK_INTERFACE,
 	                        GCR_DBUS_CALLBACK_METHOD_READY,
 	                        g_variant_new ("(sa{sv}s)", response, builder, sent),
@@ -476,30 +543,23 @@ prompt_send_ready (ActivePrompt *active,
 }
 
 static void
-prompt_possibly_ready (GcrSystemPrompter *self,
-                       const gchar *callback)
+prompt_next_ready (GcrSystemPrompter *self)
 {
 	ActivePrompt *active;
-	GHashTableIter iter;
+	Callback *callback;
 
-	if (callback == NULL) {
-		g_hash_table_iter_init (&iter, self->pv->pending);
-		if (!g_hash_table_iter_next (&iter, (gpointer *)&callback, NULL))
-			return;
-		g_assert (callback != NULL);
-	}
+	if (self->pv->mode == GCR_SYSTEM_PROMPTER_SINGLE &&
+	    g_hash_table_size (self->pv->active) > 0)
+		return;
+
+	callback = g_queue_pop_head (&self->pv->waiting);
+	if (callback == NULL)
+		return;
 
 	active = g_hash_table_lookup (self->pv->active, callback);
+	g_assert (active == NULL);
 
-	/* Only one prompt at a time, and only one active */
-	if (active == NULL) {
-		if (self->pv->mode == GCR_SYSTEM_PROMPTER_SINGLE &&
-		    g_hash_table_size (self->pv->active) > 0)
-			return;
-
-		active = active_prompt_create (self, callback);
-	}
-
+	active = active_prompt_create (self, callback);
 	prompt_send_ready (active, GCR_DBUS_PROMPT_REPLY_YES, NULL);
 }
 
@@ -548,28 +608,55 @@ prompter_set_property (GDBusConnection *connection,
 }
 
 static void
+on_caller_vanished (GDBusConnection *connection,
+                    const gchar *name,
+                    gpointer user_data)
+{
+	GcrSystemPrompter *self = GCR_SYSTEM_PROMPTER (user_data);
+	GQueue queue = G_QUEUE_INIT;
+	Callback *callback;
+	GHashTableIter iter;
+
+	g_hash_table_iter_init (&iter, self->pv->callbacks);
+	while (g_hash_table_iter_next (&iter, (gpointer *)&callback, NULL)) {
+		if (g_strcmp0 (name, callback->name) == 0)
+			g_queue_push_tail (&queue, callback);
+	}
+
+	while ((callback = g_queue_pop_head (&queue)) != NULL)
+		prompt_stop_prompting (self, callback, FALSE, FALSE);
+}
+
+static void
 prompter_method_begin_prompting (GcrSystemPrompter *self,
                                  GDBusMethodInvocation *invocation,
                                  GVariant *parameters)
 {
-	gchar *callback;
-	const gchar *sender;
+	Callback lookup;
+	Callback *callback;
+	const gchar *caller;
+	guint watch_id;
 
-	g_variant_get (parameters, "(o)", &callback);
+	lookup.name = caller = g_dbus_method_invocation_get_sender (invocation);
+	g_variant_get (parameters, "(&o)", &lookup.path);
 
-	if (g_hash_table_lookup (self->pv->pending, callback) ||
-	    g_hash_table_lookup (self->pv->active, callback)) {
+	if (g_hash_table_lookup (self->pv->callbacks, &lookup)) {
 		g_dbus_method_invocation_return_error_literal (invocation, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
 		                                               "Already begun prompting for this prompt callback");
 		return;
 	}
 
-	sender = g_dbus_method_invocation_get_sender (invocation);
-	g_hash_table_insert (self->pv->pending, g_strdup (callback), g_strdup (sender));
+	callback = callback_dup (&lookup);
+	watch_id = g_bus_watch_name_on_connection (self->pv->connection, caller,
+	                                           G_BUS_NAME_WATCHER_FLAGS_NONE,
+	                                           NULL, on_caller_vanished,
+	                                           self, NULL);
+	g_hash_table_insert (self->pv->callbacks, callback, GUINT_TO_POINTER (watch_id));
 
 	g_dbus_method_invocation_return_value (invocation, g_variant_new ("()"));
-	prompt_possibly_ready (self, callback);
-	g_free (callback);
+
+	g_queue_push_tail (&self->pv->waiting, callback);
+	prompt_next_ready (self);
 }
 
 static void
@@ -640,22 +727,19 @@ prompter_method_perform_prompt (GcrSystemPrompter *self,
 	GcrSecretExchange *exchange;
 	GError *error = NULL;
 	ActivePrompt *active;
-	const gchar *callback;
+	Callback lookup;
 	const gchar *type;
 	GVariantIter *iter;
 	const gchar *received;
 
+	lookup.name = g_dbus_method_invocation_get_sender (invocation);
 	g_variant_get (parameters, "(&o&sa{sv}&s)",
-	               &callback, &type, &iter, &received);
+	               &lookup.path, &type, &iter, &received);
 
-	active = g_hash_table_lookup (self->pv->active, callback);
+	active = g_hash_table_lookup (self->pv->active, &lookup);
 	if (active == NULL) {
 		error = g_error_new (G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
 		                     "Not begun prompting for this prompt callback");
-
-	} else if (!g_str_equal (active->callback_name, g_dbus_method_invocation_get_sender (invocation))) {
-		error = g_error_new (G_DBUS_ERROR, G_DBUS_ERROR_ACCESS_DENIED,
-		                     "This prompt is not owned by this application");
 
 	} else if (!active->ready) {
 		error = g_error_new (G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
@@ -705,17 +789,14 @@ prompter_method_stop_prompting (GcrSystemPrompter *self,
                                 GDBusMethodInvocation *invocation,
                                 GVariant *parameters)
 {
-	const gchar *callback;
-	ActivePrompt *active;
+	Callback lookup;
 
-	g_variant_get (parameters, "(&o)", &callback);
-
-	active = g_hash_table_lookup (self->pv->active, callback);
-	if (active != NULL)
-		prompt_stop_prompting (active, TRUE, FALSE);
+	lookup.name = g_dbus_method_invocation_get_sender (invocation);
+	g_variant_get (parameters, "(&o)", &lookup.path);
+	prompt_stop_prompting (self, &lookup, TRUE, FALSE);
 
 	g_dbus_method_invocation_return_value (invocation, g_variant_new ("()"));
-	prompt_possibly_ready (self, NULL);
+	prompt_next_ready (self);
 }
 
 static void
@@ -805,11 +886,7 @@ void
 gcr_system_prompter_unregister (GcrSystemPrompter *self,
                                 gboolean wait)
 {
-	ActivePrompt *active;
-	GVariantBuilder builder;
-	const gchar *sender;
-	GVariant *retval;
-	GList *paths;
+	GList *callbacks;
 	GList *l;
 
 	g_return_if_fail (GCR_IS_SYSTEM_PROMPTER (self));
@@ -817,47 +894,14 @@ gcr_system_prompter_unregister (GcrSystemPrompter *self,
 
 	_gcr_debug ("unregistering prompter");
 
-	paths = g_hash_table_get_keys (self->pv->active);
-	for (l = paths; l != NULL; l = g_list_next (l)) {
-		active = g_hash_table_lookup (self->pv->active, l->data);
-		prompt_stop_prompting (active, TRUE, wait);
-	}
+	callbacks = g_hash_table_get_keys (self->pv->callbacks);
+	for (l = callbacks; l != NULL; l = g_list_next (l))
+		prompt_stop_prompting (self, l->data, TRUE, wait);
+	g_list_free (callbacks);
+
 	g_assert (g_hash_table_size (self->pv->active) == 0);
-	g_list_free (paths);
-
-	paths = g_hash_table_get_keys (self->pv->pending);
-	for (l = paths; l != NULL; l = g_list_next (l)) {
-		sender = g_hash_table_lookup (self->pv->pending, l->data);
-		g_variant_builder_init (&builder, G_VARIANT_TYPE ("a{sv}"));
-
-		if (wait) {
-			retval = g_dbus_connection_call_sync (self->pv->connection,
-			                                      sender, l->data,
-			                                      GCR_DBUS_CALLBACK_INTERFACE,
-			                                      GCR_DBUS_CALLBACK_METHOD_DONE,
-			                                      g_variant_new ("()"),
-			                                      G_VARIANT_TYPE ("()"),
-			                                      G_DBUS_CALL_FLAGS_NO_AUTO_START,
-			                                      -1, NULL, NULL);
-			if (retval)
-				g_variant_unref (retval);
-
-		} else {
-			g_dbus_connection_call (self->pv->connection,
-			                        sender, l->data,
-			                        GCR_DBUS_CALLBACK_INTERFACE,
-			                        GCR_DBUS_CALLBACK_METHOD_DONE,
-			                        g_variant_new ("()"),
-			                        G_VARIANT_TYPE ("()"),
-			                        G_DBUS_CALL_FLAGS_NO_AUTO_START,
-			                        -1, NULL, NULL, NULL);
-		}
-
-		if (!g_hash_table_remove (self->pv->pending, l->data))
-			g_assert_not_reached ();
-	}
-	g_assert (g_hash_table_size (self->pv->pending) == 0);
-	g_list_free (paths);
+	g_assert (g_hash_table_size (self->pv->callbacks) == 0);
+	g_assert (g_queue_is_empty (&self->pv->waiting));
 
 	if (!g_dbus_connection_unregister_object (self->pv->connection, self->pv->prompter_registered))
 		g_assert_not_reached ();

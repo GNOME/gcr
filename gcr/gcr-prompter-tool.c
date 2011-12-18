@@ -41,6 +41,9 @@
 #define QUIT_TIMEOUT 10
 
 static GcrSystemPrompter *the_prompter = NULL;
+static gboolean registered_prompter = FALSE;
+static gboolean acquired_system_prompter = FALSE;
+static gboolean acquired_private_prompter = FALSE;
 
 #if 0
 static gboolean
@@ -74,6 +77,9 @@ on_bus_acquired (GDBusConnection *connection,
                  const gchar *name,
                  gpointer user_data)
 {
+	if (!registered_prompter)
+		gcr_system_prompter_register (the_prompter, connection);
+	registered_prompter = TRUE;
 }
 
 static void
@@ -81,7 +87,11 @@ on_name_acquired (GDBusConnection *connection,
                   const gchar *name,
                   gpointer user_data)
 {
-	gcr_system_prompter_register (the_prompter, connection);
+	if (g_strcmp0 (name, GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME) == 0)
+		acquired_system_prompter = TRUE;
+
+	else if (g_strcmp0 (name, GCR_DBUS_PROMPTER_PRIVATE_BUS_NAME) == 0)
+		acquired_private_prompter = TRUE;
 }
 
 static void
@@ -89,14 +99,25 @@ on_name_lost (GDBusConnection *connection,
               const gchar *name,
               gpointer user_data)
 {
-	gcr_system_prompter_unregister (the_prompter, FALSE);
-	gtk_main_quit ();
+	/* Called like so when no connection can be made */
+	if (connection == NULL) {
+		g_warning ("couldn't connect to session bus");
+		gtk_main_quit ();
+
+	} else if (g_strcmp0 (name, GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME) == 0) {
+		acquired_system_prompter = TRUE;
+
+	} else if (g_strcmp0 (name, GCR_DBUS_PROMPTER_PRIVATE_BUS_NAME) == 0) {
+		acquired_private_prompter = TRUE;
+
+	}
 }
 
 int
 main (int argc, char *argv[])
 {
-	guint owner_id;
+	guint system_owner_id;
+	guint private_owner_id;
 
 	g_type_init ();
 	gtk_init (&argc, &argv);
@@ -114,18 +135,33 @@ main (int argc, char *argv[])
 
 	the_prompter = gcr_system_prompter_new (GCR_SYSTEM_PROMPTER_SINGLE,
 	                                        GCR_TYPE_PROMPT_DIALOG);
-	owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-	                           GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME,
-	                           G_BUS_NAME_OWNER_FLAGS_NONE,
-	                           on_bus_acquired,
-	                           on_name_acquired,
-	                           on_name_lost,
-	                           NULL,
-	                           NULL);
+
+	system_owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
+	                                  GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME,
+	                                  G_BUS_NAME_OWNER_FLAGS_NONE,
+	                                  on_bus_acquired,
+	                                  on_name_acquired,
+	                                  on_name_lost,
+	                                  NULL,
+	                                  NULL);
+
+	private_owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
+	                                   GCR_DBUS_PROMPTER_PRIVATE_BUS_NAME,
+	                                   G_BUS_NAME_OWNER_FLAGS_NONE,
+	                                   on_bus_acquired,
+	                                   on_name_acquired,
+	                                   on_name_lost,
+	                                   NULL,
+	                                   NULL);
 
 	gtk_main ();
 
-	g_bus_unown_name (owner_id);
+	if (registered_prompter)
+		gcr_system_prompter_unregister (the_prompter, TRUE);
+
+	g_bus_unown_name (system_owner_id);
+	g_bus_unown_name (private_owner_id);
+
 	g_object_unref (the_prompter);
 
 	return 0;

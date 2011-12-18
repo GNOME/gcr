@@ -81,15 +81,15 @@ void                 gcr_system_prompt_open_for_prompter_async   (const gchar *p
                                                                   gpointer user_data);
 
 
-GcrSystemPrompt *    gcr_system_prompt_open_finish               (GAsyncResult *result,
+GcrPrompt *          gcr_system_prompt_open_finish               (GAsyncResult *result,
                                                                   GError **error);
 
-GcrSystemPrompt *    gcr_system_prompt_open_for_prompter         (const gchar *prompter_name,
+GcrPrompt *          gcr_system_prompt_open_for_prompter         (const gchar *prompter_name,
                                                                   gint timeout_seconds,
                                                                   GCancellable *cancellable,
                                                                   GError **error);
 
-GcrSystemPrompt *    gcr_system_prompt_open                      (gint timeout_seconds,
+GcrPrompt *          gcr_system_prompt_open                      (gint timeout_seconds,
                                                                   GCancellable *cancellable,
                                                                   GError **error);
 

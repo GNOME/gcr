@@ -309,7 +309,9 @@ desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
-service_in_files = org.gnome.keyring.Prompter.service.in
+service_in_files = \
+	org.gnome.keyring.SystemPrompter.service.in \
+	org.gnome.keyring.PrivatePrompter.service.in
 servicedir       = $(DBUS_SERVICES_DIR)
 service_DATA     = $(service_in_files:.service.in=.service)
 

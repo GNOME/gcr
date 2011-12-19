@@ -96,6 +96,7 @@ struct _GcrPromptDialogPrivate {
 	GcrPromptReply last_reply;
 	GtkWidget *spinner;
 	GtkWidget *image;
+	GtkWidget *password_entry;
 	GtkEntryBuffer *password_buffer;
 	GtkEntryBuffer *confirm_buffer;
 	PromptMode mode;
@@ -491,11 +492,12 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	gtk_grid_attach (grid, self->pv->image, -1, 0, 1, 4);
 	gtk_widget_show (self->pv->image);
 
-	/* The prompt spinner */
+	/* The prompt spinner on the continue button */
+	widget = gtk_dialog_get_widget_for_response (GTK_DIALOG (dialog),
+	                                             GTK_RESPONSE_OK);
 	self->pv->spinner = gtk_spinner_new ();
-	gtk_widget_set_valign (self->pv->image, GTK_ALIGN_START);
-	gtk_grid_attach (grid, self->pv->spinner, -2, -1, 1, 4);
-	gtk_widget_show (self->pv->spinner);
+	gtk_button_set_image (GTK_BUTTON (widget), self->pv->spinner);
+	gtk_button_set_image_position (GTK_BUTTON (widget), GTK_POS_LEFT);
 
 	/* The message label */
 	widget = gtk_label_new ("");
@@ -504,6 +506,7 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	pango_attr_list_insert (attrs, pango_attr_scale_new (PANGO_SCALE_LARGE));
 	gtk_label_set_attributes (GTK_LABEL (widget), attrs);
 	pango_attr_list_unref (attrs);
+	gtk_label_set_line_wrap (GTK_LABEL (widget), TRUE);
 	gtk_widget_set_halign (widget, GTK_ALIGN_START);
 	gtk_widget_set_hexpand (widget, TRUE);
 	gtk_widget_set_margin_bottom (widget, 8);
@@ -513,6 +516,7 @@ gcr_prompt_dialog_constructed (GObject *obj)
 
 	/* The description label */
 	widget = gtk_label_new ("");
+	gtk_label_set_line_wrap (GTK_LABEL (widget), TRUE);
 	gtk_widget_set_halign (widget, GTK_ALIGN_START);
 	gtk_widget_set_hexpand (widget, TRUE);
 	gtk_widget_set_margin_bottom (widget, 4);
@@ -535,6 +539,7 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	gtk_widget_set_hexpand (entry, TRUE);
 	g_object_bind_property (self, "password-visible", entry, "visible", G_BINDING_DEFAULT);
 	gtk_grid_attach (grid, entry, 1, 2, 1, 1);
+	self->pv->password_entry = entry;
 
 	/* The confirm label */
 	widget = gtk_label_new (_("Confirm:"));
@@ -656,8 +661,8 @@ gcr_prompt_dialog_response (GtkDialog *dialog,
 	}
 
 	gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
-	gtk_widget_hide (GTK_WIDGET (self->pv->image));
-	gtk_widget_show (GTK_WIDGET (self->pv->spinner));
+	gtk_widget_show (self->pv->spinner);
+	gtk_spinner_start (GTK_SPINNER (self->pv->spinner));
 	self->pv->mode = PROMPT_NONE;
 
 	res = self->pv->async_result;
@@ -791,8 +796,8 @@ gcr_prompt_dialog_password_async (GcrPrompt *prompt,
 	                          GTK_STOCK_DIALOG_AUTHENTICATION,
 	                          GTK_ICON_SIZE_DIALOG);
 	gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
-	gtk_widget_show (self->pv->image);
 	gtk_widget_hide (self->pv->spinner);
+	gtk_spinner_stop (GTK_SPINNER (self->pv->spinner));
 
 	gtk_entry_buffer_set_text (self->pv->password_buffer, "", 0);
 	gtk_entry_buffer_set_text (self->pv->confirm_buffer, "", 0);
@@ -803,6 +808,7 @@ gcr_prompt_dialog_password_async (GcrPrompt *prompt,
 	g_object_notify (obj, "warning-visible");
 	g_object_notify (obj, "choice-visible");
 
+	gtk_widget_grab_focus (self->pv->password_entry);
 	gtk_widget_show (GTK_WIDGET (self));
 }
 
@@ -831,6 +837,7 @@ gcr_prompt_dialog_confirm_async (GcrPrompt *prompt,
                                  gpointer user_data)
 {
 	GcrPromptDialog *self = GCR_PROMPT_DIALOG (prompt);
+	GtkWidget *button;
 	GObject *obj;
 
 	if (self->pv->async_result != NULL) {
@@ -846,8 +853,11 @@ gcr_prompt_dialog_confirm_async (GcrPrompt *prompt,
 	                          GTK_STOCK_DIALOG_QUESTION,
 	                          GTK_ICON_SIZE_DIALOG);
 	gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
-	gtk_widget_show (self->pv->image);
 	gtk_widget_hide (self->pv->spinner);
+	gtk_spinner_stop (GTK_SPINNER (self->pv->spinner));
+
+	button = gtk_dialog_get_widget_for_response (GTK_DIALOG (self), GTK_RESPONSE_OK);
+	gtk_widget_grab_focus (button);
 
 	obj = G_OBJECT (self);
 	g_object_notify (obj, "password-visible");

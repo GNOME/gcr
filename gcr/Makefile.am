@@ -175,7 +175,6 @@ libgcr_@GCR_MAJOR@_la_SOURCES = \
 	gcr-live-search.c gcr-live-search.h \
 	gcr-memory.c \
 	gcr-memory-icon.c gcr-memory-icon.h \
-	gcr-menu-button.c gcr-menu-button.h \
 	gcr-pkcs11-import-interaction.c gcr-pkcs11-import-interaction.h \
 	gcr-pkcs11-import-dialog.c gcr-pkcs11-import-dialog.h \
 	gcr-prompt-dialog.c gcr-prompt-dialog.h \

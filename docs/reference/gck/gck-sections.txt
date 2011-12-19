@@ -89,6 +89,7 @@ gck_builder_find_boolean
 gck_builder_find_date
 gck_builder_find_string
 gck_builder_find_ulong
+gck_attributes_new
 gck_attributes_add
 gck_attributes_add_all
 gck_attributes_add_boolean

@@ -2895,7 +2895,7 @@ gck_attributes_new (gulong reserved)
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_set_all() instead.
+ * Deprecated: 3.4: Use gck_builder_set_all() instead.
  *
  * Returns: returns %NULL
  **/
@@ -2913,7 +2913,7 @@ gck_attributes_new_full (GckAllocator allocator)
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_set_all() instead.
+ * Deprecated: 3.4: Use gck_builder_set_all() instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -2932,7 +2932,7 @@ gck_attributes_add (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_set() instead.
+ * Deprecated: 3.4: Use gck_builder_set() instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -2952,7 +2952,7 @@ gck_attributes_set (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_add_data() instead.
+ * Deprecated: 3.4: Use gck_builder_add_data() instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -2973,7 +2973,7 @@ gck_attributes_add_data (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_add_invalid() instead
+ * Deprecated: 3.4: Use gck_builder_add_invalid() instead
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -2992,7 +2992,7 @@ gck_attributes_add_invalid (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_add_empty() instead.
+ * Deprecated: 3.4: Use gck_builder_add_empty() instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -3012,7 +3012,7 @@ gck_attributes_add_empty (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_add_boolean() instead.
+ * Deprecated: 3.4: Use gck_builder_add_boolean() instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -3033,7 +3033,7 @@ gck_attributes_add_boolean (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_set_boolean() instead.
+ * Deprecated: 3.4: Use gck_builder_set_boolean() instead.
  */
 void
 gck_attributes_set_boolean (GckAttributes *attrs,
@@ -3052,7 +3052,7 @@ gck_attributes_set_boolean (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_add_string() instead.
+ * Deprecated: 3.4: Use gck_builder_add_string() instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -3073,7 +3073,7 @@ gck_attributes_add_string (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_set_string() instead.
+ * Deprecated: 3.4: Use gck_builder_set_string() instead.
  */
 void
 gck_attributes_set_string (GckAttributes *attrs,
@@ -3091,7 +3091,7 @@ gck_attributes_set_string (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_add_date() instead.
+ * Deprecated: 3.4: Use gck_builder_add_date() instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -3112,7 +3112,7 @@ gck_attributes_add_date (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_set_date() instead.
+ * Deprecated: 3.4: Use gck_builder_set_date() instead.
  *
  * Returns: (transfer none): returns %NULL
  */
@@ -3132,7 +3132,7 @@ gck_attributes_set_date (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_add_ulong() instead.
+ * Deprecated: 3.4: Use gck_builder_add_ulong() instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -3153,7 +3153,7 @@ gck_attributes_add_ulong (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_set_ulong() instead.
+ * Deprecated: 3.4: Use gck_builder_set_ulong() instead.
  */
 void
 gck_attributes_set_ulong (GckAttributes *attrs,
@@ -3170,7 +3170,7 @@ gck_attributes_set_ulong (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_add_all() instead.
+ * Deprecated: 3.4: Use gck_builder_add_all() instead.
  */
 void
 gck_attributes_add_all (GckAttributes *attrs,
@@ -3186,7 +3186,7 @@ gck_attributes_add_all (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gtk_builder_set_all() instead.
+ * Deprecated: 3.4: Use gck_builder_set_all() instead.
  */
 void
 gck_attributes_set_all (GckAttributes *attrs,

@@ -226,7 +226,7 @@ libgcr_testable_la_SOURCES =
 libgcr_testable_la_LIBADD = \
 	$(libgcr_base_@GCR_MAJOR@_la_OBJECTS) \
 	$(libgcr_@GCR_MAJOR@_la_OBJECTS) \
-	$(libgcr_@GCR_MAJOR@_la_LIBADD)
+	$(libgcr_base_@GCR_MAJOR@_la_LIBADD)
 libgcr_testable_la_DEPENDENCIES = \
 	$(libgcr_base_@GCR_MAJOR@_la_OBJECTS) \
 	$(libgcr_@GCR_MAJOR@_la_OBJECTS)

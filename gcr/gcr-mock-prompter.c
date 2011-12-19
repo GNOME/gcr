@@ -825,7 +825,7 @@ static gpointer
 mock_prompter_thread (gpointer data)
 {
 	ThreadData *thread_data = data;
-	GDBusConnection *connection;
+	GDBusConnection *connection = NULL;
 	GMainContext *context;
 	GError *error = NULL;
 	GSource *idle;
@@ -879,12 +879,13 @@ mock_prompter_thread (gpointer data)
 	g_object_unref (thread_data->prompter);
 	thread_data->prompter = NULL;
 
-	if (!g_dbus_connection_flush_sync (connection, NULL, &error)) {
-		g_critical ("connection flush failed: %s", error->message);
-		g_error_free (error);
+	if (connection) {
+		if (!g_dbus_connection_flush_sync (connection, NULL, &error)) {
+			g_critical ("connection flush failed: %s", error->message);
+			g_error_free (error);
+		}
+		g_object_unref (connection);
 	}
-
-	g_object_unref (connection);
 
 	while (g_main_context_iteration (context, FALSE));
 

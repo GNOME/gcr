@@ -426,7 +426,7 @@ EXTRA_DIST = \
 	$(desktop_in_in_files) \
 	$(desktop_in_files) \
 	$(desktop_DATA) \
-	$(service_in_files ) \
+	$(service_in_files) \
 	$(mime_DATA)
 
 CLEANFILES = \

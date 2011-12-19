@@ -734,6 +734,10 @@ on_prompt_confirm (GObject *source,
 	case GCR_PROMPT_REPLY_CANCEL:
 		response = GCR_DBUS_PROMPT_REPLY_NO;
 		break;
+	default:
+		response = GCR_DBUS_PROMPT_REPLY_NONE;
+		g_warn_if_reached ();
+		break;
 	}
 
 	prompt_send_ready (active, response, NULL);

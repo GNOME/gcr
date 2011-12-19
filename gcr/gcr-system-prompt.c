@@ -1022,7 +1022,8 @@ handle_last_response (GcrSystemPrompt *self)
 	if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_YES)) {
 		response = GCR_PROMPT_REPLY_OK;
 
-	} else if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NO)) {
+	} else if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NO) ||
+	           g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NONE)) {
 		response = GCR_PROMPT_REPLY_CANCEL;
 
 	} else {

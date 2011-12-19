@@ -579,7 +579,7 @@ prompt_next_ready (GcrSystemPrompter *self)
 	g_assert (active == NULL);
 
 	active = active_prompt_create (self, callback);
-	prompt_send_ready (active, GCR_DBUS_PROMPT_REPLY_YES, NULL);
+	prompt_send_ready (active, GCR_DBUS_PROMPT_REPLY_NONE, NULL);
 }
 
 static void

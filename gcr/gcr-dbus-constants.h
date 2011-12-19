@@ -49,10 +49,10 @@ G_BEGIN_DECLS
 #define GCR_DBUS_CALLBACK_METHOD_READY               "PromptReady"
 #define GCR_DBUS_CALLBACK_METHOD_DONE                "PromptDone"
 
-#define GCR_DBUS_PROMPT_TYPE_NONE                    ""
 #define GCR_DBUS_PROMPT_TYPE_PASSWORD                "password"
 #define GCR_DBUS_PROMPT_TYPE_CONFIRM                 "confirm"
 
+#define GCR_DBUS_PROMPT_REPLY_NONE                   ""
 #define GCR_DBUS_PROMPT_REPLY_YES                    "yes"
 #define GCR_DBUS_PROMPT_REPLY_NO                     "no"
 

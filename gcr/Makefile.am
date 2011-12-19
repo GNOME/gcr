@@ -261,8 +261,7 @@ gcr-oids.c: gcr-oids.list gcr-mkoids
 gcr-oids.h: gcr-oids.c
 
 DBUS_XML_DEFINITIONS = \
-	org.gnome.keyring.Prompter.xml \
-	org.gnome.keyring.Prompt.xml
+	org.gnome.keyring.Prompter.xml
 
 gcr-dbus-generated.c: $(DBUS_XML_DEFINITIONS)
 	$(AM_V_GEN) gdbus-codegen --interface-prefix org.gnome.keyring.internal. \

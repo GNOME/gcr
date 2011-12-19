@@ -1,3 +1,22 @@
+gcr 3.3.3
+ - Add support for parsing PKCS#10 and SPKAC formats in GcrParser
+ - Add support for viewing certificate requests in GcrViewer
+ - Support for dynamically loading private key data from PKCS#11
+ - Add GcrCertificateRequest class for requesting certificates
+ - Add function to retrieve basic constraints from a certificate
+ - Show import errors in an info bar under the viewer
+ - Don't show empty dates in gnupg key renderer
+ - Make secure memory pool shared across modules
+ - Add GckBuilder as a mutable attribute set
+ - Add floating references to GckAttributes
+ - Rename GckObjectAttributes to GckObjectCache
+ - Expose GcrSecureEntryBuffer as a public class
+ - Add system prompt and prompter
+ - Expose uri in GcrImporter
+ - Fix build for glib 2.31 deprecations
+ - Licensing fixes
+ - Build fixes, internal bug fixes, documentation, etc.
+
 gcr 3.3.2.1
  - Fix build issues
 

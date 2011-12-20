@@ -199,8 +199,8 @@ lookup_public_key (GckObject *object,
 	if (id == NULL || gck_attribute_is_invalid (id)) {
 		gck_attributes_unref (attrs);
 		_gcr_debug ("couldn't load private key id");
-		g_set_error (lerror, GCK_ERROR, CKR_ATTRIBUTE_TYPE_INVALID,
-		             gck_message_from_rv (CKR_ATTRIBUTE_TYPE_INVALID));
+		g_set_error_literal (lerror, GCK_ERROR, CKR_ATTRIBUTE_TYPE_INVALID,
+		                     gck_message_from_rv (CKR_ATTRIBUTE_TYPE_INVALID));
 		return NULL;
 	}
 

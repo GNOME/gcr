@@ -2933,8 +2933,6 @@ gck_attributes_add (GckAttributes *attrs,
  * #GckAttributes are now immutable. This method no longer does anything.
  *
  * Deprecated: 3.4: Use gck_builder_set() instead.
- *
- * Returns: (transfer none): returns %NULL
  **/
 void
 gck_attributes_set (GckAttributes *attrs,
@@ -3113,8 +3111,6 @@ gck_attributes_add_date (GckAttributes *attrs,
  * #GckAttributes are now immutable. This method no longer does anything.
  *
  * Deprecated: 3.4: Use gck_builder_set_date() instead.
- *
- * Returns: (transfer none): returns %NULL
  */
 void
 gck_attributes_set_date (GckAttributes *attrs,

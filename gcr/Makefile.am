@@ -347,6 +347,7 @@ gcr_prompter_CFLAGS = \
 
 gcr_prompter_LDADD = \
 	$(builddir)/libgcr-$(GCR_MAJOR).la \
+	$(builddir)/libgcr-base-$(GCR_MAJOR).la \
 	$(GTK_LIBS)
 
 # ------------------------------------------------------------------

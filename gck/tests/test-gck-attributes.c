@@ -1096,7 +1096,7 @@ test_builder_add_from (void)
 	attrs = gck_builder_end (&builder);
 
 	for (i = 0; i < gck_attributes_count (attrs); i++)
-		gck_builder_add_owned (&two, gck_attributes_at (attrs, i));
+		gck_builder_add_attribute (&two, gck_attributes_at (attrs, i));
 
 	gck_attributes_unref (attrs);
 	attrs = gck_builder_end (&two);

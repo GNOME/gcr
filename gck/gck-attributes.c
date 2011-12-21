@@ -832,40 +832,19 @@ gck_builder_set_string (GckBuilder *builder,
  * @builder: the builder
  * @attr: the attribute to add
  *
- * Add a copy of the attribute to the builder. The attribute is added
- * unconditionally whether or not an attribute with the same type already
- * exists on the builder.
- *
- * The memory in the attribute is copied.
- */
-void
-gck_builder_add_attribute (GckBuilder *builder,
-                           const GckAttribute *attr)
-{
-	g_return_if_fail (builder != NULL);
-	g_return_if_fail (attr != NULL);
-
-	gck_builder_add_data (builder, attr->type, attr->value, attr->length);
-}
-
-/**
- * gck_builder_add_owned:
- * @builder: the builder
- * @attr: the attribute to add
- *
  * Add an attribute to the builder. The attribute is added unconditionally whether
  * or not an attribute with the same type already exists on the builder.
  *
- * The @attr attribute must already be owned by a #GckAttributes or #GckBuilder.
- * If you call this function on an arbitrary #GckAttribute that is not owned
- * it will result in undefined behavior.
+ * The @attr attribute must have been created or owned by the Gck library.
+ * If you call this function on an arbitrary #GckAttribute that is allocated on
+ * the stack or elsewhere, then this will result in undefined behavior.
  *
  * As an optimization, the attribute memory value is automatically shared
  * between the attribute and the builder.
  */
 void
-gck_builder_add_owned (GckBuilder *builder,
-                       const GckAttribute *attr)
+gck_builder_add_attribute (GckBuilder *builder,
+                           const GckAttribute *attr)
 {
 	g_return_if_fail (builder != NULL);
 	g_return_if_fail (attr != NULL);
@@ -2932,7 +2911,7 @@ gck_attributes_add (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_add_data() instead.
+ * Deprecated: 3.4: Use gck_builder_set_data() instead.
  **/
 void
 gck_attributes_set (GckAttributes *attrs,

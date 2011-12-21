@@ -74,7 +74,6 @@ gck_builder_add_exceptv
 gck_builder_add_invalid
 gck_builder_add_only
 gck_builder_add_onlyv
-gck_builder_add_owned
 gck_builder_add_string
 gck_builder_add_ulong
 gck_builder_clear

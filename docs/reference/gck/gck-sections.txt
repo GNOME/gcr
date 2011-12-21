@@ -71,7 +71,6 @@ gck_builder_set_empty
 gck_builder_add_invalid
 gck_builder_set_invalid
 gck_builder_add_attribute
-gck_builder_add_owned
 gck_builder_add_all
 gck_builder_set_all
 gck_builder_add_except

@@ -252,9 +252,6 @@ void                 gck_builder_add_string                 (GckBuilder *builder
 void                 gck_builder_add_attribute              (GckBuilder *builder,
                                                              const GckAttribute *attr);
 
-void                 gck_builder_add_owned                  (GckBuilder *builder,
-                                                             const GckAttribute *attr);
-
 void                 gck_builder_add_all                    (GckBuilder *builder,
                                                              GckAttributes *attrs);
 

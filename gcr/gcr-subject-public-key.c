@@ -205,7 +205,7 @@ lookup_public_key (GckObject *object,
 	}
 
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
-	gck_builder_add_owned (&builder, id);
+	gck_builder_add_attribute (&builder, id);
 	gck_attributes_unref (attrs);
 
 	session = gck_object_get_session (object);

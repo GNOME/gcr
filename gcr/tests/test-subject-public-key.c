@@ -557,7 +557,7 @@ perform_load_partial (TestLoading *test,
 	guint i;
 
 	for (i = 0; i < gck_attributes_count (attributes); i += 2)
-		gck_builder_add_owned (&builder, gck_attributes_at (attributes, i));
+		gck_builder_add_attribute (&builder, gck_attributes_at (attributes, i));
 	partial = gck_attributes_ref_sink (gck_builder_end (&builder));
 
 	object = g_object_new (mock_object_get_type (),

@@ -241,7 +241,7 @@ supplement_with_attributes (GckBuilder *builder,
 	for (i = 0; i < gck_attributes_count (supplements); i++) {
 		supplement = gck_attributes_at (supplements, i);
 		if (!gck_attribute_is_invalid (supplement) && supplement->length != 0)
-			gck_builder_add_owned (builder, supplement);
+			gck_builder_add_attribute (builder, supplement);
 	}
 }
 

@@ -2932,7 +2932,7 @@ gck_attributes_add (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_set() instead.
+ * Deprecated: 3.4: Use gck_builder_add_data() instead.
  **/
 void
 gck_attributes_set (GckAttributes *attrs,
@@ -3197,7 +3197,7 @@ gck_attributes_set_all (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable, and can be used in mulitple places.
  *
- * Deprecated: 3.4: Use gtk_attributes_ref() or gck_builder_add_all() instead.
+ * Deprecated: 3.4: Use gck_attributes_ref() or gck_builder_add_all() instead.
  *
  * Returns: (transfer none): a new floating #GckAttributes
  */

@@ -1,3 +1,6 @@
+gcr 3.3.3.1
+ - Fix build issues
+
 gcr 3.3.3
  - Add support for parsing PKCS#10 and SPKAC formats in GcrParser
  - Add support for viewing certificate requests in GcrViewer

@@ -96,7 +96,8 @@ test_request (const gchar *uri)
 
 	data = gcr_certificate_request_encode (req, TRUE, &n_data);
 
-	write (1, data, n_data);
+	if (write (1, data, n_data) < 0)
+		g_error ("failed to write: %s", g_strerror (errno));
 	g_free (data);
 }
 

@@ -332,6 +332,7 @@ gcr_viewer_CFLAGS = \
 
 gcr_viewer_LDADD = \
 	$(builddir)/libgcr-$(GCR_MAJOR).la \
+	$(builddir)/libgcr-base-$(GCR_MAJOR).la \
 	$(top_builddir)/gck/libgck-@GCK_MAJOR@.la \
 	$(GLIB_LIBS) \
 	$(GTK_LIBS)

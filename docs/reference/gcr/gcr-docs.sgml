@@ -48,6 +48,14 @@
 		</chapter>
 	</part>
 
+	<part id="prompts">
+		<title>Prompting</title>
+		<xi:include href="xml/gcr-prompt.xml"/>
+		<xi:include href="xml/gcr-prompt-dialog.xml"/>
+		<xi:include href="xml/gcr-system-prompt.xml"/>
+		<xi:include href="xml/gcr-system-prompter.xml"/>
+	</part>
+
 	<part id="storage">
 		<title>Storage</title>
 		<xi:include href="xml/gcr-trust.xml"/>

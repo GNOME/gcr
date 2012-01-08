@@ -16,6 +16,7 @@ inc_HEADERS = \
 
 INCLUDES = \
 	-I$(top_builddir) \
+	-I$(top_srcdir)/gcr \
 	-I$(top_srcdir) \
 	$(P11_KIT_CFLAGS) \
 	$(GTHREAD_CFLAGS) \
@@ -90,13 +91,11 @@ gck-marshal.c: gck-marshal.list $(GLIB_GENMARSHAL)
 	echo "#include \"gck-marshal.h\"" > $@ && \
 	$(GLIB_GENMARSHAL) $< --body --prefix=_gck_marshal >> $@
 
-gck-enum-types.h: gck.h gck-enum-types.h.template
-	$(AM_V_GEN) $(GLIB_MKENUMS) --template $(srcdir)/gck-enum-types.h.template \
-		$(HEADER_FILES) > $@
+gck-enum-types.h: gck-enum-types.h.template $(HEADER_FILES)
+	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
-gck-enum-types.c: gck.h gck-enum-types.c.template
-	$(AM_V_GEN) $(GLIB_MKENUMS) --template $(srcdir)/gck-enum-types.c.template \
-		$(HEADER_FILES) > $@
+gck-enum-types.c: gck-enum-types.c.template $(HEADER_FILES)
+	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
 # ------------------------------------------------------------------
 # INTROSPECTION

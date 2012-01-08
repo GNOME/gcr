@@ -42,7 +42,7 @@
 #include "gcr-deprecated.h"
 #include "gcr-key-renderer.h"
 #include "gcr-key-widget.h"
-#include "gcr-enum-types.h"
+#include <gcr/gcr-enum-types.h>
 #include "gcr-failure-renderer.h"
 #include "gcr-key-renderer.h"
 #include "gcr-key-widget.h"

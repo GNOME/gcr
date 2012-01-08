@@ -32,7 +32,7 @@
 
 #define __GCK_INSIDE_HEADER__
 
-#include "gck-enum-types.h"
+#include <gck/gck-enum-types.h>
 
 G_BEGIN_DECLS
 

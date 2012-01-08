@@ -238,24 +238,20 @@ gcr-marshal.c: gcr-marshal.list $(GLIB_GENMARSHAL)
 	$(AM_V_GEN) ( echo "#include \"gcr-marshal.h\"" > $@ && \
 		$(GLIB_GENMARSHAL) $< --body --prefix=_gcr_marshal >> $@ )
 
-gcr-enum-types.h: $(HEADER_UI_FILES) gcr-enum-types.h.template
-	$(AM_V_GEN) $(GLIB_MKENUMS) --template $(srcdir)/gcr-enum-types.h.template \
-		$(HEADER_UI_FILES) > $@
+gcr-enum-types.h: gcr-enum-types.h.template $(HEADER_UI_FILES)
+	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
-gcr-enum-types.c: $(HEADER_UI_FILES) gcr-enum-types.c.template
-	$(AM_V_GEN) $(GLIB_MKENUMS) --template $(srcdir)/gcr-enum-types.c.template \
-		$(HEADER_UI_FILES) > $@
+gcr-enum-types.c: gcr-enum-types.c.template $(HEADER_UI_FILES)
+	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
-gcr-enum-types-base.h: $(HEADER_BASE_FILES) gcr-enum-types.h.template
-	$(AM_V_GEN) $(GLIB_MKENUMS) --template $(srcdir)/gcr-enum-types.h.template \
-		$(HEADER_BASE_FILES) > $@
+gcr-enum-types-base.h: gcr-enum-types.h.template $(HEADER_BASE_FILES)
+	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
-gcr-enum-types-base.c: $(HEADER_BASE_FILES) gcr-enum-types.c.template
-	$(AM_V_GEN) $(GLIB_MKENUMS) --template $(srcdir)/gcr-enum-types.c.template \
-		$(HEADER_BASE_FILES) > $@
+gcr-enum-types-base.c: gcr-enum-types.c.template $(HEADER_BASE_FILES)
+	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
 gcr-oids.c: gcr-oids.list gcr-mkoids
-	$(AM_V_GEN) sh gcr-mkoids -p GCR -c gcr-oids.c -h gcr-oids.h gcr-oids.list
+	$(AM_V_GEN) sh $(srcdir)/gcr-mkoids -p GCR -c gcr-oids.c -h gcr-oids.h $(srcdir)/gcr-oids.list
 
 gcr-oids.h: gcr-oids.c
 
@@ -264,8 +260,7 @@ DBUS_XML_DEFINITIONS = \
 
 gcr-dbus-generated.c: $(DBUS_XML_DEFINITIONS)
 	$(AM_V_GEN) gdbus-codegen --interface-prefix org.gnome.keyring.internal. \
-		--generate-c-code gcr-dbus-generated --c-namespace GcrDBus \
-		$(DBUS_XML_DEFINITIONS)
+		--generate-c-code gcr-dbus-generated --c-namespace GcrDBus $^
 	$(AM_V_GEN) sed -i -e 's/gcr_dbus/_gcr_dbus/g' gcr-dbus-generated.[ch]
 
 gcr-dbus-generated.h: gcr-dbus-generated.c

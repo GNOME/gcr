@@ -22,7 +22,7 @@
  */
 
 #ifndef GCR_API_SUBJECT_TO_CHANGE
-#error "This API has not yet reached stability."
+#error <gcr/This API has not yet reached stability.>
 #endif
 
 #ifndef __GCR_BASE_H__
@@ -32,29 +32,29 @@
 
 #define __GCR_INSIDE_HEADER__
 
-#include "gcr-types.h"
+#include <gcr/gcr-types.h>
 
-#include "gcr-certificate.h"
-#include "gcr-certificate-chain.h"
-#include "gcr-certificate-request.h"
-#include "gcr-deprecated-base.h"
+#include <gcr/gcr-certificate.h>
+#include <gcr/gcr-certificate-chain.h>
+#include <gcr/gcr-certificate-request.h>
+#include <gcr/gcr-deprecated-base.h>
 #include <gcr/gcr-enum-types-base.h>
-#include "gcr-filter-collection.h"
-#include "gcr-icons.h"
-#include "gcr-importer.h"
-#include "gcr-library.h"
-#include "gcr-mock-prompter.h"
-#include "gcr-parser.h"
-#include "gcr-pkcs11-certificate.h"
-#include "gcr-prompt.h"
-#include "gcr-secret-exchange.h"
-#include "gcr-simple-certificate.h"
-#include "gcr-simple-collection.h"
-#include "gcr-system-prompt.h"
-#include "gcr-system-prompter.h"
-#include "gcr-trust.h"
-#include "gcr-union-collection.h"
-#include "gcr-unlock-options.h"
+#include <gcr/gcr-filter-collection.h>
+#include <gcr/gcr-icons.h>
+#include <gcr/gcr-importer.h>
+#include <gcr/gcr-library.h>
+#include <gcr/gcr-mock-prompter.h>
+#include <gcr/gcr-parser.h>
+#include <gcr/gcr-pkcs11-certificate.h>
+#include <gcr/gcr-prompt.h>
+#include <gcr/gcr-secret-exchange.h>
+#include <gcr/gcr-simple-certificate.h>
+#include <gcr/gcr-simple-collection.h>
+#include <gcr/gcr-system-prompt.h>
+#include <gcr/gcr-system-prompter.h>
+#include <gcr/gcr-trust.h>
+#include <gcr/gcr-union-collection.h>
+#include <gcr/gcr-unlock-options.h>
 
 #undef __GCR_INSIDE_HEADER__
 

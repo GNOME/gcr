@@ -34,28 +34,28 @@
 
 #define __GCR_INSIDE_HEADER__
 
-#include "gcr-certificate-renderer.h"
-#include "gcr-certificate-widget.h"
-#include "gcr-collection-model.h"
-#include "gcr-column.h"
-#include "gcr-combo-selector.h"
-#include "gcr-deprecated.h"
-#include "gcr-key-renderer.h"
-#include "gcr-key-widget.h"
+#include <gcr/gcr-certificate-renderer.h>
+#include <gcr/gcr-certificate-widget.h>
+#include <gcr/gcr-collection-model.h>
+#include <gcr/gcr-column.h>
+#include <gcr/gcr-combo-selector.h>
+#include <gcr/gcr-deprecated.h>
+#include <gcr/gcr-key-renderer.h>
+#include <gcr/gcr-key-widget.h>
 #include <gcr/gcr-enum-types.h>
-#include "gcr-failure-renderer.h"
-#include "gcr-key-renderer.h"
-#include "gcr-key-widget.h"
-#include "gcr-import-button.h"
-#include "gcr-list-selector.h"
-#include "gcr-prompt-dialog.h"
-#include "gcr-renderer.h"
-#include "gcr-secure-entry-buffer.h"
-#include "gcr-tree-selector.h"
-#include "gcr-union-collection.h"
-#include "gcr-unlock-options-widget.h"
-#include "gcr-viewer.h"
-#include "gcr-viewer-widget.h"
+#include <gcr/gcr-failure-renderer.h>
+#include <gcr/gcr-key-renderer.h>
+#include <gcr/gcr-key-widget.h>
+#include <gcr/gcr-import-button.h>
+#include <gcr/gcr-list-selector.h>
+#include <gcr/gcr-prompt-dialog.h>
+#include <gcr/gcr-renderer.h>
+#include <gcr/gcr-secure-entry-buffer.h>
+#include <gcr/gcr-tree-selector.h>
+#include <gcr/gcr-union-collection.h>
+#include <gcr/gcr-unlock-options-widget.h>
+#include <gcr/gcr-viewer.h>
+#include <gcr/gcr-viewer-widget.h>
 
 #undef __GCR_INSIDE_HEADER__
 

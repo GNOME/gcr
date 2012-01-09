@@ -34,12 +34,11 @@
 static const gchar *file_name = NULL;
 static gchar *prompt_type = NULL;
 static gint prompt_delay = 0;
+static gboolean prompt_window = FALSE;
 
 static void
-on_prompt_clicked (GtkToolButton *button,
-                   gpointer user_data)
+prompt_perform (GtkWidget *parent)
 {
-	GtkWidget *parent = user_data;
 	GKeyFile *file;
 	GError *error = NULL;
 	gchar **groups, **keys;
@@ -49,9 +48,9 @@ on_prompt_clicked (GtkToolButton *button,
 	const gchar *key;
 	const gchar *password;
 	GcrPromptReply reply;
+	gchar *caller_id = NULL;
 	gchar *type;
 	gchar *choice;
-	gchar *caller_id;
 	guint i, j;
 
 
@@ -71,9 +70,11 @@ on_prompt_clicked (GtkToolButton *button,
 	if (error != NULL)
 		errx (1, "couldn't create prompt: %s", error->message);
 
-	caller_id = g_strdup_printf ("%lu", (gulong)GDK_WINDOW_XID (gtk_widget_get_window (parent)));
-	gcr_prompt_set_caller_window (GCR_PROMPT (prompt), caller_id);
-	g_free (caller_id);
+	if (parent) {
+		caller_id = g_strdup_printf ("%lu", (gulong)GDK_WINDOW_XID (gtk_widget_get_window (parent)));
+		gcr_prompt_set_caller_window (GCR_PROMPT (prompt), caller_id);
+		g_free (caller_id);
+	}
 
 	groups = g_key_file_get_groups (file, NULL);
 	for (i = 0; groups[i] != NULL; i++) {
@@ -138,8 +139,15 @@ on_prompt_clicked (GtkToolButton *button,
 	g_object_unref (prompt);
 	g_strfreev (groups);
 	g_key_file_free (file);
+
 }
 
+static void
+on_prompt_clicked (GtkToolButton *button,
+                   gpointer user_data)
+{
+	prompt_perform (user_data);
+}
 
 static gboolean
 on_window_delete (GtkWidget *widget,
@@ -155,6 +163,8 @@ static GOptionEntry option_entries[] = {
 	  "'system', 'private' or 'dialog'", "type" },
 	{ "delay", 'd', 0, G_OPTION_ARG_INT, &prompt_delay,
 	  "delay in seconds between prompts", "delay" },
+	{ "window", 'w', 0, G_OPTION_ARG_NONE, &prompt_window,
+	  "prompt with a parent window", NULL },
 	{ NULL }
 };
 
@@ -178,24 +188,29 @@ main (int argc, char *argv[])
 
 	g_option_context_free (context);
 
-	if (argc < 1)
+	if (argc < 2)
 		errx (2, "specify file");
 	file_name = argv[1];
 
-	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	g_signal_connect (window, "delete-event", G_CALLBACK (on_window_delete), NULL);
+	if (prompt_window) {
+		window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+		g_signal_connect (window, "delete-event", G_CALLBACK (on_window_delete), NULL);
 
-	toolbar = GTK_TOOLBAR (gtk_toolbar_new ());
-	gtk_toolbar_set_style (toolbar, GTK_TOOLBAR_TEXT);
-	item = gtk_tool_button_new (NULL, "Prompt");
-	g_signal_connect (item, "clicked", G_CALLBACK (on_prompt_clicked), window);
-	gtk_toolbar_insert (toolbar, item, 0);
-	gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (toolbar));
+		toolbar = GTK_TOOLBAR (gtk_toolbar_new ());
+		gtk_toolbar_set_style (toolbar, GTK_TOOLBAR_TEXT);
+		item = gtk_tool_button_new (NULL, "Prompt");
+		g_signal_connect (item, "clicked", G_CALLBACK (on_prompt_clicked), window);
+		gtk_toolbar_insert (toolbar, item, 0);
+		gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (toolbar));
 
-	gtk_window_set_default_size (GTK_WINDOW (window), 400, 80);
-	gtk_widget_show_all (window);
+		gtk_window_set_default_size (GTK_WINDOW (window), 400, 80);
+		gtk_widget_show_all (window);
 
-	gtk_main ();
+		gtk_main ();
+
+	} else {
+		prompt_perform (NULL);
+	}
 
 	g_free (prompt_type);
 	return 0;

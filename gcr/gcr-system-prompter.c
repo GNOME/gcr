@@ -30,6 +30,7 @@
 #include "gcr-enum-types-base.h"
 #include "gcr-internal.h"
 #include "gcr-library.h"
+#include "gcr-marshal.h"
 #include "gcr-prompt.h"
 #include "gcr-secret-exchange.h"
 #include "gcr-system-prompter.h"
@@ -61,6 +62,8 @@
 
 /**
  * GcrSystemPrompterClass:
+ * @parent_class: parent class
+ * @new_prompt: default handler for the GcrSystemPrompter::new-prompt signal
  *
  * The class for #GcrSystemPrompter.
  */
@@ -81,8 +84,9 @@ enum {
 	PROP_PROMPTING
 };
 
-struct _GcrSystemPrompterClass {
-	GObjectClass parent_class;
+enum {
+	NEW_PROMPT,
+	LAST_SIGNAL,
 };
 
 struct _GcrSystemPrompterPrivate {
@@ -96,6 +100,8 @@ struct _GcrSystemPrompterPrivate {
 	GHashTable *active;          /* Callback -> active (ActivePrompt) */
 	GQueue waiting;
 };
+
+static guint signals[LAST_SIGNAL] = { 0, };
 
 G_DEFINE_TYPE (GcrSystemPrompter, gcr_system_prompter, G_TYPE_OBJECT);
 
@@ -222,7 +228,9 @@ active_prompt_create (GcrSystemPrompter *self,
 	active->refs = 1;
 	active->prompter = g_object_ref (self);
 	active->cancellable = g_cancellable_new ();
-	active->prompt = g_object_new (self->pv->prompt_type, NULL);
+	g_signal_emit (self, signals[NEW_PROMPT], 0, &active->prompt);
+	g_return_val_if_fail (active->prompt != NULL, NULL);
+
 	active->notify_sig = g_signal_connect (active->prompt, "notify", G_CALLBACK (on_prompt_notify), active);
 	active->changed = g_hash_table_new (g_direct_hash, g_direct_equal);
 
@@ -324,6 +332,27 @@ gcr_system_prompter_finalize (GObject *obj)
 	G_OBJECT_CLASS (gcr_system_prompter_parent_class)->finalize (obj);
 }
 
+static GcrPrompt *
+gcr_system_prompter_new_prompt (GcrSystemPrompter *self)
+{
+	g_return_val_if_fail (self->pv->prompt_type != 0, NULL);
+	return g_object_new (self->pv->prompt_type, NULL);
+}
+
+static gboolean
+gcr_system_prompter_new_prompt_acculmulator (GSignalInvocationHint *ihint,
+                                             GValue *return_accu,
+                                             const GValue *handler_return,
+                                             gpointer user_data)
+{
+	if (g_value_get_object (handler_return) != NULL) {
+		g_value_copy (handler_return, return_accu);
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
 static void
 gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 {
@@ -333,6 +362,8 @@ gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 	gobject_class->set_property = gcr_system_prompter_set_property;
 	gobject_class->dispose = gcr_system_prompter_dispose;
 	gobject_class->finalize = gcr_system_prompter_finalize;
+
+	klass->new_prompt = gcr_system_prompter_new_prompt;
 
 	g_type_class_add_private (gobject_class, sizeof (GcrSystemPrompterPrivate));
 
@@ -369,6 +400,21 @@ gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 	           g_param_spec_boolean ("prompting", "Prompting", "Whether prompting or not",
 	                                 FALSE, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
+	/**
+	 * GcrSystemPrompter::new-prompt:
+	 *
+	 * Signal emitted to create a new prompt when needed.
+	 *
+	 * The default implementation of this signal creates a prompt of the type
+	 * gcr_system_prompter_get_prompt_type().
+	 *
+	 * Returns: (transfer full): the new prompt
+	 */
+	signals[NEW_PROMPT] = g_signal_new ("new-prompt", GCR_TYPE_SYSTEM_PROMPTER, G_SIGNAL_RUN_LAST,
+	                                    G_STRUCT_OFFSET (GcrSystemPrompterClass, new_prompt),
+	                                    gcr_system_prompter_new_prompt_acculmulator, NULL,
+	                                    _gcr_marshal_OBJECT__VOID,
+	                                    GCR_TYPE_PROMPT, 0, G_TYPE_NONE);
 }
 
 static GVariantBuilder *
@@ -579,6 +625,8 @@ prompt_next_ready (GcrSystemPrompter *self)
 	g_assert (active == NULL);
 
 	active = active_prompt_create (self, callback);
+	g_return_if_fail (active != NULL);
+
 	prompt_send_ready (active, GCR_DBUS_PROMPT_REPLY_NONE, NULL);
 }
 

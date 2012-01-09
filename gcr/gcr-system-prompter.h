@@ -28,6 +28,7 @@
 #ifndef __GCR_SYSTEM_PROMPTER_H__
 #define __GCR_SYSTEM_PROMPTER_H__
 
+#include "gcr-prompt.h"
 #include "gcr-secret-exchange.h"
 #include "gcr-types.h"
 
@@ -56,6 +57,17 @@ struct _GcrSystemPrompter {
 
 	/*< private >*/
 	GcrSystemPrompterPrivate *pv;
+};
+
+struct _GcrSystemPrompterClass {
+	GObjectClass parent_class;
+
+	/* signals */
+
+	GcrPrompt *    (* new_prompt)     (GcrSystemPrompter *self);
+
+	/*< private >*/
+	gpointer padding[7];
 };
 
 GType                  gcr_system_prompter_get_type                (void) G_GNUC_CONST;

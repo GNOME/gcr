@@ -991,7 +991,11 @@ gcr_system_prompter_unregister (GcrSystemPrompter *self,
  * Create a new system prompter service. This prompter won't do anything unless
  * you connect to its signals and show appropriate prompts.
  *
- * The @prompt_type #GType must implement the #GcrPrompt interface.
+ * If @prompt_type is zero, then the new-prompt signal must be handled and
+ * return a valid prompt object implementing the #GcrPrompt interface.
+ *
+ * If @prompt_type is non-zero then the #GType must implement the #GcrPrompt
+ * interface.
  *
  * Returns: (transfer full): a new prompter service
  */
@@ -999,10 +1003,17 @@ GcrSystemPrompter *
 gcr_system_prompter_new (GcrSystemPrompterMode mode,
                          GType prompt_type)
 {
-	return g_object_new (GCR_TYPE_SYSTEM_PROMPTER,
-	                     "mode", mode,
-	                     "prompt-type", prompt_type,
-	                     NULL);
+	if (prompt_type == 0) {
+		return g_object_new (GCR_TYPE_SYSTEM_PROMPTER,
+		                     "mode", mode,
+		                     NULL);
+
+	} else {
+		return g_object_new (GCR_TYPE_SYSTEM_PROMPTER,
+		                     "mode", mode,
+		                     "prompt-type", prompt_type,
+		                     NULL);
+	}
 }
 
 /**

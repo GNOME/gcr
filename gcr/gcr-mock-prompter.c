@@ -676,7 +676,7 @@ gcr_mock_prompter_expect_confirm_ok (const gchar *first_property_name,
 	response->password = NULL;
 	response->proceed = TRUE;
 
-	klass = g_type_class_ref (gcr_system_prompter_get_prompt_type (running->prompter));
+	klass = g_type_class_ref (GCR_TYPE_MOCK_PROMPT);
 
 	va_start (var_args, first_property_name);
 	response->properties = build_properties (G_OBJECT_CLASS (klass), first_property_name, var_args);
@@ -750,7 +750,7 @@ gcr_mock_prompter_expect_password_ok (const gchar *password,
 	response->password = g_strdup (password);
 	response->proceed = TRUE;
 
-	klass = g_type_class_ref (gcr_system_prompter_get_prompt_type (running->prompter));
+	klass = g_type_class_ref (GCR_TYPE_MOCK_PROMPT);
 
 	va_start (var_args, first_property_name);
 	response->properties = build_properties (G_OBJECT_CLASS (klass), first_property_name, var_args);
@@ -821,6 +821,35 @@ on_idle_signal_cond (gpointer user_data)
 	return FALSE; /* Don't run again */
 }
 
+/*
+ * These next few functions test the new-prompt signals of
+ * GcrSystemPrompter. They should probably be in tests, but
+ * don't fit there nicely.
+ */
+static GcrPrompt *
+on_new_prompt_skipped (GcrSystemPrompter *prompter,
+                       gpointer user_data)
+{
+	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (prompter), NULL);
+	return NULL;
+}
+
+static GcrPrompt *
+on_new_prompt_creates (GcrSystemPrompter *prompter,
+                       gpointer user_data)
+{
+	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (prompter), NULL);
+	return g_object_new (GCR_TYPE_MOCK_PROMPT, NULL);
+}
+
+static GcrPrompt *
+on_new_prompt_not_called (GcrSystemPrompter *prompter,
+                          gpointer user_data)
+{
+	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPTER (prompter), NULL);
+	g_return_val_if_reached (NULL);
+}
+
 static gpointer
 mock_prompter_thread (gpointer data)
 {
@@ -835,8 +864,23 @@ mock_prompter_thread (gpointer data)
 	context = g_main_context_new ();
 	g_main_context_push_thread_default (context);
 
-	thread_data->prompter = gcr_system_prompter_new (GCR_SYSTEM_PROMPTER_SINGLE,
-	                                                 GCR_TYPE_MOCK_PROMPT);
+	/*
+	 * Random choice between signals, and prompt-gtype style of creating
+	 * GcrPrompt objects.
+	 */
+
+	if (g_random_boolean ()) {
+		/* Allows GcrSystemPrompter to create the prompts directly */
+		thread_data->prompter = gcr_system_prompter_new (GCR_SYSTEM_PROMPTER_SINGLE,
+		                                                 GCR_TYPE_MOCK_PROMPT);
+
+	} else {
+		/* Create the prompt objects in signal handler */
+		thread_data->prompter = gcr_system_prompter_new (GCR_SYSTEM_PROMPTER_SINGLE, 0);
+		g_signal_connect (thread_data->prompter, "new-prompt", G_CALLBACK (on_new_prompt_skipped), NULL);
+		g_signal_connect (thread_data->prompter, "new-prompt", G_CALLBACK (on_new_prompt_creates), NULL);
+		g_signal_connect (thread_data->prompter, "new-prompt", G_CALLBACK (on_new_prompt_not_called), NULL);
+	}
 
 	address = g_dbus_address_get_for_bus_sync (G_BUS_TYPE_SESSION, NULL, &error);
 	if (error == NULL) {

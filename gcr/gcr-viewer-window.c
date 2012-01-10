@@ -129,6 +129,8 @@ gcr_viewer_window_constructed (GObject *obj)
 	gtk_container_add (GTK_CONTAINER (align), bbox);
 
 	self->pv->viewer = gcr_viewer_widget_new ();
+	g_object_bind_property (self->pv->viewer, "display-name",
+	                        self, "title", G_BINDING_SYNC_CREATE);
 	g_signal_connect_object (self->pv->viewer, "added",
 	                         G_CALLBACK (on_viewer_renderer_added),
 	                         self, 0);

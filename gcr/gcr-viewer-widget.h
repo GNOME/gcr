@@ -53,4 +53,9 @@ void               gcr_viewer_widget_show_error       (GcrViewerWidget *self,
 
 void               gcr_viewer_widget_clear_error      (GcrViewerWidget *self);
 
+const gchar *      gcr_viewer_widget_get_display_name (GcrViewerWidget *self);
+
+void               gcr_viewer_widget_set_display_name (GcrViewerWidget *self,
+                                                       const gchar *display_name);
+
 #endif /* GCR_VIEWER_WIDGET_H */

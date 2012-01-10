@@ -39,5 +39,5 @@ GtkBoxAccessible AtkComponent
 GtkAction GtkBuildable
 GckSession GInitable GAsyncInitable
 GdkPixbuf GIcon
-GApplication GActionGroup
-GtkApplication GActionGroup
+GApplication GActionGroup GActionMap
+GtkApplication GActionGroup GActionMap

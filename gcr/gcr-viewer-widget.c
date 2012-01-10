@@ -50,7 +50,8 @@
 
 enum {
 	PROP_0,
-	PROP_PARSER
+	PROP_PARSER,
+	PROP_DISPLAY_NAME
 };
 
 /**
@@ -101,6 +102,7 @@ struct _GcrViewerWidgetPrivate {
 	GList *unlocks;
 	gboolean loading;
 	gchar *display_name;
+	gboolean display_name_explicit;
 };
 
 enum {
@@ -274,6 +276,27 @@ gcr_viewer_widget_get_property (GObject *obj,
 	case PROP_PARSER:
 		g_value_set_object (value, gcr_viewer_widget_get_parser (self));
 		break;
+	case PROP_DISPLAY_NAME:
+		g_value_set_string (value, gcr_viewer_widget_get_display_name (self));
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
+		break;
+	}
+}
+
+static void
+gcr_viewer_widget_set_property (GObject *obj,
+                                guint prop_id,
+                                const GValue *value,
+                                GParamSpec *pspec)
+{
+	GcrViewerWidget *self = GCR_VIEWER_WIDGET (obj);
+
+	switch (prop_id) {
+	case PROP_DISPLAY_NAME:
+		gcr_viewer_widget_set_display_name (self, g_value_get_string (value));
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
 		break;
@@ -326,6 +349,7 @@ gcr_viewer_widget_class_init (GcrViewerWidgetClass *klass)
 	gobject_class->dispose = gcr_viewer_widget_dispose;
 	gobject_class->finalize = gcr_viewer_widget_finalize;
 	gobject_class->get_property = gcr_viewer_widget_get_property;
+	gobject_class->set_property = gcr_viewer_widget_set_property;
 
 	g_type_class_add_private (klass, sizeof (GcrViewerWidgetPrivate));
 
@@ -337,6 +361,19 @@ gcr_viewer_widget_class_init (GcrViewerWidgetClass *klass)
 	g_object_class_install_property (gobject_class, PROP_PARSER,
 	           g_param_spec_object ("parser", "Parser", "Parser used to parse viewable items",
 	                                GCR_TYPE_PARSER, G_PARAM_READABLE));
+
+	/**
+	 * GcrViewerWidget:display-name:
+	 *
+	 * Display name for data being displayed. This is automatically
+	 * calculated from a loaded file, or can be explicitly set.
+	 *
+	 * Used as a hint when displaying a title for the data, but may be
+	 * overridden by the parsed data.
+	 */
+	g_object_class_install_property (gobject_class, PROP_DISPLAY_NAME,
+	            g_param_spec_string ("display-name", "Display name", "Display name",
+	                                 NULL, G_PARAM_READWRITE));
 
 	/**
 	 * GcrViewerWidget::added:
@@ -386,12 +423,14 @@ update_display_name (GcrViewerWidget *self,
 {
 	gchar *basename;
 
-	basename = g_file_get_basename (file);
+	if (!self->pv->display_name_explicit) {
+		basename = g_file_get_basename (file);
+		g_free (self->pv->display_name);
+		self->pv->display_name = g_filename_display_name (basename);
+		g_free (basename);
 
-	g_free (self->pv->display_name);
-	self->pv->display_name = g_filename_display_name (basename);
-
-	g_free (basename);
+		g_object_notify (G_OBJECT (self), "display-name");
+	}
 }
 
 static void
@@ -573,4 +612,50 @@ gcr_viewer_widget_clear_error (GcrViewerWidget *self)
 {
 	g_return_if_fail (GCR_IS_VIEWER_WIDGET (self));
 	gtk_widget_hide (GTK_WIDGET (self->pv->message_bar));
+}
+
+/**
+ * gcr_viewer_widget_get_display_name:
+ * @self: a viewer widget
+ *
+ * Get the display name for data being displayed. This is automatically
+ * calculated from a loaded file, or can be explicitly set.
+ *
+ * Used as a hint when displaying a title for the data, but may be
+ * overridden by the parsed data.
+ *
+ * Returns: the display name
+ */
+const gchar *
+gcr_viewer_widget_get_display_name (GcrViewerWidget *self)
+{
+	g_return_val_if_fail (GCR_IS_VIEWER_WIDGET (self), NULL);
+
+	if (!self->pv->display_name_explicit && !self->pv->display_name)
+		self->pv->display_name = g_strdup (_("Certificate Viewer"));
+
+	return self->pv->display_name;
+}
+
+/**
+ * gcr_viewer_widget_set_display_name:
+ * @self: a viewer widget
+ * @display_name: the display name
+ *
+ * Set the display name for data being displayed. Once explicitly
+ * set it will no longer be calculated automatically by loading data.
+ *
+ * Used as a hint when displaying a title for the data, but may be
+ * overridden by the parsed data.
+ */
+void
+gcr_viewer_widget_set_display_name (GcrViewerWidget *self,
+                                    const gchar *display_name)
+{
+	g_return_if_fail (GCR_IS_VIEWER_WIDGET (self));
+
+	g_free (self->pv->display_name);
+	self->pv->display_name = g_strdup (display_name);
+	self->pv->display_name_explicit = TRUE;
+	g_object_notify (G_OBJECT (self), "display-name");
 }

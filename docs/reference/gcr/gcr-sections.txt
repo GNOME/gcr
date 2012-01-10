@@ -608,6 +608,8 @@ gcr_viewer_widget_load_file
 gcr_viewer_widget_get_parser
 gcr_viewer_widget_show_error
 gcr_viewer_widget_clear_error
+gcr_viewer_widget_get_display_name
+gcr_viewer_widget_set_display_name
 <SUBSECTION Standard>
 gcr_viewer_widget_get_type
 GCR_TYPE_VIEWER_WIDGET

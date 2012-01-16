@@ -1,3 +1,10 @@
+gcr 3.3.4
+ - Display an appropriate title in gcr-viewer
+ - Include GcrPrompt documentation
+ - Add 'new-prompt' signal to GcrSystemPrompter for use with javascript
+ - Fix build for glib 2.31 deprecations
+ - Build fixes
+
 gcr 3.3.3.1
  - Fix build issues
 

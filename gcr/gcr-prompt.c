@@ -327,6 +327,7 @@ gchar *
 gcr_prompt_get_title (GcrPrompt *prompt)
 {
 	gchar *title = NULL;
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), NULL);
 	g_object_get (prompt, "title", &title, NULL);
 	return title;
 }
@@ -364,6 +365,7 @@ gchar *
 gcr_prompt_get_message (GcrPrompt *prompt)
 {
 	gchar *message = NULL;
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), NULL);
 	g_object_get (prompt, "message", &message, NULL);
 	return message;
 }
@@ -401,6 +403,7 @@ gchar *
 gcr_prompt_get_description (GcrPrompt *prompt)
 {
 	gchar *description = NULL;
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), NULL);
 	g_object_get (prompt, "description", &description, NULL);
 	return description;
 }
@@ -442,6 +445,7 @@ gchar *
 gcr_prompt_get_warning (GcrPrompt *prompt)
 {
 	gchar *warning = NULL;
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), NULL);
 	g_object_get (prompt, "warning", &warning, NULL);
 	return warning;
 }
@@ -481,6 +485,7 @@ gchar *
 gcr_prompt_get_choice_label (GcrPrompt *prompt)
 {
 	gchar *choice_label = NULL;
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), NULL);
 	g_object_get (prompt, "choice-label", &choice_label, NULL);
 	return choice_label;
 }
@@ -523,6 +528,7 @@ gboolean
 gcr_prompt_get_choice_chosen (GcrPrompt *prompt)
 {
 	gboolean choice_chosen;
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), FALSE);
 	g_object_get (prompt, "choice-chosen", &choice_chosen, NULL);
 	return choice_chosen;
 }
@@ -560,6 +566,7 @@ gboolean
 gcr_prompt_get_password_new (GcrPrompt *prompt)
 {
 	gboolean password_new;
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), FALSE);
 	g_object_get (prompt, "password-new", &password_new, NULL);
 	return password_new;
 }
@@ -600,6 +607,7 @@ gint
 gcr_prompt_get_password_strength (GcrPrompt *prompt)
 {
 	gboolean password_strength;
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), 0);
 	g_object_get (prompt, "password-strength", &password_strength, NULL);
 	return password_strength;
 }
@@ -621,6 +629,7 @@ gchar *
 gcr_prompt_get_caller_window (GcrPrompt *prompt)
 {
 	gchar *caller_window = NULL;
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), NULL);
 	g_object_get (prompt, "caller-window", &caller_window, NULL);
 	return caller_window;
 }
@@ -659,6 +668,7 @@ gchar *
 gcr_prompt_get_continue_label (GcrPrompt *prompt)
 {
 	gchar *continue_label = NULL;
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), NULL);
 	g_object_get (prompt, "continue-label", &continue_label, NULL);
 	return continue_label;
 }

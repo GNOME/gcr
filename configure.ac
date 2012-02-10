@@ -201,6 +201,7 @@ fi
 
 if test "$enable_debug" = "yes"; then
 	debug_status="yes (-g, -O0, debug output, testable)"
+	AC_DEFINE_UNQUOTED(GCR_DISABLE_GRABS, 1, [Disable grabs])
 	CFLAGS="$CFLAGS -O0"
 elif test "$enable_debug" = "no"; then
 	debug_status="no (no debug output, not testable, G_DISABLE_ASSERT)"

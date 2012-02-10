@@ -56,7 +56,11 @@
  * The class for #GcrPromptDialog.
  */
 
+#ifdef GCR_DISABLE_GRABS
 #define GRAB_KEYBOARD 0
+#else
+#define GRAB_KEYBOARD 1
+#endif
 
 typedef enum {
 	PROMPT_NONE,

@@ -5,6 +5,8 @@ message = Enter password for keyring 'sean' to unlock
 description = An application wants access to the keyring 'sean', but it is locked
 choice-label = Always unlock this keyring whenever I'm logged in.
 password-new = false
+continue-label = Go
+cancel-label = Stop
 
 [one]
 type = password

@@ -78,6 +78,8 @@ enum {
 	PROP_PASSWORD_NEW,
 	PROP_PASSWORD_STRENGTH,
 	PROP_CALLER_WINDOW,
+	PROP_CONTINUE_LABEL,
+	PROP_CANCEL_LABEL,
 
 	PROP_PASSWORD_VISIBLE,
 	PROP_CONFIRM_VISIBLE,
@@ -95,6 +97,8 @@ struct _GcrPromptDialogPrivate {
 	gboolean password_new;
 	guint password_strength;
 	gchar *caller_window;
+	gchar *continue_label;
+	gchar *cancel_label;
 
 	GSimpleAsyncResult *async_result;
 	GcrPromptReply last_reply;
@@ -226,6 +230,16 @@ gcr_prompt_dialog_set_property (GObject *obj,
 		update_transient_for (self);
 		g_object_notify (obj, "caller-window");
 		break;
+	case PROP_CONTINUE_LABEL:
+		g_free (self->pv->continue_label);
+		self->pv->continue_label = g_value_dup_string (value);
+		g_object_notify (obj, "continue-label");
+		break;
+	case PROP_CANCEL_LABEL:
+		g_free (self->pv->cancel_label);
+		self->pv->cancel_label = g_value_dup_string (value);
+		g_object_notify (obj, "cancel-label");
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
 		break;
@@ -277,6 +291,12 @@ gcr_prompt_dialog_get_property (GObject *obj,
 		break;
 	case PROP_CHOICE_VISIBLE:
 		g_value_set_boolean (value, self->pv->choice_label && self->pv->choice_label[0]);
+		break;
+	case PROP_CONTINUE_LABEL:
+		g_value_set_string (value, self->pv->continue_label);
+		break;
+	case PROP_CANCEL_LABEL:
+		g_value_set_string (value, self->pv->cancel_label);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -466,15 +486,16 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	GtkWidget *widget;
 	GtkWidget *entry;
 	GtkWidget *content;
+	GtkWidget *button;
 	GtkGrid *grid;
 
 	G_OBJECT_CLASS (gcr_prompt_dialog_parent_class)->constructed (obj);
 
 	dialog = GTK_DIALOG (self);
-	gtk_dialog_add_buttons (dialog,
-	                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-	                        _("Continue"), GTK_RESPONSE_OK,
-	                        NULL);
+	button = gtk_dialog_add_button (dialog, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	g_object_bind_property (self, "cancel-label", button, "label", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+	button = gtk_dialog_add_button (dialog, GTK_STOCK_OK, GTK_RESPONSE_OK);
+	g_object_bind_property (self, "continue-label", button, "label", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
 	gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
 	gtk_window_set_keep_above (GTK_WINDOW (dialog), TRUE);
@@ -656,7 +677,7 @@ gcr_prompt_dialog_response (GtkDialog *dialog,
 		default:
 			break;
 		}
-		self->pv->last_reply = GCR_PROMPT_REPLY_OK;
+		self->pv->last_reply = GCR_PROMPT_REPLY_CONTINUE;
 		break;
 
 	default:
@@ -740,6 +761,10 @@ gcr_prompt_dialog_class_init (GcrPromptDialogClass *klass)
 	g_object_class_override_property (gobject_class, PROP_CHOICE_CHOSEN, "choice-chosen");
 
 	g_object_class_override_property (gobject_class, PROP_CALLER_WINDOW, "caller-window");
+
+	g_object_class_override_property (gobject_class, PROP_CONTINUE_LABEL, "continue-label");
+
+	g_object_class_override_property (gobject_class, PROP_CANCEL_LABEL, "cancel-label");
 
 	/**
 	 * GcrPromptDialog:password-visible
@@ -829,7 +854,7 @@ gcr_prompt_dialog_password_finish (GcrPrompt *prompt,
 	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
 		return NULL;
 
-	if (self->pv->last_reply == GCR_PROMPT_REPLY_OK)
+	if (self->pv->last_reply == GCR_PROMPT_REPLY_CONTINUE)
 		return gtk_entry_buffer_get_text (self->pv->password_buffer);
 	return NULL;
 }

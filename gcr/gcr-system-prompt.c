@@ -101,7 +101,9 @@ enum {
 	PROP_PASSWORD_STRENGTH,
 	PROP_CHOICE_LABEL,
 	PROP_CHOICE_CHOSEN,
-	PROP_CALLER_WINDOW
+	PROP_CALLER_WINDOW,
+	PROP_CONTINUE_LABEL,
+	PROP_CANCEL_LABEL
 };
 
 struct _GcrSystemPromptPrivate {
@@ -306,6 +308,12 @@ gcr_system_prompt_set_property (GObject *obj,
 	case PROP_CALLER_WINDOW:
 		prompt_set_string_property (self, "caller-window", g_value_get_string (value));
 		break;
+	case PROP_CONTINUE_LABEL:
+		prompt_set_string_property (self, "continue-label", g_value_get_string (value));
+		break;
+	case PROP_CANCEL_LABEL:
+		prompt_set_string_property (self, "cancel-label", g_value_get_string (value));
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
 		break;
@@ -353,6 +361,12 @@ gcr_system_prompt_get_property (GObject *obj,
 		break;
 	case PROP_CALLER_WINDOW:
 		g_value_set_string (value, prompt_get_string_property (self, "caller-window", TRUE));
+		break;
+	case PROP_CONTINUE_LABEL:
+		g_value_set_string (value, prompt_get_string_property (self, "continue-label", TRUE));
+		break;
+	case PROP_CANCEL_LABEL:
+		g_value_set_string (value, prompt_get_string_property (self, "cancel-label", TRUE));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -460,6 +474,8 @@ gcr_system_prompt_class_init (GcrSystemPromptClass *klass)
 	g_object_class_override_property (gobject_class, PROP_CHOICE_LABEL, "choice-label");
 	g_object_class_override_property (gobject_class, PROP_CHOICE_CHOSEN, "choice-chosen");
 	g_object_class_override_property (gobject_class, PROP_CALLER_WINDOW, "caller-window");
+	g_object_class_override_property (gobject_class, PROP_CONTINUE_LABEL, "continue-label");
+	g_object_class_override_property (gobject_class, PROP_CANCEL_LABEL, "cancel-label");
 }
 
 /**
@@ -1020,7 +1036,7 @@ handle_last_response (GcrSystemPrompt *self)
 	                      GCR_PROMPT_REPLY_CANCEL);
 
 	if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_YES)) {
-		response = GCR_PROMPT_REPLY_OK;
+		response = GCR_PROMPT_REPLY_CONTINUE;
 
 	} else if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NO) ||
 	           g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NONE)) {
@@ -1061,7 +1077,7 @@ gcr_system_prompt_password_finish (GcrPrompt *prompt,
 	if (g_simple_async_result_propagate_error (res, error))
 		return FALSE;
 
-	if (handle_last_response (self) == GCR_PROMPT_REPLY_OK)
+	if (handle_last_response (self) == GCR_PROMPT_REPLY_CONTINUE)
 		return gcr_secret_exchange_get_secret (self->pv->exchange, NULL);
 
 	return NULL;

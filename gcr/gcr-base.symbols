@@ -157,8 +157,10 @@ gcr_prompt_confirm_async
 gcr_prompt_confirm_finish
 gcr_prompt_confirm_run
 gcr_prompt_get_caller_window
+gcr_prompt_get_cancel_label
 gcr_prompt_get_choice_chosen
 gcr_prompt_get_choice_label
+gcr_prompt_get_continue_label
 gcr_prompt_get_description
 gcr_prompt_get_message
 gcr_prompt_get_password_new
@@ -172,8 +174,10 @@ gcr_prompt_password_finish
 gcr_prompt_password_run
 gcr_prompt_reply_get_type
 gcr_prompt_set_caller_window
+gcr_prompt_set_cancel_label
 gcr_prompt_set_choice_chosen
 gcr_prompt_set_choice_label
+gcr_prompt_set_continue_label
 gcr_prompt_set_description
 gcr_prompt_set_message
 gcr_prompt_set_password_new

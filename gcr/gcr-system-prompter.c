@@ -776,7 +776,7 @@ on_prompt_confirm (GObject *source,
 	}
 
 	switch (reply) {
-	case GCR_PROMPT_REPLY_OK:
+	case GCR_PROMPT_REPLY_CONTINUE:
 		response = GCR_DBUS_PROMPT_REPLY_YES;
 		break;
 	case GCR_PROMPT_REPLY_CANCEL:

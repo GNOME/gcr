@@ -76,7 +76,9 @@ enum {
 	PROP_PASSWORD_STRENGTH,
 	PROP_CHOICE_LABEL,
 	PROP_CHOICE_CHOSEN,
-	PROP_CALLER_WINDOW
+	PROP_CALLER_WINDOW,
+	PROP_CONTINUE_LABEL,
+	PROP_CANCEL_LABEL,
 };
 
 struct _GcrMockPrompt {
@@ -195,6 +197,8 @@ _gcr_mock_prompt_init (GcrMockPrompt *self)
 	blank_string_property (self->properties, "warning");
 	blank_string_property (self->properties, "choice-label");
 	blank_string_property (self->properties, "caller-window");
+	blank_string_property (self->properties, "continue-label");
+	blank_string_property (self->properties, "cancel-label");
 
 	blank_boolean_property (self->properties, "choice-chosen");
 	blank_boolean_property (self->properties, "password-new");
@@ -220,6 +224,8 @@ _gcr_mock_prompt_set_property (GObject *obj,
 	case PROP_CHOICE_LABEL:
 	case PROP_CHOICE_CHOSEN:
 	case PROP_CALLER_WINDOW:
+	case PROP_CONTINUE_LABEL:
+	case PROP_CANCEL_LABEL:
 		param = g_new0 (GParameter, 1);
 		param->name = pspec->name;
 		g_value_init (&param->value, pspec->value_type);
@@ -252,6 +258,8 @@ _gcr_mock_prompt_get_property (GObject *obj,
 	case PROP_CHOICE_LABEL:
 	case PROP_CHOICE_CHOSEN:
 	case PROP_CALLER_WINDOW:
+	case PROP_CONTINUE_LABEL:
+	case PROP_CANCEL_LABEL:
 		param = g_hash_table_lookup (self->properties, pspec->name);
 		g_return_if_fail (param != NULL);
 		g_value_copy (&param->value, value);
@@ -388,6 +396,8 @@ _gcr_mock_prompt_class_init (GcrMockPromptClass *klass)
 	g_object_class_override_property (gobject_class, PROP_CHOICE_CHOSEN, "choice-chosen");
 	g_object_class_override_property (gobject_class, PROP_PASSWORD_NEW, "password-new");
 	g_object_class_override_property (gobject_class, PROP_PASSWORD_STRENGTH, "password-strength");
+	g_object_class_override_property (gobject_class, PROP_CONTINUE_LABEL, "continue-label");
+	g_object_class_override_property (gobject_class, PROP_CANCEL_LABEL, "cancel-label");
 }
 
 static gboolean
@@ -453,7 +463,7 @@ gcr_mock_prompt_confirm_finish (GcrPrompt *prompt,
 	                      gcr_mock_prompt_confirm_async), GCR_PROMPT_REPLY_CANCEL);
 
 	return g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (result)) ?
-	               GCR_PROMPT_REPLY_OK : GCR_PROMPT_REPLY_CANCEL;
+	               GCR_PROMPT_REPLY_CONTINUE : GCR_PROMPT_REPLY_CANCEL;
 }
 
 static void

@@ -25,6 +25,8 @@
 
 #include "gcr-prompt.h"
 
+#include <glib/gi18n-lib.h>
+
 /**
  * SECTION:gcr-prompt
  * @title: GcrPrompt
@@ -68,7 +70,7 @@
 
 /**
  * GcrPromptReply:
- * @GCR_PROMPT_REPLY_OK: the user replied with 'ok'
+ * @GCR_PROMPT_REPLY_CONTINUE: the user replied with 'ok'
  * @GCR_PROMPT_REPLY_CANCEL: the prompt was cancelled
  *
  * Various replies returned by gcr_prompt_confirm() and friends.
@@ -205,6 +207,24 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("caller-window", "Caller window", "Window ID of application window requesting prompt",
 		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+
+		/**
+		 * GcrPrompt:continue-label:
+		 *
+		 * The label for the continue button in the prompt.
+		 */
+		g_object_interface_install_property (iface,
+		                g_param_spec_string ("continue-label", "Continue label", "Continue button label",
+		                                     _("Continue"), G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
+
+		/**
+		 * GcrPrompt:cancel-label:
+		 *
+		 * The label for the cancel button in the prompt.
+		 */
+		g_object_interface_install_property (iface,
+		                g_param_spec_string ("cancel-label", "Cancel label", "Cancel button label",
+		                                     _("Cancel"), G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
 		g_once_init_leave (&initialized, 1);
 	}
@@ -580,6 +600,80 @@ gcr_prompt_set_caller_window (GcrPrompt *prompt,
 {
 	g_return_if_fail (GCR_IS_PROMPT (prompt));
 	g_object_set (prompt, "caller-window", window_id, NULL);
+}
+
+/**
+ * gcr_prompt_get_continue_label:
+ * @prompt: the prompt
+ *
+ * Get the label for the continue button.
+ *
+ * This is the button that results in a %GCR_PROMPT_REPLY_CONTINUE reply
+ * from the prompt.
+ *
+ * Returns: (transfer full): a newly allocated string containing the label
+ */
+gchar *
+gcr_prompt_get_continue_label (GcrPrompt *prompt)
+{
+	gchar *continue_label = NULL;
+	g_object_get (prompt, "continue-label", &continue_label, NULL);
+	return continue_label;
+}
+
+/**
+ * gcr_prompt_set_continue_label:
+ * @prompt: the prompt
+ * @continue_label: the label
+ *
+ * Set the label for the continue button.
+ *
+ * This is the button that results in a %GCR_PROMPT_REPLY_CONTINUE reply
+ * from the prompt.
+ */
+void
+gcr_prompt_set_continue_label (GcrPrompt *prompt,
+                               const gchar *continue_label)
+{
+	g_return_if_fail (GCR_IS_PROMPT (prompt));
+	g_object_set (prompt, "continue-label", continue_label, NULL);
+}
+
+/**
+ * gcr_prompt_get_cancel_label:
+ * @prompt: the prompt
+ *
+ * Get the label for the cancel button.
+ *
+ * This is the button that results in a %GCR_PROMPT_REPLY_CANCEL reply
+ * from the prompt.
+ *
+ * Returns: (transfer full): a newly allocated string containing the label
+ */
+gchar *
+gcr_prompt_get_cancel_label (GcrPrompt *prompt)
+{
+	gchar *cancel_label = NULL;
+	g_object_get (prompt, "cancel-label", &cancel_label, NULL);
+	return cancel_label;
+}
+
+/**
+ * gcr_prompt_set_cancel_label:
+ * @prompt: the prompt
+ * @cancel_label: the label
+ *
+ * Set the label for the continue button.
+ *
+ * This is the button that results in a %GCR_PROMPT_REPLY_CANCEL reply
+ * from the prompt.
+ */
+void
+gcr_prompt_set_cancel_label (GcrPrompt *prompt,
+                             const gchar *cancel_label)
+{
+	g_return_if_fail (GCR_IS_PROMPT (prompt));
+	g_object_set (prompt, "cancel-label", cancel_label, NULL);
 }
 
 /**

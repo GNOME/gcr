@@ -25,6 +25,7 @@ gcr/gcr-parser.c
 gcr/gcr-pkcs11-import-dialog.c
 [type: gettext/glade]gcr/gcr-pkcs11-import-dialog.ui
 gcr/gcr-pkcs11-import-interaction.c
+gcr/gcr-prompt.c
 gcr/gcr-prompt-dialog.c
 gcr/gcr-subject-public-key.c
 gcr/gcr-system-prompt.c

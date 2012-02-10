@@ -36,7 +36,7 @@ G_BEGIN_DECLS
 
 typedef enum {
 	GCR_PROMPT_REPLY_CANCEL = 0,
-	GCR_PROMPT_REPLY_OK = 1,
+	GCR_PROMPT_REPLY_CONTINUE = 1,
 } GcrPromptReply;
 
 #define GCR_TYPE_PROMPT                 (gcr_prompt_get_type ())
@@ -112,6 +112,16 @@ gchar *              gcr_prompt_get_caller_window         (GcrPrompt *prompt);
 
 void                 gcr_prompt_set_caller_window         (GcrPrompt *prompt,
                                                            const gchar *window_id);
+
+gchar *              gcr_prompt_get_continue_label        (GcrPrompt *prompt);
+
+void                 gcr_prompt_set_continue_label        (GcrPrompt *prompt,
+                                                           const gchar *continue_label);
+
+gchar *              gcr_prompt_get_cancel_label          (GcrPrompt *prompt);
+
+void                 gcr_prompt_set_cancel_label          (GcrPrompt *prompt,
+                                                           const gchar *cancel_label);
 
 void                 gcr_prompt_password_async            (GcrPrompt *prompt,
                                                            GCancellable *cancellable,

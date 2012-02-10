@@ -335,6 +335,8 @@ test_prompt_properties (Test *test,
 	                                     "choice-chosen", TRUE,
 	                                     "password-new", TRUE,
 	                                     "password-strength", 0,
+	                                     "continue-label", "My Continue",
+	                                     "cancel-label", "My Cancel",
 	                                     NULL);
 
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
@@ -350,6 +352,8 @@ test_prompt_properties (Test *test,
 	              "warning", "Other Warning",
 	              "password-new", FALSE,
 	              "choice-chosen", TRUE,
+	              "continue-label", "Other Continue",
+	              "cancel-label", "Other Cancel",
 	              NULL);
 
 	g_assert_cmpstr (gcr_prompt_get_title (prompt), ==, "Other Title");
@@ -358,6 +362,8 @@ test_prompt_properties (Test *test,
 	g_assert_cmpstr (gcr_prompt_get_message (prompt), ==, "Other Message");
 	g_assert_cmpstr (gcr_prompt_get_caller_window (prompt), ==, "01012");
 	g_assert_cmpstr (gcr_prompt_get_warning (prompt), ==, "Other Warning");
+	g_assert_cmpstr (gcr_prompt_get_continue_label (prompt), ==, "Other Continue");
+	g_assert_cmpstr (gcr_prompt_get_cancel_label (prompt), ==, "Other Cancel");
 	g_assert (gcr_prompt_get_password_new (prompt) == FALSE);
 	g_assert (gcr_prompt_get_choice_chosen (prompt) == TRUE);
 
@@ -367,6 +373,8 @@ test_prompt_properties (Test *test,
 	gcr_prompt_set_message (prompt, "My Message");
 	gcr_prompt_set_caller_window (prompt, "01010");
 	gcr_prompt_set_warning (prompt, "My Warning");
+	gcr_prompt_set_continue_label (prompt, "My Continue");
+	gcr_prompt_set_cancel_label (prompt, "My Cancel");
 	gcr_prompt_set_password_new (prompt, TRUE);
 	gcr_prompt_set_choice_chosen (prompt, TRUE);
 
@@ -398,6 +406,8 @@ test_prompt_properties_unset (Test *test,
 	g_assert_cmpstr (gcr_prompt_get_message (prompt), ==, NULL);
 	g_assert_cmpstr (gcr_prompt_get_caller_window (prompt), ==, NULL);
 	g_assert_cmpstr (gcr_prompt_get_warning (prompt), ==, NULL);
+	g_assert_cmpstr (gcr_prompt_get_continue_label (prompt), ==, "Continue");
+	g_assert_cmpstr (gcr_prompt_get_cancel_label (prompt), ==, "Cancel");
 	g_assert (gcr_prompt_get_password_new (prompt) == FALSE);
 	g_assert (gcr_prompt_get_choice_chosen (prompt) == FALSE);
 	g_assert_cmpint (gcr_prompt_get_password_strength (prompt), ==, 0);

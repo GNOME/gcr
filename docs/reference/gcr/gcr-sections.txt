@@ -663,6 +663,19 @@ GcrSecureEntryBufferPrivate
 </SECTION>
 
 <SECTION>
+<FILE>gcr-secure-memory</FILE>
+gcr_secure_memory_new
+gcr_secure_memory_alloc
+gcr_secure_memory_try_alloc
+gcr_secure_memory_realloc
+gcr_secure_memory_try_realloc
+gcr_secure_memory_strdup
+gcr_secure_memory_strfree
+gcr_secure_memory_free
+gcr_secure_memory_is_secure
+</SECTION>
+
+<SECTION>
 <FILE>gcr-private</FILE>
 <SUBSECTION Private>
 GCR_GNUPG_COLLECTION

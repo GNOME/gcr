@@ -31,6 +31,7 @@ TEST_PROGS = \
 	test-pkcs11-certificate \
 	test-openpgp \
 	test-openssh \
+	test-secure-memory \
 	test-trust \
 	test-parser \
 	test-record \

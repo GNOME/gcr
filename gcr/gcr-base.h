@@ -48,6 +48,7 @@
 #include <gcr/gcr-pkcs11-certificate.h>
 #include <gcr/gcr-prompt.h>
 #include <gcr/gcr-secret-exchange.h>
+#include <gcr/gcr-secure-memory.h>
 #include <gcr/gcr-simple-certificate.h>
 #include <gcr/gcr-simple-collection.h>
 #include <gcr/gcr-system-prompt.h>

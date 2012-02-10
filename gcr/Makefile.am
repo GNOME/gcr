@@ -32,6 +32,7 @@ HEADER_BASE_FILES = \
 	gcr-pkcs11-certificate.h \
 	gcr-prompt.h \
 	gcr-secret-exchange.h \
+	gcr-secure-memory.h \
 	gcr-simple-certificate.h \
 	gcr-system-prompt.h \
 	gcr-system-prompter.h \
@@ -139,6 +140,7 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-prompt.c gcr-prompt.h \
 	gcr-record.c gcr-record.h \
 	gcr-secret-exchange.c gcr-secret-exchange.h \
+	gcr-secure-memory.c gcr-secure-memory.h \
 	gcr-simple-certificate.c gcr-simple-certificate.h \
 	gcr-simple-collection.c gcr-simple-collection.h \
 	gcr-single-collection.c gcr-single-collection.h \

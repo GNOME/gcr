@@ -71,6 +71,8 @@ struct _GcrPromptIface {
 
 GType                gcr_prompt_get_type                  (void);
 
+void                 gcr_prompt_reset                     (GcrPrompt *prompt);
+
 gchar *              gcr_prompt_get_title                 (GcrPrompt *prompt);
 
 void                 gcr_prompt_set_title                 (GcrPrompt *prompt,

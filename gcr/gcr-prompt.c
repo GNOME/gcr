@@ -104,7 +104,7 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("title", "Title", "Prompt title",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrPrompt:message:
@@ -115,7 +115,7 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("message", "Message", "Prompt message",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrPrompt:description:
@@ -127,7 +127,7 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("description", "Description", "Prompt description",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrPrompt:warning:
@@ -139,7 +139,7 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("warning", "Warning", "Prompt warning",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrPrompt:password-new:
@@ -182,7 +182,7 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("choice-label", "Choice label", "Label for prompt choice",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrPrompt:choice-chosen:
@@ -206,7 +206,7 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("caller-window", "Caller window", "Window ID of application window requesting prompt",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrPrompt:continue-label:
@@ -267,6 +267,48 @@ on_run_complete (GObject *source,
 	g_return_if_fail (closure->result == NULL);
 	closure->result = g_object_ref (result);
 	g_main_loop_quit (closure->loop);
+}
+
+void
+gcr_prompt_reset (GcrPrompt *prompt)
+{
+	GParamSpec **params;
+	GcrPromptIface *iface;
+	guint i, n_params;
+
+	g_return_if_fail (GCR_IS_PROMPT (prompt));
+
+	iface = GCR_PROMPT_GET_INTERFACE (prompt);
+	params = g_object_interface_list_properties (iface, &n_params);
+
+	g_object_freeze_notify (G_OBJECT (prompt));
+
+	for (i = 0; i < n_params; i++) {
+		if (!(params[i]->flags & G_PARAM_WRITABLE))
+			continue;
+
+		if (params[i]->value_type == G_TYPE_STRING)
+			g_object_set (prompt, params[i]->name,
+			              ((GParamSpecString *)params[i])->default_value,
+			              NULL);
+
+		else if (params[i]->value_type == G_TYPE_INT)
+			g_object_set (prompt, params[i]->name,
+			              ((GParamSpecInt *)params[i])->default_value,
+			              NULL);
+
+		else if (params[i]->value_type == G_TYPE_BOOLEAN)
+			g_object_set (prompt, params[i]->name,
+			              ((GParamSpecBoolean *)params[i])->default_value,
+			              NULL);
+
+		else
+			g_assert_not_reached ();
+	}
+
+	g_free (params);
+
+	g_object_thaw_notify (G_OBJECT (prompt));
 }
 
 /**

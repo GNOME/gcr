@@ -173,6 +173,7 @@ gcr_prompt_password_async
 gcr_prompt_password_finish
 gcr_prompt_password_run
 gcr_prompt_reply_get_type
+gcr_prompt_reset
 gcr_prompt_set_caller_window
 gcr_prompt_set_cancel_label
 gcr_prompt_set_choice_chosen

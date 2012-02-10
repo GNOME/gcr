@@ -400,10 +400,63 @@ test_prompt_properties_unset (Test *test,
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 
-	g_assert_cmpstr (gcr_prompt_get_title (prompt), ==, NULL);
+	g_assert_cmpstr (gcr_prompt_get_title (prompt), ==, "");
 	g_assert_cmpstr (gcr_prompt_get_choice_label (prompt), ==, NULL);
-	g_assert_cmpstr (gcr_prompt_get_description (prompt), ==, NULL);
-	g_assert_cmpstr (gcr_prompt_get_message (prompt), ==, NULL);
+	g_assert_cmpstr (gcr_prompt_get_description (prompt), ==, "");
+	g_assert_cmpstr (gcr_prompt_get_message (prompt), ==, "");
+	g_assert_cmpstr (gcr_prompt_get_caller_window (prompt), ==, NULL);
+	g_assert_cmpstr (gcr_prompt_get_warning (prompt), ==, NULL);
+	g_assert_cmpstr (gcr_prompt_get_continue_label (prompt), ==, "Continue");
+	g_assert_cmpstr (gcr_prompt_get_cancel_label (prompt), ==, "Cancel");
+	g_assert (gcr_prompt_get_password_new (prompt) == FALSE);
+	g_assert (gcr_prompt_get_choice_chosen (prompt) == FALSE);
+	g_assert_cmpint (gcr_prompt_get_password_strength (prompt), ==, 0);
+
+	g_object_unref (prompt);
+	egg_assert_not_object (prompt);
+}
+
+
+static void
+test_prompt_properties_reset (Test *test,
+                              gconstpointer unused)
+{
+	GcrPrompt *prompt;
+	GError *error = NULL;
+
+	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
+	g_assert_no_error (error);
+
+	g_object_set (prompt,
+	              "title", "Other Title",
+	              "choice-label", "Other Choice",
+	              "description", "Other Description",
+	              "message", "Other Message",
+	              "caller-window", "01012",
+	              "warning", "Other Warning",
+	              "password-new", FALSE,
+	              "choice-chosen", TRUE,
+	              "continue-label", "Other Continue",
+	              "cancel-label", "Other Cancel",
+	              NULL);
+
+	g_assert_cmpstr (gcr_prompt_get_title (prompt), ==, "Other Title");
+	g_assert_cmpstr (gcr_prompt_get_choice_label (prompt), ==, "Other Choice");
+	g_assert_cmpstr (gcr_prompt_get_description (prompt), ==, "Other Description");
+	g_assert_cmpstr (gcr_prompt_get_message (prompt), ==, "Other Message");
+	g_assert_cmpstr (gcr_prompt_get_caller_window (prompt), ==, "01012");
+	g_assert_cmpstr (gcr_prompt_get_warning (prompt), ==, "Other Warning");
+	g_assert_cmpstr (gcr_prompt_get_continue_label (prompt), ==, "Other Continue");
+	g_assert_cmpstr (gcr_prompt_get_cancel_label (prompt), ==, "Other Cancel");
+	g_assert (gcr_prompt_get_password_new (prompt) == FALSE);
+	g_assert (gcr_prompt_get_choice_chosen (prompt) == TRUE);
+
+	gcr_prompt_reset (prompt);
+
+	g_assert_cmpstr (gcr_prompt_get_title (prompt), ==, "");
+	g_assert_cmpstr (gcr_prompt_get_choice_label (prompt), ==, NULL);
+	g_assert_cmpstr (gcr_prompt_get_description (prompt), ==, "");
+	g_assert_cmpstr (gcr_prompt_get_message (prompt), ==, "");
 	g_assert_cmpstr (gcr_prompt_get_caller_window (prompt), ==, NULL);
 	g_assert_cmpstr (gcr_prompt_get_warning (prompt), ==, NULL);
 	g_assert_cmpstr (gcr_prompt_get_continue_label (prompt), ==, "Continue");
@@ -510,6 +563,7 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/system-prompt/confirm-cancel", Test, NULL, setup, test_cancel_confirm, teardown);
 	g_test_add ("/gcr/system-prompt/properties", Test, NULL, setup, test_prompt_properties, teardown);
 	g_test_add ("/gcr/system-prompt/properties-unset", Test, NULL, setup, test_prompt_properties_unset, teardown);
+	g_test_add ("/gcr/system-prompt/properties-reset", Test, NULL, setup, test_prompt_properties_reset, teardown);
 	g_test_add ("/gcr/system-prompt/close", Test, NULL, setup, test_prompt_close, teardown);
 	g_test_add ("/gcr/system-prompt/close-cancels", Test, NULL, setup, test_close_cancels, teardown);
 

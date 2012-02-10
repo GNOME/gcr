@@ -1,3 +1,7 @@
+gcr 3.3.5:
+ - Add way to specify button labels for a GcrPrompt
+ - Reenable grabs for password prompts
+
 gcr 3.3.4
  - Display an appropriate title in gcr-viewer
  - Include GcrPrompt documentation

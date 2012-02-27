@@ -49,6 +49,7 @@ prompt_perform (GtkWidget *parent)
 	const gchar *password;
 	GcrPromptReply reply;
 	gchar *caller_id = NULL;
+	gboolean cont = TRUE;
 	gchar *type;
 	gchar *choice;
 	guint i, j;
@@ -77,7 +78,7 @@ prompt_perform (GtkWidget *parent)
 	}
 
 	groups = g_key_file_get_groups (file, NULL);
-	for (i = 0; groups[i] != NULL; i++) {
+	for (i = 0; cont && groups[i] != NULL; i++) {
 		keys = g_key_file_get_keys (file, groups[i], NULL, NULL);
 		for (j = 0; keys[j] != NULL; j++) {
 			key = keys[j];
@@ -117,11 +118,13 @@ prompt_perform (GtkWidget *parent)
 				errx (1, "couldn't prompt for password: %s", error->message);
 			g_print ("prompt password: %s\n", password);
 			g_print ("password strength: %d\n", gcr_prompt_get_password_strength (prompt));
+			cont = (password != NULL);
 		} else if (g_strcmp0 (type, "confirm") == 0) {
 			reply = gcr_prompt_confirm_run (prompt, NULL, &error);
 			if (error != NULL)
 				errx (1, "couldn't prompt for confirm: %s", error->message);
 			g_print ("prompt confirm: %d\n", reply);
+			cont = (reply != GCR_PROMPT_REPLY_CANCEL);
 		} else {
 			errx (1, "unsupported prompt type: %s", type);
 		}

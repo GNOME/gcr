@@ -1,15 +1,17 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 egg/egg-oid.c
+gck/gck-misc.c
 gck/gck-module.c
 gck/gck-modules.c
+gck/gck-uri.c
 gcr/gcr-callback-output-stream.c
 gcr/gcr-certificate.c
 gcr/gcr-certificate-exporter.c
 gcr/gcr-certificate-extensions.c
+gcr/gcr-certificate-renderer.c
 gcr/gcr-certificate-request.c
 gcr/gcr-certificate-request-renderer.c
-gcr/gcr-certificate-renderer.c
 gcr/gcr-certificate-widget.c
 gcr/gcr-display-view.c
 gcr/gcr-failure-renderer.c
@@ -17,16 +19,17 @@ gcr/gcr-gnupg-importer.c
 gcr/gcr-gnupg-key.c
 gcr/gcr-gnupg-process.c
 gcr/gcr-gnupg-renderer.c
-gcr/gcr-importer.c
 gcr/gcr-import-button.c
-gcr/gcr-library.c
+gcr/gcr-importer.c
 gcr/gcr-key-renderer.c
+gcr/gcr-library.c
 gcr/gcr-parser.c
 gcr/gcr-pkcs11-import-dialog.c
 [type: gettext/glade]gcr/gcr-pkcs11-import-dialog.ui
 gcr/gcr-pkcs11-import-interaction.c
 gcr/gcr-prompt.c
 gcr/gcr-prompt-dialog.c
+gcr/gcr-prompter.desktop.in.in
 gcr/gcr-subject-public-key.c
 gcr/gcr-system-prompt.c
 gcr/gcr-trust.c
@@ -35,5 +38,3 @@ gcr/gcr-unlock-renderer.c
 gcr/gcr-viewer-tool.c
 gcr/gcr-viewer-widget.c
 gcr/gcr-viewer-window.c
-gck/gck-uri.c
-gck/gck-misc.c

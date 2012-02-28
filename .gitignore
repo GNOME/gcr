@@ -89,8 +89,11 @@ stamp-*
 /gcr/gcr-oids.*
 /gcr/gcr-marshal.*
 /gcr/gcr-prompter
+/gcr/gcr-prompter.desktop
+/gcr/gcr-prompter.desktop.in
 /gcr/gcr-viewer
 /gcr/gcr-viewer.desktop
+/gcr/gcr-viewer.desktop.in
 
 /po/Makefile.in.in
 /po/*.sed

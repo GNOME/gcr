@@ -299,7 +299,7 @@ update_mime_database:
 endif
 
 desktopdir = $(datadir)/applications
-desktop_in_in_files = gcr-viewer.desktop.in.in
+desktop_in_in_files = gcr-viewer.desktop.in.in gcr-prompter.desktop.in.in
 desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@

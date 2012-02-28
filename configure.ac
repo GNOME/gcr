@@ -383,6 +383,7 @@ gck/Makefile
 gck/tests/Makefile
 gcr/gcr.pc
 gcr/gcr-base.pc
+gcr/gcr-prompter.desktop.in
 gcr/gcr-viewer.desktop.in
 gcr/Makefile
 gcr/icons/Makefile

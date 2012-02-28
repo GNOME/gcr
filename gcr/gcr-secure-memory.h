@@ -44,7 +44,7 @@ gpointer  gcr_secure_memory_realloc        (gpointer memory,
                                             gsize size);
 
 gpointer  gcr_secure_memory_try_realloc    (gpointer memory,
-                                            gulong size);
+                                            gsize size);
 
 void      gcr_secure_memory_free           (gpointer memory);
 

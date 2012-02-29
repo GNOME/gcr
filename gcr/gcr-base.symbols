@@ -194,7 +194,6 @@ gcr_secret_exchange_send
 gcr_secure_memory_alloc
 gcr_secure_memory_free
 gcr_secure_memory_is_secure
-gcr_secure_memory_new
 gcr_secure_memory_realloc
 gcr_secure_memory_strdup
 gcr_secure_memory_strfree

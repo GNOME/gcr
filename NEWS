@@ -1,3 +1,8 @@
+gcr 3.3.92:
+ - Fix up copyright headers
+ - Updated translations
+ - Build fix
+
 gcr 3.3.90:
  - Expose the secure memory API
 

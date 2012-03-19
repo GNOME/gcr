@@ -11,6 +11,8 @@ EXTRA_DIST = \
 	src \
 	render-icons.py
 
+if WITH_UPDATE_ICON_CACHE
+
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 
 install-data-hook:
@@ -21,6 +23,7 @@ install-data-hook:
 		echo "*** Icon cache not updated.  After install, run this:"; \
 		echo "***   $(gtk_update_icon_cache)"; \
 	fi
+endif
 
 render:
 	python render-icons.py

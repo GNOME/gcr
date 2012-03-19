@@ -1,5 +1,5 @@
 AC_PREREQ([2.63])
-AC_INIT([gcr], [3.3.90],
+AC_INIT([gcr], [3.3.92],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&component=gcr],
         [gcr])
 
@@ -169,6 +169,11 @@ AC_ARG_ENABLE(update-mime,
 	AC_HELP_STRING([--disable-update-mime],
 	[don't run update-mime-database utility (useful for packages) ]))
 AM_CONDITIONAL(WITH_UPDATE_MIME, test "$enable_update_mime" != "no")
+
+AC_ARG_ENABLE(update-icon-cache,
+	AC_HELP_STRING([--disable-update-icon-cache],
+	[don't run gtk-update-icon-cache utility (useful for packages) ]))
+AM_CONDITIONAL(WITH_UPDATE_ICON_CACHE, test "$enable_update_icon_cache" != "no")
 
 # ----------------------------------------------------------------------
 # DBus services

@@ -336,6 +336,9 @@ static GcrPrompt *
 gcr_system_prompter_new_prompt (GcrSystemPrompter *self)
 {
 	g_return_val_if_fail (self->pv->prompt_type != 0, NULL);
+
+	_gcr_debug ("creating new %s prompt", g_type_name (self->pv->prompt_type));
+
 	return g_object_new (self->pv->prompt_type, NULL);
 }
 
@@ -490,14 +493,23 @@ prompt_stop_prompting (GcrSystemPrompter *self,
 	/* Close any active prompt */
 	active = g_hash_table_lookup (self->pv->active, callback);
 	if (active != NULL) {
-		if (!active->ready)
+		if (!active->ready) {
+			_gcr_debug ("cancelling active prompting operation for %s@%s",
+			            callback->path, callback->name);
 			g_cancellable_cancel (active->cancellable);
+		}
+
+		_gcr_debug ("disposing the prompt");
+
 		g_object_run_dispose (G_OBJECT (active->prompt));
 		g_hash_table_remove (self->pv->active, callback);
 	}
 
 	/* Notify the caller */
 	if (send_done_message && wait_for_reply) {
+		_gcr_debug ("calling the %s on %s@%s, and waiting for reply",
+		            GCR_DBUS_CALLBACK_METHOD_DONE, callback->path, callback->name);
+
 		retval = g_dbus_connection_call_sync (self->pv->connection,
 		                                      callback->name,
 		                                      callback->path,
@@ -509,7 +521,14 @@ prompt_stop_prompting (GcrSystemPrompter *self,
 		                                      -1, NULL, NULL);
 		if (retval)
 			g_variant_unref (retval);
+
+		_gcr_debug ("returned from %s on %s@%s",
+		            GCR_DBUS_CALLBACK_METHOD_DONE, callback->path, callback->name);
+
 	} else if (send_done_message) {
+		_gcr_debug ("calling the %s on %s@%s, and ignoring reply",
+		            GCR_DBUS_CALLBACK_METHOD_DONE, callback->path, callback->name);
+
 		g_dbus_connection_call (self->pv->connection,
 		                        callback->name,
 		                        callback->path,
@@ -538,6 +557,9 @@ on_prompt_ready_complete (GObject *source,
 
 	g_assert (active->ready == FALSE);
 
+	_gcr_debug ("returned from the %s method on %s@%s",
+	            GCR_DBUS_CALLBACK_METHOD_READY, active->callback->path, active->callback->name);
+
 	active->ready = TRUE;
 	retval = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source), result, &error);
 
@@ -549,8 +571,8 @@ on_prompt_ready_complete (GObject *source,
 	/* The ready call failed,  */
 	} else if (error != NULL) {
 		if (g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_UNKNOWN_METHOD))
-			_gcr_debug ("prompt disappeared or does not exist: %s: %s",
-			            active->callback->name, active->callback->path);
+			_gcr_debug ("prompt %s@%s disappeared or does not exist",
+			            active->callback->path, active->callback->name);
 		else
 			g_message ("received an error from the prompt callback: %s", error->message);
 		g_error_free (error);
@@ -591,6 +613,9 @@ prompt_send_ready (ActivePrompt *active,
 	self = active->prompter;
 	builder = prompt_build_properties (active->prompt, active->changed);
 
+	_gcr_debug ("calling the %s method on %s@%s",
+	            GCR_DBUS_CALLBACK_METHOD_READY, active->callback->path, active->callback->name);
+
 	g_dbus_connection_call (self->pv->connection,
 	                        active->callback->name,
 	                        active->callback->path,
@@ -620,6 +645,9 @@ prompt_next_ready (GcrSystemPrompter *self)
 	callback = g_queue_pop_head (&self->pv->waiting);
 	if (callback == NULL)
 		return;
+
+	_gcr_debug ("preparing a prompt for callback %s@%s",
+	            callback->path, callback->name);
 
 	active = g_hash_table_lookup (self->pv->active, callback);
 	g_assert (active == NULL);
@@ -690,8 +718,11 @@ on_caller_vanished (GDBusConnection *connection,
 			g_queue_push_tail (&queue, callback);
 	}
 
-	while ((callback = g_queue_pop_head (&queue)) != NULL)
+	while ((callback = g_queue_pop_head (&queue)) != NULL) {
+		_gcr_debug ("caller vanished for callback %s@%s",
+		            callback->path, callback->name);
 		prompt_stop_prompting (self, callback, FALSE, FALSE);
+	}
 }
 
 static void
@@ -707,7 +738,13 @@ prompter_method_begin_prompting (GcrSystemPrompter *self,
 	lookup.name = caller = g_dbus_method_invocation_get_sender (invocation);
 	g_variant_get (parameters, "(&o)", &lookup.path);
 
+	_gcr_debug ("received %s call from callback %s@%s",
+	            GCR_DBUS_PROMPTER_METHOD_BEGIN,
+	            lookup.path, lookup.name);
+
 	if (g_hash_table_lookup (self->pv->callbacks, &lookup)) {
+		_gcr_debug ("already begun prompting for callback %s@%s",
+		            lookup.path, lookup.name);
 		g_dbus_method_invocation_return_error_literal (invocation, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
 		                                               "Already begun prompting for this prompt callback");
 		return;
@@ -739,6 +776,10 @@ on_prompt_password (GObject *source,
 	const gchar *response;
 
 	g_assert (active->ready == FALSE);
+	g_assert (active->callback != NULL);
+
+	_gcr_debug ("completed password prompt for callback %s@%s",
+	            active->callback->name, active->callback->path);
 
 	reply = gcr_prompt_password_finish (GCR_PROMPT (source), result, &error);
 	if (error != NULL) {
@@ -767,6 +808,10 @@ on_prompt_confirm (GObject *source,
 	const gchar *response;
 
 	g_assert (active->ready == FALSE);
+	g_assert (active->callback != NULL);
+
+	_gcr_debug ("completed confirm prompt for callback %s@%s",
+	            active->callback->name, active->callback->path);
 
 	reply = gcr_prompt_confirm_finish (GCR_PROMPT (source), result, &error);
 	if (error != NULL) {
@@ -809,12 +854,20 @@ prompter_method_perform_prompt (GcrSystemPrompter *self,
 	g_variant_get (parameters, "(&o&sa{sv}&s)",
 	               &lookup.path, &type, &iter, &received);
 
+	_gcr_debug ("received %s call from callback %s@%s",
+	            GCR_DBUS_PROMPTER_METHOD_PERFORM,
+	            lookup.path, lookup.name);
+
 	active = g_hash_table_lookup (self->pv->active, &lookup);
 	if (active == NULL) {
+		_gcr_debug ("not begun prompting for this callback %s@%s",
+		            lookup.path, lookup.name);
 		error = g_error_new (G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
 		                     "Not begun prompting for this prompt callback");
 
 	} else if (!active->ready) {
+		_gcr_debug ("already performing prompt for this callback %s@%s",
+		            lookup.path, lookup.name);
 		error = g_error_new (G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
 		                     "Already performing a prompt for this prompt callback");
 	}
@@ -831,6 +884,8 @@ prompter_method_perform_prompt (GcrSystemPrompter *self,
 
 	exchange = active_prompt_get_secret_exchange (active);
 	if (!gcr_secret_exchange_receive (exchange, received)) {
+		_gcr_debug ("received invalid secret exchange from callback %s@%s",
+		            lookup.path, lookup.name);
 		g_dbus_method_invocation_return_error (invocation, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
 		                                       "Invalid secret exchange received");
 		return;
@@ -840,15 +895,21 @@ prompter_method_perform_prompt (GcrSystemPrompter *self,
 
 	if (g_strcmp0 (type, GCR_DBUS_PROMPT_TYPE_CONFIRM) == 0) {
 		active->ready = FALSE;
+		_gcr_debug ("starting confirm prompt for callback %s@%s",
+		            lookup.path, lookup.name);
 		gcr_prompt_confirm_async (active->prompt, active->cancellable,
 		                          on_prompt_confirm, active_prompt_ref (active));
 
 	} else if (g_strcmp0 (type, GCR_DBUS_PROMPT_TYPE_PASSWORD) == 0) {
 		active->ready = FALSE;
+		_gcr_debug ("starting password prompt for callback %s@%s",
+		            lookup.path, lookup.name);
 		gcr_prompt_password_async (active->prompt, active->cancellable,
 		                           on_prompt_password, active_prompt_ref (active));
 
 	} else {
+		_gcr_debug ("invalid type of prompt from callback %s@%s",
+		            lookup.path, lookup.name);
 		g_dbus_method_invocation_return_error_literal (invocation, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
 		                                               "Invalid type argument");
 		return;
@@ -866,6 +927,11 @@ prompter_method_stop_prompting (GcrSystemPrompter *self,
 
 	lookup.name = g_dbus_method_invocation_get_sender (invocation);
 	g_variant_get (parameters, "(&o)", &lookup.path);
+
+	_gcr_debug ("received %s call from callback %s@%s",
+	            GCR_DBUS_PROMPTER_METHOD_PERFORM,
+	            lookup.path, lookup.name);
+
 	prompt_stop_prompting (self, &lookup, TRUE, FALSE);
 
 	g_dbus_method_invocation_return_value (invocation, g_variant_new ("()"));

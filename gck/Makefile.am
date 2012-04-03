@@ -58,7 +58,9 @@ INTERNAL_FILES = \
 
 libgck_@GCK_MAJOR@_la_SOURCES = \
 	$(PUBLIC_FILES) \
-	$(INTERNAL_FILES) \
+	$(INTERNAL_FILES)
+
+nodist_libgck_@GCK_MAJOR@_la_SOURCES = \
 	$(BUILT_SOURCES)
 
 libgck_@GCK_MAJOR@_la_LDFLAGS = \
@@ -131,6 +133,9 @@ endif
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gck-$(GCK_MAJOR).pc
 
+gck-$(GCK_MAJOR).pc: gck.pc
+	cp gck.pc gck-$(GCK_MAJOR).pc
+
 gck-expected.abi: gck.symbols
 	$(AM_V_GEN) cpp -P $< | sort > $@
 
@@ -156,15 +161,10 @@ EXTRA_DIST = \
 	pkcs11-trust-assertions.h \
 	pkcs11i.h
 
-
 CLEANFILES = \
-	gck-actual.abi \
-	gck-expected.abi
-
-DISTCLEANFILES = \
 	gck-$(GCK_MAJOR).pc \
 	$(gir_DATA) \
-	$(typelibs_DATA)
-
-gck-$(GCK_MAJOR).pc: gck.pc
-	cp gck.pc gck-$(GCK_MAJOR).pc
+	$(typelibs_DATA) \
+	$(BUILT_SOURCES) \
+	gck-actual.abi \
+	gck-expected.abi

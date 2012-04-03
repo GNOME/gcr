@@ -153,6 +153,9 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-types.h \
 	gcr-union-collection.c gcr-union-collection.h \
 	gcr-util.c gcr-util.h \
+	$(NULL)
+
+nodist_libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	$(BUILT_BASE_FILES)
 
 libgcr_@GCR_MAJOR@_la_SOURCES = \
@@ -193,6 +196,9 @@ libgcr_@GCR_MAJOR@_la_SOURCES = \
 	gcr-viewer.c gcr-viewer.h \
 	gcr-viewer-widget.c gcr-viewer-widget.h \
 	gcr-viewer-window.c gcr-viewer-window.h \
+	$(NULL)
+
+nodist_libgcr_@GCR_MAJOR@_la_SOURCES = \
 	$(BUILT_UI_FILES)
 
 libgcr_base_@GCR_MAJOR@_la_CFLAGS = \
@@ -414,15 +420,12 @@ EXTRA_DIST = \
 	gcr-oids.list \
 	gcr-mkoids \
 	$(ui_DATA) \
-	$(conf_DATA) \
-	org.gnome.keyring.Prompter.xml \
+	$(DBUS_XML_DEFINITIONS) \
 	gcr-enum-types.h.template \
 	gcr-enum-types.c.template \
 	gcr.symbols \
 	gcr-base.symbols \
 	$(desktop_in_in_files) \
-	$(desktop_in_files) \
-	$(desktop_DATA) \
 	$(service_in_files) \
 	$(mime_DATA)
 
@@ -432,14 +435,9 @@ CLEANFILES = \
 	$(service_DATA) \
 	$(desktop_in_files) \
 	$(desktop_DATA) \
+	$(gir_DATA) \
+	$(typelibs_DATA) \
 	gcr-actual.abi \
 	gcr-actual-base.abi \
 	gcr-expected.abi \
 	gcr-expected-base.abi
-
-DISTCLEANFILES = \
-	$(desktop_in_files) \
-	$(desktop_DATA) \
-	$(pkgconfig_DATA) \
-	$(gir_DATA) \
-	$(typelibs_DATA)

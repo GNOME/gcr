@@ -110,6 +110,7 @@ struct _GcrPromptDialogPrivate {
 	PromptMode mode;
 	GdkDevice *grabbed_device;
 	gulong grab_broken_id;
+	gboolean grab_disabled;
 };
 
 static void     gcr_prompt_dialog_prompt_iface       (GcrPromptIface *iface);
@@ -465,14 +466,18 @@ static gboolean
 window_state_changed (GtkWidget *win, GdkEventWindowState *event, gpointer data)
 {
 	GdkWindowState state = gdk_window_get_state (gtk_widget_get_window (win));
+	GcrPromptDialog *self = GCR_PROMPT_DIALOG (data);
 
 	if (state & GDK_WINDOW_STATE_WITHDRAWN ||
 	    state & GDK_WINDOW_STATE_ICONIFIED ||
 	    state & GDK_WINDOW_STATE_FULLSCREEN ||
-	    state & GDK_WINDOW_STATE_MAXIMIZED)
+	    state & GDK_WINDOW_STATE_MAXIMIZED) {
+		self->pv->grab_disabled = TRUE;
 		ungrab_keyboard (win, (GdkEvent*)event, data);
-	else
+	} else if (self->pv->grab_disabled) {
+		self->pv->grab_disabled = FALSE;
 		grab_keyboard (win, (GdkEvent*)event, data);
+	}
 
 	return FALSE;
 }
@@ -497,6 +502,7 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	button = gtk_dialog_add_button (dialog, GTK_STOCK_OK, GTK_RESPONSE_OK);
 	g_object_bind_property (self, "continue-label", button, "label", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
+	gtk_window_set_type_hint (GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_NORMAL);
 	gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
 	gtk_window_set_keep_above (GTK_WINDOW (dialog), TRUE);
 	gtk_dialog_set_default_response (dialog, GTK_RESPONSE_OK);

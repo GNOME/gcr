@@ -1,3 +1,10 @@
+gcr 3.4.1:
+ - Fix more issues disabling grabs during password prompts
+ - More debug messages to GcrSystemPrompter
+ - Fix up GCR_DEBUG and GCK_DEBUG environment variables
+ - Updated translations
+ - Build fixes
+
 gcr 3.4.0:
  (no changes since last release)
 

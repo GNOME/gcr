@@ -11,10 +11,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gcr&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-05-07 08:30+0000\n"
-"PO-Revision-Date: 2012-05-07 12:54+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2012-05-07 10:55+0000\n"
+"PO-Revision-Date: 2012-05-08 11:17+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -520,7 +520,6 @@ msgstr "No se puede usar la clave para firmar la solicitud"
 #: ../gcr/gcr-certificate-request-renderer.c:323
 #: ../gcr/gcr-certificate-request-renderer.c:366
 #: ../gcr/gcr-certificate-request-renderer.c:371
-#| msgid "Certificate files"
 msgid "Certificate request"
 msgstr "Solicitud de certificador"
 
@@ -617,44 +616,44 @@ msgstr "Autenticar"
 
 #: ../gcr/gcr-gnupg-renderer.c:223 ../gcr/gcr-gnupg-renderer.c:258
 msgid "Disabled"
-msgstr "Desactivado"
+msgstr "Desactivada"
 
 #: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
 #: ../gcr/gcr-key-renderer.c:434 ../gcr/gcr-key-renderer.c:439
 msgid "Unknown"
-msgstr "Desconocido"
+msgstr "Desconocida"
 
 #: ../gcr/gcr-gnupg-renderer.c:256
 msgid "Invalid"
-msgstr "No válido"
+msgstr "No válida"
 
 #: ../gcr/gcr-gnupg-renderer.c:260
 msgid "Revoked"
-msgstr "Revocado"
+msgstr "Revocada"
 
 #: ../gcr/gcr-gnupg-renderer.c:262
 msgid "Expired"
-msgstr "Caducado"
+msgstr "Caducada"
 
 #: ../gcr/gcr-gnupg-renderer.c:264
 msgid "Undefined trust"
-msgstr ""
+msgstr "Confianza no definida"
 
 #: ../gcr/gcr-gnupg-renderer.c:266
 msgid "Distrusted"
-msgstr ""
+msgstr "No confiada"
 
 #: ../gcr/gcr-gnupg-renderer.c:268
 msgid "Marginally trusted"
-msgstr ""
+msgstr "Confianza marginal"
 
 #: ../gcr/gcr-gnupg-renderer.c:270
 msgid "Fully trusted"
-msgstr ""
+msgstr "Confianza completa"
 
 #: ../gcr/gcr-gnupg-renderer.c:272
 msgid "Ultimately trusted"
-msgstr ""
+msgstr "Confianza última"
 
 #: ../gcr/gcr-gnupg-renderer.c:286
 msgid "The information in this key has not yet been verified"
@@ -678,20 +677,19 @@ msgstr "Esta clave ha caducado"
 
 #: ../gcr/gcr-gnupg-renderer.c:303
 msgid "This key is distrusted"
-msgstr ""
+msgstr "Esta clave no está confiada"
 
 #: ../gcr/gcr-gnupg-renderer.c:306
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "Esta clave está confiada marginalmente"
 
 #: ../gcr/gcr-gnupg-renderer.c:309
-#, fuzzy
 msgid "This key is fully trusted"
-msgstr "La clave es de tipo erróneo"
+msgstr "Esta clave está confiada completamente"
 
 #: ../gcr/gcr-gnupg-renderer.c:312
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "Esta clave está confiada útimamente"
 
 #: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
 msgid "Key ID"
@@ -709,9 +707,8 @@ msgstr "Creada"
 
 #: ../gcr/gcr-gnupg-renderer.c:369 ../gcr/gcr-gnupg-renderer.c:446
 #: ../gcr/gcr-gnupg-renderer.c:489
-#, fuzzy
 msgid "Expiry"
-msgstr "Caduca"
+msgstr "Caducidad"
 
 #: ../gcr/gcr-gnupg-renderer.c:378
 msgid "Capabilities"
@@ -719,7 +716,7 @@ msgstr "Prestaciones"
 
 #: ../gcr/gcr-gnupg-renderer.c:391
 msgid "Owner trust"
-msgstr ""
+msgstr "Propietario de la confianza"
 
 #: ../gcr/gcr-gnupg-renderer.c:419
 msgid "Name"
@@ -731,88 +728,79 @@ msgstr "Comentario"
 
 #: ../gcr/gcr-gnupg-renderer.c:465
 msgid "User Attribute"
-msgstr ""
+msgstr "Atributo de usuario"
 
 #: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:442
 msgid "Size"
 msgstr "Tamaño"
 
 #: ../gcr/gcr-gnupg-renderer.c:507
-#, fuzzy
 msgid "Signature of a binary document"
-msgstr "Parámetros de la firma"
+msgstr "Firma de un documento binario"
 
 #: ../gcr/gcr-gnupg-renderer.c:509
 msgid "Signature of a canonical text document"
-msgstr ""
+msgstr "Firma de un documento de texto canónico"
 
 #: ../gcr/gcr-gnupg-renderer.c:511
-#, fuzzy
 msgid "Standalone signature"
-msgstr "Firma digital"
+msgstr "Firma independiente"
 
 #: ../gcr/gcr-gnupg-renderer.c:513
-#, fuzzy
 msgid "Generic certification of key"
-msgstr "Desbloquear el certificado"
+msgstr "Certificación genérica de la clave"
 
 #: ../gcr/gcr-gnupg-renderer.c:515
 msgid "Persona certification of key"
-msgstr ""
+msgstr "Certificación personal de la clave"
 
 #: ../gcr/gcr-gnupg-renderer.c:517
 msgid "Casual certification of key"
-msgstr ""
+msgstr "Certificación casual de la clave"
 
 #: ../gcr/gcr-gnupg-renderer.c:519
 msgid "Positive certification of key"
-msgstr ""
+msgstr "Certificación positiva de la clave"
 
 #: ../gcr/gcr-gnupg-renderer.c:521
 msgid "Subkey binding signature"
-msgstr ""
+msgstr "Firma de la vinculación de la subclave"
 
 #: ../gcr/gcr-gnupg-renderer.c:523
 msgid "Primary key binding signature"
-msgstr ""
+msgstr "Firma de la vinculación de la clave primaria"
 
 #: ../gcr/gcr-gnupg-renderer.c:525
-#, fuzzy
 msgid "Signature directly on key"
-msgstr "Parámetros de la firma"
+msgstr "Firmar directamente en la clave"
 
 #: ../gcr/gcr-gnupg-renderer.c:527
-#, fuzzy
 msgid "Key revocation signature"
-msgstr "Firma de la lista de revocación"
+msgstr "Firma de la clave de revocación"
 
 #: ../gcr/gcr-gnupg-renderer.c:529
-#, fuzzy
 msgid "Subkey revocation signature"
-msgstr "Firma de la lista de revocación"
+msgstr "Firma de la subclave de revocación"
 
 #: ../gcr/gcr-gnupg-renderer.c:531
-#, fuzzy
 msgid "Certification revocation signature"
-msgstr "Firma del certificado"
+msgstr "Firma del certificado de revocación"
 
 #: ../gcr/gcr-gnupg-renderer.c:533
-#, fuzzy
 msgid "Timestamp signature"
-msgstr "Firma digital"
+msgstr "Marca de tiempo de la firma"
 
 #: ../gcr/gcr-gnupg-renderer.c:535
 msgid "Third-party confirmation signature"
-msgstr ""
+msgstr "Firma de la confirmación de la clave de terceras partes"
 
 #: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
 msgid "Class"
 msgstr "Clase"
 
 #: ../gcr/gcr-gnupg-renderer.c:590
-#, fuzzy
 msgid "Local only"
-msgstr "Localidad"
+msgstr "Sólo local"
 
 #: ../gcr/gcr-gnupg-renderer.c:592
 msgid "Exportable"
@@ -845,7 +833,7 @@ msgstr "Inicializando…"
 
 #: ../gcr/gcr-import-button.c:119
 msgid "Import is in progress..."
-msgstr ""
+msgstr "Importación en progreso…"
 
 #: ../gcr/gcr-import-button.c:126
 #, c-format
@@ -910,10 +898,9 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #: ../gcr/gcr-parser.c:331
-#, fuzzy
 #| msgid "Certificate files"
 msgid "Certificate Request"
-msgstr "Archivos de certificados"
+msgstr "Solicitud de certificado"
 
 #: ../gcr/gcr-parser.c:2484
 msgid "Unrecognized or unsupported data."
@@ -921,16 +908,15 @@ msgstr "Datos no reconocidos o no soportados."
 
 #: ../gcr/gcr-parser.c:2487
 msgid "Could not parse invalid or corrupted data."
-msgstr "No se pudo analizar los datos no válidos o corruptos."
+msgstr "No se pudieron analizar los datos no válidos o corruptos."
 
 #: ../gcr/gcr-parser.c:2490
 msgid "The data is locked"
 msgstr "Los datos están bloqueados"
 
 #: ../gcr/gcr-pkcs11-import-dialog.c:187
-#, fuzzy
 msgid "Automatically chosen"
-msgstr "Desbloquear esto automáticamente al iniciar sesión"
+msgstr "Elegidos automáticamente"
 
 #: ../gcr/gcr-pkcs11-import-dialog.c:271
 #: ../gcr/gcr-pkcs11-import-interaction.c:153
@@ -940,9 +926,8 @@ msgid "The user cancelled the operation"
 msgstr "El usuario canceló la operación"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-#, fuzzy
 msgid "In order to import, please enter the password."
-msgstr "Para poder importar «%s», se debe desbloquear"
+msgstr "Para poder importar, introduzca la contraseña."
 
 #. The password label
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:559
@@ -992,7 +977,7 @@ msgstr "La contraseña no puede estar vacía"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:1
 msgid "Access Prompt"
-msgstr ""
+msgstr "Petición de acceso"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
@@ -1000,7 +985,7 @@ msgstr "Desbloquear el acceso a contraseñas y otros secretos"
 
 #: ../gcr/gcr-subject-public-key.c:345
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "Atributos de la clave no reconocidos o no disponibles"
 
 #: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
 msgid "Couldn't build public key"
@@ -1008,7 +993,7 @@ msgstr "No se pudo generar la clave pública"
 
 #: ../gcr/gcr-system-prompt.c:753
 msgid "Another prompt is already in progress"
-msgstr ""
+msgstr "Ya hay otra petición en progreso"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and

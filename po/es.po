@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-05-07 10:55+0000\n"
-"PO-Revision-Date: 2012-05-08 11:17+0200\n"
+"POT-Creation-Date: 2012-05-15 19:05+0000\n"
+"PO-Revision-Date: 2012-05-16 11:25+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -898,7 +898,6 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #: ../gcr/gcr-parser.c:331
-#| msgid "Certificate files"
 msgid "Certificate Request"
 msgstr "Solicitud de certificado"
 
@@ -942,17 +941,19 @@ msgstr "Token:"
 msgid "Label"
 msgstr "Etiqueta"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
-msgid "<b>Unlock</b>"
-msgstr "<b>Desbloquear</b>"
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5 ../gcr/gcr-unlock-renderer.c:71
+#: ../gcr/gcr-unlock-renderer.c:128
+msgid "Unlock"
+msgstr "Desbloquear"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
 msgid "Label:"
 msgstr "Etiqueta:"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
-msgid "<b>Import settings</b>"
-msgstr "<b>Importar configuración</b>"
+#| msgid "<b>Import settings</b>"
+msgid "Import settings"
+msgstr "Importar configuración"
 
 #: ../gcr/gcr-prompt.c:218
 msgid "Continue"
@@ -1029,10 +1030,6 @@ msgstr "minutos"
 msgid "Unlock: %s"
 msgstr "Desbloquear: %s"
 
-#: ../gcr/gcr-unlock-renderer.c:71 ../gcr/gcr-unlock-renderer.c:128
-msgid "Unlock"
-msgstr "Desbloquear"
-
 #: ../gcr/gcr-unlock-renderer.c:125
 msgid "Password"
 msgstr "Contraseña"
@@ -1089,3 +1086,6 @@ msgstr "Falló al importar"
 #: ../gcr/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Importar"
+
+#~ msgid "<b>Unlock</b>"
+#~ msgstr "<b>Desbloquear</b>"

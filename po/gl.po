@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-09 14:13+0200\n"
-"PO-Revision-Date: 2012-05-09 14:39+0200\n"
+"POT-Creation-Date: 2012-05-20 18:10+0200\n"
+"PO-Revision-Date: 2012-05-20 18:10+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -941,17 +941,18 @@ msgstr "Token:"
 msgid "Label"
 msgstr "Etiqueta"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
-msgid "<b>Unlock</b>"
-msgstr "<b>Desbloquear</b>"
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5 ../gcr/gcr-unlock-renderer.c:71
+#: ../gcr/gcr-unlock-renderer.c:128
+msgid "Unlock"
+msgstr "Desbloquear"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
 msgid "Label:"
 msgstr "Etiqueta:"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
-msgid "<b>Import settings</b>"
-msgstr "<b>Importar configuración</b>"
+msgid "Import settings"
+msgstr "Importar configuración"
 
 #: ../gcr/gcr-prompt.c:218
 msgid "Continue"
@@ -1028,10 +1029,6 @@ msgstr "minutos"
 msgid "Unlock: %s"
 msgstr "Desbloquear: %s"
 
-#: ../gcr/gcr-unlock-renderer.c:71 ../gcr/gcr-unlock-renderer.c:128
-msgid "Unlock"
-msgstr "Desbloquear"
-
 #: ../gcr/gcr-unlock-renderer.c:125
 msgid "Password"
 msgstr "Contrasinal"
@@ -1088,3 +1085,6 @@ msgstr "Fallou a importación"
 #: ../gcr/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Importar"
+
+#~ msgid "<b>Unlock</b>"
+#~ msgstr "<b>Desbloquear</b>"

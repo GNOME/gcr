@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring 3.5.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-19 11:55+0200\n"
-"PO-Revision-Date: 2012-05-19 12:01+0200\n"
+"POT-Creation-Date: 2012-05-30 13:29+0200\n"
+"PO-Revision-Date: 2012-05-30 13:35+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: no\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.1\n"
 
 #: ../egg/egg-oid.c:41
 msgid "Domain Component"
@@ -556,14 +555,13 @@ msgid "Cannot display a file of this type."
 msgstr "Kan ikke vise en fil av denne typen."
 
 #: ../gcr/gcr-gnupg-importer.c:96
-#, fuzzy
 msgid "GnuPG Keyring"
-msgstr "Lås opp nøkkelring"
+msgstr "GnuPG nøkkelring"
 
 #: ../gcr/gcr-gnupg-importer.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "GnuPG Keyring: %s"
-msgstr "PGP-nøkkel: %s"
+msgstr "GnuPG-nøkkelring: %s"
 
 #: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-gnupg-renderer.c:88
 #: ../gcr/gcr-parser.c:328
@@ -673,22 +671,21 @@ msgstr "Denne nøkkelen er utløpt"
 
 #: ../gcr/gcr-gnupg-renderer.c:303
 msgid "This key is distrusted"
-msgstr ""
+msgstr "Stoler ikke på denne nøkkelen"
 
 #: ../gcr/gcr-gnupg-renderer.c:306
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "Stoler marginalt på denne nøkkelen"
 
 #: ../gcr/gcr-gnupg-renderer.c:309
 msgid "This key is fully trusted"
-msgstr ""
+msgstr "Stoler på denne nøkkelen"
 
 #: ../gcr/gcr-gnupg-renderer.c:312
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "Stoler helt og fullt på denne nøkkelen"
 
 #: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
-#, fuzzy
 msgid "Key ID"
 msgstr "Nøkkel-ID"
 
@@ -732,22 +729,20 @@ msgid "Size"
 msgstr "Størrelse"
 
 #: ../gcr/gcr-gnupg-renderer.c:507
-#, fuzzy
 msgid "Signature of a binary document"
-msgstr "Parametere for signatur"
+msgstr "Signatur for et binært dokument"
 
 #: ../gcr/gcr-gnupg-renderer.c:509
 msgid "Signature of a canonical text document"
-msgstr ""
+msgstr "Signatur på et tekstdokument"
 
 #: ../gcr/gcr-gnupg-renderer.c:511
 msgid "Standalone signature"
 msgstr "Frittstående signatur"
 
 #: ../gcr/gcr-gnupg-renderer.c:513
-#, fuzzy
 msgid "Generic certification of key"
-msgstr "Lås opp sertifikat"
+msgstr "Generisk sertifisering av nøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:515
 msgid "Persona certification of key"
@@ -770,14 +765,12 @@ msgid "Primary key binding signature"
 msgstr ""
 
 #: ../gcr/gcr-gnupg-renderer.c:525
-#, fuzzy
 msgid "Signature directly on key"
-msgstr "Parametere for signatur"
+msgstr "Signatur direkte på nøkkelen"
 
 #: ../gcr/gcr-gnupg-renderer.c:527
-#, fuzzy
 msgid "Key revocation signature"
-msgstr "Signatur for tilbaketrekkingsliste"
+msgstr "Signatur for tilbaketrekkings av nøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:529
 #, fuzzy
@@ -790,9 +783,8 @@ msgid "Certification revocation signature"
 msgstr "Sertifikatsignatur"
 
 #: ../gcr/gcr-gnupg-renderer.c:533
-#, fuzzy
 msgid "Timestamp signature"
-msgstr "Digital signatur"
+msgstr "Signatur for tidsstempel"
 
 #: ../gcr/gcr-gnupg-renderer.c:535
 msgid "Third-party confirmation signature"
@@ -811,9 +803,8 @@ msgid "Exportable"
 msgstr "Eksporterbar"
 
 #: ../gcr/gcr-gnupg-renderer.c:610
-#, fuzzy
 msgid "Revocation Key"
-msgstr "Signatur for tilbaketrekkingsliste"
+msgstr "Nøkkel for tilbaketrekking"
 
 #: ../gcr/gcr-gnupg-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:648
 #: ../gcr/gcr-gnupg-renderer.c:650
@@ -821,17 +812,16 @@ msgid "Fingerprint"
 msgstr "Fingeravtrykk"
 
 #: ../gcr/gcr-gnupg-renderer.c:739
-#, fuzzy
 msgid "Public Subkey"
-msgstr "Offentlig nøkkel"
+msgstr "Offentlig undernøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:741
 msgid "Secret Key"
-msgstr ""
+msgstr "Hemmelig nøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:743
 msgid "Secret Subkey"
-msgstr ""
+msgstr "Hemmelig undernøkkel"
 
 #: ../gcr/gcr-import-button.c:111
 msgid "Initializing..."
@@ -931,9 +921,8 @@ msgid "The user cancelled the operation"
 msgstr "Bruker avbrøt operasjonen"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-#, fuzzy
 msgid "In order to import, please enter the password."
-msgstr "«%s» må låses opp før import"
+msgstr "Vennligst oppgi passordet for å importere."
 
 #. The password label
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:559
@@ -984,15 +973,15 @@ msgstr "Passordet kan ikke være tomt"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:1
 msgid "Access Prompt"
-msgstr ""
+msgstr "Tilgangsdialog"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
-msgstr ""
+msgstr "Lås opp tilgang til passord og andre hemmeligheter"
 
 #: ../gcr/gcr-subject-public-key.c:345
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "Ikke gjenkjent eller utilgjengelige attributter for nøkkel"
 
 #: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
 msgid "Couldn't build public key"

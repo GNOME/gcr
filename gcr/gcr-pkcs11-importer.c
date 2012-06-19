@@ -752,7 +752,6 @@ list_all_slots (void)
 
 static const char *token_blacklist[] = {
 	"pkcs11:manufacturer=Gnome%20Keyring;serial=1:SECRET:MAIN",
-	"pkcs11:manufacturer=Gnome%20Keyring;serial=1:USER:DEFAULT",
 	NULL
 };
 

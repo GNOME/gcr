@@ -2354,7 +2354,8 @@ gcr_parser_class_init (GcrParserClass *klass)
 
 	/**
 	 * GcrParser::authenticate:
-	 * @count: The number of times this item has been authenticated.
+	 * @self: the parser
+	 * @count: the number of times this item has been authenticated
 	 *
 	 * This signal is emitted when an item needs to be unlocked or decrypted before
 	 * it can be parsed. The @count argument specifies the number of times
@@ -2377,6 +2378,7 @@ gcr_parser_class_init (GcrParserClass *klass)
 
 	/**
 	 * GcrParser::parsed:
+	 * @self: the parser
 	 *
 	 * This signal is emitted when an item is sucessfully parsed. To access
 	 * the information about the item use the gcr_parser_get_parsed_label(),

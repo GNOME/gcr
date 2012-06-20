@@ -22,6 +22,7 @@ LDADD =  \
 
 TEST_PROGS = \
 	test-asn1 \
+	test-asn1x \
 	test-dn \
 	test-decimal \
 	test-hex \
@@ -54,15 +55,3 @@ EXTRA_DIST = \
 
 CLEANFILES = \
 	$(ASN_SRCS)
-
-# ------------------------------------------------------------------------------
-
-noinst_PROGRAMS = \
-	test-asn1x
-
-test_asn1x_SOURCES = \
-	test-asn1x.c
-
-test_asn1x_LDADD = \
-	$(top_builddir)/egg/libegg-asn1x.la \
-	$(LDADD)

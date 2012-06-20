@@ -56,7 +56,7 @@ _gcr_certificate_extension_find (GNode *cert,
 			}
 
 			/* Extension value */
-			return egg_asn1x_get_raw_value (egg_asn1x_node (node, "extnValue", NULL));
+			return egg_asn1x_get_string_as_bytes (egg_asn1x_node (node, "extnValue", NULL));
 		}
 	}
 
@@ -172,28 +172,28 @@ general_name_parse_other (GNode *node, GcrGeneralName *general)
 {
 	GNode *decode = NULL;
 	GQuark oid;
-	GBytes *value;
+	GNode *any;
 
 	general->type = GCR_GENERAL_NAME_OTHER;
 	general->description = _("Other Name");
+	general->display = NULL;
 
 	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (node, "type-id", NULL));
-	value = egg_asn1x_get_element_raw (egg_asn1x_node (node, "value", NULL));
+	any = egg_asn1x_node (node, "value", NULL);
 
-	if (value == NULL)
+	if (any == NULL)
 		return;
 
 	if (oid == GCR_OID_ALT_NAME_XMPP_ADDR) {
 		general->description = _("XMPP Addr");
-		decode = egg_asn1x_create_and_decode (pkix_asn1_tab, "UTF8String", value);
+		decode = egg_asn1x_get_any_as (any, pkix_asn1_tab, "UTF8String");
 		general->display = egg_asn1x_get_string_as_utf8 (decode, g_realloc);
 	} else if (oid == GCR_OID_ALT_NAME_DNS_SRV) {
 		general->description = _("DNS SRV");
-		decode = egg_asn1x_create_and_decode (pkix_asn1_tab, "IA5String", value);
+		decode = egg_asn1x_get_any_as (any, pkix_asn1_tab, "IA5String");
 		general->display = egg_asn1x_get_string_as_utf8 (decode, g_realloc);
 	}
 
-	g_bytes_unref (value);
 	egg_asn1x_destroy (decode);
 }
 

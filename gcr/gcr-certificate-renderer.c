@@ -789,7 +789,7 @@ typedef struct {
 static void
 on_parsed_dn_part (guint index,
                    GQuark oid,
-                   GBytes *value,
+                   GNode *value,
                    gpointer user_data)
 {
 	GcrRenderer *renderer = ((AppendDnClosure *)user_data)->renderer;
@@ -935,7 +935,7 @@ _gcr_certificate_renderer_append_extension (GcrRenderer *renderer,
 	g_return_if_fail (oid);
 
 	/* Extension value */
-	value = egg_asn1x_get_raw_value (egg_asn1x_node (node, "extnValue", NULL));
+	value = egg_asn1x_get_string_as_bytes (egg_asn1x_node (node, "extnValue", NULL));
 
 	/* The custom parsers */
 	if (oid == GCR_OID_BASIC_CONSTRAINTS)

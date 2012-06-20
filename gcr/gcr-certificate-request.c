@@ -420,7 +420,7 @@ prepare_subject_public_key_and_mechanisms (GcrCertificateRequest *self,
 	}
 
 	node = egg_asn1x_node (self->asn, "certificationRequestInfo", "subjectPKInfo", NULL);
-	if (!egg_asn1x_set_element_raw (node, encoded))
+	if (!egg_asn1x_decode (node, encoded))
 		g_return_val_if_reached (FALSE);
 
 	g_bytes_unref (encoded);
@@ -434,7 +434,6 @@ encode_take_signature_into_request (GcrCertificateRequest *self,
                                     guchar *result,
                                     gsize n_result)
 {
-	GBytes *data;
 	GNode *params;
 	GNode *node;
 
@@ -446,9 +445,7 @@ encode_take_signature_into_request (GcrCertificateRequest *self,
 
 	node = egg_asn1x_node (self->asn, "signatureAlgorithm", "parameters", NULL);
 	params = egg_asn1x_node (subject_public_key, "algorithm", "parameters", NULL);
-	data = egg_asn1x_encode (params, NULL);
-	egg_asn1x_set_element_raw (node, data);
-	g_bytes_unref (data);
+	egg_asn1x_set_any_from (node, params);
 }
 
 /**

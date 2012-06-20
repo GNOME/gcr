@@ -124,6 +124,9 @@ authenticate (GcrParser *par, gint state, gpointer user_data)
 	case 0:
 		gcr_parser_add_password (test->parser, "booo");
 		return TRUE;
+	case 1:
+		gcr_parser_add_password (test->parser, "usr0052");
+		return TRUE;
 	default:
 		g_printerr ("decryption didn't work for: %s", test->filedesc);
 		g_assert_not_reached ();

@@ -528,7 +528,6 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	GNode *key_asn;
 	GNode *params_asn;
 	GBytes *key;
-	GBytes *params;
 	GBytes *usg;
 
 	_gcr_oids_init ();
@@ -562,17 +561,14 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs,
 
 	egg_asn1x_set_null (params_asn);
 
-	params = egg_asn1x_encode (params_asn, g_realloc);
-	egg_asn1x_destroy (params_asn);
-
 	egg_asn1x_set_bits_as_raw (egg_asn1x_node (info_asn, "subjectPublicKey", NULL),
 	                           key, g_bytes_get_size (key) * 8);
 
 	egg_asn1x_set_oid_as_quark (egg_asn1x_node (info_asn, "algorithm", "algorithm", NULL), GCR_OID_PKIX1_RSA);
-	egg_asn1x_set_element_raw (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params);
+	egg_asn1x_set_any_from (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params_asn);
 
+	egg_asn1x_destroy (params_asn);
 	g_bytes_unref (key);
-	g_bytes_unref (params);
 	return TRUE;
 }
 
@@ -627,7 +623,6 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	const GckAttribute *value, *g, *q, *p;
 	GNode *key_asn, *params_asn;
 	GBytes *key;
-	GBytes *params;
 
 	_gcr_oids_init ();
 
@@ -680,17 +675,14 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	key = egg_asn1x_encode (key_asn, NULL);
 	egg_asn1x_destroy (key_asn);
 
-	params = egg_asn1x_encode (params_asn, NULL);
-	egg_asn1x_destroy (params_asn);
-
 	egg_asn1x_set_bits_as_raw (egg_asn1x_node (info_asn, "subjectPublicKey", NULL),
 	                           key, g_bytes_get_size (key) * 8);
-	egg_asn1x_set_element_raw (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params);
+	egg_asn1x_set_any_from (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params_asn);
 
 	egg_asn1x_set_oid_as_quark (egg_asn1x_node (info_asn, "algorithm", "algorithm", NULL), GCR_OID_PKIX1_DSA);
 
 	g_bytes_unref (key);
-	g_bytes_unref (params);
+	egg_asn1x_destroy (params_asn);
 	return TRUE;
 }
 
@@ -785,7 +777,7 @@ calculate_rsa_key_size (GBytes *data)
 	asn = egg_asn1x_create_and_decode (pk_asn1_tab, "RSAPublicKey", data);
 	g_return_val_if_fail (asn, 0);
 
-	content = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "modulus", NULL));
+	content = egg_asn1x_get_value_raw (egg_asn1x_node (asn, "modulus", NULL));
 	if (!content)
 		g_return_val_if_reached (0);
 
@@ -799,16 +791,16 @@ calculate_rsa_key_size (GBytes *data)
 }
 
 static guint
-calculate_dsa_params_size (GBytes *data)
+calculate_dsa_params_size (GNode *params)
 {
 	GNode *asn;
 	GBytes *content;
 	guint key_size;
 
-	asn = egg_asn1x_create_and_decode (pk_asn1_tab, "DSAParameters", data);
+	asn = egg_asn1x_get_any_as (params, pk_asn1_tab, "DSAParameters");
 	g_return_val_if_fail (asn, 0);
 
-	content = egg_asn1x_get_raw_value (egg_asn1x_node (asn, "p", NULL));
+	content = egg_asn1x_get_value_raw (egg_asn1x_node (asn, "p", NULL));
 	if (!content)
 		g_return_val_if_reached (0);
 
@@ -825,6 +817,7 @@ guint
 _gcr_subject_public_key_calculate_size (GNode *subject_public_key)
 {
 	GBytes *key;
+	GNode *params;
 	guint key_size = 0;
 	guint n_bits;
 	GQuark oid;
@@ -843,9 +836,8 @@ _gcr_subject_public_key_calculate_size (GNode *subject_public_key)
 
 	/* The DSA key size is discovered by the prime in params */
 	} else if (oid == GCR_OID_PKIX1_DSA) {
-		key = egg_asn1x_get_element_raw (egg_asn1x_node (subject_public_key, "algorithm", "parameters", NULL));
-		key_size = calculate_dsa_params_size (key);
-		g_bytes_unref (key);
+		params = egg_asn1x_node (subject_public_key, "algorithm", "parameters", NULL);
+		key_size = calculate_dsa_params_size (params);
 
 	} else {
 		g_message ("unsupported key algorithm: %s", g_quark_to_string (oid));

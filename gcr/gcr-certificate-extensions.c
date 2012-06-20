@@ -31,7 +31,7 @@
 
 #include <glib/gi18n-lib.h>
 
-EggBytes *
+GBytes *
 _gcr_certificate_extension_find (GNode *cert,
                                  GQuark oid,
                                  gboolean *critical)
@@ -64,7 +64,7 @@ _gcr_certificate_extension_find (GNode *cert,
 }
 
 gboolean
-_gcr_certificate_extension_basic_constraints (EggBytes *data,
+_gcr_certificate_extension_basic_constraints (GBytes *data,
                                               gboolean *is_ca,
                                               gint *path_len)
 {
@@ -102,7 +102,7 @@ _gcr_certificate_extension_basic_constraints (EggBytes *data,
 }
 
 GQuark *
-_gcr_certificate_extension_extended_key_usage (EggBytes *data)
+_gcr_certificate_extension_extended_key_usage (GBytes *data)
 {
 	GNode *asn = NULL;
 	GNode *node;
@@ -130,7 +130,7 @@ _gcr_certificate_extension_extended_key_usage (EggBytes *data)
 }
 
 gpointer
-_gcr_certificate_extension_subject_key_identifier (EggBytes *data,
+_gcr_certificate_extension_subject_key_identifier (GBytes *data,
                                                    gsize *n_keyid)
 {
 	GNode *asn = NULL;
@@ -149,7 +149,7 @@ _gcr_certificate_extension_subject_key_identifier (EggBytes *data,
 }
 
 gboolean
-_gcr_certificate_extension_key_usage (EggBytes *data,
+_gcr_certificate_extension_key_usage (GBytes *data,
                                       gulong *key_usage)
 {
 	GNode *asn = NULL;
@@ -172,7 +172,7 @@ general_name_parse_other (GNode *node, GcrGeneralName *general)
 {
 	GNode *decode = NULL;
 	GQuark oid;
-	EggBytes *value;
+	GBytes *value;
 
 	general->type = GCR_GENERAL_NAME_OTHER;
 	general->description = _("Other Name");
@@ -193,7 +193,7 @@ general_name_parse_other (GNode *node, GcrGeneralName *general)
 		general->display = egg_asn1x_get_string_as_utf8 (decode, g_realloc);
 	}
 
-	egg_bytes_unref (value);
+	g_bytes_unref (value);
 	egg_asn1x_destroy (decode);
 }
 
@@ -260,7 +260,7 @@ general_name_parse_registered (GNode *node, GcrGeneralName *general)
 }
 
 GArray*
-_gcr_certificate_extension_subject_alt_name (EggBytes *data)
+_gcr_certificate_extension_subject_alt_name (GBytes *data)
 {
 	GNode *asn = NULL;
 	guint count, i;
@@ -331,7 +331,7 @@ _gcr_general_names_free (GArray *names)
 	for (i = 0; names && i < names->len; i++) {
 		name = &g_array_index (names, GcrGeneralName, i);
 		g_free (name->display);
-		egg_bytes_unref (name->raw);
+		g_bytes_unref (name->raw);
 	}
 	g_array_free (names, TRUE);
 }

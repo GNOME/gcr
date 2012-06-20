@@ -300,8 +300,8 @@ gcr_certificate_request_set_cn (GcrCertificateRequest *self,
 	egg_dn_add_string_part (dn, GCR_OID_NAME_CN, cn);
 }
 
-static EggBytes *
-hash_sha1_pkcs1 (EggBytes *data)
+static GBytes *
+hash_sha1_pkcs1 (GBytes *data)
 {
 	const guchar SHA1_ASN[15] = /* Object ID is 1.3.14.3.2.26 */
 		{ 0x30, 0x21, 0x30, 0x09, 0x06, 0x05, 0x2b, 0x0e, 0x03,
@@ -318,15 +318,15 @@ hash_sha1_pkcs1 (EggBytes *data)
 	memcpy (hash, SHA1_ASN, sizeof (SHA1_ASN));
 
 	checksum = g_checksum_new (G_CHECKSUM_SHA1);
-	g_checksum_update (checksum, egg_bytes_get_data (data), egg_bytes_get_size (data));
+	g_checksum_update (checksum, g_bytes_get_data (data, NULL), g_bytes_get_size (data));
 	g_checksum_get_digest (checksum, hash + sizeof (SHA1_ASN), &n_digest);
 	g_checksum_free (checksum);
 
-	return egg_bytes_new_take (hash, n_hash);
+	return g_bytes_new_take (hash, n_hash);
 }
 
-static EggBytes *
-hash_sha1 (EggBytes *data)
+static GBytes *
+hash_sha1 (GBytes *data)
 {
 	GChecksum *checksum;
 	guchar *hash;
@@ -336,20 +336,20 @@ hash_sha1 (EggBytes *data)
 	hash = g_malloc (n_hash);
 
 	checksum = g_checksum_new (G_CHECKSUM_SHA1);
-	g_checksum_update (checksum, egg_bytes_get_data (data), egg_bytes_get_size (data));
+	g_checksum_update (checksum, g_bytes_get_data (data, NULL), g_bytes_get_size (data));
 	g_checksum_get_digest (checksum, hash, &n_hash);
 	g_checksum_free (checksum);
 
-	return egg_bytes_new_take (hash, n_hash);
+	return g_bytes_new_take (hash, n_hash);
 }
 
-static EggBytes *
+static GBytes *
 prepare_to_be_signed (GcrCertificateRequest *self,
                       GckMechanism *mechanism)
 {
 	GNode *node;
-	EggBytes *data;
-	EggBytes *hash;
+	GBytes *data;
+	GBytes *hash;
 
 	g_assert (mechanism != NULL);
 
@@ -366,12 +366,12 @@ prepare_to_be_signed (GcrCertificateRequest *self,
 
 	case CKM_RSA_PKCS:
 		hash = hash_sha1_pkcs1 (data);
-		egg_bytes_unref (data);
+		g_bytes_unref (data);
 		return hash;
 
 	case CKM_DSA:
 		hash = hash_sha1 (data);
-		egg_bytes_unref (data);
+		g_bytes_unref (data);
 		return hash;
 
 	default:
@@ -388,7 +388,7 @@ prepare_subject_public_key_and_mechanisms (GcrCertificateRequest *self,
                                            gsize *n_mechanisms,
                                            GError **error)
 {
-	EggBytes *encoded;
+	GBytes *encoded;
 	GNode *node;
 	GQuark oid;
 
@@ -413,7 +413,7 @@ prepare_subject_public_key_and_mechanisms (GcrCertificateRequest *self,
 		*algorithm = GCR_OID_PKIX1_SHA1_WITH_DSA;
 
 	} else {
-		egg_bytes_unref (encoded);
+		g_bytes_unref (encoded);
 		g_set_error (error, GCR_DATA_ERROR, GCR_ERROR_UNRECOGNIZED,
 		             _("Unsupported key type for certificate request"));
 		return FALSE;
@@ -423,7 +423,7 @@ prepare_subject_public_key_and_mechanisms (GcrCertificateRequest *self,
 	if (!egg_asn1x_set_element_raw (node, encoded))
 		g_return_val_if_reached (FALSE);
 
-	egg_bytes_unref (encoded);
+	g_bytes_unref (encoded);
 	return TRUE;
 }
 
@@ -434,12 +434,12 @@ encode_take_signature_into_request (GcrCertificateRequest *self,
                                     guchar *result,
                                     gsize n_result)
 {
-	EggBytes *data;
+	GBytes *data;
 	GNode *params;
 	GNode *node;
 
 	node = egg_asn1x_node (self->asn, "signature", NULL);
-	egg_asn1x_take_bits_as_raw (node, egg_bytes_new_take (result, n_result), n_result * 8);
+	egg_asn1x_take_bits_as_raw (node, g_bytes_new_take (result, n_result), n_result * 8);
 
 	node = egg_asn1x_node (self->asn, "signatureAlgorithm", "algorithm", NULL);
 	egg_asn1x_set_oid_as_quark (node, algorithm);
@@ -448,7 +448,7 @@ encode_take_signature_into_request (GcrCertificateRequest *self,
 	params = egg_asn1x_node (subject_public_key, "algorithm", "parameters", NULL);
 	data = egg_asn1x_encode (params, NULL);
 	egg_asn1x_set_element_raw (node, data);
-	egg_bytes_unref (data);
+	g_bytes_unref (data);
 }
 
 /**
@@ -474,7 +474,7 @@ gcr_certificate_request_complete (GcrCertificateRequest *self,
 	gsize n_mechanisms;
 	GckMechanism mechanism = { 0, };
 	GQuark algorithm = 0;
-	EggBytes *tbs;
+	GBytes *tbs;
 	GckSession *session;
 	guchar *signature;
 	gsize n_signature;
@@ -512,11 +512,11 @@ gcr_certificate_request_complete (GcrCertificateRequest *self,
 	tbs = prepare_to_be_signed (self, &mechanism);
 	session = gck_object_get_session (self->private_key);
 	signature = gck_session_sign_full (session, self->private_key, &mechanism,
-	                                   egg_bytes_get_data (tbs),
-	                                   egg_bytes_get_size (tbs),
+	                                   g_bytes_get_data (tbs, NULL),
+	                                   g_bytes_get_size (tbs),
 	                                   &n_signature, cancellable, error);
 	g_object_unref (session);
-	egg_bytes_unref (tbs);
+	g_bytes_unref (tbs);
 
 	if (!signature) {
 		egg_asn1x_destroy (subject_public_key);
@@ -536,7 +536,7 @@ typedef struct {
 	GNode *subject_public_key;
 	GckMechanism mechanism;
 	GckSession *session;
-	EggBytes *tbs;
+	GBytes *tbs;
 } CompleteClosure;
 
 static void
@@ -548,7 +548,7 @@ complete_closure_free (gpointer data)
 	g_clear_object (&closure->cancellable);
 	g_clear_object (&closure->session);
 	if (closure->tbs)
-		egg_bytes_unref (closure->tbs);
+		g_bytes_unref (closure->tbs);
 	g_free (closure);
 }
 
@@ -598,8 +598,8 @@ on_mechanism_check (GObject *source,
 		gck_session_sign_async (closure->session,
 		                        closure->request->private_key,
 		                        &closure->mechanism,
-		                        egg_bytes_get_data (closure->tbs),
-		                        egg_bytes_get_size (closure->tbs),
+		                        g_bytes_get_data (closure->tbs, NULL),
+		                        g_bytes_get_size (closure->tbs),
 		                        closure->cancellable,
 		                        on_certificate_request_signed,
 		                        g_object_ref (res));
@@ -730,7 +730,7 @@ gcr_certificate_request_encode (GcrCertificateRequest *self,
                                 gboolean textual,
                                 gsize *length)
 {
-	EggBytes *bytes;
+	GBytes *bytes;
 	gpointer encoded;
 	gpointer data;
 	gsize size;
@@ -745,8 +745,8 @@ gcr_certificate_request_encode (GcrCertificateRequest *self,
 		return NULL;
 	}
 
-	size = egg_bytes_get_size (bytes);
-	encoded = g_byte_array_free (egg_bytes_unref_to_array (bytes), FALSE);
+	size = g_bytes_get_size (bytes);
+	encoded = g_byte_array_free (g_bytes_unref_to_array (bytes), FALSE);
 
 	if (textual) {
 		data = egg_armor_write (encoded, size,

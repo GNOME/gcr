@@ -155,7 +155,7 @@ atoin (const char *p, gint digits)
 static GcrDataError
 parse_v1_public_line (const gchar *line,
                       gsize length,
-                      EggBytes *backing,
+                      GBytes *backing,
                       GcrOpensshPubCallback callback,
                       gpointer user_data)
 {
@@ -164,7 +164,7 @@ parse_v1_public_line (const gchar *line,
 	GckBuilder builder = GCK_BUILDER_INIT;
 	GckAttributes *attrs;
 	gchar *label, *options;
-	EggBytes *bytes;
+	GBytes *bytes;
 	gint bits;
 
 	g_assert (line);
@@ -229,11 +229,11 @@ parse_v1_public_line (const gchar *line,
 	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
 
 	if (callback != NULL) {
-		bytes = egg_bytes_new_with_free_func (outer, n_outer,
-		                                      egg_bytes_unref,
-		                                      egg_bytes_ref (backing));
+		bytes = g_bytes_new_with_free_func (outer, n_outer,
+		                                    (GDestroyNotify)g_bytes_unref,
+		                                    g_bytes_ref (backing));
 		(callback) (attrs, label, options, bytes, user_data);
-		egg_bytes_unref (bytes);
+		g_bytes_unref (bytes);
 	}
 
 	gck_attributes_unref (attrs);
@@ -370,7 +370,7 @@ decode_v2_public_key (gulong algo,
 static GcrDataError
 parse_v2_public_line (const gchar *line,
                       gsize length,
-                      EggBytes *backing,
+                      GBytes *backing,
                       GcrOpensshPubCallback callback,
                       gpointer user_data)
 {
@@ -382,7 +382,7 @@ parse_v2_public_line (const gchar *line,
 	gchar *label = NULL;
 	const gchar *outer = line;
 	gsize n_outer = length;
-	EggBytes *bytes;
+	GBytes *bytes;
 	gulong algo;
 
 	g_assert (line);
@@ -445,11 +445,11 @@ parse_v2_public_line (const gchar *line,
 	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
 
 	if (callback != NULL) {
-		bytes = egg_bytes_new_with_free_func (outer, n_outer,
-		                                      egg_bytes_unref,
-		                                      egg_bytes_ref (backing));
+		bytes = g_bytes_new_with_free_func (outer, n_outer,
+		                                    (GDestroyNotify)g_bytes_unref,
+		                                    g_bytes_ref (backing));
 		(callback) (attrs, label, options, bytes, user_data);
-		egg_bytes_unref (bytes);
+		g_bytes_unref (bytes);
 	}
 
 	gck_attributes_unref (attrs);
@@ -459,7 +459,7 @@ parse_v2_public_line (const gchar *line,
 }
 
 guint
-_gcr_openssh_pub_parse (EggBytes *data,
+_gcr_openssh_pub_parse (GBytes *data,
                         GcrOpensshPubCallback callback,
                         gpointer user_data)
 {
@@ -472,8 +472,8 @@ _gcr_openssh_pub_parse (EggBytes *data,
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
-	line = egg_bytes_get_data (data);
-	length = egg_bytes_get_size (data);
+	line = g_bytes_get_data (data, NULL);
+	length = g_bytes_get_size (data);
 	last = FALSE;
 	num_parsed = 0;
 

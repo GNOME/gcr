@@ -106,8 +106,8 @@ typedef struct _GcrCertificateInfo {
 
 /* Forward declarations */
 
-static EggBytes * _gcr_certificate_get_subject_const (GcrCertificate *self);
-static EggBytes * _gcr_certificate_get_issuer_const (GcrCertificate *self);
+static GBytes * _gcr_certificate_get_subject_const (GcrCertificate *self);
+static GBytes * _gcr_certificate_get_issuer_const (GcrCertificate *self);
 
 enum {
 	PROP_FIRST = 0x0007000,
@@ -141,7 +141,7 @@ static GcrCertificateInfo*
 certificate_info_load (GcrCertificate *cert)
 {
 	GcrCertificateInfo *info;
-	EggBytes *bytes;
+	GBytes *bytes;
 	GNode *asn1;
 	gconstpointer der;
 	gsize n_der;
@@ -158,12 +158,12 @@ certificate_info_load (GcrCertificate *cert)
 	}
 
 	/* TODO: Once GBytes is public, add to GcrCertificate interface */
-	bytes = egg_bytes_new_static (der, n_der);
+	bytes = g_bytes_new_static (der, n_der);
 
 	/* Cache is invalid or non existent */
 	asn1 = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate", bytes);
 
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 
 	if (asn1 == NULL) {
 		g_warning ("a derived class provided an invalid or unparseable X.509 DER certificate data.");
@@ -450,7 +450,7 @@ gcr_certificate_get_issuer_part (GcrCertificate *self, const char *part)
 	return egg_dn_read_part (egg_asn1x_node (info->asn1, "tbsCertificate", "issuer", "rdnSequence", NULL), part);
 }
 
-static EggBytes *
+static GBytes *
 _gcr_certificate_get_issuer_const (GcrCertificate *self)
 {
 	GcrCertificateInfo *info;
@@ -479,7 +479,7 @@ guchar *
 gcr_certificate_get_issuer_raw (GcrCertificate *self,
                                 gsize *n_data)
 {
-	EggBytes *bytes;
+	GBytes *bytes;
 	guchar *result;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
@@ -489,9 +489,9 @@ gcr_certificate_get_issuer_raw (GcrCertificate *self,
 	if (bytes == NULL)
 		return NULL;
 
-	*n_data = egg_bytes_get_size (bytes);
-	result = g_memdup (egg_bytes_get_data (bytes), *n_data);
-	egg_bytes_unref (bytes);
+	*n_data = g_bytes_get_size (bytes);
+	result = g_memdup (g_bytes_get_data (bytes, NULL), *n_data);
+	g_bytes_unref (bytes);
 
 	return result;
 }
@@ -511,8 +511,8 @@ gcr_certificate_get_issuer_raw (GcrCertificate *self,
 gboolean
 gcr_certificate_is_issuer (GcrCertificate *self, GcrCertificate *issuer)
 {
-	EggBytes *subject_dn;
-	EggBytes *issuer_dn;
+	GBytes *subject_dn;
+	GBytes *issuer_dn;
 	gboolean ret;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), FALSE);
@@ -524,10 +524,10 @@ gcr_certificate_is_issuer (GcrCertificate *self, GcrCertificate *issuer)
 	issuer_dn = _gcr_certificate_get_issuer_const (self);
 	g_return_val_if_fail (issuer_dn, FALSE);
 
-	ret = egg_bytes_equal (subject_dn, issuer_dn);
+	ret = g_bytes_equal (subject_dn, issuer_dn);
 
-	egg_bytes_unref (subject_dn);
-	egg_bytes_unref (issuer_dn);
+	g_bytes_unref (subject_dn);
+	g_bytes_unref (issuer_dn);
 
 	return ret;
 }
@@ -655,7 +655,7 @@ gcr_certificate_get_subject_dn (GcrCertificate *self)
 	return egg_dn_read (egg_asn1x_node (info->asn1, "tbsCertificate", "subject", "rdnSequence", NULL));
 }
 
-static EggBytes *
+static GBytes *
 _gcr_certificate_get_subject_const (GcrCertificate *self)
 {
 	GcrCertificateInfo *info;
@@ -683,7 +683,7 @@ _gcr_certificate_get_subject_const (GcrCertificate *self)
 guchar *
 gcr_certificate_get_subject_raw (GcrCertificate *self, gsize *n_data)
 {
-	EggBytes *bytes;
+	GBytes *bytes;
 	guchar *result;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
@@ -693,10 +693,10 @@ gcr_certificate_get_subject_raw (GcrCertificate *self, gsize *n_data)
 	if (bytes == NULL)
 		return NULL;
 
-	*n_data = egg_bytes_get_size (bytes);
-	result = g_memdup (egg_bytes_get_data (bytes), *n_data);
+	*n_data = g_bytes_get_size (bytes);
+	result = g_memdup (g_bytes_get_data (bytes, NULL), *n_data);
 
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 
 	return result;
 }
@@ -886,7 +886,7 @@ guchar *
 gcr_certificate_get_serial_number (GcrCertificate *self, gsize *n_length)
 {
 	GcrCertificateInfo *info;
-	EggBytes *bytes;
+	GBytes *bytes;
 	guchar *result;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
@@ -898,10 +898,10 @@ gcr_certificate_get_serial_number (GcrCertificate *self, gsize *n_length)
 	bytes = egg_asn1x_get_integer_as_raw (egg_asn1x_node (info->asn1, "tbsCertificate", "serialNumber", NULL));
 	g_return_val_if_fail (bytes != NULL, NULL);
 
-	*n_length = egg_bytes_get_size (bytes);
-	result = g_memdup (egg_bytes_get_data (bytes), *n_length);
+	*n_length = g_bytes_get_size (bytes);
+	result = g_memdup (g_bytes_get_data (bytes, NULL), *n_length);
 
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 	return result;
 }
 
@@ -968,7 +968,7 @@ gcr_certificate_get_basic_constraints (GcrCertificate *self,
                                        gint *path_len)
 {
 	GcrCertificateInfo *info;
-	EggBytes *value;
+	GBytes *value;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), FALSE);
 
@@ -982,7 +982,7 @@ gcr_certificate_get_basic_constraints (GcrCertificate *self,
 	if (!_gcr_certificate_extension_basic_constraints (value, is_ca, path_len))
 		g_return_val_if_reached (FALSE);
 
-	egg_bytes_unref (value);
+	g_bytes_unref (value);
 	return TRUE;
 }
 

@@ -30,7 +30,6 @@ libegg_la_SOURCES = \
 	egg-asn1x.c egg-asn1x.h \
 	egg-asn1-defs.c egg-asn1-defs.h \
 	egg-buffer.c egg-buffer.h \
-	egg-bytes.c egg-bytes.h \
 	egg-dh.c egg-dh.h \
 	egg-dn.c egg-dn.h \
 	egg-error.h \

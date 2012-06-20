@@ -105,7 +105,7 @@ calculate_label (GcrCertificateRenderer *self)
 static gboolean
 append_extension_basic_constraints (GcrRenderer *renderer,
                                     GcrDisplayView *view,
-                                    EggBytes *data)
+                                    GBytes *data)
 {
 	gboolean is_ca = FALSE;
 	gint path_len = -1;
@@ -130,7 +130,7 @@ append_extension_basic_constraints (GcrRenderer *renderer,
 static gboolean
 append_extension_extended_key_usage (GcrRenderer *renderer,
                                      GcrDisplayView *view,
-                                     EggBytes *data)
+                                     GBytes *data)
 {
 	GQuark *oids;
 	GString *text;
@@ -162,7 +162,7 @@ append_extension_extended_key_usage (GcrRenderer *renderer,
 static gboolean
 append_extension_subject_key_identifier (GcrRenderer *renderer,
                                          GcrDisplayView *view,
-                                         EggBytes *data)
+                                         GBytes *data)
 {
 	gpointer keyid;
 	gsize n_keyid;
@@ -194,7 +194,7 @@ static const struct {
 static gboolean
 append_extension_key_usage (GcrRenderer *renderer,
                             GcrDisplayView *view,
-                            EggBytes *data)
+                            GBytes *data)
 {
 	gulong key_usage;
 	GString *text;
@@ -224,7 +224,7 @@ append_extension_key_usage (GcrRenderer *renderer,
 static gboolean
 append_extension_subject_alt_name (GcrRenderer *renderer,
                                    GcrDisplayView *view,
-                                   EggBytes *data)
+                                   GBytes *data)
 {
 	GArray *general_names;
 	GcrGeneralName *general;
@@ -240,8 +240,8 @@ append_extension_subject_alt_name (GcrRenderer *renderer,
 		general = &g_array_index (general_names, GcrGeneralName, i);
 		if (general->display == NULL)
 			_gcr_display_view_append_hex (view, renderer, general->description,
-			                              egg_bytes_get_data (general->raw),
-			                              egg_bytes_get_size (general->raw));
+			                              g_bytes_get_data (general->raw, NULL),
+			                              g_bytes_get_size (general->raw));
 		else
 			_gcr_display_view_append_value (view, renderer, general->description,
 			                                general->display, FALSE);
@@ -473,11 +473,11 @@ gcr_certificate_renderer_render (GcrRenderer *renderer, GcrViewer *viewer)
 	gsize n_data;
 	GcrDisplayView *view;
 	GcrCertificate *cert;
-	EggBytes *number;
+	GBytes *number;
 	gulong version;
 	guint bits, index;
 	gchar *display;
-	EggBytes *bytes;
+	GBytes *bytes;
 	GNode *asn;
 	GDate date;
 	GIcon *icon;
@@ -506,10 +506,10 @@ gcr_certificate_renderer_render (GcrRenderer *renderer, GcrViewer *viewer)
 	_gcr_display_view_set_icon (view, GCR_RENDERER (self), icon);
 	g_object_unref (icon);
 
-	bytes = egg_bytes_new_static (data, n_data);
+	bytes = g_bytes_new_static (data, n_data);
 	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate", bytes);
 	g_return_if_fail (asn != NULL);
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 
 	display = calculate_label (self);
 	_gcr_display_view_append_title (view, renderer, display);
@@ -555,9 +555,9 @@ gcr_certificate_renderer_render (GcrRenderer *renderer, GcrViewer *viewer)
 	number = egg_asn1x_get_integer_as_raw (egg_asn1x_node (asn, "tbsCertificate", "serialNumber", NULL));
 	g_return_if_fail (number != NULL);
 	_gcr_display_view_append_hex (view, renderer, _("Serial Number"),
-	                              egg_bytes_get_data (number),
-	                              egg_bytes_get_size (number));
-	egg_bytes_unref (number);
+	                              g_bytes_get_data (number, NULL),
+	                              g_bytes_get_size (number));
+	g_bytes_unref (number);
 
 	display = g_malloc0 (128);
 	if (egg_asn1x_get_time_as_date (egg_asn1x_node (asn, "tbsCertificate", "validity", "notBefore", NULL), &date)) {
@@ -789,7 +789,7 @@ typedef struct {
 static void
 on_parsed_dn_part (guint index,
                    GQuark oid,
-                   EggBytes *value,
+                   GBytes *value,
                    gpointer user_data)
 {
 	GcrRenderer *renderer = ((AppendDnClosure *)user_data)->renderer;
@@ -852,7 +852,7 @@ _gcr_certificate_renderer_append_subject_public_key (GcrRenderer *renderer,
 {
 	const gchar *text;
 	gchar *display;
-	EggBytes *value;
+	GBytes *value;
 	guchar *raw;
 	gsize n_raw;
 	GQuark oid;
@@ -867,9 +867,9 @@ _gcr_certificate_renderer_append_subject_public_key (GcrRenderer *renderer,
 	                                                   "algorithm", "parameters", NULL));
 	if (value) {
 		_gcr_display_view_append_hex (view, renderer, _("Key Parameters"),
-		                              egg_bytes_get_data (value),
-		                              egg_bytes_get_size (value));
-		egg_bytes_unref (value);
+		                              g_bytes_get_data (value, NULL),
+		                              g_bytes_get_size (value));
+		g_bytes_unref (value);
 	}
 
 	if (key_nbits > 0) {
@@ -879,17 +879,17 @@ _gcr_certificate_renderer_append_subject_public_key (GcrRenderer *renderer,
 	}
 
 	value = egg_asn1x_get_element_raw (subject_public_key);
-	raw = gcr_fingerprint_from_subject_public_key_info (egg_bytes_get_data (value),
-	                                                    egg_bytes_get_size (value),
+	raw = gcr_fingerprint_from_subject_public_key_info (g_bytes_get_data (value, NULL),
+	                                                    g_bytes_get_size (value),
 	                                                    G_CHECKSUM_SHA1, &n_raw);
 	_gcr_display_view_append_hex (view, renderer, _("Key SHA1 Fingerprint"), raw, n_raw);
-	egg_bytes_unref (value);
+	g_bytes_unref (value);
 	g_free (raw);
 
 	value = egg_asn1x_get_bits_as_raw (egg_asn1x_node (subject_public_key, "subjectPublicKey", NULL), &bits);
 	_gcr_display_view_append_hex (view, renderer, _("Public Key"),
-	                              egg_bytes_get_data (value), bits / 8);
-	egg_bytes_unref (value);
+	                              g_bytes_get_data (value, NULL), bits / 8);
+	g_bytes_unref (value);
 }
 
 void
@@ -898,7 +898,7 @@ _gcr_certificate_renderer_append_signature (GcrRenderer *renderer,
                                             GNode *asn)
 {
 	const gchar *text;
-	EggBytes *value;
+	GBytes *value;
 	GQuark oid;
 	guint bits;
 
@@ -909,15 +909,15 @@ _gcr_certificate_renderer_append_signature (GcrRenderer *renderer,
 	value = egg_asn1x_get_element_raw (egg_asn1x_node (asn, "signatureAlgorithm", "parameters", NULL));
 	if (value) {
 		_gcr_display_view_append_hex (view, renderer, _("Signature Parameters"),
-		                              egg_bytes_get_data (value),
-		                              egg_bytes_get_size (value));
-		egg_bytes_unref (value);
+		                              g_bytes_get_data (value, NULL),
+		                              g_bytes_get_size (value));
+		g_bytes_unref (value);
 	}
 
 	value = egg_asn1x_get_bits_as_raw (egg_asn1x_node (asn, "signature", NULL), &bits);
 	_gcr_display_view_append_hex (view, renderer, _("Signature"),
-	                              egg_bytes_get_data (value), bits / 8);
-	egg_bytes_unref (value);
+	                              g_bytes_get_data (value, NULL), bits / 8);
+	g_bytes_unref (value);
 }
 
 void
@@ -926,7 +926,7 @@ _gcr_certificate_renderer_append_extension (GcrRenderer *renderer,
                                             GNode *node)
 {
 	GQuark oid;
-	EggBytes *value;
+	GBytes *value;
 	gboolean critical;
 	gboolean ret = FALSE;
 
@@ -952,8 +952,8 @@ _gcr_certificate_renderer_append_extension (GcrRenderer *renderer,
 	/* Otherwise the default raw display */
 	if (ret == FALSE)
 		ret = append_extension_hex (renderer, view, oid,
-		                            egg_bytes_get_data (value),
-		                            egg_bytes_get_size (value));
+		                            g_bytes_get_data (value, NULL),
+		                            g_bytes_get_size (value));
 
 	/* Critical */
 	if (ret == TRUE && egg_asn1x_get_boolean (egg_asn1x_node (node, "critical", NULL), &critical)) {

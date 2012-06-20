@@ -527,9 +527,9 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	const GckAttribute *exponent;
 	GNode *key_asn;
 	GNode *params_asn;
-	EggBytes *key;
-	EggBytes *params;
-	EggBytes *usg;
+	GBytes *key;
+	GBytes *params;
+	GBytes *usg;
 
 	_gcr_oids_init ();
 
@@ -545,17 +545,17 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	params_asn = egg_asn1x_create (pk_asn1_tab, "RSAParameters");
 	g_return_val_if_fail (params_asn, FALSE);
 
-	usg = egg_bytes_new_with_free_func (modulus->value, modulus->length,
+	usg = g_bytes_new_with_free_func (modulus->value, modulus->length,
 	                                    gck_attributes_unref,
 	                                    gck_attributes_ref (attrs));
 	egg_asn1x_set_integer_as_usg (egg_asn1x_node (key_asn, "modulus", NULL), usg);
-	egg_bytes_unref (usg);
+	g_bytes_unref (usg);
 
-	usg = egg_bytes_new_with_free_func (exponent->value, exponent->length,
+	usg = g_bytes_new_with_free_func (exponent->value, exponent->length,
 	                                    gck_attributes_unref,
 	                                    gck_attributes_ref (attrs));
 	egg_asn1x_set_integer_as_usg (egg_asn1x_node (key_asn, "publicExponent", NULL), usg);
-	egg_bytes_unref (usg);
+	g_bytes_unref (usg);
 
 	key = egg_asn1x_encode (key_asn, NULL);
 	egg_asn1x_destroy (key_asn);
@@ -566,13 +566,13 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	egg_asn1x_destroy (params_asn);
 
 	egg_asn1x_set_bits_as_raw (egg_asn1x_node (info_asn, "subjectPublicKey", NULL),
-	                           key, egg_bytes_get_size (key) * 8);
+	                           key, g_bytes_get_size (key) * 8);
 
 	egg_asn1x_set_oid_as_quark (egg_asn1x_node (info_asn, "algorithm", "algorithm", NULL), GCR_OID_PKIX1_RSA);
 	egg_asn1x_set_element_raw (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params);
 
-	egg_bytes_unref (key);
-	egg_bytes_unref (params);
+	g_bytes_unref (key);
+	g_bytes_unref (params);
 	return TRUE;
 }
 
@@ -607,7 +607,7 @@ dsa_subject_public_key_from_private (GNode *key_asn,
 
 	gcry = gcry_mpi_aprint (GCRYMPI_FMT_STD, &buffer, &n_buffer, my);
 	g_return_val_if_fail (gcry == 0, FALSE);
-	egg_asn1x_take_integer_as_raw (key_asn, egg_bytes_new_with_free_func (buffer, n_buffer,
+	egg_asn1x_take_integer_as_raw (key_asn, g_bytes_new_with_free_func (buffer, n_buffer,
 	                                                                      gcry_free, buffer));
 
 	gcry_mpi_release (mp);
@@ -626,8 +626,8 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 {
 	const GckAttribute *value, *g, *q, *p;
 	GNode *key_asn, *params_asn;
-	EggBytes *key;
-	EggBytes *params;
+	GBytes *key;
+	GBytes *params;
 
 	_gcr_oids_init ();
 
@@ -649,15 +649,15 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	g_return_val_if_fail (params_asn, FALSE);
 
 	egg_asn1x_take_integer_as_usg (egg_asn1x_node (params_asn, "p", NULL),
-	                               egg_bytes_new_with_free_func (p->value, p->length,
+	                               g_bytes_new_with_free_func (p->value, p->length,
 	                                                             gck_attributes_unref,
 	                                                             gck_attributes_ref (attrs)));
 	egg_asn1x_take_integer_as_usg (egg_asn1x_node (params_asn, "q", NULL),
-	                               egg_bytes_new_with_free_func (q->value, q->length,
+	                               g_bytes_new_with_free_func (q->value, q->length,
 	                                                             gck_attributes_unref,
 	                                                             gck_attributes_ref (attrs)));
 	egg_asn1x_take_integer_as_usg (egg_asn1x_node (params_asn, "g", NULL),
-	                               egg_bytes_new_with_free_func (g->value, g->length,
+	                               g_bytes_new_with_free_func (g->value, g->length,
 	                                                             gck_attributes_unref,
 	                                                             gck_attributes_ref (attrs)));
 
@@ -670,7 +670,7 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 
 	} else if (klass == CKO_PUBLIC_KEY) {
 		egg_asn1x_take_integer_as_usg (key_asn,
-		                               egg_bytes_new_with_free_func (value->value, value->length,
+		                               g_bytes_new_with_free_func (value->value, value->length,
 		                                                             gck_attributes_unref,
 		                                                             gck_attributes_ref (attrs)));
 	} else {
@@ -684,13 +684,13 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	egg_asn1x_destroy (params_asn);
 
 	egg_asn1x_set_bits_as_raw (egg_asn1x_node (info_asn, "subjectPublicKey", NULL),
-	                           key, egg_bytes_get_size (key) * 8);
+	                           key, g_bytes_get_size (key) * 8);
 	egg_asn1x_set_element_raw (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params);
 
 	egg_asn1x_set_oid_as_quark (egg_asn1x_node (info_asn, "algorithm", "algorithm", NULL), GCR_OID_PKIX1_DSA);
 
-	egg_bytes_unref (key);
-	egg_bytes_unref (params);
+	g_bytes_unref (key);
+	g_bytes_unref (params);
 	return TRUE;
 }
 
@@ -698,7 +698,7 @@ static GNode *
 cert_subject_public_key_from_attributes (GckAttributes *attributes)
 {
 	const GckAttribute *attr;
-	EggBytes *bytes;
+	GBytes *bytes;
 	GNode *cert;
 	GNode *asn;
 
@@ -708,11 +708,11 @@ cert_subject_public_key_from_attributes (GckAttributes *attributes)
 		return NULL;
 	}
 
-	bytes = egg_bytes_new_with_free_func (attr->value, attr->length,
+	bytes = g_bytes_new_with_free_func (attr->value, attr->length,
 	                                      gck_attributes_unref,
 	                                      gck_attributes_ref (attributes));
 	cert = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate", bytes);
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 
 	if (cert == NULL) {
 		_gcr_debug ("couldn't parse certificate value");
@@ -776,10 +776,10 @@ _gcr_subject_public_key_for_attributes (GckAttributes *attributes)
 }
 
 static guint
-calculate_rsa_key_size (EggBytes *data)
+calculate_rsa_key_size (GBytes *data)
 {
 	GNode *asn;
-	EggBytes *content;
+	GBytes *content;
 	guint key_size;
 
 	asn = egg_asn1x_create_and_decode (pk_asn1_tab, "RSAPublicKey", data);
@@ -792,17 +792,17 @@ calculate_rsa_key_size (EggBytes *data)
 	egg_asn1x_destroy (asn);
 
 	/* Removes the complement */
-	key_size = (egg_bytes_get_size (content) / 2) * 2 * 8;
+	key_size = (g_bytes_get_size (content) / 2) * 2 * 8;
 
-	egg_bytes_unref (content);
+	g_bytes_unref (content);
 	return key_size;
 }
 
 static guint
-calculate_dsa_params_size (EggBytes *data)
+calculate_dsa_params_size (GBytes *data)
 {
 	GNode *asn;
-	EggBytes *content;
+	GBytes *content;
 	guint key_size;
 
 	asn = egg_asn1x_create_and_decode (pk_asn1_tab, "DSAParameters", data);
@@ -815,16 +815,16 @@ calculate_dsa_params_size (EggBytes *data)
 	egg_asn1x_destroy (asn);
 
 	/* Removes the complement */
-	key_size = (egg_bytes_get_size (content) / 2) * 2 * 8;
+	key_size = (g_bytes_get_size (content) / 2) * 2 * 8;
 
-	egg_bytes_unref (content);
+	g_bytes_unref (content);
 	return key_size;
 }
 
 guint
 _gcr_subject_public_key_calculate_size (GNode *subject_public_key)
 {
-	EggBytes *key;
+	GBytes *key;
 	guint key_size = 0;
 	guint n_bits;
 	GQuark oid;
@@ -839,13 +839,13 @@ _gcr_subject_public_key_calculate_size (GNode *subject_public_key)
 		key = egg_asn1x_get_bits_as_raw (egg_asn1x_node (subject_public_key, "subjectPublicKey", NULL), &n_bits);
 		g_return_val_if_fail (key != NULL, 0);
 		key_size = calculate_rsa_key_size (key);
-		egg_bytes_unref (key);
+		g_bytes_unref (key);
 
 	/* The DSA key size is discovered by the prime in params */
 	} else if (oid == GCR_OID_PKIX1_DSA) {
 		key = egg_asn1x_get_element_raw (egg_asn1x_node (subject_public_key, "algorithm", "parameters", NULL));
 		key_size = calculate_dsa_params_size (key);
-		egg_bytes_unref (key);
+		g_bytes_unref (key);
 
 	} else {
 		g_message ("unsupported key algorithm: %s", g_quark_to_string (oid));

@@ -213,7 +213,7 @@ append_extension_request (GcrRenderer *renderer,
                           GcrDisplayView *view,
                           GNode *attribute)
 {
-	EggBytes *value;
+	GBytes *value;
 	GNode *node;
 	GNode *asn;
 	guint i;
@@ -244,7 +244,7 @@ append_attribute (GcrRenderer *renderer,
                   GNode *attribute)
 {
 	GQuark oid;
-	EggBytes *value;
+	GBytes *value;
 	const gchar *text;
 	GNode *node;
 	gboolean ret = FALSE;
@@ -270,9 +270,9 @@ append_attribute (GcrRenderer *renderer,
 				break;
 			value = egg_asn1x_get_element_raw (node);
 			_gcr_display_view_append_hex (view, renderer, _("Value"),
-			                              egg_bytes_get_data (value),
-			                              egg_bytes_get_size (value));
-			egg_bytes_unref (value);
+			                              g_bytes_get_data (value, NULL),
+			                              g_bytes_get_size (value));
+			g_bytes_unref (value);
 		}
 	}
 }
@@ -486,7 +486,7 @@ _gcr_certificate_request_renderer_set_attributes (GcrCertificateRequestRenderer 
 	const GckAttribute *value;
 	GNode *asn = NULL;
 	gulong type = 0;
-	EggBytes *bytes;
+	GBytes *bytes;
 
 	g_return_if_fail (GCR_IS_CERTIFICATE_REQUEST_RENDERER (self));
 
@@ -498,7 +498,7 @@ _gcr_certificate_request_renderer_set_attributes (GcrCertificateRequestRenderer 
 			return;
 		}
 
-		bytes = egg_bytes_new_with_free_func (value->value, value->length,
+		bytes = g_bytes_new_with_free_func (value->value, value->length,
 		                                      gck_attributes_unref, gck_attributes_ref (attrs));
 
 		asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "pkcs-10-CertificationRequest", bytes);
@@ -515,7 +515,7 @@ _gcr_certificate_request_renderer_set_attributes (GcrCertificateRequestRenderer 
 			}
 		}
 
-		egg_bytes_unref (bytes);
+		g_bytes_unref (bytes);
 
 		if (type == 0)
 			return;

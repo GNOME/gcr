@@ -30,21 +30,19 @@
 
 #include <glib.h>
 
-#include <egg/egg-bytes.h>
-
 G_BEGIN_DECLS
 
-EggBytes * _gcr_certificate_extension_find                    (GNode *cert,
+GBytes *   _gcr_certificate_extension_find                    (GNode *cert,
                                                                GQuark oid,
                                                                gboolean *critical);
 
-gboolean   _gcr_certificate_extension_basic_constraints       (EggBytes *data,
+gboolean   _gcr_certificate_extension_basic_constraints       (GBytes *data,
                                                                gboolean *is_ca,
                                                                gint *path_len);
 
-GQuark *   _gcr_certificate_extension_extended_key_usage      (EggBytes *data);
+GQuark *   _gcr_certificate_extension_extended_key_usage      (GBytes *data);
 
-gpointer   _gcr_certificate_extension_subject_key_identifier  (EggBytes *data,
+gpointer   _gcr_certificate_extension_subject_key_identifier  (GBytes *data,
                                                                gsize *n_keyid);
 
 typedef enum {
@@ -57,7 +55,7 @@ typedef enum {
 	GCR_KEY_USAGE_CRL_SIGN = 1 << 6,
 } GcrCertificateExtensionKeyUsage;
 
-gboolean   _gcr_certificate_extension_key_usage               (EggBytes *data,
+gboolean   _gcr_certificate_extension_key_usage               (GBytes *data,
                                                                gulong *key_usage);
 
 typedef enum {
@@ -76,10 +74,10 @@ typedef struct {
 	GcrGeneralNameType type;
 	const gchar *description;
 	gchar *display;
-	EggBytes *raw;
+	GBytes *raw;
 } GcrGeneralName;
 
-GArray *   _gcr_certificate_extension_subject_alt_name        (EggBytes *data);
+GArray *   _gcr_certificate_extension_subject_alt_name        (GBytes *data);
 
 void       _gcr_general_names_free                            (GArray *names);
 

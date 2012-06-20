@@ -31,7 +31,7 @@
 
 static void
 on_packet_print_records (GPtrArray *records,
-                         EggBytes *packet,
+                         GBytes *packet,
                          gpointer user_data)
 {
 	gchar *string;
@@ -45,7 +45,7 @@ on_packet_print_records (GPtrArray *records,
 }
 
 static gboolean
-parse_binary (EggBytes *contents)
+parse_binary (GBytes *contents)
 {
 	guint packets;
 
@@ -59,8 +59,8 @@ parse_binary (EggBytes *contents)
 
 static void
 on_armor_parsed (GQuark type,
-                 EggBytes *data,
-                 EggBytes *outer,
+                 GBytes *data,
+                 GBytes *outer,
                  GHashTable *headers,
                  gpointer user_data)
 {
@@ -74,7 +74,7 @@ on_armor_parsed (GQuark type,
 }
 
 static gboolean
-parse_armor_or_binary (EggBytes *contents)
+parse_armor_or_binary (GBytes *contents)
 {
 	gboolean result;
 	guint parts;
@@ -91,7 +91,7 @@ main(int argc, char *argv[])
 	GError *error = NULL;
 	gchar *contents;
 	gsize length;
-	EggBytes *bytes;
+	GBytes *bytes;
 	int ret;
 
 	g_set_prgname ("frob-openpgp");
@@ -107,13 +107,13 @@ main(int argc, char *argv[])
 		return 1;
 	}
 
-	bytes = egg_bytes_new_take (contents, length);
+	bytes = g_bytes_new_take (contents, length);
 	ret = 0;
 	if (!parse_armor_or_binary (bytes)) {
 		g_printerr ("frob-openpgp: no openpgp data found in data");
 		ret = 1;
 	}
 
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 	return ret;
 }

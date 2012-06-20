@@ -105,7 +105,7 @@ gcr_fingerprint_from_attributes (GckAttributes *attrs,
                                  gsize *n_fingerprint)
 {
 	gpointer fingerprint = NULL;
-	EggBytes *info;
+	GBytes *info;
 	GNode *asn;
 
 	g_return_val_if_fail (attrs != NULL, NULL);
@@ -115,11 +115,11 @@ gcr_fingerprint_from_attributes (GckAttributes *attrs,
 
 	if (asn != NULL) {
 		info = egg_asn1x_encode (asn, NULL);
-		fingerprint = gcr_fingerprint_from_subject_public_key_info (egg_bytes_get_data (info),
-		                                                            egg_bytes_get_size (info),
+		fingerprint = gcr_fingerprint_from_subject_public_key_info (g_bytes_get_data (info, NULL),
+		                                                            g_bytes_get_size (info),
 		                                                            checksum_type,
 		                                                            n_fingerprint);
-		egg_bytes_unref (info);
+		g_bytes_unref (info);
 	}
 
 	egg_asn1x_destroy (asn);

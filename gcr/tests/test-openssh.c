@@ -91,7 +91,7 @@ static void
 on_openssh_pub_parse (GckAttributes *attrs,
                       const gchar *label,
                       const gchar *options,
-                      EggBytes *outer,
+                      GBytes *outer,
                       gpointer user_data)
 {
 	Test *test = user_data;
@@ -112,16 +112,16 @@ test_parse_v1_rsa (Test *test,
                    gconstpointer unused)
 {
 	const gchar *data = OPENSSH_PUBLIC_RSA1 EXTRA_LINES_WITHOUT_KEY;
-	EggBytes *bytes;
+	GBytes *bytes;
 	gint keys;
 
 	test->expected_label = "rsa-key@example.com";
 
-	bytes = egg_bytes_new_static (data, strlen (data));
+	bytes = g_bytes_new_static (data, strlen (data));
 	keys = _gcr_openssh_pub_parse (bytes, on_openssh_pub_parse, test);
 	g_assert_cmpint (keys, ==, 1);
 
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 }
 
 static void
@@ -129,16 +129,16 @@ test_parse_v2_rsa (Test *test,
                    gconstpointer unused)
 {
 	const gchar *data = OPENSSH_PUBLIC_RSA2 EXTRA_LINES_WITHOUT_KEY;
-	EggBytes *bytes;
+	GBytes *bytes;
 	gint keys;
 
 	test->expected_label = "rsa-key@example.com";
 
-	bytes = egg_bytes_new_static (data, strlen (data));
+	bytes = g_bytes_new_static (data, strlen (data));
 	keys = _gcr_openssh_pub_parse (bytes, on_openssh_pub_parse, test);
 	g_assert_cmpint (keys, ==, 1);
 
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 }
 
 static void
@@ -146,16 +146,16 @@ test_parse_v2_dsa (Test *test,
                gconstpointer unused)
 {
 	const gchar *data = OPENSSH_PUBLIC_DSA2 EXTRA_LINES_WITHOUT_KEY;
-	EggBytes *bytes;
+	GBytes *bytes;
 	gint keys;
 
 	test->expected_label = "dsa-key@example.com";
 
-	bytes = egg_bytes_new_static (data, strlen (data));
+	bytes = g_bytes_new_static (data, strlen (data));
 	keys = _gcr_openssh_pub_parse (bytes, on_openssh_pub_parse, test);
 	g_assert_cmpint (keys, ==, 1);
 
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 }
 
 static void
@@ -163,16 +163,16 @@ test_parse_v1_options (Test *test,
                        gconstpointer unused)
 {
 	const gchar *data = "option1,option2=\"value 2\",option3 " OPENSSH_PUBLIC_RSA1;
-	EggBytes *bytes;
+	GBytes *bytes;
 	gint keys;
 
 	test->expected_options = "option1,option2=\"value 2\",option3";
 
-	bytes = egg_bytes_new_static (data, strlen (data));
+	bytes = g_bytes_new_static (data, strlen (data));
 	keys = _gcr_openssh_pub_parse (bytes, on_openssh_pub_parse, test);
 	g_assert_cmpint (keys, ==, 1);
 
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 }
 
 static void
@@ -180,16 +180,16 @@ test_parse_v2_options (Test *test,
                        gconstpointer unused)
 {
 	const gchar *data = "option1,option2=\"value 2\",option3 " OPENSSH_PUBLIC_RSA2;
-	EggBytes *bytes;
+	GBytes *bytes;
 	gint keys;
 
 	test->expected_options = "option1,option2=\"value 2\",option3";
 
-	bytes = egg_bytes_new_static (data, strlen (data));
+	bytes = g_bytes_new_static (data, strlen (data));
 	keys = _gcr_openssh_pub_parse (bytes, on_openssh_pub_parse, test);
 	g_assert_cmpint (keys, ==, 1);
 
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 }
 
 int

@@ -124,7 +124,7 @@ struct _GcrParsed {
 	GckAttributes *attrs;
 	const gchar *description;
 	gchar *label;
-	EggBytes *data;
+	GBytes *data;
 	gboolean sensitive;
 	GcrDataFormat format;
 	struct _GcrParsed *next;
@@ -148,7 +148,7 @@ typedef struct {
 
 typedef struct _ParserFormat {
 	gint format_id;
-	gint (*function) (GcrParser *self, EggBytes *data);
+	gint (*function) (GcrParser *self, GBytes *data);
 } ParserFormat;
 
 /* Forward declarations */
@@ -228,12 +228,12 @@ parsed_attribute (GcrParsed *parsed,
 static void
 parsed_attribute_bytes (GcrParsed *parsed,
                         CK_ATTRIBUTE_TYPE type,
-                        EggBytes *data)
+                        GBytes *data)
 {
 	g_assert (parsed != NULL);
 	gck_builder_add_data (&parsed->builder, type,
-	                      egg_bytes_get_data (data),
-	                      egg_bytes_get_size (data));
+	                      g_bytes_get_data (data, NULL),
+	                      g_bytes_get_size (data));
 }
 
 static gboolean
@@ -242,7 +242,7 @@ parsed_asn1_number (GcrParsed *parsed,
                     const gchar *part,
                     CK_ATTRIBUTE_TYPE type)
 {
-	EggBytes *value;
+	GBytes *value;
 
 	g_assert (asn);
 	g_assert (parsed);
@@ -252,7 +252,7 @@ parsed_asn1_number (GcrParsed *parsed,
 		return FALSE;
 
 	parsed_attribute_bytes (parsed, type, value);
-	egg_bytes_unref (value);
+	g_bytes_unref (value);
 	return TRUE;
 }
 
@@ -262,7 +262,7 @@ parsed_asn1_element (GcrParsed *parsed,
                      const gchar *part,
                      CK_ATTRIBUTE_TYPE type)
 {
-	EggBytes *value;
+	GBytes *value;
 
 	g_assert (asn);
 	g_assert (parsed);
@@ -272,7 +272,7 @@ parsed_asn1_element (GcrParsed *parsed,
 		return FALSE;
 
 	parsed_attribute_bytes (parsed, type, value);
-	egg_bytes_unref (value);
+	g_bytes_unref (value);
 	return TRUE;
 }
 
@@ -298,7 +298,7 @@ parsed_boolean_attribute (GcrParsed *parsed,
 static void
 parsing_block (GcrParsed *parsed,
                gint format,
-               EggBytes *data)
+               GBytes *data)
 {
 	g_assert (parsed != NULL);
 	g_assert (data != NULL);
@@ -306,7 +306,7 @@ parsing_block (GcrParsed *parsed,
 	g_assert (parsed->data == NULL);
 
 	parsed->format = format;
-	parsed->data = egg_bytes_ref (data);
+	parsed->data = g_bytes_ref (data);
 }
 
 static void
@@ -397,7 +397,7 @@ pop_parsed (GcrParser *self,
 	gck_builder_clear (&parsed->builder);
 	gck_attributes_unref (parsed->attrs);
 	if (parsed->data)
-		egg_bytes_unref (parsed->data);
+		g_bytes_unref (parsed->data);
 	g_free (parsed->label);
 	g_free (parsed);
 }
@@ -472,7 +472,7 @@ parsed_fire (GcrParser *self,
 
 static gint
 parse_der_private_key_rsa (GcrParser *self,
-                           EggBytes *data)
+                           GBytes *data)
 {
 	gint res = GCR_ERROR_UNRECOGNIZED;
 	GNode *asn = NULL;
@@ -527,7 +527,7 @@ done:
 
 static gint
 parse_der_private_key_dsa (GcrParser *self,
-                           EggBytes *data)
+                           GBytes *data)
 {
 	gint ret = GCR_ERROR_UNRECOGNIZED;
 	GNode *asn = NULL;
@@ -565,8 +565,8 @@ done:
 
 static gint
 parse_der_private_key_dsa_parts (GcrParser *self,
-                                 EggBytes *keydata,
-                                 EggBytes *params)
+                                 GBytes *keydata,
+                                 GBytes *params)
 {
 	gint ret = GCR_ERROR_UNRECOGNIZED;
 	GNode *asn_params = NULL;
@@ -610,7 +610,7 @@ done:
 
 static gint
 parse_der_private_key (GcrParser *self,
-                       EggBytes *data)
+                       GBytes *data)
 {
 	gint res;
 
@@ -628,8 +628,8 @@ parse_der_private_key (GcrParser *self,
 static gint
 handle_subject_public_key_rsa (GcrParser *self,
                                GcrParsed *parsed,
-                               EggBytes *key,
-                               EggBytes *params)
+                               GBytes *key,
+                               GBytes *params)
 {
 	gint res = GCR_ERROR_FAILURE;
 	GNode *asn = NULL;
@@ -655,8 +655,8 @@ done:
 static gint
 handle_subject_public_key_dsa (GcrParser *self,
                                GcrParsed *parsed,
-                               EggBytes *key,
-                               EggBytes *params)
+                               GBytes *key,
+                               GBytes *params)
 {
 	gint res = GCR_ERROR_FAILURE;
 	GNode *key_asn = NULL;
@@ -687,11 +687,11 @@ done:
 
 static gint
 parse_der_subject_public_key (GcrParser *self,
-                              EggBytes *data)
+                              GBytes *data)
 {
 	GcrParsed *parsed;
-	EggBytes *params;
-	EggBytes *key;
+	GBytes *params;
+	GBytes *key;
 	GNode *asn = NULL;
 	GNode *node;
 	GQuark oid;
@@ -723,8 +723,8 @@ parse_der_subject_public_key (GcrParser *self,
 	else
 		ret = GCR_ERROR_UNRECOGNIZED;
 
-	egg_bytes_unref (key);
-	egg_bytes_unref (params);
+	g_bytes_unref (key);
+	g_bytes_unref (params);
 
 	if (ret == SUCCESS)
 		parsed_fire (self, parsed);
@@ -741,13 +741,13 @@ parse_der_subject_public_key (GcrParser *self,
 
 static gint
 parse_der_pkcs8_plain (GcrParser *self,
-                       EggBytes *data)
+                       GBytes *data)
 {
 	gint ret;
 	CK_KEY_TYPE key_type;
 	GQuark key_algo;
-	EggBytes *keydata = NULL;
-	EggBytes *params = NULL;
+	GBytes *keydata = NULL;
+	GBytes *params = NULL;
 	GNode *asn = NULL;
 	GcrParsed *parsed;
 
@@ -808,9 +808,9 @@ done:
 	}
 
 	if (keydata)
-		egg_bytes_unref (keydata);
+		g_bytes_unref (keydata);
 	if (params)
-		egg_bytes_unref (params);
+		g_bytes_unref (params);
 	egg_asn1x_destroy (asn);
 	pop_parsed (self, parsed);
 	return ret;
@@ -818,7 +818,7 @@ done:
 
 static gint
 parse_der_pkcs8_encrypted (GcrParser *self,
-                           EggBytes *data)
+                           GBytes *data)
 {
 	PasswordState pstate = PASSWORD_STATE_INIT;
 	GNode *asn = NULL;
@@ -827,8 +827,8 @@ parse_der_pkcs8_encrypted (GcrParser *self,
 	gint ret, r;
 	GQuark scheme;
 	guchar *crypted = NULL;
-	EggBytes *params = NULL;
-	EggBytes *cbytes;
+	GBytes *params = NULL;
+	GBytes *cbytes;
 	gsize n_crypted;
 	const gchar *password;
 	GcrParsed *parsed;
@@ -884,13 +884,13 @@ parse_der_pkcs8_encrypted (GcrParser *self,
 		if (l > 0)
 			n_crypted = l;
 
-		cbytes = egg_bytes_new_with_free_func (crypted, n_crypted,
+		cbytes = g_bytes_new_with_free_func (crypted, n_crypted,
 		                                       egg_secure_free, crypted);
 		crypted = NULL;
 
 		/* Try to parse the resulting key */
 		r = parse_der_pkcs8_plain (self, cbytes);
-		egg_bytes_unref (cbytes);
+		g_bytes_unref (cbytes);
 
 		if (r != GCR_ERROR_UNRECOGNIZED) {
 			ret = r;
@@ -902,7 +902,7 @@ parse_der_pkcs8_encrypted (GcrParser *self,
 
 done:
 	if (params)
-		egg_bytes_unref (params);
+		g_bytes_unref (params);
 	if (cih)
 		gcry_cipher_close (cih);
 	egg_asn1x_destroy (asn);
@@ -914,7 +914,7 @@ done:
 
 static gint
 parse_der_pkcs8 (GcrParser *self,
-                 EggBytes *data)
+                 GBytes *data)
 {
 	gint ret;
 
@@ -931,7 +931,7 @@ parse_der_pkcs8 (GcrParser *self,
 
 static gint
 parse_der_certificate (GcrParser *self,
-                       EggBytes *data)
+                       GBytes *data)
 {
 	gchar *name = NULL;
 	GcrParsed *parsed;
@@ -977,12 +977,12 @@ parse_der_certificate (GcrParser *self,
 
 static gint
 handle_pkcs7_signed_data (GcrParser *self,
-                          EggBytes *data)
+                          GBytes *data)
 {
 	GNode *asn = NULL;
 	GNode *node;
 	gint ret;
-	EggBytes *certificate;
+	GBytes *certificate;
 	int i;
 
 	ret = GCR_ERROR_UNRECOGNIZED;
@@ -1001,7 +1001,7 @@ handle_pkcs7_signed_data (GcrParser *self,
 
 		certificate = egg_asn1x_get_element_raw (node);
 		ret = parse_der_certificate (self, certificate);
-		egg_bytes_unref (certificate);
+		g_bytes_unref (certificate);
 
 		if (ret != SUCCESS)
 			goto done;
@@ -1018,12 +1018,12 @@ done:
 
 static gint
 parse_der_pkcs7 (GcrParser *self,
-                 EggBytes *data)
+                 GBytes *data)
 {
 	GNode *asn = NULL;
 	GNode *node;
 	gint ret;
-	EggBytes *content = NULL;
+	GBytes *content = NULL;
 	GQuark oid;
 	GcrParsed *parsed;
 
@@ -1058,7 +1058,7 @@ parse_der_pkcs7 (GcrParser *self,
 
 done:
 	if (content)
-		egg_bytes_unref (content);
+		g_bytes_unref (content);
 	egg_asn1x_destroy (asn);
 	pop_parsed (self, parsed);
 	return ret;
@@ -1071,7 +1071,7 @@ done:
 static GNode *
 decode_pkcs12_asn1_accepting_invalid_crap (const EggAsn1xDef *defs,
                                            const gchar *identifier,
-                                           EggBytes *data)
+                                           GBytes *data)
 {
 	GNode *asn;
 
@@ -1101,14 +1101,14 @@ decode_pkcs12_asn1_accepting_invalid_crap (const EggAsn1xDef *defs,
 
 static gint
 handle_pkcs12_cert_bag (GcrParser *self,
-                        EggBytes *data)
+                        GBytes *data)
 {
 	GNode *asn = NULL;
 	GNode *asn_content = NULL;
 	guchar *certificate = NULL;
-	EggBytes *element = NULL;
+	GBytes *element = NULL;
 	gsize n_certificate;
-	EggBytes *bytes;
+	GBytes *bytes;
 	gint ret;
 
 	ret = GCR_ERROR_UNRECOGNIZED;
@@ -1132,13 +1132,13 @@ handle_pkcs12_cert_bag (GcrParser *self,
 	if (!certificate)
 		goto done;
 
-	bytes = egg_bytes_new_take (certificate, n_certificate);
+	bytes = g_bytes_new_take (certificate, n_certificate);
 	ret = parse_der_certificate (self, bytes);
-	egg_bytes_unref (bytes);
+	g_bytes_unref (bytes);
 
 done:
 	if (element)
-		egg_bytes_unref (element);
+		g_bytes_unref (element);
 	egg_asn1x_destroy (asn_content);
 	egg_asn1x_destroy (asn);
 	return ret;
@@ -1150,7 +1150,7 @@ parse_pkcs12_bag_friendly_name (GNode *asn)
 	guint count, i;
 	GQuark oid;
 	GNode *node;
-	EggBytes *element;
+	GBytes *element;
 	GNode *asn_str;
 	gchar *result;
 
@@ -1166,7 +1166,7 @@ parse_pkcs12_bag_friendly_name (GNode *asn)
 				element = egg_asn1x_get_element_raw (node);
 				asn_str = egg_asn1x_create_and_decode (pkix_asn1_tab, "BMPString",
 				                                       element);
-				egg_bytes_unref (element);
+				g_bytes_unref (element);
 				if (asn_str) {
 					result = egg_asn1x_get_bmpstring_as_utf8 (asn_str);
 					egg_asn1x_destroy (asn_str);
@@ -1181,13 +1181,13 @@ parse_pkcs12_bag_friendly_name (GNode *asn)
 
 static gint
 handle_pkcs12_bag (GcrParser *self,
-                   EggBytes *data)
+                   GBytes *data)
 {
 	GNode *asn = NULL;
 	gint ret, r;
 	guint count = 0;
 	GQuark oid;
-	EggBytes *element = NULL;
+	GBytes *element = NULL;
 	gchar *friendly;
 	guint i;
 	GcrParsed *parsed;
@@ -1245,7 +1245,7 @@ handle_pkcs12_bag (GcrParser *self,
 		}
 
 		if (element != NULL)
-			egg_bytes_unref (element);
+			g_bytes_unref (element);
 
 		pop_parsed (self, parsed);
 
@@ -1266,17 +1266,17 @@ done:
 
 static gint
 handle_pkcs12_encrypted_bag (GcrParser *self,
-                             EggBytes *data)
+                             GBytes *data)
 {
 	PasswordState pstate = PASSWORD_STATE_INIT;
 	GNode *asn = NULL;
 	gcry_cipher_hd_t cih = NULL;
 	gcry_error_t gcry;
 	guchar *crypted = NULL;
-	EggBytes *params = NULL;
+	GBytes *params = NULL;
 	gsize n_crypted;
 	const gchar *password;
-	EggBytes *cbytes;
+	GBytes *cbytes;
 	GQuark scheme;
 	gint ret, r;
 	gint l;
@@ -1336,12 +1336,12 @@ handle_pkcs12_encrypted_bag (GcrParser *self,
 		if (l > 0)
 			n_crypted = l;
 
-		cbytes = egg_bytes_new_with_free_func (crypted, n_crypted, egg_secure_free, crypted);
+		cbytes = g_bytes_new_with_free_func (crypted, n_crypted, egg_secure_free, crypted);
 		crypted = NULL;
 
 		/* Try to parse the resulting key */
 		r = handle_pkcs12_bag (self, cbytes);
-		egg_bytes_unref (cbytes);
+		g_bytes_unref (cbytes);
 
 		if (r != GCR_ERROR_UNRECOGNIZED) {
 			ret = r;
@@ -1353,7 +1353,7 @@ handle_pkcs12_encrypted_bag (GcrParser *self,
 
 done:
 	if (params)
-		egg_bytes_unref (params);
+		g_bytes_unref (params);
 	if (cih)
 		gcry_cipher_close (cih);
 	egg_asn1x_destroy (asn);
@@ -1363,13 +1363,13 @@ done:
 
 static gint
 handle_pkcs12_safe (GcrParser *self,
-                    EggBytes *data)
+                    GBytes *data)
 {
 	GNode *asn = NULL;
 	GNode *asn_content = NULL;
 	gint ret, r;
-	EggBytes *bag = NULL;
-	EggBytes *content;
+	GBytes *bag = NULL;
+	GBytes *content;
 	GQuark oid;
 	guint i;
 	GNode *node;
@@ -1418,7 +1418,7 @@ handle_pkcs12_safe (GcrParser *self,
 				goto done;
 
 			r = handle_pkcs12_bag (self, content);
-			egg_bytes_unref (content);
+			g_bytes_unref (content);
 
 		/* Encrypted data first needs decryption */
 		} else if (oid == GCR_OID_PKCS7_ENCRYPTED_DATA) {
@@ -1430,7 +1430,7 @@ handle_pkcs12_safe (GcrParser *self,
 			r = GCR_ERROR_UNRECOGNIZED;
 		}
 
-		egg_bytes_unref (bag);
+		g_bytes_unref (bag);
 		bag = NULL;
 
 		if (r == GCR_ERROR_FAILURE ||
@@ -1445,7 +1445,7 @@ handle_pkcs12_safe (GcrParser *self,
 
 done:
 	if (bag != NULL)
-		egg_bytes_unref (bag);
+		g_bytes_unref (bag);
 	egg_asn1x_destroy (asn);
 	egg_asn1x_destroy (asn_content);
 	return ret;
@@ -1454,7 +1454,7 @@ done:
 static gint
 verify_pkcs12_safe (GcrParser *self,
                     GNode *asn,
-                    EggBytes *content)
+                    GBytes *content)
 {
 	PasswordState pstate = PASSWORD_STATE_INIT;
 	const gchar *password;
@@ -1465,7 +1465,7 @@ verify_pkcs12_safe (GcrParser *self,
 	gsize n_digest;
 	GQuark algorithm;
 	GNode *mac_data;
-	EggBytes *params = NULL;
+	GBytes *params = NULL;
 	int ret, r;
 
 	ret = GCR_ERROR_FAILURE;
@@ -1513,7 +1513,7 @@ verify_pkcs12_safe (GcrParser *self,
 			r = GCR_ERROR_FAILURE;
 
 		} else {
-			gcry_md_write (mdh, egg_bytes_get_data (content), egg_bytes_get_size (content));
+			gcry_md_write (mdh, g_bytes_get_data (content, NULL), g_bytes_get_size (content));
 			mac_digest = gcry_md_read (mdh, 0);
 			g_return_val_if_fail (mac_digest, GCR_ERROR_FAILURE);
 			r = memcmp (mac_digest, digest, n_digest) == 0 ? SUCCESS : GCR_ERROR_LOCKED;
@@ -1530,7 +1530,7 @@ verify_pkcs12_safe (GcrParser *self,
 
 done:
 	if (params)
-		egg_bytes_unref (params);
+		g_bytes_unref (params);
 	if (mdh)
 		gcry_md_close (mdh);
 	g_free (digest);
@@ -1540,13 +1540,13 @@ done:
 
 static gint
 parse_der_pkcs12 (GcrParser *self,
-                  EggBytes *data)
+                  GBytes *data)
 {
 	GNode *asn = NULL;
 	GNode *asn_content = NULL;
 	gint ret;
-	EggBytes *element = NULL;
-	EggBytes *content = NULL;
+	GBytes *element = NULL;
+	GBytes *content = NULL;
 	GQuark oid;
 	GcrParsed *parsed;
 
@@ -1587,9 +1587,9 @@ parse_der_pkcs12 (GcrParser *self,
 
 done:
 	if (element)
-		egg_bytes_unref (element);
+		g_bytes_unref (element);
 	if (content)
-		egg_bytes_unref (content);
+		g_bytes_unref (content);
 	egg_asn1x_destroy (asn_content);
 	egg_asn1x_destroy (asn);
 	pop_parsed (self, parsed);
@@ -1602,7 +1602,7 @@ done:
 
 static gint
 parse_der_pkcs10 (GcrParser *self,
-                  EggBytes *data)
+                  GBytes *data)
 {
 	GNode *asn = NULL;
 	GNode *node;
@@ -1642,7 +1642,7 @@ parse_der_pkcs10 (GcrParser *self,
 
 static gint
 parse_der_spkac (GcrParser *self,
-                 EggBytes *data)
+                 GBytes *data)
 {
 	GNode *asn = NULL;
 	GcrParsed *parsed;
@@ -1668,7 +1668,7 @@ parse_der_spkac (GcrParser *self,
 
 static gint
 parse_base64_spkac (GcrParser *self,
-                    EggBytes *dat)
+                    GBytes *dat)
 {
 	const gchar *PREFIX = "SPKAC=";
 	const gsize PREFIX_LEN = 6;
@@ -1677,12 +1677,11 @@ parse_base64_spkac (GcrParser *self,
 	guchar *spkac;
 	gsize n_spkac;
 	const guchar *data;
-	EggBytes *bytes;
+	GBytes *bytes;
 	gsize n_data;
 	gint ret;
 
-	data = egg_bytes_get_data (dat);
-	n_data = egg_bytes_get_size (dat);
+	data = g_bytes_get_data (dat, &n_data);
 
 	if (n_data > PREFIX_LEN && memcmp (PREFIX, data, PREFIX_LEN))
 		return GCR_ERROR_UNRECOGNIZED;
@@ -1695,9 +1694,9 @@ parse_base64_spkac (GcrParser *self,
 
 	spkac = g_base64_decode ((const gchar *)data, &n_spkac);
 	if (spkac != NULL) {
-		bytes = egg_bytes_new_take (spkac, n_spkac);
+		bytes = g_bytes_new_take (spkac, n_spkac);
 		ret = parse_der_spkac (self, bytes);
-		egg_bytes_unref (bytes);
+		g_bytes_unref (bytes);
 	} else {
 		ret = GCR_ERROR_FAILURE;
 	}
@@ -1712,7 +1711,7 @@ parse_base64_spkac (GcrParser *self,
 
 static void
 on_openpgp_packet (GPtrArray *records,
-                   EggBytes *outer,
+                   GBytes *outer,
                    gpointer user_data)
 {
 	GcrParser *self = GCR_PARSER (user_data);
@@ -1741,7 +1740,7 @@ on_openpgp_packet (GPtrArray *records,
 
 static gint
 parse_openpgp_packets (GcrParser *self,
-                       EggBytes *data)
+                       GBytes *data)
 {
 	gint num_parsed;
 
@@ -1815,7 +1814,7 @@ static gint
 handle_plain_pem (GcrParser *self,
                   gint format_id,
                   gint want_format,
-                  EggBytes *data)
+                  GBytes *data)
 {
 	ParserFormat *format;
 
@@ -1834,14 +1833,14 @@ handle_encrypted_pem (GcrParser *self,
                       gint format_id,
                       gint want_format,
                       GHashTable *headers,
-                      EggBytes *data)
+                      GBytes *data)
 {
 	PasswordState pstate = PASSWORD_STATE_INIT;
 	const gchar *password;
 	guchar *decrypted;
 	gsize n_decrypted;
 	const gchar *val;
-	EggBytes *dbytes;
+	GBytes *dbytes;
 	gint res;
 	gint l;
 
@@ -1872,13 +1871,13 @@ handle_encrypted_pem (GcrParser *self,
 		if (l > 0)
 			n_decrypted = l;
 
-		dbytes = egg_bytes_new_with_free_func (decrypted, n_decrypted,
+		dbytes = g_bytes_new_with_free_func (decrypted, n_decrypted,
 		                                       egg_secure_free, decrypted);
 		decrypted = NULL;
 
 		/* Try to parse */
 		res = handle_plain_pem (self, format_id, want_format, dbytes);
-		egg_bytes_unref (dbytes);
+		g_bytes_unref (dbytes);
 
 		/* Unrecognized is a bad password */
 		if (res != GCR_ERROR_UNRECOGNIZED)
@@ -1896,8 +1895,8 @@ typedef struct {
 
 static void
 handle_pem_data (GQuark type,
-                 EggBytes *data,
-                 EggBytes *outer,
+                 GBytes *data,
+                 GBytes *outer,
                  GHashTable *headers,
                  gpointer user_data)
 {
@@ -1949,12 +1948,12 @@ handle_pem_data (GQuark type,
 static gint
 handle_pem_format (GcrParser *self,
                    gint subformat,
-                   EggBytes *data)
+                   GBytes *data)
 {
 	HandlePemArgs ctx = { self, GCR_ERROR_UNRECOGNIZED, subformat };
 	guint found;
 
-	if (egg_bytes_get_size (data) == 0)
+	if (g_bytes_get_size (data) == 0)
 		return GCR_ERROR_UNRECOGNIZED;
 
 	found = egg_armor_parse (data, handle_pem_data, &ctx);
@@ -1968,70 +1967,70 @@ handle_pem_format (GcrParser *self,
 
 static gint
 parse_pem (GcrParser *self,
-           EggBytes *data)
+           GBytes *data)
 {
 	return handle_pem_format (self, 0, data);
 }
 
 static gint
 parse_pem_private_key_rsa (GcrParser *self,
-                           EggBytes *data)
+                           GBytes *data)
 {
 	return handle_pem_format (self, GCR_FORMAT_DER_PRIVATE_KEY_RSA, data);
 }
 
 static gint
 parse_pem_private_key_dsa (GcrParser *self,
-                           EggBytes *data)
+                           GBytes *data)
 {
 	return handle_pem_format (self, GCR_FORMAT_DER_PRIVATE_KEY_DSA, data);
 }
 
 static gint
 parse_pem_certificate (GcrParser *self,
-                       EggBytes *data)
+                       GBytes *data)
 {
 	return handle_pem_format (self, GCR_FORMAT_DER_CERTIFICATE_X509, data);
 }
 
 static gint
 parse_pem_pkcs8_plain (GcrParser *self,
-                       EggBytes *data)
+                       GBytes *data)
 {
 	return handle_pem_format (self, GCR_FORMAT_DER_PKCS8_PLAIN, data);
 }
 
 static gint
 parse_pem_pkcs8_encrypted (GcrParser *self,
-                           EggBytes *data)
+                           GBytes *data)
 {
 	return handle_pem_format (self, GCR_FORMAT_DER_PKCS8_ENCRYPTED, data);
 }
 
 static gint
 parse_pem_pkcs7 (GcrParser *self,
-                 EggBytes *data)
+                 GBytes *data)
 {
 	return handle_pem_format (self, GCR_FORMAT_DER_PKCS7, data);
 }
 
 static gint
 parse_pem_pkcs10 (GcrParser *self,
-                  EggBytes *data)
+                  GBytes *data)
 {
 	return handle_pem_format (self, GCR_FORMAT_DER_PKCS10, data);
 }
 
 static gint
 parse_pem_pkcs12 (GcrParser *self,
-                  EggBytes *data)
+                  GBytes *data)
 {
 	return handle_pem_format (self, GCR_FORMAT_DER_PKCS12, data);
 }
 
 static gint
 parse_openpgp_armor (GcrParser *self,
-                     EggBytes *data)
+                     GBytes *data)
 {
 	return handle_pem_format (self, GCR_FORMAT_OPENPGP_PACKET, data);
 }
@@ -2044,7 +2043,7 @@ static void
 on_openssh_public_key_parsed (GckAttributes *attrs,
                               const gchar *label,
                               const gchar *options,
-                              EggBytes *outer,
+                              GBytes *outer,
                               gpointer user_data)
 {
 	GcrParser *self = GCR_PARSER (user_data);
@@ -2060,7 +2059,7 @@ on_openssh_public_key_parsed (GckAttributes *attrs,
 
 static gint
 parse_openssh_public (GcrParser *self,
-                      EggBytes *data)
+                      GBytes *data)
 {
 	guint num_parsed;
 
@@ -2192,7 +2191,7 @@ compare_pointers (gconstpointer a, gconstpointer b)
 
 typedef struct _ForeachArgs {
 	GcrParser *parser;
-	EggBytes *data;
+	GBytes *data;
 	gint result;
 } ForeachArgs;
 
@@ -2458,7 +2457,7 @@ gcr_parser_parse_data (GcrParser *self,
 
 	if (data && n_data) {
 		/* TODO: Once GBytes is in the API, copy here */
-		args.data = egg_bytes_new_static (data, n_data);
+		args.data = g_bytes_new_static (data, n_data);
 
 		/* Just the specific formats requested */
 		if (self->pv->specific_formats) {
@@ -2473,7 +2472,7 @@ gcr_parser_parse_data (GcrParser *self,
 			}
 		}
 
-		egg_bytes_unref (args.data);
+		g_bytes_unref (args.data);
 	}
 
 	switch (args.result) {
@@ -2650,7 +2649,7 @@ gcr_parsed_ref (GcrParsed *parsed)
 	/* Find the block of data to copy */
 	while (parsed != NULL) {
 		if (parsed->data != NULL) {
-			copy->data = egg_bytes_ref (parsed->data);
+			copy->data = g_bytes_ref (parsed->data);
 			copy->sensitive = parsed->sensitive;
 			break;
 		}
@@ -2679,7 +2678,7 @@ gcr_parsed_unref (gpointer parsed)
 			gck_attributes_unref (par->attrs);
 		g_free (par->label);
 		if (par->data)
-			egg_bytes_unref (par->data);
+			g_bytes_unref (par->data);
 		g_free (par);
 	}
 }
@@ -2842,10 +2841,8 @@ gcr_parsed_get_data (GcrParsed *parsed,
 	g_return_val_if_fail (n_data != NULL, NULL);
 
 	while (parsed != NULL) {
-		if (parsed->data != NULL) {
-			*n_data = egg_bytes_get_size (parsed->data);
-			return egg_bytes_get_data (parsed->data);
-		}
+		if (parsed->data != NULL)
+			return g_bytes_get_data (parsed->data, n_data);
 		parsed = parsed->next;
 	}
 

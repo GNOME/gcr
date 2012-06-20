@@ -43,11 +43,11 @@ typedef struct {
 } TestFixture;
 
 typedef struct {
-	EggBytes *crt_data;
+	GBytes *crt_data;
 	GckAttributes *crt_attrs;
-	EggBytes *key_data;
+	GBytes *key_data;
 	GckAttributes *prv_attrs;
-	EggBytes *spk_data;
+	GBytes *spk_data;
 	GckAttributes *pub_attrs;
 } TestAttributes;
 
@@ -63,7 +63,7 @@ on_parser_parsed (GcrParser *parser,
 }
 
 static GckAttributes *
-parse_attributes (EggBytes *data)
+parse_attributes (GBytes *data)
 {
 	GcrParser *parser;
 	GckAttributes *attrs = NULL;
@@ -71,8 +71,8 @@ parse_attributes (EggBytes *data)
 
 	parser = gcr_parser_new ();
 	g_signal_connect (parser, "parsed", G_CALLBACK (on_parser_parsed), &attrs);
-	gcr_parser_parse_data (parser, egg_bytes_get_data (data),
-	                       egg_bytes_get_size (data), &error);
+	gcr_parser_parse_data (parser, g_bytes_get_data (data, NULL),
+	                       g_bytes_get_size (data), &error);
 	g_assert_no_error (error);
 	g_object_unref (parser);
 
@@ -94,7 +94,7 @@ setup_attributes (TestAttributes *test,
 	filename = g_strdup_printf (SRCDIR "/files/%s.crt", fixture->basename);
 	g_file_get_contents (filename, &contents, &length, &error);
 	g_assert_no_error (error);
-	test->crt_data = egg_bytes_new_take (contents, length);
+	test->crt_data = g_bytes_new_take (contents, length);
 	test->crt_attrs = parse_attributes (test->crt_data);
 	g_assert (gck_attributes_find_ulong (test->crt_attrs, CKA_CLASS, &klass));
 	gck_assert_cmpulong (klass, ==, CKO_CERTIFICATE);
@@ -103,7 +103,7 @@ setup_attributes (TestAttributes *test,
 	filename = g_strdup_printf (SRCDIR "/files/%s.key", fixture->basename);
 	g_file_get_contents (filename, &contents, &length, &error);
 	g_assert_no_error (error);
-	test->key_data = egg_bytes_new_take (contents, length);
+	test->key_data = g_bytes_new_take (contents, length);
 	test->prv_attrs = parse_attributes (test->key_data);
 	g_assert (gck_attributes_find_ulong (test->prv_attrs, CKA_CLASS, &klass));
 	gck_assert_cmpulong (klass, ==, CKO_PRIVATE_KEY);
@@ -112,7 +112,7 @@ setup_attributes (TestAttributes *test,
 	filename = g_strdup_printf (SRCDIR "/files/%s.spk", fixture->basename);
 	g_file_get_contents (filename, &contents, &length, &error);
 	g_assert_no_error (error);
-	test->spk_data = egg_bytes_new_take (contents, length);
+	test->spk_data = g_bytes_new_take (contents, length);
 	test->pub_attrs = parse_attributes (test->spk_data);
 	g_assert (gck_attributes_find_ulong (test->pub_attrs, CKA_CLASS, &klass));
 	gck_assert_cmpulong (klass, ==, CKO_PUBLIC_KEY);
@@ -123,9 +123,9 @@ static void
 teardown_attributes (TestAttributes *test,
                      gconstpointer unused)
 {
-	egg_bytes_unref (test->crt_data);
-	egg_bytes_unref (test->key_data);
-	egg_bytes_unref (test->spk_data);
+	g_bytes_unref (test->crt_data);
+	g_bytes_unref (test->key_data);
+	g_bytes_unref (test->spk_data);
 	gck_attributes_unref (test->crt_attrs);
 	gck_attributes_unref (test->prv_attrs);
 	gck_attributes_unref (test->pub_attrs);
@@ -136,16 +136,16 @@ perform_for_attributes (TestAttributes *test,
                         GckAttributes *attrs)
 {
 	GNode *info;
-	EggBytes *data;
+	GBytes *data;
 
 	info = _gcr_subject_public_key_for_attributes (attrs);
 	g_assert (info != NULL);
 
 	data = egg_asn1x_encode (info, NULL);
-	egg_assert_cmpbytes (data, ==, egg_bytes_get_data (test->spk_data),
-	                               egg_bytes_get_size (test->spk_data));
+	egg_assert_cmpbytes (data, ==, g_bytes_get_data (test->spk_data, NULL),
+	                               g_bytes_get_size (test->spk_data));
 
-	egg_bytes_unref (data);
+	g_bytes_unref (data);
 	egg_asn1x_destroy (info);
 
 }
@@ -183,7 +183,7 @@ perform_calculate_size (TestAttributes *test,
 	g_assert (info != NULL);
 
 	/* TODO: until encoding, we don't have readable attributes */
-	egg_bytes_unref (egg_asn1x_encode (info, NULL));
+	g_bytes_unref (egg_asn1x_encode (info, NULL));
 
 	size = _gcr_subject_public_key_calculate_size (info);
 	g_assert_cmpuint (size, ==, fixture->key_size);
@@ -317,7 +317,7 @@ perform_load (TestLoading *test,
               GckObject *object)
 {
 	GError *error = NULL;
-	EggBytes *data;
+	GBytes *data;
 	GNode *info;
 
 	info = _gcr_subject_public_key_load (object, NULL, &error);
@@ -325,10 +325,10 @@ perform_load (TestLoading *test,
 	g_assert (info != NULL);
 
 	data = egg_asn1x_encode (info, NULL);
-	egg_assert_cmpbytes (data, ==, egg_bytes_get_data (test->at.spk_data),
-	                               egg_bytes_get_size (test->at.spk_data));
+	egg_assert_cmpbytes (data, ==, g_bytes_get_data (test->at.spk_data, NULL),
+	                               g_bytes_get_size (test->at.spk_data));
 
-	egg_bytes_unref (data);
+	g_bytes_unref (data);
 	egg_asn1x_destroy (info);
 }
 
@@ -372,7 +372,7 @@ perform_load_async (TestLoading *test,
 {
 	GAsyncResult *result = NULL;
 	GError *error = NULL;
-	EggBytes *data;
+	GBytes *data;
 	GNode *info;
 
 	_gcr_subject_public_key_load_async (object, NULL, on_async_result, &result);
@@ -386,10 +386,10 @@ perform_load_async (TestLoading *test,
 	g_object_unref (result);
 
 	data = egg_asn1x_encode (info, NULL);
-	egg_assert_cmpbytes (data, ==, egg_bytes_get_data (test->at.spk_data),
-	                               egg_bytes_get_size (test->at.spk_data));
+	egg_assert_cmpbytes (data, ==, g_bytes_get_data (test->at.spk_data, NULL),
+	                               g_bytes_get_size (test->at.spk_data));
 
-	egg_bytes_unref (data);
+	g_bytes_unref (data);
 	egg_asn1x_destroy (info);
 }
 
@@ -499,7 +499,7 @@ perform_load_already (TestLoading *test,
 	const gulong INVALID = 0xFFF00FF; /* invalid handle, should not be used */
 	GckObject *object;
 	GError *error = NULL;
-	EggBytes *data;
+	GBytes *data;
 	GNode *info;
 
 	object = g_object_new (mock_object_get_type (),
@@ -514,10 +514,10 @@ perform_load_already (TestLoading *test,
 	g_assert (info != NULL);
 
 	data = egg_asn1x_encode (info, NULL);
-	egg_assert_cmpbytes (data, ==, egg_bytes_get_data (test->at.spk_data),
-	                               egg_bytes_get_size (test->at.spk_data));
+	egg_assert_cmpbytes (data, ==, g_bytes_get_data (test->at.spk_data, NULL),
+	                               g_bytes_get_size (test->at.spk_data));
 
-	egg_bytes_unref (data);
+	g_bytes_unref (data);
 	egg_asn1x_destroy (info);
 	g_object_unref (object);
 }
@@ -552,7 +552,7 @@ perform_load_partial (TestLoading *test,
 	GckAttributes *partial;
 	GckObject *object;
 	GError *error = NULL;
-	EggBytes *data;
+	GBytes *data;
 	GNode *info;
 	guint i;
 
@@ -573,10 +573,10 @@ perform_load_partial (TestLoading *test,
 	g_assert (info != NULL);
 
 	data = egg_asn1x_encode (info, NULL);
-	egg_assert_cmpbytes (data, ==, egg_bytes_get_data (test->at.spk_data),
-	                               egg_bytes_get_size (test->at.spk_data));
+	egg_assert_cmpbytes (data, ==, g_bytes_get_data (test->at.spk_data, NULL),
+	                               g_bytes_get_size (test->at.spk_data));
 
-	egg_bytes_unref (data);
+	g_bytes_unref (data);
 	egg_asn1x_destroy (info);
 	g_object_unref (object);
 }

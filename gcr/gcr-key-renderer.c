@@ -30,7 +30,6 @@
 #include "gck/gck.h"
 
 #include "egg/egg-asn1x.h"
-#include "egg/egg-bytes.h"
 
 #include <gdk/gdk.h>
 #include <glib/gi18n-lib.h>
@@ -62,7 +61,7 @@ struct _GcrKeyRendererPrivate {
 	GckObject *object;
 	GIcon *icon;
 	gulong notify_sig;
-	EggBytes *spk;
+	GBytes *spk;
 };
 
 static void gcr_key_renderer_renderer_iface (GcrRendererIface *iface);
@@ -109,8 +108,8 @@ calculate_fingerprint (GcrKeyRenderer *self,
                        gsize *n_fingerprint)
 {
 	if (self->pv->spk)
-		return gcr_fingerprint_from_subject_public_key_info (egg_bytes_get_data (self->pv->spk),
-		                                                     egg_bytes_get_size (self->pv->spk),
+		return gcr_fingerprint_from_subject_public_key_info (g_bytes_get_data (self->pv->spk, NULL),
+		                                                     g_bytes_get_size (self->pv->spk),
 		                                                     algorithm, n_fingerprint);
 
 	return gcr_fingerprint_from_attributes (attrs, algorithm, n_fingerprint);
@@ -179,7 +178,7 @@ on_subject_public_key (GObject *source,
 
 	} else {
 		if (self->pv->spk)
-			egg_bytes_unref (self->pv->spk);
+			g_bytes_unref (self->pv->spk);
 		self->pv->spk = NULL;
 
 		self->pv->spk = egg_asn1x_encode (node, NULL);
@@ -198,7 +197,7 @@ static void
 update_subject_public_key (GcrKeyRenderer *self)
 {
 	if (self->pv->spk)
-		egg_bytes_unref (self->pv->spk);
+		g_bytes_unref (self->pv->spk);
 	self->pv->spk = NULL;
 
 	if (!self->pv->object)
@@ -232,7 +231,7 @@ gcr_key_renderer_dispose (GObject *obj)
 	GcrKeyRenderer *self = GCR_KEY_RENDERER (obj);
 
 	if (self->pv->spk)
-		egg_bytes_unref (self->pv->spk);
+		g_bytes_unref (self->pv->spk);
 	self->pv->spk = NULL;
 
 	if (self->pv->object && self->pv->notify_sig) {

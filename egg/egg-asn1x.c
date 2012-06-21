@@ -127,9 +127,17 @@ struct _Atlv {
 	struct _Atlv *next;
 
 	/* Used during encoding */
+
+	/* Encoding: for bitstring, the number of empty bits at end */
 	guint bits_empty : 3;
+
+	/* Encoding: tell us whether we're dealing with a bit string */
 	guint prefix_for_bit_string : 1;
+
+	/* Encoding: prefix a zero byte for unsigned integers */
 	guint prefix_with_zero_byte : 1;
+
+	/* Encoding: sort children of this tlv (ie: SETOF) */
 	guint sorted : 1;
 };
 
@@ -143,8 +151,13 @@ struct _Anode {
 
 	gchar* failure;
 
+	/* If this node was chosen out of a choice */
 	guint chosen : 1;
+
+	/* For bitstring the number of empty bits */
 	guint bits_empty : 3;
+
+	/* Whether we need to prefix a zero byte to make unsigned */
 	guint guarantee_unsigned : 1;
 };
 
@@ -1635,7 +1648,12 @@ anode_build_any (GNode *node)
 {
 	Atlv *parsed;
 
-	/* Fill this in based on already parsed TLVs */
+	/*
+	 * Fill this in based on already parsed TLVs. It is assumed
+	 * that any explicit tags are already present, and the functions
+	 * for managing ANY try to enforce this.
+	 */
+
 	parsed = anode_get_parsed (node);
 	if (parsed != NULL)
 		return atlv_dup (parsed, FALSE);
@@ -1760,7 +1778,7 @@ anode_build_anything_for_flags (GNode *node,
 		tlv = anode_build_value (node);
 		break;
 
-	/* Any should already have explicit tagging */
+	/* Any should already have explicit tagging, so just return */
 	case EGG_ASN1X_ANY:
 		return anode_build_any (node);
 
@@ -2993,7 +3011,7 @@ egg_asn1x_set_any_from (GNode *node,
 	tlv = anode_build_anything (from, TRUE);
 	g_return_if_fail (tlv != NULL);
 
-	/* Wrap this if necessary */
+	/* Wrap this in an explicit tag if necessary */
 	tlv = anode_build_maybe_explicit (node, tlv, anode_def_flags (node));
 
 	/* Mark down the tlvs for this node */
@@ -3040,7 +3058,7 @@ egg_asn1x_set_any_raw (GNode *node,
 	msg = atlv_parse_der (raw, tlv);
 	if (msg == NULL) {
 
-		/* Wrap this if necessary */
+		/* Wrap this in an explicit tag if necessary */
 		tlv = anode_build_maybe_explicit (node, tlv, anode_def_flags (node));
 
 		atlv_free (an->parsed);

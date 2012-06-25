@@ -1,3 +1,10 @@
+gcr 3.5.3:
+ - Rework DER parsing so we can parse odd PKCS#12 files
+ - Use GBytes, bump glib dependency
+ - Enable gnome2 keyring storage
+ - Documentation fixes
+ - Updated translations
+
 gcr 3.4.1:
  - Fix more issues disabling grabs during password prompts
  - More debug messages to GcrSystemPrompter

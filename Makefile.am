@@ -50,3 +50,6 @@ check-memory:
 	make -C egg check-memory
 	make -C gck check-memory
 	make -C gcr check-memory
+
+upload-release: $(DIST_ARCHIVES)
+		scp $(DIST_ARCHIVES) master.gnome.org:

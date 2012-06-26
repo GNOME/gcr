@@ -69,12 +69,6 @@
  * This section is only here to supress warnings, and should not be displayed.
  */
 
-/**
- * GCR_DATA_ERROR:
- *
- * The #GError domain for data parsing errors.
- */
-
 G_LOCK_DEFINE_STATIC (modules);
 static GList *all_modules = NULL;
 static gboolean initialized_modules = FALSE;

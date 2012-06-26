@@ -773,7 +773,7 @@ gcr_prompt_dialog_class_init (GcrPromptDialogClass *klass)
 	g_object_class_override_property (gobject_class, PROP_CANCEL_LABEL, "cancel-label");
 
 	/**
-	 * GcrPromptDialog:password-visible
+	 * GcrPromptDialog:password-visible:
 	 *
 	 * Whether the password entry is visible or not.
 	 */
@@ -782,7 +782,7 @@ gcr_prompt_dialog_class_init (GcrPromptDialogClass *klass)
 	                                 FALSE, G_PARAM_READABLE));
 
 	/**
-	 * GcrPromptDialog:confirm-visible
+	 * GcrPromptDialog:confirm-visible:
 	 *
 	 * Whether the password confirm entry is visible or not.
 	 */
@@ -791,7 +791,7 @@ gcr_prompt_dialog_class_init (GcrPromptDialogClass *klass)
 	                                 FALSE, G_PARAM_READABLE));
 
 	/**
-	 * GcrPromptDialog:warning-visible
+	 * GcrPromptDialog:warning-visible:
 	 *
 	 * Whether the warning label is visible or not.
 	 */
@@ -800,7 +800,7 @@ gcr_prompt_dialog_class_init (GcrPromptDialogClass *klass)
 	                                 FALSE, G_PARAM_READABLE));
 
 	/**
-	 * GcrPromptDialog:choice-visible
+	 * GcrPromptDialog:choice-visible:
 	 *
 	 * Whether the choice check box is visible or not.
 	 */

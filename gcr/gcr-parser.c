@@ -92,7 +92,7 @@
  */
 
 /**
- * GcrDataError
+ * GcrDataError:
  * @GCR_ERROR_FAILURE: Failed to parse or serialize the data
  * @GCR_ERROR_UNRECOGNIZED: The data was unrecognized or unsupported
  * @GCR_ERROR_CANCELLED: The operation was cancelled

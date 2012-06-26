@@ -73,12 +73,6 @@
 
 
 /**
- * GCR_TYPE_CERTIFICATE_CHAIN_STATUS:
- *
- * The flags #GType for #GcrCertificateChainFlags.
- */
-
-/**
  * GcrCertificateChain:
  *
  * A chain of certificates.

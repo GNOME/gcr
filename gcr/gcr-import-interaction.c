@@ -26,42 +26,31 @@
 #include "gcr-import-interaction.h"
 
 /**
- * SECTION:gcr-importer
- * @title: GcrImporter
- * @short_description: Import certificates and keys
+ * SECTION:gcr-import-interaction
+ * @title: GcrImportInteraction
+ * @short_description: User interaction during importing
  *
- * An interface which allows importing of certificates and keys. Each
- * #GcrImporter is registered with a set of PKCS\#11 attributes to match
- * stuff that it can import.
+ * This is an interface implemented by a caller performing an import. It allows
+ * the importer to ask the caller for further information about the import.
  *
- * An importer gets passed a #GcrParser and accesses the currently parsed
- * item. To create a set of importers that can import the currently parsed
- * item in a #GcrParser, use gcr_importer_create_for_parsed(). The list of
- * importers returned has the parsed item queued for import.
- *
- * To queue additional items with a importer use gcr_importer_queue_for_parsed().
- * In addition you can try and queue an additional item with a set of importers
- * using the gcr_importer_queue_and_filter_for_parsed().
- *
- * To start the import use gcr_importer_import() or the async variants.
+ * It must be implemented on a derived class of #GTlsInteraction
  */
 
 /**
- * GcrImporter:
+ * GcrImportInteraction:
  *
- * Imports certificates and keys
+ * Interface implemented by the caller performing an import.
  */
 
 /**
- * GcrImporterIface:
+ * GcrImportInteractionIface:
  * @parent: parent interface
- * @create_for_parsed: implementation of gcr_importer_create_for_parsed(), required
- * @queue_for_parsed: implementation of gcr_importer_queue_for_parsed(), required
- * @import_sync: optional implemantionon of gcr_importer_import()
- * @import_async: implementation of gcr_importer_import_async(), required
- * @import_finish: implementation of gcr_importer_import_finish()
+ * @supplement_prep: method which prepares for supplementing the given attributes before import
+ * @supplement: method which synchronously supplements attributes before import
+ * @supplement_async: method which asynchronously supplements attributes before import
+ * @supplement_finish: method which completes @supplement_async
  *
- * Interface implemented for a #GcrImporter.
+ * Interface implemented by implementations of #GcrImportInteraction.
  */
 
 typedef GcrImportInteractionIface GcrImportInteractionInterface;

@@ -921,7 +921,7 @@ gck_enumerator_get_chained (GckEnumerator *self)
 }
 
 /**
- * gck_enumerator_set_interaction:
+ * gck_enumerator_set_chained:
  * @self: the enumerator
  * @chained: (allow-none): the chained enumerator or %NULL
  *

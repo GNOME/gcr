@@ -437,7 +437,7 @@ gcr_system_prompt_class_init (GcrSystemPromptClass *klass)
 	g_type_class_add_private (gobject_class, sizeof (GcrSystemPromptPrivate));
 
 	/**
-	 * GcrSystemPrompt:bus-name
+	 * GcrSystemPrompt:bus-name:
 	 *
 	 * The DBus bus name of the prompter to use for prompting, or %NULL
 	 * for the default prompter.
@@ -447,7 +447,7 @@ gcr_system_prompt_class_init (GcrSystemPromptClass *klass)
 	                                 NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
 	/**
-	 * GcrSystemPrompt:timeout-seconds
+	 * GcrSystemPrompt:timeout-seconds:
 	 *
 	 * The timeout in seconds to wait when opening the prompt.
 	 */
@@ -456,7 +456,7 @@ gcr_system_prompt_class_init (GcrSystemPromptClass *klass)
 	                                 -1, G_MAXINT, -1, G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
 
 	/**
-	 * GcrSystemPrompt:secret-exchange
+	 * GcrSystemPrompt:secret-exchange:
 	 *
 	 * The #GcrSecretExchange to use when transferring passwords. A default
 	 * secret exchange will be used if this is not set.

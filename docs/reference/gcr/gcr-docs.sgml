@@ -60,6 +60,7 @@
 		<title>Storage</title>
 		<xi:include href="xml/gcr-trust.xml"/>
 		<xi:include href="xml/gcr-importer.xml"/>
+		<xi:include href="xml/gcr-import-interaction.xml"/>
 		<xi:include href="xml/gcr-parser.xml"/>
 	</part>
 

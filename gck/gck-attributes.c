@@ -40,15 +40,9 @@
  * This structure represents a PKCS11 CK_ATTRIBUTE. These attributes contain i
  * about a PKCS11 object. Use gck_object_get() or gck_object_set() to set and
  * attributes on an object.
- */
-
-/**
- * GckAttribute:
- * @type: The attribute type, such as CKA_LABEL.
- * @value: (array length=length): The value of the attribute. May be NULL.
- * @length: The length of the attribute. May be G_MAXULONG if the attribute is
  *
- * This structure represents a PKCS11 CK_ATTRIBUTE.
+ * Although you are free to allocate a #GckAttribute in your own code, no functions in
+ * this library will operate on such an attribute.
  */
 
 G_STATIC_ASSERT (sizeof (GckAttribute) == sizeof (CK_ATTRIBUTE));
@@ -1393,19 +1387,6 @@ gck_builder_clear (GckBuilder *builder)
 	g_array_free (real->array, TRUE);
 	real->array = NULL;
 }
-
-/**
- * SECTION:gck-attribute
- * @title: GckAttribute
- * @short_description: A PKCS11 attribute.
- *
- * This structure represents a PKCS11 CK_ATTRIBUTE. These attributes contain information
- * about a PKCS11 object. Use gck_object_get() or gck_object_set() to set and retrieve
- * attributes on an object.
- *
- * Although you are free to allocate a #GckAttribute in your own code, no functions in
- * this library will operate on such an attribute.
- */
 
 /**
  * GckAttribute:

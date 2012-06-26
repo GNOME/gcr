@@ -965,24 +965,14 @@ gcr_mock_prompter_start (void)
 	g_assert (running == NULL);
 
 	running = g_new0 (ThreadData, 1);
-#if GLIB_CHECK_VERSION(2,31,3)
 	running->mutex = g_new0 (GMutex, 1);
 	g_mutex_init (running->mutex);
 	running->start_cond = g_new0 (GCond, 1);
 	g_cond_init (running->start_cond);
-#else
-	running->mutex = g_mutex_new ();
-	running->start_cond = g_cond_new ();
-#endif
 	g_queue_init (&running->responses);
 	g_mutex_lock (running->mutex);
 
-#if GLIB_CHECK_VERSION(2,31,3)
 	running->thread = g_thread_new ("mock-prompter", mock_prompter_thread, running);
-#else
-	running->thread = g_thread_create (mock_prompter_thread, running, TRUE, &error);
-#endif
-
 	if (error != NULL)
 		g_error ("mock prompter couldn't start thread: %s", error->message);
 
@@ -1018,15 +1008,10 @@ gcr_mock_prompter_stop (void)
 	g_queue_foreach (&running->responses, (GFunc)mock_response_free, NULL);
 	g_queue_clear (&running->responses);
 
-#if GLIB_CHECK_VERSION(2,31,3)
 	g_cond_clear (running->start_cond);
 	g_free (running->start_cond);
 	g_mutex_clear (running->mutex);
 	g_free (running->mutex);
-#else
-	g_cond_free (running->start_cond);
-	g_mutex_free (running->mutex);
-#endif
 
 	g_free (running);
 	running = NULL;

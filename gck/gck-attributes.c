@@ -123,12 +123,7 @@ value_ref (guchar *data)
 
 	g_assert (data != NULL);
 
-#if GLIB_CHECK_VERSION (2,29,90)
 	previous = g_atomic_int_add (value, 1);
-#else
-	previous = g_atomic_int_exchange_and_add (value, 1);
-#endif
-
 	if (G_UNLIKELY (previous <= 0)) {
 		g_warning ("An owned GckAttribute value has been modified outside of the "
 		           "gck library or an invalid attribute was passed to gck_builder_add_attribute()");
@@ -240,12 +235,7 @@ gck_builder_ref (GckBuilder *builder)
 
 	g_return_val_if_fail (builder != NULL, NULL);
 
-#if GLIB_CHECK_VERSION (2,29,90)
 	stack = g_atomic_int_add (&real->refs, 1) == 0;
-#else
-	stack = g_atomic_int_exchange_and_add (&real->refs, 1) == 0;
-#endif
-
 	if G_UNLIKELY (stack) {
 		g_warning ("Never call gck_builder_ref() on a stack allocated GckBuilder structure");
 		return NULL;

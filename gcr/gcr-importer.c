@@ -399,15 +399,10 @@ gcr_importer_import (GcrImporter *importer,
 	g_return_val_if_fail (iface->import_finish != NULL, FALSE);
 
 	closure = g_new0 (ImportClosure, 1);
-#if GLIB_CHECK_VERSION(2,31,2)
 	closure->cond = g_new (GCond, 1);
 	g_cond_init (closure->cond);
 	closure->mutex = g_new (GMutex, 1);
 	g_mutex_init (closure->mutex);
-#else
-	closure->cond = g_cond_new ();
-	closure->mutex = g_mutex_new ();
-#endif
 	closure->context = g_main_context_get_thread_default ();
 	g_mutex_lock (closure->mutex);
 
@@ -442,15 +437,10 @@ gcr_importer_import (GcrImporter *importer,
 	if (closure->error)
 		g_propagate_error (error, closure->error);
 
-#if GLIB_CHECK_VERSION(2,31,2)
 	g_cond_clear (closure->cond);
 	g_free (closure->cond);
 	g_mutex_clear (closure->mutex);
 	g_free (closure->mutex);
-#else
-	g_cond_free (closure->cond);
-	g_mutex_free (closure->mutex);
-#endif
 	g_free (closure);
 
 	return result;

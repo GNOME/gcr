@@ -382,11 +382,7 @@ gcr_system_prompt_constructed (GObject *obj)
 
 	G_OBJECT_CLASS (gcr_system_prompt_parent_class)->constructed (obj);
 
-#if GLIB_CHECK_VERSION (2,29,90)
 	seed = g_atomic_int_add (&unique_prompt_id, 1);
-#else
-	seed = g_atomic_int_exchange_and_add (&unique_prompt_id, 1);
-#endif
 
 	self->pv->prompt_path = g_strdup_printf ("%s/p%d", GCR_DBUS_PROMPT_OBJECT_PREFIX, seed);
 

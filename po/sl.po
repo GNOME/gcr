@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-05-15 19:05+0000\n"
-"PO-Revision-Date: 2012-05-29 08:54+0100\n"
+"POT-Creation-Date: 2012-06-26 06:47+0000\n"
+"PO-Revision-Date: 2012-06-26 09:09+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -123,7 +123,7 @@ msgstr "Psevdonim"
 
 #: ../egg/egg-oid.c:98
 #: ../gcr/gcr-gnupg-renderer.c:200
-#: ../gcr/gcr-key-renderer.c:430
+#: ../gcr/gcr-key-renderer.c:429
 msgid "RSA"
 msgstr "RSA"
 
@@ -141,7 +141,7 @@ msgstr "SHA1 z RSA"
 
 #: ../egg/egg-oid.c:103
 #: ../gcr/gcr-gnupg-renderer.c:204
-#: ../gcr/gcr-key-renderer.c:432
+#: ../gcr/gcr-key-renderer.c:431
 msgid "DSA"
 msgstr "DSA"
 
@@ -214,9 +214,9 @@ msgstr "Naslov URI vsebuje nepravilno vrednost različice."
 
 #: ../gcr/gcr-callback-output-stream.c:64
 #: ../gcr/gcr-callback-output-stream.c:81
-#, fuzzy, c-format
+#, c-format
 msgid "The stream was closed"
-msgstr "Pretok je že zaprt"
+msgstr "Pretok je zaprt"
 
 #. later
 #. later
@@ -279,11 +279,11 @@ msgstr "Datoteke PEM"
 msgid "Other Name"
 msgstr "Drugo ime"
 
-#: ../gcr/gcr-certificate-extensions.c:187
+#: ../gcr/gcr-certificate-extensions.c:188
 msgid "XMPP Addr"
 msgstr "XMPP Addr"
 
-#: ../gcr/gcr-certificate-extensions.c:191
+#: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
@@ -501,7 +501,7 @@ msgstr "Prstni odtis SHA1"
 
 #: ../gcr/gcr-certificate-renderer.c:890
 #: ../gcr/gcr-gnupg-renderer.c:737
-#: ../gcr/gcr-key-renderer.c:415
+#: ../gcr/gcr-key-renderer.c:414
 #: ../gcr/gcr-parser.c:325
 msgid "Public Key"
 msgstr "Javni ključ"
@@ -523,8 +523,8 @@ msgstr "Kritično"
 msgid "Unsupported key type for certificate request"
 msgstr "Ustvari zahtevo datoteke potrdila za ta ključ"
 
-#: ../gcr/gcr-certificate-request.c:508
-#: ../gcr/gcr-certificate-request.c:593
+#: ../gcr/gcr-certificate-request.c:505
+#: ../gcr/gcr-certificate-request.c:590
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Ključa ni mogoče uporabiti za podpis zahteve"
@@ -535,13 +535,10 @@ msgstr "Ključa ni mogoče uporabiti za podpis zahteve"
 #: ../gcr/gcr-certificate-request-renderer.c:323
 #: ../gcr/gcr-certificate-request-renderer.c:366
 #: ../gcr/gcr-certificate-request-renderer.c:371
-#, fuzzy
-#| msgid "Certificate files"
 msgid "Certificate request"
 msgstr "Zahteva potrdila"
 
 #: ../gcr/gcr-certificate-request-renderer.c:261
-#, fuzzy
 msgid "Attribute"
 msgstr "Atribut"
 
@@ -581,14 +578,13 @@ msgid "Cannot display a file of this type."
 msgstr "Ni mogoče prikazati datoteke te vrste."
 
 #: ../gcr/gcr-gnupg-importer.c:96
-#, fuzzy
 msgid "GnuPG Keyring"
-msgstr "GnuPG: privzeta mapa zbirke ključev"
+msgstr "Zbirka ključev GnuPG"
 
 #: ../gcr/gcr-gnupg-importer.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "GnuPG Keyring: %s"
-msgstr "GnuPG: privzeta mapa zbirke ključev"
+msgstr "Zbirka ključev GnuPG: %s"
 
 #: ../gcr/gcr-gnupg-key.c:145
 #: ../gcr/gcr-gnupg-renderer.c:88
@@ -612,8 +608,8 @@ msgid "Gnupg process was terminated with signal: %d"
 msgstr "Opravilo Gnupg je nepričakovano končano s signalom: %d"
 
 #: ../gcr/gcr-gnupg-process.c:927
-#: ../gcr/gcr-parser.c:2481
-#: ../gcr/gcr-parser.c:2980
+#: ../gcr/gcr-parser.c:2424
+#: ../gcr/gcr-parser.c:2921
 msgid "The operation was cancelled"
 msgstr "Dejanje je preklicano."
 
@@ -644,8 +640,8 @@ msgstr "Onemogočeno"
 
 #: ../gcr/gcr-gnupg-renderer.c:254
 #: ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-key-renderer.c:434
-#: ../gcr/gcr-key-renderer.c:439
+#: ../gcr/gcr-key-renderer.c:433
+#: ../gcr/gcr-key-renderer.c:438
 msgid "Unknown"
 msgstr "Neznano"
 
@@ -667,8 +663,9 @@ msgid "Undefined trust"
 msgstr "Zaupaj strežniku"
 
 #: ../gcr/gcr-gnupg-renderer.c:266
+#, fuzzy
 msgid "Distrusted"
-msgstr ""
+msgstr "Nezaupljivo"
 
 #: ../gcr/gcr-gnupg-renderer.c:268
 #, fuzzy
@@ -686,34 +683,29 @@ msgid "Ultimately trusted"
 msgstr "Pokaži _zaupljive"
 
 #: ../gcr/gcr-gnupg-renderer.c:286
-#, fuzzy
 msgid "The information in this key has not yet been verified"
-msgstr "Podrobnosti so občutljive in jih ni mogoče odkriti."
+msgstr "Podrobnosti ključa še niso overjene"
 
 #: ../gcr/gcr-gnupg-renderer.c:289
-#, fuzzy
 msgid "This key is invalid"
-msgstr "Izbor ni veljaven. Razlog: %s"
+msgstr "Ključ ni veljaven"
 
 #: ../gcr/gcr-gnupg-renderer.c:292
-#, fuzzy
 msgid "This key has been disabled"
-msgstr "Račun je onemogočen. (%s)"
+msgstr "Ključ je onemogočen"
 
 #: ../gcr/gcr-gnupg-renderer.c:295
-#, fuzzy
 msgid "This key has been revoked"
-msgstr "<b>Ta ključ je bil preklican</b>"
+msgstr "Ključ je bil preklican"
 
 #: ../gcr/gcr-gnupg-renderer.c:298
-#, fuzzy
 msgid "This key has expired"
-msgstr "<b>Ključ je pretekel</b>"
+msgstr "Ključ je pretekel"
 
 #: ../gcr/gcr-gnupg-renderer.c:303
 #, fuzzy
 msgid "This key is distrusted"
-msgstr "Ta ključ ni pisljiv"
+msgstr "Ključ ni pisljiv"
 
 #: ../gcr/gcr-gnupg-renderer.c:306
 #, fuzzy
@@ -738,7 +730,7 @@ msgstr "ID Ključa"
 #: ../gcr/gcr-gnupg-renderer.c:345
 #: ../gcr/gcr-gnupg-renderer.c:571
 #: ../gcr/gcr-gnupg-renderer.c:618
-#: ../gcr/gcr-key-renderer.c:435
+#: ../gcr/gcr-key-renderer.c:434
 msgid "Algorithm"
 msgstr "Algoritem"
 
@@ -780,7 +772,7 @@ msgstr ""
 "Atributi podključa:%s"
 
 #: ../gcr/gcr-gnupg-renderer.c:472
-#: ../gcr/gcr-key-renderer.c:442
+#: ../gcr/gcr-key-renderer.c:441
 msgid "Size"
 msgstr "Velikost"
 
@@ -795,9 +787,8 @@ msgid "Signature of a canonical text document"
 msgstr "Ni mogoče izluščiti besedila iz dokumenta."
 
 #: ../gcr/gcr-gnupg-renderer.c:511
-#, fuzzy
 msgid "Standalone signature"
-msgstr "_Pot podpisa"
+msgstr "Samostojni podpis"
 
 #: ../gcr/gcr-gnupg-renderer.c:513
 #, fuzzy
@@ -837,17 +828,17 @@ msgstr "Dejanje ključa na imeniku"
 #: ../gcr/gcr-gnupg-renderer.c:527
 #, fuzzy
 msgid "Key revocation signature"
-msgstr "_Vključi podpis"
+msgstr "Podpis seznama preklica"
 
 #: ../gcr/gcr-gnupg-renderer.c:529
 #, fuzzy
 msgid "Subkey revocation signature"
-msgstr "_Vključi podpis"
+msgstr "Podpis seznama preklica"
 
 #: ../gcr/gcr-gnupg-renderer.c:531
 #, fuzzy
 msgid "Certification revocation signature"
-msgstr "_Vključi podpis"
+msgstr "Podpis seznama preklica"
 
 #: ../gcr/gcr-gnupg-renderer.c:533
 #, fuzzy
@@ -870,7 +861,7 @@ msgstr "Samo krajevno"
 
 #: ../gcr/gcr-gnupg-renderer.c:592
 msgid "Exportable"
-msgstr ""
+msgstr "Izvozljivo"
 
 #: ../gcr/gcr-gnupg-renderer.c:610
 #, fuzzy
@@ -888,67 +879,62 @@ msgid "Public Subkey"
 msgstr "Javni podključ"
 
 #: ../gcr/gcr-gnupg-renderer.c:741
-#, fuzzy
 msgid "Secret Key"
-msgstr "Šifrirni ključ: "
+msgstr "Skriti ključ"
 
 #: ../gcr/gcr-gnupg-renderer.c:743
-#, fuzzy
 msgid "Secret Subkey"
-msgstr "Stroga skrivnost"
+msgstr "Skriti podključ"
 
 #: ../gcr/gcr-import-button.c:111
 msgid "Initializing..."
 msgstr "Začenjanje ..."
 
 #: ../gcr/gcr-import-button.c:119
-#, fuzzy
 msgid "Import is in progress..."
-msgstr "V teku je že drugo iskanje"
+msgstr "Poteka uvažanje ..."
 
 #: ../gcr/gcr-import-button.c:126
-#, fuzzy, c-format
+#, c-format
 msgid "Imported to: %s"
-msgstr "<b>Podatki za uvoz:</b>"
+msgstr "Uvoženo v: %s"
 
 #: ../gcr/gcr-import-button.c:146
-#, fuzzy, c-format
+#, c-format
 msgid "Import to: %s"
-msgstr "Uvozi v knjižnico"
+msgstr "Uvozi v: %s"
 
 #: ../gcr/gcr-import-button.c:159
-#, fuzzy
 msgid "Cannot import because there are no compatible importers"
-msgstr "Uvoz ni mogoč, ker je ključ napačne vrste."
+msgstr "Uvoz ni mogoč, ker ni ustreznih uvoznikov"
 
 #: ../gcr/gcr-import-button.c:168
-#, fuzzy
 msgid "No data to import"
-msgstr "Izbor podatkov za uvoz ..."
+msgstr "Ni podatkov za uvoz"
 
-#: ../gcr/gcr-key-renderer.c:90
+#: ../gcr/gcr-key-renderer.c:89
 msgid "Key"
 msgstr "Ključ"
 
-#: ../gcr/gcr-key-renderer.c:404
+#: ../gcr/gcr-key-renderer.c:403
 msgid "Private RSA Key"
 msgstr "Osebni ključ RSA"
 
-#: ../gcr/gcr-key-renderer.c:406
+#: ../gcr/gcr-key-renderer.c:405
 msgid "Private DSA Key"
 msgstr "Osebni ključ DSA"
 
-#: ../gcr/gcr-key-renderer.c:408
+#: ../gcr/gcr-key-renderer.c:407
 #: ../gcr/gcr-parser.c:319
 msgid "Private Key"
 msgstr "Osebni ključ"
 
-#: ../gcr/gcr-key-renderer.c:411
-#: ../gcr/gcr-key-renderer.c:413
+#: ../gcr/gcr-key-renderer.c:410
+#: ../gcr/gcr-key-renderer.c:412
 msgid "Public DSA Key"
 msgstr "Javni ključ DSA"
 
-#: ../gcr/gcr-key-renderer.c:422
+#: ../gcr/gcr-key-renderer.c:421
 #, c-format
 msgid "%d bit"
 msgid_plural "%d bits"
@@ -957,57 +943,53 @@ msgstr[1] "%d bit"
 msgstr[2] "%d bita"
 msgstr[3] "%d biti"
 
-#: ../gcr/gcr-key-renderer.c:423
+#: ../gcr/gcr-key-renderer.c:422
 msgid "Strength"
 msgstr "Jakost"
 
 #. Fingerprints
-#: ../gcr/gcr-key-renderer.c:446
+#: ../gcr/gcr-key-renderer.c:445
 msgid "Fingerprints"
 msgstr "Prstni odtisi"
 
-#: ../gcr/gcr-key-renderer.c:450
+#: ../gcr/gcr-key-renderer.c:449
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../gcr/gcr-key-renderer.c:455
+#: ../gcr/gcr-key-renderer.c:454
 msgid "SHA256"
 msgstr "SHA256"
 
 #: ../gcr/gcr-parser.c:331
-#, fuzzy
-#| msgid "Certificate files"
 msgid "Certificate Request"
 msgstr "Zahteva potrdila"
 
-#: ../gcr/gcr-parser.c:2484
+#: ../gcr/gcr-parser.c:2427
 msgid "Unrecognized or unsupported data."
 msgstr "Neznani ali nepodprti podatki."
 
-#: ../gcr/gcr-parser.c:2487
+#: ../gcr/gcr-parser.c:2430
 msgid "Could not parse invalid or corrupted data."
 msgstr "Ni mogoče razčleniti neveljavnih ali pokvarjenih podatkov."
 
-#: ../gcr/gcr-parser.c:2490
+#: ../gcr/gcr-parser.c:2433
 msgid "The data is locked"
 msgstr "Podatki so zaklenjeni"
 
 #: ../gcr/gcr-pkcs11-import-dialog.c:187
-#, fuzzy
 msgid "Automatically chosen"
-msgstr "Izbrani naslov"
+msgstr "Samodejno izbrano"
 
 #: ../gcr/gcr-pkcs11-import-dialog.c:271
 #: ../gcr/gcr-pkcs11-import-interaction.c:153
 #: ../gcr/gcr-pkcs11-import-interaction.c:171
-#, fuzzy, c-format
+#, c-format
 msgid "The user cancelled the operation"
-msgstr "Uporabnik je prekinil opravilo."
+msgstr "Uporabnik je preklical opravilo."
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-#, fuzzy
 msgid "In order to import, please enter the password."
-msgstr "Za uvoz  predmeta'%s' mora biti ta odklenjen"
+msgstr "Za uvoz predmeta je treba vpisati geslo."
 
 #. The password label
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
@@ -1065,11 +1047,11 @@ msgstr "Vrsta poziva"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
-msgstr ""
+msgstr "Odklepanje dostopa do gesel in drugih skrivnih podatkov"
 
 #: ../gcr/gcr-subject-public-key.c:345
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "Neprepoznani ali nerazpoložljivi atributi ključa"
 
 #: ../gcr/gcr-subject-public-key.c:429
 #: ../gcr/gcr-subject-public-key.c:515

@@ -292,9 +292,9 @@ gcr_secret_exchange_begin (GcrSecretExchange *self)
 	result = g_key_file_to_data (output, NULL, NULL);
 	g_return_val_if_fail (result != NULL, NULL);
 
-	g_strchomp (result);
+	g_strchug (result);
 
-	if (g_str_has_prefix (result, SECRET_EXCHANGE_PROTOCOL_1_PREFIX))
+	if (!g_str_has_prefix (result, SECRET_EXCHANGE_PROTOCOL_1_PREFIX))
 		g_warning ("the prepared data does not have the correct protocol prefix");
 
 	g_key_file_free (output);
@@ -540,10 +540,10 @@ gcr_secret_exchange_send (GcrSecretExchange *self,
 	result = g_key_file_to_data (output, NULL, NULL);
 	g_return_val_if_fail (result != NULL, NULL);
 
-	g_strchomp (result);
+	g_strchug (result);
 
-	if (g_str_has_prefix (result, SECRET_EXCHANGE_PROTOCOL_1_PREFIX))
-		g_warning ("the prepared data does not have the correct protocol prefix");
+	if (!g_str_has_prefix (result, SECRET_EXCHANGE_PROTOCOL_1_PREFIX))
+		g_warning ("the prepared data does not have the correct protocol prefix: %s", result);
 
 	g_key_file_free (output);
 	return result;

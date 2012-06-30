@@ -44,6 +44,7 @@ static GDebugKey keys[] = {
 	{ "import", GCR_DEBUG_IMPORT },
 	{ "key", GCR_DEBUG_KEY },
 	{ "prompt", GCR_DEBUG_PROMPT },
+	{ "secret-exchange", GCR_DEBUG_SECRET_EXCHANGE },
 	{ 0, }
 };
 

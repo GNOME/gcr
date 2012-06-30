@@ -21,6 +21,8 @@
 
 #include "config.h"
 
+#define DEBUG_FLAG GCR_DEBUG_SECRET_EXCHANGE
+#include "gcr-debug.h"
 #include "gcr-secret-exchange.h"
 
 #include "egg/egg-dh.h"
@@ -155,12 +157,18 @@ gcr_secret_exchange_set_property (GObject *obj,
 	switch (prop_id) {
 	case PROP_PROTOCOL:
 		protocol = g_value_get_string (value);
-		if (protocol != NULL) {
-			if (g_str_equal (protocol, GCR_SECRET_EXCHANGE_PROTOCOL_1))
+		if (protocol == NULL) {
+			_gcr_debug ("automatically selecting secret exchange protocol");
+
+		} else {
+			if (g_str_equal (protocol, GCR_SECRET_EXCHANGE_PROTOCOL_1)) {
+				_gcr_debug ("explicitly using secret exchange protocol: %s",
+				            GCR_SECRET_EXCHANGE_PROTOCOL_1);
 				self->pv->explicit_protocol = TRUE;
-			else
+			} else {
 				g_warning ("the GcrSecretExchange protocol %s is unsupported defaulting to %s",
 				           protocol, GCR_SECRET_EXCHANGE_PROTOCOL_1);
+			}
 		}
 		break;
 	default:
@@ -292,9 +300,15 @@ gcr_secret_exchange_begin (GcrSecretExchange *self)
 	result = g_key_file_to_data (output, NULL, NULL);
 	g_return_val_if_fail (result != NULL, NULL);
 
-	g_strchomp (result);
+	g_strchug (result);
 
-	if (g_str_has_prefix (result, SECRET_EXCHANGE_PROTOCOL_1_PREFIX))
+	if (_gcr_debugging) {
+		gchar *string = g_strescape (result, "");
+		_gcr_debug ("beginning the secret exchange: %s", string);
+		g_free (string);
+	}
+
+	if (!g_str_has_prefix (result, SECRET_EXCHANGE_PROTOCOL_1_PREFIX))
 		g_warning ("the prepared data does not have the correct protocol prefix");
 
 	g_key_file_free (output);
@@ -313,6 +327,8 @@ derive_key (GcrSecretExchange *self,
 
 	klass = GCR_SECRET_EXCHANGE_GET_CLASS (self);
 	g_return_val_if_fail (klass->derive_transport_key, FALSE);
+
+	_gcr_debug ("deriving shared transport key");
 
 	peer = key_file_get_base64 (input, GCR_SECRET_EXCHANGE_PROTOCOL_1, "public", &n_peer);
 	if (peer == NULL) {
@@ -401,6 +417,12 @@ gcr_secret_exchange_receive (GcrSecretExchange *self,
 	klass = GCR_SECRET_EXCHANGE_GET_CLASS (self);
 	g_return_val_if_fail (klass->generate_exchange_key, FALSE);
 	g_return_val_if_fail (klass->derive_transport_key, FALSE);
+
+	if (_gcr_debugging) {
+		gchar *string = g_strescape (exchange, "");
+		_gcr_debug ("receiving secret exchange: %s", string);
+		g_free (string);
+	}
 
 	/* Parse the input */
 	input = g_key_file_new ();
@@ -540,10 +562,16 @@ gcr_secret_exchange_send (GcrSecretExchange *self,
 	result = g_key_file_to_data (output, NULL, NULL);
 	g_return_val_if_fail (result != NULL, NULL);
 
-	g_strchomp (result);
+	g_strchug (result);
 
-	if (g_str_has_prefix (result, SECRET_EXCHANGE_PROTOCOL_1_PREFIX))
-		g_warning ("the prepared data does not have the correct protocol prefix");
+	if (_gcr_debugging) {
+		gchar *string = g_strescape (result, "");
+		_gcr_debug ("sending the secret exchange: %s", string);
+		g_free (string);
+	}
+
+	if (!g_str_has_prefix (result, SECRET_EXCHANGE_PROTOCOL_1_PREFIX))
+		g_warning ("the prepared data does not have the correct protocol prefix: %s", result);
 
 	g_key_file_free (output);
 	return result;
@@ -626,6 +654,8 @@ gcr_secret_exchange_default_generate_exchange_key (GcrSecretExchange *exchange,
 {
 	GcrSecretExchangeDefault *data = exchange->pv->default_exchange;
 
+	_gcr_debug ("generating public key");
+
 	if (data == NULL) {
 		data = g_new0 (GcrSecretExchangeDefault, 1);
 		if (!egg_dh_default_params (EXCHANGE_1_IKE_NAME, &data->prime, &data->base))
@@ -660,12 +690,16 @@ gcr_secret_exchange_default_derive_transport_key (GcrSecretExchange *exchange,
 	gsize n_ikm;
 	gcry_mpi_t mpi;
 
+	_gcr_debug ("deriving transport key");
+
 	g_return_val_if_fail (data != NULL, FALSE);
 	g_return_val_if_fail (data->priv != NULL, FALSE);
 
 	mpi = mpi_from_data (peer, n_peer);
-	if (mpi == NULL)
+	if (mpi == NULL) {
+		_gcr_debug ("invalid peer mpi");
 		return FALSE;
+	}
 
 	/* Build up a key we can use */
 	ikm = egg_dh_gen_secret (mpi, data->priv, data->prime, &n_ikm);
@@ -704,6 +738,8 @@ gcr_secret_exchange_default_encrypt_transport_data (GcrSecretExchange *exchange,
 
 	g_return_val_if_fail (data != NULL, FALSE);
 	g_return_val_if_fail (data->key != NULL, FALSE);
+
+	_gcr_debug ("encrypting data");
 
 	gcry = gcry_cipher_open (&cih, EXCHANGE_1_CIPHER_ALGO, EXCHANGE_1_CIPHER_MODE, 0);
 	if (gcry != 0) {
@@ -767,6 +803,8 @@ gcr_secret_exchange_default_decrypt_transport_data (GcrSecretExchange *exchange,
 
 	g_return_val_if_fail (data != NULL, FALSE);
 	g_return_val_if_fail (data->key != NULL, FALSE);
+
+	_gcr_debug ("decrypting data");
 
 	if (iv == NULL || n_iv != EXCHANGE_1_IV_LENGTH) {
 		g_message ("secret-exchange: invalid or missing iv");

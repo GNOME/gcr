@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring 3.5.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-30 13:29+0200\n"
-"PO-Revision-Date: 2012-05-30 13:35+0200\n"
+"POT-Creation-Date: 2012-07-09 14:34+0200\n"
+"PO-Revision-Date: 2012-07-09 14:37+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: no\n"
@@ -116,7 +116,7 @@ msgid "Pseudonym"
 msgstr "Pseudonym"
 
 #: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
-#: ../gcr/gcr-key-renderer.c:430
+#: ../gcr/gcr-key-renderer.c:429
 msgid "RSA"
 msgstr "RSA"
 
@@ -133,7 +133,7 @@ msgid "SHA1 with RSA"
 msgstr "SHA1 med DSA"
 
 #: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
-#: ../gcr/gcr-key-renderer.c:432
+#: ../gcr/gcr-key-renderer.c:431
 msgid "DSA"
 msgstr "DSA"
 
@@ -268,11 +268,11 @@ msgstr "PEM-filer"
 msgid "Other Name"
 msgstr "Annet navn"
 
-#: ../gcr/gcr-certificate-extensions.c:187
+#: ../gcr/gcr-certificate-extensions.c:188
 msgid "XMPP Addr"
 msgstr "XMPP-adresse"
 
-#: ../gcr/gcr-certificate-extensions.c:191
+#: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
@@ -482,7 +482,7 @@ msgid "Key SHA1 Fingerprint"
 msgstr "SHA1-fingeravtrykk for nøkkel"
 
 #: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
-#: ../gcr/gcr-key-renderer.c:415 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-key-renderer.c:414 ../gcr/gcr-parser.c:325
 msgid "Public Key"
 msgstr "Offentlig nøkkel"
 
@@ -501,9 +501,9 @@ msgstr "Kritisk"
 #: ../gcr/gcr-certificate-request.c:418
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr ""
+msgstr "Ikke støttet nøkkeltype for sertifikatforespørsel"
 
-#: ../gcr/gcr-certificate-request.c:508 ../gcr/gcr-certificate-request.c:593
+#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Nøkkelen kan ikke brukes til å signere forespørselen"
@@ -583,8 +583,8 @@ msgstr "Gnupg-prosessen avsluttet med kode: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg-prosessen ble terminert med signal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2481
-#: ../gcr/gcr-parser.c:2980
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
+#: ../gcr/gcr-parser.c:2917
 msgid "The operation was cancelled"
 msgstr "Operasjonen ble avbrutt"
 
@@ -613,7 +613,7 @@ msgid "Disabled"
 msgstr "Slått av"
 
 #: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-key-renderer.c:434 ../gcr/gcr-key-renderer.c:439
+#: ../gcr/gcr-key-renderer.c:433 ../gcr/gcr-key-renderer.c:438
 msgid "Unknown"
 msgstr "Ukjent"
 
@@ -631,27 +631,27 @@ msgstr "Utløpt"
 
 #: ../gcr/gcr-gnupg-renderer.c:264
 msgid "Undefined trust"
-msgstr ""
+msgstr "Udefinert tillitsforhold"
 
 #: ../gcr/gcr-gnupg-renderer.c:266
 msgid "Distrusted"
-msgstr ""
+msgstr "Uten tillit"
 
 #: ../gcr/gcr-gnupg-renderer.c:268
 msgid "Marginally trusted"
-msgstr ""
+msgstr "Marginal tillit"
 
 #: ../gcr/gcr-gnupg-renderer.c:270
 msgid "Fully trusted"
-msgstr ""
+msgstr "Full tillit"
 
 #: ../gcr/gcr-gnupg-renderer.c:272
 msgid "Ultimately trusted"
-msgstr ""
+msgstr "Absolutt tillit"
 
 #: ../gcr/gcr-gnupg-renderer.c:286
 msgid "The information in this key has not yet been verified"
-msgstr ""
+msgstr "Informasjonen i denne nøkkelen er ikke verifisert ennå"
 
 #: ../gcr/gcr-gnupg-renderer.c:289
 msgid "This key is invalid"
@@ -690,7 +690,7 @@ msgid "Key ID"
 msgstr "Nøkkel-ID"
 
 #: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
-#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:435
+#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:434
 msgid "Algorithm"
 msgstr "Algoritme"
 
@@ -705,12 +705,13 @@ msgid "Expiry"
 msgstr "Utløper"
 
 #: ../gcr/gcr-gnupg-renderer.c:378
+#, fuzzy
 msgid "Capabilities"
-msgstr ""
+msgstr "Evner"
 
 #: ../gcr/gcr-gnupg-renderer.c:391
 msgid "Owner trust"
-msgstr ""
+msgstr "Tillitsforhold til eier"
 
 #: ../gcr/gcr-gnupg-renderer.c:419
 msgid "Name"
@@ -724,7 +725,7 @@ msgstr "Kommentar"
 msgid "User Attribute"
 msgstr "Brukerattributt"
 
-#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:442
+#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
 msgid "Size"
 msgstr "Størrelse"
 
@@ -746,23 +747,23 @@ msgstr "Generisk sertifisering av nøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:515
 msgid "Persona certification of key"
-msgstr ""
+msgstr "Persona sertifisering av nøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:517
 msgid "Casual certification of key"
-msgstr ""
+msgstr "Tilfeldig sertifisering av nøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:519
 msgid "Positive certification of key"
-msgstr ""
+msgstr "Positiv sertifisering av nøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:521
 msgid "Subkey binding signature"
-msgstr ""
+msgstr "Bindende signatur med undernøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:523
 msgid "Primary key binding signature"
-msgstr ""
+msgstr "Bindende signatur med primærnøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:525
 msgid "Signature directly on key"
@@ -773,14 +774,12 @@ msgid "Key revocation signature"
 msgstr "Signatur for tilbaketrekkings av nøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:529
-#, fuzzy
 msgid "Subkey revocation signature"
-msgstr "Signatur for tilbaketrekkingsliste"
+msgstr "Signatur for tilbaketrekking av undernøkkel"
 
 #: ../gcr/gcr-gnupg-renderer.c:531
-#, fuzzy
 msgid "Certification revocation signature"
-msgstr "Sertifikatsignatur"
+msgstr "Signatur for tilbaketrekking av sertifisering"
 
 #: ../gcr/gcr-gnupg-renderer.c:533
 msgid "Timestamp signature"
@@ -788,7 +787,7 @@ msgstr "Signatur for tidsstempel"
 
 #: ../gcr/gcr-gnupg-renderer.c:535
 msgid "Third-party confirmation signature"
-msgstr ""
+msgstr "Signatur for tredjeparts bekreftelse"
 
 #: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
 msgid "Class"
@@ -843,53 +842,53 @@ msgstr "Importer til: %s"
 
 #: ../gcr/gcr-import-button.c:159
 msgid "Cannot import because there are no compatible importers"
-msgstr ""
+msgstr "Kan ikke importere fordi det finnes ingen kompatible importerere"
 
 #: ../gcr/gcr-import-button.c:168
 msgid "No data to import"
 msgstr "Ingen data å importere"
 
-#: ../gcr/gcr-key-renderer.c:90
+#: ../gcr/gcr-key-renderer.c:89
 msgid "Key"
 msgstr "Nøkkel"
 
-#: ../gcr/gcr-key-renderer.c:404
+#: ../gcr/gcr-key-renderer.c:403
 msgid "Private RSA Key"
 msgstr "Privat RSA-nøkkel"
 
-#: ../gcr/gcr-key-renderer.c:406
+#: ../gcr/gcr-key-renderer.c:405
 msgid "Private DSA Key"
 msgstr "Privat DSA-nøkkel"
 
-#: ../gcr/gcr-key-renderer.c:408 ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-key-renderer.c:407 ../gcr/gcr-parser.c:319
 msgid "Private Key"
 msgstr "Privat nøkkel"
 
-#: ../gcr/gcr-key-renderer.c:411 ../gcr/gcr-key-renderer.c:413
+#: ../gcr/gcr-key-renderer.c:410 ../gcr/gcr-key-renderer.c:412
 msgid "Public DSA Key"
 msgstr "Offentlig DSA-nøkkel"
 
-#: ../gcr/gcr-key-renderer.c:422
+#: ../gcr/gcr-key-renderer.c:421
 #, c-format
 msgid "%d bit"
 msgid_plural "%d bits"
 msgstr[0] "%d bit"
 msgstr[1] "%d bits"
 
-#: ../gcr/gcr-key-renderer.c:423
+#: ../gcr/gcr-key-renderer.c:422
 msgid "Strength"
 msgstr "Styrke"
 
 #. Fingerprints
-#: ../gcr/gcr-key-renderer.c:446
+#: ../gcr/gcr-key-renderer.c:445
 msgid "Fingerprints"
 msgstr "Fingeravtrykk"
 
-#: ../gcr/gcr-key-renderer.c:450
+#: ../gcr/gcr-key-renderer.c:449
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../gcr/gcr-key-renderer.c:455
+#: ../gcr/gcr-key-renderer.c:454
 msgid "SHA256"
 msgstr "SHA256"
 
@@ -897,15 +896,15 @@ msgstr "SHA256"
 msgid "Certificate Request"
 msgstr "Sertifikatforespørsel"
 
-#: ../gcr/gcr-parser.c:2484
+#: ../gcr/gcr-parser.c:2427
 msgid "Unrecognized or unsupported data."
 msgstr "Ikke gjenkjente eller støttede data."
 
-#: ../gcr/gcr-parser.c:2487
+#: ../gcr/gcr-parser.c:2430
 msgid "Could not parse invalid or corrupted data."
 msgstr "Kunne ikke lese ugyldige eller korrupte data."
 
-#: ../gcr/gcr-parser.c:2490
+#: ../gcr/gcr-parser.c:2433
 msgid "The data is locked"
 msgstr "Data er låst"
 
@@ -931,7 +930,7 @@ msgstr "Passord:"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
 msgid "Token:"
-msgstr ""
+msgstr "Tegn:"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
 msgid "Label"
@@ -987,9 +986,9 @@ msgstr "Ikke gjenkjent eller utilgjengelige attributter for nøkkel"
 msgid "Couldn't build public key"
 msgstr "Klarte ikke å bygge offentlig nøkkel"
 
-#: ../gcr/gcr-system-prompt.c:753
+#: ../gcr/gcr-system-prompt.c:749
 msgid "Another prompt is already in progress"
-msgstr ""
+msgstr "En annen dialog er allerede i gang"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and

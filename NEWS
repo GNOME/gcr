@@ -1,3 +1,10 @@
+gcr 3.5.4:
+ - Add debug output to GcrSecretExchange
+ - Fix invalid warning when sending a secret exchange
+ - Remove support code for old glib versions
+ - Updated translations
+ - Documentation fixes
+
 gcr 3.5.3:
  - Rework DER parsing so we can parse odd PKCS#12 files
  - Use GBytes, bump glib dependency

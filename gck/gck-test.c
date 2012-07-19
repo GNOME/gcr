@@ -23,7 +23,7 @@
 
 #include "gck-test.h"
 
-#include "pkcs11.h"
+#include <p11-kit/pkcs11.h>
 
 #include <glib.h>
 

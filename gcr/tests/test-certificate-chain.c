@@ -31,7 +31,7 @@
 
 #include "gck/gck-mock.h"
 #include "gck/gck-test.h"
-#include "gck/pkcs11.h"
+#include <p11-kit/pkcs11.h>
 #include "gck/pkcs11x.h"
 
 #include <glib.h>

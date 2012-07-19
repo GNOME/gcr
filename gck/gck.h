@@ -28,7 +28,7 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
-#include "pkcs11.h"
+#include <p11-kit/pkcs11.h>
 
 #define __GCK_INSIDE_HEADER__
 

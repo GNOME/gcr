@@ -7,6 +7,7 @@ INCLUDES = \
 	-DBUILDDIR="\"@abs_builddir@\"" \
 	-DGCK_API_SUBJECT_TO_CHANGE \
 	-DG_LOG_DOMAIN=\"Gck\" \
+	$(P11_KIT_CFLAGS) \
 	$(GLIB_CFLAGS)
 
 LDADD =  \
@@ -16,6 +17,7 @@ LDADD =  \
 	$(top_builddir)/egg/libegg-hex.la \
 	$(GTHREAD_LIBS) \
 	$(GLIB_LIBS) \
+	$(P11_KIT_LIBS) \
 	$(GIO_LIBS)
 
 TEST_PROGS = \

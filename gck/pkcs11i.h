@@ -24,7 +24,7 @@
 #ifndef PKCS11I_H
 #define PKCS11I_H
 
-#include "pkcs11.h"
+#include <p11-kit/pkcs11.h>
 
 #define CKA_GNOME   (CKA_VENDOR_DEFINED | 0x474E4D45UL /* GNME */ )
 #define CKO_GNOME   (CKO_VENDOR_DEFINED | 0x474E4D45UL /* GNME */ )

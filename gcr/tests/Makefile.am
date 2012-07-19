@@ -9,7 +9,8 @@ INCLUDES = \
 	-DGCR_COMPILATION \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
-	$(LIBGCRYPT_CFLAGS)
+	$(LIBGCRYPT_CFLAGS) \
+	$(P11_KIT_CFLAGS)
 
 LDADD = \
 	$(top_builddir)/gcr/libgcr-testable.la \
@@ -17,7 +18,8 @@ LDADD = \
 	$(top_builddir)/gck/libgck-testable.la \
 	$(GTK_LIBS) \
 	$(GLIB_LIBS) \
-	$(LIBGCRYPT_LIBS)
+	$(LIBGCRYPT_LIBS) \
+	$(P11_KIT_LIBS)
 
 TEST_PROGS = \
 	test-util \

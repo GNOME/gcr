@@ -14,7 +14,7 @@
 #ifndef PKCS11X_H
 #define PKCS11X_H
 
-#include "pkcs11.h"
+#include <p11-kit/pkcs11.h>
 
 #define CKA_XDG   (CKA_VENDOR_DEFINED | 0x58444700UL /* XDG0 */ )
 #define CKO_XDG   (CKA_VENDOR_DEFINED | 0x58444700UL /* XDG0 */ )

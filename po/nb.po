@@ -1,4 +1,4 @@
-# Norwegian translations for gcr.
+# Norwegian bokmål translations for gcr.
 # Copyright (C) 2003 Red Hat Inc.
 # This file is distributed under the same license as the gnome-keyring package.
 #
@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring 3.5.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-09 14:34+0200\n"
-"PO-Revision-Date: 2012-07-09 14:37+0200\n"
+"POT-Creation-Date: 2012-07-23 12:28+0200\n"
+"PO-Revision-Date: 2012-07-23 12:29+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
-"Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
+"Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: no\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -705,7 +705,6 @@ msgid "Expiry"
 msgstr "Utløper"
 
 #: ../gcr/gcr-gnupg-renderer.c:378
-#, fuzzy
 msgid "Capabilities"
 msgstr "Evner"
 

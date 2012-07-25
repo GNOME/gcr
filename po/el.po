@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-06-19 11:58+0000\n"
-"PO-Revision-Date: 2012-06-19 17:03+0200\n"
+"POT-Creation-Date: 2012-06-19 14:04+0000\n"
+"PO-Revision-Date: 2012-07-25 10:25+0200\n"
 "Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "ID Χρήστη"
 
 #: ../egg/egg-oid.c:46
 msgid "Email Address"
-msgstr "Διεύθυνση ηλεκτρονικού ταχυδρομείου"
+msgstr "Διεύθυνση ηλ. ταχυδρομείου"
 
 #: ../egg/egg-oid.c:54
 msgid "Date of Birth"
@@ -57,7 +57,7 @@ msgstr "Χώρα διαμονής"
 
 #: ../egg/egg-oid.c:65
 msgid "Common Name"
-msgstr "Όνομα, υποκοριστικό"
+msgstr "Κοινό όνομα"
 
 #: ../egg/egg-oid.c:67
 msgid "Surname"
@@ -168,7 +168,7 @@ msgstr "Προστασία ηλεκτρονικής διεύθυνσης"
 #: ../egg/egg-oid.c:111
 #, fuzzy
 msgid "Time Stamping"
-msgstr "Βήμα χρόνου"
+msgstr "Αποτύπωση χρόνου ή Χρονική αποτύπωση ή Σφραγίδα χρόνου ή Χρονική σφραγίδα ;;;"
 
 #: ../gck/gck-module.c:352
 #, c-format
@@ -203,7 +203,7 @@ msgstr "Το URI έχει μη έγκυρη κωδικοποίηση."
 #: ../gck/gck-uri.c:228
 #, fuzzy
 msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "Το URI '%s' δεν είναι ένα απόλυτο URI με την χρήση του σχήματος \"αρχείου\""
+msgstr "Το URI δεν έχει το 'pkcs11' scheme."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -307,9 +307,8 @@ msgid "Directory Name"
 msgstr "Όνομα καταλόγου"
 
 #: ../gcr/gcr-certificate-extensions.c:235
-#, fuzzy
 msgid "EDI Party Name"
-msgstr "Όνομα του αρχείου θέματος"
+msgstr "EDI Party Name"
 
 #: ../gcr/gcr-certificate-extensions.c:242
 msgid "URI"
@@ -320,9 +319,8 @@ msgid "IP Address"
 msgstr "Διεύθυνση IP"
 
 #: ../gcr/gcr-certificate-extensions.c:258
-#, fuzzy
 msgid "Registered ID"
-msgstr "_Jabber ID:"
+msgstr "Εγγεγραμμένο ID"
 
 #: ../gcr/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
@@ -343,28 +341,24 @@ msgid "No"
 msgstr "Όχι"
 
 #: ../gcr/gcr-certificate-renderer.c:123
-#, fuzzy
 msgid "Max Path Length"
-msgstr "Μέγιστο μήκος ιστορικού"
+msgstr "Μέγιστο μήκος διαδρομής"
 
 #: ../gcr/gcr-certificate-renderer.c:124
 msgid "Unlimited"
 msgstr "Απεριόριστο"
 
 #: ../gcr/gcr-certificate-renderer.c:143
-#, fuzzy
 msgid "Extended Key Usage"
-msgstr "Χρήση κλειδιού πιστοποιητικού"
+msgstr "Εκτεταμένη χρήση κλειδιού"
 
 #: ../gcr/gcr-certificate-renderer.c:154
-#, fuzzy
 msgid "Allowed Purposes"
-msgstr "Χρήστες που επιτρέπονται"
+msgstr "Επιτρεπόμενοι σκοποί"
 
 #: ../gcr/gcr-certificate-renderer.c:174
-#, fuzzy
 msgid "Subject Key Identifier"
-msgstr "Δημόσιο κλειδί υποκειμένου"
+msgstr "Αναγνωριστικό κλειδί υποκειμένου"
 
 #: ../gcr/gcr-certificate-renderer.c:175
 msgid "Key Identifier"
@@ -388,9 +382,8 @@ msgid "Key agreement"
 msgstr "Συμφωνία κλειδιού"
 
 #: ../gcr/gcr-certificate-renderer.c:190
-#, fuzzy
 msgid "Certificate signature"
-msgstr "Αλγόριθμος υπογραφής πιστοποιητικού"
+msgstr "Πιστοποιητικό υπογραφής"
 
 #: ../gcr/gcr-certificate-renderer.c:191
 msgid "Revocation list signature"
@@ -405,9 +398,8 @@ msgid "Usages"
 msgstr "Χρήσεις"
 
 #: ../gcr/gcr-certificate-renderer.c:237
-#, fuzzy
 msgid "Subject Alternative Names"
-msgstr "Εμφάνιση ονομάτων χώρων εργασίας"
+msgstr "Εναλλακτικά ονόματα υποκειμένου"
 
 #: ../gcr/gcr-certificate-renderer.c:264
 msgid "Extension"
@@ -473,9 +465,8 @@ msgstr "Λήξη ισχύος"
 
 #. Fingerprints
 #: ../gcr/gcr-certificate-renderer.c:576
-#, fuzzy
 msgid "Certificate Fingerprints"
-msgstr "_Διαγραφή αποτυπωμάτων"
+msgstr "Πιστοποιητικό αποτυπωμάτων"
 
 #. Public Key Info
 #: ../gcr/gcr-certificate-renderer.c:582
@@ -507,9 +498,8 @@ msgid "Key Size"
 msgstr "Μέγεθος κλειδιού"
 
 #: ../gcr/gcr-certificate-renderer.c:885
-#, fuzzy
 msgid "Key SHA1 Fingerprint"
-msgstr "Αναντιστοιχία αποτυπώματος και πιστοποιητικού"
+msgstr "Αποτύπωμα κλειδιού SHA1"
 
 #: ../gcr/gcr-certificate-renderer.c:890
 #: ../gcr/gcr-gnupg-renderer.c:737
@@ -531,15 +521,15 @@ msgid "Critical"
 msgstr "Κρίσιμο"
 
 #: ../gcr/gcr-certificate-request.c:418
-#, fuzzy, c-format
+#, c-format
 msgid "Unsupported key type for certificate request"
-msgstr "Δημιουργία αίτησης πιστοποιητικού για αυτό το κλειδί"
+msgstr "Μη υποστηριζόμενος τύπος κλειδιού για την αίτηση πιστοποίησης"
 
 #: ../gcr/gcr-certificate-request.c:508
 #: ../gcr/gcr-certificate-request.c:593
-#, fuzzy, c-format
+#, c-format
 msgid "The key cannot be used to sign the request"
-msgstr "Το κλειδί δεν μπορεί να χρησιμοποιηθεί για να υπογραφεί η αίτηση"
+msgstr "Το κλειδί δεν μπόρεσε να χρησιμοποιηθεί για να υπογράφει η αίτηση"
 
 #. The certificate request type
 #: ../gcr/gcr-certificate-request-renderer.c:95
@@ -609,14 +599,14 @@ msgid "Key ID"
 msgstr "ID Κλειδιού"
 
 #: ../gcr/gcr-gnupg-process.c:866
-#, fuzzy, c-format
+#, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr "Το πρόγραμμα τερματίστηκε με κώδικα σφάλματος %s\n"
+msgstr "Η διεργασία Gnupg τερμτίστηκε με κωδικό: %d"
 
 #: ../gcr/gcr-gnupg-process.c:873
-#, fuzzy, c-format
+#, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr "Η θυγατρική διεργασία τερματίστηκε από το σήμα %d."
+msgstr "Η διεργασία Gnupg τερματίστηκε με σήμα: %d"
 
 #: ../gcr/gcr-gnupg-process.c:927
 #: ../gcr/gcr-parser.c:2483
@@ -669,33 +659,28 @@ msgid "Expired"
 msgstr "Έληξε"
 
 #: ../gcr/gcr-gnupg-renderer.c:264
-#, fuzzy
 msgid "Undefined trust"
-msgstr "Εξυπηρετητής υπό κηδεμονία"
+msgstr "Ακαθόριστη εμπιστοσύνη"
 
 #: ../gcr/gcr-gnupg-renderer.c:266
 msgid "Distrusted"
-msgstr ""
+msgstr "Δύσπιστο"
 
 #: ../gcr/gcr-gnupg-renderer.c:268
-#, fuzzy
 msgid "Marginally trusted"
-msgstr "Εμφάνισε _αξιόπιστα"
+msgstr "Οριακά έμπιστο"
 
 #: ../gcr/gcr-gnupg-renderer.c:270
-#, fuzzy
 msgid "Fully trusted"
-msgstr "Εμφάνισε _αξιόπιστα"
+msgstr "Πλήρως έμπιστο"
 
 #: ../gcr/gcr-gnupg-renderer.c:272
-#, fuzzy
 msgid "Ultimately trusted"
-msgstr "Εμφάνισε _αξιόπιστα"
+msgstr "Απολύτως έμπιστο"
 
 #: ../gcr/gcr-gnupg-renderer.c:286
-#, fuzzy
 msgid "The information in this key has not yet been verified"
-msgstr "Οι πληροφορίες είναι ευαίσθητες και δεν είναι δυνατή η αποκάλυψή τους"
+msgstr "Οι πληροφορίες σε αυτό το κλειδί δεν έχουν ακόμα επαληθευτεί"
 
 #: ../gcr/gcr-gnupg-renderer.c:289
 msgid "This key is invalid"
@@ -714,9 +699,8 @@ msgid "This key has expired"
 msgstr "<b>Αυτό το κλειδί έχει λήξει"
 
 #: ../gcr/gcr-gnupg-renderer.c:303
-#, fuzzy
 msgid "This key is distrusted"
-msgstr "Αυτό το κλειδί είναι δύσπιστο"
+msgstr "Αυτό το κλειδί δεν είναι έμπιστο"
 
 #: ../gcr/gcr-gnupg-renderer.c:306
 msgid "This key is marginally trusted"
@@ -759,9 +743,8 @@ msgid "Capabilities"
 msgstr "Δυνατότητες"
 
 #: ../gcr/gcr-gnupg-renderer.c:391
-#, fuzzy
 msgid "Owner trust"
-msgstr "Τροποποίηση ε_μπιστοσύνης ιδιοκτήτη:"
+msgstr "Εμπιστοσύνη ιδιοκτήτη"
 
 #: ../gcr/gcr-gnupg-renderer.c:419
 msgid "Name"
@@ -782,14 +765,12 @@ msgid "Size"
 msgstr "Μέγεθος"
 
 #: ../gcr/gcr-gnupg-renderer.c:507
-#, fuzzy
 msgid "Signature of a binary document"
-msgstr "Παράκαμψη των περιορισμών του εγγράφου"
+msgstr "Υπογραφή ενός δυαδικού εγγράφου"
 
 #: ../gcr/gcr-gnupg-renderer.c:509
-#, fuzzy
 msgid "Signature of a canonical text document"
-msgstr "Ταξινόμηση του εγγράφου ή της επιλογής."
+msgstr "Υπογραφή ενός κανονικού εγγράφου κειμένου"
 
 #: ../gcr/gcr-gnupg-renderer.c:511
 #, fuzzy
@@ -797,37 +778,32 @@ msgid "Standalone signature"
 msgstr "Αυτόνομη υπογραφή"
 
 #: ../gcr/gcr-gnupg-renderer.c:513
-#, fuzzy
 msgid "Generic certification of key"
-msgstr "Σημασία έχει η συνέπεια"
+msgstr "Γενική πιστοποίηση του κλειδιού"
 
 #: ../gcr/gcr-gnupg-renderer.c:515
-#, fuzzy
 msgid "Persona certification of key"
-msgstr "Σημασία έχει η συνέπεια"
+msgstr "Προσωπική πιστοποίηση του κλειδιού"
 
 #: ../gcr/gcr-gnupg-renderer.c:517
-#, fuzzy
 msgid "Casual certification of key"
-msgstr "Σημασία έχει η συνέπεια"
+msgstr "Γενική πιστοποίηση του κλειδιού"
 
 #: ../gcr/gcr-gnupg-renderer.c:519
-#, fuzzy
 msgid "Positive certification of key"
 msgstr "Θετική πιστοποίηση του κλειδιού"
 
 #: ../gcr/gcr-gnupg-renderer.c:521
 #, fuzzy
 msgid "Subkey binding signature"
-msgstr "Μη υποστηριζόμενη μορφή υπογραφής"
+msgstr "Δεσμευτική υπογραφή υποκλειδιού"
 
 #: ../gcr/gcr-gnupg-renderer.c:523
 #, fuzzy
 msgid "Primary key binding signature"
-msgstr "Ο συνδυασμός πλήκτρων (%s) δεν είναι ολοκληρωμένος"
+msgstr "Δεσμευτική υπογραφή πρωτεύοντος κλειδιού"
 
 #: ../gcr/gcr-gnupg-renderer.c:525
-#, fuzzy
 msgid "Signature directly on key"
 msgstr "Υπογραφή απευθείας στο κλειδί"
 
@@ -840,19 +816,17 @@ msgid "Subkey revocation signature"
 msgstr "Υπογραφή υποκλειδιού ανάκλησης"
 
 #: ../gcr/gcr-gnupg-renderer.c:531
-#, fuzzy
 msgid "Certification revocation signature"
-msgstr "Μη υποστηριζόμενη μορφή υπογραφής"
+msgstr "Πιστοποιητικό ανάκλησης υπογραφής"
 
 #: ../gcr/gcr-gnupg-renderer.c:533
 #, fuzzy
 msgid "Timestamp signature"
-msgstr "Έγκυρη υπογραφή"
+msgstr "Υπογραφή χρονικής σφραγίδας"
 
 #: ../gcr/gcr-gnupg-renderer.c:535
-#, fuzzy
 msgid "Third-party confirmation signature"
-msgstr "Σχετικά με πρόσθετες λειτουργίες τρίτου μέρους του Anjuta"
+msgstr "Υπογραφή επιβεβαίωσης τρίτων"
 
 #: ../gcr/gcr-gnupg-renderer.c:588
 #: ../gcr/gcr-gnupg-renderer.c:596
@@ -865,7 +839,7 @@ msgstr "Μόνο τοπικά"
 
 #: ../gcr/gcr-gnupg-renderer.c:592
 msgid "Exportable"
-msgstr ""
+msgstr "Εξαγωγίσιμο"
 
 #: ../gcr/gcr-gnupg-renderer.c:610
 msgid "Revocation Key"
@@ -908,9 +882,8 @@ msgid "Import to: %s"
 msgstr "Εισαγωγή σε: %s"
 
 #: ../gcr/gcr-import-button.c:159
-#, fuzzy
 msgid "Cannot import because there are no compatible importers"
-msgstr "Αδυναμία εισαγωγής επειδή το κλειδί είναι λανθασμένου τύπου"
+msgstr "Αδυναμία εισαγωγής διότι δεν υπάρχουν συμβατοί εισαγωγείς"
 
 #: ../gcr/gcr-import-button.c:168
 msgid "No data to import"
@@ -1049,11 +1022,11 @@ msgstr "Τύπος ειδοποίησης"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
-msgstr ""
+msgstr "Ξεκλειδώστε την πρόσβαση σε κωδικούς πρόσβασης και άλλα μυστικά"
 
 #: ../gcr/gcr-subject-public-key.c:345
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "Άγνωστες ή μη διαθέσιμες ιδιότητες για το κλειδί"
 
 #: ../gcr/gcr-subject-public-key.c:429
 #: ../gcr/gcr-subject-public-key.c:515

@@ -147,10 +147,13 @@ initialize_uris (void)
 	gchar *uri;
 	gchar *debug;
 
-	g_return_if_fail (initialized_modules);
-
 	if (initialized_uris)
 		return;
+
+	if (!initialized_modules) {
+		_gcr_debug ("modules not initialized");
+		return;
+	}
 
 	G_LOCK (uris);
 
@@ -326,6 +329,9 @@ gcr_pkcs11_initialize (GCancellable *cancellable,
  * List all the PKCS\#11 modules that are used by the GCR library.
  * Each module is a #GckModule object.
  *
+ * An empty list of modules will be returned if gcr_pkcs11_set_modules(),
+ * or gcr_pkcs11_initialize() has not yet run.
+ *
  * When done with the list, free it with gck_list_unref_free().
  *
  * Returns: (transfer full) (element-type Gck.Module): a newly allocated list
@@ -334,8 +340,9 @@ gcr_pkcs11_initialize (GCancellable *cancellable,
 GList*
 gcr_pkcs11_get_modules (void)
 {
-	g_return_val_if_fail (initialized_modules, NULL);
-	if (!all_modules)
+	if (!initialized_modules)
+		_gcr_debug ("pkcs11 not yet initialized");
+	else if (!all_modules)
 		_gcr_debug ("no modules loaded");
 	return gck_list_ref_copy (all_modules);
 }
@@ -430,6 +437,9 @@ gcr_pkcs11_add_module_from_file (const gchar *module_path, gpointer unused,
  * Selects an appropriate PKCS\#11 slot to store trust assertions. The slot
  * to use is normally configured automatically by the system.
  *
+ * This will only return a valid result after the gcr_pkcs11_initialize()
+ * method has been called.
+ *
  * When done with the #GckSlot, use g_object_unref() to release it.
  *
  * Returns: (transfer full): the #GckSlot to use for trust assertions.
@@ -440,7 +450,8 @@ gcr_pkcs11_get_trust_store_slot (void)
 	GckSlot *slot;
 	GError *error = NULL;
 
-	g_return_val_if_fail (initialized_modules, NULL);
+	if (!initialized_modules)
+		return NULL;
 
 	initialize_uris ();
 	slot = gck_modules_token_for_uri (all_modules, trust_store_uri, &error);
@@ -463,6 +474,9 @@ gcr_pkcs11_get_trust_store_slot (void)
  * List all the PKCS\#11 slots that are used by the GCR library for lookup
  * of trust assertions. Each slot is a #GckSlot object.
  *
+ * This will return an empty list if the gcr_pkcs11_initialize() function has
+ * not yet been called.
+ *
  * When done with the list, free it with gck_list_unref_free().
  *
  * Returns: (transfer full) (element-type Gck.Slot): a list of #GckSlot objects
@@ -475,7 +489,9 @@ gcr_pkcs11_get_trust_lookup_slots (void)
 	GError *error = NULL;
 	gchar **uri;
 
-	g_return_val_if_fail (initialized_modules, NULL);
+	if (!initialized_modules)
+		return NULL;
+
 	initialize_uris ();
 
 	for (uri = trust_lookup_uris; uri && *uri; ++uri) {

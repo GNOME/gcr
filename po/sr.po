@@ -5,36 +5,36 @@
 # Reviewed on 2005-08-08 by: Игор Несторовић <igor@prevod.org>
 # Translated on 2009-05-09 by: Бранко Кокановић <branko.kokanovic@gmail.com>
 # Милош Поповић <gpopac@gmail.com>, 2010.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-06 11:51+0200\n"
-"PO-Revision-Date: 2011-09-19 19:10+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2012-05-15 19:05+0000\n"
+"PO-Revision-Date: 2012-07-31 09:02+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 :    n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Virtaal 0.7.0\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
 
 #: ../egg/egg-oid.c:41
 msgid "Domain Component"
 msgstr "Компонента домена"
 
-#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:411
-#: ../gcr/gcr-gnupg-renderer.c:580
+#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:409
+#: ../gcr/gcr-gnupg-renderer.c:578
 msgid "User ID"
 msgstr "ИБ корисника"
 
 #: ../egg/egg-oid.c:46
 msgid "Email Address"
-msgstr "Адреса е-поште"
+msgstr "Адреса ел. поште"
 
 #: ../egg/egg-oid.c:54
 msgid "Date of Birth"
@@ -64,7 +64,7 @@ msgstr "Средње име"
 msgid "Surname"
 msgstr "Презиме"
 
-#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:652
+#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:557
 msgid "Serial Number"
 msgstr "Серијски број"
 
@@ -78,7 +78,7 @@ msgstr "Место"
 
 #: ../egg/egg-oid.c:75
 msgid "State"
-msgstr "Савезна покрајина"
+msgstr "Република"
 
 #: ../egg/egg-oid.c:77
 msgid "Street"
@@ -114,37 +114,37 @@ msgstr "Ознака генерације"
 
 #: ../egg/egg-oid.c:93
 msgid "DN Qualifier"
-msgstr "DN ознака"
+msgstr "ДН ознака"
 
 #: ../egg/egg-oid.c:95
 msgid "Pseudonym"
 msgstr "Псеудоним"
 
-#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:202
-#: ../gcr/gcr-key-renderer.c:308
+#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
+#: ../gcr/gcr-key-renderer.c:430
 msgid "RSA"
-msgstr "RSA"
+msgstr "РСА"
 
 #: ../egg/egg-oid.c:99
 msgid "MD2 with RSA"
-msgstr "MD2 са RSA"
+msgstr "МД2 са РСА"
 
 #: ../egg/egg-oid.c:100
 msgid "MD5 with RSA"
-msgstr "MD5 са RSA"
+msgstr "МД5 са РСА"
 
 #: ../egg/egg-oid.c:101
 msgid "SHA1 with RSA"
-msgstr "SHA1 са RSA"
+msgstr "СХА1 са РСА"
 
-#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:206
-#: ../gcr/gcr-key-renderer.c:310
+#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
+#: ../gcr/gcr-key-renderer.c:432
 msgid "DSA"
-msgstr "DSA"
+msgstr "ДСА"
 
 #: ../egg/egg-oid.c:104
 msgid "SHA1 with DSA"
-msgstr "SHA1 са DSA"
+msgstr "СХА1 са ДСА"
 
 #. Extended Key Usages
 #: ../egg/egg-oid.c:107
@@ -161,28 +161,28 @@ msgstr "Потписивање кода"
 
 #: ../egg/egg-oid.c:110
 msgid "Email Protection"
-msgstr "Заштита е-поште"
+msgstr "Заштита ел. поште"
 
 #: ../egg/egg-oid.c:111
 msgid "Time Stamping"
 msgstr "Приказ датума и времена"
 
-#: ../gck/gck-module.c:353
+#: ../gck/gck-module.c:352
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "Грешка учитавања ПКЦС#11 модула: %s"
 
-#: ../gck/gck-module.c:360
+#: ../gck/gck-module.c:359
 #, c-format
 msgid "Invalid PKCS#11 module: %s"
 msgstr "Неисправан ПКЦС#11 модул: %s"
 
-#: ../gck/gck-module.c:369
+#: ../gck/gck-module.c:368
 #, c-format
 msgid "Couldn't setup PKCS#11 module: %s"
 msgstr "Не могу да подесим ПКЦС#11 модул: %s"
 
-#: ../gck/gck-module.c:385
+#: ../gck/gck-module.c:384
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
 msgstr "Не могу да покренем ПКЦС#11 модул: %s"
@@ -190,36 +190,53 @@ msgstr "Не могу да покренем ПКЦС#11 модул: %s"
 #: ../gck/gck-modules.c:67
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr "Не могу да покренем регистроване ПКЦС#11 модуле: %s"
+msgstr "Не могу да покренем забележене ПКЦС#11 модуле: %s"
+
+#: ../gck/gck-uri.c:224
+#, c-format
+msgid "The URI has invalid encoding."
+msgstr "Путања има неисправно кодирање."
+
+#: ../gck/gck-uri.c:228
+msgid "The URI does not have the 'pkcs11' scheme."
+msgstr "Путања нема „pkcs11“ шему."
+
+#: ../gck/gck-uri.c:232
+msgid "The URI has bad syntax."
+msgstr "Путања има лошу синтаксу."
+
+#: ../gck/gck-uri.c:236
+msgid "The URI has a bad version number."
+msgstr "Путања има лош број издања."
 
 #: ../gcr/gcr-callback-output-stream.c:64
 #: ../gcr/gcr-callback-output-stream.c:81
-#, fuzzy, c-format
+#, c-format
 msgid "The stream was closed"
-msgstr "Сесија је затворена"
+msgstr "Ток је затворен"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:378 ../gcr/gcr-gnupg-key.c:521
+#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "Назив"
 
-#: ../gcr/gcr-certificate.c:380
+#: ../gcr/gcr-certificate.c:310
 msgctxt "column"
 msgid "Issued By"
 msgstr "Издавач"
 
 #. later
-#: ../gcr/gcr-certificate.c:382
+#: ../gcr/gcr-certificate.c:312
 msgctxt "column"
 msgid "Expires"
 msgstr "Истиче"
 
-#: ../gcr/gcr-certificate.c:1067 ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:101 ../gcr/gcr-parser.c:316
+#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-certificate-exporter.c:463
+#: ../gcr/gcr-certificate-renderer.c:102 ../gcr/gcr-parser.c:322
 msgid "Certificate"
-msgstr "Сертификат"
+msgstr "Уверење"
 
 #: ../gcr/gcr-certificate-exporter.c:225
 msgid ""
@@ -227,7 +244,7 @@ msgid ""
 "\n"
 "Do you want to replace it with a new file?"
 msgstr ""
-"<b>Датотека већ постоји са овим називом.</b>\n"
+"<b>Већ постоји датотека са овим називом.</b>\n"
 "\n"
 "Да ли желите да је замените новом датотеком?"
 
@@ -252,600 +269,613 @@ msgstr "Датотеке уверења"
 msgid "PEM files"
 msgstr "ПЕМ датотеке"
 
-#: ../gcr/gcr-certificate-extensions.c:141
+#: ../gcr/gcr-certificate-extensions.c:178
 msgid "Other Name"
 msgstr "Други назив"
 
-#: ../gcr/gcr-certificate-extensions.c:150
+#: ../gcr/gcr-certificate-extensions.c:187
 msgid "XMPP Addr"
 msgstr "ХМПП адреса"
 
-#: ../gcr/gcr-certificate-extensions.c:154
+#: ../gcr/gcr-certificate-extensions.c:191
 msgid "DNS SRV"
 msgstr "ДНС СРВ"
 
-#: ../gcr/gcr-certificate-extensions.c:166 ../gcr/gcr-gnupg-renderer.c:424
-#: ../gcr/gcr-gnupg-renderer.c:706
+#: ../gcr/gcr-certificate-extensions.c:204 ../gcr/gcr-gnupg-renderer.c:422
+#: ../gcr/gcr-gnupg-renderer.c:704
 msgid "Email"
-msgstr "Е-пошта"
+msgstr "Ел. пошта"
 
-#: ../gcr/gcr-certificate-extensions.c:174
+#: ../gcr/gcr-certificate-extensions.c:212
 msgid "DNS"
 msgstr "ДНС"
 
-#: ../gcr/gcr-certificate-extensions.c:182
+#: ../gcr/gcr-certificate-extensions.c:220
 msgid "X400 Address"
 msgstr "Х400 адреса"
 
-#: ../gcr/gcr-certificate-extensions.c:189
+#: ../gcr/gcr-certificate-extensions.c:227
 msgid "Directory Name"
-msgstr "Фасцикла"
+msgstr "Назив директоријума"
 
-#: ../gcr/gcr-certificate-extensions.c:197
+#: ../gcr/gcr-certificate-extensions.c:235
 msgid "EDI Party Name"
 msgstr "Назив ЕДИ стране"
 
-#: ../gcr/gcr-certificate-extensions.c:204
+#: ../gcr/gcr-certificate-extensions.c:242
 msgid "URI"
-msgstr "Адреса"
+msgstr "Путања"
 
-#: ../gcr/gcr-certificate-extensions.c:212
+#: ../gcr/gcr-certificate-extensions.c:250
 msgid "IP Address"
 msgstr "ИП адреса"
 
-#: ../gcr/gcr-certificate-extensions.c:220
+#: ../gcr/gcr-certificate-extensions.c:258
 msgid "Registered ID"
 msgstr "Регистрован ИБ"
 
-#: ../gcr/gcr-certificate-renderer.c:116
+#: ../gcr/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
 msgstr "Основна ограничења"
 
-#: ../gcr/gcr-certificate-renderer.c:118
+#: ../gcr/gcr-certificate-renderer.c:119
 msgid "Certificate Authority"
 msgstr "Издавач уверења"
 
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
 msgid "Yes"
 msgstr "Да"
 
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
 msgid "No"
 msgstr "Не"
 
-#: ../gcr/gcr-certificate-renderer.c:122
+#: ../gcr/gcr-certificate-renderer.c:123
 msgid "Max Path Length"
 msgstr "Највећа дужина путање"
 
-#: ../gcr/gcr-certificate-renderer.c:123
+#: ../gcr/gcr-certificate-renderer.c:124
 msgid "Unlimited"
 msgstr "Неограничено"
 
-#: ../gcr/gcr-certificate-renderer.c:142
+#: ../gcr/gcr-certificate-renderer.c:143
 msgid "Extended Key Usage"
-msgstr "Коришћење проширеног кључа"
+msgstr "Проширено коришћење кључа"
 
-#: ../gcr/gcr-certificate-renderer.c:153
+#: ../gcr/gcr-certificate-renderer.c:154
 msgid "Allowed Purposes"
 msgstr "Дозвољене сврхе"
 
-#: ../gcr/gcr-certificate-renderer.c:173
-msgid "Subject Key Identifier"
-msgstr "Идентификатор кључа објекта"
-
 #: ../gcr/gcr-certificate-renderer.c:174
+msgid "Subject Key Identifier"
+msgstr "Идентификатор кључа субјекта"
+
+#: ../gcr/gcr-certificate-renderer.c:175
 msgid "Key Identifier"
 msgstr "Идентификатор кључа"
 
-#: ../gcr/gcr-certificate-renderer.c:185
+#: ../gcr/gcr-certificate-renderer.c:186
 msgid "Digital signature"
 msgstr "Дигитални потпис"
 
-#: ../gcr/gcr-certificate-renderer.c:186
+#: ../gcr/gcr-certificate-renderer.c:187
 msgid "Key encipherment"
 msgstr "Замућивање кључа"
 
-#: ../gcr/gcr-certificate-renderer.c:187
+#: ../gcr/gcr-certificate-renderer.c:188
 msgid "Data encipherment"
 msgstr "Замућивање података"
 
-#: ../gcr/gcr-certificate-renderer.c:188
+#: ../gcr/gcr-certificate-renderer.c:189
 msgid "Key agreement"
 msgstr "Сагласност кључа"
 
-#: ../gcr/gcr-certificate-renderer.c:189
+#: ../gcr/gcr-certificate-renderer.c:190
 msgid "Certificate signature"
 msgstr "Потпис уверења"
 
-#: ../gcr/gcr-certificate-renderer.c:190
+#: ../gcr/gcr-certificate-renderer.c:191
 msgid "Revocation list signature"
 msgstr "Списак опозива потписа"
 
-#: ../gcr/gcr-certificate-renderer.c:215
+#: ../gcr/gcr-certificate-renderer.c:216
 msgid "Key Usage"
 msgstr "Коришћење кључа"
 
-#: ../gcr/gcr-certificate-renderer.c:216
+#: ../gcr/gcr-certificate-renderer.c:217
 msgid "Usages"
 msgstr "Употребе"
 
-#: ../gcr/gcr-certificate-renderer.c:236
+#: ../gcr/gcr-certificate-renderer.c:237
 msgid "Subject Alternative Names"
-msgstr "Алтернативни називи субјекта"
+msgstr "Други називи субјекта"
 
-#: ../gcr/gcr-certificate-renderer.c:261
+#: ../gcr/gcr-certificate-renderer.c:264
 msgid "Extension"
 msgstr "Проширење"
 
-#: ../gcr/gcr-certificate-renderer.c:265
+#: ../gcr/gcr-certificate-renderer.c:268
 msgid "Identifier"
 msgstr "Идентификатор"
 
-#: ../gcr/gcr-certificate-renderer.c:266 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-gnupg-renderer.c:432
+#: ../gcr/gcr-certificate-renderer.c:269
+#: ../gcr/gcr-certificate-request-renderer.c:272
+#: ../gcr/gcr-gnupg-renderer.c:413 ../gcr/gcr-gnupg-renderer.c:430
 msgid "Value"
 msgstr "Вредност"
 
-#: ../gcr/gcr-certificate-renderer.c:313
-msgid "Critical"
-msgstr "Критично"
-
-#: ../gcr/gcr-certificate-renderer.c:386
+#: ../gcr/gcr-certificate-renderer.c:294
 msgid "Couldn't export the certificate."
 msgstr "Не могу да извезем уверење."
 
-#: ../gcr/gcr-certificate-renderer.c:613
+#: ../gcr/gcr-certificate-renderer.c:519
+#: ../gcr/gcr-certificate-request-renderer.c:313
 msgid "Identity"
 msgstr "Идентитет"
 
-#: ../gcr/gcr-certificate-renderer.c:617
+#: ../gcr/gcr-certificate-renderer.c:523
 msgid "Verified by"
-msgstr "Проверио"
+msgstr "Оверен"
 
-#: ../gcr/gcr-certificate-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:720
+#: ../gcr/gcr-certificate-renderer.c:530 ../gcr/gcr-gnupg-renderer.c:718
 msgid "Expires"
 msgstr "Истиче"
 
 #. The subject
-#: ../gcr/gcr-certificate-renderer.c:634
+#: ../gcr/gcr-certificate-renderer.c:537
+#: ../gcr/gcr-certificate-request-renderer.c:319
 msgid "Subject Name"
-msgstr "Име предмета"
+msgstr "Назив предмета"
 
 #. The Issuer
-#: ../gcr/gcr-certificate-renderer.c:638
+#: ../gcr/gcr-certificate-renderer.c:542
 msgid "Issuer Name"
 msgstr "Име издаваоца"
 
 #. The Issued Parameters
-#: ../gcr/gcr-certificate-renderer.c:642
+#: ../gcr/gcr-certificate-renderer.c:547
 msgid "Issued Certificate"
-msgstr "Издати сертификат"
+msgstr "Издато уверење"
 
-#: ../gcr/gcr-certificate-renderer.c:647
+#: ../gcr/gcr-certificate-renderer.c:552
+#: ../gcr/gcr-certificate-request-renderer.c:330
 msgid "Version"
 msgstr "Издање"
 
-#: ../gcr/gcr-certificate-renderer.c:658
+#: ../gcr/gcr-certificate-renderer.c:566
 msgid "Not Valid Before"
 msgstr "Не важи пре"
 
-#: ../gcr/gcr-certificate-renderer.c:663
+#: ../gcr/gcr-certificate-renderer.c:571
 msgid "Not Valid After"
 msgstr "Не важи после"
 
 #. Fingerprints
-#: ../gcr/gcr-certificate-renderer.c:668
+#: ../gcr/gcr-certificate-renderer.c:576
 msgid "Certificate Fingerprints"
 msgstr "Отисци уверења"
 
-#. Signature
-#: ../gcr/gcr-certificate-renderer.c:674 ../gcr/gcr-certificate-renderer.c:686
-#: ../gcr/gcr-gnupg-renderer.c:561
-msgid "Signature"
-msgstr "Потпис"
-
-#: ../gcr/gcr-certificate-renderer.c:678
-msgid "Signature Algorithm"
-msgstr "Алгоритам потписа"
-
-#: ../gcr/gcr-certificate-renderer.c:682
-msgid "Signature Parameters"
-msgstr "Параметри потписа"
-
 #. Public Key Info
-#: ../gcr/gcr-certificate-renderer.c:690
+#: ../gcr/gcr-certificate-renderer.c:582
+#: ../gcr/gcr-certificate-request-renderer.c:333
+#: ../gcr/gcr-certificate-request-renderer.c:379
 msgid "Public Key Info"
 msgstr "Подаци о јавном кључу"
 
-#: ../gcr/gcr-certificate-renderer.c:695
+#. Signature
+#: ../gcr/gcr-certificate-renderer.c:597 ../gcr/gcr-certificate-renderer.c:918
+#: ../gcr/gcr-certificate-request-renderer.c:349
+#: ../gcr/gcr-certificate-request-renderer.c:386
+#: ../gcr/gcr-gnupg-renderer.c:559
+msgid "Signature"
+msgstr "Потпис"
+
+#: ../gcr/gcr-certificate-renderer.c:864
 msgid "Key Algorithm"
 msgstr "Алгоритам кључа"
 
-#: ../gcr/gcr-certificate-renderer.c:700
+#: ../gcr/gcr-certificate-renderer.c:869
 msgid "Key Parameters"
 msgstr "Параметри кључа"
 
-#: ../gcr/gcr-certificate-renderer.c:705 ../gcr/gcr-gnupg-renderer.c:354
+#: ../gcr/gcr-certificate-renderer.c:877 ../gcr/gcr-gnupg-renderer.c:352
 msgid "Key Size"
 msgstr "Величина кључа"
 
-#: ../gcr/gcr-certificate-renderer.c:712
+#: ../gcr/gcr-certificate-renderer.c:885
 msgid "Key SHA1 Fingerprint"
 msgstr "СХА1 отисак кључа"
 
-#: ../gcr/gcr-certificate-renderer.c:718 ../gcr/gcr-gnupg-renderer.c:739
-#: ../gcr/gcr-key-renderer.c:292 ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
+#: ../gcr/gcr-key-renderer.c:415 ../gcr/gcr-parser.c:325
 msgid "Public Key"
 msgstr "Јавни кључ"
 
+#: ../gcr/gcr-certificate-renderer.c:907
+msgid "Signature Algorithm"
+msgstr "Алгоритам потписа"
+
+#: ../gcr/gcr-certificate-renderer.c:911
+msgid "Signature Parameters"
+msgstr "Параметри потписа"
+
+#: ../gcr/gcr-certificate-renderer.c:960
+msgid "Critical"
+msgstr "Критично"
+
+#: ../gcr/gcr-certificate-request.c:418
+#, c-format
+msgid "Unsupported key type for certificate request"
+msgstr "Неподржана врста кључа за захтев уверења"
+
+#: ../gcr/gcr-certificate-request.c:508 ../gcr/gcr-certificate-request.c:593
+#, c-format
+msgid "The key cannot be used to sign the request"
+msgstr "Кључ не може бити коришћен за потписивање захтева"
+
+#. The certificate request type
+#: ../gcr/gcr-certificate-request-renderer.c:95
+#: ../gcr/gcr-certificate-request-renderer.c:308
+#: ../gcr/gcr-certificate-request-renderer.c:323
+#: ../gcr/gcr-certificate-request-renderer.c:366
+#: ../gcr/gcr-certificate-request-renderer.c:371
+msgid "Certificate request"
+msgstr "Захтев уверења"
+
+# #-#-#-#-#  КОМПЕНДУМ_(2.умножак).po (zenity)  #-#-#-#-#
+# #-#-#-#-#  dia.master.sr.po (dia)  #-#-#-#-#
+# note(slobo): proveri?
+#: ../gcr/gcr-certificate-request-renderer.c:261
+msgid "Attribute"
+msgstr "Особина"
+
+#: ../gcr/gcr-certificate-request-renderer.c:265
+#: ../gcr/gcr-certificate-request-renderer.c:324
+#: ../gcr/gcr-certificate-request-renderer.c:372
+#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:592
+msgid "Type"
+msgstr "Врста"
+
+#: ../gcr/gcr-certificate-request-renderer.c:376
+msgid "Challenge"
+msgstr "Изазов"
+
 #: ../gcr/gcr-display-view.c:319
 msgid "_Details"
-msgstr "_Детаљи"
+msgstr "_Појединости"
 
-#: ../gcr/gcr-failure-renderer.c:161
+#: ../gcr/gcr-failure-renderer.c:160
 #, c-format
 msgid "Could not display '%s'"
 msgstr "Не могу да прикажем „%s“"
 
-#: ../gcr/gcr-failure-renderer.c:163
+#: ../gcr/gcr-failure-renderer.c:162
 msgid "Could not display file"
 msgstr "Не могу да прикажем датотеку"
 
-#: ../gcr/gcr-failure-renderer.c:168
+#: ../gcr/gcr-failure-renderer.c:167
 msgid "Reason"
 msgstr "Разлог"
 
-#: ../gcr/gcr-failure-renderer.c:218
+#: ../gcr/gcr-failure-renderer.c:217
 #, c-format
 msgid "Cannot display a file of this type."
 msgstr "Не могу да прикажем датотеку ове врсте."
 
-#: ../gcr/gcr-gnupg-importer.c:93
-#, fuzzy
+#: ../gcr/gcr-gnupg-importer.c:96
 msgid "GnuPG Keyring"
-msgstr "Откључај привезак"
+msgstr "ГнуПГ привезак кључева"
 
-#: ../gcr/gcr-gnupg-importer.c:95
-#, fuzzy, c-format
+#: ../gcr/gcr-gnupg-importer.c:98
+#, c-format
 msgid "GnuPG Keyring: %s"
-msgstr "ПГП кључ: %s"
+msgstr "ГнуПГ привезак кључева: %s"
 
-#: ../gcr/gcr-gnupg-key.c:234 ../gcr/gcr-gnupg-renderer.c:88
-#: ../gcr/gcr-parser.c:322
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-gnupg-renderer.c:88
+#: ../gcr/gcr-parser.c:328
 msgid "PGP Key"
 msgstr "ПГП кључ"
 
-#: ../gcr/gcr-gnupg-key.c:523
+#: ../gcr/gcr-gnupg-key.c:434
 msgctxt "column"
 msgid "Key ID"
 msgstr "ИБ кључа"
 
-#: ../gcr/gcr-gnupg-process.c:860
+#: ../gcr/gcr-gnupg-process.c:866
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr "ГнуПГ процес је изашао са кодом: %d"
+msgstr "Гнупг процес је изашао са кодом: %d"
 
-#: ../gcr/gcr-gnupg-process.c:867
+#: ../gcr/gcr-gnupg-process.c:873
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr "ГнуПГ процес је окончан сигналом: %d"
+msgstr "Гнупг процес је окончан сигналом: %d"
 
-#: ../gcr/gcr-gnupg-process.c:921 ../gcr/gcr-parser.c:2177
-#: ../gcr/gcr-parser.c:2681
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2481
+#: ../gcr/gcr-parser.c:2980
 msgid "The operation was cancelled"
-msgstr "Радња је поништена"
+msgstr "Радња је отказана"
 
-#: ../gcr/gcr-gnupg-renderer.c:204
+#: ../gcr/gcr-gnupg-renderer.c:202
 msgid "Elgamal"
-msgstr ""
+msgstr "Елгамал"
+
+#: ../gcr/gcr-gnupg-renderer.c:215
+msgid "Encrypt"
+msgstr "Шифруј"
 
 #: ../gcr/gcr-gnupg-renderer.c:217
-msgid "Encrypt"
-msgstr ""
+msgid "Sign"
+msgstr "Потпиши"
 
 #: ../gcr/gcr-gnupg-renderer.c:219
-#, fuzzy
-msgid "Sign"
-msgstr "Потпис"
+msgid "Certify"
+msgstr "Провери"
 
 #: ../gcr/gcr-gnupg-renderer.c:221
-#, fuzzy
-msgid "Certify"
-msgstr "Сертификат"
-
-#: ../gcr/gcr-gnupg-renderer.c:223
-#, fuzzy
 msgid "Authenticate"
-msgstr "Потврда идентитета сервера"
+msgstr "Потврди идентитет"
 
-#: ../gcr/gcr-gnupg-renderer.c:225 ../gcr/gcr-gnupg-renderer.c:260
+#: ../gcr/gcr-gnupg-renderer.c:223 ../gcr/gcr-gnupg-renderer.c:258
 msgid "Disabled"
-msgstr ""
+msgstr "Искључен"
 
-#: ../gcr/gcr-gnupg-renderer.c:256 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-key-renderer.c:312 ../gcr/gcr-key-renderer.c:317
+#: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
+#: ../gcr/gcr-key-renderer.c:434 ../gcr/gcr-key-renderer.c:439
 msgid "Unknown"
-msgstr "Непознато"
+msgstr "Непознат"
 
-#: ../gcr/gcr-gnupg-renderer.c:258
+#: ../gcr/gcr-gnupg-renderer.c:256
 msgid "Invalid"
-msgstr ""
+msgstr "Неисправан"
+
+#: ../gcr/gcr-gnupg-renderer.c:260
+msgid "Revoked"
+msgstr "Повучен"
 
 #: ../gcr/gcr-gnupg-renderer.c:262
-msgid "Revoked"
-msgstr ""
+msgid "Expired"
+msgstr "Истекао"
 
 #: ../gcr/gcr-gnupg-renderer.c:264
-#, fuzzy
-msgid "Expired"
-msgstr "Истиче"
+msgid "Undefined trust"
+msgstr "Неодређено поверење"
 
 #: ../gcr/gcr-gnupg-renderer.c:266
-msgid "Undefined trust"
-msgstr ""
+msgid "Distrusted"
+msgstr "Неповерљив"
 
 #: ../gcr/gcr-gnupg-renderer.c:268
-msgid "Distrusted"
-msgstr ""
+msgid "Marginally trusted"
+msgstr "Површно поверљив"
 
 #: ../gcr/gcr-gnupg-renderer.c:270
-msgid "Marginally trusted"
-msgstr ""
+msgid "Fully trusted"
+msgstr "Потпуно поверљив"
 
 #: ../gcr/gcr-gnupg-renderer.c:272
-msgid "Fully trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:274
 msgid "Ultimately trusted"
-msgstr ""
+msgstr "Безусловно поверљив"
 
-#: ../gcr/gcr-gnupg-renderer.c:288
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:286
 msgid "The information in this key has not yet been verified"
-msgstr "Овај податак је осетљив и не могу да га откријем"
+msgstr "Податак из овог кључа још увек није оверен"
 
-#: ../gcr/gcr-gnupg-renderer.c:291
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:289
 msgid "This key is invalid"
-msgstr "Сесија је неисправна"
+msgstr "Овај кључ је неисправан"
 
-#: ../gcr/gcr-gnupg-renderer.c:294
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:292
 msgid "This key has been disabled"
-msgstr "Модул није покренут"
+msgstr "Овај кључ је искључен"
 
-#: ../gcr/gcr-gnupg-renderer.c:297
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:295
 msgid "This key has been revoked"
-msgstr "Не могу да упакујем кључ"
+msgstr "Овај кључ је опозван"
 
-#: ../gcr/gcr-gnupg-renderer.c:300
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:298
 msgid "This key has expired"
-msgstr "Лозинци или ПИБ-у је истекао рок важења"
+msgstr "Овај кључ је истекао"
 
-#: ../gcr/gcr-gnupg-renderer.c:305
+#: ../gcr/gcr-gnupg-renderer.c:303
 msgid "This key is distrusted"
-msgstr ""
+msgstr "Овај кључ је неповерљив"
 
-#: ../gcr/gcr-gnupg-renderer.c:308
+#: ../gcr/gcr-gnupg-renderer.c:306
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "Овај кључ је површно поверљив"
 
-#: ../gcr/gcr-gnupg-renderer.c:311
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:309
 msgid "This key is fully trusted"
-msgstr "Погрешан тип кључа"
+msgstr "Овај кључ је потпуно поверљив"
 
-#: ../gcr/gcr-gnupg-renderer.c:314
+#: ../gcr/gcr-gnupg-renderer.c:312
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "Овај кључ је безусловно поверљив"
 
-#: ../gcr/gcr-gnupg-renderer.c:339 ../gcr/gcr-gnupg-renderer.c:565
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
 msgid "Key ID"
 msgstr "ИБ кључа"
 
-#: ../gcr/gcr-gnupg-renderer.c:347 ../gcr/gcr-gnupg-renderer.c:573
-#: ../gcr/gcr-gnupg-renderer.c:620 ../gcr/gcr-key-renderer.c:313
+#: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
+#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:435
 msgid "Algorithm"
 msgstr "Алгоритам"
 
-#: ../gcr/gcr-gnupg-renderer.c:362 ../gcr/gcr-gnupg-renderer.c:439
-#: ../gcr/gcr-gnupg-renderer.c:482
+#: ../gcr/gcr-gnupg-renderer.c:360 ../gcr/gcr-gnupg-renderer.c:437
+#: ../gcr/gcr-gnupg-renderer.c:480
 msgid "Created"
-msgstr ""
+msgstr "Направљен"
 
-#: ../gcr/gcr-gnupg-renderer.c:371 ../gcr/gcr-gnupg-renderer.c:448
-#: ../gcr/gcr-gnupg-renderer.c:491
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:369 ../gcr/gcr-gnupg-renderer.c:446
+#: ../gcr/gcr-gnupg-renderer.c:489
 msgid "Expiry"
 msgstr "Истиче"
 
-#: ../gcr/gcr-gnupg-renderer.c:380
+#: ../gcr/gcr-gnupg-renderer.c:378
 msgid "Capabilities"
-msgstr ""
+msgstr "Могућности"
 
-#: ../gcr/gcr-gnupg-renderer.c:393
+#: ../gcr/gcr-gnupg-renderer.c:391
 msgid "Owner trust"
-msgstr ""
+msgstr "Поузданост власника"
 
-#: ../gcr/gcr-gnupg-renderer.c:421
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:419
 msgid "Name"
 msgstr "Назив"
 
-#: ../gcr/gcr-gnupg-renderer.c:427 ../gcr/gcr-gnupg-renderer.c:709
+#: ../gcr/gcr-gnupg-renderer.c:425 ../gcr/gcr-gnupg-renderer.c:707
 msgid "Comment"
-msgstr ""
+msgstr "Напомена"
 
-#: ../gcr/gcr-gnupg-renderer.c:467
+#: ../gcr/gcr-gnupg-renderer.c:465
 msgid "User Attribute"
-msgstr ""
+msgstr "Особине корисника"
 
-#: ../gcr/gcr-gnupg-renderer.c:474 ../gcr/gcr-key-renderer.c:320
+#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:442
 msgid "Size"
 msgstr "Величина"
 
-#: ../gcr/gcr-gnupg-renderer.c:509
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:507
 msgid "Signature of a binary document"
-msgstr "Параметри потписа"
+msgstr "Потпис бинарног документа"
+
+#: ../gcr/gcr-gnupg-renderer.c:509
+msgid "Signature of a canonical text document"
+msgstr "Потпис каноничног текстуалног документа"
 
 #: ../gcr/gcr-gnupg-renderer.c:511
-msgid "Signature of a canonical text document"
-msgstr ""
+msgid "Standalone signature"
+msgstr "Самостојећи потпис"
 
 #: ../gcr/gcr-gnupg-renderer.c:513
-#, fuzzy
-msgid "Standalone signature"
-msgstr "Дигитални потпис"
+msgid "Generic certification of key"
+msgstr "Опште оверавање кључа"
 
 #: ../gcr/gcr-gnupg-renderer.c:515
-#, fuzzy
-msgid "Generic certification of key"
-msgstr "Откључај уверење"
+msgid "Persona certification of key"
+msgstr "Особено оверавање кључа"
 
 #: ../gcr/gcr-gnupg-renderer.c:517
-msgid "Persona certification of key"
-msgstr ""
+msgid "Casual certification of key"
+msgstr "Повремено оверавање кључа"
 
 #: ../gcr/gcr-gnupg-renderer.c:519
-msgid "Casual certification of key"
-msgstr ""
+msgid "Positive certification of key"
+msgstr "Позитивно оверавање кључа"
 
 #: ../gcr/gcr-gnupg-renderer.c:521
-msgid "Positive certification of key"
-msgstr ""
+msgid "Subkey binding signature"
+msgstr "Потпис повезивања поткључа"
 
 #: ../gcr/gcr-gnupg-renderer.c:523
-msgid "Subkey binding signature"
-msgstr ""
+msgid "Primary key binding signature"
+msgstr "Потпис повезивања основног кључа"
 
 #: ../gcr/gcr-gnupg-renderer.c:525
-msgid "Primary key binding signature"
-msgstr ""
+msgid "Signature directly on key"
+msgstr "Потпис непосредно на кључ"
 
 #: ../gcr/gcr-gnupg-renderer.c:527
-#, fuzzy
-msgid "Signature directly on key"
-msgstr "Параметри потписа"
+msgid "Key revocation signature"
+msgstr "Потпис за повлачење кључа"
 
 #: ../gcr/gcr-gnupg-renderer.c:529
-#, fuzzy
-msgid "Key revocation signature"
-msgstr "Списак опозива потписа"
+msgid "Subkey revocation signature"
+msgstr "Потпис за повлачење поткључа"
 
 #: ../gcr/gcr-gnupg-renderer.c:531
-#, fuzzy
-msgid "Subkey revocation signature"
-msgstr "Списак опозива потписа"
+msgid "Certification revocation signature"
+msgstr "Потпис повлачења уверења"
 
 #: ../gcr/gcr-gnupg-renderer.c:533
-#, fuzzy
-msgid "Certification revocation signature"
-msgstr "Потпис уверења"
+msgid "Timestamp signature"
+msgstr "Потпис временске ознаке"
 
 #: ../gcr/gcr-gnupg-renderer.c:535
-#, fuzzy
-msgid "Timestamp signature"
-msgstr "Дигитални потпис"
-
-#: ../gcr/gcr-gnupg-renderer.c:537
 msgid "Third-party confirmation signature"
-msgstr ""
+msgstr "Потпис потврђивања трећих лица"
 
-#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:598
+#: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
 msgid "Class"
-msgstr ""
+msgstr "Разред"
 
-#: ../gcr/gcr-gnupg-renderer.c:592 ../gcr/gcr-gnupg-renderer.c:594
-msgid "Type"
-msgstr ""
+#: ../gcr/gcr-gnupg-renderer.c:590
+msgid "Local only"
+msgstr "Само месно"
 
 #: ../gcr/gcr-gnupg-renderer.c:592
-#, fuzzy
-msgid "Local only"
-msgstr "Место"
-
-#: ../gcr/gcr-gnupg-renderer.c:594
 msgid "Exportable"
-msgstr ""
+msgstr "Извозив"
 
-#: ../gcr/gcr-gnupg-renderer.c:612
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:610
 msgid "Revocation Key"
-msgstr "Списак опозива потписа"
+msgstr "Кључ повлачења"
 
-#: ../gcr/gcr-gnupg-renderer.c:626 ../gcr/gcr-gnupg-renderer.c:650
-#: ../gcr/gcr-gnupg-renderer.c:652
+#: ../gcr/gcr-gnupg-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:648
+#: ../gcr/gcr-gnupg-renderer.c:650
 msgid "Fingerprint"
-msgstr "Отисак прста"
+msgstr "Отисак"
+
+#: ../gcr/gcr-gnupg-renderer.c:739
+msgid "Public Subkey"
+msgstr "Јавни поткључ"
 
 #: ../gcr/gcr-gnupg-renderer.c:741
-#, fuzzy
-msgid "Public Subkey"
-msgstr "Јавни кључ"
+msgid "Secret Key"
+msgstr "Тајни кључ"
 
 #: ../gcr/gcr-gnupg-renderer.c:743
-msgid "Secret Key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:745
 msgid "Secret Subkey"
-msgstr ""
+msgstr "Тајни поткључ"
 
-#: ../gcr/gcr-import-button.c:108
-#, fuzzy
+#: ../gcr/gcr-import-button.c:111
 msgid "Initializing..."
-msgstr "Иницијали"
+msgstr "Покрећем..."
 
-#: ../gcr/gcr-import-button.c:116
+#: ../gcr/gcr-import-button.c:119
 msgid "Import is in progress..."
-msgstr ""
+msgstr "Увоз је у току..."
 
-#: ../gcr/gcr-import-button.c:123
-#, fuzzy, c-format
+#: ../gcr/gcr-import-button.c:126
+#, c-format
 msgid "Imported to: %s"
-msgstr "Увези у:"
+msgstr "Увежен у: %s"
 
-#: ../gcr/gcr-import-button.c:143
-#, fuzzy, c-format
+#: ../gcr/gcr-import-button.c:146
+#, c-format
 msgid "Import to: %s"
-msgstr "Увези у:"
+msgstr "Увези у: %s"
 
-#: ../gcr/gcr-import-button.c:156
-#, fuzzy
+#: ../gcr/gcr-import-button.c:159
 msgid "Cannot import because there are no compatible importers"
-msgstr "Не могу да увезем јер је тип кључа неисправан"
+msgstr "Не могу да увезем јер је нема сагласних увозника"
 
-#: ../gcr/gcr-import-button.c:165
-#, fuzzy
+#: ../gcr/gcr-import-button.c:168
 msgid "No data to import"
-msgstr "Ниједно место није доступно за увоз"
+msgstr "Нема података за увоз"
 
-#: ../gcr/gcr-key-renderer.c:82
+#: ../gcr/gcr-key-renderer.c:90
 msgid "Key"
 msgstr "Кључ"
 
-#: ../gcr/gcr-key-renderer.c:281
+#: ../gcr/gcr-key-renderer.c:404
 msgid "Private RSA Key"
 msgstr "Приватни РСА кључ"
 
-#: ../gcr/gcr-key-renderer.c:283
+#: ../gcr/gcr-key-renderer.c:406
 msgid "Private DSA Key"
 msgstr "Приватни ДСА кључ"
 
-#: ../gcr/gcr-key-renderer.c:285 ../gcr/gcr-parser.c:313
+#: ../gcr/gcr-key-renderer.c:408 ../gcr/gcr-parser.c:319
 msgid "Private Key"
 msgstr "Приватни кључ"
 
-#: ../gcr/gcr-key-renderer.c:288 ../gcr/gcr-key-renderer.c:290
+#: ../gcr/gcr-key-renderer.c:411 ../gcr/gcr-key-renderer.c:413
 msgid "Public DSA Key"
 msgstr "Јавни ДСА кључ"
 
-#: ../gcr/gcr-key-renderer.c:299
+#: ../gcr/gcr-key-renderer.c:422
 #, c-format
 msgid "%d bit"
 msgid_plural "%d bits"
@@ -854,127 +884,169 @@ msgstr[1] "%d бита"
 msgstr[2] "%d бита"
 msgstr[3] "један бит"
 
-#: ../gcr/gcr-key-renderer.c:300
+#: ../gcr/gcr-key-renderer.c:423
 msgid "Strength"
 msgstr "Јачина"
 
 #. Fingerprints
-#: ../gcr/gcr-key-renderer.c:324
+#: ../gcr/gcr-key-renderer.c:446
 msgid "Fingerprints"
 msgstr "Отисци"
 
-#: ../gcr/gcr-key-renderer.c:329
+#: ../gcr/gcr-key-renderer.c:450
 msgid "SHA1"
 msgstr "СХА1"
 
-#: ../gcr/gcr-key-renderer.c:335
+#: ../gcr/gcr-key-renderer.c:455
 msgid "SHA256"
 msgstr "СХА256"
 
-#: ../gcr/gcr-parser.c:2180
-msgid "Unrecognized or unsupported data."
-msgstr "Непрепознати или неподржани подаци."
+#: ../gcr/gcr-parser.c:331
+msgid "Certificate Request"
+msgstr "Захтев уверења"
 
-#: ../gcr/gcr-parser.c:2183
+#: ../gcr/gcr-parser.c:2484
+msgid "Unrecognized or unsupported data."
+msgstr "Неппознати или неподржани подаци."
+
+#: ../gcr/gcr-parser.c:2487
 msgid "Could not parse invalid or corrupted data."
 msgstr "Не могу да обрадим неисправне или оштећене податке."
 
-#: ../gcr/gcr-parser.c:2186
+#: ../gcr/gcr-parser.c:2490
 msgid "The data is locked"
 msgstr "Подаци су закључани"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:186
+#: ../gcr/gcr-pkcs11-import-dialog.c:187
 msgid "Automatically chosen"
-msgstr ""
+msgstr "Самостално изабран"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:270
+#: ../gcr/gcr-pkcs11-import-dialog.c:271
 #: ../gcr/gcr-pkcs11-import-interaction.c:153
 #: ../gcr/gcr-pkcs11-import-interaction.c:171
 #, c-format
 msgid "The user cancelled the operation"
-msgstr ""
+msgstr "Корисник је отказао радњу"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-msgid "<b>Import settings</b>"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
-#, fuzzy
-msgid "<b>Unlock</b>"
-msgstr "Откључај"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
-#, fuzzy
 msgid "In order to import, please enter the password."
-msgstr "Да бисте увезли „%s“, он мора бити откључан"
+msgstr "Да бисте увезли, унесите лозинку."
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
-msgid "Label"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
-msgid "Label:"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
+#. The password label
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:559
 msgid "Password:"
 msgstr "Лозинка:"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
 msgid "Token:"
-msgstr ""
+msgstr "Израз:"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
+msgid "Label"
+msgstr "Натпис"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5 ../gcr/gcr-unlock-renderer.c:71
+#: ../gcr/gcr-unlock-renderer.c:128
+msgid "Unlock"
+msgstr "Откључај"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Label:"
+msgstr "Натпис:"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
+msgid "Import settings"
+msgstr "Увези поставке"
+
+#: ../gcr/gcr-prompt.c:218
+msgid "Continue"
+msgstr "Настави"
+
+#: ../gcr/gcr-prompt.c:227
+msgid "Cancel"
+msgstr "Откажи"
+
+#. The confirm label
+#: ../gcr/gcr-prompt-dialog.c:576
+msgid "Confirm:"
+msgstr "Потврди:"
+
+#: ../gcr/gcr-prompt-dialog.c:643
+msgid "Passwords do not match."
+msgstr "Лозинке се не подударају."
+
+#: ../gcr/gcr-prompt-dialog.c:650
+msgid "Password cannot be blank"
+msgstr "Лозинка не може бити празна"
+
+#: ../gcr/gcr-prompter.desktop.in.in.h:1
+msgid "Access Prompt"
+msgstr "Упит приступа"
+
+#: ../gcr/gcr-prompter.desktop.in.in.h:2
+msgid "Unlock access to passwords and other secrets"
+msgstr "Откључајте приступ лозинкама и другим тајнама"
+
+#: ../gcr/gcr-subject-public-key.c:345
+msgid "Unrecognized or unavailable attributes for key"
+msgstr "Непознате или недоступне особине кључа"
+
+#: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
+msgid "Couldn't build public key"
+msgstr "Не могу да изградим јавни кључ"
+
+#: ../gcr/gcr-system-prompt.c:753
+msgid "Another prompt is already in progress"
+msgstr "Други упит је већ у току"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:376
+#: ../gcr/gcr-trust.c:370
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "Не могу да пронађем место да ускладиштим прикачено уверење"
 
 #: ../gcr/gcr-unlock-options-widget.ui.h:1
 msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "Сам откључај овај привезак када се пријавим."
+msgstr "Сам откључај овај привезак кад год се пријавим"
 
 #: ../gcr/gcr-unlock-options-widget.ui.h:2
-msgid "Lock this keyring after"
-msgstr "Након овога закључај тренутни привезак"
-
-#: ../gcr/gcr-unlock-options-widget.ui.h:3
-msgid "Lock this keyring if idle for"
-msgstr "Закључај овај привезак ако је неактиван"
-
-#: ../gcr/gcr-unlock-options-widget.ui.h:4
 msgid "Lock this keyring when I log out"
 msgstr "Закључај овај привезак када се одјавим"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:3
+msgid "Lock this keyring after"
+msgstr "Закључај овај привезак након"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:4
+msgid "Lock this keyring if idle for"
+msgstr "Закључај овај привезак ако је неактиван"
 
 #. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
 #: ../gcr/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "минута"
 
-#: ../gcr/gcr-unlock-renderer.c:70
+#: ../gcr/gcr-unlock-renderer.c:69
 #, c-format
 msgid "Unlock: %s"
 msgstr "Откључај: %s"
 
-#: ../gcr/gcr-unlock-renderer.c:72 ../gcr/gcr-unlock-renderer.c:129
-msgid "Unlock"
-msgstr "Откључај"
-
-#: ../gcr/gcr-unlock-renderer.c:126
+#: ../gcr/gcr-unlock-renderer.c:125
 msgid "Password"
 msgstr "Лозинка"
 
-#: ../gcr/gcr-unlock-renderer.c:279
+#: ../gcr/gcr-unlock-renderer.c:278
 #, c-format
 msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"Садржај „%s“ је закључана. Да бисте видели садржај, унесите исправну лозинку."
+"Садржаји „%s“ су закључани. Да бисте видели садржај, унесите исправну "
+"лозинку."
 
-#: ../gcr/gcr-unlock-renderer.c:282
+#: ../gcr/gcr-unlock-renderer.c:281
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
@@ -993,46 +1065,26 @@ msgstr "Приказује издање програма"
 msgid "[file...]"
 msgstr "[датотека...]"
 
-#: ../gcr/gcr-viewer-tool.c:104
+#: ../gcr/gcr-viewer-tool.c:103
 msgid "- View certificate and key files"
 msgstr "— Прегледајте датотеке уверења и кључева"
 
-#: ../gcr/gcr-viewer-tool.c:118
+#: ../gcr/gcr-viewer-tool.c:117 ../gcr/gcr-viewer-widget.c:635
 msgid "Certificate Viewer"
 msgstr "Прегледач уверења"
 
-#: ../gcr/gcr-viewer-widget.c:191
+#: ../gcr/gcr-viewer-widget.c:203
 msgid "The password was incorrect"
 msgstr "Лозинка није исправна"
 
-#: ../gcr/gcr-viewer-window.c:68
-#, fuzzy
+#: ../gcr/gcr-viewer-window.c:76
 msgid "Imported"
-msgstr "Увези у:"
+msgstr "Увезен"
 
-#: ../gcr/gcr-viewer-window.c:72
-#, fuzzy
+#: ../gcr/gcr-viewer-window.c:80
 msgid "Import failed"
-msgstr "Радња није успела"
+msgstr "Увоз није успео"
 
-#: ../gcr/gcr-viewer-window.c:103
-#, fuzzy
+#: ../gcr/gcr-viewer-window.c:108
 msgid "Import"
-msgstr "Увези у:"
-
-#: ../gck/gck-uri.c:223
-#, c-format
-msgid "The URI has invalid encoding."
-msgstr "Адреса имаше неисправно кодирање."
-
-#: ../gck/gck-uri.c:227
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "Адреса нема „pkcs11“ шему."
-
-#: ../gck/gck-uri.c:231
-msgid "The URI has bad syntax."
-msgstr "Адреса има лошу синтаксу."
-
-#: ../gck/gck-uri.c:235
-msgid "The URI has a bad version number."
-msgstr "Адреса има лош број издања."
+msgstr "Увези"

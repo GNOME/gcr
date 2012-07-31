@@ -2315,7 +2315,7 @@ gcr_parser_class_init (GcrParserClass *klass)
 	signals[AUTHENTICATE] = g_signal_new ("authenticate", GCR_TYPE_PARSER,
 	                                G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GcrParserClass, authenticate),
 	                                g_signal_accumulator_true_handled, NULL, _gcr_marshal_BOOLEAN__INT,
-	                                G_TYPE_BOOLEAN, 1, G_TYPE_POINTER);
+	                                G_TYPE_BOOLEAN, 1, G_TYPE_INT);
 
 	/**
 	 * GcrParser::parsed:

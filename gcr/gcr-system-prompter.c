@@ -63,7 +63,7 @@
 /**
  * GcrSystemPrompterClass:
  * @parent_class: parent class
- * @new_prompt: default handler for the GcrSystemPrompter::new-prompt signal
+ * @new_prompt: default handler for the #GcrSystemPrompter::new-prompt signal
  *
  * The class for #GcrSystemPrompter.
  */

@@ -176,7 +176,7 @@ gcr_renderer_popuplate_popup (GcrRenderer *self, GcrViewer *viewer,
  * gcr_renderer_emit_data_changed:
  * @self: The renderer
  *
- * Emit the GcrRenderer::data-changed signal on the renderer. This is used by
+ * Emit the #GcrRenderer::data-changed signal on the renderer. This is used by
  * renderer implementations.
  */
 void

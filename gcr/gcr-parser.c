@@ -55,11 +55,11 @@
  * format is identified by a value in the #GcrDataFormat enumeration.
  *
  * In order to parse data, a new parser is created with gcr_parser_new() and
- * then the GcrParser::authenticate and GcrParser::parsed signals should be
+ * then the #GcrParser::authenticate and #GcrParser::parsed signals should be
  * connected to. Data is then fed to the parser via gcr_parser_parse_data()
  * or gcr_parser_parse_stream().
  *
- * During the GcrParsed::parsed signal the attributes that make up the currently
+ * During the #GcrParsed::parsed signal the attributes that make up the currently
  * parsed item can be retrieved using the gcr_parser_get_parsed_attributes()
  * function.
  */
@@ -2362,7 +2362,7 @@ gcr_parser_new (void)
  * @password: (allow-none): a password to try
  *
  * Add a password to the set of passwords to try when parsing locked or encrypted
- * items. This is usually called from the GcrParser::authenticate signal.
+ * items. This is usually called from the #GcrParser::authenticate signal.
  */
 void
 gcr_parser_add_password (GcrParser *self, const gchar *password)
@@ -2378,7 +2378,7 @@ gcr_parser_add_password (GcrParser *self, const gchar *password)
  * @n_data: The length of the data
  * @error: A location to raise an error on failure.
  *
- * Parse the data. The GcrParser::parsed and GcrParser::authenticate signals
+ * Parse the data. The #GcrParser::parsed and #GcrParser::authenticate signals
  * may fire during the parsing.
  *
  * Returns: Whether the data was parsed successfully or not.
@@ -2626,7 +2626,7 @@ gcr_parsed_unref (gpointer parsed)
  * @self: The parser
  *
  * Get a description for the type of the currently parsed item. This is generally
- * only valid during the GcrParser::parsed signal.
+ * only valid during the #GcrParser::parsed signal.
  *
  * Returns: (allow-none): the description for the current item; this is owned by
  *          the parser and should not be freed
@@ -2665,7 +2665,7 @@ gcr_parsed_get_description (GcrParsed *parsed)
  * @self: The parser
  *
  * Get the attributes which make up the currently parsed item. This is generally
- * only valid during the GcrParser::parsed signal.
+ * only valid during the #GcrParser::parsed signal.
  *
  * Returns: (transfer none) (allow-none): the attributes for the current item,
  *          which are owned by the parser and should not be freed
@@ -2705,7 +2705,7 @@ gcr_parsed_get_attributes (GcrParsed *parsed)
  * @self: The parser
  *
  * Get the label of the currently parsed item. This is generally only valid
- * during the GcrParser::parsed signal.
+ * during the #GcrParser::parsed signal.
  *
  * Returns: (allow-none): the label of the currently parsed item. The value is
  *          owned by the parser and should not be freed.
@@ -2745,7 +2745,7 @@ gcr_parsed_get_label (GcrParsed *parsed)
  * @n_block: a location to place the size of the block
  *
  * Get the raw data block that represents this parsed object. This is only
- * valid during the GcrParser::parsed signal.
+ * valid during the #GcrParser::parsed signal.
  *
  * Returns: (transfer none) (array length=n_block) (allow-none): the raw data
  *          block of the currently parsed item; the value is owned by the parser
@@ -2795,7 +2795,7 @@ gcr_parsed_get_data (GcrParsed *parsed,
  * Get the format of the raw data block that represents this parsed object.
  * This corresponds with the data returned from gcr_parser_get_parsed_block().
  *
- * This is only valid during the GcrParser::parsed signal.
+ * This is only valid during the #GcrParser::parsed signal.
  *
  * Returns: the data format of the currently parsed item
  */
@@ -3085,7 +3085,7 @@ gcr_parsing_new (GcrParser *parser, GInputStream *input, GCancellable *cancel)
  * reading from the input stream. Use gcr_parser_parse_stream_async() for
  * a non-blocking variant.
  *
- * The GcrParser::parsed and GcrParser::authenticate signals
+ * The #GcrParser::parsed and #GcrParser::authenticate signals
  * may fire during the parsing.
  *
  * Returns: Whether the parsing completed successfully or not.
@@ -3120,7 +3120,7 @@ gcr_parser_parse_stream (GcrParser *self, GInputStream *input, GCancellable *can
  * Parse items from the data in a #GInputStream. This function completes
  * asyncronously and doesn't block.
  *
- * The GcrParser::parsed and GcrParser::authenticate signals
+ * The #GcrParser::parsed and #GcrParser::authenticate signals
  * may fire during the parsing.
  */
 void

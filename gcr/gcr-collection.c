@@ -152,7 +152,7 @@ gcr_collection_contains (GcrCollection *self,
  * @self: The collection
  * @object: The object that was added
  *
- * Emit the GcrCollection::added signal for the given object. This function
+ * Emit the #GcrCollection::added signal for the given object. This function
  * is used by implementors of this interface.
  */
 void
@@ -167,7 +167,7 @@ gcr_collection_emit_added (GcrCollection *self, GObject *object)
  * @self: The collection
  * @object: The object that was removed
  *
- * Emit the GcrCollection::removed signal for the given object. This function
+ * Emit the #GcrCollection::removed signal for the given object. This function
  * is used by implementors of this interface.
  */
 void

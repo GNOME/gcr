@@ -2167,6 +2167,7 @@ anode_write_integer_ulong (gulong value,
 	gint bytes, i, off;
 	guchar *at;
 	gboolean sign;
+	gsize len;
 
 	for (i = 0; i < sizeof (gulong); ++i) {
 		off = sizeof (gulong) - (i + 1);
@@ -2184,9 +2185,10 @@ anode_write_integer_ulong (gulong value,
 	/* If the first byte would make this negative, then add a zero */
 	at = buf + (sizeof (gulong) - bytes);
 	sign = !!(at[0] & 0x80);
+	len = bytes + (sign ? 1 : 0);
 
 	if (data) {
-		g_assert (*n_data >= bytes + 1);
+		g_assert (*n_data >= len);
 		if (sign) {
 			data[0] = 0;
 			data++;
@@ -2194,7 +2196,7 @@ anode_write_integer_ulong (gulong value,
 		memcpy (data, at, bytes);
 	}
 
-	*n_data = bytes + (sign ? 1 : 0);
+	*n_data = len;
 }
 
 static GBytes *

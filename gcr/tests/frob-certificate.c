@@ -25,6 +25,8 @@
 
 #include "gcr/gcr.h"
 
+#include "egg/egg-hex.h"
+
 #include <gtk/gtk.h>
 
 #include <unistd.h>
@@ -36,10 +38,28 @@ on_parser_parsed (GcrParser *parser, gpointer user_data)
 {
 	GcrCertificateWidget *details;
 	GtkDialog *dialog = GTK_DIALOG (user_data);
+	GcrCertificate *cert;
+	gpointer dn;
+	gsize n_dn;
+	gchar *string;
 
 	details = g_object_new (GCR_TYPE_CERTIFICATE_WIDGET,
 	                        "attributes", gcr_parser_get_parsed_attributes (parser),
 	                        NULL);
+
+	cert = gcr_certificate_widget_get_certificate (details);
+
+	dn = gcr_certificate_get_subject_raw (cert, &n_dn);
+	string = egg_hex_encode_full (dn, n_dn, TRUE, '\\', 1);
+	g_print ("subject: %s\n", string);
+	g_free (string);
+	g_free (dn);
+
+	dn = gcr_certificate_get_issuer_raw (cert, &n_dn);
+	string = egg_hex_encode_full (dn, n_dn, TRUE, '\\', 1);
+	g_print ("issuer: %s\n", string);
+	g_free (string);
+	g_free (dn);
 
 	gtk_widget_show (GTK_WIDGET (details));
 	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (dialog)), GTK_WIDGET (details));

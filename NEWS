@@ -1,3 +1,8 @@
+gcr 3.5.5:
+ - Use p11-kit/pkcs11.h instead of shipping a copy with gck.
+ - Documentation fixes
+ - Updated translations
+
 gcr 3.5.4:
  - Add debug output to GcrSecretExchange
  - Fix invalid warning when sending a secret exchange

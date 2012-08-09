@@ -134,7 +134,7 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gck-$(GCK_MAJOR).pc
 
 gck-$(GCK_MAJOR).pc: gck.pc
-	cp gck.pc gck-$(GCK_MAJOR).pc
+	$(AM_V_GEN) cp gck.pc gck-$(GCK_MAJOR).pc
 
 gck-expected.abi: gck.symbols
 	$(AM_V_GEN) cpp -P $< | sort > $@

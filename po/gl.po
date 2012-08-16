@@ -1,28 +1,30 @@
-# translation of gnome-keyring.master.po to Galician
-# This file is distributed under the same license as the PACKAGE package.
+# Galician translation of gcr.
+# This file is distributed under the same license as the gcr package.
 # Copyright (C) 2010 Fran Diéguez.
+#
+# Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
+# colaborar connosco, podes atopar máis información en http://www.trasno.net
 #
 # Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005, 2006.
 # Ignacio Casal Quinteiro <icq@svn.gnome.org>, 2007, 2008.
 # Mancomún - Centro de Referencia e Servizos de Software Libre <g11n@mancomun.org>, 2009.
 # Antón Méixome <meixome@mancomun.org>, 2009.
-# Fran Diéguez <frandieguez@gnome.org>, 2009, 2010, 2011.
-# Fran Dieguez <frandieguez@gnome.org>, 2010, 2011, 2012.
-#
+# Fran Diéguez <frandieguez@gnome.org>, 2009, 2010, 2011, 2012.
+# Leandro Regueiro <leandro.regueiro@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-20 18:10+0200\n"
-"PO-Revision-Date: 2012-05-20 18:10+0200\n"
-"Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
-"Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
+"POT-Creation-Date: 2012-08-17 00:57+0200\n"
+"PO-Revision-Date: 2012-08-16 13:31+0200\n"
+"Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
+"Language-Team: Galego <kde-i18n-doc@kde.org>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: ../egg/egg-oid.c:41
 msgid "Domain Component"
@@ -122,7 +124,7 @@ msgid "Pseudonym"
 msgstr "Pseudónimo"
 
 #: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
-#: ../gcr/gcr-key-renderer.c:430
+#: ../gcr/gcr-key-renderer.c:429
 msgid "RSA"
 msgstr "RSA"
 
@@ -139,7 +141,7 @@ msgid "SHA1 with RSA"
 msgstr "SHA1 con RSA"
 
 #: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
-#: ../gcr/gcr-key-renderer.c:432
+#: ../gcr/gcr-key-renderer.c:431
 msgid "DSA"
 msgstr "DSA"
 
@@ -186,7 +188,7 @@ msgstr "Non foi posíbel configurar o módulo PKCS#11: %s"
 #: ../gck/gck-module.c:384
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr "No foi posíbel inicializar o módulo PKCS#11: %s"
+msgstr "Non foi posíbel inicializar o módulo PKCS#11: %s"
 
 #: ../gck/gck-modules.c:67
 #, c-format
@@ -274,11 +276,11 @@ msgstr "Ficheiros PEM"
 msgid "Other Name"
 msgstr "Outro nome"
 
-#: ../gcr/gcr-certificate-extensions.c:187
+#: ../gcr/gcr-certificate-extensions.c:188
 msgid "XMPP Addr"
 msgstr "Enderezo XMPP"
 
-#: ../gcr/gcr-certificate-extensions.c:191
+#: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
 msgstr "SRV do DNS"
 
@@ -488,7 +490,7 @@ msgid "Key SHA1 Fingerprint"
 msgstr "Pegada dixital da chave SHA1"
 
 #: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
-#: ../gcr/gcr-key-renderer.c:415 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-key-renderer.c:414 ../gcr/gcr-parser.c:325
 msgid "Public Key"
 msgstr "Chave pública"
 
@@ -509,7 +511,7 @@ msgstr "Crítico"
 msgid "Unsupported key type for certificate request"
 msgstr "Tipo de chave non admitida para a solicitude do certificado"
 
-#: ../gcr/gcr-certificate-request.c:508 ../gcr/gcr-certificate-request.c:593
+#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Non é posíbel usar a chave para firmar a solicitude"
@@ -587,10 +589,10 @@ msgstr "O proceso Gnupg pechouse có código: %d"
 #: ../gcr/gcr-gnupg-process.c:873
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr "O proceso de Gnupg rematou co sinal: %d"
+msgstr "O proceso de Gnupg terminou co sinal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2481
-#: ../gcr/gcr-parser.c:2980
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
+#: ../gcr/gcr-parser.c:2917
 msgid "The operation was cancelled"
 msgstr "Cancelouse a operación"
 
@@ -619,7 +621,7 @@ msgid "Disabled"
 msgstr "Desactivada"
 
 #: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-key-renderer.c:434 ../gcr/gcr-key-renderer.c:439
+#: ../gcr/gcr-key-renderer.c:433 ../gcr/gcr-key-renderer.c:438
 msgid "Unknown"
 msgstr "Descoñecida"
 
@@ -696,7 +698,7 @@ msgid "Key ID"
 msgstr "ID da chave"
 
 #: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
-#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:435
+#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:434
 msgid "Algorithm"
 msgstr "Algoritmo"
 
@@ -730,7 +732,7 @@ msgstr "Comentario"
 msgid "User Attribute"
 msgstr "Atributo do usuario"
 
-#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:442
+#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
 msgid "Size"
 msgstr "Tamaño"
 
@@ -853,47 +855,47 @@ msgstr "Non é posíbel importar porque non hai importadores compatíbeis"
 msgid "No data to import"
 msgstr "No hai datos que importar"
 
-#: ../gcr/gcr-key-renderer.c:90
+#: ../gcr/gcr-key-renderer.c:89
 msgid "Key"
 msgstr "Chave"
 
-#: ../gcr/gcr-key-renderer.c:404
+#: ../gcr/gcr-key-renderer.c:403
 msgid "Private RSA Key"
 msgstr "Chave privada RSA"
 
-#: ../gcr/gcr-key-renderer.c:406
+#: ../gcr/gcr-key-renderer.c:405
 msgid "Private DSA Key"
 msgstr "Chave privada DSA"
 
-#: ../gcr/gcr-key-renderer.c:408 ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-key-renderer.c:407 ../gcr/gcr-parser.c:319
 msgid "Private Key"
 msgstr "Chave privada"
 
-#: ../gcr/gcr-key-renderer.c:411 ../gcr/gcr-key-renderer.c:413
+#: ../gcr/gcr-key-renderer.c:410 ../gcr/gcr-key-renderer.c:412
 msgid "Public DSA Key"
 msgstr "Chave pública DSA"
 
-#: ../gcr/gcr-key-renderer.c:422
+#: ../gcr/gcr-key-renderer.c:421
 #, c-format
 msgid "%d bit"
 msgid_plural "%d bits"
 msgstr[0] "%d bit"
 msgstr[1] "%d bits"
 
-#: ../gcr/gcr-key-renderer.c:423
+#: ../gcr/gcr-key-renderer.c:422
 msgid "Strength"
 msgstr "Fortaleza"
 
 #. Fingerprints
-#: ../gcr/gcr-key-renderer.c:446
+#: ../gcr/gcr-key-renderer.c:445
 msgid "Fingerprints"
 msgstr "Impresións dixitais"
 
-#: ../gcr/gcr-key-renderer.c:450
+#: ../gcr/gcr-key-renderer.c:449
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../gcr/gcr-key-renderer.c:455
+#: ../gcr/gcr-key-renderer.c:454
 msgid "SHA256"
 msgstr "SHA256"
 
@@ -901,15 +903,15 @@ msgstr "SHA256"
 msgid "Certificate Request"
 msgstr "Solicitude de certificado"
 
-#: ../gcr/gcr-parser.c:2484
+#: ../gcr/gcr-parser.c:2427
 msgid "Unrecognized or unsupported data."
 msgstr "Datos non recoñecíbeis ou non soportados."
 
-#: ../gcr/gcr-parser.c:2487
+#: ../gcr/gcr-parser.c:2430
 msgid "Could not parse invalid or corrupted data."
 msgstr "Non é posíbel analizar datos danados ou non válidos."
 
-#: ../gcr/gcr-parser.c:2490
+#: ../gcr/gcr-parser.c:2433
 msgid "The data is locked"
 msgstr "Os datos están bloqueados"
 
@@ -991,7 +993,7 @@ msgstr "Atributos da chave non recoñecidos ou non dispoñíbeis"
 msgid "Couldn't build public key"
 msgstr "Non foi posíbel xerar a chave pública"
 
-#: ../gcr/gcr-system-prompt.c:753
+#: ../gcr/gcr-system-prompt.c:749
 msgid "Another prompt is already in progress"
 msgstr "Xa hai outra petición en progreso"
 

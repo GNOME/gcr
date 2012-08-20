@@ -641,6 +641,89 @@ test_after_close_dismisses (Test *test,
 	egg_assert_not_object (prompt);
 }
 
+typedef struct {
+	GAsyncResult *result1;
+	GAsyncResult *result2;
+} ResultPair;
+
+static void
+on_result_pair_one (GObject *source,
+                    GAsyncResult *result,
+                    gpointer user_data)
+{
+	ResultPair *pair = user_data;
+	g_assert (pair->result1 == NULL);
+	pair->result1 = g_object_ref (result);
+	if (pair->result1 && pair->result2)
+		egg_test_wait_stop ();
+}
+
+static void
+on_result_pair_two (GObject *source,
+                    GAsyncResult *result,
+                    gpointer user_data)
+{
+	ResultPair *pair = user_data;
+	g_assert (pair->result2 == NULL);
+	pair->result2 = g_object_ref (result);
+	if (pair->result1 && pair->result2)
+		egg_test_wait_stop ();
+}
+
+static void
+test_watch_cancels (Test *test,
+                    gconstpointer unused)
+{
+	GDBusConnection *connection;
+	GcrPrompt *prompt;
+	GcrPrompt *prompt2;
+	GError *error = NULL;
+	const gchar *password;
+	ResultPair pair = { NULL, NULL };
+
+	gcr_mock_prompter_set_delay_msec (3000);
+	gcr_mock_prompter_expect_password_ok ("booo", NULL);
+
+	connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &error);
+	g_assert_no_error (error);
+
+	/* This should happen immediately */
+	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+
+	/* Show a password prompt */
+	gcr_prompt_password_async (prompt, NULL, on_result_pair_one, &pair);
+
+	/* This prompt should wait, block */
+	gcr_system_prompt_open_for_prompter_async (test->prompter_name, 0, NULL,
+	                                           on_result_pair_two, &pair);
+
+	/* Wait a bit before stopping, so outgoing request is done */
+	g_usleep (G_TIME_SPAN_SECOND / 4);
+
+	/* Kill the mock prompter */
+	gcr_mock_prompter_disconnect ();
+
+	/* Both the above operations should cancel */
+	egg_test_wait ();
+
+	prompt2 = gcr_system_prompt_open_finish (pair.result2, &error);
+	g_assert_error (error, G_IO_ERROR, G_IO_ERROR_CANCELLED);
+	g_clear_error (&error);
+	g_assert (prompt2 == NULL);
+
+	password = gcr_prompt_password_finish (prompt, pair.result1, &error);
+	g_assert_error (error, G_IO_ERROR, G_IO_ERROR_CANCELLED);
+	g_clear_error (&error);
+	g_assert (password == NULL);
+
+	g_object_unref (prompt);
+	g_object_unref (pair.result1);
+	g_object_unref (pair.result2);
+	g_object_unref (connection);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -667,6 +750,7 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/system-prompt/close-cancels", Test, NULL, setup, test_close_cancels, teardown);
 	g_test_add ("/gcr/system-prompt/after-close-dismisses", Test, NULL, setup, test_after_close_dismisses, teardown);
 	g_test_add ("/gcr/system-prompt/close-from-prompter", Test, NULL, setup, test_close_from_prompter, teardown);
+	g_test_add ("/gcr/system-prompt/watch-cancels", Test, NULL, setup, test_watch_cancels, teardown);
 
 	return egg_tests_run_with_loop ();
 }

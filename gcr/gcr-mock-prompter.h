@@ -36,6 +36,8 @@ G_BEGIN_DECLS
 
 const gchar *        gcr_mock_prompter_start                     (void);
 
+void                 gcr_mock_prompter_disconnect                (void);
+
 void                 gcr_mock_prompter_stop                      (void);
 
 gboolean             gcr_mock_prompter_is_prompting              (void);

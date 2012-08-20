@@ -143,8 +143,10 @@ static gint unique_prompt_id = 0;
 
 typedef struct {
 	GSource *timeout;
+	GSource *waiting;
 	GMainContext *context;
 	GCancellable *cancellable;
+	guint watch_id;
 } CallClosure;
 
 static void
@@ -153,8 +155,42 @@ call_closure_free (gpointer data)
 	CallClosure *closure = data;
 	if (closure->timeout)
 		g_source_destroy (closure->timeout);
-	g_clear_object (&closure->cancellable);
+	if (closure->waiting)
+		g_source_destroy (closure->waiting);
+	if (closure->watch_id)
+		g_bus_unwatch_name (closure->watch_id);
+	g_object_unref (closure->cancellable);
 	g_free (data);
+}
+
+static void
+on_propagate_cancelled (GCancellable *cancellable,
+                        gpointer user_data)
+{
+	/* Propagate the cancelled signal */
+	GCancellable *cancel = G_CANCELLABLE (user_data);
+	g_cancellable_cancel (cancel);
+}
+
+static CallClosure *
+call_closure_new (GCancellable *cancellable)
+{
+	CallClosure *call;
+
+	/*
+	 * We use our own cancellable object, since we cancel it it in
+	 * situations other than when the caller cancels.
+	 */
+
+	call = g_new0 (CallClosure, 1);
+	call->cancellable = g_cancellable_new ();
+
+	if (cancellable) {
+		g_cancellable_connect (cancellable, G_CALLBACK (on_propagate_cancelled),
+		                       g_object_ref (call->cancellable), g_object_unref);
+	}
+
+	return call;
 }
 
 static void
@@ -742,6 +778,16 @@ register_prompt_object (GcrSystemPrompt *self,
 }
 
 static void
+on_prompter_vanished (GDBusConnection *connection,
+                      const gchar *name,
+                      gpointer user_data)
+{
+	GSimpleAsyncResult *async = G_SIMPLE_ASYNC_RESULT (user_data);
+	CallClosure *call = g_simple_async_result_get_op_res_gpointer (async);
+	g_cancellable_cancel (call->cancellable);
+}
+
+static void
 on_bus_connected (GObject *source,
                   GAsyncResult *result,
                   gpointer user_data)
@@ -762,6 +808,12 @@ on_bus_connected (GObject *source,
 		_gcr_debug ("connected to bus");
 
 		g_main_context_push_thread_default (closure->context);
+
+		closure->watch_id = g_bus_watch_name_on_connection (self->pv->connection,
+		                                                    self->pv->prompter_bus_name,
+		                                                    G_BUS_NAME_WATCHER_FLAGS_NONE,
+		                                                    NULL, on_prompter_vanished,
+		                                                    res, NULL);
 
 		register_prompt_object (self, &error);
 
@@ -835,6 +887,27 @@ on_call_timeout (gpointer user_data)
 	return FALSE; /* Don't call this function again */
 }
 
+static gboolean
+on_call_cancelled (GCancellable *cancellable,
+                   gpointer user_data)
+{
+	GSimpleAsyncResult *async = G_SIMPLE_ASYNC_RESULT (user_data);
+	CallClosure *call = g_simple_async_result_get_op_res_gpointer (async);
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
+
+	g_source_destroy (call->waiting);
+	call->waiting = NULL;
+
+	g_simple_async_result_set_error (async, G_IO_ERROR, G_IO_ERROR_CANCELLED,
+	                                 _("The operation was cancelled"));
+
+	/* Tell the prompter we're no longer interested */
+	gcr_system_prompt_close_async (self, NULL, NULL, NULL);
+
+	g_object_unref (self);
+	return FALSE; /* Don't call this function again */
+}
+
 void
 perform_init_async (GcrSystemPrompt *self,
                     GSimpleAsyncResult *res)
@@ -896,7 +969,7 @@ gcr_system_prompt_real_init_async (GAsyncInitable *initable,
 
 	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
 	                                 gcr_system_prompt_real_init_async);
-	closure = g_new0 (CallClosure, 1);
+	closure = call_closure_new (cancellable);
 	closure->context = g_main_context_get_thread_default ();
 	if (closure->context)
 		g_main_context_ref (closure->context);
@@ -1029,6 +1102,7 @@ on_perform_prompt_complete (GObject *source,
 {
 	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
 	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
+	CallClosure *call = g_simple_async_result_get_op_res_gpointer (res);
 	GError *error = NULL;
 	GVariant *retval;
 
@@ -1037,6 +1111,11 @@ on_perform_prompt_complete (GObject *source,
 		self->pv->pending = NULL;
 		g_simple_async_result_take_error (res, error);
 		g_simple_async_result_complete (res);
+	} else {
+		g_assert (call->waiting == NULL);
+		call->waiting = g_cancellable_source_new (call->cancellable);
+		g_source_set_callback (call->waiting, (GSourceFunc)on_call_cancelled, res, NULL);
+		g_source_attach (call->waiting, call->context);
 	}
 
 	if (retval)
@@ -1069,8 +1148,7 @@ perform_prompt_async (GcrSystemPrompt *self,
 	}
 
 	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data, source_tag);
-	closure = g_new0 (CallClosure, 1);
-	closure->cancellable = cancellable ? g_object_ref (cancellable) : cancellable;
+	closure = call_closure_new (cancellable);
 	g_simple_async_result_set_op_res_gpointer (res, closure, call_closure_free);
 
 	if (self->pv->closed) {
@@ -1087,6 +1165,12 @@ perform_prompt_async (GcrSystemPrompt *self,
 		sent = gcr_secret_exchange_send (exchange, NULL, 0);
 	else
 		sent = gcr_secret_exchange_begin (exchange);
+
+	closure->watch_id = g_bus_watch_name_on_connection (self->pv->connection,
+	                                                    self->pv->prompter_bus_name,
+	                                                    G_BUS_NAME_WATCHER_FLAGS_NONE,
+	                                                    NULL, on_prompter_vanished,
+	                                                    res, NULL);
 
 	builder = build_dirty_properties (self);
 
@@ -1470,8 +1554,7 @@ gcr_system_prompt_close_async (GcrSystemPrompt *self,
 
 	res = g_simple_async_result_new (NULL, callback, user_data,
 	                                 gcr_system_prompt_close_async);
-	closure = g_new0 (CallClosure, 1);
-	closure->cancellable = cancellable ? g_object_ref (cancellable) : g_cancellable_new ();
+	closure = call_closure_new (cancellable);
 	closure->context = g_main_context_get_thread_default ();
 	if (closure->context != NULL)
 		g_main_context_ref (closure->context);

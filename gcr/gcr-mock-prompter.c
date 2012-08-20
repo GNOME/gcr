@@ -105,7 +105,7 @@ typedef struct {
 
 	/* Owned by the prompter thread*/
 	GcrSystemPrompter *prompter;
-	const gchar *bus_name;
+	GDBusConnection *connection;
 	GMainLoop *loop;
 } ThreadData;
 
@@ -943,9 +943,9 @@ mock_prompter_thread (gpointer data)
 		                                                     G_DBUS_CONNECTION_FLAGS_MESSAGE_BUS_CONNECTION,
 		                                                     NULL, NULL, &error);
 		if (error == NULL) {
+			thread_data->connection = connection;
 			gcr_system_prompter_register (GCR_SYSTEM_PROMPTER (thread_data->prompter),
 			                              connection);
-			thread_data->bus_name = g_dbus_connection_get_unique_name (connection);
 		} else {
 			g_critical ("couldn't create connection: %s", error->message);
 			g_error_free (error);
@@ -978,10 +978,19 @@ mock_prompter_thread (gpointer data)
 	thread_data->prompter = NULL;
 
 	if (connection) {
-		if (!g_dbus_connection_flush_sync (connection, NULL, &error)) {
-			g_critical ("connection flush failed: %s", error->message);
-			g_error_free (error);
+		thread_data->connection = NULL;
+
+		if (!g_dbus_connection_is_closed (connection)) {
+			if (!g_dbus_connection_flush_sync (connection, NULL, &error)) {
+				g_critical ("connection flush failed: %s", error->message);
+				g_error_free (error);
+			}
+			if (!g_dbus_connection_close_sync (connection, NULL, &error)) {
+				g_critical ("connection close failed: %s", error->message);
+				g_error_free (error);
+			}
 		}
+
 		g_object_unref (connection);
 	}
 
@@ -1030,7 +1039,22 @@ gcr_mock_prompter_start (void)
 	g_assert (running->prompter);
 	g_mutex_unlock (running->mutex);
 
-	return running->bus_name;
+	return g_dbus_connection_get_unique_name (running->connection);
+}
+
+void
+gcr_mock_prompter_disconnect (void)
+{
+	GError *error = NULL;
+
+	g_assert (running != NULL);
+	g_assert (running->connection);
+
+	g_dbus_connection_close_sync (running->connection, NULL, &error);
+	if (error != NULL) {
+		g_critical ("disconnect connection close failed: %s", error->message);
+		g_error_free (error);
+	}
 }
 
 /**

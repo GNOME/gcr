@@ -111,6 +111,7 @@ gcr_mock_prompter_is_prompting
 gcr_mock_prompter_set_delay_msec
 gcr_mock_prompter_start
 gcr_mock_prompter_stop
+gcr_mock_prompter_disconnect
 gcr_parsed_get_attributes
 gcr_parsed_get_data
 gcr_parsed_get_description

@@ -15,15 +15,14 @@ perform-memcheck: $(TEST_PROGS)
 			$(builddir)/$$test $(TEST_ARGS) || exit 3; \
 	done
 
-coverage:
-	mkdir -p $(top_builddir)/build/coverage
-	$(LCOV) --directory . --capture --output-file $(top_builddir)/build/coverage.info
-	$(GENHTML) --output-directory $(top_builddir)/build/coverage $(top_builddir)/build/coverage.info
-	$(LCOV) --directory . --zerocounters
-	@echo "file://$(abs_top_builddir)/build/coverage/index.html"
+@GNOME_CODE_COVERAGE_RULES@
 
-clear-coverage:
-	$(LCOV) --directory . --zerocounters
+CODE_COVERAGE_DIRECTORY = $(builddir)
+CODE_COVERAGE_OUTPUT_FILE = $(top_builddir)/build/coverage.info
+CODE_COVERAGE_OUTPUT_DIRECTORY = $(top_builddir)/build/coverage
+
+coverage: code-coverage
+clear-coverage: code-coverage-clean
 
 V_ASN1 = $(V_ASN1_$(V))
 V_ASN1_ = $(V_ASN1_$(AM_DEFAULT_VERBOSITY))

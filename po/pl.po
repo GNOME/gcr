@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-10 20:50+0100\n"
-"PO-Revision-Date: 2012-03-10 20:51+0100\n"
+"POT-Creation-Date: 2012-08-22 00:33+0200\n"
+"PO-Revision-Date: 2012-08-22 00:34+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -119,7 +119,7 @@ msgid "Pseudonym"
 msgstr "Pseudonim"
 
 #: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
-#: ../gcr/gcr-key-renderer.c:430
+#: ../gcr/gcr-key-renderer.c:429
 msgid "RSA"
 msgstr "RSA"
 
@@ -136,7 +136,7 @@ msgid "SHA1 with RSA"
 msgstr "SHA1 z RSA"
 
 #: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
-#: ../gcr/gcr-key-renderer.c:432
+#: ../gcr/gcr-key-renderer.c:431
 msgid "DSA"
 msgstr "DSA"
 
@@ -271,11 +271,11 @@ msgstr "Pliki PEM"
 msgid "Other Name"
 msgstr "Inna nazwa"
 
-#: ../gcr/gcr-certificate-extensions.c:187
+#: ../gcr/gcr-certificate-extensions.c:188
 msgid "XMPP Addr"
 msgstr "Adres XMPP"
 
-#: ../gcr/gcr-certificate-extensions.c:191
+#: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
 msgstr "Serwer DNS"
 
@@ -485,7 +485,7 @@ msgid "Key SHA1 Fingerprint"
 msgstr "Odcisk palca klucza SHA1"
 
 #: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
-#: ../gcr/gcr-key-renderer.c:415 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-key-renderer.c:414 ../gcr/gcr-parser.c:325
 msgid "Public Key"
 msgstr "Klucz publiczny"
 
@@ -506,7 +506,7 @@ msgstr "Krytyczne"
 msgid "Unsupported key type for certificate request"
 msgstr "Nieobsługiwany typ klucza dla żądania certyfikatu"
 
-#: ../gcr/gcr-certificate-request.c:508 ../gcr/gcr-certificate-request.c:593
+#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Klucz nie może zostać użyty do podpisania żądania"
@@ -586,8 +586,8 @@ msgstr "Proces gnupg został zakończony z kodem: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Proces gnupg został zakończony za pomocą sygnału: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2481
-#: ../gcr/gcr-parser.c:2980
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
+#: ../gcr/gcr-parser.c:2917
 msgid "The operation was cancelled"
 msgstr "Działanie zostało anulowane"
 
@@ -616,7 +616,7 @@ msgid "Disabled"
 msgstr "Wyłączony"
 
 #: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-key-renderer.c:434 ../gcr/gcr-key-renderer.c:439
+#: ../gcr/gcr-key-renderer.c:433 ../gcr/gcr-key-renderer.c:438
 msgid "Unknown"
 msgstr "Nieznany"
 
@@ -693,7 +693,7 @@ msgid "Key ID"
 msgstr "Identyfikator klucza"
 
 #: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
-#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:435
+#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:434
 msgid "Algorithm"
 msgstr "Algorytm"
 
@@ -727,7 +727,7 @@ msgstr "Komentarz"
 msgid "User Attribute"
 msgstr "Atrybut użytkownika"
 
-#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:442
+#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
 msgid "Size"
 msgstr "Rozmiar"
 
@@ -850,27 +850,27 @@ msgstr "Nie można zaimportować, ponieważ brak zgodnych programów importując
 msgid "No data to import"
 msgstr "Brak danych do zaimportowania"
 
-#: ../gcr/gcr-key-renderer.c:90
+#: ../gcr/gcr-key-renderer.c:89
 msgid "Key"
 msgstr "Klucz"
 
-#: ../gcr/gcr-key-renderer.c:404
+#: ../gcr/gcr-key-renderer.c:403
 msgid "Private RSA Key"
 msgstr "Klucz prywatny RSA"
 
-#: ../gcr/gcr-key-renderer.c:406
+#: ../gcr/gcr-key-renderer.c:405
 msgid "Private DSA Key"
 msgstr "Klucz prywatny DSA"
 
-#: ../gcr/gcr-key-renderer.c:408 ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-key-renderer.c:407 ../gcr/gcr-parser.c:319
 msgid "Private Key"
 msgstr "Klucz prywatny"
 
-#: ../gcr/gcr-key-renderer.c:411 ../gcr/gcr-key-renderer.c:413
+#: ../gcr/gcr-key-renderer.c:410 ../gcr/gcr-key-renderer.c:412
 msgid "Public DSA Key"
 msgstr "Klucz publiczny DSA"
 
-#: ../gcr/gcr-key-renderer.c:422
+#: ../gcr/gcr-key-renderer.c:421
 #, c-format
 msgid "%d bit"
 msgid_plural "%d bits"
@@ -878,20 +878,20 @@ msgstr[0] "%d bit"
 msgstr[1] "%d bity"
 msgstr[2] "%d bitów"
 
-#: ../gcr/gcr-key-renderer.c:423
+#: ../gcr/gcr-key-renderer.c:422
 msgid "Strength"
 msgstr "Siła"
 
 #. Fingerprints
-#: ../gcr/gcr-key-renderer.c:446
+#: ../gcr/gcr-key-renderer.c:445
 msgid "Fingerprints"
 msgstr "Odciski palców"
 
-#: ../gcr/gcr-key-renderer.c:450
+#: ../gcr/gcr-key-renderer.c:449
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../gcr/gcr-key-renderer.c:455
+#: ../gcr/gcr-key-renderer.c:454
 msgid "SHA256"
 msgstr "SHA256"
 
@@ -899,15 +899,15 @@ msgstr "SHA256"
 msgid "Certificate Request"
 msgstr "Żądanie certyfikatu"
 
-#: ../gcr/gcr-parser.c:2484
+#: ../gcr/gcr-parser.c:2427
 msgid "Unrecognized or unsupported data."
 msgstr "Nierozpoznane lub nieobsługiwane dane."
 
-#: ../gcr/gcr-parser.c:2487
+#: ../gcr/gcr-parser.c:2430
 msgid "Could not parse invalid or corrupted data."
 msgstr "Nie można przetworzyć nieprawidłowych lub uszkodzonych danych."
 
-#: ../gcr/gcr-parser.c:2490
+#: ../gcr/gcr-parser.c:2433
 msgid "The data is locked"
 msgstr "Dane są zablokowane"
 
@@ -927,7 +927,7 @@ msgid "In order to import, please enter the password."
 msgstr "Proszę wprowadzić hasło, aby zaimportować."
 
 #. The password label
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:553
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:559
 msgid "Password:"
 msgstr "Hasło:"
 
@@ -939,17 +939,18 @@ msgstr "Token:"
 msgid "Label"
 msgstr "Etykieta"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
-msgid "<b>Unlock</b>"
-msgstr "<b>Odblokuj</b>"
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5 ../gcr/gcr-unlock-renderer.c:71
+#: ../gcr/gcr-unlock-renderer.c:128
+msgid "Unlock"
+msgstr "Odblokuj"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
 msgid "Label:"
 msgstr "Etykieta:"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
-msgid "<b>Import settings</b>"
-msgstr "<b>Ustawienia importowania</b>"
+msgid "Import settings"
+msgstr "Ustawienia importowania"
 
 #: ../gcr/gcr-prompt.c:218
 msgid "Continue"
@@ -960,15 +961,15 @@ msgid "Cancel"
 msgstr "Anuluj"
 
 #. The confirm label
-#: ../gcr/gcr-prompt-dialog.c:570
+#: ../gcr/gcr-prompt-dialog.c:576
 msgid "Confirm:"
 msgstr "Potwierdzenie:"
 
-#: ../gcr/gcr-prompt-dialog.c:637
+#: ../gcr/gcr-prompt-dialog.c:643
 msgid "Passwords do not match."
 msgstr "Hasła się nie zgadzają."
 
-#: ../gcr/gcr-prompt-dialog.c:644
+#: ../gcr/gcr-prompt-dialog.c:650
 msgid "Password cannot be blank"
 msgstr "Hasło nie może być puste"
 
@@ -988,7 +989,7 @@ msgstr "Nierozpoznane lub niedostępne atrybuty dla klucza"
 msgid "Couldn't build public key"
 msgstr "Nie można zbudować klucza publicznego"
 
-#: ../gcr/gcr-system-prompt.c:753
+#: ../gcr/gcr-system-prompt.c:749
 msgid "Another prompt is already in progress"
 msgstr "Trwa już inne zapytanie"
 
@@ -1025,10 +1026,6 @@ msgstr "minut"
 #, c-format
 msgid "Unlock: %s"
 msgstr "Odblokowanie: %s"
-
-#: ../gcr/gcr-unlock-renderer.c:71 ../gcr/gcr-unlock-renderer.c:128
-msgid "Unlock"
-msgstr "Odblokuj"
 
 #: ../gcr/gcr-unlock-renderer.c:125
 msgid "Password"

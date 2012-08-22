@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
 "POT-Creation-Date: 2012-06-30 03:45+0000\n"
-"PO-Revision-Date: 2012-08-22 14:25+0700\n"
+"PO-Revision-Date: 2012-08-22 14:32+0700\n"
 "Last-Translator: Nguyễn Thái Ngọc Duy <pclouds@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -502,12 +502,12 @@ msgstr "Tới hạn"
 #: ../gcr/gcr-certificate-request.c:418
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr ""
+msgstr "Loại khoá không hỗ trợ cho yêu cầu chứng nhận"
 
 #: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
 #, c-format
 msgid "The key cannot be used to sign the request"
-msgstr ""
+msgstr "Không thể dùng khoá này để ký yêu cầu"
 
 #. The certificate request type
 #: ../gcr/gcr-certificate-request-renderer.c:95
@@ -540,11 +540,11 @@ msgstr "Ch_i tiết"
 #: ../gcr/gcr-failure-renderer.c:160
 #, c-format
 msgid "Could not display '%s'"
-msgstr ""
+msgstr "Không thể hiển thị '%s'"
 
 #: ../gcr/gcr-failure-renderer.c:162
 msgid "Could not display file"
-msgstr ""
+msgstr "Không thể hiện tập tin"
 
 #: ../gcr/gcr-failure-renderer.c:167
 msgid "Reason"
@@ -553,7 +553,7 @@ msgstr "Lí do"
 #: ../gcr/gcr-failure-renderer.c:217
 #, c-format
 msgid "Cannot display a file of this type."
-msgstr ""
+msgstr "Không thể hiện tập tin loại này."
 
 #: ../gcr/gcr-gnupg-importer.c:96
 msgid "GnuPG Keyring"
@@ -577,12 +577,12 @@ msgstr "ID khoá"
 #: ../gcr/gcr-gnupg-process.c:866
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr ""
+msgstr "Tiến trình gpupg kết thúc với mã: %d"
 
 #: ../gcr/gcr-gnupg-process.c:873
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr ""
+msgstr "Tiến trình gpupg bị kết thúc bằng tín hiệu: %d"
 
 #: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
 #: ../gcr/gcr-parser.c:2917
@@ -651,29 +651,24 @@ msgid "Ultimately trusted"
 msgstr "Tin cậy tuyệt đối"
 
 #: ../gcr/gcr-gnupg-renderer.c:286
-#, fuzzy
 msgid "The information in this key has not yet been verified"
-msgstr "Thông tin nhạy cảm và không thể tiết lộ"
+msgstr "Thông tin trong khoá này chưa được xác minh"
 
 #: ../gcr/gcr-gnupg-renderer.c:289
-#, fuzzy
 msgid "This key is invalid"
-msgstr "Phiên làm việc không hợp lệ"
+msgstr "Khoá này không hợp lệ"
 
 #: ../gcr/gcr-gnupg-renderer.c:292
-#, fuzzy
 msgid "This key has been disabled"
-msgstr "Module đã được khởi động"
+msgstr "Khoá này bị vô hiệu hoá"
 
 #: ../gcr/gcr-gnupg-renderer.c:295
-#, fuzzy
 msgid "This key has been revoked"
-msgstr "Khoá không thể bị cuộn"
+msgstr "Khoá này bị thu hồi"
 
 #: ../gcr/gcr-gnupg-renderer.c:298
-#, fuzzy
 msgid "This key has expired"
-msgstr "Mật khẩu hoặc PIN đã quá hạn"
+msgstr "Khoá này đã hết hạn"
 
 #: ../gcr/gcr-gnupg-renderer.c:303
 msgid "This key is distrusted"
@@ -681,16 +676,15 @@ msgstr "Khoá không được tin cập"
 
 #: ../gcr/gcr-gnupg-renderer.c:306
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "Khoá này được tin cậy một phần"
 
 #: ../gcr/gcr-gnupg-renderer.c:309
-#, fuzzy
 msgid "This key is fully trusted"
-msgstr "Khoá sai kiểu"
+msgstr "Khoá này được tin cậy hoàn toàn"
 
 #: ../gcr/gcr-gnupg-renderer.c:312
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "Khoá này được tin cậy tuyệt đối"
 
 #: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
 msgid "Key ID"
@@ -737,11 +731,11 @@ msgstr "Cỡ"
 
 #: ../gcr/gcr-gnupg-renderer.c:507
 msgid "Signature of a binary document"
-msgstr ""
+msgstr "Chữ ký tài liệu nhị phân"
 
 #: ../gcr/gcr-gnupg-renderer.c:509
 msgid "Signature of a canonical text document"
-msgstr ""
+msgstr "Chữ ký văn bản thô"
 
 #: ../gcr/gcr-gnupg-renderer.c:511
 msgid "Standalone signature"
@@ -749,15 +743,15 @@ msgstr "Chữ ký độc lập"
 
 #: ../gcr/gcr-gnupg-renderer.c:513
 msgid "Generic certification of key"
-msgstr ""
+msgstr "Chứng nhận chung của khoá"
 
 #: ../gcr/gcr-gnupg-renderer.c:515
 msgid "Persona certification of key"
-msgstr ""
+msgstr "Chứng nhận cá nhân của khoá"
 
 #: ../gcr/gcr-gnupg-renderer.c:517
 msgid "Casual certification of key"
-msgstr ""
+msgstr "Chứng nhận thường ngày của khoá"
 
 #: ../gcr/gcr-gnupg-renderer.c:519
 msgid "Positive certification of key"
@@ -789,11 +783,11 @@ msgstr ""
 
 #: ../gcr/gcr-gnupg-renderer.c:533
 msgid "Timestamp signature"
-msgstr ""
+msgstr "Chữ ký tem thời gian"
 
 #: ../gcr/gcr-gnupg-renderer.c:535
 msgid "Third-party confirmation signature"
-msgstr ""
+msgstr "Chữ ký xác nhận bên thứ ba"
 
 #: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
 msgid "Class"
@@ -852,7 +846,7 @@ msgstr ""
 
 #: ../gcr/gcr-import-button.c:168
 msgid "No data to import"
-msgstr ""
+msgstr "Không có dữ liệu để nhập"
 
 #: ../gcr/gcr-key-renderer.c:89
 msgid "Key"
@@ -923,12 +917,11 @@ msgstr "Tự động chọn"
 #: ../gcr/gcr-pkcs11-import-interaction.c:171
 #, c-format
 msgid "The user cancelled the operation"
-msgstr ""
+msgstr "Người dùng huỷ thao tác này"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-#, fuzzy
 msgid "In order to import, please enter the password."
-msgstr "Để nhập « %s » thì nó phải được mở khoá"
+msgstr "Để nhập, vui lòng nhập mật mã."
 
 #. The password label
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:559
@@ -991,11 +984,11 @@ msgstr ""
 
 #: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
 msgid "Couldn't build public key"
-msgstr ""
+msgstr "Không thể tạo khoá công khai"
 
 #: ../gcr/gcr-system-prompt.c:749
 msgid "Another prompt is already in progress"
-msgstr ""
+msgstr "Một câu hỏi khác đang chờ"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
@@ -1040,31 +1033,29 @@ msgstr "Mật khẩu"
 msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
 "correct password."
-msgstr ""
+msgstr "Nội dung của '%s' đang bị khoá. Nhập mật mã để xem."
 
 #: ../gcr/gcr-unlock-renderer.c:281
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
-msgstr ""
+msgstr "Nội dung đang bị khoá. Nhập mật mã để xem."
 
 #: ../gcr/gcr-viewer-tool.c:41
-#, fuzzy
 msgid "GCR Certificate and Key Viewer"
-msgstr "Lưu trữ Chứng nhận và Khoá"
+msgstr "GCR trình xem khoá và chứng nhận"
 
 #: ../gcr/gcr-viewer-tool.c:48
 msgid "Show the application's version"
-msgstr ""
+msgstr "Hiện phiên bản ứng dụng"
 
 #: ../gcr/gcr-viewer-tool.c:50
 msgid "[file...]"
-msgstr ""
+msgstr "[tập tin...]"
 
 #: ../gcr/gcr-viewer-tool.c:103
-#, fuzzy
 msgid "- View certificate and key files"
-msgstr "Lưu trữ Chứng nhận và Khoá"
+msgstr "- Xem chứng nhận và khoá"
 
 #: ../gcr/gcr-viewer-tool.c:117 ../gcr/gcr-viewer-widget.c:635
 msgid "Certificate Viewer"

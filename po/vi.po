@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring 2.26.3\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-05-15 19:05+0000\n"
-"PO-Revision-Date: 2012-06-30 10:45+0700\n"
+"POT-Creation-Date: 2012-06-30 03:45+0000\n"
+"PO-Revision-Date: 2012-08-22 14:25+0700\n"
 "Last-Translator: Nguyễn Thái Ngọc Duy <pclouds@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -117,7 +117,7 @@ msgid "Pseudonym"
 msgstr "Biệt hiệu"
 
 #: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
-#: ../gcr/gcr-key-renderer.c:430
+#: ../gcr/gcr-key-renderer.c:429
 msgid "RSA"
 msgstr "RSA"
 
@@ -134,7 +134,7 @@ msgid "SHA1 with RSA"
 msgstr "SHA1 với mã hoá RSA"
 
 #: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
-#: ../gcr/gcr-key-renderer.c:432
+#: ../gcr/gcr-key-renderer.c:431
 msgid "DSA"
 msgstr "DSA"
 
@@ -269,11 +269,11 @@ msgstr "Tập tin PEM"
 msgid "Other Name"
 msgstr "Tên khác"
 
-#: ../gcr/gcr-certificate-extensions.c:187
+#: ../gcr/gcr-certificate-extensions.c:188
 msgid "XMPP Addr"
 msgstr "ĐC XMPP"
 
-#: ../gcr/gcr-certificate-extensions.c:191
+#: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
@@ -483,7 +483,7 @@ msgid "Key SHA1 Fingerprint"
 msgstr "Vân tay khoá SHA1"
 
 #: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
-#: ../gcr/gcr-key-renderer.c:415 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-key-renderer.c:414 ../gcr/gcr-parser.c:325
 msgid "Public Key"
 msgstr "Khoá công khai"
 
@@ -504,7 +504,7 @@ msgstr "Tới hạn"
 msgid "Unsupported key type for certificate request"
 msgstr ""
 
-#: ../gcr/gcr-certificate-request.c:508 ../gcr/gcr-certificate-request.c:593
+#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr ""
@@ -584,8 +584,8 @@ msgstr ""
 msgid "Gnupg process was terminated with signal: %d"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2481
-#: ../gcr/gcr-parser.c:2980
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
+#: ../gcr/gcr-parser.c:2917
 msgid "The operation was cancelled"
 msgstr "Thao tác bị huỷ"
 
@@ -614,7 +614,7 @@ msgid "Disabled"
 msgstr "Tắt"
 
 #: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-key-renderer.c:434 ../gcr/gcr-key-renderer.c:439
+#: ../gcr/gcr-key-renderer.c:433 ../gcr/gcr-key-renderer.c:438
 msgid "Unknown"
 msgstr "Không biết"
 
@@ -697,7 +697,7 @@ msgid "Key ID"
 msgstr "ID khoá"
 
 #: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
-#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:435
+#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:434
 msgid "Algorithm"
 msgstr "Thuật toán"
 
@@ -731,7 +731,7 @@ msgstr "Ghi chú"
 msgid "User Attribute"
 msgstr "Thuộc tính người dùng"
 
-#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:442
+#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
 msgid "Size"
 msgstr "Cỡ"
 
@@ -854,46 +854,46 @@ msgstr ""
 msgid "No data to import"
 msgstr ""
 
-#: ../gcr/gcr-key-renderer.c:90
+#: ../gcr/gcr-key-renderer.c:89
 msgid "Key"
 msgstr "Khóa"
 
-#: ../gcr/gcr-key-renderer.c:404
+#: ../gcr/gcr-key-renderer.c:403
 msgid "Private RSA Key"
 msgstr "Khoá cá nhân RSA"
 
-#: ../gcr/gcr-key-renderer.c:406
+#: ../gcr/gcr-key-renderer.c:405
 msgid "Private DSA Key"
 msgstr "Khoá cá nhân DSA"
 
-#: ../gcr/gcr-key-renderer.c:408 ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-key-renderer.c:407 ../gcr/gcr-parser.c:319
 msgid "Private Key"
 msgstr "Khoá cá nhân"
 
-#: ../gcr/gcr-key-renderer.c:411 ../gcr/gcr-key-renderer.c:413
+#: ../gcr/gcr-key-renderer.c:410 ../gcr/gcr-key-renderer.c:412
 msgid "Public DSA Key"
 msgstr "Khoá công khai DSA"
 
-#: ../gcr/gcr-key-renderer.c:422
+#: ../gcr/gcr-key-renderer.c:421
 #, c-format
 msgid "%d bit"
 msgid_plural "%d bits"
 msgstr[0] "%d bit"
 
-#: ../gcr/gcr-key-renderer.c:423
+#: ../gcr/gcr-key-renderer.c:422
 msgid "Strength"
 msgstr "Độ mạnh"
 
 #. Fingerprints
-#: ../gcr/gcr-key-renderer.c:446
+#: ../gcr/gcr-key-renderer.c:445
 msgid "Fingerprints"
 msgstr "Vân tay"
 
-#: ../gcr/gcr-key-renderer.c:450
+#: ../gcr/gcr-key-renderer.c:449
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../gcr/gcr-key-renderer.c:455
+#: ../gcr/gcr-key-renderer.c:454
 msgid "SHA256"
 msgstr "SHA256"
 
@@ -901,16 +901,16 @@ msgstr "SHA256"
 msgid "Certificate Request"
 msgstr "Yêu cầu chứng nhận"
 
-#: ../gcr/gcr-parser.c:2484
+#: ../gcr/gcr-parser.c:2427
 msgid "Unrecognized or unsupported data."
 msgstr "Dữ liệu không được nhận ra hay không được hỗ trợ."
 
-#: ../gcr/gcr-parser.c:2487
+#: ../gcr/gcr-parser.c:2430
 msgid "Could not parse invalid or corrupted data."
 msgstr ""
 "Không thể phân tích cú pháp của dữ liệu không hợp lệ hay dữ liệu bị hỏng."
 
-#: ../gcr/gcr-parser.c:2490
+#: ../gcr/gcr-parser.c:2433
 msgid "The data is locked"
 msgstr "Dữ liệu bị khoá"
 
@@ -993,7 +993,7 @@ msgstr ""
 msgid "Couldn't build public key"
 msgstr ""
 
-#: ../gcr/gcr-system-prompt.c:753
+#: ../gcr/gcr-system-prompt.c:749
 msgid "Another prompt is already in progress"
 msgstr ""
 

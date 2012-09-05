@@ -4,22 +4,23 @@
 #
 # Jayaradha N <jaya@pune.redhat.com>, 2004.
 # Felix <ifelix@redhat.com>, 2006.
-# Dr.T.Vasudevan <agnihot3@gmail.com>, 2007, 2008, 2009, 2010, 2011.
+# Dr.T.Vasudevan <agnihot3@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012.
 # I. Felix <ifelix@redhat.com>, 2009.
 # Dr,T,Vasudevan <agnihot3@gmail.com>, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.HEAD.ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-06 11:51+0200\n"
-"PO-Revision-Date: 2011-09-13 19:52+0530\n"
+"POT-Creation-Date: 2012-09-04 21:15+0530\n"
+"PO-Revision-Date: 2012-09-05 10:14+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\\n"
+"\n"
 "\n"
 "\n"
 "X-Generator: Lokalize 1.1\n"
@@ -28,8 +29,8 @@ msgstr ""
 msgid "Domain Component"
 msgstr "டொமைன் கூறு"
 
-#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:411
-#: ../gcr/gcr-gnupg-renderer.c:580
+#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:409
+#: ../gcr/gcr-gnupg-renderer.c:578
 msgid "User ID"
 msgstr "பயனர் ID"
 
@@ -65,7 +66,7 @@ msgstr "பொதுவான பெயர்"
 msgid "Surname"
 msgstr "புனைப்பெயர்"
 
-#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:652
+#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:557
 msgid "Serial Number"
 msgstr "வரிசை எண்"
 
@@ -121,8 +122,8 @@ msgstr "DN தகுதியாளர்"
 msgid "Pseudonym"
 msgstr "Pseudonym"
 
-#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:202
-#: ../gcr/gcr-key-renderer.c:308
+#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
+#: ../gcr/gcr-key-renderer.c:429
 msgid "RSA"
 msgstr "RSA"
 
@@ -138,8 +139,8 @@ msgstr "MD5 உடன் RSA"
 msgid "SHA1 with RSA"
 msgstr "SHA1 உடன் RSA"
 
-#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:206
-#: ../gcr/gcr-key-renderer.c:310
+#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
+#: ../gcr/gcr-key-renderer.c:431
 msgid "DSA"
 msgstr "DSA"
 
@@ -168,22 +169,22 @@ msgstr "மின்னஞ்சல் பாதுகாப்பு"
 msgid "Time Stamping"
 msgstr "நேர முத்திரை"
 
-#: ../gck/gck-module.c:353
+#: ../gck/gck-module.c:352
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "பிகேசிஎச்(PKCS)#11 ஐ ஏற்றும்போது பிழை: %s"
 
-#: ../gck/gck-module.c:360
+#: ../gck/gck-module.c:359
 #, c-format
 msgid "Invalid PKCS#11 module: %s"
 msgstr "பிகேசிஎச்(PKCS)#11 நிரல்கூறு செல்லுபடியாகாதது: %s"
 
-#: ../gck/gck-module.c:369
+#: ../gck/gck-module.c:368
 #, c-format
 msgid "Couldn't setup PKCS#11 module: %s"
 msgstr "பிகேசிஎச்(PKCS)#11 நிரல்கூறு ஐ அமைக்க முடியவில்லை: %s"
 
-#: ../gck/gck-module.c:385
+#: ../gck/gck-module.c:384
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
 msgstr "பிகேசிஎச்(PKCS)#11 நிரல்கூறு ஐ துவக்க முடியவில்லை: %s"
@@ -191,35 +192,51 @@ msgstr "பிகேசிஎச்(PKCS)#11 நிரல்கூறு ஐ த
 #: ../gck/gck-modules.c:67
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr ""
-"பதிவு செய்த பிகேசிஎச்(registered PKCS)#11 நிரல்கூறு ஐ துவக்க முடியவில்லை: %s"
+msgstr "பதிவு செய்த பிகேசிஎச்(registered PKCS)#11 நிரல்கூறு ஐ துவக்க முடியவில்லை: %s"
+
+#: ../gck/gck-uri.c:224
+#, c-format
+msgid "The URI has invalid encoding."
+msgstr "யூஆர் ஐ க்கு செல்லுபடியாகாத குறியாக்கம் உள்ளது"
+
+#: ../gck/gck-uri.c:228
+msgid "The URI does not have the 'pkcs11' scheme."
+msgstr "யூஆர்ஐ ´pkcs11´  திட்டத்தை கொண்டிருக்கவில்லை."
+
+#: ../gck/gck-uri.c:232
+msgid "The URI has bad syntax."
+msgstr "யூஆர்ஐ க்கு மோசமான வழிமுறைத் தொடரமைப்பு உள்ளது"
+
+#: ../gck/gck-uri.c:236
+msgid "The URI has a bad version number."
+msgstr "யூஆர்ஐ க்கு மோசமான பதிப்பு எண் உள்ளது"
 
 #: ../gcr/gcr-callback-output-stream.c:64
 #: ../gcr/gcr-callback-output-stream.c:81
-#, fuzzy, c-format
+#, c-format
 msgid "The stream was closed"
-msgstr "அமர்வு முடிந்துவிட்டது"
+msgstr "ஓடை மூடப்பட்டது"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:378 ../gcr/gcr-gnupg-key.c:521
+#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "பெயர்"
 
-#: ../gcr/gcr-certificate.c:380
+#: ../gcr/gcr-certificate.c:310
 msgctxt "column"
 msgid "Issued By"
 msgstr "வழங்கியவர்"
 
 #. later
-#: ../gcr/gcr-certificate.c:382
+#: ../gcr/gcr-certificate.c:312
 msgctxt "column"
 msgid "Expires"
 msgstr "காலாவதியானது "
 
-#: ../gcr/gcr-certificate.c:1067 ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:101 ../gcr/gcr-parser.c:316
+#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-certificate-exporter.c:463
+#: ../gcr/gcr-certificate-renderer.c:102 ../gcr/gcr-parser.c:322
 msgid "Certificate"
 msgstr "சான்றிதழ்"
 
@@ -254,682 +271,735 @@ msgstr "சான்றிதழ் கோப்புகள்"
 msgid "PEM files"
 msgstr "PEM கோப்புகள்"
 
-#: ../gcr/gcr-certificate-extensions.c:141
+#: ../gcr/gcr-certificate-extensions.c:178
 msgid "Other Name"
 msgstr "வேறு பெயர்"
 
-#: ../gcr/gcr-certificate-extensions.c:150
+#: ../gcr/gcr-certificate-extensions.c:188
 msgid "XMPP Addr"
 msgstr "எக்ஸ்எம்பிபி முகவரி"
 
-#: ../gcr/gcr-certificate-extensions.c:154
+#: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
 msgstr "டிஎன்எஸ் எஸ்ஆர்வி"
 
-#: ../gcr/gcr-certificate-extensions.c:166 ../gcr/gcr-gnupg-renderer.c:424
-#: ../gcr/gcr-gnupg-renderer.c:706
+#: ../gcr/gcr-certificate-extensions.c:204 ../gcr/gcr-gnupg-renderer.c:422
+#: ../gcr/gcr-gnupg-renderer.c:704
 msgid "Email"
 msgstr "மின்னஞ்சல்"
 
-#: ../gcr/gcr-certificate-extensions.c:174
+#: ../gcr/gcr-certificate-extensions.c:212
 msgid "DNS"
 msgstr "DNS"
 
-#: ../gcr/gcr-certificate-extensions.c:182
+#: ../gcr/gcr-certificate-extensions.c:220
 msgid "X400 Address"
 msgstr "X400 முகவரி"
 
-#: ../gcr/gcr-certificate-extensions.c:189
+#: ../gcr/gcr-certificate-extensions.c:227
 msgid "Directory Name"
 msgstr "அடைவின் பெயர்"
 
-#: ../gcr/gcr-certificate-extensions.c:197
+#: ../gcr/gcr-certificate-extensions.c:235
 msgid "EDI Party Name"
 msgstr "ஈடிஐ நபரின் பெயர் "
 
-#: ../gcr/gcr-certificate-extensions.c:204
+#: ../gcr/gcr-certificate-extensions.c:242
 msgid "URI"
 msgstr "யூஆர்ஐ"
 
-#: ../gcr/gcr-certificate-extensions.c:212
+#: ../gcr/gcr-certificate-extensions.c:250
 msgid "IP Address"
 msgstr "IP முகவரி"
 
-#: ../gcr/gcr-certificate-extensions.c:220
+#: ../gcr/gcr-certificate-extensions.c:258
 msgid "Registered ID"
 msgstr "பதிவு செய்த ஐடி"
 
-#: ../gcr/gcr-certificate-renderer.c:116
+#: ../gcr/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
 msgstr "அடிப்படை கட்டுப்பாடுகள்"
 
-#: ../gcr/gcr-certificate-renderer.c:118
+#: ../gcr/gcr-certificate-renderer.c:119
 msgid "Certificate Authority"
 msgstr "சான்றிதழ் ஆணையம்"
 
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
 msgid "Yes"
 msgstr "ஆம்"
 
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
 msgid "No"
 msgstr "இல்லை"
 
-#: ../gcr/gcr-certificate-renderer.c:122
+#: ../gcr/gcr-certificate-renderer.c:123
 msgid "Max Path Length"
 msgstr "அதிக பட்ச நீளம்"
 
-#: ../gcr/gcr-certificate-renderer.c:123
+#: ../gcr/gcr-certificate-renderer.c:124
 msgid "Unlimited"
 msgstr "வரையில்லாதது"
 
-#: ../gcr/gcr-certificate-renderer.c:142
+#: ../gcr/gcr-certificate-renderer.c:143
 msgid "Extended Key Usage"
 msgstr "நீட்டித்த விசை பயன்பாடு"
 
-#: ../gcr/gcr-certificate-renderer.c:153
+#: ../gcr/gcr-certificate-renderer.c:154
 msgid "Allowed Purposes"
 msgstr "அனுமதித்த நோக்கங்கள்"
 
-#: ../gcr/gcr-certificate-renderer.c:173
+#: ../gcr/gcr-certificate-renderer.c:174
 msgid "Subject Key Identifier"
 msgstr "பொருள் விசை அடையாளம் காட்டி"
 
-#: ../gcr/gcr-certificate-renderer.c:174
+#: ../gcr/gcr-certificate-renderer.c:175
 msgid "Key Identifier"
 msgstr "விசை அடையாளம் காட்டி"
 
-#: ../gcr/gcr-certificate-renderer.c:185
+#: ../gcr/gcr-certificate-renderer.c:186
 msgid "Digital signature"
 msgstr "மின்னெண் கையொப்பம்"
 
-#: ../gcr/gcr-certificate-renderer.c:186
+#: ../gcr/gcr-certificate-renderer.c:187
 msgid "Key encipherment"
 msgstr "விசை குறியாக்கம்"
 
-#: ../gcr/gcr-certificate-renderer.c:187
+#: ../gcr/gcr-certificate-renderer.c:188
 msgid "Data encipherment"
 msgstr "தரவு குறியாக்கம்"
 
-#: ../gcr/gcr-certificate-renderer.c:188
+#: ../gcr/gcr-certificate-renderer.c:189
 msgid "Key agreement"
 msgstr "விசை ஒத்திசைவு"
 
-#: ../gcr/gcr-certificate-renderer.c:189
+#: ../gcr/gcr-certificate-renderer.c:190
 msgid "Certificate signature"
 msgstr "சான்றிதழ் கையொப்பம்"
 
-#: ../gcr/gcr-certificate-renderer.c:190
+#: ../gcr/gcr-certificate-renderer.c:191
 msgid "Revocation list signature"
 msgstr "திருப்பிப்பெற்ற பட்டியல் கையொப்பம்"
 
-#: ../gcr/gcr-certificate-renderer.c:215
+#: ../gcr/gcr-certificate-renderer.c:216
 msgid "Key Usage"
 msgstr "விசை பயன்பாடு"
 
-#: ../gcr/gcr-certificate-renderer.c:216
+#: ../gcr/gcr-certificate-renderer.c:217
 msgid "Usages"
 msgstr "பயன்பாடுகள்"
 
-#: ../gcr/gcr-certificate-renderer.c:236
+#: ../gcr/gcr-certificate-renderer.c:237
 msgid "Subject Alternative Names"
 msgstr "பொருளின் மாற்று பெயர்கள்"
 
-#: ../gcr/gcr-certificate-renderer.c:261
+#: ../gcr/gcr-certificate-renderer.c:264
 msgid "Extension"
 msgstr "நீட்சி"
 
-#: ../gcr/gcr-certificate-renderer.c:265
+#: ../gcr/gcr-certificate-renderer.c:268
 msgid "Identifier"
 msgstr "அடையாளம் காட்டுபவர்"
 
-#: ../gcr/gcr-certificate-renderer.c:266 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-gnupg-renderer.c:432
+#: ../gcr/gcr-certificate-renderer.c:269
+#: ../gcr/gcr-certificate-request-renderer.c:272
+#: ../gcr/gcr-gnupg-renderer.c:413 ../gcr/gcr-gnupg-renderer.c:430
 msgid "Value"
 msgstr "மதிப்பு"
 
-#: ../gcr/gcr-certificate-renderer.c:313
-msgid "Critical"
-msgstr "அவசரம்"
-
-#: ../gcr/gcr-certificate-renderer.c:386
+#: ../gcr/gcr-certificate-renderer.c:294
 msgid "Couldn't export the certificate."
 msgstr "சான்றிதழ் ஏற்றுமதி செய்ய முடியவில்லை "
 
-#: ../gcr/gcr-certificate-renderer.c:613
+#: ../gcr/gcr-certificate-renderer.c:519
+#: ../gcr/gcr-certificate-request-renderer.c:313
 msgid "Identity"
 msgstr "அடையாளம் "
 
-#: ../gcr/gcr-certificate-renderer.c:617
+#: ../gcr/gcr-certificate-renderer.c:523
 msgid "Verified by"
 msgstr "உறுதிப்படுத்தியது "
 
-#: ../gcr/gcr-certificate-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:720
+#: ../gcr/gcr-certificate-renderer.c:530 ../gcr/gcr-gnupg-renderer.c:718
 msgid "Expires"
 msgstr "காலாவதி தேதி"
 
 #. The subject
-#: ../gcr/gcr-certificate-renderer.c:634
+#: ../gcr/gcr-certificate-renderer.c:537
+#: ../gcr/gcr-certificate-request-renderer.c:319
 msgid "Subject Name"
 msgstr "பொருளின் பெயர்"
 
 #. The Issuer
-#: ../gcr/gcr-certificate-renderer.c:638
+#: ../gcr/gcr-certificate-renderer.c:542
 msgid "Issuer Name"
 msgstr "வழங்குபவரின் பெயர்"
 
 #. The Issued Parameters
-#: ../gcr/gcr-certificate-renderer.c:642
+#: ../gcr/gcr-certificate-renderer.c:547
 msgid "Issued Certificate"
 msgstr "தரப்பட்ட சான்றிதழ்"
 
-#: ../gcr/gcr-certificate-renderer.c:647
+#: ../gcr/gcr-certificate-renderer.c:552
+#: ../gcr/gcr-certificate-request-renderer.c:330
 msgid "Version"
 msgstr "பதிப்பு"
 
-#: ../gcr/gcr-certificate-renderer.c:658
+#: ../gcr/gcr-certificate-renderer.c:566
 msgid "Not Valid Before"
 msgstr "இதற்கு முன் செல்லுபடியாகாது"
 
-#: ../gcr/gcr-certificate-renderer.c:663
+#: ../gcr/gcr-certificate-renderer.c:571
 msgid "Not Valid After"
 msgstr "அதற்கு பின் செல்லுபடியாகாது"
 
 #. Fingerprints
-#: ../gcr/gcr-certificate-renderer.c:668
+#: ../gcr/gcr-certificate-renderer.c:576
 msgid "Certificate Fingerprints"
 msgstr "சான்றிதழ் கைரேகைகள்"
 
-#. Signature
-#: ../gcr/gcr-certificate-renderer.c:674 ../gcr/gcr-certificate-renderer.c:686
-#: ../gcr/gcr-gnupg-renderer.c:561
-msgid "Signature"
-msgstr "கையொப்பம்"
-
-#: ../gcr/gcr-certificate-renderer.c:678
-msgid "Signature Algorithm"
-msgstr "கையொப்ப கணிமுறை"
-
-#: ../gcr/gcr-certificate-renderer.c:682
-msgid "Signature Parameters"
-msgstr "கையொப்ப பாராமீட்டர்கள்"
-
 #. Public Key Info
-#: ../gcr/gcr-certificate-renderer.c:690
+#: ../gcr/gcr-certificate-renderer.c:582
+#: ../gcr/gcr-certificate-request-renderer.c:333
+#: ../gcr/gcr-certificate-request-renderer.c:379
 msgid "Public Key Info"
 msgstr "பொது விசை தகவல்"
 
-#: ../gcr/gcr-certificate-renderer.c:695
+#. Signature
+#: ../gcr/gcr-certificate-renderer.c:597 ../gcr/gcr-certificate-renderer.c:918
+#: ../gcr/gcr-certificate-request-renderer.c:349
+#: ../gcr/gcr-certificate-request-renderer.c:386
+#: ../gcr/gcr-gnupg-renderer.c:559
+msgid "Signature"
+msgstr "கையொப்பம்"
+
+#: ../gcr/gcr-certificate-renderer.c:864
 msgid "Key Algorithm"
 msgstr "விசை கணிமுறை"
 
-#: ../gcr/gcr-certificate-renderer.c:700
+#: ../gcr/gcr-certificate-renderer.c:869
 msgid "Key Parameters"
 msgstr "விசை பாராமீட்டர்கள்"
 
-#: ../gcr/gcr-certificate-renderer.c:705 ../gcr/gcr-gnupg-renderer.c:354
+#: ../gcr/gcr-certificate-renderer.c:877 ../gcr/gcr-gnupg-renderer.c:352
 msgid "Key Size"
 msgstr "விசை அளவு"
 
-#: ../gcr/gcr-certificate-renderer.c:712
+#: ../gcr/gcr-certificate-renderer.c:885
 msgid "Key SHA1 Fingerprint"
 msgstr "விசை SHA1 கைரேகை"
 
-#: ../gcr/gcr-certificate-renderer.c:718 ../gcr/gcr-gnupg-renderer.c:739
-#: ../gcr/gcr-key-renderer.c:292 ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
+#: ../gcr/gcr-key-renderer.c:414 ../gcr/gcr-parser.c:325
 msgid "Public Key"
 msgstr "பொது விசை"
+
+#: ../gcr/gcr-certificate-renderer.c:907
+msgid "Signature Algorithm"
+msgstr "கையொப்ப கணிமுறை"
+
+#: ../gcr/gcr-certificate-renderer.c:911
+msgid "Signature Parameters"
+msgstr "கையொப்ப பாராமீட்டர்கள்"
+
+#: ../gcr/gcr-certificate-renderer.c:960
+msgid "Critical"
+msgstr "அவசரம்"
+
+#: ../gcr/gcr-certificate-request.c:418
+#, c-format
+msgid "Unsupported key type for certificate request"
+msgstr "சான்றிதழ் வேண்டுதலுக்கு ஆதரவில்லாத விசை வகை"
+
+#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
+#, c-format
+msgid "The key cannot be used to sign the request"
+msgstr "வேண்டுதலை கையொப்பமிட இந்த விசையை பயன்படுத்த முடியாது"
+
+#. The certificate request type
+#: ../gcr/gcr-certificate-request-renderer.c:95
+#: ../gcr/gcr-certificate-request-renderer.c:308
+#: ../gcr/gcr-certificate-request-renderer.c:323
+#: ../gcr/gcr-certificate-request-renderer.c:366
+#: ../gcr/gcr-certificate-request-renderer.c:371
+msgid "Certificate request"
+msgstr "சான்றிதழ் வேண்டுதல்"
+
+#: ../gcr/gcr-certificate-request-renderer.c:261
+msgid "Attribute"
+msgstr "பண்புக்கூறு"
+
+#: ../gcr/gcr-certificate-request-renderer.c:265
+#: ../gcr/gcr-certificate-request-renderer.c:324
+#: ../gcr/gcr-certificate-request-renderer.c:372
+#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:592
+msgid "Type"
+msgstr "வகை"
+
+#: ../gcr/gcr-certificate-request-renderer.c:376
+msgid "Challenge"
+msgstr "சவால்"
 
 #: ../gcr/gcr-display-view.c:319
 msgid "_Details"
 msgstr "விவரங்கள் (_D)"
 
-#: ../gcr/gcr-failure-renderer.c:161
+#: ../gcr/gcr-failure-renderer.c:160
 #, c-format
 msgid "Could not display '%s'"
 msgstr "'%s' ஐ காட்ட முடியவில்லை'"
 
-#: ../gcr/gcr-failure-renderer.c:163
+#: ../gcr/gcr-failure-renderer.c:162
 msgid "Could not display file"
 msgstr "கோப்பினை காட்ட முடியவில்லை"
 
-#: ../gcr/gcr-failure-renderer.c:168
+#: ../gcr/gcr-failure-renderer.c:167
 msgid "Reason"
 msgstr "காரணம்"
 
-#: ../gcr/gcr-failure-renderer.c:218
+#: ../gcr/gcr-failure-renderer.c:217
 #, c-format
 msgid "Cannot display a file of this type."
 msgstr "இந்த வகை கோப்பை காட்ட இயலாது."
 
-#: ../gcr/gcr-gnupg-importer.c:93
-#, fuzzy
+#: ../gcr/gcr-gnupg-importer.c:96
 msgid "GnuPG Keyring"
-msgstr "விசை வளையத்தின் பூட்டை திற"
+msgstr "க்னுபிஜி விசை வளையம்"
 
-#: ../gcr/gcr-gnupg-importer.c:95
-#, fuzzy, c-format
+#: ../gcr/gcr-gnupg-importer.c:98
+#, c-format
 msgid "GnuPG Keyring: %s"
-msgstr "PGP விசை: %s"
+msgstr "க்னுபிஜி விசைவளையம்: %s"
 
-#: ../gcr/gcr-gnupg-key.c:234 ../gcr/gcr-gnupg-renderer.c:88
-#: ../gcr/gcr-parser.c:322
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-gnupg-renderer.c:88
+#: ../gcr/gcr-parser.c:328
 msgid "PGP Key"
 msgstr "PGP விசை"
 
-#: ../gcr/gcr-gnupg-key.c:523
+#: ../gcr/gcr-gnupg-key.c:434
 msgctxt "column"
 msgid "Key ID"
 msgstr "விசை ஐடி"
 
-#: ../gcr/gcr-gnupg-process.c:860
+#: ../gcr/gcr-gnupg-process.c:866
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "ஜிஎன்யுபிஜி செயல் இந்த கோட் உடன் வெளியேறியது: %d"
 
-#: ../gcr/gcr-gnupg-process.c:867
+#: ../gcr/gcr-gnupg-process.c:873
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "ஜிஎன்யுபிஜி செயல் சமிக்ஞையால் முடிக்கப்பட்டது: %d"
 
-#: ../gcr/gcr-gnupg-process.c:921 ../gcr/gcr-parser.c:2177
-#: ../gcr/gcr-parser.c:2681
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
+#: ../gcr/gcr-parser.c:2917
 msgid "The operation was cancelled"
 msgstr "செயல் ரத்து செய்யப்பட்டது."
 
-#: ../gcr/gcr-gnupg-renderer.c:204
+#: ../gcr/gcr-gnupg-renderer.c:202
 msgid "Elgamal"
-msgstr ""
+msgstr "எல்காமல்"
+
+#: ../gcr/gcr-gnupg-renderer.c:215
+msgid "Encrypt"
+msgstr "குறிமுறையாக்கு"
 
 #: ../gcr/gcr-gnupg-renderer.c:217
-msgid "Encrypt"
-msgstr ""
+msgid "Sign"
+msgstr "கையொப்பமிடு"
 
 #: ../gcr/gcr-gnupg-renderer.c:219
-#, fuzzy
-msgid "Sign"
-msgstr "கையொப்பம்"
+msgid "Certify"
+msgstr "சான்றிதழ் கொடு"
 
 #: ../gcr/gcr-gnupg-renderer.c:221
-#, fuzzy
-msgid "Certify"
-msgstr "சான்றிதழ்"
-
-#: ../gcr/gcr-gnupg-renderer.c:223
-#, fuzzy
 msgid "Authenticate"
-msgstr "சேவையக உறுதி செய்தல்"
+msgstr "உறுதிப்படுத்து"
 
-#: ../gcr/gcr-gnupg-renderer.c:225 ../gcr/gcr-gnupg-renderer.c:260
+#: ../gcr/gcr-gnupg-renderer.c:223 ../gcr/gcr-gnupg-renderer.c:258
 msgid "Disabled"
-msgstr ""
+msgstr "முடக்கப்பட்டது"
 
-#: ../gcr/gcr-gnupg-renderer.c:256 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-key-renderer.c:312 ../gcr/gcr-key-renderer.c:317
+#: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
+#: ../gcr/gcr-key-renderer.c:433 ../gcr/gcr-key-renderer.c:438
 msgid "Unknown"
 msgstr "தெரியாத"
 
-#: ../gcr/gcr-gnupg-renderer.c:258
+#: ../gcr/gcr-gnupg-renderer.c:256
 msgid "Invalid"
-msgstr ""
+msgstr "செல்லுபடியாகாதது"
+
+#: ../gcr/gcr-gnupg-renderer.c:260
+msgid "Revoked"
+msgstr "திரும்பப்பெறப்பட்டது"
 
 #: ../gcr/gcr-gnupg-renderer.c:262
-msgid "Revoked"
-msgstr ""
+msgid "Expired"
+msgstr "காலாவதியாயிற்று"
 
 #: ../gcr/gcr-gnupg-renderer.c:264
-#, fuzzy
-msgid "Expired"
-msgstr "காலாவதி தேதி"
+msgid "Undefined trust"
+msgstr "நம்பகம் உறுதியில்லை"
 
 #: ../gcr/gcr-gnupg-renderer.c:266
-msgid "Undefined trust"
-msgstr ""
+msgid "Distrusted"
+msgstr "நம்பகமில்லாதது"
 
 #: ../gcr/gcr-gnupg-renderer.c:268
-msgid "Distrusted"
-msgstr ""
+msgid "Marginally trusted"
+msgstr "விளிம்பு நிலை நம்பகம்"
 
 #: ../gcr/gcr-gnupg-renderer.c:270
-msgid "Marginally trusted"
-msgstr ""
+msgid "Fully trusted"
+msgstr "முழுக்க நம்பக்கூடியது"
 
 #: ../gcr/gcr-gnupg-renderer.c:272
-msgid "Fully trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:274
 msgid "Ultimately trusted"
-msgstr ""
+msgstr "உச்ச நம்பகம் உள்ளது."
 
-#: ../gcr/gcr-gnupg-renderer.c:288
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:286
 msgid "The information in this key has not yet been verified"
-msgstr "தகவல் அந்தரங்கமானது; காட்ட இயலாதது"
+msgstr "இந்த விசையில் உள்ள தகவலின் உண்மை இன்னும் ஆராயப்படவில்லை"
 
-#: ../gcr/gcr-gnupg-renderer.c:291
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:289
 msgid "This key is invalid"
-msgstr "அமர்வு செல்லுபடியாகாதது"
+msgstr "இந்த விசை செல்லுபடியாகாதது"
 
-#: ../gcr/gcr-gnupg-renderer.c:294
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:292
 msgid "This key has been disabled"
-msgstr "இந்த கூறு துவக்கப்பட முடியாது."
+msgstr "இந்த விசை செயலிழக்கபட்டது"
 
-#: ../gcr/gcr-gnupg-renderer.c:297
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:295
 msgid "This key has been revoked"
-msgstr "விசைவளைய ஏற்கெனவே பூட்டு திறக்கப்பட்டு விட்டது."
+msgstr "இந்த விசை ஏற்கெனவே திரும்பிப் பெறப்பட்டு விட்டது."
 
-#: ../gcr/gcr-gnupg-renderer.c:300
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:298
 msgid "This key has expired"
-msgstr "கடவுச்சொல் அல்லது 'பின்' காலாவதியாகிவிட்டது"
+msgstr "விசை காலாவதியாகிவிட்டது"
 
-#: ../gcr/gcr-gnupg-renderer.c:305
+#: ../gcr/gcr-gnupg-renderer.c:303
 msgid "This key is distrusted"
-msgstr ""
+msgstr "இந்த விசை நம்பகத்தன்மை இல்லாதது"
 
-#: ../gcr/gcr-gnupg-renderer.c:308
+#: ../gcr/gcr-gnupg-renderer.c:306
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "இந்த விசையின் நம்பகத்தன்மை விளிம்பில் உள்ளது"
 
-#: ../gcr/gcr-gnupg-renderer.c:311
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:309
 msgid "This key is fully trusted"
-msgstr "விசை தவறான வகையானது"
+msgstr "இந்த விசை முழுக்க நம்பகமானது"
 
-#: ../gcr/gcr-gnupg-renderer.c:314
+#: ../gcr/gcr-gnupg-renderer.c:312
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "இந்த விசை உச்சமாக நம்பப்படுகிறது"
 
-#: ../gcr/gcr-gnupg-renderer.c:339 ../gcr/gcr-gnupg-renderer.c:565
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
 msgid "Key ID"
-msgstr "விசை ஐடி"
+msgstr "ஊவிசை ஐடி"
 
-#: ../gcr/gcr-gnupg-renderer.c:347 ../gcr/gcr-gnupg-renderer.c:573
-#: ../gcr/gcr-gnupg-renderer.c:620 ../gcr/gcr-key-renderer.c:313
+#: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
+#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:434
 msgid "Algorithm"
 msgstr "அல்கரிதம்"
 
-#: ../gcr/gcr-gnupg-renderer.c:362 ../gcr/gcr-gnupg-renderer.c:439
-#: ../gcr/gcr-gnupg-renderer.c:482
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:360 ../gcr/gcr-gnupg-renderer.c:437
+#: ../gcr/gcr-gnupg-renderer.c:480
 msgid "Created"
-msgstr "(_r) உருவாக்கு"
+msgstr "ஊஉருவாக்கப்பட்டது"
 
-#: ../gcr/gcr-gnupg-renderer.c:371 ../gcr/gcr-gnupg-renderer.c:448
-#: ../gcr/gcr-gnupg-renderer.c:491
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:369 ../gcr/gcr-gnupg-renderer.c:446
+#: ../gcr/gcr-gnupg-renderer.c:489
 msgid "Expiry"
-msgstr "காலாவதி தேதி"
+msgstr "காலாவதி "
 
-#: ../gcr/gcr-gnupg-renderer.c:380
+#: ../gcr/gcr-gnupg-renderer.c:378
 msgid "Capabilities"
-msgstr ""
+msgstr "இயலுமை"
 
-#: ../gcr/gcr-gnupg-renderer.c:393
+#: ../gcr/gcr-gnupg-renderer.c:391
 msgid "Owner trust"
-msgstr ""
+msgstr "சொந்தக்காரர் நம்பிக்கை"
 
-#: ../gcr/gcr-gnupg-renderer.c:421
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:419
 msgid "Name"
 msgstr "பெயர்"
 
-#: ../gcr/gcr-gnupg-renderer.c:427 ../gcr/gcr-gnupg-renderer.c:709
+#: ../gcr/gcr-gnupg-renderer.c:425 ../gcr/gcr-gnupg-renderer.c:707
 msgid "Comment"
-msgstr ""
+msgstr "குறிப்பு"
 
-#: ../gcr/gcr-gnupg-renderer.c:467
+#: ../gcr/gcr-gnupg-renderer.c:465
 msgid "User Attribute"
-msgstr ""
+msgstr "பயனர் பண்புக்கூறு"
 
-#: ../gcr/gcr-gnupg-renderer.c:474 ../gcr/gcr-key-renderer.c:320
+#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
 msgid "Size"
 msgstr "அளவு"
 
-#: ../gcr/gcr-gnupg-renderer.c:509
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:507
 msgid "Signature of a binary document"
-msgstr "கையொப்ப பாராமீட்டர்கள்"
+msgstr "இரும ஆவணத்தின் கையொப்பம்"
+
+#: ../gcr/gcr-gnupg-renderer.c:509
+msgid "Signature of a canonical text document"
+msgstr "கனானிகல் உரை ஆவணத்தின் கையொப்பம்"
 
 #: ../gcr/gcr-gnupg-renderer.c:511
-msgid "Signature of a canonical text document"
-msgstr ""
+msgid "Standalone signature"
+msgstr "தனித்து நிற்கும் கையொப்பம்"
 
 #: ../gcr/gcr-gnupg-renderer.c:513
-#, fuzzy
-msgid "Standalone signature"
-msgstr "மின்னெண் கையொப்பம்"
+msgid "Generic certification of key"
+msgstr "விசையின் பாரம்பரிய சான்றிதழ்"
 
 #: ../gcr/gcr-gnupg-renderer.c:515
-#, fuzzy
-msgid "Generic certification of key"
-msgstr "சான்றிதழின் பூட்டை திற"
+msgid "Persona certification of key"
+msgstr "விசைக்கு சான்றிதழ் தரும் நபர்"
 
 #: ../gcr/gcr-gnupg-renderer.c:517
-msgid "Persona certification of key"
-msgstr ""
+msgid "Casual certification of key"
+msgstr "விசையின் திட்டமிடாத சான்றிதழ் அளிப்பு"
 
 #: ../gcr/gcr-gnupg-renderer.c:519
-msgid "Casual certification of key"
-msgstr ""
+msgid "Positive certification of key"
+msgstr "விசையின் உண்மை சான்றிதழ் அளிப்பு"
 
 #: ../gcr/gcr-gnupg-renderer.c:521
-msgid "Positive certification of key"
-msgstr ""
+msgid "Subkey binding signature"
+msgstr "துணைவிசை பந்த கையொப்பம்"
 
 #: ../gcr/gcr-gnupg-renderer.c:523
-msgid "Subkey binding signature"
-msgstr ""
+msgid "Primary key binding signature"
+msgstr "முதன்மை விசை பந்த கையொப்பம்"
 
 #: ../gcr/gcr-gnupg-renderer.c:525
-msgid "Primary key binding signature"
-msgstr ""
+msgid "Signature directly on key"
+msgstr "விசை மீதான நேரடி கையொப்பம் "
 
 #: ../gcr/gcr-gnupg-renderer.c:527
-#, fuzzy
-msgid "Signature directly on key"
-msgstr "கையொப்ப பாராமீட்டர்கள்"
+msgid "Key revocation signature"
+msgstr "விசை திருப்பிப்பெறும் கையொப்பம்"
 
 #: ../gcr/gcr-gnupg-renderer.c:529
-#, fuzzy
-msgid "Key revocation signature"
-msgstr "திருப்பிப்பெற்ற பட்டியல் கையொப்பம்"
+msgid "Subkey revocation signature"
+msgstr "துணைவிசை திருப்பிப்பெறும் கையொப்பம்"
 
 #: ../gcr/gcr-gnupg-renderer.c:531
-#, fuzzy
-msgid "Subkey revocation signature"
-msgstr "திருப்பிப்பெற்ற பட்டியல் கையொப்பம்"
+msgid "Certification revocation signature"
+msgstr "சான்றிதழ் திருப்பிப்பெறும் கையொப்பம்"
 
 #: ../gcr/gcr-gnupg-renderer.c:533
-#, fuzzy
-msgid "Certification revocation signature"
-msgstr "சான்றிதழ் கையொப்பம்"
+msgid "Timestamp signature"
+msgstr "நேரமுத்திரை கையொப்பம்"
 
 #: ../gcr/gcr-gnupg-renderer.c:535
-#, fuzzy
-msgid "Timestamp signature"
-msgstr "மின்னெண் கையொப்பம்"
-
-#: ../gcr/gcr-gnupg-renderer.c:537
 msgid "Third-party confirmation signature"
-msgstr ""
+msgstr "மூன்றாமவர் உறுதிப்படுத்தல் கையொப்பம்"
 
-#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:598
+#: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
 msgid "Class"
-msgstr ""
+msgstr "வகுப்பு"
 
-#: ../gcr/gcr-gnupg-renderer.c:592 ../gcr/gcr-gnupg-renderer.c:594
-msgid "Type"
-msgstr ""
+#: ../gcr/gcr-gnupg-renderer.c:590
+msgid "Local only"
+msgstr "உள்ளமை மட்டும்"
 
 #: ../gcr/gcr-gnupg-renderer.c:592
-#, fuzzy
-msgid "Local only"
-msgstr "இடம்"
-
-#: ../gcr/gcr-gnupg-renderer.c:594
 msgid "Exportable"
-msgstr ""
+msgstr "ஏற்றுமதி செய்யக்கூடிய"
 
-#: ../gcr/gcr-gnupg-renderer.c:612
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:610
 msgid "Revocation Key"
-msgstr "திருப்பிப்பெற்ற பட்டியல் கையொப்பம்"
+msgstr "திருப்பிப்பெற்ற விசை"
 
-#: ../gcr/gcr-gnupg-renderer.c:626 ../gcr/gcr-gnupg-renderer.c:650
-#: ../gcr/gcr-gnupg-renderer.c:652
+#: ../gcr/gcr-gnupg-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:648
+#: ../gcr/gcr-gnupg-renderer.c:650
 msgid "Fingerprint"
 msgstr "கைரேகை"
 
-#: ../gcr/gcr-gnupg-renderer.c:741
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:739
 msgid "Public Subkey"
-msgstr "பொது விசை"
+msgstr "பொது துணைவிசை"
+
+#: ../gcr/gcr-gnupg-renderer.c:741
+msgid "Secret Key"
+msgstr "ரகசிய விசை"
 
 #: ../gcr/gcr-gnupg-renderer.c:743
-msgid "Secret Key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:745
 msgid "Secret Subkey"
-msgstr ""
+msgstr "ரகசிய துணை விசை"
 
-#: ../gcr/gcr-import-button.c:108
-#, fuzzy
+#: ../gcr/gcr-import-button.c:111
 msgid "Initializing..."
-msgstr "முதல்எழுத்துக்கள்"
+msgstr "துவக்குகிறது..."
 
-#: ../gcr/gcr-import-button.c:116
+#: ../gcr/gcr-import-button.c:119
 msgid "Import is in progress..."
-msgstr ""
+msgstr "இறக்குமதி செயலில் உள்ளது..."
 
-#: ../gcr/gcr-import-button.c:123
-#, fuzzy, c-format
+#: ../gcr/gcr-import-button.c:126
+#, c-format
 msgid "Imported to: %s"
-msgstr "இதில் இறக்குமதி செய்:"
+msgstr "இதில் இறக்குமதி செய்யப்பட்டது:%s"
 
-#: ../gcr/gcr-import-button.c:143
-#, fuzzy, c-format
+#: ../gcr/gcr-import-button.c:146
+#, c-format
 msgid "Import to: %s"
-msgstr "இதில் இறக்குமதி செய்:"
+msgstr "இதில் இறக்குமதி செய்:%s"
 
-#: ../gcr/gcr-import-button.c:156
-#, fuzzy
+#: ../gcr/gcr-import-button.c:159
 msgid "Cannot import because there are no compatible importers"
-msgstr "விசை வகை தவறானது. ஆகையால் இறக்குமதி  செய்யப்பட இயலாது "
+msgstr "இசைவான இறக்குமதியாளர் இல்லை. ஆகையால் இறக்குமதி  செய்ய இயலாது "
 
-#: ../gcr/gcr-import-button.c:165
-#, fuzzy
+#: ../gcr/gcr-import-button.c:168
 msgid "No data to import"
-msgstr "இறக்க இடம் எதுவும் இல்லை"
+msgstr "இறக்க தரவு எதுவும் இல்லை"
 
-#: ../gcr/gcr-key-renderer.c:82
+#: ../gcr/gcr-key-renderer.c:89
 msgid "Key"
 msgstr "விசை"
 
-#: ../gcr/gcr-key-renderer.c:281
+#: ../gcr/gcr-key-renderer.c:403
 msgid "Private RSA Key"
 msgstr "அந்தரங்க ஆர்எஸ்ஏ விசை"
 
-#: ../gcr/gcr-key-renderer.c:283
+#: ../gcr/gcr-key-renderer.c:405
 msgid "Private DSA Key"
 msgstr "அந்தரங்க டிஎஸ்ஏ விசை"
 
-#: ../gcr/gcr-key-renderer.c:285 ../gcr/gcr-parser.c:313
+#: ../gcr/gcr-key-renderer.c:407 ../gcr/gcr-parser.c:319
 msgid "Private Key"
 msgstr "அந்தரங்க விசை"
 
-#: ../gcr/gcr-key-renderer.c:288 ../gcr/gcr-key-renderer.c:290
+#: ../gcr/gcr-key-renderer.c:410 ../gcr/gcr-key-renderer.c:412
 msgid "Public DSA Key"
 msgstr "பொது டிஎஸ்ஏ விசை"
 
-#: ../gcr/gcr-key-renderer.c:299
+#: ../gcr/gcr-key-renderer.c:421
 #, c-format
 msgid "%d bit"
 msgid_plural "%d bits"
 msgstr[0] "%d பிட்"
 msgstr[1] "%d பிட்கள்"
 
-#: ../gcr/gcr-key-renderer.c:300
+#: ../gcr/gcr-key-renderer.c:422
 msgid "Strength"
 msgstr "பலம்"
 
 #. Fingerprints
-#: ../gcr/gcr-key-renderer.c:324
+#: ../gcr/gcr-key-renderer.c:445
 msgid "Fingerprints"
 msgstr "கைரேகைகள்"
 
-#: ../gcr/gcr-key-renderer.c:329
+#: ../gcr/gcr-key-renderer.c:449
 msgid "SHA1"
 msgstr "எஸ்ஹெச்ஏ1"
 
-#: ../gcr/gcr-key-renderer.c:335
+#: ../gcr/gcr-key-renderer.c:454
 msgid "SHA256"
 msgstr "எஸ்ஹெச்ஏ256"
 
-#: ../gcr/gcr-parser.c:2180
+#: ../gcr/gcr-parser.c:331
+msgid "Certificate Request"
+msgstr "சான்றிதழ் வேண்டுதல்"
+
+#: ../gcr/gcr-parser.c:2427
 msgid "Unrecognized or unsupported data."
 msgstr "இனம் காணாத அல்லது ஆதரவு இல்லா தரவு."
 
-#: ../gcr/gcr-parser.c:2183
+#: ../gcr/gcr-parser.c:2430
 msgid "Could not parse invalid or corrupted data."
 msgstr "பகுக்க செல்லுபடியாகாத அல்லது சிதைந்த தரவு."
 
-#: ../gcr/gcr-parser.c:2186
+#: ../gcr/gcr-parser.c:2433
 msgid "The data is locked"
 msgstr "தரவு பூட்டப்பட்டுள்ளது"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:186
-#, fuzzy
+#: ../gcr/gcr-pkcs11-import-dialog.c:187
 msgid "Automatically chosen"
-msgstr "நான் உள்நுழையும்போது தானியங்கியாக இதைை பூட்டு திறக்கவும்."
+msgstr "தானியங்கியாக தேர்ந்தெடுத்தது"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:270
+#: ../gcr/gcr-pkcs11-import-dialog.c:271
 #: ../gcr/gcr-pkcs11-import-interaction.c:153
 #: ../gcr/gcr-pkcs11-import-interaction.c:171
 #, c-format
 msgid "The user cancelled the operation"
-msgstr ""
+msgstr "பயனர் செயலை ரத்து செய்தாஅர்"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-msgid "<b>Import settings</b>"
-msgstr ""
+msgid "Import settings"
+msgstr "அமைப்புகளை இறக்குமதி செய்"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
-#, fuzzy
-msgid "<b>Unlock</b>"
-msgstr "பூட்டை திற"
+msgid "In order to import, please enter the password."
+msgstr "இறக்குமதிக்கு கடவுச்சொல்லை இடுக"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
-#, fuzzy
-msgid "In order to import, please enter the password."
-msgstr "'%s'யை இறக்க, அது பூட்டு நீக்கப்பட வேண்டும்."
+msgid "Label"
+msgstr "விளக்கச்சீட்டு"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
-msgid "Label"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
 msgid "Label:"
-msgstr ""
+msgstr "விளக்கச்சீட்டு:"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
+#. The password label
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5 ../gcr/gcr-prompt-dialog.c:559
 msgid "Password:"
 msgstr "கடவுச்சொல்:"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
 msgid "Token:"
-msgstr ""
+msgstr "டோகன்:"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7 ../gcr/gcr-unlock-renderer.c:71
+#: ../gcr/gcr-unlock-renderer.c:128
+msgid "Unlock"
+msgstr "பூட்டை திற"
+
+#: ../gcr/gcr-prompt.c:218
+msgid "Continue"
+msgstr "தொடரவும்"
+
+#: ../gcr/gcr-prompt.c:227
+msgid "Cancel"
+msgstr "ரத்து செய்"
+
+#. The confirm label
+#: ../gcr/gcr-prompt-dialog.c:576
+msgid "Confirm:"
+msgstr "உறுதியாக்கம்:"
+
+#: ../gcr/gcr-prompt-dialog.c:643
+msgid "Passwords do not match."
+msgstr "கடவுச்சொற்கள் பொருந்தவில்லை"
+
+#: ../gcr/gcr-prompt-dialog.c:650
+msgid "Password cannot be blank"
+msgstr "கடவுச்சொல் வெறுமையாக இருக்க முடியாது"
+
+#: ../gcr/gcr-prompter.desktop.in.in.h:1
+msgid "Access Prompt"
+msgstr "அணுகல் தூண்டல்"
+
+#: ../gcr/gcr-prompter.desktop.in.in.h:2
+msgid "Unlock access to passwords and other secrets"
+msgstr "கடவுச்சொற்களுக்கும் மற்ற ரகசியங்களுக்கும் அணுகலை பூட்டு திற"
+
+#: ../gcr/gcr-subject-public-key.c:345
+msgid "Unrecognized or unavailable attributes for key"
+msgstr "விசைக்கு அடையாளமில்லாத அல்லது கிடைக்காத பண்புகள்"
+
+#: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
+msgid "Couldn't build public key"
+msgstr "பொது விசையை உருவாக்கமுடியவில்லை"
+
+#: ../gcr/gcr-system-prompt.c:749
+msgid "Another prompt is already in progress"
+msgstr "இன்னொரு தூண்டல் செயலில் உள்ளது"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:376
+#: ../gcr/gcr-trust.c:370
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "பிணைக்கப்பட்ட சான்றிதழ்களை சேமிக்க ஒரு இடத்தை கண்டுபிடிக்க முடியவில்லை"
@@ -955,27 +1025,23 @@ msgstr "நான் வெளி செல்லும்போது இந்
 msgid "minutes"
 msgstr "நிமிடங்கள்"
 
-#: ../gcr/gcr-unlock-renderer.c:70
+#: ../gcr/gcr-unlock-renderer.c:69
 #, c-format
 msgid "Unlock: %s"
 msgstr "பூட்டை திற:%s"
 
-#: ../gcr/gcr-unlock-renderer.c:72 ../gcr/gcr-unlock-renderer.c:129
-msgid "Unlock"
-msgstr "பூட்டை திற"
-
-#: ../gcr/gcr-unlock-renderer.c:126
+#: ../gcr/gcr-unlock-renderer.c:125
 msgid "Password"
 msgstr "கடவுச்சொல்"
 
-#: ../gcr/gcr-unlock-renderer.c:279
+#: ../gcr/gcr-unlock-renderer.c:278
 #, c-format
 msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
 "correct password."
 msgstr "'%s' இன் உள்ளடக்கங்கள் பூட்டப்பட்டன. அவற்றை காண சரியான கடவுச்சொல்லை உள்ளிடவும்."
 
-#: ../gcr/gcr-unlock-renderer.c:282
+#: ../gcr/gcr-unlock-renderer.c:281
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
@@ -993,46 +1059,30 @@ msgstr "இப்பயன்பாட்டின் பதிப்பைக�
 msgid "[file...]"
 msgstr "[file...]"
 
-#: ../gcr/gcr-viewer-tool.c:104
+#: ../gcr/gcr-viewer-tool.c:103
 msgid "- View certificate and key files"
 msgstr "-சான்றிதழ் மற்றும் விசை கோப்புகள் ஐ காண்"
 
-#: ../gcr/gcr-viewer-tool.c:118
+#: ../gcr/gcr-viewer-tool.c:117 ../gcr/gcr-viewer-widget.c:635
 msgid "Certificate Viewer"
 msgstr "சான்றிதழ் காட்டி"
 
-#: ../gcr/gcr-viewer-widget.c:191
+#: ../gcr/gcr-viewer-widget.c:203
 msgid "The password was incorrect"
 msgstr "கடவுச்சொல் தவறானது."
 
-#: ../gcr/gcr-viewer-window.c:68
-#, fuzzy
+#: ../gcr/gcr-viewer-window.c:76
 msgid "Imported"
-msgstr "இதில் இறக்குமதி செய்:"
+msgstr "இறக்குமதி செய்யப்பட்டது"
 
-#: ../gcr/gcr-viewer-window.c:72
-#, fuzzy
+#: ../gcr/gcr-viewer-window.c:80
 msgid "Import failed"
-msgstr "செயல் தோல்வியடைந்தது"
+msgstr "இறக்க முடியவில்லை"
 
-#: ../gcr/gcr-viewer-window.c:103
-#, fuzzy
+#: ../gcr/gcr-viewer-window.c:108
 msgid "Import"
-msgstr "இதில் இறக்குமதி செய்:"
+msgstr "இறக்குமதி செய்"
 
-#: ../gck/gck-uri.c:223
-#, c-format
-msgid "The URI has invalid encoding."
-msgstr "யூஆர் ஐ க்கு செல்லுபடியாகாத குறியாக்கம் உள்ளது"
-
-#: ../gck/gck-uri.c:227
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "யூஆர்ஐ ´pkcs11´  திட்டத்தை கொண்டிருக்கவில்லை."
-
-#: ../gck/gck-uri.c:231
-msgid "The URI has bad syntax."
-msgstr "யூஆர்ஐ க்கு மோசமான வழிமுறைத் தொடரமைப்பு உள்ளது"
-
-#: ../gck/gck-uri.c:235
-msgid "The URI has a bad version number."
-msgstr "யூஆர்ஐ க்கு மோசமான பதிப்பு எண் உள்ளது"
+#, fuzzy
+#~ msgid "<b>Unlock</b>"
+#~ msgstr "பூட்டை திற"

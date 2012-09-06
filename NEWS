@@ -1,3 +1,9 @@
+gcr 3.5.90:
+ - Updated translations
+ - Don't fail preconditions when pkcs11 isn't initialized in gcr
+ - Fix regression in ASN.1 parsing
+ - Build fixes
+
 gcr 3.5.5:
  - Use p11-kit/pkcs11.h instead of shipping a copy with gck.
  - Documentation fixes

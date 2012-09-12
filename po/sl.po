@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-06-26 06:47+0000\n"
-"PO-Revision-Date: 2012-06-26 09:09+0100\n"
+"POT-Creation-Date: 2012-06-26 07:13+0000\n"
+"PO-Revision-Date: 2012-09-12 11:03+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: Slovenian\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -519,9 +519,9 @@ msgid "Critical"
 msgstr "Kritično"
 
 #: ../gcr/gcr-certificate-request.c:418
-#, fuzzy, c-format
+#, c-format
 msgid "Unsupported key type for certificate request"
-msgstr "Ustvari zahtevo datoteke potrdila za ta ključ"
+msgstr "Nepodprta vrsta ključa za zahtevo datoteke potrdila"
 
 #: ../gcr/gcr-certificate-request.c:505
 #: ../gcr/gcr-certificate-request.c:590
@@ -551,9 +551,8 @@ msgid "Type"
 msgstr "Vrsta"
 
 #: ../gcr/gcr-certificate-request-renderer.c:376
-#, fuzzy
 msgid "Challenge"
-msgstr "Izziv:"
+msgstr "Izzovi"
 
 #: ../gcr/gcr-display-view.c:319
 msgid "_Details"
@@ -658,29 +657,24 @@ msgid "Expired"
 msgstr "Pretečeno"
 
 #: ../gcr/gcr-gnupg-renderer.c:264
-#, fuzzy
 msgid "Undefined trust"
-msgstr "Zaupaj strežniku"
+msgstr "Nedoločeno zaupanje"
 
 #: ../gcr/gcr-gnupg-renderer.c:266
-#, fuzzy
 msgid "Distrusted"
-msgstr "Nezaupljivo"
+msgstr "Nevredni zaupanja"
 
 #: ../gcr/gcr-gnupg-renderer.c:268
-#, fuzzy
 msgid "Marginally trusted"
-msgstr "Pokaži _zaupljive"
+msgstr "Pogojno vredni zaupanja"
 
 #: ../gcr/gcr-gnupg-renderer.c:270
-#, fuzzy
 msgid "Fully trusted"
-msgstr "Pokaži _zaupljive"
+msgstr "Vredni zaupanja"
 
 #: ../gcr/gcr-gnupg-renderer.c:272
-#, fuzzy
 msgid "Ultimately trusted"
-msgstr "Pokaži _zaupljive"
+msgstr "Popolnoma vredni zaupanja"
 
 #: ../gcr/gcr-gnupg-renderer.c:286
 msgid "The information in this key has not yet been verified"
@@ -703,24 +697,20 @@ msgid "This key has expired"
 msgstr "Ključ je pretekel"
 
 #: ../gcr/gcr-gnupg-renderer.c:303
-#, fuzzy
 msgid "This key is distrusted"
-msgstr "Ključ ni pisljiv"
+msgstr "Ključ ni vreden zaupanja"
 
 #: ../gcr/gcr-gnupg-renderer.c:306
-#, fuzzy
 msgid "This key is marginally trusted"
-msgstr "Ta ključ ni pisljiv"
+msgstr "Ta ključ je le pogojno vreden zaupanja"
 
 #: ../gcr/gcr-gnupg-renderer.c:309
-#, fuzzy
 msgid "This key is fully trusted"
-msgstr "Ta ključ ni pisljiv"
+msgstr "Ta ključ je vreden zaupanja"
 
 #: ../gcr/gcr-gnupg-renderer.c:312
-#, fuzzy
 msgid "This key is ultimately trusted"
-msgstr "Ta ključ ni pisljiv"
+msgstr "Ta ključ je vreden popolnega zaupanja"
 
 #: ../gcr/gcr-gnupg-renderer.c:337
 #: ../gcr/gcr-gnupg-renderer.c:563
@@ -743,9 +733,8 @@ msgstr "Ustvarjeno"
 #: ../gcr/gcr-gnupg-renderer.c:369
 #: ../gcr/gcr-gnupg-renderer.c:446
 #: ../gcr/gcr-gnupg-renderer.c:489
-#, fuzzy
 msgid "Expiry"
-msgstr "Poteče: %s"
+msgstr "Poteče"
 
 #: ../gcr/gcr-gnupg-renderer.c:378
 msgid "Capabilities"
@@ -765,11 +754,8 @@ msgid "Comment"
 msgstr "Opomba"
 
 #: ../gcr/gcr-gnupg-renderer.c:465
-#, fuzzy
 msgid "User Attribute"
-msgstr ""
-"\n"
-"Atributi podključa:%s"
+msgstr "Atributi uporabnika"
 
 #: ../gcr/gcr-gnupg-renderer.c:472
 #: ../gcr/gcr-key-renderer.c:441
@@ -777,78 +763,64 @@ msgid "Size"
 msgstr "Velikost"
 
 #: ../gcr/gcr-gnupg-renderer.c:507
-#, fuzzy
 msgid "Signature of a binary document"
-msgstr "Dokument je že odprt"
+msgstr "Podpis dvojiškega dokumenta"
 
 #: ../gcr/gcr-gnupg-renderer.c:509
-#, fuzzy
 msgid "Signature of a canonical text document"
-msgstr "Ni mogoče izluščiti besedila iz dokumenta."
+msgstr "Podpis kanoničnega besedilnega dokumenta"
 
 #: ../gcr/gcr-gnupg-renderer.c:511
 msgid "Standalone signature"
 msgstr "Samostojni podpis"
 
 #: ../gcr/gcr-gnupg-renderer.c:513
-#, fuzzy
 msgid "Generic certification of key"
-msgstr "Splošna tipkovnica s 101 tipko PC"
+msgstr "Splošno potrjevanje ključa"
 
 #: ../gcr/gcr-gnupg-renderer.c:515
-#, fuzzy
 msgid "Persona certification of key"
-msgstr "Doslednost je moč"
+msgstr "Osebno preverjanje ključa"
 
 #: ../gcr/gcr-gnupg-renderer.c:517
-#, fuzzy
 msgid "Casual certification of key"
-msgstr "Doslednost je moč"
+msgstr "Neobvezno preverjanje ključa"
 
 #: ../gcr/gcr-gnupg-renderer.c:519
-#, fuzzy
 msgid "Positive certification of key"
-msgstr "Doslednost je moč"
+msgstr "Pozitivno preverjanje ključa"
 
 #: ../gcr/gcr-gnupg-renderer.c:521
-#, fuzzy
 msgid "Subkey binding signature"
-msgstr "_Vključi podpis"
+msgstr "Podpis vezave podključa"
 
 #: ../gcr/gcr-gnupg-renderer.c:523
-#, fuzzy
 msgid "Primary key binding signature"
-msgstr "Ni vrednosti osnovnega ključa"
+msgstr "Podpis vezave osnovnega ključa"
 
 #: ../gcr/gcr-gnupg-renderer.c:525
-#, fuzzy
 msgid "Signature directly on key"
-msgstr "Dejanje ključa na imeniku"
+msgstr "Podpis neposredno na ključu"
 
 #: ../gcr/gcr-gnupg-renderer.c:527
-#, fuzzy
 msgid "Key revocation signature"
-msgstr "Podpis seznama preklica"
+msgstr "Podpis preklica ključa"
 
 #: ../gcr/gcr-gnupg-renderer.c:529
-#, fuzzy
 msgid "Subkey revocation signature"
-msgstr "Podpis seznama preklica"
+msgstr "Podpis preklica podključa"
 
 #: ../gcr/gcr-gnupg-renderer.c:531
-#, fuzzy
 msgid "Certification revocation signature"
-msgstr "Podpis seznama preklica"
+msgstr "Podpis preklica potrdila"
 
 #: ../gcr/gcr-gnupg-renderer.c:533
-#, fuzzy
 msgid "Timestamp signature"
-msgstr "_Pot podpisa"
+msgstr "Podpis časovnega žiga"
 
 #: ../gcr/gcr-gnupg-renderer.c:535
-#, fuzzy
 msgid "Third-party confirmation signature"
-msgstr "O zunanjih vstavkih Anjute"
+msgstr "Podpis potrditve tretje strani"
 
 #: ../gcr/gcr-gnupg-renderer.c:588
 #: ../gcr/gcr-gnupg-renderer.c:596
@@ -864,9 +836,8 @@ msgid "Exportable"
 msgstr "Izvozljivo"
 
 #: ../gcr/gcr-gnupg-renderer.c:610
-#, fuzzy
 msgid "Revocation Key"
-msgstr "Šifrirni ključ: "
+msgstr "Preklicni ključ"
 
 #: ../gcr/gcr-gnupg-renderer.c:624
 #: ../gcr/gcr-gnupg-renderer.c:648
@@ -1041,9 +1012,8 @@ msgid "Password cannot be blank"
 msgstr "Geslo ne more biti prazno"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:1
-#, fuzzy
 msgid "Access Prompt"
-msgstr "Vrsta poziva"
+msgstr "Vnos za dostop"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
@@ -1059,9 +1029,8 @@ msgid "Couldn't build public key"
 msgstr "Ni mogoče izgraditi javnega ključa"
 
 #: ../gcr/gcr-system-prompt.c:753
-#, fuzzy
 msgid "Another prompt is already in progress"
-msgstr "Dejanje nalaganja je že v teku"
+msgstr "Drug vnos je že v teku"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
@@ -1147,6 +1116,3 @@ msgstr "Uvoz je spodletel"
 msgid "Import"
 msgstr "Uvozi"
 
-#, fuzzy
-#~ msgid "<b>Unlock</b>"
-#~ msgstr "Odkleni"

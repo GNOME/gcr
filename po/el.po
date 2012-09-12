@@ -9,15 +9,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-06-19 14:04+0000\n"
-"PO-Revision-Date: 2012-07-25 10:25+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2012-07-25 07:33+0000\n"
+"PO-Revision-Date: 2012-09-12 12:30+0200\n"
 "Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "X-Generator: Lokalize 0.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -25,8 +26,7 @@ msgstr ""
 msgid "Domain Component"
 msgstr "Συστατικό τομέα"
 
-#: ../egg/egg-oid.c:43
-#: ../gcr/gcr-gnupg-renderer.c:409
+#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:409
 #: ../gcr/gcr-gnupg-renderer.c:578
 msgid "User ID"
 msgstr "ID Χρήστη"
@@ -63,8 +63,7 @@ msgstr "Κοινό όνομα"
 msgid "Surname"
 msgstr "Επώνυμο"
 
-#: ../egg/egg-oid.c:69
-#: ../gcr/gcr-certificate-renderer.c:557
+#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:557
 msgid "Serial Number"
 msgstr "Σειριακός αριθμός"
 
@@ -120,9 +119,8 @@ msgstr "Προσδιοριστικό DN"
 msgid "Pseudonym"
 msgstr "Ψευδώνυμο"
 
-#: ../egg/egg-oid.c:98
-#: ../gcr/gcr-gnupg-renderer.c:200
-#: ../gcr/gcr-key-renderer.c:430
+#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
+#: ../gcr/gcr-key-renderer.c:429
 msgid "RSA"
 msgstr "RSA"
 
@@ -138,9 +136,8 @@ msgstr "MD5 με RSA"
 msgid "SHA1 with RSA"
 msgstr "SHA1 με RSA"
 
-#: ../egg/egg-oid.c:103
-#: ../gcr/gcr-gnupg-renderer.c:204
-#: ../gcr/gcr-key-renderer.c:432
+#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
+#: ../gcr/gcr-key-renderer.c:431
 msgid "DSA"
 msgstr "DSA"
 
@@ -166,9 +163,8 @@ msgid "Email Protection"
 msgstr "Προστασία ηλεκτρονικής διεύθυνσης"
 
 #: ../egg/egg-oid.c:111
-#, fuzzy
 msgid "Time Stamping"
-msgstr "Αποτύπωση χρόνου ή Χρονική αποτύπωση ή Σφραγίδα χρόνου ή Χρονική σφραγίδα ;;;"
+msgstr "Χρονική σήμανση"
 
 #: ../gck/gck-module.c:352
 #, c-format
@@ -201,9 +197,8 @@ msgid "The URI has invalid encoding."
 msgstr "Το URI έχει μη έγκυρη κωδικοποίηση."
 
 #: ../gck/gck-uri.c:228
-#, fuzzy
 msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "Το URI δεν έχει το 'pkcs11' scheme."
+msgstr "Το URI δεν έχει το σχήμα 'pkcs11'."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -221,8 +216,7 @@ msgstr "Η ροή έκλεισε"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:308
-#: ../gcr/gcr-gnupg-key.c:432
+#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "Όνομα"
@@ -238,10 +232,8 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Λήγει"
 
-#: ../gcr/gcr-certificate.c:1133
-#: ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:102
-#: ../gcr/gcr-parser.c:322
+#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-certificate-exporter.c:463
+#: ../gcr/gcr-certificate-renderer.c:102 ../gcr/gcr-parser.c:322
 msgid "Certificate"
 msgstr "Πιστοποιητικό"
 
@@ -280,16 +272,15 @@ msgstr "Αρχεία PEM"
 msgid "Other Name"
 msgstr "Άλλο όνομα"
 
-#: ../gcr/gcr-certificate-extensions.c:187
+#: ../gcr/gcr-certificate-extensions.c:188
 msgid "XMPP Addr"
 msgstr "XMPP Addr"
 
-#: ../gcr/gcr-certificate-extensions.c:191
+#: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: ../gcr/gcr-certificate-extensions.c:204
-#: ../gcr/gcr-gnupg-renderer.c:422
+#: ../gcr/gcr-certificate-extensions.c:204 ../gcr/gcr-gnupg-renderer.c:422
 #: ../gcr/gcr-gnupg-renderer.c:704
 msgid "Email"
 msgstr "Ηλ. διεύθυνση"
@@ -330,13 +321,11 @@ msgstr "Βασικοί περιορισμοί"
 msgid "Certificate Authority"
 msgstr "Αρχή πιστοποίησης"
 
-#: ../gcr/gcr-certificate-renderer.c:120
-#: ../gcr/gcr-certificate-renderer.c:961
+#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
 msgid "Yes"
 msgstr "Ναι"
 
-#: ../gcr/gcr-certificate-renderer.c:120
-#: ../gcr/gcr-certificate-renderer.c:961
+#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
 msgid "No"
 msgstr "Όχι"
 
@@ -377,9 +366,8 @@ msgid "Data encipherment"
 msgstr "Κρυπρογράφηση δεδομένων"
 
 #: ../gcr/gcr-certificate-renderer.c:189
-#, fuzzy
 msgid "Key agreement"
-msgstr "Συμφωνία κλειδιού"
+msgstr "Άδεια κλειδιού"
 
 #: ../gcr/gcr-certificate-renderer.c:190
 msgid "Certificate signature"
@@ -411,8 +399,7 @@ msgstr "Αναγνωριστικό"
 
 #: ../gcr/gcr-certificate-renderer.c:269
 #: ../gcr/gcr-certificate-request-renderer.c:272
-#: ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-gnupg-renderer.c:430
+#: ../gcr/gcr-gnupg-renderer.c:413 ../gcr/gcr-gnupg-renderer.c:430
 msgid "Value"
 msgstr "Τιμή"
 
@@ -429,8 +416,7 @@ msgstr "Ταυτότητα"
 msgid "Verified by"
 msgstr "Επαληθεύτηκε από"
 
-#: ../gcr/gcr-certificate-renderer.c:530
-#: ../gcr/gcr-gnupg-renderer.c:718
+#: ../gcr/gcr-certificate-renderer.c:530 ../gcr/gcr-gnupg-renderer.c:718
 msgid "Expires"
 msgstr "Λήγει"
 
@@ -476,8 +462,7 @@ msgid "Public Key Info"
 msgstr "Πληροφορίες Δημοσίου Κλειδιού"
 
 #. Signature
-#: ../gcr/gcr-certificate-renderer.c:597
-#: ../gcr/gcr-certificate-renderer.c:918
+#: ../gcr/gcr-certificate-renderer.c:597 ../gcr/gcr-certificate-renderer.c:918
 #: ../gcr/gcr-certificate-request-renderer.c:349
 #: ../gcr/gcr-certificate-request-renderer.c:386
 #: ../gcr/gcr-gnupg-renderer.c:559
@@ -492,8 +477,7 @@ msgstr "Αλγόριθμος κλειδιού"
 msgid "Key Parameters"
 msgstr "Παράμετροι κλειδιού"
 
-#: ../gcr/gcr-certificate-renderer.c:877
-#: ../gcr/gcr-gnupg-renderer.c:352
+#: ../gcr/gcr-certificate-renderer.c:877 ../gcr/gcr-gnupg-renderer.c:352
 msgid "Key Size"
 msgstr "Μέγεθος κλειδιού"
 
@@ -501,10 +485,8 @@ msgstr "Μέγεθος κλειδιού"
 msgid "Key SHA1 Fingerprint"
 msgstr "Αποτύπωμα κλειδιού SHA1"
 
-#: ../gcr/gcr-certificate-renderer.c:890
-#: ../gcr/gcr-gnupg-renderer.c:737
-#: ../gcr/gcr-key-renderer.c:415
-#: ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
+#: ../gcr/gcr-key-renderer.c:414 ../gcr/gcr-parser.c:325
 msgid "Public Key"
 msgstr "Δημόσιο κλειδί"
 
@@ -525,8 +507,7 @@ msgstr "Κρίσιμο"
 msgid "Unsupported key type for certificate request"
 msgstr "Μη υποστηριζόμενος τύπος κλειδιού για την αίτηση πιστοποίησης"
 
-#: ../gcr/gcr-certificate-request.c:508
-#: ../gcr/gcr-certificate-request.c:593
+#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Το κλειδί δεν μπόρεσε να χρησιμοποιηθεί για να υπογράφει η αίτηση"
@@ -547,8 +528,7 @@ msgstr "Χαρακτηριστικό"
 #: ../gcr/gcr-certificate-request-renderer.c:265
 #: ../gcr/gcr-certificate-request-renderer.c:324
 #: ../gcr/gcr-certificate-request-renderer.c:372
-#: ../gcr/gcr-gnupg-renderer.c:590
-#: ../gcr/gcr-gnupg-renderer.c:592
+#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:592
 msgid "Type"
 msgstr "Τύπος"
 
@@ -587,8 +567,7 @@ msgstr "GnuPG κλειδοθήκη"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG κλειδοθήκη: %s"
 
-#: ../gcr/gcr-gnupg-key.c:145
-#: ../gcr/gcr-gnupg-renderer.c:88
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-gnupg-renderer.c:88
 #: ../gcr/gcr-parser.c:328
 msgid "PGP Key"
 msgstr "Κλειδί PGP"
@@ -608,9 +587,8 @@ msgstr "Η διεργασία Gnupg τερμτίστηκε με κωδικό: %d
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Η διεργασία Gnupg τερματίστηκε με σήμα: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927
-#: ../gcr/gcr-parser.c:2483
-#: ../gcr/gcr-parser.c:2982
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
+#: ../gcr/gcr-parser.c:2917
 msgid "The operation was cancelled"
 msgstr "Η διεργασία ακυρώθηκε"
 
@@ -634,15 +612,12 @@ msgstr "Βεβαίωση"
 msgid "Authenticate"
 msgstr "Πιστοποίηση"
 
-#: ../gcr/gcr-gnupg-renderer.c:223
-#: ../gcr/gcr-gnupg-renderer.c:258
+#: ../gcr/gcr-gnupg-renderer.c:223 ../gcr/gcr-gnupg-renderer.c:258
 msgid "Disabled"
 msgstr "Απενεργοποιημένο"
 
-#: ../gcr/gcr-gnupg-renderer.c:254
-#: ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-key-renderer.c:434
-#: ../gcr/gcr-key-renderer.c:439
+#: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
+#: ../gcr/gcr-key-renderer.c:433 ../gcr/gcr-key-renderer.c:438
 msgid "Unknown"
 msgstr "Άγνωστο"
 
@@ -714,26 +689,21 @@ msgstr "Αυτό το κλειδί είναι πλήρως αξιόπιστο"
 msgid "This key is ultimately trusted"
 msgstr "Αυτό το κλειδί είναι απολύτως αξιόπιστο"
 
-#: ../gcr/gcr-gnupg-renderer.c:337
-#: ../gcr/gcr-gnupg-renderer.c:563
+#: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
 msgid "Key ID"
 msgstr "ID Κλειδιού"
 
-#: ../gcr/gcr-gnupg-renderer.c:345
-#: ../gcr/gcr-gnupg-renderer.c:571
-#: ../gcr/gcr-gnupg-renderer.c:618
-#: ../gcr/gcr-key-renderer.c:435
+#: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
+#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:434
 msgid "Algorithm"
 msgstr "Αλγόριθμος"
 
-#: ../gcr/gcr-gnupg-renderer.c:360
-#: ../gcr/gcr-gnupg-renderer.c:437
+#: ../gcr/gcr-gnupg-renderer.c:360 ../gcr/gcr-gnupg-renderer.c:437
 #: ../gcr/gcr-gnupg-renderer.c:480
 msgid "Created"
 msgstr "Δημιουργήθηκε"
 
-#: ../gcr/gcr-gnupg-renderer.c:369
-#: ../gcr/gcr-gnupg-renderer.c:446
+#: ../gcr/gcr-gnupg-renderer.c:369 ../gcr/gcr-gnupg-renderer.c:446
 #: ../gcr/gcr-gnupg-renderer.c:489
 msgid "Expiry"
 msgstr "Λήξη"
@@ -750,8 +720,7 @@ msgstr "Εμπιστοσύνη ιδιοκτήτη"
 msgid "Name"
 msgstr "Όνομα"
 
-#: ../gcr/gcr-gnupg-renderer.c:425
-#: ../gcr/gcr-gnupg-renderer.c:707
+#: ../gcr/gcr-gnupg-renderer.c:425 ../gcr/gcr-gnupg-renderer.c:707
 msgid "Comment"
 msgstr "Σχόλιο"
 
@@ -759,8 +728,7 @@ msgstr "Σχόλιο"
 msgid "User Attribute"
 msgstr "Χαρακτηριστικό χρήστη"
 
-#: ../gcr/gcr-gnupg-renderer.c:472
-#: ../gcr/gcr-key-renderer.c:442
+#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
 msgid "Size"
 msgstr "Μέγεθος"
 
@@ -773,7 +741,6 @@ msgid "Signature of a canonical text document"
 msgstr "Υπογραφή ενός κανονικού εγγράφου κειμένου"
 
 #: ../gcr/gcr-gnupg-renderer.c:511
-#, fuzzy
 msgid "Standalone signature"
 msgstr "Αυτόνομη υπογραφή"
 
@@ -794,12 +761,10 @@ msgid "Positive certification of key"
 msgstr "Θετική πιστοποίηση του κλειδιού"
 
 #: ../gcr/gcr-gnupg-renderer.c:521
-#, fuzzy
 msgid "Subkey binding signature"
 msgstr "Δεσμευτική υπογραφή υποκλειδιού"
 
 #: ../gcr/gcr-gnupg-renderer.c:523
-#, fuzzy
 msgid "Primary key binding signature"
 msgstr "Δεσμευτική υπογραφή πρωτεύοντος κλειδιού"
 
@@ -820,16 +785,14 @@ msgid "Certification revocation signature"
 msgstr "Πιστοποιητικό ανάκλησης υπογραφής"
 
 #: ../gcr/gcr-gnupg-renderer.c:533
-#, fuzzy
 msgid "Timestamp signature"
-msgstr "Υπογραφή χρονικής σφραγίδας"
+msgstr "Υπογραφή χρονικής σήμανσης"
 
 #: ../gcr/gcr-gnupg-renderer.c:535
 msgid "Third-party confirmation signature"
 msgstr "Υπογραφή επιβεβαίωσης τρίτων"
 
-#: ../gcr/gcr-gnupg-renderer.c:588
-#: ../gcr/gcr-gnupg-renderer.c:596
+#: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
 msgid "Class"
 msgstr "Κλάση"
 
@@ -845,8 +808,7 @@ msgstr "Εξαγωγίσιμο"
 msgid "Revocation Key"
 msgstr "Κλειδί ανάκλησης"
 
-#: ../gcr/gcr-gnupg-renderer.c:624
-#: ../gcr/gcr-gnupg-renderer.c:648
+#: ../gcr/gcr-gnupg-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:648
 #: ../gcr/gcr-gnupg-renderer.c:650
 msgid "Fingerprint"
 msgstr "Αποτύπωμα"
@@ -889,49 +851,47 @@ msgstr "Αδυναμία εισαγωγής διότι δεν υπάρχουν �
 msgid "No data to import"
 msgstr "Δεν υπάρχουν δεδομένα για εισαγωγή"
 
-#: ../gcr/gcr-key-renderer.c:90
+#: ../gcr/gcr-key-renderer.c:89
 msgid "Key"
 msgstr "Κλειδί"
 
-#: ../gcr/gcr-key-renderer.c:404
+#: ../gcr/gcr-key-renderer.c:403
 msgid "Private RSA Key"
 msgstr "Ιδιωτικό κλειδί RSA"
 
-#: ../gcr/gcr-key-renderer.c:406
+#: ../gcr/gcr-key-renderer.c:405
 msgid "Private DSA Key"
 msgstr "Ιδιωτικό κλειδί DSA"
 
-#: ../gcr/gcr-key-renderer.c:408
-#: ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-key-renderer.c:407 ../gcr/gcr-parser.c:319
 msgid "Private Key"
 msgstr "Ιδιωτικό κλειδί"
 
-#: ../gcr/gcr-key-renderer.c:411
-#: ../gcr/gcr-key-renderer.c:413
+#: ../gcr/gcr-key-renderer.c:410 ../gcr/gcr-key-renderer.c:412
 msgid "Public DSA Key"
 msgstr "Δημόσιο κλειδί DSA"
 
-#: ../gcr/gcr-key-renderer.c:422
+#: ../gcr/gcr-key-renderer.c:421
 #, c-format
 msgid "%d bit"
 msgid_plural "%d bits"
 msgstr[0] "%d bit"
 msgstr[1] "%d bits"
 
-#: ../gcr/gcr-key-renderer.c:423
+#: ../gcr/gcr-key-renderer.c:422
 msgid "Strength"
 msgstr "Ισχύς"
 
 #. Fingerprints
-#: ../gcr/gcr-key-renderer.c:446
+#: ../gcr/gcr-key-renderer.c:445
 msgid "Fingerprints"
 msgstr "Αποτυπώματα"
 
-#: ../gcr/gcr-key-renderer.c:450
+#: ../gcr/gcr-key-renderer.c:449
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../gcr/gcr-key-renderer.c:455
+#: ../gcr/gcr-key-renderer.c:454
 msgid "SHA256"
 msgstr "SHA256"
 
@@ -939,15 +899,15 @@ msgstr "SHA256"
 msgid "Certificate Request"
 msgstr "Αίτηση πιστοποιητικού"
 
-#: ../gcr/gcr-parser.c:2486
+#: ../gcr/gcr-parser.c:2427
 msgid "Unrecognized or unsupported data."
 msgstr "Μη αναγνωρίσιμα ή μη υποστηριζόμενα δεδομένα."
 
-#: ../gcr/gcr-parser.c:2489
+#: ../gcr/gcr-parser.c:2430
 msgid "Could not parse invalid or corrupted data."
 msgstr "Αδυναμία ανάλυσης μη έγκυρων ή κατεστραμμένων δεδομένων."
 
-#: ../gcr/gcr-parser.c:2492
+#: ../gcr/gcr-parser.c:2433
 msgid "The data is locked"
 msgstr "Τα δεδομένα είναι κλειδωμένα"
 
@@ -967,8 +927,7 @@ msgid "In order to import, please enter the password."
 msgstr "Για να γίνει εισαγωγή, παρακαλώ δώστε τον κωδικό πρόσβασης."
 
 #. The password label
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
-#: ../gcr/gcr-prompt-dialog.c:559
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:559
 msgid "Password:"
 msgstr "Κωδικός:"
 
@@ -980,8 +939,7 @@ msgstr "Token:"
 msgid "Label"
 msgstr "Ετικέτα"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
-#: ../gcr/gcr-unlock-renderer.c:71
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5 ../gcr/gcr-unlock-renderer.c:71
 #: ../gcr/gcr-unlock-renderer.c:128
 msgid "Unlock"
 msgstr "Ξεκλείδωμα"
@@ -1016,9 +974,8 @@ msgid "Password cannot be blank"
 msgstr "Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:1
-#, fuzzy
 msgid "Access Prompt"
-msgstr "Τύπος ειδοποίησης"
+msgstr "Τερματικό"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
@@ -1028,15 +985,13 @@ msgstr "Ξεκλειδώστε την πρόσβαση σε κωδικούς π�
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Άγνωστες ή μη διαθέσιμες ιδιότητες για το κλειδί"
 
-#: ../gcr/gcr-subject-public-key.c:429
-#: ../gcr/gcr-subject-public-key.c:515
+#: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
 msgid "Couldn't build public key"
 msgstr "Αδυναμία δημιουργίας δημόσιου κλειδιού"
 
-#: ../gcr/gcr-system-prompt.c:753
-#, fuzzy
+#: ../gcr/gcr-system-prompt.c:749
 msgid "Another prompt is already in progress"
-msgstr "Μια διεργασία φόρτωσης βρίσκεται ήδη σε εξέλιξη"
+msgstr "Ένα άλλο τερματικό βρίσκεται ήδη σε εξέλιξη"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
@@ -1078,12 +1033,20 @@ msgstr "Κωδικός πρόσβασης"
 
 #: ../gcr/gcr-unlock-renderer.c:278
 #, c-format
-msgid "The contents of '%s' are locked. In order to view the contents, enter the correct password."
-msgstr "Τα περιεχόμενα του '%s' είναι κλειδωμένα.Για να τα δείτε, πληκτρολογήστε τον σωστό κωδικό πρόσβασης."
+msgid ""
+"The contents of '%s' are locked. In order to view the contents, enter the "
+"correct password."
+msgstr ""
+"Τα περιεχόμενα του '%s' είναι κλειδωμένα.Για να τα δείτε, πληκτρολογήστε τον "
+"σωστό κωδικό πρόσβασης."
 
 #: ../gcr/gcr-unlock-renderer.c:281
-msgid "The contents are locked. In order to view the contents, enter the correct password."
-msgstr "Τα περιεχόμενα είναι κλειδωμένα.Για να τα δείτε, πληκτρολογήστε τον σωστό κωδικό πρόσβασης."
+msgid ""
+"The contents are locked. In order to view the contents, enter the correct "
+"password."
+msgstr ""
+"Τα περιεχόμενα είναι κλειδωμένα.Για να τα δείτε, πληκτρολογήστε τον σωστό "
+"κωδικό πρόσβασης."
 
 #: ../gcr/gcr-viewer-tool.c:41
 msgid "GCR Certificate and Key Viewer"
@@ -1101,8 +1064,7 @@ msgstr "[αρχείο...]"
 msgid "- View certificate and key files"
 msgstr "- Προβολή πιστοποιητικών και κλειδιών"
 
-#: ../gcr/gcr-viewer-tool.c:117
-#: ../gcr/gcr-viewer-widget.c:635
+#: ../gcr/gcr-viewer-tool.c:117 ../gcr/gcr-viewer-widget.c:635
 msgid "Certificate Viewer"
 msgstr "Εφαρμογή προβολής πιστοποιητικών"
 

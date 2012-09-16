@@ -7,15 +7,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-05-15 19:05+0000\n"
-"PO-Revision-Date: 2012-09-15 16:02+0900\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2012-09-15 07:03+0000\n"
+"PO-Revision-Date: 2012-09-17 01:46+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
+"Language: Korean\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../egg/egg-oid.c:41
@@ -116,7 +117,7 @@ msgid "Pseudonym"
 msgstr "필명"
 
 #: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
-#: ../gcr/gcr-key-renderer.c:430
+#: ../gcr/gcr-key-renderer.c:429
 msgid "RSA"
 msgstr "RSA"
 
@@ -133,7 +134,7 @@ msgid "SHA1 with RSA"
 msgstr "SHA1 및 RSA"
 
 #: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
-#: ../gcr/gcr-key-renderer.c:432
+#: ../gcr/gcr-key-renderer.c:431
 msgid "DSA"
 msgstr "DSA"
 
@@ -268,11 +269,11 @@ msgstr "PEM 파일"
 msgid "Other Name"
 msgstr "다른 이름"
 
-#: ../gcr/gcr-certificate-extensions.c:187
+#: ../gcr/gcr-certificate-extensions.c:188
 msgid "XMPP Addr"
 msgstr "XMPP 주소"
 
-#: ../gcr/gcr-certificate-extensions.c:191
+#: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
 msgstr "DNS 서버"
 
@@ -482,7 +483,7 @@ msgid "Key SHA1 Fingerprint"
 msgstr "키 SHA1 핑거프린트"
 
 #: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
-#: ../gcr/gcr-key-renderer.c:415 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-key-renderer.c:414 ../gcr/gcr-parser.c:325
 msgid "Public Key"
 msgstr "공개 키"
 
@@ -503,7 +504,7 @@ msgstr "중대함"
 msgid "Unsupported key type for certificate request"
 msgstr "인증서 요청에 있는 키 종류를 지원하지 않습니다"
 
-#: ../gcr/gcr-certificate-request.c:508 ../gcr/gcr-certificate-request.c:593
+#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "요청에 서명하는데 이 키를 사용할 수 없습니다"
@@ -530,7 +531,7 @@ msgstr "종류"
 
 #: ../gcr/gcr-certificate-request-renderer.c:376
 msgid "Challenge"
-msgstr ""
+msgstr "시험"
 
 #: ../gcr/gcr-display-view.c:319
 msgid "_Details"
@@ -583,8 +584,8 @@ msgstr "gnupg 프로세스가 다음 리턴값으로 끝났습니다: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "gnupg 프로세스가 다음 시그널로 강제 종료되었습니다: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2481
-#: ../gcr/gcr-parser.c:2980
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
+#: ../gcr/gcr-parser.c:2917
 msgid "The operation was cancelled"
 msgstr "작업을 취소했습니다"
 
@@ -614,7 +615,7 @@ msgid "Disabled"
 msgstr "사용 안 함"
 
 #: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-key-renderer.c:434 ../gcr/gcr-key-renderer.c:439
+#: ../gcr/gcr-key-renderer.c:433 ../gcr/gcr-key-renderer.c:438
 msgid "Unknown"
 msgstr "알 수 없음"
 
@@ -691,7 +692,7 @@ msgid "Key ID"
 msgstr "키 ID"
 
 #: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
-#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:435
+#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:434
 msgid "Algorithm"
 msgstr "알고리듬"
 
@@ -725,7 +726,7 @@ msgstr "추가 설명"
 msgid "User Attribute"
 msgstr "사용자 속성"
 
-#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:442
+#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
 msgid "Size"
 msgstr "크기"
 
@@ -848,46 +849,46 @@ msgstr "호환되는 가져오기 기능이 없으므로 가져올 수 없습니
 msgid "No data to import"
 msgstr "가져올 데이터가 없습니다"
 
-#: ../gcr/gcr-key-renderer.c:90
+#: ../gcr/gcr-key-renderer.c:89
 msgid "Key"
 msgstr "키"
 
-#: ../gcr/gcr-key-renderer.c:404
+#: ../gcr/gcr-key-renderer.c:403
 msgid "Private RSA Key"
 msgstr "개인 RSA 키"
 
-#: ../gcr/gcr-key-renderer.c:406
+#: ../gcr/gcr-key-renderer.c:405
 msgid "Private DSA Key"
 msgstr "개인 DSA 키"
 
-#: ../gcr/gcr-key-renderer.c:408 ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-key-renderer.c:407 ../gcr/gcr-parser.c:319
 msgid "Private Key"
 msgstr "개인 키"
 
-#: ../gcr/gcr-key-renderer.c:411 ../gcr/gcr-key-renderer.c:413
+#: ../gcr/gcr-key-renderer.c:410 ../gcr/gcr-key-renderer.c:412
 msgid "Public DSA Key"
 msgstr "공개 DSA 키"
 
-#: ../gcr/gcr-key-renderer.c:422
+#: ../gcr/gcr-key-renderer.c:421
 #, c-format
 msgid "%d bit"
 msgid_plural "%d bits"
 msgstr[0] "%d비트"
 
-#: ../gcr/gcr-key-renderer.c:423
+#: ../gcr/gcr-key-renderer.c:422
 msgid "Strength"
 msgstr "강도"
 
 #. Fingerprints
-#: ../gcr/gcr-key-renderer.c:446
+#: ../gcr/gcr-key-renderer.c:445
 msgid "Fingerprints"
 msgstr "핑거프린트"
 
-#: ../gcr/gcr-key-renderer.c:450
+#: ../gcr/gcr-key-renderer.c:449
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../gcr/gcr-key-renderer.c:455
+#: ../gcr/gcr-key-renderer.c:454
 msgid "SHA256"
 msgstr "SHA256"
 
@@ -895,15 +896,15 @@ msgstr "SHA256"
 msgid "Certificate Request"
 msgstr "인증서 요청"
 
-#: ../gcr/gcr-parser.c:2484
+#: ../gcr/gcr-parser.c:2427
 msgid "Unrecognized or unsupported data."
 msgstr "알지 못하거나 지원하지 않는 데이터."
 
-#: ../gcr/gcr-parser.c:2487
+#: ../gcr/gcr-parser.c:2430
 msgid "Could not parse invalid or corrupted data."
 msgstr "잘못되었거나 손상된 데이터를 파싱할 수 없습니다."
 
-#: ../gcr/gcr-parser.c:2490
+#: ../gcr/gcr-parser.c:2433
 msgid "The data is locked"
 msgstr "데이터가 잠겨 있습니다"
 
@@ -971,7 +972,7 @@ msgstr "암호를 비워둘 수 없습니다"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:1
 msgid "Access Prompt"
-msgstr ""
+msgstr "프롬프트 접근"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
@@ -985,7 +986,7 @@ msgstr "키에 알 수 없는 속성이 있거나 속성이 없습니다"
 msgid "Couldn't build public key"
 msgstr "공개키를 만들 수 없습니다"
 
-#: ../gcr/gcr-system-prompt.c:753
+#: ../gcr/gcr-system-prompt.c:749
 msgid "Another prompt is already in progress"
 msgstr "다른 프롬프트가 이미 진행 중입니다"
 

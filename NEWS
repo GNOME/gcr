@@ -1,3 +1,6 @@
+gcr 3.5.92:
+ - Updated transaltions
+
 gcr 3.5.90:
  - Updated translations
  - Don't fail preconditions when pkcs11 isn't initialized in gcr

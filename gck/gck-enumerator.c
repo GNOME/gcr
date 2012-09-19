@@ -271,9 +271,11 @@ state_slots (GckEnumeratorState *args, gboolean forward)
 
 		token_info = gck_slot_get_token_info (slot);
 		if (!token_info) {
-			g_message ("couldn't get token info while enumerating");
+			g_message ("couldn't get token info for slot while enumerating");
 			g_object_unref (slot);
-			return rewind_state (args, state_modules);
+
+			/* Skip over this slot to the next slot */
+			return state_slots;
 		}
 
 		/* Do we have unrecognized matches? */

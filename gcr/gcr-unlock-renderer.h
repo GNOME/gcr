@@ -68,6 +68,11 @@ GcrUnlockRenderer *    _gcr_unlock_renderer_new_for_parsed    (GcrParser *parser
 
 const gchar *          _gcr_unlock_renderer_get_password      (GcrUnlockRenderer *self);
 
+void                   _gcr_unlock_renderer_set_password      (GcrUnlockRenderer *self,
+                                                               const gchar *text);
+
+void                   _gcr_unlock_renderer_focus_password    (GcrUnlockRenderer *self);
+
 void                   _gcr_unlock_renderer_show_warning      (GcrUnlockRenderer *self,
                                                                const gchar *message);
 

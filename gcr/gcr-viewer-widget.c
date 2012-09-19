@@ -201,6 +201,8 @@ on_unlock_renderer_clicked (GcrUnlockRenderer *unlock,
 
 	} else if (g_error_matches (error, GCR_DATA_ERROR, GCR_ERROR_LOCKED)){
 		_gcr_unlock_renderer_show_warning (unlock,  _("The password was incorrect"));
+		_gcr_unlock_renderer_focus_password (unlock);
+		_gcr_unlock_renderer_set_password (unlock, "");
 		g_error_free (error);
 
 	} else {

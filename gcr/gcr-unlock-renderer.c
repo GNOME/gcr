@@ -333,6 +333,22 @@ _gcr_unlock_renderer_get_password (GcrUnlockRenderer *self)
 	return gtk_entry_get_text (self->pv->entry);
 }
 
+void
+_gcr_unlock_renderer_set_password (GcrUnlockRenderer *self,
+                                   const gchar *text)
+{
+	g_return_if_fail (GCR_IS_UNLOCK_RENDERER (self));
+	g_return_if_fail (text != NULL);
+	gtk_entry_set_text (self->pv->entry, text);
+}
+
+void
+_gcr_unlock_renderer_focus_password (GcrUnlockRenderer *self)
+{
+	g_return_if_fail (GCR_IS_UNLOCK_RENDERER (self));
+	gtk_widget_grab_focus (GTK_WIDGET (self->pv->entry));
+}
+
 gconstpointer
 _gcr_unlock_renderer_get_locked_data (GcrUnlockRenderer *self,
                                       gsize *n_data)

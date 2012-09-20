@@ -1781,7 +1781,7 @@ gck_mock_unsupported_C_GenerateRandom (CK_SESSION_HANDLE hSession, CK_BYTE_PTR p
 
 static CK_FUNCTION_LIST functionList = {
 	{ 2, 11 },	/* version */
-	gck_mock_validate_and_C_Initialize,
+	gck_mock_C_Initialize,
 	gck_mock_C_Finalize,
 	gck_mock_C_GetInfo,
 	gck_mock_C_GetFunctionList,

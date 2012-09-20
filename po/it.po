@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-03 21:39+0200\n"
-"PO-Revision-Date: 2012-08-26 18:31+0200\n"
+"POT-Creation-Date: 2012-09-20 08:38+0200\n"
+"PO-Revision-Date: 2012-09-20 08:44+0200\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -282,7 +282,7 @@ msgstr "Indirizzo XMPP"
 
 #: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
-msgstr "Server DNS"
+msgstr "SRV DNS"
 
 #: ../gcr/gcr-certificate-extensions.c:204 ../gcr/gcr-gnupg-renderer.c:422
 #: ../gcr/gcr-gnupg-renderer.c:704
@@ -483,7 +483,7 @@ msgstr "Algoritmo della chiave"
 
 #: ../gcr/gcr-certificate-renderer.c:869
 msgid "Key Parameters"
-msgstr "Parametri dell chiave"
+msgstr "Parametri della chiave"
 
 #: ../gcr/gcr-certificate-renderer.c:877 ../gcr/gcr-gnupg-renderer.c:352
 msgid "Key Size"
@@ -513,7 +513,7 @@ msgstr "Critico"
 #: ../gcr/gcr-certificate-request.c:418
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr "Tipo di chiave non supportata per la richiesta di certificato"
+msgstr "Tipo di chiave non supportato per la richiesta di certificato"
 
 #: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
 #, c-format
@@ -589,7 +589,7 @@ msgstr "ID chiave"
 #: ../gcr/gcr-gnupg-process.c:866
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr "Processo Gnupg uscito con codice %d"
+msgstr "Processo Gnupg uscito col codice %d"
 
 #: ../gcr/gcr-gnupg-process.c:873
 #, c-format
@@ -688,7 +688,7 @@ msgstr "Questa chiave è scaduta"
 
 #: ../gcr/gcr-gnupg-renderer.c:303
 msgid "This key is distrusted"
-msgstr "Questa chiave è sfiduciata"
+msgstr "Questa chiave è inaffidabile"
 
 #: ../gcr/gcr-gnupg-renderer.c:306
 msgid "This key is marginally trusted"
@@ -747,11 +747,11 @@ msgstr "Dimensione"
 
 #: ../gcr/gcr-gnupg-renderer.c:507
 msgid "Signature of a binary document"
-msgstr "Firma di una documento binario"
+msgstr "Firma di un documento binario"
 
 #: ../gcr/gcr-gnupg-renderer.c:509
 msgid "Signature of a canonical text document"
-msgstr "Firma di documenti in testo normale"
+msgstr "Firma di un documento in testo normale"
 
 #: ../gcr/gcr-gnupg-renderer.c:511
 msgid "Standalone signature"
@@ -789,16 +789,16 @@ msgstr "Firma diretta sulla chiave"
 
 #: ../gcr/gcr-gnupg-renderer.c:527
 msgid "Key revocation signature"
-msgstr "Firma chiave di revoca"
+msgstr "Firma revoca di chiave"
 
 #: ../gcr/gcr-gnupg-renderer.c:529
 msgid "Subkey revocation signature"
-msgstr "Firma sotto-chiave di revoca"
+msgstr "Firma revoca di sotto-chiave"
 
 # sarebbe titolo dialogo
 #: ../gcr/gcr-gnupg-renderer.c:531
 msgid "Certification revocation signature"
-msgstr "Firma certificato di revoca"
+msgstr "Firma revoca di certificato"
 
 #: ../gcr/gcr-gnupg-renderer.c:533
 msgid "Timestamp signature"
@@ -806,7 +806,7 @@ msgstr "Firma marcatura oraria"
 
 #: ../gcr/gcr-gnupg-renderer.c:535
 msgid "Third-party confirmation signature"
-msgstr "Firma conferma di terze-parti"
+msgstr "Firma conferma di terze parti"
 
 #: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
 msgid "Class"
@@ -862,7 +862,7 @@ msgstr "Importa in: %s"
 #: ../gcr/gcr-import-button.c:159
 msgid "Cannot import because there are no compatible importers"
 msgstr ""
-"Impossibile eseguire l'importazione per la mancanza degli strumenti adatti"
+"Impossibile eseguire l'operazione per la mancanza di importatori compatibili"
 
 #: ../gcr/gcr-import-button.c:168
 msgid "No data to import"
@@ -1023,19 +1023,19 @@ msgstr "Impossibile trovare una posizione per archiviare il certificato pinned"
 
 #: ../gcr/gcr-unlock-options-widget.ui.h:1
 msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "Sblocca automaticamente questo portachiavi all'accesso"
+msgstr "Sbloccare automaticamente questo portachiavi all'accesso"
 
 #: ../gcr/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
-msgstr "Blocca questo portachiavi al termine della sessione"
+msgstr "Bloccare questo portachiavi al termine della sessione"
 
 #: ../gcr/gcr-unlock-options-widget.ui.h:3
 msgid "Lock this keyring after"
-msgstr "Blocca questo portachiavi dopo"
+msgstr "Bloccare questo portachiavi dopo"
 
 #: ../gcr/gcr-unlock-options-widget.ui.h:4
 msgid "Lock this keyring if idle for"
-msgstr "Blocca questo portachiavi se inattivo per"
+msgstr "Bloccare questo portachiavi se inattivo per"
 
 #. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
 #: ../gcr/gcr-unlock-options-widget.ui.h:6

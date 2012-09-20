@@ -357,7 +357,7 @@ test_build_with_attributes (void)
 	g_assert (g_str_has_prefix (uri, "pkcs11:"));
 	g_assert (strstr (uri, "object=The%20Label"));
 	g_assert (strstr (uri, "object-type=data"));
-	g_assert (strstr (uri, "id=TEST%00"));
+	g_assert (strstr (uri, "id=%54%45%53%54%00") || strstr (uri, "id=TEST%00"));
 
 	g_free (uri);
 }

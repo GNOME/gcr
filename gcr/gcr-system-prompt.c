@@ -145,7 +145,6 @@ typedef struct {
 	GSource *timeout;
 	GMainContext *context;
 	GCancellable *cancellable;
-	gboolean waiting;
 } CallClosure;
 
 static void
@@ -947,7 +946,6 @@ on_perform_prompt_complete (GObject *source,
 {
 	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
 	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
-	CallClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
 	GError *error = NULL;
 	GVariant *retval;
 
@@ -955,8 +953,6 @@ on_perform_prompt_complete (GObject *source,
 	if (error != NULL) {
 		g_simple_async_result_take_error (res, error);
 		g_simple_async_result_complete_in_idle (res);
-	} else {
-		closure->waiting = TRUE;
 	}
 
 	if (retval)

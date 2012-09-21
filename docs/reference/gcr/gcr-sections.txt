@@ -743,6 +743,7 @@ gcr_prompt_confirm_async
 gcr_prompt_confirm_finish
 gcr_prompt_confirm_run
 gcr_prompt_reset
+gcr_prompt_close
 gcr_prompt_get_title
 gcr_prompt_set_title
 gcr_prompt_get_message

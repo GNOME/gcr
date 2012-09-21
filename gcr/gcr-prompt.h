@@ -67,6 +67,8 @@ struct _GcrPromptIface {
 	GcrPromptReply     (* prompt_confirm_finish)    (GcrPrompt *prompt,
 	                                                 GAsyncResult *result,
 	                                                 GError **error);
+
+	void               (* prompt_close)             (GcrPrompt *prompt);
 };
 
 GType                gcr_prompt_get_type                  (void);
@@ -158,6 +160,8 @@ GcrPromptReply       gcr_prompt_confirm                   (GcrPrompt *prompt,
 GcrPromptReply       gcr_prompt_confirm_run               (GcrPrompt *prompt,
                                                            GCancellable *cancellable,
                                                            GError **error);
+
+void                 gcr_prompt_close                     (GcrPrompt *prompt);
 
 G_END_DECLS
 

@@ -64,6 +64,7 @@
  * @prompt_password_finish: complete a password prompt
  * @prompt_confirm_async: begin a confirm prompt
  * @prompt_confirm_finish: complete a confirm prompt
+ * @prompt_close: close a prompt
  *
  * The interface for implementing #GcrPrompt.
  */
@@ -75,6 +76,14 @@
  *
  * Various replies returned by gcr_prompt_confirm() and friends.
  */
+
+enum {
+	PROMPT_CLOSE,
+	NUM_SIGNALS
+};
+
+static guint signals[NUM_SIGNALS];
+
 typedef struct {
 	GAsyncResult *result;
 	GMainLoop *loop;
@@ -225,6 +234,20 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("cancel-label", "Cancel label", "Cancel button label",
 		                                     _("Cancel"), G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
+
+		/**
+		 * GcrPrompt::prompt-close:
+		 *
+		 * Action signal fired when the prompt is to be closed. After the default
+		 * handler has run, the prompt is closed. The various prompting methods
+		 * will return results as if the user dismissed the prompt.
+		 *
+		 * You can use the gcr_prompt_close() method to emit this signal.
+		 */
+		signals[PROMPT_CLOSE] = g_signal_new ("prompt-close", GCR_TYPE_PROMPT, G_SIGNAL_RUN_FIRST,
+		                                      G_STRUCT_OFFSET (GcrPromptIface, prompt_close),
+		                                      NULL, NULL, g_cclosure_marshal_generic,
+		                                      G_TYPE_NONE, 0);
 
 		g_once_init_leave (&initialized, 1);
 	}
@@ -1026,4 +1049,22 @@ gcr_prompt_confirm_run (GcrPrompt *prompt,
 	run_closure_end (closure);
 
 	return reply;
+}
+
+/**
+ * gcr_prompt_close:
+ * @prompt: a prompt
+ *
+ * Closes the prompt so that in can no longer be used to prompt. The various
+ * prompt methods will return results as if the user dismissed the prompt.
+ *
+ * The prompt may also be closed by the implementor of the #GcrPrompt object.
+ *
+ * This emits the GcrPrompt::prompt-close signal on the prompt object.
+ */
+void
+gcr_prompt_close (GcrPrompt *prompt)
+{
+	g_return_if_fail (GCR_IS_PROMPT (prompt));
+	g_signal_emit (prompt, signals[PROMPT_CLOSE], 0);
 }

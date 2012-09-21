@@ -247,7 +247,7 @@ static RunClosure *
 run_closure_begin (GMainContext *context)
 {
 	RunClosure *closure = g_new0 (RunClosure, 1);
-	closure->loop = g_main_loop_new (context ? context : g_main_context_get_thread_default (), FALSE);
+	closure->loop = g_main_loop_new (context, FALSE);
 	closure->result = NULL;
 
 	/* We assume ownership of context reference */

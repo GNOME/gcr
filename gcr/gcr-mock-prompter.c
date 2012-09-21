@@ -396,10 +396,10 @@ _gcr_mock_prompt_class_init (GcrMockPromptClass *klass)
 }
 
 static gboolean
-on_timeout_complete_response (gpointer data)
+on_timeout_complete (gpointer data)
 {
 	GSimpleAsyncResult *res = data;
-	g_simple_async_result_complete_in_idle (res);
+	g_simple_async_result_complete (res);
 	return FALSE;
 }
 
@@ -410,8 +410,10 @@ gcr_mock_prompt_confirm_async (GcrPrompt *prompt,
                                gpointer user_data)
 {
 	GcrMockPrompt *self = GCR_MOCK_PROMPT (prompt);
+	GSourceFunc complete_func = on_timeout_complete;
 	GSimpleAsyncResult *res;
 	MockResponse *response;
+	GSource *source;
 	guint delay_msec;
 
 	g_mutex_lock (running->mutex);
@@ -435,17 +437,17 @@ gcr_mock_prompt_confirm_async (GcrPrompt *prompt,
 		g_simple_async_result_set_op_res_gboolean (res, response->proceed);
 	}
 
+	if (delay_msec > 0)
+		source = g_timeout_source_new (delay_msec);
+	else
+		source = g_idle_source_new ();
+
+	g_assert (!self->delay_source);
+	g_source_set_callback (source, complete_func, g_object_ref (res), g_object_unref);
+	self->delay_source = g_source_attach (source, g_main_context_get_thread_default ());
+	g_source_unref (source);
+
 	mock_response_free (response);
-
-	if (delay_msec > 0) {
-		g_assert (!self->delay_source);
-		self->delay_source = g_timeout_add_full (G_PRIORITY_DEFAULT, delay_msec,
-		                                         on_timeout_complete_response,
-		                                         g_object_ref (res), g_object_unref);
-	} else {
-		on_timeout_complete_response (res);
-	}
-
 	g_object_unref (res);
 }
 
@@ -484,8 +486,10 @@ gcr_mock_prompt_password_async (GcrPrompt *prompt,
                                 gpointer user_data)
 {
 	GcrMockPrompt *self = GCR_MOCK_PROMPT (prompt);
+	GSourceFunc complete_func = on_timeout_complete;
 	GSimpleAsyncResult *res;
 	MockResponse *response;
+	GSource *source;
 	guint delay_msec;
 
 	g_mutex_lock (running->mutex);
@@ -517,14 +521,15 @@ gcr_mock_prompt_password_async (GcrPrompt *prompt,
 
 	mock_response_free (response);
 
-	if (delay_msec > 0) {
-		g_assert (!self->delay_source);
-		self->delay_source = g_timeout_add_full (G_PRIORITY_DEFAULT, delay_msec,
-		                                         on_timeout_complete_response,
-		                                         g_object_ref (res), g_object_unref);
-	} else {
-		on_timeout_complete_response (res);
-	}
+	if (delay_msec > 0)
+		source = g_timeout_source_new (delay_msec);
+	else
+		source = g_idle_source_new ();
+
+	g_assert (!self->delay_source);
+	g_source_set_callback (source, complete_func, g_object_ref (res), g_object_unref);
+	self->delay_source = g_source_attach (source, g_main_context_get_thread_default ());
+	g_source_unref (source);
 
 	g_object_unref (res);
 }

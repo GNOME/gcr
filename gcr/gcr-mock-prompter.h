@@ -55,6 +55,8 @@ void                 gcr_mock_prompter_expect_password_ok        (const gchar *p
 
 void                 gcr_mock_prompter_expect_password_cancel    (void);
 
+void                 gcr_mock_prompter_expect_close              (void);
+
 gboolean             gcr_mock_prompter_is_expecting              (void);
 
 G_END_DECLS

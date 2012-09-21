@@ -513,6 +513,15 @@ test_prompt_close (Test *test,
 }
 
 static void
+on_prompt_close (GcrPrompt *prompt,
+                 gpointer user_data)
+{
+	gboolean *prompt_closed = (gboolean *)user_data;
+	g_assert (*prompt_closed == FALSE);
+	*prompt_closed = TRUE;
+}
+
+static void
 test_close_cancels (Test *test,
                     gconstpointer unused)
 {
@@ -520,6 +529,7 @@ test_close_cancels (Test *test,
 	GError *error = NULL;
 	const gchar *password = NULL;
 	GAsyncResult *result = NULL;
+	gboolean prompt_closed;
 
 	gcr_mock_prompter_set_delay_msec (3000);
 	gcr_mock_prompter_expect_password_ok ("booo", NULL);
@@ -528,17 +538,104 @@ test_close_cancels (Test *test,
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 
+	prompt_closed = FALSE;
+	g_signal_connect_after (prompt, "prompt-close", G_CALLBACK (on_prompt_close), &prompt_closed);
+
 	gcr_prompt_password_async (prompt, NULL, on_async_result, &result);
 
 	gcr_system_prompt_close (GCR_SYSTEM_PROMPT (prompt), NULL, &error);
 	g_assert_no_error (error);
 
+	g_assert (prompt_closed == TRUE);
 	egg_test_wait ();
 
 	password = gcr_prompt_password_finish (prompt, result, &error);
 	g_assert_no_error (error);
 	g_assert (password == NULL);
 	g_clear_object (&result);
+
+	g_object_unref (prompt);
+	egg_assert_not_object (prompt);
+}
+
+static void
+test_close_from_prompter (Test *test,
+                          gconstpointer unused)
+{
+	GcrPrompt *prompt;
+	GError *error = NULL;
+	gboolean ret;
+	const gchar *password;
+	gboolean prompt_closed;
+
+	gcr_mock_prompter_expect_close ();
+
+	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 1, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+
+	prompt_closed = FALSE;
+	g_signal_connect_after (prompt, "prompt-close", G_CALLBACK (on_prompt_close), &prompt_closed);
+
+	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (ret == GCR_PROMPT_REPLY_CANCEL);
+
+	/* The prompt should be closed now, these shouldn't reach the mock prompter */
+
+	while (!prompt_closed)
+		g_main_context_iteration (NULL, TRUE);
+
+	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (ret == GCR_PROMPT_REPLY_CANCEL);
+
+	password = gcr_prompt_password_run (prompt, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (password == NULL);
+
+	g_object_unref (prompt);
+	egg_assert_not_object (prompt);
+}
+
+static void
+test_after_close_dismisses (Test *test,
+                            gconstpointer unused)
+{
+	GcrPrompt *prompt;
+	GError *error = NULL;
+	gboolean ret;
+	const gchar *password;
+	gboolean prompt_closed;
+
+	gcr_mock_prompter_expect_confirm_ok (NULL);
+
+	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 1, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+
+	prompt_closed = FALSE;
+	g_signal_connect_after (prompt, "prompt-close", G_CALLBACK (on_prompt_close), &prompt_closed);
+
+
+	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (ret == GCR_PROMPT_REPLY_CONTINUE);
+
+	gcr_prompt_close (prompt);
+	g_assert (prompt_closed);
+
+	/* These should never even reach the mock prompter */
+
+	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (ret == GCR_PROMPT_REPLY_CANCEL);
+
+	password = gcr_prompt_password_run (prompt, NULL, &error);
+	g_assert_no_error (error);
+	g_assert (password == NULL);
+
+	while (g_main_context_iteration (NULL, FALSE));
 
 	g_object_unref (prompt);
 	egg_assert_not_object (prompt);
@@ -568,6 +665,8 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/system-prompt/properties-reset", Test, NULL, setup, test_prompt_properties_reset, teardown);
 	g_test_add ("/gcr/system-prompt/close", Test, NULL, setup, test_prompt_close, teardown);
 	g_test_add ("/gcr/system-prompt/close-cancels", Test, NULL, setup, test_close_cancels, teardown);
+	g_test_add ("/gcr/system-prompt/after-close-dismisses", Test, NULL, setup, test_after_close_dismisses, teardown);
+	g_test_add ("/gcr/system-prompt/close-from-prompter", Test, NULL, setup, test_close_from_prompter, teardown);
 
 	return egg_tests_run_with_loop ();
 }

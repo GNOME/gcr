@@ -390,15 +390,100 @@ gcr_system_prompt_constructed (GObject *obj)
 }
 
 static void
+on_prompter_stop_prompting (GObject *source,
+                            GAsyncResult *result,
+                            gpointer user_data)
+{
+	GSimpleAsyncResult *async = NULL;
+	GError *error = NULL;
+	GVariant *retval;
+
+	retval = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source), result, &error);
+	if (error != NULL) {
+		_gcr_debug ("failed to stop prompting: %s", egg_error_message (error));
+		g_clear_error (&error);
+	}
+
+	if (retval)
+		g_variant_unref (retval);
+
+	if (user_data) {
+		async = G_SIMPLE_ASYNC_RESULT (user_data);
+		g_simple_async_result_complete (async);
+		g_object_unref (async);
+	}
+}
+
+static void
+perform_close (GcrSystemPrompt *self,
+               GSimpleAsyncResult *async,
+               GCancellable *cancellable)
+{
+	GSimpleAsyncResult *res;
+	CallClosure *closure;
+	gboolean called = FALSE;
+	gboolean closed;
+
+	closed = self->pv->closed;
+	self->pv->closed = TRUE;
+
+	if (!closed)
+		_gcr_debug ("closing prompt");
+
+	if (self->pv->pending) {
+		res = g_object_ref (self->pv->pending);
+		g_clear_object (&self->pv->pending);
+		closure = g_simple_async_result_get_op_res_gpointer (res);
+		g_cancellable_cancel (closure->cancellable);
+		g_simple_async_result_complete_in_idle (res);
+		g_object_unref (res);
+	}
+
+	if (self->pv->prompt_registered) {
+		g_dbus_connection_unregister_object (self->pv->connection,
+		                                     self->pv->prompt_registered);
+		self->pv->prompt_registered = 0;
+	}
+
+	if (self->pv->begun_prompting) {
+		if (self->pv->connection && self->pv->prompt_path) {
+			_gcr_debug ("Calling the prompter %s method", GCR_DBUS_PROMPTER_METHOD_STOP);
+			g_dbus_connection_call (self->pv->connection,
+			                        self->pv->prompter_bus_name,
+			                        GCR_DBUS_PROMPTER_OBJECT_PATH,
+			                        GCR_DBUS_PROMPTER_INTERFACE,
+			                        GCR_DBUS_PROMPTER_METHOD_STOP,
+			                        g_variant_new ("(o)", self->pv->prompt_path),
+			                        G_VARIANT_TYPE ("()"),
+			                        G_DBUS_CALL_FLAGS_NO_AUTO_START,
+			                        -1, cancellable,
+			                        on_prompter_stop_prompting,
+			                        async ? g_object_ref (async) : NULL);
+			called = TRUE;
+		}
+		self->pv->begun_prompting = FALSE;
+	}
+
+	g_free (self->pv->prompt_path);
+	self->pv->prompt_path = NULL;
+
+	g_clear_object (&self->pv->connection);
+
+	if (!called && async)
+		g_simple_async_result_complete_in_idle (async);
+
+	/* Emit the signal if necessary, after closed */
+	if (!closed)
+		gcr_prompt_close (GCR_PROMPT (self));
+}
+
+static void
 gcr_system_prompt_dispose (GObject *obj)
 {
 	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (obj);
 
 	g_clear_object (&self->pv->exchange);
-
-	_gcr_debug ("closing prompt asynchronously: %s", self->pv->prompt_path);
-	if (self->pv->connection)
-		gcr_system_prompt_close_async (self, NULL, NULL, NULL);
+	perform_close (self, NULL, NULL);
 
 	g_hash_table_remove_all (self->pv->properties);
 	g_hash_table_remove_all (self->pv->dirty_properties);
@@ -559,17 +644,15 @@ prompt_method_done (GcrSystemPrompt *self,
                     GDBusMethodInvocation *invocation,
                     GVariant *parameters)
 {
-	GSimpleAsyncResult *res;
-
-	g_return_if_fail (G_IS_SIMPLE_ASYNC_RESULT (self->pv->pending));
-
 	g_dbus_method_invocation_return_value (invocation, g_variant_new ("()"));
 
-	res = g_object_ref (self->pv->pending);
-	g_clear_object (&self->pv->pending);
-	g_simple_async_result_set_op_res_gpointer (res, NULL, NULL);
-	g_simple_async_result_complete (res);
-	g_object_unref (res);
+	/*
+	 * At this point we're done prompting, and calling StopPrompting
+	 * on the prompter is no longer necessary. It may have already been
+	 * called, or the prompter may have stopped on its own accord.
+	 */
+	self->pv->begun_prompting = FALSE;
+	perform_close (self, NULL, NULL);
 }
 
 static void
@@ -951,8 +1034,9 @@ on_perform_prompt_complete (GObject *source,
 
 	retval = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source), result, &error);
 	if (error != NULL) {
+		self->pv->pending = NULL;
 		g_simple_async_result_take_error (res, error);
-		g_simple_async_result_complete_in_idle (res);
+		g_simple_async_result_complete (res);
 	}
 
 	if (retval)
@@ -984,12 +1068,19 @@ perform_prompt_async (GcrSystemPrompt *self,
 		return;
 	}
 
-	_gcr_debug ("prompting for password");
-
 	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data, source_tag);
 	closure = g_new0 (CallClosure, 1);
 	closure->cancellable = cancellable ? g_object_ref (cancellable) : cancellable;
 	g_simple_async_result_set_op_res_gpointer (res, closure, call_closure_free);
+
+	if (self->pv->closed) {
+		self->pv->last_response = g_strdup (GCR_DBUS_PROMPT_REPLY_NONE);
+		g_simple_async_result_complete_in_idle (res);
+		g_object_unref (res);
+		return;
+	}
+
+	_gcr_debug ("prompting for password");
 
 	exchange = gcr_system_prompt_get_secret_exchange (self);
 	if (self->pv->received)
@@ -1107,12 +1198,29 @@ gcr_system_prompt_confirm_finish (GcrPrompt *prompt,
 }
 
 static void
+gcr_system_prompt_real_close (GcrPrompt *prompt)
+{
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (prompt);
+
+	/*
+	 * Setting this before calling close_async allows us to prevent firing
+	 * this signal again in a loop.
+	 */
+
+	if (!self->pv->closed) {
+		self->pv->closed = TRUE;
+		perform_close (self, NULL, NULL);
+	}
+}
+
+static void
 gcr_system_prompt_prompt_iface (GcrPromptIface *iface)
 {
 	iface->prompt_password_async = gcr_system_prompt_password_async;
 	iface->prompt_password_finish = gcr_system_prompt_password_finish;
 	iface->prompt_confirm_async = gcr_system_prompt_confirm_async;
 	iface->prompt_confirm_finish = gcr_system_prompt_confirm_finish;
+	iface->prompt_close = gcr_system_prompt_real_close;
 }
 
 /**
@@ -1299,8 +1407,8 @@ gcr_system_prompt_open_for_prompter (const gchar *prompter_name,
  * @cancellable: an optional cancellation object
  * @error: location to place an error on failure
  *
- * Close this prompt. After calling this function, no further methods may be
- * called on this object. The prompt object is not unreferenced by this
+ * Close this prompt. After calling this function, no further prompts will
+ * succeed on this object. The prompt object is not unreferenced by this
  * function, and you must unreference it once done.
  *
  * This call may block, use the gcr_system_prompt_close_async() to perform
@@ -1335,28 +1443,6 @@ gcr_system_prompt_close (GcrSystemPrompt *self,
 	return result;
 }
 
-static void
-on_prompter_stop_prompting (GObject *source,
-                            GAsyncResult *result,
-                            gpointer user_data)
-{
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GError *error = NULL;
-	GVariant *retval;
-
-	retval = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source), result, &error);
-	if (error != NULL) {
-		_gcr_debug ("failed to stop prompting: %s", egg_error_message (error));
-		g_clear_error (&error);
-	}
-
-	if (retval)
-		g_variant_unref (retval);
-
-	g_simple_async_result_complete (res);
-	g_object_unref (res);
-}
-
 /**
  * gcr_system_prompt_close_async:
  * @self: the prompt
@@ -1378,25 +1464,9 @@ gcr_system_prompt_close_async (GcrSystemPrompt *self,
 {
 	GSimpleAsyncResult *res;
 	CallClosure *closure;
-	gboolean called = FALSE;
 
 	g_return_if_fail (GCR_SYSTEM_PROMPT (self));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
-	g_return_if_fail (self->pv->connection != NULL);
-	g_return_if_fail (self->pv->prompt_path != NULL);
-	g_return_if_fail (self->pv->closed == FALSE);
-
-	_gcr_debug ("closing prompt");
-	self->pv->closed = TRUE;
-
-	if (self->pv->pending) {
-		res = g_object_ref (self->pv->pending);
-		g_clear_object (&self->pv->pending);
-		closure = g_simple_async_result_get_op_res_gpointer (res);
-		g_cancellable_cancel (closure->cancellable);
-		g_simple_async_result_complete_in_idle (res);
-		g_object_unref (res);
-	}
 
 	res = g_simple_async_result_new (NULL, callback, user_data,
 	                                 gcr_system_prompt_close_async);
@@ -1407,36 +1477,8 @@ gcr_system_prompt_close_async (GcrSystemPrompt *self,
 		g_main_context_ref (closure->context);
 	g_simple_async_result_set_op_res_gpointer (res, closure, call_closure_free);
 
-	if (self->pv->prompt_registered) {
-		g_dbus_connection_unregister_object (self->pv->connection,
-		                                     self->pv->prompt_registered);
-		self->pv->prompt_registered = 0;
-	}
+	perform_close (self, res, closure->cancellable);
 
-	if (self->pv->begun_prompting) {
-		if (self->pv->connection) {
-			g_dbus_connection_call (self->pv->connection,
-			                        self->pv->prompter_bus_name,
-			                        GCR_DBUS_PROMPTER_OBJECT_PATH,
-			                        GCR_DBUS_PROMPTER_INTERFACE,
-			                        GCR_DBUS_PROMPTER_METHOD_STOP,
-			                        g_variant_new ("(o)", self->pv->prompt_path),
-			                        G_VARIANT_TYPE ("()"),
-			                        G_DBUS_CALL_FLAGS_NO_AUTO_START,
-			                        -1, closure->cancellable,
-			                        on_prompter_stop_prompting,
-			                        g_object_ref (res));
-			called = TRUE;
-		}
-	}
-
-	g_free (self->pv->prompt_path);
-	self->pv->prompt_path = NULL;
-
-	g_clear_object (&self->pv->connection);
-
-	if (!called)
-		g_simple_async_result_complete_in_idle (res);
 	g_object_unref (res);
 }
 

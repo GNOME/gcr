@@ -88,6 +88,7 @@ struct _GcrMockPromptClass {
 };
 
 typedef struct {
+	gboolean close;
 	gboolean proceed;
 	gchar *password;
 	GList *properties;
@@ -403,6 +404,17 @@ on_timeout_complete (gpointer data)
 	return FALSE;
 }
 
+static gboolean
+on_timeout_complete_and_close (gpointer data)
+{
+	GSimpleAsyncResult *res = data;
+	GcrPrompt *prompt = GCR_PROMPT (g_async_result_get_source_object (data));
+	g_simple_async_result_complete (res);
+	gcr_prompt_close (prompt);
+	g_object_unref (prompt);
+	return FALSE;
+}
+
 static void
 gcr_mock_prompt_confirm_async (GcrPrompt *prompt,
                                GCancellable *cancellable,
@@ -426,6 +438,10 @@ gcr_mock_prompt_confirm_async (GcrPrompt *prompt,
 
 	if (response == NULL) {
 		g_critical ("password prompt requested, but not expected");
+		g_simple_async_result_set_op_res_gboolean (res, FALSE);
+
+	} else if (response->close) {
+		complete_func = on_timeout_complete_and_close;
 		g_simple_async_result_set_op_res_gboolean (res, FALSE);
 
 	} else if (response->password) {
@@ -503,6 +519,10 @@ gcr_mock_prompt_password_async (GcrPrompt *prompt,
 	if (response == NULL) {
 		g_critical ("password prompt requested, but not expected");
 		g_simple_async_result_set_op_res_gpointer (res, NULL, NULL);
+
+	} else if (response->close) {
+		g_simple_async_result_set_op_res_gpointer (res, NULL, NULL);
+		complete_func = on_timeout_complete_and_close;
 
 	} else if (!response->password) {
 		g_critical ("password prompt requested, but confirmation prompt expected");
@@ -791,6 +811,30 @@ gcr_mock_prompter_expect_password_cancel (void)
 	response = g_new0 (MockResponse, 1);
 	response->password = g_strdup ("");
 	response->proceed = FALSE;
+
+	g_queue_push_tail (&running->responses, response);
+
+	g_mutex_unlock (running->mutex);
+}
+
+/**
+ * gcr_mock_prompter_expect_close:
+ *
+ * Queue an expected response on the mock prompter.
+ *
+ * Expects any prompt, and closes the prompt when it gets it.
+ */
+void
+gcr_mock_prompter_expect_close (void)
+{
+	MockResponse *response;
+
+	g_assert (running != NULL);
+
+	g_mutex_lock (running->mutex);
+
+	response = g_new0 (MockResponse, 1);
+	response->close = TRUE;
 
 	g_queue_push_tail (&running->responses, response);
 

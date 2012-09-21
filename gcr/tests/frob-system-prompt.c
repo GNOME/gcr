@@ -25,6 +25,8 @@
 
 #include "gcr/gcr.h"
 
+#include "egg/egg-testing.h"
+
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 
@@ -67,6 +69,7 @@ on_prompt_clicked (GtkToolButton *button,
 
 	g_print ("password: %s\n", password);
 	g_object_unref (prompt);
+	egg_assert_not_object (prompt);
 }
 
 static gboolean

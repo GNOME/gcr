@@ -121,6 +121,8 @@ typedef struct {
 	GHashTable *changed;
 	GcrSecretExchange *exchange;
 	gboolean received;
+	gboolean closed;
+	guint close_sig;
 } ActivePrompt;
 
 static void    prompt_send_ready               (ActivePrompt *active,
@@ -149,6 +151,14 @@ on_prompt_notify (GObject *object,
 	ActivePrompt *active = user_data;
 	gpointer key = (gpointer)g_intern_string (param->name);
 	g_hash_table_replace (active->changed, key, key);
+}
+
+static void
+on_prompt_close (GcrPrompt *prompt,
+                 gpointer user_data)
+{
+	ActivePrompt *active = user_data;
+	prompt_stop_prompting (active->prompter, active->callback, TRUE, FALSE);
 }
 
 static Callback *
@@ -195,9 +205,13 @@ active_prompt_unref (gpointer data)
 	ActivePrompt *active = data;
 
 	if (g_atomic_int_dec_and_test (&active->refs)) {
+		callback_free (active->callback);
 		g_object_unref (active->prompter);
 		g_object_unref (active->cancellable);
-		g_signal_handlers_disconnect_by_func (active->prompt, on_prompt_notify, active);
+		if (g_signal_handler_is_connected (active->prompt, active->notify_sig))
+			g_signal_handler_disconnect (active->prompt, active->notify_sig);
+		if (g_signal_handler_is_connected (active->prompt, active->close_sig))
+			g_signal_handler_disconnect (active->prompt, active->close_sig);
 		g_object_unref (active->prompt);
 		g_hash_table_destroy (active->changed);
 		if (active->exchange)
@@ -221,17 +235,15 @@ active_prompt_create (GcrSystemPrompter *self,
 	ActivePrompt *active;
 
 	active = g_slice_new0 (ActivePrompt);
-	if (!g_hash_table_lookup_extended (self->pv->callbacks, lookup,
-	                                   (gpointer *)&active->callback, NULL))
-		g_return_val_if_reached (NULL);
-
 	active->refs = 1;
+	active->callback = callback_dup (lookup);
 	active->prompter = g_object_ref (self);
 	active->cancellable = g_cancellable_new ();
 	g_signal_emit (self, signals[NEW_PROMPT], 0, &active->prompt);
 	g_return_val_if_fail (active->prompt != NULL, NULL);
 
 	active->notify_sig = g_signal_connect (active->prompt, "notify", G_CALLBACK (on_prompt_notify), active);
+	active->close_sig = g_signal_connect (active->prompt, "prompt-close", G_CALLBACK (on_prompt_close), active);
 	active->changed = g_hash_table_new (g_direct_hash, g_direct_equal);
 
 	/* Insert us into the active hash table */
@@ -481,11 +493,26 @@ prompt_stop_prompting (GcrSystemPrompter *self,
 {
 	ActivePrompt *active;
 	GVariant *retval;
+	gpointer watch;
+
+	_gcr_debug ("stopping prompting for operation %s@%s",
+	            callback->path, callback->name);
 
 	/* Get a pointer to our actual callback */
 	if (!g_hash_table_lookup_extended (self->pv->callbacks, callback,
-	                                   (gpointer *)&callback, NULL))
+	                                   (gpointer *)&callback, &watch)) {
+		_gcr_debug ("couldn't find the callback for prompting operation %s@%s",
+		            callback->path, callback->name);
 		return;
+	}
+
+	/*
+	 * We remove these from the callbacks hash table so that we don't
+	 * do this stuff more than once. However we still need the callback
+	 * to be valid.
+	 */
+	if (!g_hash_table_steal (self->pv->callbacks, callback))
+		g_assert_not_reached ();
 
 	/* Removed from the waiting queue */
 	g_queue_remove (&self->pv->waiting, callback);
@@ -493,16 +520,19 @@ prompt_stop_prompting (GcrSystemPrompter *self,
 	/* Close any active prompt */
 	active = g_hash_table_lookup (self->pv->active, callback);
 	if (active != NULL) {
+		active_prompt_ref (active);
+		g_hash_table_remove (self->pv->active, callback);
+
 		if (!active->ready) {
 			_gcr_debug ("cancelling active prompting operation for %s@%s",
 			            callback->path, callback->name);
 			g_cancellable_cancel (active->cancellable);
 		}
 
-		_gcr_debug ("disposing the prompt");
-
+		_gcr_debug ("closing the prompt");
+		gcr_prompt_close (active->prompt);
 		g_object_run_dispose (G_OBJECT (active->prompt));
-		g_hash_table_remove (self->pv->active, callback);
+		active_prompt_unref (active);
 	}
 
 	/* Notify the caller */
@@ -540,8 +570,14 @@ prompt_stop_prompting (GcrSystemPrompter *self,
 		                        -1, NULL, NULL, NULL);
 	}
 
-	/* And all traces gone, including watch */
-	g_hash_table_remove (self->pv->callbacks, callback);
+	/*
+	 * And all traces gone, including watch. We stole these values from
+	 * the callbacks hashtable above. Now free them
+	 */
+
+	callback_free (callback);
+	unwatch_name (watch);
+
 	g_object_notify (G_OBJECT (self), "prompting");
 }
 

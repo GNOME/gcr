@@ -39,8 +39,8 @@
  * @short_description: a GTK+ dialog prompt
  *
  * A #GcrPrompt implementation which shows a GTK+ dialog. The dialog will
- * remain visible (but insensitive) between prompts. Use gtk_widget_hide() to
- * hide the dialog when appropriate.
+ * remain visible (but insensitive) between prompts. If the user cancels the
+ * dialog between prompts, then the dialog will be hidden.
  */
 
 /**
@@ -111,6 +111,7 @@ struct _GcrPromptDialogPrivate {
 	GdkDevice *grabbed_device;
 	gulong grab_broken_id;
 	gboolean grab_disabled;
+	gboolean was_closed;
 };
 
 static void     gcr_prompt_dialog_prompt_iface       (GcrPromptIface *iface);
@@ -669,12 +670,19 @@ gcr_prompt_dialog_response (GtkDialog *dialog,
 	GcrPromptDialog *self = GCR_PROMPT_DIALOG (dialog);
 	GSimpleAsyncResult *res;
 
-	g_return_if_fail (self->pv->mode != PROMPT_NONE);
-	g_return_if_fail (self->pv->async_result != NULL);
+	/*
+	 * If this is called while no prompting is going on, then the dialog
+	 * is waiting for the caller to perform some action. Close the dialog.
+	 */
+
+	if (self->pv->mode == PROMPT_NONE) {
+		g_return_if_fail (response_id != GTK_RESPONSE_OK);
+		gcr_prompt_close (GCR_PROMPT (self));
+		return;
+	}
 
 	switch (response_id) {
 	case GTK_RESPONSE_OK:
-
 		switch (self->pv->mode) {
 		case PROMPT_PASSWORDING:
 			if (!handle_password_response (self))
@@ -708,9 +716,10 @@ gcr_prompt_dialog_dispose (GObject *obj)
 {
 	GcrPromptDialog *self = GCR_PROMPT_DIALOG (obj);
 
-	if (self->pv->async_result)
-		gcr_prompt_dialog_response (GTK_DIALOG (self), GTK_RESPONSE_DELETE_EVENT);
+	gcr_prompt_dialog_response (GTK_DIALOG (self), GTK_RESPONSE_DELETE_EVENT);
 	g_assert (self->pv->async_result == NULL);
+
+	gcr_prompt_close (GCR_PROMPT (self));
 
 	ungrab_keyboard (GTK_WIDGET (self), NULL, self);
 	g_assert (self->pv->grabbed_device == NULL);
@@ -827,15 +836,21 @@ gcr_prompt_dialog_password_async (GcrPrompt *prompt,
 	self->pv->async_result = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
 	                                                    gcr_prompt_dialog_password_async);
 
+	gtk_entry_buffer_set_text (self->pv->password_buffer, "", 0);
+	gtk_entry_buffer_set_text (self->pv->confirm_buffer, "", 0);
+
+	if (self->pv->was_closed) {
+		self->pv->last_reply = GCR_PROMPT_REPLY_CANCEL;
+		g_simple_async_result_complete_in_idle (self->pv->async_result);
+		return;
+	}
+
 	gtk_image_set_from_stock (GTK_IMAGE (self->pv->image),
 	                          GTK_STOCK_DIALOG_AUTHENTICATION,
 	                          GTK_ICON_SIZE_DIALOG);
 	gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
 	gtk_widget_hide (self->pv->spinner);
 	gtk_spinner_stop (GTK_SPINNER (self->pv->spinner));
-
-	gtk_entry_buffer_set_text (self->pv->password_buffer, "", 0);
-	gtk_entry_buffer_set_text (self->pv->confirm_buffer, "", 0);
 
 	obj = G_OBJECT (self);
 	g_object_notify (obj, "password-visible");
@@ -884,6 +899,12 @@ gcr_prompt_dialog_confirm_async (GcrPrompt *prompt,
 	self->pv->async_result = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
 	                                                    gcr_prompt_dialog_confirm_async);
 
+	if (self->pv->was_closed) {
+		self->pv->last_reply = GCR_PROMPT_REPLY_CANCEL;
+		g_simple_async_result_complete_in_idle (self->pv->async_result);
+		return;
+	}
+
 	gtk_image_set_from_stock (GTK_IMAGE (self->pv->image),
 	                          GTK_STOCK_DIALOG_QUESTION,
 	                          GTK_ICON_SIZE_DIALOG);
@@ -920,10 +941,21 @@ gcr_prompt_dialog_confirm_finish (GcrPrompt *prompt,
 }
 
 static void
+gcr_prompt_dialog_close (GcrPrompt *prompt)
+{
+	GcrPromptDialog *self = GCR_PROMPT_DIALOG (prompt);
+	if (!self->pv->was_closed) {
+		self->pv->was_closed = TRUE;
+		gtk_widget_hide (GTK_WIDGET (self));
+	}
+}
+
+static void
 gcr_prompt_dialog_prompt_iface (GcrPromptIface *iface)
 {
 	iface->prompt_password_async = gcr_prompt_dialog_password_async;
 	iface->prompt_password_finish = gcr_prompt_dialog_password_finish;
 	iface->prompt_confirm_async = gcr_prompt_dialog_confirm_async;
 	iface->prompt_confirm_finish = gcr_prompt_dialog_confirm_finish;
+	iface->prompt_close = gcr_prompt_dialog_close;
 }

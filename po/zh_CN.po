@@ -13,23 +13,24 @@
 # Wei Li <lw124124@gmail.com>, 2011.
 # Aron Xu <aronxu@gnome.org>, 2010, 2011.
 # Wylmer Wang <wantinghard@gmail.com>, 2011, 2012.
-# YunQiang Su <wzssyqa@gmail.com>, 2011.
 # Cheng Lu <chenglu1990@gmail.com>, 2012.
+# YunQiang Su <wzssyqa@gmail.com>, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-07-16 11:13+0000\n"
-"PO-Revision-Date: 2012-07-20 22:22+0800\n"
-"Last-Translator: Cheng Lu <chenglu1990@gmail.com>\n"
-"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
+"POT-Creation-Date: 2012-07-22 07:38+0000\n"
+"PO-Revision-Date: 2012-09-23 03:37+0800\n"
+"Last-Translator: YunQiang Su <wzssyqa@gmail.com>\n"
+"Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 2.91.5\n"
 
 #: ../egg/egg-oid.c:41
 msgid "Domain Component"
@@ -543,9 +544,8 @@ msgstr "类型"
 
 # Challenge/Response认证
 #: ../gcr/gcr-certificate-request-renderer.c:376
-#, fuzzy
 msgid "Challenge"
-msgstr "Challenge"
+msgstr "挑战"
 
 #: ../gcr/gcr-display-view.c:319
 msgid "_Details"

@@ -1,24 +1,24 @@
-# German gnome-keyring translation.
+# German gcr translation.
 # Copyright (C) 2003, 2004 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gnome-keyring package.
+# This file is distributed under the same license as the gcr package.
 # Christian Neumair <chris@gnome-de.org>, 2003, 2004.
 # Hendrik Richter <hendrikr@gnome.org>, 2006.
 # Philipp Kerling <k.philipp@gmail.com>, 2008.
 # Stefan Horning <stefan@hornings.de>, 2009.
-# Mario Blättermann <mariobl@freenet.de>, 2009-2011.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2012.
 # Nathan-J. Hirschauer <nathanhirschauer@verfriemelt.org>, 2010.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2010, 2011.
-# Tobias Endrigkeit <tobiasendrigkeit@googlemail.com>, 2012.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2008-2010, 2012.
+# Tobias Endrigkeit <tobiasendrigkeit@googlemail.com>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-07-25 07:33+0000\n"
-"PO-Revision-Date: 2012-07-28 03:25+0200\n"
-"Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
+"POT-Creation-Date: 2012-09-15 07:03+0000\n"
+"PO-Revision-Date: 2012-09-23 12:03+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -217,9 +217,9 @@ msgstr "Die Adresse hat eine falsche Versionsnummer."
 
 #: ../gcr/gcr-callback-output-stream.c:64
 #: ../gcr/gcr-callback-output-stream.c:81
-#, fuzzy, c-format
+#, c-format
 msgid "The stream was closed"
-msgstr "Die Sitzung ist geschlossen"
+msgstr "Der Datenstrom wurde geschlossen"
 
 #. later
 #. later
@@ -526,7 +526,6 @@ msgstr ""
 #: ../gcr/gcr-certificate-request-renderer.c:323
 #: ../gcr/gcr-certificate-request-renderer.c:366
 #: ../gcr/gcr-certificate-request-renderer.c:371
-#| msgid "Certificate files"
 msgid "Certificate request"
 msgstr "Zertifikatanfrage"
 
@@ -542,7 +541,6 @@ msgid "Type"
 msgstr "Typ"
 
 #: ../gcr/gcr-certificate-request-renderer.c:376
-#, fuzzy
 msgid "Challenge"
 msgstr "Aufgabe"
 
@@ -764,7 +762,6 @@ msgid "Persona certification of key"
 msgstr "Personenbezogene Zertifizierung des Schlüssels"
 
 #: ../gcr/gcr-gnupg-renderer.c:517
-#, fuzzy
 msgid "Casual certification of key"
 msgstr "Zufällige Zertifizierung des Schlüssels"
 
@@ -781,9 +778,8 @@ msgid "Primary key binding signature"
 msgstr "Hauptschlüssel der verblindlichen Signatur"
 
 #: ../gcr/gcr-gnupg-renderer.c:525
-#, fuzzy
 msgid "Signature directly on key"
-msgstr "Parameter der Signatur"
+msgstr "Signatur gehört direkt zum Schlüssel"
 
 #: ../gcr/gcr-gnupg-renderer.c:527
 msgid "Key revocation signature"
@@ -1014,8 +1010,8 @@ msgstr "Eine andere Anzeige läuft bereits"
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr ""
-"Es konnte kein Ort für die Hinterlegung des importierten Zertifikats "
-"gefunden werden"
+"Es konnte kein Ort für die Hinterlegung des importierten Zertifikats gefunden "
+"werden"
 
 #: ../gcr/gcr-unlock-options-widget.ui.h:1
 msgid "Automatically unlock this keyring whenever I'm logged in"
@@ -1053,8 +1049,8 @@ msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"Der Inhalt von »%s« ist gesperrt. Um den Inhalt anzeigen zu können, geben "
-"Sie das korrekte Passwort ein."
+"Der Inhalt von »%s« ist gesperrt. Um den Inhalt anzeigen zu können, geben Sie "
+"das korrekte Passwort ein."
 
 #: ../gcr/gcr-unlock-renderer.c:281
 msgid ""
@@ -1099,7 +1095,3 @@ msgstr "Der Vorgang ist fehlgeschlagen"
 #: ../gcr/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Importieren"
-
-#, fuzzy
-#~ msgid "<b>Unlock</b>"
-#~ msgstr "Entsperren"

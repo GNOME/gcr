@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-05-15 19:05+0000\n"
-"PO-Revision-Date: 2012-05-16 07:10+0530\n"
+"POT-Creation-Date: 2012-05-16 01:41+0000\n"
+"PO-Revision-Date: 2012-09-24 08:52+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
@@ -503,12 +503,12 @@ msgstr "ਨਾਜ਼ੁਕ"
 #: ../gcr/gcr-certificate-request.c:418
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr ""
+msgstr "ਸਰਟੀਫਿਕੇਟ ਮੰਗ ਲਈ ਨਾ-ਸਹਾਇਕ ਕੁੰਜੀ ਕਿਸਮ"
 
 #: ../gcr/gcr-certificate-request.c:508 ../gcr/gcr-certificate-request.c:593
 #, c-format
 msgid "The key cannot be used to sign the request"
-msgstr ""
+msgstr "ਇਹ ਕੁੰਜੀ ਨੂੰ ਮੰਗ ਉੱਤੇ ਦਸਤਖਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
 
 #. The certificate request type
 #: ../gcr/gcr-certificate-request-renderer.c:95
@@ -516,7 +516,6 @@ msgstr ""
 #: ../gcr/gcr-certificate-request-renderer.c:323
 #: ../gcr/gcr-certificate-request-renderer.c:366
 #: ../gcr/gcr-certificate-request-renderer.c:371
-#| msgid "Certificate files"
 msgid "Certificate request"
 msgstr "ਸਰਟੀਫਿਕੇਟ ਮੰਗ"
 
@@ -634,7 +633,7 @@ msgstr "ਮਿਆਦ ਪੁੱਗੀ"
 
 #: ../gcr/gcr-gnupg-renderer.c:264
 msgid "Undefined trust"
-msgstr ""
+msgstr "ਨਾ-ਪ੍ਰਭਾਸ਼ਿਤ ਭਰੋਸਾ"
 
 #: ../gcr/gcr-gnupg-renderer.c:266
 msgid "Distrusted"
@@ -642,7 +641,7 @@ msgstr "ਨਾ-ਭਰੋਸੇਯੋਗ"
 
 #: ../gcr/gcr-gnupg-renderer.c:268
 msgid "Marginally trusted"
-msgstr ""
+msgstr "ਹਲਕੀ ਭਰੋਸੇਯੋਗ ਹੈ"
 
 #: ../gcr/gcr-gnupg-renderer.c:270
 msgid "Fully trusted"
@@ -653,9 +652,8 @@ msgid "Ultimately trusted"
 msgstr "ਬੇਅੰਤ ਭਰੋਸਾ"
 
 #: ../gcr/gcr-gnupg-renderer.c:286
-#, fuzzy
 msgid "The information in this key has not yet been verified"
-msgstr "ਜਾਣਕਾਰੀ ਸ਼ੰਵੇਦਨਸ਼ੀਲ ਹੈ ਅਤੇ ਖੋਲ੍ਹੀ ਨਹੀਂ ਜਾ ਸਕਦੀ"
+msgstr "ਇਹ ਕੁੰਜੀ ਵਿਚਲੀ ਜਾਣਕਾਰੀ ਜਾਂਚੀ ਨਹੀਂ ਜਾ ਸਕੀ ਹੈ"
 
 #: ../gcr/gcr-gnupg-renderer.c:289
 msgid "This key is invalid"
@@ -675,11 +673,11 @@ msgstr "ਇਹ ਕੁੰਜੀ ਦੀ ਮਿਆਦ ਪੁੱਗੀ"
 
 #: ../gcr/gcr-gnupg-renderer.c:303
 msgid "This key is distrusted"
-msgstr ""
+msgstr "ਇਹ ਕੁੰਜੀ ਬੇ-ਭਰੋਸੇਯੋਗ ਹੈ"
 
 #: ../gcr/gcr-gnupg-renderer.c:306
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "ਇਹ ਕੁੰਝੀ ਹਲਕੀ ਭਰੋਸੇਯੋਗ ਹੈ"
 
 #: ../gcr/gcr-gnupg-renderer.c:309
 msgid "This key is fully trusted"
@@ -687,7 +685,7 @@ msgstr "ਇਹ ਕੁੰਜੀ ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਰੋਸੇ�
 
 #: ../gcr/gcr-gnupg-renderer.c:312
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "ਇਹ ਕੁੰਜੀ ਬੇਅੰਤ ਭਰੋਸੇਯੋਗ ਹੈ"
 
 #: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
 msgid "Key ID"
@@ -714,7 +712,7 @@ msgstr "ਸਮੱਰਥਾ"
 
 #: ../gcr/gcr-gnupg-renderer.c:391
 msgid "Owner trust"
-msgstr ""
+msgstr "ਓਨਰ ਟਰਸਟ"
 
 #: ../gcr/gcr-gnupg-renderer.c:419
 msgid "Name"
@@ -738,7 +736,7 @@ msgstr "ਬਾਈਨਰੀ ਦਸਤਾਵੇ ਦੇ ਦਸਤਖਤ"
 
 #: ../gcr/gcr-gnupg-renderer.c:509
 msgid "Signature of a canonical text document"
-msgstr ""
+msgstr "ਕਨੋਨੀਕਲ ਟੈਕਸਟ ਡੌਕੂਮੈਂਟ ਦੇ ਦਸਤਖਤ"
 
 #: ../gcr/gcr-gnupg-renderer.c:511
 msgid "Standalone signature"
@@ -750,23 +748,23 @@ msgstr "ਕੁੰਜੀ ਲਈ ਆਮ ਸਰਟੀਫਿਕੇਟ"
 
 #: ../gcr/gcr-gnupg-renderer.c:515
 msgid "Persona certification of key"
-msgstr ""
+msgstr "ਕੁੰਜੀ ਦਾ ਪਰਸੋਨਾ ਸਰਟੀਫਿਕੇਟ"
 
 #: ../gcr/gcr-gnupg-renderer.c:517
 msgid "Casual certification of key"
-msgstr ""
+msgstr "ਕੁੰਜੀ ਦਾ ਆਮ ਸਰਟੀਫਿਕੇਟ"
 
 #: ../gcr/gcr-gnupg-renderer.c:519
 msgid "Positive certification of key"
-msgstr ""
+msgstr "ਕੁੰਜੀ ਦਾ ਠੀਕ ਸਰਟੀਫਿਕੇਟ"
 
 #: ../gcr/gcr-gnupg-renderer.c:521
 msgid "Subkey binding signature"
-msgstr ""
+msgstr "ਸਬ-ਕੁੰਜੀ ਬਾਈਡਿੰਗ ਦਸਤਖਤ"
 
 #: ../gcr/gcr-gnupg-renderer.c:523
 msgid "Primary key binding signature"
-msgstr ""
+msgstr "ਪ੍ਰਾਇਮਰੀ ਕੁੰਜੀ ਬਾਈਡਿੰਗ ਦਸਤਖਤ"
 
 #: ../gcr/gcr-gnupg-renderer.c:525
 msgid "Signature directly on key"
@@ -777,22 +775,20 @@ msgid "Key revocation signature"
 msgstr "ਕੁੰਜੀ ਮਨਸੂਖ ਦਸਤਖਤ"
 
 #: ../gcr/gcr-gnupg-renderer.c:529
-#, fuzzy
 msgid "Subkey revocation signature"
-msgstr "ਮਨਸੂਖ ਲਿਸਟ ਦਸਤਖਤ"
+msgstr "ਸਬ-ਕੁੰਜੀ ਮਨਸੂਖ ਦਸਤਖਤ"
 
 #: ../gcr/gcr-gnupg-renderer.c:531
 msgid "Certification revocation signature"
 msgstr "ਸਰਟੀਫਿਕੇਟ ਮਨਸੂਖ ਦਸਤਖਤ"
 
 #: ../gcr/gcr-gnupg-renderer.c:533
-#, fuzzy
 msgid "Timestamp signature"
-msgstr "ਡਿਜ਼ਿਟਲ ਦਸਤਖਤ"
+msgstr "ਟਾਈਮ-ਸਟੈਂਪ ਦਸਤਖਤ"
 
 #: ../gcr/gcr-gnupg-renderer.c:535
 msgid "Third-party confirmation signature"
-msgstr ""
+msgstr "ਸੁਤੰਤਰ-ਧਿਰ ਪੁਸ਼ਟੀ ਦਸਤਖਤ"
 
 #: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
 msgid "Class"
@@ -804,7 +800,7 @@ msgstr "ਕੇਵਲ ਲੋਕਲ"
 
 #: ../gcr/gcr-gnupg-renderer.c:592
 msgid "Exportable"
-msgstr ""
+msgstr "ਐਕਸਪੋਰਟਯੋਗ"
 
 #: ../gcr/gcr-gnupg-renderer.c:610
 msgid "Revocation Key"
@@ -821,11 +817,11 @@ msgstr "ਪਬਲਿਕ ਸਬ-ਕੁੰਜੀ"
 
 #: ../gcr/gcr-gnupg-renderer.c:741
 msgid "Secret Key"
-msgstr ""
+msgstr "ਗੁਪਤ ਕੁੰਜੀ"
 
 #: ../gcr/gcr-gnupg-renderer.c:743
 msgid "Secret Subkey"
-msgstr ""
+msgstr "ਗੁਪਤ ਸਬ-ਕੁੰਜੀ"
 
 #: ../gcr/gcr-import-button.c:111
 msgid "Initializing..."
@@ -846,9 +842,8 @@ msgid "Import to: %s"
 msgstr "ਇੰਪੋਰਟ: %s"
 
 #: ../gcr/gcr-import-button.c:159
-#, fuzzy
 msgid "Cannot import because there are no compatible importers"
-msgstr "ਲਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ, ਕਿਉਂਕਿ ਕੁੰਜੀ ਦੀ ਕਿਸਮ ਗਲਤ ਹੈ"
+msgstr "ਇੰਪੋਰਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ, ਕਿਉਂਕਿ ਕੋਈ ਵੀ ਅਨੁਕੂਲ ਇੰਪੋਰਟ ਨਹੀਂ ਹਨ"
 
 #: ../gcr/gcr-import-button.c:168
 msgid "No data to import"
@@ -899,7 +894,6 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #: ../gcr/gcr-parser.c:331
-#| msgid "Certificate files"
 msgid "Certificate Request"
 msgstr "ਸਰਟੀਫਿਕੇਟ ਮੰਗ"
 
@@ -979,7 +973,7 @@ msgstr "ਪਾਸਵਰਡ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ�
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:1
 msgid "Access Prompt"
-msgstr ""
+msgstr "ਅਸੈਸ ਪਰਾਉਂਟ"
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
@@ -987,15 +981,15 @@ msgstr "ਪਾਸਵਰਡ ਅਤੇ ਹੋਰ ਭੇਦ ਖੋਲ੍ਹਣ ਲ�
 
 #: ../gcr/gcr-subject-public-key.c:345
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "ਕੰਜੀ ਲਈ ਬੇਪਛਾਣ ਜਾਂ ਨਾ-ਉਪਲੱਬਧ ਗੁਣ"
 
 #: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
 msgid "Couldn't build public key"
-msgstr ""
+msgstr "ਪਬਲਿਕ ਕੁੰਜੀ ਬਿਲਡ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ"
 
 #: ../gcr/gcr-system-prompt.c:753
 msgid "Another prompt is already in progress"
-msgstr ""
+msgstr "ਹੋਰ ਪਰਾਉਂਟ ਪਹਿਲਾਂ ਹੀ ਜਾਰੀ ਹੈ"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and

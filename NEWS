@@ -1,3 +1,10 @@
+gcr 3.6.1:
+ - Remove unneeded translation
+ - Clear and focus password entry in gcr-viewer when invalid password
+ - Keep enumerating if getting info about one slot fails.
+ - Updated translations
+ - Testing fixes
+
 gcr 3.6.0:
  - Updated translations
 

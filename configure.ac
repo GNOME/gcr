@@ -86,6 +86,18 @@ AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 
 # --------------------------------------------------------------------
+# Vala
+
+VALA_REQUIRED=0.18.0
+
+VAPIGEN_CHECK($VALA_REQUIRED)
+
+if test "$enable_vala" != "no"; then
+	AC_PATH_PROG([VALAC], [valac], [])
+fi
+AM_CONDITIONAL(HAVE_VALAC, test "x$VALAC" != "x")
+
+# --------------------------------------------------------------------
 # Checks for functions
 #
 
@@ -377,6 +389,7 @@ echo "BUILD"
 echo "  Debug Build:          $debug_status"
 echo "  Strict Compilation:   $strict_status"
 echo "  Introspection:        $found_introspection"
+echo "  Vala:                 $enable_vala"
 echo "  Valgrind:             $valgrind_status"
 echo "  Test Coverage:        $enable_coverage"
 echo

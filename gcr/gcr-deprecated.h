@@ -34,12 +34,23 @@
 
 #include "gcr-certificate-basics-widget.h"
 #include "gcr-certificate-details-widget.h"
+#include "gcr-certificate-renderer.h"
 #include "gcr-viewer.h"
 
 G_BEGIN_DECLS
 
 void              gcr_renderer_render                         (GcrRenderer *self,
                                                                GcrViewer *viewer);
+
+GckAttributes *   gcr_certificate_renderer_get_attributes     (GcrCertificateRenderer *self);
+
+void              gcr_certificate_renderer_set_attributes     (GcrCertificateRenderer *self,
+                                                               GckAttributes *attrs);
+
+GckAttributes *   gcr_certificate_widget_get_attributes       (GcrCertificateWidget *self);
+
+void              gcr_certificate_widget_set_attributes       (GcrCertificateWidget *self,
+                                                               GckAttributes *attrs);
 
 G_END_DECLS
 

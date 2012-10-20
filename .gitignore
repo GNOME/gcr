@@ -82,6 +82,8 @@ stamp-*
 /gck/*.pc
 /gck/gck-enum-types*
 /gck/gck-marshal.*
+/gck/gck-?.deps
+/gck/gck-?.vapi
 
 /gcr/*.pc
 /gcr/gcr-dbus-generated.*
@@ -94,6 +96,8 @@ stamp-*
 /gcr/gcr-viewer
 /gcr/gcr-viewer.desktop
 /gcr/gcr-viewer.desktop.in
+/gcr/gcr-?.deps
+/gcr/gcr-?.vapi
 
 /po/Makefile.in.in
 /po/*.sed

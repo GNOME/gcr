@@ -36,6 +36,7 @@ HEADER_BASE_FILES = \
 	gcr-secret-exchange.h \
 	gcr-secure-memory.h \
 	gcr-simple-certificate.h \
+	gcr-simple-collection.h \
 	gcr-system-prompt.h \
 	gcr-system-prompter.h \
 	gcr-trust.h \
@@ -61,7 +62,6 @@ HEADER_UI_FILES = \
 	gcr-prompt-dialog.h \
 	gcr-renderer.h \
 	gcr-secure-entry-buffer.h \
-	gcr-simple-collection.h \
 	gcr-tree-selector.h \
 	gcr-unlock-options-widget.h \
 	gcr-viewer.h \
@@ -107,95 +107,118 @@ BUILT_SOURCES = \
 	$(BUILT_BASE_FILES) \
 	$(BUILT_UI_FILES)
 
-libgcr_base_@GCR_MAJOR@_la_SOURCES = \
-	gcr-callback-output-stream.c gcr-callback-output-stream.h \
+PUBLIC_BASE_FILES = \
+	gcr-base.h \
 	gcr-certificate.c gcr-certificate.h \
 	gcr-certificate-chain.c gcr-certificate-chain.h \
-	gcr-certificate-extensions.c gcr-certificate-extensions.h \
 	gcr-certificate-request.c gcr-certificate-request.h \
 	gcr-collection.c gcr-collection.h \
 	gcr-comparable.c gcr-comparable.h \
-	gcr-dbus-constants.h \
-	gcr-debug.c gcr-debug.h \
 	gcr-filter-collection.c gcr-filter-collection.h \
 	gcr-fingerprint.c gcr-fingerprint.h \
+	gcr-icons.c gcr-icons.h \
+	gcr-importer.c gcr-importer.h \
+	gcr-import-interaction.c gcr-import-interaction.h \
+	gcr-library.c gcr-library.h \
+	gcr-mock-prompter.c gcr-mock-prompter.h \
+	gcr-parser.c gcr-parser.h \
+	gcr-pkcs11-certificate.c gcr-pkcs11-certificate.h \
+	gcr-prompt.c gcr-prompt.h \
+	gcr-secret-exchange.c gcr-secret-exchange.h \
+	gcr-secure-memory.c gcr-secure-memory.h \
+	gcr-simple-certificate.c gcr-simple-certificate.h \
+	gcr-simple-collection.c gcr-simple-collection.h \
+	gcr-system-prompt.c gcr-system-prompt.h \
+	gcr-system-prompter.c gcr-system-prompter.h \
+	gcr-types.h \
+	gcr-union-collection.c gcr-union-collection.h \
+	gcr-unlock-options.h \
+	$(NULL)
+
+PRIVATE_BASE_FILES = \
+	gcr-callback-output-stream.c gcr-callback-output-stream.h \
+	gcr-certificate-extensions.c gcr-certificate-extensions.h \
+	gcr-dbus-constants.h \
+	gcr-debug.c gcr-debug.h \
+	gcr-deprecated-base.h \
 	gcr-gnupg-collection.c gcr-gnupg-collection.h \
 	gcr-gnupg-importer.c gcr-gnupg-importer.h \
 	gcr-gnupg-key.c gcr-gnupg-key.h \
 	gcr-gnupg-process.c gcr-gnupg-process.h \
 	gcr-gnupg-records.c gcr-gnupg-records.h \
 	gcr-gnupg-util.c gcr-gnupg-util.h \
-	gcr-icons.c gcr-icons.h \
-	gcr-importer.c gcr-importer.h \
-	gcr-import-interaction.c gcr-import-interaction.h \
 	gcr-internal.h \
 	gcr-key-mechanisms.h gcr-key-mechanisms.c \
-	gcr-library.c gcr-library.h \
 	gcr-memory.c \
 	gcr-memory-icon.c gcr-memory-icon.h \
-	gcr-mock-prompter.c gcr-mock-prompter.h \
 	gcr-openpgp.c gcr-openpgp.h \
 	gcr-openssh.c gcr-openssh.h \
-	gcr-parser.c gcr-parser.h \
-	gcr-pkcs11-certificate.c gcr-pkcs11-certificate.h \
 	gcr-pkcs11-importer.c gcr-pkcs11-importer.h \
-	gcr-prompt.c gcr-prompt.h \
 	gcr-record.c gcr-record.h \
-	gcr-secret-exchange.c gcr-secret-exchange.h \
-	gcr-secure-memory.c gcr-secure-memory.h \
-	gcr-simple-certificate.c gcr-simple-certificate.h \
-	gcr-simple-collection.c gcr-simple-collection.h \
 	gcr-single-collection.c gcr-single-collection.h \
 	gcr-subject-public-key.c gcr-subject-public-key.h \
-	gcr-system-prompt.c gcr-system-prompt.h \
-	gcr-system-prompter.c gcr-system-prompter.h \
 	gcr-trust.c gcr-trust.h \
-	gcr-types.h \
-	gcr-union-collection.c gcr-union-collection.h \
 	gcr-util.c gcr-util.h \
+	$(NULL)
+
+libgcr_base_@GCR_MAJOR@_la_SOURCES = \
+	$(PUBLIC_BASE_FILES) \
+	$(PRIVATE_BASE_FILES) \
 	$(NULL)
 
 nodist_libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	$(BUILT_BASE_FILES)
 
-libgcr_@GCR_MAJOR@_la_SOURCES = \
+PUBLIC_UI_FILES = \
+	gcr.h \
+	gcr-certificate-renderer.c gcr-certificate-renderer.h \
+	gcr-certificate-widget.c gcr-certificate-widget.h \
+	gcr-collection-model.c gcr-collection-model.h \
+	gcr-column.h \
+	gcr-combo-selector.c gcr-combo-selector.h \
+	gcr-failure-renderer.c gcr-failure-renderer.h \
+	gcr-key-renderer.c gcr-key-renderer.h \
+	gcr-key-widget.c gcr-key-widget.h \
+	gcr-import-button.c  gcr-import-button.h \
+	gcr-list-selector.c gcr-list-selector.h \
+	gcr-prompt-dialog.c gcr-prompt-dialog.h \
+	gcr-renderer.c gcr-renderer.h \
+	gcr-secure-entry-buffer.c gcr-secure-entry-buffer.h \
+	gcr-tree-selector.c gcr-tree-selector.h \
+	gcr-unlock-options-widget.c gcr-unlock-options-widget.h \
+	gcr-viewer.c gcr-viewer.h \
+	gcr-viewer-widget.c gcr-viewer-widget.h \
+	$(NULL)
+
+PRIVATE_UI_FILES = \
 	gcr-certificate-basics-widget.c gcr-certificate-basics-widget.h \
 	gcr-certificate-details-widget.c gcr-certificate-details-widget.h \
 	gcr-certificate-exporter.c gcr-certificate-exporter.h \
 	gcr-certificate-extensions.c gcr-certificate-extensions.h \
-	gcr-certificate-renderer.c gcr-certificate-renderer.h gcr-certificate-renderer-private.h \
+	gcr-certificate-renderer-private.h \
 	gcr-certificate-request-renderer.c gcr-certificate-request-renderer.h \
-	gcr-certificate-widget.c gcr-certificate-widget.h \
-	gcr-collection-model.c gcr-collection-model.h \
-	gcr-combo-selector.c gcr-combo-selector.h \
 	gcr-debug.c gcr-debug.h \
+	gcr-deprecated.h \
 	gcr-dialog-util.c gcr-dialog-util.h \
 	gcr-display-scrolled.c gcr-display-scrolled.h \
 	gcr-display-view.c gcr-display-view.h \
-	gcr-failure-renderer.c gcr-failure-renderer.h \
 	gcr-gnupg-renderer.c gcr-gnupg-renderer.h \
 	gcr-gnupg-records.c gcr-gnupg-records.h \
-	gcr-import-button.c gcr-import-button.h \
-	gcr-key-renderer.c gcr-key-renderer.h \
-	gcr-key-widget.c gcr-key-widget.h \
-	gcr-list-selector.c gcr-list-selector.h gcr-list-selector-private.h \
+	gcr-list-selector-private.h \
 	gcr-live-search.c gcr-live-search.h \
 	gcr-memory.c \
 	gcr-memory-icon.c gcr-memory-icon.h \
 	gcr-pkcs11-import-interaction.c gcr-pkcs11-import-interaction.h \
 	gcr-pkcs11-import-dialog.c gcr-pkcs11-import-dialog.h \
-	gcr-prompt-dialog.c gcr-prompt-dialog.h \
 	gcr-record.c gcr-record.h \
-	gcr-renderer.c gcr-renderer.h \
-	gcr-secure-entry-buffer.c gcr-secure-entry-buffer.h \
 	gcr-subject-public-key.c gcr-subject-public-key.h \
-	gcr-tree-selector.c gcr-tree-selector.h \
-	gcr-unlock-options.h \
-	gcr-unlock-options-widget.c gcr-unlock-options-widget.h \
 	gcr-unlock-renderer.c gcr-unlock-renderer.h \
-	gcr-viewer.c gcr-viewer.h \
-	gcr-viewer-widget.c gcr-viewer-widget.h \
 	gcr-viewer-window.c gcr-viewer-window.h \
+	$(NULL)
+
+libgcr_@GCR_MAJOR@_la_SOURCES = \
+	$(PUBLIC_UI_FILES) \
+	$(PRIVATE_UI_FILES) \
 	$(NULL)
 
 nodist_libgcr_@GCR_MAJOR@_la_SOURCES = \
@@ -353,65 +376,6 @@ gcr_prompter_LDADD = \
 	$(top_builddir)/gck/libgck-@GCK_MAJOR@.la \
 	$(GTK_LIBS)
 
-# ------------------------------------------------------------------
-# INTROSPECTION
-
-if HAVE_INTROSPECTION
-
-include $(INTROSPECTION_MAKEFILE)
-
-INTROSPECTION_GIRS = Gcr-@GCR_MAJOR@.gir
-INTROSPECTION_SCANNER_ARGS = \
-	$(INTROSPECTION_FLAGS) \
-	--warn-all \
-	--add-include-path=$(top_builddir)/gck  \
-	--include-uninstalled=$(top_builddir)/gck/Gck-@GCK_MAJOR@.gir
-INTROSPECTION_COMPILER_ARGS = \
-	--includedir=$(srcdir) \
-	--includedir=$(top_builddir)/gck
-
-Gcr-@GCR_MAJOR@.gir: libgcr-@GCR_MAJOR@.la
-
-Gcr_@GCR_MAJOR@_gir_PACKAGES = gtk+-3.0 p11-kit-1
-Gcr_@GCR_MAJOR@_gir_EXPORT_PACKAGES = gcr-@GCR_MAJOR@
-Gcr_@GCR_MAJOR@_gir_INCLUDES = GLib-2.0 GObject-2.0 Gtk-3.0
-Gcr_@GCR_MAJOR@_gir_LIBS = libgcr-base-@GCR_MAJOR@.la libgcr-@GCR_MAJOR@.la
-Gcr_@GCR_MAJOR@_gir_CFLAGS = -I$(top_srcdir) -I$(top_builddir) -DGCR_COMPILATION -DGCR_API_SUBJECT_TO_CHANGE
-Gcr_@GCR_MAJOR@_gir_FILES = $(libgcr_base_@GCR_MAJOR@_la_SOURCES) $(libgcr_@GCR_MAJOR@_la_SOURCES)
-Gcr_@GCR_MAJOR@_gir_SCANNERFLAGS = --c-include "gcr.h" --c-include "gcr-base.h"
-
-girdir = $(datadir)/gir-1.0
-gir_DATA = $(INTROSPECTION_GIRS)
-
-typelibsdir = $(libdir)/girepository-1.0
-typelibs_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
-
-endif
-
-# ----------------------------------------------------------------
-
-gcr-expected-base.abi: gcr-base.symbols
-	$(AM_V_GEN) cpp -P $< | sort > $@
-gcr-expected.abi: gcr.symbols
-	$(AM_V_GEN) cpp -P $< | sort > $@
-
-gcr-actual-base.abi: $(builddir)/.libs/libgcr-base-@GCR_MAJOR@.so
-	$(AM_V_GEN)  $(NM) -D -g --defined-only $< | \
-		cut -d ' ' -f 3 | grep -Ev '^(__bss_start|_edata|_end)' | sort > $@
-gcr-actual.abi: $(builddir)/.libs/libgcr-@GCR_MAJOR@.so
-	$(AM_V_GEN)  $(NM) -D -g --defined-only $< | \
-		cut -d ' ' -f 3 | grep -Ev '^(__bss_start|_edata|_end)' | sort > $@
-
-check-symbols: gcr-expected.abi gcr-actual.abi gcr-expected-base.abi gcr-actual-base.abi
-	$(AM_V_GEN) diff -U0 --ignore-blank-lines gcr-expected-base.abi gcr-actual-base.abi || \
-		(echo "check-symbols: Symbols have CHANGED. Fix gcr-base.symbols"; exit 1)
-	$(AM_V_GEN) diff -U0 --ignore-blank-lines gcr-expected.abi gcr-actual.abi || \
-		(echo "check-symbols: Symbols have CHANGED. Fix gcr.symbols"; exit 1)
-
-check-local: check-symbols
-
-check-memory:
-	make -C tests check-memory
 
 EXTRA_DIST = \
 	gcr.pc.in \
@@ -441,3 +405,109 @@ CLEANFILES = \
 	gcr-actual-base.abi \
 	gcr-expected.abi \
 	gcr-expected-base.abi
+
+# ------------------------------------------------------------------
+# INTROSPECTION
+
+if HAVE_INTROSPECTION
+
+include $(INTROSPECTION_MAKEFILE)
+
+INTROSPECTION_GIRS = Gcr-@GCR_MAJOR@.gir GcrBase-@GCR_MAJOR@.gir
+INTROSPECTION_SCANNER_ARGS = \
+	$(INTROSPECTION_FLAGS) \
+	--warn-all \
+	--add-include-path=$(top_builddir)/gck  \
+	--include-uninstalled=$(top_builddir)/gck/Gck-@GCK_MAJOR@.gir
+INTROSPECTION_COMPILER_ARGS = \
+	--includedir=$(srcdir) \
+	--includedir=$(top_builddir)/gck
+
+Gcr-@GCR_MAJOR@.gir: libgcr-@GCR_MAJOR@.la
+
+Gcr_@GCR_MAJOR@_gir_PACKAGES = gtk+-3.0 p11-kit-1
+Gcr_@GCR_MAJOR@_gir_EXPORT_PACKAGES = gcr-@GCR_MAJOR@
+Gcr_@GCR_MAJOR@_gir_INCLUDES = GLib-2.0 GObject-2.0 Gtk-3.0
+Gcr_@GCR_MAJOR@_gir_LIBS = libgcr-base-@GCR_MAJOR@.la libgcr-@GCR_MAJOR@.la
+Gcr_@GCR_MAJOR@_gir_CFLAGS = -I$(top_srcdir) -I$(top_builddir) -DGCR_COMPILATION -DGCR_API_SUBJECT_TO_CHANGE
+Gcr_@GCR_MAJOR@_gir_FILES = $(PUBLIC_BASE_FILES) $(PUBLIC_UI_FILES)
+Gcr_@GCR_MAJOR@_gir_SCANNERFLAGS = --c-include "gcr.h" --c-include "gcr-base.h"
+
+GcrBase-@GCR_MAJOR@.gir: libgcr-base-@GCR_MAJOR@.la Gcr-@GCR_MAJOR@.gir
+
+GcrBase_@GCR_MAJOR@_gir_PACKAGES = p11-kit-1
+GcrBase_@GCR_MAJOR@_gir_EXPORT_PACKAGES = gcr-base-@GCR_MAJOR@
+GcrBase_@GCR_MAJOR@_gir_INCLUDES = GLib-2.0 GObject-2.0
+GcrBase_@GCR_MAJOR@_gir_LIBS = libgcr-base-@GCR_MAJOR@.la
+GcrBase_@GCR_MAJOR@_gir_CFLAGS = -I$(top_srcdir) -I$(top_builddir) -DGCR_COMPILATION -DGCR_API_SUBJECT_TO_CHANGE
+GcrBase_@GCR_MAJOR@_gir_FILES = $(PUBLIC_BASE_FILES)
+GcrBase_@GCR_MAJOR@_gir_SCANNERFLAGS = --c-include "gcr-base.h" --identifier-prefix Gcr --namespace=GcrBase
+
+girdir = $(datadir)/gir-1.0
+gir_DATA = $(INTROSPECTION_GIRS)
+
+typelibsdir = $(libdir)/girepository-1.0
+typelibs_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
+
+if ENABLE_VAPIGEN
+include $(VAPIGEN_MAKEFILE)
+
+gcr-@GCR_MAJOR@.vapi: Gcr-@GCR_MAJOR@.gir Gcr-@GCR_MAJOR@.metadata gcr-@GCR_MAJOR@.deps
+gcr-base-@GCR_MAJOR@.vapi: GcrBase-@GCR_MAJOR@.gir GcrBase-@GCR_MAJOR@.metadata gcr-base-@GCR_MAJOR@.deps
+
+VAPIGEN_VAPIS = gcr-@GCR_MAJOR@.vapi gcr-base-@GCR_MAJOR@.vapi
+
+gcr_@GCR_MAJOR@_vapi_DEPS = glib-2.0 gio-2.0 gck-@GCK_MAJOR@ gtk+-3.0
+gcr_@GCR_MAJOR@_vapi_METADATADIRS = $(srcdir)
+gcr_@GCR_MAJOR@_vapi_VAPIDIRS = $(builddir) $(builddir)/../gck
+gcr_@GCR_MAJOR@_vapi_FILES = Gcr-@GCR_MAJOR@.gir
+
+gcr_base_@GCR_MAJOR@_vapi_DEPS = glib-2.0 gio-2.0 gck-@GCK_MAJOR@
+gcr_base_@GCR_MAJOR@_vapi_METADATADIRS = $(srcdir)
+gcr_base_@GCR_MAJOR@_vapi_VAPIDIRS = $(builddir) $(builddir)/../gck
+gcr_base_@GCR_MAJOR@_vapi_FILES = GcrBase-@GCR_MAJOR@.gir
+
+VAPI_DEPS = $(VAPIGEN_VAPIS:.vapi=.deps)
+
+gcr-$(GCR_MAJOR).deps: Makefile.am
+	$(AM_V_GEN) echo $(gcr_@GCR_MAJOR@_vapi_DEPS) | tr ' ' '\n' > $@
+gcr-base-$(GCR_MAJOR).deps: Makefile.am
+	$(AM_V_GEN) echo $(gcr_base_@GCR_MAJOR@_vapi_DEPS) | tr ' ' '\n' > $@
+
+vapidir = $(datadir)/vala/vapi
+vapi_DATA = \
+	$(VAPIGEN_VAPIS) \
+	$(VAPI_DEPS)
+
+CLEANFILES += \
+	$(VAPIGEN_VAPIS) \
+	$(VAPI_DEPS)
+
+endif # ENABLE_VAPIGEN
+
+endif
+
+# ----------------------------------------------------------------
+
+gcr-expected-base.abi: gcr-base.symbols
+	$(AM_V_GEN) cpp -P $< | sort > $@
+gcr-expected.abi: gcr.symbols
+	$(AM_V_GEN) cpp -P $< | sort > $@
+
+gcr-actual-base.abi: $(builddir)/.libs/libgcr-base-@GCR_MAJOR@.so
+	$(AM_V_GEN)  $(NM) -D -g --defined-only $< | \
+		cut -d ' ' -f 3 | grep -Ev '^(__bss_start|_edata|_end)' | sort > $@
+gcr-actual.abi: $(builddir)/.libs/libgcr-@GCR_MAJOR@.so
+	$(AM_V_GEN)  $(NM) -D -g --defined-only $< | \
+		cut -d ' ' -f 3 | grep -Ev '^(__bss_start|_edata|_end)' | sort > $@
+
+check-symbols: gcr-expected.abi gcr-actual.abi gcr-expected-base.abi gcr-actual-base.abi
+	$(AM_V_GEN) diff -U0 --ignore-blank-lines gcr-expected-base.abi gcr-actual-base.abi || \
+		(echo "check-symbols: Symbols have CHANGED. Fix gcr-base.symbols"; exit 1)
+	$(AM_V_GEN) diff -U0 --ignore-blank-lines gcr-expected.abi gcr-actual.abi || \
+		(echo "check-symbols: Symbols have CHANGED. Fix gcr.symbols"; exit 1)
+
+check-local: check-symbols
+
+check-memory:
+	make -C tests check-memory

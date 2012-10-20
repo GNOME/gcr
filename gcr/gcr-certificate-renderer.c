@@ -24,6 +24,7 @@
 #include "gcr-certificate-extensions.h"
 #include "gcr-certificate-renderer.h"
 #include "gcr-certificate-renderer-private.h"
+#include "gcr-deprecated.h"
 #include "gcr-display-view.h"
 #include "gcr-fingerprint.h"
 #include "gcr-icons.h"
@@ -383,7 +384,17 @@ gcr_certificate_renderer_set_property (GObject *obj, guint prop_id, const GValue
 		gcr_renderer_emit_data_changed (GCR_RENDERER (self));
 		break;
 	case PROP_ATTRIBUTES:
-		gcr_certificate_renderer_set_attributes (self, g_value_get_boxed (value));
+		gck_attributes_unref (self->pv->opt_attrs);
+		self->pv->opt_attrs = g_value_get_boxed (value);
+		if (self->pv->opt_attrs)
+			gck_attributes_ref (self->pv->opt_attrs);
+		if (self->pv->opt_cert) {
+			g_object_unref (self->pv->opt_cert);
+			g_object_notify (G_OBJECT (self), "certificate");
+			self->pv->opt_cert = NULL;
+		}
+		gcr_renderer_emit_data_changed (GCR_RENDERER (self));
+		g_object_notify (G_OBJECT (self), "attributes");
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -743,12 +754,14 @@ gcr_certificate_renderer_set_certificate (GcrCertificateRenderer *self, GcrCerti
  * Get the PKCS\#11 attributes, if any, set for this renderer to display.
  *
  * Returns: (allow-none) (transfer none): the attributes, owned by the renderer
+ *
+ * Deprecated: 3.6: Use gcr_renderer_get_attributes() instead
  */
 GckAttributes *
 gcr_certificate_renderer_get_attributes (GcrCertificateRenderer *self)
 {
 	g_return_val_if_fail (GCR_IS_CERTIFICATE_RENDERER (self), NULL);
-	return self->pv->opt_attrs;
+	return gcr_renderer_get_attributes (GCR_RENDERER (self));
 }
 
 /**
@@ -758,27 +771,14 @@ gcr_certificate_renderer_get_attributes (GcrCertificateRenderer *self)
  *
  * Set the PKCS\#11 attributes for this renderer to display. One of the attributes
  * should be a CKA_VALUE type attribute containing a DER encoded certificate.
+ *
+ * Deprecated: 3.6: Use gcr_renderer_set_attributes() instead
  */
 void
 gcr_certificate_renderer_set_attributes (GcrCertificateRenderer *self, GckAttributes *attrs)
 {
 	g_return_if_fail (GCR_IS_CERTIFICATE_RENDERER (self));
-
-	gck_attributes_unref (self->pv->opt_attrs);
-	self->pv->opt_attrs = attrs;
-
-	if (self->pv->opt_attrs)
-		gck_attributes_ref (self->pv->opt_attrs);
-
-	if (self->pv->opt_cert) {
-		g_object_unref (self->pv->opt_cert);
-		g_object_notify (G_OBJECT (self), "certificate");
-		self->pv->opt_cert = NULL;
-	}
-
-	gcr_renderer_emit_data_changed (GCR_RENDERER (self));
-	g_object_notify (G_OBJECT (self), "attributes");
-
+	gcr_renderer_set_attributes (GCR_RENDERER (self), attrs);
 }
 
 typedef struct {

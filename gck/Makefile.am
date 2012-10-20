@@ -99,6 +99,23 @@ gck-enum-types.h: gck-enum-types.h.template $(HEADER_FILES)
 gck-enum-types.c: gck-enum-types.c.template $(HEADER_FILES)
 	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
+EXTRA_DIST = \
+	gck.pc.in \
+	gck-marshal.list \
+	gck.symbols \
+	gck-enum-types.h.template \
+	gck-enum-types.c.template \
+	pkcs11-trust-assertions.h \
+	pkcs11i.h
+
+CLEANFILES = \
+	gck-$(GCK_MAJOR).pc \
+	$(gir_DATA) \
+	$(typelibs_DATA) \
+	$(BUILT_SOURCES) \
+	gck-actual.abi \
+	gck-expected.abi
+
 # ------------------------------------------------------------------
 # INTROSPECTION
 
@@ -126,6 +143,33 @@ gir_DATA = $(INTROSPECTION_GIRS)
 typelibsdir = $(libdir)/girepository-1.0
 typelibs_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
+if ENABLE_VAPIGEN
+include $(VAPIGEN_MAKEFILE)
+
+gck-@GCK_MAJOR@.vapi: Gck-@GCK_MAJOR@.gir Gck-@GCK_MAJOR@.metadata gck-@GCK_MAJOR@.deps
+
+VAPIGEN_VAPIS = gck-@GCK_MAJOR@.vapi
+
+gck_@GCK_MAJOR@_vapi_DEPS = glib-2.0 gio-2.0
+gck_@GCK_MAJOR@_vapi_METADATADIRS = $(srcdir)
+gck_@GCK_MAJOR@_vapi_FILES = Gck-@GCK_MAJOR@.gir
+
+VAPI_DEPS = $(VAPIGEN_VAPIS:.vapi=.deps)
+
+gck-$(GCK_MAJOR).deps: Makefile.am
+	$(AM_V_GEN) echo $(gck_@GCK_MAJOR@_vapi_DEPS) | tr ' ' '\n' > $@
+
+vapidir = $(datadir)/vala/vapi
+vapi_DATA = \
+	$(VAPIGEN_VAPIS) \
+	$(VAPI_DEPS)
+
+CLEANFILES += \
+	$(VAPIGEN_VAPIS) \
+	$(VAPI_DEPS)
+
+endif # ENABLE_VAPIGEN
+
 endif
 
 # ----------------------------------------------------------------
@@ -152,19 +196,3 @@ check-local: check-symbols
 check-memory:
 	make -C tests check-memory
 
-EXTRA_DIST = \
-	gck.pc.in \
-	gck-marshal.list \
-	gck.symbols \
-	gck-enum-types.h.template \
-	gck-enum-types.c.template \
-	pkcs11-trust-assertions.h \
-	pkcs11i.h
-
-CLEANFILES = \
-	gck-$(GCK_MAJOR).pc \
-	$(gir_DATA) \
-	$(typelibs_DATA) \
-	$(BUILT_SOURCES) \
-	gck-actual.abi \
-	gck-expected.abi

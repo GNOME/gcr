@@ -78,6 +78,11 @@ GcrRenderer*              gcr_renderer_create                     (const gchar *
 void                      gcr_renderer_register                   (GType renderer_type,
                                                                    GckAttributes *attrs);
 
+GckAttributes *           gcr_renderer_get_attributes             (GcrRenderer *self);
+
+void                      gcr_renderer_set_attributes             (GcrRenderer *self,
+                                                                   GckAttributes *attrs);
+
 void                   gcr_renderer_register_well_known           (void);
 
 G_END_DECLS

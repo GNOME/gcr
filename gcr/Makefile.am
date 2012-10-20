@@ -238,7 +238,42 @@ gir_DATA = $(INTROSPECTION_GIRS)
 typelibsdir = $(libdir)/girepository-1.0
 typelibs_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
+if ENABLE_VAPIGEN
+
+include $(VAPIGEN_MAKEFILE)
+
+gcr-@GCR_MAJOR@.vapi: Gcr-@GCR_MAJOR@.gir Gcr-@GCR_MAJOR@.metadata gcr-@GCR_MAJOR@.deps
+
+VAPIGEN_VAPIS = gcr-@GCR_MAJOR@.vapi
+
+gcr_@GCR_MAJOR@_vapi_DEPS = glib-2.0 gio-2.0 gck-@GCK_MAJOR@
+gcr_@GCR_MAJOR@_vapi_METADATADIRS = $(srcdir)
+gcr_@GCR_MAJOR@_vapi_VAPIDIRS = $(builddir)/../gck
+gcr_@GCR_MAJOR@_vapi_GIRDIRS = $(builddir)/../gck
+gcr_@GCR_MAJOR@_vapi_FILES = Gcr-@GCR_MAJOR@.gir
+
+VAPI_DEPS = $(VAPIGEN_VAPIS:.vapi=.deps)
+
+gcr-$(GCR_MAJOR).deps: Makefile.am
+	$(AM_V_GEN) echo $(gcr_@GCR_MAJOR@_vapi_DEPS) | tr ' ' '\n' > $@
+
+vapidir = $(datadir)/vala/vapi
+vapi_DATA = \
+	$(VAPIGEN_VAPIS) \
+	$(VAPI_DEPS)
+
+EXTRA_DIST += \
+	Gcr-@GCR_MAJOR@.metadata
+
+CLEANFILES += \
+	$(VAPIGEN_VAPIS) \
+	$(VAPI_DEPS)
+
+endif # ENABLE_VAPIGEN
+
 endif # HAVE_INTROSPECTON
+
+# ----------------------------------------------------------------
 
 gcr-base-expected.abi: gcr-base.symbols
 	$(AM_V_GEN) cpp -P $< | sort > $@

@@ -186,6 +186,43 @@ gcr_renderer_emit_data_changed (GcrRenderer *self)
 	g_signal_emit (self, signals[DATA_CHANGED], 0);
 }
 
+/**
+ * gcr_renderer_get_attributes:
+ * @self: The renderer
+ *
+ * Get the PKCS\#11 attributes, if any, set for this renderer to display.
+ *
+ * Returns: (allow-none) (transfer none): the attributes, owned by the renderer
+ */
+GckAttributes *
+gcr_renderer_get_attributes (GcrRenderer *self)
+{
+	GckAttributes *attrs;
+
+	g_return_val_if_fail (GCR_IS_RENDERER (self), NULL);
+
+	g_object_get (self, "attributes", &attrs, NULL);
+	if (attrs != NULL)
+		gck_attributes_unref (attrs);
+	return attrs;
+}
+
+/**
+ * gcr_renderer_set_attributes:
+ * @self: The renderer
+ * @attrs: (allow-none): attributes to set
+ *
+ * Set the PKCS\#11 attributes for this renderer to display.
+ */
+void
+gcr_renderer_set_attributes (GcrRenderer *self,
+                             GckAttributes *attrs)
+{
+	g_return_if_fail (GCR_IS_RENDERER (self));
+
+	g_object_set (self, "attributes", attrs, NULL);
+}
+
 static gint
 sort_registered_by_n_attrs (gconstpointer a, gconstpointer b)
 {

@@ -68,11 +68,6 @@ GcrCertificate*           gcr_certificate_renderer_get_certificate    (GcrCertif
 void                      gcr_certificate_renderer_set_certificate    (GcrCertificateRenderer *self,
                                                                        GcrCertificate *certificate);
 
-GckAttributes*            gcr_certificate_renderer_get_attributes     (GcrCertificateRenderer *self);
-
-void                      gcr_certificate_renderer_set_attributes     (GcrCertificateRenderer *self,
-                                                                       GckAttributes *attrs);
-
 G_END_DECLS
 
 #endif /* __GCR_CERTIFICATE_RENDERER_H__ */

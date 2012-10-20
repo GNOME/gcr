@@ -4,6 +4,9 @@ SUBDIRS = . icons tests
 
 incdir = $(includedir)/gcr-@GCR_MAJOR@/ui
 
+EXTRA_DIST = 
+CLEANFILES =
+
 INCLUDES = \
 	-I$(top_builddir) \
 	-I$(top_srcdir) \
@@ -185,6 +188,38 @@ gir_DATA = $(INTROSPECTION_GIRS)
 typelibsdir = $(libdir)/girepository-1.0
 typelibs_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
+if ENABLE_VAPIGEN
+include $(VAPIGEN_MAKEFILE)
+
+gcr-ui-@GCR_MAJOR@.vapi: GcrUi-@GCR_MAJOR@.gir GcrUi-@GCR_MAJOR@.metadata gcr-ui-@GCR_MAJOR@.deps
+
+VAPIGEN_VAPIS = gcr-ui-@GCR_MAJOR@.vapi
+
+gcr_ui_@GCR_MAJOR@_vapi_DEPS = glib-2.0 gio-2.0 gck-@GCK_MAJOR@ gcr-@GCR_MAJOR@ gtk+-3.0
+gcr_ui_@GCR_MAJOR@_vapi_METADATADIRS = $(srcdir)
+gcr_ui_@GCR_MAJOR@_vapi_VAPIDIRS = $(builddir) $(builddir)/../gck $(builddir)/../gcr
+gcr_ui_@GCR_MAJOR@_vapi_GIRDIRS = $(builddir) $(builddir)/../gck $(builddir)/../gcr
+gcr_ui_@GCR_MAJOR@_vapi_FILES = GcrUi-@GCR_MAJOR@.gir
+
+VAPI_DEPS = $(VAPIGEN_VAPIS:.vapi=.deps)
+
+gcr-ui-$(GCR_MAJOR).deps: Makefile.am
+	$(AM_V_GEN) echo $(gcr_ui_@GCR_MAJOR@_vapi_DEPS) | tr ' ' '\n' > $@
+
+vapidir = $(datadir)/vala/vapi
+vapi_DATA = \
+	$(VAPIGEN_VAPIS) \
+	$(VAPI_DEPS)
+
+EXTRA_DIST += \
+	GcrUi-@GCR_MAJOR@.metadata
+
+CLEANFILES += \
+	$(VAPIGEN_VAPIS) \
+	$(VAPI_DEPS)
+
+endif # ENABLE_VAPIGEN
+
 endif # HAVE_INTROSPECTION
 
 pkgconfig_DATA = \
@@ -231,7 +266,7 @@ gcr_prompter_LDADD = \
 	$(top_builddir)/gck/libgck-@GCK_MAJOR@.la \
 	$(GTK_LIBS)
 
-EXTRA_DIST = \
+EXTRA_DIST += \
 	gcr.pc.in \
 	gcr-ui.pc.in \
 	$(ui_DATA) \
@@ -239,7 +274,7 @@ EXTRA_DIST = \
 	$(desktop_in_in_files) \
 	$(mime_DATA)
 
-CLEANFILES = \
+CLEANFILES += \
 	$(desktop_DATA) \
 	gcr-ui-actual.abi \
 	gcr-ui-expected.abi \

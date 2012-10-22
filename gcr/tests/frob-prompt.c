@@ -36,6 +36,14 @@ static gchar *prompt_type = NULL;
 static gint prompt_delay = 0;
 static gboolean prompt_window = FALSE;
 
+static gboolean
+on_delay_timeout (gpointer data)
+{
+	GMainLoop *loop = data;
+	g_main_loop_quit (loop);
+	return FALSE;
+}
+
 static void
 prompt_perform (GtkWidget *parent)
 {
@@ -50,10 +58,10 @@ prompt_perform (GtkWidget *parent)
 	GcrPromptReply reply;
 	gchar *caller_id = NULL;
 	gboolean cont = TRUE;
+	GMainLoop *loop;
 	gchar *type;
 	gchar *choice;
 	guint i, j;
-
 
 	file = g_key_file_new ();
 	if (!g_key_file_load_from_file (file, file_name, G_KEY_FILE_NONE, &error))
@@ -77,8 +85,15 @@ prompt_perform (GtkWidget *parent)
 		g_free (caller_id);
 	}
 
+	loop = g_main_loop_new (NULL, FALSE);
 	groups = g_key_file_get_groups (file, NULL);
 	for (i = 0; cont && groups[i] != NULL; i++) {
+
+		if (i != 0) {
+			g_timeout_add_seconds (prompt_delay, on_delay_timeout, loop);
+			g_main_loop_run (loop);
+		}
+
 		keys = g_key_file_get_keys (file, groups[i], NULL, NULL);
 		for (j = 0; keys[j] != NULL; j++) {
 			key = keys[j];
@@ -135,10 +150,9 @@ prompt_perform (GtkWidget *parent)
 			g_print ("choice chosen: %s", gcr_prompt_get_choice_chosen (prompt) ? "true" : "false");
 		g_free (choice);
 		g_print ("\n");
-
-
 	}
 
+	g_main_loop_unref (loop);
 	g_object_unref (prompt);
 	g_strfreev (groups);
 	g_key_file_free (file);

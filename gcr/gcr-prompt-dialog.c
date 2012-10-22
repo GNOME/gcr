@@ -102,6 +102,8 @@ struct _GcrPromptDialogPrivate {
 
 	GSimpleAsyncResult *async_result;
 	GcrPromptReply last_reply;
+	GtkWidget *widget_grid;
+	GtkWidget *continue_button;
 	GtkWidget *spinner;
 	GtkWidget *image;
 	GtkWidget *password_entry;
@@ -502,6 +504,7 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	g_object_bind_property (self, "cancel-label", button, "label", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 	button = gtk_dialog_add_button (dialog, GTK_STOCK_OK, GTK_RESPONSE_OK);
 	g_object_bind_property (self, "continue-label", button, "label", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+	self->pv->continue_button = button;
 
 	gtk_window_set_type_hint (GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_NORMAL);
 	gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
@@ -618,6 +621,7 @@ gcr_prompt_dialog_constructed (GObject *obj)
 
 	gtk_container_add (GTK_CONTAINER (content), GTK_WIDGET (grid));
 	gtk_widget_show (GTK_WIDGET (grid));
+	self->pv->widget_grid = GTK_WIDGET (grid);
 
 	g_signal_connect (self, "map-event", G_CALLBACK (grab_keyboard), self);
 	g_signal_connect (self, "unmap-event", G_CALLBACK (ungrab_keyboard), self);
@@ -699,7 +703,8 @@ gcr_prompt_dialog_response (GtkDialog *dialog,
 		break;
 	}
 
-	gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
+	gtk_widget_set_sensitive (self->pv->continue_button, FALSE);
+	gtk_widget_set_sensitive (self->pv->widget_grid, FALSE);
 	gtk_widget_show (self->pv->spinner);
 	gtk_spinner_start (GTK_SPINNER (self->pv->spinner));
 	self->pv->mode = PROMPT_NONE;
@@ -848,7 +853,8 @@ gcr_prompt_dialog_password_async (GcrPrompt *prompt,
 	gtk_image_set_from_stock (GTK_IMAGE (self->pv->image),
 	                          GTK_STOCK_DIALOG_AUTHENTICATION,
 	                          GTK_ICON_SIZE_DIALOG);
-	gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
+	gtk_widget_set_sensitive (self->pv->continue_button, TRUE);
+	gtk_widget_set_sensitive (self->pv->widget_grid, TRUE);
 	gtk_widget_hide (self->pv->spinner);
 	gtk_spinner_stop (GTK_SPINNER (self->pv->spinner));
 
@@ -908,7 +914,8 @@ gcr_prompt_dialog_confirm_async (GcrPrompt *prompt,
 	gtk_image_set_from_stock (GTK_IMAGE (self->pv->image),
 	                          GTK_STOCK_DIALOG_QUESTION,
 	                          GTK_ICON_SIZE_DIALOG);
-	gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
+	gtk_widget_set_sensitive (self->pv->continue_button, TRUE);
+	gtk_widget_set_sensitive (self->pv->widget_grid, TRUE);
 	gtk_widget_hide (self->pv->spinner);
 	gtk_spinner_stop (GTK_SPINNER (self->pv->spinner));
 

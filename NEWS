@@ -1,3 +1,10 @@
+gcr 3.7.1:
+ - Allow system prompts to be cancelled while in 'checking' state
+ - Cancel system prompts when the prompter goes away
+ - Use gnome-common code coverage macros
+ - Translation fixes
+ - Build fixes
+
 gcr 3.6.1:
  - Remove unneeded translation
  - Clear and focus password entry in gcr-viewer when invalid password

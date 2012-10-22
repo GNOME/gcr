@@ -202,7 +202,9 @@ test_load_async (Test *test, gconstpointer unused)
 int
 main (int argc, char **argv)
 {
+#if !GLIB_CHECK_VERSION(2,35,0)
 	g_type_init ();
+#endif
 	g_test_init (&argc, &argv, NULL);
 
 	g_test_add ("/gcr/memory-icon/equal_same", Test, NULL, setup, test_equal_same, teardown);

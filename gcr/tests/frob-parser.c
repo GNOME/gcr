@@ -79,7 +79,9 @@ main(int argc, char *argv[])
 	const gchar *filename;
 	gchar *path;
 
+#if !GLIB_CHECK_VERSION(2,35,0)
 	g_type_init ();
+#endif
 	g_set_prgname ("frob-parser");
 
 	if (argc != 2) {

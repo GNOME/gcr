@@ -261,7 +261,9 @@ egg_tests_run_with_loop (void)
 	GMainLoop *loop;
 	gpointer ret;
 
+#if !GLIB_CHECK_VERSION(2,35,0)
 	g_type_init ();
+#endif
 
 	loop = g_main_loop_new (NULL, FALSE);
 	wait_condition = g_cond_new ();
@@ -281,7 +283,6 @@ egg_tests_run_with_loop (void)
 
 	return GPOINTER_TO_INT (ret);
 }
-<<<<<<< HEAD
 #endif
 
 

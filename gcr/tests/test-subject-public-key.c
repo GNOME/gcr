@@ -681,7 +681,9 @@ main (int argc, char **argv)
 	gint ret;
 	guint i;
 
+#if !GLIB_CHECK_VERSION(2,35,0)
 	g_type_init ();
+#endif
 	g_test_init (&argc, &argv, NULL);
 
 	test_names = g_ptr_array_new_with_free_func (g_free);

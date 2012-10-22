@@ -153,7 +153,9 @@ test_perform_multiple (Test *test,
 int
 main (int argc, char **argv)
 {
+#if !GLIB_CHECK_VERSION(2,35,0)
 	g_type_init ();
+#endif
 	g_test_init (&argc, &argv, NULL);
 	g_set_prgname ("test-secret-exchange");
 

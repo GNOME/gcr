@@ -864,7 +864,7 @@ gcr_certificate_get_fingerprint_hex (GcrCertificate *self, GChecksumType type)
 	digest = g_malloc (length);
 	n_digest = length;
 	g_checksum_get_digest (sum, digest, &n_digest);
-	hex = egg_hex_encode_full (digest, n_digest, TRUE, ' ', 1);
+	hex = egg_hex_encode_full (digest, n_digest, TRUE, " ", 1);
 	g_checksum_free (sum);
 	g_free (digest);
 	return hex;

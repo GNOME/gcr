@@ -1042,7 +1042,7 @@ _gcr_display_view_append_hex (GcrDisplayView *self, GcrRenderer *renderer,
 {
 	gchar *display;
 
-	display = egg_hex_encode_full (value, n_value, TRUE, ' ', 1);
+	display = egg_hex_encode_full (value, n_value, TRUE, " ", 1);
 	_gcr_display_view_append_value (self, renderer, field, display, TRUE);
 	g_free (display);
 }

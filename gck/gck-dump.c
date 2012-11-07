@@ -198,7 +198,7 @@ dump_attribute_value (const GckAttribute *attr)
 	};
 
 	len = MIN (20, attr->length);
-	data = egg_hex_encode_full (attr->value, len, TRUE, ':', 1);
+	data = egg_hex_encode_full (attr->value, len, TRUE, ":", 1);
 	g_printerr ("%s%s", data, len < attr->length ? "..." : "");
 	g_free (data);
 }

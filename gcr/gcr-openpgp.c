@@ -277,7 +277,7 @@ hash_user_id_or_attribute (const guchar *beg,
 	g_assert (end > beg);
 
 	gcry_md_hash_buffer (GCRY_MD_RMD160, digest, beg, end - beg);
-	return egg_hex_encode_full (digest, sizeof (digest), TRUE, 0, 0);
+	return egg_hex_encode_full (digest, sizeof (digest), TRUE, NULL, 0);
 }
 
 static gboolean
@@ -303,7 +303,7 @@ parse_v3_rsa_bits_and_keyid (const guchar **at,
 		return FALSE;
 	}
 
-	*keyid = egg_hex_encode_full (n + (bytes - 8), 8, TRUE, 0, 0);
+	*keyid = egg_hex_encode_full (n + (bytes - 8), 8, TRUE, NULL, 0);
 	return TRUE;
 }
 
@@ -341,9 +341,9 @@ hash_v4_keyid (const guchar *data,
 	gcry_md_write (mdh, data, len);
 
 	digest = gcry_md_read (mdh, 0);
-	keyid = egg_hex_encode_full (digest + 12, 8, TRUE, 0, 0);
+	keyid = egg_hex_encode_full (digest + 12, 8, TRUE, NULL, 0);
 	if (fingerprint)
-		*fingerprint = egg_hex_encode_full (digest, 20, TRUE, 0, 0);
+		*fingerprint = egg_hex_encode_full (digest, 20, TRUE, NULL, 0);
 	gcry_md_close (mdh);
 
 	return keyid;
@@ -656,7 +656,7 @@ parse_v3_signature (const guchar **at,
 	if (flags & GCR_OPENPGP_PARSE_SIGNATURES) {
 		record = _gcr_record_new (GCR_RECORD_SCHEMA_SIG, GCR_RECORD_SIG_MAX, ':');
 		_gcr_record_set_uint (record, GCR_RECORD_SIG_ALGO, key_algo);
-		value = egg_hex_encode_full (keyid, sizeof (keyid), TRUE, 0, 0);
+		value = egg_hex_encode_full (keyid, sizeof (keyid), TRUE, NULL, 0);
 		_gcr_record_take_raw (record, GCR_RECORD_SIG_KEYID, value);
 		_gcr_record_set_ulong (record, GCR_RECORD_SIG_TIMESTAMP, sig_time);
 		value = g_strdup_printf ("%02xx", (guint)sig_type);
@@ -691,7 +691,7 @@ parse_v4_signature_revocation (const guchar **at,
 		return FALSE;
 
 	_gcr_record_set_uint (revocation, GCR_RECORD_RVK_ALGO, algo);
-	value = egg_hex_encode_full (fingerprint, 20, TRUE, 0, 0);
+	value = egg_hex_encode_full (fingerprint, 20, TRUE, NULL, 0);
 	_gcr_record_take_raw (revocation, GCR_RECORD_RVK_FINGERPRINT, value);
 	value = g_strdup_printf ("%02X", (guint)klass);
 	_gcr_record_take_raw (revocation, GCR_RECORD_RVK_CLASS, value);
@@ -724,7 +724,7 @@ parse_v4_signature_subpacket (const guchar **at,
 	case OPENPGP_SIG_ISSUER:
 		if (!read_bytes (at, end, keyid, 8))
 			return FALSE;
-		value = egg_hex_encode_full (keyid, 8, TRUE, 0, 0);
+		value = egg_hex_encode_full (keyid, 8, TRUE, NULL, 0);
 		_gcr_record_take_raw (record, GCR_RECORD_SIG_KEYID, value);
 		return TRUE;
 	case OPENPGP_SIG_KEY_EXPIRY:

@@ -54,7 +54,7 @@ _gcr_gnupg_build_xa1_record (GcrRecord *meta, gpointer attribute,
 	record = _gcr_record_new (GCR_RECORD_SCHEMA_XA1, GCR_RECORD_XA1_MAX, ':');
 
 	gcry_md_hash_buffer (GCRY_MD_RMD160, hash, attribute, n_attribute);
-	hex = egg_hex_encode_full (hash, sizeof (hash), TRUE, 0, 1);
+	hex = egg_hex_encode_full (hash, sizeof (hash), TRUE, NULL, 1);
 	_gcr_record_take_raw (record, GCR_RECORD_XA1_FINGERPRINT, hex);
 
 	if (!_gcr_record_get_uint (meta, GCR_RECORD_ATTRIBUTE_FLAGS, &flags))

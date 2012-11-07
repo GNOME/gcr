@@ -50,13 +50,13 @@ on_parser_parsed (GcrParser *parser, gpointer user_data)
 	cert = gcr_certificate_widget_get_certificate (details);
 
 	dn = gcr_certificate_get_subject_raw (cert, &n_dn);
-	string = egg_hex_encode_full (dn, n_dn, TRUE, '\\', 1);
+	string = egg_hex_encode_full (dn, n_dn, TRUE, "\\", 1);
 	g_print ("subject: %s\n", string);
 	g_free (string);
 	g_free (dn);
 
 	dn = gcr_certificate_get_issuer_raw (cert, &n_dn);
-	string = egg_hex_encode_full (dn, n_dn, TRUE, '\\', 1);
+	string = egg_hex_encode_full (dn, n_dn, TRUE, "\\", 1);
 	g_print ("issuer: %s\n", string);
 	g_free (string);
 	g_free (dn);

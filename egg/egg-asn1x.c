@@ -1514,7 +1514,7 @@ atlv_sort_perform (Atlv *tlv,
 
 		g_bytes_unref (pair->bytes);
 		g_slice_free (SortPair, pair);
- 	}
+	}
 
 	g_list_free (pairs);
 }
@@ -3197,6 +3197,21 @@ egg_asn1x_set_string_as_raw (GNode *node,
 
 	anode_set_value (node, g_bytes_new_with_free_func (data, n_data,
 	                                                   destroy, data));
+}
+
+void
+egg_asn1x_set_string_as_bytes (GNode *node,
+                               GBytes *bytes)
+{
+	gint type;
+
+	g_return_if_fail (node != NULL);
+	g_return_if_fail (bytes != NULL);
+
+	type = anode_def_type (node);
+	g_return_if_fail (type == EGG_ASN1X_OCTET_STRING || type == EGG_ASN1X_GENERALSTRING);
+
+	anode_set_value (node, g_bytes_ref (bytes));
 }
 
 GBytes *

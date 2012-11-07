@@ -189,6 +189,9 @@ void                egg_asn1x_set_string_as_raw      (GNode *node,
 
 GBytes *            egg_asn1x_get_string_as_bytes    (GNode *node);
 
+void                egg_asn1x_set_string_as_bytes    (GNode *node,
+                                                      GBytes *bytes);
+
 GBytes *            egg_asn1x_get_bits_as_raw        (GNode *node,
                                                       guint *n_bits);
 

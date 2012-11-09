@@ -31,8 +31,6 @@
 #include "gck/gck.h"
 #include "gck/gck-test.h"
 
-EGG_SECURE_DEFINE_GLIB_GLOBALS ();
-
 EGG_SECURE_DECLARE (test_gck_attributes);
 
 #define ATTR_TYPE 55

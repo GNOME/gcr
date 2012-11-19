@@ -74,7 +74,12 @@ on_gck_log_debug (const gchar *log_domain,
 	                        (gulong)getpid (), log_domain,
 	                        message ? message : "(NULL) message");
 
-	write (1, gstring->str, gstring->len);
+	/*
+	 * Give up on debug messages if stdout got lost.
+	 */
+	if (write (1, gstring->str, gstring->len) != gstring->len)
+		current_flags = 0;
+
 	g_string_free (gstring, TRUE);
 }
 

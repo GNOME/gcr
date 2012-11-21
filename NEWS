@@ -1,3 +1,10 @@
+gcr 3.7.2:
+ - Fix corner case in DER parsing
+ - Fix crash when parsing invalid DER
+ - More complete test coverage
+ - Other minor fixes
+ - Build fixes
+
 gcr 3.7.1:
  - Allow system prompts to be cancelled while in 'checking' state
  - Cancel system prompts when the prompter goes away

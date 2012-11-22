@@ -12,7 +12,8 @@ INCLUDES = \
 	-I$(top_builddir) \
 	-I$(top_srcdir) \
 	-DSRCDIR="\"@abs_srcdir@\"" \
-	$(GLIB_CFLAGS)
+	$(GLIB_CFLAGS) \
+	$(LIBGCRYPT_CFLAGS)
 
 LDADD =  \
 	$(top_builddir)/egg/libegg.la \

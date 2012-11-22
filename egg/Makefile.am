@@ -23,7 +23,8 @@ INCLUDES = \
 	-DWITH_VALGRIND
 
 libegg_la_CFLAGS = \
-	$(GLIB_CFLAGS)
+	$(GLIB_CFLAGS) \
+	$(LIBGCRYPT_CFLAGS)
 
 libegg_la_SOURCES = \
 	egg-armor.c egg-armor.h \

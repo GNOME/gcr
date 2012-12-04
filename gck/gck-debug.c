@@ -29,6 +29,10 @@
 
 #include <p11-kit/pkcs11.h>
 
+#include <sys/types.h>
+
+#include <unistd.h>
+
 #ifdef WITH_DEBUG
 
 static gsize initialized_flags = 0;

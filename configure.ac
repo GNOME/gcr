@@ -378,5 +378,5 @@ echo "  Debug Build:          $debug_status"
 echo "  Strict Compilation:   $strict_status"
 echo "  Introspection:        $found_introspection"
 echo "  Valgrind:             $valgrind_status"
-echo "  Test Coverage:        $enable_coverage"
+echo "  Test Coverage:        ${enable_code_coverage:-no}"
 echo

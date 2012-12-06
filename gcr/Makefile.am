@@ -6,11 +6,15 @@ SUBDIRS = . icons tests
 # UI BUILDER
 #
 
+if WITH_GTK
+
 uidir = $(datadir)/gcr-@GCR_MAJOR@/ui/
 
 ui_DATA = \
 	gcr-pkcs11-import-dialog.ui \
 	gcr-unlock-options-widget.ui
+
+endif # WITH_GTK
 
 # ------------------------------------------------------------------
 # HEADERS
@@ -71,9 +75,15 @@ incdir = $(includedir)/gcr-@GCR_MAJOR@/gcr
 
 inc_HEADERS = \
 	$(HEADER_BASE_FILES) \
-	$(HEADER_UI_FILES) \
 	gcr-enum-types-base.h \
 	gcr-enum-types.h
+
+if WITH_GTK
+
+inc_HEADERS += \
+	$(HEADER_UI_FILES)
+
+endif # WITH_GTK
 
 # ------------------------------------------------------------------
 # LIBRARY
@@ -89,8 +99,14 @@ INCLUDES = \
 	-DLOCALEDIR=\""$(datadir)/locale"\"
 
 lib_LTLIBRARIES = \
-	libgcr-base-@GCR_MAJOR@.la \
+	libgcr-base-@GCR_MAJOR@.la
+
+if WITH_GTK
+
+lib_LTLIBRARIES += \
 	libgcr-@GCR_MAJOR@.la
+
+endif # WITH_GTK
 
 BUILT_BASE_FILES = \
 	gcr-marshal.c gcr-marshal.h \
@@ -104,8 +120,14 @@ BUILT_UI_FILES = \
 	gcr-oids.c gcr-oids.h
 
 BUILT_SOURCES = \
-	$(BUILT_BASE_FILES) \
+	$(BUILT_BASE_FILES)
+
+if WITH_GTK
+
+BUILT_SOURCES += \
 	$(BUILT_UI_FILES)
+
+endif # WITH_GTK
 
 libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	gcr-callback-output-stream.c gcr-callback-output-stream.h \
@@ -158,6 +180,8 @@ libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 nodist_libgcr_base_@GCR_MAJOR@_la_SOURCES = \
 	$(BUILT_BASE_FILES)
 
+if WITH_GTK
+
 libgcr_@GCR_MAJOR@_la_SOURCES = \
 	gcr-certificate-basics-widget.c gcr-certificate-basics-widget.h \
 	gcr-certificate-details-widget.c gcr-certificate-details-widget.h \
@@ -201,15 +225,21 @@ libgcr_@GCR_MAJOR@_la_SOURCES = \
 nodist_libgcr_@GCR_MAJOR@_la_SOURCES = \
 	$(BUILT_UI_FILES)
 
+endif # WITH_GTK
+
 libgcr_base_@GCR_MAJOR@_la_CFLAGS = \
 	-DGCK_API_SUBJECT_TO_CHANGE \
 	-DP11_KIT_API_SUBJECT_TO_CHANGE \
 	-DGCR_COMPILATION
 
+if WITH_GTK
+
 libgcr_@GCR_MAJOR@_la_CFLAGS = \
 	$(GTK_CFLAGS) \
 	-DUIDIR=\""$(uidir)"\" \
 	$(libgcr_base_@GCR_MAJOR@_la_CFLAGS)
+
+endif # WITH_GTK
 
 libgcr_base_@GCR_MAJOR@_la_LDFLAGS = \
 	-version-info $(GCR_LT_RELEASE) \
@@ -226,10 +256,14 @@ libgcr_base_@GCR_MAJOR@_la_LIBADD = \
 	$(LIBGCRYPT_LIBS) \
 	$(P11_KIT_LIBS)
 
+if WITH_GTK
+
 libgcr_@GCR_MAJOR@_la_LIBADD = \
 	$(GTK_LIBS) \
 	$(libgcr_base_@GCR_MAJOR@_la_LIBADD) \
 	$(builddir)/libgcr-base-$(GCR_MAJOR).la
+
+endif # WITH_GTK
 
 noinst_LTLIBRARIES = libgcr-testable.la
 libgcr_testable_la_SOURCES =
@@ -276,12 +310,19 @@ gcr-dbus-generated.c: $(DBUS_XML_DEFINITIONS)
 gcr-dbus-generated.h: gcr-dbus-generated.c
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = gcr-$(GCR_MAJOR).pc gcr-base-$(GCR_MAJOR).pc
+pkgconfig_DATA = gcr-base-$(GCR_MAJOR).pc
+
+gcr-base-$(GCR_MAJOR).pc: gcr-base.pc
+	cp gcr-base.pc gcr-base-$(GCR_MAJOR).pc
+
+if WITH_GTK
+
+pkgconfig_DATA += gcr-$(GCR_MAJOR).pc 
 
 gcr-$(GCR_MAJOR).pc: gcr.pc
 	cp gcr.pc gcr-$(GCR_MAJOR).pc
-gcr-base-$(GCR_MAJOR).pc: gcr-base.pc
-	cp gcr-base.pc gcr-base-$(GCR_MAJOR).pc
+
+endif # WITH_GTK
 
 # ----------------------------------------------------------------
 # SYSTEM INTEGRATION
@@ -306,6 +347,8 @@ update_mime_database:
 	fi
 endif
 
+if WITH_GTK
+
 desktopdir = $(datadir)/applications
 desktop_in_in_files = gcr-viewer.desktop.in.in gcr-prompter.desktop.in.in
 desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
@@ -317,8 +360,12 @@ service_in_files = \
 servicedir       = $(DBUS_SERVICES_DIR)
 service_DATA     = $(service_in_files:.service.in=.service)
 
+endif # WITH_GTK
+
 # ----------------------------------------------------------------
 # TOOLS
+
+if WITH_GTK
 
 bin_PROGRAMS = gcr-viewer
 
@@ -352,6 +399,8 @@ gcr_prompter_LDADD = \
 	$(builddir)/libgcr-base-$(GCR_MAJOR).la \
 	$(top_builddir)/gck/libgck-@GCK_MAJOR@.la \
 	$(GTK_LIBS)
+
+endif # WITH_GTK
 
 # ------------------------------------------------------------------
 # INTROSPECTION

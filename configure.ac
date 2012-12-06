@@ -81,9 +81,26 @@ AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
 
 GTK_DOC_CHECK(1.9)
 
-PKG_CHECK_MODULES(GTK, gtk+-3.0 >= 3.0)
-AC_SUBST(GTK_CFLAGS)
-AC_SUBST(GTK_LIBS)
+# --------------------------------------------------------------------
+# Optional GTK+ widgets build, avoid building gtk-doc wihtout GTK+
+#
+AC_ARG_WITH(gtk, [
+            AC_HELP_STRING([--without-gtk],
+            [do not build code that uses GTK+]),
+            ], [], [with_gtk=yes])
+AM_CONDITIONAL(WITH_GTK, test "$with_gtk" != "no")
+
+if test "x$with_gtk" != "xno"; then
+	PKG_CHECK_MODULES(GTK, gtk+-3.0 >= 3.0)
+	AC_SUBST(GTK_CFLAGS)
+	AC_SUBST(GTK_LIBS)
+fi
+
+if test "x$enable_gtk_doc" = "xyes"; then
+  if test "x$with_gtk" = "xno"; then
+    AC_MSG_ERROR([Cannot build documentation if building GTK+ widgets is disabled])
+  fi
+fi
 
 # --------------------------------------------------------------------
 # Checks for functions
@@ -410,6 +427,7 @@ echo
 echo "BUILD"
 echo "  Debug Build:          $debug_status"
 echo "  Strict Compilation:   $strict_status"
+echo "  GTK+ Widgets:         $with_gtk"
 echo "  Introspection:        $found_introspection"
 echo "  Valgrind:             $valgrind_status"
 echo "  Test Coverage:        $enable_coverage"

@@ -25,6 +25,7 @@ DISTCHECK_CONFIGURE_FLAGS = \
 	--disable-coverage \
 	--disable-update-mime \
 	--disable-update-icon-cache \
+	--with-gtk \
 	--with-pkcs11-modules=$(abs_srcdir)/$(top_distdir)/_inst/lib/
 
 DISTCLEANFILES = \

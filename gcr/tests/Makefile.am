@@ -8,7 +8,6 @@ INCLUDES = \
 	-DGCK_API_SUBJECT_TO_CHANGE \
 	-DGCR_COMPILATION \
 	$(GLIB_CFLAGS) \
-	$(GTK_CFLAGS) \
 	$(LIBGCRYPT_CFLAGS) \
 	$(P11_KIT_CFLAGS)
 
@@ -16,7 +15,6 @@ LDADD = \
 	$(top_builddir)/gcr/libgcr-testable.la \
 	$(top_builddir)/egg/libegg.la \
 	$(top_builddir)/gck/libgck-testable.la \
-	$(GTK_LIBS) \
 	$(GLIB_LIBS) \
 	$(LIBGCRYPT_LIBS) \
 	$(P11_KIT_LIBS)
@@ -43,6 +41,15 @@ TEST_PROGS = \
 	test-gnupg-process \
 	test-system-prompt
 
+if WITH_GTK
+
+INCLUDES += \
+	$(GTK_CFLAGS)
+LDADD += \
+	$(GTK_LIBS)
+
+endif # WITH_GTK
+
 check_PROGRAMS = $(TEST_PROGS)
 
 test: $(TEST_PROGS)
@@ -61,19 +68,26 @@ EXTRA_DIST = \
 # ------------------------------------------------------------------
 
 noinst_PROGRAMS = \
+	frob-openpgp \
+	frob-parser
+
+if WITH_GTK
+
+noinst_PROGRAMS += \
 	frob-certificate \
 	frob-certificate-request \
 	frob-combo-selector \
 	frob-gnupg-selector \
 	frob-key \
 	frob-tree-selector \
-	frob-openpgp \
 	frob-parser \
 	frob-prompt \
 	frob-request \
 	frob-system-prompt \
 	frob-unlock \
 	frob-unlock-options
+
+endif # WITH_GTK
 
 frob_unlock_SOURCES = \
 	frob-unlock.c \

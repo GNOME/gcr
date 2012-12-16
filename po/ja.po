@@ -1,23 +1,24 @@
 # gnome-keyring ja.po.
-# Copyright (C) 2003-2010 Free Software Foundation, Inc.
+# Copyright (C) 2003-2010,2012 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-keyring package.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2003-2009.
 # Satoru SATOH <ss@gnome.gr.jp>, 2006.
-# Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2009-2010.
+# Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2009-2010, 2012.
 # Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-keyring gnome-2-32\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-06 11:51+0200\n"
-"PO-Revision-Date: 2010-09-20 16:01+0900\n"
+"Project-Id-Version: gnome-keyring gnome-3-6\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2012-11-12 07:52+0000\n"
+"PO-Revision-Date: 2012-10-15 23:18+0900\n"
 "Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 # 参考: インターネットX.509 PKI: 証明書と CRL のプロファイル
 # http://www.ipa.go.jp/security/rfc/RFC5280-04JA.html
@@ -25,14 +26,14 @@ msgstr ""
 msgid "Domain Component"
 msgstr "ドメイン・コンポーネント"
 
-#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:411
-#: ../gcr/gcr-gnupg-renderer.c:580
+#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:409
+#: ../gcr/gcr-gnupg-renderer.c:578
 msgid "User ID"
-msgstr "ユーザ ID"
+msgstr "ユーザー ID"
 
 #: ../egg/egg-oid.c:46
 msgid "Email Address"
-msgstr ""
+msgstr "E-メールアドレス"
 
 #: ../egg/egg-oid.c:54
 msgid "Date of Birth"
@@ -60,9 +61,9 @@ msgstr "一般名"
 
 #: ../egg/egg-oid.c:67
 msgid "Surname"
-msgstr "あだ名"
+msgstr "姓"
 
-#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:652
+#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:557
 msgid "Serial Number"
 msgstr "シリアル番号"
 
@@ -100,7 +101,7 @@ msgstr "電話番号"
 
 #: ../egg/egg-oid.c:87
 msgid "Given Name"
-msgstr "クリスチャンネーム"
+msgstr "名"
 
 #: ../egg/egg-oid.c:89
 msgid "Initials"
@@ -118,8 +119,8 @@ msgstr "DN 修飾子"
 msgid "Pseudonym"
 msgstr "仮名"
 
-#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:202
-#: ../gcr/gcr-key-renderer.c:308
+#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
+#: ../gcr/gcr-key-renderer.c:429
 msgid "RSA"
 msgstr "RSA"
 
@@ -135,8 +136,8 @@ msgstr "RSA 付きの MD5"
 msgid "SHA1 with RSA"
 msgstr "RSA 付きの SHA1"
 
-#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:206
-#: ../gcr/gcr-key-renderer.c:310
+#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
+#: ../gcr/gcr-key-renderer.c:431
 msgid "DSA"
 msgstr "DSA"
 
@@ -146,81 +147,93 @@ msgstr "DSA 付きの SHA1"
 
 #. Extended Key Usages
 #: ../egg/egg-oid.c:107
-#, fuzzy
 msgid "Server Authentication"
-msgstr "SSL サーバ証明書"
+msgstr "サーバー認証"
 
 #: ../egg/egg-oid.c:108
-#, fuzzy
 msgid "Client Authentication"
-msgstr "SSL クライアント証明書"
+msgstr "クライアント認証"
 
 #: ../egg/egg-oid.c:109
 msgid "Code Signing"
-msgstr ""
+msgstr "コード署名"
 
 #: ../egg/egg-oid.c:110
 msgid "Email Protection"
-msgstr ""
+msgstr "E-メール保護"
 
 #: ../egg/egg-oid.c:111
 msgid "Time Stamping"
-msgstr ""
+msgstr "タイムスタンプ"
 
-#: ../gck/gck-module.c:353
+#: ../gck/gck-module.c:352
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr ""
+msgstr "PKCS#11 モジュールの読み込み中にエラー: %s"
 
-#: ../gck/gck-module.c:360
+#: ../gck/gck-module.c:359
 #, c-format
 msgid "Invalid PKCS#11 module: %s"
-msgstr ""
+msgstr "不正な PKCS#11 モジュール: %s"
 
-#: ../gck/gck-module.c:369
+#: ../gck/gck-module.c:368
 #, c-format
 msgid "Couldn't setup PKCS#11 module: %s"
-msgstr ""
+msgstr "PKCS#11 モジュールを設定できませんでした: %s"
 
-#: ../gck/gck-module.c:385
+#: ../gck/gck-module.c:384
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr ""
+msgstr "PKCS#11 モジュールを初期化できませんでした: %s"
 
 #: ../gck/gck-modules.c:67
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr ""
+msgstr "登録された PKCS#11 モジュールを初期化できませんでした: %s"
+
+#: ../gck/gck-uri.c:224
+#, c-format
+msgid "The URI has invalid encoding."
+msgstr "URI が不正な文字コードです。"
+
+#: ../gck/gck-uri.c:228
+msgid "The URI does not have the 'pkcs11' scheme."
+msgstr "URI が 'pkcs11' スキームではありません。"
+
+#: ../gck/gck-uri.c:232
+msgid "The URI has bad syntax."
+msgstr "URI の文法が正しくありません。"
+
+#: ../gck/gck-uri.c:236
+msgid "The URI has a bad version number."
+msgstr "URI のバージョン番号が正しくありません。"
 
 #: ../gcr/gcr-callback-output-stream.c:64
 #: ../gcr/gcr-callback-output-stream.c:81
-#, fuzzy, c-format
+#, c-format
 msgid "The stream was closed"
-msgstr "セッションをクローズしました"
+msgstr "ストリームがクローズされました"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:378 ../gcr/gcr-gnupg-key.c:521
-#, fuzzy
+#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
-msgstr "名前(_N):"
+msgstr "名前"
 
-#: ../gcr/gcr-certificate.c:380
-#, fuzzy
+#: ../gcr/gcr-certificate.c:310
 msgctxt "column"
 msgid "Issued By"
 msgstr "発行元"
 
 #. later
-#: ../gcr/gcr-certificate.c:382
-#, fuzzy
+#: ../gcr/gcr-certificate.c:312
 msgctxt "column"
 msgid "Expires"
 msgstr "有効期限"
 
-#: ../gcr/gcr-certificate.c:1067 ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:101 ../gcr/gcr-parser.c:316
+#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-certificate-exporter.c:463
+#: ../gcr/gcr-certificate-renderer.c:102 ../gcr/gcr-parser.c:322
 msgid "Certificate"
 msgstr "証明書"
 
@@ -230,722 +243,765 @@ msgid ""
 "\n"
 "Do you want to replace it with a new file?"
 msgstr ""
+"<b>ファイルがこの名前ですでに存在します。</b>\n"
+"\n"
+"新しいファイルで置換しますか?"
 
 #: ../gcr/gcr-certificate-exporter.c:228
 msgid "_Replace"
-msgstr ""
+msgstr "置換(_R)"
 
 #: ../gcr/gcr-certificate-exporter.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "The operation was cancelled."
-msgstr "処理をキャンセルしました"
+msgstr "処理をキャンセルしました。"
 
 #: ../gcr/gcr-certificate-exporter.c:302
-#, fuzzy
 msgid "Export certificate"
-msgstr "証明書の解除"
+msgstr "証明書をエクスポート"
 
 #: ../gcr/gcr-certificate-exporter.c:314
-#, fuzzy
 msgid "Certificate files"
-msgstr "証明書"
+msgstr "証明書ファイル"
 
 #: ../gcr/gcr-certificate-exporter.c:325
 msgid "PEM files"
-msgstr ""
+msgstr "PEM ファイル"
 
-#: ../gcr/gcr-certificate-extensions.c:141
-#, fuzzy
+#: ../gcr/gcr-certificate-extensions.c:178
 msgid "Other Name"
-msgstr "発行者の名前"
+msgstr "他の名前"
 
-#: ../gcr/gcr-certificate-extensions.c:150
+#: ../gcr/gcr-certificate-extensions.c:188
 msgid "XMPP Addr"
-msgstr ""
+msgstr "XMPP アドレス"
 
-#: ../gcr/gcr-certificate-extensions.c:154
+#: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
-msgstr ""
+msgstr "DNS SRV"
 
-#: ../gcr/gcr-certificate-extensions.c:166 ../gcr/gcr-gnupg-renderer.c:424
-#: ../gcr/gcr-gnupg-renderer.c:706
+#: ../gcr/gcr-certificate-extensions.c:204 ../gcr/gcr-gnupg-renderer.c:422
+#: ../gcr/gcr-gnupg-renderer.c:704
 msgid "Email"
 msgstr "E-メール"
 
-#: ../gcr/gcr-certificate-extensions.c:174
-#, fuzzy
-msgid "DNS"
-msgstr "DSA"
-
-#: ../gcr/gcr-certificate-extensions.c:182
-msgid "X400 Address"
-msgstr ""
-
-#: ../gcr/gcr-certificate-extensions.c:189
-#, fuzzy
-msgid "Directory Name"
-msgstr "サブジェクト名"
-
-#: ../gcr/gcr-certificate-extensions.c:197
-msgid "EDI Party Name"
-msgstr ""
-
-#: ../gcr/gcr-certificate-extensions.c:204
-msgid "URI"
-msgstr ""
-
 #: ../gcr/gcr-certificate-extensions.c:212
-msgid "IP Address"
-msgstr ""
+msgid "DNS"
+msgstr "DNS"
 
 #: ../gcr/gcr-certificate-extensions.c:220
+msgid "X400 Address"
+msgstr "X.400 アドレス"
+
+#: ../gcr/gcr-certificate-extensions.c:227
+msgid "Directory Name"
+msgstr "ディレクトリ名"
+
+#: ../gcr/gcr-certificate-extensions.c:235
+msgid "EDI Party Name"
+msgstr "EDI パーティ名"
+
+#: ../gcr/gcr-certificate-extensions.c:242
+msgid "URI"
+msgstr "URI"
+
+#: ../gcr/gcr-certificate-extensions.c:250
+msgid "IP Address"
+msgstr "IP アドレス"
+
+#: ../gcr/gcr-certificate-extensions.c:258
 msgid "Registered ID"
 msgstr ""
 
-#: ../gcr/gcr-certificate-renderer.c:116
+#: ../gcr/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
-msgstr ""
+msgstr "基本制約"
 
-#: ../gcr/gcr-certificate-renderer.c:118
-#, fuzzy
+#: ../gcr/gcr-certificate-renderer.c:119
 msgid "Certificate Authority"
-msgstr "証明書"
+msgstr "認証局"
 
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
 msgid "Yes"
 msgstr "はい"
 
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
+#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
 msgid "No"
 msgstr "いいえ"
 
-#: ../gcr/gcr-certificate-renderer.c:122
-msgid "Max Path Length"
-msgstr ""
-
 #: ../gcr/gcr-certificate-renderer.c:123
+msgid "Max Path Length"
+msgstr "最大パス長"
+
+#: ../gcr/gcr-certificate-renderer.c:124
 msgid "Unlimited"
-msgstr ""
+msgstr "無制限"
 
-#: ../gcr/gcr-certificate-renderer.c:142
+#: ../gcr/gcr-certificate-renderer.c:143
 msgid "Extended Key Usage"
-msgstr ""
+msgstr "拡張鍵用途"
 
-#: ../gcr/gcr-certificate-renderer.c:153
+#: ../gcr/gcr-certificate-renderer.c:154
 msgid "Allowed Purposes"
 msgstr ""
 
-#: ../gcr/gcr-certificate-renderer.c:173
-#, fuzzy
-msgid "Subject Key Identifier"
-msgstr "識別子"
-
 #: ../gcr/gcr-certificate-renderer.c:174
-#, fuzzy
-msgid "Key Identifier"
-msgstr "識別子"
+msgid "Subject Key Identifier"
+msgstr "サブジェクト鍵識別子"
 
-#: ../gcr/gcr-certificate-renderer.c:185
-#, fuzzy
-msgid "Digital signature"
-msgstr "署名"
+#: ../gcr/gcr-certificate-renderer.c:175
+msgid "Key Identifier"
+msgstr "鍵識別子"
 
 #: ../gcr/gcr-certificate-renderer.c:186
-msgid "Key encipherment"
-msgstr ""
+msgid "Digital signature"
+msgstr "電子署名"
 
 #: ../gcr/gcr-certificate-renderer.c:187
-msgid "Data encipherment"
-msgstr ""
+msgid "Key encipherment"
+msgstr "鍵暗号化"
 
 #: ../gcr/gcr-certificate-renderer.c:188
-#, fuzzy
-msgid "Key agreement"
-msgstr "鍵のパラメータ"
+msgid "Data encipherment"
+msgstr "データ暗号化"
 
 #: ../gcr/gcr-certificate-renderer.c:189
-#, fuzzy
-msgid "Certificate signature"
-msgstr "証明書"
+msgid "Key agreement"
+msgstr "鍵合致"
 
 #: ../gcr/gcr-certificate-renderer.c:190
-msgid "Revocation list signature"
-msgstr ""
+msgid "Certificate signature"
+msgstr "証明書署名"
 
-#: ../gcr/gcr-certificate-renderer.c:215
-msgid "Key Usage"
-msgstr ""
+#: ../gcr/gcr-certificate-renderer.c:191
+msgid "Revocation list signature"
+msgstr "失効リスト署名"
 
 #: ../gcr/gcr-certificate-renderer.c:216
+msgid "Key Usage"
+msgstr "鍵用途"
+
+#: ../gcr/gcr-certificate-renderer.c:217
 msgid "Usages"
-msgstr ""
+msgstr "用途"
 
-#: ../gcr/gcr-certificate-renderer.c:236
-#, fuzzy
+#: ../gcr/gcr-certificate-renderer.c:237
 msgid "Subject Alternative Names"
-msgstr "サブジェクト名"
+msgstr "サブジェクト代替名称"
 
-#: ../gcr/gcr-certificate-renderer.c:261
+#: ../gcr/gcr-certificate-renderer.c:264
 msgid "Extension"
 msgstr "拡張"
 
-#: ../gcr/gcr-certificate-renderer.c:265
+#: ../gcr/gcr-certificate-renderer.c:268
 msgid "Identifier"
 msgstr "識別子"
 
-#: ../gcr/gcr-certificate-renderer.c:266 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-gnupg-renderer.c:432
+#: ../gcr/gcr-certificate-renderer.c:269
+#: ../gcr/gcr-certificate-request-renderer.c:272
+#: ../gcr/gcr-gnupg-renderer.c:413 ../gcr/gcr-gnupg-renderer.c:430
 msgid "Value"
 msgstr "値"
 
-#: ../gcr/gcr-certificate-renderer.c:313
-msgid "Critical"
-msgstr "重大"
-
-#: ../gcr/gcr-certificate-renderer.c:386
-#, fuzzy
+#: ../gcr/gcr-certificate-renderer.c:294
 msgid "Couldn't export the certificate."
-msgstr "インポートした証明書/鍵を保存する場所を選択してください"
+msgstr "証明書をエクスポートできませんでした。"
 
-#: ../gcr/gcr-certificate-renderer.c:613
-#, fuzzy
+#: ../gcr/gcr-certificate-renderer.c:519
+#: ../gcr/gcr-certificate-request-renderer.c:313
 msgid "Identity"
 msgstr "識別子"
 
-#: ../gcr/gcr-certificate-renderer.c:617
+#: ../gcr/gcr-certificate-renderer.c:523
 msgid "Verified by"
-msgstr ""
+msgstr "確認者"
 
-#: ../gcr/gcr-certificate-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:720
-#, fuzzy
+#: ../gcr/gcr-certificate-renderer.c:530 ../gcr/gcr-gnupg-renderer.c:718
 msgid "Expires"
 msgstr "有効期限"
 
 #. The subject
-#: ../gcr/gcr-certificate-renderer.c:634
+#: ../gcr/gcr-certificate-renderer.c:537
+#: ../gcr/gcr-certificate-request-renderer.c:319
 msgid "Subject Name"
 msgstr "サブジェクト名"
 
 #. The Issuer
-#: ../gcr/gcr-certificate-renderer.c:638
+#: ../gcr/gcr-certificate-renderer.c:542
 msgid "Issuer Name"
 msgstr "発行者の名前"
 
 #. The Issued Parameters
-#: ../gcr/gcr-certificate-renderer.c:642
+#: ../gcr/gcr-certificate-renderer.c:547
 msgid "Issued Certificate"
 msgstr "発行済の証明書"
 
-#: ../gcr/gcr-certificate-renderer.c:647
+#: ../gcr/gcr-certificate-renderer.c:552
+#: ../gcr/gcr-certificate-request-renderer.c:330
 msgid "Version"
 msgstr "版"
 
-#: ../gcr/gcr-certificate-renderer.c:658
+#: ../gcr/gcr-certificate-renderer.c:566
 msgid "Not Valid Before"
 msgstr "次より古い日付は妥当ではない"
 
-#: ../gcr/gcr-certificate-renderer.c:663
+#: ../gcr/gcr-certificate-renderer.c:571
 msgid "Not Valid After"
 msgstr "次より新しい日付は妥当ではない"
 
 #. Fingerprints
-#: ../gcr/gcr-certificate-renderer.c:668
-#, fuzzy
+#: ../gcr/gcr-certificate-renderer.c:576
 msgid "Certificate Fingerprints"
-msgstr "指紋"
-
-#. Signature
-#: ../gcr/gcr-certificate-renderer.c:674 ../gcr/gcr-certificate-renderer.c:686
-#: ../gcr/gcr-gnupg-renderer.c:561
-msgid "Signature"
-msgstr "署名"
-
-#: ../gcr/gcr-certificate-renderer.c:678
-msgid "Signature Algorithm"
-msgstr "署名アルゴリズム"
-
-#: ../gcr/gcr-certificate-renderer.c:682
-msgid "Signature Parameters"
-msgstr "署名のパラメータ"
+msgstr "証明書の指紋"
 
 #. Public Key Info
-#: ../gcr/gcr-certificate-renderer.c:690
+#: ../gcr/gcr-certificate-renderer.c:582
+#: ../gcr/gcr-certificate-request-renderer.c:333
+#: ../gcr/gcr-certificate-request-renderer.c:379
 msgid "Public Key Info"
 msgstr "公開鍵の情報"
 
-#: ../gcr/gcr-certificate-renderer.c:695
+#. Signature
+#: ../gcr/gcr-certificate-renderer.c:597 ../gcr/gcr-certificate-renderer.c:918
+#: ../gcr/gcr-certificate-request-renderer.c:349
+#: ../gcr/gcr-certificate-request-renderer.c:386
+#: ../gcr/gcr-gnupg-renderer.c:559
+msgid "Signature"
+msgstr "署名"
+
+#: ../gcr/gcr-certificate-renderer.c:864
 msgid "Key Algorithm"
 msgstr "鍵のアルゴリズム"
 
-#: ../gcr/gcr-certificate-renderer.c:700
+#: ../gcr/gcr-certificate-renderer.c:869
 msgid "Key Parameters"
-msgstr "鍵のパラメータ"
+msgstr "鍵のパラメーター"
 
-#: ../gcr/gcr-certificate-renderer.c:705 ../gcr/gcr-gnupg-renderer.c:354
+#: ../gcr/gcr-certificate-renderer.c:877 ../gcr/gcr-gnupg-renderer.c:352
 msgid "Key Size"
 msgstr "鍵のサイズ"
 
-#: ../gcr/gcr-certificate-renderer.c:712
-#, fuzzy
+#: ../gcr/gcr-certificate-renderer.c:885
 msgid "Key SHA1 Fingerprint"
-msgstr "SHA1 指紋"
+msgstr "鍵の SHA1 指紋"
 
-#: ../gcr/gcr-certificate-renderer.c:718 ../gcr/gcr-gnupg-renderer.c:739
-#: ../gcr/gcr-key-renderer.c:292 ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
+#: ../gcr/gcr-key-renderer.c:414 ../gcr/gcr-parser.c:325
 msgid "Public Key"
 msgstr "公開鍵"
 
-#: ../gcr/gcr-display-view.c:319
-#, fuzzy
-msgid "_Details"
-msgstr "詳細(_D):"
+#: ../gcr/gcr-certificate-renderer.c:907
+msgid "Signature Algorithm"
+msgstr "署名アルゴリズム"
 
-#: ../gcr/gcr-failure-renderer.c:161
+#: ../gcr/gcr-certificate-renderer.c:911
+msgid "Signature Parameters"
+msgstr "署名のパラメーター"
+
+#: ../gcr/gcr-certificate-renderer.c:960
+msgid "Critical"
+msgstr "重大"
+
+#: ../gcr/gcr-certificate-request.c:418
+#, c-format
+msgid "Unsupported key type for certificate request"
+msgstr "証明書署名要求に使用できないタイプの鍵です"
+
+#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
+#, c-format
+msgid "The key cannot be used to sign the request"
+msgstr "この鍵は要求を署名するのに使用できません"
+
+#. The certificate request type
+#: ../gcr/gcr-certificate-request-renderer.c:95
+#: ../gcr/gcr-certificate-request-renderer.c:308
+#: ../gcr/gcr-certificate-request-renderer.c:323
+#: ../gcr/gcr-certificate-request-renderer.c:366
+#: ../gcr/gcr-certificate-request-renderer.c:371
+msgid "Certificate request"
+msgstr "証明書署名要求"
+
+#: ../gcr/gcr-certificate-request-renderer.c:261
+msgid "Attribute"
+msgstr "属性"
+
+#: ../gcr/gcr-certificate-request-renderer.c:265
+#: ../gcr/gcr-certificate-request-renderer.c:324
+#: ../gcr/gcr-certificate-request-renderer.c:372
+#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:592
+msgid "Type"
+msgstr "タイプ"
+
+#: ../gcr/gcr-certificate-request-renderer.c:376
+msgid "Challenge"
+msgstr "チャレンジ"
+
+#: ../gcr/gcr-display-view.c:319
+msgid "_Details"
+msgstr "詳細(_D)"
+
+#: ../gcr/gcr-failure-renderer.c:160
 #, c-format
 msgid "Could not display '%s'"
-msgstr ""
+msgstr "'%s' を表示できませんでした"
 
-#: ../gcr/gcr-failure-renderer.c:163
+#: ../gcr/gcr-failure-renderer.c:162
 msgid "Could not display file"
-msgstr ""
+msgstr "ファイルを表示できませんでした"
 
-#: ../gcr/gcr-failure-renderer.c:168
+#: ../gcr/gcr-failure-renderer.c:167
 msgid "Reason"
-msgstr ""
+msgstr "理由"
 
-#: ../gcr/gcr-failure-renderer.c:218
+#: ../gcr/gcr-failure-renderer.c:217
 #, c-format
 msgid "Cannot display a file of this type."
-msgstr ""
+msgstr "このタイプのファイルは表示できません。"
 
-#: ../gcr/gcr-gnupg-importer.c:93
-#, fuzzy
+#: ../gcr/gcr-gnupg-importer.c:96
 msgid "GnuPG Keyring"
-msgstr "キーリングのロック解除"
+msgstr "GnuPG キーリング"
 
-#: ../gcr/gcr-gnupg-importer.c:95
-#, fuzzy, c-format
+#: ../gcr/gcr-gnupg-importer.c:98
+#, c-format
 msgid "GnuPG Keyring: %s"
-msgstr "PGP 鍵: %s"
+msgstr "GnuPG キーリング: %s"
 
-#: ../gcr/gcr-gnupg-key.c:234 ../gcr/gcr-gnupg-renderer.c:88
-#: ../gcr/gcr-parser.c:322
-#, fuzzy
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-gnupg-renderer.c:88
+#: ../gcr/gcr-parser.c:328
 msgid "PGP Key"
-msgstr "PGP 鍵: %s"
+msgstr "PGP 鍵"
 
-#: ../gcr/gcr-gnupg-key.c:523
+#: ../gcr/gcr-gnupg-key.c:434
 msgctxt "column"
 msgid "Key ID"
-msgstr ""
+msgstr "鍵 ID"
 
-#: ../gcr/gcr-gnupg-process.c:860
+#: ../gcr/gcr-gnupg-process.c:866
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr ""
+msgstr "gnupg プロセスが次の終了コードで終了しました: %d"
 
-#: ../gcr/gcr-gnupg-process.c:867
+#: ../gcr/gcr-gnupg-process.c:873
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr ""
+msgstr "gnupg プロセスが次のシグナルにより終了しました: %d"
 
-#: ../gcr/gcr-gnupg-process.c:921 ../gcr/gcr-parser.c:2177
-#: ../gcr/gcr-parser.c:2681
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
+#: ../gcr/gcr-parser.c:2917
 msgid "The operation was cancelled"
 msgstr "処理をキャンセルしました"
 
-#: ../gcr/gcr-gnupg-renderer.c:204
+#: ../gcr/gcr-gnupg-renderer.c:202
 msgid "Elgamal"
-msgstr ""
+msgstr "エルガマル"
 
-#: ../gcr/gcr-gnupg-renderer.c:217
+#: ../gcr/gcr-gnupg-renderer.c:215
 msgid "Encrypt"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:219
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:217
 msgid "Sign"
 msgstr "署名"
 
-#: ../gcr/gcr-gnupg-renderer.c:221
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:219
 msgid "Certify"
-msgstr "証明書"
+msgstr "証明"
 
-#: ../gcr/gcr-gnupg-renderer.c:223
+#: ../gcr/gcr-gnupg-renderer.c:221
 #, fuzzy
 msgid "Authenticate"
 msgstr "証明書"
 
-#: ../gcr/gcr-gnupg-renderer.c:225 ../gcr/gcr-gnupg-renderer.c:260
+#: ../gcr/gcr-gnupg-renderer.c:223 ../gcr/gcr-gnupg-renderer.c:258
 msgid "Disabled"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:256 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-key-renderer.c:312 ../gcr/gcr-key-renderer.c:317
+#: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
+#: ../gcr/gcr-key-renderer.c:433 ../gcr/gcr-key-renderer.c:438
 msgid "Unknown"
 msgstr "不明"
 
-#: ../gcr/gcr-gnupg-renderer.c:258
+#: ../gcr/gcr-gnupg-renderer.c:256
 msgid "Invalid"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:262
+#: ../gcr/gcr-gnupg-renderer.c:260
 msgid "Revoked"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:264
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:262
 msgid "Expired"
-msgstr "有効期限"
+msgstr "期限切れ"
 
-#: ../gcr/gcr-gnupg-renderer.c:266
+#: ../gcr/gcr-gnupg-renderer.c:264
 msgid "Undefined trust"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:268
+#: ../gcr/gcr-gnupg-renderer.c:266
 msgid "Distrusted"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:270
+#: ../gcr/gcr-gnupg-renderer.c:268
 msgid "Marginally trusted"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:272
+#: ../gcr/gcr-gnupg-renderer.c:270
 msgid "Fully trusted"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:274
+#: ../gcr/gcr-gnupg-renderer.c:272
 msgid "Ultimately trusted"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:288
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:286
 msgid "The information in this key has not yet been verified"
-msgstr "その情報には個人情報が含まれているため開示できません"
+msgstr "この鍵の中の情報はまだ確認されていません"
 
-#: ../gcr/gcr-gnupg-renderer.c:291
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:289
 msgid "This key is invalid"
-msgstr "無効なセッションです"
+msgstr "この鍵は無効です"
 
-#: ../gcr/gcr-gnupg-renderer.c:294
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:292
 msgid "This key has been disabled"
-msgstr "モジュールが初期化されていません"
+msgstr "この鍵は無効化されています"
 
-#: ../gcr/gcr-gnupg-renderer.c:297
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:295
 msgid "This key has been revoked"
-msgstr "鍵をラップできません"
+msgstr "この鍵は失効しました"
 
-#: ../gcr/gcr-gnupg-renderer.c:300
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:298
 msgid "This key has expired"
-msgstr "パスワードまたは PIN の有効期限が過ぎています"
+msgstr "この鍵は有効期限が切れました"
 
-#: ../gcr/gcr-gnupg-renderer.c:305
+#: ../gcr/gcr-gnupg-renderer.c:303
 msgid "This key is distrusted"
-msgstr ""
+msgstr "この鍵は信頼できないものとされました"
 
-#: ../gcr/gcr-gnupg-renderer.c:308
+# http://lpic.jp/centos/GPG.pdf
+#: ../gcr/gcr-gnupg-renderer.c:306
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "この鍵はある程度信頼されています"
 
-#: ../gcr/gcr-gnupg-renderer.c:311
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:309
 msgid "This key is fully trusted"
-msgstr "鍵の種類が間違っています"
+msgstr "この鍵は完全に信頼されています"
 
-#: ../gcr/gcr-gnupg-renderer.c:314
+#: ../gcr/gcr-gnupg-renderer.c:312
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "この鍵は絶対的に信頼されています"
 
-#: ../gcr/gcr-gnupg-renderer.c:339 ../gcr/gcr-gnupg-renderer.c:565
+#: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
 msgid "Key ID"
-msgstr ""
+msgstr "鍵 ID"
 
-#: ../gcr/gcr-gnupg-renderer.c:347 ../gcr/gcr-gnupg-renderer.c:573
-#: ../gcr/gcr-gnupg-renderer.c:620 ../gcr/gcr-key-renderer.c:313
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
+#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:434
 msgid "Algorithm"
-msgstr "鍵のアルゴリズム"
+msgstr "アルゴリズム"
 
-#: ../gcr/gcr-gnupg-renderer.c:362 ../gcr/gcr-gnupg-renderer.c:439
-#: ../gcr/gcr-gnupg-renderer.c:482
+#: ../gcr/gcr-gnupg-renderer.c:360 ../gcr/gcr-gnupg-renderer.c:437
+#: ../gcr/gcr-gnupg-renderer.c:480
 msgid "Created"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:371 ../gcr/gcr-gnupg-renderer.c:448
-#: ../gcr/gcr-gnupg-renderer.c:491
+#: ../gcr/gcr-gnupg-renderer.c:369 ../gcr/gcr-gnupg-renderer.c:446
+#: ../gcr/gcr-gnupg-renderer.c:489
 #, fuzzy
 msgid "Expiry"
 msgstr "有効期限"
 
-#: ../gcr/gcr-gnupg-renderer.c:380
+#: ../gcr/gcr-gnupg-renderer.c:378
 msgid "Capabilities"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:393
+#: ../gcr/gcr-gnupg-renderer.c:391
 msgid "Owner trust"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:421
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:419
 msgid "Name"
-msgstr "名前(_N):"
+msgstr "名前"
 
-#: ../gcr/gcr-gnupg-renderer.c:427 ../gcr/gcr-gnupg-renderer.c:709
+#: ../gcr/gcr-gnupg-renderer.c:425 ../gcr/gcr-gnupg-renderer.c:707
 msgid "Comment"
-msgstr ""
+msgstr "コメント"
 
-#: ../gcr/gcr-gnupg-renderer.c:467
+#: ../gcr/gcr-gnupg-renderer.c:465
 msgid "User Attribute"
-msgstr ""
+msgstr "ユーザー属性"
 
-#: ../gcr/gcr-gnupg-renderer.c:474 ../gcr/gcr-key-renderer.c:320
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
 msgid "Size"
-msgstr "鍵のサイズ"
+msgstr "サイズ"
 
-#: ../gcr/gcr-gnupg-renderer.c:509
+#: ../gcr/gcr-gnupg-renderer.c:507
 #, fuzzy
 msgid "Signature of a binary document"
-msgstr "署名のパラメータ"
+msgstr "署名のパラメーター"
 
-#: ../gcr/gcr-gnupg-renderer.c:511
+#: ../gcr/gcr-gnupg-renderer.c:509
 msgid "Signature of a canonical text document"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:513
+#: ../gcr/gcr-gnupg-renderer.c:511
 #, fuzzy
 msgid "Standalone signature"
 msgstr "署名"
 
-#: ../gcr/gcr-gnupg-renderer.c:515
+#: ../gcr/gcr-gnupg-renderer.c:513
 #, fuzzy
 msgid "Generic certification of key"
 msgstr "証明書の解除"
 
-#: ../gcr/gcr-gnupg-renderer.c:517
+#: ../gcr/gcr-gnupg-renderer.c:515
 msgid "Persona certification of key"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:519
+#: ../gcr/gcr-gnupg-renderer.c:517
 msgid "Casual certification of key"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:521
+#: ../gcr/gcr-gnupg-renderer.c:519
 msgid "Positive certification of key"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:523
+#: ../gcr/gcr-gnupg-renderer.c:521
 msgid "Subkey binding signature"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:525
+#: ../gcr/gcr-gnupg-renderer.c:523
 msgid "Primary key binding signature"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:527
+#: ../gcr/gcr-gnupg-renderer.c:525
 #, fuzzy
 msgid "Signature directly on key"
-msgstr "署名のパラメータ"
+msgstr "署名のパラメーター"
 
-#: ../gcr/gcr-gnupg-renderer.c:529
+#: ../gcr/gcr-gnupg-renderer.c:527
 msgid "Key revocation signature"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:531
+#: ../gcr/gcr-gnupg-renderer.c:529
 msgid "Subkey revocation signature"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:533
+#: ../gcr/gcr-gnupg-renderer.c:531
 msgid "Certification revocation signature"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:535
+#: ../gcr/gcr-gnupg-renderer.c:533
 msgid "Timestamp signature"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:537
+#: ../gcr/gcr-gnupg-renderer.c:535
 msgid "Third-party confirmation signature"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:598
+#: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
 msgid "Class"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:592 ../gcr/gcr-gnupg-renderer.c:594
-msgid "Type"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:592
+#: ../gcr/gcr-gnupg-renderer.c:590
 #, fuzzy
 msgid "Local only"
 msgstr "地方"
 
-#: ../gcr/gcr-gnupg-renderer.c:594
+#: ../gcr/gcr-gnupg-renderer.c:592
 msgid "Exportable"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:612
+#: ../gcr/gcr-gnupg-renderer.c:610
 msgid "Revocation Key"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:626 ../gcr/gcr-gnupg-renderer.c:650
-#: ../gcr/gcr-gnupg-renderer.c:652
-#, fuzzy
+#: ../gcr/gcr-gnupg-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:648
+#: ../gcr/gcr-gnupg-renderer.c:650
 msgid "Fingerprint"
 msgstr "指紋"
 
-#: ../gcr/gcr-gnupg-renderer.c:741
+#: ../gcr/gcr-gnupg-renderer.c:739
 #, fuzzy
 msgid "Public Subkey"
 msgstr "公開鍵"
 
-#: ../gcr/gcr-gnupg-renderer.c:743
+#: ../gcr/gcr-gnupg-renderer.c:741
 msgid "Secret Key"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-renderer.c:745
+#: ../gcr/gcr-gnupg-renderer.c:743
 msgid "Secret Subkey"
 msgstr ""
 
-#: ../gcr/gcr-import-button.c:108
-#, fuzzy
+#: ../gcr/gcr-import-button.c:111
 msgid "Initializing..."
-msgstr "イニシャル"
+msgstr "初期化中..."
 
-#: ../gcr/gcr-import-button.c:116
+#: ../gcr/gcr-import-button.c:119
 msgid "Import is in progress..."
-msgstr ""
+msgstr "インポートが進行中..."
 
-#: ../gcr/gcr-import-button.c:123
-#, fuzzy, c-format
+#: ../gcr/gcr-import-button.c:126
+#, c-format
 msgid "Imported to: %s"
-msgstr "インポート先:"
+msgstr "インポート先: %s"
 
-#: ../gcr/gcr-import-button.c:143
-#, fuzzy, c-format
+#: ../gcr/gcr-import-button.c:146
+#, c-format
 msgid "Import to: %s"
-msgstr "インポート先:"
+msgstr "インポート先: %s"
 
-#: ../gcr/gcr-import-button.c:156
-#, fuzzy
+#: ../gcr/gcr-import-button.c:159
 msgid "Cannot import because there are no compatible importers"
-msgstr "鍵の種類が間違っているためインポートできません"
+msgstr "インポート処理できる仕組みがないのでインポートできません"
 
-#: ../gcr/gcr-import-button.c:165
+#: ../gcr/gcr-import-button.c:168
 #, fuzzy
 msgid "No data to import"
 msgstr "インポート先として妥当な場所ではありません"
 
-#: ../gcr/gcr-key-renderer.c:82
+#: ../gcr/gcr-key-renderer.c:89
 msgid "Key"
-msgstr ""
+msgstr "鍵"
 
-#: ../gcr/gcr-key-renderer.c:281
-#, fuzzy
+#: ../gcr/gcr-key-renderer.c:403
 msgid "Private RSA Key"
-msgstr "秘密鍵"
+msgstr "秘密 RSA 鍵"
 
-#: ../gcr/gcr-key-renderer.c:283
-#, fuzzy
+#: ../gcr/gcr-key-renderer.c:405
 msgid "Private DSA Key"
-msgstr "秘密鍵"
+msgstr "秘密 DSA 鍵"
 
-#: ../gcr/gcr-key-renderer.c:285 ../gcr/gcr-parser.c:313
+#: ../gcr/gcr-key-renderer.c:407 ../gcr/gcr-parser.c:319
 msgid "Private Key"
 msgstr "秘密鍵"
 
-#: ../gcr/gcr-key-renderer.c:288 ../gcr/gcr-key-renderer.c:290
-#, fuzzy
+#: ../gcr/gcr-key-renderer.c:410 ../gcr/gcr-key-renderer.c:412
 msgid "Public DSA Key"
-msgstr "公開鍵"
+msgstr "公開 DSA 鍵"
 
-#: ../gcr/gcr-key-renderer.c:299
+#: ../gcr/gcr-key-renderer.c:421
 #, c-format
 msgid "%d bit"
 msgid_plural "%d bits"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ビット"
 
-#: ../gcr/gcr-key-renderer.c:300
-#, fuzzy
+#: ../gcr/gcr-key-renderer.c:422
 msgid "Strength"
-msgstr "通り"
+msgstr "強度"
 
 #. Fingerprints
-#: ../gcr/gcr-key-renderer.c:324
+#: ../gcr/gcr-key-renderer.c:445
 msgid "Fingerprints"
 msgstr "指紋"
 
-#: ../gcr/gcr-key-renderer.c:329
+#: ../gcr/gcr-key-renderer.c:449
 msgid "SHA1"
-msgstr ""
+msgstr "SHA1"
 
-#: ../gcr/gcr-key-renderer.c:335
+#: ../gcr/gcr-key-renderer.c:454
 msgid "SHA256"
-msgstr ""
+msgstr "SHA256"
 
-#: ../gcr/gcr-parser.c:2180
+#: ../gcr/gcr-parser.c:331
+msgid "Certificate Request"
+msgstr "証明書署名要求"
+
+#: ../gcr/gcr-parser.c:2427
 msgid "Unrecognized or unsupported data."
 msgstr "認識できないまたはサポートしていないデータです"
 
-#: ../gcr/gcr-parser.c:2183
+#: ../gcr/gcr-parser.c:2430
 msgid "Could not parse invalid or corrupted data."
 msgstr "データが不正または壊れているため解析できませんでした"
 
-#: ../gcr/gcr-parser.c:2186
+#: ../gcr/gcr-parser.c:2433
 msgid "The data is locked"
 msgstr "データにはロックがかかっています"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:186
+#: ../gcr/gcr-pkcs11-import-dialog.c:187
 msgid "Automatically chosen"
 msgstr ""
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:270
+#: ../gcr/gcr-pkcs11-import-dialog.c:271
 #: ../gcr/gcr-pkcs11-import-interaction.c:153
 #: ../gcr/gcr-pkcs11-import-interaction.c:171
 #, c-format
 msgid "The user cancelled the operation"
-msgstr ""
+msgstr "ユーザーが処理をキャンセルしました"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-msgid "<b>Import settings</b>"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
-#, fuzzy
-msgid "<b>Unlock</b>"
-msgstr "ロックの解除"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
-#, fuzzy
 msgid "In order to import, please enter the password."
-msgstr "'%s' をインポートする場合はロックを解除してください"
+msgstr "インポートする場合は、パスワードを入力してください。"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
-msgid "Label"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
-msgid "Label:"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
+#. The password label
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:559
 msgid "Password:"
 msgstr "パスワード:"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
 msgid "Token:"
+msgstr "トークン:"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4 ../gcr/gcr-unlock-renderer.c:71
+#: ../gcr/gcr-unlock-renderer.c:128
+msgid "Unlock"
+msgstr "ロック解除"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
+msgid "Label:"
+msgstr "ラベル:"
+
+#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Import settings"
+msgstr "インポート設定"
+
+#: ../gcr/gcr-prompt.c:218
+msgid "Continue"
+msgstr ""
+
+#: ../gcr/gcr-prompt.c:227
+msgid "Cancel"
+msgstr "キャンセル"
+
+#. The confirm label
+#: ../gcr/gcr-prompt-dialog.c:576
+msgid "Confirm:"
+msgstr "確認:"
+
+#: ../gcr/gcr-prompt-dialog.c:643
+msgid "Passwords do not match."
+msgstr "パスワードが一致しません。"
+
+#: ../gcr/gcr-prompt-dialog.c:650
+msgid "Password cannot be blank"
+msgstr "空のパスワードは認められません"
+
+#: ../gcr/gcr-prompter.desktop.in.in.h:1
+msgid "Access Prompt"
+msgstr ""
+
+#: ../gcr/gcr-prompter.desktop.in.in.h:2
+msgid "Unlock access to passwords and other secrets"
+msgstr ""
+
+#: ../gcr/gcr-subject-public-key.c:345
+msgid "Unrecognized or unavailable attributes for key"
+msgstr ""
+
+#: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
+msgid "Couldn't build public key"
+msgstr ""
+
+#: ../gcr/gcr-system-prompt.c:749
+msgid "Another prompt is already in progress"
 msgstr ""
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:376
+#: ../gcr/gcr-trust.c:370
 #, fuzzy, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "インポートした証明書/鍵を保存する場所を選択してください"
@@ -955,105 +1011,79 @@ msgid "Automatically unlock this keyring whenever I'm logged in"
 msgstr "ログインしたら、このキーリングのロックを自動的に解除する"
 
 #: ../gcr/gcr-unlock-options-widget.ui.h:2
+msgid "Lock this keyring when I log out"
+msgstr "ログアウトしたら、このキーリングの自動的にロックする"
+
+#: ../gcr/gcr-unlock-options-widget.ui.h:3
 msgid "Lock this keyring after"
 msgstr "このキーリングを以下の時間経過したらロック:"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:3
+#: ../gcr/gcr-unlock-options-widget.ui.h:4
 msgid "Lock this keyring if idle for"
 msgstr "このキーリングを以下の時間アイドルだったらロックする:"
-
-#: ../gcr/gcr-unlock-options-widget.ui.h:4
-msgid "Lock this keyring when I log out"
-msgstr "ログアウトしたら、このキーリングの自動的にロックする"
 
 #. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
 #: ../gcr/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "分"
 
-#: ../gcr/gcr-unlock-renderer.c:70
-#, fuzzy, c-format
-msgid "Unlock: %s"
-msgstr "ロックの解除"
-
-#: ../gcr/gcr-unlock-renderer.c:72 ../gcr/gcr-unlock-renderer.c:129
-msgid "Unlock"
-msgstr "ロックの解除"
-
-#: ../gcr/gcr-unlock-renderer.c:126
-#, fuzzy
-msgid "Password"
-msgstr "パスワード:"
-
-#: ../gcr/gcr-unlock-renderer.c:279
+#: ../gcr/gcr-unlock-renderer.c:69
 #, c-format
-msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
-"correct password."
+msgid "Unlock: %s"
+msgstr "ロック解除: %s"
+
+#: ../gcr/gcr-unlock-renderer.c:125
+msgid "Password"
+msgstr "パスワード"
+
+#: ../gcr/gcr-unlock-renderer.c:278
+#, c-format
+msgid "The contents of '%s' are locked. In order to view the contents, enter the correct password."
 msgstr ""
 
-#: ../gcr/gcr-unlock-renderer.c:282
-msgid ""
-"The contents are locked. In order to view the contents, enter the correct "
-"password."
+#: ../gcr/gcr-unlock-renderer.c:281
+msgid "The contents are locked. In order to view the contents, enter the correct password."
 msgstr ""
 
 #: ../gcr/gcr-viewer-tool.c:41
-#, fuzzy
 msgid "GCR Certificate and Key Viewer"
-msgstr "証明書および鍵を格納するストレージ"
+msgstr "GCR 証明書・鍵ビューアー"
 
 #: ../gcr/gcr-viewer-tool.c:48
 msgid "Show the application's version"
-msgstr ""
+msgstr "アプリケーションのバージョンを表示する"
 
 #: ../gcr/gcr-viewer-tool.c:50
 msgid "[file...]"
-msgstr ""
+msgstr "[ファイル...]"
 
-#: ../gcr/gcr-viewer-tool.c:104
-#, fuzzy
+#: ../gcr/gcr-viewer-tool.c:103
 msgid "- View certificate and key files"
-msgstr "証明書および鍵を格納するストレージ"
+msgstr "- 証明書や鍵ファイルを表示する"
 
-#: ../gcr/gcr-viewer-tool.c:118
-#, fuzzy
+#: ../gcr/gcr-viewer-tool.c:117 ../gcr/gcr-viewer-widget.c:637
 msgid "Certificate Viewer"
-msgstr "証明書"
+msgstr "証明書ビューアー"
 
-#: ../gcr/gcr-viewer-widget.c:191
-#, fuzzy
+#: ../gcr/gcr-viewer-widget.c:203
 msgid "The password was incorrect"
-msgstr "解除パスワードが間違っています"
+msgstr "パスワードが間違っています"
 
-#: ../gcr/gcr-viewer-window.c:68
-#, fuzzy
+#: ../gcr/gcr-viewer-window.c:76
 msgid "Imported"
-msgstr "インポート先:"
+msgstr "インポートしました"
 
-#: ../gcr/gcr-viewer-window.c:72
-#, fuzzy
+#: ../gcr/gcr-viewer-window.c:80
 msgid "Import failed"
-msgstr "処理を実行できませんでした"
+msgstr "インポートに失敗しました"
 
-#: ../gcr/gcr-viewer-window.c:103
-#, fuzzy
+#: ../gcr/gcr-viewer-window.c:108
 msgid "Import"
-msgstr "インポート先:"
+msgstr "インポート"
 
-#: ../gck/gck-uri.c:223
-#, c-format
-msgid "The URI has invalid encoding."
-msgstr ""
+#~ msgid "Label"
+#~ msgstr "ラベル"
 
-#: ../gck/gck-uri.c:227
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr ""
-
-#: ../gck/gck-uri.c:231
-msgid "The URI has bad syntax."
-msgstr ""
-
-#: ../gck/gck-uri.c:235
-msgid "The URI has a bad version number."
-msgstr ""
+#, fuzzy
+#~ msgid "<b>Unlock</b>"
+#~ msgstr "ロックの解除"

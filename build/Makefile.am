@@ -18,7 +18,9 @@ valgrind-suppressions: $(SUPPRESSIONS)
 
 EXTRA_DIST = \
 	$(VALGRIND_CONTRIB) \
-	$(SUPPRESSIONS)
+	$(SUPPRESSIONS) \
+	enum-template.c \
+	enum-template.h
 
 all-local: valgrind-suppressions
 

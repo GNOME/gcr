@@ -65,6 +65,7 @@ gcr_collection_get_type
 gcr_comparable_compare
 gcr_comparable_get_type
 gcr_comparable_memcmp
+gcr_column_flags_get_type
 gcr_data_error_get_domain
 gcr_data_error_get_type
 gcr_data_format_get_type

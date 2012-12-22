@@ -8,15 +8,13 @@ INCLUDES = \
 	-DGCK_API_SUBJECT_TO_CHANGE \
 	-DGCR_COMPILATION \
 	$(GLIB_CFLAGS) \
-	$(GTK_CFLAGS) \
 	$(LIBGCRYPT_CFLAGS) \
 	$(P11_KIT_CFLAGS)
 
 LDADD = \
-	$(top_builddir)/gcr/libgcr-testable.la \
+	$(top_builddir)/gcr/libgcr-base-@GCR_MAJOR@.la \
 	$(top_builddir)/egg/libegg.la \
 	$(top_builddir)/gck/libgck-testable.la \
-	$(GTK_LIBS) \
 	$(GLIB_LIBS) \
 	$(LIBGCRYPT_LIBS) \
 	$(P11_KIT_LIBS)
@@ -61,23 +59,12 @@ EXTRA_DIST = \
 # ------------------------------------------------------------------
 
 noinst_PROGRAMS = \
-	frob-certificate \
-	frob-certificate-request \
-	frob-combo-selector \
-	frob-gnupg-selector \
-	frob-key \
-	frob-tree-selector \
 	frob-openpgp \
-	frob-parser \
-	frob-prompt \
-	frob-request \
-	frob-system-prompt \
-	frob-unlock \
-	frob-unlock-options
+	frob-parser
 
-frob_unlock_SOURCES = \
-	frob-unlock.c \
-	../gcr-viewer-window.c
+noinst_PROGRAMS += \
+	frob-certificate-request \
+	frob-parser
 
 frob_certificate_request_SOURCES = \
 	frob-certificate-request.c \

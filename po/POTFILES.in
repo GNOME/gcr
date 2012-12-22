@@ -7,34 +7,34 @@ gck/gck-modules.c
 gck/gck-uri.c
 gcr/gcr-callback-output-stream.c
 gcr/gcr-certificate.c
-gcr/gcr-certificate-exporter.c
 gcr/gcr-certificate-extensions.c
-gcr/gcr-certificate-renderer.c
 gcr/gcr-certificate-request.c
-gcr/gcr-certificate-request-renderer.c
-gcr/gcr-certificate-widget.c
-gcr/gcr-display-view.c
-gcr/gcr-failure-renderer.c
 gcr/gcr-gnupg-importer.c
 gcr/gcr-gnupg-key.c
 gcr/gcr-gnupg-process.c
-gcr/gcr-gnupg-renderer.c
-gcr/gcr-import-button.c
 gcr/gcr-importer.c
-gcr/gcr-key-renderer.c
 gcr/gcr-library.c
 gcr/gcr-parser.c
-gcr/gcr-pkcs11-import-dialog.c
-[type: gettext/glade]gcr/gcr-pkcs11-import-dialog.ui
-gcr/gcr-pkcs11-import-interaction.c
 gcr/gcr-prompt.c
-gcr/gcr-prompt-dialog.c
-gcr/gcr-prompter.desktop.in.in
 gcr/gcr-subject-public-key.c
 gcr/gcr-system-prompt.c
 gcr/gcr-trust.c
-[type: gettext/glade]gcr/gcr-unlock-options-widget.ui
-gcr/gcr-unlock-renderer.c
-gcr/gcr-viewer-tool.c
-gcr/gcr-viewer-widget.c
-gcr/gcr-viewer-window.c
+ui/gcr-certificate-renderer.c
+ui/gcr-certificate-request-renderer.c
+ui/gcr-certificate-widget.c
+ui/gcr-display-view.c
+ui/gcr-failure-renderer.c
+ui/gcr-gnupg-renderer.c
+ui/gcr-import-button.c
+ui/gcr-key-renderer.c
+ui/gcr-pkcs11-import-dialog.c
+[type: gettext/glade]ui/gcr-pkcs11-import-dialog.ui
+ui/gcr-pkcs11-import-interaction.c
+ui/gcr-prompt-dialog.c
+ui/gcr-prompter.desktop.in.in
+ui/gcr-certificate-exporter.c
+[type: gettext/glade]ui/gcr-unlock-options-widget.ui
+ui/gcr-unlock-renderer.c
+ui/gcr-viewer-tool.c
+ui/gcr-viewer-widget.c
+ui/gcr-viewer-window.c

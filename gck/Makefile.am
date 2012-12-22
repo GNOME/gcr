@@ -1,3 +1,4 @@
+include $(top_srcdir)/Makefile.decl
 
 SUBDIRS = . tests
 
@@ -93,11 +94,11 @@ gck-marshal.c: gck-marshal.list $(GLIB_GENMARSHAL)
 	echo "#include \"gck-marshal.h\"" > $@ && \
 	$(GLIB_GENMARSHAL) $< --body --prefix=_gck_marshal >> $@
 
-gck-enum-types.h: gck-enum-types.h.template $(HEADER_FILES)
-	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
+gck-enum-types.h: $(ENUM_TEMPLATE_H) $(HEADER_FILES)
+	$(GLIB_MKENUMS) --template $^ > $@
 
-gck-enum-types.c: gck-enum-types.c.template $(HEADER_FILES)
-	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
+gck-enum-types.c: $(ENUM_TEMPLATE_C) $(HEADER_FILES)
+	$(GLIB_MKENUMS) --template $^ > $@
 
 # ------------------------------------------------------------------
 # INTROSPECTION
@@ -130,7 +131,6 @@ endif
 
 # ----------------------------------------------------------------
 
-pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gck-$(GCK_MAJOR).pc
 
 gck-$(GCK_MAJOR).pc: gck.pc
@@ -156,8 +156,6 @@ EXTRA_DIST = \
 	gck.pc.in \
 	gck-marshal.list \
 	gck.symbols \
-	gck-enum-types.h.template \
-	gck-enum-types.c.template \
 	pkcs11-trust-assertions.h \
 	pkcs11i.h
 

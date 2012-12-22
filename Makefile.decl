@@ -57,4 +57,9 @@ SED_SUBST = sed \
 .service.in.service:
 	$(V_SED) $(SED_SUBST) $< > $@
 
+pkgconfigdir = $(libdir)/pkgconfig
+
+ENUM_TEMPLATE_C = $(top_srcdir)/build/enum-template.c
+ENUM_TEMPLATE_H = $(top_srcdir)/build/enum-template.h
+
 SUFFIXES = .asn .asn.h .desktop.in .desktop.in.in .service .service.in

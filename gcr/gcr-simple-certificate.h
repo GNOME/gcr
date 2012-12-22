@@ -28,6 +28,8 @@
 
 #include <glib-object.h>
 
+#include "gcr-certificate.h"
+
 G_BEGIN_DECLS
 
 #define GCR_TYPE_SIMPLE_CERTIFICATE               (gcr_simple_certificate_get_type ())

@@ -1,11 +1,18 @@
 include $(top_srcdir)/Makefile.decl
 
+if WITH_GTK
+UI_DIR = ui
+else
+UI_DIR =
+endif
+
 SUBDIRS = \
 	. \
 	build \
 	egg \
 	gck \
 	gcr \
+	$(UI_DIR) \
 	schema \
 	testing \
 	po \
@@ -25,6 +32,7 @@ DISTCHECK_CONFIGURE_FLAGS = \
 	--disable-code-coverage \
 	--disable-update-mime \
 	--disable-update-icon-cache \
+	--with-gtk \
 	--with-pkcs11-modules=$(abs_srcdir)/$(top_distdir)/_inst/lib/
 
 DISTCLEANFILES = \

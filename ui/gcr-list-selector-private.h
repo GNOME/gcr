@@ -1,7 +1,7 @@
 /*
  * gnome-keyring
  *
- * Copyright (C) 2010 Collabora Ltd.
+ * Copyright (C) 2011 Collabora Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -21,18 +21,21 @@
  * Author: Stef Walter <stefw@collabora.co.uk>
  */
 
-#ifndef GCR_API_SUBJECT_TO_CHANGE
-#error "This API has not yet reached stability."
-#endif
+#ifndef __GCR_LIST_SELECTOR_PRIVATE_H__
+#define __GCR_LIST_SELECTOR_PRIVATE_H__
 
-#ifndef __GCR_H__
-#define __GCR_H__
+#include "gcr/gcr-types.h"
 
-#include <glib.h>
+#include "gcr-list-selector.h"
+#include "gcr-live-search.h"
 
-#include "gcr/gcr-base.h"
-#include "ui/gcr-ui.h"
+#include <gtk/gtk.h>
 
-#undef __GCR_INSIDE_HEADER__
+G_BEGIN_DECLS
 
-#endif /* __GCR_H__ */
+void              _gcr_list_selector_set_live_search           (GcrListSelector *self,
+                                                                GcrLiveSearch *search);
+
+G_END_DECLS
+
+#endif /* __GCR_LIST_SELECTOR_PRIVATE_H__ */

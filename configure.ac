@@ -81,9 +81,26 @@ AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
 
 GTK_DOC_CHECK(1.9)
 
-PKG_CHECK_MODULES(GTK, gtk+-3.0 >= 3.0)
-AC_SUBST(GTK_CFLAGS)
-AC_SUBST(GTK_LIBS)
+# --------------------------------------------------------------------
+# Optional GTK+ widgets build, avoid building gtk-doc wihtout GTK+
+#
+AC_ARG_WITH(gtk, [
+            AC_HELP_STRING([--without-gtk],
+            [do not build code that uses GTK+]),
+            ], [], [with_gtk=yes])
+AM_CONDITIONAL(WITH_GTK, test "$with_gtk" != "no")
+
+if test "x$with_gtk" != "xno"; then
+	PKG_CHECK_MODULES(GTK, gtk+-3.0 >= 3.0)
+	AC_SUBST(GTK_CFLAGS)
+	AC_SUBST(GTK_LIBS)
+fi
+
+if test "x$enable_gtk_doc" = "xyes"; then
+  if test "x$with_gtk" = "xno"; then
+    AC_MSG_ERROR([Cannot build documentation if building GTK+ widgets is disabled])
+  fi
+fi
 
 # --------------------------------------------------------------------
 # Checks for functions
@@ -353,21 +370,23 @@ egg/tests/Makefile
 gck/gck.pc
 gck/Makefile
 gck/tests/Makefile
-gcr/gcr.pc
 gcr/gcr-base.pc
-gcr/gcr-ui.pc
 gcr/Makefile
-gcr/icons/Makefile
-gcr/icons/16x16/Makefile
-gcr/icons/22x22/Makefile
-gcr/icons/24x24/Makefile
-gcr/icons/32x32/Makefile
-gcr/icons/48x48/Makefile
-gcr/icons/256x256/Makefile
 gcr/tests/Makefile
 po/Makefile.in
 schema/Makefile
 testing/Makefile
+ui/gcr.pc
+ui/gcr-ui.pc
+ui/icons/Makefile
+ui/icons/16x16/Makefile
+ui/icons/22x22/Makefile
+ui/icons/24x24/Makefile
+ui/icons/32x32/Makefile
+ui/icons/48x48/Makefile
+ui/icons/256x256/Makefile
+ui/Makefile
+ui/tests/Makefile
 ])
 
 # ------------------------------------------------------------------------------
@@ -378,6 +397,7 @@ echo
 echo "BUILD"
 echo "  Debug Build:          $debug_status"
 echo "  Strict Compilation:   $strict_status"
+echo "  GTK+ Widgets:         $with_gtk"
 echo "  Introspection:        $found_introspection"
 echo "  Valgrind:             $valgrind_status"
 echo "  Test Coverage:        ${enable_code_coverage:-no}"

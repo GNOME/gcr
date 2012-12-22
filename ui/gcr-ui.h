@@ -25,14 +25,36 @@
 #error "This API has not yet reached stability."
 #endif
 
-#ifndef __GCR_H__
-#define __GCR_H__
+#ifndef __GCR_UI_H__
+#define __GCR_UI_H__
 
 #include <glib.h>
 
-#include "gcr/gcr-base.h"
-#include "ui/gcr-ui.h"
+#include <gcr/gcr-base.h>
+
+#define __GCR_INSIDE_HEADER__
+
+#include <ui/gcr-certificate-renderer.h>
+#include <ui/gcr-certificate-widget.h>
+#include <ui/gcr-collection-model.h>
+#include <ui/gcr-combo-selector.h>
+#include <ui/gcr-deprecated.h>
+#include <ui/gcr-key-renderer.h>
+#include <ui/gcr-key-widget.h>
+#include <ui/gcr-enum-types.h>
+#include <ui/gcr-failure-renderer.h>
+#include <ui/gcr-key-renderer.h>
+#include <ui/gcr-key-widget.h>
+#include <ui/gcr-import-button.h>
+#include <ui/gcr-list-selector.h>
+#include <ui/gcr-prompt-dialog.h>
+#include <ui/gcr-renderer.h>
+#include <ui/gcr-secure-entry-buffer.h>
+#include <ui/gcr-tree-selector.h>
+#include <ui/gcr-unlock-options-widget.h>
+#include <ui/gcr-viewer.h>
+#include <ui/gcr-viewer-widget.h>
 
 #undef __GCR_INSIDE_HEADER__
 
-#endif /* __GCR_H__ */
+#endif /* __GCR_UI_H__ */

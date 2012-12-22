@@ -88,12 +88,15 @@ stamp-*
 /gcr/gcr-enum-types*
 /gcr/gcr-oids.*
 /gcr/gcr-marshal.*
-/gcr/gcr-prompter
-/gcr/gcr-prompter.desktop
-/gcr/gcr-prompter.desktop.in
-/gcr/gcr-viewer
-/gcr/gcr-viewer.desktop
-/gcr/gcr-viewer.desktop.in
+
+/ui/*.pc
+/ui/gcr-enum-types*
+/ui/gcr-prompter
+/ui/gcr-prompter.desktop
+/ui/gcr-prompter.desktop.in
+/ui/gcr-viewer
+/ui/gcr-viewer.desktop
+/ui/gcr-viewer.desktop.in
 
 /po/Makefile.in.in
 /po/*.sed

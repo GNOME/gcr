@@ -29,8 +29,6 @@
 
 #include "egg/egg-armor.h"
 
-#include <gtk/gtk.h>
-
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
@@ -104,7 +102,6 @@ test_request (const gchar *uri)
 int
 main(int argc, char *argv[])
 {
-	gtk_init (&argc, &argv);
 	g_set_prgname ("frob-certificate-request");
 
 	if (argc <= 1)

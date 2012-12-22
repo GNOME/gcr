@@ -162,7 +162,7 @@ gcr_viewer_window_class_init (GcrViewerWindowClass *klass)
  *
  * Create a new viewer window.
  *
- * Returns: (transfer full) (type Gcr.ViewerWindow): a new viewer window
+ * Returns: (transfer full) (type GcrUi.ViewerWindow): a new viewer window
  */
 GtkWindow *
 gcr_viewer_window_new (void)

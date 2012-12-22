@@ -5,8 +5,6 @@ includedir=@includedir@
 datarootdir=@datarootdir@
 datadir=@datadir@
 sysconfdir=@sysconfdir@
-pkcs11dir=@P11_MODULE_PATH@
-pkcs11standalonedir=@pkcs11standalonedir@
 
 Name: gcr-base-@GCR_MAJOR@
 Description: GObject library for high level crypto parsing

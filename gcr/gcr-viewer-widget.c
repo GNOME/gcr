@@ -380,7 +380,7 @@ gcr_viewer_widget_class_init (GcrViewerWidgetClass *klass)
 	/**
 	 * GcrViewerWidget::added:
 	 * @self: the viewer widget
-	 * @renderer: (type Gcr.Renderer): the renderer that was added
+	 * @renderer: (type GcrUi.Renderer): the renderer that was added
 	 * @parsed: (type Gcr.Parsed): the parsed item that was added
 	 *
 	 * This signal is emitted when an item is added to the viewer widget.

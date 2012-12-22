@@ -183,7 +183,7 @@ gcr_renderer_iface_init (GcrRendererIface *iface)
  *
  * Create a new renderer for an error.
  *
- * Returns: (transfer full) (type Gcr.FailureRenderer): the new renderer
+ * Returns: (transfer full) (type GcrUi.FailureRenderer): the new renderer
  */
 GcrRenderer *
 gcr_failure_renderer_new (const gchar *label,

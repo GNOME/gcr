@@ -39,7 +39,7 @@ gcr_certificate_basics_widget_get_type (void)
  *
  * Deprecated: Since 2.30
  *
- * Returns: (transfer full) (type Gcr.CertificateWidget): a new certificate widget
+ * Returns: (transfer full) (type GcrUi.CertificateWidget): a new certificate widget
  */
 GcrCertificateBasicsWidget *
 gcr_certificate_basics_widget_new (GcrCertificate *cert)

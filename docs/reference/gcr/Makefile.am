@@ -119,7 +119,7 @@ expand_content_files=
 GTKDOC_CFLAGS= -I$(top_srcdir) -I$(top_builddir) $(GLIB_CFLAGS) -Wno-error \
 	-Wno-deprecated-declarations
 GTKDOC_LIBS= $(GLIB_LIBS) \
-	$(top_builddir)/$(DOC_MODULE)/libgcr-@GCR_MAJOR@.la \
+	$(top_builddir)/$(DOC_MODULE)/libgcr-ui-@GCR_MAJOR@.la \
 	$(top_builddir)/$(DOC_MODULE)/libgcr-base-@GCR_MAJOR@.la \
 	$(top_builddir)/gck/libgck-@GCK_MAJOR@.la
 

@@ -6,7 +6,10 @@ datarootdir=@datarootdir@
 datadir=@datadir@
 sysconfdir=@sysconfdir@
 
-Name: gcr-@GCR_MAJOR@
+Name: gcr-ui-@GCR_MAJOR@
 Description: GObject and GUI library for high level crypto parsing and display
 Version: @VERSION@
-Requires: gcr-ui-@GCR_MAJOR@ gcr-base-@GCR_MAJOR@
+Requires: glib-2.0 gobject-2.0 gio-2.0 gtk+-3.0 gcr-base-@GCR_MAJOR@ gck-@GCK_MAJOR@
+Requires.private: p11-kit-1
+Libs: -L${libdir} -lgcr-@GCR_MAJOR@
+Cflags: -I${includedir}/gcr-@GCR_MAJOR@

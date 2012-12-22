@@ -315,7 +315,7 @@ gcr_unlock_options_widget_class_init (GcrUnlockOptionsWidgetClass *klass)
  *
  * Create a new #GcrUnlockOptionsWidget.
  *
- * Returns: (transfer full) (type Gcr.UnlockOptionsWidget): a new #GcrUnlockOptionsWidget
+ * Returns: (transfer full) (type GcrUi.UnlockOptionsWidget): a new #GcrUnlockOptionsWidget
  */
 GtkWidget *
 gcr_unlock_options_widget_new (void)

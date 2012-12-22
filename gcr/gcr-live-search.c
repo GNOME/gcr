@@ -552,7 +552,7 @@ _gcr_live_search_init (GcrLiveSearch *self)
  *
  * Create a new #GcrLiveSearch.
  *
- * Returns: (transfer full) (type Gcr.LiveSearch): The new widget
+ * Returns: (transfer full) (type GcrUi.LiveSearch): The new widget
  */
 GtkWidget *
 _gcr_live_search_new (GtkWidget *hook)

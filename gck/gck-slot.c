@@ -404,7 +404,8 @@ gck_mechanism_info_free (GckMechanismInfo *mech_info)
 
 /**
  * gck_mechanisms_check:
- * @mechanisms: A list of mechanisms, perhaps retrieved from gck_slot_get_mechanisms().
+ * @mechanisms: (element-type ulong): A list of mechanisms, perhaps
+ *              retrieved from gck_slot_get_mechanisms().
  * @...: A list of mechanism types followed by GCK_INVALID.
  *
  * Check whether all the mechanism types are in the list.
@@ -744,8 +745,8 @@ gck_slot_get_token_info (GckSlot *self)
  *
  * Get the available mechanisms for this slot.
  *
- * Returns: (transfer full): a list of the mechanisms for this slot, which should
- *          be freed with g_array_free ()
+ * Returns: (transfer full) (element-type ulong): a list of the mechanisms
+ *          for this slot, which should be freed with g_array_free ()
  **/
 GArray *
 gck_slot_get_mechanisms (GckSlot *self)

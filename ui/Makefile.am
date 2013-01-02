@@ -172,7 +172,7 @@ GcrUi-@GCR_MAJOR@.gir: $(builddir)/libgcr-ui-@GCR_MAJOR@.la $(top_builddir)/gcr/
 GcrUi_@GCR_MAJOR@_gir_PACKAGES = gtk+-3.0 p11-kit-1
 GcrUi_@GCR_MAJOR@_gir_EXPORT_PACKAGES = gcr-ui-@GCR_MAJOR@
 GcrUi_@GCR_MAJOR@_gir_INCLUDES = GLib-2.0 GObject-2.0 Gtk-3.0
-GcrUi_@GCR_MAJOR@_gir_LIBS = libgcr-ui-@GCR_MAJOR@.la
+GcrUi_@GCR_MAJOR@_gir_LIBS = $(top_builddir)/gcr/libgcr-base-@GCR_MAJOR@.la libgcr-ui-@GCR_MAJOR@.la
 GcrUi_@GCR_MAJOR@_gir_CFLAGS = -I$(top_srcdir) -I$(top_builddir) -DGCR_COMPILATION -DGCR_API_SUBJECT_TO_CHANGE
 GcrUi_@GCR_MAJOR@_gir_FILES = $(PUBLIC_FILES)
 GcrUi_@GCR_MAJOR@_gir_SCANNERFLAGS = --c-include "gcr-ui.h" \

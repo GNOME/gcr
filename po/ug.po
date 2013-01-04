@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-10-15 12:23+0000\n"
+"POT-Creation-Date: 2012-12-16 10:20+0000\n"
 "PO-Revision-Date: 2011-04-26 09:25+0600\n"
 "Last-Translator: Sahran <sahran.ug@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -210,7 +210,7 @@ msgstr "مەزكۇر URI نىڭ نەشر نومۇرى توغرا ئەمەس."
 #: ../gcr/gcr-callback-output-stream.c:81
 #, c-format
 msgid "The stream was closed"
-msgstr ""
+msgstr "مەزكۇر ئېقىم يېپىلغان"
 
 #. later
 #. later
@@ -304,7 +304,7 @@ msgstr "URI"
 
 #: ../gcr/gcr-certificate-extensions.c:250
 msgid "IP Address"
-msgstr "‍IP ئادرېسس:"
+msgstr "‍IP ئادرېس:"
 
 #: ../gcr/gcr-certificate-extensions.c:258
 msgid "Registered ID"
@@ -507,7 +507,7 @@ msgstr ""
 #: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
 #, c-format
 msgid "The key cannot be used to sign the request"
-msgstr ""
+msgstr "ئىلتىماسقا ئىمزا قويۇشتا بۇ ئاچقۇچنى ئىشلەتكىلى بولمايدۇ"
 
 #. The certificate request type
 #: ../gcr/gcr-certificate-request-renderer.c:95
@@ -531,7 +531,7 @@ msgstr "تىپى"
 
 #: ../gcr/gcr-certificate-request-renderer.c:376
 msgid "Challenge"
-msgstr ""
+msgstr "تەۋەككۈل قىل"
 
 #: ../gcr/gcr-display-view.c:319
 msgid "_Details"
@@ -557,12 +557,12 @@ msgstr "بۇ تىپتىكى ھۆججەتنى كۆرسەتكىلى بولمايد
 
 #: ../gcr/gcr-gnupg-importer.c:96
 msgid "GnuPG Keyring"
-msgstr ""
+msgstr "GnuPG ئاچقۇچ ھالقىسى"
 
 #: ../gcr/gcr-gnupg-importer.c:98
 #, c-format
 msgid "GnuPG Keyring: %s"
-msgstr ""
+msgstr "GnuPG ئاچقۇچ ھالقىسى: %s"
 
 #: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-gnupg-renderer.c:88
 #: ../gcr/gcr-parser.c:328
@@ -636,55 +636,55 @@ msgstr ""
 
 #: ../gcr/gcr-gnupg-renderer.c:266
 msgid "Distrusted"
-msgstr ""
+msgstr "گۇمانلىق"
 
 #: ../gcr/gcr-gnupg-renderer.c:268
 msgid "Marginally trusted"
-msgstr ""
+msgstr "ئازراق ئىشەنچلىك"
 
 #: ../gcr/gcr-gnupg-renderer.c:270
 msgid "Fully trusted"
-msgstr ""
+msgstr "تولۇق ئىشەنچلىك"
 
 #: ../gcr/gcr-gnupg-renderer.c:272
 msgid "Ultimately trusted"
-msgstr ""
+msgstr "ئاخىرغىچە ئىشەنچلىك"
 
 #: ../gcr/gcr-gnupg-renderer.c:286
 msgid "The information in this key has not yet been verified"
-msgstr ""
+msgstr "مەزكۇر ئاچقۇچتىكى ئۇچۇرلار تېخى تەكشۈرۈلمىگەن"
 
 #: ../gcr/gcr-gnupg-renderer.c:289
 msgid "This key is invalid"
-msgstr ""
+msgstr "مەزكۇر ئاچقۇچ ئىناۋەتسىز"
 
 #: ../gcr/gcr-gnupg-renderer.c:292
 msgid "This key has been disabled"
-msgstr ""
+msgstr "مەزكۇر ئاچقۇچ ئىناۋەتسىز قىلىنغان"
 
 #: ../gcr/gcr-gnupg-renderer.c:295
 msgid "This key has been revoked"
-msgstr ""
+msgstr "مەزكۇر ئاچقۇچ بىكار قىلىنغان"
 
 #: ../gcr/gcr-gnupg-renderer.c:298
 msgid "This key has expired"
-msgstr ""
+msgstr "مەزكۇر ئاچقۇچنىڭ ۋاقتى ئوتكەن"
 
 #: ../gcr/gcr-gnupg-renderer.c:303
 msgid "This key is distrusted"
-msgstr ""
+msgstr "مەزكۇر ئاچقۇچ گۇمانلىق"
 
 #: ../gcr/gcr-gnupg-renderer.c:306
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "مەزكۇر ئاچقۇچ ئازراق ئىشەنچلىك"
 
 #: ../gcr/gcr-gnupg-renderer.c:309
 msgid "This key is fully trusted"
-msgstr ""
+msgstr "مەزكۇر ئاچقۇچ تولۇق ئىشەنچلىك"
 
 #: ../gcr/gcr-gnupg-renderer.c:312
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "مەزكۇر ئاچقۇچ ئاخىرغىچە ئىشەنچلىك"
 
 #: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
 msgid "Key ID"
@@ -723,7 +723,7 @@ msgstr "ئىزاھات"
 
 #: ../gcr/gcr-gnupg-renderer.c:465
 msgid "User Attribute"
-msgstr ""
+msgstr "ئىشلەتكۈچى خاسلىقى"
 
 #: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
 msgid "Size"
@@ -731,7 +731,7 @@ msgstr "چوڭلۇقى"
 
 #: ../gcr/gcr-gnupg-renderer.c:507
 msgid "Signature of a binary document"
-msgstr ""
+msgstr "ئىككىلىك پۈتۈكنىڭ ئىمزاسى"
 
 #: ../gcr/gcr-gnupg-renderer.c:509
 msgid "Signature of a canonical text document"
@@ -739,7 +739,7 @@ msgstr ""
 
 #: ../gcr/gcr-gnupg-renderer.c:511
 msgid "Standalone signature"
-msgstr ""
+msgstr "تەنھا ئىمزا"
 
 #: ../gcr/gcr-gnupg-renderer.c:513
 msgid "Generic certification of key"
@@ -799,7 +799,7 @@ msgstr "يەرلىكلا"
 
 #: ../gcr/gcr-gnupg-renderer.c:592
 msgid "Exportable"
-msgstr ""
+msgstr "چىقارغىلى بولىدۇ"
 
 #: ../gcr/gcr-gnupg-renderer.c:610
 msgid "Revocation Key"
@@ -812,15 +812,15 @@ msgstr "بارماق ئىزى"
 
 #: ../gcr/gcr-gnupg-renderer.c:739
 msgid "Public Subkey"
-msgstr ""
+msgstr "ئاممىۋى تارماق ئاچقۇچ"
 
 #: ../gcr/gcr-gnupg-renderer.c:741
 msgid "Secret Key"
-msgstr ""
+msgstr "مەخپىي ئاچقۇچ"
 
 #: ../gcr/gcr-gnupg-renderer.c:743
 msgid "Secret Subkey"
-msgstr ""
+msgstr "مەخپىي تارماق ئاچقۇچ"
 
 #: ../gcr/gcr-import-button.c:111
 msgid "Initializing..."
@@ -828,25 +828,25 @@ msgstr "دەسلەپلەشتۈرۈۋاتىدۇ…"
 
 #: ../gcr/gcr-import-button.c:119
 msgid "Import is in progress..."
-msgstr ""
+msgstr "ئىمپورت قىلىنىۋاتىدۇ…"
 
 #: ../gcr/gcr-import-button.c:126
 #, c-format
 msgid "Imported to: %s"
-msgstr ""
+msgstr "بۇنىڭغا ئىمپورت قىلىندى: %s"
 
 #: ../gcr/gcr-import-button.c:146
 #, c-format
 msgid "Import to: %s"
-msgstr ""
+msgstr "بۇنىڭغا ئىمپورت قىلىنىدۇ: %s"
 
 #: ../gcr/gcr-import-button.c:159
 msgid "Cannot import because there are no compatible importers"
-msgstr ""
+msgstr "ماس كېلىدىغان ئىمپورت قىلغۇچ بولمىغاچقا ئىمپورت قىلغىلى بولمىدى"
 
 #: ../gcr/gcr-import-button.c:168
 msgid "No data to import"
-msgstr ""
+msgstr "ئىمپورت قىلىدىغان سانلىق-مەلۇمات يوق"
 
 #: ../gcr/gcr-key-renderer.c:89
 msgid "Key"
@@ -893,7 +893,7 @@ msgstr "SHA256"
 
 #: ../gcr/gcr-parser.c:331
 msgid "Certificate Request"
-msgstr ""
+msgstr "ئىسپاتلاش ئىلتىماسى"
 
 #: ../gcr/gcr-parser.c:2427
 msgid "Unrecognized or unsupported data."
@@ -909,18 +909,18 @@ msgstr "مەلۇمات قۇلۇپلاقلىق"
 
 #: ../gcr/gcr-pkcs11-import-dialog.c:187
 msgid "Automatically chosen"
-msgstr ""
+msgstr "ئاپتوماتىك تاللانغان"
 
 #: ../gcr/gcr-pkcs11-import-dialog.c:271
 #: ../gcr/gcr-pkcs11-import-interaction.c:153
 #: ../gcr/gcr-pkcs11-import-interaction.c:171
 #, c-format
 msgid "The user cancelled the operation"
-msgstr ""
+msgstr "ئىشلەتكۈچى مەشغۇلاتنى ئەمەلدىن قالدۇردى"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
 msgid "In order to import, please enter the password."
-msgstr ""
+msgstr "ئىمپورت قىلىش ئۈچۈن ئىم كىرگۈزۈڭ:"
 
 #. The password label
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:559
@@ -942,7 +942,7 @@ msgstr "ئەن:"
 
 #: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
 msgid "Import settings"
-msgstr ""
+msgstr "ئىمپورت قىلىش تەڭشەكلىرى"
 
 #: ../gcr/gcr-prompt.c:218
 msgid "Continue"
@@ -971,15 +971,15 @@ msgstr ""
 
 #: ../gcr/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
-msgstr "قۇلۇپ ئاچىدىغان ئاچقۇچ ھالقىسى ئىم ئوقۇش ۋە باشقا بىخەتەرلىك ھوقۇقى"
+msgstr "ئىم ۋە باشقا مەخپىيەتلىكلەرنى زىيارەت قىلىش ئۈچۈن قۇلۇپسىزلا"
 
 #: ../gcr/gcr-subject-public-key.c:345
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "ئاچقۇچنىڭ خاسلىقى نامەلۇم ياكى ئىشلەتكىلى بولمايدۇ"
 
 #: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
 msgid "Couldn't build public key"
-msgstr ""
+msgstr "ئاممىۋى ئاچقۇچ ھاسىللىغىلى بولمىدى"
 
 #: ../gcr/gcr-system-prompt.c:749
 msgid "Another prompt is already in progress"
@@ -995,7 +995,7 @@ msgstr "قادالغان گۇۋاھنامىنى ساقلايدىغان ئورۇ�
 
 #: ../gcr/gcr-unlock-options-widget.ui.h:1
 msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "تىزىمغا كىرگەندە بۇ ئاچقۇچ ھالقىسىنىڭ قۇلۇپىنى ئاپتوماتىك ئاچ"
+msgstr "تىزىمغا كىرگەن ۋاقتىمدا بۇ ئاچقۇچ  ھالقىسى ھەمىشە قۇلۇپسىزلانسۇن"
 
 #: ../gcr/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"

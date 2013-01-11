@@ -79,7 +79,6 @@ enum {
 struct _GcrMockPrompt {
 	GObject parent;
 	GHashTable *properties;
-	guint delay_source;
 	gboolean disposed;
 };
 
@@ -272,11 +271,6 @@ _gcr_mock_prompt_dispose (GObject *obj)
 {
 	GcrMockPrompt *self = GCR_MOCK_PROMPT (obj);
 
-	if (self->delay_source) {
-		g_source_remove (self->delay_source);
-		self->delay_source = 0;
-	}
-
 	if (!self->disposed) {
 		g_atomic_int_add (&prompts_a_prompting, -1);
 		self->disposed = TRUE;
@@ -416,6 +410,14 @@ on_timeout_complete_and_close (gpointer data)
 }
 
 static void
+destroy_unref_source (gpointer source)
+{
+	if (!g_source_is_destroyed (source))
+		g_source_destroy (source);
+	g_source_unref (source);
+}
+
+static void
 gcr_mock_prompt_confirm_async (GcrPrompt *prompt,
                                GCancellable *cancellable,
                                GAsyncReadyCallback callback,
@@ -458,10 +460,9 @@ gcr_mock_prompt_confirm_async (GcrPrompt *prompt,
 	else
 		source = g_idle_source_new ();
 
-	g_assert (!self->delay_source);
 	g_source_set_callback (source, complete_func, g_object_ref (res), g_object_unref);
-	self->delay_source = g_source_attach (source, g_main_context_get_thread_default ());
-	g_source_unref (source);
+	g_source_attach (source, g_main_context_get_thread_default ());
+	g_object_set_data_full (G_OBJECT (self), "delay-source", source, destroy_unref_source);
 
 	mock_response_free (response);
 	g_object_unref (res);
@@ -546,10 +547,9 @@ gcr_mock_prompt_password_async (GcrPrompt *prompt,
 	else
 		source = g_idle_source_new ();
 
-	g_assert (!self->delay_source);
 	g_source_set_callback (source, complete_func, g_object_ref (res), g_object_unref);
-	self->delay_source = g_source_attach (source, g_main_context_get_thread_default ());
-	g_source_unref (source);
+	g_source_attach (source, g_main_context_get_thread_default ());
+	g_object_set_data_full (G_OBJECT (self), "delay-source", source, destroy_unref_source);
 
 	g_object_unref (res);
 }

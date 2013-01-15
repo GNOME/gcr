@@ -37,7 +37,7 @@ dnl ****************************************************************************
 AC_CONFIG_MACRO_DIR([build/m4])
 AM_INIT_AUTOMAKE([1.11 tar-ustar foreign -Wno-portability])
 AM_SANITY_CHECK
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS(config.h)
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AM_MAINTAINER_MODE([enable])
 

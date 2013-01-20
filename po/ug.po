@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-06 11:51+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2013-01-11 20:27+0000\n"
 "PO-Revision-Date: 2011-04-26 09:25+0600\n"
 "Last-Translator: Sahran <sahran.ug@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -24,14 +24,14 @@ msgstr ""
 msgid "Domain Component"
 msgstr "دائىرە دېتالى"
 
-#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:411
-#: ../gcr/gcr-gnupg-renderer.c:580
+#: ../egg/egg-oid.c:43 ../ui/gcr-gnupg-renderer.c:410
+#: ../ui/gcr-gnupg-renderer.c:579
 msgid "User ID"
 msgstr "ئىشلەتكۈچى ID"
 
 #: ../egg/egg-oid.c:46
 msgid "Email Address"
-msgstr "ئېلخەت مەنزىل"
+msgstr "ئېلخەت ئادرېسلىرى"
 
 #: ../egg/egg-oid.c:54
 msgid "Date of Birth"
@@ -61,7 +61,7 @@ msgstr "ئادەتتىكى ئات"
 msgid "Surname"
 msgstr "تەگات"
 
-#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:652
+#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:558
 msgid "Serial Number"
 msgstr "تەرتىپ نومۇرى"
 
@@ -117,933 +117,959 @@ msgstr "DN چەكلىگۈچى"
 msgid "Pseudonym"
 msgstr "تەخەللۇسى"
 
-#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:202
-#: ../gcr/gcr-key-renderer.c:308
+#: ../egg/egg-oid.c:98 ../ui/gcr-gnupg-renderer.c:201
+#: ../ui/gcr-key-renderer.c:430
 msgid "RSA"
 msgstr "RSA"
 
 #: ../egg/egg-oid.c:99
 msgid "MD2 with RSA"
-msgstr "MD2 بىلەن شىفىرلەنگەنRSA"
+msgstr "MD2 بىلەن شىفىرلانغانRSA"
 
 #: ../egg/egg-oid.c:100
 msgid "MD5 with RSA"
-msgstr "MD5 بىلەن شىفىرلەنگەنRSA"
+msgstr "MD5 بىلەن شىفىرلانغانRSA"
 
 #: ../egg/egg-oid.c:101
 msgid "SHA1 with RSA"
-msgstr "SHA1 بىلەن شىفىرلەنگەنRSA"
+msgstr "SHA1 بىلەن شىفىرلانغانRSA"
 
-#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:206
-#: ../gcr/gcr-key-renderer.c:310
+#: ../egg/egg-oid.c:103 ../ui/gcr-gnupg-renderer.c:205
+#: ../ui/gcr-key-renderer.c:432
 msgid "DSA"
 msgstr "DSA"
 
 #: ../egg/egg-oid.c:104
 msgid "SHA1 with DSA"
-msgstr "SHA1 بىلەن شىفىرلەنگەنDSA"
+msgstr "SHA1 بىلەن شىفىرلانغانDSA"
 
 #. Extended Key Usages
 #: ../egg/egg-oid.c:107
 msgid "Server Authentication"
-msgstr ""
+msgstr "مۇلازىمېتىر ئىسپاتنامىسى"
 
 #: ../egg/egg-oid.c:108
 msgid "Client Authentication"
-msgstr ""
+msgstr "خېرىدار ئىسپاتنامىسى‏"
 
 #: ../egg/egg-oid.c:109
 msgid "Code Signing"
-msgstr ""
+msgstr "كود ئىمزاسى"
 
 #: ../egg/egg-oid.c:110
 msgid "Email Protection"
-msgstr ""
+msgstr "ئېلخەت قوغداش"
 
 #: ../egg/egg-oid.c:111
 msgid "Time Stamping"
-msgstr ""
+msgstr "ۋاقىت تامغىسى"
 
-#: ../gck/gck-module.c:353
+#: ../gck/gck-module.c:352
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr ""
+msgstr "PKCS#11 بۆلىكىنى ئوقۇشتا خاتالىق كۆرۈلدى: %s"
 
-#: ../gck/gck-module.c:360
+#: ../gck/gck-module.c:359
 #, c-format
 msgid "Invalid PKCS#11 module: %s"
-msgstr ""
+msgstr "ئىناۋەتسىز PKCS#11 بۆلىكى: %s"
 
-#: ../gck/gck-module.c:369
+#: ../gck/gck-module.c:368
 #, c-format
 msgid "Couldn't setup PKCS#11 module: %s"
-msgstr ""
+msgstr "PKCS#11 بۆلىكىنى ئورناتقىلى بولمىدى: %s"
 
-#: ../gck/gck-module.c:385
+#: ../gck/gck-module.c:384
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr ""
+msgstr "PKCS#11 بۆلىكىنى دەسلەپلەشتۈرۈشكە بولمىدى: %s"
 
 #: ../gck/gck-modules.c:67
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr ""
+msgstr "خەتلىتىلگەن PKCS#11 بۆلىكىنى دەسلەپلەشتۈرۈشكە بولمىدى: %s"
+
+#: ../gck/gck-uri.c:224
+#, c-format
+msgid "The URI has invalid encoding."
+msgstr "مەزكۇر URI نىڭ كودلىنىشى ئىناۋەتسىز."
+
+#: ../gck/gck-uri.c:228
+msgid "The URI does not have the 'pkcs11' scheme."
+msgstr "مەزكۇر URI نىڭ ‹pkcs11› لايىھىسى يوق."
+
+#: ../gck/gck-uri.c:232
+msgid "The URI has bad syntax."
+msgstr "مەزكۇر URI نىڭ گرامماتىكىسى توغرا ئەمەس."
+
+#: ../gck/gck-uri.c:236
+msgid "The URI has a bad version number."
+msgstr "مەزكۇر URI نىڭ نەشر نومۇرى توغرا ئەمەس."
 
 #: ../gcr/gcr-callback-output-stream.c:64
 #: ../gcr/gcr-callback-output-stream.c:81
-#, fuzzy, c-format
+#, c-format
 msgid "The stream was closed"
-msgstr "ئەڭگىمە تاقالدى"
+msgstr "مەزكۇر ئېقىم يېپىلغان"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:378 ../gcr/gcr-gnupg-key.c:521
-#, fuzzy
+#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
-msgstr "ئاتى(_N):"
+msgstr "ئاتى"
 
-#: ../gcr/gcr-certificate.c:380
-#, fuzzy
+#: ../gcr/gcr-certificate.c:310
 msgctxt "column"
 msgid "Issued By"
-msgstr "تارقاتقۇچى ئاتى"
+msgstr "تارقاتقۇچى"
 
 #. later
-#: ../gcr/gcr-certificate.c:382
-#, fuzzy
+#: ../gcr/gcr-certificate.c:312
 msgctxt "column"
 msgid "Expires"
 msgstr "ۋاقتى ئۆتتى"
 
-#: ../gcr/gcr-certificate.c:1067 ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:101 ../gcr/gcr-parser.c:316
+#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-parser.c:322
+#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "گۇۋاھنامە"
 
-#: ../gcr/gcr-certificate-exporter.c:225
-msgid ""
-"<b>A file already exists with this name.</b>\n"
-"\n"
-"Do you want to replace it with a new file?"
-msgstr ""
-
-#: ../gcr/gcr-certificate-exporter.c:228
-msgid "_Replace"
-msgstr ""
-
-#: ../gcr/gcr-certificate-exporter.c:258
-#, fuzzy, c-format
-msgid "The operation was cancelled."
-msgstr "مەشغۇلاتتىن ۋاز كەچتى"
-
-#: ../gcr/gcr-certificate-exporter.c:302
-#, fuzzy
-msgid "Export certificate"
-msgstr "گۇۋاھنامىنى قۇلۇپسىزلا"
-
-#: ../gcr/gcr-certificate-exporter.c:314
-#, fuzzy
-msgid "Certificate files"
-msgstr "گۇۋاھنامە"
-
-#: ../gcr/gcr-certificate-exporter.c:325
-msgid "PEM files"
-msgstr ""
-
-#: ../gcr/gcr-certificate-extensions.c:141
-#, fuzzy
+#: ../gcr/gcr-certificate-extensions.c:178
 msgid "Other Name"
-msgstr "تارقاتقۇچى ئاتى"
+msgstr "باشقا ئاتلار"
 
-#: ../gcr/gcr-certificate-extensions.c:150
+#: ../gcr/gcr-certificate-extensions.c:188
 msgid "XMPP Addr"
-msgstr ""
+msgstr "XMPP Addr"
 
-#: ../gcr/gcr-certificate-extensions.c:154
+#: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
-msgstr ""
+msgstr "DNS SRV"
 
-#: ../gcr/gcr-certificate-extensions.c:166 ../gcr/gcr-gnupg-renderer.c:424
-#: ../gcr/gcr-gnupg-renderer.c:706
+#: ../gcr/gcr-certificate-extensions.c:204 ../ui/gcr-gnupg-renderer.c:423
+#: ../ui/gcr-gnupg-renderer.c:705
 msgid "Email"
-msgstr ""
-
-#: ../gcr/gcr-certificate-extensions.c:174
-#, fuzzy
-msgid "DNS"
-msgstr "DSA"
-
-#: ../gcr/gcr-certificate-extensions.c:182
-#, fuzzy
-msgid "X400 Address"
-msgstr "ئېلخەت مەنزىل"
-
-#: ../gcr/gcr-certificate-extensions.c:189
-#, fuzzy
-msgid "Directory Name"
-msgstr "تېما ئاتى"
-
-#: ../gcr/gcr-certificate-extensions.c:197
-msgid "EDI Party Name"
-msgstr ""
-
-#: ../gcr/gcr-certificate-extensions.c:204
-msgid "URI"
-msgstr ""
+msgstr "ئېلخەت"
 
 #: ../gcr/gcr-certificate-extensions.c:212
-#, fuzzy
-msgid "IP Address"
-msgstr "ئېلخەت مەنزىل"
+msgid "DNS"
+msgstr "DNS"
 
 #: ../gcr/gcr-certificate-extensions.c:220
+msgid "X400 Address"
+msgstr "X400 ئادرېسى"
+
+#: ../gcr/gcr-certificate-extensions.c:227
+msgid "Directory Name"
+msgstr "مۇندەرىجە ئاتى"
+
+#: ../gcr/gcr-certificate-extensions.c:235
+msgid "EDI Party Name"
+msgstr "EDI باشقا ئاتى"
+
+#: ../gcr/gcr-certificate-extensions.c:242
+msgid "URI"
+msgstr "URI"
+
+#: ../gcr/gcr-certificate-extensions.c:250
+msgid "IP Address"
+msgstr "‍IP ئادرېس:"
+
+#: ../gcr/gcr-certificate-extensions.c:258
 msgid "Registered ID"
-msgstr ""
+msgstr "خەتلەتكەن كىملىكى"
 
-#: ../gcr/gcr-certificate-renderer.c:116
-msgid "Basic Constraints"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:118
-#, fuzzy
-msgid "Certificate Authority"
-msgstr "گۇۋاھنامە"
-
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
-msgid "Yes"
-msgstr "ھەئە"
-
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
-msgid "No"
-msgstr "ياق"
-
-#: ../gcr/gcr-certificate-renderer.c:122
-msgid "Max Path Length"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:123
-msgid "Unlimited"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:142
-msgid "Extended Key Usage"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:153
-msgid "Allowed Purposes"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:173
-#, fuzzy
-msgid "Subject Key Identifier"
-msgstr "بەلگە"
-
-#: ../gcr/gcr-certificate-renderer.c:174
-#, fuzzy
-msgid "Key Identifier"
-msgstr "بەلگە"
-
-#: ../gcr/gcr-certificate-renderer.c:185
-#, fuzzy
-msgid "Digital signature"
-msgstr "ئىمزا"
-
-#: ../gcr/gcr-certificate-renderer.c:186
-msgid "Key encipherment"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:187
-msgid "Data encipherment"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:188
-#, fuzzy
-msgid "Key agreement"
-msgstr "شىفىرلىق ئاچقۇچ پارامېتىرى"
-
-#: ../gcr/gcr-certificate-renderer.c:189
-#, fuzzy
-msgid "Certificate signature"
-msgstr "گۇۋاھنامە"
-
-#: ../gcr/gcr-certificate-renderer.c:190
-msgid "Revocation list signature"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:215
-msgid "Key Usage"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:216
-msgid "Usages"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:236
-#, fuzzy
-msgid "Subject Alternative Names"
-msgstr "تېما ئاتى"
-
-#: ../gcr/gcr-certificate-renderer.c:261
-msgid "Extension"
-msgstr "كېڭەيتىلمە"
-
-#: ../gcr/gcr-certificate-renderer.c:265
-msgid "Identifier"
-msgstr "بەلگە"
-
-#: ../gcr/gcr-certificate-renderer.c:266 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-gnupg-renderer.c:432
-msgid "Value"
-msgstr "قىممەت"
-
-#: ../gcr/gcr-certificate-renderer.c:313
-msgid "Critical"
-msgstr "ئاچقۇچلۇق"
-
-#: ../gcr/gcr-certificate-renderer.c:386
-#, fuzzy
-msgid "Couldn't export the certificate."
-msgstr "قادالغان گۇۋاھنامىنى ساقلايدىغان ئورۇننى تاپالمىدى"
-
-#: ../gcr/gcr-certificate-renderer.c:613
-msgid "Identity"
-msgstr "كىملىك"
-
-#: ../gcr/gcr-certificate-renderer.c:617
-msgid "Verified by"
-msgstr "دەلىللىگۈچى"
-
-#: ../gcr/gcr-certificate-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:720
-msgid "Expires"
-msgstr "ۋاقتى ئۆتتى"
-
-#. The subject
-#: ../gcr/gcr-certificate-renderer.c:634
-msgid "Subject Name"
-msgstr "تېما ئاتى"
-
-#. The Issuer
-#: ../gcr/gcr-certificate-renderer.c:638
-msgid "Issuer Name"
-msgstr "تارقاتقۇچى ئاتى"
-
-#. The Issued Parameters
-#: ../gcr/gcr-certificate-renderer.c:642
-msgid "Issued Certificate"
-msgstr "تارقاتقان گۇۋاھنامە"
-
-#: ../gcr/gcr-certificate-renderer.c:647
-msgid "Version"
-msgstr "نەشرى"
-
-#: ../gcr/gcr-certificate-renderer.c:658
-msgid "Not Valid Before"
-msgstr "بۇندىن بۇرۇن ئىناۋەتسىز"
-
-#: ../gcr/gcr-certificate-renderer.c:663
-msgid "Not Valid After"
-msgstr "بۇندىن كېيىن ئىناۋەتسىز"
-
-#. Fingerprints
-#: ../gcr/gcr-certificate-renderer.c:668
-#, fuzzy
-msgid "Certificate Fingerprints"
-msgstr "بارماق ئىزى"
-
-#. Signature
-#: ../gcr/gcr-certificate-renderer.c:674 ../gcr/gcr-certificate-renderer.c:686
-#: ../gcr/gcr-gnupg-renderer.c:561
-msgid "Signature"
-msgstr "ئىمزا"
-
-#: ../gcr/gcr-certificate-renderer.c:678
-msgid "Signature Algorithm"
-msgstr "ئىمزا ئالگورىزىمى"
-
-#: ../gcr/gcr-certificate-renderer.c:682
-msgid "Signature Parameters"
-msgstr "ئىمزا پارامېتىرى"
-
-#. Public Key Info
-#: ../gcr/gcr-certificate-renderer.c:690
-msgid "Public Key Info"
-msgstr "ئاممىۋى شىفىرلىك ئاچقۇچ ئۇچۇرى"
-
-#: ../gcr/gcr-certificate-renderer.c:695
-msgid "Key Algorithm"
-msgstr "ئاچقۇچ ئالگورىزىمى"
-
-#: ../gcr/gcr-certificate-renderer.c:700
-msgid "Key Parameters"
-msgstr "شىفىرلىق ئاچقۇچ پارامېتىرى"
-
-#: ../gcr/gcr-certificate-renderer.c:705 ../gcr/gcr-gnupg-renderer.c:354
-msgid "Key Size"
-msgstr "شىفىرلىق ئاچقۇچ چوڭلۇقى"
-
-#: ../gcr/gcr-certificate-renderer.c:712
-#, fuzzy
-msgid "Key SHA1 Fingerprint"
-msgstr "بارماق ئىزى"
-
-#: ../gcr/gcr-certificate-renderer.c:718 ../gcr/gcr-gnupg-renderer.c:739
-#: ../gcr/gcr-key-renderer.c:292 ../gcr/gcr-parser.c:319
-msgid "Public Key"
-msgstr "ئاممىۋى شىفىرلىق ئاچقۇچ"
-
-#: ../gcr/gcr-display-view.c:319
-#, fuzzy
-msgid "_Details"
-msgstr "تەپسىلاتى(_D):"
-
-#: ../gcr/gcr-failure-renderer.c:161
+#: ../gcr/gcr-certificate-request.c:418
 #, c-format
-msgid "Could not display '%s'"
+msgid "Unsupported key type for certificate request"
 msgstr ""
 
-#: ../gcr/gcr-failure-renderer.c:163
-msgid "Could not display file"
-msgstr ""
-
-#: ../gcr/gcr-failure-renderer.c:168
-msgid "Reason"
-msgstr ""
-
-#: ../gcr/gcr-failure-renderer.c:218
+#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
 #, c-format
-msgid "Cannot display a file of this type."
-msgstr ""
+msgid "The key cannot be used to sign the request"
+msgstr "ئىلتىماسقا ئىمزا قويۇشتا بۇ ئاچقۇچنى ئىشلەتكىلى بولمايدۇ"
 
-#: ../gcr/gcr-gnupg-importer.c:93
-#, fuzzy
+#: ../gcr/gcr-gnupg-importer.c:96
 msgid "GnuPG Keyring"
-msgstr "ئاچقۇچ ھالقىىسى(Keyring)نى قۇلۇپسىزلا"
+msgstr "GnuPG ئاچقۇچ ھالقىسى"
 
-#: ../gcr/gcr-gnupg-importer.c:95
-#, fuzzy, c-format
+#: ../gcr/gcr-gnupg-importer.c:98
+#, c-format
 msgid "GnuPG Keyring: %s"
-msgstr "PGP ئاچقۇچ: %s"
+msgstr "GnuPG ئاچقۇچ ھالقىسى: %s"
 
-#: ../gcr/gcr-gnupg-key.c:234 ../gcr/gcr-gnupg-renderer.c:88
-#: ../gcr/gcr-parser.c:322
-#, fuzzy
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:328
+#: ../ui/gcr-gnupg-renderer.c:89
 msgid "PGP Key"
-msgstr "PGP ئاچقۇچ: %s"
+msgstr "PGP ئاچقۇچ"
 
-#: ../gcr/gcr-gnupg-key.c:523
+#: ../gcr/gcr-gnupg-key.c:434
 msgctxt "column"
 msgid "Key ID"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-process.c:860
-#, c-format
-msgid "Gnupg process exited with code: %d"
-msgstr ""
+msgstr "ئاچقۇچ كىملىكى"
 
 #: ../gcr/gcr-gnupg-process.c:867
 #, c-format
-msgid "Gnupg process was terminated with signal: %d"
-msgstr ""
+msgid "Gnupg process exited with code: %d"
+msgstr "Gnupg ئىجراسى ئاخىرلاشتى، ئاخىرلىشىش كودى: %d"
 
-#: ../gcr/gcr-gnupg-process.c:921 ../gcr/gcr-parser.c:2177
-#: ../gcr/gcr-parser.c:2681
+#: ../gcr/gcr-gnupg-process.c:874
+#, c-format
+msgid "Gnupg process was terminated with signal: %d"
+msgstr "Gnupg ئىجراسى توختىدى، توختاش كودى: %d"
+
+#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2424
+#: ../gcr/gcr-parser.c:2917 ../gcr/gcr-system-prompt.c:902
 msgid "The operation was cancelled"
 msgstr "مەشغۇلاتتىن ۋاز كەچتى"
 
-#: ../gcr/gcr-gnupg-renderer.c:204
-msgid "Elgamal"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:217
-msgid "Encrypt"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:219
-#, fuzzy
-msgid "Sign"
-msgstr "ئىمزا"
-
-#: ../gcr/gcr-gnupg-renderer.c:221
-#, fuzzy
-msgid "Certify"
-msgstr "گۇۋاھنامە"
-
-#: ../gcr/gcr-gnupg-renderer.c:223
-#, fuzzy
-msgid "Authenticate"
-msgstr "گۇۋاھنامە"
-
-#: ../gcr/gcr-gnupg-renderer.c:225 ../gcr/gcr-gnupg-renderer.c:260
-msgid "Disabled"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:256 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-key-renderer.c:312 ../gcr/gcr-key-renderer.c:317
-msgid "Unknown"
-msgstr "نامەلۇم"
-
-#: ../gcr/gcr-gnupg-renderer.c:258
-msgid "Invalid"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:262
-msgid "Revoked"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:264
-#, fuzzy
-msgid "Expired"
-msgstr "ۋاقتى ئۆتتى"
-
-#: ../gcr/gcr-gnupg-renderer.c:266
-msgid "Undefined trust"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:268
-msgid "Distrusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:270
-msgid "Marginally trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:272
-msgid "Fully trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:274
-msgid "Ultimately trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:288
-#, fuzzy
-msgid "The information in this key has not yet been verified"
-msgstr "بۇ سەزگۈر ئۇچۇرنى ئاشكارىلاشقا بولمايدۇ."
-
-#: ../gcr/gcr-gnupg-renderer.c:291
-#, fuzzy
-msgid "This key is invalid"
-msgstr "ئەڭگىمە ئىناۋەتسىز"
-
-#: ../gcr/gcr-gnupg-renderer.c:294
-#, fuzzy
-msgid "This key has been disabled"
-msgstr "بۆلەك دەسلەپلەشتۈرۈلمىگەن"
-
-#: ../gcr/gcr-gnupg-renderer.c:297
-#, fuzzy
-msgid "This key has been revoked"
-msgstr "بۇ ئاچقۇچنى قاپلىغىلى بولمىدى"
-
-#: ../gcr/gcr-gnupg-renderer.c:300
-#, fuzzy
-msgid "This key has expired"
-msgstr "ئىم ياكى PIN نىڭ ۋاقتى ئۆتكەن"
-
-#: ../gcr/gcr-gnupg-renderer.c:305
-msgid "This key is distrusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:308
-msgid "This key is marginally trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:311
-#, fuzzy
-msgid "This key is fully trusted"
-msgstr "بۇ ئاچقۇچنىڭ تىپى خاتا"
-
-#: ../gcr/gcr-gnupg-renderer.c:314
-msgid "This key is ultimately trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:339 ../gcr/gcr-gnupg-renderer.c:565
-msgid "Key ID"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:347 ../gcr/gcr-gnupg-renderer.c:573
-#: ../gcr/gcr-gnupg-renderer.c:620 ../gcr/gcr-key-renderer.c:313
-msgid "Algorithm"
-msgstr "ئالگورىزىم"
-
-#: ../gcr/gcr-gnupg-renderer.c:362 ../gcr/gcr-gnupg-renderer.c:439
-#: ../gcr/gcr-gnupg-renderer.c:482
-msgid "Created"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:371 ../gcr/gcr-gnupg-renderer.c:448
-#: ../gcr/gcr-gnupg-renderer.c:491
-#, fuzzy
-msgid "Expiry"
-msgstr "ۋاقتى ئۆتتى"
-
-#: ../gcr/gcr-gnupg-renderer.c:380
-msgid "Capabilities"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:393
-msgid "Owner trust"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:421
-#, fuzzy
-msgid "Name"
-msgstr "ئاتى(_N):"
-
-#: ../gcr/gcr-gnupg-renderer.c:427 ../gcr/gcr-gnupg-renderer.c:709
-msgid "Comment"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:467
-msgid "User Attribute"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:474 ../gcr/gcr-key-renderer.c:320
-msgid "Size"
-msgstr "چوڭلۇقى"
-
-#: ../gcr/gcr-gnupg-renderer.c:509
-#, fuzzy
-msgid "Signature of a binary document"
-msgstr "ئىمزا پارامېتىرى"
-
-#: ../gcr/gcr-gnupg-renderer.c:511
-msgid "Signature of a canonical text document"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:513
-#, fuzzy
-msgid "Standalone signature"
-msgstr "ئىمزا"
-
-#: ../gcr/gcr-gnupg-renderer.c:515
-#, fuzzy
-msgid "Generic certification of key"
-msgstr "گۇۋاھنامىنى قۇلۇپسىزلا"
-
-#: ../gcr/gcr-gnupg-renderer.c:517
-msgid "Persona certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:519
-msgid "Casual certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:521
-msgid "Positive certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:523
-msgid "Subkey binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:525
-msgid "Primary key binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:527
-#, fuzzy
-msgid "Signature directly on key"
-msgstr "ئىمزا پارامېتىرى"
-
-#: ../gcr/gcr-gnupg-renderer.c:529
-msgid "Key revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:531
-msgid "Subkey revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:533
-msgid "Certification revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:535
-msgid "Timestamp signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:537
-msgid "Third-party confirmation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:598
-msgid "Class"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:592 ../gcr/gcr-gnupg-renderer.c:594
-msgid "Type"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:592
-#, fuzzy
-msgid "Local only"
-msgstr "ئورۇن"
-
-#: ../gcr/gcr-gnupg-renderer.c:594
-msgid "Exportable"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:612
-msgid "Revocation Key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:626 ../gcr/gcr-gnupg-renderer.c:650
-#: ../gcr/gcr-gnupg-renderer.c:652
-msgid "Fingerprint"
-msgstr "بارماق ئىزى"
-
-#: ../gcr/gcr-gnupg-renderer.c:741
-#, fuzzy
-msgid "Public Subkey"
-msgstr "ئاممىۋى شىفىرلىق ئاچقۇچ"
-
-#: ../gcr/gcr-gnupg-renderer.c:743
-msgid "Secret Key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:745
-msgid "Secret Subkey"
-msgstr ""
-
-#: ../gcr/gcr-import-button.c:108
-#, fuzzy
-msgid "Initializing..."
-msgstr "قىسقارتىلمىسى"
-
-#: ../gcr/gcr-import-button.c:116
-msgid "Import is in progress..."
-msgstr ""
-
-#: ../gcr/gcr-import-button.c:123
-#, fuzzy, c-format
-msgid "Imported to: %s"
-msgstr "تۆۋەندىكىگە ئىمپورت قىلىش:"
-
-#: ../gcr/gcr-import-button.c:143
-#, fuzzy, c-format
-msgid "Import to: %s"
-msgstr "تۆۋەندىكىگە ئىمپورت قىلىش:"
-
-#: ../gcr/gcr-import-button.c:156
-#, fuzzy
-msgid "Cannot import because there are no compatible importers"
-msgstr "ئاچقۇچ تىپى خاتا بولغاچقا ئىمپورت قىلغىلى بولمىدى"
-
-#: ../gcr/gcr-import-button.c:165
-#, fuzzy
-msgid "No data to import"
-msgstr "ئەكىرگىلى بولىدىغان ئورۇن يوق"
-
-#: ../gcr/gcr-key-renderer.c:82
-msgid "Key"
-msgstr "ئاچقۇچ"
-
-#: ../gcr/gcr-key-renderer.c:281
-msgid "Private RSA Key"
-msgstr "RSA شەخسىي ئاچقۇچى"
-
-#: ../gcr/gcr-key-renderer.c:283
-msgid "Private DSA Key"
-msgstr "DSA  شەخسىي ئاچقۇچى"
-
-#: ../gcr/gcr-key-renderer.c:285 ../gcr/gcr-parser.c:313
+#: ../gcr/gcr-parser.c:319 ../ui/gcr-key-renderer.c:408
 msgid "Private Key"
 msgstr "مەخپىي ئاچقۇچ"
 
-#: ../gcr/gcr-key-renderer.c:288 ../gcr/gcr-key-renderer.c:290
-msgid "Public DSA Key"
-msgstr "DSA ئاممىۋى ئاچقۇچ"
+#: ../gcr/gcr-parser.c:325 ../ui/gcr-certificate-renderer.c:891
+#: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
+msgid "Public Key"
+msgstr "ئاممىۋى شىفىرلىق ئاچقۇچ"
 
-#: ../gcr/gcr-key-renderer.c:299
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] "%d بىت"
+#: ../gcr/gcr-parser.c:331
+msgid "Certificate Request"
+msgstr "ئىسپاتلاش ئىلتىماسى"
 
-#: ../gcr/gcr-key-renderer.c:300
-msgid "Strength"
-msgstr "كۈچلۈكلۈك"
-
-#. Fingerprints
-#: ../gcr/gcr-key-renderer.c:324
-msgid "Fingerprints"
-msgstr "بارماق ئىزى"
-
-#: ../gcr/gcr-key-renderer.c:329
-msgid "SHA1"
-msgstr ""
-
-#: ../gcr/gcr-key-renderer.c:335
-msgid "SHA256"
-msgstr ""
-
-#: ../gcr/gcr-parser.c:2180
+#: ../gcr/gcr-parser.c:2427
 msgid "Unrecognized or unsupported data."
 msgstr "تونۇتۇلمىغان ياكى قوللىمايدىغان تەپسىلات"
 
-#: ../gcr/gcr-parser.c:2183
+#: ../gcr/gcr-parser.c:2430
 msgid "Could not parse invalid or corrupted data."
 msgstr "ئىناۋەتسىز ياكى بۇزۇلغان سانلىق-مەلۇماتنى تەھلىل قىلالمىدى."
 
-#: ../gcr/gcr-parser.c:2186
+#: ../gcr/gcr-parser.c:2433
 msgid "The data is locked"
 msgstr "مەلۇمات قۇلۇپلاقلىق"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:186
-msgid "Automatically chosen"
-msgstr ""
+#: ../gcr/gcr-prompt.c:227
+msgid "Continue"
+msgstr "داۋاملاشتۇر"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:270
-#: ../gcr/gcr-pkcs11-import-interaction.c:153
-#: ../gcr/gcr-pkcs11-import-interaction.c:171
-#, c-format
-msgid "The user cancelled the operation"
-msgstr ""
+#: ../gcr/gcr-prompt.c:236
+msgid "Cancel"
+msgstr "ئەمەلدىن قالدۇر"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-msgid "<b>Import settings</b>"
-msgstr ""
+#: ../gcr/gcr-subject-public-key.c:345
+msgid "Unrecognized or unavailable attributes for key"
+msgstr "ئاچقۇچنىڭ خاسلىقى نامەلۇم ياكى ئىشلەتكىلى بولمايدۇ"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
-#, fuzzy
-msgid "<b>Unlock</b>"
-msgstr "قۇلۇپ ئاچ"
+#: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
+msgid "Couldn't build public key"
+msgstr "ئاممىۋى ئاچقۇچ ھاسىللىغىلى بولمىدى"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
-#, fuzzy
-msgid "In order to import, please enter the password."
-msgstr "«%s» نىڭ ئىمپورت قىلىنىشى ئۈچۈن، ئۇ قۇلۇپسىزلانغان بولۇشى كېرەك."
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
-msgid "Label"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
-msgid "Label:"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
-msgid "Password:"
-msgstr "ئىم:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
-msgid "Token:"
+#: ../gcr/gcr-system-prompt.c:883
+msgid "Another prompt is already in progress"
 msgstr ""
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:376
+#: ../gcr/gcr-trust.c:370
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "قادالغان گۇۋاھنامىنى ساقلايدىغان ئورۇننى تاپالمىدى"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:1
+#: ../ui/gcr-certificate-renderer.c:118
+msgid "Basic Constraints"
+msgstr "ئاساسىي چەكلىمىلەر"
+
+#: ../ui/gcr-certificate-renderer.c:120
+msgid "Certificate Authority"
+msgstr "گۇۋاھنامە ئىجازىتى"
+
+#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+msgid "Yes"
+msgstr "ھەئە"
+
+#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+msgid "No"
+msgstr "ياق"
+
+#: ../ui/gcr-certificate-renderer.c:124
+msgid "Max Path Length"
+msgstr "يولنىڭ ئەڭ چوڭ ئۇزۇنلۇقى"
+
+#: ../ui/gcr-certificate-renderer.c:125
+msgid "Unlimited"
+msgstr "چەكسىز"
+
+#: ../ui/gcr-certificate-renderer.c:144
+msgid "Extended Key Usage"
+msgstr "كېڭەيتىلمە شىفىرلىق ئاچقۇچ دائىرىسى"
+
+#: ../ui/gcr-certificate-renderer.c:155
+msgid "Allowed Purposes"
+msgstr "ئىجازەت بېرىلگەن ئىشلىتىش ئورۇنلىرى"
+
+#: ../ui/gcr-certificate-renderer.c:175
+msgid "Subject Key Identifier"
+msgstr "باش تېما ئاچقۇچ كىملىكى"
+
+#: ../ui/gcr-certificate-renderer.c:176
+msgid "Key Identifier"
+msgstr "ئاچقۇچ كىملىكى"
+
+#: ../ui/gcr-certificate-renderer.c:187
+msgid "Digital signature"
+msgstr "رەقەملىك ئىمزا"
+
+#: ../ui/gcr-certificate-renderer.c:188
+msgid "Key encipherment"
+msgstr "ئاچقۇچ شىفىرى"
+
+#: ../ui/gcr-certificate-renderer.c:189
+msgid "Data encipherment"
+msgstr "سانلىق-مەلۇمات شىفىرى"
+
+#: ../ui/gcr-certificate-renderer.c:190
+msgid "Key agreement"
+msgstr "ئاچقۇچ كېلىشىمى"
+
+#: ../ui/gcr-certificate-renderer.c:191
+msgid "Certificate signature"
+msgstr "گۇۋاھنامە ئىمزاسى"
+
+#: ../ui/gcr-certificate-renderer.c:192
+msgid "Revocation list signature"
+msgstr "ئىناۋەتسىز تىزىمنىڭ ئىمزاسى"
+
+#: ../ui/gcr-certificate-renderer.c:217
+msgid "Key Usage"
+msgstr "ئاچقۇچنىڭ ئىشلىتىلىشى"
+
+#: ../ui/gcr-certificate-renderer.c:218
+msgid "Usages"
+msgstr "ئىشلىتىشى"
+
+#: ../ui/gcr-certificate-renderer.c:238
+msgid "Subject Alternative Names"
+msgstr "تېمىنىڭ زاپاس ئاتى"
+
+#: ../ui/gcr-certificate-renderer.c:265
+msgid "Extension"
+msgstr "كېڭەيتىلمە"
+
+#: ../ui/gcr-certificate-renderer.c:269
+msgid "Identifier"
+msgstr "بەلگە"
+
+#: ../ui/gcr-certificate-renderer.c:270
+#: ../ui/gcr-certificate-request-renderer.c:273 ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-gnupg-renderer.c:431
+msgid "Value"
+msgstr "قىممەت"
+
+#: ../ui/gcr-certificate-renderer.c:295
+msgid "Couldn't export the certificate."
+msgstr "گۇۋاھنامىنى ئېكسپورت قىلغىلى بولمىدى"
+
+#: ../ui/gcr-certificate-renderer.c:520
+#: ../ui/gcr-certificate-request-renderer.c:314
+msgid "Identity"
+msgstr "سالاھىيەت"
+
+#: ../ui/gcr-certificate-renderer.c:524
+msgid "Verified by"
+msgstr "دەلىللىگۈچى"
+
+#: ../ui/gcr-certificate-renderer.c:531 ../ui/gcr-gnupg-renderer.c:719
+msgid "Expires"
+msgstr "ۋاقتى ئۆتتى"
+
+#. The subject
+#: ../ui/gcr-certificate-renderer.c:538
+#: ../ui/gcr-certificate-request-renderer.c:320
+msgid "Subject Name"
+msgstr "تېما ئاتى"
+
+#. The Issuer
+#: ../ui/gcr-certificate-renderer.c:543
+msgid "Issuer Name"
+msgstr "تارقاتقۇچى ئاتى"
+
+#. The Issued Parameters
+#: ../ui/gcr-certificate-renderer.c:548
+msgid "Issued Certificate"
+msgstr "تارقاتقان گۇۋاھنامە"
+
+#: ../ui/gcr-certificate-renderer.c:553
+#: ../ui/gcr-certificate-request-renderer.c:331
+msgid "Version"
+msgstr "نەشرى"
+
+#: ../ui/gcr-certificate-renderer.c:567
+msgid "Not Valid Before"
+msgstr "بۇندىن بۇرۇن ئىناۋەتسىز"
+
+#: ../ui/gcr-certificate-renderer.c:572
+msgid "Not Valid After"
+msgstr "بۇندىن كېيىن ئىناۋەتسىز"
+
+#. Fingerprints
+#: ../ui/gcr-certificate-renderer.c:577
+msgid "Certificate Fingerprints"
+msgstr "گۇۋاھنامە بارماق ئىزى"
+
+#. Public Key Info
+#: ../ui/gcr-certificate-renderer.c:583
+#: ../ui/gcr-certificate-request-renderer.c:334
+#: ../ui/gcr-certificate-request-renderer.c:380
+msgid "Public Key Info"
+msgstr "ئاممىۋى ئاچقۇچ ئۇچۇرى"
+
+#. Signature
+#: ../ui/gcr-certificate-renderer.c:598 ../ui/gcr-certificate-renderer.c:919
+#: ../ui/gcr-certificate-request-renderer.c:350
+#: ../ui/gcr-certificate-request-renderer.c:387 ../ui/gcr-gnupg-renderer.c:560
+msgid "Signature"
+msgstr "ئىمزا"
+
+#: ../ui/gcr-certificate-renderer.c:865
+msgid "Key Algorithm"
+msgstr "ئاچقۇچ ئالگورىزىمى"
+
+#: ../ui/gcr-certificate-renderer.c:870
+msgid "Key Parameters"
+msgstr "شىفىرلىق ئاچقۇچ پارامېتىرى"
+
+#: ../ui/gcr-certificate-renderer.c:878 ../ui/gcr-gnupg-renderer.c:353
+msgid "Key Size"
+msgstr "شىفىرلىق ئاچقۇچ چوڭلۇقى"
+
+#: ../ui/gcr-certificate-renderer.c:886
+msgid "Key SHA1 Fingerprint"
+msgstr "SHA1 ئاچقۇچىنىڭ بارماق ئىزى"
+
+#: ../ui/gcr-certificate-renderer.c:908
+msgid "Signature Algorithm"
+msgstr "ئىمزا ئالگورىزىمى"
+
+#: ../ui/gcr-certificate-renderer.c:912
+msgid "Signature Parameters"
+msgstr "ئىمزا پارامېتىرى"
+
+#: ../ui/gcr-certificate-renderer.c:961
+msgid "Critical"
+msgstr "ئاچقۇچلۇق"
+
+#. The certificate request type
+#: ../ui/gcr-certificate-request-renderer.c:96
+#: ../ui/gcr-certificate-request-renderer.c:309
+#: ../ui/gcr-certificate-request-renderer.c:324
+#: ../ui/gcr-certificate-request-renderer.c:367
+#: ../ui/gcr-certificate-request-renderer.c:372
+msgid "Certificate request"
+msgstr "گۇۋاھنامە ئىلتىماسى"
+
+#: ../ui/gcr-certificate-request-renderer.c:262
+msgid "Attribute"
+msgstr "خاسلىق"
+
+#: ../ui/gcr-certificate-request-renderer.c:266
+#: ../ui/gcr-certificate-request-renderer.c:325
+#: ../ui/gcr-certificate-request-renderer.c:373 ../ui/gcr-gnupg-renderer.c:591
+#: ../ui/gcr-gnupg-renderer.c:593
+msgid "Type"
+msgstr "تىپى"
+
+#: ../ui/gcr-certificate-request-renderer.c:377
+msgid "Challenge"
+msgstr "تەۋەككۈل قىل"
+
+#: ../ui/gcr-display-view.c:319
+msgid "_Details"
+msgstr "تەپسىلاتلار(_D)"
+
+#: ../ui/gcr-failure-renderer.c:161
+#, c-format
+msgid "Could not display '%s'"
+msgstr "‹%s› نى كۆرسەتكىلى بولمىدى"
+
+#: ../ui/gcr-failure-renderer.c:163
+msgid "Could not display file"
+msgstr "ھۆججەتنى كۆرسەتكىلى بولمىدى"
+
+#: ../ui/gcr-failure-renderer.c:168
+msgid "Reason"
+msgstr "سەۋەب"
+
+#: ../ui/gcr-failure-renderer.c:218
+#, c-format
+msgid "Cannot display a file of this type."
+msgstr "بۇ تىپتىكى ھۆججەتنى كۆرسەتكىلى بولمايدۇ"
+
+#: ../ui/gcr-gnupg-renderer.c:203
+msgid "Elgamal"
+msgstr "Elgamal"
+
+#: ../ui/gcr-gnupg-renderer.c:216
+msgid "Encrypt"
+msgstr "شىفىر"
+
+#: ../ui/gcr-gnupg-renderer.c:218
+msgid "Sign"
+msgstr "ئىمزا"
+
+#: ../ui/gcr-gnupg-renderer.c:220
+msgid "Certify"
+msgstr "ئىسپاتلاش"
+
+#: ../ui/gcr-gnupg-renderer.c:222
+msgid "Authenticate"
+msgstr "كىملىك دەلىللەش"
+
+#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
+msgid "Disabled"
+msgstr "ئىناۋەتسىز قىلىنغان"
+
+#: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
+msgid "Unknown"
+msgstr "نامەلۇم"
+
+#: ../ui/gcr-gnupg-renderer.c:257
+msgid "Invalid"
+msgstr "ئىناۋەتسىز"
+
+#: ../ui/gcr-gnupg-renderer.c:261
+msgid "Revoked"
+msgstr "بىكار قىلىنغان"
+
+#: ../ui/gcr-gnupg-renderer.c:263
+msgid "Expired"
+msgstr "ۋاقتى ئوتكەن"
+
+#: ../ui/gcr-gnupg-renderer.c:265
+msgid "Undefined trust"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:267
+msgid "Distrusted"
+msgstr "گۇمانلىق"
+
+#: ../ui/gcr-gnupg-renderer.c:269
+msgid "Marginally trusted"
+msgstr "ئازراق ئىشەنچلىك"
+
+#: ../ui/gcr-gnupg-renderer.c:271
+msgid "Fully trusted"
+msgstr "تولۇق ئىشەنچلىك"
+
+#: ../ui/gcr-gnupg-renderer.c:273
+msgid "Ultimately trusted"
+msgstr "ئاخىرغىچە ئىشەنچلىك"
+
+#: ../ui/gcr-gnupg-renderer.c:287
+msgid "The information in this key has not yet been verified"
+msgstr "مەزكۇر ئاچقۇچتىكى ئۇچۇرلار تېخى تەكشۈرۈلمىگەن"
+
+#: ../ui/gcr-gnupg-renderer.c:290
+msgid "This key is invalid"
+msgstr "مەزكۇر ئاچقۇچ ئىناۋەتسىز"
+
+#: ../ui/gcr-gnupg-renderer.c:293
+msgid "This key has been disabled"
+msgstr "مەزكۇر ئاچقۇچ ئىناۋەتسىز قىلىنغان"
+
+#: ../ui/gcr-gnupg-renderer.c:296
+msgid "This key has been revoked"
+msgstr "مەزكۇر ئاچقۇچ بىكار قىلىنغان"
+
+#: ../ui/gcr-gnupg-renderer.c:299
+msgid "This key has expired"
+msgstr "مەزكۇر ئاچقۇچنىڭ ۋاقتى ئوتكەن"
+
+#: ../ui/gcr-gnupg-renderer.c:304
+msgid "This key is distrusted"
+msgstr "مەزكۇر ئاچقۇچ گۇمانلىق"
+
+#: ../ui/gcr-gnupg-renderer.c:307
+msgid "This key is marginally trusted"
+msgstr "مەزكۇر ئاچقۇچ ئازراق ئىشەنچلىك"
+
+#: ../ui/gcr-gnupg-renderer.c:310
+msgid "This key is fully trusted"
+msgstr "مەزكۇر ئاچقۇچ تولۇق ئىشەنچلىك"
+
+#: ../ui/gcr-gnupg-renderer.c:313
+msgid "This key is ultimately trusted"
+msgstr "مەزكۇر ئاچقۇچ ئاخىرغىچە ئىشەنچلىك"
+
+#: ../ui/gcr-gnupg-renderer.c:338 ../ui/gcr-gnupg-renderer.c:564
+msgid "Key ID"
+msgstr "ئاچقۇچ كىملىكى"
+
+#: ../ui/gcr-gnupg-renderer.c:346 ../ui/gcr-gnupg-renderer.c:572
+#: ../ui/gcr-gnupg-renderer.c:619 ../ui/gcr-key-renderer.c:435
+msgid "Algorithm"
+msgstr "ئالگورىزىم"
+
+#: ../ui/gcr-gnupg-renderer.c:361 ../ui/gcr-gnupg-renderer.c:438
+#: ../ui/gcr-gnupg-renderer.c:481
+msgid "Created"
+msgstr "قۇرغان ۋاقتى"
+
+#: ../ui/gcr-gnupg-renderer.c:370 ../ui/gcr-gnupg-renderer.c:447
+#: ../ui/gcr-gnupg-renderer.c:490
+msgid "Expiry"
+msgstr "ئىناۋەتلىك ۋاقتى"
+
+#: ../ui/gcr-gnupg-renderer.c:379
+msgid "Capabilities"
+msgstr "ئىقتىدارى"
+
+#: ../ui/gcr-gnupg-renderer.c:392
+msgid "Owner trust"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:420
+msgid "Name"
+msgstr "ئاتى"
+
+#: ../ui/gcr-gnupg-renderer.c:426 ../ui/gcr-gnupg-renderer.c:708
+msgid "Comment"
+msgstr "ئىزاھات"
+
+#: ../ui/gcr-gnupg-renderer.c:466
+msgid "User Attribute"
+msgstr "ئىشلەتكۈچى خاسلىقى"
+
+#: ../ui/gcr-gnupg-renderer.c:473 ../ui/gcr-key-renderer.c:442
+msgid "Size"
+msgstr "چوڭلۇقى"
+
+#: ../ui/gcr-gnupg-renderer.c:508
+msgid "Signature of a binary document"
+msgstr "ئىككىلىك پۈتۈكنىڭ ئىمزاسى"
+
+#: ../ui/gcr-gnupg-renderer.c:510
+msgid "Signature of a canonical text document"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:512
+msgid "Standalone signature"
+msgstr "تەنھا ئىمزا"
+
+#: ../ui/gcr-gnupg-renderer.c:514
+msgid "Generic certification of key"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:516
+msgid "Persona certification of key"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:518
+msgid "Casual certification of key"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:520
+msgid "Positive certification of key"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:522
+msgid "Subkey binding signature"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:524
+msgid "Primary key binding signature"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:526
+msgid "Signature directly on key"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:528
+msgid "Key revocation signature"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:530
+msgid "Subkey revocation signature"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:532
+msgid "Certification revocation signature"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:534
+msgid "Timestamp signature"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:536
+msgid "Third-party confirmation signature"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:589 ../ui/gcr-gnupg-renderer.c:597
+msgid "Class"
+msgstr "تىپ"
+
+#: ../ui/gcr-gnupg-renderer.c:591
+msgid "Local only"
+msgstr "يەرلىكلا"
+
+#: ../ui/gcr-gnupg-renderer.c:593
+msgid "Exportable"
+msgstr "چىقارغىلى بولىدۇ"
+
+#: ../ui/gcr-gnupg-renderer.c:611
+msgid "Revocation Key"
+msgstr ""
+
+#: ../ui/gcr-gnupg-renderer.c:625 ../ui/gcr-gnupg-renderer.c:649
+#: ../ui/gcr-gnupg-renderer.c:651
+msgid "Fingerprint"
+msgstr "بارماق ئىزى"
+
+#: ../ui/gcr-gnupg-renderer.c:740
+msgid "Public Subkey"
+msgstr "ئاممىۋى تارماق ئاچقۇچ"
+
+#: ../ui/gcr-gnupg-renderer.c:742
+msgid "Secret Key"
+msgstr "مەخپىي ئاچقۇچ"
+
+#: ../ui/gcr-gnupg-renderer.c:744
+msgid "Secret Subkey"
+msgstr "مەخپىي تارماق ئاچقۇچ"
+
+#: ../ui/gcr-import-button.c:112
+msgid "Initializing..."
+msgstr "دەسلەپلەشتۈرۈۋاتىدۇ…"
+
+#: ../ui/gcr-import-button.c:120
+msgid "Import is in progress..."
+msgstr "ئىمپورت قىلىنىۋاتىدۇ…"
+
+#: ../ui/gcr-import-button.c:127
+#, c-format
+msgid "Imported to: %s"
+msgstr "بۇنىڭغا ئىمپورت قىلىندى: %s"
+
+#: ../ui/gcr-import-button.c:147
+#, c-format
+msgid "Import to: %s"
+msgstr "بۇنىڭغا ئىمپورت قىلىنىدۇ: %s"
+
+#: ../ui/gcr-import-button.c:160
+msgid "Cannot import because there are no compatible importers"
+msgstr "ماس كېلىدىغان ئىمپورت قىلغۇچ بولمىغاچقا ئىمپورت قىلغىلى بولمىدى"
+
+#: ../ui/gcr-import-button.c:169
+msgid "No data to import"
+msgstr "ئىمپورت قىلىدىغان سانلىق-مەلۇمات يوق"
+
+#: ../ui/gcr-key-renderer.c:90
+msgid "Key"
+msgstr "ئاچقۇچ"
+
+#: ../ui/gcr-key-renderer.c:404
+msgid "Private RSA Key"
+msgstr "RSA شەخسىي ئاچقۇچى"
+
+#: ../ui/gcr-key-renderer.c:406
+msgid "Private DSA Key"
+msgstr "DSA  شەخسىي ئاچقۇچى"
+
+#: ../ui/gcr-key-renderer.c:411 ../ui/gcr-key-renderer.c:413
+msgid "Public DSA Key"
+msgstr "DSA ئاممىۋى ئاچقۇچ"
+
+#: ../ui/gcr-key-renderer.c:422
+#, c-format
+msgid "%d bit"
+msgid_plural "%d bits"
+msgstr[0] "%d بىت"
+
+#: ../ui/gcr-key-renderer.c:423
+msgid "Strength"
+msgstr "كۈچلۈكلۈك"
+
+#. Fingerprints
+#: ../ui/gcr-key-renderer.c:446
+msgid "Fingerprints"
+msgstr "بارماق ئىزلىرى"
+
+#: ../ui/gcr-key-renderer.c:450
+msgid "SHA1"
+msgstr "SHA1"
+
+#: ../ui/gcr-key-renderer.c:455
+msgid "SHA256"
+msgstr "SHA256"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:188
+msgid "Automatically chosen"
+msgstr "ئاپتوماتىك تاللانغان"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:272
+#: ../ui/gcr-pkcs11-import-interaction.c:154
+#: ../ui/gcr-pkcs11-import-interaction.c:172
+#, c-format
+msgid "The user cancelled the operation"
+msgstr "ئىشلەتكۈچى مەشغۇلاتنى ئەمەلدىن قالدۇردى"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:1
+msgid "In order to import, please enter the password."
+msgstr "ئىمپورت قىلىش ئۈچۈن ئىم كىرگۈزۈڭ:"
+
+#. The password label
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:564
+msgid "Password:"
+msgstr "ئىم:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:3
+msgid "Token:"
+msgstr "ماياق:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:72
+#: ../ui/gcr-unlock-renderer.c:127
+msgid "Unlock"
+msgstr "قۇلۇپسىزلا"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:5
+msgid "Label:"
+msgstr "ئەن:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Import settings"
+msgstr "ئىمپورت قىلىش تەڭشەكلىرى"
+
+#. The confirm label
+#: ../ui/gcr-prompt-dialog.c:581
+msgid "Confirm:"
+msgstr "جەزملەش:"
+
+#: ../ui/gcr-prompt-dialog.c:649
+msgid "Passwords do not match."
+msgstr "ئىم ماس كەلمىدى."
+
+#: ../ui/gcr-prompt-dialog.c:656
+msgid "Password cannot be blank"
+msgstr "ئىم قۇرۇق بولسا بولمايدۇ"
+
+#: ../ui/gcr-prompter.desktop.in.in.h:1
+msgid "Access Prompt"
+msgstr ""
+
+#: ../ui/gcr-prompter.desktop.in.in.h:2
+msgid "Unlock access to passwords and other secrets"
+msgstr "ئىم ۋە باشقا مەخپىيەتلىكلەرنى زىيارەت قىلىش ئۈچۈن قۇلۇپسىزلا"
+
+#: ../ui/gcr-certificate-exporter.c:226
+msgid ""
+"<b>A file already exists with this name.</b>\n"
+"\n"
+"Do you want to replace it with a new file?"
+msgstr "<b>ئوخشاش ئاتتىكى ھۆججەت مەۋجۇت.</b>\n"
+"\n"
+"ئۇنى يېڭى ھۆججەتتە قاپلىۋېتەمسىز؟"
+
+#: ../ui/gcr-certificate-exporter.c:229
+msgid "_Replace"
+msgstr "ئالماشتۇر(_R)"
+
+#: ../ui/gcr-certificate-exporter.c:259
+#, c-format
+msgid "The operation was cancelled."
+msgstr "مەشغۇلاتتىن ۋاز كەچتى."
+
+#: ../ui/gcr-certificate-exporter.c:303
+msgid "Export certificate"
+msgstr "ئىسپاتنامىنى ئېكسپورت قىلىش"
+
+#: ../ui/gcr-certificate-exporter.c:315
+msgid "Certificate files"
+msgstr "ئىسپاتنامە ھۆججەتلىرى"
+
+#: ../ui/gcr-certificate-exporter.c:326
+msgid "PEM files"
+msgstr "PEM ھۆججەتلىرى"
+
+#: ../ui/gcr-unlock-options-widget.ui.h:1
 msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "تىزىمغا كىرگەندە بۇ ئاچقۇچ ھالقىسىنىڭ قۇلۇپىنى ئاپتوماتىك ئاچ"
+msgstr "تىزىمغا كىرگەن ۋاقتىمدا بۇ ئاچقۇچ  ھالقىسى ھەمىشە قۇلۇپسىزلانسۇن"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:2
-msgid "Lock this keyring after"
-msgstr "بۇ ئاچقۇچ ھالقىسىنى قۇلۇپلا"
-
-#: ../gcr/gcr-unlock-options-widget.ui.h:3
-msgid "Lock this keyring if idle for"
-msgstr "بوش قالغان ۋاقىتتا ئاچقۇچ ھالقىسىنى قۇلۇپلا"
-
-#: ../gcr/gcr-unlock-options-widget.ui.h:4
+#: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
 msgstr "تىزىمدىن چىققان ۋاقىتتا ئاچقۇچ ھالقىسىنى قۇلۇپلا"
 
+#: ../ui/gcr-unlock-options-widget.ui.h:3
+msgid "Lock this keyring after"
+msgstr "بۇ ئاچقۇچ ھالقىسىنى قۇلۇپلا"
+
+#: ../ui/gcr-unlock-options-widget.ui.h:4
+msgid "Lock this keyring if idle for"
+msgstr "بوش قالغان ۋاقىتتا ئاچقۇچ ھالقىسىنى قۇلۇپلا"
+
 #. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
-#: ../gcr/gcr-unlock-options-widget.ui.h:6
+#: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "مىنۇت"
 
-#: ../gcr/gcr-unlock-renderer.c:70
-#, fuzzy, c-format
+#: ../ui/gcr-unlock-renderer.c:70
+#, c-format
 msgid "Unlock: %s"
-msgstr "قۇلۇپ ئاچ"
+msgstr "قۇلۇپسىزلا: %s"
 
-#: ../gcr/gcr-unlock-renderer.c:72 ../gcr/gcr-unlock-renderer.c:129
-msgid "Unlock"
-msgstr "قۇلۇپ ئاچ"
-
-#: ../gcr/gcr-unlock-renderer.c:126
-#, fuzzy
+#: ../ui/gcr-unlock-renderer.c:125
 msgid "Password"
-msgstr "ئىم:"
+msgstr "ئىم"
 
-#: ../gcr/gcr-unlock-renderer.c:279
+#: ../ui/gcr-unlock-renderer.c:277
 #, c-format
 msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
 "correct password."
-msgstr ""
+msgstr "‹%s› نىڭ مەزمۇنى قۇلۇپلانغان. مەزمۇننى كۆرۈش ئۈچۈن توغرا بولغان ئىمنى كىرگۈزۈڭ."
 
-#: ../gcr/gcr-unlock-renderer.c:282
+#: ../ui/gcr-unlock-renderer.c:280
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
-msgstr ""
+msgstr "مەزكۇر مەزمۇن قۇلۇپلانغان. مەزمۇننى كۆرۈش ئۈچۈن توغرا بولغان ئىمنى كىرگۈزۈڭ."
 
-#: ../gcr/gcr-viewer-tool.c:41
-#, fuzzy
+#: ../ui/gcr-viewer-tool.c:41
 msgid "GCR Certificate and Key Viewer"
-msgstr "گۇۋاھنامە ۋە شىفىرلىق ئاچقۇچ ئامبىرى"
+msgstr "GCR گۇۋاھنامە ۋە ئاچقۇچ كۆرگۈ"
 
-#: ../gcr/gcr-viewer-tool.c:48
+#: ../ui/gcr-viewer-tool.c:48
 msgid "Show the application's version"
-msgstr ""
+msgstr "پروگراممىنىڭ نەشرىنى كۆرسەت"
 
-#: ../gcr/gcr-viewer-tool.c:50
+#: ../ui/gcr-viewer-tool.c:50
 msgid "[file...]"
-msgstr ""
+msgstr "[ھۆججەت…]"
 
-#: ../gcr/gcr-viewer-tool.c:104
-#, fuzzy
+#: ../ui/gcr-viewer-tool.c:105
 msgid "- View certificate and key files"
-msgstr "گۇۋاھنامە ۋە شىفىرلىق ئاچقۇچ ئامبىرى"
+msgstr "- گۇۋاھنامە ۋە ئاچقۇچ ھۆججىتىنى كۆرۈش"
 
-#: ../gcr/gcr-viewer-tool.c:118
-#, fuzzy
+#: ../ui/gcr-viewer-tool.c:119 ../ui/gcr-viewer-widget.c:638
 msgid "Certificate Viewer"
-msgstr "گۇۋاھنامە"
+msgstr "گۇۋاھنامە كۆرگۈ"
 
-#: ../gcr/gcr-viewer-widget.c:191
-#, fuzzy
+#: ../ui/gcr-viewer-widget.c:204
 msgid "The password was incorrect"
-msgstr "قۇلۇپسىزلاش ئىمى توغرا ئەمەس"
+msgstr "ئىم توغرا ئەمەس"
 
-#: ../gcr/gcr-viewer-window.c:68
-#, fuzzy
+#: ../ui/gcr-viewer-window.c:76
 msgid "Imported"
-msgstr "تۆۋەندىكىگە ئىمپورت قىلىش:"
+msgstr "ئەكىردى"
 
-#: ../gcr/gcr-viewer-window.c:72
-#, fuzzy
+#: ../ui/gcr-viewer-window.c:80
 msgid "Import failed"
-msgstr "مەشغۇلات مەغلۇپ بولدى."
+msgstr "ئىمپورت قىلىش مەغلۇپ بولدى"
 
-#: ../gcr/gcr-viewer-window.c:103
-#, fuzzy
+#: ../ui/gcr-viewer-window.c:108
 msgid "Import"
-msgstr "تۆۋەندىكىگە ئىمپورت قىلىش:"
+msgstr "ئىمپورت قىل"
 
-#: ../gck/gck-uri.c:223
-#, fuzzy, c-format
-msgid "The URI has invalid encoding."
-msgstr "بۇ URI توغرا بولمىغانلىقتىن،'%s' ئابزاسنى كودلاش ئىناۋەتسىز."
-
-#: ../gck/gck-uri.c:227
-#, fuzzy
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "بۇ URIغا كېرەكلىك بولغان  'pkcs11' لايىھە كەم."
-
-#: ../gck/gck-uri.c:231
-msgid "The URI has bad syntax."
-msgstr ""
-
-#: ../gck/gck-uri.c:235
-msgid "The URI has a bad version number."
-msgstr ""
+#~ msgid "<b>Unlock</b>"
+#~ msgstr "قۇلۇپ ئاچ"

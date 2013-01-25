@@ -11,11 +11,13 @@ generate_header ()
 	echo "#ifndef ${UPPER}_OIDS_"
 	echo "#define ${UPPER}_OIDS_"
 	echo ""
-	echo "void _${LOWER}_oids_init (void);"
 
 	while read name oid; do
 		if [ -n "$name" ]; then
-			echo "GQuark ${UPPER}_OID_${name};"
+			lname=$(echo "$name" | tr '[:upper:]' '[:lower:]')
+			echo "GQuark _${LOWER}_oid_${lname}_get_quark (void) G_GNUC_CONST;"
+			echo "#define ${UPPER}_OID_${name} _${LOWER}_oid_${lname}_get_quark ()"
+			echo ""
 		fi
 	done
 
@@ -30,21 +32,23 @@ generate_source ()
 	echo "#include \"$HEADER\""
 	echo ""
 
-	echo "void"
-	echo "_${LOWER}_oids_init (void)"
-	echo "{"
-	echo "	static volatile gsize initialized = 0;"
-	echo "	if (g_once_init_enter (&initialized)) {"
-
 	while read name oid; do
 		if [ -n "$name" ]; then
-			echo "		${UPPER}_OID_${name} = g_quark_from_static_string (\"${oid}\");"
+			lname=$(echo "$name" | tr '[:upper:]' '[:lower:]')
+			echo "GQuark"
+			echo "_${LOWER}_oid_${lname}_get_quark (void)"
+			echo "{"
+			echo "	static volatile gsize inited = 0;"
+			echo "	static GQuark quark = 0;"
+			echo "	if (g_once_init_enter (&inited)) {"
+			echo "		quark = g_quark_from_static_string (\"${oid}\");"
+			echo "		g_once_init_leave (&inited, 1);"
+			echo "	}"
+			echo "	return quark;"
+			echo "}"
+			echo ""
 		fi
 	done
-
-	echo "		g_once_init_leave (&initialized, 1);"
-	echo "	}"
-	echo "}"
 }
 
 UPPER="PREFIX"

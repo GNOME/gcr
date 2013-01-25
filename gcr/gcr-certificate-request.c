@@ -195,8 +195,6 @@ gcr_certificate_request_class_init (GcrCertificateRequestClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
-	_gcr_oids_init ();
-
 	gobject_class->constructed = gcr_certificate_request_constructed;
 	gobject_class->finalize = gcr_certificate_request_finalize;
 	gobject_class->set_property = gcr_certificate_request_set_property;

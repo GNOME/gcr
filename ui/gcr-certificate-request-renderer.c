@@ -171,8 +171,6 @@ _gcr_certificate_request_renderer_class_init (GcrCertificateRequestRendererClass
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GckBuilder builder = GCK_BUILDER_INIT;
 
-	_gcr_oids_init ();
-
 	g_type_class_add_private (klass, sizeof (GcrCertificateRequestRendererPrivate));
 
 	gobject_class->finalize = _gcr_certificate_request_renderer_finalize;

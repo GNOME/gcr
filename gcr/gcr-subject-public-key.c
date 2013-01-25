@@ -530,8 +530,6 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	GBytes *key;
 	GBytes *usg;
 
-	_gcr_oids_init ();
-
 	modulus = gck_attributes_find (attrs, CKA_MODULUS);
 	exponent = gck_attributes_find (attrs, CKA_PUBLIC_EXPONENT);
 	if (modulus == NULL || gck_attribute_is_invalid (modulus) ||
@@ -623,8 +621,6 @@ dsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	const GckAttribute *value, *g, *q, *p;
 	GNode *key_asn, *params_asn;
 	GBytes *key;
-
-	_gcr_oids_init ();
 
 	p = gck_attributes_find (attrs, CKA_PRIME);
 	q = gck_attributes_find (attrs, CKA_SUBPRIME);

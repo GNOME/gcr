@@ -269,8 +269,6 @@ _gcr_certificate_extension_subject_alt_name (GBytes *data)
 	GcrGeneralName general;
 	GNode *choice;
 
-	_gcr_oids_init ();
-
 	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "SubjectAltName", data);
 	if (asn == NULL)
 		return NULL;

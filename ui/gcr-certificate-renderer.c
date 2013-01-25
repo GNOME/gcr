@@ -420,8 +420,6 @@ gcr_certificate_renderer_class_init (GcrCertificateRendererClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GckBuilder builder = GCK_BUILDER_INIT;
 
-	_gcr_oids_init ();
-
 	gcr_certificate_renderer_parent_class = g_type_class_peek_parent (klass);
 	g_type_class_add_private (klass, sizeof (GcrCertificateRendererPrivate));
 

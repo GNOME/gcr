@@ -249,8 +249,6 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 	static volatile gsize initialized = 0;
 
 	if (g_once_init_enter (&initialized)) {
-		_gcr_oids_init ();
-
 		CERTIFICATE_INFO = g_quark_from_static_string ("_gcr_certificate_certificate_info");
 
 		g_object_interface_install_property (iface,

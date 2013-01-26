@@ -214,6 +214,7 @@ on_create_file_ready (GObject *source, GAsyncResult *res, gpointer user_data)
 	GcrCertificateExporter *self = GCR_CERTIFICATE_EXPORTER (user_data);
 	GFileOutputStream *os;
 	GtkWidget *dialog;
+	gchar *msg;
 
 	os = g_file_create_finish (self->pv->output_file, res, &self->pv->error);
 
@@ -221,9 +222,12 @@ on_create_file_ready (GObject *source, GAsyncResult *res, gpointer user_data)
 	if (g_error_matches (self->pv->error, G_IO_ERROR, G_IO_ERROR_EXISTS)) {
 		g_clear_error (&self->pv->error);
 
+		msg = g_strdup_printf ("<b>%s</b>\n\n%s",
+		                       _("A file already exists with this name."),
+		                       _("Do you want to replace it with a new file?"));
 		dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (self->pv->chooser_dialog),
 		     GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION,
-		     GTK_BUTTONS_NONE, _("<b>A file already exists with this name.</b>\n\nDo you want to replace it with a new file?"));
+		     GTK_BUTTONS_NONE, msg);
 		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
 		                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 		                        _("_Replace"), GTK_RESPONSE_ACCEPT, NULL);
@@ -235,6 +239,7 @@ on_create_file_ready (GObject *source, GAsyncResult *res, gpointer user_data)
 			                       G_CALLBACK (on_cancel_replace_dialog),
 			                       g_object_ref (dialog), g_object_unref);
 		gtk_widget_show (dialog);
+		g_free(msg);
 
 		return;
 	}

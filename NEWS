@@ -1,3 +1,9 @@
+gcr 3.7.5:
+ - Separate the base and ui parts of the Gcr library more thoroughly
+ - Fix crasher in armor parsing code
+ - Build fixes
+ - Updated translations
+
 gcr 3.7.2:
  - Fix corner case in DER parsing
  - Fix crash when parsing invalid DER

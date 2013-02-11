@@ -397,7 +397,7 @@ gcr_list_selector_get_collection (GcrListSelector *self)
  *
  * Get a list of selected objects.
  *
- * Returns: (transfer container) (element-type GLib.Object): the list of
+ * Returns: (transfer container) (element-type GObject.Object): the list of
  *          selected objects, to be released with g_list_free()
  */
 GList*
@@ -410,7 +410,7 @@ gcr_list_selector_get_selected (GcrListSelector *self)
 /**
  * gcr_list_selector_set_selected:
  * @self: The selector
- * @selected: (element-type GLib.Object): the list of objects to select
+ * @selected: (element-type GObject.Object): the list of objects to select
  *
  * Select certain objects in the selector.
  */

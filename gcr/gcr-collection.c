@@ -65,7 +65,7 @@ gcr_collection_default_init (GcrCollectionIface *iface)
 		/**
 		 * GcrCollection::added:
 		 * @self: the collection
-		 * @object: (type GLib.Object): object that was added
+		 * @object: (type GObject.Object): object that was added
 		 *
 		 * This signal is emitted when an object is added to the collection.
 		 */
@@ -77,7 +77,7 @@ gcr_collection_default_init (GcrCollectionIface *iface)
 		/**
 		 * GcrCollection::removed:
 		 * @self: the collection
-		 * @object: (type GLib.Object): object that was removed
+		 * @object: (type GObject.Object): object that was removed
 		 *
 		 * This signal is emitted when an object is removed from the collection.
 		 */
@@ -117,7 +117,7 @@ gcr_collection_get_length (GcrCollection *self)
  *
  * Get a list of the objects in this collection.
  *
- * Returns: (transfer container) (element-type GLib.Object): a list of the objects
+ * Returns: (transfer container) (element-type GObject.Object): a list of the objects
  *          in this collection, which should be freed with g_list_free()
  */
 GList*

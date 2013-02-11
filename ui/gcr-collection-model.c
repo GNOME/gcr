@@ -1587,7 +1587,7 @@ gcr_collection_model_is_selected (GcrCollectionModel *self, GtkTreeIter *iter)
  *
  * Get a list of checked/selected objects.
  *
- * Returns: (transfer container) (element-type GLib.Object): a list of selected
+ * Returns: (transfer container) (element-type GObject.Object): a list of selected
  *          objects, which should be freed with g_list_free()
  */
 GList *
@@ -1611,7 +1611,7 @@ gcr_collection_model_get_selected_objects (GcrCollectionModel *self)
 /**
  * gcr_collection_model_set_selected_objects:
  * @self: the collection model
- * @selected: (element-type GLib.Object): a list of objects to select
+ * @selected: (element-type GObject.Object): a list of objects to select
  *
  * Set the checked/selected objects.
  */

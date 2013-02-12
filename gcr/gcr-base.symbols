@@ -251,4 +251,3 @@ gcr_union_collection_new
 gcr_union_collection_remove
 gcr_union_collection_size
 gcr_union_collection_take
-SECMEM_pool_data_v1_0

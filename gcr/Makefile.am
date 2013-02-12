@@ -110,7 +110,6 @@ PRIVATE_FILES = \
 	gcr-gnupg-util.c gcr-gnupg-util.h \
 	gcr-internal.h \
 	gcr-key-mechanisms.h gcr-key-mechanisms.c \
-	gcr-memory.c \
 	gcr-memory-icon.c gcr-memory-icon.h \
 	gcr-openpgp.c gcr-openpgp.h \
 	gcr-openssh.c gcr-openssh.h \

@@ -521,7 +521,7 @@ anode_failure (GNode *node, const gchar *failure)
 
 	g_free (an->failure);
 	an->failure = g_strdup_printf ("%s: %s", prefix, failure);
-	g_debug ("egg-asn1: %s", an->failure);
+	g_debug ("%s %s", prefix, an->failure);
 	return FALSE; /* So this can be chained */
 }
 

@@ -7,14 +7,14 @@
 # Artur Flinta <aflinta@at.kernel.pl>, 2003-2006.
 # Stanisław Małolepszy <smalolepszy@aviary.pl>, 2006.
 # Tomasz Dominikowski <dominikowski@gmail.com>, 2007-2009.
-# Piotr Drąg <piotrdrag@gmail.com>, 2010-2012.
-# Aviary.pl <gnomepl@aviary.pl>, 2006-2012.
+# Piotr Drąg <piotrdrag@gmail.com>, 2010-2013.
+# Aviary.pl <gnomepl@aviary.pl>, 2006-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-03 00:30+0200\n"
-"PO-Revision-Date: 2012-09-03 00:31+0200\n"
+"POT-Creation-Date: 2013-02-17 15:55+0100\n"
+"PO-Revision-Date: 2013-02-17 15:56+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -30,8 +30,8 @@ msgstr ""
 msgid "Domain Component"
 msgstr "Składnik domeny"
 
-#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:409
-#: ../gcr/gcr-gnupg-renderer.c:578
+#: ../egg/egg-oid.c:43 ../ui/gcr-gnupg-renderer.c:410
+#: ../ui/gcr-gnupg-renderer.c:579
 msgid "User ID"
 msgstr "Identyfikator użytkownika"
 
@@ -67,7 +67,7 @@ msgstr "Nazwa powszechna"
 msgid "Surname"
 msgstr "Nazwisko"
 
-#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:557
+#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:556
 msgid "Serial Number"
 msgstr "Numer seryjny"
 
@@ -123,8 +123,8 @@ msgstr "Kwalifikator DN"
 msgid "Pseudonym"
 msgstr "Pseudonim"
 
-#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
-#: ../gcr/gcr-key-renderer.c:429
+#: ../egg/egg-oid.c:98 ../ui/gcr-gnupg-renderer.c:201
+#: ../ui/gcr-key-renderer.c:430
 msgid "RSA"
 msgstr "RSA"
 
@@ -140,8 +140,8 @@ msgstr "MD5 z RSA"
 msgid "SHA1 with RSA"
 msgstr "SHA1 z RSA"
 
-#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
-#: ../gcr/gcr-key-renderer.c:431
+#: ../egg/egg-oid.c:103 ../ui/gcr-gnupg-renderer.c:205
+#: ../ui/gcr-key-renderer.c:432
 msgid "DSA"
 msgstr "DSA"
 
@@ -220,57 +220,26 @@ msgstr "Potok został zamknięty"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
+#: ../gcr/gcr-certificate.c:306 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "Nazwa"
 
-#: ../gcr/gcr-certificate.c:310
+#: ../gcr/gcr-certificate.c:308
 msgctxt "column"
 msgid "Issued By"
 msgstr "Wydane przez"
 
 #. later
-#: ../gcr/gcr-certificate.c:312
+#: ../gcr/gcr-certificate.c:310
 msgctxt "column"
 msgid "Expires"
 msgstr "Wygasa"
 
-#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:102 ../gcr/gcr-parser.c:322
+#: ../gcr/gcr-certificate.c:1131 ../gcr/gcr-parser.c:320
+#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:469
 msgid "Certificate"
 msgstr "Certyfikat"
-
-#: ../gcr/gcr-certificate-exporter.c:225
-msgid ""
-"<b>A file already exists with this name.</b>\n"
-"\n"
-"Do you want to replace it with a new file?"
-msgstr ""
-"<b>Plik o tej nazwie już istnieje.</b>\n"
-"\n"
-"Zastąpić go nowym plikiem?"
-
-#: ../gcr/gcr-certificate-exporter.c:228
-msgid "_Replace"
-msgstr "_Zastąp"
-
-#: ../gcr/gcr-certificate-exporter.c:258
-#, c-format
-msgid "The operation was cancelled."
-msgstr "Działanie zostało anulowane."
-
-#: ../gcr/gcr-certificate-exporter.c:302
-msgid "Export certificate"
-msgstr "Eksport certyfikatu"
-
-#: ../gcr/gcr-certificate-exporter.c:314
-msgid "Certificate files"
-msgstr "Pliki certyfikatu"
-
-#: ../gcr/gcr-certificate-exporter.c:325
-msgid "PEM files"
-msgstr "Pliki PEM"
 
 #: ../gcr/gcr-certificate-extensions.c:178
 msgid "Other Name"
@@ -284,8 +253,8 @@ msgstr "Adres XMPP"
 msgid "DNS SRV"
 msgstr "Serwer DNS"
 
-#: ../gcr/gcr-certificate-extensions.c:204 ../gcr/gcr-gnupg-renderer.c:422
-#: ../gcr/gcr-gnupg-renderer.c:704
+#: ../gcr/gcr-certificate-extensions.c:204 ../ui/gcr-gnupg-renderer.c:423
+#: ../ui/gcr-gnupg-renderer.c:705
 msgid "Email"
 msgstr "E-mail"
 
@@ -317,250 +286,15 @@ msgstr "Adres IP"
 msgid "Registered ID"
 msgstr "Zarejestrowany identyfikator"
 
-#: ../gcr/gcr-certificate-renderer.c:117
-msgid "Basic Constraints"
-msgstr "Podstawowe ograniczenia"
-
-#: ../gcr/gcr-certificate-renderer.c:119
-msgid "Certificate Authority"
-msgstr "Ośrodek certyfikacji"
-
-#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
-msgid "Yes"
-msgstr "Tak"
-
-#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
-msgid "No"
-msgstr "Nie"
-
-#: ../gcr/gcr-certificate-renderer.c:123
-msgid "Max Path Length"
-msgstr "Maksymalna długość ścieżki"
-
-#: ../gcr/gcr-certificate-renderer.c:124
-msgid "Unlimited"
-msgstr "Bez ograniczenia"
-
-#: ../gcr/gcr-certificate-renderer.c:143
-msgid "Extended Key Usage"
-msgstr "Rozszerzone użycie klucza"
-
-#: ../gcr/gcr-certificate-renderer.c:154
-msgid "Allowed Purposes"
-msgstr "Dozwolone zastosowania"
-
-#: ../gcr/gcr-certificate-renderer.c:174
-msgid "Subject Key Identifier"
-msgstr "Identyfikator klucza tematu"
-
-#: ../gcr/gcr-certificate-renderer.c:175
-msgid "Key Identifier"
-msgstr "Identyfikator klucza"
-
-#: ../gcr/gcr-certificate-renderer.c:186
-msgid "Digital signature"
-msgstr "Podpis cyfrowy"
-
-#: ../gcr/gcr-certificate-renderer.c:187
-msgid "Key encipherment"
-msgstr "Szyfrowanie klucza"
-
-#: ../gcr/gcr-certificate-renderer.c:188
-msgid "Data encipherment"
-msgstr "Szyfrowanie danych"
-
-#: ../gcr/gcr-certificate-renderer.c:189
-msgid "Key agreement"
-msgstr "Umowa klucza"
-
-#: ../gcr/gcr-certificate-renderer.c:190
-msgid "Certificate signature"
-msgstr "Podpis certyfikatu"
-
-#: ../gcr/gcr-certificate-renderer.c:191
-msgid "Revocation list signature"
-msgstr "Podpis listy unieważnień"
-
-#: ../gcr/gcr-certificate-renderer.c:216
-msgid "Key Usage"
-msgstr "Użycie klucza"
-
-#: ../gcr/gcr-certificate-renderer.c:217
-msgid "Usages"
-msgstr "Zastosowania"
-
-#: ../gcr/gcr-certificate-renderer.c:237
-msgid "Subject Alternative Names"
-msgstr "Alternatywne nazwy tematu"
-
-#: ../gcr/gcr-certificate-renderer.c:264
-msgid "Extension"
-msgstr "Rozszerzenie"
-
-#: ../gcr/gcr-certificate-renderer.c:268
-msgid "Identifier"
-msgstr "Identyfikator"
-
-#: ../gcr/gcr-certificate-renderer.c:269
-#: ../gcr/gcr-certificate-request-renderer.c:272
-#: ../gcr/gcr-gnupg-renderer.c:413 ../gcr/gcr-gnupg-renderer.c:430
-msgid "Value"
-msgstr "Wartość"
-
-#: ../gcr/gcr-certificate-renderer.c:294
-msgid "Couldn't export the certificate."
-msgstr "Nie można wyeksportować certyfikatu."
-
-#: ../gcr/gcr-certificate-renderer.c:519
-#: ../gcr/gcr-certificate-request-renderer.c:313
-msgid "Identity"
-msgstr "Tożsamość"
-
-#: ../gcr/gcr-certificate-renderer.c:523
-msgid "Verified by"
-msgstr "Sprawdzone przez"
-
-#: ../gcr/gcr-certificate-renderer.c:530 ../gcr/gcr-gnupg-renderer.c:718
-msgid "Expires"
-msgstr "Wygasa"
-
-#. The subject
-#: ../gcr/gcr-certificate-renderer.c:537
-#: ../gcr/gcr-certificate-request-renderer.c:319
-msgid "Subject Name"
-msgstr "Nazwa podmiotu"
-
-#. The Issuer
-#: ../gcr/gcr-certificate-renderer.c:542
-msgid "Issuer Name"
-msgstr "Nazwa wydawcy"
-
-#. The Issued Parameters
-#: ../gcr/gcr-certificate-renderer.c:547
-msgid "Issued Certificate"
-msgstr "Wydany certyfikat"
-
-#: ../gcr/gcr-certificate-renderer.c:552
-#: ../gcr/gcr-certificate-request-renderer.c:330
-msgid "Version"
-msgstr "Wersja"
-
-#: ../gcr/gcr-certificate-renderer.c:566
-msgid "Not Valid Before"
-msgstr "Nieważny przed"
-
-#: ../gcr/gcr-certificate-renderer.c:571
-msgid "Not Valid After"
-msgstr "Nieważny po"
-
-#. Fingerprints
-#: ../gcr/gcr-certificate-renderer.c:576
-msgid "Certificate Fingerprints"
-msgstr "Odciski palców certyfikatu"
-
-#. Public Key Info
-#: ../gcr/gcr-certificate-renderer.c:582
-#: ../gcr/gcr-certificate-request-renderer.c:333
-#: ../gcr/gcr-certificate-request-renderer.c:379
-msgid "Public Key Info"
-msgstr "Informacje o kluczu publicznym"
-
-#. Signature
-#: ../gcr/gcr-certificate-renderer.c:597 ../gcr/gcr-certificate-renderer.c:918
-#: ../gcr/gcr-certificate-request-renderer.c:349
-#: ../gcr/gcr-certificate-request-renderer.c:386
-#: ../gcr/gcr-gnupg-renderer.c:559
-msgid "Signature"
-msgstr "Podpis"
-
-#: ../gcr/gcr-certificate-renderer.c:864
-msgid "Key Algorithm"
-msgstr "Algorytm klucza"
-
-#: ../gcr/gcr-certificate-renderer.c:869
-msgid "Key Parameters"
-msgstr "Parametry klucza"
-
-#: ../gcr/gcr-certificate-renderer.c:877 ../gcr/gcr-gnupg-renderer.c:352
-msgid "Key Size"
-msgstr "Rozmiar klucza"
-
-#: ../gcr/gcr-certificate-renderer.c:885
-msgid "Key SHA1 Fingerprint"
-msgstr "Odcisk palca klucza SHA1"
-
-#: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
-#: ../gcr/gcr-key-renderer.c:414 ../gcr/gcr-parser.c:325
-msgid "Public Key"
-msgstr "Klucz publiczny"
-
-#: ../gcr/gcr-certificate-renderer.c:907
-msgid "Signature Algorithm"
-msgstr "Algorytm podpisu"
-
-#: ../gcr/gcr-certificate-renderer.c:911
-msgid "Signature Parameters"
-msgstr "Parametry podpisu"
-
-#: ../gcr/gcr-certificate-renderer.c:960
-msgid "Critical"
-msgstr "Krytyczne"
-
-#: ../gcr/gcr-certificate-request.c:418
+#: ../gcr/gcr-certificate-request.c:416
 #, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Nieobsługiwany typ klucza dla żądania certyfikatu"
 
-#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
+#: ../gcr/gcr-certificate-request.c:503 ../gcr/gcr-certificate-request.c:588
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Klucz nie może zostać użyty do podpisania żądania"
-
-#. The certificate request type
-#: ../gcr/gcr-certificate-request-renderer.c:95
-#: ../gcr/gcr-certificate-request-renderer.c:308
-#: ../gcr/gcr-certificate-request-renderer.c:323
-#: ../gcr/gcr-certificate-request-renderer.c:366
-#: ../gcr/gcr-certificate-request-renderer.c:371
-msgid "Certificate request"
-msgstr "Żądanie certyfikatu"
-
-#: ../gcr/gcr-certificate-request-renderer.c:261
-msgid "Attribute"
-msgstr "Atrybut"
-
-#: ../gcr/gcr-certificate-request-renderer.c:265
-#: ../gcr/gcr-certificate-request-renderer.c:324
-#: ../gcr/gcr-certificate-request-renderer.c:372
-#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:592
-msgid "Type"
-msgstr "Typ"
-
-#: ../gcr/gcr-certificate-request-renderer.c:376
-msgid "Challenge"
-msgstr "Wyzwanie"
-
-#: ../gcr/gcr-display-view.c:319
-msgid "_Details"
-msgstr "_Szczegóły"
-
-#: ../gcr/gcr-failure-renderer.c:160
-#, c-format
-msgid "Could not display '%s'"
-msgstr "Nie można wyświetlić \"%s\""
-
-#: ../gcr/gcr-failure-renderer.c:162
-msgid "Could not display file"
-msgstr "Nie można wyświetlić pliku"
-
-#: ../gcr/gcr-failure-renderer.c:167
-msgid "Reason"
-msgstr "Przyczyna"
-
-#: ../gcr/gcr-failure-renderer.c:217
-#, c-format
-msgid "Cannot display a file of this type."
-msgstr "Nie można wyświetlić pliku tego typu."
 
 #: ../gcr/gcr-gnupg-importer.c:96
 msgid "GnuPG Keyring"
@@ -571,8 +305,8 @@ msgstr "Baza kluczy GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Baza kluczy GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-gnupg-renderer.c:88
-#: ../gcr/gcr-parser.c:328
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:326
+#: ../ui/gcr-gnupg-renderer.c:89
 msgid "PGP Key"
 msgstr "Klucz PGP"
 
@@ -581,410 +315,53 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "Identyfikator klucza"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Proces gnupg został zakończony z kodem: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:874
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Proces gnupg został zakończony za pomocą sygnału: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
-#: ../gcr/gcr-parser.c:2917
+#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2422
+#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:902
 msgid "The operation was cancelled"
 msgstr "Działanie zostało anulowane"
 
-#: ../gcr/gcr-gnupg-renderer.c:202
-msgid "Elgamal"
-msgstr "Elgamal"
-
-#: ../gcr/gcr-gnupg-renderer.c:215
-msgid "Encrypt"
-msgstr "Zaszyfruj"
-
-#: ../gcr/gcr-gnupg-renderer.c:217
-msgid "Sign"
-msgstr "Podpisz"
-
-#: ../gcr/gcr-gnupg-renderer.c:219
-msgid "Certify"
-msgstr "Certyfikuj"
-
-#: ../gcr/gcr-gnupg-renderer.c:221
-msgid "Authenticate"
-msgstr "Uwierzytelnij"
-
-#: ../gcr/gcr-gnupg-renderer.c:223 ../gcr/gcr-gnupg-renderer.c:258
-msgid "Disabled"
-msgstr "Wyłączony"
-
-#: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-key-renderer.c:433 ../gcr/gcr-key-renderer.c:438
-msgid "Unknown"
-msgstr "Nieznany"
-
-#: ../gcr/gcr-gnupg-renderer.c:256
-msgid "Invalid"
-msgstr "Nieprawidłowy"
-
-#: ../gcr/gcr-gnupg-renderer.c:260
-msgid "Revoked"
-msgstr "Unieważniony"
-
-#: ../gcr/gcr-gnupg-renderer.c:262
-msgid "Expired"
-msgstr "Wygasły"
-
-#: ../gcr/gcr-gnupg-renderer.c:264
-msgid "Undefined trust"
-msgstr "Nieokreślone zaufanie"
-
-#: ../gcr/gcr-gnupg-renderer.c:266
-msgid "Distrusted"
-msgstr "Niezaufany"
-
-#: ../gcr/gcr-gnupg-renderer.c:268
-msgid "Marginally trusted"
-msgstr "Częściowo zaufany"
-
-#: ../gcr/gcr-gnupg-renderer.c:270
-msgid "Fully trusted"
-msgstr "W pełni zaufany"
-
-#: ../gcr/gcr-gnupg-renderer.c:272
-msgid "Ultimately trusted"
-msgstr "Bezwzględnie zaufany"
-
-#: ../gcr/gcr-gnupg-renderer.c:286
-msgid "The information in this key has not yet been verified"
-msgstr "Informacje w tym kluczu nie zostały jeszcze sprawdzone"
-
-#: ../gcr/gcr-gnupg-renderer.c:289
-msgid "This key is invalid"
-msgstr "Ten klucz jest nieprawidłowy"
-
-#: ../gcr/gcr-gnupg-renderer.c:292
-msgid "This key has been disabled"
-msgstr "Ten klucz został wyłączony"
-
-#: ../gcr/gcr-gnupg-renderer.c:295
-msgid "This key has been revoked"
-msgstr "Ten klucz został unieważniony"
-
-#: ../gcr/gcr-gnupg-renderer.c:298
-msgid "This key has expired"
-msgstr "Ten klucz wygasł"
-
-#: ../gcr/gcr-gnupg-renderer.c:303
-msgid "This key is distrusted"
-msgstr "Ten klucz jest niezaufany"
-
-#: ../gcr/gcr-gnupg-renderer.c:306
-msgid "This key is marginally trusted"
-msgstr "Ten klucz jest częściowo zaufany"
-
-#: ../gcr/gcr-gnupg-renderer.c:309
-msgid "This key is fully trusted"
-msgstr "Ten klucz jest w pełni zaufany"
-
-#: ../gcr/gcr-gnupg-renderer.c:312
-msgid "This key is ultimately trusted"
-msgstr "Ten klucz jest bezwzględnie zaufany"
-
-#: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
-msgid "Key ID"
-msgstr "Identyfikator klucza"
-
-#: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
-#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:434
-msgid "Algorithm"
-msgstr "Algorytm"
-
-#: ../gcr/gcr-gnupg-renderer.c:360 ../gcr/gcr-gnupg-renderer.c:437
-#: ../gcr/gcr-gnupg-renderer.c:480
-msgid "Created"
-msgstr "Utworzono"
-
-#: ../gcr/gcr-gnupg-renderer.c:369 ../gcr/gcr-gnupg-renderer.c:446
-#: ../gcr/gcr-gnupg-renderer.c:489
-msgid "Expiry"
-msgstr "Wygasa"
-
-#: ../gcr/gcr-gnupg-renderer.c:378
-msgid "Capabilities"
-msgstr "Możliwości"
-
-#: ../gcr/gcr-gnupg-renderer.c:391
-msgid "Owner trust"
-msgstr "Zaufanie właściciela"
-
-#: ../gcr/gcr-gnupg-renderer.c:419
-msgid "Name"
-msgstr "Nazwa"
-
-#: ../gcr/gcr-gnupg-renderer.c:425 ../gcr/gcr-gnupg-renderer.c:707
-msgid "Comment"
-msgstr "Komentarz"
-
-#: ../gcr/gcr-gnupg-renderer.c:465
-msgid "User Attribute"
-msgstr "Atrybut użytkownika"
-
-#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
-msgid "Size"
-msgstr "Rozmiar"
-
-#: ../gcr/gcr-gnupg-renderer.c:507
-msgid "Signature of a binary document"
-msgstr "Podpis dokumentu binarnego"
-
-#: ../gcr/gcr-gnupg-renderer.c:509
-msgid "Signature of a canonical text document"
-msgstr "Podpis wzorcowego dokumentu tekstowego"
-
-#: ../gcr/gcr-gnupg-renderer.c:511
-msgid "Standalone signature"
-msgstr "Oddzielny podpis"
-
-#: ../gcr/gcr-gnupg-renderer.c:513
-msgid "Generic certification of key"
-msgstr "Ogólna certyfikacja klucza"
-
-#: ../gcr/gcr-gnupg-renderer.c:515
-msgid "Persona certification of key"
-msgstr "Osobista certyfikacja klucza"
-
-#: ../gcr/gcr-gnupg-renderer.c:517
-msgid "Casual certification of key"
-msgstr "Zwykła certyfikacja klucza"
-
-#: ../gcr/gcr-gnupg-renderer.c:519
-msgid "Positive certification of key"
-msgstr "Pozytywna certyfikacja klucza"
-
-#: ../gcr/gcr-gnupg-renderer.c:521
-msgid "Subkey binding signature"
-msgstr "Podpis dowiązania podklucza"
-
-#: ../gcr/gcr-gnupg-renderer.c:523
-msgid "Primary key binding signature"
-msgstr "Podpis dowiązania głównego klucza"
-
-#: ../gcr/gcr-gnupg-renderer.c:525
-msgid "Signature directly on key"
-msgstr "Podpis bezpośrednio na kluczu"
-
-#: ../gcr/gcr-gnupg-renderer.c:527
-msgid "Key revocation signature"
-msgstr "Podpis unieważnienia klucza"
-
-#: ../gcr/gcr-gnupg-renderer.c:529
-msgid "Subkey revocation signature"
-msgstr "Podpis unieważnienia podklucza"
-
-#: ../gcr/gcr-gnupg-renderer.c:531
-msgid "Certification revocation signature"
-msgstr "Podpis unieważnienia certyfikatu"
-
-#: ../gcr/gcr-gnupg-renderer.c:533
-msgid "Timestamp signature"
-msgstr "Podpis daty"
-
-#: ../gcr/gcr-gnupg-renderer.c:535
-msgid "Third-party confirmation signature"
-msgstr "Podpis potwierdzenia firmy trzeciej"
-
-#: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
-msgid "Class"
-msgstr "Klasa"
-
-#: ../gcr/gcr-gnupg-renderer.c:590
-msgid "Local only"
-msgstr "Tylko lokalne"
-
-#: ../gcr/gcr-gnupg-renderer.c:592
-msgid "Exportable"
-msgstr "Można eksportować"
-
-#: ../gcr/gcr-gnupg-renderer.c:610
-msgid "Revocation Key"
-msgstr "Klucz unieważnienia"
-
-#: ../gcr/gcr-gnupg-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:648
-#: ../gcr/gcr-gnupg-renderer.c:650
-msgid "Fingerprint"
-msgstr "Odcisk palca"
-
-#: ../gcr/gcr-gnupg-renderer.c:739
-msgid "Public Subkey"
-msgstr "Podklucz publiczny"
-
-#: ../gcr/gcr-gnupg-renderer.c:741
-msgid "Secret Key"
-msgstr "Tajny klucz"
-
-#: ../gcr/gcr-gnupg-renderer.c:743
-msgid "Secret Subkey"
-msgstr "Tajny podklucz"
-
-#: ../gcr/gcr-import-button.c:111
-msgid "Initializing..."
-msgstr "Inicjowanie..."
-
-#: ../gcr/gcr-import-button.c:119
-msgid "Import is in progress..."
-msgstr "Trwa importowanie..."
-
-#: ../gcr/gcr-import-button.c:126
-#, c-format
-msgid "Imported to: %s"
-msgstr "Zaimportowano do: %s"
-
-#: ../gcr/gcr-import-button.c:146
-#, c-format
-msgid "Import to: %s"
-msgstr "Importowanie do: %s"
-
-#: ../gcr/gcr-import-button.c:159
-msgid "Cannot import because there are no compatible importers"
-msgstr "Nie można zaimportować, ponieważ brak zgodnych programów importujących"
-
-#: ../gcr/gcr-import-button.c:168
-msgid "No data to import"
-msgstr "Brak danych do zaimportowania"
-
-#: ../gcr/gcr-key-renderer.c:89
-msgid "Key"
-msgstr "Klucz"
-
-#: ../gcr/gcr-key-renderer.c:403
-msgid "Private RSA Key"
-msgstr "Klucz prywatny RSA"
-
-#: ../gcr/gcr-key-renderer.c:405
-msgid "Private DSA Key"
-msgstr "Klucz prywatny DSA"
-
-#: ../gcr/gcr-key-renderer.c:407 ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-parser.c:317 ../ui/gcr-key-renderer.c:408
 msgid "Private Key"
 msgstr "Klucz prywatny"
 
-#: ../gcr/gcr-key-renderer.c:410 ../gcr/gcr-key-renderer.c:412
-msgid "Public DSA Key"
-msgstr "Klucz publiczny DSA"
+#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:889
+#: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
+msgid "Public Key"
+msgstr "Klucz publiczny"
 
-#: ../gcr/gcr-key-renderer.c:421
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] "%d bit"
-msgstr[1] "%d bity"
-msgstr[2] "%d bitów"
-
-#: ../gcr/gcr-key-renderer.c:422
-msgid "Strength"
-msgstr "Siła"
-
-#. Fingerprints
-#: ../gcr/gcr-key-renderer.c:445
-msgid "Fingerprints"
-msgstr "Odciski palców"
-
-#: ../gcr/gcr-key-renderer.c:449
-msgid "SHA1"
-msgstr "SHA1"
-
-#: ../gcr/gcr-key-renderer.c:454
-msgid "SHA256"
-msgstr "SHA256"
-
-#: ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-parser.c:329
 msgid "Certificate Request"
 msgstr "Żądanie certyfikatu"
 
-#: ../gcr/gcr-parser.c:2427
+#: ../gcr/gcr-parser.c:2425
 msgid "Unrecognized or unsupported data."
 msgstr "Nierozpoznane lub nieobsługiwane dane."
 
-#: ../gcr/gcr-parser.c:2430
+#: ../gcr/gcr-parser.c:2428
 msgid "Could not parse invalid or corrupted data."
 msgstr "Nie można przetworzyć nieprawidłowych lub uszkodzonych danych."
 
-#: ../gcr/gcr-parser.c:2433
+#: ../gcr/gcr-parser.c:2431
 msgid "The data is locked"
 msgstr "Dane są zablokowane"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:187
-msgid "Automatically chosen"
-msgstr "Wybór automatyczny"
-
-#: ../gcr/gcr-pkcs11-import-dialog.c:271
-#: ../gcr/gcr-pkcs11-import-interaction.c:153
-#: ../gcr/gcr-pkcs11-import-interaction.c:171
-#, c-format
-msgid "The user cancelled the operation"
-msgstr "Użytkownik anulował działanie"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-msgid "In order to import, please enter the password."
-msgstr "Proszę wprowadzić hasło, aby zaimportować."
-
-#. The password label
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:559
-msgid "Password:"
-msgstr "Hasło:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
-msgid "Token:"
-msgstr "Token:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
-msgid "Label"
-msgstr "Etykieta"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5 ../gcr/gcr-unlock-renderer.c:71
-#: ../gcr/gcr-unlock-renderer.c:128
-msgid "Unlock"
-msgstr "Odblokuj"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
-msgid "Label:"
-msgstr "Etykieta:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
-msgid "Import settings"
-msgstr "Ustawienia importowania"
-
-#: ../gcr/gcr-prompt.c:218
+#: ../gcr/gcr-prompt.c:227
 msgid "Continue"
 msgstr "Kontynuuj"
 
-#: ../gcr/gcr-prompt.c:227
+#: ../gcr/gcr-prompt.c:236
 msgid "Cancel"
 msgstr "Anuluj"
-
-#. The confirm label
-#: ../gcr/gcr-prompt-dialog.c:576
-msgid "Confirm:"
-msgstr "Potwierdzenie:"
-
-#: ../gcr/gcr-prompt-dialog.c:643
-msgid "Passwords do not match."
-msgstr "Hasła się nie zgadzają."
-
-#: ../gcr/gcr-prompt-dialog.c:650
-msgid "Password cannot be blank"
-msgstr "Hasło nie może być puste"
-
-#: ../gcr/gcr-prompter.desktop.in.in.h:1
-msgid "Access Prompt"
-msgstr "Zapytanie o hasło"
-
-#: ../gcr/gcr-prompter.desktop.in.in.h:2
-msgid "Unlock access to passwords and other secrets"
-msgstr "Odblokowanie dostępu do haseł"
 
 #: ../gcr/gcr-subject-public-key.c:345
 msgid "Unrecognized or unavailable attributes for key"
@@ -994,7 +371,7 @@ msgstr "Nierozpoznane lub niedostępne atrybuty dla klucza"
 msgid "Couldn't build public key"
 msgstr "Nie można zbudować klucza publicznego"
 
-#: ../gcr/gcr-system-prompt.c:749
+#: ../gcr/gcr-system-prompt.c:883
 msgid "Another prompt is already in progress"
 msgstr "Trwa już inne zapytanie"
 
@@ -1006,37 +383,653 @@ msgstr "Trwa już inne zapytanie"
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "Nie można odnaleźć położenie do przechowywania przypiętego certyfikatu"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:1
+#: ../ui/gcr-certificate-renderer.c:118
+msgid "Basic Constraints"
+msgstr "Podstawowe ograniczenia"
+
+#: ../ui/gcr-certificate-renderer.c:120
+msgid "Certificate Authority"
+msgstr "Ośrodek certyfikacji"
+
+#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:960
+msgid "Yes"
+msgstr "Tak"
+
+#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:960
+msgid "No"
+msgstr "Nie"
+
+#: ../ui/gcr-certificate-renderer.c:124
+msgid "Max Path Length"
+msgstr "Maksymalna długość ścieżki"
+
+#: ../ui/gcr-certificate-renderer.c:125
+msgid "Unlimited"
+msgstr "Bez ograniczenia"
+
+#: ../ui/gcr-certificate-renderer.c:144
+msgid "Extended Key Usage"
+msgstr "Rozszerzone użycie klucza"
+
+#: ../ui/gcr-certificate-renderer.c:155
+msgid "Allowed Purposes"
+msgstr "Dozwolone zastosowania"
+
+#: ../ui/gcr-certificate-renderer.c:175
+msgid "Subject Key Identifier"
+msgstr "Identyfikator klucza tematu"
+
+#: ../ui/gcr-certificate-renderer.c:176
+msgid "Key Identifier"
+msgstr "Identyfikator klucza"
+
+#: ../ui/gcr-certificate-renderer.c:187
+msgid "Digital signature"
+msgstr "Podpis cyfrowy"
+
+#: ../ui/gcr-certificate-renderer.c:188
+msgid "Key encipherment"
+msgstr "Szyfrowanie klucza"
+
+#: ../ui/gcr-certificate-renderer.c:189
+msgid "Data encipherment"
+msgstr "Szyfrowanie danych"
+
+#: ../ui/gcr-certificate-renderer.c:190
+msgid "Key agreement"
+msgstr "Umowa klucza"
+
+#: ../ui/gcr-certificate-renderer.c:191
+msgid "Certificate signature"
+msgstr "Podpis certyfikatu"
+
+#: ../ui/gcr-certificate-renderer.c:192
+msgid "Revocation list signature"
+msgstr "Podpis listy unieważnień"
+
+#: ../ui/gcr-certificate-renderer.c:217
+msgid "Key Usage"
+msgstr "Użycie klucza"
+
+#: ../ui/gcr-certificate-renderer.c:218
+msgid "Usages"
+msgstr "Zastosowania"
+
+#: ../ui/gcr-certificate-renderer.c:238
+msgid "Subject Alternative Names"
+msgstr "Alternatywne nazwy tematu"
+
+#: ../ui/gcr-certificate-renderer.c:265
+msgid "Extension"
+msgstr "Rozszerzenie"
+
+#: ../ui/gcr-certificate-renderer.c:269
+msgid "Identifier"
+msgstr "Identyfikator"
+
+#: ../ui/gcr-certificate-renderer.c:270
+#: ../ui/gcr-certificate-request-renderer.c:271 ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-gnupg-renderer.c:431
+msgid "Value"
+msgstr "Wartość"
+
+#: ../ui/gcr-certificate-renderer.c:295
+msgid "Couldn't export the certificate."
+msgstr "Nie można wyeksportować certyfikatu."
+
+#: ../ui/gcr-certificate-renderer.c:518
+#: ../ui/gcr-certificate-request-renderer.c:312
+msgid "Identity"
+msgstr "Tożsamość"
+
+#: ../ui/gcr-certificate-renderer.c:522
+msgid "Verified by"
+msgstr "Sprawdzone przez"
+
+#: ../ui/gcr-certificate-renderer.c:529 ../ui/gcr-gnupg-renderer.c:719
+msgid "Expires"
+msgstr "Wygasa"
+
+#. The subject
+#: ../ui/gcr-certificate-renderer.c:536
+#: ../ui/gcr-certificate-request-renderer.c:318
+msgid "Subject Name"
+msgstr "Nazwa podmiotu"
+
+#. The Issuer
+#: ../ui/gcr-certificate-renderer.c:541
+msgid "Issuer Name"
+msgstr "Nazwa wydawcy"
+
+#. The Issued Parameters
+#: ../ui/gcr-certificate-renderer.c:546
+msgid "Issued Certificate"
+msgstr "Wydany certyfikat"
+
+#: ../ui/gcr-certificate-renderer.c:551
+#: ../ui/gcr-certificate-request-renderer.c:329
+msgid "Version"
+msgstr "Wersja"
+
+#: ../ui/gcr-certificate-renderer.c:565
+msgid "Not Valid Before"
+msgstr "Nieważny przed"
+
+#: ../ui/gcr-certificate-renderer.c:570
+msgid "Not Valid After"
+msgstr "Nieważny po"
+
+#. Fingerprints
+#: ../ui/gcr-certificate-renderer.c:575
+msgid "Certificate Fingerprints"
+msgstr "Odciski palców certyfikatu"
+
+#. Public Key Info
+#: ../ui/gcr-certificate-renderer.c:581
+#: ../ui/gcr-certificate-request-renderer.c:332
+#: ../ui/gcr-certificate-request-renderer.c:378
+msgid "Public Key Info"
+msgstr "Informacje o kluczu publicznym"
+
+#. Signature
+#: ../ui/gcr-certificate-renderer.c:596 ../ui/gcr-certificate-renderer.c:917
+#: ../ui/gcr-certificate-request-renderer.c:348
+#: ../ui/gcr-certificate-request-renderer.c:385 ../ui/gcr-gnupg-renderer.c:560
+msgid "Signature"
+msgstr "Podpis"
+
+#: ../ui/gcr-certificate-renderer.c:863
+msgid "Key Algorithm"
+msgstr "Algorytm klucza"
+
+#: ../ui/gcr-certificate-renderer.c:868
+msgid "Key Parameters"
+msgstr "Parametry klucza"
+
+#: ../ui/gcr-certificate-renderer.c:876 ../ui/gcr-gnupg-renderer.c:353
+msgid "Key Size"
+msgstr "Rozmiar klucza"
+
+#: ../ui/gcr-certificate-renderer.c:884
+msgid "Key SHA1 Fingerprint"
+msgstr "Odcisk palca klucza SHA1"
+
+#: ../ui/gcr-certificate-renderer.c:906
+msgid "Signature Algorithm"
+msgstr "Algorytm podpisu"
+
+#: ../ui/gcr-certificate-renderer.c:910
+msgid "Signature Parameters"
+msgstr "Parametry podpisu"
+
+#: ../ui/gcr-certificate-renderer.c:959
+msgid "Critical"
+msgstr "Krytyczne"
+
+#. The certificate request type
+#: ../ui/gcr-certificate-request-renderer.c:96
+#: ../ui/gcr-certificate-request-renderer.c:307
+#: ../ui/gcr-certificate-request-renderer.c:322
+#: ../ui/gcr-certificate-request-renderer.c:365
+#: ../ui/gcr-certificate-request-renderer.c:370
+msgid "Certificate request"
+msgstr "Żądanie certyfikatu"
+
+#: ../ui/gcr-certificate-request-renderer.c:260
+msgid "Attribute"
+msgstr "Atrybut"
+
+#: ../ui/gcr-certificate-request-renderer.c:264
+#: ../ui/gcr-certificate-request-renderer.c:323
+#: ../ui/gcr-certificate-request-renderer.c:371 ../ui/gcr-gnupg-renderer.c:591
+#: ../ui/gcr-gnupg-renderer.c:593
+msgid "Type"
+msgstr "Typ"
+
+#: ../ui/gcr-certificate-request-renderer.c:375
+msgid "Challenge"
+msgstr "Wyzwanie"
+
+#: ../ui/gcr-display-view.c:319
+msgid "_Details"
+msgstr "_Szczegóły"
+
+#: ../ui/gcr-failure-renderer.c:161
+#, c-format
+msgid "Could not display '%s'"
+msgstr "Nie można wyświetlić \"%s\""
+
+#: ../ui/gcr-failure-renderer.c:163
+msgid "Could not display file"
+msgstr "Nie można wyświetlić pliku"
+
+#: ../ui/gcr-failure-renderer.c:168
+msgid "Reason"
+msgstr "Przyczyna"
+
+#: ../ui/gcr-failure-renderer.c:218
+#, c-format
+msgid "Cannot display a file of this type."
+msgstr "Nie można wyświetlić pliku tego typu."
+
+#: ../ui/gcr-gnupg-renderer.c:203
+msgid "Elgamal"
+msgstr "Elgamal"
+
+#: ../ui/gcr-gnupg-renderer.c:216
+msgid "Encrypt"
+msgstr "Zaszyfruj"
+
+#: ../ui/gcr-gnupg-renderer.c:218
+msgid "Sign"
+msgstr "Podpisz"
+
+#: ../ui/gcr-gnupg-renderer.c:220
+msgid "Certify"
+msgstr "Certyfikuj"
+
+#: ../ui/gcr-gnupg-renderer.c:222
+msgid "Authenticate"
+msgstr "Uwierzytelnij"
+
+#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
+msgid "Disabled"
+msgstr "Wyłączony"
+
+#: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
+msgid "Unknown"
+msgstr "Nieznany"
+
+#: ../ui/gcr-gnupg-renderer.c:257
+msgid "Invalid"
+msgstr "Nieprawidłowy"
+
+#: ../ui/gcr-gnupg-renderer.c:261
+msgid "Revoked"
+msgstr "Unieważniony"
+
+#: ../ui/gcr-gnupg-renderer.c:263
+msgid "Expired"
+msgstr "Wygasły"
+
+#: ../ui/gcr-gnupg-renderer.c:265
+msgid "Undefined trust"
+msgstr "Nieokreślone zaufanie"
+
+#: ../ui/gcr-gnupg-renderer.c:267
+msgid "Distrusted"
+msgstr "Niezaufany"
+
+#: ../ui/gcr-gnupg-renderer.c:269
+msgid "Marginally trusted"
+msgstr "Częściowo zaufany"
+
+#: ../ui/gcr-gnupg-renderer.c:271
+msgid "Fully trusted"
+msgstr "W pełni zaufany"
+
+#: ../ui/gcr-gnupg-renderer.c:273
+msgid "Ultimately trusted"
+msgstr "Bezwzględnie zaufany"
+
+#: ../ui/gcr-gnupg-renderer.c:287
+msgid "The information in this key has not yet been verified"
+msgstr "Informacje w tym kluczu nie zostały jeszcze sprawdzone"
+
+#: ../ui/gcr-gnupg-renderer.c:290
+msgid "This key is invalid"
+msgstr "Ten klucz jest nieprawidłowy"
+
+#: ../ui/gcr-gnupg-renderer.c:293
+msgid "This key has been disabled"
+msgstr "Ten klucz został wyłączony"
+
+#: ../ui/gcr-gnupg-renderer.c:296
+msgid "This key has been revoked"
+msgstr "Ten klucz został unieważniony"
+
+#: ../ui/gcr-gnupg-renderer.c:299
+msgid "This key has expired"
+msgstr "Ten klucz wygasł"
+
+#: ../ui/gcr-gnupg-renderer.c:304
+msgid "This key is distrusted"
+msgstr "Ten klucz jest niezaufany"
+
+#: ../ui/gcr-gnupg-renderer.c:307
+msgid "This key is marginally trusted"
+msgstr "Ten klucz jest częściowo zaufany"
+
+#: ../ui/gcr-gnupg-renderer.c:310
+msgid "This key is fully trusted"
+msgstr "Ten klucz jest w pełni zaufany"
+
+#: ../ui/gcr-gnupg-renderer.c:313
+msgid "This key is ultimately trusted"
+msgstr "Ten klucz jest bezwzględnie zaufany"
+
+#: ../ui/gcr-gnupg-renderer.c:338 ../ui/gcr-gnupg-renderer.c:564
+msgid "Key ID"
+msgstr "Identyfikator klucza"
+
+#: ../ui/gcr-gnupg-renderer.c:346 ../ui/gcr-gnupg-renderer.c:572
+#: ../ui/gcr-gnupg-renderer.c:619 ../ui/gcr-key-renderer.c:435
+msgid "Algorithm"
+msgstr "Algorytm"
+
+#: ../ui/gcr-gnupg-renderer.c:361 ../ui/gcr-gnupg-renderer.c:438
+#: ../ui/gcr-gnupg-renderer.c:481
+msgid "Created"
+msgstr "Utworzono"
+
+#: ../ui/gcr-gnupg-renderer.c:370 ../ui/gcr-gnupg-renderer.c:447
+#: ../ui/gcr-gnupg-renderer.c:490
+msgid "Expiry"
+msgstr "Wygasa"
+
+#: ../ui/gcr-gnupg-renderer.c:379
+msgid "Capabilities"
+msgstr "Możliwości"
+
+#: ../ui/gcr-gnupg-renderer.c:392
+msgid "Owner trust"
+msgstr "Zaufanie właściciela"
+
+#: ../ui/gcr-gnupg-renderer.c:420
+msgid "Name"
+msgstr "Nazwa"
+
+#: ../ui/gcr-gnupg-renderer.c:426 ../ui/gcr-gnupg-renderer.c:708
+msgid "Comment"
+msgstr "Komentarz"
+
+#: ../ui/gcr-gnupg-renderer.c:466
+msgid "User Attribute"
+msgstr "Atrybut użytkownika"
+
+#: ../ui/gcr-gnupg-renderer.c:473 ../ui/gcr-key-renderer.c:442
+msgid "Size"
+msgstr "Rozmiar"
+
+#: ../ui/gcr-gnupg-renderer.c:508
+msgid "Signature of a binary document"
+msgstr "Podpis dokumentu binarnego"
+
+#: ../ui/gcr-gnupg-renderer.c:510
+msgid "Signature of a canonical text document"
+msgstr "Podpis wzorcowego dokumentu tekstowego"
+
+#: ../ui/gcr-gnupg-renderer.c:512
+msgid "Standalone signature"
+msgstr "Oddzielny podpis"
+
+#: ../ui/gcr-gnupg-renderer.c:514
+msgid "Generic certification of key"
+msgstr "Ogólna certyfikacja klucza"
+
+#: ../ui/gcr-gnupg-renderer.c:516
+msgid "Persona certification of key"
+msgstr "Osobista certyfikacja klucza"
+
+#: ../ui/gcr-gnupg-renderer.c:518
+msgid "Casual certification of key"
+msgstr "Zwykła certyfikacja klucza"
+
+#: ../ui/gcr-gnupg-renderer.c:520
+msgid "Positive certification of key"
+msgstr "Pozytywna certyfikacja klucza"
+
+#: ../ui/gcr-gnupg-renderer.c:522
+msgid "Subkey binding signature"
+msgstr "Podpis dowiązania podklucza"
+
+#: ../ui/gcr-gnupg-renderer.c:524
+msgid "Primary key binding signature"
+msgstr "Podpis dowiązania głównego klucza"
+
+#: ../ui/gcr-gnupg-renderer.c:526
+msgid "Signature directly on key"
+msgstr "Podpis bezpośrednio na kluczu"
+
+#: ../ui/gcr-gnupg-renderer.c:528
+msgid "Key revocation signature"
+msgstr "Podpis unieważnienia klucza"
+
+#: ../ui/gcr-gnupg-renderer.c:530
+msgid "Subkey revocation signature"
+msgstr "Podpis unieważnienia podklucza"
+
+#: ../ui/gcr-gnupg-renderer.c:532
+msgid "Certification revocation signature"
+msgstr "Podpis unieważnienia certyfikatu"
+
+#: ../ui/gcr-gnupg-renderer.c:534
+msgid "Timestamp signature"
+msgstr "Podpis daty"
+
+#: ../ui/gcr-gnupg-renderer.c:536
+msgid "Third-party confirmation signature"
+msgstr "Podpis potwierdzenia firmy trzeciej"
+
+#: ../ui/gcr-gnupg-renderer.c:589 ../ui/gcr-gnupg-renderer.c:597
+msgid "Class"
+msgstr "Klasa"
+
+#: ../ui/gcr-gnupg-renderer.c:591
+msgid "Local only"
+msgstr "Tylko lokalne"
+
+#: ../ui/gcr-gnupg-renderer.c:593
+msgid "Exportable"
+msgstr "Można eksportować"
+
+#: ../ui/gcr-gnupg-renderer.c:611
+msgid "Revocation Key"
+msgstr "Klucz unieważnienia"
+
+#: ../ui/gcr-gnupg-renderer.c:625 ../ui/gcr-gnupg-renderer.c:649
+#: ../ui/gcr-gnupg-renderer.c:651
+msgid "Fingerprint"
+msgstr "Odcisk palca"
+
+#: ../ui/gcr-gnupg-renderer.c:740
+msgid "Public Subkey"
+msgstr "Podklucz publiczny"
+
+#: ../ui/gcr-gnupg-renderer.c:742
+msgid "Secret Key"
+msgstr "Tajny klucz"
+
+#: ../ui/gcr-gnupg-renderer.c:744
+msgid "Secret Subkey"
+msgstr "Tajny podklucz"
+
+#: ../ui/gcr-import-button.c:112
+msgid "Initializing..."
+msgstr "Inicjowanie..."
+
+#: ../ui/gcr-import-button.c:120
+msgid "Import is in progress..."
+msgstr "Trwa importowanie..."
+
+#: ../ui/gcr-import-button.c:127
+#, c-format
+msgid "Imported to: %s"
+msgstr "Zaimportowano do: %s"
+
+#: ../ui/gcr-import-button.c:147
+#, c-format
+msgid "Import to: %s"
+msgstr "Importowanie do: %s"
+
+#: ../ui/gcr-import-button.c:160
+msgid "Cannot import because there are no compatible importers"
+msgstr "Nie można zaimportować, ponieważ brak zgodnych programów importujących"
+
+#: ../ui/gcr-import-button.c:169
+msgid "No data to import"
+msgstr "Brak danych do zaimportowania"
+
+#: ../ui/gcr-key-renderer.c:90
+msgid "Key"
+msgstr "Klucz"
+
+#: ../ui/gcr-key-renderer.c:404
+msgid "Private RSA Key"
+msgstr "Klucz prywatny RSA"
+
+#: ../ui/gcr-key-renderer.c:406
+msgid "Private DSA Key"
+msgstr "Klucz prywatny DSA"
+
+#: ../ui/gcr-key-renderer.c:411 ../ui/gcr-key-renderer.c:413
+msgid "Public DSA Key"
+msgstr "Klucz publiczny DSA"
+
+#: ../ui/gcr-key-renderer.c:422
+#, c-format
+msgid "%d bit"
+msgid_plural "%d bits"
+msgstr[0] "%d bit"
+msgstr[1] "%d bity"
+msgstr[2] "%d bitów"
+
+#: ../ui/gcr-key-renderer.c:423
+msgid "Strength"
+msgstr "Siła"
+
+#. Fingerprints
+#: ../ui/gcr-key-renderer.c:446
+msgid "Fingerprints"
+msgstr "Odciski palców"
+
+#: ../ui/gcr-key-renderer.c:450
+msgid "SHA1"
+msgstr "SHA1"
+
+#: ../ui/gcr-key-renderer.c:455
+msgid "SHA256"
+msgstr "SHA256"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:188
+msgid "Automatically chosen"
+msgstr "Wybór automatyczny"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:272
+#: ../ui/gcr-pkcs11-import-interaction.c:154
+#: ../ui/gcr-pkcs11-import-interaction.c:172
+#, c-format
+msgid "The user cancelled the operation"
+msgstr "Użytkownik anulował działanie"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:1
+msgid "In order to import, please enter the password."
+msgstr "Proszę wprowadzić hasło, aby zaimportować."
+
+#. The password label
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:564
+msgid "Password:"
+msgstr "Hasło:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:3
+msgid "Token:"
+msgstr "Token:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:72
+#: ../ui/gcr-unlock-renderer.c:127
+msgid "Unlock"
+msgstr "Odblokuj"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:5
+msgid "Label:"
+msgstr "Etykieta:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Import settings"
+msgstr "Ustawienia importowania"
+
+#. The confirm label
+#: ../ui/gcr-prompt-dialog.c:581
+msgid "Confirm:"
+msgstr "Potwierdzenie:"
+
+#: ../ui/gcr-prompt-dialog.c:649
+msgid "Passwords do not match."
+msgstr "Hasła się nie zgadzają."
+
+#: ../ui/gcr-prompt-dialog.c:656
+msgid "Password cannot be blank"
+msgstr "Hasło nie może być puste"
+
+#: ../ui/gcr-prompter.desktop.in.in.h:1
+msgid "Access Prompt"
+msgstr "Zapytanie o hasło"
+
+#: ../ui/gcr-prompter.desktop.in.in.h:2
+msgid "Unlock access to passwords and other secrets"
+msgstr "Odblokowanie dostępu do haseł"
+
+#: ../ui/gcr-certificate-exporter.c:226
+msgid "A file already exists with this name."
+msgstr "Plik o tej nazwie już istnieje."
+
+#: ../ui/gcr-certificate-exporter.c:227
+msgid "Do you want to replace it with a new file?"
+msgstr "Zastąpić go nowym plikiem?"
+
+#: ../ui/gcr-certificate-exporter.c:233
+msgid "_Replace"
+msgstr "_Zastąp"
+
+#: ../ui/gcr-certificate-exporter.c:264
+#, c-format
+msgid "The operation was cancelled."
+msgstr "Działanie zostało anulowane."
+
+#: ../ui/gcr-certificate-exporter.c:308
+msgid "Export certificate"
+msgstr "Eksport certyfikatu"
+
+#: ../ui/gcr-certificate-exporter.c:320
+msgid "Certificate files"
+msgstr "Pliki certyfikatu"
+
+#: ../ui/gcr-certificate-exporter.c:331
+msgid "PEM files"
+msgstr "Pliki PEM"
+
+#: ../ui/gcr-unlock-options-widget.ui.h:1
 msgid "Automatically unlock this keyring whenever I'm logged in"
 msgstr "Automatyczne odblokowanie tej bazy kluczy po zalogowaniu"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:2
+#: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
 msgstr "Zablokowanie tej bazy kluczy po wylogowaniu"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:3
+#: ../ui/gcr-unlock-options-widget.ui.h:3
 msgid "Lock this keyring after"
 msgstr "Zablokowanie tej bazy kluczy po"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:4
+#: ../ui/gcr-unlock-options-widget.ui.h:4
 msgid "Lock this keyring if idle for"
 msgstr "Zablokowanie tej bazy kluczy w razie bezczynności przez"
 
 #. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
-#: ../gcr/gcr-unlock-options-widget.ui.h:6
+#: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minut"
 
-#: ../gcr/gcr-unlock-renderer.c:69
+#: ../ui/gcr-unlock-renderer.c:70
 #, c-format
 msgid "Unlock: %s"
 msgstr "Odblokowanie: %s"
 
-#: ../gcr/gcr-unlock-renderer.c:125
+#: ../ui/gcr-unlock-renderer.c:125
 msgid "Password"
 msgstr "Hasło"
 
-#: ../gcr/gcr-unlock-renderer.c:278
+#: ../ui/gcr-unlock-renderer.c:277
 #, c-format
 msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
@@ -1045,45 +1038,45 @@ msgstr ""
 "Treść pliku \"%s\" jest zablokowana. Aby ją wyświetlić, należy wprowadzić "
 "poprawne hasło."
 
-#: ../gcr/gcr-unlock-renderer.c:281
+#: ../ui/gcr-unlock-renderer.c:280
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr ""
 "Treść jest zablokowana. Aby ją wyświetlić, należy wprowadzić poprawne hasło."
 
-#: ../gcr/gcr-viewer-tool.c:41
+#: ../ui/gcr-viewer-tool.c:41
 msgid "GCR Certificate and Key Viewer"
-msgstr "Przeglądarka certyfikatów i kluczy"
+msgstr "Przeglądarka certyfikatów i kluczy GCR"
 
-#: ../gcr/gcr-viewer-tool.c:48
+#: ../ui/gcr-viewer-tool.c:48
 msgid "Show the application's version"
 msgstr "Wyświetla wersję programu"
 
-#: ../gcr/gcr-viewer-tool.c:50
+#: ../ui/gcr-viewer-tool.c:50
 msgid "[file...]"
 msgstr "[plik...]"
 
-#: ../gcr/gcr-viewer-tool.c:103
+#: ../ui/gcr-viewer-tool.c:105
 msgid "- View certificate and key files"
 msgstr "- wyświetla pliki certyfikatów i kluczy"
 
-#: ../gcr/gcr-viewer-tool.c:117 ../gcr/gcr-viewer-widget.c:635
+#: ../ui/gcr-viewer-tool.c:119 ../ui/gcr-viewer-widget.c:638
 msgid "Certificate Viewer"
 msgstr "Przeglądarka certyfikatów"
 
-#: ../gcr/gcr-viewer-widget.c:203
+#: ../ui/gcr-viewer-widget.c:204
 msgid "The password was incorrect"
 msgstr "Hasło jest niepoprawne"
 
-#: ../gcr/gcr-viewer-window.c:76
+#: ../ui/gcr-viewer-window.c:76
 msgid "Imported"
 msgstr "Zaimportowano"
 
-#: ../gcr/gcr-viewer-window.c:80
+#: ../ui/gcr-viewer-window.c:80
 msgid "Import failed"
 msgstr "Zaimportowanie się nie powiodło"
 
-#: ../gcr/gcr-viewer-window.c:108
+#: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Zaimportuj"

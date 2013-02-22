@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-01-11 20:27+0000\n"
-"PO-Revision-Date: 2011-04-26 09:25+0600\n"
-"Last-Translator: Sahran <sahran.ug@gmail.com>\n"
+"POT-Creation-Date: 2013-02-12 05:56+0000\n"
+"PO-Revision-Date: 2013-02-22 21:50+0900\n"
+"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -231,7 +231,7 @@ msgid "Expires"
 msgstr "ۋاقتى ئۆتتى"
 
 #: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-parser.c:322
-#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:464
+#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:469
 msgid "Certificate"
 msgstr "گۇۋاھنامە"
 
@@ -283,7 +283,7 @@ msgstr "خەتلەتكەن كىملىكى"
 #: ../gcr/gcr-certificate-request.c:418
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr ""
+msgstr "گۇۋاھنامە ئىلتىماسىنىڭ ئاچقۇچ تىپىنى قوللىمايدۇ"
 
 #: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
 #, c-format
@@ -367,7 +367,7 @@ msgstr "ئاممىۋى ئاچقۇچ ھاسىللىغىلى بولمىدى"
 
 #: ../gcr/gcr-system-prompt.c:883
 msgid "Another prompt is already in progress"
-msgstr ""
+msgstr "باشقا بىر كۆرسەتمە كۆرسىتىلىۋاتىدۇ"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
@@ -649,7 +649,7 @@ msgstr "ۋاقتى ئوتكەن"
 
 #: ../ui/gcr-gnupg-renderer.c:265
 msgid "Undefined trust"
-msgstr ""
+msgstr "ئېنىق بولمىغان ئىشەنچ"
 
 #: ../ui/gcr-gnupg-renderer.c:267
 msgid "Distrusted"
@@ -728,7 +728,7 @@ msgstr "ئىقتىدارى"
 
 #: ../ui/gcr-gnupg-renderer.c:392
 msgid "Owner trust"
-msgstr ""
+msgstr "ئىگىسىنىڭ ئىشەنچى"
 
 #: ../ui/gcr-gnupg-renderer.c:420
 msgid "Name"
@@ -752,7 +752,7 @@ msgstr "ئىككىلىك پۈتۈكنىڭ ئىمزاسى"
 
 #: ../ui/gcr-gnupg-renderer.c:510
 msgid "Signature of a canonical text document"
-msgstr ""
+msgstr "كانونىكال(canonical) تېكىست پۈتۈكىنىڭ ئىمزاسى"
 
 #: ../ui/gcr-gnupg-renderer.c:512
 msgid "Standalone signature"
@@ -760,19 +760,19 @@ msgstr "تەنھا ئىمزا"
 
 #: ../ui/gcr-gnupg-renderer.c:514
 msgid "Generic certification of key"
-msgstr ""
+msgstr "ئاچقۇچنىڭ ئادەتتىكى گۇۋاھنامىسى"
 
 #: ../ui/gcr-gnupg-renderer.c:516
 msgid "Persona certification of key"
-msgstr ""
+msgstr "ئاچقۇچنىڭ Persona گۇۋاھنامىسى"
 
 #: ../ui/gcr-gnupg-renderer.c:518
 msgid "Casual certification of key"
-msgstr ""
+msgstr "ئاچقۇچنىڭ ۋاقىتلىق گۇۋاھنامىسى"
 
 #: ../ui/gcr-gnupg-renderer.c:520
 msgid "Positive certification of key"
-msgstr ""
+msgstr "ئاچقۇچنىڭ ئىشەنچلىك گۇۋاھنامىسى"
 
 #: ../ui/gcr-gnupg-renderer.c:522
 msgid "Subkey binding signature"
@@ -820,7 +820,7 @@ msgstr "چىقارغىلى بولىدۇ"
 
 #: ../ui/gcr-gnupg-renderer.c:611
 msgid "Revocation Key"
-msgstr ""
+msgstr "بىكار قىلىش ئاچقۇچى"
 
 #: ../ui/gcr-gnupg-renderer.c:625 ../ui/gcr-gnupg-renderer.c:649
 #: ../ui/gcr-gnupg-renderer.c:651
@@ -963,32 +963,35 @@ msgid "Unlock access to passwords and other secrets"
 msgstr "ئىم ۋە باشقا مەخپىيەتلىكلەرنى زىيارەت قىلىش ئۈچۈن قۇلۇپسىزلا"
 
 #: ../ui/gcr-certificate-exporter.c:226
-msgid ""
-"<b>A file already exists with this name.</b>\n"
-"\n"
-"Do you want to replace it with a new file?"
-msgstr "<b>ئوخشاش ئاتتىكى ھۆججەت مەۋجۇت.</b>\n"
-"\n"
-"ئۇنى يېڭى ھۆججەتتە قاپلىۋېتەمسىز؟"
+msgid "A file already exists with this name."
+msgstr "بۇنداق ئاتتىكى ھۆججەت مەۋجۇت."
 
-#: ../ui/gcr-certificate-exporter.c:229
+#: ../ui/gcr-certificate-exporter.c:227
+#| msgid ""
+#| "<b>A file already exists with this name.</b>\n"
+#| "\n"
+#| "Do you want to replace it with a new file?"
+msgid "Do you want to replace it with a new file?"
+msgstr "ئۇنى يېڭى ھۆججەت بىلەن ئالماشتۇرسۇنمۇ؟"
+
+#: ../ui/gcr-certificate-exporter.c:233
 msgid "_Replace"
 msgstr "ئالماشتۇر(_R)"
 
-#: ../ui/gcr-certificate-exporter.c:259
+#: ../ui/gcr-certificate-exporter.c:264
 #, c-format
 msgid "The operation was cancelled."
 msgstr "مەشغۇلاتتىن ۋاز كەچتى."
 
-#: ../ui/gcr-certificate-exporter.c:303
+#: ../ui/gcr-certificate-exporter.c:308
 msgid "Export certificate"
 msgstr "ئىسپاتنامىنى ئېكسپورت قىلىش"
 
-#: ../ui/gcr-certificate-exporter.c:315
+#: ../ui/gcr-certificate-exporter.c:320
 msgid "Certificate files"
 msgstr "ئىسپاتنامە ھۆججەتلىرى"
 
-#: ../ui/gcr-certificate-exporter.c:326
+#: ../ui/gcr-certificate-exporter.c:331
 msgid "PEM files"
 msgstr "PEM ھۆججەتلىرى"
 

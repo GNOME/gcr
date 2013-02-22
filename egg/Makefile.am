@@ -26,6 +26,10 @@ libegg_la_CFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(LIBGCRYPT_CFLAGS)
 
+libegg_la_LIBADD = \
+	$(GLIB_LIBS) \
+	$(LIBGCRYPT_LIBS)
+
 libegg_la_SOURCES = \
 	egg-armor.c egg-armor.h \
 	egg-asn1x.c egg-asn1x.h \
@@ -69,7 +73,7 @@ libegg_hex_la_SOURCES = \
 libegg_hex_la_CFLAGS = \
 	$(GLIB_CFLAGS)
 
-libegg_hex_la_LIBS = \
+libegg_hex_la_LIBADD = \
 	$(GLIB_LIBS)
 
 libegg_secmem_la_SOURCES = \
@@ -81,7 +85,7 @@ libegg_test_la_SOURCES = \
 libegg_test_la_CFLAGS = \
 	$(GLIB_CFLAGS)
 
-libegg_test_la_LIBS = \
+libegg_test_la_LIBADD = \
 	$(GLIB_LIBS)
 
 # -------------------------------------------------------------------

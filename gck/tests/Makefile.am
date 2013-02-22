@@ -11,7 +11,6 @@ INCLUDES = \
 	$(GLIB_CFLAGS)
 
 LDADD =  \
-	libmock-test-module.la \
 	$(top_builddir)/gck/libgck-testable.la \
 	$(top_builddir)/egg/libegg-test.la \
 	$(top_builddir)/egg/libegg-hex.la \
@@ -48,12 +47,12 @@ check-local: test
 
 check-memory: perform-memcheck
 
-all-local: $(check_PROGRAMS)
+all-local: $(check_PROGRAMS) $(check_LTLIBRARIES)
 
-lib_LTLIBRARIES = libmock-test-module.la
+check_LTLIBRARIES = libmock-test-module.la
 
 libmock_test_module_la_LDFLAGS = \
-	-avoid-version
+	-module -avoid-version -shared -rpath $(abs_builddir)
 
 libmock_test_module_la_CFLAGS = \
 	-I$(top_srcdir)/gck \

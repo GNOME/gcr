@@ -3,17 +3,17 @@
 # Copyright (C) 2004 THE eu'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the eu package.
 # Alberto Fernández <afernn@euskalnet.net>, 2004.
-# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2004, 2006, 2008, 2009, 2010, 2011.
-# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007.
 # Julen Ruiz Aizpuru <julenx@gmail.com>, 2011.
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2004, 2006, 2008, 2009, 2010, 2011.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: eu_to_be_translate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-06 11:51+0200\n"
-"PO-Revision-Date: 2011-09-24 10:48+0200\n"
-"Last-Translator: \n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"POT-Creation-Date: 2013-03-04 22:59+0100\n"
+"PO-Revision-Date: 2013-03-03 18:36+0100\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
+"Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,8 +26,8 @@ msgstr ""
 msgid "Domain Component"
 msgstr "Domeinuaren osagaia"
 
-#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:411
-#: ../gcr/gcr-gnupg-renderer.c:580
+#: ../egg/egg-oid.c:43 ../ui/gcr-gnupg-renderer.c:410
+#: ../ui/gcr-gnupg-renderer.c:579
 msgid "User ID"
 msgstr "Erabiltzailearen IDa"
 
@@ -63,7 +63,7 @@ msgstr "Izen arrunta"
 msgid "Surname"
 msgstr "Abizena"
 
-#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:652
+#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:556
 msgid "Serial Number"
 msgstr "Serie-zenbakia"
 
@@ -119,8 +119,8 @@ msgstr "DN identifikatzailea"
 msgid "Pseudonym"
 msgstr "Goitizena"
 
-#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:202
-#: ../gcr/gcr-key-renderer.c:308
+#: ../egg/egg-oid.c:98 ../ui/gcr-gnupg-renderer.c:201
+#: ../ui/gcr-key-renderer.c:430
 msgid "RSA"
 msgstr "RSA"
 
@@ -136,8 +136,8 @@ msgstr "MD5 RSA-rekin"
 msgid "SHA1 with RSA"
 msgstr "SHA1 RSA-rekin"
 
-#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:206
-#: ../gcr/gcr-key-renderer.c:310
+#: ../egg/egg-oid.c:103 ../ui/gcr-gnupg-renderer.c:205
+#: ../ui/gcr-key-renderer.c:432
 msgid "DSA"
 msgstr "DSA"
 
@@ -166,22 +166,22 @@ msgstr "Posta elektronikoaren babesa"
 msgid "Time Stamping"
 msgstr "Denbora markatzea"
 
-#: ../gck/gck-module.c:353
+#: ../gck/gck-module.c:352
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "Errorea PKCS#11 modulua kargatzean: %s"
 
-#: ../gck/gck-module.c:360
+#: ../gck/gck-module.c:359
 #, c-format
 msgid "Invalid PKCS#11 module: %s"
 msgstr "PKCS#11 modulu baliogabea: %s"
 
-#: ../gck/gck-module.c:369
+#: ../gck/gck-module.c:368
 #, c-format
 msgid "Couldn't setup PKCS#11 module: %s"
 msgstr "Ezin izan da PKCS#11 modulua konfiguratu: %s"
 
-#: ../gck/gck-module.c:385
+#: ../gck/gck-module.c:384
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
 msgstr "Ezin izan da PKCS#11 modulua hasieratu: %s"
@@ -191,779 +191,840 @@ msgstr "Ezin izan da PKCS#11 modulua hasieratu: %s"
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgstr "Ezin izan dira erregistratutako PKCS#11 moduluak hasieratu: %s"
 
+#: ../gck/gck-uri.c:224
+#, c-format
+msgid "The URI has invalid encoding."
+msgstr "URIak kodeketa baliogabea du."
+
+#: ../gck/gck-uri.c:228
+msgid "The URI does not have the 'pkcs11' scheme."
+msgstr "URIak ez dauka 'pkcs11' eskema."
+
+#: ../gck/gck-uri.c:232
+msgid "The URI has bad syntax."
+msgstr "URIaren sintaxia okerra da."
+
+#: ../gck/gck-uri.c:236
+msgid "The URI has a bad version number."
+msgstr "URIak bertsio-zenbaki okerra dauka."
+
 #: ../gcr/gcr-callback-output-stream.c:64
 #: ../gcr/gcr-callback-output-stream.c:81
-#, fuzzy, c-format
+#, c-format
 msgid "The stream was closed"
-msgstr "Saioa itxi da"
+msgstr "Korrontea itxi da"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:378 ../gcr/gcr-gnupg-key.c:521
+#: ../gcr/gcr-certificate.c:306 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "Izena"
 
-#: ../gcr/gcr-certificate.c:380
+#: ../gcr/gcr-certificate.c:308
 msgctxt "column"
 msgid "Issued By"
 msgstr "Jaulkitzailea"
 
 #. later
-#: ../gcr/gcr-certificate.c:382
+#: ../gcr/gcr-certificate.c:310
 msgctxt "column"
 msgid "Expires"
 msgstr "Iraungitze-data"
 
-#: ../gcr/gcr-certificate.c:1067 ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:101 ../gcr/gcr-parser.c:316
+#: ../gcr/gcr-certificate.c:1131 ../gcr/gcr-parser.c:320
+#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:469
 msgid "Certificate"
 msgstr "Ziurtagiria"
 
-#: ../gcr/gcr-certificate-exporter.c:225
-msgid ""
-"<b>A file already exists with this name.</b>\n"
-"\n"
-"Do you want to replace it with a new file?"
-msgstr ""
-"<b>Badago lehendik izen hori duen fitxategi bat.</b>\n"
-"\n"
-"Fitxategi berriarekin ordeztu nahi duzu?"
-
-#: ../gcr/gcr-certificate-exporter.c:228
-msgid "_Replace"
-msgstr "_Ordeztu"
-
-#: ../gcr/gcr-certificate-exporter.c:258
-#, c-format
-msgid "The operation was cancelled."
-msgstr "Eragiketa bertan behera utzi da."
-
-#: ../gcr/gcr-certificate-exporter.c:302
-msgid "Export certificate"
-msgstr "Esportatu ziurtagiria"
-
-#: ../gcr/gcr-certificate-exporter.c:314
-msgid "Certificate files"
-msgstr "Ziurtagiri-fitxategiak"
-
-#: ../gcr/gcr-certificate-exporter.c:325
-msgid "PEM files"
-msgstr "PEM fitxategiak"
-
-#: ../gcr/gcr-certificate-extensions.c:141
+#: ../gcr/gcr-certificate-extensions.c:178
 msgid "Other Name"
 msgstr "Bestelako izena"
 
-#: ../gcr/gcr-certificate-extensions.c:150
+#: ../gcr/gcr-certificate-extensions.c:188
 msgid "XMPP Addr"
 msgstr "XMPP helb"
 
-#: ../gcr/gcr-certificate-extensions.c:154
+#: ../gcr/gcr-certificate-extensions.c:192
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: ../gcr/gcr-certificate-extensions.c:166 ../gcr/gcr-gnupg-renderer.c:424
-#: ../gcr/gcr-gnupg-renderer.c:706
+#: ../gcr/gcr-certificate-extensions.c:204 ../ui/gcr-gnupg-renderer.c:423
+#: ../ui/gcr-gnupg-renderer.c:705
 msgid "Email"
 msgstr "Posta elektronikoa"
 
-#: ../gcr/gcr-certificate-extensions.c:174
+#: ../gcr/gcr-certificate-extensions.c:212
 msgid "DNS"
 msgstr "DNS"
 
-#: ../gcr/gcr-certificate-extensions.c:182
+#: ../gcr/gcr-certificate-extensions.c:220
 msgid "X400 Address"
 msgstr "X400 helbidea"
 
-#: ../gcr/gcr-certificate-extensions.c:189
+#: ../gcr/gcr-certificate-extensions.c:227
 msgid "Directory Name"
 msgstr "Direktorio-izena"
 
-#: ../gcr/gcr-certificate-extensions.c:197
+#: ../gcr/gcr-certificate-extensions.c:235
 msgid "EDI Party Name"
 msgstr "EDI taldearen izena"
 
-#: ../gcr/gcr-certificate-extensions.c:204
+#: ../gcr/gcr-certificate-extensions.c:242
 msgid "URI"
 msgstr "URIa"
 
-#: ../gcr/gcr-certificate-extensions.c:212
+#: ../gcr/gcr-certificate-extensions.c:250
 msgid "IP Address"
 msgstr "IP helbidea"
 
-#: ../gcr/gcr-certificate-extensions.c:220
+#: ../gcr/gcr-certificate-extensions.c:258
 msgid "Registered ID"
 msgstr "Erregistratutako IDa"
 
-#: ../gcr/gcr-certificate-renderer.c:116
-msgid "Basic Constraints"
-msgstr "Oinarrizko murriztapenak"
-
-#: ../gcr/gcr-certificate-renderer.c:118
-msgid "Certificate Authority"
-msgstr "Ziurtagiri-emailea"
-
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
-msgid "Yes"
-msgstr "Bai"
-
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
-msgid "No"
-msgstr "Ez"
-
-#: ../gcr/gcr-certificate-renderer.c:122
-msgid "Max Path Length"
-msgstr "Bide-izenaren gehienezko luzera"
-
-#: ../gcr/gcr-certificate-renderer.c:123
-msgid "Unlimited"
-msgstr "Mugagabea"
-
-#: ../gcr/gcr-certificate-renderer.c:142
-msgid "Extended Key Usage"
-msgstr "Tekla gehigarriaren erabilera"
-
-#: ../gcr/gcr-certificate-renderer.c:153
-msgid "Allowed Purposes"
-msgstr "Onartutako xedeak"
-
-#: ../gcr/gcr-certificate-renderer.c:173
-msgid "Subject Key Identifier"
-msgstr "Gai gakoaren identifikatzailea"
-
-#: ../gcr/gcr-certificate-renderer.c:174
-msgid "Key Identifier"
-msgstr "Gako identifikatzailea"
-
-#: ../gcr/gcr-certificate-renderer.c:185
-msgid "Digital signature"
-msgstr "Sinadura digitala"
-
-#: ../gcr/gcr-certificate-renderer.c:186
-msgid "Key encipherment"
-msgstr "Gako-zifraketa"
-
-#: ../gcr/gcr-certificate-renderer.c:187
-msgid "Data encipherment"
-msgstr "Datu-zifraketa"
-
-#: ../gcr/gcr-certificate-renderer.c:188
-msgid "Key agreement"
-msgstr "Gako-hitzarmena"
-
-#: ../gcr/gcr-certificate-renderer.c:189
-msgid "Certificate signature"
-msgstr "Ziurtagiriaren sinadura"
-
-#: ../gcr/gcr-certificate-renderer.c:190
-msgid "Revocation list signature"
-msgstr "Errebokatze-zerrendaren sinadura"
-
-#: ../gcr/gcr-certificate-renderer.c:215
-msgid "Key Usage"
-msgstr "Gakoaren erabilera"
-
-#: ../gcr/gcr-certificate-renderer.c:216
-msgid "Usages"
-msgstr "Erabilerak"
-
-#: ../gcr/gcr-certificate-renderer.c:236
-msgid "Subject Alternative Names"
-msgstr "Gaiaren bestelako izenak"
-
-#: ../gcr/gcr-certificate-renderer.c:261
-msgid "Extension"
-msgstr "Luzapena"
-
-#: ../gcr/gcr-certificate-renderer.c:265
-msgid "Identifier"
-msgstr "Identifikatzailea"
-
-#: ../gcr/gcr-certificate-renderer.c:266 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-gnupg-renderer.c:432
-msgid "Value"
-msgstr "Balioa"
-
-#: ../gcr/gcr-certificate-renderer.c:313
-msgid "Critical"
-msgstr "Larria"
-
-#: ../gcr/gcr-certificate-renderer.c:386
-msgid "Couldn't export the certificate."
-msgstr "Ezin izan da ziurtagiria esportatu."
-
-#: ../gcr/gcr-certificate-renderer.c:613
-msgid "Identity"
-msgstr "Identitatea"
-
-#: ../gcr/gcr-certificate-renderer.c:617
-msgid "Verified by"
-msgstr "Honek egiaztatuta"
-
-#: ../gcr/gcr-certificate-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:720
-msgid "Expires"
-msgstr "Iraungitze-data"
-
-#. The subject
-#: ../gcr/gcr-certificate-renderer.c:634
-msgid "Subject Name"
-msgstr "Gaiaren izena"
-
-#. The Issuer
-#: ../gcr/gcr-certificate-renderer.c:638
-msgid "Issuer Name"
-msgstr "Jaulkitzailearen izena"
-
-#. The Issued Parameters
-#: ../gcr/gcr-certificate-renderer.c:642
-msgid "Issued Certificate"
-msgstr "Jaulkitako ziurtagiria"
-
-#: ../gcr/gcr-certificate-renderer.c:647
-msgid "Version"
-msgstr "Bertsioa"
-
-#: ../gcr/gcr-certificate-renderer.c:658
-msgid "Not Valid Before"
-msgstr "Ez da baliozkoa honen aurretik"
-
-#: ../gcr/gcr-certificate-renderer.c:663
-msgid "Not Valid After"
-msgstr "Ez da baliozkoa honen ondoren"
-
-#. Fingerprints
-#: ../gcr/gcr-certificate-renderer.c:668
-msgid "Certificate Fingerprints"
-msgstr "Ziurtagiriaren hatz-markak"
-
-#. Signature
-#: ../gcr/gcr-certificate-renderer.c:674 ../gcr/gcr-certificate-renderer.c:686
-#: ../gcr/gcr-gnupg-renderer.c:561
-msgid "Signature"
-msgstr "Sinadura"
-
-#: ../gcr/gcr-certificate-renderer.c:678
-msgid "Signature Algorithm"
-msgstr "Sinaduraren algoritmoa"
-
-#: ../gcr/gcr-certificate-renderer.c:682
-msgid "Signature Parameters"
-msgstr "Sinaduraren parametroak"
-
-#. Public Key Info
-#: ../gcr/gcr-certificate-renderer.c:690
-msgid "Public Key Info"
-msgstr "Gako publikoaren informazioa"
-
-#: ../gcr/gcr-certificate-renderer.c:695
-msgid "Key Algorithm"
-msgstr "Gakoaren algoritmoa"
-
-#: ../gcr/gcr-certificate-renderer.c:700
-msgid "Key Parameters"
-msgstr "Gakoaren parametroak"
-
-#: ../gcr/gcr-certificate-renderer.c:705 ../gcr/gcr-gnupg-renderer.c:354
-msgid "Key Size"
-msgstr "Gakoaren tamaina"
-
-#: ../gcr/gcr-certificate-renderer.c:712
-msgid "Key SHA1 Fingerprint"
-msgstr "Gakoaren SHA1 hatz-marka"
-
-#: ../gcr/gcr-certificate-renderer.c:718 ../gcr/gcr-gnupg-renderer.c:739
-#: ../gcr/gcr-key-renderer.c:292 ../gcr/gcr-parser.c:319
-msgid "Public Key"
-msgstr "Gako publikoa"
-
-#: ../gcr/gcr-display-view.c:319
-msgid "_Details"
-msgstr "_Xehetasunak"
-
-#: ../gcr/gcr-failure-renderer.c:161
+#: ../gcr/gcr-certificate-request.c:416
 #, c-format
-msgid "Could not display '%s'"
-msgstr "Ezin izan da '%s' bistaratu"
+msgid "Unsupported key type for certificate request"
+msgstr "Onartu gabeko gako mota ziurtagiriaren eskaeran"
 
-#: ../gcr/gcr-failure-renderer.c:163
-msgid "Could not display file"
-msgstr "Ezin izan da fitxategia bistaratu"
-
-#: ../gcr/gcr-failure-renderer.c:168
-msgid "Reason"
-msgstr "Arrazoia"
-
-#: ../gcr/gcr-failure-renderer.c:218
+#: ../gcr/gcr-certificate-request.c:503 ../gcr/gcr-certificate-request.c:588
 #, c-format
-msgid "Cannot display a file of this type."
-msgstr "Ezin da mota honetako fitxategirik bistaratu."
+msgid "The key cannot be used to sign the request"
+msgstr "Gakoa ezin da erabili eskaera sinatzeko"
 
-#: ../gcr/gcr-gnupg-importer.c:93
-#, fuzzy
+#: ../gcr/gcr-gnupg-importer.c:96
 msgid "GnuPG Keyring"
-msgstr "Desblokeatu gako-sorta"
+msgstr "GnuPG gako-sorta"
 
-#: ../gcr/gcr-gnupg-importer.c:95
-#, fuzzy, c-format
+#: ../gcr/gcr-gnupg-importer.c:98
+#, c-format
 msgid "GnuPG Keyring: %s"
-msgstr "PGP gakoa: %s"
+msgstr "GnuPG gako-sorta: %s"
 
-#: ../gcr/gcr-gnupg-key.c:234 ../gcr/gcr-gnupg-renderer.c:88
-#: ../gcr/gcr-parser.c:322
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:326
+#: ../ui/gcr-gnupg-renderer.c:89
 msgid "PGP Key"
 msgstr "PGP gakoa"
 
-#: ../gcr/gcr-gnupg-key.c:523
+#: ../gcr/gcr-gnupg-key.c:434
 msgctxt "column"
 msgid "Key ID"
 msgstr "Gakoaren IDa"
 
-#: ../gcr/gcr-gnupg-process.c:860
+#: ../gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Gnupg prozesua ondorengo kodearekin irten da: %d"
 
-#: ../gcr/gcr-gnupg-process.c:867
+#: ../gcr/gcr-gnupg-process.c:874
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg prozesua ondorengo seinalearekin amaitu da: %d"
 
-#: ../gcr/gcr-gnupg-process.c:921 ../gcr/gcr-parser.c:2177
-#: ../gcr/gcr-parser.c:2681
+#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2422
+#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:902
 msgid "The operation was cancelled"
 msgstr "Eragiketa bertan behera utzi da"
 
-#: ../gcr/gcr-gnupg-renderer.c:204
-msgid "Elgamal"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:217
-msgid "Encrypt"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:219
-#, fuzzy
-msgid "Sign"
-msgstr "Sinadura"
-
-#: ../gcr/gcr-gnupg-renderer.c:221
-#, fuzzy
-msgid "Certify"
-msgstr "Ziurtagiria"
-
-#: ../gcr/gcr-gnupg-renderer.c:223
-#, fuzzy
-msgid "Authenticate"
-msgstr "Zerbitzariaren autentifikazioa"
-
-#: ../gcr/gcr-gnupg-renderer.c:225 ../gcr/gcr-gnupg-renderer.c:260
-msgid "Disabled"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:256 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-key-renderer.c:312 ../gcr/gcr-key-renderer.c:317
-msgid "Unknown"
-msgstr "Ezezaguna"
-
-#: ../gcr/gcr-gnupg-renderer.c:258
-msgid "Invalid"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:262
-msgid "Revoked"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:264
-#, fuzzy
-msgid "Expired"
-msgstr "Iraungitze-data"
-
-#: ../gcr/gcr-gnupg-renderer.c:266
-msgid "Undefined trust"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:268
-msgid "Distrusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:270
-msgid "Marginally trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:272
-msgid "Fully trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:274
-msgid "Ultimately trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:288
-#, fuzzy
-msgid "The information in this key has not yet been verified"
-msgstr "Informazioa pribatua da, eta ezin da azaldu"
-
-#: ../gcr/gcr-gnupg-renderer.c:291
-#, fuzzy
-msgid "This key is invalid"
-msgstr "Saio baliogabea"
-
-#: ../gcr/gcr-gnupg-renderer.c:294
-#, fuzzy
-msgid "This key has been disabled"
-msgstr "Modulua ez da hasieratu"
-
-#: ../gcr/gcr-gnupg-renderer.c:297
-#, fuzzy
-msgid "This key has been revoked"
-msgstr "Gakoa ez da itzulbiratu"
-
-#: ../gcr/gcr-gnupg-renderer.c:300
-#, fuzzy
-msgid "This key has expired"
-msgstr "Pasahitza edo PINa iraungitu egin da"
-
-#: ../gcr/gcr-gnupg-renderer.c:305
-msgid "This key is distrusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:308
-msgid "This key is marginally trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:311
-#, fuzzy
-msgid "This key is fully trusted"
-msgstr "Gakoa okerreko motakoa da"
-
-#: ../gcr/gcr-gnupg-renderer.c:314
-msgid "This key is ultimately trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:339 ../gcr/gcr-gnupg-renderer.c:565
-#, fuzzy
-msgid "Key ID"
-msgstr "Gakoaren IDa"
-
-#: ../gcr/gcr-gnupg-renderer.c:347 ../gcr/gcr-gnupg-renderer.c:573
-#: ../gcr/gcr-gnupg-renderer.c:620 ../gcr/gcr-key-renderer.c:313
-msgid "Algorithm"
-msgstr "Algoritmoa"
-
-#: ../gcr/gcr-gnupg-renderer.c:362 ../gcr/gcr-gnupg-renderer.c:439
-#: ../gcr/gcr-gnupg-renderer.c:482
-msgid "Created"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:371 ../gcr/gcr-gnupg-renderer.c:448
-#: ../gcr/gcr-gnupg-renderer.c:491
-#, fuzzy
-msgid "Expiry"
-msgstr "Iraungitze-data"
-
-#: ../gcr/gcr-gnupg-renderer.c:380
-msgid "Capabilities"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:393
-msgid "Owner trust"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:421
-#, fuzzy
-msgid "Name"
-msgstr "Izena"
-
-#: ../gcr/gcr-gnupg-renderer.c:427 ../gcr/gcr-gnupg-renderer.c:709
-msgid "Comment"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:467
-msgid "User Attribute"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:474 ../gcr/gcr-key-renderer.c:320
-msgid "Size"
-msgstr "Tamaina"
-
-#: ../gcr/gcr-gnupg-renderer.c:509
-#, fuzzy
-msgid "Signature of a binary document"
-msgstr "Sinaduraren parametroak"
-
-#: ../gcr/gcr-gnupg-renderer.c:511
-msgid "Signature of a canonical text document"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:513
-#, fuzzy
-msgid "Standalone signature"
-msgstr "Sinadura digitala"
-
-#: ../gcr/gcr-gnupg-renderer.c:515
-#, fuzzy
-msgid "Generic certification of key"
-msgstr "Desblokeatu ziurtagiria"
-
-#: ../gcr/gcr-gnupg-renderer.c:517
-msgid "Persona certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:519
-msgid "Casual certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:521
-msgid "Positive certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:523
-msgid "Subkey binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:525
-msgid "Primary key binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:527
-#, fuzzy
-msgid "Signature directly on key"
-msgstr "Sinaduraren parametroak"
-
-#: ../gcr/gcr-gnupg-renderer.c:529
-#, fuzzy
-msgid "Key revocation signature"
-msgstr "Errebokatze-zerrendaren sinadura"
-
-#: ../gcr/gcr-gnupg-renderer.c:531
-#, fuzzy
-msgid "Subkey revocation signature"
-msgstr "Errebokatze-zerrendaren sinadura"
-
-#: ../gcr/gcr-gnupg-renderer.c:533
-#, fuzzy
-msgid "Certification revocation signature"
-msgstr "Ziurtagiriaren sinadura"
-
-#: ../gcr/gcr-gnupg-renderer.c:535
-#, fuzzy
-msgid "Timestamp signature"
-msgstr "Sinadura digitala"
-
-#: ../gcr/gcr-gnupg-renderer.c:537
-msgid "Third-party confirmation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:598
-msgid "Class"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:592 ../gcr/gcr-gnupg-renderer.c:594
-msgid "Type"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:592
-#, fuzzy
-msgid "Local only"
-msgstr "Herria"
-
-#: ../gcr/gcr-gnupg-renderer.c:594
-msgid "Exportable"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:612
-#, fuzzy
-msgid "Revocation Key"
-msgstr "Errebokatze-zerrendaren sinadura"
-
-#: ../gcr/gcr-gnupg-renderer.c:626 ../gcr/gcr-gnupg-renderer.c:650
-#: ../gcr/gcr-gnupg-renderer.c:652
-msgid "Fingerprint"
-msgstr "Hatz-marka"
-
-#: ../gcr/gcr-gnupg-renderer.c:741
-#, fuzzy
-msgid "Public Subkey"
-msgstr "Gako publikoa"
-
-#: ../gcr/gcr-gnupg-renderer.c:743
-msgid "Secret Key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:745
-msgid "Secret Subkey"
-msgstr ""
-
-#: ../gcr/gcr-import-button.c:108
-#, fuzzy
-msgid "Initializing..."
-msgstr "Sigla"
-
-#: ../gcr/gcr-import-button.c:116
-msgid "Import is in progress..."
-msgstr ""
-
-#: ../gcr/gcr-import-button.c:123
-#, fuzzy, c-format
-msgid "Imported to: %s"
-msgstr "Inportatu hona:"
-
-#: ../gcr/gcr-import-button.c:143
-#, fuzzy, c-format
-msgid "Import to: %s"
-msgstr "Inportatu hona:"
-
-#: ../gcr/gcr-import-button.c:156
-#, fuzzy
-msgid "Cannot import because there are no compatible importers"
-msgstr "Ezin da inportatu gakoa okerreko motakoa delako"
-
-#: ../gcr/gcr-import-button.c:165
-#, fuzzy
-msgid "No data to import"
-msgstr "Ez dago kokaleku erabilgarririk horra inportatzeko"
-
-#: ../gcr/gcr-key-renderer.c:82
-msgid "Key"
-msgstr "Gakoa"
-
-#: ../gcr/gcr-key-renderer.c:281
-msgid "Private RSA Key"
-msgstr "RSA gako pribatua"
-
-#: ../gcr/gcr-key-renderer.c:283
-msgid "Private DSA Key"
-msgstr "DSA gako pribatua"
-
-#: ../gcr/gcr-key-renderer.c:285 ../gcr/gcr-parser.c:313
+#: ../gcr/gcr-parser.c:317 ../ui/gcr-key-renderer.c:408
 msgid "Private Key"
 msgstr "Gako pribatua"
 
-#: ../gcr/gcr-key-renderer.c:288 ../gcr/gcr-key-renderer.c:290
+#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:889
+#: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
+msgid "Public Key"
+msgstr "Gako publikoa"
+
+#: ../gcr/gcr-parser.c:329
+msgid "Certificate Request"
+msgstr "Ziurtagiriaren eskaera"
+
+#: ../gcr/gcr-parser.c:2425
+msgid "Unrecognized or unsupported data."
+msgstr "Datu ezezaguna edo onartu gabea."
+
+#: ../gcr/gcr-parser.c:2428
+msgid "Could not parse invalid or corrupted data."
+msgstr "Ezin izan dira hondatutako edo baliogabeak diren datuak analizatu."
+
+#: ../gcr/gcr-parser.c:2431
+msgid "The data is locked"
+msgstr "Datuak blokeatuta daude"
+
+#: ../gcr/gcr-prompt.c:227
+msgid "Continue"
+msgstr "Jarraitu"
+
+#: ../gcr/gcr-prompt.c:236
+msgid "Cancel"
+msgstr "Utzi"
+
+#: ../gcr/gcr-subject-public-key.c:345
+msgid "Unrecognized or unavailable attributes for key"
+msgstr "Gakoaren atributu ezezagunak edo erabilkaitzak"
+
+#: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
+msgid "Couldn't build public key"
+msgstr "Ezin izan da gako publikoa eraiki"
+
+#: ../gcr/gcr-system-prompt.c:883
+msgid "Another prompt is already in progress"
+msgstr "Beste gonbite bat jadanik lantzen ari da"
+
+#. Translators: A pinned certificate is an exception which
+#. trusts a given certificate explicitly for a purpose and
+#. communication with a certain peer.
+#: ../gcr/gcr-trust.c:370
+#, c-format
+msgid "Couldn't find a place to store the pinned certificate"
+msgstr "Ezin izan da salbuespen-ziurtagiria gordetzeko lekurik aurkitu"
+
+#: ../ui/gcr-certificate-renderer.c:118
+msgid "Basic Constraints"
+msgstr "Oinarrizko murriztapenak"
+
+#: ../ui/gcr-certificate-renderer.c:120
+msgid "Certificate Authority"
+msgstr "Ziurtagiri-emailea"
+
+#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:960
+msgid "Yes"
+msgstr "Bai"
+
+#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:960
+msgid "No"
+msgstr "Ez"
+
+#: ../ui/gcr-certificate-renderer.c:124
+msgid "Max Path Length"
+msgstr "Bide-izenaren gehienezko luzera"
+
+#: ../ui/gcr-certificate-renderer.c:125
+msgid "Unlimited"
+msgstr "Mugagabea"
+
+#: ../ui/gcr-certificate-renderer.c:144
+msgid "Extended Key Usage"
+msgstr "Tekla gehigarriaren erabilera"
+
+#: ../ui/gcr-certificate-renderer.c:155
+msgid "Allowed Purposes"
+msgstr "Onartutako xedeak"
+
+#: ../ui/gcr-certificate-renderer.c:175
+msgid "Subject Key Identifier"
+msgstr "Gai gakoaren identifikatzailea"
+
+#: ../ui/gcr-certificate-renderer.c:176
+msgid "Key Identifier"
+msgstr "Gako identifikatzailea"
+
+#: ../ui/gcr-certificate-renderer.c:187
+msgid "Digital signature"
+msgstr "Sinadura digitala"
+
+#: ../ui/gcr-certificate-renderer.c:188
+msgid "Key encipherment"
+msgstr "Gako-zifraketa"
+
+#: ../ui/gcr-certificate-renderer.c:189
+msgid "Data encipherment"
+msgstr "Datu-zifraketa"
+
+#: ../ui/gcr-certificate-renderer.c:190
+msgid "Key agreement"
+msgstr "Gako-hitzarmena"
+
+#: ../ui/gcr-certificate-renderer.c:191
+msgid "Certificate signature"
+msgstr "Ziurtagiriaren sinadura"
+
+#: ../ui/gcr-certificate-renderer.c:192
+msgid "Revocation list signature"
+msgstr "Errebokatze-zerrendaren sinadura"
+
+#: ../ui/gcr-certificate-renderer.c:217
+msgid "Key Usage"
+msgstr "Gakoaren erabilera"
+
+#: ../ui/gcr-certificate-renderer.c:218
+msgid "Usages"
+msgstr "Erabilerak"
+
+#: ../ui/gcr-certificate-renderer.c:238
+msgid "Subject Alternative Names"
+msgstr "Gaiaren bestelako izenak"
+
+#: ../ui/gcr-certificate-renderer.c:265
+msgid "Extension"
+msgstr "Luzapena"
+
+#: ../ui/gcr-certificate-renderer.c:269
+msgid "Identifier"
+msgstr "Identifikatzailea"
+
+#: ../ui/gcr-certificate-renderer.c:270
+#: ../ui/gcr-certificate-request-renderer.c:271 ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-gnupg-renderer.c:431
+msgid "Value"
+msgstr "Balioa"
+
+#: ../ui/gcr-certificate-renderer.c:295
+msgid "Couldn't export the certificate."
+msgstr "Ezin izan da ziurtagiria esportatu."
+
+#: ../ui/gcr-certificate-renderer.c:518
+#: ../ui/gcr-certificate-request-renderer.c:312
+msgid "Identity"
+msgstr "Identitatea"
+
+#: ../ui/gcr-certificate-renderer.c:522
+msgid "Verified by"
+msgstr "Honek egiaztatuta"
+
+#: ../ui/gcr-certificate-renderer.c:529 ../ui/gcr-gnupg-renderer.c:719
+msgid "Expires"
+msgstr "Iraungitze-data"
+
+#. The subject
+#: ../ui/gcr-certificate-renderer.c:536
+#: ../ui/gcr-certificate-request-renderer.c:318
+msgid "Subject Name"
+msgstr "Gaiaren izena"
+
+#. The Issuer
+#: ../ui/gcr-certificate-renderer.c:541
+msgid "Issuer Name"
+msgstr "Jaulkitzailearen izena"
+
+#. The Issued Parameters
+#: ../ui/gcr-certificate-renderer.c:546
+msgid "Issued Certificate"
+msgstr "Jaulkitako ziurtagiria"
+
+#: ../ui/gcr-certificate-renderer.c:551
+#: ../ui/gcr-certificate-request-renderer.c:329
+msgid "Version"
+msgstr "Bertsioa"
+
+#: ../ui/gcr-certificate-renderer.c:565
+msgid "Not Valid Before"
+msgstr "Ez da baliozkoa honen aurretik"
+
+#: ../ui/gcr-certificate-renderer.c:570
+msgid "Not Valid After"
+msgstr "Ez da baliozkoa honen ondoren"
+
+#. Fingerprints
+#: ../ui/gcr-certificate-renderer.c:575
+msgid "Certificate Fingerprints"
+msgstr "Ziurtagiriaren hatz-markak"
+
+#. Public Key Info
+#: ../ui/gcr-certificate-renderer.c:581
+#: ../ui/gcr-certificate-request-renderer.c:332
+#: ../ui/gcr-certificate-request-renderer.c:378
+msgid "Public Key Info"
+msgstr "Gako publikoaren informazioa"
+
+#. Signature
+#: ../ui/gcr-certificate-renderer.c:596 ../ui/gcr-certificate-renderer.c:917
+#: ../ui/gcr-certificate-request-renderer.c:348
+#: ../ui/gcr-certificate-request-renderer.c:385 ../ui/gcr-gnupg-renderer.c:560
+msgid "Signature"
+msgstr "Sinadura"
+
+#: ../ui/gcr-certificate-renderer.c:863
+msgid "Key Algorithm"
+msgstr "Gakoaren algoritmoa"
+
+#: ../ui/gcr-certificate-renderer.c:868
+msgid "Key Parameters"
+msgstr "Gakoaren parametroak"
+
+#: ../ui/gcr-certificate-renderer.c:876 ../ui/gcr-gnupg-renderer.c:353
+msgid "Key Size"
+msgstr "Gakoaren tamaina"
+
+#: ../ui/gcr-certificate-renderer.c:884
+msgid "Key SHA1 Fingerprint"
+msgstr "Gakoaren SHA1 hatz-marka"
+
+#: ../ui/gcr-certificate-renderer.c:906
+msgid "Signature Algorithm"
+msgstr "Sinaduraren algoritmoa"
+
+#: ../ui/gcr-certificate-renderer.c:910
+msgid "Signature Parameters"
+msgstr "Sinaduraren parametroak"
+
+#: ../ui/gcr-certificate-renderer.c:959
+msgid "Critical"
+msgstr "Larria"
+
+#. The certificate request type
+#: ../ui/gcr-certificate-request-renderer.c:96
+#: ../ui/gcr-certificate-request-renderer.c:307
+#: ../ui/gcr-certificate-request-renderer.c:322
+#: ../ui/gcr-certificate-request-renderer.c:365
+#: ../ui/gcr-certificate-request-renderer.c:370
+msgid "Certificate request"
+msgstr "Ziurtagiriaren eskaera"
+
+#: ../ui/gcr-certificate-request-renderer.c:260
+msgid "Attribute"
+msgstr "Atributua"
+
+#: ../ui/gcr-certificate-request-renderer.c:264
+#: ../ui/gcr-certificate-request-renderer.c:323
+#: ../ui/gcr-certificate-request-renderer.c:371 ../ui/gcr-gnupg-renderer.c:591
+#: ../ui/gcr-gnupg-renderer.c:593
+msgid "Type"
+msgstr "Mota"
+
+#: ../ui/gcr-certificate-request-renderer.c:375
+msgid "Challenge"
+msgstr "Erronka"
+
+#: ../ui/gcr-display-view.c:319
+msgid "_Details"
+msgstr "_Xehetasunak"
+
+#: ../ui/gcr-failure-renderer.c:161
+#, c-format
+msgid "Could not display '%s'"
+msgstr "Ezin izan da '%s' bistaratu"
+
+#: ../ui/gcr-failure-renderer.c:163
+msgid "Could not display file"
+msgstr "Ezin izan da fitxategia bistaratu"
+
+#: ../ui/gcr-failure-renderer.c:168
+msgid "Reason"
+msgstr "Arrazoia"
+
+#: ../ui/gcr-failure-renderer.c:218
+#, c-format
+msgid "Cannot display a file of this type."
+msgstr "Ezin da mota honetako fitxategirik bistaratu."
+
+#: ../ui/gcr-gnupg-renderer.c:203
+msgid "Elgamal"
+msgstr "Elgamal"
+
+#: ../ui/gcr-gnupg-renderer.c:216
+msgid "Encrypt"
+msgstr "Enkriptatu"
+
+#: ../ui/gcr-gnupg-renderer.c:218
+msgid "Sign"
+msgstr "Sinatu"
+
+#: ../ui/gcr-gnupg-renderer.c:220
+msgid "Certify"
+msgstr "Ziurtatu"
+
+#: ../ui/gcr-gnupg-renderer.c:222
+msgid "Authenticate"
+msgstr "Autentifikatu"
+
+#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
+msgid "Disabled"
+msgstr "Desgaituta"
+
+#: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
+msgid "Unknown"
+msgstr "Ezezaguna"
+
+#: ../ui/gcr-gnupg-renderer.c:257
+msgid "Invalid"
+msgstr "Baliogabea"
+
+#: ../ui/gcr-gnupg-renderer.c:261
+msgid "Revoked"
+msgstr "Errebokatuta"
+
+#: ../ui/gcr-gnupg-renderer.c:263
+msgid "Expired"
+msgstr "Iraungita"
+
+#: ../ui/gcr-gnupg-renderer.c:265
+msgid "Undefined trust"
+msgstr "Definitu gabeko fidagarritasuna"
+
+#: ../ui/gcr-gnupg-renderer.c:267
+msgid "Distrusted"
+msgstr "Fidagarritasunik ez"
+
+#: ../ui/gcr-gnupg-renderer.c:269
+msgid "Marginally trusted"
+msgstr "Fidagarritasun marjinala"
+
+#: ../ui/gcr-gnupg-renderer.c:271
+msgid "Fully trusted"
+msgstr "Fidagarritasun osoa"
+
+#: ../ui/gcr-gnupg-renderer.c:273
+msgid "Ultimately trusted"
+msgstr "Azken aldiko fidagarritasuna"
+
+#: ../ui/gcr-gnupg-renderer.c:287
+msgid "The information in this key has not yet been verified"
+msgstr "Gako honen informazioa ez da oraindik egiaztatu"
+
+#: ../ui/gcr-gnupg-renderer.c:290
+msgid "This key is invalid"
+msgstr "Gakoa baliogabea da"
+
+#: ../ui/gcr-gnupg-renderer.c:293
+msgid "This key has been disabled"
+msgstr "Gako hori desgaitu egin da"
+
+#: ../ui/gcr-gnupg-renderer.c:296
+msgid "This key has been revoked"
+msgstr "Gako hori errebokatu egin da"
+
+#: ../ui/gcr-gnupg-renderer.c:299
+msgid "This key has expired"
+msgstr "Gako hori iraungi egin da"
+
+#: ../ui/gcr-gnupg-renderer.c:304
+msgid "This key is distrusted"
+msgstr "Gako hori ez da fidagarria"
+
+#: ../ui/gcr-gnupg-renderer.c:307
+msgid "This key is marginally trusted"
+msgstr "Gako hori marjinalki fidagarria da"
+
+#: ../ui/gcr-gnupg-renderer.c:310
+msgid "This key is fully trusted"
+msgstr "Gako hori oso fidagarria da"
+
+#: ../ui/gcr-gnupg-renderer.c:313
+msgid "This key is ultimately trusted"
+msgstr "Gako hori azken aldiko fidagarritasuna du"
+
+#: ../ui/gcr-gnupg-renderer.c:338 ../ui/gcr-gnupg-renderer.c:564
+msgid "Key ID"
+msgstr "Gakoaren IDa"
+
+#: ../ui/gcr-gnupg-renderer.c:346 ../ui/gcr-gnupg-renderer.c:572
+#: ../ui/gcr-gnupg-renderer.c:619 ../ui/gcr-key-renderer.c:435
+msgid "Algorithm"
+msgstr "Algoritmoa"
+
+#: ../ui/gcr-gnupg-renderer.c:361 ../ui/gcr-gnupg-renderer.c:438
+#: ../ui/gcr-gnupg-renderer.c:481
+msgid "Created"
+msgstr "Sortuta"
+
+#: ../ui/gcr-gnupg-renderer.c:370 ../ui/gcr-gnupg-renderer.c:447
+#: ../ui/gcr-gnupg-renderer.c:490
+msgid "Expiry"
+msgstr "Iraungitze-data"
+
+#: ../ui/gcr-gnupg-renderer.c:379
+msgid "Capabilities"
+msgstr "Gaitasunak"
+
+#: ../ui/gcr-gnupg-renderer.c:392
+msgid "Owner trust"
+msgstr "Jabearen fidagarritasuna"
+
+#: ../ui/gcr-gnupg-renderer.c:420
+msgid "Name"
+msgstr "Izena"
+
+#: ../ui/gcr-gnupg-renderer.c:426 ../ui/gcr-gnupg-renderer.c:708
+msgid "Comment"
+msgstr "Iruzkina"
+
+#: ../ui/gcr-gnupg-renderer.c:466
+msgid "User Attribute"
+msgstr "Erabiltzailearen atributua"
+
+#: ../ui/gcr-gnupg-renderer.c:473 ../ui/gcr-key-renderer.c:442
+msgid "Size"
+msgstr "Tamaina"
+
+#: ../ui/gcr-gnupg-renderer.c:508
+msgid "Signature of a binary document"
+msgstr "Dokumentu bitar baten sinadura"
+
+#: ../ui/gcr-gnupg-renderer.c:510
+msgid "Signature of a canonical text document"
+msgstr "Testu-dokumentu kanoniko baten sinadura"
+
+#: ../ui/gcr-gnupg-renderer.c:512
+msgid "Standalone signature"
+msgstr "Bakarkako sinadura"
+
+#: ../ui/gcr-gnupg-renderer.c:514
+msgid "Generic certification of key"
+msgstr "Gakoaren ziurtagiri orokorra"
+
+#: ../ui/gcr-gnupg-renderer.c:516
+msgid "Persona certification of key"
+msgstr "Gakoaren ziurtagiri pertsonala"
+
+#: ../ui/gcr-gnupg-renderer.c:518
+msgid "Casual certification of key"
+msgstr "Gakoaren azaleko ziurtagiria"
+
+#: ../ui/gcr-gnupg-renderer.c:520
+msgid "Positive certification of key"
+msgstr "Gakoaren ziurtagiri positiboa"
+
+#: ../ui/gcr-gnupg-renderer.c:522
+msgid "Subkey binding signature"
+msgstr "Azpigakoaren loturaren sinadura"
+
+#: ../ui/gcr-gnupg-renderer.c:524
+msgid "Primary key binding signature"
+msgstr "Gako nagusiaren loturaren sinadura"
+
+#: ../ui/gcr-gnupg-renderer.c:526
+msgid "Signature directly on key"
+msgstr "Zuzeneko sinadura gakoan"
+
+#: ../ui/gcr-gnupg-renderer.c:528
+msgid "Key revocation signature"
+msgstr "Gakoa errebokatzeko sinadura"
+
+#: ../ui/gcr-gnupg-renderer.c:530
+msgid "Subkey revocation signature"
+msgstr "Azpigakoa errebokatzeko sinadura"
+
+#: ../ui/gcr-gnupg-renderer.c:532
+msgid "Certification revocation signature"
+msgstr "Ziurtagiria errebokatzeko sinadura"
+
+#: ../ui/gcr-gnupg-renderer.c:534
+msgid "Timestamp signature"
+msgstr "Sinadura data-zigiluarekin"
+
+#: ../ui/gcr-gnupg-renderer.c:536
+msgid "Third-party confirmation signature"
+msgstr "Beste batzuen berrespenaren sinadura"
+
+#: ../ui/gcr-gnupg-renderer.c:589 ../ui/gcr-gnupg-renderer.c:597
+msgid "Class"
+msgstr "Klasea"
+
+#: ../ui/gcr-gnupg-renderer.c:591
+msgid "Local only"
+msgstr "Lokalak bakarrik"
+
+#: ../ui/gcr-gnupg-renderer.c:593
+msgid "Exportable"
+msgstr "Esportagarria"
+
+#: ../ui/gcr-gnupg-renderer.c:611
+msgid "Revocation Key"
+msgstr "Errebokatze-gakoa"
+
+#: ../ui/gcr-gnupg-renderer.c:625 ../ui/gcr-gnupg-renderer.c:649
+#: ../ui/gcr-gnupg-renderer.c:651
+msgid "Fingerprint"
+msgstr "Hatz-marka"
+
+#: ../ui/gcr-gnupg-renderer.c:740
+msgid "Public Subkey"
+msgstr "Azpigako publikoa"
+
+#: ../ui/gcr-gnupg-renderer.c:742
+msgid "Secret Key"
+msgstr "Ezkutuko gakoa"
+
+#: ../ui/gcr-gnupg-renderer.c:744
+msgid "Secret Subkey"
+msgstr "Ezkutuko azpigakoa"
+
+#: ../ui/gcr-import-button.c:112
+msgid "Initializing..."
+msgstr "Hasieratzen..."
+
+#: ../ui/gcr-import-button.c:120
+msgid "Import is in progress..."
+msgstr "Inportatzen ari da..."
+
+#: ../ui/gcr-import-button.c:127
+#, c-format
+msgid "Imported to: %s"
+msgstr "Hona inportatuta: %s"
+
+#: ../ui/gcr-import-button.c:147
+#, c-format
+msgid "Import to: %s"
+msgstr "Inportatu hona: %s"
+
+#: ../ui/gcr-import-button.c:160
+msgid "Cannot import because there are no compatible importers"
+msgstr "Ezin da inportatu ez daudelako inportatzaile bateragarririk"
+
+#: ../ui/gcr-import-button.c:169
+msgid "No data to import"
+msgstr "Ez dago daturik inportatzeko"
+
+#: ../ui/gcr-key-renderer.c:90
+msgid "Key"
+msgstr "Gakoa"
+
+#: ../ui/gcr-key-renderer.c:404
+msgid "Private RSA Key"
+msgstr "RSA gako pribatua"
+
+#: ../ui/gcr-key-renderer.c:406
+msgid "Private DSA Key"
+msgstr "DSA gako pribatua"
+
+#: ../ui/gcr-key-renderer.c:411 ../ui/gcr-key-renderer.c:413
 msgid "Public DSA Key"
 msgstr "DSA gako publikoa"
 
-#: ../gcr/gcr-key-renderer.c:299
+#: ../ui/gcr-key-renderer.c:422
 #, c-format
 msgid "%d bit"
 msgid_plural "%d bits"
 msgstr[0] "bit %d"
 msgstr[1] "%d bit"
 
-#: ../gcr/gcr-key-renderer.c:300
+#: ../ui/gcr-key-renderer.c:423
 msgid "Strength"
 msgstr "Indarra"
 
 #. Fingerprints
-#: ../gcr/gcr-key-renderer.c:324
+#: ../ui/gcr-key-renderer.c:446
 msgid "Fingerprints"
 msgstr "Hatz-markak"
 
-#: ../gcr/gcr-key-renderer.c:329
+#: ../ui/gcr-key-renderer.c:450
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../gcr/gcr-key-renderer.c:335
+#: ../ui/gcr-key-renderer.c:455
 msgid "SHA256"
 msgstr "SHA256"
 
-#: ../gcr/gcr-parser.c:2180
-msgid "Unrecognized or unsupported data."
-msgstr "Datu ezezaguna edo onartu gabea."
-
-#: ../gcr/gcr-parser.c:2183
-msgid "Could not parse invalid or corrupted data."
-msgstr "Ezin izan dira hondatutako edo baliogabeak diren datuak analizatu."
-
-#: ../gcr/gcr-parser.c:2186
-msgid "The data is locked"
-msgstr "Datuak blokeatuta daude"
-
-#: ../gcr/gcr-pkcs11-import-dialog.c:186
+#: ../ui/gcr-pkcs11-import-dialog.c:188
 msgid "Automatically chosen"
-msgstr ""
+msgstr "Automatikoki aukeratuta"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:270
-#: ../gcr/gcr-pkcs11-import-interaction.c:153
-#: ../gcr/gcr-pkcs11-import-interaction.c:171
+#: ../ui/gcr-pkcs11-import-dialog.c:272
+#: ../ui/gcr-pkcs11-import-interaction.c:154
+#: ../ui/gcr-pkcs11-import-interaction.c:172
 #, c-format
 msgid "The user cancelled the operation"
-msgstr ""
+msgstr "Erabiltzaileak bertan behera utzitako eragiketa"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-msgid "<b>Import settings</b>"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
-#, fuzzy
-msgid "<b>Unlock</b>"
-msgstr "Desblokeatu"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
-#, fuzzy
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:1
 msgid "In order to import, please enter the password."
-msgstr "'%s' inportatzeko desblokeatu egin behar da"
+msgstr "Inportatzeko xedearekin, sartu pasahitza."
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
-msgid "Label"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
-msgid "Label:"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
+#. The password label
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:564
 msgid "Password:"
 msgstr "Pasahitza:"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:3
 msgid "Token:"
-msgstr ""
+msgstr "Tokena:"
 
-#. Translators: A pinned certificate is an exception which
-#. trusts a given certificate explicitly for a purpose and
-#. communication with a certain peer.
-#: ../gcr/gcr-trust.c:376
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:72
+#: ../ui/gcr-unlock-renderer.c:127
+msgid "Unlock"
+msgstr "Desblokeatu"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:5
+msgid "Label:"
+msgstr "Etiketa:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Import settings"
+msgstr "Inportatzeko ezarpenak"
+
+#. The confirm label
+#: ../ui/gcr-prompt-dialog.c:581
+msgid "Confirm:"
+msgstr "Berretsi:"
+
+#: ../ui/gcr-prompt-dialog.c:649
+msgid "Passwords do not match."
+msgstr "Pasahitzak ez datoz bat"
+
+#: ../ui/gcr-prompt-dialog.c:656
+msgid "Password cannot be blank"
+msgstr "Pasahitza ezin da hutsa izan"
+
+#: ../ui/gcr-prompter.desktop.in.in.h:1
+msgid "Access Prompt"
+msgstr "Sarbidetzaren gonbitea"
+
+#: ../ui/gcr-prompter.desktop.in.in.h:2
+msgid "Unlock access to passwords and other secrets"
+msgstr "Desblokeatu sarbidea pasahitzetara eta bestelako sekretuetara"
+
+#: ../ui/gcr-certificate-exporter.c:226
+msgid "A file already exists with this name."
+msgstr "Badago lehendik izen hori duen fitxategi bat."
+
+#: ../ui/gcr-certificate-exporter.c:227
+msgid "Do you want to replace it with a new file?"
+msgstr "Fitxategi berriarekin ordeztu nahi duzu?"
+
+#: ../ui/gcr-certificate-exporter.c:233
+msgid "_Replace"
+msgstr "_Ordeztu"
+
+#: ../ui/gcr-certificate-exporter.c:264
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
-msgstr "Ezin izan da salbuespen-ziurtagiria gordetzeko lekurik aurkitu"
+msgid "The operation was cancelled."
+msgstr "Eragiketa bertan behera utzi da."
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:1
+#: ../ui/gcr-certificate-exporter.c:308
+msgid "Export certificate"
+msgstr "Esportatu ziurtagiria"
+
+#: ../ui/gcr-certificate-exporter.c:320
+msgid "Certificate files"
+msgstr "Ziurtagiri-fitxategiak"
+
+#: ../ui/gcr-certificate-exporter.c:331
+msgid "PEM files"
+msgstr "PEM fitxategiak"
+
+#: ../ui/gcr-unlock-options-widget.ui.h:1
 msgid "Automatically unlock this keyring whenever I'm logged in"
 msgstr "Desblokeatu automatikoki gako-sorta hau saioa hastean"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:2
-msgid "Lock this keyring after"
-msgstr "Blokeatu gako-sorta:"
-
-#: ../gcr/gcr-unlock-options-widget.ui.h:3
-msgid "Lock this keyring if idle for"
-msgstr "Blokeatu gako-sorta inaktibo badago:"
-
-#: ../gcr/gcr-unlock-options-widget.ui.h:4
+#: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
 msgstr "Blokeatu gako-sorta saioa amaitzean"
 
+#: ../ui/gcr-unlock-options-widget.ui.h:3
+msgid "Lock this keyring after"
+msgstr "Blokeatu gako-sorta:"
+
+#: ../ui/gcr-unlock-options-widget.ui.h:4
+msgid "Lock this keyring if idle for"
+msgstr "Blokeatu gako-sorta inaktibo badago:"
+
 #. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
-#: ../gcr/gcr-unlock-options-widget.ui.h:6
+#: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minututan"
 
-#: ../gcr/gcr-unlock-renderer.c:70
+#: ../ui/gcr-unlock-renderer.c:70
 #, c-format
 msgid "Unlock: %s"
 msgstr "Desblokeatu: %s"
 
-#: ../gcr/gcr-unlock-renderer.c:72 ../gcr/gcr-unlock-renderer.c:129
-msgid "Unlock"
-msgstr "Desblokeatu"
-
-#: ../gcr/gcr-unlock-renderer.c:126
+#: ../ui/gcr-unlock-renderer.c:125
 msgid "Password"
 msgstr "Pasahitza"
 
-#: ../gcr/gcr-unlock-renderer.c:279
+#: ../ui/gcr-unlock-renderer.c:277
 #, c-format
 msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
@@ -972,64 +1033,47 @@ msgstr ""
 "Blokeatuta daude '%s'(r)en edukiak. Ikusi ahal izateko, sartu pasahitz "
 "zuzena."
 
-#: ../gcr/gcr-unlock-renderer.c:282
+#: ../ui/gcr-unlock-renderer.c:280
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr "Blokeatuta daude edukiak. Ikusi ahal izateko, sartu pasahitz zuzena."
 
-#: ../gcr/gcr-viewer-tool.c:41
+#: ../ui/gcr-viewer-tool.c:41
 msgid "GCR Certificate and Key Viewer"
 msgstr "GCR ziurtagiria eta gakoen ikustailea"
 
-#: ../gcr/gcr-viewer-tool.c:48
+#: ../ui/gcr-viewer-tool.c:48
 msgid "Show the application's version"
 msgstr "Erakutsi aplikazioaren bertsioa"
 
-#: ../gcr/gcr-viewer-tool.c:50
+#: ../ui/gcr-viewer-tool.c:50
 msgid "[file...]"
 msgstr "[fitxategia...]"
 
-#: ../gcr/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:105
 msgid "- View certificate and key files"
 msgstr "- Ikusi ziurtagien eta gakoen fitxategiak"
 
-#: ../gcr/gcr-viewer-tool.c:118
+#: ../ui/gcr-viewer-tool.c:119 ../ui/gcr-viewer-widget.c:638
 msgid "Certificate Viewer"
 msgstr "Ziurtagiri-ikustailea"
 
-#: ../gcr/gcr-viewer-widget.c:191
+#: ../ui/gcr-viewer-widget.c:204
 msgid "The password was incorrect"
 msgstr "Pasahitza okerra da"
 
-#: ../gcr/gcr-viewer-window.c:68
-#, fuzzy
+#: ../ui/gcr-viewer-window.c:76
 msgid "Imported"
-msgstr "Inportatu hona:"
+msgstr "Inportatuta"
 
-#: ../gcr/gcr-viewer-window.c:72
-#, fuzzy
+#: ../ui/gcr-viewer-window.c:80
 msgid "Import failed"
-msgstr "Eragiketak huts egin du"
+msgstr "Huts egin du inportatzeak"
 
-#: ../gcr/gcr-viewer-window.c:103
-#, fuzzy
+#: ../ui/gcr-viewer-window.c:108
 msgid "Import"
-msgstr "Inportatu hona:"
+msgstr "Inportatu"
 
-#: ../gck/gck-uri.c:223
-#, c-format
-msgid "The URI has invalid encoding."
-msgstr "URIak kodeketa baliogabea du."
-
-#: ../gck/gck-uri.c:227
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "URIak ez dauka 'pkcs11' eskema."
-
-#: ../gck/gck-uri.c:231
-msgid "The URI has bad syntax."
-msgstr "URIaren sintaxia okerra da."
-
-#: ../gck/gck-uri.c:235
-msgid "The URI has a bad version number."
-msgstr "URIak bertsio-zenbaki okerra dauka."
+#~ msgid "<b>Unlock</b>"
+#~ msgstr "Desblokeatu"

@@ -1,3 +1,8 @@
+gcr 3.7.91:
+ - Updated translations
+ - Translation fixes [#692536]
+ - Build fixes [#693591, #693440, #687980]
+
 gcr 3.7.5:
  - Separate the base and ui parts of the Gcr library more thoroughly
  - Fix crasher in armor parsing code

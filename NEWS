@@ -1,3 +1,8 @@
+gcr 3.7.92:
+ - Have the gcr-prompter replace the running prompter
+ - Fix segfault when prompt is dismissed immediately\
+ - Updated translations
+
 gcr 3.7.91:
  - Updated translations
  - Translation fixes [#692536]

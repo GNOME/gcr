@@ -234,7 +234,7 @@ main (int argc, char *argv[])
 
 	system_owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
 	                                  GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME,
-	                                  G_BUS_NAME_OWNER_FLAGS_NONE,
+	                                  G_BUS_NAME_OWNER_FLAGS_REPLACE,
 	                                  on_bus_acquired,
 	                                  on_name_acquired,
 	                                  on_name_lost,
@@ -243,7 +243,7 @@ main (int argc, char *argv[])
 
 	private_owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
 	                                   GCR_DBUS_PROMPTER_PRIVATE_BUS_NAME,
-	                                   G_BUS_NAME_OWNER_FLAGS_NONE,
+	                                   G_BUS_NAME_OWNER_FLAGS_REPLACE,
 	                                   on_bus_acquired,
 	                                   on_name_acquired,
 	                                   on_name_lost,

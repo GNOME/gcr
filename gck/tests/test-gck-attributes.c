@@ -961,6 +961,31 @@ test_builder_add_attr (void)
 }
 
 static void
+test_attribute_hash (void)
+{
+	guchar *data = (guchar *)"extra attribute";
+	GckAttribute one = { CKA_LABEL, (guchar *)"yay", 3 };
+	GckAttribute null = { CKA_LABEL, (guchar *)NULL, 3 };
+	GckAttribute zero = { CKA_LABEL, (guchar *)NULL, 0 };
+	GckAttribute two = { CKA_VALUE, (guchar *)"yay", 3 };
+	GckAttribute other = { CKA_VALUE, data, 5 };
+	GckAttribute overflow = { CKA_VALUE, data, 5 };
+	GckAttribute content = { CKA_VALUE, (guchar *)"conte", 5 };
+	guint hash;
+
+	hash = gck_attribute_hash (&one);
+	g_assert_cmpuint (hash, !=, 0);
+
+	g_assert_cmpuint (gck_attribute_hash (&one), ==, hash);
+	g_assert_cmpuint (gck_attribute_hash (&two), !=, hash);
+	g_assert_cmpuint (gck_attribute_hash (&other), !=, hash);
+	g_assert_cmpuint (gck_attribute_hash (&overflow), !=, hash);
+	g_assert_cmpuint (gck_attribute_hash (&null), !=, hash);
+	g_assert_cmpuint (gck_attribute_hash (&zero), !=, hash);
+	g_assert_cmpuint (gck_attribute_hash (&content), !=, hash);
+}
+
+static void
 test_attributes_refs (void)
 {
 	GckBuilder builder = GCK_BUILDER_INIT;
@@ -1301,6 +1326,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/gck/attribute/get_string", test_get_string);
 	g_test_add_func ("/gck/attribute/dup_attribute", test_dup_attribute);
 	g_test_add_func ("/gck/attribute/copy_attribute", test_copy_attribute);
+	g_test_add_func ("/gck/attribute/hash", test_attribute_hash);
 	g_test_add_func ("/gck/builder/blank", test_builder_blank);
 	g_test_add_func ("/gck/builder/data", test_build_data);
 	g_test_add_func ("/gck/builder/data-invalid", test_build_data_invalid);

@@ -1996,8 +1996,10 @@ gck_attribute_hash (gconstpointer attr)
 
 	h ^= _gck_ulong_hash (&a->type);
 
-	for (p = (signed char *)a->value, e = p + a->length; p != e; p++)
-		h = (h << 5) + h + *p;
+	if (a->value) {
+		for (p = (signed char *)a->value, e = p + a->length; p != e; p++)
+			h = (h << 5) + h + *p;
+	}
 
 	return h;
 }

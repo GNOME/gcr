@@ -1,3 +1,7 @@
+gcr 3.8.0:
+ - Fix crash when hashing an unsupported attributes [#696305]
+ - Updated translations
+
 gcr 3.7.92:
  - Have the gcr-prompter replace the running prompter
  - Fix segfault when prompt is dismissed immediately\

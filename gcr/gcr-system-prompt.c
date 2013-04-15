@@ -119,6 +119,7 @@ struct _GcrSystemPromptPrivate {
 	gboolean closed;
 	guint prompt_registered;
 	gchar *prompt_path;
+	gchar *prompt_owner;
 
 	GSimpleAsyncResult *pending;
 	gchar *last_response;
@@ -482,7 +483,7 @@ perform_close (GcrSystemPrompt *self,
 	}
 
 	if (self->pv->begun_prompting) {
-		if (self->pv->connection && self->pv->prompt_path) {
+		if (self->pv->connection && self->pv->prompt_path && self->pv->prompt_owner) {
 			_gcr_debug ("Calling the prompter %s method", GCR_DBUS_PROMPTER_METHOD_STOP);
 			g_dbus_connection_call (self->pv->connection,
 			                        self->pv->prompter_bus_name,
@@ -777,13 +778,35 @@ register_prompt_object (GcrSystemPrompt *self,
 }
 
 static void
+on_prompter_present (GDBusConnection *connection,
+                     const gchar *name,
+                     const gchar *name_owner,
+                     gpointer user_data)
+{
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
+
+	g_free (self->pv->prompt_owner);
+	self->pv->prompt_owner = g_strdup (name_owner);
+
+	g_object_unref (self);
+}
+
+static void
 on_prompter_vanished (GDBusConnection *connection,
                       const gchar *name,
                       gpointer user_data)
 {
-	GSimpleAsyncResult *async = G_SIMPLE_ASYNC_RESULT (user_data);
-	CallClosure *call = g_simple_async_result_get_op_res_gpointer (async);
-	g_cancellable_cancel (call->cancellable);
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
+	CallClosure *call = g_simple_async_result_get_op_res_gpointer (user_data);
+
+	if (self->pv->prompt_owner) {
+		g_free (self->pv->prompt_owner);
+		self->pv->prompt_owner = NULL;
+		_gcr_debug ("prompter name owner has vanished: %s", name);
+		g_cancellable_cancel (call->cancellable);
+	}
+
+	g_object_unref (self);
 }
 
 static void
@@ -811,7 +834,8 @@ on_bus_connected (GObject *source,
 		closure->watch_id = g_bus_watch_name_on_connection (self->pv->connection,
 		                                                    self->pv->prompter_bus_name,
 		                                                    G_BUS_NAME_WATCHER_FLAGS_NONE,
-		                                                    NULL, on_prompter_vanished,
+		                                                    on_prompter_present,
+		                                                    on_prompter_vanished,
 		                                                    res, NULL);
 
 		register_prompt_object (self, &error);
@@ -925,6 +949,7 @@ perform_init_async (GcrSystemPrompt *self,
 	} else if (!self->pv->begun_prompting) {
 		g_assert (self->pv->prompt_path != NULL);
 
+		_gcr_debug ("calling %s method on prompter", GCR_DBUS_PROMPTER_METHOD_BEGIN);
 		g_dbus_connection_call (self->pv->connection,
 		                        self->pv->prompter_bus_name,
 		                        GCR_DBUS_PROMPTER_OBJECT_PATH,
@@ -946,6 +971,11 @@ perform_init_async (GcrSystemPrompt *self,
 			g_source_set_callback (closure->timeout, on_call_timeout, res, NULL);
 			g_source_attach (closure->timeout, closure->context);
 		}
+
+		g_assert (closure->waiting == NULL);
+		closure->waiting = g_cancellable_source_new (closure->cancellable);
+		g_source_set_callback (closure->waiting, (GSourceFunc)on_call_cancelled, res, NULL);
+		g_source_attach (closure->waiting, closure->context);
 
 	/* 4. All done */
 	} else {
@@ -1168,7 +1198,8 @@ perform_prompt_async (GcrSystemPrompt *self,
 	closure->watch_id = g_bus_watch_name_on_connection (self->pv->connection,
 	                                                    self->pv->prompter_bus_name,
 	                                                    G_BUS_NAME_WATCHER_FLAGS_NONE,
-	                                                    NULL, on_prompter_vanished,
+	                                                    on_prompter_present,
+	                                                    on_prompter_vanished,
 	                                                    res, NULL);
 
 	builder = build_dirty_properties (self);

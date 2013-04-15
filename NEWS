@@ -1,3 +1,7 @@
+gcr 3.8.1:
+ - Fix erroneously cancelled prompts
+ - Updated translations
+
 gcr 3.8.0:
  - Fix crash when hashing an unsupported attributes [#696305]
  - Updated translations

@@ -734,7 +734,7 @@ _gcr_display_get_preferred_width (GtkWidget *widget, gint *minimal_width,
 }
 
 static void
-_gcr_display_view_populate_popup (GtkTextView *text_view, GtkMenu *menu)
+_gcr_display_view_populate_popup (GtkTextView *text_view, GtkWidget *menu)
 {
 	GcrDisplayView *self = GCR_DISPLAY_VIEW (text_view);
 
@@ -744,7 +744,7 @@ _gcr_display_view_populate_popup (GtkTextView *text_view, GtkMenu *menu)
 	/* Ask the current renderer to add menu items */
 	if (self->pv->current_item)
 		gcr_renderer_popuplate_popup (self->pv->current_item->renderer,
-		                              GCR_VIEWER (self), menu);
+		                              GCR_VIEWER (self), GTK_MENU (menu));
 }
 
 static void
@@ -1211,7 +1211,11 @@ _gcr_display_view_set_icon (GcrDisplayView *self, GcrRenderer *renderer, GIcon *
 	if (info) {
 		GtkStyleContext *style = gtk_widget_get_style_context (GTK_WIDGET (self));
 		item->pixbuf = gtk_icon_info_load_symbolic_for_context (info, style, FALSE, NULL);
+#if GTK_CHECK_VERSION(3, 8, 0)
+		g_object_unref (info);
+#else
 		gtk_icon_info_free (info);
+#endif
 	}
 }
 

@@ -284,6 +284,12 @@ AC_MSG_RESULT($strict_status)
 AC_SUBST(INTROSPECTION_FLAGS)
 AC_SUBST(TEST_MODE)
 
+AC_MSG_CHECKING([whether to build with gcov testing])
+AC_ARG_ENABLE([coverage],
+		[AS_HELP_STRING([--enable-coverage], [Whether to enable coverage testing ])],
+		[],
+		[enable_coverage=no])
+
 AC_MSG_RESULT([$enable_coverage])
 
 AC_MSG_CHECKING([code coverage])

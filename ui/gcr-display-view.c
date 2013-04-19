@@ -734,7 +734,13 @@ _gcr_display_get_preferred_width (GtkWidget *widget, gint *minimal_width,
 }
 
 static void
-_gcr_display_view_populate_popup (GtkTextView *text_view, GtkWidget *menu)
+_gcr_display_view_populate_popup (GtkTextView *text_view,
+#if GTK_CHECK_VERSION (3, 8, 0)
+                                  GtkWidget *menu
+#else
+                                  GtkMenu *menu
+#endif
+                                  )
 {
 	GcrDisplayView *self = GCR_DISPLAY_VIEW (text_view);
 

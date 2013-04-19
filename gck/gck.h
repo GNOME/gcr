@@ -41,8 +41,10 @@ G_BEGIN_DECLS
  * and add the C flag: -DGCK_API_SUBJECT_TO_CHANGE
  */
 
+#ifndef __GI_SCANNER__
 #ifndef GCK_API_SUBJECT_TO_CHANGE
 #error "This API has not yet reached stability."
+#endif
 #endif
 
 #define             GCK_VENDOR_CODE                         0x47434B00 /* GCK */

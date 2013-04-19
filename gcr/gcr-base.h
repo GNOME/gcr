@@ -21,8 +21,10 @@
  * Author: Stef Walter <stefw@collabora.co.uk>
  */
 
+#ifndef __GI_SCANNER__
 #ifndef GCR_API_SUBJECT_TO_CHANGE
 #error <gcr/This API has not yet reached stability.>
+#endif
 #endif
 
 #ifndef __GCR_BASE_H__

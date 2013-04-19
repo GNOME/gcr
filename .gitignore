@@ -6,7 +6,6 @@ frob-*
 
 # Common file extensions
 *.abi
-*.asn.h
 *.autogen_bak
 *.bak
 *.gcda

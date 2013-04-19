@@ -15,13 +15,6 @@ perform-memcheck: $(TEST_PROGS)
 			$(builddir)/$$test $(TEST_ARGS) || exit 3; \
 	done
 
-V_ASN1 = $(V_ASN1_$(V))
-V_ASN1_ = $(V_ASN1_$(AM_DEFAULT_VERBOSITY))
-V_ASN1_0 = @echo "  ASN1  " $@;
-
-.asn.asn.h:
-	$(V_ASN1) $(ASN1PARSER) -o $@ $< && sed -i 's|#include.*|/* \0 */|' $@
-
 V_SED = $(V_SED_$(V))
 V_SED_ = $(V_SED_$(AM_DEFAULT_VERBOSITY))
 V_SED_0 = @echo "  SED  " $@;
@@ -53,4 +46,4 @@ pkgconfigdir = $(libdir)/pkgconfig
 ENUM_TEMPLATE_C = $(top_srcdir)/build/enum-template.c
 ENUM_TEMPLATE_H = $(top_srcdir)/build/enum-template.h
 
-SUFFIXES = .asn .asn.h .desktop.in .desktop.in.in .service .service.in
+SUFFIXES = .desktop.in .desktop.in.in .service .service.in

@@ -1,13 +1,5 @@
 include $(top_srcdir)/Makefile.decl
 
-ASN_FILES = \
-	test.asn
-
-ASN_SRCS = $(ASN_FILES:.asn=.asn.h)
-
-BUILT_SOURCES = \
-	$(ASN_SRCS)
-
 INCLUDES = \
 	-I$(top_builddir) \
 	-I$(top_srcdir) \
@@ -38,7 +30,8 @@ TEST_PROGS = \
 
 test_asn1_SOURCES = \
 	test-asn1.c \
-	$(ASN_SRCS)
+	test.asn.h \
+	$(NULL)
 
 check_PROGRAMS = $(TEST_PROGS)
 
@@ -52,8 +45,10 @@ check-memory: perform-memcheck
 all-local: $(check_PROGRAMS)
 
 EXTRA_DIST = \
-	$(ASN_FILES) \
-	files
+	test.asn \
+	files \
+	$(NULL)
 
-CLEANFILES = \
-	$(ASN_SRCS)
+asn:
+	asn1Parser -o test.asn.h test.asn
+	sed -i 's|#include.*|/* \0 */|' test.asn.h

@@ -170,15 +170,6 @@ AC_DEFINE_UNQUOTED(LIBGCRYPT_VERSION, "$GCRYPT_VERSION", [Version of GCRYPT we e
 AC_SUBST([LIBGCRYPT_CFLAGS])
 AC_SUBST([LIBGCRYPT_LIBS])
 
-# -------------------------------------------------------------------
-# libtasn1
-#
-
-AC_PATH_PROG(ASN1PARSER, asn1Parser, no)
-if test "$ASN1PARSER" = "no" ; then
-	AC_MSG_ERROR([asn1Parser tool is not installed, try libtasn1 or a related package])
-fi
-
 # ----------------------------------------------------------------------
 # mime-database
 

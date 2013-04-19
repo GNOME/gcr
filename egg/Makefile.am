@@ -7,15 +7,6 @@ noinst_LTLIBRARIES = \
 	libegg-secmem.la \
 	libegg-test.la
 
-ASN_FILES = \
-	pk.asn \
-	pkix.asn
-
-ASN_SRCS = $(ASN_FILES:.asn=.asn.h)
-
-BUILT_SOURCES = \
-	$(ASN_SRCS)
-
 INCLUDES = \
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
@@ -49,13 +40,13 @@ libegg_la_SOURCES = \
 	egg-symkey.c egg-symkey.h \
 	egg-testing.c egg-testing.h \
 	egg-timegm.c egg-timegm.h \
-	$(BUILT_SOURCES)
+	pk.asn.h pkix.asn.h \
+	$(NULL)
 
 EXTRA_DIST = \
-	$(ASN_FILES)
-
-CLEANFILES = \
-	$(BUILT_SOURCES)
+	pk.asn \
+	pkix.asn \
+	$(NULL)
 
 # --------------------------------------------------------------------
 # COMMON STUFF COMPILED INTO SMALLER COMPONENTS
@@ -94,3 +85,8 @@ SUBDIRS = . tests
 
 check-memory:
 	make -C tests check-memory
+
+asn:
+	asn1Parser -o pk.asn.h pk.asn
+	asn1Parser -o pkix.asn.h pkix.asn
+	sed -i 's|#include.*|/* \0 */|' pk.asn.h pkix.asn.h

@@ -574,7 +574,8 @@ test_generalized_time (void)
 	asn = egg_asn1x_create (test_asn1_tab, "TestGeneralized");
 	g_assert (asn);
 
-	g_assert_cmpint (EGG_ASN1X_TIME, ==, egg_asn1x_type (asn));
+	if (EGG_ASN1X_TIME != egg_asn1x_type (asn))
+		g_assert_cmpint (EGG_ASN1X_GENERALIZED_TIME, ==, egg_asn1x_type (asn));
 
 	/* Shouldn't succeed */
 	value = egg_asn1x_get_time_as_long (asn);

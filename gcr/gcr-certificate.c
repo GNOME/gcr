@@ -149,7 +149,8 @@ certificate_info_load (GcrCertificate *cert)
 	g_assert (GCR_IS_CERTIFICATE (cert));
 
 	der = gcr_certificate_get_der_data (cert, &n_der);
-	g_return_val_if_fail (der, NULL);
+	if (der == NULL)
+		return NULL;
 
 	info = g_object_get_qdata (G_OBJECT (cert), CERTIFICATE_INFO);
 	if (info != NULL) {
@@ -189,7 +190,8 @@ digest_certificate (GcrCertificate *self, GChecksumType type)
 	g_assert (GCR_IS_CERTIFICATE (self));
 
 	der = gcr_certificate_get_der_data (self, &n_der);
-	g_return_val_if_fail (der, NULL);
+	if (der == NULL)
+		return NULL;
 
 	digest = g_checksum_new (type);
 	g_return_val_if_fail (digest, NULL);
@@ -443,7 +445,8 @@ gcr_certificate_get_issuer_part (GcrCertificate *self, const char *part)
 	g_return_val_if_fail (part != NULL, NULL);
 
 	info = certificate_info_load (self);
-	g_return_val_if_fail (info, NULL);
+	if (info == NULL)
+		return NULL;
 
 	return egg_dn_read_part (egg_asn1x_node (info->asn1, "tbsCertificate", "issuer", "rdnSequence", NULL), part);
 }
@@ -456,7 +459,8 @@ _gcr_certificate_get_issuer_const (GcrCertificate *self)
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 
 	info = certificate_info_load (self);
-	g_return_val_if_fail (info, NULL);
+	if (info == NULL)
+		return NULL;
 
 	return egg_asn1x_get_element_raw (egg_asn1x_node (info->asn1, "tbsCertificate", "issuer", NULL));
 }
@@ -517,10 +521,12 @@ gcr_certificate_is_issuer (GcrCertificate *self, GcrCertificate *issuer)
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (issuer), FALSE);
 
 	subject_dn = _gcr_certificate_get_subject_const (issuer);
-	g_return_val_if_fail (subject_dn, FALSE);
+	if (subject_dn == NULL)
+		return FALSE;
 
 	issuer_dn = _gcr_certificate_get_issuer_const (self);
-	g_return_val_if_fail (issuer_dn, FALSE);
+	if (issuer_dn == NULL)
+		return FALSE;
 
 	ret = g_bytes_equal (subject_dn, issuer_dn);
 
@@ -550,7 +556,8 @@ gcr_certificate_get_issuer_dn (GcrCertificate *self)
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 
 	info = certificate_info_load (self);
-	g_return_val_if_fail (info, NULL);
+	if (info == NULL)
+		return NULL;
 
 	return egg_dn_read (egg_asn1x_node (info->asn1, "tbsCertificate", "issuer", "rdnSequence", NULL));
 }
@@ -623,7 +630,8 @@ gcr_certificate_get_subject_part (GcrCertificate *self, const char *part)
 	g_return_val_if_fail (part != NULL, NULL);
 
 	info = certificate_info_load (self);
-	g_return_val_if_fail (info, NULL);
+	if (info == NULL)
+		return NULL;
 
 	return egg_dn_read_part (egg_asn1x_node (info->asn1, "tbsCertificate", "subject", "rdnSequence", NULL), part);
 }
@@ -648,7 +656,8 @@ gcr_certificate_get_subject_dn (GcrCertificate *self)
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 
 	info = certificate_info_load (self);
-	g_return_val_if_fail (info, NULL);
+	if (info == NULL)
+		return NULL;
 
 	return egg_dn_read (egg_asn1x_node (info->asn1, "tbsCertificate", "subject", "rdnSequence", NULL));
 }
@@ -661,7 +670,8 @@ _gcr_certificate_get_subject_const (GcrCertificate *self)
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 
 	info = certificate_info_load (self);
-	g_return_val_if_fail (info, NULL);
+	if (info == NULL)
+		return NULL;
 
 	return egg_asn1x_get_element_raw (egg_asn1x_node (info->asn1, "tbsCertificate", "subject", NULL));
 }
@@ -719,7 +729,8 @@ gcr_certificate_get_issued_date (GcrCertificate *self)
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 
 	info = certificate_info_load (self);
-	g_return_val_if_fail (info, NULL);
+	if (info == NULL)
+		return NULL;
 
 	date = g_date_new ();
 	if (!egg_asn1x_get_time_as_date (egg_asn1x_node (info->asn1, "tbsCertificate", "validity", "notBefore", NULL), date)) {
@@ -750,7 +761,8 @@ gcr_certificate_get_expiry_date (GcrCertificate *self)
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 
 	info = certificate_info_load (self);
-	g_return_val_if_fail (info, NULL);
+	if (info == NULL)
+		return NULL;
 
 	date = g_date_new ();
 	if (!egg_asn1x_get_time_as_date (egg_asn1x_node (info->asn1, "tbsCertificate", "validity", "notAfter", NULL), date)) {
@@ -779,7 +791,8 @@ gcr_certificate_get_key_size (GcrCertificate *self)
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), 0);
 
 	info = certificate_info_load (self);
-	g_return_val_if_fail (info, 0);
+	if (info == NULL)
+		return 0;
 
 	if (!info->key_size) {
 		subject_public_key = egg_asn1x_node (info->asn1, "tbsCertificate",
@@ -817,7 +830,9 @@ gcr_certificate_get_fingerprint (GcrCertificate *self, GChecksumType type, gsize
 	g_return_val_if_fail (n_length != NULL, NULL);
 
 	sum = digest_certificate (self, type);
-	g_return_val_if_fail (sum, NULL);
+	if (sum == NULL)
+		return NULL;
+
 	length = g_checksum_type_get_length (type);
 	g_return_val_if_fail (length > 0, NULL);
 	digest = g_malloc (length);
@@ -856,7 +871,9 @@ gcr_certificate_get_fingerprint_hex (GcrCertificate *self, GChecksumType type)
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 
 	sum = digest_certificate (self, type);
-	g_return_val_if_fail (sum, NULL);
+	if (sum == NULL)
+		return NULL;
+
 	length = g_checksum_type_get_length (type);
 	g_return_val_if_fail (length > 0, NULL);
 	digest = g_malloc (length);
@@ -891,7 +908,8 @@ gcr_certificate_get_serial_number (GcrCertificate *self, gsize *n_length)
 	g_return_val_if_fail (n_length != NULL, NULL);
 
 	info = certificate_info_load (self);
-	g_return_val_if_fail (info, NULL);
+	if (info == NULL)
+		return NULL;
 
 	bytes = egg_asn1x_get_integer_as_raw (egg_asn1x_node (info->asn1, "tbsCertificate", "serialNumber", NULL));
 	g_return_val_if_fail (bytes != NULL, NULL);
@@ -971,7 +989,8 @@ gcr_certificate_get_basic_constraints (GcrCertificate *self,
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), FALSE);
 
 	info = certificate_info_load (self);
-	g_return_val_if_fail (info, FALSE);
+	if (info == NULL)
+		return FALSE;
 
 	value = _gcr_certificate_extension_find (info->asn1, GCR_OID_BASIC_CONSTRAINTS, NULL);
 	if (!value)

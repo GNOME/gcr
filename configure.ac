@@ -293,9 +293,27 @@ AC_MSG_RESULT($strict_status)
 AC_SUBST(INTROSPECTION_FLAGS)
 AC_SUBST(TEST_MODE)
 
-GNOME_CODE_COVERAGE
-CFLAGS="$CFLAGS $CODE_COVERAGE_CFLAGS"
-LDFLAGS="$LDFLAGS $CODE_COVERAGE_LDFLAGS"
+AC_MSG_RESULT([$enable_coverage])
+
+AC_MSG_CHECKING([code coverage])
+
+if test "$enable_coverage" = "yes"; then
+	if test "$GCC" != "yes"; then
+		AC_MSG_ERROR(Coverage testing requires GCC)
+	fi
+
+	AC_PATH_PROG(GCOV, gcov, no)
+	if test "$GCOV" = "no" ; then
+		AC_MSG_ERROR(gcov tool is not available)
+	fi
+
+	CFLAGS="$CFLAGS -O0 -g --coverage"
+	LDFLAGS="$LDFLAGS --coverage"
+fi
+
+AM_CONDITIONAL([WITH_COVERAGE], [test "$enable_coverage" = "yes"])
+
+AC_MSG_RESULT($enable_coverage)
 
 AC_ARG_ENABLE(valgrind,
 	AC_HELP_STRING([--enable-valgrind],
@@ -400,5 +418,5 @@ echo "  Strict Compilation:   $strict_status"
 echo "  GTK+ Widgets:         $with_gtk"
 echo "  Introspection:        $found_introspection"
 echo "  Valgrind:             $valgrind_status"
-echo "  Test Coverage:        ${enable_code_coverage:-no}"
+echo "  Test Coverage:        ${enable_coverage:-no}"
 echo

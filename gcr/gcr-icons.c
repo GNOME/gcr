@@ -25,6 +25,9 @@
 
 #include "gcr-icons.h"
 
+#define ICON_SYSTEM         "applications-system"
+#define ICON_FOLDER         "folder"
+
 /**
  * gcr_icon_for_token:
  * @token_info: the token info
@@ -40,15 +43,24 @@ gcr_icon_for_token (GckTokenInfo *token_info)
 
 	g_return_val_if_fail (token_info != NULL, NULL);
 
-	if (g_strcmp0 (token_info->manufacturer_id, "Gnome Keyring") == 0)
+	if (g_strcmp0 (token_info->manufacturer_id, "Gnome Keyring") == 0) {
 		icon = g_themed_icon_new (GCR_ICON_HOME_DIRECTORY);
 
-	else if (g_strcmp0 (token_info->manufacturer_id, "Mozilla Foundation") == 0 &&
-	         g_strcmp0 (token_info->model, "NSS 3") == 0)
+	} else if (g_strcmp0 (token_info->model, "p11-kit-trust") == 0) {
+		if (g_strcmp0 (token_info->label, "Default Trust") == 0 ||
+		    g_strcmp0 (token_info->label, "System Trust") == 0) {
+			icon = g_themed_icon_new (ICON_SYSTEM);
+		} else {
+			icon = g_themed_icon_new (ICON_FOLDER);
+		}
+
+	} else if (g_strcmp0 (token_info->manufacturer_id, "Mozilla Foundation") == 0 &&
+	           g_strcmp0 (token_info->model, "NSS 3") == 0) {
 		icon = g_themed_icon_new (GCR_ICON_HOME_DIRECTORY);
 
-	else
+	} else {
 		icon = g_themed_icon_new (GCR_ICON_SMART_CARD);
+	}
 
 	return icon;
 }

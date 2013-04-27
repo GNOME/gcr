@@ -3,3 +3,8 @@
 
 Certificate
 	.get_der_data#virtual_method name="provide_der_data"
+	.label nullable=true
+	.markup nullable=true
+	.subject nullable=true
+	.issuer nullable=true
+	.expiry nullable=true

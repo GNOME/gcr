@@ -229,7 +229,7 @@ Gcr_@GCR_MAJOR@_gir_LIBS = libgcr-base-@GCR_MAJOR@.la
 Gcr_@GCR_MAJOR@_gir_CFLAGS = -I$(top_srcdir) -I$(top_builddir) \
 	-DGCR_COMPILATION -DGCR_API_SUBJECT_TO_CHANGE
 Gcr_@GCR_MAJOR@_gir_FILES = $(PUBLIC_FILES)
-Gcr_@GCR_MAJOR@_gir_SCANNERFLAGS = --c-include "gcr-base.h" \
+Gcr_@GCR_MAJOR@_gir_SCANNERFLAGS = --c-include "gcr/gcr-base.h" \
 	--identifier-prefix Gcr
 
 girdir = $(datadir)/gir-1.0

@@ -253,30 +253,65 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 	if (g_once_init_enter (&initialized)) {
 		CERTIFICATE_INFO = g_quark_from_static_string ("_gcr_certificate_certificate_info");
 
+		/**
+		 * GcrCertificate:label: (allow-none)
+		 *
+		 * A readable label for this certificate.
+		 */
 		g_object_interface_install_property (iface,
 		         g_param_spec_string ("label", "Label", "Certificate label",
 		                              "", G_PARAM_READABLE));
 
+		/**
+		 * GcrCertificate:description:
+		 *
+		 * A readable description for this certificate
+		 */
 		g_object_interface_install_property (iface,
 		         g_param_spec_string ("description", "Description", "Description of object being rendered",
 		                              "", G_PARAM_READABLE));
 
+		/**
+		 * GcrCertificate:markup: (allow-none)
+		 *
+		 * GLib markup to describe the certificate
+		 */
 		g_object_interface_install_property (iface,
 		         g_param_spec_string ("markup", "Markup", "Markup which describes object being rendered",
 		                              "", G_PARAM_READABLE));
 
+		/**
+		 * GcrCertificate:icon:
+		 *
+		 * An icon representing the certificate
+		 */
 		g_object_interface_install_property (iface,
 		         g_param_spec_object ("icon", "Icon", "Icon for the object being rendered",
 		                              G_TYPE_ICON, G_PARAM_READABLE));
 
+		/**
+		 * GcrCertificate:subject: (allow-none)
+		 *
+		 * Common name part of the certificate subject
+		 */
 		g_object_interface_install_property (iface,
 		           g_param_spec_string ("subject", "Subject", "Common name of subject",
 		                                "", G_PARAM_READABLE));
 
+		/**
+		 * GcrCertificate:issuer: (allow-none)
+		 *
+		 * Common name part of the certificate issuer
+		 */
 		g_object_interface_install_property (iface,
 		           g_param_spec_string ("issuer", "Issuer", "Common name of issuer",
 		                                "", G_PARAM_READABLE));
 
+		/**
+		 * GcrCertificate:expiry: (allow-none)
+		 *
+		 * The expiry date of the certificate
+		 */
 		g_object_interface_install_property (iface,
 		           g_param_spec_boxed ("expiry", "Expiry", "Certificate expiry",
 		                               G_TYPE_DATE, G_PARAM_READABLE));
@@ -951,7 +986,7 @@ gcr_certificate_get_serial_number_hex (GcrCertificate *self)
 }
 
 /**
- * gcr_certificate_get_icon:
+ * gcr_certificate_get_icon: (skip)
  * @self: The certificate
  *
  * Get the icon for a certificate.

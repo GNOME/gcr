@@ -121,9 +121,18 @@ mock_certificate_new (gconstpointer data, gsize n_data)
  */
 
 typedef struct {
+	/* A self signed certificate */
 	GcrCertificate *cert_self;
+
+	/* Simple CA + issued */
 	GcrCertificate *cert_ca;
 	GcrCertificate *cert_signed;
+
+	/* Root + intermediate + issued */
+	GcrCertificate *cert_root;
+	GcrCertificate *cert_inter;
+	GcrCertificate *cert_host;
+
 	CK_FUNCTION_LIST funcs;
 } Test;
 
@@ -172,6 +181,24 @@ setup (Test *test, gconstpointer unused)
 	if (!g_file_get_contents (SRCDIR "/files/collabora-ca.cer", &contents, &n_contents, NULL))
 		g_assert_not_reached ();
 	test->cert_ca = mock_certificate_new (contents, n_contents);
+	g_free (contents);
+
+	/* A root CA */
+	if (!g_file_get_contents (SRCDIR "/files/startcom-ca.cer", &contents, &n_contents, NULL))
+		g_assert_not_reached ();
+	test->cert_root = mock_certificate_new (contents, n_contents);
+	g_free (contents);
+
+	/* An intermediate */
+	if (!g_file_get_contents (SRCDIR "/files/startcom-intermediate.cer", &contents, &n_contents, NULL))
+		g_assert_not_reached ();
+	test->cert_inter = mock_certificate_new (contents, n_contents);
+	g_free (contents);
+
+	/* Signed by above intermediate */
+	if (!g_file_get_contents (SRCDIR "/files/jabber-server.cer", &contents, &n_contents, NULL))
+		g_assert_not_reached ();
+	test->cert_host = mock_certificate_new (contents, n_contents);
 	g_free (contents);
 }
 
@@ -573,6 +600,35 @@ test_with_lookup_error (Test *test, gconstpointer unused)
 }
 
 static void
+test_wrong_order_anchor (Test *test, gconstpointer unused)
+{
+	GcrCertificateChain *chain;
+	GError *error = NULL;
+
+	chain = gcr_certificate_chain_new ();
+
+	/* Two certificates in chain with ca trust anchor */
+	gcr_certificate_chain_add (chain, test->cert_host);
+	gcr_certificate_chain_add (chain, test->cert_root);
+	gcr_certificate_chain_add (chain, test->cert_inter);
+	add_anchor_to_module (test->cert_root, GCR_PURPOSE_CLIENT_AUTH);
+
+	g_assert_cmpuint (gcr_certificate_chain_get_length (chain), ==, 3);
+
+	if (!gcr_certificate_chain_build (chain, GCR_PURPOSE_CLIENT_AUTH,
+	                                  NULL, 0, NULL, &error))
+		g_assert_not_reached ();
+	g_assert_no_error (error);
+
+	g_assert_cmpuint (gcr_certificate_chain_get_status (chain), ==,
+	                  GCR_CERTIFICATE_CHAIN_ANCHORED);
+	g_assert_cmpuint (gcr_certificate_chain_get_length (chain), ==, 3);
+	g_assert (gcr_certificate_chain_get_anchor (chain) == test->cert_root);
+
+	g_object_unref (chain);
+}
+
+static void
 test_with_anchor_error (Test *test, gconstpointer unused)
 {
 	GcrCertificateChain *chain;
@@ -650,6 +706,7 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/certificate-chain/with_anchor_and_lookup_ca", Test, NULL, setup, test_with_anchor_and_lookup_ca, teardown);
 	g_test_add ("/gcr/certificate-chain/with_pinned", Test, NULL, setup, test_with_pinned, teardown);
 	g_test_add ("/gcr/certificate-chain/without_lookups", Test, NULL, setup, test_without_lookups, teardown);
+	g_test_add ("/gcr/certificate-chain/wrong_order_anchor", Test, NULL, setup, test_wrong_order_anchor, teardown);
 	g_test_add ("/gcr/certificate-chain/with_lookup_error", Test, NULL, setup, test_with_lookup_error, teardown);
 	g_test_add ("/gcr/certificate-chain/with_anchor_error", Test, NULL, setup, test_with_anchor_error, teardown);
 	g_test_add ("/gcr/certificate-chain/with_anchor_error_async", Test, NULL, setup, test_with_anchor_error_async, teardown);

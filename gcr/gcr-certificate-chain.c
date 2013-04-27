@@ -214,12 +214,33 @@ cleanup_chain_private (GcrCertificateChainPrivate *pv)
 	return pv;
 }
 
+static GcrCertificate *
+pop_certificate (GPtrArray *certificates,
+                 GcrCertificate *issued)
+{
+	GcrCertificate *certificate;
+	gint i;
+
+	for (i = 0; i < certificates->len; i++) {
+		certificate = certificates->pdata[i];
+		if (!issued || gcr_certificate_is_issuer (issued, certificate)) {
+			g_object_ref (certificate);
+			g_ptr_array_remove_index_fast (certificates, i);
+			return certificate;
+		}
+	}
+
+	return NULL;
+}
+
 static gboolean
 perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
                      GError **rerror)
 {
 	GError *error = NULL;
 	GcrCertificate *certificate;
+	GcrCertificate *issued;
+	GPtrArray *input;
 	gboolean lookups;
 	gboolean ret;
 	guint length;
@@ -237,8 +258,13 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 		return TRUE;
 	}
 
+	input = pv->certificates;
+	pv->certificates = g_ptr_array_new_with_free_func (g_object_unref);
+
 	/* First check for pinned certificates */
-	certificate = g_ptr_array_index (pv->certificates, 0);
+	certificate = pop_certificate (input, NULL);
+	g_ptr_array_add (pv->certificates, certificate);
+
 	if (_gcr_debugging) {
 		subject = gcr_certificate_get_subject_dn (certificate);
 		_gcr_debug ("first certificate: %s", subject);
@@ -252,6 +278,7 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 			_gcr_debug ("failed to lookup pinned certificate: %s",
 			            egg_error_message (error));
 			g_propagate_error (rerror, error);
+			g_ptr_array_unref (input);
 			return FALSE;
 		}
 
@@ -263,16 +290,15 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 			_gcr_debug ("found pinned certificate for peer '%s', truncating chain",
 			            pv->peer);
 
-			g_ptr_array_set_size (pv->certificates, 1);
+			g_ptr_array_unref (input);
 			pv->status = GCR_CERTIFICATE_CHAIN_PINNED;
 			return TRUE;
 		}
 	}
 
-	length = 1;
-
 	/* The first certificate is always unconditionally in the chain */
 	while (pv->status == GCR_CERTIFICATE_CHAIN_UNKNOWN) {
+		issued = certificate;
 
 		/* Stop the chain if previous was self-signed */
 		if (gcr_certificate_is_issuer (certificate, certificate)) {
@@ -281,9 +307,9 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 			break;
 		}
 
-		/* Try the next certificate in the chain */
-		if (length < pv->certificates->len) {
-			certificate = g_ptr_array_index (pv->certificates, length);
+		/* Get the next certificate */
+		certificate = pop_certificate (input, issued);
+		if (certificate) {
 			if (_gcr_debugging) {
 				subject = gcr_certificate_get_subject_dn (certificate);
 				_gcr_debug ("next certificate: %s", subject);
@@ -292,15 +318,15 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 
 		/* No more in chain, try to lookup */
 		} else if (lookups) {
-			certificate = gcr_pkcs11_certificate_lookup_issuer (certificate,
+			certificate = gcr_pkcs11_certificate_lookup_issuer (issued,
 			                                                    cancellable, &error);
 			if (error != NULL) {
 				_gcr_debug ("failed to lookup issuer: %s", error->message);
 				g_propagate_error (rerror, error);
+				g_ptr_array_unref (input);
 				return FALSE;
 
 			} else if (certificate) {
-				g_ptr_array_add (pv->certificates, certificate);
 				if (_gcr_debugging) {
 					subject = gcr_certificate_get_subject_dn (certificate);
 					_gcr_debug ("found issuer certificate: %s", subject);
@@ -324,6 +350,7 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 			break;
 		}
 
+		g_ptr_array_add (pv->certificates, certificate);
 		++length;
 
 		/* See if this certificate is an anchor */
@@ -335,6 +362,7 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 				_gcr_debug ("failed to lookup anchored certificate: %s",
 				            egg_error_message (error));
 				g_propagate_error (rerror, error);
+				g_ptr_array_unref (input);
 				return FALSE;
 
 			/* Stop the chain at the first anchor */
@@ -348,9 +376,7 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 
 	/* TODO: Need to check each certificate in the chain for distrusted */
 
-	/* Truncate to the appropriate length */
-	g_assert (length <= pv->certificates->len);
-	g_ptr_array_set_size (pv->certificates, length);
+	g_ptr_array_unref (input);
 	return TRUE;
 }
 

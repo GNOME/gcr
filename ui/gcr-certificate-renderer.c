@@ -273,13 +273,6 @@ append_extension_hex (GcrRenderer *renderer,
 	return TRUE;
 }
 
-static gboolean
-on_delete_unref_dialog (GtkWidget *widget, GdkEvent *event, gpointer data)
-{
-	g_object_unref (widget);
-	return FALSE;
-}
-
 static void
 on_export_completed (GObject *source, GAsyncResult *result, gpointer user_data)
 {
@@ -297,7 +290,8 @@ on_export_completed (GObject *source, GAsyncResult *result, gpointer user_data)
 				  error->message);
 			gtk_widget_show (dialog);
 			g_signal_connect (dialog, "delete-event",
-					  G_CALLBACK (on_delete_unref_dialog), NULL);
+					  G_CALLBACK (gtk_widget_destroy), dialog);
+			g_signal_connect_swapped(dialog, "response", G_CALLBACK (gtk_widget_destroy), dialog);
 		}
 	}
 

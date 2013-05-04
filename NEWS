@@ -1,3 +1,13 @@
+gcr 3.8.2:
+ - Build certificate chains when intermediates are wrong order [#699026]
+ - Don't try to import certificates to gnome-keyring xdg module
+ - Add appropriate icon for p11-kit trust module
+ - Make gcr build on both pre GTK+ 3.8 and later versions
+ - Update for recent changes in libtasn1
+ - Handle cases where no certificate data is available
+ - Fix for GTK+ 3.8 deprecations
+ - Build fixes
+
 gcr 3.8.1:
  - Fix erroneously cancelled prompts
  - Updated translations

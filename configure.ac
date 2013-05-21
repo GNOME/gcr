@@ -124,7 +124,7 @@ AC_CHECK_FUNCS(mlock)
 # --------------------------------------------------------------------
 # p11-kit
 
-PKG_CHECK_MODULES([P11_KIT], p11-kit-1 >= 0.6)
+PKG_CHECK_MODULES([P11_KIT], p11-kit-1 >= 0.19.0)
 AC_SUBST(P11_KIT_CFLAGS)
 AC_SUBST(P11_KIT_LIBS)
 

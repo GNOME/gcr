@@ -55,20 +55,14 @@ perform_initialize_registered (InitializeRegistered *args)
 {
 	GckModule *module;
 	CK_FUNCTION_LIST_PTR *modules, *funcs;
-	const gchar *message;
-	CK_RV rv;
 
-	rv = p11_kit_initialize_registered ();
-	if (rv != CKR_OK) {
-		message = p11_kit_message ();
-		if (message == NULL)
-			message = gck_message_from_rv (rv);
+	modules = p11_kit_modules_load_and_initialize (0);
+	if (modules == NULL) {
 		g_set_error (&args->error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM,
-		             _("Couldn't initialize registered PKCS#11 modules: %s"), message);
-		return rv;
+		             _("Couldn't initialize registered PKCS#11 modules: %s"), p11_kit_message ());
+		return CKR_GCK_MODULE_PROBLEM;
 	}
 
-	modules = p11_kit_registered_modules ();
 	for (funcs = modules; *funcs; ++funcs) {
 		module = _gck_module_new_initialized (*funcs);
 		args->results = g_list_prepend (args->results, module);

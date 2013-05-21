@@ -29,6 +29,7 @@
 
 #include <glib/gi18n-lib.h>
 
+#define P11_KIT_FUTURE_UNSTABLE_API 1
 #include <p11-kit/p11-kit.h>
 
 #include <string.h>
@@ -90,7 +91,6 @@ enum {
 };
 
 struct _GckModulePrivate {
-	GModule *module;
 	gchar *path;
 	gboolean initialized;
 	CK_FUNCTION_LIST_PTR funcs;
@@ -175,7 +175,7 @@ gck_module_dispose (GObject *obj)
 
 	/* Must be careful when accessing funcs */
 	if (finalize) {
-		rv = p11_kit_finalize_module (self->pv->funcs);
+		rv = p11_kit_module_finalize (self->pv->funcs);
 		if (rv != CKR_OK) {
 			g_warning ("C_Finalize on module '%s' failed: %s",
 			           self->pv->path, gck_message_from_rv (rv));
@@ -190,14 +190,9 @@ gck_module_finalize (GObject *obj)
 {
 	GckModule *self = GCK_MODULE (obj);
 
+	if (self->pv->initialized && self->pv->funcs)
+		p11_kit_module_release (self->pv->funcs);
 	self->pv->funcs = NULL;
-
-	if (self->pv->module) {
-		if (!g_module_close (self->pv->module))
-			g_warning ("failed to close the pkcs11 module: %s",
-			           g_module_error ());
-		self->pv->module = NULL;
-	}
 
 	g_free (self->pv->path);
 	self->pv->path = NULL;
@@ -339,47 +334,26 @@ typedef struct {
 static CK_RV
 perform_initialize (Initialize *args)
 {
-	CK_C_GetFunctionList get_function_list;
 	CK_FUNCTION_LIST_PTR funcs;
-	GModule *module;
 	GckModule *result;
 	CK_RV rv;
 
-	/* Load the actual module */
-	module = g_module_open (args->path, 0);
-	if (!module) {
+	funcs = p11_kit_module_load (args->path, P11_KIT_MODULE_CRITICAL);
+	if (funcs == NULL) {
 		g_set_error (&args->error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM,
-		             _("Error loading PKCS#11 module: %s"), g_module_error ());
+		             _("Error loading PKCS#11 module: %s"), p11_kit_message ());
 		return CKR_GCK_MODULE_PROBLEM;
-	}
-
-	/* Get the entry point */
-	if (!g_module_symbol (module, "C_GetFunctionList", (void**)&get_function_list)) {
-		g_set_error (&args->error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM,
-		             _("Invalid PKCS#11 module: %s"), g_module_error ());
-		g_module_close (module);
-		return CKR_GCK_MODULE_PROBLEM;
-	}
-
-	/* Get the function list */
-	rv = (get_function_list) (&funcs);
-	if (rv != CKR_OK) {
-		g_set_error (&args->error, GCK_ERROR, rv,
-		             _("Couldn't setup PKCS#11 module: %s"),
-		             gck_message_from_rv (rv));
-		g_module_close (module);
-		return rv;
 	}
 
 	result = g_object_new (GCK_TYPE_MODULE,
 	                       "functions", funcs,
 	                       "path", args->path,
 	                       NULL);
-	result->pv->module = module;
 
 	/* Now initialize the module */
-	rv = p11_kit_initialize_module (funcs);
+	rv = p11_kit_module_initialize (funcs);
 	if (rv != CKR_OK) {
+		p11_kit_module_release (funcs);
 		g_set_error (&args->error, GCK_ERROR, rv,
 		             _("Couldn't initialize PKCS#11 module: %s"),
 		             gck_message_from_rv (rv));

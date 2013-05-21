@@ -159,19 +159,19 @@ initialize_uris (void)
 
 	if (!initialized_uris) {
 		/* Ask for the global x-trust-store option */
-		trust_store_uri = p11_kit_registered_option (NULL, "x-trust-store");
+		trust_store_uri = p11_kit_config_option (NULL, "x-trust-store");
 		for (l = all_modules; !trust_store_uri && l != NULL; l = g_list_next (l)) {
-			trust_store_uri = p11_kit_registered_option (gck_module_get_functions (l->data),
-			                                             "x-trust-store");
+			trust_store_uri = p11_kit_config_option (gck_module_get_functions (l->data),
+			                                         "x-trust-store");
 		}
 
 		uris = g_ptr_array_new ();
-		uri = p11_kit_registered_option (NULL, "x-trust-lookup");
+		uri = p11_kit_config_option (NULL, "x-trust-lookup");
 		if (uri != NULL)
 			g_ptr_array_add (uris, uri);
 		for (l = all_modules; l != NULL; l = g_list_next (l)) {
-			uri = p11_kit_registered_option (gck_module_get_functions (l->data),
-			                                 "x-trust-lookup");
+			uri = p11_kit_config_option (gck_module_get_functions (l->data),
+			                             "x-trust-lookup");
 			if (uri != NULL)
 				g_ptr_array_add (uris, uri);
 		}

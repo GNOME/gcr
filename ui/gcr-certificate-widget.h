@@ -45,13 +45,13 @@ typedef struct _GcrCertificateWidgetPrivate GcrCertificateWidgetPrivate;
 
 struct _GcrCertificateWidget {
 	/*< private >*/
-	GtkWidget parent;
+	GtkBin parent;
 	GcrCertificateWidgetPrivate *pv;
 };
 
 struct _GcrCertificateWidgetClass {
 	/*< private >*/
-	GtkWidgetClass parent_class;
+	GtkBinClass parent_class;
 };
 
 GType                   gcr_certificate_widget_get_type               (void);

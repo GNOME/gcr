@@ -71,7 +71,7 @@ struct _GcrCertificateWidgetPrivate {
 	GcrCertificateRenderer *renderer;
 };
 
-G_DEFINE_TYPE (GcrCertificateWidget, gcr_certificate_widget, GTK_TYPE_WIDGET);
+G_DEFINE_TYPE (GcrCertificateWidget, gcr_certificate_widget, GTK_TYPE_BIN);
 
 /* -----------------------------------------------------------------------------
  * OBJECT

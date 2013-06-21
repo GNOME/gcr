@@ -48,7 +48,7 @@ egg_testing_on_valgrind (void)
 #ifdef WITH_VALGRIND
 	return RUNNING_ON_VALGRIND;
 #else
-	return FALSE
+	return FALSE;
 #endif
 }
 

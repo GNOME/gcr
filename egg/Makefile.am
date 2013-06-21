@@ -10,8 +10,7 @@ noinst_LTLIBRARIES = \
 AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
-	-I$(top_srcdir)/build \
-	-DWITH_VALGRIND
+	-I$(top_srcdir)/build
 
 libegg_la_CFLAGS = \
 	$(GLIB_CFLAGS) \

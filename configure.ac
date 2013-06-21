@@ -334,8 +334,8 @@ AM_CONDITIONAL([WITH_COVERAGE], [test "$enable_coverage" = "yes"])
 AC_MSG_RESULT($enable_coverage)
 
 AC_ARG_ENABLE(valgrind,
-	AC_HELP_STRING([--enable-valgrind],
-	[Run gnome-keyring-daemon using valgrind]))
+	AC_HELP_STRING([--enable-valgrind[=@<:@yes/no/run@:>@]],
+	[Run gcr using valgrind]), ,enable_valgrind=yes)
 
 AC_MSG_CHECKING([valgrind])
 valgrind_status="yes"

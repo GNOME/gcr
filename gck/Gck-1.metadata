@@ -8,6 +8,9 @@ Attribute
 	.length skip=true
 	.value skip=true
 
+Enumerator
+	.set_object_type_full name="set_object_type"
+
 UriData
 	.attributes unowned=false
 	.module_info unowned=false

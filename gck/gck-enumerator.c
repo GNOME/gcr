@@ -85,7 +85,8 @@ struct _GckEnumeratorState {
 	/* The type of objects to create */
 	GType object_type;
 	gpointer object_class;
-	GckObjectCacheIface *object_iface;
+	const gulong *attr_types;
+	gint attr_count;
 
 	/* state_slots */
 	GList *slots;
@@ -111,6 +112,8 @@ struct _GckEnumeratorPrivate {
 	GTlsInteraction *interaction;
 	GType object_type;
 	GckObjectClass *object_class;
+	gulong *attr_types;
+	gint attr_count;
 	GckEnumerator *chained;
 };
 
@@ -512,15 +515,15 @@ state_results (GckEnumeratorState *args,
 		}
 
 		/* If no request for attributes, just go forward */
-		if (args->object_iface == NULL || args->object_iface->n_default_types == 0) {
+		if (args->attr_count == 0) {
 			g_queue_push_tail (args->results, result);
 			continue;
 		}
 
 		gck_builder_init (&builder);
 
-		for (i = 0; i < args->object_iface->n_default_types; ++i)
-			gck_builder_add_empty (&builder, args->object_iface->default_types[i]);
+		for (i = 0; i < args->attr_count; ++i)
+			gck_builder_add_empty (&builder, args->attr_types[i]);
 
 		/* Ask for attribute sizes */
 		template = _gck_builder_prepare_in (&builder, &n_template);
@@ -647,6 +650,7 @@ gck_enumerator_finalize (GObject *obj)
 	g_mutex_clear (self->pv->mutex);
 	g_free (self->pv->mutex);
 	g_type_class_unref (self->pv->object_class);
+	g_free (self->pv->attr_types);
 
 	G_OBJECT_CLASS (gck_enumerator_parent_class)->finalize (obj);
 }
@@ -675,7 +679,7 @@ gck_enumerator_class_init (GckEnumeratorClass *klass)
 		                     G_TYPE_TLS_INTERACTION, G_PARAM_READWRITE));
 
 	/**
-	 * GckEnumerator:object-type:
+	 * GckEnumerator:object-type: (skip)
 	 *
 	 * The type of objects that are created by the enumerator. Must be
 	 * GckObject or derived from it.
@@ -850,7 +854,7 @@ gck_enumerator_get_object_type (GckEnumerator *self)
 }
 
 /**
- * gck_enumerator_set_object_type:
+ * gck_enumerator_set_object_type: (skip):
  * @self: an enumerator
  * @object_type: the type of objects to create
  *
@@ -858,12 +862,35 @@ gck_enumerator_get_object_type (GckEnumerator *self)
  * always be either #GckObject or derived from it.
  *
  * If the #GckObjectCache interface is implemented on the derived class
- * and the attribute_types field is set, then the enumerator will retrieve
+ * and the default_types class field is set, then the enumerator will retrieve
  * attributes for each object.
  */
 void
 gck_enumerator_set_object_type (GckEnumerator *self,
                                 GType object_type)
+{
+	gck_enumerator_set_object_type_full (self, object_type, NULL, 0);
+}
+
+/**
+ * gck_enumerator_set_object_type_full: (rename-to gck_enumerator_set_object_type)
+ * @self: an enumerator
+ * @object_type: the type of objects to create
+ * @attr_types: (array length=attr_count): types of attributes to retrieve for objects
+ * @attr_count: the number of attributes to retrieve
+ *
+ * Set the type of objects to be created by this enumerator. The type must
+ * always be either #GckObject or derived from it.
+ *
+ * If @attr_types and @attr_count are non-NULL and non-zero respectively,
+ * then the #GckObjectCache interface is expected to be implemented on the
+ * derived class, then the enumerator will retrieve attributes for each object.
+ */
+void
+gck_enumerator_set_object_type_full (GckEnumerator *self,
+                                     GType object_type,
+                                     const gulong *attr_types,
+                                     gint attr_count)
 {
 	gpointer klass;
 
@@ -883,6 +910,15 @@ gck_enumerator_set_object_type (GckEnumerator *self,
 			g_type_class_unref (self->pv->object_class);
 		self->pv->object_type = object_type;
 		self->pv->object_class = klass;
+
+		g_free (self->pv->attr_types);
+		self->pv->attr_types = NULL;
+		self->pv->attr_count = 0;
+
+		if (attr_types) {
+			self->pv->attr_types = g_memdup (attr_types, sizeof (gulong) * attr_count);
+			self->pv->attr_count = attr_count;
+		}
 
 	g_mutex_unlock (self->pv->mutex);
 }
@@ -1008,6 +1044,7 @@ check_out_enumerator_state (GckEnumerator *self)
 	GTlsInteraction *old_interaction = NULL;
 	gpointer old_object_class = NULL;
 	GckEnumeratorState *chained_state = NULL;
+	GckObjectCacheIface *object_iface;
 	GckEnumerator *chained;
 
 	chained = gck_enumerator_get_chained (self);
@@ -1038,8 +1075,18 @@ check_out_enumerator_state (GckEnumerator *self)
 			state->object_type = self->pv->object_type;
 			state->object_class = g_type_class_peek (state->object_type);
 			g_assert (state->object_class == self->pv->object_class);
-			state->object_iface = g_type_interface_peek (state->object_class,
-			                                             GCK_TYPE_OBJECT_CACHE);
+
+			object_iface = g_type_interface_peek (state->object_class,
+			                                      GCK_TYPE_OBJECT_CACHE);
+
+			if (self->pv->attr_types) {
+				state->attr_types = self->pv->attr_types;
+				state->attr_count = self->pv->attr_count;
+			} else if (object_iface && object_iface->default_types) {
+				state->attr_types = object_iface->default_types;
+				state->attr_count = object_iface->n_default_types;
+			}
+
 			g_type_class_ref (state->object_type);
 		}
 

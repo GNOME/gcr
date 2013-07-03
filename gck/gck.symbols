@@ -113,6 +113,7 @@ gck_enumerator_next_n
 gck_enumerator_set_chained
 gck_enumerator_set_interaction
 gck_enumerator_set_object_type
+gck_enumerator_set_object_type_full
 gck_error_get_quark
 gck_error_get_type
 gck_get_error_quark

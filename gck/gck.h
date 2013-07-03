@@ -564,6 +564,11 @@ GType                 gck_enumerator_get_object_type          (GckEnumerator *se
 void                  gck_enumerator_set_object_type          (GckEnumerator *self,
                                                                GType object_type);
 
+void                  gck_enumerator_set_object_type_full     (GckEnumerator *self,
+                                                               GType object_type,
+                                                               const gulong *attr_types,
+                                                               gint attr_count);
+
 GckEnumerator *       gck_enumerator_get_chained              (GckEnumerator *self);
 
 void                  gck_enumerator_set_chained              (GckEnumerator *self,

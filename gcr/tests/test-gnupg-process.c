@@ -63,9 +63,9 @@ teardown (Test *test, gconstpointer unused)
 	while (g_main_context_iteration (NULL, FALSE));
 
 	if (test->result)
-		egg_assert_not_object (test->result);
+		g_assert (test->result == NULL);
 	if (test->process)
-		egg_assert_not_object (test->process);
+		g_assert (test->process == NULL);
 
 	if (test->output_buf)
 		g_string_free (test->output_buf, TRUE);
@@ -82,6 +82,7 @@ test_create (Test *test, gconstpointer unused)
 	gchar *value;
 
 	test->process = _gcr_gnupg_process_new ("/the/directory", "/path/to/executable");
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 
 	g_object_get (test->process, "directory", &value, NULL);
 	g_assert_cmpstr (value, ==, "/the/directory");
@@ -106,6 +107,7 @@ on_async_ready (GObject *source, GAsyncResult *result, gpointer user_data)
 	g_object_unref (result_source);
 
 	test->result = g_object_ref (result);
+	g_object_add_weak_pointer (G_OBJECT (test->result), (gpointer *)&test->result);
 	egg_test_wait_stop ();
 }
 
@@ -178,6 +180,7 @@ test_run_simple_output (Test *test, gconstpointer unused)
 
 	script = build_script_path ("mock-simple-output");
 	test->process = _gcr_gnupg_process_new (NULL, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	g_free (script);
 
 	output = _gcr_callback_output_stream_new (on_process_output_data, test, NULL);
@@ -205,6 +208,7 @@ test_run_simple_error (Test *test, gconstpointer unused)
 
 	script = build_script_path ("mock-simple-error");
 	test->process = _gcr_gnupg_process_new (NULL, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	g_free (script);
 
 	g_signal_connect (test->process, "error-line", G_CALLBACK (on_process_error_line), test);
@@ -231,6 +235,7 @@ test_run_status_and_output (Test *test, gconstpointer unused)
 
 	script = build_script_path ("mock-status-and-output");
 	test->process = _gcr_gnupg_process_new (NULL, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	g_free (script);
 
 	output = _gcr_callback_output_stream_new (on_process_output_data, test, NULL);
@@ -269,6 +274,7 @@ test_run_status_and_attribute (Test *test, gconstpointer unused)
 
 	script = build_script_path ("mock-status-and-attribute");
 	test->process = _gcr_gnupg_process_new (NULL, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	g_free (script);
 
 	output = _gcr_callback_output_stream_new (on_process_attribute_data, test, NULL);
@@ -320,6 +326,7 @@ test_run_arguments_and_environment (Test *test, gconstpointer unused)
 
 	script = build_script_path ("mock-arguments-environ");
 	test->process = _gcr_gnupg_process_new (NULL, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	g_free (script);
 
 	output = _gcr_callback_output_stream_new (on_process_output_data, test, NULL);
@@ -355,6 +362,7 @@ test_run_with_homedir (Test *test, gconstpointer unused)
 
 	script = build_script_path ("mock-with-homedir");
 	test->process = _gcr_gnupg_process_new (SRCDIR, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	g_free (script);
 
 	output = _gcr_callback_output_stream_new (on_process_output_data, test, NULL);
@@ -389,6 +397,7 @@ test_run_with_input_and_output (Test *test,
 
 	script = build_script_path ("mock-echo");
 	test->process = _gcr_gnupg_process_new (SRCDIR, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	g_free (script);
 
 	input = g_memory_input_stream_new_from_data ((gpointer)data, -1, NULL);
@@ -424,6 +433,7 @@ test_run_bad_executable (Test *test, gconstpointer unused)
 
 	script = build_script_path ("mock-invalid");
 	test->process = _gcr_gnupg_process_new (NULL, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	g_free (script);
 
 	_gcr_gnupg_process_run_async (test->process, argv, NULL, 0, NULL, on_async_ready, test);
@@ -446,6 +456,7 @@ test_run_fail_exit (Test *test, gconstpointer unused)
 
 	script = build_script_path ("mock-fail-exit");
 	test->process = _gcr_gnupg_process_new (NULL, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	g_free (script);
 
 	_gcr_gnupg_process_run_async (test->process, argv, NULL, 0, NULL, on_async_ready, test);
@@ -469,6 +480,7 @@ test_run_fail_signal (Test *test, gconstpointer unused)
 
 	script = build_script_path ("mock-fail-signal");
 	test->process = _gcr_gnupg_process_new (NULL, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	g_free (script);
 
 	_gcr_gnupg_process_run_async (test->process, argv, NULL, 0, NULL, on_async_ready, test);
@@ -495,6 +507,7 @@ test_run_and_cancel (Test *test, gconstpointer unused)
 
 	script = build_script_path ("mock-simple-output");
 	test->process = _gcr_gnupg_process_new (NULL, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	g_free (script);
 
 	_gcr_gnupg_process_run_async (test->process, argv, NULL, 0, cancellable, on_async_ready, test);
@@ -536,6 +549,7 @@ test_run_and_cancel_later (Test *test, gconstpointer unused)
 
 	script = build_script_path ("mock-simple-output");
 	test->process = _gcr_gnupg_process_new (NULL, script);
+	g_object_add_weak_pointer (G_OBJECT (test->process), (gpointer *)&test->process);
 	output = _gcr_callback_output_stream_new (on_process_output_cancel, NULL, NULL);
 	_gcr_gnupg_process_set_output_stream (test->process, output);
 	g_object_unref (output);

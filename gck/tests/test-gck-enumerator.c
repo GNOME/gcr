@@ -53,6 +53,7 @@ setup (Test *test, gconstpointer unused)
 	test->module = gck_module_initialize (BUILDDIR "/.libs/libmock-test-module.so", NULL, &err);
 	g_assert_no_error (err);
 	g_assert (GCK_IS_MODULE (test->module));
+	g_object_add_weak_pointer (G_OBJECT (test->module), (gpointer *)&test->module);
 
 	test->modules = g_list_append (NULL, g_object_ref (test->module));
 }
@@ -63,7 +64,7 @@ teardown (Test *test, gconstpointer unused)
 	gck_list_unref_free (test->modules);
 
 	g_object_unref (test->module);
-	egg_assert_not_object (test->module);
+	g_assert (test->module == NULL);
 
 	g_thread_pool_stop_unused_threads ();
 }
@@ -294,8 +295,10 @@ test_authenticate_interaction (Test *test,
 	uri_data = gck_uri_data_new ();
 	en = _gck_enumerator_new_for_modules (test->modules, GCK_SESSION_LOGIN_USER, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
+	g_object_add_weak_pointer (G_OBJECT (en), (gpointer *)&en);
 
 	interaction = mock_interaction_new ("booo");
+	g_object_add_weak_pointer (G_OBJECT (interaction), (gpointer *)&interaction);
 	g_object_set (en, "interaction", interaction, NULL);
 
 	check = NULL;
@@ -306,13 +309,14 @@ test_authenticate_interaction (Test *test,
 
 	obj = gck_enumerator_next (en, NULL, &error);
 	g_assert (GCK_IS_OBJECT (obj));
+	g_object_add_weak_pointer (G_OBJECT (obj), (gpointer *)&obj);
 
 	g_object_unref (obj);
 	g_object_unref (en);
 
-	egg_assert_not_object (en);
-	egg_assert_not_object (obj);
-	egg_assert_not_object (interaction);
+	g_assert (en == NULL);
+	g_assert (obj == NULL);
+	g_assert (interaction == NULL);
 }
 
 static gboolean
@@ -348,17 +352,19 @@ test_authenticate_compat (Test *test,
 	uri_data = gck_uri_data_new ();
 	en = _gck_enumerator_new_for_modules (test->modules, GCK_SESSION_LOGIN_USER, uri_data);
 	g_assert (GCK_IS_ENUMERATOR (en));
+	g_object_add_weak_pointer (G_OBJECT (en), (gpointer *)&en);
 
 	obj = gck_enumerator_next (en, NULL, &error);
 	g_assert (GCK_IS_OBJECT (obj));
+	g_object_add_weak_pointer (G_OBJECT (obj), (gpointer *)&obj);
 
 	g_object_unref (obj);
 	g_object_unref (en);
 
 	g_signal_handler_disconnect (test->modules->data, sig);
 
-	egg_assert_not_object (obj);
-	egg_assert_not_object (en);
+	g_assert (obj == NULL);
+	g_assert (en == NULL);
 }
 
 static void

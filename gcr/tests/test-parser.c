@@ -71,6 +71,7 @@ ensure_block_can_be_parsed (GcrDataFormat format,
 	g_assert (n_block);
 
 	parser = gcr_parser_new ();
+	g_object_add_weak_pointer (G_OBJECT (parser), (gpointer *)&parser);
 	gcr_parser_format_disable (parser, -1);
 	gcr_parser_format_enable (parser, format);
 	result = gcr_parser_parse_data (parser, block, n_block, &error);
@@ -82,7 +83,7 @@ ensure_block_can_be_parsed (GcrDataFormat format,
 	}
 
 	g_object_unref (parser);
-	egg_assert_not_object (parser);
+	g_assert (parser == NULL);
 }
 
 static void

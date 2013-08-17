@@ -108,28 +108,6 @@ egg_assertion_message_cmpmem (const char     *domain,
 static void (*wait_stop_impl) (void);
 static gboolean (*wait_until_impl) (int timeout);
 
-void
-egg_assertion_not_object (const char *domain,
-                          const char *file,
-                          int         line,
-                          const char *func,
-                          const char *expr,
-                          gpointer was_object)
-{
-	gchar *s;
-
-#ifdef WITH_VALGRIND
-	if (RUNNING_ON_VALGRIND)
-		return;
-#endif
-
-	if (G_IS_OBJECT (was_object)) {
-		s = g_strdup_printf ("assertion failed: %s is still referenced", expr);
-		g_assertion_message (domain, file, line, func, s);
-		g_free (s);
-	}
-}
-
 #if 0
 void
 egg_test_wait_stop (void)

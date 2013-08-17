@@ -60,6 +60,7 @@ setup (Test *test, gconstpointer unused)
 	test->module = gck_module_initialize (BUILDDIR "/.libs/libmock-test-module.so", NULL, &err);
 	g_assert_no_error (err);
 	g_assert (GCK_IS_MODULE (test->module));
+	g_object_add_weak_pointer (G_OBJECT (test->module), (gpointer *)&test->module);
 
 	slots = gck_module_get_slots (test->module, TRUE);
 	g_assert (slots != NULL);
@@ -67,6 +68,7 @@ setup (Test *test, gconstpointer unused)
 	test->session = gck_slot_open_session (slots->data, 0, NULL, &err);
 	g_assert_no_error (err);
 	g_assert (GCK_IS_SESSION (test->session));
+	g_object_add_weak_pointer (G_OBJECT (test->session), (gpointer *)&test->session);
 
 	slot = gck_session_get_slot (test->session);
 	g_assert (slot);
@@ -74,6 +76,7 @@ setup (Test *test, gconstpointer unused)
 	test->session_with_auth = gck_session_from_handle (slot, gck_session_get_handle (test->session), GCK_SESSION_AUTHENTICATE);
 	g_signal_connect (test->session_with_auth, "discard-handle", G_CALLBACK (on_discard_handle_ignore), NULL);
 	g_assert (test->session_with_auth);
+	g_object_add_weak_pointer (G_OBJECT (test->session_with_auth), (gpointer *)&test->session_with_auth);
 
 	g_object_unref (slot);
 	gck_list_unref_free (slots);
@@ -86,9 +89,9 @@ teardown (Test *test, gconstpointer unused)
 	g_object_unref (test->module);
 	g_object_unref (test->session_with_auth);
 
-	egg_assert_not_object (test->session);
-	egg_assert_not_object (test->session_with_auth);
-	egg_assert_not_object (test->module);
+	g_assert (test->session == NULL);
+	g_assert (test->session_with_auth == NULL);
+	g_assert (test->module == NULL);
 }
 
 static void
@@ -280,6 +283,7 @@ test_login_context_specific (Test *test, gconstpointer unused)
 	/* Find the right key */
 	key = find_key (test->session, CKA_SIGN, CKM_MOCK_PREFIX);
 	g_assert (GCK_IS_OBJECT (key));
+	g_object_add_weak_pointer (G_OBJECT (key), (gpointer *)&key);
 
 	/* Simple one */
 	output = gck_session_sign (test->session, key, CKM_MOCK_PREFIX, (const guchar*)"TV Monster", 11, &n_output, NULL, &error);
@@ -288,7 +292,7 @@ test_login_context_specific (Test *test, gconstpointer unused)
 	g_error_free (error);
 
 	g_object_unref (key);
-	egg_assert_not_object (key);
+	g_assert (key == NULL);
 }
 
 static void
@@ -349,6 +353,7 @@ test_verify (Test *test, gconstpointer unused)
 	/* Find the right key */
 	key = find_key (test->session, CKA_VERIFY, CKM_MOCK_PREFIX);
 	g_assert (GCK_IS_OBJECT (key));
+	g_object_add_weak_pointer (G_OBJECT (key), (gpointer *)&key);
 
 	/* Simple one */
 	ret = gck_session_verify (test->session, key, CKM_MOCK_PREFIX, (const guchar*)"Labarbara", 10,
@@ -386,7 +391,7 @@ test_verify (Test *test, gconstpointer unused)
 	g_object_unref (result);
 
 	g_object_unref (key);
-	egg_assert_not_object (key);
+	g_assert (key == NULL);
 }
 
 static void

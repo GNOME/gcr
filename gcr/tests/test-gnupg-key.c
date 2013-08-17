@@ -58,6 +58,7 @@ setup (Test *test, gconstpointer unused)
 	test->records = records;
 
 	test->key = _gcr_gnupg_key_new (records, NULL);
+	g_object_add_weak_pointer (G_OBJECT (test->key), (gpointer *)&test->key);
 
 	records = g_ptr_array_new_with_free_func (_gcr_record_free);
 	g_ptr_array_add (records, _gcr_record_parse_colons ("pub:u:2048:1:4842D952AFC000FD:1305189489:::u:::scESC:", -1));
@@ -78,7 +79,7 @@ static void
 teardown (Test *test, gconstpointer unused)
 {
 	g_object_unref (test->key);
-	egg_assert_not_object (test->key);
+	g_assert (test->key == NULL);
 
 	g_ptr_array_unref (test->records);
 	g_ptr_array_unref (test->pubset);

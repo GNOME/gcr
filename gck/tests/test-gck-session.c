@@ -53,6 +53,7 @@ setup (Test *test, gconstpointer unused)
 	test->module = gck_module_initialize (BUILDDIR "/.libs/libmock-test-module.so", NULL, &err);
 	g_assert_no_error (err);
 	g_assert (GCK_IS_MODULE (test->module));
+	g_object_add_weak_pointer (G_OBJECT (test->module), (gpointer *)&test->module);
 
 	slots = gck_module_get_slots (test->module, TRUE);
 	g_assert (slots != NULL);
@@ -60,10 +61,12 @@ setup (Test *test, gconstpointer unused)
 	test->slot = GCK_SLOT (slots->data);
 	g_object_ref (test->slot);
 	gck_list_unref_free (slots);
+	g_object_add_weak_pointer (G_OBJECT (test->slot), (gpointer *)&test->slot);
 
 	test->session = gck_slot_open_session (test->slot, 0, NULL, &err);
 	g_assert_no_error (err);
 	g_assert (GCK_IS_SESSION (test->session));
+	g_object_add_weak_pointer (G_OBJECT (test->session), (gpointer *)&test->session);
 }
 
 static void
@@ -73,9 +76,9 @@ teardown (Test *test, gconstpointer unused)
 	g_object_unref (test->slot);
 	g_object_unref (test->module);
 
-	egg_assert_not_object (test->session);
-	egg_assert_not_object (test->slot);
-	egg_assert_not_object (test->module);
+	g_assert (test->session == NULL);
+	g_assert (test->slot == NULL);
+	g_assert (test->module == NULL);
 }
 
 static void
@@ -137,15 +140,17 @@ test_open_close_session (Test *test, gconstpointer unused)
 	g_assert (result != NULL);
 
 	/* Get the result */
+	g_object_add_weak_pointer (G_OBJECT (result), (gpointer *)&result);
 	sess = gck_slot_open_session_finish (test->slot, result, &err);
 	g_assert_no_error (err);
 	g_assert (GCK_IS_SESSION (sess));
+	g_object_add_weak_pointer (G_OBJECT (sess), (gpointer *)&sess);
 
 	g_object_unref (result);
-	egg_assert_not_object (result);
+	g_assert (result == NULL);
 
 	g_object_unref (sess);
-	egg_assert_not_object (sess);
+	g_assert (sess == NULL);
 }
 
 static void

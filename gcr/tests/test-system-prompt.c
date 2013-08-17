@@ -105,13 +105,14 @@ test_prompt_password (Test *test,
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	password = gcr_prompt_password_run (prompt, NULL, &error);
 	g_assert_no_error (error);
 	g_assert_cmpstr (password, ==, "booo");
 
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -127,6 +128,7 @@ test_password_in_exchange (Test *test,
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	gcr_prompt_password_run (prompt, NULL, &error);
 	g_assert_no_error (error);
@@ -137,7 +139,7 @@ test_password_in_exchange (Test *test,
 
 	g_object_unref (exchange);
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -159,6 +161,7 @@ test_password_custom_exchange (Test *test,
 	                         NULL);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	password = gcr_prompt_password_run (GCR_PROMPT (prompt), NULL, &error);
 	g_assert_cmpstr (password, ==, "booo");
@@ -169,7 +172,7 @@ test_password_custom_exchange (Test *test,
 
 	g_object_unref (exchange);
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -203,6 +206,7 @@ test_async_password (Test *test,
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 	g_clear_object (&result);
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	gcr_prompt_password_async (prompt, NULL,
 	                           on_async_result, &result);
@@ -230,13 +234,14 @@ test_prompt_confirm (Test *test,
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (ret == TRUE);
 
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -260,6 +265,7 @@ test_async_confirm (Test *test,
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
 	g_clear_object (&result);
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	gcr_prompt_confirm_async (prompt, NULL, on_async_result, &result);
 	g_assert (result == NULL);
@@ -271,7 +277,7 @@ test_async_confirm (Test *test,
 	g_clear_object (&result);
 
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -287,13 +293,14 @@ test_cancel_password (Test *test,
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	password = gcr_prompt_password_run (prompt, NULL, &error);
 	g_assert_no_error (error);
 	g_assert_cmpstr (password, ==, NULL);
 
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -309,13 +316,14 @@ test_cancel_confirm (Test *test,
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (ret == FALSE);
 
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -342,6 +350,7 @@ test_prompt_properties (Test *test,
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	g_object_set (prompt,
 	              "title", "Other Title",
@@ -386,7 +395,7 @@ test_prompt_properties (Test *test,
 	g_assert_cmpint (gcr_prompt_get_password_strength (prompt), ==, 0);
 
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -399,6 +408,7 @@ test_prompt_properties_unset (Test *test,
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	g_assert_cmpstr (gcr_prompt_get_title (prompt), ==, "");
 	g_assert_cmpstr (gcr_prompt_get_choice_label (prompt), ==, NULL);
@@ -413,7 +423,7 @@ test_prompt_properties_unset (Test *test,
 	g_assert_cmpint (gcr_prompt_get_password_strength (prompt), ==, 0);
 
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 
@@ -426,6 +436,7 @@ test_prompt_properties_reset (Test *test,
 
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
 	g_assert_no_error (error);
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	g_object_set (prompt,
 	              "title", "Other Title",
@@ -466,7 +477,7 @@ test_prompt_properties_reset (Test *test,
 	g_assert_cmpint (gcr_prompt_get_password_strength (prompt), ==, 0);
 
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -483,11 +494,13 @@ test_prompt_close (Test *test,
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 1, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	prompt2 = gcr_system_prompt_open_for_prompter (test->prompter_name, 1, NULL, &error);
 	g_assert_error (error, GCR_SYSTEM_PROMPT_ERROR, GCR_SYSTEM_PROMPT_IN_PROGRESS);
 	g_clear_error (&error);
 	g_assert (prompt2 == NULL);
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
 	g_assert_no_error (error);
@@ -506,10 +519,9 @@ test_prompt_close (Test *test,
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt2));
 
 	g_object_unref (prompt);
-	g_assert (!G_IS_OBJECT (prompt));
 
 	g_object_unref (prompt2);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -537,6 +549,7 @@ test_close_cancels (Test *test,
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 0, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	prompt_closed = FALSE;
 	g_signal_connect_after (prompt, "prompt-close", G_CALLBACK (on_prompt_close), &prompt_closed);
@@ -555,7 +568,7 @@ test_close_cancels (Test *test,
 	g_clear_object (&result);
 
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -573,6 +586,7 @@ test_close_from_prompter (Test *test,
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 1, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	prompt_closed = FALSE;
 	g_signal_connect_after (prompt, "prompt-close", G_CALLBACK (on_prompt_close), &prompt_closed);
@@ -595,7 +609,7 @@ test_close_from_prompter (Test *test,
 	g_assert (password == NULL);
 
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static void
@@ -613,6 +627,7 @@ test_after_close_dismisses (Test *test,
 	prompt = gcr_system_prompt_open_for_prompter (test->prompter_name, 1, NULL, &error);
 	g_assert_no_error (error);
 	g_assert (GCR_IS_SYSTEM_PROMPT (prompt));
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	prompt_closed = FALSE;
 	g_signal_connect_after (prompt, "prompt-close", G_CALLBACK (on_prompt_close), &prompt_closed);
@@ -638,7 +653,7 @@ test_after_close_dismisses (Test *test,
 	while (g_main_context_iteration (NULL, FALSE));
 
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 typedef struct {

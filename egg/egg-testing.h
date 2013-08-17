@@ -50,16 +50,6 @@ void       egg_assertion_message_cmpmem        (const char *domain, const char *
                                                 gsize n_arg1, const char *cmp,
                                                 gconstpointer arg2, gsize n_arg2);
 
-#define egg_assert_not_object(p) \
-	(egg_assertion_not_object (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #p, (p)))
-
-void       egg_assertion_not_object            (const char *domain,
-                                                const char *file,
-                                                int         line,
-                                                const char *func,
-                                                const char *expr,
-                                                gpointer was_object);
-
 gboolean   egg_testing_on_valgrind             (void);
 
 gchar *    egg_test_escape_data                (const guchar *data,

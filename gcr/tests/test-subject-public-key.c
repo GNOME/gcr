@@ -237,9 +237,12 @@ setup_module (TestModule *test,
 	gck_assert_cmprv (rv, ==, CKR_OK);
 
 	test->module = gck_module_new (&test->funcs);
+	g_object_add_weak_pointer (G_OBJECT (test->module), (gpointer *)&test->module);
+
 	slot = gck_slot_from_handle (test->module, GCK_MOCK_SLOT_ONE_ID);
 	test->session = gck_session_open (slot, GCK_SESSION_READ_ONLY, NULL, NULL, &error);
 	g_assert_no_error (error);
+	g_object_add_weak_pointer (G_OBJECT (test->session), (gpointer *)&test->session);
 
 	g_object_unref (slot);
 }
@@ -251,10 +254,10 @@ teardown_module (TestModule *test,
 	CK_RV rv;
 
 	g_object_unref (test->session);
-	egg_assert_not_object (test->session);
+	g_assert (test->session == NULL);
 
 	g_object_unref (test->module);
-	egg_assert_not_object (test->module);
+	g_assert (test->module == NULL);
 
 	rv = (test->funcs.C_Finalize) (NULL);
 	gck_assert_cmprv (rv, ==, CKR_OK);
@@ -283,16 +286,19 @@ setup_loading (TestLoading *test,
 	gck_builder_add_string (&builder, CKA_ID, id);
 	handle = gck_mock_module_add_object (gck_builder_end (&builder));
 	test->crt_object = gck_object_from_handle (test->mo.session, handle);
+	g_object_add_weak_pointer (G_OBJECT (test->crt_object), (gpointer *)&test->crt_object);
 
 	gck_builder_add_all (&builder, test->at.pub_attrs);
 	gck_builder_add_string (&builder, CKA_ID, id);
 	handle = gck_mock_module_add_object (gck_builder_end (&builder));
 	test->pub_object = gck_object_from_handle (test->mo.session, handle);
+	g_object_add_weak_pointer (G_OBJECT (test->pub_object), (gpointer *)&test->pub_object);
 
 	gck_builder_add_all (&builder, test->at.prv_attrs);
 	gck_builder_add_string (&builder, CKA_ID, id);
 	handle = gck_mock_module_add_object (gck_builder_end (&builder));
 	test->prv_object = gck_object_from_handle (test->mo.session, handle);
+	g_object_add_weak_pointer (G_OBJECT (test->prv_object), (gpointer *)&test->prv_object);
 }
 
 static void
@@ -300,13 +306,13 @@ teardown_loading (TestLoading *test,
                   gconstpointer fixture)
 {
 	g_object_unref (test->crt_object);
-	egg_assert_not_object (test->crt_object);
+	g_assert (test->crt_object == NULL);
 
 	g_object_unref (test->prv_object);
-	egg_assert_not_object (test->prv_object);
+	g_assert (test->prv_object == NULL);
 
 	g_object_unref (test->pub_object);
-	egg_assert_not_object (test->pub_object);
+	g_assert (test->pub_object == NULL);
 
 	teardown_module (&test->mo, NULL);
 	teardown_attributes (&test->at, fixture);

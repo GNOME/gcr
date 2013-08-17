@@ -40,8 +40,11 @@ setup (Test *test, gconstpointer unused)
 {
 	test->caller = gcr_secret_exchange_new (NULL);
 	g_assert (GCR_IS_SECRET_EXCHANGE (test->caller));
+	g_object_add_weak_pointer (G_OBJECT (test->caller), (gpointer *)&test->caller);
+
 	test->callee = gcr_secret_exchange_new (NULL);
 	g_assert (GCR_IS_SECRET_EXCHANGE (test->callee));
+	g_object_add_weak_pointer (G_OBJECT (test->callee), (gpointer *)&test->callee);
 }
 
 static void
@@ -49,10 +52,10 @@ teardown (Test *test,
           gconstpointer unused)
 {
 	g_object_unref (test->caller);
-	egg_assert_not_object (test->caller);
+	g_assert (test->caller == NULL);
 
 	g_object_unref (test->callee);
-	egg_assert_not_object (test->callee);
+	g_assert (test->callee == NULL);
 }
 
 static void

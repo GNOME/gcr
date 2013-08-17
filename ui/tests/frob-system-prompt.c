@@ -50,6 +50,7 @@ on_prompt_clicked (GtkToolButton *button,
 		g_error_free (error);
 		return;
 	}
+	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
 
 	gcr_prompt_set_title (GCR_PROMPT (prompt), "This is the title");
 	gcr_prompt_set_message (GCR_PROMPT (prompt), "This is the message");
@@ -69,7 +70,7 @@ on_prompt_clicked (GtkToolButton *button,
 
 	g_print ("password: %s\n", password);
 	g_object_unref (prompt);
-	egg_assert_not_object (prompt);
+	g_assert (prompt == NULL);
 }
 
 static gboolean

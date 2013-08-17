@@ -45,13 +45,14 @@ setup (Test *test, gconstpointer unused)
 	test->module = gck_module_initialize (BUILDDIR "/.libs/libmock-test-module.so", NULL, &err);
 	g_assert_no_error (err);
 	g_assert (test->module);
+	g_object_add_weak_pointer (G_OBJECT (test->module), (gpointer *)&test->module);
 }
 
 static void
 teardown (Test *test, gconstpointer unused)
 {
 	g_object_unref (test->module);
-	egg_assert_not_object (test->module);
+	g_assert (test->module == NULL);
 }
 
 static void

@@ -61,6 +61,7 @@ setup (Test *test, gconstpointer unused)
 {
 	test->icon = _gcr_memory_icon_new ("application/octet-stream",
 	                                   test_data, sizeof (test_data));
+	g_object_add_weak_pointer (G_OBJECT (test->icon), (gpointer *)&test->icon);
 }
 
 static void
@@ -70,10 +71,10 @@ teardown (Test *test, gconstpointer unused)
 
 	if (test->result) {
 		g_object_unref (test->result);
-		egg_assert_not_object (test->result);
+		g_assert (test->result == NULL);
 	}
 
-	egg_assert_not_object (test->icon);
+	g_assert (test->icon == NULL);
 }
 
 
@@ -167,6 +168,7 @@ on_async_ready (GObject *source, GAsyncResult *result, gpointer user_data)
 	g_object_unref (result_source);
 
 	test->result = g_object_ref (result);
+	g_object_add_weak_pointer (G_OBJECT (test->result), (gpointer *)&test->result);
 	egg_test_wait_stop ();
 }
 
@@ -187,6 +189,7 @@ test_load_async (Test *test, gconstpointer unused)
 	g_assert (is != NULL);
 	g_assert_no_error (error);
 	g_assert_cmpstr (type, ==, "application/octet-stream");
+	g_object_add_weak_pointer (G_OBJECT (is), (gpointer *)&is);
 
 	if (!g_input_stream_read_all (is, buf, sizeof (buf), &length, NULL, &error))
 		g_assert_not_reached ();
@@ -196,7 +199,7 @@ test_load_async (Test *test, gconstpointer unused)
 
 	g_free (type);
 	g_object_unref (is);
-	egg_assert_not_object (is);
+	g_assert (is == NULL);
 }
 
 int

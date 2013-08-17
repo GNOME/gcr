@@ -615,7 +615,7 @@ gcr_certificate_renderer_populate_popup (GcrRenderer *self, GcrViewer *viewer,
 	gtk_widget_show (item);
 	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), item);
 
-	item = gtk_menu_item_new_with_label ("Export Certificate...");
+	item = gtk_menu_item_new_with_label (_("Export Certificate..."));
 	gtk_widget_show (item);
 	g_signal_connect_data (item, "activate", G_CALLBACK (on_certificate_export),
 	                       g_object_ref (self), (GClosureNotify)g_object_unref, 0);

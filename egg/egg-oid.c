@@ -161,7 +161,7 @@ egg_oid_get_description (GQuark oid)
 	if (info == NULL)
 		return g_quark_to_string (oid);
 
-	return gettext (info->description);
+	return _(info->description);
 }
 
 guint

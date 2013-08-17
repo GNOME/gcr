@@ -211,7 +211,7 @@ append_extension_key_usage (GcrRenderer *renderer,
 		if (key_usage & usage_descriptions[i].usage) {
 			if (text->len > 0)
 				g_string_append_unichar (text, GCR_DISPLAY_VIEW_LINE_BREAK);
-			g_string_append (text, gettext (usage_descriptions[i].description));
+			g_string_append (text, _(usage_descriptions[i].description));
 		}
 	}
 

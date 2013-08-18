@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-21 19:23+0200\n"
-"PO-Revision-Date: 2013-02-21 19:24+0200\n"
+"POT-Creation-Date: 2013-08-18 13:36+0300\n"
+"PO-Revision-Date: 2013-08-18 13:36+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
 "Language: he\n"
@@ -16,18 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2007-11-27 11:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: Hebrew\n"
-"X-Poedit-Country: ISRAEL\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: ../egg/egg-oid.c:41
 msgid "Domain Component"
 msgstr "רכיב מתחם"
 
-#: ../egg/egg-oid.c:43
-#: ../ui/gcr-gnupg-renderer.c:410
+#: ../egg/egg-oid.c:43 ../ui/gcr-gnupg-renderer.c:410
 #: ../ui/gcr-gnupg-renderer.c:579
 msgid "User ID"
 msgstr "מזהה משתמש"
@@ -64,8 +61,7 @@ msgstr "שם נפוץ"
 msgid "Surname"
 msgstr "שם משפחה"
 
-#: ../egg/egg-oid.c:69
-#: ../ui/gcr-certificate-renderer.c:556
+#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:561
 msgid "Serial Number"
 msgstr "מספר סידורי"
 
@@ -121,8 +117,7 @@ msgstr "בעל שם המתחם"
 msgid "Pseudonym"
 msgstr "כינוי"
 
-#: ../egg/egg-oid.c:98
-#: ../ui/gcr-gnupg-renderer.c:201
+#: ../egg/egg-oid.c:98 ../ui/gcr-gnupg-renderer.c:201
 #: ../ui/gcr-key-renderer.c:430
 msgid "RSA"
 msgstr "RSA"
@@ -139,8 +134,7 @@ msgstr "MD5 עם RSA"
 msgid "SHA1 with RSA"
 msgstr "SHA1 עם RSA"
 
-#: ../egg/egg-oid.c:103
-#: ../ui/gcr-gnupg-renderer.c:205
+#: ../egg/egg-oid.c:103 ../ui/gcr-gnupg-renderer.c:205
 #: ../ui/gcr-key-renderer.c:432
 msgid "DSA"
 msgstr "DSA"
@@ -170,27 +164,17 @@ msgstr "הגנת דוא״ל"
 msgid "Time Stamping"
 msgstr "חותמת זמן"
 
-#: ../gck/gck-module.c:352
+#: ../gck/gck-module.c:344
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "שגיאה בטעינת PKCS#11:‏ %s"
 
-#: ../gck/gck-module.c:359
-#, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr "מודול PKCS#11 שגוי:‏ %s"
-
-#: ../gck/gck-module.c:368
-#, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "לא ניתן להגדיר את מודול ה־PKCS#11:‏ %s"
-
-#: ../gck/gck-module.c:384
+#: ../gck/gck-module.c:358
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
 msgstr "לא ניתן להפעיל את מודול ה־PKCS#11:‏ %s"
 
-#: ../gck/gck-modules.c:67
+#: ../gck/gck-modules.c:62
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgstr "לא ניתן להפעיל את מודולי ה־PKCS#11 הרשומים: %s"
@@ -220,27 +204,24 @@ msgstr "התזרים נסגר"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:306
-#: ../gcr/gcr-gnupg-key.c:432
+#: ../gcr/gcr-certificate.c:343 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "שם"
 
-#: ../gcr/gcr-certificate.c:308
+#: ../gcr/gcr-certificate.c:345
 msgctxt "column"
 msgid "Issued By"
 msgstr "הונפקה על ידי"
 
 #. later
-#: ../gcr/gcr-certificate.c:310
+#: ../gcr/gcr-certificate.c:347
 msgctxt "column"
 msgid "Expires"
 msgstr "תפוגה"
 
-#: ../gcr/gcr-certificate.c:1131
-#: ../gcr/gcr-parser.c:320
-#: ../ui/gcr-certificate-renderer.c:103
-#: ../ui/gcr-certificate-exporter.c:469
+#: ../gcr/gcr-certificate.c:1185 ../gcr/gcr-parser.c:320
+#: ../ui/gcr-certificate-renderer.c:104 ../ui/gcr-certificate-exporter.c:466
 msgid "Certificate"
 msgstr "תעודה"
 
@@ -256,8 +237,7 @@ msgstr "כתובת ה־XMPP"
 msgid "DNS SRV"
 msgstr "שרת DNS"
 
-#: ../gcr/gcr-certificate-extensions.c:204
-#: ../ui/gcr-gnupg-renderer.c:423
+#: ../gcr/gcr-certificate-extensions.c:204 ../ui/gcr-gnupg-renderer.c:423
 #: ../ui/gcr-gnupg-renderer.c:705
 msgid "Email"
 msgstr "דוא״ל"
@@ -295,8 +275,7 @@ msgstr "מזהה רשום"
 msgid "Unsupported key type for certificate request"
 msgstr "סוג המפתח אינו נתמך עבור בקשת האישור"
 
-#: ../gcr/gcr-certificate-request.c:503
-#: ../gcr/gcr-certificate-request.c:588
+#: ../gcr/gcr-certificate-request.c:503 ../gcr/gcr-certificate-request.c:588
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "לא ניתן להשתמש במפתח כדי לחתום על האישור"
@@ -310,8 +289,7 @@ msgstr "קבוצת מפתחות GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "קבוצת מפתחות GnuPG‏: %s"
 
-#: ../gcr/gcr-gnupg-key.c:145
-#: ../gcr/gcr-parser.c:326
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:326
 #: ../ui/gcr-gnupg-renderer.c:89
 msgid "PGP Key"
 msgstr "מפתח PGP"
@@ -331,22 +309,17 @@ msgstr "התהליך Gnupg יצא עם הקוד: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "התהליך Gnupg חוסל עם האות: %d"
 
-#: ../gcr/gcr-gnupg-process.c:928
-#: ../gcr/gcr-parser.c:2422
-#: ../gcr/gcr-parser.c:2915
-#: ../gcr/gcr-system-prompt.c:902
+#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2422
+#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:925
 msgid "The operation was cancelled"
 msgstr "הפעולה בוטלה"
 
-#: ../gcr/gcr-parser.c:317
-#: ../ui/gcr-key-renderer.c:408
+#: ../gcr/gcr-parser.c:317 ../ui/gcr-key-renderer.c:408
 msgid "Private Key"
 msgstr "מפתח פרטי"
 
-#: ../gcr/gcr-parser.c:323
-#: ../ui/gcr-certificate-renderer.c:889
-#: ../ui/gcr-gnupg-renderer.c:738
-#: ../ui/gcr-key-renderer.c:415
+#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:883
+#: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
 msgid "Public Key"
 msgstr "מפתח ציבורי"
 
@@ -378,12 +351,11 @@ msgstr "ביטול"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "מאפיין בלתי מוכר או בלתי זמין של המפתח"
 
-#: ../gcr/gcr-subject-public-key.c:429
-#: ../gcr/gcr-subject-public-key.c:515
+#: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
 msgid "Couldn't build public key"
 msgstr "לא ניתן לבנות מפתח ציבורי"
 
-#: ../gcr/gcr-system-prompt.c:883
+#: ../gcr/gcr-system-prompt.c:906
 msgid "Another prompt is already in progress"
 msgstr "כבר מתבצע אימות אחר"
 
@@ -395,193 +367,190 @@ msgstr "כבר מתבצע אימות אחר"
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "לא ניתן למצוא את המיקום לאחסון האישור המוצמד"
 
-#: ../ui/gcr-certificate-renderer.c:118
+#: ../ui/gcr-certificate-renderer.c:119
 msgid "Basic Constraints"
 msgstr "הגבלות בסיסיות"
 
-#: ../ui/gcr-certificate-renderer.c:120
+#: ../ui/gcr-certificate-renderer.c:121
 msgid "Certificate Authority"
 msgstr "רשות תעודות"
 
-#: ../ui/gcr-certificate-renderer.c:121
-#: ../ui/gcr-certificate-renderer.c:960
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "Yes"
 msgstr "כן"
 
-#: ../ui/gcr-certificate-renderer.c:121
-#: ../ui/gcr-certificate-renderer.c:960
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "No"
 msgstr "לא"
 
-#: ../ui/gcr-certificate-renderer.c:124
+#: ../ui/gcr-certificate-renderer.c:125
 msgid "Max Path Length"
 msgstr "אורך הנתיב המרבי"
 
-#: ../ui/gcr-certificate-renderer.c:125
+#: ../ui/gcr-certificate-renderer.c:126
 msgid "Unlimited"
 msgstr "מוגבל"
 
-#: ../ui/gcr-certificate-renderer.c:144
+#: ../ui/gcr-certificate-renderer.c:145
 msgid "Extended Key Usage"
 msgstr "שימוש מורחב במפתח"
 
-#: ../ui/gcr-certificate-renderer.c:155
+#: ../ui/gcr-certificate-renderer.c:156
 msgid "Allowed Purposes"
 msgstr "מטרות מורשות"
 
-#: ../ui/gcr-certificate-renderer.c:175
+#: ../ui/gcr-certificate-renderer.c:176
 msgid "Subject Key Identifier"
 msgstr "מזהה מפתח של מקבל התעודה"
 
-#: ../ui/gcr-certificate-renderer.c:176
+#: ../ui/gcr-certificate-renderer.c:177
 msgid "Key Identifier"
 msgstr "מזהה מפתח"
 
-#: ../ui/gcr-certificate-renderer.c:187
+#: ../ui/gcr-certificate-renderer.c:188
 msgid "Digital signature"
 msgstr "חתימה דיגיטלית"
 
-#: ../ui/gcr-certificate-renderer.c:188
+#: ../ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "הצפנת מפתח"
 
-#: ../ui/gcr-certificate-renderer.c:189
+#: ../ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "הצפנת נתונים"
 
-#: ../ui/gcr-certificate-renderer.c:190
+#: ../ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "הסכם מפתח"
 
-#: ../ui/gcr-certificate-renderer.c:191
+#: ../ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "חתימת התעודה"
 
-#: ../ui/gcr-certificate-renderer.c:192
+#: ../ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "חתימת רשימת השלילה"
 
-#: ../ui/gcr-certificate-renderer.c:217
+#: ../ui/gcr-certificate-renderer.c:218
 msgid "Key Usage"
 msgstr "שימוש במפתח"
 
-#: ../ui/gcr-certificate-renderer.c:218
+#: ../ui/gcr-certificate-renderer.c:219
 msgid "Usages"
 msgstr "שימושים"
 
-#: ../ui/gcr-certificate-renderer.c:238
+#: ../ui/gcr-certificate-renderer.c:239
 msgid "Subject Alternative Names"
 msgstr "שמות חלופיים למקבל התעודה"
 
-#: ../ui/gcr-certificate-renderer.c:265
+#: ../ui/gcr-certificate-renderer.c:266
 msgid "Extension"
 msgstr "הרחבה"
 
-#: ../ui/gcr-certificate-renderer.c:269
+#: ../ui/gcr-certificate-renderer.c:270
 msgid "Identifier"
 msgstr "מזהה"
 
-#: ../ui/gcr-certificate-renderer.c:270
-#: ../ui/gcr-certificate-request-renderer.c:271
-#: ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-certificate-renderer.c:271
+#: ../ui/gcr-certificate-request-renderer.c:271 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "ערך"
 
-#: ../ui/gcr-certificate-renderer.c:295
+#: ../ui/gcr-certificate-renderer.c:289
 msgid "Couldn't export the certificate."
 msgstr "לא ניתן לייצא את האישור."
 
-#: ../ui/gcr-certificate-renderer.c:518
+#: ../ui/gcr-certificate-renderer.c:523
 #: ../ui/gcr-certificate-request-renderer.c:312
 msgid "Identity"
 msgstr "זהות"
 
-#: ../ui/gcr-certificate-renderer.c:522
+#: ../ui/gcr-certificate-renderer.c:527
 msgid "Verified by"
 msgstr "אומת על ידי"
 
-#: ../ui/gcr-certificate-renderer.c:529
-#: ../ui/gcr-gnupg-renderer.c:719
+#: ../ui/gcr-certificate-renderer.c:534 ../ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "תפוגה"
 
 #. The subject
-#: ../ui/gcr-certificate-renderer.c:536
+#: ../ui/gcr-certificate-renderer.c:541
 #: ../ui/gcr-certificate-request-renderer.c:318
 msgid "Subject Name"
 msgstr "שם מקבל התעודה"
 
 #. The Issuer
-#: ../ui/gcr-certificate-renderer.c:541
+#: ../ui/gcr-certificate-renderer.c:546
 msgid "Issuer Name"
 msgstr "שם החותם"
 
 #. The Issued Parameters
-#: ../ui/gcr-certificate-renderer.c:546
+#: ../ui/gcr-certificate-renderer.c:551
 msgid "Issued Certificate"
 msgstr "תעודה שהונפקה"
 
-#: ../ui/gcr-certificate-renderer.c:551
+#: ../ui/gcr-certificate-renderer.c:556
 #: ../ui/gcr-certificate-request-renderer.c:329
 msgid "Version"
 msgstr "גרסה"
 
-#: ../ui/gcr-certificate-renderer.c:565
+#: ../ui/gcr-certificate-renderer.c:570
 msgid "Not Valid Before"
 msgstr "לא תקף לפני"
 
-#: ../ui/gcr-certificate-renderer.c:570
+#: ../ui/gcr-certificate-renderer.c:575
 msgid "Not Valid After"
 msgstr "לא תקף לאחר"
 
 #. Fingerprints
-#: ../ui/gcr-certificate-renderer.c:575
+#: ../ui/gcr-certificate-renderer.c:580
 msgid "Certificate Fingerprints"
 msgstr "טביעות אצבע של תעודה"
 
 #. Public Key Info
-#: ../ui/gcr-certificate-renderer.c:581
+#: ../ui/gcr-certificate-renderer.c:586
 #: ../ui/gcr-certificate-request-renderer.c:332
 #: ../ui/gcr-certificate-request-renderer.c:378
 msgid "Public Key Info"
 msgstr "נתוני מפתח ציבואי"
 
 #. Signature
-#: ../ui/gcr-certificate-renderer.c:596
-#: ../ui/gcr-certificate-renderer.c:917
+#: ../ui/gcr-certificate-renderer.c:601 ../ui/gcr-certificate-renderer.c:911
 #: ../ui/gcr-certificate-request-renderer.c:348
-#: ../ui/gcr-certificate-request-renderer.c:385
-#: ../ui/gcr-gnupg-renderer.c:560
+#: ../ui/gcr-certificate-request-renderer.c:385 ../ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "חתימה"
 
-#: ../ui/gcr-certificate-renderer.c:863
+#: ../ui/gcr-certificate-renderer.c:618
+msgid "Export Certificate..."
+msgstr "יצוא האישור…"
+
+#: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
 msgstr "אלגוריתם המפתח"
 
-#: ../ui/gcr-certificate-renderer.c:868
+#: ../ui/gcr-certificate-renderer.c:862
 msgid "Key Parameters"
 msgstr "הפרמטרים של המפתח"
 
-#: ../ui/gcr-certificate-renderer.c:876
-#: ../ui/gcr-gnupg-renderer.c:353
+#: ../ui/gcr-certificate-renderer.c:870 ../ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "גודל המפתח"
 
-#: ../ui/gcr-certificate-renderer.c:884
+#: ../ui/gcr-certificate-renderer.c:878
 msgid "Key SHA1 Fingerprint"
 msgstr "טביעת אצבע של מפתח SHA1"
 
-#: ../ui/gcr-certificate-renderer.c:906
+#: ../ui/gcr-certificate-renderer.c:900
 msgid "Signature Algorithm"
 msgstr "אלגוריתם החתימה"
 
-#: ../ui/gcr-certificate-renderer.c:910
+#: ../ui/gcr-certificate-renderer.c:904
 msgid "Signature Parameters"
 msgstr "הפרמטרים של החתימה"
 
-#: ../ui/gcr-certificate-renderer.c:959
+#: ../ui/gcr-certificate-renderer.c:953
 msgid "Critical"
 msgstr "קריטי"
 
@@ -600,8 +569,7 @@ msgstr "מאפיין"
 
 #: ../ui/gcr-certificate-request-renderer.c:264
 #: ../ui/gcr-certificate-request-renderer.c:323
-#: ../ui/gcr-certificate-request-renderer.c:371
-#: ../ui/gcr-gnupg-renderer.c:591
+#: ../ui/gcr-certificate-request-renderer.c:371 ../ui/gcr-gnupg-renderer.c:591
 #: ../ui/gcr-gnupg-renderer.c:593
 msgid "Type"
 msgstr "סוג"
@@ -652,15 +620,12 @@ msgstr "אישור"
 msgid "Authenticate"
 msgstr "אימות"
 
-#: ../ui/gcr-gnupg-renderer.c:224
-#: ../ui/gcr-gnupg-renderer.c:259
+#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
 msgid "Disabled"
 msgstr "מנוטרל"
 
-#: ../ui/gcr-gnupg-renderer.c:255
-#: ../ui/gcr-gnupg-renderer.c:414
-#: ../ui/gcr-key-renderer.c:434
-#: ../ui/gcr-key-renderer.c:439
+#: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
 msgid "Unknown"
 msgstr "לא ידוע"
 
@@ -732,26 +697,21 @@ msgstr "מפתח זה מהימן לחלוטין"
 msgid "This key is ultimately trusted"
 msgstr "מפתח זה מהימן לחלוטין"
 
-#: ../ui/gcr-gnupg-renderer.c:338
-#: ../ui/gcr-gnupg-renderer.c:564
+#: ../ui/gcr-gnupg-renderer.c:338 ../ui/gcr-gnupg-renderer.c:564
 msgid "Key ID"
 msgstr "מזהה המפתח"
 
-#: ../ui/gcr-gnupg-renderer.c:346
-#: ../ui/gcr-gnupg-renderer.c:572
-#: ../ui/gcr-gnupg-renderer.c:619
-#: ../ui/gcr-key-renderer.c:435
+#: ../ui/gcr-gnupg-renderer.c:346 ../ui/gcr-gnupg-renderer.c:572
+#: ../ui/gcr-gnupg-renderer.c:619 ../ui/gcr-key-renderer.c:435
 msgid "Algorithm"
 msgstr "אלגוריתם"
 
-#: ../ui/gcr-gnupg-renderer.c:361
-#: ../ui/gcr-gnupg-renderer.c:438
+#: ../ui/gcr-gnupg-renderer.c:361 ../ui/gcr-gnupg-renderer.c:438
 #: ../ui/gcr-gnupg-renderer.c:481
 msgid "Created"
 msgstr "נוצר"
 
-#: ../ui/gcr-gnupg-renderer.c:370
-#: ../ui/gcr-gnupg-renderer.c:447
+#: ../ui/gcr-gnupg-renderer.c:370 ../ui/gcr-gnupg-renderer.c:447
 #: ../ui/gcr-gnupg-renderer.c:490
 msgid "Expiry"
 msgstr "תפוגה"
@@ -768,8 +728,7 @@ msgstr "מהימנות הבעלים"
 msgid "Name"
 msgstr "שם"
 
-#: ../ui/gcr-gnupg-renderer.c:426
-#: ../ui/gcr-gnupg-renderer.c:708
+#: ../ui/gcr-gnupg-renderer.c:426 ../ui/gcr-gnupg-renderer.c:708
 msgid "Comment"
 msgstr "הערה"
 
@@ -777,8 +736,7 @@ msgstr "הערה"
 msgid "User Attribute"
 msgstr "תכונת המשתמש"
 
-#: ../ui/gcr-gnupg-renderer.c:473
-#: ../ui/gcr-key-renderer.c:442
+#: ../ui/gcr-gnupg-renderer.c:473 ../ui/gcr-key-renderer.c:442
 msgid "Size"
 msgstr "גודל"
 
@@ -842,8 +800,7 @@ msgstr "חתימת טביעת זמן"
 msgid "Third-party confirmation signature"
 msgstr "חתימת אישור צד־שלישי"
 
-#: ../ui/gcr-gnupg-renderer.c:589
-#: ../ui/gcr-gnupg-renderer.c:597
+#: ../ui/gcr-gnupg-renderer.c:589 ../ui/gcr-gnupg-renderer.c:597
 msgid "Class"
 msgstr "מחלקה"
 
@@ -859,8 +816,7 @@ msgstr "ניתן לייצוא"
 msgid "Revocation Key"
 msgstr "מפתח שלילה"
 
-#: ../ui/gcr-gnupg-renderer.c:625
-#: ../ui/gcr-gnupg-renderer.c:649
+#: ../ui/gcr-gnupg-renderer.c:625 ../ui/gcr-gnupg-renderer.c:649
 #: ../ui/gcr-gnupg-renderer.c:651
 msgid "Fingerprint"
 msgstr "טביעת אצבע"
@@ -915,8 +871,7 @@ msgstr "מפתח RSA פרטי"
 msgid "Private DSA Key"
 msgstr "מפתח DSA פרטי"
 
-#: ../ui/gcr-key-renderer.c:411
-#: ../ui/gcr-key-renderer.c:413
+#: ../ui/gcr-key-renderer.c:411 ../ui/gcr-key-renderer.c:413
 msgid "Public DSA Key"
 msgstr "מפתח DSA ציבורי"
 
@@ -960,8 +915,7 @@ msgid "In order to import, please enter the password."
 msgstr "כדי לייבא, יש להזין את הססמה."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2
-#: ../ui/gcr-prompt-dialog.c:564
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:564
 msgid "Password:"
 msgstr "ססמה:"
 
@@ -969,8 +923,7 @@ msgstr "ססמה:"
 msgid "Token:"
 msgstr "אסימון:"
 
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:4
-#: ../ui/gcr-unlock-renderer.c:72
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:72
 #: ../ui/gcr-unlock-renderer.c:127
 msgid "Unlock"
 msgstr "פתח"
@@ -1004,32 +957,32 @@ msgstr "אימות גישה"
 msgid "Unlock access to passwords and other secrets"
 msgstr "שחרור הגישה לססמאות ולסודות אחרים"
 
-#: ../ui/gcr-certificate-exporter.c:226
+#: ../ui/gcr-certificate-exporter.c:227
 msgid "A file already exists with this name."
 msgstr "כבר קיים קובץ בשם הזה."
 
-#: ../ui/gcr-certificate-exporter.c:227
+#: ../ui/gcr-certificate-exporter.c:228
 msgid "Do you want to replace it with a new file?"
 msgstr "האם ברצונך להחליף אותו בקובץ חדש?"
 
-#: ../ui/gcr-certificate-exporter.c:233
+#: ../ui/gcr-certificate-exporter.c:231
 msgid "_Replace"
 msgstr "ה_חלפה"
 
-#: ../ui/gcr-certificate-exporter.c:264
+#: ../ui/gcr-certificate-exporter.c:261
 #, c-format
 msgid "The operation was cancelled."
 msgstr "הפעולה בוטלה."
 
-#: ../ui/gcr-certificate-exporter.c:308
+#: ../ui/gcr-certificate-exporter.c:305
 msgid "Export certificate"
 msgstr "יצוא אישור"
 
-#: ../ui/gcr-certificate-exporter.c:320
+#: ../ui/gcr-certificate-exporter.c:317
 msgid "Certificate files"
 msgstr "קובצי אישורים"
 
-#: ../ui/gcr-certificate-exporter.c:331
+#: ../ui/gcr-certificate-exporter.c:328
 msgid "PEM files"
 msgstr "קובצי PEM"
 
@@ -1065,11 +1018,15 @@ msgstr "ססמה"
 
 #: ../ui/gcr-unlock-renderer.c:277
 #, c-format
-msgid "The contents of '%s' are locked. In order to view the contents, enter the correct password."
+msgid ""
+"The contents of '%s' are locked. In order to view the contents, enter the "
+"correct password."
 msgstr "התכנים של '%s' נעולים. כדי לצפות בתוכן, יש להזין את הססמה הנכונה."
 
 #: ../ui/gcr-unlock-renderer.c:280
-msgid "The contents are locked. In order to view the contents, enter the correct password."
+msgid ""
+"The contents are locked. In order to view the contents, enter the correct "
+"password."
 msgstr "התכנים נעולים. כדי לצפות בתכנים, נא להזין את הססמה הנכונה."
 
 #: ../ui/gcr-viewer-tool.c:41
@@ -1088,8 +1045,7 @@ msgstr "[file...]"
 msgid "- View certificate and key files"
 msgstr "- צפייה באישור ובקובצי המפתח"
 
-#: ../ui/gcr-viewer-tool.c:119
-#: ../ui/gcr-viewer-widget.c:638
+#: ../ui/gcr-viewer-tool.c:119 ../ui/gcr-viewer-widget.c:638
 msgid "Certificate Viewer"
 msgstr "מציג אישורים"
 
@@ -1108,6 +1064,12 @@ msgstr "הייבוא נכשל"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "ייבוא:"
+
+#~ msgid "Invalid PKCS#11 module: %s"
+#~ msgstr "מודול PKCS#11 שגוי:‏ %s"
+
+#~ msgid "Couldn't setup PKCS#11 module: %s"
+#~ msgstr "לא ניתן להגדיר את מודול ה־PKCS#11:‏ %s"
 
 #~ msgid "Label"
 #~ msgstr "תווית"

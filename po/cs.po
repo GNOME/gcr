@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-02-12 05:56+0000\n"
-"PO-Revision-Date: 2012-10-06 10:46+0200\n"
+"POT-Creation-Date: 2013-08-18 09:34+0000\n"
+"PO-Revision-Date: 2013-08-19 17:12+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -67,7 +67,7 @@ msgstr "Běžný název"
 msgid "Surname"
 msgstr "Příjmení"
 
-#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:558
+#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:561
 msgid "Serial Number"
 msgstr "Sériové číslo"
 
@@ -170,27 +170,17 @@ msgstr "Ochrana e-mailu"
 msgid "Time Stamping"
 msgstr "Časové razítko"
 
-#: ../gck/gck-module.c:352
+#: ../gck/gck-module.c:344
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "Chyba při načítání modulu PKCS#11: %s"
 
-#: ../gck/gck-module.c:359
-#, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr "Neplatný modul PKCS#11: %s"
-
-#: ../gck/gck-module.c:368
-#, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "Nelze nastavit modul PKCS#11: %s"
-
-#: ../gck/gck-module.c:384
+#: ../gck/gck-module.c:358
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
 msgstr "Nelze inicializovat modul PKCS#11: %s"
 
-#: ../gck/gck-modules.c:67
+#: ../gck/gck-modules.c:62
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgstr "Nelze inicializovat registrovaný modul PKCS#11: %s"
@@ -220,24 +210,24 @@ msgstr "Proud byl uzavřen"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
+#: ../gcr/gcr-certificate.c:343 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "Název"
 
-#: ../gcr/gcr-certificate.c:310
+#: ../gcr/gcr-certificate.c:345
 msgctxt "column"
 msgid "Issued By"
 msgstr "Vydal"
 
 #. later
-#: ../gcr/gcr-certificate.c:312
+#: ../gcr/gcr-certificate.c:347
 msgctxt "column"
 msgid "Expires"
 msgstr "Vyprší"
 
-#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-parser.c:322
-#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:469
+#: ../gcr/gcr-certificate.c:1185 ../gcr/gcr-parser.c:320
+#: ../ui/gcr-certificate-renderer.c:104 ../ui/gcr-certificate-exporter.c:466
 msgid "Certificate"
 msgstr "Certifikát"
 
@@ -286,12 +276,12 @@ msgstr "Adresa IP"
 msgid "Registered ID"
 msgstr "Registrované ID"
 
-#: ../gcr/gcr-certificate-request.c:418
+#: ../gcr/gcr-certificate-request.c:416
 #, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Nepodporovaný typ klíče pro požadavek o certifikát"
 
-#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
+#: ../gcr/gcr-certificate-request.c:503 ../gcr/gcr-certificate-request.c:588
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Klíč nemůže být použit k podepsání požadavku"
@@ -305,7 +295,7 @@ msgstr "Klíčenka GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Klíčenka GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:328
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:326
 #: ../ui/gcr-gnupg-renderer.c:89
 msgid "PGP Key"
 msgstr "Klíč PGP"
@@ -325,33 +315,33 @@ msgstr "Proces gnupg skončil kódem: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Proces gnupg byl ukončen signálem: %d"
 
-#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2424
-#: ../gcr/gcr-parser.c:2917 ../gcr/gcr-system-prompt.c:902
+#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2422
+#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:925
 msgid "The operation was cancelled"
 msgstr "Operace byla zrušena"
 
-#: ../gcr/gcr-parser.c:319 ../ui/gcr-key-renderer.c:408
+#: ../gcr/gcr-parser.c:317 ../ui/gcr-key-renderer.c:408
 msgid "Private Key"
 msgstr "Soukromý klíč"
 
-#: ../gcr/gcr-parser.c:325 ../ui/gcr-certificate-renderer.c:891
+#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:883
 #: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
 msgid "Public Key"
 msgstr "Veřejný klíč"
 
-#: ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-parser.c:329
 msgid "Certificate Request"
 msgstr "Požadavek o certifikát"
 
-#: ../gcr/gcr-parser.c:2427
+#: ../gcr/gcr-parser.c:2425
 msgid "Unrecognized or unsupported data."
 msgstr "Nerozpoznaná nebo nepodporovaná data."
 
-#: ../gcr/gcr-parser.c:2430
+#: ../gcr/gcr-parser.c:2428
 msgid "Could not parse invalid or corrupted data."
 msgstr "Nelze analyzovat neplatná nebo poškozená data."
 
-#: ../gcr/gcr-parser.c:2433
+#: ../gcr/gcr-parser.c:2431
 msgid "The data is locked"
 msgstr "Data jsou uzamčena"
 
@@ -371,7 +361,7 @@ msgstr "Nerozpoznaný nebo nedostupný atribut pro klíč"
 msgid "Couldn't build public key"
 msgstr "Nelze sestavit veřejný klíč"
 
-#: ../gcr/gcr-system-prompt.c:883
+#: ../gcr/gcr-system-prompt.c:906
 msgid "Another prompt is already in progress"
 msgstr "Jiný dotaz již probíhá"
 
@@ -383,210 +373,214 @@ msgstr "Jiný dotaz již probíhá"
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "Nelze najít místo, kde se mají uchovávat vyznačené certifikáty"
 
-#: ../ui/gcr-certificate-renderer.c:118
+#: ../ui/gcr-certificate-renderer.c:119
 msgid "Basic Constraints"
 msgstr "Základní omezení"
 
-#: ../ui/gcr-certificate-renderer.c:120
+#: ../ui/gcr-certificate-renderer.c:121
 msgid "Certificate Authority"
 msgstr "Certifikační autorita"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "Yes"
 msgstr "Ano"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "No"
 msgstr "Ne"
 
-#: ../ui/gcr-certificate-renderer.c:124
+#: ../ui/gcr-certificate-renderer.c:125
 msgid "Max Path Length"
 msgstr "Maximální délka cesty"
 
-#: ../ui/gcr-certificate-renderer.c:125
+#: ../ui/gcr-certificate-renderer.c:126
 msgid "Unlimited"
 msgstr "Bez omezení"
 
-#: ../ui/gcr-certificate-renderer.c:144
+#: ../ui/gcr-certificate-renderer.c:145
 msgid "Extended Key Usage"
 msgstr "Použití rozšířeného klíče"
 
-#: ../ui/gcr-certificate-renderer.c:155
+#: ../ui/gcr-certificate-renderer.c:156
 msgid "Allowed Purposes"
 msgstr "Povolené účely"
 
-#: ../ui/gcr-certificate-renderer.c:175
+#: ../ui/gcr-certificate-renderer.c:176
 msgid "Subject Key Identifier"
 msgstr "Identifikátor klíče subjektu"
 
-#: ../ui/gcr-certificate-renderer.c:176
+#: ../ui/gcr-certificate-renderer.c:177
 msgid "Key Identifier"
 msgstr "Identifikátor klíče"
 
-#: ../ui/gcr-certificate-renderer.c:187
+#: ../ui/gcr-certificate-renderer.c:188
 msgid "Digital signature"
 msgstr "Digitální podpis"
 
-#: ../ui/gcr-certificate-renderer.c:188
+#: ../ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "Šifrování klíče"
 
-#: ../ui/gcr-certificate-renderer.c:189
+#: ../ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "Šifrování dat"
 
-#: ../ui/gcr-certificate-renderer.c:190
+#: ../ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "Dohoda na klíči"
 
-#: ../ui/gcr-certificate-renderer.c:191
+#: ../ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "Podpis certifikátu"
 
-#: ../ui/gcr-certificate-renderer.c:192
+#: ../ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "Podpis seznamu odvolaných"
 
-#: ../ui/gcr-certificate-renderer.c:217
+#: ../ui/gcr-certificate-renderer.c:218
 msgid "Key Usage"
 msgstr "Použití klíče"
 
-#: ../ui/gcr-certificate-renderer.c:218
+#: ../ui/gcr-certificate-renderer.c:219
 msgid "Usages"
 msgstr "Použití"
 
-#: ../ui/gcr-certificate-renderer.c:238
+#: ../ui/gcr-certificate-renderer.c:239
 msgid "Subject Alternative Names"
 msgstr "Alternativní názvy subjektu"
 
-#: ../ui/gcr-certificate-renderer.c:265
+#: ../ui/gcr-certificate-renderer.c:266
 msgid "Extension"
 msgstr "Rozšíření"
 
-#: ../ui/gcr-certificate-renderer.c:269
+#: ../ui/gcr-certificate-renderer.c:270
 msgid "Identifier"
 msgstr "Identifikátor"
 
-#: ../ui/gcr-certificate-renderer.c:270
-#: ../ui/gcr-certificate-request-renderer.c:273 ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-certificate-renderer.c:271
+#: ../ui/gcr-certificate-request-renderer.c:271 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "Hodnota"
 
-#: ../ui/gcr-certificate-renderer.c:295
+#: ../ui/gcr-certificate-renderer.c:289
 msgid "Couldn't export the certificate."
 msgstr "Nelze exportovat certifikát."
 
-#: ../ui/gcr-certificate-renderer.c:520
-#: ../ui/gcr-certificate-request-renderer.c:314
+#: ../ui/gcr-certificate-renderer.c:523
+#: ../ui/gcr-certificate-request-renderer.c:312
 msgid "Identity"
 msgstr "Identita"
 
-#: ../ui/gcr-certificate-renderer.c:524
+#: ../ui/gcr-certificate-renderer.c:527
 msgid "Verified by"
 msgstr "Ověřil"
 
-#: ../ui/gcr-certificate-renderer.c:531 ../ui/gcr-gnupg-renderer.c:719
+#: ../ui/gcr-certificate-renderer.c:534 ../ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "Vyprší"
 
 #. The subject
-#: ../ui/gcr-certificate-renderer.c:538
-#: ../ui/gcr-certificate-request-renderer.c:320
+#: ../ui/gcr-certificate-renderer.c:541
+#: ../ui/gcr-certificate-request-renderer.c:318
 msgid "Subject Name"
 msgstr "Název subjektu"
 
 #. The Issuer
-#: ../ui/gcr-certificate-renderer.c:543
+#: ../ui/gcr-certificate-renderer.c:546
 msgid "Issuer Name"
 msgstr "Název vydavatele"
 
 #. The Issued Parameters
-#: ../ui/gcr-certificate-renderer.c:548
+#: ../ui/gcr-certificate-renderer.c:551
 msgid "Issued Certificate"
 msgstr "Vydaný certifikát"
 
-#: ../ui/gcr-certificate-renderer.c:553
-#: ../ui/gcr-certificate-request-renderer.c:331
+#: ../ui/gcr-certificate-renderer.c:556
+#: ../ui/gcr-certificate-request-renderer.c:329
 msgid "Version"
 msgstr "Verze"
 
-#: ../ui/gcr-certificate-renderer.c:567
+#: ../ui/gcr-certificate-renderer.c:570
 msgid "Not Valid Before"
 msgstr "Není platný před"
 
-#: ../ui/gcr-certificate-renderer.c:572
+#: ../ui/gcr-certificate-renderer.c:575
 msgid "Not Valid After"
 msgstr "Není platný po"
 
 #. Fingerprints
-#: ../ui/gcr-certificate-renderer.c:577
+#: ../ui/gcr-certificate-renderer.c:580
 msgid "Certificate Fingerprints"
 msgstr "Otisky certifikátů"
 
 #. Public Key Info
-#: ../ui/gcr-certificate-renderer.c:583
-#: ../ui/gcr-certificate-request-renderer.c:334
-#: ../ui/gcr-certificate-request-renderer.c:380
+#: ../ui/gcr-certificate-renderer.c:586
+#: ../ui/gcr-certificate-request-renderer.c:332
+#: ../ui/gcr-certificate-request-renderer.c:378
 msgid "Public Key Info"
 msgstr "Informace o veřejném klíči"
 
 #. Signature
-#: ../ui/gcr-certificate-renderer.c:598 ../ui/gcr-certificate-renderer.c:919
-#: ../ui/gcr-certificate-request-renderer.c:350
-#: ../ui/gcr-certificate-request-renderer.c:387 ../ui/gcr-gnupg-renderer.c:560
+#: ../ui/gcr-certificate-renderer.c:601 ../ui/gcr-certificate-renderer.c:911
+#: ../ui/gcr-certificate-request-renderer.c:348
+#: ../ui/gcr-certificate-request-renderer.c:385 ../ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "Podpis"
 
-#: ../ui/gcr-certificate-renderer.c:865
+#: ../ui/gcr-certificate-renderer.c:618
+msgid "Export Certificate..."
+msgstr "Exportovat certifikát…"
+
+#: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
 msgstr "Algoritmus klíče"
 
-#: ../ui/gcr-certificate-renderer.c:870
+#: ../ui/gcr-certificate-renderer.c:862
 msgid "Key Parameters"
 msgstr "Parametry klíče"
 
-#: ../ui/gcr-certificate-renderer.c:878 ../ui/gcr-gnupg-renderer.c:353
+#: ../ui/gcr-certificate-renderer.c:870 ../ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "Velikost klíče"
 
-#: ../ui/gcr-certificate-renderer.c:886
+#: ../ui/gcr-certificate-renderer.c:878
 msgid "Key SHA1 Fingerprint"
 msgstr "Otisk SHA1 klíče"
 
-#: ../ui/gcr-certificate-renderer.c:908
+#: ../ui/gcr-certificate-renderer.c:900
 msgid "Signature Algorithm"
 msgstr "Algoritmus podpisu"
 
-#: ../ui/gcr-certificate-renderer.c:912
+#: ../ui/gcr-certificate-renderer.c:904
 msgid "Signature Parameters"
 msgstr "Parametry podpisu"
 
-#: ../ui/gcr-certificate-renderer.c:961
+#: ../ui/gcr-certificate-renderer.c:953
 msgid "Critical"
 msgstr "Kritické"
 
 #. The certificate request type
 #: ../ui/gcr-certificate-request-renderer.c:96
-#: ../ui/gcr-certificate-request-renderer.c:309
-#: ../ui/gcr-certificate-request-renderer.c:324
-#: ../ui/gcr-certificate-request-renderer.c:367
-#: ../ui/gcr-certificate-request-renderer.c:372
+#: ../ui/gcr-certificate-request-renderer.c:307
+#: ../ui/gcr-certificate-request-renderer.c:322
+#: ../ui/gcr-certificate-request-renderer.c:365
+#: ../ui/gcr-certificate-request-renderer.c:370
 msgid "Certificate request"
 msgstr "Požadavek o certifikát"
 
-#: ../ui/gcr-certificate-request-renderer.c:262
+#: ../ui/gcr-certificate-request-renderer.c:260
 msgid "Attribute"
 msgstr "Atribut"
 
-#: ../ui/gcr-certificate-request-renderer.c:266
-#: ../ui/gcr-certificate-request-renderer.c:325
-#: ../ui/gcr-certificate-request-renderer.c:373 ../ui/gcr-gnupg-renderer.c:591
+#: ../ui/gcr-certificate-request-renderer.c:264
+#: ../ui/gcr-certificate-request-renderer.c:323
+#: ../ui/gcr-certificate-request-renderer.c:371 ../ui/gcr-gnupg-renderer.c:591
 #: ../ui/gcr-gnupg-renderer.c:593
 msgid "Type"
 msgstr "Typ"
 
-#: ../ui/gcr-certificate-request-renderer.c:377
+#: ../ui/gcr-certificate-request-renderer.c:375
 msgid "Challenge"
 msgstr "Zpochybnění"
 
@@ -971,32 +965,32 @@ msgstr "Dotaz na přístup"
 msgid "Unlock access to passwords and other secrets"
 msgstr "Odemknout přístup k heslům a dalším utajovaným informacím"
 
-#: ../ui/gcr-certificate-exporter.c:226
+#: ../ui/gcr-certificate-exporter.c:227
 msgid "A file already exists with this name."
 msgstr "Soubor s tímto názvem již existuje."
 
-#: ../ui/gcr-certificate-exporter.c:227
+#: ../ui/gcr-certificate-exporter.c:228
 msgid "Do you want to replace it with a new file?"
 msgstr "Chcete jej nahradit novým souborem?"
 
-#: ../ui/gcr-certificate-exporter.c:233
+#: ../ui/gcr-certificate-exporter.c:231
 msgid "_Replace"
 msgstr "_Nahradit"
 
-#: ../ui/gcr-certificate-exporter.c:264
+#: ../ui/gcr-certificate-exporter.c:261
 #, c-format
 msgid "The operation was cancelled."
 msgstr "Operace byla zrušena."
 
-#: ../ui/gcr-certificate-exporter.c:308
+#: ../ui/gcr-certificate-exporter.c:305
 msgid "Export certificate"
 msgstr "Export certifikátu"
 
-#: ../ui/gcr-certificate-exporter.c:320
+#: ../ui/gcr-certificate-exporter.c:317
 msgid "Certificate files"
 msgstr "Soubory s certifikáty"
 
-#: ../ui/gcr-certificate-exporter.c:331
+#: ../ui/gcr-certificate-exporter.c:328
 msgid "PEM files"
 msgstr "Soubory PEM"
 

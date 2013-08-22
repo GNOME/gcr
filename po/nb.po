@@ -6,10 +6,10 @@
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-keyring 3.7.x\n"
+"Project-Id-Version: gnome-keyring 3.9.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-25 17:15+0100\n"
-"PO-Revision-Date: 2013-02-25 17:16+0100\n"
+"POT-Creation-Date: 2013-08-22 16:02+0200\n"
+"PO-Revision-Date: 2013-08-22 16:02+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: no\n"
@@ -59,7 +59,7 @@ msgstr "Vanlig navn"
 msgid "Surname"
 msgstr "Etternavn"
 
-#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:556
+#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:561
 msgid "Serial Number"
 msgstr "Serienummer"
 
@@ -162,27 +162,17 @@ msgstr "Beskyttelse av e-post"
 msgid "Time Stamping"
 msgstr "Tidsstempling"
 
-#: ../gck/gck-module.c:352
+#: ../gck/gck-module.c:344
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "Feil under lasting av PKCS#11-modul: %s"
 
-#: ../gck/gck-module.c:359
-#, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr "Ugyldig PKCS#11-modul: %s"
-
-#: ../gck/gck-module.c:368
-#, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "Kunne ikke sette opp PKCS#11-modul: %s"
-
-#: ../gck/gck-module.c:384
+#: ../gck/gck-module.c:358
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
 msgstr "Kunne ikke initiere PKCS#11-modul: %s"
 
-#: ../gck/gck-modules.c:67
+#: ../gck/gck-modules.c:62
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgstr "Kunne ikke initiere registrerte PKCS#11-moduler: %s"
@@ -212,24 +202,24 @@ msgstr "Strømmen ble lukket"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:306 ../gcr/gcr-gnupg-key.c:432
+#: ../gcr/gcr-certificate.c:343 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "Navn"
 
-#: ../gcr/gcr-certificate.c:308
+#: ../gcr/gcr-certificate.c:345
 msgctxt "column"
 msgid "Issued By"
 msgstr "Utstedt av"
 
 #. later
-#: ../gcr/gcr-certificate.c:310
+#: ../gcr/gcr-certificate.c:347
 msgctxt "column"
 msgid "Expires"
 msgstr "Utløper"
 
-#: ../gcr/gcr-certificate.c:1131 ../gcr/gcr-parser.c:320
-#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:469
+#: ../gcr/gcr-certificate.c:1185 ../gcr/gcr-parser.c:320
+#: ../ui/gcr-certificate-renderer.c:104 ../ui/gcr-certificate-exporter.c:466
 msgid "Certificate"
 msgstr "Sertifikat"
 
@@ -318,7 +308,7 @@ msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg-prosessen ble terminert med signal: %d"
 
 #: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2422
-#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:902
+#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:925
 msgid "The operation was cancelled"
 msgstr "Operasjonen ble avbrutt"
 
@@ -326,7 +316,7 @@ msgstr "Operasjonen ble avbrutt"
 msgid "Private Key"
 msgstr "Privat nøkkel"
 
-#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:889
+#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:883
 #: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
 msgid "Public Key"
 msgstr "Offentlig nøkkel"
@@ -363,7 +353,7 @@ msgstr "Ikke gjenkjent eller utilgjengelige attributter for nøkkel"
 msgid "Couldn't build public key"
 msgstr "Klarte ikke å bygge offentlig nøkkel"
 
-#: ../gcr/gcr-system-prompt.c:883
+#: ../gcr/gcr-system-prompt.c:906
 msgid "Another prompt is already in progress"
 msgstr "En annen dialog er allerede i gang"
 
@@ -375,186 +365,190 @@ msgstr "En annen dialog er allerede i gang"
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "Klarte ikke å finne en plass å lagre festet sertifikat"
 
-#: ../ui/gcr-certificate-renderer.c:118
+#: ../ui/gcr-certificate-renderer.c:119
 msgid "Basic Constraints"
 msgstr "Grunnleggende begrensninger"
 
-#: ../ui/gcr-certificate-renderer.c:120
+#: ../ui/gcr-certificate-renderer.c:121
 msgid "Certificate Authority"
 msgstr "Sertifikatautoritet"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:960
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "Yes"
 msgstr "Ja"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:960
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "No"
 msgstr "Nei"
 
-#: ../ui/gcr-certificate-renderer.c:124
+#: ../ui/gcr-certificate-renderer.c:125
 msgid "Max Path Length"
 msgstr "Maksimal lengde på sti"
 
-#: ../ui/gcr-certificate-renderer.c:125
+#: ../ui/gcr-certificate-renderer.c:126
 msgid "Unlimited"
 msgstr "Ubegrenset"
 
-#: ../ui/gcr-certificate-renderer.c:144
+#: ../ui/gcr-certificate-renderer.c:145
 msgid "Extended Key Usage"
 msgstr "Utvidet bruk av nøkkel"
 
-#: ../ui/gcr-certificate-renderer.c:155
+#: ../ui/gcr-certificate-renderer.c:156
 msgid "Allowed Purposes"
 msgstr "Tillatte formål"
 
-#: ../ui/gcr-certificate-renderer.c:175
+#: ../ui/gcr-certificate-renderer.c:176
 msgid "Subject Key Identifier"
 msgstr "Identifikator for subjektnøkkel"
 
-#: ../ui/gcr-certificate-renderer.c:176
+#: ../ui/gcr-certificate-renderer.c:177
 msgid "Key Identifier"
 msgstr "Identifikator for nøkkel"
 
-#: ../ui/gcr-certificate-renderer.c:187
+#: ../ui/gcr-certificate-renderer.c:188
 msgid "Digital signature"
 msgstr "Digital signatur"
 
-#: ../ui/gcr-certificate-renderer.c:188
+#: ../ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "Metode for kryptering av nøkkel"
 
-#: ../ui/gcr-certificate-renderer.c:189
+#: ../ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "Metode for kryptering av data"
 
-#: ../ui/gcr-certificate-renderer.c:190
+#: ../ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "Nøkkelavtale"
 
-#: ../ui/gcr-certificate-renderer.c:191
+#: ../ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "Sertifikatsignatur"
 
-#: ../ui/gcr-certificate-renderer.c:192
+#: ../ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "Signatur for tilbaketrekkingsliste"
 
-#: ../ui/gcr-certificate-renderer.c:217
+#: ../ui/gcr-certificate-renderer.c:218
 msgid "Key Usage"
 msgstr "Bruk av nøkkel"
 
-#: ../ui/gcr-certificate-renderer.c:218
+#: ../ui/gcr-certificate-renderer.c:219
 msgid "Usages"
 msgstr "Bruksområder"
 
-#: ../ui/gcr-certificate-renderer.c:238
+#: ../ui/gcr-certificate-renderer.c:239
 msgid "Subject Alternative Names"
 msgstr "Alternative navn på subjekt"
 
-#: ../ui/gcr-certificate-renderer.c:265
+#: ../ui/gcr-certificate-renderer.c:266
 msgid "Extension"
 msgstr "Utvidelse"
 
-#: ../ui/gcr-certificate-renderer.c:269
+#: ../ui/gcr-certificate-renderer.c:270
 msgid "Identifier"
 msgstr "Identifikator"
 
-#: ../ui/gcr-certificate-renderer.c:270
+#: ../ui/gcr-certificate-renderer.c:271
 #: ../ui/gcr-certificate-request-renderer.c:271 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "Verdi"
 
-#: ../ui/gcr-certificate-renderer.c:295
+#: ../ui/gcr-certificate-renderer.c:289
 msgid "Couldn't export the certificate."
 msgstr "Klarte ikke å eksportere sertifikatet."
 
-#: ../ui/gcr-certificate-renderer.c:518
+#: ../ui/gcr-certificate-renderer.c:523
 #: ../ui/gcr-certificate-request-renderer.c:312
 msgid "Identity"
 msgstr "Identitet"
 
-#: ../ui/gcr-certificate-renderer.c:522
+#: ../ui/gcr-certificate-renderer.c:527
 msgid "Verified by"
 msgstr "Verifisert av"
 
-#: ../ui/gcr-certificate-renderer.c:529 ../ui/gcr-gnupg-renderer.c:719
+#: ../ui/gcr-certificate-renderer.c:534 ../ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "Utløper"
 
 #. The subject
-#: ../ui/gcr-certificate-renderer.c:536
+#: ../ui/gcr-certificate-renderer.c:541
 #: ../ui/gcr-certificate-request-renderer.c:318
 msgid "Subject Name"
 msgstr "Navn på subjekt"
 
 #. The Issuer
-#: ../ui/gcr-certificate-renderer.c:541
+#: ../ui/gcr-certificate-renderer.c:546
 msgid "Issuer Name"
 msgstr "Navn på utsteder"
 
 #. The Issued Parameters
-#: ../ui/gcr-certificate-renderer.c:546
+#: ../ui/gcr-certificate-renderer.c:551
 msgid "Issued Certificate"
 msgstr "Utstedt sertifikat"
 
-#: ../ui/gcr-certificate-renderer.c:551
+#: ../ui/gcr-certificate-renderer.c:556
 #: ../ui/gcr-certificate-request-renderer.c:329
 msgid "Version"
 msgstr "Versjon"
 
-#: ../ui/gcr-certificate-renderer.c:565
+#: ../ui/gcr-certificate-renderer.c:570
 msgid "Not Valid Before"
 msgstr "Ikke gyldig før"
 
-#: ../ui/gcr-certificate-renderer.c:570
+#: ../ui/gcr-certificate-renderer.c:575
 msgid "Not Valid After"
 msgstr "Ikke gyldig etter"
 
 #. Fingerprints
-#: ../ui/gcr-certificate-renderer.c:575
+#: ../ui/gcr-certificate-renderer.c:580
 msgid "Certificate Fingerprints"
 msgstr "Fingeravtrykk for sertifikat"
 
 #. Public Key Info
-#: ../ui/gcr-certificate-renderer.c:581
+#: ../ui/gcr-certificate-renderer.c:586
 #: ../ui/gcr-certificate-request-renderer.c:332
 #: ../ui/gcr-certificate-request-renderer.c:378
 msgid "Public Key Info"
 msgstr "Informasjon om offentlig nøkkel"
 
 #. Signature
-#: ../ui/gcr-certificate-renderer.c:596 ../ui/gcr-certificate-renderer.c:917
+#: ../ui/gcr-certificate-renderer.c:601 ../ui/gcr-certificate-renderer.c:911
 #: ../ui/gcr-certificate-request-renderer.c:348
 #: ../ui/gcr-certificate-request-renderer.c:385 ../ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "Signatur"
 
-#: ../ui/gcr-certificate-renderer.c:863
+#: ../ui/gcr-certificate-renderer.c:618
+msgid "Export Certificate..."
+msgstr "Eksporter sertifikat …"
+
+#: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
 msgstr "Algoritme for nøkkel"
 
-#: ../ui/gcr-certificate-renderer.c:868
+#: ../ui/gcr-certificate-renderer.c:862
 msgid "Key Parameters"
 msgstr "Nøkkelparametere"
 
-#: ../ui/gcr-certificate-renderer.c:876 ../ui/gcr-gnupg-renderer.c:353
+#: ../ui/gcr-certificate-renderer.c:870 ../ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "Størrelse på nøkkel"
 
-#: ../ui/gcr-certificate-renderer.c:884
+#: ../ui/gcr-certificate-renderer.c:878
 msgid "Key SHA1 Fingerprint"
 msgstr "SHA1-fingeravtrykk for nøkkel"
 
-#: ../ui/gcr-certificate-renderer.c:906
+#: ../ui/gcr-certificate-renderer.c:900
 msgid "Signature Algorithm"
 msgstr "Algoritme for signatur"
 
-#: ../ui/gcr-certificate-renderer.c:910
+#: ../ui/gcr-certificate-renderer.c:904
 msgid "Signature Parameters"
 msgstr "Parametere for signatur"
 
-#: ../ui/gcr-certificate-renderer.c:959
+#: ../ui/gcr-certificate-renderer.c:953
 msgid "Critical"
 msgstr "Kritisk"
 
@@ -961,32 +955,32 @@ msgstr "Tilgangsdialog"
 msgid "Unlock access to passwords and other secrets"
 msgstr "Lås opp tilgang til passord og andre hemmeligheter"
 
-#: ../ui/gcr-certificate-exporter.c:226
+#: ../ui/gcr-certificate-exporter.c:227
 msgid "A file already exists with this name."
 msgstr "En fil med dette navnet eksisterer allerede."
 
-#: ../ui/gcr-certificate-exporter.c:227
+#: ../ui/gcr-certificate-exporter.c:228
 msgid "Do you want to replace it with a new file?"
 msgstr "Vil du erstatte den med en ny fil?"
 
-#: ../ui/gcr-certificate-exporter.c:233
+#: ../ui/gcr-certificate-exporter.c:231
 msgid "_Replace"
 msgstr "E_rstatt"
 
-#: ../ui/gcr-certificate-exporter.c:264
+#: ../ui/gcr-certificate-exporter.c:261
 #, c-format
 msgid "The operation was cancelled."
 msgstr "Operasjonen ble avbrutt."
 
-#: ../ui/gcr-certificate-exporter.c:308
+#: ../ui/gcr-certificate-exporter.c:305
 msgid "Export certificate"
 msgstr "Eksporter sertifikat"
 
-#: ../ui/gcr-certificate-exporter.c:320
+#: ../ui/gcr-certificate-exporter.c:317
 msgid "Certificate files"
 msgstr "Sertifikatfiler"
 
-#: ../ui/gcr-certificate-exporter.c:331
+#: ../ui/gcr-certificate-exporter.c:328
 msgid "PEM files"
 msgstr "PEM-filer"
 

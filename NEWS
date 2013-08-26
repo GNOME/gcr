@@ -1,3 +1,10 @@
+gcr 3.9.90:
+ - GcrCertificateWidget: inherit from GtkBin, not GtkWidget [#701048]
+ - Made gcr-certificate-renderer close the dialog when clicking okay [#699543]
+ - Port to new p11-kit managed style functions
+ - Testing fixes [#705139]
+ - Build fixes [#695973, ...]
+
 gcr 3.9.1:
  - Vapi bindings [#689685]
  - Don't import to 'xdg' module in the importer

@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-02-12 05:56+0000\n"
-"PO-Revision-Date: 2013-03-02 23:29+0200\n"
+"POT-Creation-Date: 2013-08-18 09:34+0000\n"
+"PO-Revision-Date: 2013-08-28 23:08+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -64,7 +64,7 @@ msgstr "Bendrinis vardas"
 msgid "Surname"
 msgstr "Pavardė"
 
-#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:558
+#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:561
 msgid "Serial Number"
 msgstr "Serijos numeris"
 
@@ -167,27 +167,17 @@ msgstr "El. pašto apsauga"
 msgid "Time Stamping"
 msgstr "Laiko žymos"
 
-#: ../gck/gck-module.c:352
+#: ../gck/gck-module.c:344
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "Klaida įkeliant PKCS#11 modulį: %s"
 
-#: ../gck/gck-module.c:359
-#, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr "Netinkamas PKCS#11 modulis: %s"
-
-#: ../gck/gck-module.c:368
-#, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "Nepavyko nustatyti PKCS#11 modulio: %s"
-
-#: ../gck/gck-module.c:384
+#: ../gck/gck-module.c:358
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
 msgstr "Nepavyko inicijuoti PKCS#11 modulio: %s"
 
-#: ../gck/gck-modules.c:67
+#: ../gck/gck-modules.c:62
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgstr "Nepavyko inicijuoti registruotų PKCS#11 modulių: %s"
@@ -217,24 +207,24 @@ msgstr "Srautas buvo užvertas"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
+#: ../gcr/gcr-certificate.c:343 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "Vardas"
 
-#: ../gcr/gcr-certificate.c:310
+#: ../gcr/gcr-certificate.c:345
 msgctxt "column"
 msgid "Issued By"
 msgstr "Išdavė"
 
 #. later
-#: ../gcr/gcr-certificate.c:312
+#: ../gcr/gcr-certificate.c:347
 msgctxt "column"
 msgid "Expires"
 msgstr "Galioja iki"
 
-#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-parser.c:322
-#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:469
+#: ../gcr/gcr-certificate.c:1185 ../gcr/gcr-parser.c:320
+#: ../ui/gcr-certificate-renderer.c:104 ../ui/gcr-certificate-exporter.c:466
 msgid "Certificate"
 msgstr "Liudijimas"
 
@@ -283,12 +273,12 @@ msgstr "IP adresas"
 msgid "Registered ID"
 msgstr "Registracijos ID"
 
-#: ../gcr/gcr-certificate-request.c:418
+#: ../gcr/gcr-certificate-request.c:416
 #, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Nepalaikomas rakto tipas liudijimo užklausai"
 
-#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
+#: ../gcr/gcr-certificate-request.c:503 ../gcr/gcr-certificate-request.c:588
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Raktas negali būti naudojamas užklausai pasirašyti"
@@ -302,7 +292,7 @@ msgstr "GnuPG raktinė"
 msgid "GnuPG Keyring: %s"
 msgstr "PGP raktinė: %s"
 
-#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:328
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:326
 #: ../ui/gcr-gnupg-renderer.c:89
 msgid "PGP Key"
 msgstr "PGP raktas"
@@ -322,33 +312,33 @@ msgstr "Gnupg procesas baigėsi su kodu: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg procesas baigėsi su signalu: %d"
 
-#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2424
-#: ../gcr/gcr-parser.c:2917 ../gcr/gcr-system-prompt.c:902
+#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2422
+#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:925
 msgid "The operation was cancelled"
 msgstr "Operacija nutraukta"
 
-#: ../gcr/gcr-parser.c:319 ../ui/gcr-key-renderer.c:408
+#: ../gcr/gcr-parser.c:317 ../ui/gcr-key-renderer.c:408
 msgid "Private Key"
 msgstr "Privatus raktas"
 
-#: ../gcr/gcr-parser.c:325 ../ui/gcr-certificate-renderer.c:891
+#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:883
 #: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
 msgid "Public Key"
 msgstr "Viešasis raktas"
 
-#: ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-parser.c:329
 msgid "Certificate Request"
 msgstr "Liudijimo užklausa"
 
-#: ../gcr/gcr-parser.c:2427
+#: ../gcr/gcr-parser.c:2425
 msgid "Unrecognized or unsupported data."
 msgstr "Duomenys netaisyklingi arba neatpažinti"
 
-#: ../gcr/gcr-parser.c:2430
+#: ../gcr/gcr-parser.c:2428
 msgid "Could not parse invalid or corrupted data."
 msgstr "Nepavyko apdoroti netaisyklingų arba sugadintų duomenų."
 
-#: ../gcr/gcr-parser.c:2433
+#: ../gcr/gcr-parser.c:2431
 msgid "The data is locked"
 msgstr "Duomenys užrakinti"
 
@@ -368,7 +358,7 @@ msgstr "Neatpažinti arba nepasiekiami rakto atributai"
 msgid "Couldn't build public key"
 msgstr "Negalima sukurti viešo rakto"
 
-#: ../gcr/gcr-system-prompt.c:883
+#: ../gcr/gcr-system-prompt.c:906
 msgid "Another prompt is already in progress"
 msgstr "Kitas užklausimas yra yra eigoje"
 
@@ -380,210 +370,215 @@ msgstr "Kitas užklausimas yra yra eigoje"
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "Nepavyksta rasti vietos prisegto sertifikato įrašymui"
 
-#: ../ui/gcr-certificate-renderer.c:118
+#: ../ui/gcr-certificate-renderer.c:119
 msgid "Basic Constraints"
 msgstr "Pagrindiniai ribojimai"
 
-#: ../ui/gcr-certificate-renderer.c:120
+#: ../ui/gcr-certificate-renderer.c:121
 msgid "Certificate Authority"
 msgstr "Liudijimo įstaiga"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "Yes"
 msgstr "Taip"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "No"
 msgstr "Ne"
 
-#: ../ui/gcr-certificate-renderer.c:124
+#: ../ui/gcr-certificate-renderer.c:125
 msgid "Max Path Length"
 msgstr "Didžiausias kelio ilgis"
 
-#: ../ui/gcr-certificate-renderer.c:125
+#: ../ui/gcr-certificate-renderer.c:126
 msgid "Unlimited"
 msgstr "Neribojamas"
 
-#: ../ui/gcr-certificate-renderer.c:144
+#: ../ui/gcr-certificate-renderer.c:145
 msgid "Extended Key Usage"
 msgstr "Išplėstinis rakto naudojimas"
 
-#: ../ui/gcr-certificate-renderer.c:155
+#: ../ui/gcr-certificate-renderer.c:156
 msgid "Allowed Purposes"
 msgstr "Leidžiami tikslai"
 
-#: ../ui/gcr-certificate-renderer.c:175
+#: ../ui/gcr-certificate-renderer.c:176
 msgid "Subject Key Identifier"
 msgstr "Subjekto rakto identifikatorius"
 
-#: ../ui/gcr-certificate-renderer.c:176
+#: ../ui/gcr-certificate-renderer.c:177
 msgid "Key Identifier"
 msgstr "Rakto identifikatorius"
 
-#: ../ui/gcr-certificate-renderer.c:187
+#: ../ui/gcr-certificate-renderer.c:188
 msgid "Digital signature"
 msgstr "Skaitmeninis parašas"
 
-#: ../ui/gcr-certificate-renderer.c:188
+#: ../ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "Rakto šifravimas"
 
-#: ../ui/gcr-certificate-renderer.c:189
+#: ../ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "Duomenų šifravimas"
 
-#: ../ui/gcr-certificate-renderer.c:190
+#: ../ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "Rakto sutartis"
 
-#: ../ui/gcr-certificate-renderer.c:191
+#: ../ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "Liudijimo parašas"
 
-#: ../ui/gcr-certificate-renderer.c:192
+#: ../ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "Panaikinimų sąrašo parašas"
 
-#: ../ui/gcr-certificate-renderer.c:217
+#: ../ui/gcr-certificate-renderer.c:218
 msgid "Key Usage"
 msgstr "Rakto naudojimas"
 
-#: ../ui/gcr-certificate-renderer.c:218
+#: ../ui/gcr-certificate-renderer.c:219
 msgid "Usages"
 msgstr "Naudojimai"
 
-#: ../ui/gcr-certificate-renderer.c:238
+#: ../ui/gcr-certificate-renderer.c:239
 msgid "Subject Alternative Names"
 msgstr "Subjekto alternatyvūs vardai"
 
-#: ../ui/gcr-certificate-renderer.c:265
+#: ../ui/gcr-certificate-renderer.c:266
 msgid "Extension"
 msgstr "Plėtinys"
 
-#: ../ui/gcr-certificate-renderer.c:269
+#: ../ui/gcr-certificate-renderer.c:270
 msgid "Identifier"
 msgstr "Identifikatorius"
 
-#: ../ui/gcr-certificate-renderer.c:270
-#: ../ui/gcr-certificate-request-renderer.c:273 ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-certificate-renderer.c:271
+#: ../ui/gcr-certificate-request-renderer.c:271 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "Reikšmė"
 
-#: ../ui/gcr-certificate-renderer.c:295
+#: ../ui/gcr-certificate-renderer.c:289
 msgid "Couldn't export the certificate."
 msgstr "Nepavyko eksportuoti sertifikato."
 
-#: ../ui/gcr-certificate-renderer.c:520
-#: ../ui/gcr-certificate-request-renderer.c:314
+#: ../ui/gcr-certificate-renderer.c:523
+#: ../ui/gcr-certificate-request-renderer.c:312
 msgid "Identity"
 msgstr "Tapatybė"
 
-#: ../ui/gcr-certificate-renderer.c:524
+#: ../ui/gcr-certificate-renderer.c:527
 msgid "Verified by"
 msgstr "Patikrino"
 
-#: ../ui/gcr-certificate-renderer.c:531 ../ui/gcr-gnupg-renderer.c:719
+#: ../ui/gcr-certificate-renderer.c:534 ../ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "Galioja iki"
 
 #. The subject
-#: ../ui/gcr-certificate-renderer.c:538
-#: ../ui/gcr-certificate-request-renderer.c:320
+#: ../ui/gcr-certificate-renderer.c:541
+#: ../ui/gcr-certificate-request-renderer.c:318
 msgid "Subject Name"
 msgstr "Kam išduotas"
 
 #. The Issuer
-#: ../ui/gcr-certificate-renderer.c:543
+#: ../ui/gcr-certificate-renderer.c:546
 msgid "Issuer Name"
 msgstr "Kas išdavė"
 
 #. The Issued Parameters
-#: ../ui/gcr-certificate-renderer.c:548
+#: ../ui/gcr-certificate-renderer.c:551
 msgid "Issued Certificate"
 msgstr "Išduotasis liudijimas"
 
-#: ../ui/gcr-certificate-renderer.c:553
-#: ../ui/gcr-certificate-request-renderer.c:331
+#: ../ui/gcr-certificate-renderer.c:556
+#: ../ui/gcr-certificate-request-renderer.c:329
 msgid "Version"
 msgstr "Versija"
 
-#: ../ui/gcr-certificate-renderer.c:567
+#: ../ui/gcr-certificate-renderer.c:570
 msgid "Not Valid Before"
 msgstr "Negalioja iki"
 
-#: ../ui/gcr-certificate-renderer.c:572
+#: ../ui/gcr-certificate-renderer.c:575
 msgid "Not Valid After"
 msgstr "Negalioja po "
 
 #. Fingerprints
-#: ../ui/gcr-certificate-renderer.c:577
+#: ../ui/gcr-certificate-renderer.c:580
 msgid "Certificate Fingerprints"
 msgstr "Sertifikato kontroliniai kodai"
 
 #. Public Key Info
-#: ../ui/gcr-certificate-renderer.c:583
-#: ../ui/gcr-certificate-request-renderer.c:334
-#: ../ui/gcr-certificate-request-renderer.c:380
+#: ../ui/gcr-certificate-renderer.c:586
+#: ../ui/gcr-certificate-request-renderer.c:332
+#: ../ui/gcr-certificate-request-renderer.c:378
 msgid "Public Key Info"
 msgstr "Viešojo rakto informacija"
 
 #. Signature
-#: ../ui/gcr-certificate-renderer.c:598 ../ui/gcr-certificate-renderer.c:919
-#: ../ui/gcr-certificate-request-renderer.c:350
-#: ../ui/gcr-certificate-request-renderer.c:387 ../ui/gcr-gnupg-renderer.c:560
+#: ../ui/gcr-certificate-renderer.c:601 ../ui/gcr-certificate-renderer.c:911
+#: ../ui/gcr-certificate-request-renderer.c:348
+#: ../ui/gcr-certificate-request-renderer.c:385 ../ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "Parašas"
 
-#: ../ui/gcr-certificate-renderer.c:865
+#: ../ui/gcr-certificate-renderer.c:618
+#| msgid "Export certificate"
+msgid "Export Certificate..."
+msgstr "Eksportuoti liudijimą..."
+
+#: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
 msgstr "Viešojo rakto algoritmas"
 
-#: ../ui/gcr-certificate-renderer.c:870
+#: ../ui/gcr-certificate-renderer.c:862
 msgid "Key Parameters"
 msgstr "Rakto parametrai"
 
-#: ../ui/gcr-certificate-renderer.c:878 ../ui/gcr-gnupg-renderer.c:353
+#: ../ui/gcr-certificate-renderer.c:870 ../ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "Rakto dydis"
 
-#: ../ui/gcr-certificate-renderer.c:886
+#: ../ui/gcr-certificate-renderer.c:878
 msgid "Key SHA1 Fingerprint"
 msgstr "Rakto SHA1 kontrolinis kodas"
 
-#: ../ui/gcr-certificate-renderer.c:908
+#: ../ui/gcr-certificate-renderer.c:900
 msgid "Signature Algorithm"
 msgstr "Parašo algoritmas"
 
-#: ../ui/gcr-certificate-renderer.c:912
+#: ../ui/gcr-certificate-renderer.c:904
 msgid "Signature Parameters"
 msgstr "Parašo parametrai"
 
-#: ../ui/gcr-certificate-renderer.c:961
+#: ../ui/gcr-certificate-renderer.c:953
 msgid "Critical"
 msgstr "Kritinis"
 
 #. The certificate request type
 #: ../ui/gcr-certificate-request-renderer.c:96
-#: ../ui/gcr-certificate-request-renderer.c:309
-#: ../ui/gcr-certificate-request-renderer.c:324
-#: ../ui/gcr-certificate-request-renderer.c:367
-#: ../ui/gcr-certificate-request-renderer.c:372
+#: ../ui/gcr-certificate-request-renderer.c:307
+#: ../ui/gcr-certificate-request-renderer.c:322
+#: ../ui/gcr-certificate-request-renderer.c:365
+#: ../ui/gcr-certificate-request-renderer.c:370
 msgid "Certificate request"
 msgstr "Liudijimo užklausa"
 
-#: ../ui/gcr-certificate-request-renderer.c:262
+#: ../ui/gcr-certificate-request-renderer.c:260
 msgid "Attribute"
 msgstr "Atributas"
 
-#: ../ui/gcr-certificate-request-renderer.c:266
-#: ../ui/gcr-certificate-request-renderer.c:325
-#: ../ui/gcr-certificate-request-renderer.c:373 ../ui/gcr-gnupg-renderer.c:591
+#: ../ui/gcr-certificate-request-renderer.c:264
+#: ../ui/gcr-certificate-request-renderer.c:323
+#: ../ui/gcr-certificate-request-renderer.c:371 ../ui/gcr-gnupg-renderer.c:591
 #: ../ui/gcr-gnupg-renderer.c:593
 msgid "Type"
 msgstr "Tipas"
 
-#: ../ui/gcr-certificate-request-renderer.c:377
+#: ../ui/gcr-certificate-request-renderer.c:375
 msgid "Challenge"
 msgstr "Challenge"
 
@@ -967,36 +962,32 @@ msgstr "Prieigos užklausimas"
 msgid "Unlock access to passwords and other secrets"
 msgstr "Atrakinti prieigą prie slaptažodžių ir kitų paslapčių"
 
-#: ../ui/gcr-certificate-exporter.c:226
+#: ../ui/gcr-certificate-exporter.c:227
 msgid "A file already exists with this name."
 msgstr "Jau yra failas tokiu pavadinimu."
 
-#: ../ui/gcr-certificate-exporter.c:227
-#| msgid ""
-#| "<b>A file already exists with this name.</b>\n"
-#| "\n"
-#| "Do you want to replace it with a new file?"
+#: ../ui/gcr-certificate-exporter.c:228
 msgid "Do you want to replace it with a new file?"
 msgstr "Ar norite jį pakeisti nauju failu?"
 
-#: ../ui/gcr-certificate-exporter.c:233
+#: ../ui/gcr-certificate-exporter.c:231
 msgid "_Replace"
 msgstr "Pa_keisti"
 
-#: ../ui/gcr-certificate-exporter.c:264
+#: ../ui/gcr-certificate-exporter.c:261
 #, c-format
 msgid "The operation was cancelled."
 msgstr "Operacija nutraukta."
 
-#: ../ui/gcr-certificate-exporter.c:308
+#: ../ui/gcr-certificate-exporter.c:305
 msgid "Export certificate"
 msgstr "Eksportuoti liudijimą"
 
-#: ../ui/gcr-certificate-exporter.c:320
+#: ../ui/gcr-certificate-exporter.c:317
 msgid "Certificate files"
 msgstr "Liudijimo failai"
 
-#: ../ui/gcr-certificate-exporter.c:331
+#: ../ui/gcr-certificate-exporter.c:328
 msgid "PEM files"
 msgstr "PEM failai"
 

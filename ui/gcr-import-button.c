@@ -109,7 +109,7 @@ update_import_button (GcrImportButton *self)
 		gtk_spinner_start (GTK_SPINNER (self->pv->spinner));
 		gtk_widget_hide (self->pv->arrow);
 		gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
-		gtk_widget_set_tooltip_text (GTK_WIDGET (self), _("Initializing..."));
+		gtk_widget_set_tooltip_text (GTK_WIDGET (self), _("Initializing\xE2\x80\xA6"));
 
 	/* Importing, set a spinner */
 	} else if (self->pv->importing) {
@@ -117,7 +117,7 @@ update_import_button (GcrImportButton *self)
 		gtk_spinner_start (GTK_SPINNER (self->pv->spinner));
 		gtk_widget_hide (self->pv->arrow);
 		gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
-		gtk_widget_set_tooltip_text (GTK_WIDGET (self), _("Import is in progress..."));
+		gtk_widget_set_tooltip_text (GTK_WIDGET (self), _("Import is in progress\xE2\x80\xA6"));
 
 	} else if (self->pv->imported) {
 		gtk_widget_hide (self->pv->spinner);

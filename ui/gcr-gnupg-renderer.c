@@ -221,7 +221,7 @@ capability_for_code (gchar code)
 	case 'a': case 'A':
 		return _("Authenticate");
 	case 'D':
-		return _("Disabled");
+		return C_("Disabled", "capability");
 	default:
 		return NULL;
 	}
@@ -256,7 +256,7 @@ status_for_code (gchar code)
 	case 'i':
 		return _("Invalid");
 	case 'd':
-		return _("Disabled");
+		return C_("Disabled", "ownertrust");
 	case 'r':
 		return _("Revoked");
 	case 'e':

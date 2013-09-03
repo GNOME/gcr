@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-27 03:26+0200\n"
-"PO-Revision-Date: 2013-08-27 03:27+0200\n"
+"POT-Creation-Date: 2013-09-03 12:57+0200\n"
+"PO-Revision-Date: 2013-09-03 12:58+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -529,7 +529,7 @@ msgid "Signature"
 msgstr "Sinatura"
 
 #: ../ui/gcr-certificate-renderer.c:618
-msgid "Export Certificate..."
+msgid "Export Certificate…"
 msgstr "Exportar certificado…"
 
 #: ../ui/gcr-certificate-renderer.c:857
@@ -626,9 +626,10 @@ msgstr "Certificar"
 msgid "Authenticate"
 msgstr "Autenticar"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
-msgid "Disabled"
-msgstr "Desactivada"
+#: ../ui/gcr-gnupg-renderer.c:224
+msgctxt "Disabled"
+msgid "capability"
+msgstr "capacidade"
 
 #: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
@@ -638,6 +639,11 @@ msgstr "Descoñecida"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "Non válida"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgctxt "Disabled"
+msgid "ownertrust"
+msgstr "propietario da confianza"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -840,11 +846,11 @@ msgid "Secret Subkey"
 msgstr "Subchave segreda"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
+msgid "Initializing…"
 msgstr "Inicializando…"
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
+msgid "Import is in progress…"
 msgstr "Importación en progreso…"
 
 #: ../ui/gcr-import-button.c:127
@@ -1074,6 +1080,12 @@ msgstr "Fallou a importación"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Importar"
+
+#~ msgid "Export Certificate..."
+#~ msgstr "Exportar certificado…"
+
+#~ msgid "Disabled"
+#~ msgstr "Desactivada"
 
 #~ msgid "Invalid PKCS#11 module: %s"
 #~ msgstr "Módulos PKCS#11 non válido: %s"

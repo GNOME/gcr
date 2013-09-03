@@ -20,9 +20,9 @@ msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-08-18 22:31+0000\n"
-"PO-Revision-Date: 2013-08-18 21:40-0300\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"POT-Creation-Date: 2013-09-03 10:59+0000\n"
+"PO-Revision-Date: 2013-09-03 08:46-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -536,8 +536,8 @@ msgid "Signature"
 msgstr "Assinatura"
 
 #: ../ui/gcr-certificate-renderer.c:618
-msgid "Export Certificate..."
-msgstr "Exportar certificado..."
+msgid "Export Certificate…"
+msgstr "Exportar certificado…"
 
 #: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
@@ -633,9 +633,10 @@ msgstr "Certificar"
 msgid "Authenticate"
 msgstr "Autenticar"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
-msgid "Disabled"
-msgstr "Disabilitado"
+#: ../ui/gcr-gnupg-renderer.c:224
+msgctxt "Disabled"
+msgid "capability"
+msgstr "capacidade"
 
 #: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
@@ -645,6 +646,11 @@ msgstr "Desconhecido"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "Inválido"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgctxt "Disabled"
+msgid "ownertrust"
+msgstr "detentor da confiança"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -735,7 +741,7 @@ msgstr "Capacidades"
 
 #: ../ui/gcr-gnupg-renderer.c:392
 msgid "Owner trust"
-msgstr "Confiança do dono"
+msgstr "Detentor da confiança"
 
 #: ../ui/gcr-gnupg-renderer.c:420
 msgid "Name"
@@ -847,12 +853,12 @@ msgid "Secret Subkey"
 msgstr "Sub-chave secreta"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
-msgstr "Iniciando..."
+msgid "Initializing…"
+msgstr "Iniciando…"
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
-msgstr "Importação em progresso..."
+msgid "Import is in progress…"
+msgstr "Importação em progresso…"
 
 #: ../ui/gcr-import-button.c:127
 #, c-format
@@ -1081,6 +1087,12 @@ msgstr "Falha ao importar"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Importar"
+
+#~ msgid "Export Certificate..."
+#~ msgstr "Exportar certificado..."
+
+#~ msgid "Disabled"
+#~ msgstr "Disabilitado"
 
 #~ msgid "Invalid PKCS#11 module: %s"
 #~ msgstr "Módulo PKCS#11 inválido: %s"

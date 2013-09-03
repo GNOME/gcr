@@ -117,6 +117,7 @@ gcr_parsed_get_attributes
 gcr_parsed_get_bytes
 gcr_parsed_get_data
 gcr_parsed_get_description
+gcr_parsed_get_filename
 gcr_parsed_get_format
 gcr_parsed_get_label
 gcr_parsed_get_type
@@ -126,6 +127,7 @@ gcr_parser_add_password
 gcr_parser_format_disable
 gcr_parser_format_enable
 gcr_parser_format_supported
+gcr_parser_get_filename
 gcr_parser_get_parsed
 gcr_parser_get_parsed_attributes
 gcr_parser_get_parsed_bytes
@@ -140,6 +142,7 @@ gcr_parser_parse_data
 gcr_parser_parse_stream
 gcr_parser_parse_stream_async
 gcr_parser_parse_stream_finish
+gcr_parser_set_filename
 gcr_pkcs11_add_module
 gcr_pkcs11_add_module_from_file
 gcr_pkcs11_certificate_get_attributes

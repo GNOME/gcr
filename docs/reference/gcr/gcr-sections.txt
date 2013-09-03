@@ -22,6 +22,8 @@ gcr_parser_get_parsed_attributes
 gcr_parser_get_parsed_block
 gcr_parser_get_parsed_bytes
 gcr_parser_get_parsed_format
+gcr_parser_get_filename
+gcr_parser_set_filename
 GcrParsed
 gcr_parsed_ref
 gcr_parsed_unref
@@ -32,6 +34,7 @@ gcr_parsed_get_description
 gcr_parsed_get_format
 gcr_parsed_get_label
 gcr_parser_get_parsed
+gcr_parsed_get_filename
 <SUBSECTION Standard>
 GCR_TYPE_PARSED
 GcrParserPrivate

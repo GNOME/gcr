@@ -421,16 +421,11 @@ on_parser_parse_stream_returned (GObject *source,
 
 static void
 update_display_name (GcrViewerWidget *self,
-                     GFile *file)
+                     gchar *display_name)
 {
-	gchar *basename;
-
 	if (!self->pv->display_name_explicit) {
-		basename = g_file_get_basename (file);
 		g_free (self->pv->display_name);
-		self->pv->display_name = g_filename_display_name (basename);
-		g_free (basename);
-
+		self->pv->display_name = g_strdup (display_name);
 		g_object_notify (G_OBJECT (self), "display-name");
 	}
 }
@@ -445,9 +440,15 @@ on_file_read_returned (GObject *source,
 	GError *error = NULL;
 	GFileInputStream *fis;
 	GcrRenderer *renderer;
+	gchar *basename, *display_name;
 
 	fis = g_file_read_finish (file, result, &error);
-	update_display_name (self, file);
+
+	basename = g_file_get_basename (file);
+	display_name = g_filename_display_name (basename);
+	g_free (basename);
+
+	update_display_name (self, display_name);
 
 	if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
 		viewer_stop_loading_files (self);
@@ -461,11 +462,15 @@ on_file_read_returned (GObject *source,
 		viewer_load_next_file (self);
 
 	} else {
-		gcr_parser_parse_stream_async (self->pv->parser, G_INPUT_STREAM (fis),
-		                               self->pv->cancellable, on_parser_parse_stream_returned,
+		gcr_parser_set_filename (self->pv->parser, display_name);
+		gcr_parser_parse_stream_async (self->pv->parser,
+		                               G_INPUT_STREAM (fis),
+		                               self->pv->cancellable,
+		                               on_parser_parse_stream_returned,
 		                               self);
 		g_object_unref (fis);
 	}
+	g_free (display_name);
 }
 
 static void

@@ -284,6 +284,46 @@ test_parse_stream (void)
 	g_object_unref (parser);
 }
 
+static void
+on_parsed_ref (GcrParser *parser,
+               gpointer user_data)
+{
+	GcrParsed **parsed = user_data;
+	g_assert (parsed != NULL);
+	g_assert (*parsed == NULL);
+	*parsed = gcr_parsed_ref (gcr_parser_get_parsed (parser));
+}
+
+static void
+test_parse_filename (void)
+{
+	GcrParser *parser = gcr_parser_new ();
+	GcrParsed *parsed = NULL;
+	GError *error = NULL;
+	gboolean result;
+	gchar *contents;
+	gsize len;
+	GBytes *bytes;
+
+	if (!g_file_get_contents (SRCDIR "/files/cacert.org.cer", &contents, &len, NULL))
+		g_assert_not_reached ();
+
+	bytes = g_bytes_new_take (contents, len);
+	gcr_parser_set_filename (parser, "cacert.org.cer");
+	g_signal_connect (parser, "parsed", G_CALLBACK (on_parsed_ref), &parsed);
+
+	result = gcr_parser_parse_bytes (parser, bytes, &error);
+	g_assert_cmpstr (gcr_parser_get_filename (parser), ==, "cacert.org.cer");
+	g_assert_no_error (error);
+	g_assert (result);
+
+	g_bytes_unref (bytes);
+	g_object_unref (parser);
+
+	g_assert (parsed != NULL);
+	g_assert_cmpstr (gcr_parsed_get_filename (parsed), ==, "cacert.org.cer");
+	gcr_parsed_unref (parsed);
+}
 
 int
 main (int argc, char **argv)
@@ -337,6 +377,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/gcr/parser/parse_empty", test_parse_empty);
 	g_test_add_func ("/gcr/parser/parse_stream", test_parse_stream);
 	g_test_add_func ("/gcr/parser/parsed_bytes", test_parsed_bytes);
+	g_test_add_func ("/gcr/parser/filename", test_parse_filename);
 
 	ret = g_test_run ();
 	g_ptr_array_free (strings, TRUE);

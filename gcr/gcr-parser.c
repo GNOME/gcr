@@ -127,6 +127,7 @@ struct _GcrParsed {
 	GBytes *data;
 	gboolean sensitive;
 	GcrDataFormat format;
+	gchar *filename;
 	struct _GcrParsed *next;
 };
 
@@ -135,6 +136,7 @@ struct _GcrParserPrivate {
 	gboolean normal_formats;
 	GPtrArray *passwords;
 	GcrParsed *parsed;
+	gchar *filename;
 };
 
 G_DEFINE_TYPE (GcrParser, gcr_parser, G_TYPE_OBJECT);
@@ -380,8 +382,22 @@ push_parsed (GcrParser *self,
 	parsed->refs = 0;
 	parsed->sensitive = sensitive;
 	parsed->next = self->pv->parsed;
+	parsed->filename = g_strdup (gcr_parser_get_filename (self));
 	self->pv->parsed = parsed;
 	return parsed;
+}
+
+static void
+_gcr_parsed_free (GcrParsed *parsed)
+{
+	gck_builder_clear (&parsed->builder);
+	if (parsed->attrs)
+		gck_attributes_unref (parsed->attrs);
+	if (parsed->data)
+		g_bytes_unref (parsed->data);
+	g_free (parsed->label);
+	g_free (parsed->filename);
+	g_free (parsed);
 }
 
 static void
@@ -389,15 +405,8 @@ pop_parsed (GcrParser *self,
             GcrParsed *parsed)
 {
 	g_assert (parsed == self->pv->parsed);
-
 	self->pv->parsed = parsed->next;
-
-	gck_builder_clear (&parsed->builder);
-	gck_attributes_unref (parsed->attrs);
-	if (parsed->data)
-		g_bytes_unref (parsed->data);
-	g_free (parsed->label);
-	g_free (parsed);
+	_gcr_parsed_free (parsed);
 }
 
 static gint
@@ -1620,7 +1629,6 @@ parse_base64_spkac (GcrParser *self,
 	GBytes *bytes;
 	gsize n_data;
 	gint ret;
-
 	data = g_bytes_get_data (dat, &n_data);
 
 	if (n_data > PREFIX_LEN && memcmp (PREFIX, data, PREFIX_LEN))
@@ -2583,6 +2591,37 @@ gcr_parsed_get_type (void)
 }
 
 /**
+ * gcr_parser_get_filename:
+ * @self: a parser item
+ *
+ * Get the filename of the parser item.
+ *
+ * Returns: the filename set on the parser, or %NULL
+ */
+const gchar *
+gcr_parser_get_filename (GcrParser *self)
+{
+	g_return_val_if_fail (GCR_IS_PARSER (self), NULL);
+	return self->pv->filename;
+}
+
+/**
+ * gcr_parser_set_filename:
+ * @self: a parser item
+ * @filename: (allow-none): a string of the filename of the parser item
+ *
+ * Sets the filename of the parser item.
+ */
+void
+gcr_parser_set_filename (GcrParser *self,
+                         const gchar *filename)
+{
+	g_return_if_fail (GCR_IS_PARSER (self));
+	g_free (self->pv->filename);
+	self->pv->filename = g_strdup (filename);
+}
+
+/**
  * gcr_parsed_ref:
  * @parsed: a parsed item
  *
@@ -2606,6 +2645,7 @@ gcr_parsed_ref (GcrParsed *parsed)
 	copy = g_new0 (GcrParsed, 1);
 	copy->refs = 1;
 	copy->label = g_strdup (gcr_parsed_get_label (parsed));
+	copy->filename = g_strdup (gcr_parsed_get_filename (parsed));
 	copy->attrs = gcr_parsed_get_attributes (parsed);
 	copy->format = gcr_parsed_get_format (parsed);
 	if (copy->attrs)
@@ -2640,13 +2680,7 @@ gcr_parsed_unref (gpointer parsed)
 	g_return_if_fail (parsed != NULL);
 
 	if (g_atomic_int_dec_and_test (&par->refs)) {
-		gck_builder_clear (&par->builder);
-		if (par->attrs)
-			gck_attributes_unref (par->attrs);
-		g_free (par->label);
-		if (par->data)
-			g_bytes_unref (par->data);
-		g_free (par);
+		_gcr_parsed_free (parsed);
 	}
 }
 
@@ -2892,6 +2926,22 @@ gcr_parsed_get_format (GcrParsed *parsed)
 	}
 
 	return 0;
+}
+
+/**
+ * gcr_parsed_get_filename:
+ * @parsed: a parsed item
+ *
+ * Get the filename of the parsed item.
+ *
+ * Returns: (transfer none): the filename of
+ *          the parsed item, or %NULL
+ */
+const gchar *
+gcr_parsed_get_filename (GcrParsed *parsed)
+{
+	g_return_val_if_fail (parsed != NULL, NULL);
+	return parsed->filename;
 }
 /* ---------------------------------------------------------------------------------
  * STREAM PARSING

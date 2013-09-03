@@ -118,6 +118,11 @@ GBytes *                 gcr_parser_get_parsed_bytes       (GcrParser *self);
 
 GcrDataFormat            gcr_parser_get_parsed_format      (GcrParser *self);
 
+const gchar*             gcr_parser_get_filename           (GcrParser *self);
+
+void                     gcr_parser_set_filename           (GcrParser *self,
+		                                            const gchar *filename);
+
 #define                  GCR_TYPE_PARSED                   (gcr_parsed_get_type ())
 
 GType                    gcr_parsed_get_type               (void) G_GNUC_CONST;
@@ -138,6 +143,8 @@ const guchar *           gcr_parsed_get_data               (GcrParsed *parsed,
 GBytes *                 gcr_parsed_get_bytes              (GcrParsed *parsed);
 
 GcrDataFormat            gcr_parsed_get_format             (GcrParsed *parsed);
+
+const gchar*             gcr_parsed_get_filename           (GcrParsed *parsed);
 
 G_END_DECLS
 

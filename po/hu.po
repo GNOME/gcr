@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-08-18 09:34+0000\n"
-"PO-Revision-Date: 2013-08-25 09:46+0200\n"
+"POT-Creation-Date: 2013-09-03 06:43+0000\n"
+"PO-Revision-Date: 2013-09-03 21:01+0200\n"
 "Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -527,7 +527,7 @@ msgstr "Aláírás"
 
 #: ../ui/gcr-certificate-renderer.c:618
 #| msgid "Export certificate"
-msgid "Export Certificate..."
+msgid "Export Certificate…"
 msgstr "Tanúsítvány exportálása…"
 
 #: ../ui/gcr-certificate-renderer.c:857
@@ -624,9 +624,11 @@ msgstr "Tanúsítás"
 msgid "Authenticate"
 msgstr "Hitelesítés"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
-msgid "Disabled"
-msgstr "Tiltva"
+#: ../ui/gcr-gnupg-renderer.c:224
+#| msgid "Capabilities"
+msgctxt "Disabled"
+msgid "capability"
+msgstr "képesség"
 
 #: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
@@ -636,6 +638,12 @@ msgstr "Ismeretlen"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "Érvénytelen"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+#| msgid "Owner trust"
+msgctxt "Disabled"
+msgid "ownertrust"
+msgstr "tulajdonos megbízhatósága"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -838,11 +846,13 @@ msgid "Secret Subkey"
 msgstr "Titkos részkulcs"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
+#| msgid "Initializing..."
+msgid "Initializing…"
 msgstr "Előkészítés…"
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
+#| msgid "Import is in progress..."
+msgid "Import is in progress…"
 msgstr "Importálás folyamatban…"
 
 #: ../ui/gcr-import-button.c:127
@@ -1072,6 +1082,13 @@ msgstr "Az importálás meghiúsult"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Importálás"
+
+#~| msgid "Export certificate"
+#~ msgid "Export Certificate..."
+#~ msgstr "Tanúsítvány exportálása…"
+
+#~ msgid "Disabled"
+#~ msgstr "Tiltva"
 
 #~ msgid "Invalid PKCS#11 module: %s"
 #~ msgstr "Érvénytelen PKCS#11 modul: %s"

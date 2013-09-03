@@ -2767,7 +2767,7 @@ gcr_parser_get_parsed_block (GcrParser *self,
  *
  * Get the raw data block for the parsed item.
  *
- * Returns: (transfer full) (array length=n_data) (allow-none): the raw data of
+ * Returns: (transfer none) (array length=n_data) (allow-none): the raw data of
  *          the parsed item, or %NULL
  */
 const guchar *

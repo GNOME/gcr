@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-18 16:47+0200\n"
-"PO-Revision-Date: 2013-08-18 16:47+0200\n"
+"POT-Creation-Date: 2013-09-03 18:18+0200\n"
+"PO-Revision-Date: 2013-09-03 18:18+0200\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -535,7 +535,7 @@ msgstr "Firma"
 
 # sarebbe titolo dialogo
 #: ../ui/gcr-certificate-renderer.c:618
-msgid "Export Certificate..."
+msgid "Export Certificate…"
 msgstr "Esporta certificato..."
 
 #: ../ui/gcr-certificate-renderer.c:857
@@ -635,9 +635,10 @@ msgstr "Certifica"
 msgid "Authenticate"
 msgstr "Autentica"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
-msgid "Disabled"
-msgstr "Disabilitata"
+#: ../ui/gcr-gnupg-renderer.c:224
+msgctxt "Disabled"
+msgid "capability"
+msgstr "Funzionalità"
 
 #: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
@@ -647,6 +648,11 @@ msgstr "Sconosciuta"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "Non valida"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgctxt "Disabled"
+msgid "ownertrust"
+msgstr "Fiducia nel proprietario"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -854,11 +860,11 @@ msgid "Secret Subkey"
 msgstr "Sotto-chiave segreta"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
+msgid "Initializing…"
 msgstr "Inizializzazione..."
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
+msgid "Import is in progress…"
 msgstr "Importazione in corso"
 
 #: ../ui/gcr-import-button.c:127

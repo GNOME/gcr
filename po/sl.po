@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-08-18 10:37+0000\n"
-"PO-Revision-Date: 2013-08-18 14:57+0100\n"
+"POT-Creation-Date: 2013-09-03 19:01+0000\n"
+"PO-Revision-Date: 2013-09-03 22:15+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -526,8 +526,8 @@ msgid "Signature"
 msgstr "Podpis"
 
 #: ../ui/gcr-certificate-renderer.c:618
-msgid "Export Certificate..."
-msgstr "Izvoz potrdila ..."
+msgid "Export Certificate…"
+msgstr "Izvozi potrdilo ..."
 
 #: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
@@ -623,9 +623,10 @@ msgstr "Potrdi"
 msgid "Authenticate"
 msgstr "Overi"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
-msgid "Disabled"
-msgstr "Onemogočeno"
+#: ../ui/gcr-gnupg-renderer.c:224
+msgctxt "Disabled"
+msgid "capability"
+msgstr "Zmožnosti"
 
 #: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
@@ -635,6 +636,11 @@ msgstr "Neznano"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "Neveljavno"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgctxt "Disabled"
+msgid "ownertrust"
+msgstr "Zaupanje lastniku"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -837,11 +843,11 @@ msgid "Secret Subkey"
 msgstr "Skriti podključ"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
+msgid "Initializing…"
 msgstr "Začenjanje ..."
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
+msgid "Import is in progress…"
 msgstr "Poteka uvažanje ..."
 
 #: ../ui/gcr-import-button.c:127
@@ -1071,6 +1077,12 @@ msgstr "Uvoz je spodletel"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Uvozi"
+
+#~ msgid "Export Certificate..."
+#~ msgstr "Izvoz potrdila ..."
+
+#~ msgid "Disabled"
+#~ msgstr "Onemogočeno"
 
 #~ msgid "Invalid PKCS#11 module: %s"
 #~ msgstr "Neveljavni odkodirnik PKCS#11: %s"

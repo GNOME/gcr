@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-03 12:57+0200\n"
-"PO-Revision-Date: 2013-09-03 12:58+0200\n"
+"POT-Creation-Date: 2013-09-04 16:59+0200\n"
+"PO-Revision-Date: 2013-09-04 16:59+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -627,9 +627,9 @@ msgid "Authenticate"
 msgstr "Autenticar"
 
 #: ../ui/gcr-gnupg-renderer.c:224
-msgctxt "Disabled"
-msgid "capability"
-msgstr "capacidade"
+msgctxt "capability"
+msgid "Disabled"
+msgstr "Desactivada"
 
 #: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
@@ -641,9 +641,9 @@ msgid "Invalid"
 msgstr "Non válida"
 
 #: ../ui/gcr-gnupg-renderer.c:259
-msgctxt "Disabled"
-msgid "ownertrust"
-msgstr "propietario da confianza"
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Desactivada"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -1081,11 +1081,16 @@ msgstr "Fallou a importación"
 msgid "Import"
 msgstr "Importar"
 
+#~ msgctxt "Disabled"
+#~ msgid "capability"
+#~ msgstr "capacidade"
+
+#~ msgctxt "Disabled"
+#~ msgid "ownertrust"
+#~ msgstr "propietario da confianza"
+
 #~ msgid "Export Certificate..."
 #~ msgstr "Exportar certificado…"
-
-#~ msgid "Disabled"
-#~ msgstr "Desactivada"
 
 #~ msgid "Invalid PKCS#11 module: %s"
 #~ msgstr "Módulos PKCS#11 non válido: %s"

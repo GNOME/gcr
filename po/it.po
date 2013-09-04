@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-03 18:18+0200\n"
-"PO-Revision-Date: 2013-09-03 18:18+0200\n"
+"POT-Creation-Date: 2013-09-04 09:11+0200\n"
+"PO-Revision-Date: 2013-09-04 09:11+0200\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -636,9 +636,9 @@ msgid "Authenticate"
 msgstr "Autentica"
 
 #: ../ui/gcr-gnupg-renderer.c:224
-msgctxt "Disabled"
-msgid "capability"
-msgstr "Funzionalità"
+msgctxt "capability"
+msgid "Disabled"
+msgstr "Disabilitata"
 
 #: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
@@ -650,9 +650,9 @@ msgid "Invalid"
 msgstr "Non valida"
 
 #: ../ui/gcr-gnupg-renderer.c:259
-msgctxt "Disabled"
-msgid "ownertrust"
-msgstr "Fiducia nel proprietario"
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Disabilitata"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"

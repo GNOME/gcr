@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-24 03:13+0200\n"
-"PO-Revision-Date: 2013-08-24 03:14+0200\n"
+"POT-Creation-Date: 2013-09-04 02:34+0200\n"
+"PO-Revision-Date: 2013-09-04 02:35+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -529,8 +529,8 @@ msgid "Signature"
 msgstr "Podpis"
 
 #: ../ui/gcr-certificate-renderer.c:618
-msgid "Export Certificate..."
-msgstr "Wyeksportuj certyfikat..."
+msgid "Export Certificate…"
+msgstr "Wyeksportuj certyfikat…"
 
 #: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
@@ -626,9 +626,10 @@ msgstr "Certyfikuj"
 msgid "Authenticate"
 msgstr "Uwierzytelnij"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
+#: ../ui/gcr-gnupg-renderer.c:224
+msgctxt "capability"
 msgid "Disabled"
-msgstr "Wyłączony"
+msgstr "Wyłączona"
 
 #: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
@@ -638,6 +639,11 @@ msgstr "Nieznany"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "Nieprawidłowy"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Wyłączone"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -840,12 +846,12 @@ msgid "Secret Subkey"
 msgstr "Tajny podklucz"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
-msgstr "Inicjowanie..."
+msgid "Initializing…"
+msgstr "Inicjowanie…"
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
-msgstr "Trwa importowanie..."
+msgid "Import is in progress…"
+msgstr "Trwa importowanie…"
 
 #: ../ui/gcr-import-button.c:127
 #, c-format

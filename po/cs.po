@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-08-18 09:34+0000\n"
+"POT-Creation-Date: 2013-09-04 00:37+0000\n"
 "PO-Revision-Date: 2013-08-19 17:12+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
@@ -529,7 +529,7 @@ msgid "Signature"
 msgstr "Podpis"
 
 #: ../ui/gcr-certificate-renderer.c:618
-msgid "Export Certificate..."
+msgid "Export Certificate…"
 msgstr "Exportovat certifikát…"
 
 #: ../ui/gcr-certificate-renderer.c:857
@@ -626,7 +626,8 @@ msgstr "certifikování"
 msgid "Authenticate"
 msgstr "autentizace"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
+#: ../ui/gcr-gnupg-renderer.c:224
+msgctxt "capability"
 msgid "Disabled"
 msgstr "zakázaný"
 
@@ -638,6 +639,11 @@ msgstr "neznámý"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "neplatný"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "zakázaný"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -840,11 +846,11 @@ msgid "Secret Subkey"
 msgstr "Tajný podřízený klíč"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
+msgid "Initializing…"
 msgstr "Inicializuje se…"
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
+msgid "Import is in progress…"
 msgstr "Probíhá import…"
 
 #: ../ui/gcr-import-button.c:127

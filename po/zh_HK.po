@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring 3.1.91\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-01 22:16+0800\n"
-"PO-Revision-Date: 2013-03-01 22:16+0800\n"
+"POT-Creation-Date: 2013-09-06 16:18+0800\n"
+"PO-Revision-Date: 2013-09-06 16:18+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "Language: \n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 
 #: ../egg/egg-oid.c:41
 msgid "Domain Component"
@@ -58,7 +58,7 @@ msgstr "普通名稱"
 msgid "Surname"
 msgstr "姓"
 
-#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:556
+#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:561
 msgid "Serial Number"
 msgstr "序號"
 
@@ -161,27 +161,17 @@ msgstr "電子郵件保護"
 msgid "Time Stamping"
 msgstr "時刻戳記"
 
-#: ../gck/gck-module.c:352
+#: ../gck/gck-module.c:344
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "載入 PKCS#11 模組時發生錯誤：%s"
 
-#: ../gck/gck-module.c:359
-#, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr "無效的 PKCS#11 模組：%s"
-
-#: ../gck/gck-module.c:368
-#, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "無法設定 PKCS#11 模組：%s"
-
-#: ../gck/gck-module.c:384
+#: ../gck/gck-module.c:358
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
 msgstr "無法初始化 PKCS#11 模組：%s"
 
-#: ../gck/gck-modules.c:67
+#: ../gck/gck-modules.c:62
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgstr "無法初始化註冊的 PKCS#11 模組：%s"
@@ -211,24 +201,24 @@ msgstr "串流已經關閉"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:306 ../gcr/gcr-gnupg-key.c:432
+#: ../gcr/gcr-certificate.c:343 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "名稱"
 
-#: ../gcr/gcr-certificate.c:308
+#: ../gcr/gcr-certificate.c:345
 msgctxt "column"
 msgid "Issued By"
 msgstr "發照者"
 
 #. later
-#: ../gcr/gcr-certificate.c:310
+#: ../gcr/gcr-certificate.c:347
 msgctxt "column"
 msgid "Expires"
 msgstr "到期"
 
-#: ../gcr/gcr-certificate.c:1131 ../gcr/gcr-parser.c:320
-#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:469
+#: ../gcr/gcr-certificate.c:1185 ../gcr/gcr-parser.c:320
+#: ../ui/gcr-certificate-renderer.c:104 ../ui/gcr-certificate-exporter.c:466
 msgid "Certificate"
 msgstr "證書"
 
@@ -317,7 +307,7 @@ msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg 程序被信號 %d 中止。"
 
 #: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2422
-#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:902
+#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:925
 msgid "The operation was cancelled"
 msgstr "該操作已取消"
 
@@ -325,7 +315,7 @@ msgstr "該操作已取消"
 msgid "Private Key"
 msgstr "私人密碼匙"
 
-#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:889
+#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:883
 #: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
 msgid "Public Key"
 msgstr "公開密碼匙"
@@ -362,7 +352,7 @@ msgstr "密碼匙有未辨識或無法使用的屬性"
 msgid "Couldn't build public key"
 msgstr "無法建立公開密碼匙"
 
-#: ../gcr/gcr-system-prompt.c:883
+#: ../gcr/gcr-system-prompt.c:906
 msgid "Another prompt is already in progress"
 msgstr "另一個提示已在進行中"
 
@@ -374,186 +364,190 @@ msgstr "另一個提示已在進行中"
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "找不到位置來儲存匯入的證書"
 
-#: ../ui/gcr-certificate-renderer.c:118
+#: ../ui/gcr-certificate-renderer.c:119
 msgid "Basic Constraints"
 msgstr "基本限制"
 
-#: ../ui/gcr-certificate-renderer.c:120
+#: ../ui/gcr-certificate-renderer.c:121
 msgid "Certificate Authority"
 msgstr "核證機關"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:960
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "Yes"
 msgstr "是"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:960
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "No"
 msgstr "否"
 
-#: ../ui/gcr-certificate-renderer.c:124
+#: ../ui/gcr-certificate-renderer.c:125
 msgid "Max Path Length"
 msgstr "最大路徑長度"
 
-#: ../ui/gcr-certificate-renderer.c:125
+#: ../ui/gcr-certificate-renderer.c:126
 msgid "Unlimited"
 msgstr "無限制"
 
-#: ../ui/gcr-certificate-renderer.c:144
+#: ../ui/gcr-certificate-renderer.c:145
 msgid "Extended Key Usage"
 msgstr "延伸密碼匙用法"
 
-#: ../ui/gcr-certificate-renderer.c:155
+#: ../ui/gcr-certificate-renderer.c:156
 msgid "Allowed Purposes"
 msgstr "允許的用途"
 
-#: ../ui/gcr-certificate-renderer.c:175
+#: ../ui/gcr-certificate-renderer.c:176
 msgid "Subject Key Identifier"
 msgstr "主旨密碼匙識別碼"
 
-#: ../ui/gcr-certificate-renderer.c:176
+#: ../ui/gcr-certificate-renderer.c:177
 msgid "Key Identifier"
 msgstr "密碼匙識別碼"
 
-#: ../ui/gcr-certificate-renderer.c:187
+#: ../ui/gcr-certificate-renderer.c:188
 msgid "Digital signature"
 msgstr "數碼簽署"
 
-#: ../ui/gcr-certificate-renderer.c:188
+#: ../ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "密碼匙加密"
 
-#: ../ui/gcr-certificate-renderer.c:189
+#: ../ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "資料加密"
 
-#: ../ui/gcr-certificate-renderer.c:190
+#: ../ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "密碼匙協議"
 
-#: ../ui/gcr-certificate-renderer.c:191
+#: ../ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "證書簽署"
 
-#: ../ui/gcr-certificate-renderer.c:192
+#: ../ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "撤銷清單簽署"
 
-#: ../ui/gcr-certificate-renderer.c:217
+#: ../ui/gcr-certificate-renderer.c:218
 msgid "Key Usage"
 msgstr "密碼匙用法"
 
-#: ../ui/gcr-certificate-renderer.c:218
+#: ../ui/gcr-certificate-renderer.c:219
 msgid "Usages"
 msgstr "用法"
 
-#: ../ui/gcr-certificate-renderer.c:238
+#: ../ui/gcr-certificate-renderer.c:239
 msgid "Subject Alternative Names"
 msgstr "主旨替代名稱"
 
-#: ../ui/gcr-certificate-renderer.c:265
+#: ../ui/gcr-certificate-renderer.c:266
 msgid "Extension"
 msgstr "延伸"
 
-#: ../ui/gcr-certificate-renderer.c:269
+#: ../ui/gcr-certificate-renderer.c:270
 msgid "Identifier"
 msgstr "識別碼"
 
-#: ../ui/gcr-certificate-renderer.c:270
+#: ../ui/gcr-certificate-renderer.c:271
 #: ../ui/gcr-certificate-request-renderer.c:271 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "數值"
 
-#: ../ui/gcr-certificate-renderer.c:295
+#: ../ui/gcr-certificate-renderer.c:289
 msgid "Couldn't export the certificate."
 msgstr "無法匯出這個證書。"
 
-#: ../ui/gcr-certificate-renderer.c:518
+#: ../ui/gcr-certificate-renderer.c:523
 #: ../ui/gcr-certificate-request-renderer.c:312
 msgid "Identity"
 msgstr "身分"
 
-#: ../ui/gcr-certificate-renderer.c:522
+#: ../ui/gcr-certificate-renderer.c:527
 msgid "Verified by"
 msgstr "檢驗者"
 
-#: ../ui/gcr-certificate-renderer.c:529 ../ui/gcr-gnupg-renderer.c:719
+#: ../ui/gcr-certificate-renderer.c:534 ../ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "到期"
 
 #. The subject
-#: ../ui/gcr-certificate-renderer.c:536
+#: ../ui/gcr-certificate-renderer.c:541
 #: ../ui/gcr-certificate-request-renderer.c:318
 msgid "Subject Name"
 msgstr "主旨名稱"
 
 #. The Issuer
-#: ../ui/gcr-certificate-renderer.c:541
+#: ../ui/gcr-certificate-renderer.c:546
 msgid "Issuer Name"
 msgstr "發照者名稱"
 
 #. The Issued Parameters
-#: ../ui/gcr-certificate-renderer.c:546
+#: ../ui/gcr-certificate-renderer.c:551
 msgid "Issued Certificate"
 msgstr "已簽發的證書"
 
-#: ../ui/gcr-certificate-renderer.c:551
+#: ../ui/gcr-certificate-renderer.c:556
 #: ../ui/gcr-certificate-request-renderer.c:329
 msgid "Version"
 msgstr "版本"
 
-#: ../ui/gcr-certificate-renderer.c:565
+#: ../ui/gcr-certificate-renderer.c:570
 msgid "Not Valid Before"
 msgstr "在此之前無效"
 
-#: ../ui/gcr-certificate-renderer.c:570
+#: ../ui/gcr-certificate-renderer.c:575
 msgid "Not Valid After"
 msgstr "在此之後無效"
 
 #. Fingerprints
-#: ../ui/gcr-certificate-renderer.c:575
+#: ../ui/gcr-certificate-renderer.c:580
 msgid "Certificate Fingerprints"
 msgstr "證書數碼指紋"
 
 #. Public Key Info
-#: ../ui/gcr-certificate-renderer.c:581
+#: ../ui/gcr-certificate-renderer.c:586
 #: ../ui/gcr-certificate-request-renderer.c:332
 #: ../ui/gcr-certificate-request-renderer.c:378
 msgid "Public Key Info"
 msgstr "公開密碼匙資訊"
 
 #. Signature
-#: ../ui/gcr-certificate-renderer.c:596 ../ui/gcr-certificate-renderer.c:917
+#: ../ui/gcr-certificate-renderer.c:601 ../ui/gcr-certificate-renderer.c:911
 #: ../ui/gcr-certificate-request-renderer.c:348
 #: ../ui/gcr-certificate-request-renderer.c:385 ../ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "簽署"
 
-#: ../ui/gcr-certificate-renderer.c:863
+#: ../ui/gcr-certificate-renderer.c:618
+msgid "Export Certificate…"
+msgstr "匯出證書…"
+
+#: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
 msgstr "密碼匙演算法"
 
-#: ../ui/gcr-certificate-renderer.c:868
+#: ../ui/gcr-certificate-renderer.c:862
 msgid "Key Parameters"
 msgstr "密碼匙參數"
 
-#: ../ui/gcr-certificate-renderer.c:876 ../ui/gcr-gnupg-renderer.c:353
+#: ../ui/gcr-certificate-renderer.c:870 ../ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "密碼匙大小"
 
-#: ../ui/gcr-certificate-renderer.c:884
+#: ../ui/gcr-certificate-renderer.c:878
 msgid "Key SHA1 Fingerprint"
 msgstr "密碼匙 SHA1 數碼指紋"
 
-#: ../ui/gcr-certificate-renderer.c:906
+#: ../ui/gcr-certificate-renderer.c:900
 msgid "Signature Algorithm"
 msgstr "證書簽署演算法"
 
-#: ../ui/gcr-certificate-renderer.c:910
+#: ../ui/gcr-certificate-renderer.c:904
 msgid "Signature Parameters"
 msgstr "簽署參數"
 
-#: ../ui/gcr-certificate-renderer.c:959
+#: ../ui/gcr-certificate-renderer.c:953
 msgid "Critical"
 msgstr "重要"
 
@@ -623,7 +617,8 @@ msgstr "檢驗"
 msgid "Authenticate"
 msgstr "驗證"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
+#: ../ui/gcr-gnupg-renderer.c:224
+msgctxt "capability"
 msgid "Disabled"
 msgstr "已停用"
 
@@ -635,6 +630,11 @@ msgstr "不明"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "無效的"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "已停用"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -837,11 +837,11 @@ msgid "Secret Subkey"
 msgstr "子密碼匙"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
+msgid "Initializing…"
 msgstr "正在初始化..."
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
+msgid "Import is in progress…"
 msgstr "正在進行匯入…"
 
 #: ../ui/gcr-import-button.c:127
@@ -959,32 +959,32 @@ msgstr "存取提示"
 msgid "Unlock access to passwords and other secrets"
 msgstr "解除對密碼和其他保密的存取鎖定"
 
-#: ../ui/gcr-certificate-exporter.c:226
+#: ../ui/gcr-certificate-exporter.c:227
 msgid "A file already exists with this name."
 msgstr "同樣名稱的另一個檔案已經存在。"
 
-#: ../ui/gcr-certificate-exporter.c:227
+#: ../ui/gcr-certificate-exporter.c:228
 msgid "Do you want to replace it with a new file?"
 msgstr "是否要以新的檔案取代它？"
 
-#: ../ui/gcr-certificate-exporter.c:233
+#: ../ui/gcr-certificate-exporter.c:231
 msgid "_Replace"
 msgstr "取代(_R)"
 
-#: ../ui/gcr-certificate-exporter.c:264
+#: ../ui/gcr-certificate-exporter.c:261
 #, c-format
 msgid "The operation was cancelled."
 msgstr "操作已被取消。"
 
-#: ../ui/gcr-certificate-exporter.c:308
+#: ../ui/gcr-certificate-exporter.c:305
 msgid "Export certificate"
 msgstr "匯出證書"
 
-#: ../ui/gcr-certificate-exporter.c:320
+#: ../ui/gcr-certificate-exporter.c:317
 msgid "Certificate files"
 msgstr "證書檔案"
 
-#: ../ui/gcr-certificate-exporter.c:331
+#: ../ui/gcr-certificate-exporter.c:328
 msgid "PEM files"
 msgstr "PEM 檔案"
 
@@ -1066,6 +1066,12 @@ msgstr "匯入失敗"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "匯入"
+
+#~ msgid "Invalid PKCS#11 module: %s"
+#~ msgstr "無效的 PKCS#11 模組：%s"
+
+#~ msgid "Couldn't setup PKCS#11 module: %s"
+#~ msgstr "無法設定 PKCS#11 模組：%s"
 
 #~ msgid "Label"
 #~ msgstr "標籤"

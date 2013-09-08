@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring 3.9.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-22 16:02+0200\n"
-"PO-Revision-Date: 2013-08-22 16:02+0200\n"
+"POT-Creation-Date: 2013-09-08 19:44+0200\n"
+"PO-Revision-Date: 2013-09-08 19:45+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: no\n"
@@ -521,7 +521,7 @@ msgid "Signature"
 msgstr "Signatur"
 
 #: ../ui/gcr-certificate-renderer.c:618
-msgid "Export Certificate..."
+msgid "Export Certificate…"
 msgstr "Eksporter sertifikat …"
 
 #: ../ui/gcr-certificate-renderer.c:857
@@ -618,7 +618,8 @@ msgstr "Sertifiser"
 msgid "Authenticate"
 msgstr "Autentiser"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
+#: ../ui/gcr-gnupg-renderer.c:224
+msgctxt "capability"
 msgid "Disabled"
 msgstr "Slått av"
 
@@ -630,6 +631,11 @@ msgstr "Ukjent"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "Ugyldig"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Slått av"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -832,11 +838,11 @@ msgid "Secret Subkey"
 msgstr "Hemmelig undernøkkel"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
+msgid "Initializing…"
 msgstr "Initierer …"
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
+msgid "Import is in progress…"
 msgstr "Import pågår …"
 
 #: ../ui/gcr-import-button.c:127

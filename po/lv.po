@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-02-12 05:56+0000\n"
-"PO-Revision-Date: 2013-03-17 20:27+0200\n"
+"POT-Creation-Date: 2013-09-04 00:37+0000\n"
+"PO-Revision-Date: 2013-09-11 13:48+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2009-01-04 12:36+0000\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -66,7 +66,7 @@ msgstr "Vārds"
 msgid "Surname"
 msgstr "Uzvārds"
 
-#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:558
+#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:561
 msgid "Serial Number"
 msgstr "Sērijas numurs"
 
@@ -169,27 +169,17 @@ msgstr "E-pasta aizsardzība"
 msgid "Time Stamping"
 msgstr "Laika apzīmogošana"
 
-#: ../gck/gck-module.c:352
+#: ../gck/gck-module.c:344
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "Kļūda, ielādējot PKCS#11 moduli — %s"
 
-#: ../gck/gck-module.c:359
-#, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr "Nederīgs PKCS#11 modulis — %s"
-
-#: ../gck/gck-module.c:368
-#, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "Nevarēja iestatīt PKCS#11 moduli — %s"
-
-#: ../gck/gck-module.c:384
+#: ../gck/gck-module.c:358
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
 msgstr "Nevarēja inicializēt PKCS#11 moduli — %s"
 
-#: ../gck/gck-modules.c:67
+#: ../gck/gck-modules.c:62
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgstr "Nevarēja inicializēt reģistrētus PKCS#11 moduļus — %s"
@@ -219,24 +209,24 @@ msgstr "Straume tika aizvērta"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
+#: ../gcr/gcr-certificate.c:343 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "Nosaukums"
 
-#: ../gcr/gcr-certificate.c:310
+#: ../gcr/gcr-certificate.c:345
 msgctxt "column"
 msgid "Issued By"
 msgstr "Izdevējs"
 
 #. later
-#: ../gcr/gcr-certificate.c:312
+#: ../gcr/gcr-certificate.c:347
 msgctxt "column"
 msgid "Expires"
 msgstr "Derīguma termiņš"
 
-#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-parser.c:322
-#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:469
+#: ../gcr/gcr-certificate.c:1185 ../gcr/gcr-parser.c:320
+#: ../ui/gcr-certificate-renderer.c:104 ../ui/gcr-certificate-exporter.c:466
 msgid "Certificate"
 msgstr "Sertifikāts"
 
@@ -285,12 +275,12 @@ msgstr "IP adrese"
 msgid "Registered ID"
 msgstr "Reģistrēts ID"
 
-#: ../gcr/gcr-certificate-request.c:418
+#: ../gcr/gcr-certificate-request.c:416
 #, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Neatbalstīts atslēgas veids sertifikāta pieprasījumam"
 
-#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
+#: ../gcr/gcr-certificate-request.c:503 ../gcr/gcr-certificate-request.c:588
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Šo atslēgu nevar izmantot, lai parakstītu pieprasījumu"
@@ -304,7 +294,7 @@ msgstr "GnuPG atslēgu saišķis"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG atslēgu saišķis — %s"
 
-#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:328
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:326
 #: ../ui/gcr-gnupg-renderer.c:89
 msgid "PGP Key"
 msgstr "PGP atslēga"
@@ -324,33 +314,33 @@ msgstr "Gnupg process izgāja ar kodu: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg process tika pārtraukts ar signālu: %d"
 
-#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2424
-#: ../gcr/gcr-parser.c:2917 ../gcr/gcr-system-prompt.c:902
+#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2422
+#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:925
 msgid "The operation was cancelled"
 msgstr "Darbība tika atcelta"
 
-#: ../gcr/gcr-parser.c:319 ../ui/gcr-key-renderer.c:408
+#: ../gcr/gcr-parser.c:317 ../ui/gcr-key-renderer.c:408
 msgid "Private Key"
 msgstr "Privātā atslēga"
 
-#: ../gcr/gcr-parser.c:325 ../ui/gcr-certificate-renderer.c:891
+#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:883
 #: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
 msgid "Public Key"
 msgstr "Publiskā atslēga"
 
-#: ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-parser.c:329
 msgid "Certificate Request"
 msgstr "Sertifikāta pieprasījums"
 
-#: ../gcr/gcr-parser.c:2427
+#: ../gcr/gcr-parser.c:2425
 msgid "Unrecognized or unsupported data."
 msgstr "Neatpazīti vai neatbalstīti dati."
 
-#: ../gcr/gcr-parser.c:2430
+#: ../gcr/gcr-parser.c:2428
 msgid "Could not parse invalid or corrupted data."
 msgstr "Neizdevās parsēt nederīgus vai bojātus datus."
 
-#: ../gcr/gcr-parser.c:2433
+#: ../gcr/gcr-parser.c:2431
 msgid "The data is locked"
 msgstr "Dati ir noslēgti"
 
@@ -370,7 +360,7 @@ msgstr "Neatpazīti vai nepieejami atslēgas atribūti"
 msgid "Couldn't build public key"
 msgstr "Nevarēja izveidot publisko atslēgu"
 
-#: ../gcr/gcr-system-prompt.c:883
+#: ../gcr/gcr-system-prompt.c:906
 msgid "Another prompt is already in progress"
 msgstr "Jau darbojas cita uzvedne"
 
@@ -382,210 +372,215 @@ msgstr "Jau darbojas cita uzvedne"
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "Nevarēja atrast vietu, kur glabāt sertifikātu"
 
-#: ../ui/gcr-certificate-renderer.c:118
+#: ../ui/gcr-certificate-renderer.c:119
 msgid "Basic Constraints"
 msgstr "Pamata ierobežojumi"
 
-#: ../ui/gcr-certificate-renderer.c:120
+#: ../ui/gcr-certificate-renderer.c:121
 msgid "Certificate Authority"
 msgstr "Sertifikāta institūcija"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "Yes"
 msgstr "Jā"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "No"
 msgstr "Nē"
 
-#: ../ui/gcr-certificate-renderer.c:124
+#: ../ui/gcr-certificate-renderer.c:125
 msgid "Max Path Length"
 msgstr "Maksimālais ceļa garums"
 
-#: ../ui/gcr-certificate-renderer.c:125
+#: ../ui/gcr-certificate-renderer.c:126
 msgid "Unlimited"
 msgstr "Neierobežots"
 
-#: ../ui/gcr-certificate-renderer.c:144
+#: ../ui/gcr-certificate-renderer.c:145
 msgid "Extended Key Usage"
 msgstr "Paplašināta atslēgas izmantošana"
 
-#: ../ui/gcr-certificate-renderer.c:155
+#: ../ui/gcr-certificate-renderer.c:156
 msgid "Allowed Purposes"
 msgstr "Atļautie mērķi"
 
-#: ../ui/gcr-certificate-renderer.c:175
+#: ../ui/gcr-certificate-renderer.c:176
 msgid "Subject Key Identifier"
 msgstr "Subjekta atslēgas identifikators"
 
-#: ../ui/gcr-certificate-renderer.c:176
+#: ../ui/gcr-certificate-renderer.c:177
 msgid "Key Identifier"
 msgstr "Atslēgas identifikators"
 
-#: ../ui/gcr-certificate-renderer.c:187
+#: ../ui/gcr-certificate-renderer.c:188
 msgid "Digital signature"
 msgstr "Ciparparaksts"
 
-#: ../ui/gcr-certificate-renderer.c:188
+#: ../ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "Atslēgas šifrējums"
 
-#: ../ui/gcr-certificate-renderer.c:189
+#: ../ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "Datu šifrējums"
 
-#: ../ui/gcr-certificate-renderer.c:190
+#: ../ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "Atslēgas vienošanās"
 
-#: ../ui/gcr-certificate-renderer.c:191
+#: ../ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "Sertifikāta paraksts"
 
-#: ../ui/gcr-certificate-renderer.c:192
+#: ../ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "Atsaukumu saraksta paraksts"
 
-#: ../ui/gcr-certificate-renderer.c:217
+#: ../ui/gcr-certificate-renderer.c:218
 msgid "Key Usage"
 msgstr "Atslēgas lietojums"
 
-#: ../ui/gcr-certificate-renderer.c:218
+#: ../ui/gcr-certificate-renderer.c:219
 msgid "Usages"
 msgstr "Lietojumi"
 
-#: ../ui/gcr-certificate-renderer.c:238
+#: ../ui/gcr-certificate-renderer.c:239
 msgid "Subject Alternative Names"
 msgstr "Subjekta alternatīvie nosaukumi"
 
-#: ../ui/gcr-certificate-renderer.c:265
+#: ../ui/gcr-certificate-renderer.c:266
 msgid "Extension"
 msgstr "Paplašinājums"
 
-#: ../ui/gcr-certificate-renderer.c:269
+#: ../ui/gcr-certificate-renderer.c:270
 msgid "Identifier"
 msgstr "Identifikators"
 
-#: ../ui/gcr-certificate-renderer.c:270
-#: ../ui/gcr-certificate-request-renderer.c:273 ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-certificate-renderer.c:271
+#: ../ui/gcr-certificate-request-renderer.c:271 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "Vērtība"
 
-#: ../ui/gcr-certificate-renderer.c:295
+#: ../ui/gcr-certificate-renderer.c:289
 msgid "Couldn't export the certificate."
 msgstr "Neizdevās eksportēt sertifikātu."
 
-#: ../ui/gcr-certificate-renderer.c:520
-#: ../ui/gcr-certificate-request-renderer.c:314
+#: ../ui/gcr-certificate-renderer.c:523
+#: ../ui/gcr-certificate-request-renderer.c:312
 msgid "Identity"
 msgstr "Identitāte"
 
-#: ../ui/gcr-certificate-renderer.c:524
+#: ../ui/gcr-certificate-renderer.c:527
 msgid "Verified by"
 msgstr "Pārbaudīja"
 
-#: ../ui/gcr-certificate-renderer.c:531 ../ui/gcr-gnupg-renderer.c:719
+#: ../ui/gcr-certificate-renderer.c:534 ../ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "Derīguma termiņš"
 
 #. The subject
-#: ../ui/gcr-certificate-renderer.c:538
-#: ../ui/gcr-certificate-request-renderer.c:320
+#: ../ui/gcr-certificate-renderer.c:541
+#: ../ui/gcr-certificate-request-renderer.c:318
 msgid "Subject Name"
 msgstr "Subjekta nosaukums"
 
 #. The Issuer
-#: ../ui/gcr-certificate-renderer.c:543
+#: ../ui/gcr-certificate-renderer.c:546
 msgid "Issuer Name"
 msgstr "Izsniedzēja nosaukums"
 
 #. The Issued Parameters
-#: ../ui/gcr-certificate-renderer.c:548
+#: ../ui/gcr-certificate-renderer.c:551
 msgid "Issued Certificate"
 msgstr "Izsniegtais sertifikāts"
 
-#: ../ui/gcr-certificate-renderer.c:553
-#: ../ui/gcr-certificate-request-renderer.c:331
+#: ../ui/gcr-certificate-renderer.c:556
+#: ../ui/gcr-certificate-request-renderer.c:329
 msgid "Version"
 msgstr "Versija"
 
-#: ../ui/gcr-certificate-renderer.c:567
+#: ../ui/gcr-certificate-renderer.c:570
 msgid "Not Valid Before"
 msgstr "Nav derīgs pirms"
 
-#: ../ui/gcr-certificate-renderer.c:572
+#: ../ui/gcr-certificate-renderer.c:575
 msgid "Not Valid After"
 msgstr "Nav derīgs pēc"
 
 #. Fingerprints
-#: ../ui/gcr-certificate-renderer.c:577
+#: ../ui/gcr-certificate-renderer.c:580
 msgid "Certificate Fingerprints"
 msgstr "Sertifikāta nospiedumi"
 
 #. Public Key Info
-#: ../ui/gcr-certificate-renderer.c:583
-#: ../ui/gcr-certificate-request-renderer.c:334
-#: ../ui/gcr-certificate-request-renderer.c:380
+#: ../ui/gcr-certificate-renderer.c:586
+#: ../ui/gcr-certificate-request-renderer.c:332
+#: ../ui/gcr-certificate-request-renderer.c:378
 msgid "Public Key Info"
 msgstr "Informācija par publisko atslēgu"
 
 #. Signature
-#: ../ui/gcr-certificate-renderer.c:598 ../ui/gcr-certificate-renderer.c:919
-#: ../ui/gcr-certificate-request-renderer.c:350
-#: ../ui/gcr-certificate-request-renderer.c:387 ../ui/gcr-gnupg-renderer.c:560
+#: ../ui/gcr-certificate-renderer.c:601 ../ui/gcr-certificate-renderer.c:911
+#: ../ui/gcr-certificate-request-renderer.c:348
+#: ../ui/gcr-certificate-request-renderer.c:385 ../ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "Paraksts"
 
-#: ../ui/gcr-certificate-renderer.c:865
+#: ../ui/gcr-certificate-renderer.c:618
+#| msgid "Export certificate"
+msgid "Export Certificate…"
+msgstr "Eksportēt sertifikātu…"
+
+#: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
 msgstr "Atslēgas algoritms"
 
-#: ../ui/gcr-certificate-renderer.c:870
+#: ../ui/gcr-certificate-renderer.c:862
 msgid "Key Parameters"
 msgstr "Atslēgas parametri"
 
-#: ../ui/gcr-certificate-renderer.c:878 ../ui/gcr-gnupg-renderer.c:353
+#: ../ui/gcr-certificate-renderer.c:870 ../ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "Atslēgas izmērs"
 
-#: ../ui/gcr-certificate-renderer.c:886
+#: ../ui/gcr-certificate-renderer.c:878
 msgid "Key SHA1 Fingerprint"
 msgstr "Atslēgas SHA1 nospiedums"
 
-#: ../ui/gcr-certificate-renderer.c:908
+#: ../ui/gcr-certificate-renderer.c:900
 msgid "Signature Algorithm"
 msgstr "Paraksta algoritms"
 
-#: ../ui/gcr-certificate-renderer.c:912
+#: ../ui/gcr-certificate-renderer.c:904
 msgid "Signature Parameters"
 msgstr "Paraksta parametri"
 
-#: ../ui/gcr-certificate-renderer.c:961
+#: ../ui/gcr-certificate-renderer.c:953
 msgid "Critical"
 msgstr "Kritisks"
 
 #. The certificate request type
 #: ../ui/gcr-certificate-request-renderer.c:96
-#: ../ui/gcr-certificate-request-renderer.c:309
-#: ../ui/gcr-certificate-request-renderer.c:324
-#: ../ui/gcr-certificate-request-renderer.c:367
-#: ../ui/gcr-certificate-request-renderer.c:372
+#: ../ui/gcr-certificate-request-renderer.c:307
+#: ../ui/gcr-certificate-request-renderer.c:322
+#: ../ui/gcr-certificate-request-renderer.c:365
+#: ../ui/gcr-certificate-request-renderer.c:370
 msgid "Certificate request"
 msgstr "Sertifikāta pieprasījums"
 
-#: ../ui/gcr-certificate-request-renderer.c:262
+#: ../ui/gcr-certificate-request-renderer.c:260
 msgid "Attribute"
 msgstr "Atribūts"
 
-#: ../ui/gcr-certificate-request-renderer.c:266
-#: ../ui/gcr-certificate-request-renderer.c:325
-#: ../ui/gcr-certificate-request-renderer.c:373 ../ui/gcr-gnupg-renderer.c:591
+#: ../ui/gcr-certificate-request-renderer.c:264
+#: ../ui/gcr-certificate-request-renderer.c:323
+#: ../ui/gcr-certificate-request-renderer.c:371 ../ui/gcr-gnupg-renderer.c:591
 #: ../ui/gcr-gnupg-renderer.c:593
 msgid "Type"
 msgstr "Tips"
 
-#: ../ui/gcr-certificate-request-renderer.c:377
+#: ../ui/gcr-certificate-request-renderer.c:375
 msgid "Challenge"
 msgstr "Izaicinājums"
 
@@ -631,7 +626,9 @@ msgstr "Sertificēt"
 msgid "Authenticate"
 msgstr "Autentificēt"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
+#: ../ui/gcr-gnupg-renderer.c:224
+#| msgid "Disabled"
+msgctxt "capability"
 msgid "Disabled"
 msgstr "Deaktivēts"
 
@@ -643,6 +640,12 @@ msgstr "Nezināms"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "Nederīga"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+#| msgid "Disabled"
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Deaktivēts"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -845,12 +848,14 @@ msgid "Secret Subkey"
 msgstr "Slepenā apakšatslēga"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
-msgstr "Inicializē..."
+#| msgid "Initializing..."
+msgid "Initializing…"
+msgstr "Inicializē…"
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
-msgstr "Notiek importēšana..."
+#| msgid "Import is in progress..."
+msgid "Import is in progress…"
+msgstr "Notiek importēšana…"
 
 #: ../ui/gcr-import-button.c:127
 #, c-format
@@ -969,36 +974,32 @@ msgstr "Piekļuves uzvedne"
 msgid "Unlock access to passwords and other secrets"
 msgstr "Atbloķēt pieeju pie parolēm un citiem noslēpumiem"
 
-#: ../ui/gcr-certificate-exporter.c:226
+#: ../ui/gcr-certificate-exporter.c:227
 msgid "A file already exists with this name."
 msgstr "Datne ar tādu nosaukumu jau eksistē."
 
-#: ../ui/gcr-certificate-exporter.c:227
-#| msgid ""
-#| "<b>A file already exists with this name.</b>\n"
-#| "\n"
-#| "Do you want to replace it with a new file?"
+#: ../ui/gcr-certificate-exporter.c:228
 msgid "Do you want to replace it with a new file?"
 msgstr "Vai vēlaties aizstāt to ar jaunu datni?"
 
-#: ../ui/gcr-certificate-exporter.c:233
+#: ../ui/gcr-certificate-exporter.c:231
 msgid "_Replace"
 msgstr "_Aizvietot"
 
-#: ../ui/gcr-certificate-exporter.c:264
+#: ../ui/gcr-certificate-exporter.c:261
 #, c-format
 msgid "The operation was cancelled."
 msgstr "Darbība tika atcelta."
 
-#: ../ui/gcr-certificate-exporter.c:308
+#: ../ui/gcr-certificate-exporter.c:305
 msgid "Export certificate"
 msgstr "Eksportēt sertifikātu"
 
-#: ../ui/gcr-certificate-exporter.c:320
+#: ../ui/gcr-certificate-exporter.c:317
 msgid "Certificate files"
 msgstr "Sertifikāta datnes"
 
-#: ../ui/gcr-certificate-exporter.c:331
+#: ../ui/gcr-certificate-exporter.c:328
 msgid "PEM files"
 msgstr "PEM datnes"
 
@@ -1080,6 +1081,12 @@ msgstr "Importēšana neizdevās"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Importēt"
+
+#~ msgid "Invalid PKCS#11 module: %s"
+#~ msgstr "Nederīgs PKCS#11 modulis — %s"
+
+#~ msgid "Couldn't setup PKCS#11 module: %s"
+#~ msgstr "Nevarēja iestatīt PKCS#11 moduli — %s"
 
 #~ msgid "Label"
 #~ msgstr "Etiķete"

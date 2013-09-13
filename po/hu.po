@@ -1,26 +1,25 @@
-# Hungarian translation of gnome-keyring.
+# Hungarian translation of gcr.
 # Copyright (C) 2004, 2006, 2007, 2008, 2009, 2010, 2011 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gnome-keyring package.
+# This file is distributed under the same license as the gcr package.
 #
 # Gergely Nagy <greg at gnome dot hu>, 2004.
 # Laszlo Dvornik <dvornikl at mailbox dot hu>, 2004.
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013.
 # Mate ORY <orymate at gmail d0t com>, 2006.
 # Balázs Úr <urbalazs at gmail dot com>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-keyring master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-09-03 06:43+0000\n"
-"PO-Revision-Date: 2013-09-03 21:01+0200\n"
-"Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
-"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
+"Project-Id-Version: gcr master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-13 11:39+0200\n"
+"PO-Revision-Date: 2013-09-13 11:28+0200\n"
+"Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
+"Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../egg/egg-oid.c:41
@@ -526,7 +525,6 @@ msgid "Signature"
 msgstr "Aláírás"
 
 #: ../ui/gcr-certificate-renderer.c:618
-#| msgid "Export certificate"
 msgid "Export Certificate…"
 msgstr "Tanúsítvány exportálása…"
 
@@ -625,10 +623,9 @@ msgid "Authenticate"
 msgstr "Hitelesítés"
 
 #: ../ui/gcr-gnupg-renderer.c:224
-#| msgid "Capabilities"
-msgctxt "Disabled"
-msgid "capability"
-msgstr "képesség"
+msgctxt "capability"
+msgid "Disabled"
+msgstr "Tiltva"
 
 #: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
@@ -640,10 +637,9 @@ msgid "Invalid"
 msgstr "Érvénytelen"
 
 #: ../ui/gcr-gnupg-renderer.c:259
-#| msgid "Owner trust"
-msgctxt "Disabled"
-msgid "ownertrust"
-msgstr "tulajdonos megbízhatósága"
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Tiltva"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -846,12 +842,10 @@ msgid "Secret Subkey"
 msgstr "Titkos részkulcs"
 
 #: ../ui/gcr-import-button.c:112
-#| msgid "Initializing..."
 msgid "Initializing…"
 msgstr "Előkészítés…"
 
 #: ../ui/gcr-import-button.c:120
-#| msgid "Import is in progress..."
 msgid "Import is in progress…"
 msgstr "Importálás folyamatban…"
 
@@ -1083,12 +1077,19 @@ msgstr "Az importálás meghiúsult"
 msgid "Import"
 msgstr "Importálás"
 
+#~| msgid "Capabilities"
+#~ msgctxt "Disabled"
+#~ msgid "capability"
+#~ msgstr "képesség"
+
+#~| msgid "Owner trust"
+#~ msgctxt "Disabled"
+#~ msgid "ownertrust"
+#~ msgstr "tulajdonos megbízhatósága"
+
 #~| msgid "Export certificate"
 #~ msgid "Export Certificate..."
 #~ msgstr "Tanúsítvány exportálása…"
-
-#~ msgid "Disabled"
-#~ msgstr "Tiltva"
 
 #~ msgid "Invalid PKCS#11 module: %s"
 #~ msgstr "Érvénytelen PKCS#11 modul: %s"

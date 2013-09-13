@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-08-18 09:34+0000\n"
-"PO-Revision-Date: 2013-08-19 00:29+0200\n"
+"POT-Creation-Date: 2013-09-04 00:37+0000\n"
+"PO-Revision-Date: 2013-09-13 23:59+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -523,8 +523,8 @@ msgid "Signature"
 msgstr "Signatura"
 
 #: ../ui/gcr-certificate-renderer.c:618
-msgid "Export Certificate..."
-msgstr "Exporta el certificat..."
+msgid "Export Certificate…"
+msgstr "Exporta el certificat…"
 
 #: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
@@ -620,7 +620,8 @@ msgstr "Certifica"
 msgid "Authenticate"
 msgstr "Autentica"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
+#: ../ui/gcr-gnupg-renderer.c:224
+msgctxt "capability"
 msgid "Disabled"
 msgstr "Inhabilitat"
 
@@ -632,6 +633,11 @@ msgstr "Desconegut"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "No vàlid"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Inhabilitat"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -834,12 +840,12 @@ msgid "Secret Subkey"
 msgstr "Subclau secreta"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
-msgstr "S'està iniciant..."
+msgid "Initializing…"
+msgstr "S'està iniciant…"
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
-msgstr "Importació en progrés..."
+msgid "Import is in progress…"
+msgstr "Importació en progrés…"
 
 #: ../ui/gcr-import-button.c:127
 #, c-format
@@ -1068,12 +1074,3 @@ msgstr "Ha fallat l'importació"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Importa"
-
-#~ msgid "Invalid PKCS#11 module: %s"
-#~ msgstr "El mòdul PKCS#11 no és vàlid: %s"
-
-#~ msgid "Couldn't setup PKCS#11 module: %s"
-#~ msgstr "No s'ha pogut configurar el mòdul PKCS#11: %s"
-
-#~ msgid "Label"
-#~ msgstr "Etiqueta"

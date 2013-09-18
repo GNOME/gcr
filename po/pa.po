@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-02-12 05:56+0000\n"
-"PO-Revision-Date: 2013-02-26 07:19+0530\n"
+"POT-Creation-Date: 2013-09-04 00:37+0000\n"
+"PO-Revision-Date: 2013-09-18 08:37-0500\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
 "Language: pa\n"
@@ -61,7 +61,7 @@ msgstr "ਆਮ ਨਾਂ"
 msgid "Surname"
 msgstr "ਗੋਤ"
 
-#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:558
+#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:561
 msgid "Serial Number"
 msgstr "ਸੀਰੀਅਲ ਨੰਬਰ"
 
@@ -164,27 +164,17 @@ msgstr "ਈਮੇਲ ਸੁਰੱਖਿਆ"
 msgid "Time Stamping"
 msgstr "ਸਮਾਂ ਮੋਹਰ"
 
-#: ../gck/gck-module.c:352
+#: ../gck/gck-module.c:344
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "PKCS#11 ਮੋਡੀਊਲ ਲੋਡ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ: %s"
 
-#: ../gck/gck-module.c:359
-#, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr "ਗਲਤ PKCS#11 ਮੋਡੀਊਲ: %s"
-
-#: ../gck/gck-module.c:368
-#, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "PKCS#11  ਮੋਡੀਊਲ ਸੈੱਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ: %s"
-
-#: ../gck/gck-module.c:384
+#: ../gck/gck-module.c:358
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
 msgstr "PKCS#11 ਮੋਡੀਊਲ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ: %s"
 
-#: ../gck/gck-modules.c:67
+#: ../gck/gck-modules.c:62
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgstr "ਰਜਿਸਟਰ ਹੋਏ PKCS#11 ਮੋਡੀਊਲ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕੇ: %s"
@@ -214,24 +204,24 @@ msgstr "ਸਟਰੀਮ ਬੰਦ ਸੀ"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
+#: ../gcr/gcr-certificate.c:343 ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Name"
 msgstr "ਨਾਂ"
 
-#: ../gcr/gcr-certificate.c:310
+#: ../gcr/gcr-certificate.c:345
 msgctxt "column"
 msgid "Issued By"
 msgstr "ਜਾਰੀ ਕਰਤਾ"
 
 #. later
-#: ../gcr/gcr-certificate.c:312
+#: ../gcr/gcr-certificate.c:347
 msgctxt "column"
 msgid "Expires"
 msgstr "ਮਿਆਦ"
 
-#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-parser.c:322
-#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:469
+#: ../gcr/gcr-certificate.c:1185 ../gcr/gcr-parser.c:320
+#: ../ui/gcr-certificate-renderer.c:104 ../ui/gcr-certificate-exporter.c:466
 msgid "Certificate"
 msgstr "ਸਰਟੀਫਿਕੇਟ"
 
@@ -280,12 +270,12 @@ msgstr "IP ਐਡਰੈੱਸ"
 msgid "Registered ID"
 msgstr "ਰਜਿਸਟਰ ਕੀਤਾ ID"
 
-#: ../gcr/gcr-certificate-request.c:418
+#: ../gcr/gcr-certificate-request.c:416
 #, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "ਸਰਟੀਫਿਕੇਟ ਮੰਗ ਲਈ ਨਾ-ਸਹਾਇਕ ਕੁੰਜੀ ਕਿਸਮ"
 
-#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
+#: ../gcr/gcr-certificate-request.c:503 ../gcr/gcr-certificate-request.c:588
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "ਇਹ ਕੁੰਜੀ ਨੂੰ ਮੰਗ ਉੱਤੇ ਦਸਤਖਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
@@ -299,7 +289,7 @@ msgstr "GnuPG ਕੀਰਿੰਗ"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG ਕੀਰਿੰਗ: %s"
 
-#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:328
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:326
 #: ../ui/gcr-gnupg-renderer.c:89
 msgid "PGP Key"
 msgstr "PGP ਕੁੰਜੀ"
@@ -319,33 +309,33 @@ msgstr "Gnupg ਕਾਰਵਾਈ ਅੱਗੇ ਦਿੱਤੇ ਕੋਡ ਨਾ�
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg ਕਾਰਵਾਈ ਸਿਗਨਲ ਨਾਲ ਖਤਮ ਹੋ ਗਿਆ: %d"
 
-#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2424
-#: ../gcr/gcr-parser.c:2917 ../gcr/gcr-system-prompt.c:902
+#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2422
+#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:925
 msgid "The operation was cancelled"
 msgstr "ਕਾਰਵਾਈ ਰੱਦ ਕੀਤੀ ਗਈ"
 
-#: ../gcr/gcr-parser.c:319 ../ui/gcr-key-renderer.c:408
+#: ../gcr/gcr-parser.c:317 ../ui/gcr-key-renderer.c:408
 msgid "Private Key"
 msgstr "ਪ੍ਰਾਈਵੇਟ ਕੁੰਜੀ"
 
-#: ../gcr/gcr-parser.c:325 ../ui/gcr-certificate-renderer.c:891
+#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:883
 #: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
 msgid "Public Key"
 msgstr "ਪਬਲਿਕ ਕੁੰਜੀ"
 
-#: ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-parser.c:329
 msgid "Certificate Request"
 msgstr "ਸਰਟੀਫਿਕੇਟ ਮੰਗ"
 
-#: ../gcr/gcr-parser.c:2427
+#: ../gcr/gcr-parser.c:2425
 msgid "Unrecognized or unsupported data."
 msgstr "ਗ਼ੈਰ-ਪਛਾਣ ਜਾਂ ਗ਼ੈਰ-ਸਹਾਇਕ ਡਾਟਾ ਹੈ।"
 
-#: ../gcr/gcr-parser.c:2430
+#: ../gcr/gcr-parser.c:2428
 msgid "Could not parse invalid or corrupted data."
 msgstr "ਅਢੁੱਕਵਾਂ ਜਾਂ ਨਿਕਾਰਾ ਹੋਇਆ ਡਾਟਾ ਪਾਰਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ।"
 
-#: ../gcr/gcr-parser.c:2433
+#: ../gcr/gcr-parser.c:2431
 msgid "The data is locked"
 msgstr "ਡਾਟਾ ਲਾਕ ਹੈ"
 
@@ -365,7 +355,7 @@ msgstr "ਕੰਜੀ ਲਈ ਬੇਪਛਾਣ ਜਾਂ ਨਾ-ਉਪਲੱਬ�
 msgid "Couldn't build public key"
 msgstr "ਪਬਲਿਕ ਕੁੰਜੀ ਬਿਲਡ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ"
 
-#: ../gcr/gcr-system-prompt.c:883
+#: ../gcr/gcr-system-prompt.c:906
 msgid "Another prompt is already in progress"
 msgstr "ਹੋਰ ਪਰਾਉਂਟ ਪਹਿਲਾਂ ਹੀ ਜਾਰੀ ਹੈ"
 
@@ -377,210 +367,215 @@ msgstr "ਹੋਰ ਪਰਾਉਂਟ ਪਹਿਲਾਂ ਹੀ ਜਾਰੀ ਹ�
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "ਪਿੰਨ ਕੀਤਾ ਸਰਟੀਫਿਕੇਟ ਸੰਭਾਲਣ ਲਈ ਟਿਕਾਣਾ ਲੱਭਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ"
 
-#: ../ui/gcr-certificate-renderer.c:118
+#: ../ui/gcr-certificate-renderer.c:119
 msgid "Basic Constraints"
 msgstr "ਮੁੱਢਲੀਆਂ ਸ਼ਰਤਾਂ"
 
-#: ../ui/gcr-certificate-renderer.c:120
+#: ../ui/gcr-certificate-renderer.c:121
 msgid "Certificate Authority"
 msgstr "ਸਰਟੀਫਿਕੇਟ ਅਥਾਰਟੀ"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "Yes"
 msgstr "ਹਾਂ"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+#: ../ui/gcr-certificate-renderer.c:122 ../ui/gcr-certificate-renderer.c:954
 msgid "No"
 msgstr "ਨਹੀਂ"
 
-#: ../ui/gcr-certificate-renderer.c:124
+#: ../ui/gcr-certificate-renderer.c:125
 msgid "Max Path Length"
 msgstr "ਵੱਧੋ-ਵੱਧ ਪਾਥ ਲੰਬਾਈ"
 
-#: ../ui/gcr-certificate-renderer.c:125
+#: ../ui/gcr-certificate-renderer.c:126
 msgid "Unlimited"
 msgstr "ਬੇਅੰਤ"
 
-#: ../ui/gcr-certificate-renderer.c:144
+#: ../ui/gcr-certificate-renderer.c:145
 msgid "Extended Key Usage"
 msgstr "ਐਕਸਟੈਂਡਡ ਕੁੰਜੀ ਵਰਤੋਂ"
 
-#: ../ui/gcr-certificate-renderer.c:155
+#: ../ui/gcr-certificate-renderer.c:156
 msgid "Allowed Purposes"
 msgstr "ਮਨਜ਼ੂਰ ਕੀਤੇ ਮਕਸਦ"
 
-#: ../ui/gcr-certificate-renderer.c:175
+#: ../ui/gcr-certificate-renderer.c:176
 msgid "Subject Key Identifier"
 msgstr "ਵਿਸ਼ਾ ਕੁੰਜੀ ਪਛਾਣਕਰਤਾ"
 
-#: ../ui/gcr-certificate-renderer.c:176
+#: ../ui/gcr-certificate-renderer.c:177
 msgid "Key Identifier"
 msgstr "ਕੁੰਜੀ ਪਛਾਣਕਰਤਾ"
 
-#: ../ui/gcr-certificate-renderer.c:187
+#: ../ui/gcr-certificate-renderer.c:188
 msgid "Digital signature"
 msgstr "ਡਿਜ਼ਿਟਲ ਦਸਤਖਤ"
 
-#: ../ui/gcr-certificate-renderer.c:188
+#: ../ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "ਕੁੰਜੀ ਇਨਸੀਫੀਰਮੈਂਟ"
 
-#: ../ui/gcr-certificate-renderer.c:189
+#: ../ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "ਡਾਟਾ ਇਨਸੀਫੀਰਮੈਂਟ"
 
-#: ../ui/gcr-certificate-renderer.c:190
+#: ../ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "ਕੁੰਜੀ ਇਕਰਾਰਨਾਮਾ"
 
-#: ../ui/gcr-certificate-renderer.c:191
+#: ../ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "ਸਰਟੀਫਿਕੇਟ ਦਸਤਖਤ"
 
-#: ../ui/gcr-certificate-renderer.c:192
+#: ../ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "ਮਨਸੂਖ ਲਿਸਟ ਦਸਤਖਤ"
 
-#: ../ui/gcr-certificate-renderer.c:217
+#: ../ui/gcr-certificate-renderer.c:218
 msgid "Key Usage"
 msgstr "ਕੁੰਜੀ ਵਰਤੋਂ"
 
-#: ../ui/gcr-certificate-renderer.c:218
+#: ../ui/gcr-certificate-renderer.c:219
 msgid "Usages"
 msgstr "ਵਰਤੋਂ"
 
-#: ../ui/gcr-certificate-renderer.c:238
+#: ../ui/gcr-certificate-renderer.c:239
 msgid "Subject Alternative Names"
 msgstr "ਵਿਸ਼ਾ ਬਦਲਵੇਂ ਨਾਂ"
 
-#: ../ui/gcr-certificate-renderer.c:265
+#: ../ui/gcr-certificate-renderer.c:266
 msgid "Extension"
 msgstr "ਇਕਸਟੈਨਸ਼ਨ"
 
-#: ../ui/gcr-certificate-renderer.c:269
+#: ../ui/gcr-certificate-renderer.c:270
 msgid "Identifier"
 msgstr "ਪਛਾਣਕਰਤਾ"
 
-#: ../ui/gcr-certificate-renderer.c:270
-#: ../ui/gcr-certificate-request-renderer.c:273 ../ui/gcr-gnupg-renderer.c:414
+#: ../ui/gcr-certificate-renderer.c:271
+#: ../ui/gcr-certificate-request-renderer.c:271 ../ui/gcr-gnupg-renderer.c:414
 #: ../ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "ਮੁੱਲ"
 
-#: ../ui/gcr-certificate-renderer.c:295
+#: ../ui/gcr-certificate-renderer.c:289
 msgid "Couldn't export the certificate."
 msgstr "ਸਰਟੀਫਿਕੇਟ ਐਕਸਪੋਰਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ।"
 
-#: ../ui/gcr-certificate-renderer.c:520
-#: ../ui/gcr-certificate-request-renderer.c:314
+#: ../ui/gcr-certificate-renderer.c:523
+#: ../ui/gcr-certificate-request-renderer.c:312
 msgid "Identity"
 msgstr "ਪਛਾਣ"
 
-#: ../ui/gcr-certificate-renderer.c:524
+#: ../ui/gcr-certificate-renderer.c:527
 msgid "Verified by"
 msgstr "ਜਾਂਚ ਕਰਤਾ"
 
-#: ../ui/gcr-certificate-renderer.c:531 ../ui/gcr-gnupg-renderer.c:719
+#: ../ui/gcr-certificate-renderer.c:534 ../ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "ਮਿਆਦ"
 
 #. The subject
-#: ../ui/gcr-certificate-renderer.c:538
-#: ../ui/gcr-certificate-request-renderer.c:320
+#: ../ui/gcr-certificate-renderer.c:541
+#: ../ui/gcr-certificate-request-renderer.c:318
 msgid "Subject Name"
 msgstr "ਵਿਸ਼ਾ ਨਾਂ"
 
 #. The Issuer
-#: ../ui/gcr-certificate-renderer.c:543
+#: ../ui/gcr-certificate-renderer.c:546
 msgid "Issuer Name"
 msgstr "ਜਾਰੀ ਕਰਤਾ ਨਾਂ"
 
 #. The Issued Parameters
-#: ../ui/gcr-certificate-renderer.c:548
+#: ../ui/gcr-certificate-renderer.c:551
 msgid "Issued Certificate"
 msgstr "ਜਾਰੀ ਕੀਤਾ ਸਰਟੀਫਿਕੇਟ"
 
-#: ../ui/gcr-certificate-renderer.c:553
-#: ../ui/gcr-certificate-request-renderer.c:331
+#: ../ui/gcr-certificate-renderer.c:556
+#: ../ui/gcr-certificate-request-renderer.c:329
 msgid "Version"
 msgstr "ਵਰਜਨ"
 
-#: ../ui/gcr-certificate-renderer.c:567
+#: ../ui/gcr-certificate-renderer.c:570
 msgid "Not Valid Before"
 msgstr "ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਢੁੱਕਵਾਂ ਨਹੀਂ"
 
-#: ../ui/gcr-certificate-renderer.c:572
+#: ../ui/gcr-certificate-renderer.c:575
 msgid "Not Valid After"
 msgstr "ਇਸ ਤੋਂ ਬਾਅਦ ਢੁੱਕਵੀਂ ਨਹੀਂ"
 
 #. Fingerprints
-#: ../ui/gcr-certificate-renderer.c:577
+#: ../ui/gcr-certificate-renderer.c:580
 msgid "Certificate Fingerprints"
 msgstr "ਸਰਟੀਫਿਕੇਟ ਫਿੰਗਰ-ਪਰਿੰਟ"
 
 #. Public Key Info
-#: ../ui/gcr-certificate-renderer.c:583
-#: ../ui/gcr-certificate-request-renderer.c:334
-#: ../ui/gcr-certificate-request-renderer.c:380
+#: ../ui/gcr-certificate-renderer.c:586
+#: ../ui/gcr-certificate-request-renderer.c:332
+#: ../ui/gcr-certificate-request-renderer.c:378
 msgid "Public Key Info"
 msgstr "ਪਬਲਿਕ ਕੁੰਜੀ ਜਾਣਕਾਰੀ"
 
 #. Signature
-#: ../ui/gcr-certificate-renderer.c:598 ../ui/gcr-certificate-renderer.c:919
-#: ../ui/gcr-certificate-request-renderer.c:350
-#: ../ui/gcr-certificate-request-renderer.c:387 ../ui/gcr-gnupg-renderer.c:560
+#: ../ui/gcr-certificate-renderer.c:601 ../ui/gcr-certificate-renderer.c:911
+#: ../ui/gcr-certificate-request-renderer.c:348
+#: ../ui/gcr-certificate-request-renderer.c:385 ../ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "ਦਸਤਖਤ"
 
-#: ../ui/gcr-certificate-renderer.c:865
+#: ../ui/gcr-certificate-renderer.c:618
+#| msgid "Export certificate"
+msgid "Export Certificate…"
+msgstr "…ਸਰਟੀਫਿਕੇਟ ਐਕਸਪਰੋਟ"
+
+#: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
 msgstr "ਕੁੰਜੀ ਐਲੋਗਰਿਥਮ"
 
-#: ../ui/gcr-certificate-renderer.c:870
+#: ../ui/gcr-certificate-renderer.c:862
 msgid "Key Parameters"
 msgstr "ਕੁੰਜੀ ਪੈਰਾਮੀਟਰ"
 
-#: ../ui/gcr-certificate-renderer.c:878 ../ui/gcr-gnupg-renderer.c:353
+#: ../ui/gcr-certificate-renderer.c:870 ../ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "ਕੁੰਜੀ ਆਕਾਰ"
 
-#: ../ui/gcr-certificate-renderer.c:886
+#: ../ui/gcr-certificate-renderer.c:878
 msgid "Key SHA1 Fingerprint"
 msgstr "ਕੁੰਜੀ SHA1 ਫਿੰਗਰਪਰਿੰਟ"
 
-#: ../ui/gcr-certificate-renderer.c:908
+#: ../ui/gcr-certificate-renderer.c:900
 msgid "Signature Algorithm"
 msgstr "ਦਸਤਖਤ ਐਲੋਗਰਿਥਮ"
 
-#: ../ui/gcr-certificate-renderer.c:912
+#: ../ui/gcr-certificate-renderer.c:904
 msgid "Signature Parameters"
 msgstr "ਦਸਤਖਤ ਪੈਰਾਮੀਟਰ"
 
-#: ../ui/gcr-certificate-renderer.c:961
+#: ../ui/gcr-certificate-renderer.c:953
 msgid "Critical"
 msgstr "ਨਾਜ਼ੁਕ"
 
 #. The certificate request type
 #: ../ui/gcr-certificate-request-renderer.c:96
-#: ../ui/gcr-certificate-request-renderer.c:309
-#: ../ui/gcr-certificate-request-renderer.c:324
-#: ../ui/gcr-certificate-request-renderer.c:367
-#: ../ui/gcr-certificate-request-renderer.c:372
+#: ../ui/gcr-certificate-request-renderer.c:307
+#: ../ui/gcr-certificate-request-renderer.c:322
+#: ../ui/gcr-certificate-request-renderer.c:365
+#: ../ui/gcr-certificate-request-renderer.c:370
 msgid "Certificate request"
 msgstr "ਸਰਟੀਫਿਕੇਟ ਮੰਗ"
 
-#: ../ui/gcr-certificate-request-renderer.c:262
+#: ../ui/gcr-certificate-request-renderer.c:260
 msgid "Attribute"
 msgstr "ਗੁਣ"
 
-#: ../ui/gcr-certificate-request-renderer.c:266
-#: ../ui/gcr-certificate-request-renderer.c:325
-#: ../ui/gcr-certificate-request-renderer.c:373 ../ui/gcr-gnupg-renderer.c:591
+#: ../ui/gcr-certificate-request-renderer.c:264
+#: ../ui/gcr-certificate-request-renderer.c:323
+#: ../ui/gcr-certificate-request-renderer.c:371 ../ui/gcr-gnupg-renderer.c:591
 #: ../ui/gcr-gnupg-renderer.c:593
 msgid "Type"
 msgstr "ਕਿਸਮ"
 
-#: ../ui/gcr-certificate-request-renderer.c:377
+#: ../ui/gcr-certificate-request-renderer.c:375
 msgid "Challenge"
 msgstr "ਦਾਅਵਾ"
 
@@ -626,7 +621,9 @@ msgstr "ਸਰਟੀ"
 msgid "Authenticate"
 msgstr "ਪਰਮਾਣਕਿਤਾ"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
+#: ../ui/gcr-gnupg-renderer.c:224
+#| msgid "Disabled"
+msgctxt "capability"
 msgid "Disabled"
 msgstr "ਬੰਦ ਹੈ"
 
@@ -638,6 +635,12 @@ msgstr "ਅਣਜਾਣ"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "ਅਢੁੱਕਵਾਂ"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+#| msgid "Disabled"
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "ਬੰਦ ਹੈ"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -840,12 +843,14 @@ msgid "Secret Subkey"
 msgstr "ਗੁਪਤ ਸਬ-ਕੁੰਜੀ"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
-msgstr "...ਸ਼ੁਰੂ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
+#| msgid "Initializing..."
+msgid "Initializing…"
+msgstr "...ਸ਼ੁਰੂ ਕੀਤਾ ਜਾਂਦਾ ਹੈ"
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
-msgstr "...ਇੰਪੋਰਟ ਕਰਨ ਦੀ ਕਾਰਵਾਈ ਜਾਰੀ"
+#| msgid "Import is in progress..."
+msgid "Import is in progress…"
+msgstr "…ਇੰਪੋਰਟ ਕਾਰਵਾਈ ਜਾਰੀ ਹੈ"
 
 #: ../ui/gcr-import-button.c:127
 #, c-format
@@ -963,36 +968,32 @@ msgstr "ਅਸੈਸ ਪਰਾਉਂਟ"
 msgid "Unlock access to passwords and other secrets"
 msgstr "ਪਾਸਵਰਡ ਅਤੇ ਹੋਰ ਭੇਦ ਖੋਲ੍ਹਣ ਲਈ ਅਣ-ਲਾਕ ਕਰੋ"
 
-#: ../ui/gcr-certificate-exporter.c:226
+#: ../ui/gcr-certificate-exporter.c:227
 msgid "A file already exists with this name."
 msgstr "ਇਸ ਨਾਂ ਨਾਲ ਫਾਇਲ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।"
 
-#: ../ui/gcr-certificate-exporter.c:227
-#| msgid ""
-#| "<b>A file already exists with this name.</b>\n"
-#| "\n"
-#| "Do you want to replace it with a new file?"
+#: ../ui/gcr-certificate-exporter.c:228
 msgid "Do you want to replace it with a new file?"
 msgstr "ਕੀ ਤੁਸੀਂ ਇਸ ਨੂੰ ਨਵੀਂ ਫਾਇਲ ਨਾਲ ਬਦਲਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../ui/gcr-certificate-exporter.c:233
+#: ../ui/gcr-certificate-exporter.c:231
 msgid "_Replace"
 msgstr "ਬਦਲੋ(_R)"
 
-#: ../ui/gcr-certificate-exporter.c:264
+#: ../ui/gcr-certificate-exporter.c:261
 #, c-format
 msgid "The operation was cancelled."
 msgstr "ਕਾਰਵਾਈ ਰੱਦ ਕੀਤੀ ਗਈ ਹੈ।"
 
-#: ../ui/gcr-certificate-exporter.c:308
+#: ../ui/gcr-certificate-exporter.c:305
 msgid "Export certificate"
 msgstr "ਸਰਟੀਫਿਕੇਟ ਐਕਸਪਰੋਟ"
 
-#: ../ui/gcr-certificate-exporter.c:320
+#: ../ui/gcr-certificate-exporter.c:317
 msgid "Certificate files"
 msgstr "ਸਰਟੀਫਿਕੇਟ ਫਾਇਲਾਂ"
 
-#: ../ui/gcr-certificate-exporter.c:331
+#: ../ui/gcr-certificate-exporter.c:328
 msgid "PEM files"
 msgstr "PEM ਫਾਇਲਾਂ"
 
@@ -1074,6 +1075,12 @@ msgstr "ਇੰਪੋਰਟ ਫੇਲ੍ਹ"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "ਇੰਪੋਰਟ"
+
+#~ msgid "Invalid PKCS#11 module: %s"
+#~ msgstr "ਗਲਤ PKCS#11 ਮੋਡੀਊਲ: %s"
+
+#~ msgid "Couldn't setup PKCS#11 module: %s"
+#~ msgstr "PKCS#11  ਮੋਡੀਊਲ ਸੈੱਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ: %s"
 
 #~ msgid "Label"
 #~ msgstr "ਲੇਬਲ"

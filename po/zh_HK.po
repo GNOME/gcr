@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring 3.1.91\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-06 16:18+0800\n"
-"PO-Revision-Date: 2013-09-06 16:18+0800\n"
+"POT-Creation-Date: 2013-09-23 22:19+0800\n"
+"PO-Revision-Date: 2013-09-23 22:19+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "Language: \n"
@@ -143,11 +143,11 @@ msgstr "SHA1 附 DSA 加密"
 #. Extended Key Usages
 #: ../egg/egg-oid.c:107
 msgid "Server Authentication"
-msgstr "伺服器驗證"
+msgstr "伺服器核對"
 
 #: ../egg/egg-oid.c:108
 msgid "Client Authentication"
-msgstr "客戶端驗證"
+msgstr "客戶端核對"
 
 #: ../egg/egg-oid.c:109
 msgid "Code Signing"
@@ -615,7 +615,7 @@ msgstr "檢驗"
 
 #: ../ui/gcr-gnupg-renderer.c:222
 msgid "Authenticate"
-msgstr "驗證"
+msgstr "核對"
 
 #: ../ui/gcr-gnupg-renderer.c:224
 msgctxt "capability"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-18 13:36+0300\n"
-"PO-Revision-Date: 2013-08-18 13:36+0200\n"
+"POT-Creation-Date: 2013-09-25 14:41+0300\n"
+"PO-Revision-Date: 2013-09-25 14:41+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
 "Language: he\n"
@@ -523,8 +523,8 @@ msgid "Signature"
 msgstr "חתימה"
 
 #: ../ui/gcr-certificate-renderer.c:618
-msgid "Export Certificate..."
-msgstr "יצוא האישור…"
+msgid "Export Certificate…"
+msgstr "יצוא אישור…"
 
 #: ../ui/gcr-certificate-renderer.c:857
 msgid "Key Algorithm"
@@ -620,7 +620,8 @@ msgstr "אישור"
 msgid "Authenticate"
 msgstr "אימות"
 
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
+#: ../ui/gcr-gnupg-renderer.c:224
+msgctxt "capability"
 msgid "Disabled"
 msgstr "מנוטרל"
 
@@ -632,6 +633,11 @@ msgstr "לא ידוע"
 #: ../ui/gcr-gnupg-renderer.c:257
 msgid "Invalid"
 msgstr "שגוי"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "מנוטרל"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -834,12 +840,12 @@ msgid "Secret Subkey"
 msgstr "תת־מפתח סודי"
 
 #: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
-msgstr "בהליכי הפעלה..."
+msgid "Initializing…"
+msgstr "בהליכי הפעלה…"
 
 #: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
-msgstr "מתבצע ייבוא..."
+msgid "Import is in progress…"
+msgstr "מתבצע ייבוא…"
 
 #: ../ui/gcr-import-button.c:127
 #, c-format
@@ -1045,7 +1051,7 @@ msgstr "[file...]"
 msgid "- View certificate and key files"
 msgstr "- צפייה באישור ובקובצי המפתח"
 
-#: ../ui/gcr-viewer-tool.c:119 ../ui/gcr-viewer-widget.c:638
+#: ../ui/gcr-viewer-tool.c:119 ../ui/gcr-viewer-widget.c:653
 msgid "Certificate Viewer"
 msgstr "מציג אישורים"
 
@@ -1064,6 +1070,9 @@ msgstr "הייבוא נכשל"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "ייבוא:"
+
+#~ msgid "Export Certificate..."
+#~ msgstr "יצוא האישור…"
 
 #~ msgid "Invalid PKCS#11 module: %s"
 #~ msgstr "מודול PKCS#11 שגוי:‏ %s"

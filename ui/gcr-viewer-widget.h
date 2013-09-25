@@ -45,6 +45,8 @@ void               gcr_viewer_widget_load_data        (GcrViewerWidget *self,
                                                        const guchar *data,
                                                        gsize n_data);
 
+GcrViewer *        gcr_viewer_widget_get_viewer       (GcrViewerWidget *self);
+
 GcrParser *        gcr_viewer_widget_get_parser       (GcrViewerWidget *self);
 
 void               gcr_viewer_widget_show_error       (GcrViewerWidget *self,

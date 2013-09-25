@@ -59,6 +59,8 @@ GtkWindow *        gcr_viewer_window_new              (void);
 void               gcr_viewer_window_load             (GcrViewerWindow *self,
                                                        GFile *file);
 
+GcrViewer *        gcr_viewer_window_get_viewer       (GcrViewerWindow *self);
+
 #endif /* GCR_DISABLE_DEPRECATED */
 
 #endif /* GCR_VIEWER_WINDOW_H */

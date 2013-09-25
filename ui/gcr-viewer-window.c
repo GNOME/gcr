@@ -186,3 +186,18 @@ gcr_viewer_window_load (GcrViewerWindow *self,
 
 	return gcr_viewer_widget_load_file (self->pv->viewer, file);
 }
+
+/**
+ * gcr_viewer_window_get_viewer:
+ * @self: a viewer window
+ *
+ * Get the actual viewer showing information in the window.
+ *
+ * Returns: the viewer
+ */
+GcrViewer *
+gcr_viewer_window_get_viewer (GcrViewerWindow *self)
+{
+	g_return_val_if_fail (GCR_IS_VIEWER_WINDOW (self), NULL);
+	return gcr_viewer_widget_get_viewer (self->pv->viewer);
+}

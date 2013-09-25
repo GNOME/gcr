@@ -61,7 +61,7 @@ on_parser_authenticate (GcrParser *parser,
 	g_object_ref_sink (window);
 
 	renderer = _gcr_unlock_renderer_new_for_parsed (parser);
-	gcr_viewer_add_renderer (GCR_VIEWER (window), GCR_RENDERER (renderer));
+	gcr_viewer_add_renderer (gcr_viewer_window_get_viewer (GCR_VIEWER_WINDOW (window)), GCR_RENDERER (renderer));
 	g_object_unref (renderer);
 
 	gtk_window_set_default_size (window, 550, 400);

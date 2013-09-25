@@ -560,6 +560,21 @@ gcr_viewer_widget_load_data (GcrViewerWidget *self,
 }
 
 /**
+ * gcr_viewer_widget_get_viewer:
+ * @self: a viewer widget
+ *
+ * Get the viewer used to display the viewable items.
+ *
+ * Returns: (transfer none): the viewer
+ */
+GcrViewer *
+gcr_viewer_widget_get_viewer (GcrViewerWidget *self)
+{
+	g_return_val_if_fail (GCR_IS_VIEWER_WIDGET (self), NULL);
+	return self->pv->viewer;
+}
+
+/**
  * gcr_viewer_widget_get_parser:
  * @self: a viewer widget
  *

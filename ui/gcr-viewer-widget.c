@@ -184,16 +184,15 @@ on_unlock_renderer_clicked (GcrUnlockRenderer *unlock,
 {
 	GcrViewerWidget *self = GCR_VIEWER_WIDGET (user_data);
 	GError *error = NULL;
-	gconstpointer data;
-	gsize n_data;
+	GBytes *data;
 	gulong sig;
 
 	/* Override our main authenticate signal handler */
 	sig = g_signal_connect (self->pv->parser, "authenticate",
 	                        G_CALLBACK (on_parser_authenticate_for_unlock), unlock);
 
-	data = _gcr_unlock_renderer_get_locked_data (unlock, &n_data);
-	if (gcr_parser_parse_data (self->pv->parser, data, n_data, &error)) {
+	data = _gcr_unlock_renderer_get_locked_data (unlock);
+	if (gcr_parser_parse_bytes (self->pv->parser, data, &error)) {
 
 		/* Done with this unlock renderer */
 		gcr_viewer_remove_renderer (self->pv->viewer, GCR_RENDERER (unlock));
@@ -527,6 +526,38 @@ gcr_viewer_widget_load_file (GcrViewerWidget *self,
 }
 
 /**
+ * gcr_viewer_widget_load_bytes:
+ * @self: a viewer widget
+ * @display_name: (allow-none): label for the loaded data
+ * @data: data to load
+ *
+ * Parse and load some data to be displayed into the viewer widgets. The data
+ * may contain multiple parseable items if the format can contain multiple
+ * items.
+ */
+void
+gcr_viewer_widget_load_bytes (GcrViewerWidget *self,
+                              const gchar *display_name,
+                              GBytes *data)
+{
+	GError *error = NULL;
+	GcrRenderer *renderer;
+
+	g_return_if_fail (GCR_IS_VIEWER_WIDGET (self));
+	g_return_if_fail (data != NULL);
+
+	g_free (self->pv->display_name);
+	self->pv->display_name = g_strdup (display_name);
+
+	if (!gcr_parser_parse_bytes (self->pv->parser, data, &error)) {
+		renderer = gcr_failure_renderer_new (display_name, error);
+		gcr_viewer_add_renderer (self->pv->viewer, renderer);
+		g_object_unref (renderer);
+		g_error_free (error);
+	}
+}
+
+/**
  * gcr_viewer_widget_load_data:
  * @self: a viewer widget
  * @display_name: (allow-none): label for the loaded data
@@ -536,6 +567,9 @@ gcr_viewer_widget_load_file (GcrViewerWidget *self,
  * Parse and load some data to be displayed into the viewer widgets. The data
  * may contain multiple parseable items if the format can contain multiple
  * items.
+ *
+ * This function will copy the data. Use gcr_viewer_widget_load_bytes() to avoid
+ * copying the data.
  */
 void
 gcr_viewer_widget_load_data (GcrViewerWidget *self,
@@ -543,20 +577,13 @@ gcr_viewer_widget_load_data (GcrViewerWidget *self,
                              const guchar *data,
                              gsize n_data)
 {
-	GError *error = NULL;
-	GcrRenderer *renderer;
+	GBytes *bytes;
 
 	g_return_if_fail (GCR_IS_VIEWER_WIDGET (self));
 
-	g_free (self->pv->display_name);
-	self->pv->display_name = g_strdup (display_name);
-
-	if (!gcr_parser_parse_data (self->pv->parser, data, n_data, &error)) {
-		renderer = gcr_failure_renderer_new (display_name, error);
-		gcr_viewer_add_renderer (self->pv->viewer, renderer);
-		g_object_unref (renderer);
-		g_error_free (error);
-	}
+	bytes = g_bytes_new (data, n_data);
+	gcr_viewer_widget_load_bytes (self, display_name, bytes);
+	g_bytes_unref (bytes);
 }
 
 /**

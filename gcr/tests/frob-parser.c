@@ -77,6 +77,7 @@ main(int argc, char *argv[])
 	gsize len;
 	GDir *dir;
 	const gchar *filename;
+	GBytes *bytes;
 	gchar *path;
 
 #if !GLIB_CHECK_VERSION(2,35,0)
@@ -116,8 +117,9 @@ main(int argc, char *argv[])
 			continue;
 		}
 
-		gcr_parser_parse_data (parser, (const guchar *)contents, len, &error);
-		g_free (contents);
+		bytes = g_bytes_new_take (contents, len);
+		gcr_parser_parse_bytes (parser, bytes, &error);
+		g_bytes_unref (bytes);
 
 		if (error) {
 			g_warning ("%s: couldn't parse: %s\n", filename, error->message);

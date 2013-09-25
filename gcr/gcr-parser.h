@@ -76,6 +76,10 @@ void                     gcr_parser_format_disable         (GcrParser *self,
 gboolean                 gcr_parser_format_supported       (GcrParser *self,
                                                             GcrDataFormat format);
 
+gboolean                 gcr_parser_parse_bytes            (GcrParser *self,
+                                                            GBytes *data,
+                                                            GError **error);
+
 gboolean                 gcr_parser_parse_data             (GcrParser *self,
                                                             const guchar *data,
                                                             gsize n_data,
@@ -110,6 +114,8 @@ GckAttributes*           gcr_parser_get_parsed_attributes  (GcrParser *self);
 const guchar *           gcr_parser_get_parsed_block       (GcrParser *self,
                                                             gsize *n_block);
 
+GBytes *                 gcr_parser_get_parsed_bytes       (GcrParser *self);
+
 GcrDataFormat            gcr_parser_get_parsed_format      (GcrParser *self);
 
 #define                  GCR_TYPE_PARSED                   (gcr_parsed_get_type ())
@@ -128,6 +134,8 @@ GckAttributes*           gcr_parsed_get_attributes         (GcrParsed *parsed);
 
 const guchar *           gcr_parsed_get_data               (GcrParsed *parsed,
                                                             gsize *n_data);
+
+GBytes *                 gcr_parsed_get_bytes              (GcrParsed *parsed);
 
 GcrDataFormat            gcr_parsed_get_format             (GcrParsed *parsed);
 

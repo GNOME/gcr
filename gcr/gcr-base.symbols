@@ -114,6 +114,7 @@ gcr_mock_prompter_start
 gcr_mock_prompter_stop
 gcr_mock_prompter_disconnect
 gcr_parsed_get_attributes
+gcr_parsed_get_bytes
 gcr_parsed_get_data
 gcr_parsed_get_description
 gcr_parsed_get_format
@@ -127,12 +128,14 @@ gcr_parser_format_enable
 gcr_parser_format_supported
 gcr_parser_get_parsed
 gcr_parser_get_parsed_attributes
+gcr_parser_get_parsed_bytes
 gcr_parser_get_parsed_block
 gcr_parser_get_parsed_description
 gcr_parser_get_parsed_format
 gcr_parser_get_parsed_label
 gcr_parser_get_type
 gcr_parser_new
+gcr_parser_parse_bytes
 gcr_parser_parse_data
 gcr_parser_parse_stream
 gcr_parser_parse_stream_async

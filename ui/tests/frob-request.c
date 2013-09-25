@@ -60,6 +60,7 @@ test_request (const gchar *path)
 	guchar *data;
 	gsize n_data;
 	GtkWidget *dialog;
+	GBytes *bytes;
 
 	if (!g_file_get_contents (path, (gchar**)&data, &n_data, NULL))
 		g_error ("couldn't read file: %s", path);
@@ -69,11 +70,12 @@ test_request (const gchar *path)
 
 	parser = gcr_parser_new ();
 	g_signal_connect (parser, "parsed", G_CALLBACK (on_parser_parsed), dialog);
+	bytes = g_bytes_new_take (data, n_data);
 	if (!gcr_parser_parse_data (parser, data, n_data, &err))
 		g_error ("couldn't parse data: %s", err->message);
 
 	g_object_unref (parser);
-	g_free (data);
+	g_bytes_unref (bytes);
 
 	gtk_widget_show (dialog);
 	g_signal_connect (dialog, "delete-event", G_CALLBACK (gtk_main_quit), NULL);

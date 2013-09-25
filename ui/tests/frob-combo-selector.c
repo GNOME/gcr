@@ -30,14 +30,16 @@ add_to_selector (GcrParser *parser, const gchar *path)
 	GError *err = NULL;
 	guchar *data;
 	gsize n_data;
+	GBytes *bytes;
 
 	if (!g_file_get_contents (path, (gchar**)&data, &n_data, NULL))
 		g_error ("couldn't read file: %s", path);
 
-	if (!gcr_parser_parse_data (parser, data, n_data, &err))
+	bytes = g_bytes_new_take (data, n_data);
+	if (!gcr_parser_parse_bytes (parser, bytes, &err))
 		g_error ("couldn't parse data: %s", err->message);
 
-	g_free (data);
+	g_bytes_unref (bytes);
 }
 
 int

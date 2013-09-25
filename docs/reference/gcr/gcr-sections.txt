@@ -7,6 +7,7 @@ GcrDataFormat
 GcrParser
 GcrParserClass
 gcr_parser_new
+gcr_parser_parse_bytes
 gcr_parser_parse_data
 gcr_parser_parse_stream
 gcr_parser_parse_stream_async
@@ -19,12 +20,14 @@ gcr_parser_get_parsed_label
 gcr_parser_get_parsed_description
 gcr_parser_get_parsed_attributes
 gcr_parser_get_parsed_block
+gcr_parser_get_parsed_bytes
 gcr_parser_get_parsed_format
 GcrParsed
 gcr_parsed_ref
 gcr_parsed_unref
 gcr_parsed_get_attributes
 gcr_parsed_get_data
+gcr_parsed_get_bytes
 gcr_parsed_get_description
 gcr_parsed_get_format
 gcr_parsed_get_label
@@ -605,6 +608,7 @@ GcrUnlockOptionsWidgetPrivate
 <FILE>gcr-viewer-widget</FILE>
 GcrViewerWidget
 gcr_viewer_widget_new
+gcr_viewer_widget_load_bytes
 gcr_viewer_widget_load_data
 gcr_viewer_widget_load_file
 gcr_viewer_widget_get_parser

@@ -108,6 +108,7 @@ gcr_viewer_widget_get_parser
 gcr_viewer_widget_get_display_name
 gcr_viewer_widget_get_type
 gcr_viewer_widget_get_viewer
+gcr_viewer_widget_load_bytes
 gcr_viewer_widget_load_data
 gcr_viewer_widget_load_file
 gcr_viewer_widget_new

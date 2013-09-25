@@ -2370,10 +2370,9 @@ gcr_parser_add_password (GcrParser *self, const gchar *password)
 }
 
 /**
- * gcr_parser_parse_data:
+ * gcr_parser_parse_bytes:
  * @self: The parser
- * @data: (array length=n_data): the data to parse
- * @n_data: The length of the data
+ * @data: the data to parse
  * @error: A location to raise an error on failure.
  *
  * Parse the data. The #GcrParser::parsed and #GcrParser::authenticate signals
@@ -2382,22 +2381,20 @@ gcr_parser_add_password (GcrParser *self, const gchar *password)
  * Returns: Whether the data was parsed successfully or not.
  */
 gboolean
-gcr_parser_parse_data (GcrParser *self,
-                       const guchar *data,
-                       gsize n_data,
-                       GError **error)
+gcr_parser_parse_bytes (GcrParser *self,
+                        GBytes *data,
+                        GError **error)
 {
 	ForeachArgs args = { self, NULL, GCR_ERROR_UNRECOGNIZED };
 	const gchar *message = NULL;
 	gint i;
 
 	g_return_val_if_fail (GCR_IS_PARSER (self), FALSE);
-	g_return_val_if_fail (data || !n_data, FALSE);
+	g_return_val_if_fail (data != NULL, FALSE);
 	g_return_val_if_fail (!error || !*error, FALSE);
 
-	if (data && n_data) {
-		/* TODO: Once GBytes is in the API, copy here */
-		args.data = g_bytes_new_static (data, n_data);
+	if (g_bytes_get_size (data) > 0) {
+		args.data = g_bytes_ref (data);
 
 		/* Just the specific formats requested */
 		if (self->pv->specific_formats) {
@@ -2437,6 +2434,40 @@ gcr_parser_parse_data (GcrParser *self,
 
 	g_set_error_literal (error, GCR_DATA_ERROR, args.result, message);
 	return FALSE;
+}
+
+/**
+ * gcr_parser_parse_data:
+ * @self: The parser
+ * @data: (array length=n_data): the data to parse
+ * @n_data: The length of the data
+ * @error: A location to raise an error on failure.
+ *
+ * Parse the data. The #GcrParser::parsed and #GcrParser::authenticate signals
+ * may fire during the parsing.
+ *
+ * A copy of the data will be made. Use gcr_parser_parse_bytes() to avoid this.
+ *
+ * Returns: Whether the data was parsed successfully or not.
+ */
+gboolean
+gcr_parser_parse_data (GcrParser *self,
+                       const guchar *data,
+                       gsize n_data,
+                       GError **error)
+{
+	GBytes *bytes;
+	gboolean ret;
+
+	g_return_val_if_fail (GCR_IS_PARSER (self), FALSE);
+	g_return_val_if_fail (data || !n_data, FALSE);
+	g_return_val_if_fail (!error || !*error, FALSE);
+
+	bytes = g_bytes_new (data, n_data);
+	ret = gcr_parser_parse_bytes (self, bytes, error);
+	g_bytes_unref (bytes);
+
+	return ret;
 }
 
 /**
@@ -2760,6 +2791,22 @@ gcr_parser_get_parsed_block (GcrParser *self,
 	return gcr_parsed_get_data (self->pv->parsed, n_block);
 }
 
+
+/**
+ * gcr_parser_get_parsed_bytes:
+ * @self: a parser
+ *
+ * Get the raw data block that represents this parsed object. This is only
+ * valid during the #GcrParser::parsed signal.
+ *
+ * Returns: (transfer none): the raw data block of the currently parsed item
+ */
+GBytes *
+gcr_parser_get_parsed_bytes (GcrParser *self)
+{
+	return gcr_parsed_get_bytes (self->pv->parsed);
+}
+
 /**
  * gcr_parsed_get_data:
  * @parsed: a parsed item
@@ -2774,15 +2821,36 @@ const guchar *
 gcr_parsed_get_data (GcrParsed *parsed,
                      gsize *n_data)
 {
+	GBytes *bytes;
+
 	g_return_val_if_fail (n_data != NULL, NULL);
 
+	bytes = gcr_parsed_get_bytes (parsed);
+	if (bytes == NULL) {
+		*n_data = 0;
+		return NULL;
+	}
+
+	return g_bytes_get_data (bytes, n_data);
+}
+
+/**
+ * gcr_parsed_get_bytes:
+ * @parsed: a parsed item
+ *
+ * Get the raw data block for the parsed item.
+ *
+ * Returns: (transfer none): the raw data of the parsed item, or %NULL
+ */
+GBytes *
+gcr_parsed_get_bytes (GcrParsed *parsed)
+{
 	while (parsed != NULL) {
 		if (parsed->data != NULL)
-			return g_bytes_get_data (parsed->data, n_data);
+			return parsed->data;
 		parsed = parsed->next;
 	}
 
-	*n_data = 0;
 	return NULL;
 }
 
@@ -2920,12 +2988,16 @@ static void
 state_parse_buffer (GcrParsing *self, gboolean async)
 {
 	GError *error = NULL;
+	GBytes *bytes;
 	gboolean ret;
 
 	g_assert (GCR_IS_PARSING (self));
 	g_assert (self->buffer);
 
-	ret = gcr_parser_parse_data (self->parser, self->buffer->data, self->buffer->len, &error);
+	bytes = g_byte_array_free_to_bytes (self->buffer);
+	self->buffer = NULL;
+	ret = gcr_parser_parse_bytes (self->parser, bytes, &error);
+	g_bytes_unref (bytes);
 
 	if (ret == TRUE) {
 		next_state (self, state_complete);

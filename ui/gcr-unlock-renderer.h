@@ -62,8 +62,7 @@ struct _GcrUnlockRendererClass {
 GType                  _gcr_unlock_renderer_get_type          (void);
 
 GcrUnlockRenderer *    _gcr_unlock_renderer_new               (const gchar *label,
-                                                               gconstpointer locked_data,
-                                                               gsize n_locked_data);
+                                                               GBytes *locked_data);
 
 GcrUnlockRenderer *    _gcr_unlock_renderer_new_for_parsed    (GcrParser *parser);
 
@@ -77,8 +76,7 @@ void                   _gcr_unlock_renderer_focus_password    (GcrUnlockRenderer
 void                   _gcr_unlock_renderer_show_warning      (GcrUnlockRenderer *self,
                                                                const gchar *message);
 
-gconstpointer          _gcr_unlock_renderer_get_locked_data   (GcrUnlockRenderer *self,
-                                                               gsize *n_data);
+GBytes *               _gcr_unlock_renderer_get_locked_data   (GcrUnlockRenderer *self);
 
 G_END_DECLS
 

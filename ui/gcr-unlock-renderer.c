@@ -39,8 +39,7 @@ struct _GcrUnlockRendererPrivate {
 	GtkEntry *entry;
 	GtkLabel *warning;
 
-	gpointer locked_data;
-	gsize n_locked_data;
+	GBytes *locked_data;
 	gchar *label;
 	gboolean unlocked;
 	GList *renderers;
@@ -147,7 +146,7 @@ _gcr_unlock_renderer_finalize (GObject *obj)
 {
 	GcrUnlockRenderer *self = GCR_UNLOCK_RENDERER (obj);
 
-	g_free (self->pv->locked_data);
+	g_bytes_unref (self->pv->locked_data);
 	g_free (self->pv->label);
 	g_list_free_full (self->pv->renderers, g_object_unref);
 
@@ -296,8 +295,7 @@ gcr_renderer_iface_init (GcrRendererIface *iface)
 
 GcrUnlockRenderer*
 _gcr_unlock_renderer_new (const gchar *label,
-                          gconstpointer locked_data,
-                          gsize n_locked_data)
+                          GBytes *locked_data)
 {
 	GcrUnlockRenderer *renderer;
 
@@ -306,23 +304,16 @@ _gcr_unlock_renderer_new (const gchar *label,
 	                         NULL);
 	g_object_ref_sink (renderer);
 
-	renderer->pv->locked_data = g_memdup (locked_data, n_locked_data);
-	renderer->pv->n_locked_data = n_locked_data;
-
+	renderer->pv->locked_data = g_bytes_ref (locked_data);
 	return renderer;
 }
 
 GcrUnlockRenderer *
 _gcr_unlock_renderer_new_for_parsed (GcrParser *parser)
 {
-	gconstpointer block;
-	gsize n_block;
-
 	g_return_val_if_fail (GCR_IS_PARSER (parser), NULL);
-
-	block = gcr_parser_get_parsed_block (parser, &n_block);
 	return _gcr_unlock_renderer_new (gcr_parser_get_parsed_label (parser),
-	                                 block, n_block);
+	                                 gcr_parser_get_parsed_bytes (parser));
 }
 
 const gchar *
@@ -348,12 +339,9 @@ _gcr_unlock_renderer_focus_password (GcrUnlockRenderer *self)
 	gtk_widget_grab_focus (GTK_WIDGET (self->pv->entry));
 }
 
-gconstpointer
-_gcr_unlock_renderer_get_locked_data (GcrUnlockRenderer *self,
-                                      gsize *n_data)
+GBytes *
+_gcr_unlock_renderer_get_locked_data (GcrUnlockRenderer *self)
 {
 	g_return_val_if_fail (GCR_IS_UNLOCK_RENDERER (self), NULL);
-	g_return_val_if_fail (n_data != NULL, NULL);
-	*n_data = self->pv->n_locked_data;
 	return self->pv->locked_data;
 }

@@ -57,6 +57,7 @@ test_key (const gchar *path)
 {
 	GcrParser *parser;
 	GError *err = NULL;
+	GBytes *bytes;
 	guchar *data;
 	gsize n_data;
 
@@ -65,11 +66,12 @@ test_key (const gchar *path)
 
 	parser = gcr_parser_new ();
 	g_signal_connect (parser, "parsed", G_CALLBACK (on_parser_parsed), NULL);
-	if (!gcr_parser_parse_data (parser, data, n_data, &err))
+	bytes = g_bytes_new_take (data, n_data);
+	if (!gcr_parser_parse_bytes (parser, bytes, &err))
 		g_error ("couldn't parse data: %s", err->message);
 
 	g_object_unref (parser);
-	g_free (data);
+	g_bytes_unref (bytes);
 }
 
 int

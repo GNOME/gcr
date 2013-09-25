@@ -74,6 +74,7 @@ test_certificate (const gchar *path)
 	GError *err = NULL;
 	guchar *data;
 	gsize n_data;
+	GBytes *bytes;
 	GtkWidget *dialog;
 
 	if (!g_file_get_contents (path, (gchar**)&data, &n_data, NULL))
@@ -84,11 +85,12 @@ test_certificate (const gchar *path)
 
 	parser = gcr_parser_new ();
 	g_signal_connect (parser, "parsed", G_CALLBACK (on_parser_parsed), dialog);
-	if (!gcr_parser_parse_data (parser, data, n_data, &err))
+	bytes = g_bytes_new_take (data, n_data);
+	if (!gcr_parser_parse_bytes (parser, bytes, &err))
 		g_error ("couldn't parse data: %s", err->message);
 
 	g_object_unref (parser);
-	g_free (data);
+	g_bytes_unref (bytes);
 
 	gtk_widget_show (dialog);
 	g_signal_connect (dialog, "delete-event", G_CALLBACK (gtk_main_quit), NULL);

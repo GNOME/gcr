@@ -60,21 +60,19 @@ typedef struct {
 
 static void
 ensure_block_can_be_parsed (GcrDataFormat format,
-                            gconstpointer block,
-                            gsize n_block)
+                            GBytes *block)
 {
 	GcrParser *parser;
 	gboolean result;
 	GError *error = NULL;
 
-	g_assert (block);
-	g_assert (n_block);
+	g_assert (block != NULL);
 
 	parser = gcr_parser_new ();
 	g_object_add_weak_pointer (G_OBJECT (parser), (gpointer *)&parser);
 	gcr_parser_format_disable (parser, -1);
 	gcr_parser_format_enable (parser, format);
-	result = gcr_parser_parse_data (parser, block, n_block, &error);
+	result = gcr_parser_parse_bytes (parser, block, &error);
 
 	if (!result) {
 		g_critical ("The data returned from gcr_parser_get_parsed_block() "
@@ -93,8 +91,7 @@ parsed_item (GcrParser *par, gpointer user_data)
 	const gchar *description;
 	const gchar *label;
 	Test *test = user_data;
-	gconstpointer block;
-	gsize n_block;
+	GBytes *block;
 	GcrDataFormat format;
 
 	g_assert (GCR_IS_PARSER (par));
@@ -105,9 +102,9 @@ parsed_item (GcrParser *par, gpointer user_data)
 
 	description = gcr_parser_get_parsed_description (test->parser);
 	label = gcr_parser_get_parsed_label (test->parser);
-	block = gcr_parser_get_parsed_block (test->parser, &n_block);
+	block = gcr_parser_get_parsed_bytes (test->parser);
 	format = gcr_parser_get_parsed_format (test->parser);
-	ensure_block_can_be_parsed (format, block, n_block);
+	ensure_block_can_be_parsed (format, block);
 
 	if (g_test_verbose ())
 		g_print ("%s: '%s'\n", description, label);
@@ -157,17 +154,73 @@ test_parse_one (Test *test,
 	gchar *contents;
 	GError *error = NULL;
 	gboolean result;
+	GBytes *bytes;
 	gsize len;
 
 	if (!g_file_get_contents (path, &contents, &len, NULL))
 		g_assert_not_reached ();
 
 	test->filedesc = path;
-	result = gcr_parser_parse_data (test->parser, (const guchar *)contents, len, &error);
+	bytes = g_bytes_new_take (contents, len);
+	result = gcr_parser_parse_bytes (test->parser, bytes, &error);
 	g_assert_no_error (error);
 	g_assert (result);
 
-	g_free (contents);
+	g_bytes_unref (bytes);
+}
+
+static void
+on_parsed_compare_bytes (GcrParser *parser,
+                         gpointer user_data)
+{
+	GBytes *original = user_data;
+	GBytes *bytes;
+	gconstpointer data;
+	gsize n_data;
+	GcrParsed *parsed;
+
+	bytes = gcr_parser_get_parsed_bytes (parser);
+	g_assert (bytes != NULL);
+	g_assert (g_bytes_equal (original, bytes));
+
+	data = gcr_parser_get_parsed_block (parser, &n_data);
+	g_assert (data != NULL);
+	g_assert_cmpint (n_data, ==, g_bytes_get_size (original));
+	g_assert (memcmp (data, g_bytes_get_data (original, NULL), n_data) == 0);
+
+	parsed = gcr_parser_get_parsed (parser);
+	g_assert (parsed != NULL);
+	bytes = gcr_parsed_get_bytes (parsed);
+	g_assert (bytes != NULL);
+	g_assert (g_bytes_equal (original, bytes));
+
+	data = gcr_parsed_get_data (parsed, &n_data);
+	g_assert (data != NULL);
+	g_assert_cmpint (n_data, ==, g_bytes_get_size (original));
+	g_assert (memcmp (data, g_bytes_get_data (original, NULL), n_data) == 0);
+}
+
+static void
+test_parsed_bytes (void)
+{
+	GcrParser *parser = gcr_parser_new ();
+	gchar *contents;
+	GError *error = NULL;
+	gboolean result;
+	GBytes *bytes;
+	gsize len;
+
+	if (!g_file_get_contents (SRCDIR "/files/cacert.org.cer", &contents, &len, NULL))
+		g_assert_not_reached ();
+
+	bytes = g_bytes_new_take (contents, len);
+	g_signal_connect (parser, "parsed", G_CALLBACK (on_parsed_compare_bytes), bytes);
+	result = gcr_parser_parse_bytes (parser, bytes, &error);
+	g_assert_no_error (error);
+	g_assert (result);
+
+	g_bytes_unref (bytes);
+	g_object_unref (parser);
 }
 
 static void
@@ -199,6 +252,38 @@ test_parse_empty (void)
 
 	g_object_unref (parser);
 }
+
+static void
+test_parse_stream (void)
+{
+	GcrParser *parser = gcr_parser_new ();
+	GError *error = NULL;
+	gboolean result;
+	GFile *file;
+	GFileInputStream *fis;
+	gchar *contents;
+	gsize len;
+	GBytes *bytes;
+
+	file = g_file_new_for_path (SRCDIR "/files/cacert.org.cer");
+	fis = g_file_read (file, NULL, &error);
+	g_assert_no_error (error);
+
+	if (!g_file_get_contents (SRCDIR "/files/cacert.org.cer", &contents, &len, NULL))
+		g_assert_not_reached ();
+	bytes = g_bytes_new_take (contents, len);
+	g_signal_connect (parser, "parsed", G_CALLBACK (on_parsed_compare_bytes), bytes);
+
+	result = gcr_parser_parse_stream (parser, G_INPUT_STREAM (fis), NULL, &error);
+	g_assert_no_error (error);
+	g_assert (result);
+
+	g_bytes_unref (bytes);
+	g_object_unref (fis);
+	g_object_unref (file);
+	g_object_unref (parser);
+}
+
 
 int
 main (int argc, char **argv)
@@ -250,6 +335,8 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/gcr/parser/parse_null", test_parse_null);
 	g_test_add_func ("/gcr/parser/parse_empty", test_parse_empty);
+	g_test_add_func ("/gcr/parser/parse_stream", test_parse_stream);
+	g_test_add_func ("/gcr/parser/parsed_bytes", test_parsed_bytes);
 
 	ret = g_test_run ();
 	g_ptr_array_free (strings, TRUE);

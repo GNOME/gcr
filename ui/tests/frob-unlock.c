@@ -50,6 +50,16 @@ on_parser_parsed (GcrParser *parser, gpointer unused)
 }
 
 static void
+on_unlock_clicked (GcrUnlockRenderer *renderer,
+                   GcrParser *parser)
+{
+	const gchar *password;
+	password = _gcr_unlock_renderer_get_password (renderer);
+	gcr_parser_add_password (parser, password);
+	gtk_main_quit ();
+}
+
+static void
 on_parser_authenticate (GcrParser *parser,
                         gint count,
                         gpointer user_data)
@@ -61,6 +71,7 @@ on_parser_authenticate (GcrParser *parser,
 	g_object_ref_sink (window);
 
 	renderer = _gcr_unlock_renderer_new_for_parsed (parser);
+	g_signal_connect (renderer, "unlock-clicked", G_CALLBACK (on_unlock_clicked), parser);
 	gcr_viewer_add_renderer (gcr_viewer_window_get_viewer (GCR_VIEWER_WINDOW (window)), GCR_RENDERER (renderer));
 	g_object_unref (renderer);
 
@@ -73,7 +84,6 @@ on_parser_authenticate (GcrParser *parser,
 	gtk_main ();
 
 	g_object_unref (window);
-
 }
 
 static void

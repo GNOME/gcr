@@ -68,7 +68,7 @@ main (int argc, char *argv[])
 	g_signal_connect (parser, "parsed", G_CALLBACK (on_parser_parsed), collection);
 
 	if (argc == 1) {
-		add_to_selector (parser, "files/ca-certificates.crt");
+		add_to_selector (parser, SRCDIR "/files/ca-certificates.crt");
 	} else {
 		for (i = 1; i < argc; ++i)
 			add_to_selector (parser, argv[i]);

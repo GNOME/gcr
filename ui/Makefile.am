@@ -146,9 +146,9 @@ gcr-enum-types.c: $(ENUM_TEMPLATE_C) $(HEADER_FILES)
 	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
 gcr-ui-$(GCR_MAJOR).pc: gcr-ui.pc
-	cp gcr-ui.pc gcr-ui-$(GCR_MAJOR).pc
+	$(AM_V_GEN) cp gcr-ui.pc gcr-ui-$(GCR_MAJOR).pc
 gcr-$(GCR_MAJOR).pc: gcr.pc
-	cp gcr.pc gcr-$(GCR_MAJOR).pc
+	$(AM_V_GEN) cp gcr.pc gcr-$(GCR_MAJOR).pc
 
 if HAVE_INTROSPECTION
 

@@ -154,9 +154,9 @@ gcr-marshal.c: gcr-marshal.list $(GLIB_GENMARSHAL)
 		$(GLIB_GENMARSHAL) $< --body --prefix=_gcr_marshal >> $@ )
 
 gcr-enum-types-base.h: $(ENUM_TEMPLATE_H) $(HEADER_FILES)
-	$(GLIB_MKENUMS) --template $^ > $@
+	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 gcr-enum-types-base.c: $(ENUM_TEMPLATE_C) $(HEADER_FILES)
-	$(GLIB_MKENUMS) --template $^ > $@
+	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
 # $(AM_V_GEN) 
 
@@ -179,7 +179,7 @@ pkgconfig_DATA = \
 	gcr-base-$(GCR_MAJOR).pc
 
 gcr-base-$(GCR_MAJOR).pc: gcr-base.pc
-	cp gcr-base.pc gcr-base-$(GCR_MAJOR).pc
+	$(AM_V_GEN) cp gcr-base.pc gcr-base-$(GCR_MAJOR).pc
 
 service_in_files = \
 	org.gnome.keyring.SystemPrompter.service.in \

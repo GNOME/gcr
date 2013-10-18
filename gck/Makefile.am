@@ -88,17 +88,17 @@ libgck_testable_la_LIBADD = $(libgck_@GCK_MAJOR@_la_OBJECTS) \
 libgck_testable_la_DEPENDENCIES = $(libgck_@GCK_MAJOR@_la_OBJECTS)
 
 gck-marshal.h: gck-marshal.list $(GLIB_GENMARSHAL)
-	$(GLIB_GENMARSHAL) $< --header --prefix=_gck_marshal > $@
+	$(AM_V_GEN) $(GLIB_GENMARSHAL) $< --header --prefix=_gck_marshal > $@
 
 gck-marshal.c: gck-marshal.list $(GLIB_GENMARSHAL)
-	echo "#include \"gck-marshal.h\"" > $@ && \
-	$(GLIB_GENMARSHAL) $< --body --prefix=_gck_marshal >> $@
+	$(AM_V_GEN) echo "#include \"gck-marshal.h\"" > $@ && \
+		$(GLIB_GENMARSHAL) $< --body --prefix=_gck_marshal >> $@
 
 gck-enum-types.h: $(ENUM_TEMPLATE_H) $(HEADER_FILES)
-	$(GLIB_MKENUMS) --template $^ > $@
+	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
 gck-enum-types.c: $(ENUM_TEMPLATE_C) $(HEADER_FILES)
-	$(GLIB_MKENUMS) --template $^ > $@
+	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
 EXTRA_DIST = \
 	gck.pc.in \

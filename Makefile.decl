@@ -17,7 +17,7 @@ perform-memcheck: $(TEST_PROGS)
 
 V_SED = $(V_SED_$(V))
 V_SED_ = $(V_SED_$(AM_DEFAULT_VERBOSITY))
-V_SED_0 = @echo "  SED  " $@;
+V_SED_0 = @echo "  SED     " $@;
 
 SED_SUBST = sed \
 	-e 's,[@]datadir[@],$(datadir),g' \

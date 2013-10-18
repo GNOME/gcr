@@ -292,6 +292,12 @@ on_run_complete (GObject *source,
 	g_main_loop_quit (closure->loop);
 }
 
+/**
+ * gcr_prompt_reset:
+ * @prompt: the prompt
+ *
+ * Reset the contents and properties of the prompt.
+ */
 void
 gcr_prompt_reset (GcrPrompt *prompt)
 {
@@ -942,7 +948,7 @@ gcr_prompt_confirm_async (GcrPrompt *prompt,
  *
  * Complete an operation to prompt for confirmation.
  *
- * %GCR_PROMPT_REPLY_OK will be returned if the user confirms the prompt. The
+ * %GCR_PROMPT_REPLY_CONTINUE will be returned if the user confirms the prompt. The
  * return value will also be %GCR_PROMPT_REPLY_CANCEL if the user cancels or if
  * an error occurs. Check the @error argument to tell the difference.
  *
@@ -977,7 +983,7 @@ gcr_prompt_confirm_finish (GcrPrompt *prompt,
  *
  * This method will block until the a response is returned from the prompter.
  *
- * %GCR_PROMPT_REPLY_OK will be returned if the user confirms the prompt. The
+ * %GCR_PROMPT_REPLY_CONTINUE will be returned if the user confirms the prompt. The
  * return value will also be %GCR_PROMPT_REPLY_CANCEL if the user cancels or if
  * an error occurs. Check the @error argument to tell the difference.
  *
@@ -1021,7 +1027,7 @@ gcr_prompt_confirm (GcrPrompt *prompt,
  * and will run a main loop similar to a gtk_dialog_run(). The application
  * will remain responsive but care must be taken to handle reentrancy issues.
  *
- * %GCR_PROMPT_REPLY_OK will be returned if the user confirms the prompt. The
+ * %GCR_PROMPT_REPLY_CONTINUE will be returned if the user confirms the prompt. The
  * return value will also be %GCR_PROMPT_REPLY_CANCEL if the user cancels or if
  * an error occurs. Check the @error argument to tell the difference.
  *

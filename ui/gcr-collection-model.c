@@ -1386,6 +1386,13 @@ gcr_collection_model_get_collection (GcrCollectionModel *self)
 	return self->pv->collection;
 }
 
+/**
+ * gcr_collection_model_set_collection:
+ * @self: a collection model
+ * @collection: (allow-none): the collection or %NULL
+ *
+ * Set the collection which this model represents
+ */
 void
 gcr_collection_model_set_collection (GcrCollectionModel *self,
                                      GcrCollection *collection)

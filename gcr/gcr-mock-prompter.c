@@ -1042,6 +1042,11 @@ gcr_mock_prompter_start (void)
 	return g_dbus_connection_get_unique_name (running->connection);
 }
 
+/**
+ * gcr_mock_prompter_disconnect:
+ *
+ * Disconnect the mock prompter
+ */
 void
 gcr_mock_prompter_disconnect (void)
 {

@@ -59,7 +59,7 @@
  * connected to. Data is then fed to the parser via gcr_parser_parse_data()
  * or gcr_parser_parse_stream().
  *
- * During the #GcrParsed::parsed signal the attributes that make up the currently
+ * During the #GcrParser::parsed signal the attributes that make up the currently
  * parsed item can be retrieved using the gcr_parser_get_parsed_attributes()
  * function.
  */

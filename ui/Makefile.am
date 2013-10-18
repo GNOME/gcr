@@ -7,7 +7,7 @@ incdir = $(includedir)/gcr-@GCR_MAJOR@/ui
 EXTRA_DIST = 
 CLEANFILES =
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-I$(top_builddir) \
 	-I$(top_srcdir) \
 	$(GLIB_CFLAGS) \

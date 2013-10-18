@@ -15,7 +15,7 @@ inc_HEADERS = \
 	pkcs11n.h \
 	pkcs11x.h
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/gcr \
 	-I$(top_srcdir) \

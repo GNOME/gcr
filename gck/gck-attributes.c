@@ -2146,7 +2146,7 @@ gck_attributes_find (GckAttributes *attrs,
  * gck_attributes_find_boolean:
  * @attrs: The attributes array to search.
  * @attr_type: The type of attribute to find.
- * @value: The resulting gboolean value.
+ * @value: (out): The resulting gboolean value.
  *
  * Find an attribute with the specified type in the array.
  *
@@ -2168,7 +2168,7 @@ gck_attributes_find_boolean (GckAttributes *attrs, gulong attr_type, gboolean *v
  * gck_attributes_find_ulong:
  * @attrs: The attributes array to search.
  * @attr_type: The type of attribute to find.
- * @value: The resulting gulong value.
+ * @value: (out): The resulting gulong value.
  *
  * Find an attribute with the specified type in the array.
  *
@@ -2190,7 +2190,7 @@ gck_attributes_find_ulong (GckAttributes *attrs, gulong attr_type, gulong *value
  * gck_attributes_find_string:
  * @attrs: The attributes array to search.
  * @attr_type: The type of attribute to find.
- * @value: The resulting string value.
+ * @value: (out): The resulting string value.
  *
  * Find an attribute with the specified type in the array.
  *
@@ -2212,7 +2212,7 @@ gck_attributes_find_string (GckAttributes *attrs, gulong attr_type, gchar **valu
  * gck_attributes_find_date:
  * @attrs: The attributes array to search.
  * @attr_type: The type of attribute to find.
- * @value: The resulting GDate value.
+ * @value: (out): The resulting GDate value.
  *
  * Find an attribute with the specified type in the array.
  *

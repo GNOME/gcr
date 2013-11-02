@@ -1004,8 +1004,8 @@ gcr_certificate_get_icon (GcrCertificate *self)
 /**
  * gcr_certificate_get_basic_constraints:
  * @self: the certificate
- * @is_ca: (allow-none): location to place a %TRUE if is an authority
- * @path_len: (allow-none): location to place the max path length
+ * @is_ca: (out) (allow-none): location to place a %TRUE if is an authority
+ * @path_len: (out) (allow-none): location to place the max path length
  *
  * Get the basic constraints for the certificate if present. If %FALSE is
  * returned then no basic constraints are present and the @is_ca and

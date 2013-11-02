@@ -1,2 +1,4 @@
 // Metadata file for Vala API generation.
 // See https://live.gnome.org/Vala/UpstreamGuide for more information
+
+mechanisms_check skip=false

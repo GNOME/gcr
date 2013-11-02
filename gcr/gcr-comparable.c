@@ -42,52 +42,20 @@
 
 /**
  * GcrComparableIface:
+ * @parent: type interface
  *
  * The interface to implement for #GcrComparable
  */
 
-/* ---------------------------------------------------------------------------------
- * INTERFACE
- */
+typedef GcrComparableIface GcrComparableInterface;
+G_DEFINE_INTERFACE (GcrComparable, gcr_comparable, G_TYPE_OBJECT);
 
 static void
-gcr_comparable_base_init (gpointer g_class)
+gcr_comparable_default_init (GcrComparableIface *iface)
 {
-	static volatile gsize initialized = 0;
 
-	if (g_once_init_enter (&initialized)) {
-		/* Add properties and signals to the interface */
-		g_once_init_leave (&initialized, 1);
-	}
 }
 
-GType
-gcr_comparable_get_type (void)
-{
-	static GType type = 0;
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (GcrComparableIface),
-			gcr_comparable_base_init,               /* base init */
-			NULL,             /* base finalize */
-			NULL,             /* class_init */
-			NULL,             /* class finalize */
-			NULL,             /* class data */
-			0,
-			0,                /* n_preallocs */
-			NULL,             /* instance init */
-		};
-		type = g_type_register_static (G_TYPE_INTERFACE, "GcrComparableIface", &info, 0);
-		g_type_interface_add_prerequisite (type, G_TYPE_OBJECT);
-	}
-
-	return type;
-}
-
-
-/* -----------------------------------------------------------------------------
- * PUBLIC
- */
 
 /**
  * gcr_comparable_compare:

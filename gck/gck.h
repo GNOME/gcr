@@ -100,7 +100,7 @@ struct _GckAttribute {
 	gulong length;
 };
 
-#define GCK_INVALID G_MAXULONG
+#define GCK_INVALID ((gulong)-1)
 
 gboolean            gck_value_to_ulong                      (const guchar *value,
                                                              gsize length,

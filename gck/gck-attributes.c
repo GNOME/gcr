@@ -1380,7 +1380,7 @@ gck_builder_clear (GckBuilder *builder)
  * GckAttribute:
  * @type: The attribute type, such as CKA_LABEL.
  * @value: (array length=length): The value of the attribute. May be NULL.
- * @length: The length of the attribute. May be G_MAXULONG if the attribute is invalid.
+ * @length: The length of the attribute. May be GCK_INVALID if the attribute is invalid.
  *
  * This structure represents a PKCS11 CK_ATTRIBUTE.
  */

@@ -908,7 +908,7 @@ gck_builder_add_only (GckBuilder *builder,
 }
 
 /**
- * gck_builder_add_onlyv:
+ * gck_builder_add_onlyv: (rename-to gck_builder_add_only)
  * @builder: the builder
  * @attrs: the attributes to add
  * @only_types: (array length=n_only_types): the types of attributes to add
@@ -926,8 +926,6 @@ gck_builder_add_only (GckBuilder *builder,
  *
  * As an optimization, the attribute memory values are automatically shared
  * between the attributes and the builder.
- *
- * Rename to: gck_builder_add_only
  */
 void
 gck_builder_add_onlyv (GckBuilder *builder,

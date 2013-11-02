@@ -160,11 +160,13 @@ gck-$(GCK_MAJOR).deps: Makefile.am
 
 vapidir = $(datadir)/vala/vapi
 vapi_DATA = \
+	pkcs11.vapi \
 	$(VAPIGEN_VAPIS) \
 	$(VAPI_DEPS)
 
 EXTRA_DIST += \
-	Gck-@GCK_MAJOR@.metadata
+	Gck-@GCK_MAJOR@.metadata \
+	pkcs11.vapi
 
 CLEANFILES += \
 	$(VAPIGEN_VAPIS) \

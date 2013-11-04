@@ -8,3 +8,5 @@ Certificate
 	.subject nullable=true
 	.issuer nullable=true
 	.expiry nullable=true
+Comparable
+	.memcmp skip=false

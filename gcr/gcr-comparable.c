@@ -60,7 +60,7 @@ gcr_comparable_default_init (GcrComparableIface *iface)
 /**
  * gcr_comparable_compare:
  * @self: The comparable object
- * @other: Another comparable object
+ * @other: (allow-none): Another comparable object
  *
  * Compare whether two objects represent the same thing. The return value can
  * also be used to sort the objects.
@@ -78,19 +78,22 @@ gcr_comparable_compare (GcrComparable *self, GcrComparable *other)
 
 /**
  * gcr_comparable_memcmp: (skip)
- * @mem1: First block of memory
+ * @mem1: (array length=size1) (element-type guint8): First block of memory
  * @size1: Length of first block
- * @mem2: Second lock of memory
+ * @mem2: (array length=size2) (element-type guint8): Second block of memory
  * @size2: Length of second block
  *
  * Compare two blocks of memory. The return value can be used to sort
  * the blocks of memory.
  *
- * Returns: Zero if the blocks are identical, non-zero if not.
+ * Returns: Zero if the blocks are identical, negative if first
+ *          less than secend, possitive otherwise.
  */
 gint
-gcr_comparable_memcmp (gconstpointer mem1, gsize size1,
-                       gconstpointer mem2, gsize size2)
+gcr_comparable_memcmp (gconstpointer mem1,
+                       gsize size1,
+                       gconstpointer mem2,
+                       gsize size2)
 {
 	gint result;
 

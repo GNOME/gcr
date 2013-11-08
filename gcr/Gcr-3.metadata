@@ -2,7 +2,6 @@
 // See https://live.gnome.org/Vala/UpstreamGuide for more information
 
 Certificate
-	.get_der_data#virtual_method name="provide_der_data"
 	.label nullable=true
 	.markup nullable=true
 	.subject nullable=true

@@ -398,9 +398,9 @@ gcr_certificate_compare (GcrComparable *first, GcrComparable *other)
  *
  * Gets the raw DER data for an X.509 certificate.
  *
- * Returns: (array length=n_data): raw DER data of the X.509 certificate
+ * Returns: (transfer none) (array length=n_data): raw DER data of the X.509 certificate
  **/
-const guchar *
+const guint8 *
 gcr_certificate_get_der_data (GcrCertificate *self,
                               gsize *n_data)
 {

@@ -4,6 +4,13 @@ AC_INIT([gcr], [3.10.0],
         [gcr])
 
 dnl ****************************************************************************
+dnl Dependency versions
+
+GLIB_REQ=2.32.0
+GLIB_MIN=GLIB_VERSION_2_32
+GLIB_MAX=GLIB_VERSION_2_34
+
+dnl ****************************************************************************
 dnl Library package and libtool versioning
 dnl
 dnl Updating the libtool versions, follow these instructions sequentially:
@@ -66,11 +73,13 @@ AM_GLIB_GNU_GETTEXT
 # GLib and GTK+ stuff
 
 PKG_CHECK_MODULES(GLIB,
-	glib-2.0 >= 2.32.0
+	glib-2.0 >= $GLIB_MIN
 	gmodule-no-export-2.0
 	gthread-2.0
 	gobject-2.0
 	gio-2.0 gio-unix-2.0)
+GLIB_CFLAGS="$GLIB_CFLAGS -DGLIB_VERSION_MIN_REQUIRED=$GLIB_MIN"
+GLIB_CFLAGS="$GLIB_CFLAGS -DGLIB_VERSION_MAX_ALLOWED=$GLIB_MAX"
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 

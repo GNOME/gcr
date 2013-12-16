@@ -27,6 +27,8 @@ G_BEGIN_DECLS
 #define GCR_UNLOCK_OPTION_TIMEOUT   "timeout"
 #define GCR_UNLOCK_OPTION_IDLE      "idle"
 
+/* Delete this line when https://bugzilla.gnome.org/show_bug.cgi?id=720504 is fixed */;
+
 G_END_DECLS
 
 #endif /* __GCR_UNLOCK_OPTIONS_H__ */

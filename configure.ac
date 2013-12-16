@@ -365,7 +365,10 @@ AC_SUBST(VALGRIND_RUN)
 
 # Build valgrind support into code
 if test "$enable_valgrind" = "yes"; then
+	CPPFLAGS_saved="$CPPFLAGS"
+	CPPFLAGS="$CPPFLAGS -I${srcdir}/build"
 	AC_CHECK_HEADER([valgrind/valgrind.h], have_valgrind=yes, have_valgrind=no)
+	CPPFLAGS="$CPPFLAGS_saved"
 	if test "$have_valgrind" = "no"; then
 		AC_MSG_ERROR(The valgrind headers are missing)
 	fi

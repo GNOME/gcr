@@ -73,7 +73,7 @@ AM_GLIB_GNU_GETTEXT
 # GLib and GTK+ stuff
 
 PKG_CHECK_MODULES(GLIB,
-	glib-2.0 >= $GLIB_MIN
+	glib-2.0 >= $GLIB_REQ
 	gmodule-no-export-2.0
 	gthread-2.0
 	gobject-2.0

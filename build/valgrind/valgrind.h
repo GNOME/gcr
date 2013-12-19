@@ -475,7 +475,7 @@ typedef
                      "mr %0,3"     /*result*/                     \
                      : "=b" (_zzq_result)                         \
                      : "b" (_zzq_default), "b" (_zzq_ptr)         \
-                     : "cc", "memory", "r3", "r4");               \
+                     : "cc", "memory", "r3", "r4", "r0");         \
     _zzq_result;                                                  \
     })
 
@@ -488,7 +488,7 @@ typedef
                      "mr %0,3"                                    \
                      : "=b" (__addr)                              \
                      :                                            \
-                     : "cc", "memory", "r3"                       \
+                     : "cc", "memory", "r3", "r0"                 \
                     );                                            \
     _zzq_orig->nraddr = __addr;                                   \
   }
@@ -545,7 +545,7 @@ typedef
                      "mr %0,3"     /*result*/                     \
                      : "=b" (_zzq_result)                         \
                      : "b" (_zzq_default), "b" (_zzq_ptr)         \
-                     : "cc", "memory", "r3", "r4");               \
+                     : "cc", "memory", "r3", "r4", "r0");         \
     _zzq_result;                                                  \
   })
 
@@ -558,7 +558,7 @@ typedef
                      "mr %0,3"                                    \
                      : "=b" (__addr)                              \
                      :                                            \
-                     : "cc", "memory", "r3"                       \
+                     : "cc", "memory", "r3", "r0"                 \
                     );                                            \
     _zzq_orig->nraddr = __addr;                                   \
     __asm__ volatile(__SPECIAL_INSTRUCTION_PREAMBLE               \
@@ -567,7 +567,7 @@ typedef
                      "mr %0,3"                                    \
                      : "=b" (__addr)                              \
                      :                                            \
-                     : "cc", "memory", "r3"                       \
+                     : "cc", "memory", "r3", "r0"                 \
                     );                                            \
     _zzq_orig->r2 = __addr;                                       \
   }

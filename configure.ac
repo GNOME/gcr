@@ -334,34 +334,11 @@ AM_CONDITIONAL([WITH_COVERAGE], [test "$enable_coverage" = "yes"])
 AC_MSG_RESULT($enable_coverage)
 
 AC_ARG_ENABLE(valgrind,
-	AC_HELP_STRING([--enable-valgrind[=@<:@yes/no/run@:>@]],
+	AC_HELP_STRING([--enable-valgrind[=@<:@yes/no@:>@]],
 	[Run gcr using valgrind]), ,enable_valgrind=yes)
 
 AC_MSG_CHECKING([valgrind])
 valgrind_status="yes"
-
-AM_CONDITIONAL(WITH_VALGRIND, test "$enable_valgrind" = "run")
-
-# Run gnome-keyring-daemon under valgrind as default
-if test "$enable_valgrind" = "run"; then
-	AC_PATH_PROG(VALGRIND, valgrind, no)
-	if test "$VALGRIND" = "no" ; then
-		AC_MSG_ERROR(valgrind tool is not installed)
-	fi
-
-	VALGRIND_ARG="--log-file=/tmp/gkr-valgrind.log.%p"
-	VALGRIND_RUN="$VALGRIND $VALGRIND_ARG "
-
-	AC_DEFINE_UNQUOTED(VALGRIND, "$VALGRIND", [Path to valgrind executable])
-	AC_DEFINE_UNQUOTED(VALGRIND_ARG, "$VALGRIND_ARG", [Valgrind arguments])
-
-	enable_valgrind="yes"
-	valgrind_status="run"
-fi
-
-AC_SUBST(VALGRIND)
-AC_SUBST(VALGRIND_ARG)
-AC_SUBST(VALGRIND_RUN)
 
 # Build valgrind support into code
 if test "$enable_valgrind" = "yes"; then

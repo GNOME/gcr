@@ -43,6 +43,7 @@
 /**
  * GcrComparableIface:
  * @parent: type interface
+ * @compare: Compare whether tow objects represent the same thing.
  *
  * The interface to implement for #GcrComparable
  */

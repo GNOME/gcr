@@ -525,8 +525,8 @@ _gcr_live_search_init (GcrLiveSearch *self)
 	gtk_widget_set_no_show_all (GTK_WIDGET (self), TRUE);
 
 	self->pv->search_entry = gtk_entry_new ();
-	gtk_entry_set_icon_from_stock (GTK_ENTRY (self->pv->search_entry),
-	                               GTK_ENTRY_ICON_SECONDARY, GTK_STOCK_CLOSE);
+	gtk_entry_set_icon_from_icon_name (GTK_ENTRY (self->pv->search_entry),
+	                                   GTK_ENTRY_ICON_SECONDARY, "window-close");
 	gtk_entry_set_icon_activatable (GTK_ENTRY (self->pv->search_entry),
 	                                GTK_ENTRY_ICON_SECONDARY, TRUE);
 	gtk_entry_set_icon_sensitive (GTK_ENTRY (self->pv->search_entry),

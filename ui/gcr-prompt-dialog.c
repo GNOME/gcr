@@ -501,10 +501,12 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	G_OBJECT_CLASS (gcr_prompt_dialog_parent_class)->constructed (obj);
 
 	dialog = GTK_DIALOG (self);
-	button = gtk_dialog_add_button (dialog, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	button = gtk_dialog_add_button (dialog, _("_Cancel"), GTK_RESPONSE_CANCEL);
 	g_object_bind_property (self, "cancel-label", button, "label", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
-	button = gtk_dialog_add_button (dialog, GTK_STOCK_OK, GTK_RESPONSE_OK);
+	gtk_button_set_use_underline (GTK_BUTTON (button), TRUE);
+	button = gtk_dialog_add_button (dialog, _("_OK"), GTK_RESPONSE_OK);
 	g_object_bind_property (self, "continue-label", button, "label", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+	gtk_button_set_use_underline (GTK_BUTTON (button), TRUE);
 	self->pv->continue_button = button;
 
 	gtk_window_set_type_hint (GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_NORMAL);
@@ -522,8 +524,7 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	gtk_grid_set_row_spacing (grid, 6);
 
 	/* The prompt image */
-	self->pv->image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_AUTHENTICATION,
-	                                            GTK_ICON_SIZE_DIALOG);
+	self->pv->image = gtk_image_new_from_icon_name ("dialog-password", GTK_ICON_SIZE_DIALOG);
 	gtk_widget_set_valign (self->pv->image, GTK_ALIGN_START);
 	gtk_grid_attach (grid, self->pv->image, -1, 0, 1, 4);
 	gtk_widget_show (self->pv->image);
@@ -851,9 +852,8 @@ gcr_prompt_dialog_password_async (GcrPrompt *prompt,
 		return;
 	}
 
-	gtk_image_set_from_stock (GTK_IMAGE (self->pv->image),
-	                          GTK_STOCK_DIALOG_AUTHENTICATION,
-	                          GTK_ICON_SIZE_DIALOG);
+	gtk_image_set_from_icon_name (GTK_IMAGE (self->pv->image),
+	                              "dialog-password", GTK_ICON_SIZE_DIALOG);
 	gtk_widget_set_sensitive (self->pv->continue_button, TRUE);
 	gtk_widget_set_sensitive (self->pv->widget_grid, TRUE);
 	gtk_widget_hide (self->pv->spinner);
@@ -912,9 +912,8 @@ gcr_prompt_dialog_confirm_async (GcrPrompt *prompt,
 		return;
 	}
 
-	gtk_image_set_from_stock (GTK_IMAGE (self->pv->image),
-	                          GTK_STOCK_DIALOG_QUESTION,
-	                          GTK_ICON_SIZE_DIALOG);
+	gtk_image_set_from_icon_name (GTK_IMAGE (self->pv->image),
+	                              "dialog-question", GTK_ICON_SIZE_DIALOG);
 	gtk_widget_set_sensitive (self->pv->continue_button, TRUE);
 	gtk_widget_set_sensitive (self->pv->widget_grid, TRUE);
 	gtk_widget_hide (self->pv->spinner);

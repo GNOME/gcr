@@ -227,7 +227,7 @@ on_create_file_ready (GObject *source, GAsyncResult *res, gpointer user_data)
 		     _("A file already exists with this name."),
 		     _("Do you want to replace it with a new file?"));
 		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-		                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+		                        _("_Cancel"), GTK_RESPONSE_CANCEL,
 		                        _("_Replace"), GTK_RESPONSE_ACCEPT, NULL);
 
 		g_signal_connect (dialog, "response",
@@ -304,8 +304,8 @@ exporter_display_chooser (GcrCertificateExporter *self)
 
 	dialog = gtk_file_chooser_dialog_new (_("Export certificate"),
 	                     NULL, GTK_FILE_CHOOSER_ACTION_SAVE,
-	                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-	                     GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+	                     _("_Cancel"), GTK_RESPONSE_CANCEL,
+	                     _("_Save"), GTK_RESPONSE_ACCEPT,
 	                     NULL);
 
 	self->pv->chooser_dialog = g_object_ref_sink(dialog);

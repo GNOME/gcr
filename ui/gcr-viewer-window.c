@@ -114,7 +114,7 @@ gcr_viewer_window_constructed (GObject *obj)
 	                         self, 0);
 	gtk_widget_show (GTK_WIDGET (self->pv->import));
 
-	button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
+	button = gtk_button_new_with_mnemonic (_("_Close"));
 	g_signal_connect_object  (button, "clicked",
 	                          G_CALLBACK (on_close_clicked),
 	                          self, 0);

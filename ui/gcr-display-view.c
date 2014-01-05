@@ -1129,7 +1129,7 @@ _gcr_display_view_append_message (GcrDisplayView *self,
                                   GtkMessageType message_type,
                                   const gchar *message)
 {
-	const gchar *stock_id = NULL;
+	const gchar *name = NULL;
 	GtkWidget *image = NULL;
 	GcrDisplayItem *item;
 	GtkTextChildAnchor *anchor;
@@ -1143,19 +1143,19 @@ _gcr_display_view_append_message (GcrDisplayView *self,
 
 	switch (message_type) {
 	case GTK_MESSAGE_INFO:
-		stock_id = GTK_STOCK_DIALOG_INFO;
+		name = "dialog-information";
 		break;
 
 	case GTK_MESSAGE_QUESTION:
-		stock_id = GTK_STOCK_DIALOG_QUESTION;
+		name = "dialog-question";
 		break;
 
 	case GTK_MESSAGE_WARNING:
-		stock_id = GTK_STOCK_DIALOG_WARNING;
+		name = "dialog-warning";
 		break;
 
 	case GTK_MESSAGE_ERROR:
-		stock_id = GTK_STOCK_DIALOG_ERROR;
+		name = "dialog-error";
 		break;
 
 	case GTK_MESSAGE_OTHER:
@@ -1168,8 +1168,8 @@ _gcr_display_view_append_message (GcrDisplayView *self,
 
 	gtk_text_buffer_get_iter_at_mark (self->pv->buffer, &iter, item->ending);
 
-	if (stock_id != NULL) {
-		image = gtk_image_new_from_stock (stock_id, GTK_ICON_SIZE_MENU);
+	if (name != NULL) {
+		image = gtk_image_new_from_icon_name (name, GTK_ICON_SIZE_MENU);
 		gtk_misc_set_padding (GTK_MISC (image), MESSAGE_PADDING, 0);
 		gtk_widget_show (image);
 

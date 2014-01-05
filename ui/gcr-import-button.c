@@ -28,6 +28,7 @@
 #include "gcr/gcr-marshal.h"
 #include "gcr/gcr-parser.h"
 
+#include "eggimagemenuitem.h"
 #include "gcr-import-button.h"
 #include "gcr-pkcs11-import-interaction.h"
 
@@ -372,12 +373,12 @@ update_importer_menu (GcrImportButton *self)
 
 	for (l = self->pv->importers; l != NULL; l = g_list_next (l)) {
 		g_object_get (l->data, "label", &label, "icon", &icon, NULL);
-		menu_item = gtk_image_menu_item_new_with_label (label);
+		menu_item = egg_image_menu_item_new_with_label (label);
 		g_signal_connect (menu_item, "activate", G_CALLBACK (on_importer_menu_activated), self);
 		g_object_set_qdata (G_OBJECT (menu_item), QUARK_IMPORTER, l->data);
 		image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
-		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), image);
-		gtk_image_menu_item_set_always_show_image (GTK_IMAGE_MENU_ITEM (menu_item), TRUE);
+		egg_image_menu_item_set_image (EGG_IMAGE_MENU_ITEM (menu_item), image);
+		egg_image_menu_item_set_always_show_image (EGG_IMAGE_MENU_ITEM (menu_item), TRUE);
 		gtk_widget_show (image);
 		gtk_widget_show (menu_item);
 		gtk_container_add (GTK_CONTAINER (self->pv->menu), menu_item);

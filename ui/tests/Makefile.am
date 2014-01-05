@@ -28,6 +28,7 @@ noinst_PROGRAMS = \
 	frob-certificate \
 	frob-combo-selector \
 	frob-gnupg-selector \
+	frob-import-button \
 	frob-key \
 	frob-tree-selector \
 	frob-prompt \

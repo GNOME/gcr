@@ -59,6 +59,7 @@ EXTRA_HFILES=$(top_srcdir)/ui/*.h
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h
 IGNORE_HFILES= \
 	console-interaction.h \
+	eggimagemenuitem.h \
 	gcr-callback-output-stream.h \
 	gcr-certificate-exporter.h \
 	gcr-certificate-basics-widget.h \

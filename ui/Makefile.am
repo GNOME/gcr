@@ -113,6 +113,7 @@ PUBLIC_FILES = \
 	$(NULL)
 
 PRIVATE_FILES = \
+	eggimagemenuitem.c eggimagemenuitem.h \
 	gcr-certificate-basics-widget.c gcr-certificate-basics-widget.h \
 	gcr-certificate-details-widget.c gcr-certificate-details-widget.h \
 	gcr-certificate-exporter.c gcr-certificate-exporter.h \

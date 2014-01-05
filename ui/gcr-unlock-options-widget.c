@@ -482,8 +482,8 @@ gcr_unlock_options_widget_get_sensitive (GcrUnlockOptionsWidget *self, const gch
 	g_return_val_if_fail (option, FALSE);
 
 	button = widget_button_for_option (self, option);
-	state = gtk_widget_get_state (GTK_WIDGET (button));
-	return (state & GTK_STATE_INSENSITIVE) != GTK_STATE_INSENSITIVE;
+	state = gtk_widget_get_state_flags (GTK_WIDGET (button));
+	return (state & GTK_STATE_FLAG_INSENSITIVE) != GTK_STATE_FLAG_INSENSITIVE;
 }
 
 /**

@@ -140,6 +140,8 @@ gcr_importer_default_init (GcrImporterIface *iface)
  * @attrs: the attributes that this importer is compatible with
  *
  * Register an importer to handle parsed items that match the given attributes.
+ *
+ * If @attrs are a floating reference, then it is consumed.
  */
 void
 gcr_importer_register (GType importer_type,
@@ -151,7 +153,7 @@ gcr_importer_register (GType importer_type,
 		registered_importers = g_array_new (FALSE, FALSE, sizeof (GcrRegistered));
 
 	registered.importer_type = importer_type;
-	registered.attrs = gck_attributes_ref (attrs);
+	registered.attrs = gck_attributes_ref_sink (attrs);
 	g_array_append_val (registered_importers, registered);
 	registered_sorted = FALSE;
 }
@@ -252,7 +254,8 @@ gcr_importer_create_for_parsed (GcrParsed *parsed)
 
 		if (_gcr_debugging) {
 			gchar *a = gck_attributes_to_string (registered->attrs);
-			_gcr_debug ("importer %s: %s", matched ? "matched" : "didn't match", a);
+			_gcr_debug ("importer %s %s: %s", g_type_name (registered->importer_type),
+			            matched ? "matched" : "didn't match", a);
 			g_free (a);
 		}
 

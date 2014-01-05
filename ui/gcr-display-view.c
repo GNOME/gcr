@@ -1189,7 +1189,6 @@ _gcr_display_view_set_icon (GcrDisplayView *self, GcrRenderer *renderer, GIcon *
 	GcrDisplayItem *item;
 	GdkScreen *screen;
 	GtkIconTheme *icon_theme;
-	GtkSettings *settings;
 	gint width, height;
 	GtkIconInfo *info;
 
@@ -1206,9 +1205,8 @@ _gcr_display_view_set_icon (GcrDisplayView *self, GcrRenderer *renderer, GIcon *
 
 	screen = gtk_widget_get_screen (GTK_WIDGET (self));
 	icon_theme = gtk_icon_theme_get_for_screen (screen);
-	settings = gtk_settings_get_for_screen (screen);
 
-	if (!gtk_icon_size_lookup_for_settings (settings, GTK_ICON_SIZE_DIALOG, &width, &height))
+	if (!gtk_icon_size_lookup (GTK_ICON_SIZE_DIALOG, &width, &height))
 		g_return_if_reached ();
 
 	info = gtk_icon_theme_lookup_by_gicon (icon_theme, icon, MIN (width, height),

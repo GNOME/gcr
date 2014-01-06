@@ -1,5 +1,5 @@
 # Brazilian Portuguese translation of GNOME Keyring.
-# Copyright (C) 2004-2013 the GNOME Keyring authors.
+# Copyright (C) 2004-2014 the GNOME Keyring authors.
 # This file is distributed under the same license as the gnome-keyring package.
 # Guilherme de S. Pastore <gpastore@gnome.org>, 2004-2005.
 # Leonardo Ferreira Fontenelle <leonardof@gnome.org>, 2006, 2008, 2009.
@@ -13,23 +13,23 @@
 # Felipe Vieira Borges <felipe10borges@gmail.com>, 2010.
 # Rodrigo Padula de Oliveira <contato@rodrigopadula.com>, 2011.
 # Gabriel Speckhahn <gabspeck@gmail.com>, 2011.
-# Rafael Ferreira <rafael.f.f1@gmail.com>, 2012, 2013.
+# Rafael Ferreira <rafael.f.f1@gmail.com>, 2012, 2013, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-09-04 07:11+0000\n"
-"PO-Revision-Date: 2013-09-04 10:46-0300\n"
-"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
+"POT-Creation-Date: 2014-01-05 20:46+0000\n"
+"PO-Revision-Date: 2014-01-05 23:39-0300\n"
+"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.3\n"
 "X-Project-Style: gnome\n"
 
 #: ../egg/egg-oid.c:41
@@ -232,7 +232,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Válido até"
 
-#: ../gcr/gcr-certificate.c:1185 ../gcr/gcr-parser.c:320
+#: ../gcr/gcr-certificate.c:1185 ../gcr/gcr-parser.c:322
 #: ../ui/gcr-certificate-renderer.c:104 ../ui/gcr-certificate-exporter.c:466
 msgid "Certificate"
 msgstr "Certificado"
@@ -301,7 +301,7 @@ msgstr "Chaveiro GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Chaveiro GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:326
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:328
 #: ../ui/gcr-gnupg-renderer.c:89
 msgid "PGP Key"
 msgstr "Chave PGP"
@@ -321,33 +321,33 @@ msgstr "O processo do Gnupg saiu com o código %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "O processo do Gnupg foi finalizado com o sinal %d"
 
-#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2422
-#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:925
+#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2427
+#: ../gcr/gcr-parser.c:3033 ../gcr/gcr-system-prompt.c:925
 msgid "The operation was cancelled"
 msgstr "A operação foi cancelada"
 
-#: ../gcr/gcr-parser.c:317 ../ui/gcr-key-renderer.c:408
+#: ../gcr/gcr-parser.c:319 ../ui/gcr-key-renderer.c:408
 msgid "Private Key"
 msgstr "Chave privada"
 
-#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:883
+#: ../gcr/gcr-parser.c:325 ../ui/gcr-certificate-renderer.c:883
 #: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
 msgid "Public Key"
 msgstr "Chave pública"
 
-#: ../gcr/gcr-parser.c:329
+#: ../gcr/gcr-parser.c:331
 msgid "Certificate Request"
 msgstr "Requisição de certificado"
 
-#: ../gcr/gcr-parser.c:2425
+#: ../gcr/gcr-parser.c:2430
 msgid "Unrecognized or unsupported data."
 msgstr "Dados não reconhecidos ou sem suporte."
 
-#: ../gcr/gcr-parser.c:2428
+#: ../gcr/gcr-parser.c:2433
 msgid "Could not parse invalid or corrupted data."
 msgstr "Não foi possível analisar dados inválidos ou corrompidos."
 
-#: ../gcr/gcr-parser.c:2431
+#: ../gcr/gcr-parser.c:2436
 msgid "The data is locked"
 msgstr "Os dados estão bloqueados"
 
@@ -374,7 +374,7 @@ msgstr "Outro prompt já está em progresso"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:370
+#: ../gcr/gcr-trust.c:368
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr ""
@@ -852,29 +852,29 @@ msgstr "Chave secreta"
 msgid "Secret Subkey"
 msgstr "Sub-chave secreta"
 
-#: ../ui/gcr-import-button.c:112
+#: ../ui/gcr-import-button.c:113
 msgid "Initializing…"
 msgstr "Iniciando…"
 
-#: ../ui/gcr-import-button.c:120
+#: ../ui/gcr-import-button.c:121
 msgid "Import is in progress…"
 msgstr "Importação em progresso…"
 
-#: ../ui/gcr-import-button.c:127
+#: ../ui/gcr-import-button.c:128
 #, c-format
 msgid "Imported to: %s"
 msgstr "Importado em: %s"
 
-#: ../ui/gcr-import-button.c:147
+#: ../ui/gcr-import-button.c:148
 #, c-format
 msgid "Import to: %s"
 msgstr "Importar em: %s"
 
-#: ../ui/gcr-import-button.c:160
+#: ../ui/gcr-import-button.c:161
 msgid "Cannot import because there are no compatible importers"
 msgstr "Não foi possível importar, pois não há importadores compatíveis"
 
-#: ../ui/gcr-import-button.c:169
+#: ../ui/gcr-import-button.c:170
 msgid "No data to import"
 msgstr "Nenhum dado para importar"
 
@@ -918,11 +918,22 @@ msgstr "SHA1"
 msgid "SHA256"
 msgstr "SHA256"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:188
+#. Add our various buttons
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:504
+#: ../ui/gcr-certificate-exporter.c:230 ../ui/gcr-certificate-exporter.c:307
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:118 ../ui/gcr-prompt-dialog.c:507
+msgid "_OK"
+msgstr "_OK"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:191
 msgid "Automatically chosen"
 msgstr "Escolhido automaticamente"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:272
+#: ../ui/gcr-pkcs11-import-dialog.c:275
 #: ../ui/gcr-pkcs11-import-interaction.c:154
 #: ../ui/gcr-pkcs11-import-interaction.c:172
 #, c-format
@@ -934,7 +945,7 @@ msgid "In order to import, please enter the password."
 msgstr "Para importar, por favor digite a senha."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:564
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:565
 msgid "Password:"
 msgstr "Senha:"
 
@@ -942,8 +953,8 @@ msgstr "Senha:"
 msgid "Token:"
 msgstr "Token:"
 
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:72
-#: ../ui/gcr-unlock-renderer.c:127
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:71
+#: ../ui/gcr-unlock-renderer.c:126
 msgid "Unlock"
 msgstr "Desbloquear"
 
@@ -956,15 +967,15 @@ msgid "Import settings"
 msgstr "Configurações de importação"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:581
+#: ../ui/gcr-prompt-dialog.c:582
 msgid "Confirm:"
 msgstr "Confirmar:"
 
-#: ../ui/gcr-prompt-dialog.c:649
+#: ../ui/gcr-prompt-dialog.c:650
 msgid "Passwords do not match."
 msgstr "Senhas não conferem."
 
-#: ../ui/gcr-prompt-dialog.c:656
+#: ../ui/gcr-prompt-dialog.c:657
 msgid "Password cannot be blank"
 msgstr "Senha não pode estar vazia"
 
@@ -986,7 +997,7 @@ msgstr "Deseja substituí-lo por um novo arquivo?"
 
 #: ../ui/gcr-certificate-exporter.c:231
 msgid "_Replace"
-msgstr "_Substituir"
+msgstr "Substitui_r"
 
 #: ../ui/gcr-certificate-exporter.c:261
 #, c-format
@@ -996,6 +1007,10 @@ msgstr "A operação foi cancelada."
 #: ../ui/gcr-certificate-exporter.c:305
 msgid "Export certificate"
 msgstr "Exportar certificado"
+
+#: ../ui/gcr-certificate-exporter.c:308
+msgid "_Save"
+msgstr "_Salvar"
 
 #: ../ui/gcr-certificate-exporter.c:317
 msgid "Certificate files"
@@ -1026,16 +1041,16 @@ msgstr "Bloquear este chaveiro se ocioso por"
 msgid "minutes"
 msgstr "minutos"
 
-#: ../ui/gcr-unlock-renderer.c:70
+#: ../ui/gcr-unlock-renderer.c:69
 #, c-format
 msgid "Unlock: %s"
 msgstr "Desbloquear: %s"
 
-#: ../ui/gcr-unlock-renderer.c:125
+#: ../ui/gcr-unlock-renderer.c:124
 msgid "Password"
 msgstr "Senha"
 
-#: ../ui/gcr-unlock-renderer.c:277
+#: ../ui/gcr-unlock-renderer.c:276
 #, c-format
 msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
@@ -1044,7 +1059,7 @@ msgstr ""
 "O conteúdo de \"%s\" está bloqueado. Para que o conteúdo possa ser "
 "visualizado, digite a senha correta."
 
-#: ../ui/gcr-unlock-renderer.c:280
+#: ../ui/gcr-unlock-renderer.c:279
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
@@ -1068,11 +1083,11 @@ msgstr "[arquivo…]"
 msgid "- View certificate and key files"
 msgstr "- Exibe arquivos de certificado e chave"
 
-#: ../ui/gcr-viewer-tool.c:119 ../ui/gcr-viewer-widget.c:638
+#: ../ui/gcr-viewer-tool.c:119 ../ui/gcr-viewer-widget.c:685
 msgid "Certificate Viewer"
 msgstr "Visualizador de certificados"
 
-#: ../ui/gcr-viewer-widget.c:204
+#: ../ui/gcr-viewer-widget.c:203
 msgid "The password was incorrect"
 msgstr "A senha estava incorreta"
 
@@ -1087,6 +1102,10 @@ msgstr "Falha ao importar"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Importar"
+
+#: ../ui/gcr-viewer-window.c:117
+msgid "_Close"
+msgstr "_Fechar"
 
 #~ msgctxt "Disabled"
 #~ msgid "capability"

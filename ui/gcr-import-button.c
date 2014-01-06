@@ -27,6 +27,7 @@
 #include "gcr/gcr-library.h"
 #include "gcr/gcr-marshal.h"
 #include "gcr/gcr-parser.h"
+#include "gcr/gcr-version.h"
 
 #include "eggimagemenuitem.h"
 #include "gcr-import-button.h"
@@ -87,6 +88,10 @@ enum {
 static guint signals[LAST_SIGNAL] = { 0 };
 
 static GQuark QUARK_IMPORTER = 0;
+
+#if GCR_CHECK_VERSION(4,0,0)
+#error Port this class to derive from GtkMenuButton during 4.x ABI bump
+#endif
 
 G_DEFINE_TYPE (GcrImportButton, gcr_import_button, GTK_TYPE_BUTTON);
 

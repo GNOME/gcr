@@ -16,10 +16,11 @@
  */
 
 /*
- * EggImageMenuItem was was deprecated from GTK+ without a bug containing
- * reasoning or such. Gcr wants to use image menu items in button drop downs
- * using the device icons (for the import button). So just copy it here :(
- * ... with the stock and activatable sutff removed
+ * GtkImageMenuItem was was deprecated from GTK+ and reasoning explained
+ * here: https://docs.google.com/document/d/1KCVPoYQBqMbDP11tHPpjW6uaEHrvLUmcDPqKAppCY8o/pub
+ * Gcr wants to use image menu items in button drop downs using the device icons
+ * (for the import button). So just copy it here with the stock and activatable
+ * sutff removed
  */
 
 /*

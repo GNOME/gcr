@@ -81,6 +81,7 @@ stamp-*
 /gck/*.pc
 /gck/gck-enum-types*
 /gck/gck-marshal.*
+/gck/gck-version.h
 /gck/gck-*.deps
 /gck/gck-*.vapi
 
@@ -89,6 +90,7 @@ stamp-*
 /gcr/gcr-enum-types*
 /gcr/gcr-oids.*
 /gcr/gcr-marshal.*
+/gcr/gcr-version.h
 /gcr/gcr-*.deps
 /gcr/gcr-*.vapi
 

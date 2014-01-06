@@ -59,6 +59,7 @@
 #include <gcr/gcr-trust.h>
 #include <gcr/gcr-union-collection.h>
 #include <gcr/gcr-unlock-options.h>
+#include <gcr/gcr-version.h>
 
 #undef __GCR_INSIDE_HEADER__
 

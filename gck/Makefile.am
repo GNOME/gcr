@@ -11,6 +11,7 @@ HEADER_FILES = \
 inc_HEADERS = \
 	$(HEADER_FILES) \
 	gck-enum-types.h \
+	gck-version.h \
 	pkcs11.h \
 	pkcs11n.h \
 	pkcs11x.h
@@ -47,7 +48,8 @@ PUBLIC_FILES = \
 	gck-password.c \
 	gck-session.c \
 	gck-slot.c \
-	gck-uri.c
+	gck-uri.c \
+	gck-version.h
 
 INTERNAL_FILES = \
 	gck-call.c \
@@ -103,6 +105,7 @@ gck-enum-types.c: $(ENUM_TEMPLATE_C) $(HEADER_FILES)
 EXTRA_DIST = \
 	gck.pc.in \
 	gck-marshal.list \
+	gck-version.h \
 	gck.symbols \
 	pkcs11-trust-assertions.h \
 	pkcs11i.h

@@ -47,7 +47,8 @@ HEADER_FILES = \
 	gcr-trust.h \
 	gcr-types.h \
 	gcr-union-collection.h \
-	gcr-unlock-options.h
+	gcr-unlock-options.h \
+	gcr-version.h
 
 inc_HEADERS = \
 	$(HEADER_FILES) \
@@ -93,6 +94,7 @@ PUBLIC_FILES = \
 	gcr-types.h \
 	gcr-union-collection.c gcr-union-collection.h \
 	gcr-unlock-options.h \
+	gcr-version.h \
 	$(NULL)
 
 PRIVATE_FILES = \
@@ -194,7 +196,8 @@ EXTRA_DIST = \
 	gcr-mkoids \
 	$(DBUS_XML_DEFINITIONS) \
 	gcr-base.symbols \
-	$(service_in_files)
+	$(service_in_files) \
+	gcr-version.h.in
 
 CLEANFILES = \
 	$(BUILT_SOURCES) \

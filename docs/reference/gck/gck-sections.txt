@@ -1,4 +1,13 @@
 <SECTION>
+<TITLE>Library Utilities</TITLE>
+<FILE>gck-library</FILE>
+GCK_CHECK_VERSION
+GCK_MAJOR_VERSION
+GCK_MICRO_VERSION
+GCK_MINOR_VERSION
+</SECTION>
+
+<SECTION>
 <FILE>gck-attribute</FILE>
 GckAttribute
 gck_attribute_is_invalid

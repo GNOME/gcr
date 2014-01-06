@@ -1,5 +1,10 @@
+
+m4_define([gcr_major], [3])
+m4_define([gcr_minor], [11])
+m4_define([gcr_micro], [4])
+
 AC_PREREQ([2.63])
-AC_INIT([gcr], [3.11.4],
+AC_INIT([gcr], [gcr_major.gcr_minor.gcr_micro],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&component=gcr],
         [gcr])
 
@@ -30,9 +35,9 @@ GCK_REVISION=0
 GCK_AGE=0
 
 # GCR package versioning
-GCR_MAJOR=3
-GCR_MINOR=0
-GCR_MICRO=0
+GCR_MAJOR=gcr_major
+GCR_MINOR=gcr_minor
+GCR_MICRO=gcr_micro
 
 # GCR libtool versioning
 GCR_CURRENT=1
@@ -371,6 +376,7 @@ AC_SUBST(GCR_CURRENT)
 AC_SUBST(GCR_LT_RELEASE)
 AC_SUBST(GCR_MAJOR)
 AC_SUBST(GCR_MINOR)
+AC_SUBST(GCR_MICRO)
 
 AC_OUTPUT([
 Makefile
@@ -384,9 +390,11 @@ docs/reference/gcr/version.xml
 egg/Makefile
 egg/tests/Makefile
 gck/gck.pc
+gck/gck-version.h
 gck/Makefile
 gck/tests/Makefile
 gcr/gcr-base.pc
+gcr/gcr-version.h
 gcr/Makefile
 gcr/tests/Makefile
 po/Makefile.in

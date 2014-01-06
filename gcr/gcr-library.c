@@ -42,7 +42,55 @@
 
 /**
  * SECTION:gcr-library
- * @title: Library Settings
+ * @title: Library Utilities
+ * @short_description: Library utilities such as version checks
+ *
+ * Basic library utilities such as version checks.
+ */
+
+/**
+ * GCR_CHECK_VERSION:
+ * @major: the major version to check for
+ * @minor: the minor version to check for
+ * @micro: the micro version to check for
+ *
+ * Checks the version of the Gcr libarry that is being compiled
+ * against.
+ *
+ * <example>
+ * <title>Checking the version of the Gcr library</title>
+ * <programlisting>
+ * #if !GCR_CHECK_VERSION (3, 0, 0)
+ * #warning Old Gcr version, disabling functionality
+ * #endif
+ * </programlisting>
+ * </example>
+ *
+ * Returns: %TRUE if the version of the Gcr header files
+ * is the same as or newer than the passed-in version.
+ */
+
+/**
+ * GCR_MAJOR_VERSION:
+ *
+ * The major version number of the Gcr library.
+ */
+
+/**
+ * GCR_MINOR_VERSION:
+ *
+ * The minor version number of the Gcr library.
+ */
+
+/**
+ * GCR_MICRO_VERSION:
+ *
+ * The micro version number of the Gcr library.
+ */
+
+/**
+ * SECTION:gcr-pkcs11
+ * @title: Library PKCS#11
  * @short_description: functions for manipulating GCR library global settings.
  *
  * Manage or lookup various global aspesct and settings of the library.

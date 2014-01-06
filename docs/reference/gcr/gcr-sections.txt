@@ -1,4 +1,13 @@
 <SECTION>
+<TITLE>Library Utilities</TITLE>
+<FILE>gcr-library</FILE>
+GCR_CHECK_VERSION
+GCR_MAJOR_VERSION
+GCR_MICRO_VERSION
+GCR_MINOR_VERSION
+</SECTION>
+
+<SECTION>
 <FILE>gcr-parser</FILE>
 <TITLE>GcrParser</TITLE>
 GCR_DATA_ERROR
@@ -238,7 +247,7 @@ gcr_trust_remove_pinned_certificate_finish
 </SECTION>
 
 <SECTION>
-<FILE>gcr-library</FILE>
+<FILE>gcr-pkcs11</FILE>
 gcr_pkcs11_initialize
 gcr_pkcs11_initialize_async
 gcr_pkcs11_initialize_finish

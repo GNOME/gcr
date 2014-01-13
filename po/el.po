@@ -4,22 +4,22 @@
 # Kostas Papadimas <pkst@gnome.org>, 2004, 2006.
 # Jennie Petoumenou <epetoumenou@gmail.com>, 2009, 2010.
 # Christos Spyroglou <cspyroglou@gmail.com>, 2010.
-# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2013.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-10-18 21:23+0000\n"
-"PO-Revision-Date: 2013-11-15 21:15+0300\n"
+"POT-Creation-Date: 2014-01-07 12:27+0000\n"
+"PO-Revision-Date: 2014-01-11 14:19+0300\n"
 "Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
-"Language-Team: team@lists.gnome.gr\n"
+"Language-Team: www.gnome.gr\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.0\n"
+"X-Generator: Virtaal 0.7.1\n"
 "X-Project-Style: gnome\n"
 
 #: ../egg/egg-oid.c:41
@@ -364,7 +364,7 @@ msgstr "Ένα άλλο τερματικό βρίσκεται ήδη σε εξέ
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:370
+#: ../gcr/gcr-trust.c:368
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "Αδυναμία εύρεσης τοποθεσίας για την αποθήκευση του πιστοποιητικού"
@@ -841,29 +841,29 @@ msgstr "Μυστικό κλειδί"
 msgid "Secret Subkey"
 msgstr "Μυστικό υποκλειδί"
 
-#: ../ui/gcr-import-button.c:112
+#: ../ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "Αρχικοποίηση…"
 
-#: ../ui/gcr-import-button.c:120
+#: ../ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "Η εισαγωγή είναι σε εξέλιξη…"
 
-#: ../ui/gcr-import-button.c:127
+#: ../ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "Εισήχθη στο: %s"
 
-#: ../ui/gcr-import-button.c:147
+#: ../ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "Εισαγωγή σε: %s"
 
-#: ../ui/gcr-import-button.c:160
+#: ../ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "Αδυναμία εισαγωγής διότι δεν υπάρχουν συμβατοί εισαγωγείς"
 
-#: ../ui/gcr-import-button.c:169
+#: ../ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "Δεν υπάρχουν δεδομένα για εισαγωγή"
 
@@ -907,11 +907,21 @@ msgstr "SHA1"
 msgid "SHA256"
 msgstr "SHA256"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:188
+#. Add our various buttons
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:504
+#: ../ui/gcr-certificate-exporter.c:230 ../ui/gcr-certificate-exporter.c:307
+msgid "_Cancel"
+msgstr "A_κύρωση"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:118 ../ui/gcr-prompt-dialog.c:507
+msgid "_OK"
+msgstr "Ε_ντάξει"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:191
 msgid "Automatically chosen"
 msgstr "Επιλέχθηκε αυτόματα"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:272
+#: ../ui/gcr-pkcs11-import-dialog.c:275
 #: ../ui/gcr-pkcs11-import-interaction.c:154
 #: ../ui/gcr-pkcs11-import-interaction.c:172
 #, c-format
@@ -923,7 +933,7 @@ msgid "In order to import, please enter the password."
 msgstr "Για να γίνει εισαγωγή, παρακαλώ δώστε τον κωδικό πρόσβασης."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:564
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:565
 msgid "Password:"
 msgstr "Κωδικός:"
 
@@ -945,15 +955,15 @@ msgid "Import settings"
 msgstr "Εισαγωγή ρυθμίσεων"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:581
+#: ../ui/gcr-prompt-dialog.c:582
 msgid "Confirm:"
 msgstr "Επιβεβαίωση:"
 
-#: ../ui/gcr-prompt-dialog.c:649
+#: ../ui/gcr-prompt-dialog.c:650
 msgid "Passwords do not match."
 msgstr "Οι κωδικοί πρόσβασης δεν ταιριάζουν."
 
-#: ../ui/gcr-prompt-dialog.c:656
+#: ../ui/gcr-prompt-dialog.c:657
 msgid "Password cannot be blank"
 msgstr "Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός"
 
@@ -985,6 +995,10 @@ msgstr "Η λειτουργία ακυρώθηκε."
 #: ../ui/gcr-certificate-exporter.c:305
 msgid "Export certificate"
 msgstr "Εξαγωγή πιστοποιητικού"
+
+#: ../ui/gcr-certificate-exporter.c:308
+msgid "_Save"
+msgstr "Απο_θήκευση"
 
 #: ../ui/gcr-certificate-exporter.c:317
 msgid "Certificate files"
@@ -1076,6 +1090,10 @@ msgstr "Η εισαγωγή απέτυχε"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Εισαγωγή"
+
+#: ../ui/gcr-viewer-window.c:117
+msgid "_Close"
+msgstr "_Κλείσιμο"
 
 #~ msgid "Invalid PKCS#11 module: %s"
 #~ msgstr "Μη έγκυρο αρθρώμα PKCS#11: %s"

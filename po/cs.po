@@ -8,15 +8,15 @@
 # Kamil Páral <ripper42@gmail.com>, 2008.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008, 2009, 2010.
-# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012.
+# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-09-04 00:37+0000\n"
-"PO-Revision-Date: 2013-08-19 17:12+0200\n"
+"POT-Creation-Date: 2014-01-05 20:46+0000\n"
+"PO-Revision-Date: 2014-01-18 21:29+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: ../egg/egg-oid.c:41
 msgid "Domain Component"
@@ -226,7 +226,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Vyprší"
 
-#: ../gcr/gcr-certificate.c:1185 ../gcr/gcr-parser.c:320
+#: ../gcr/gcr-certificate.c:1185 ../gcr/gcr-parser.c:322
 #: ../ui/gcr-certificate-renderer.c:104 ../ui/gcr-certificate-exporter.c:466
 msgid "Certificate"
 msgstr "Certifikát"
@@ -295,7 +295,7 @@ msgstr "Klíčenka GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Klíčenka GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:326
+#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:328
 #: ../ui/gcr-gnupg-renderer.c:89
 msgid "PGP Key"
 msgstr "Klíč PGP"
@@ -315,33 +315,33 @@ msgstr "Proces gnupg skončil kódem: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Proces gnupg byl ukončen signálem: %d"
 
-#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2422
-#: ../gcr/gcr-parser.c:2915 ../gcr/gcr-system-prompt.c:925
+#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2427
+#: ../gcr/gcr-parser.c:3033 ../gcr/gcr-system-prompt.c:925
 msgid "The operation was cancelled"
 msgstr "Operace byla zrušena"
 
-#: ../gcr/gcr-parser.c:317 ../ui/gcr-key-renderer.c:408
+#: ../gcr/gcr-parser.c:319 ../ui/gcr-key-renderer.c:408
 msgid "Private Key"
 msgstr "Soukromý klíč"
 
-#: ../gcr/gcr-parser.c:323 ../ui/gcr-certificate-renderer.c:883
+#: ../gcr/gcr-parser.c:325 ../ui/gcr-certificate-renderer.c:883
 #: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
 msgid "Public Key"
 msgstr "Veřejný klíč"
 
-#: ../gcr/gcr-parser.c:329
+#: ../gcr/gcr-parser.c:331
 msgid "Certificate Request"
 msgstr "Požadavek o certifikát"
 
-#: ../gcr/gcr-parser.c:2425
+#: ../gcr/gcr-parser.c:2430
 msgid "Unrecognized or unsupported data."
 msgstr "Nerozpoznaná nebo nepodporovaná data."
 
-#: ../gcr/gcr-parser.c:2428
+#: ../gcr/gcr-parser.c:2433
 msgid "Could not parse invalid or corrupted data."
 msgstr "Nelze analyzovat neplatná nebo poškozená data."
 
-#: ../gcr/gcr-parser.c:2431
+#: ../gcr/gcr-parser.c:2436
 msgid "The data is locked"
 msgstr "Data jsou uzamčena"
 
@@ -368,7 +368,7 @@ msgstr "Jiný dotaz již probíhá"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:370
+#: ../gcr/gcr-trust.c:368
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "Nelze najít místo, kde se mají uchovávat vyznačené certifikáty"
@@ -845,30 +845,30 @@ msgstr "Tajný klíč"
 msgid "Secret Subkey"
 msgstr "Tajný podřízený klíč"
 
-#: ../ui/gcr-import-button.c:112
+#: ../ui/gcr-import-button.c:113
 msgid "Initializing…"
 msgstr "Inicializuje se…"
 
-#: ../ui/gcr-import-button.c:120
+#: ../ui/gcr-import-button.c:121
 msgid "Import is in progress…"
 msgstr "Probíhá import…"
 
-#: ../ui/gcr-import-button.c:127
+#: ../ui/gcr-import-button.c:128
 #, c-format
 msgid "Imported to: %s"
 msgstr "Naimportováno do: %s"
 
-#: ../ui/gcr-import-button.c:147
+#: ../ui/gcr-import-button.c:148
 #, c-format
 msgid "Import to: %s"
 msgstr "Import do: %s"
 
-#: ../ui/gcr-import-button.c:160
+#: ../ui/gcr-import-button.c:161
 msgid "Cannot import because there are no compatible importers"
 msgstr ""
 "Nelze importovat, protože nejsou k dispozici kompatibilní importní funkce"
 
-#: ../ui/gcr-import-button.c:169
+#: ../ui/gcr-import-button.c:170
 msgid "No data to import"
 msgstr "Nejsou žádná data, která by šlo importovat"
 
@@ -913,11 +913,21 @@ msgstr "SHA1"
 msgid "SHA256"
 msgstr "SHA256"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:188
+#. Add our various buttons
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:504
+#: ../ui/gcr-certificate-exporter.c:230 ../ui/gcr-certificate-exporter.c:307
+msgid "_Cancel"
+msgstr "_Zrušit"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:118 ../ui/gcr-prompt-dialog.c:507
+msgid "_OK"
+msgstr "_Budiž"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:191
 msgid "Automatically chosen"
 msgstr "Automaticky zvolený"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:272
+#: ../ui/gcr-pkcs11-import-dialog.c:275
 #: ../ui/gcr-pkcs11-import-interaction.c:154
 #: ../ui/gcr-pkcs11-import-interaction.c:172
 #, c-format
@@ -929,7 +939,7 @@ msgid "In order to import, please enter the password."
 msgstr "Pokud chcete importovat, zadejte prosím heslo."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:564
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:565
 msgid "Password:"
 msgstr "Heslo:"
 
@@ -937,8 +947,8 @@ msgstr "Heslo:"
 msgid "Token:"
 msgstr "Kupon:"
 
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:72
-#: ../ui/gcr-unlock-renderer.c:127
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:71
+#: ../ui/gcr-unlock-renderer.c:126
 msgid "Unlock"
 msgstr "Odemknout"
 
@@ -951,15 +961,15 @@ msgid "Import settings"
 msgstr "Nastavení importu"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:581
+#: ../ui/gcr-prompt-dialog.c:582
 msgid "Confirm:"
 msgstr "Ověření:"
 
-#: ../ui/gcr-prompt-dialog.c:649
+#: ../ui/gcr-prompt-dialog.c:650
 msgid "Passwords do not match."
 msgstr "Hesla si neodpovídají."
 
-#: ../ui/gcr-prompt-dialog.c:656
+#: ../ui/gcr-prompt-dialog.c:657
 msgid "Password cannot be blank"
 msgstr "Heslo nemůže být prázdné"
 
@@ -992,6 +1002,10 @@ msgstr "Operace byla zrušena."
 msgid "Export certificate"
 msgstr "Export certifikátu"
 
+#: ../ui/gcr-certificate-exporter.c:308
+msgid "_Save"
+msgstr "_Uložit"
+
 #: ../ui/gcr-certificate-exporter.c:317
 msgid "Certificate files"
 msgstr "Soubory s certifikáty"
@@ -1021,16 +1035,16 @@ msgstr "Uzamknout tuto klíčenku při nečinnosti delší než"
 msgid "minutes"
 msgstr "minut"
 
-#: ../ui/gcr-unlock-renderer.c:70
+#: ../ui/gcr-unlock-renderer.c:69
 #, c-format
 msgid "Unlock: %s"
 msgstr "Odemknutí: %s"
 
-#: ../ui/gcr-unlock-renderer.c:125
+#: ../ui/gcr-unlock-renderer.c:124
 msgid "Password"
 msgstr "Heslo"
 
-#: ../ui/gcr-unlock-renderer.c:277
+#: ../ui/gcr-unlock-renderer.c:276
 #, c-format
 msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
@@ -1038,7 +1052,7 @@ msgid ""
 msgstr ""
 "Obsah „%s“ je zamknutý. Pro zobrazení obsahu musíte zadat správné heslo."
 
-#: ../ui/gcr-unlock-renderer.c:280
+#: ../ui/gcr-unlock-renderer.c:279
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
@@ -1060,11 +1074,11 @@ msgstr "[soubor…]"
 msgid "- View certificate and key files"
 msgstr "– Zobrazit certifikáty a soubory s klíči"
 
-#: ../ui/gcr-viewer-tool.c:119 ../ui/gcr-viewer-widget.c:638
+#: ../ui/gcr-viewer-tool.c:119 ../ui/gcr-viewer-widget.c:685
 msgid "Certificate Viewer"
 msgstr "Prohlížeč certifikátů"
 
-#: ../ui/gcr-viewer-widget.c:204
+#: ../ui/gcr-viewer-widget.c:203
 msgid "The password was incorrect"
 msgstr "Heslo nebylo správné"
 
@@ -1079,3 +1093,7 @@ msgstr "Import selhal"
 #: ../ui/gcr-viewer-window.c:108
 msgid "Import"
 msgstr "Importovat"
+
+#: ../ui/gcr-viewer-window.c:117
+msgid "_Close"
+msgstr "_Zavřít"

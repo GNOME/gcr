@@ -6,6 +6,7 @@ DEFINITIONS IMPLICIT TAGS ::=
 BEGIN
 
 -- This contains both PKIX1Implicit88 and RFC2630 ASN.1 modules.
+-- It also includes updates from RFC 5480 and RFC 5758
 
 -- ISO arc for standard certificate and CRL extensions
 
@@ -629,6 +630,122 @@ Dss-Parms  ::=  SEQUENCE  {
      q             INTEGER,
      g             INTEGER  }
 
+-- EC algorithm OIDs and parameter structures from RFC 3279
+ansi-X9-62  OBJECT IDENTIFIER ::= {
+     iso(1) member-body(2) us(840) 10045 }
+
+id-ecSigType OBJECT IDENTIFIER  ::=  {
+     ansi-X9-62 signatures(4) }
+
+ecdsa-with-SHA1  OBJECT IDENTIFIER ::= {
+     id-ecSigType 1 }
+
+Ecdsa-Sig-Value  ::=  SEQUENCE  {
+     r     INTEGER,
+     s     INTEGER  }
+
+id-public-key-type OBJECT IDENTIFIER  ::= { ansi-X9-62 2 }
+
+id-ecPublicKey OBJECT IDENTIFIER ::= { id-public-key-type 1 }
+
+ECPoint ::= OCTET STRING
+
+-- The EC parameters structure was amended by RFC 5480
+
+ECParameters ::= CHOICE {
+  namedCurve         OBJECT IDENTIFIER
+  -- implicitCurve   NULL
+  -- specifiedCurve  SpecifiedECDomain
+}
+  -- implicitCurve and specifiedCurve MUST NOT be used in PKIX.
+  -- Details for SpecifiedECDomain can be found in [X9.62].
+  -- Any future additions to this CHOICE should be coordinated
+  -- with ANSI X9.
+
+--
+-- Named Elliptic Curves (from RFC 5480)
+--
+
+-- Note that in X9.62 the curves are referred to as 'ansiX9' as
+-- opposed to 'sec'.  For example secp192r1 is the same curve as
+-- ansix9p192r1.
+
+-- Note that in RFC 3279 the secp192r1 curve was referred to as
+-- prime192v1 and the secp256r1 curve was referred to as prime256v1.
+
+-- Note that FIPS186-3 refers to secp192r1 as P-192, secp224r1 as
+-- P-224, secp256r1 as P-256, secp384r1 as P-384, and secp521r1 as
+-- P-521.
+
+secp192r1 OBJECT IDENTIFIER ::= {
+  iso(1) member-body(2) us(840) ansi-X9-62(10045) curves(3)
+  prime(1) 1 }
+
+sect163k1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 1 }
+
+sect163r2 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 15 }
+
+secp224r1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 33 }
+
+sect233k1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 26 }
+
+sect233r1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 27 }
+
+secp256r1 OBJECT IDENTIFIER ::= {
+  iso(1) member-body(2) us(840) ansi-X9-62(10045) curves(3)
+  prime(1) 7 }
+
+sect283k1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 16 }
+
+sect283r1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 17 }
+
+secp384r1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 34 }
+
+sect409k1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 36 }
+
+sect409r1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 37 }
+
+secp521r1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 35 }
+
+sect571k1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 38 }
+
+sect571r1 OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) certicom(132) curve(0) 39 }
+
+-- Algorithm OIDs added by RFC 5758
+
+id-dsa-with-sha224 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2)
+    country(16) us(840) organization(1) gov(101) csor(3)
+    algorithms(4) id-dsa-with-sha2(3) 1 }
+
+id-dsa-with-sha256 OBJECT IDENTIFIER  ::=  { joint-iso-ccitt(2)
+    country(16) us(840) organization(1) gov(101) csor(3)
+    algorithms(4) id-dsa-with-sha2(3) 2 }
+
+ecdsa-with-SHA224 OBJECT IDENTIFIER ::= { iso(1) member-body(2)
+     us(840) ansi-X9-62(10045) signatures(4) ecdsa-with-SHA2(3) 1 }
+
+ecdsa-with-SHA256 OBJECT IDENTIFIER ::= { iso(1) member-body(2)
+     us(840) ansi-X9-62(10045) signatures(4) ecdsa-with-SHA2(3) 2 }
+
+ecdsa-with-SHA384 OBJECT IDENTIFIER ::= { iso(1) member-body(2)
+     us(840) ansi-X9-62(10045) signatures(4) ecdsa-with-SHA2(3) 3 }
+
+ecdsa-with-SHA512 OBJECT IDENTIFIER ::= { iso(1) member-body(2)
+     us(840) ansi-X9-62(10045) signatures(4) ecdsa-with-SHA2(3) 4 }
+
 -- x400 address syntax starts here
 --      OR Names
 
@@ -1244,5 +1361,14 @@ SignedPublicKeyAndChallenge ::= SEQUENCE {
 -- http://mirror.switch.ch/ftp/doc/standard/pkcs/pkcs-9/pkcs-9.txt
 
 ExtensionRequest ::= SEQUENCE OF Extension
+
+-- rfc5915 (EC private key structure)
+
+ECPrivateKey ::= SEQUENCE {
+  version        INTEGER { ecPrivkeyVer1(1) },
+  privateKey     OCTET STRING,
+  parameters [0] ECParameters OPTIONAL,
+  publicKey  [1] BIT STRING OPTIONAL
+}
 
 END

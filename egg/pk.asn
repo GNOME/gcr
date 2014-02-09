@@ -101,5 +101,28 @@ DHParameter ::= SEQUENCE {
 	privateValueLength INTEGER OPTIONAL 
 }
 
+ECPoint ::= OCTET STRING
+
+-- The EC parameters structure was amended by RFC 5480
+
+ECParameters ::= CHOICE {
+  namedCurve         OBJECT IDENTIFIER
+  -- implicitCurve   NULL
+  -- specifiedCurve  SpecifiedECDomain
+}
+  -- implicitCurve and specifiedCurve MUST NOT be used in PKIX.
+  -- Details for SpecifiedECDomain can be found in [X9.62].
+  -- Any future additions to this CHOICE should be coordinated
+  -- with ANSI X9.
+
+
+-- rfc5915 (EC private key structure)
+
+ECPrivateKey ::= SEQUENCE {
+  version        INTEGER { ecPrivkeyVer1(1) },
+  privateKey     OCTET STRING,
+  parameters [0] ECParameters OPTIONAL,
+  publicKey  [1] BIT STRING OPTIONAL
+}
 
 END

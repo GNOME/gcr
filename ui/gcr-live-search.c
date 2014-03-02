@@ -27,9 +27,9 @@
 
 #include "config.h"
 
-#include "gcr/gcr-marshal.h"
-
 #include "gcr-live-search.h"
+
+#include "gcr/gcr-marshal.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>

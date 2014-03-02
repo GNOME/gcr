@@ -165,37 +165,37 @@ setup (Test *test, gconstpointer unused)
 	gck_list_unref_free (modules);
 
 	/* A self-signed certificate */
-	if (!g_file_get_contents (SRCDIR "/files/der-certificate.crt", &contents, &n_contents, NULL))
+	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/der-certificate.crt", &contents, &n_contents, NULL))
 		g_assert_not_reached ();
 	test->cert_self = gcr_simple_certificate_new ((const guchar *)contents, n_contents);
 	g_free (contents);
 
 	/* A signed certificate */
-	if (!g_file_get_contents (SRCDIR "/files/dhansak-collabora.cer", &contents, &n_contents, NULL))
+	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/dhansak-collabora.cer", &contents, &n_contents, NULL))
 		g_assert_not_reached ();
 	test->cert_signed = mock_certificate_new (contents, n_contents);
 	g_free (contents);
 
 	/* The signer for the above certificate */
-	if (!g_file_get_contents (SRCDIR "/files/collabora-ca.cer", &contents, &n_contents, NULL))
+	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/collabora-ca.cer", &contents, &n_contents, NULL))
 		g_assert_not_reached ();
 	test->cert_ca = mock_certificate_new (contents, n_contents);
 	g_free (contents);
 
 	/* A root CA */
-	if (!g_file_get_contents (SRCDIR "/files/startcom-ca.cer", &contents, &n_contents, NULL))
+	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/startcom-ca.cer", &contents, &n_contents, NULL))
 		g_assert_not_reached ();
 	test->cert_root = mock_certificate_new (contents, n_contents);
 	g_free (contents);
 
 	/* An intermediate */
-	if (!g_file_get_contents (SRCDIR "/files/startcom-intermediate.cer", &contents, &n_contents, NULL))
+	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/startcom-intermediate.cer", &contents, &n_contents, NULL))
 		g_assert_not_reached ();
 	test->cert_inter = mock_certificate_new (contents, n_contents);
 	g_free (contents);
 
 	/* Signed by above intermediate */
-	if (!g_file_get_contents (SRCDIR "/files/jabber-server.cer", &contents, &n_contents, NULL))
+	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/jabber-server.cer", &contents, &n_contents, NULL))
 		g_assert_not_reached ();
 	test->cert_host = mock_certificate_new (contents, n_contents);
 	g_free (contents);

@@ -116,7 +116,7 @@ main(int argc, char *argv[])
 	if (argc > 1) {
 		test_key (argv[1]);
 	} else {
-		test_key (SRCDIR "/files/email.p12");
+		test_key (SRCDIR "/ui/fixtures/email.p12");
 	}
 
 	return 0;

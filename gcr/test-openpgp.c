@@ -166,28 +166,28 @@ static Fixture fixtures[] = {
 	{
 	  "werner_koch",
 	  werner_koch_records,
-	  SRCDIR "/files/werner-koch.asc",
+	  SRCDIR "/gcr/fixtures/werner-koch.asc",
 	  "GnuPG v1.4.11 (GNU/Linux)",
 	  GCR_OPENPGP_PARSE_KEYS
 	},
 	{
 	  "werner_koch_with_sigs",
 	  werner_sig_records,
-	  SRCDIR "/files/werner-koch.asc",
+	  SRCDIR "/gcr/fixtures/werner-koch.asc",
 	  "GnuPG v1.4.11 (GNU/Linux)",
 	  GCR_OPENPGP_PARSE_KEYS | GCR_OPENPGP_PARSE_SIGNATURES
 	},
 	{
 	  "pubring",
 	  pubring_records,
-	  SRCDIR "/files/pubring.gpg",
+	  SRCDIR "/gcr/fixtures/pubring.gpg",
 	  NULL,
 	  GCR_OPENPGP_PARSE_KEYS
 	},
 	{
 	  "secring",
 	  secring_records,
-	  SRCDIR "/files/secring.gpg",
+	  SRCDIR "/gcr/fixtures/secring.gpg",
 	  NULL,
 	  GCR_OPENPGP_PARSE_KEYS
 	}

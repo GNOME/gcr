@@ -234,7 +234,7 @@ main (int argc, char *argv[])
 	g_signal_connect (parser, "parsed", G_CALLBACK (on_parser_parsed), button);
 
 	if (argc == 1) {
-		parse_file (parser, SRCDIR "/files/ca-certificates.crt");
+		parse_file (parser, SRCDIR "/ui/fixtures/ca-certificates.crt");
 	} else {
 		for (i = 1; i < argc; ++i)
 			parse_file (parser, argv[i]);

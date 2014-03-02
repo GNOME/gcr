@@ -115,7 +115,7 @@ build_script_path (const gchar *name)
 {
 	gchar *path;
 
-	path = g_build_filename (SRCDIR, "files", "gnupg-mock", name, NULL);
+	path = g_build_filename (SRCDIR, "gcr", "fixtures", "gnupg-mock", name, NULL);
 
 	return path;
 }

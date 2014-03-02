@@ -25,8 +25,9 @@
 #include "gck.h"
 #define DEBUG_FLAG GCK_DEBUG_SESSION
 #include "gck-debug.h"
-#include "gck-marshal.h"
 #include "gck-private.h"
+
+#include "gck/gck-marshal.h"
 
 #include <string.h>
 

@@ -1,15 +1,15 @@
 
-SUBDIRS = \
-	16x16 \
-	22x22 \
-	24x24 \
-	32x32 \
-	48x48 \
-	256x256
+SUBDIRS += \
+	ui/icons/16x16 \
+	ui/icons/22x22 \
+	ui/icons/24x24 \
+	ui/icons/32x32 \
+	ui/icons/48x48 \
+	ui/icons/256x256
 
-EXTRA_DIST = \
-	src \
-	render-icons.py
+EXTRA_DIST += \
+	ui/icons/src \
+	ui/icons/render-icons.py
 
 if WITH_UPDATE_ICON_CACHE
 
@@ -26,4 +26,4 @@ install-data-hook:
 endif
 
 render:
-	python render-icons.py
+	python ui/icons/render-icons.py

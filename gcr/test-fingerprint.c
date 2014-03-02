@@ -51,19 +51,19 @@ setup (Test *test, gconstpointer unused)
 	gchar *contents;
 	gsize length;
 
-	g_file_get_contents (SRCDIR "/files/client.crt", &contents, &length, &error);
+	g_file_get_contents (SRCDIR "/gcr/fixtures/client.crt", &contents, &length, &error);
 	g_assert_no_error (error);
 	test->cert_rsa = g_bytes_new_take (contents, length);
 
-	g_file_get_contents (SRCDIR "/files/client.key", &contents, &length, &error);
+	g_file_get_contents (SRCDIR "/gcr/fixtures/client.key", &contents, &length, &error);
 	g_assert_no_error (error);
 	test->key_rsa = g_bytes_new_take (contents, length);
 
-	g_file_get_contents (SRCDIR "/files/generic-dsa.crt", &contents, &length, &error);
+	g_file_get_contents (SRCDIR "/gcr/fixtures/generic-dsa.crt", &contents, &length, &error);
 	g_assert_no_error (error);
 	test->cert_dsa = g_bytes_new_take (contents, length);
 
-	g_file_get_contents (SRCDIR "/files/generic-dsa.key", &contents, &length, &error);
+	g_file_get_contents (SRCDIR "/gcr/fixtures/generic-dsa.key", &contents, &length, &error);
 	g_assert_no_error (error);
 	test->key_dsa = g_bytes_new_take (contents, length);
 }

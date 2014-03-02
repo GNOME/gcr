@@ -22,13 +22,14 @@
 #include "gck/gck.h"
 
 #include "gcr-internal.h"
-#include "gcr-marshal.h"
-#include "gcr-oids.h"
 #include "gcr-openpgp.h"
 #include "gcr-openssh.h"
 #include "gcr-parser.h"
 #include "gcr-record.h"
 #include "gcr-types.h"
+
+#include "gcr/gcr-marshal.h"
+#include "gcr/gcr-oids.h"
 
 #include "egg/egg-armor.h"
 #include "egg/egg-asn1x.h"

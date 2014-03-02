@@ -24,8 +24,9 @@
 #define DEBUG_FLAG GCR_DEBUG_GNUPG
 #include "gcr-debug.h"
 #include "gcr-gnupg-process.h"
-#include "gcr-marshal.h"
 #include "gcr-util.h"
+
+#include "gcr/gcr-marshal.h"
 
 #include <glib/gi18n-lib.h>
 

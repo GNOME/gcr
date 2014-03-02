@@ -1,31 +1,34 @@
+# included in top-level Makefile.am
 
 VALGRIND_CONTRIB = \
-	valgrind/valgrind.h \
-	valgrind/memcheck.h
+	build/valgrind/valgrind.h \
+	build/valgrind/memcheck.h
 
 SUPPRESSIONS = \
-	gcr.supp \
-	gcrypt.supp \
-	glib.supp \
-	glibc.supp \
-	p11-kit.supp \
-	pixman.supp \
-	pthread.supp \
-	unknown.supp
+	build/gcr.supp \
+	build/gcrypt.supp \
+	build/glib.supp \
+	build/glibc.supp \
+	build/p11-kit.supp \
+	build/pixman.supp \
+	build/pthread.supp \
+	build/unknown.supp
 
 valgrind-suppressions: $(SUPPRESSIONS)
 	$(AM_V_GEN) sh -c "cd $(srcdir) && cat $(SUPPRESSIONS)" > $@
 
-EXTRA_DIST = \
+EXTRA_DIST += \
 	$(VALGRIND_CONTRIB) \
 	$(SUPPRESSIONS) \
-	enum-template.c \
-	enum-template.h \
-	g-ir-unbreak.xsl
+	build/enum-template.c \
+	build/enum-template.h \
+	build/g-ir-unbreak.xsl \
+	build/tap-driver \
+	build/tap-compiler
 
 all-local: valgrind-suppressions
 
-CLEANFILES = \
+CLEANFILES += \
 	coverage \
 	coverage.info \
 	valgrind-suppressions

@@ -22,7 +22,6 @@
 #include "config.h"
 
 #include "gcr-dbus-constants.h"
-#include "gcr-dbus-generated.h"
 #define DEBUG_FLAG GCR_DEBUG_PROMPT
 #include "gcr-debug.h"
 #include "gcr-internal.h"
@@ -30,6 +29,8 @@
 #include "gcr-prompt.h"
 #include "gcr-secret-exchange.h"
 #include "gcr-system-prompt.h"
+
+#include "gcr/gcr-dbus-generated.h"
 
 #include "egg/egg-error.h"
 

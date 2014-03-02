@@ -24,8 +24,9 @@
 #include "gcr-comparable.h"
 #include "gcr-icons.h"
 #include "gcr-internal.h"
-#include "gcr-oids.h"
 #include "gcr-subject-public-key.h"
+
+#include "gcr/gcr-oids.h"
 
 #include "egg/egg-asn1x.h"
 #include "egg/egg-asn1-defs.h"

@@ -23,7 +23,8 @@
 #include "config.h"
 
 #include "gcr-collection-model.h"
-#include "gcr-enum-types.h"
+
+#include "ui/gcr-enum-types.h"
 
 #include <gtk/gtk.h>
 

@@ -22,8 +22,9 @@
 #include "config.h"
 
 #include "gcr-fingerprint.h"
-#include "gcr-oids.h"
 #include "gcr-subject-public-key.h"
+
+#include "gcr/gcr-oids.h"
 
 #include "egg/egg-asn1x.h"
 #include "egg/egg-asn1-defs.h"

@@ -52,7 +52,7 @@ setup (Test *test, gconstpointer unused)
 	gsize len;
 	CK_RV rv;
 
-	if (!g_file_get_contents (SRCDIR "/files/der-certificate.crt", &contents, &len, NULL))
+	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/der-certificate.crt", &contents, &len, NULL))
 		g_assert_not_reached ();
 	g_assert (contents);
 

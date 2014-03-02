@@ -29,8 +29,10 @@
 #include "egg/egg-testing.h"
 
 #include <glib.h>
+#include <glib/gstdio.h>
 
 #include <errno.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef struct {
@@ -81,8 +83,16 @@ static void
 setup (Test *test, gconstpointer unused)
 {
 	GcrCollection *collection;
+	GError *error = NULL;
+	gchar *cmd;
 
-	test->directory = g_build_filename (SRCDIR, "files", "gnupg-homedir", NULL);
+	test->directory = g_build_filename ("/tmp/gcr-tests.XXXXXX", NULL);
+	g_assert (g_mkdtemp_full (test->directory, 0700) != NULL);
+
+	cmd = g_strdup_printf ("cp -p " SRCDIR "/gcr/fixtures/gnupg-homedir/* %s", test->directory);
+	g_spawn_check_exit_status (system (cmd), &error);
+	g_assert_no_error (error);
+	g_free (cmd);
 
 	collection = _gcr_gnupg_collection_new (test->directory);
 	test->collection = GCR_GNUPG_COLLECTION (collection);
@@ -95,12 +105,23 @@ setup (Test *test, gconstpointer unused)
 static void
 teardown (Test *test, gconstpointer unused)
 {
+	GError *error = NULL;
+	gchar *cmd;
+
 	g_hash_table_destroy (test->keys);
 
 	if (test->result)
 		g_object_unref (test->result);
 
 	g_object_unref (test->collection);
+
+	cmd = g_strdup_printf ("rm %s/*", test->directory);
+	g_spawn_check_exit_status (system (cmd), &error);
+	g_assert_no_error (error);
+	g_free (cmd);
+
+	if (g_rmdir (test->directory) < 0)
+		g_critical ("couldn't remove %s: %s", test->directory, g_strerror (errno));
 	g_free (test->directory);
 }
 

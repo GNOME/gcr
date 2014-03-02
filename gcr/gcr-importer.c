@@ -26,10 +26,11 @@
 #include "gcr-deprecated-base.h"
 #include "gcr-importer.h"
 #include "gcr-internal.h"
-#include "gcr-marshal.h"
 #include "gcr-gnupg-importer.h"
 #include "gcr-parser.h"
 #include "gcr-pkcs11-importer.h"
+
+#include "gcr/gcr-marshal.h"
 
 #include <glib/gi18n-lib.h>
 

@@ -209,7 +209,7 @@ test_parsed_bytes (void)
 	GBytes *bytes;
 	gsize len;
 
-	if (!g_file_get_contents (SRCDIR "/files/cacert.org.cer", &contents, &len, NULL))
+	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/cacert.org.cer", &contents, &len, NULL))
 		g_assert_not_reached ();
 
 	bytes = g_bytes_new_take (contents, len);
@@ -264,11 +264,11 @@ test_parse_stream (void)
 	gsize len;
 	GBytes *bytes;
 
-	file = g_file_new_for_path (SRCDIR "/files/cacert.org.cer");
+	file = g_file_new_for_path (SRCDIR "/gcr/fixtures/cacert.org.cer");
 	fis = g_file_read (file, NULL, &error);
 	g_assert_no_error (error);
 
-	if (!g_file_get_contents (SRCDIR "/files/cacert.org.cer", &contents, &len, NULL))
+	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/cacert.org.cer", &contents, &len, NULL))
 		g_assert_not_reached ();
 	bytes = g_bytes_new_take (contents, len);
 	g_signal_connect (parser, "parsed", G_CALLBACK (on_parsed_compare_bytes), bytes);
@@ -304,7 +304,7 @@ test_parse_filename (void)
 	gsize len;
 	GBytes *bytes;
 
-	if (!g_file_get_contents (SRCDIR "/files/cacert.org.cer", &contents, &len, NULL))
+	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/cacert.org.cer", &contents, &len, NULL))
 		g_assert_not_reached ();
 
 	bytes = g_bytes_new_take (contents, len);
@@ -343,7 +343,7 @@ main (int argc, char **argv)
 	g_set_prgname ("test-parser");
 
 	strings = g_ptr_array_new_with_free_func (g_free);
-	dir = g_dir_open (SRCDIR "/files", 0, &error);
+	dir = g_dir_open (SRCDIR "/gcr/fixtures", 0, &error);
 	g_assert_no_error (error);
 
 	for (;;) {
@@ -353,7 +353,7 @@ main (int argc, char **argv)
 		if (filename[0] == '.')
 			continue;
 
-		path = g_build_filename (SRCDIR "/files", filename, NULL);
+		path = g_build_filename (SRCDIR "/gcr/fixtures", filename, NULL);
 
 		if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
 			g_free (path);

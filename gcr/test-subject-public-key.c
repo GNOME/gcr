@@ -89,7 +89,7 @@ setup_attributes (TestAttributes *test,
 	gsize length;
 	gulong klass;
 
-	filename = g_strdup_printf (SRCDIR "/files/%s.crt", fixture->basename);
+	filename = g_strdup_printf (SRCDIR "/gcr/fixtures/%s.crt", fixture->basename);
 	g_file_get_contents (filename, &contents, &length, &error);
 	g_assert_no_error (error);
 	test->crt_data = g_bytes_new_take (contents, length);
@@ -98,7 +98,7 @@ setup_attributes (TestAttributes *test,
 	gck_assert_cmpulong (klass, ==, CKO_CERTIFICATE);
 	g_free (filename);
 
-	filename = g_strdup_printf (SRCDIR "/files/%s.key", fixture->basename);
+	filename = g_strdup_printf (SRCDIR "/gcr/fixtures/%s.key", fixture->basename);
 	g_file_get_contents (filename, &contents, &length, &error);
 	g_assert_no_error (error);
 	test->key_data = g_bytes_new_take (contents, length);
@@ -107,7 +107,7 @@ setup_attributes (TestAttributes *test,
 	gck_assert_cmpulong (klass, ==, CKO_PRIVATE_KEY);
 	g_free (filename);
 
-	filename = g_strdup_printf (SRCDIR "/files/%s.spk", fixture->basename);
+	filename = g_strdup_printf (SRCDIR "/gcr/fixtures/%s.spk", fixture->basename);
 	g_file_get_contents (filename, &contents, &length, &error);
 	g_assert_no_error (error);
 	test->spk_data = g_bytes_new_take (contents, length);

@@ -21,7 +21,8 @@
 #include "config.h"
 
 #include "gcr-certificate-extensions.h"
-#include "gcr-oids.h"
+
+#include "gcr/gcr-oids.h"
 
 #include "egg/egg-asn1x.h"
 #include "egg/egg-asn1-defs.h"

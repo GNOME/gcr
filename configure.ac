@@ -47,6 +47,7 @@ GCR_AGE=0
 dnl ****************************************************************************
 
 AC_CONFIG_MACRO_DIR([build/m4])
+AC_CONFIG_AUX_DIR([build])
 AM_INIT_AUTOMAKE([1.11 tar-ustar foreign -Wno-portability])
 AM_SANITY_CHECK
 AC_CONFIG_HEADERS(config.h)
@@ -386,37 +387,23 @@ AC_SUBST(GCR_MICRO)
 
 AC_OUTPUT([
 Makefile
-build/Makefile
-docs/Makefile
-docs/reference/Makefile
 docs/reference/gck/Makefile
 docs/reference/gck/version.xml
 docs/reference/gcr/Makefile
 docs/reference/gcr/version.xml
-egg/Makefile
-egg/tests/Makefile
 gck/gck.pc
 gck/gck-version.h
-gck/Makefile
-gck/tests/Makefile
 gcr/gcr-base.pc
 gcr/gcr-version.h
-gcr/Makefile
-gcr/tests/Makefile
 po/Makefile.in
-schema/Makefile
-testing/Makefile
 ui/gcr.pc
 ui/gcr-ui.pc
-ui/icons/Makefile
 ui/icons/16x16/Makefile
 ui/icons/22x22/Makefile
 ui/icons/24x24/Makefile
 ui/icons/32x32/Makefile
 ui/icons/48x48/Makefile
 ui/icons/256x256/Makefile
-ui/Makefile
-ui/tests/Makefile
 ])
 
 # ------------------------------------------------------------------------------

@@ -1,22 +1,10 @@
-include $(top_srcdir)/Makefile.decl
-
-if WITH_GTK
-UI_DIR = ui
-else
-UI_DIR =
-endif
+NULL =
 
 SUBDIRS = \
 	. \
-	build \
-	egg \
-	gck \
-	gcr \
-	$(UI_DIR) \
-	schema \
-	testing \
 	po \
-	docs
+	docs/reference/gck \
+	docs/reference/gcr
 
 ACLOCAL_AMFLAGS = -I build/m4 ${ACLOCAL_FLAGS}
 
@@ -29,7 +17,7 @@ EXTRA_DIST = \
 DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-gtk-doc \
 	--enable-strict \
-	--disable-code-coverage \
+	--disable-coverage \
 	--disable-update-mime \
 	--disable-update-icon-cache \
 	--with-gtk \
@@ -55,10 +43,132 @@ dist-hook:
 	fi
 
 check-memory:
-	make -C egg check-memory
-	make -C gck check-memory
 	make -C gcr check-memory
+
+check-local: check-gck-symbols check-gcr-symbols check-ui-symbols
 
 upload-release: $(DIST_ARCHIVES)
 	scp $(DIST_ARCHIVES) master.gnome.org:
 	ssh master.gnome.org ftpadmin install $(DIST_ARCHIVES)
+
+AM_CPPFLAGS = \
+	-I$(srcdir) \
+	-I$(builddir) \
+	-I$(srcdir)/build \
+	-DSRCDIR="\"@abs_srcdir@\"" \
+	-DBUILDDIR="\"@abs_builddir@\"" \
+	-DLOCALEDIR=\""$(datadir)/locale"\" \
+	$(GLIB_CFLAGS)
+
+LDADD = \
+	$(GLIB_LIBS)
+
+LOG_DRIVER = $(srcdir)/build/tap-driver
+LOG_COMPILER = $(srcdir)/build/tap-compiler
+
+BUILT_SOURCES =
+TESTS =
+
+check_PROGRAMS =
+check_LTLIBRARIES =
+lib_LTLIBRARIES =
+noinst_LTLIBRARIES =
+noinst_PROGRAMS = $(check_PROGRAMS)
+
+pkgconfig_DATA =
+pkgconfigdir = $(libdir)/pkgconfig
+
+CLEANFILES = \
+	$(pkgconfig_DATA)
+
+TEST_SUPPRESSIONS = $(top_builddir)/build/valgrind-suppressions
+
+V_SED = $(V_SED_$(V))
+V_SED_ = $(V_SED_$(AM_DEFAULT_VERBOSITY))
+V_SED_0 = @echo "  SED     " $@;
+
+SED_SUBST = sed \
+	-e 's,[@]datadir[@],$(datadir),g' \
+	-e 's,[@]libexecdir[@],$(libexecdir),g' \
+	-e 's,[@]libdir[@],$(libdir),g' \
+	-e 's,[@]includedir[@],$(includedir),g' \
+	-e 's,[@]datarootdir[@],$(datarootdir),g' \
+	-e 's,[@]sysconfdir[@],$(sysconfdir),g' \
+	-e 's,[@]bindir[@],$(bindir),g' \
+	-e 's,[@]exec_prefix[@],$(exec_prefix),g' \
+	-e 's,[@]prefix[@],$(prefix),g' \
+	-e 's,[@]PACKAGE[@],$(PACKAGE),g' \
+	-e 's,[@]VERSION[@],$(VERSION),g' \
+	$(NULL)
+
+.desktop.in.in.desktop.in:
+	$(V_SED) $(SED_SUBST) $< > $@
+
+@INTLTOOL_DESKTOP_RULE@
+
+.service.in.service:
+	$(V_SED) $(SED_SUBST) $< > $@
+
+ENUM_TEMPLATE_C = $(top_srcdir)/build/enum-template.c
+ENUM_TEMPLATE_H = $(top_srcdir)/build/enum-template.h
+
+V_XSLTPROC = $(V_XSLTPROC_$(V))
+V_XSLTPROC_ = $(V_XSLTPROC_$(AM_DEFAULT_VERBOSITY))
+V_XSLTPROC_0 = @echo "  XSLTPROC" $@;
+
+FIX_GIR = $(top_srcdir)/build/g-ir-unbreak.xsl
+
+.broken.gir.gir:
+	$(V_XSLTPROC) xsltproc -o $@ $(FIX_GIR) $<
+.broken.typelib.typelib:
+	$(AM_V_GEN) cp $< $@
+
+SUFFIXES = .desktop.in .desktop.in.in .service .service.in .broken.typelib .broken.gir .gir
+
+if HAVE_INTROSPECTION
+
+include $(INTROSPECTION_MAKEFILE)
+
+INTROSPECTION_GIRS =
+INTROSPECTION_SCANNER_ARGS = $(INTROSPECTION_FLAGS) --warn-all --add-include-path=.
+INTROSPECTION_COMPILER_ARGS = --includedir=.
+
+girdir = $(datadir)/gir-1.0
+gir_DATA =
+
+typelibsdir = $(libdir)/girepository-1.0
+typelibs_DATA = $(gir_DATA:.gir=.typelib)
+
+CLEANFILES += \
+	$(gir_DATA) \
+	$(typelibs_DATA) \
+	$(BUILT_SOURCES)
+
+if ENABLE_VAPIGEN
+
+include $(VAPIGEN_MAKEFILE)
+
+VAPIGEN_VAPIS =
+VAPI_DEPS = $(VAPIGEN_VAPIS:.vapi=.deps)
+
+vapidir = $(datadir)/vala/vapi
+vapi_DATA = $(VAPI_DEPS)
+
+CLEANFILES += \
+	$(VAPIGEN_VAPIS) \
+	$(VAPI_DEPS)
+
+endif
+
+endif
+
+include build/Makefile.am
+include egg/Makefile.am
+include gck/Makefile.am
+include gcr/Makefile.am
+include schema/Makefile.am
+
+if WITH_GTK
+include ui/Makefile.am
+include ui/icons/Makefile.am
+endif

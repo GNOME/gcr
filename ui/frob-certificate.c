@@ -106,7 +106,7 @@ main(int argc, char *argv[])
 	if (argc > 1)
 		test_certificate (argv[1]);
 	else
-		test_certificate (SRCDIR "/files/der-certificate.crt");
+		test_certificate (SRCDIR "/ui/fixtures/der-certificate.crt");
 
 	return 0;
 }

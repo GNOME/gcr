@@ -40,7 +40,7 @@ typedef struct {
 static void
 setup (Test *test, gconstpointer unused)
 {
-	if (!g_file_get_contents (SRCDIR "/files/der-certificate.crt", (gchar**)&test->cert_data,
+	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/der-certificate.crt", (gchar**)&test->cert_data,
 	                          &test->n_cert_data, NULL))
 		g_assert_not_reached ();
 	g_assert (test->cert_data);

@@ -24,7 +24,8 @@
 
 #include "gck.h"
 #include "gck-private.h"
-#include "gck-marshal.h"
+
+#include "gck/gck-marshal.h"
 
 #include <glib/gi18n-lib.h>
 

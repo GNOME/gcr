@@ -26,10 +26,11 @@
 #include "gcr-certificate.h"
 #define DEBUG_FLAG GCR_DEBUG_CERTIFICATE_CHAIN
 #include "gcr-debug.h"
-#include "gcr-enum-types-base.h"
 #include "gcr-pkcs11-certificate.h"
 #include "gcr-simple-certificate.h"
 #include "gcr-trust.h"
+
+#include "gcr/gcr-enum-types-base.h"
 
 #include "egg/egg-error.h"
 

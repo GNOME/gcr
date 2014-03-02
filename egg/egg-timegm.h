@@ -16,8 +16,6 @@
    License along with the GNU C Library; see the file COPYING.LIB.  If not,
    see <http://www.gnu.org/licenses/>.  */
 
-/* Extracted from misc/mkdtemp.c and sysdeps/posix/tempname.c.  */
-
 #ifndef EGG_TIMEGM_H_
 #define EGG_TIMEGM_H_
 

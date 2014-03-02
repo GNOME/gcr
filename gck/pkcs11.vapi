@@ -1,4 +1,4 @@
-[CCode (prefix = "", lower_case_cprefix = "", cheader_filename = "p11-kit/pkcs11.h")]
+[CCode (cheader_filename = "p11-kit/pkcs11.h")]
 namespace CKA
 {
 	public const ulong LABEL;
@@ -12,7 +12,7 @@ namespace CKA
 	public const ulong TOKEN;
 }
 
-[CCode (prefix = "", lower_case_cprefix = "", cheader_filename = "p11-kit/pkcs11.h")]
+[CCode (cheader_filename = "p11-kit/pkcs11.h")]
 namespace CKS
 {
 	public const ulong RW_USER_FUNCTIONS;
@@ -20,7 +20,7 @@ namespace CKS
 	public const ulong RW_SO_FUNCTIONS;
 }
 
-[CCode (prefix = "", lower_case_cprefix = "", cheader_filename = "p11-kit/pkcs11.h")]
+[CCode (cheader_filename = "p11-kit/pkcs11.h")]
 namespace CKF
 {
 	public const ulong WRITE_PROTECTED;
@@ -28,20 +28,20 @@ namespace CKF
 	public const ulong USER_PIN_INITIALIZED;
 }
 
-[CCode (prefix = "", lower_case_cprefix = "", cheader_filename = "p11-kit/pkcs11.h")]
+[CCode (cheader_filename = "p11-kit/pkcs11.h")]
 namespace CKO
 {
 	public const ulong CERTIFICATE;
 	public const ulong PRIVATE_KEY;
 }
 
-[CCode (prefix = "", lower_case_cprefix = "", cheader_filename = "p11-kit/pkcs11.h")]
+[CCode (cheader_filename = "p11-kit/pkcs11.h")]
 namespace CKU
 {
 	public const ulong USER;
 }
 
-[CCode (prefix = "", lower_case_cprefix = "", cheader_filename = "p11-kit/pkcs11.h")]
+[CCode (cheader_filename = "p11-kit/pkcs11.h")]
 namespace CKR
 {
 	public const ulong OBJECT_HANDLE_INVALID;

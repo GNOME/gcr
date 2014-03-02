@@ -20,7 +20,8 @@ EXTRA_DIST = \
 	$(VALGRIND_CONTRIB) \
 	$(SUPPRESSIONS) \
 	enum-template.c \
-	enum-template.h
+	enum-template.h \
+	g-ir-unbreak.xsl
 
 all-local: valgrind-suppressions
 

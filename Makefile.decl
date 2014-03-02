@@ -46,4 +46,15 @@ pkgconfigdir = $(libdir)/pkgconfig
 ENUM_TEMPLATE_C = $(top_srcdir)/build/enum-template.c
 ENUM_TEMPLATE_H = $(top_srcdir)/build/enum-template.h
 
-SUFFIXES = .desktop.in .desktop.in.in .service .service.in
+V_XSLTPROC = $(V_XSLTPROC_$(V))
+V_XSLTPROC_ = $(V_XSLTPROC_$(AM_DEFAULT_VERBOSITY))
+V_XSLTPROC_0 = @echo "  XSLTPROC" $@;
+
+FIX_GIR = $(top_srcdir)/build/g-ir-unbreak.xsl
+
+.broken.gir.gir:
+	$(V_XSLTPROC) xsltproc -o $@ $(FIX_GIR) $<
+.broken.typelib.typelib:
+	$(AM_V_GEN) cp $< $@
+
+SUFFIXES = .desktop.in .desktop.in.in .service .service.in .broken.typelib .broken.gir .gir

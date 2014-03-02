@@ -213,7 +213,7 @@ if HAVE_INTROSPECTION
 
 include $(INTROSPECTION_MAKEFILE)
 
-INTROSPECTION_GIRS = Gcr-@GCR_MAJOR@.gir
+INTROSPECTION_GIRS = Gcr-@GCR_MAJOR@.broken.gir
 INTROSPECTION_SCANNER_ARGS = \
 	$(INTROSPECTION_FLAGS) \
 	--warn-all \
@@ -223,23 +223,25 @@ INTROSPECTION_COMPILER_ARGS = \
 	--includedir=$(srcdir) \
 	--includedir=$(top_builddir)/gck
 
-Gcr-@GCR_MAJOR@.gir: libgcr-base-@GCR_MAJOR@.la
+Gcr-@GCR_MAJOR@.gir: Gcr-@GCR_MAJOR@.broken.gir $(FIX_GIR)
 
-Gcr_@GCR_MAJOR@_gir_PACKAGES = p11-kit-1
-Gcr_@GCR_MAJOR@_gir_EXPORT_PACKAGES = gcr-base-@GCR_MAJOR@
-Gcr_@GCR_MAJOR@_gir_INCLUDES = GLib-2.0 GObject-2.0
-Gcr_@GCR_MAJOR@_gir_LIBS = libgcr-base-@GCR_MAJOR@.la
-Gcr_@GCR_MAJOR@_gir_CFLAGS = -I$(top_srcdir) -I$(top_builddir) \
+Gcr-@GCR_MAJOR@.broken.gir: libgcr-base-@GCR_MAJOR@.la
+
+Gcr_@GCR_MAJOR@_broken_gir_PACKAGES = p11-kit-1
+Gcr_@GCR_MAJOR@_broken_gir_EXPORT_PACKAGES = gcr-base-@GCR_MAJOR@
+Gcr_@GCR_MAJOR@_broken_gir_INCLUDES = GLib-2.0 GObject-2.0
+Gcr_@GCR_MAJOR@_broken_gir_LIBS = libgcr-base-@GCR_MAJOR@.la
+Gcr_@GCR_MAJOR@_broken_gir_CFLAGS = -I$(top_srcdir) -I$(top_builddir) \
 	-DGCR_COMPILATION -DGCR_API_SUBJECT_TO_CHANGE
-Gcr_@GCR_MAJOR@_gir_FILES = $(PUBLIC_FILES)
-Gcr_@GCR_MAJOR@_gir_SCANNERFLAGS = --c-include "gcr/gcr-base.h" \
+Gcr_@GCR_MAJOR@_broken_gir_FILES = $(PUBLIC_FILES)
+Gcr_@GCR_MAJOR@_broken_gir_SCANNERFLAGS = --c-include "gcr/gcr-base.h" \
 	--identifier-prefix Gcr
 
 girdir = $(datadir)/gir-1.0
-gir_DATA = $(INTROSPECTION_GIRS)
+gir_DATA = Gcr-@GCR_MAJOR@.gir
 
 typelibsdir = $(libdir)/girepository-1.0
-typelibs_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
+typelibs_DATA = $(gir_DATA:.gir=.typelib)
 
 if ENABLE_VAPIGEN
 

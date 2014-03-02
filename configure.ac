@@ -89,11 +89,17 @@ AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
 GLIB_GSETTINGS
-GOBJECT_INTROSPECTION_CHECK([1.34])
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
 
 GTK_DOC_CHECK(1.9)
+
+GOBJECT_INTROSPECTION_CHECK([1.34])
+if test "$enable_introspection" = "yes"; then
+	AC_PATH_PROG(XSLTPROC, xsltproc,
+	             AC_MSG_ERROR([Need xsltproc in order to build with gobject introspection])
+	)
+fi
 
 # --------------------------------------------------------------------
 # Optional GTK+ widgets build, avoid building gtk-doc wihtout GTK+

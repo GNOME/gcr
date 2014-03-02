@@ -252,7 +252,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		CERTIFICATE_INFO = g_quark_from_static_string ("_gcr_certificate_certificate_info");
 
 		/**
-		 * GcrCertificate:label: (allow-none)
+		 * GcrCertificate:label:
 		 *
 		 * A readable label for this certificate.
 		 */
@@ -270,7 +270,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		                              "", G_PARAM_READABLE));
 
 		/**
-		 * GcrCertificate:markup: (allow-none)
+		 * GcrCertificate:markup:
 		 *
 		 * GLib markup to describe the certificate
 		 */
@@ -288,7 +288,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		                              G_TYPE_ICON, G_PARAM_READABLE));
 
 		/**
-		 * GcrCertificate:subject: (allow-none)
+		 * GcrCertificate:subject:
 		 *
 		 * Common name part of the certificate subject
 		 */
@@ -297,7 +297,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		                                "", G_PARAM_READABLE));
 
 		/**
-		 * GcrCertificate:issuer: (allow-none)
+		 * GcrCertificate:issuer:
 		 *
 		 * Common name part of the certificate issuer
 		 */
@@ -306,7 +306,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		                                "", G_PARAM_READABLE));
 
 		/**
-		 * GcrCertificate:expiry: (allow-none)
+		 * GcrCertificate:expiry:
 		 *
 		 * The expiry date of the certificate
 		 */

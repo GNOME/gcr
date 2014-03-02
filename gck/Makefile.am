@@ -137,7 +137,7 @@ Gck_@GCK_MAJOR@_gir_INCLUDES = GObject-2.0 Gio-2.0
 Gck_@GCK_MAJOR@_gir_LIBS = libgck-@GCK_MAJOR@.la
 Gck_@GCK_MAJOR@_gir_CFLAGS = -I$(top_srcdir) -I$(top_builddir) -DGCK_COMPILATION -DGCK_API_SUBJECT_TO_CHANGE
 Gck_@GCK_MAJOR@_gir_FILES = $(PUBLIC_FILES)
-Gck_@GCK_MAJOR@_gir_SCANNERFLAGS = --c-include "gck.h"
+Gck_@GCK_MAJOR@_gir_SCANNERFLAGS = --c-include "gck/gck.h"
 
 girdir = $(datadir)/gir-1.0
 gir_DATA = $(INTROSPECTION_GIRS)

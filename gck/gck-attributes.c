@@ -1523,6 +1523,36 @@ gck_attribute_get_date (const GckAttribute *attr,
 }
 
 /**
+ * gck_attribute_get_data:
+ * @attr: an attribute
+ * @length: the length of the returned data
+ *
+ * Get the raw value in the attribute.
+ *
+ * This is useful from scripting languages. C callers will generally
+ * access the #GckAttribute struct directly.
+ *
+ * This function will %NULL if the attribute contains empty or invalid
+ * data. The returned data must not be modified and is only valid
+ * as long as this @attribute.
+ *
+ * Returns: (transfer none) (array length=length): the value data or %NULL
+ */
+const guchar *
+gck_attribute_get_data (const GckAttribute *attr,
+                        gsize *length)
+{
+	g_return_val_if_fail (attr != NULL, NULL);
+
+	if (attr->length == G_MAXULONG) {
+		*length = 0;
+		return NULL;
+	}
+	*length = attr->length;
+	return attr->value;
+}
+
+/**
  * gck_attribute_init: (skip)
  * @attr: an uninitialized attribute
  * @attr_type: the PKCS\#11 attribute type to set on the attribute

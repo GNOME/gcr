@@ -15,6 +15,7 @@ gck_attribute_get_boolean
 gck_attribute_get_ulong
 gck_attribute_get_string
 gck_attribute_get_date
+gck_attribute_get_data
 gck_attribute_dump
 gck_attribute_equal
 gck_attribute_hash

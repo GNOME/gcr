@@ -9,6 +9,7 @@ gck_attribute_equal
 gck_attribute_free
 gck_attribute_hash
 gck_attribute_get_boolean
+gck_attribute_get_data
 gck_attribute_get_date
 gck_attribute_get_string
 gck_attribute_get_type

@@ -2,3 +2,8 @@
 // See https://live.gnome.org/Vala/UpstreamGuide for more information
 
 mechanisms_check skip=false
+
+// Because vapigen is broken with regards to array fields
+Attribute
+	.length skip=true
+	.value skip=true

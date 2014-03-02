@@ -175,6 +175,9 @@ gchar*              gck_attribute_get_string                (const GckAttribute 
 void                gck_attribute_get_date                  (const GckAttribute *attr,
                                                              GDate* value);
 
+const guchar *      gck_attribute_get_data                  (const GckAttribute *attr,
+                                                             gsize *length);
+
 gboolean            gck_attribute_equal                     (gconstpointer attr1,
                                                              gconstpointer attr2);
 

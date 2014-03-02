@@ -123,10 +123,10 @@ on_name_lost (GDBusConnection *connection,
 		gtk_main_quit ();
 
 	} else if (g_strcmp0 (name, GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME) == 0) {
-		acquired_system_prompter = TRUE;
+		acquired_system_prompter = FALSE;
 
 	} else if (g_strcmp0 (name, GCR_DBUS_PROMPTER_PRIVATE_BUS_NAME) == 0) {
-		acquired_private_prompter = TRUE;
+		acquired_private_prompter = FALSE;
 
 	}
 }

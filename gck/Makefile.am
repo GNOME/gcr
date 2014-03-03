@@ -83,8 +83,12 @@ libgck_testable_la_CFLAGS = \
 
 libgck_testable_la_LIBADD = \
 	$(libgck_@GCK_MAJOR@_la_OBJECTS) \
-	$(libgck_@GCK_MAJOR@_la_LIBADD)
-libgck_testable_la_DEPENDENCIES = $(libgck_@GCK_MAJOR@_la_OBJECTS)
+	libegg-hex.la \
+	libegg-secmem.la \
+	$(P11_KIT_LIBS) \
+	$(GIO_LIBS) \
+	$(GLIB_LIBS)
+EXTRA_libgck_testable_la_DEPENDENCIES = $(libgck_@GCK_MAJOR@_la_OBJECTS)
 
 gck/gck-marshal.h: gck/gck-marshal.list $(GLIB_GENMARSHAL)
 	$(AM_V_GEN) $(GLIB_GENMARSHAL) $< --header --prefix=_gck_marshal > $@

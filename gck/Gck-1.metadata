@@ -7,3 +7,22 @@ mechanisms_check skip=false
 Attribute
 	.length skip=true
 	.value skip=true
+
+UriData
+	.attributes unowned=false
+	.module_info unowned=false
+	.token_info unowned=false
+
+ModuleInfo
+	.library_description unowned=false
+	.manufacturer_id unowned=false
+
+SlotInfo
+	.manufacturer_id unowned=false
+	.slot_description unowned=false
+
+TokenInfo
+	.label unowned=false
+	.manufacturer_id unowned=false
+	.model unowned=false
+	.serial_number unowned=false

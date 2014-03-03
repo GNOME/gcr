@@ -2188,6 +2188,7 @@ gck_attributes_find (GckAttributes *attrs,
 gboolean
 gck_attributes_find_boolean (GckAttributes *attrs, gulong attr_type, gboolean *value)
 {
+	g_return_val_if_fail (attrs != NULL, FALSE);
 	g_return_val_if_fail (value, FALSE);
 
 	return find_attribute_boolean (attrs->data, attrs->count, attr_type, value);
@@ -2210,6 +2211,7 @@ gck_attributes_find_boolean (GckAttributes *attrs, gulong attr_type, gboolean *v
 gboolean
 gck_attributes_find_ulong (GckAttributes *attrs, gulong attr_type, gulong *value)
 {
+	g_return_val_if_fail (attrs != NULL, FALSE);
 	g_return_val_if_fail (value, FALSE);
 
 	return find_attribute_ulong (attrs->data, attrs->count, attr_type, value);
@@ -2232,6 +2234,7 @@ gck_attributes_find_ulong (GckAttributes *attrs, gulong attr_type, gulong *value
 gboolean
 gck_attributes_find_string (GckAttributes *attrs, gulong attr_type, gchar **value)
 {
+	g_return_val_if_fail (attrs != NULL, FALSE);
 	g_return_val_if_fail (value, FALSE);
 
 	return find_attribute_string (attrs->data, attrs->count, attr_type, value);
@@ -2254,6 +2257,7 @@ gck_attributes_find_string (GckAttributes *attrs, gulong attr_type, gchar **valu
 gboolean
 gck_attributes_find_date (GckAttributes *attrs, gulong attr_type, GDate *value)
 {
+	g_return_val_if_fail (attrs != NULL, FALSE);
 	g_return_val_if_fail (value, FALSE);
 
 	return find_attribute_date (attrs->data, attrs->count, attr_type, value);

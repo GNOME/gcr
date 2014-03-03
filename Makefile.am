@@ -152,7 +152,7 @@ VAPIGEN_VAPIS =
 VAPI_DEPS = $(VAPIGEN_VAPIS:.vapi=.deps)
 
 vapidir = $(datadir)/vala/vapi
-vapi_DATA = $(VAPI_DEPS)
+vapi_DATA = $(VAPIGEN_VAPIS) $(VAPI_DEPS)
 
 CLEANFILES += \
 	$(VAPIGEN_VAPIS) \

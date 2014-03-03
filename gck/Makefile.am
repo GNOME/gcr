@@ -145,7 +145,7 @@ gck-@GCK_MAJOR@.vapi: Gck-@GCK_MAJOR@.gir gck/Gck-@GCK_MAJOR@.metadata gck-@GCK_
 VAPIGEN_VAPIS += gck-@GCK_MAJOR@.vapi
 
 gck_@GCK_MAJOR@_vapi_DEPS = glib-2.0 gio-2.0
-gck_@GCK_MAJOR@_vapi_METADATADIRS = $(srcdir)
+gck_@GCK_MAJOR@_vapi_METADATADIRS = $(srcdir)/gck
 gck_@GCK_MAJOR@_vapi_FILES = Gck-@GCK_MAJOR@.gir
 
 gck-$(GCK_MAJOR).deps: Makefile.am

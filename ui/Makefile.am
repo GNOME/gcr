@@ -165,7 +165,7 @@ gcr-ui-@GCR_MAJOR@.vapi: GcrUi-@GCR_MAJOR@.gir ui/GcrUi-@GCR_MAJOR@.metadata gcr
 VAPIGEN_VAPIS += gcr-ui-@GCR_MAJOR@.vapi
 
 gcr_ui_@GCR_MAJOR@_vapi_DEPS = glib-2.0 gio-2.0 gck-@GCK_MAJOR@ gcr-@GCR_MAJOR@ gtk+-3.0
-gcr_ui_@GCR_MAJOR@_vapi_METADATADIRS = $(srcdir)
+gcr_ui_@GCR_MAJOR@_vapi_METADATADIRS = $(srcdir)/ui
 gcr_ui_@GCR_MAJOR@_vapi_VAPIDIRS = $(builddir) $(builddir)/../gck $(builddir)/../gcr
 gcr_ui_@GCR_MAJOR@_vapi_GIRDIRS = $(builddir) $(builddir)/../gck $(builddir)/../gcr
 gcr_ui_@GCR_MAJOR@_vapi_FILES = GcrUi-@GCR_MAJOR@.gir

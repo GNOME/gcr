@@ -34,7 +34,7 @@ gcr_HEADER_FILES = \
 	gcr/gcr-version.h
 
 gcr_inc_HEADERS = \
-	$(gcr/HEADER_FILES) \
+	$(gcr_HEADER_FILES) \
 	gcr/gcr-enum-types-base.h
 
 if WITH_GTK

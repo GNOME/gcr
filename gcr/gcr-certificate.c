@@ -199,8 +199,16 @@ digest_certificate (GcrCertificate *self, GChecksumType type)
 	return digest;
 }
 
-static gchar*
-calculate_markup (GcrCertificate *self)
+/**
+ * gcr_certificate_get_markup_text:
+ * @self: a certificate
+ *
+ * Calculate a GMarkup string for displaying this certificate.
+ *
+ * Returns: (transfer full): the markup string
+ */
+gchar *
+gcr_certificate_get_markup_text (GcrCertificate *self)
 {
 	gchar *label = NULL;
 	gchar *issuer;
@@ -1184,7 +1192,7 @@ gcr_certificate_mixin_get_property (GObject *obj, guint prop_id,
 		g_value_set_string (value, _("Certificate"));
 		break;
 	case PROP_MARKUP:
-		g_value_take_string (value, calculate_markup (cert));
+		g_value_take_string (value, gcr_certificate_get_markup_text (cert));
 		break;
 	case PROP_ISSUER:
 		g_value_take_string (value, gcr_certificate_get_issuer_name (cert));

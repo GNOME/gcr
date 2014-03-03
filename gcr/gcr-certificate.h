@@ -127,6 +127,8 @@ guchar*             gcr_certificate_get_fingerprint        (GcrCertificate *self
 gchar*              gcr_certificate_get_fingerprint_hex    (GcrCertificate *self,
                                                             GChecksumType type);
 
+gchar *             gcr_certificate_get_markup_text        (GcrCertificate *self);
+
 GIcon*              gcr_certificate_get_icon               (GcrCertificate *self);
 
 gboolean            gcr_certificate_get_basic_constraints  (GcrCertificate *self,

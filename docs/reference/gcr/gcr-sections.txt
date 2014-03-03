@@ -94,6 +94,7 @@ GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE
 gcr_certificate_mixin_comparable_init
 gcr_certificate_compare
 gcr_certificate_get_icon
+gcr_certificate_get_markup_text
 <SUBSECTION Standard>
 gcr_certificate_get_columns
 GCR_CERTIFICATE

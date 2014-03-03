@@ -197,7 +197,7 @@ INTROSPECTION_GIRS += Gcr-@GCR_MAJOR@.broken.gir
 
 Gcr-@GCR_MAJOR@.gir: Gcr-@GCR_MAJOR@.broken.gir $(FIX_GIR)
 
-Gcr-@GCR_MAJOR@.broken.gir: libgcr-base-@GCR_MAJOR@.la
+Gcr-@GCR_MAJOR@.broken.gir: libgcr-base-@GCR_MAJOR@.la Gck-@GCK_MAJOR@.gir
 
 Gcr_@GCR_MAJOR@_broken_gir_PACKAGES = p11-kit-1
 Gcr_@GCR_MAJOR@_broken_gir_EXPORT_PACKAGES = gcr-base-@GCR_MAJOR@

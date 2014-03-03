@@ -6,6 +6,5 @@ Certificate
 	.markup nullable=true
 	.subject nullable=true
 	.issuer nullable=true
-	.expiry nullable=true
 Comparable
 	.memcmp skip=false

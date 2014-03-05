@@ -8,12 +8,6 @@ SUBDIRS = \
 
 ACLOCAL_AMFLAGS = -I build/m4 ${ACLOCAL_FLAGS}
 
-EXTRA_DIST = \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in \
-	HACKING
-
 DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-gtk-doc \
 	--enable-strict \
@@ -42,14 +36,39 @@ dist-hook:
 		echo A git clone is required to generate a ChangeLog >&2; \
 	fi
 
-check-memory:
-	make -C gcr check-memory
-
 check-local: check-gck-symbols check-gcr-symbols check-ui-symbols
 
 upload-release: $(DIST_ARCHIVES)
 	scp $(DIST_ARCHIVES) master.gnome.org:
 	ssh master.gnome.org ftpadmin install $(DIST_ARCHIVES)
+
+# Default executable tests
+LOG_DRIVER = $(srcdir)/build/tap-driver
+LOG_DRIVER_FLAGS = --format=tap
+LOG_COMPILER = $(srcdir)/build/tap-gtester
+
+VALGRIND_ARGS = --trace-children=no --quiet --error-exitcode=33 \
+	--suppressions=valgrind-suppressions --gen-suppressions=all \
+	--num-callers=16
+VALGRIND_SUPPRESSIONS = \
+	build/gcr.supp \
+	build/gcrypt.supp \
+	build/glib.supp \
+	build/glibc.supp \
+	build/p11-kit.supp \
+	build/pixman.supp \
+	build/pthread.supp \
+	build/unknown.supp
+
+valgrind-suppressions: $(VALGRIND_SUPPRESSIONS)
+	$(AM_V_GEN) cat $^ > $@
+
+check-memory: valgrind-suppressions
+	$(MAKE) LOG_FLAGS="-- libtool --mode=execute valgrind $(VALGRIND_ARGS)" \
+		$(AM_MAKEFLAGS) check
+recheck-memory: valgrind-suppressions
+	$(MAKE) LOG_FLAGS="-- libtool --mode=execute valgrind $(VALGRIND_ARGS)" \
+		$(AM_MAKEFLAGS) recheck
 
 AM_CPPFLAGS = \
 	-I$(srcdir) \
@@ -62,9 +81,6 @@ AM_CPPFLAGS = \
 
 LDADD = \
 	$(GLIB_LIBS)
-
-LOG_DRIVER = $(srcdir)/build/tap-driver
-LOG_COMPILER = $(srcdir)/build/tap-compiler
 
 BUILT_SOURCES =
 TESTS =
@@ -80,6 +96,19 @@ pkgconfigdir = $(libdir)/pkgconfig
 
 CLEANFILES = \
 	$(pkgconfig_DATA)
+
+EXTRA_DIST = \
+	intltool-extract.in \
+	intltool-merge.in \
+	intltool-update.in \
+	HACKING \
+	build/valgrind \
+	$(VALGRIND_SUPPRESSIONS) \
+	build/enum-template.c \
+	build/enum-template.h \
+	build/g-ir-unbreak.xsl \
+	build/tap-driver \
+	build/tap-gtester
 
 TEST_SUPPRESSIONS = $(top_builddir)/build/valgrind-suppressions
 
@@ -162,7 +191,6 @@ endif
 
 endif
 
-include build/Makefile.am
 include egg/Makefile.am
 include gck/Makefile.am
 include gcr/Makefile.am

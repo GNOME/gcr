@@ -114,3 +114,4 @@ stamp-*
 /build/coverage
 /build/coverage.info
 /build/valgrind-suppressions
+/build/test-driver

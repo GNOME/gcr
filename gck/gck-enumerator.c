@@ -854,7 +854,7 @@ gck_enumerator_get_object_type (GckEnumerator *self)
 }
 
 /**
- * gck_enumerator_set_object_type: (skip):
+ * gck_enumerator_set_object_type: (skip)
  * @self: an enumerator
  * @object_type: the type of objects to create
  *

@@ -1,3 +1,16 @@
+gcr 3.11.91:
+ - Parallel tests, non-recursive Makefile, and TAP
+ - Add gck_enumerator_set_object_type_full() function
+ - Add an accessor for GckAttribute raw value data
+ - Add gcr_certificate_get_markup() function
+ - Store imported key filename in GcrParsed & GcrParser [#705225]
+ - Allow using GBytes with GcrParser [#708736]
+ - Lots of VAPI and GIR fixes [#720504 ...]
+ - Deprecation fixes
+ - Updated translations
+ - Valgrind fix and update headers [#710983 #702648]
+ - Build fixes
+
 gcr 3.10.0:
  - Fix annotations [#705225]
  - Updated translations

@@ -108,9 +108,13 @@ EXTRA_DIST = \
 	build/enum-template.h \
 	build/g-ir-unbreak.xsl \
 	build/tap-driver \
-	build/tap-gtester
+	build/tap-gtester \
+	build/gdbus-unbreak-codegen \
+	$(NULL)
 
 TEST_SUPPRESSIONS = $(top_builddir)/build/valgrind-suppressions
+
+GDBUS_CODEGEN = $(top_srcdir)/build/gdbus-unbreak-codegen
 
 V_SED = $(V_SED_$(V))
 V_SED_ = $(V_SED_$(AM_DEFAULT_VERBOSITY))

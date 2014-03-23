@@ -157,7 +157,7 @@ DBUS_XML_DEFINITIONS = \
 	gcr/org.gnome.keyring.Prompter.xml
 
 gcr/gcr-dbus-generated.c: $(DBUS_XML_DEFINITIONS)
-	$(AM_V_GEN) gdbus-codegen --interface-prefix org.gnome.keyring.internal. \
+	$(AM_V_GEN) $(GDBUS_CODEGEN) --interface-prefix org.gnome.keyring.internal. \
 		--generate-c-code gcr/gcr-dbus-generated --c-namespace GcrDBus $^
 	$(AM_V_GEN) sed -i -e 's/gcr_dbus/_gcr_dbus/g' gcr/gcr-dbus-generated.[ch]
 

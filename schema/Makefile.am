@@ -13,4 +13,6 @@ convertdir = \
 
 EXTRA_DIST += \
 	$(convert_DATA) \
-	$(gsettings_SCHEMAS)
+	$(gsettings_SCHEMAS) \
+	$(gsettings_SCHEMAS:.xml=.valid) \
+	$(NULL)

@@ -10,7 +10,6 @@ ACLOCAL_AMFLAGS = -I build/m4 ${ACLOCAL_FLAGS}
 
 DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-gtk-doc \
-	--enable-strict \
 	--disable-coverage \
 	--disable-update-mime \
 	--disable-update-icon-cache \

@@ -1,3 +1,7 @@
+gcr 3.12.0:
+ - Use /usr/bin/env to find python [#726909]
+ - Updated translations
+
 gcr 3.11.91:
  - Parallel tests, non-recursive Makefile, and TAP
  - Add gck_enumerator_set_object_type_full() function

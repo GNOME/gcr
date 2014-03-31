@@ -1,4 +1,4 @@
-# Basuqe translation of gcr
+# Basque translation of gcr
 # translation of gnome-keyring.HEAD.po  to Basque
 # Copyright (C) 2004 THE eu'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the eu package.

@@ -4,7 +4,7 @@
 
 /* #include <libtasn1.h> */
 
-const ASN1_ARRAY_TYPE test_asn1_tab[] = {
+const asn1_static_node test_asn1_tab[] = {
   { "TESTS", 536872976, NULL },
   { NULL, 1073741836, NULL },
   { "TestInteger", 1073741827, NULL },
@@ -12,7 +12,7 @@ const ASN1_ARRAY_TYPE test_asn1_tab[] = {
   { "TestNull", 1073741844, NULL },
   { "TestAny", 1073741837, NULL },
   { "TestOctetString", 1073741831, NULL },
-  { "TestGeneralized", 1082130449, NULL },
+  { "TestGeneralized", 1073741861, NULL },
   { "TestImplicit", 1610620935, NULL },
   { NULL, 4104, "5"},
   { "TestExplicit", 1610620935, NULL },

@@ -139,8 +139,8 @@ ASN_SRCS = \
 
 asn:
 	for asn in $(ASN_SRCS); do \
-		asn1Parser -o $(srcdir)/$$asn.h $$asn \
-		sed -i 's|#include.*|/* \0 */|' $$asn.h \
+		asn1Parser -o $(srcdir)/$$asn.h $(srcdir)/$$asn; \
+		sed -i 's|#include.*|/* \0 */|' $(srcdir)/$$asn.h; \
 	done
 
 EXTRA_DIST += \

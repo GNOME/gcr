@@ -171,6 +171,7 @@ EGG_SECURE_DECLARE (parser);
 static GQuark PEM_CERTIFICATE;
 static GQuark PEM_RSA_PRIVATE_KEY;
 static GQuark PEM_DSA_PRIVATE_KEY;
+static GQuark PEM_EC_PRIVATE_KEY;
 static GQuark PEM_ANY_PRIVATE_KEY;
 static GQuark PEM_ENCRYPTED_PRIVATE_KEY;
 static GQuark PEM_PRIVATE_KEY;
@@ -195,6 +196,7 @@ init_quarks (void)
 		QUARK (PEM_PRIVATE_KEY, "PRIVATE KEY");
 		QUARK (PEM_RSA_PRIVATE_KEY, "RSA PRIVATE KEY");
 		QUARK (PEM_DSA_PRIVATE_KEY, "DSA PRIVATE KEY");
+		QUARK (PEM_EC_PRIVATE_KEY, "EC PRIVATE KEY");
 		QUARK (PEM_ANY_PRIVATE_KEY, "ANY PRIVATE KEY");
 		QUARK (PEM_ENCRYPTED_PRIVATE_KEY, "ENCRYPTED PRIVATE KEY");
 		QUARK (PEM_PKCS7, "PKCS7");
@@ -609,6 +611,62 @@ done:
 	pop_parsed (self, parsed);
 	return ret;
 }
+/* -----------------------------------------------------------------------------
+ * EC PRIVATE KEY
+ */
+
+static gint
+parse_der_private_key_ec (GcrParser *self,
+                          GBytes *data)
+{
+	gint ret = GCR_ERROR_UNRECOGNIZED;
+	GNode *asn = NULL;
+	GBytes *value = NULL;
+	GcrParsed *parsed;
+	gulong version;
+
+	parsed = push_parsed (self, TRUE);
+
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "ECPrivateKey", data);
+	if (!asn)
+		goto done;
+
+	if (!egg_asn1x_get_integer_as_ulong (egg_asn1x_node (asn, "version", NULL), &version))
+		goto done;
+
+	/* We only support simple version */
+	if (version != 1) {
+		g_message ("unsupported version of EC key: %lu", version);
+		goto done;
+	}
+
+	parsing_block (parsed, GCR_FORMAT_DER_PRIVATE_KEY_EC, data);
+	parsing_object (parsed, CKO_PRIVATE_KEY);
+	parsed_ulong_attribute (parsed, CKA_KEY_TYPE, CKK_EC);
+	parsed_boolean_attribute (parsed, CKA_PRIVATE, CK_TRUE);
+	ret = GCR_ERROR_FAILURE;
+
+	if (!parsed_asn1_element (parsed, asn, "parameters", CKA_EC_PARAMS))
+		goto done;
+
+	value = egg_asn1x_get_string_as_usg (egg_asn1x_node (asn, "privateKey", NULL), NULL);
+	if (!value)
+		goto done;
+
+	parsed_attribute_bytes (parsed, CKA_VALUE, value);
+	parsed_fire (self, parsed);
+	ret = SUCCESS;
+
+done:
+	if (value)
+		g_bytes_unref (value);
+	egg_asn1x_destroy (asn);
+	if (ret == GCR_ERROR_FAILURE)
+		g_message ("invalid EC key");
+
+	pop_parsed (self, parsed);
+	return ret;
+}
 
 /* -----------------------------------------------------------------------------
  * PRIVATE KEY
@@ -623,6 +681,8 @@ parse_der_private_key (GcrParser *self,
 	res = parse_der_private_key_rsa (self, data);
 	if (res == GCR_ERROR_UNRECOGNIZED)
 		res = parse_der_private_key_dsa (self, data);
+	if (res == GCR_ERROR_UNRECOGNIZED)
+		res = parse_der_private_key_ec (self, data);
 
 	return res;
 }
@@ -692,6 +752,25 @@ done:
 }
 
 static gint
+handle_subject_public_key_ec (GcrParser *self,
+                              GcrParsed *parsed,
+                              GBytes *key,
+                              GNode *params)
+{
+	GBytes *bytes;
+
+	parsing_object (parsed, CKO_PUBLIC_KEY);
+	parsed_ulong_attribute (parsed, CKA_KEY_TYPE, CKK_EC);
+
+	bytes = egg_asn1x_encode (params, g_realloc);
+	parsed_attribute_bytes (parsed, CKA_EC_PARAMS, bytes);
+	parsed_attribute_bytes (parsed, CKA_EC_POINT, key);
+	g_bytes_unref (bytes);
+
+	return SUCCESS;
+}
+
+static gint
 parse_der_subject_public_key (GcrParser *self,
                               GBytes *data)
 {
@@ -724,6 +803,9 @@ parse_der_subject_public_key (GcrParser *self,
 
 	else if (oid == GCR_OID_PKIX1_DSA)
 		ret = handle_subject_public_key_dsa (self, parsed, key, params);
+
+	else if (oid == GCR_OID_PKIX1_EC)
+		ret = handle_subject_public_key_ec (self, parsed, key, params);
 
 	else
 		ret = GCR_ERROR_UNRECOGNIZED;
@@ -773,6 +855,8 @@ parse_der_pkcs8_plain (GcrParser *self,
 		key_type = CKK_RSA;
 	else if (key_algo == GCR_OID_PKIX1_DSA)
 		key_type = CKK_DSA;
+	else if (key_algo == GCR_OID_PKIX1_EC)
+		key_type = CKK_EC;
 
 	if (key_type == GCK_INVALID) {
   		ret = GCR_ERROR_UNRECOGNIZED;
@@ -801,6 +885,10 @@ done:
 			if (ret == GCR_ERROR_UNRECOGNIZED && params)
 				ret = parse_der_private_key_dsa_parts (self, keydata, params);
 			break;
+		case CKK_EC:
+			ret = parse_der_private_key_ec (self, keydata);
+			break;
+
 		default:
 			g_message ("invalid or unsupported key type in PKCS#8 key");
 			ret = GCR_ERROR_UNRECOGNIZED;
@@ -1723,6 +1811,9 @@ formats_for_armor_type (GQuark armor_type,
 	} else if (armor_type == PEM_DSA_PRIVATE_KEY) {
 		*inner_format = GCR_FORMAT_DER_PRIVATE_KEY_DSA;
 		*outer_format = GCR_FORMAT_PEM_PRIVATE_KEY_DSA;
+	} else if (armor_type == PEM_EC_PRIVATE_KEY) {
+		*inner_format = GCR_FORMAT_DER_PRIVATE_KEY_EC;
+		*outer_format = GCR_FORMAT_PEM_PRIVATE_KEY_EC;
 	} else if (armor_type == PEM_ANY_PRIVATE_KEY) {
 		*inner_format = GCR_FORMAT_DER_PRIVATE_KEY;
 		*outer_format = GCR_FORMAT_PEM_PRIVATE_KEY;
@@ -1934,6 +2025,13 @@ parse_pem_private_key_dsa (GcrParser *self,
 }
 
 static gint
+parse_pem_private_key_ec (GcrParser *self,
+		          GBytes *data)
+{
+	return handle_pem_format (self, GCR_FORMAT_DER_PRIVATE_KEY_EC, data);
+}
+
+static gint
 parse_pem_certificate (GcrParser *self,
                        GBytes *data)
 {
@@ -2028,6 +2126,7 @@ parse_openssh_public (GcrParser *self,
  * @GCR_FORMAT_DER_PRIVATE_KEY: DER encoded private key
  * @GCR_FORMAT_DER_PRIVATE_KEY_RSA: DER encoded RSA private key
  * @GCR_FORMAT_DER_PRIVATE_KEY_DSA: DER encoded DSA private key
+ * @GCR_FORMAT_DER_PRIVATE_KEY_EC: DER encoded EC private key
  * @GCR_FORMAT_DER_SUBJECT_PUBLIC_KEY: DER encoded SubjectPublicKeyInfo
  * @GCR_FORMAT_DER_CERTIFICATE_X509: DER encoded X.509 certificate
  * @GCR_FORMAT_DER_PKCS7: DER encoded PKCS\#7 container file which can contain certificates
@@ -2043,6 +2142,7 @@ parse_openssh_public (GcrParser *self,
  * @GCR_FORMAT_PEM_PRIVATE_KEY: An OpenSSL style PEM file with a private key
  * @GCR_FORMAT_PEM_PRIVATE_KEY_RSA: An OpenSSL style PEM file with a private RSA key
  * @GCR_FORMAT_PEM_PRIVATE_KEY_DSA: An OpenSSL style PEM file with a private DSA key
+ * @GCR_FORMAT_PEM_PRIVATE_KEY_EC: An OpenSSL style PEM file with a private EC key
  * @GCR_FORMAT_PEM_CERTIFICATE_X509: An OpenSSL style PEM file with an X.509 certificate
  * @GCR_FORMAT_PEM_PKCS7: An OpenSSL style PEM file containing PKCS\#7
  * @GCR_FORMAT_PEM_PKCS8_PLAIN: Unencrypted OpenSSL style PEM file containing PKCS\#8
@@ -2065,6 +2165,7 @@ static const ParserFormat parser_normal[] = {
 	{ GCR_FORMAT_BASE64_SPKAC, parse_base64_spkac },
 	{ GCR_FORMAT_DER_PRIVATE_KEY_RSA, parse_der_private_key_rsa },
 	{ GCR_FORMAT_DER_PRIVATE_KEY_DSA, parse_der_private_key_dsa },
+	{ GCR_FORMAT_DER_PRIVATE_KEY_EC, parse_der_private_key_ec },
 	{ GCR_FORMAT_DER_SUBJECT_PUBLIC_KEY, parse_der_subject_public_key },
 	{ GCR_FORMAT_DER_CERTIFICATE_X509, parse_der_certificate },
 	{ GCR_FORMAT_DER_PKCS7, parse_der_pkcs7 },
@@ -2083,6 +2184,7 @@ static const ParserFormat parser_formats[] = {
 	{ GCR_FORMAT_DER_PRIVATE_KEY, parse_der_private_key },
 	{ GCR_FORMAT_DER_PRIVATE_KEY_RSA, parse_der_private_key_rsa },
 	{ GCR_FORMAT_DER_PRIVATE_KEY_DSA, parse_der_private_key_dsa },
+	{ GCR_FORMAT_DER_PRIVATE_KEY_EC, parse_der_private_key_ec },
 	{ GCR_FORMAT_DER_SUBJECT_PUBLIC_KEY, parse_der_subject_public_key },
 	{ GCR_FORMAT_DER_CERTIFICATE_X509, parse_der_certificate },
 	{ GCR_FORMAT_DER_PKCS7, parse_der_pkcs7 },
@@ -2105,6 +2207,7 @@ static const ParserFormat parser_formats[] = {
 	{ GCR_FORMAT_PEM_PKCS8_ENCRYPTED, parse_pem_pkcs8_encrypted },
 	{ GCR_FORMAT_PEM_PKCS12, parse_pem_pkcs12 },
 	{ GCR_FORMAT_PEM_PKCS10, parse_pem_pkcs10 },
+	{ GCR_FORMAT_PEM_PRIVATE_KEY_EC, parse_pem_private_key_ec },
 };
 
 static int

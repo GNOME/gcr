@@ -48,6 +48,8 @@ GNode *        _gcr_subject_public_key_load_finish      (GAsyncResult *result,
 
 guint          _gcr_subject_public_key_calculate_size   (GNode *subject_public_key);
 
+guint          _gcr_subject_public_key_attributes_size  (GckAttributes *attributes);
+
 G_END_DECLS
 
 #endif /* GCR_CERTIFICATE_H */

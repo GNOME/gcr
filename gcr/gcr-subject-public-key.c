@@ -786,6 +786,24 @@ calculate_rsa_key_size (GBytes *data)
 }
 
 static guint
+attributes_rsa_key_size (GckAttributes *attrs)
+{
+	const GckAttribute *attr;
+	gulong bits;
+
+	attr = gck_attributes_find (attrs, CKA_MODULUS);
+
+	/* Calculate the bit length, and remove the complement */
+	if (attr != NULL)
+		return (attr->length / 2) * 2 * 8;
+
+	if (gck_attributes_find_ulong (attrs, CKA_MODULUS_BITS, &bits))
+		return (gint)bits;
+
+	return 0;
+}
+
+static guint
 calculate_dsa_params_size (GNode *params)
 {
 	GNode *asn;
@@ -806,6 +824,24 @@ calculate_dsa_params_size (GNode *params)
 
 	g_bytes_unref (content);
 	return key_size;
+}
+
+static guint
+attributes_dsa_key_size (GckAttributes *attrs)
+{
+	const GckAttribute *attr;
+	gulong bits;
+
+	attr = gck_attributes_find (attrs, CKA_PRIME);
+
+	/* Calculate the bit length, and remove the complement */
+	if (attr != NULL)
+		return (attr->length / 2) * 2 * 8;
+
+	if (gck_attributes_find_ulong (attrs, CKA_PRIME_BITS, &bits))
+		return (gint)bits;
+
+	return 0;
 }
 
 guint
@@ -839,4 +875,23 @@ _gcr_subject_public_key_calculate_size (GNode *subject_public_key)
 	}
 
 	return key_size;
+}
+
+guint
+_gcr_subject_public_key_attributes_size (GckAttributes *attrs)
+{
+	gulong key_type;
+
+	if (!gck_attributes_find_ulong (attrs, CKA_KEY_TYPE, &key_type))
+		return 0;
+
+	switch (key_type) {
+	case CKK_RSA:
+		return attributes_rsa_key_size (attrs);
+	case CKK_DSA:
+		return attributes_dsa_key_size (attrs);
+	default:
+		g_message ("unsupported key algorithm: %lu", key_type);
+		return 0;
+	}
 }

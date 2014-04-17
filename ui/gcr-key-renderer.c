@@ -114,53 +114,6 @@ calculate_fingerprint (GcrKeyRenderer *self,
 	return gcr_fingerprint_from_attributes (attrs, algorithm, n_fingerprint);
 }
 
-static gint
-calculate_rsa_key_size (GckAttributes *attrs)
-{
-	const GckAttribute *attr;
-	gulong bits;
-
-	attr = gck_attributes_find (attrs, CKA_MODULUS);
-
-	/* Calculate the bit length, and remove the complement */
-	if (attr != NULL)
-		return (attr->length / 2) * 2 * 8;
-
-	if (gck_attributes_find_ulong (attrs, CKA_MODULUS_BITS, &bits))
-		return (gint)bits;
-
-	return -1;
-}
-
-static guint
-calculate_dsa_key_size (GckAttributes *attrs)
-{
-	const GckAttribute *attr;
-	gulong bits;
-
-	attr = gck_attributes_find (attrs, CKA_PRIME);
-
-	/* Calculate the bit length, and remove the complement */
-	if (attr != NULL)
-		return (attr->length / 2) * 2 * 8;
-
-	if (gck_attributes_find_ulong (attrs, CKA_PRIME_BITS, &bits))
-		return (gint)bits;
-
-	return -1;
-}
-
-static gint
-calculate_key_size (GckAttributes *attrs, gulong key_type)
-{
-	if (key_type == CKK_RSA)
-		return calculate_rsa_key_size (attrs);
-	else if (key_type == CKK_DSA)
-		return calculate_dsa_key_size (attrs);
-	else
-		return -1;
-}
-
 static void
 on_subject_public_key (GObject *source,
                        GAsyncResult *result,
@@ -362,7 +315,7 @@ gcr_key_renderer_real_render (GcrRenderer *renderer, GcrViewer *viewer)
 	gchar *display;
 	gulong klass;
 	gulong key_type;
-	gint size;
+	guint size;
 
 	self = GCR_KEY_RENDERER (renderer);
 
@@ -415,9 +368,9 @@ gcr_key_renderer_real_render (GcrRenderer *renderer, GcrViewer *viewer)
 
 	_gcr_display_view_append_content (view, renderer, text, NULL);
 
-	size = calculate_key_size (attrs, key_type);
-	if (size >= 0) {
-		display = g_strdup_printf (g_dngettext (GETTEXT_PACKAGE, "%d bit", "%d bits", size), size);
+	size = _gcr_subject_public_key_attributes_size (attrs);
+	if (size > 0) {
+		display = g_strdup_printf (g_dngettext (GETTEXT_PACKAGE, "%u bit", "%u bits", size), size);
 		_gcr_display_view_append_content (view, renderer, _("Strength"), display);
 		g_free (display);
 	}
@@ -432,11 +385,10 @@ gcr_key_renderer_real_render (GcrRenderer *renderer, GcrViewer *viewer)
 		text = _("Unknown");
 	_gcr_display_view_append_value (view, renderer, _("Algorithm"), text, FALSE);
 
-	size = calculate_key_size (attrs, key_type);
-	if (size < 0)
+	if (size == 0)
 		display = g_strdup (_("Unknown"));
 	else
-		display = g_strdup_printf ("%d", size);
+		display = g_strdup_printf ("%u", size);
 	_gcr_display_view_append_value (view, renderer, _("Size"), display, FALSE);
 	g_free (display);
 

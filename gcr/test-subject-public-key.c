@@ -62,13 +62,16 @@ on_parser_parsed (GcrParser *parser,
 }
 
 static GckAttributes *
-parse_attributes (GBytes *data)
+parse_attributes (GBytes *data,
+                  GcrDataFormat format)
 {
 	GcrParser *parser;
 	GckAttributes *attrs = NULL;
 	GError *error = NULL;
 
 	parser = gcr_parser_new ();
+	gcr_parser_format_disable (parser, GCR_FORMAT_ALL);
+	gcr_parser_format_enable (parser, format);
 	g_signal_connect (parser, "parsed", G_CALLBACK (on_parser_parsed), &attrs);
 	gcr_parser_parse_bytes (parser, data, &error);
 	g_assert_no_error (error);
@@ -93,7 +96,7 @@ setup_attributes (TestAttributes *test,
 	g_file_get_contents (filename, &contents, &length, &error);
 	g_assert_no_error (error);
 	test->crt_data = g_bytes_new_take (contents, length);
-	test->crt_attrs = parse_attributes (test->crt_data);
+	test->crt_attrs = parse_attributes (test->crt_data, GCR_FORMAT_DER_CERTIFICATE_X509);
 	g_assert (gck_attributes_find_ulong (test->crt_attrs, CKA_CLASS, &klass));
 	gck_assert_cmpulong (klass, ==, CKO_CERTIFICATE);
 	g_free (filename);
@@ -102,7 +105,7 @@ setup_attributes (TestAttributes *test,
 	g_file_get_contents (filename, &contents, &length, &error);
 	g_assert_no_error (error);
 	test->key_data = g_bytes_new_take (contents, length);
-	test->prv_attrs = parse_attributes (test->key_data);
+	test->prv_attrs = parse_attributes (test->key_data, GCR_FORMAT_ALL);
 	g_assert (gck_attributes_find_ulong (test->prv_attrs, CKA_CLASS, &klass));
 	gck_assert_cmpulong (klass, ==, CKO_PRIVATE_KEY);
 	g_free (filename);
@@ -111,7 +114,7 @@ setup_attributes (TestAttributes *test,
 	g_file_get_contents (filename, &contents, &length, &error);
 	g_assert_no_error (error);
 	test->spk_data = g_bytes_new_take (contents, length);
-	test->pub_attrs = parse_attributes (test->spk_data);
+	test->pub_attrs = parse_attributes (test->spk_data, GCR_FORMAT_DER_SUBJECT_PUBLIC_KEY);
 	g_assert (gck_attributes_find_ulong (test->pub_attrs, CKA_CLASS, &klass));
 	gck_assert_cmpulong (klass, ==, CKO_PUBLIC_KEY);
 	g_free (filename);
@@ -665,6 +668,7 @@ test_load_failure_build (TestModule *test,
 static const TestFixture FIXTURES[] = {
 	{ "rsa", "client", 2048 },
 	{ "dsa", "generic-dsa", 1024 },
+	{ "ec", "ecc-strong", 521 },
 };
 
 static GPtrArray *test_names = NULL;

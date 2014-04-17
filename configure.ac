@@ -304,7 +304,16 @@ if test "$enable_strict" = "yes"; then
 		-DG_DISABLE_DEPRECATED \
 		-DGDK_PIXBUF_DISABLE_DEPRECATED"
 	TEST_MODE="thorough"
-	INTROSPECTION_FLAGS="--warn-error"
+	# HACK: Only set strict introspection if gir is greater than 1.39
+	# https://bugzilla.gnome.org/show_bug.cgi?id=698367
+	case $(pkg-config --modversion gobject-introspection-1.0) in
+	1.3[[45678]]*)
+		INTROSPECTION_FLAGS=""
+		;;
+	*)
+		INTROSPECTION_FLAGS="--warn-error"
+		;;
+	esac
 	AC_DEFINE_UNQUOTED(WITH_STRICT, 1, [More strict checks])
 	strict_status="yes (-Werror, thorough tests, fatals, no deprecations)"
 else

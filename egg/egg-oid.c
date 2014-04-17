@@ -102,6 +102,13 @@ static OidInfo oid_info[] = {
 	{ 0, "1.2.840.10040.4.1", "dsa", N_("DSA"), 0 },
 	{ 0, "1.2.840.10040.4.3", "sha1WithDSA", N_("SHA1 with DSA"), 0 },
 
+	{ 0, "1.2.840.10045.2.1", "ec", N_("Elliptic Curve"), 0, },
+	{ 0, "1.2.840.10045.4.1", "sha1WithECDSA", N_("SHA1 with ECDSA"), 0 },
+	{ 0, "1.2.840.10045.4.3.1", "sha224WithECDSA", N_("SHA224 with ECDSA"), 0 },
+	{ 0, "1.2.840.10045.4.3.2", "sha256WithECDSA", N_("SHA256 with ECDSA"), 0 },
+	{ 0, "1.2.840.10045.4.3.3", "sha384WithECDSA", N_("SHA384 with ECDSA"), 0 },
+	{ 0, "1.2.840.10045.4.3.4", "sha512WithECDSA", N_("SHA512 with ECDSA"), 0 },
+
 	/* Extended Key Usages */
 	{ 0, "1.3.6.1.5.5.7.3.1", NULL, N_("Server Authentication"), 0 },
 	{ 0, "1.3.6.1.5.5.7.3.2", NULL, N_("Client Authentication"), 0 },

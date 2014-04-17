@@ -2924,6 +2924,47 @@ egg_asn1x_get_integer_as_raw (GNode *node)
 	return raw;
 }
 
+typedef struct {
+	EggAllocator allocator;
+	gpointer data;
+} AllocatedData;
+
+static void
+allocator_free (gpointer data)
+{
+	AllocatedData *alloc = data;
+	(alloc->allocator) (alloc->data, 0);
+	g_free (data);
+}
+
+GBytes *
+egg_asn1x_get_string_as_usg (GNode *node,
+                             EggAllocator allocator)
+{
+	AllocatedData *alloc;
+	guchar *raw;
+	const guchar *p;
+	gsize len;
+
+	g_return_val_if_fail (node != NULL, FALSE);
+
+	p = raw = egg_asn1x_get_string_as_raw (node, allocator, &len);
+	if (raw == NULL)
+		return NULL;
+
+	/* Strip off the extra zero bytes */
+	while (p[0] == 0 && len > 1) {
+		p++;
+		len--;
+	}
+
+	alloc = g_new0 (AllocatedData, 1);
+	alloc->allocator = allocator ? allocator : g_realloc;
+	alloc->data = raw;
+
+	return g_bytes_new_with_free_func (p, len, allocator_free, alloc);
+}
+
 GBytes *
 egg_asn1x_get_integer_as_usg (GNode *node)
 {
@@ -2949,12 +2990,9 @@ egg_asn1x_get_integer_as_usg (GNode *node)
 		}
 
 		/* Strip off the extra zero byte that was preventing it from being negative */
-		if (p[0] == 0 && len > 1) {
-			sign = !!(p[1] & 0x80);
-			if (sign) {
-				p++;
-				len--;
-			}
+		while (p[0] == 0 && len > 1) {
+			p++;
+			len--;
 		}
 	}
 

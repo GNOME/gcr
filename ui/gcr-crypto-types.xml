@@ -162,6 +162,7 @@
 		<magic priority="75">
 			<match type="string" value="-----BEGIN RSA PRIVATE KEY-----" offset="0"/>
 			<match type="string" value="-----BEGIN DSA PRIVATE KEY-----" offset="0"/>
+			<match type="string" value="-----BEGIN ECDSA PRIVATE KEY-----" offset="0"/>
 		</magic>
 	</mime-type>
 </mime-info>

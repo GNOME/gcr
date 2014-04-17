@@ -362,6 +362,8 @@ gcr_key_renderer_real_render (GcrRenderer *renderer, GcrViewer *viewer)
 			text = _("Public DSA Key");
 		else if (key_type == CKK_DSA)
 			text = _("Public DSA Key");
+		else if (key_type == CKK_EC)
+			text = _("Public Elliptic Curve Key");
 		else
 			text = _("Public Key");
 	}
@@ -381,6 +383,8 @@ gcr_key_renderer_real_render (GcrRenderer *renderer, GcrViewer *viewer)
 		text = _("RSA");
 	else if (key_type == CKK_DSA)
 		text = _("DSA");
+	else if (key_type == CKK_EC)
+		text = _("Elliptic Curve");
 	else
 		text = _("Unknown");
 	_gcr_display_view_append_value (view, renderer, _("Algorithm"), text, FALSE);

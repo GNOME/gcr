@@ -25,6 +25,10 @@
 #include "gcr-internal.h"
 #include "gcr-types.h"
 
+#include "gcr/gcr-oids.h"
+
+#include "egg/egg-asn1x.h"
+#include "egg/egg-asn1-defs.h"
 #include "egg/egg-buffer.h"
 #include "egg/egg-decimal.h"
 
@@ -116,6 +120,8 @@ keytype_to_algo (const gchar *algo,
 		return CKK_RSA;
 	else if (match_word (algo, length, "ssh-dss"))
 		return CKK_DSA;
+	else if (length >= 6 && strncmp (algo, "ecdsa-", 6) == 0)
+		return CKK_ECDSA;
 	return G_MAXULONG;
 }
 
@@ -291,6 +297,65 @@ read_v2_public_rsa (EggBuffer *buffer,
 }
 
 static gboolean
+read_v2_public_ecdsa (EggBuffer *buffer,
+                      gsize *offset,
+                      GckBuilder *builder)
+{
+	gconstpointer data;
+	GBytes *bytes;
+	GNode *asn;
+	GNode *node;
+	gchar *curve;
+	GQuark oid;
+	gsize len;
+
+	/* The named curve */
+	if (!egg_buffer_get_string (buffer, *offset, offset,
+	                            &curve, (EggBufferAllocator)g_realloc))
+		return FALSE;
+
+	if (g_strcmp0 (curve, "nistp256") == 0) {
+		oid = GCR_OID_EC_SECP256R1;
+	} else if (g_strcmp0 (curve, "nistp384") == 0) {
+		oid = GCR_OID_EC_SECP384R1;
+	} else if (g_strcmp0 (curve, "nistp521") == 0) {
+		oid = GCR_OID_EC_SECP521R1;
+	} else {
+		g_free (curve);
+		g_message ("unknown or unsupported curve in ssh public key");
+		return FALSE;
+	}
+
+	g_free (curve);
+
+	asn = egg_asn1x_create (pkix_asn1_tab, "ECParameters");
+	g_return_val_if_fail (asn != NULL, FALSE);
+
+	node = egg_asn1x_node (asn, "namedCurve", NULL);
+	if (!egg_asn1x_set_choice (asn, node))
+		g_return_val_if_reached (FALSE);
+
+	if (!egg_asn1x_set_oid_as_quark (node, oid))
+		g_return_val_if_reached (FALSE);
+
+	bytes = egg_asn1x_encode (asn, g_realloc);
+	g_return_val_if_fail (bytes != NULL, FALSE);
+	egg_asn1x_destroy (asn);
+
+	data = g_bytes_get_data (bytes, &len);
+	gck_builder_add_data (builder, CKA_EC_PARAMS, data, len);
+	g_bytes_unref (bytes);
+
+	if (!read_buffer_mpi (buffer, offset, builder, CKA_EC_POINT))
+		return FALSE;
+
+	gck_builder_add_ulong (builder, CKA_KEY_TYPE, CKK_ECDSA);
+	gck_builder_add_ulong (builder, CKA_CLASS, CKO_PUBLIC_KEY);
+
+	return TRUE;
+}
+
+static gboolean
 read_v2_public_key (gulong algo,
                     gconstpointer data,
                     gsize n_data,
@@ -325,6 +390,9 @@ read_v2_public_key (gulong algo,
 		break;
 	case CKK_DSA:
 		ret = read_v2_public_dsa (&buffer, &offset, builder);
+		break;
+	case CKK_ECDSA:
+		ret = read_v2_public_ecdsa (&buffer, &offset, builder);
 		break;
 	default:
 		g_assert_not_reached ();

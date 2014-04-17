@@ -32,7 +32,7 @@
  * @title: GcrKeyWidget
  * @short_description: Key widget and renderer
  *
- * A #GcrKeyWidget can be used to display a RSA or DSA key. The widget
+ * A #GcrKeyWidget can be used to display a RSA, DSA or ECDSA key. The widget
  * is normally in a collapsed state showing only details, but can be expanded
  * by the user.
  *
@@ -197,7 +197,7 @@ gcr_key_widget_new (GckAttributes *attrs)
  * @attrs: (allow-none): the attributes to display
  *
  * Get the attributes displayed in the widget. The attributes should represent
- * either an RSA or DSA key in PKCS\#11 style.
+ * either an RSA, DSA or ECDSA key in PKCS\#11 style.
  */
 void
 gcr_key_widget_set_attributes (GcrKeyWidget *self, GckAttributes *attrs)

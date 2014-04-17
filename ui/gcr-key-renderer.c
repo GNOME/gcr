@@ -355,6 +355,8 @@ gcr_key_renderer_real_render (GcrRenderer *renderer, GcrViewer *viewer)
 			text = _("Private RSA Key");
 		else if (key_type == CKK_DSA)
 			text = _("Private DSA Key");
+		else if (key_type == CKK_ECDSA)
+			text = _("Private ECDSA Key");
 		else
 			text = _("Private Key");
 	} else if (klass == CKO_PUBLIC_KEY) {
@@ -446,7 +448,7 @@ gcr_key_renderer_new (const gchar *label, GckAttributes *attrs)
  * @attrs: (allow-none): the attributes to display
  *
  * Get the attributes displayed in the renderer. The attributes should represent
- * either an RSA or DSA key in PKCS\#11 style.
+ * either an RSA, DSA, or ECDSA key in PKCS\#11 style.
  */
 void
 gcr_key_renderer_set_attributes (GcrKeyRenderer *self, GckAttributes *attrs)

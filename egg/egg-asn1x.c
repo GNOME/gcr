@@ -1148,6 +1148,7 @@ anode_decode_structured (GNode *node,
 
 	/* Just use the 'parsed' which is automatically set */
 	case EGG_ASN1X_ANY:
+	case EGG_ASN1X_BIT_STRING:
 	case EGG_ASN1X_GENERAL_STRING:
 	case EGG_ASN1X_OCTET_STRING:
 	case EGG_ASN1X_NUMERIC_STRING:

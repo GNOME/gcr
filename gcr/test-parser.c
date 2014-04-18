@@ -362,7 +362,7 @@ main (int argc, char **argv)
 
 		lower = g_ascii_strdown (filename, -1);
 		test = g_strdup_printf ("/gcr/parser/%s",
-		                        g_strcanon (lower, "abcdefghijklmnopqrstuvwxyz012345789", '_'));
+		                        g_strcanon (lower, "abcdefghijklmnopqrstuvwxyz0123456789", '_'));
 		g_free (lower);
 
 		g_test_add (test, Test, path, setup, test_parse_one, teardown);

@@ -964,9 +964,23 @@ static gboolean
 anode_decode_choice (GNode *node,
                      Atlv *tlv)
 {
+	gint flags = anode_def_flags (node);
 	gboolean have = FALSE;
 	GNode *child;
+	gulong tag;
 	Anode *an;
+
+	/* An explicit, wrapped tag */
+	if (flags & FLAG_TAG) {
+		tag = anode_calc_tag_for_flags (node, flags);
+		if ((tlv->cls & ASN1_CLASS_CONTEXT_SPECIFIC) == 0)
+			return anode_failure (node, "choice missing context specific tag");
+		if (tag != tlv->tag)
+			return anode_failure (node, "choice tag did not match");
+		if (tlv->child == NULL)
+			return anode_failure (node, "choice missing context specific child");
+		tlv = tlv->child;
+	}
 
 	for (child = node->children; child; child = child->next) {
 		an = (Anode*)child->data;

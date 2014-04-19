@@ -115,7 +115,7 @@ teardown (Test *test, gconstpointer unused)
 
 	g_object_unref (test->collection);
 
-	cmd = g_strdup_printf ("rm %s/*", test->directory);
+	cmd = g_strdup_printf ("rm -f %s/*", test->directory);
 	g_spawn_check_exit_status (system (cmd), &error);
 	g_assert_no_error (error);
 	g_free (cmd);

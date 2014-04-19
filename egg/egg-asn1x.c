@@ -4546,6 +4546,7 @@ traverse_and_dump (GNode *node, gpointer unused)
 	guint i, depth;
 	GString *output;
 	gchar *string;
+	const gchar *suff;
 	Anode *an;
 	GList *l;
 
@@ -4559,8 +4560,13 @@ traverse_and_dump (GNode *node, gpointer unused)
 	dump_append_flags (output, anode_def_flags (node));
 	string = g_utf8_casefold (output->str, output->len - 1);
 	g_string_free (output, TRUE);
+	suff = "";
+	if (an->value)
+		suff = " *";
+	else if (an->parsed)
+		suff = " .";
 	g_print ("+ %s: %s [%s]%s\n", anode_def_name (node), anode_def_value (node),
-	         string, an->parsed || an->value ? " *" : "");
+	         string, suff);
 	g_free (string);
 
 	/* Print out all the options */

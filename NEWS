@@ -1,3 +1,6 @@
+gcr 3.12.2:
+ - Updated translations
+
 gcr 3.12.0:
  - Use /usr/bin/env to find python [#726909]
  - Updated translations

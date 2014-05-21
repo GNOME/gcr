@@ -159,9 +159,14 @@ DBUS_XML_DEFINITIONS = \
 gcr/gcr-dbus-generated.c: $(DBUS_XML_DEFINITIONS)
 	$(AM_V_GEN) $(GDBUS_CODEGEN) --interface-prefix org.gnome.keyring.internal. \
 		--generate-c-code gcr/gcr-dbus-generated --c-namespace GcrDBus $^
-	$(AM_V_GEN) sed -i -e 's/gcr_dbus/_gcr_dbus/g' gcr/gcr-dbus-generated.[ch]
+	$(AM_V_GEN) sed -e 's/gcr_dbus/_gcr_dbus/g' \
+		gcr/gcr-dbus-generated.c > gcr/gcr-dbus-generated.c.tmp && \
+	mv gcr/gcr-dbus-generated.c.tmp gcr/gcr-dbus-generated.c
 
 gcr/gcr-dbus-generated.h: gcr/gcr-dbus-generated.c
+	$(AM_V_GEN) sed -e 's/gcr_dbus/_gcr_dbus/g' \
+		gcr/gcr-dbus-generated.h > gcr/gcr-dbus-generated.h.tmp && \
+	mv gcr/gcr-dbus-generated.h.tmp gcr/gcr-dbus-generated.h
 
 pkgconfig_DATA += \
 	gcr-base-$(GCR_MAJOR).pc

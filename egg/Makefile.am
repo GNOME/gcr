@@ -139,8 +139,10 @@ ASN_SRCS = \
 
 asn:
 	for asn in $(ASN_SRCS); do \
-		asn1Parser -o $(srcdir)/$$asn.h $(srcdir)/$$asn; \
-		sed -i 's|#include.*|/* \0 */|' $(srcdir)/$$asn.h; \
+		asn1Parser -o $(srcdir)/$$asn.h.tmp $$asn && \
+		sed 's|#include.*|/* \0 */|' < $(srcdir)/$$asn.h.tmp > $(srcdir)/$$asn.h.tmp2 && \
+		mv $(srcdir)/$$asn.h.tmp2 $(srcdir)/$$asn.h && \
+		rm -f $(srcdir)/$$asn.h.tmp $(srcdir)/$$asn.h.tmp2
 	done
 
 EXTRA_DIST += \

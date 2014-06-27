@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-04-05 17:12+0000\n"
-"PO-Revision-Date: 2014-04-10 19:30+0700\n"
-"Last-Translator: Dirgita <dirgitadevina@gmail.com>\n"
+"POT-Creation-Date: 2014-06-25 16:52+0000\n"
+"PO-Revision-Date: 2014-06-26 19:04+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
-"Language: Indonesian_ID\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Poedit 1.6.5\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../egg/egg-oid.c:40
@@ -118,7 +118,7 @@ msgid "Pseudonym"
 msgstr "Pseudonim"
 
 #: ../egg/egg-oid.c:97 ../ui/gcr-gnupg-renderer.c:199
-#: ../ui/gcr-key-renderer.c:428
+#: ../ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
@@ -135,7 +135,7 @@ msgid "SHA1 with RSA"
 msgstr "SHA1 dengan RSA"
 
 #: ../egg/egg-oid.c:102 ../ui/gcr-gnupg-renderer.c:203
-#: ../ui/gcr-key-renderer.c:430
+#: ../ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
@@ -143,24 +143,53 @@ msgstr "DSA"
 msgid "SHA1 with DSA"
 msgstr "SHA1 dengan DSA"
 
-#. Extended Key Usages
+#: ../egg/egg-oid.c:105 ../ui/gcr-key-renderer.c:389
+msgid "Elliptic Curve"
+msgstr "Elliptic Curve"
+
 #: ../egg/egg-oid.c:106
+#| msgid "SHA1 with DSA"
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 dengan ECDSA"
+
+#: ../egg/egg-oid.c:107
+#| msgid "SHA1 with DSA"
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 dengan ECDSA"
+
+#: ../egg/egg-oid.c:108
+#| msgid "SHA1 with DSA"
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 dengan ECDSA"
+
+#: ../egg/egg-oid.c:109
+#| msgid "SHA1 with DSA"
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 dengan ECDSA"
+
+#: ../egg/egg-oid.c:110
+#| msgid "SHA1 with DSA"
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 dengan ECDSA"
+
+#. Extended Key Usages
+#: ../egg/egg-oid.c:113
 msgid "Server Authentication"
 msgstr "Otentikasi Server"
 
-#: ../egg/egg-oid.c:107
+#: ../egg/egg-oid.c:114
 msgid "Client Authentication"
 msgstr "Otentikasi Klien"
 
-#: ../egg/egg-oid.c:108
+#: ../egg/egg-oid.c:115
 msgid "Code Signing"
 msgstr "Penandatanganan Kode Program"
 
-#: ../egg/egg-oid.c:109
+#: ../egg/egg-oid.c:116
 msgid "Email Protection"
 msgstr "Proteksi Surel"
 
-#: ../egg/egg-oid.c:110
+#: ../egg/egg-oid.c:117
 msgid "Time Stamping"
 msgstr "Penandaan Waktu"
 
@@ -220,7 +249,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Kadaluarsa"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:321
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Sertifikat"
@@ -289,7 +318,7 @@ msgstr "Ring Kunci GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Kunci Ring GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:327
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "Kunci PGP"
@@ -309,33 +338,33 @@ msgstr "Proses gnupg keluar dengan kode: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Proses gnupg diakhiri dengan sinyal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2426
-#: ../gcr/gcr-parser.c:3032 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
+#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
 msgid "The operation was cancelled"
 msgstr "Operasi dibatalkan"
 
-#: ../gcr/gcr-parser.c:318 ../ui/gcr-key-renderer.c:406
+#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Kunci Pribadi"
 
-#: ../gcr/gcr-parser.c:324 ../ui/gcr-certificate-renderer.c:881
-#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:413
+#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Kunci Publik"
 
-#: ../gcr/gcr-parser.c:330
+#: ../gcr/gcr-parser.c:334
 msgid "Certificate Request"
 msgstr "Permintaan Sertifikat"
 
-#: ../gcr/gcr-parser.c:2429
+#: ../gcr/gcr-parser.c:2554
 msgid "Unrecognized or unsupported data."
 msgstr "Data tak dikenali atau tak didukung."
 
-#: ../gcr/gcr-parser.c:2432
+#: ../gcr/gcr-parser.c:2557
 msgid "Could not parse invalid or corrupted data."
 msgstr "Tak bisa mengurai data tak valid atau rusak."
 
-#: ../gcr/gcr-parser.c:2435
+#: ../gcr/gcr-parser.c:2560
 msgid "The data is locked"
 msgstr "Data dikunci"
 
@@ -347,11 +376,11 @@ msgstr "Lanjutkan"
 msgid "Cancel"
 msgstr "Batalkan"
 
-#: ../gcr/gcr-subject-public-key.c:344
+#: ../gcr/gcr-subject-public-key.c:407
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Atribut yang tak dikenal atau tak tersedia bagi kunci"
 
-#: ../gcr/gcr-subject-public-key.c:428 ../gcr/gcr-subject-public-key.c:514
+#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
 msgid "Couldn't build public key"
 msgstr "Tak bisa membangun kunci publik"
 
@@ -626,7 +655,7 @@ msgid "Disabled"
 msgstr "Dimatikan"
 
 #: ../ui/gcr-gnupg-renderer.c:253 ../ui/gcr-gnupg-renderer.c:412
-#: ../ui/gcr-key-renderer.c:432 ../ui/gcr-key-renderer.c:437
+#: ../ui/gcr-key-renderer.c:391 ../ui/gcr-key-renderer.c:395
 msgid "Unknown"
 msgstr "Tak dikenal"
 
@@ -708,7 +737,7 @@ msgid "Key ID"
 msgstr "ID Kunci"
 
 #: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
-#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:433
+#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
 msgid "Algorithm"
 msgstr "Algoritma"
 
@@ -742,7 +771,7 @@ msgstr "Komentar"
 msgid "User Attribute"
 msgstr "Atribut Pengguna"
 
-#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:440
+#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:398
 msgid "Size"
 msgstr "Ukuran"
 
@@ -869,38 +898,48 @@ msgstr "Tak ada data untuk diimpor"
 msgid "Key"
 msgstr "Kunci"
 
-#: ../ui/gcr-key-renderer.c:402
+#: ../ui/gcr-key-renderer.c:355
 msgid "Private RSA Key"
 msgstr "Kunci Privat RSA"
 
-#: ../ui/gcr-key-renderer.c:404
+#: ../ui/gcr-key-renderer.c:357
 msgid "Private DSA Key"
 msgstr "Kunci Privat DSA"
 
-#: ../ui/gcr-key-renderer.c:409 ../ui/gcr-key-renderer.c:411
+#: ../ui/gcr-key-renderer.c:359
+msgid "Private Elliptic Curve Key"
+msgstr "Kunci Privat Elliptic Curve"
+
+#: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
 msgstr "Kunci Publik DSA"
 
-#: ../ui/gcr-key-renderer.c:420
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] "%d bit"
+#: ../ui/gcr-key-renderer.c:368
+msgid "Public Elliptic Curve Key"
+msgstr "Kunci Publik Elliptic Curve"
 
-#: ../ui/gcr-key-renderer.c:421
+#: ../ui/gcr-key-renderer.c:377
+#, c-format
+#| msgid "%d bit"
+#| msgid_plural "%d bits"
+msgid "%u bit"
+msgid_plural "%u bits"
+msgstr[0] "%u bit"
+
+#: ../ui/gcr-key-renderer.c:378
 msgid "Strength"
 msgstr "Kekuatan"
 
 #. Fingerprints
-#: ../ui/gcr-key-renderer.c:444
+#: ../ui/gcr-key-renderer.c:402
 msgid "Fingerprints"
 msgstr "Sidik Jari"
 
-#: ../ui/gcr-key-renderer.c:448
+#: ../ui/gcr-key-renderer.c:406
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../ui/gcr-key-renderer.c:453
+#: ../ui/gcr-key-renderer.c:411
 msgid "SHA256"
 msgstr "SHA256"
 
@@ -1087,5 +1126,3 @@ msgstr "Impor"
 #: ../ui/gcr-viewer-window.c:116
 msgid "_Close"
 msgstr "_Tutup"
-
-

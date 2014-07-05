@@ -1137,16 +1137,3 @@ msgstr "Импортировать"
 #: ../ui/gcr-viewer-window.c:116
 msgid "_Close"
 msgstr "_Закрыть"
-
-#~ msgid "Invalid PKCS#11 module: %s"
-#~ msgstr "Некорректный модуль PKCS#11: %s"
-
-#~ msgid "Couldn't setup PKCS#11 module: %s"
-#~ msgstr "Невозможно настроить модуль PKCS#11: %s"
-
-#~ msgid "Label"
-#~ msgstr "Метка"
-
-#, fuzzy
-#~ msgid "<b>Unlock</b>"
-#~ msgstr "Разблокирование"

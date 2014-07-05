@@ -15,9 +15,9 @@ msgstr ""
 "Project-Id-Version: gnome-keyring trunk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-03-13 17:58+0000\n"
-"PO-Revision-Date: 2014-03-14 09:09+0300\n"
-"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
+"POT-Creation-Date: 2014-07-05 04:58+0000\n"
+"PO-Revision-Date: 2014-07-05 18:48+0400\n"
+"Last-Translator: Yuri Myasoedov <ymyasoedov@yandex.ru>\n"
 "Language-Team: русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.5\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -125,7 +125,7 @@ msgid "Pseudonym"
 msgstr "Псевдоним"
 
 #: ../egg/egg-oid.c:97 ../ui/gcr-gnupg-renderer.c:199
-#: ../ui/gcr-key-renderer.c:428
+#: ../ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
@@ -142,7 +142,7 @@ msgid "SHA1 with RSA"
 msgstr "SHA1 с RSA"
 
 #: ../egg/egg-oid.c:102 ../ui/gcr-gnupg-renderer.c:203
-#: ../ui/gcr-key-renderer.c:430
+#: ../ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
@@ -150,24 +150,53 @@ msgstr "DSA"
 msgid "SHA1 with DSA"
 msgstr "SHA1 с DSA"
 
-#. Extended Key Usages
+#: ../egg/egg-oid.c:105 ../ui/gcr-key-renderer.c:389
+msgid "Elliptic Curve"
+msgstr "Эллиптическая кривая"
+
 #: ../egg/egg-oid.c:106
+#| msgid "SHA1 with DSA"
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 с ECDSA"
+
+#: ../egg/egg-oid.c:107
+#| msgid "SHA1 with DSA"
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 с ECDSA"
+
+#: ../egg/egg-oid.c:108
+#| msgid "SHA1 with DSA"
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 с ECDSA"
+
+#: ../egg/egg-oid.c:109
+#| msgid "SHA1 with DSA"
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 с ECDSA"
+
+#: ../egg/egg-oid.c:110
+#| msgid "SHA1 with DSA"
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 с ECDSA"
+
+#. Extended Key Usages
+#: ../egg/egg-oid.c:113
 msgid "Server Authentication"
 msgstr "Аутентификация сервера"
 
-#: ../egg/egg-oid.c:107
+#: ../egg/egg-oid.c:114
 msgid "Client Authentication"
 msgstr "Аутентификация клиента"
 
-#: ../egg/egg-oid.c:108
+#: ../egg/egg-oid.c:115
 msgid "Code Signing"
 msgstr "Подписывание кода"
 
-#: ../egg/egg-oid.c:109
+#: ../egg/egg-oid.c:116
 msgid "Email Protection"
 msgstr "Защита эл. почты"
 
-#: ../egg/egg-oid.c:110
+#: ../egg/egg-oid.c:117
 msgid "Time Stamping"
 msgstr "Проставление отметки времени"
 
@@ -227,7 +256,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Истекает"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:321
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Сертификат"
@@ -296,7 +325,7 @@ msgstr "Связка ключей GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Связка ключей GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:327
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "Ключ PGP"
@@ -316,33 +345,33 @@ msgstr "Процесс GnuPG завершился с кодом: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Процесс GnuPG был прерван сигналом: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2426
-#: ../gcr/gcr-parser.c:3032 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
+#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
 msgid "The operation was cancelled"
 msgstr "Действие было отменено"
 
-#: ../gcr/gcr-parser.c:318 ../ui/gcr-key-renderer.c:406
+#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Секретный ключ"
 
-#: ../gcr/gcr-parser.c:324 ../ui/gcr-certificate-renderer.c:881
-#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:413
+#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Открытый ключ"
 
-#: ../gcr/gcr-parser.c:330
+#: ../gcr/gcr-parser.c:334
 msgid "Certificate Request"
 msgstr "Запрос сертификата"
 
-#: ../gcr/gcr-parser.c:2429
+#: ../gcr/gcr-parser.c:2554
 msgid "Unrecognized or unsupported data."
 msgstr "Нераспознанные или неподдерживаемые данные."
 
-#: ../gcr/gcr-parser.c:2432
+#: ../gcr/gcr-parser.c:2557
 msgid "Could not parse invalid or corrupted data."
 msgstr "Не удалось разобрать неверные или повреждённые данные."
 
-#: ../gcr/gcr-parser.c:2435
+#: ../gcr/gcr-parser.c:2560
 msgid "The data is locked"
 msgstr "Данные заблокированы"
 
@@ -354,11 +383,11 @@ msgstr "Продолжить"
 msgid "Cancel"
 msgstr "Отменить"
 
-#: ../gcr/gcr-subject-public-key.c:344
+#: ../gcr/gcr-subject-public-key.c:407
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Нераспознанные или недоступные атрибуты для ключа"
 
-#: ../gcr/gcr-subject-public-key.c:428 ../gcr/gcr-subject-public-key.c:514
+#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
 msgid "Couldn't build public key"
 msgstr "Не удалось создать открытый ключ"
 
@@ -633,7 +662,7 @@ msgid "Disabled"
 msgstr "Отключено"
 
 #: ../ui/gcr-gnupg-renderer.c:253 ../ui/gcr-gnupg-renderer.c:412
-#: ../ui/gcr-key-renderer.c:432 ../ui/gcr-key-renderer.c:437
+#: ../ui/gcr-key-renderer.c:391 ../ui/gcr-key-renderer.c:395
 msgid "Unknown"
 msgstr "Неизвестно"
 
@@ -715,7 +744,7 @@ msgid "Key ID"
 msgstr "Идентификатор ключа"
 
 #: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
-#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:433
+#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
 msgid "Algorithm"
 msgstr "Алгоритм"
 
@@ -749,7 +778,7 @@ msgstr "Комментарий"
 msgid "User Attribute"
 msgstr "Атрибут пользователя"
 
-#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:440
+#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:398
 msgid "Size"
 msgstr "Размер"
 
@@ -876,47 +905,56 @@ msgstr "Нет данных для импортирования"
 msgid "Key"
 msgstr "Ключ"
 
-#: ../ui/gcr-key-renderer.c:402
+#: ../ui/gcr-key-renderer.c:355
 msgid "Private RSA Key"
 msgstr "Секретный ключ RSA"
 
-#: ../ui/gcr-key-renderer.c:404
+#: ../ui/gcr-key-renderer.c:357
 msgid "Private DSA Key"
 msgstr "Секретный ключ DSA"
 
-#: ../ui/gcr-key-renderer.c:409 ../ui/gcr-key-renderer.c:411
+#: ../ui/gcr-key-renderer.c:359
+msgid "Private Elliptic Curve Key"
+msgstr "Секретный ключ (эллиптическая криптография)"
+
+#: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
 msgstr "Открытый ключ DSA"
 
-#: ../ui/gcr-key-renderer.c:420
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] "%d бит"
-msgstr[1] "%d бита"
-msgstr[2] "%d бит"
+#: ../ui/gcr-key-renderer.c:368
+msgid "Public Elliptic Curve Key"
+msgstr "Открытый ключ (эллиптическая криптография)"
 
-#: ../ui/gcr-key-renderer.c:421
+#: ../ui/gcr-key-renderer.c:377
+#, c-format
+#| msgid "%d bit"
+#| msgid_plural "%d bits"
+msgid "%u bit"
+msgid_plural "%u bits"
+msgstr[0] "%u бит"
+msgstr[1] "%u бита"
+msgstr[2] "%u бит"
+
+#: ../ui/gcr-key-renderer.c:378
 msgid "Strength"
 msgstr "Надёжность"
 
 #. Fingerprints
-#: ../ui/gcr-key-renderer.c:444
+#: ../ui/gcr-key-renderer.c:402
 msgid "Fingerprints"
 msgstr "Отпечатки"
 
-#: ../ui/gcr-key-renderer.c:448
+#: ../ui/gcr-key-renderer.c:406
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../ui/gcr-key-renderer.c:453
+#: ../ui/gcr-key-renderer.c:411
 msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
 #: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "_Отменить"
 

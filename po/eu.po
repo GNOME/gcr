@@ -3,6 +3,7 @@
 # Copyright (C) 2004 THE eu'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the eu package.
 #
+#
 # Alberto Fernández <afernn@euskalnet.net>, 2004.
 # Julen Ruiz Aizpuru <julenx@gmail.com>, 2011.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2004, 2006, 2008, 2009, 2010, 2011.
@@ -10,11 +11,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gcr master HEAD\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-03-31 12:21+0200\n"
-"PO-Revision-Date: 2014-03-31 12:22+0200\n"
+"Project-Id-Version: gcr master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-05 13:54+0200\n"
+"PO-Revision-Date: 2014-07-28 19:25+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
 "Language: eu\n"
@@ -123,7 +123,7 @@ msgid "Pseudonym"
 msgstr "Goitizena"
 
 #: ../egg/egg-oid.c:97 ../ui/gcr-gnupg-renderer.c:199
-#: ../ui/gcr-key-renderer.c:428
+#: ../ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
@@ -140,7 +140,7 @@ msgid "SHA1 with RSA"
 msgstr "SHA1 RSA-rekin"
 
 #: ../egg/egg-oid.c:102 ../ui/gcr-gnupg-renderer.c:203
-#: ../ui/gcr-key-renderer.c:430
+#: ../ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
@@ -148,24 +148,48 @@ msgstr "DSA"
 msgid "SHA1 with DSA"
 msgstr "SHA1 DSA-rekin"
 
-#. Extended Key Usages
+#: ../egg/egg-oid.c:105 ../ui/gcr-key-renderer.c:389
+msgid "Elliptic Curve"
+msgstr "Kurba eliptikoa"
+
 #: ../egg/egg-oid.c:106
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 ECDSA-rekin"
+
+#: ../egg/egg-oid.c:107
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 ECDSA-rekin"
+
+#: ../egg/egg-oid.c:108
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 ECDSA-rekin"
+
+#: ../egg/egg-oid.c:109
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 ECDSA-rekin"
+
+#: ../egg/egg-oid.c:110
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 ECDSA-rekin"
+
+#. Extended Key Usages
+#: ../egg/egg-oid.c:113
 msgid "Server Authentication"
 msgstr "Zerbitzariaren autentifikazioa"
 
-#: ../egg/egg-oid.c:107
+#: ../egg/egg-oid.c:114
 msgid "Client Authentication"
 msgstr "Bezeroaren autentifikazioa"
 
-#: ../egg/egg-oid.c:108
+#: ../egg/egg-oid.c:115
 msgid "Code Signing"
 msgstr "Kode sinaketa"
 
-#: ../egg/egg-oid.c:109
+#: ../egg/egg-oid.c:116
 msgid "Email Protection"
 msgstr "Posta elektronikoaren babesa"
 
-#: ../egg/egg-oid.c:110
+#: ../egg/egg-oid.c:117
 msgid "Time Stamping"
 msgstr "Denbora markatzea"
 
@@ -225,7 +249,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Iraungitze-data"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:321
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Ziurtagiria"
@@ -294,7 +318,7 @@ msgstr "GnuPG gako-sorta"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG gako-sorta: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:327
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP gakoa"
@@ -314,33 +338,33 @@ msgstr "Gnupg prozesua ondorengo kodearekin irten da: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg prozesua ondorengo seinalearekin amaitu da: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2426
-#: ../gcr/gcr-parser.c:3032 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
+#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
 msgid "The operation was cancelled"
 msgstr "Eragiketa bertan behera utzi da"
 
-#: ../gcr/gcr-parser.c:318 ../ui/gcr-key-renderer.c:406
+#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Gako pribatua"
 
-#: ../gcr/gcr-parser.c:324 ../ui/gcr-certificate-renderer.c:881
-#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:413
+#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Gako publikoa"
 
-#: ../gcr/gcr-parser.c:330
+#: ../gcr/gcr-parser.c:334
 msgid "Certificate Request"
 msgstr "Ziurtagiriaren eskaera"
 
-#: ../gcr/gcr-parser.c:2429
+#: ../gcr/gcr-parser.c:2554
 msgid "Unrecognized or unsupported data."
 msgstr "Datu ezezaguna edo onartu gabea."
 
-#: ../gcr/gcr-parser.c:2432
+#: ../gcr/gcr-parser.c:2557
 msgid "Could not parse invalid or corrupted data."
 msgstr "Ezin izan dira hondatutako edo baliogabeak diren datuak analizatu."
 
-#: ../gcr/gcr-parser.c:2435
+#: ../gcr/gcr-parser.c:2560
 msgid "The data is locked"
 msgstr "Datuak blokeatuta daude"
 
@@ -352,11 +376,11 @@ msgstr "Jarraitu"
 msgid "Cancel"
 msgstr "Utzi"
 
-#: ../gcr/gcr-subject-public-key.c:344
+#: ../gcr/gcr-subject-public-key.c:407
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Gakoaren atributu ezezagunak edo erabilkaitzak"
 
-#: ../gcr/gcr-subject-public-key.c:428 ../gcr/gcr-subject-public-key.c:514
+#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
 msgid "Couldn't build public key"
 msgstr "Ezin izan da gako publikoa eraiki"
 
@@ -631,7 +655,7 @@ msgid "Disabled"
 msgstr "Desgaituta"
 
 #: ../ui/gcr-gnupg-renderer.c:253 ../ui/gcr-gnupg-renderer.c:412
-#: ../ui/gcr-key-renderer.c:432 ../ui/gcr-key-renderer.c:437
+#: ../ui/gcr-key-renderer.c:391 ../ui/gcr-key-renderer.c:395
 msgid "Unknown"
 msgstr "Ezezaguna"
 
@@ -713,7 +737,7 @@ msgid "Key ID"
 msgstr "Gakoaren IDa"
 
 #: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
-#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:433
+#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
 msgid "Algorithm"
 msgstr "Algoritmoa"
 
@@ -747,7 +771,7 @@ msgstr "Iruzkina"
 msgid "User Attribute"
 msgstr "Erabiltzailearen atributua"
 
-#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:440
+#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:398
 msgid "Size"
 msgstr "Tamaina"
 
@@ -874,39 +898,47 @@ msgstr "Ez dago daturik inportatzeko"
 msgid "Key"
 msgstr "Gakoa"
 
-#: ../ui/gcr-key-renderer.c:402
+#: ../ui/gcr-key-renderer.c:355
 msgid "Private RSA Key"
 msgstr "RSA gako pribatua"
 
-#: ../ui/gcr-key-renderer.c:404
+#: ../ui/gcr-key-renderer.c:357
 msgid "Private DSA Key"
 msgstr "DSA gako pribatua"
 
-#: ../ui/gcr-key-renderer.c:409 ../ui/gcr-key-renderer.c:411
+#: ../ui/gcr-key-renderer.c:359
+msgid "Private Elliptic Curve Key"
+msgstr "Kurba eliptikoaren gako pribatua"
+
+#: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
 msgstr "DSA gako publikoa"
 
-#: ../ui/gcr-key-renderer.c:420
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] "bit %d"
-msgstr[1] "%d bit"
+#: ../ui/gcr-key-renderer.c:368
+msgid "Public Elliptic Curve Key"
+msgstr "Kurba eliptikoaren gako publikoa"
 
-#: ../ui/gcr-key-renderer.c:421
+#: ../ui/gcr-key-renderer.c:377
+#, c-format
+msgid "%u bit"
+msgid_plural "%u bits"
+msgstr[0] "bit %u"
+msgstr[1] "%u bit"
+
+#: ../ui/gcr-key-renderer.c:378
 msgid "Strength"
 msgstr "Indarra"
 
 #. Fingerprints
-#: ../ui/gcr-key-renderer.c:444
+#: ../ui/gcr-key-renderer.c:402
 msgid "Fingerprints"
 msgstr "Hatz-markak"
 
-#: ../ui/gcr-key-renderer.c:448
+#: ../ui/gcr-key-renderer.c:406
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../ui/gcr-key-renderer.c:453
+#: ../ui/gcr-key-renderer.c:411
 msgid "SHA256"
 msgstr "SHA256"
 

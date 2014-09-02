@@ -211,7 +211,7 @@ gcr_viewer_LDADD = \
 	$(GLIB_LIBS) \
 	$(GTK_LIBS)
 
-libexec_PROGRAMS = gcr-prompter
+libexec_PROGRAMS += gcr-prompter
 
 gcr_prompter_SOURCES = \
 	ui/gcr-prompter-tool.c

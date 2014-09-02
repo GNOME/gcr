@@ -16,6 +16,7 @@ gcr/gcr-importer.c
 gcr/gcr-library.c
 gcr/gcr-parser.c
 gcr/gcr-prompt.c
+gcr/gcr-ssh-askpass.c
 gcr/gcr-subject-public-key.c
 gcr/gcr-system-prompt.c
 gcr/gcr-trust.c

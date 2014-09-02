@@ -696,6 +696,23 @@ gcr_secure_memory_is_secure
 </SECTION>
 
 <SECTION>
+<FILE>gcr-ssh-askpass</FILE>
+GcrSshAskpass
+gcr_ssh_askpass_new
+gcr_ssh_askpass_get_interaction
+gcr_ssh_askpass_child_setup
+<SUBSECTION Standard>
+GCR_IS_SSH_ASKPASS
+GCR_IS_SSH_ASKPASS_CLASS
+GCR_SSH_ASKPASS
+GCR_SSH_ASKPASS_CLASS
+GCR_SSH_ASKPASS_GET_CLASS
+GCR_TYPE_SSH_ASKPASS
+GcrSshAskpassClass
+gcr_ssh_askpass_get_type
+</SECTION>
+
+<SECTION>
 <FILE>gcr-private</FILE>
 <SUBSECTION Private>
 GCR_GNUPG_COLLECTION

@@ -52,6 +52,7 @@
 #include <gcr/gcr-secure-memory.h>
 #include <gcr/gcr-simple-certificate.h>
 #include <gcr/gcr-simple-collection.h>
+#include <gcr/gcr-ssh-askpass.h>
 #include <gcr/gcr-system-prompt.h>
 #include <gcr/gcr-system-prompter.h>
 #include <gcr/gcr-trust.h>

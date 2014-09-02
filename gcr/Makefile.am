@@ -25,6 +25,7 @@ gcr_HEADER_FILES = \
 	gcr/gcr-secure-memory.h \
 	gcr/gcr-simple-certificate.h \
 	gcr/gcr-simple-collection.h \
+	gcr/gcr-ssh-askpass.h \
 	gcr/gcr-system-prompt.h \
 	gcr/gcr-system-prompter.h \
 	gcr/gcr-trust.h \
@@ -74,6 +75,7 @@ gcr_PUBLIC_FILES = \
 	gcr/gcr-secure-memory.c gcr/gcr-secure-memory.h \
 	gcr/gcr-simple-certificate.c gcr/gcr-simple-certificate.h \
 	gcr/gcr-simple-collection.c gcr/gcr-simple-collection.h \
+	gcr/gcr-ssh-askpass.c gcr/gcr-ssh-askpass.h \
 	gcr/gcr-system-prompt.c gcr/gcr-system-prompt.h \
 	gcr/gcr-system-prompter.c gcr/gcr-system-prompter.h \
 	gcr/gcr-types.h \
@@ -166,6 +168,19 @@ gcr/gcr-dbus-generated.c: $(DBUS_XML_DEFINITIONS)
 	mv gcr/gcr-dbus-generated.h.tmp gcr/gcr-dbus-generated.h
 
 gcr/gcr-dbus-generated.h: gcr/gcr-dbus-generated.c
+
+libexec_PROGRAMS += gcr-ssh-askpass
+
+gcr_ssh_askpass_SOURCES = gcr/gcr-ssh-askpass.c
+
+gcr_ssh_askpass_CFLAGS = \
+	-DGCR_SSH_ASKPASS_TOOL \
+	-DGCR_COMPILATION \
+	$(GLIB_CFLAGS)
+
+gcr_ssh_askpass_LDADD = \
+	libegg.la \
+	$(GLIB_LIBS)
 
 pkgconfig_DATA += \
 	gcr-base-$(GCR_MAJOR).pc
@@ -293,7 +308,8 @@ gcr_TESTS = \
 	test-gnupg-key \
 	test-gnupg-collection \
 	test-gnupg-process \
-	test-system-prompt
+	test-system-prompt \
+	test-ssh-askpass
 
 test_certificate_SOURCES = gcr/test-certificate.c
 test_certificate_CFLAGS = $(gcr_CFLAGS)
@@ -358,6 +374,10 @@ test_secure_memory_LDADD = $(gcr_LIBS)
 test_simple_certificate_SOURCES = gcr/test-simple-certificate.c
 test_simple_certificate_CFLAGS = $(gcr_CFLAGS)
 test_simple_certificate_LDADD = $(gcr_LIBS)
+
+test_ssh_askpass_SOURCES = gcr/test-ssh-askpass.c
+test_ssh_askpass_CFLAGS = $(gcr_CFLAGS)
+test_ssh_askpass_LDADD = libegg-test.la $(gcr_LIBS)
 
 test_subject_public_key_SOURCES = gcr/test-subject-public-key.c
 test_subject_public_key_CFLAGS = $(gcr_CFLAGS)

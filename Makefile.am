@@ -76,6 +76,7 @@ AM_CPPFLAGS = \
 	-DSRCDIR="\"@abs_srcdir@\"" \
 	-DBUILDDIR="\"@abs_builddir@\"" \
 	-DLOCALEDIR=\""$(datadir)/locale"\" \
+	-DLIBEXECDIR="\"$(libexecdir)\"" \
 	$(GLIB_CFLAGS)
 
 LDADD = \
@@ -87,6 +88,7 @@ TESTS =
 check_PROGRAMS =
 check_LTLIBRARIES =
 lib_LTLIBRARIES =
+libexec_PROGRAMS =
 noinst_LTLIBRARIES =
 noinst_PROGRAMS = $(check_PROGRAMS)
 

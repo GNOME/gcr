@@ -11,9 +11,9 @@ AC_INIT([gcr], [gcr_major.gcr_minor.gcr_micro],
 dnl ****************************************************************************
 dnl Dependency versions
 
-GLIB_REQ=2.32.0
-GLIB_MIN=GLIB_VERSION_2_32
-GLIB_MAX=GLIB_VERSION_2_34
+GLIB_REQ=2.38.0
+GLIB_MIN=GLIB_VERSION_2_38
+GLIB_MAX=GLIB_VERSION_2_38
 
 dnl ****************************************************************************
 dnl Library package and libtool versioning

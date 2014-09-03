@@ -336,9 +336,6 @@ main (int argc, char **argv)
 	gchar *test;
 	int ret;
 
-#if !GLIB_CHECK_VERSION(2,35,0)
-	g_type_init ();
-#endif
 	g_test_init (&argc, &argv, NULL);
 	g_set_prgname ("test-parser");
 

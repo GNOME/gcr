@@ -208,9 +208,6 @@ main (int argc, char *argv[])
 	guint system_owner_id;
 	guint private_owner_id;
 
-#if !GLIB_CHECK_VERSION(2,35,0)
-	g_type_init ();
-#endif
 	gtk_init (&argc, &argv);
 
 #ifdef HAVE_LOCALE_H

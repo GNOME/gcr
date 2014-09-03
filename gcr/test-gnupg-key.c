@@ -185,12 +185,13 @@ test_with_secret (Test *test, gconstpointer unused)
 static void
 test_no_change_keyid (Test *test, gconstpointer unused)
 {
-	if (g_test_trap_fork (50000, G_TEST_TRAP_SILENCE_STDERR)) {
+	if (g_test_subprocess ()) {
 		/* Changing the keyid. This should fail with a warning */
 		_gcr_gnupg_key_set_public_records (test->key, test->pubset);
-		exit (0);
+		return;
 	}
 
+	g_test_trap_subprocess ("/gcr/gnupg-key/no_change_keyid", 0, G_TEST_SUBPROCESS_INHERIT_STDOUT);
 	g_test_trap_assert_failed ();
 	g_test_trap_assert_stderr ("*fingerprint is no longer the same:*");
 }
@@ -198,12 +199,13 @@ test_no_change_keyid (Test *test, gconstpointer unused)
 static void
 test_secret_mismatched_keyid (Test *test, gconstpointer unused)
 {
-	if (g_test_trap_fork (50000, G_TEST_TRAP_SILENCE_STDERR)) {
+	if (g_test_subprocess ()) {
 		/* Different keyid for secret part. This should fail with a warning */
 		_gcr_gnupg_key_set_secret_records (test->key, test->secset);
-		exit (0);
+		return;
 	}
 
+	g_test_trap_subprocess ("/gcr/gnupg-key/secret_mismatched_keyid", 0, G_TEST_SUBPROCESS_INHERIT_STDOUT);
 	g_test_trap_assert_failed ();
 	g_test_trap_assert_stderr ("*pub and sec parts are not the same:*");
 }
@@ -211,9 +213,6 @@ test_secret_mismatched_keyid (Test *test, gconstpointer unused)
 int
 main (int argc, char **argv)
 {
-#if !GLIB_CHECK_VERSION(2,35,0)
-	g_type_init ();
-#endif
 	g_test_init (&argc, &argv, NULL);
 
 	g_test_add ("/gcr/gnupg-key/label", Test, NULL, setup, test_label, teardown);

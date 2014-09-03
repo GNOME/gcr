@@ -391,11 +391,12 @@ test_integer_raw_not_twos_complement (void)
 
 	bytes = g_bytes_new_static ("\x81\x02\x03", 3);
 
-	if (g_test_trap_fork (0, G_TEST_TRAP_SILENCE_STDERR)) {
+	if (g_test_subprocess ()) {
 		egg_asn1x_set_integer_as_raw (asn, bytes); /* UNREACHABLE: */
-		exit(0); /* UNREACHABLE: for code coverage */
+		return;
 	}
 
+        g_test_trap_subprocess ("/asn1/integer/raw-not-twos-complement", 0, G_TEST_SUBPROCESS_INHERIT_STDOUT);
 	g_test_trap_assert_failed ();
 	g_test_trap_assert_stderr ("*not two's complement*");
 

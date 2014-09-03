@@ -22,8 +22,6 @@
 
 #include "config.h"
 
-#define DEBUG_FLAG GCR_DEBUG_IMPORT
-#include "gcr-debug.h"
 #include "gcr-fingerprint.h"
 #include "gcr-icons.h"
 #include "gcr-internal.h"
@@ -764,16 +762,16 @@ is_slot_importable (GckSlot *slot,
 	guint i;
 
 	if (token->flags & CKF_WRITE_PROTECTED) {
-		_gcr_debug ("token is not importable: %s: write protected", token->label);
+		g_debug ("token is not importable: %s: write protected", token->label);
 		return FALSE;
 	}
 	if (!(token->flags & CKF_TOKEN_INITIALIZED)) {
-		_gcr_debug ("token is not importable: %s: not initialized", token->label);
+		g_debug ("token is not importable: %s: not initialized", token->label);
 		return FALSE;
 	}
 	if ((token->flags & CKF_LOGIN_REQUIRED) &&
 	    !(token->flags & CKF_USER_PIN_INITIALIZED)) {
-		_gcr_debug ("token is not importable: %s: user pin not initialized", token->label);
+		g_debug ("token is not importable: %s: user pin not initialized", token->label);
 		return FALSE;
 	}
 
@@ -789,7 +787,7 @@ is_slot_importable (GckSlot *slot,
 		gck_uri_data_free (uri);
 
 		if (match) {
-			_gcr_debug ("token is not importable: %s: on the black list", token->label);
+			g_debug ("token is not importable: %s: on the black list", token->label);
 			return FALSE;
 		}
 	}
@@ -812,7 +810,7 @@ _gcr_pkcs11_importer_create_for_parsed (GcrParsed *parsed)
 		importable = is_slot_importable (l->data, token_info);
 
 		if (importable) {
-			_gcr_debug ("creating importer for token: %s", token_info->label);
+			g_debug ("creating importer for token: %s", token_info->label);
 			self = _gcr_pkcs11_importer_new (l->data);
 			if (!gcr_importer_queue_for_parsed (self, parsed))
 				g_assert_not_reached ();

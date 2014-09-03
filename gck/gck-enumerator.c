@@ -23,8 +23,6 @@
 #include "config.h"
 
 #include "gck.h"
-#define DEBUG_FLAG GCK_DEBUG_ENUMERATOR
-#include "gck-debug.h"
 #include "gck-private.h"
 
 #include <string.h>
@@ -223,7 +221,7 @@ state_modules (GckEnumeratorState *args, gboolean forward)
 
 		/* There are no more modules? */
 		if (!args->modules) {
-			_gck_debug ("no more modules, stopping enumerator");
+			g_debug ("no more modules, stopping enumerator");
 			return NULL;
 		}
 
@@ -234,11 +232,9 @@ state_modules (GckEnumeratorState *args, gboolean forward)
 
 		args->slots = gck_module_get_slots (module, TRUE);
 
-		if (_gck_debugging) {
-			GckModuleInfo *info = gck_module_get_info (module);
-			_gck_debug ("enumerating into module: %s", info->library_description);
-			gck_module_info_free (info);
-		}
+		GckModuleInfo *info = gck_module_get_info (module);
+		g_debug ("enumerating into module: %s", info->library_description);
+		gck_module_info_free (info);
 
 		g_object_unref (module);
 		return state_slots;
@@ -263,7 +259,7 @@ state_slots (GckEnumeratorState *args, gboolean forward)
 
 		/* If there are no more slots go back to start state */
 		if (!args->slots) {
-			_gck_debug ("no more slots, want next module");
+			g_debug ("no more slots, want next module");
 			return rewind_state (args, state_modules);
 		}
 
@@ -282,7 +278,7 @@ state_slots (GckEnumeratorState *args, gboolean forward)
 
 		/* Do we have unrecognized matches? */
 		if (args->match->any_unrecognized) {
-			_gck_debug ("token uri had unrecognized, not matching any tokens");
+			g_debug ("token uri had unrecognized, not matching any tokens");
 			matched = FALSE;
 
 		/* Are we trying to match the slot? */
@@ -290,11 +286,11 @@ state_slots (GckEnumeratorState *args, gboolean forward)
 			/* No match? Go to next slot */
 			matched = _gck_token_info_match (args->match->token_info, token_info);
 
-			_gck_debug ("%s token: %s", matched ? "matched" : "did not match",
-			            token_info->label);
+			g_debug ("%s token: %s", matched ? "matched" : "did not match",
+			         token_info->label);
 
 		} else {
-			_gck_debug ("matching all tokens: %s", token_info->label);
+			g_debug ("matching all tokens: %s", token_info->label);
 			matched = TRUE;
 		}
 
@@ -349,7 +345,7 @@ state_slot (GckEnumeratorState *args, gboolean forward)
 			return rewind_state (args, state_slots);
 		}
 
-		_gck_debug ("opened %s session", flags & CKF_RW_SESSION ? "read-write" : "read-only");
+		g_debug ("opened %s session", flags & CKF_RW_SESSION ? "read-write" : "read-only");
 		args->session = gck_session_from_handle (args->slot, session, args->session_options);
 		return state_session;
 
@@ -381,7 +377,7 @@ state_session (GckEnumeratorState *args, gboolean forward)
 
 		/* Don't want to authenticate? */
 		if ((args->session_options & GCK_SESSION_LOGIN_USER) == 0) {
-			_gck_debug ("no authentication necessary, skipping");
+			g_debug ("no authentication necessary, skipping");
 			return state_find;
 		}
 
@@ -437,15 +433,13 @@ state_find (GckEnumeratorState *args,
 
 	if (args->match->attributes) {
 		attrs = _gck_attributes_commit_out (args->match->attributes, &n_attrs);
-		if (_gck_debugging) {
-			gchar *string = gck_attributes_to_string (args->match->attributes);
-			_gck_debug ("finding objects matching: %s", string);
-			g_free (string);
-		}
+		gchar *string = gck_attributes_to_string (args->match->attributes);
+		g_debug ("finding objects matching: %s", string);
+		g_free (string);
 	} else {
 		attrs = NULL;
 		n_attrs = 0;
-		_gck_debug ("finding all objects");
+		g_debug ("finding all objects");
 	}
 
 	session = gck_session_get_handle (args->session);
@@ -460,7 +454,7 @@ state_find (GckEnumeratorState *args,
 			if (rv != CKR_OK || count == 0)
 				break;
 
-			_gck_debug ("matched %lu objects", count);
+			g_debug ("matched %lu objects", count);
 
 			for (i = 0; i < count; i++) {
 				result = g_slice_new0 (GckEnumeratorResult);
@@ -473,7 +467,7 @@ state_find (GckEnumeratorState *args,
 		(args->funcs->C_FindObjectsFinal) (session);
 	}
 
-	_gck_debug ("finding objects completed with: %s", _gck_stringize_rv (rv));
+	g_debug ("finding objects completed with: %s", _gck_stringize_rv (rv));
 	return state_results;
 }
 
@@ -509,8 +503,8 @@ state_results (GckEnumeratorState *args,
 	for (count = 0; count < args->want_objects; count++) {
 		result = g_queue_pop_head (args->found);
 		if (result == NULL) {
-			_gck_debug ("wanted %d objects, have %d, looking for more",
-			            args->want_objects, g_queue_get_length (args->results));
+			g_debug ("wanted %d objects, have %d, looking for more",
+			         args->want_objects, g_queue_get_length (args->results));
 			return rewind_state (args, state_slots);
 		}
 
@@ -541,12 +535,10 @@ state_results (GckEnumeratorState *args,
 		attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
 
 		if (GCK_IS_GET_ATTRIBUTE_RV_OK (rv)) {
-			if (_gck_debugging) {
-				gchar *string = gck_attributes_to_string (attrs);
-				_gck_debug ("retrieved attributes for object %lu: %s",
-				            result->handle, string);
-				g_free (string);
-			}
+			gchar *string = gck_attributes_to_string (attrs);
+			g_debug ("retrieved attributes for object %lu: %s",
+			         result->handle, string);
+			g_free (string);
 			result->attrs = attrs;
 			g_queue_push_tail (args->results, result);
 
@@ -558,8 +550,8 @@ state_results (GckEnumeratorState *args,
 		}
 	}
 
-	_gck_debug ("wanted %d objects, returned %d objects",
-	            args->want_objects, g_queue_get_length (args->results));
+	g_debug ("wanted %d objects, returned %d objects",
+	         args->want_objects, g_queue_get_length (args->results));
 
 	/* We got all the results we wanted */
 	return NULL;
@@ -703,14 +695,12 @@ static void
 created_enumerator (GckUriData *uri_data,
                     const gchar *type)
 {
-	if (_gck_debugging) {
-		gchar *attrs, *uri;
-		attrs = uri_data->attributes ? gck_attributes_to_string (uri_data->attributes) : NULL;
-		uri = uri_data ? gck_uri_build (uri_data, GCK_URI_FOR_TOKEN | GCK_URI_FOR_MODULE) : NULL;
-		_gck_debug ("for = %s, tokens = %s, objects = %s", type, uri, attrs);
-		g_free (attrs);
-		g_free (uri);
-	}
+	gchar *attrs, *uri;
+	attrs = uri_data->attributes ? gck_attributes_to_string (uri_data->attributes) : NULL;
+	uri = uri_data ? gck_uri_build (uri_data, GCK_URI_FOR_TOKEN | GCK_URI_FOR_MODULE) : NULL;
+	g_debug ("for = %s, tokens = %s, objects = %s", type, uri, attrs);
+	g_free (attrs);
+	g_free (uri);
 }
 
 GckEnumerator *

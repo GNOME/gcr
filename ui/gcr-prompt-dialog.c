@@ -21,8 +21,6 @@
 
 #include "config.h"
 
-#define DEBUG_FLAG GCR_DEBUG_PROMPT
-#include "gcr/gcr-debug.h"
 #include "gcr/gcr-prompt.h"
 
 #include "gcr-prompt-dialog.h"

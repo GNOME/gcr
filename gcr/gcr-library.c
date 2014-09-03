@@ -19,8 +19,6 @@
 
 #include "config.h"
 
-#define DEBUG_FLAG GCR_DEBUG_LIBRARY
-#include "gcr-debug.h"
 #include "gcr-deprecated-base.h"
 #include "gcr-internal.h"
 #include "gcr-library.h"
@@ -182,7 +180,7 @@ _gcr_initialize_library (void)
 	/* Initialize the libgcrypt library if needed */
 	egg_libgcrypt_initialize ();
 
-	_gcr_debug ("initialized library");
+	g_debug ("initialized library");
 }
 
 static void
@@ -197,7 +195,7 @@ initialize_uris (void)
 		return;
 
 	if (!initialized_modules) {
-		_gcr_debug ("modules not initialized");
+		g_debug ("modules not initialized");
 		return;
 	}
 
@@ -225,9 +223,9 @@ initialize_uris (void)
 
 		trust_lookup_uris = (gchar**)g_ptr_array_free (uris, FALSE);
 
-		_gcr_debug ("trust store uri is: %s", trust_store_uri);
+		g_debug ("trust store uri is: %s", trust_store_uri);
 		debug = g_strjoinv (" ", trust_lookup_uris);
-		_gcr_debug ("trust lookup uris are: %s", debug);
+		g_debug ("trust lookup uris are: %s", debug);
 		g_free (debug);
 
 		initialized_uris = TRUE;
@@ -247,7 +245,7 @@ on_initialize_registered (GObject *object,
 
 	results = gck_modules_initialize_registered_finish (result, &error);
 	if (error != NULL) {
-		_gcr_debug ("failed %s", error->message);
+		g_debug ("failed %s", error->message);
 		g_simple_async_result_take_error (res, error);
 
 	} else {
@@ -265,7 +263,7 @@ on_initialize_registered (GObject *object,
 
 	gck_list_unref_free (results);
 
-	_gcr_debug ("completed initialize of registered modules");
+	g_debug ("completed initialize of registered modules");
 	g_simple_async_result_complete (res);
 	g_object_unref (res);
 }
@@ -289,13 +287,13 @@ gcr_pkcs11_initialize_async (GCancellable *cancellable,
 	                                 gcr_pkcs11_initialize_async);
 
 	if (initialized_modules) {
-		_gcr_debug ("already initialized, no need to async");
+		g_debug ("already initialized, no need to async");
 		g_simple_async_result_complete_in_idle (res);
 	} else {
 		gck_modules_initialize_registered_async (cancellable,
 		                                         on_initialize_registered,
 		                                         g_object_ref (res));
-		_gcr_debug ("starting initialize of registered modules");
+		g_debug ("starting initialize of registered modules");
 	}
 
 	g_object_unref (res);
@@ -347,8 +345,8 @@ gcr_pkcs11_initialize (GCancellable *cancellable,
 	results = gck_modules_initialize_registered (cancellable, &err);
 	if (err == NULL) {
 
-		_gcr_debug ("registered module initialize succeeded: %d modules",
-		            g_list_length (results));
+		g_debug ("registered module initialize succeeded: %d modules",
+		         g_list_length (results));
 
 		G_LOCK (modules);
 
@@ -361,7 +359,7 @@ gcr_pkcs11_initialize (GCancellable *cancellable,
 		G_UNLOCK (modules);
 
 	} else {
-		_gcr_debug ("registered module initialize failed: %s", err->message);
+		g_debug ("registered module initialize failed: %s", err->message);
 		g_propagate_error (error, err);
 	}
 
@@ -387,9 +385,9 @@ GList*
 gcr_pkcs11_get_modules (void)
 {
 	if (!initialized_modules)
-		_gcr_debug ("pkcs11 not yet initialized");
+		g_debug ("pkcs11 not yet initialized");
 	else if (!all_modules)
-		_gcr_debug ("no modules loaded");
+		g_debug ("no modules loaded");
 	return gck_list_ref_copy (all_modules);
 }
 
@@ -464,7 +462,7 @@ gcr_pkcs11_add_module_from_file (const gchar *module_path, gpointer unused,
 
 	module = gck_module_initialize (module_path, NULL, &err);
 	if (module == NULL) {
-		_gcr_debug ("initializing module failed: %s: %s",
+		g_debug ("initializing module failed: %s: %s",
 		            module_path, err->message);
 		g_propagate_error (error, err);
 		return FALSE;
@@ -472,7 +470,7 @@ gcr_pkcs11_add_module_from_file (const gchar *module_path, gpointer unused,
 
 	gcr_pkcs11_add_module (module);
 
-	_gcr_debug ("initialized and added module: %s", module_path);
+	g_debug ("initialized and added module: %s", module_path);
 	g_object_unref (module);
 	return TRUE;
 }
@@ -507,7 +505,7 @@ gcr_pkcs11_get_trust_store_slot (void)
 			           trust_store_uri, egg_error_message (error));
 			g_clear_error (&error);
 		} else {
-			_gcr_debug ("no trust store slot found");
+			g_debug ("no trust store slot found");
 		}
 	}
 
@@ -550,7 +548,7 @@ gcr_pkcs11_get_trust_lookup_slots (void)
 	}
 
 	if (results == NULL)
-		_gcr_debug ("no trust lookup slots found");
+		g_debug ("no trust lookup slots found");
 
 	return results;
 }

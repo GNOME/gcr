@@ -21,8 +21,6 @@
 
 #include "config.h"
 
-#define DEBUG_FLAG GCR_DEBUG_GNUPG
-#include "gcr-debug.h"
 #include "gcr-gnupg-process.h"
 #include "gcr-util.h"
 
@@ -422,7 +420,7 @@ run_async_ready_callback (GcrGnupgProcess *self)
 	GAsyncReadyCallback callback;
 	gpointer user_data;
 
-	_gcr_debug ("running async callback");
+	g_debug ("running async callback");
 
 	/* Remove these before completing */
 	callback = self->pv->async_callback;
@@ -444,7 +442,7 @@ on_run_async_ready_callback_later (gpointer user_data)
 static void
 run_async_ready_callback_later (GcrGnupgProcess *self)
 {
-	_gcr_debug ("running async callback later");
+	g_debug ("running async callback later");
 	g_idle_add_full (G_PRIORITY_DEFAULT, on_run_async_ready_callback_later,
 	                 g_object_ref (self), g_object_unref);
 }
@@ -459,10 +457,10 @@ complete_run_process (GcrGnupgProcess *self)
 	self->pv->complete = TRUE;
 
 	if (self->pv->error == NULL) {
-		_gcr_debug ("completed process");
+		g_debug ("completed process");
 	} else {
-		_gcr_debug ("completed process with error: %s",
-		            self->pv->error->message);
+		g_debug ("completed process with error: %s",
+		         self->pv->error->message);
 	}
 }
 
@@ -471,7 +469,7 @@ complete_source_is_done (GnupgSource *gnupg_source)
 {
 	GcrGnupgProcess *self = gnupg_source->process;
 
-	_gcr_debug ("all fds closed and process exited, completing");
+	g_debug ("all fds closed and process exited, completing");
 
 	g_assert (gnupg_source->child_sig == 0);
 
@@ -494,7 +492,7 @@ close_fd (int *fd)
 {
 	g_assert (fd);
 	if (*fd >= 0) {
-		_gcr_debug ("closing fd: %d", *fd);
+		g_debug ("closing fd: %d", *fd);
 		close (*fd);
 	}
 	*fd = -1;
@@ -614,7 +612,7 @@ emit_status_for_each_line (const gchar *line, gpointer user_data)
 	GcrRecord *record;
 
 	if (g_str_has_prefix (line, "[GNUPG:] ")) {
-		_gcr_debug ("received status line: %s", line);
+		g_debug ("received status line: %s", line);
 		line += 9;
 	} else {
 		g_message ("gnupg status record was not prefixed appropriately: %s", line);
@@ -634,7 +632,7 @@ emit_status_for_each_line (const gchar *line, gpointer user_data)
 static void
 emit_error_for_each_line (const gchar *line, gpointer user_data)
 {
-	_gcr_debug ("received error line: %s", line);
+	g_debug ("received error line: %s", line);
 	g_signal_emit (GCR_GNUPG_PROCESS (user_data), signals[ERROR_LINE], 0, line);
 }
 
@@ -704,7 +702,7 @@ on_gnupg_source_attribute (GcrGnupgProcess *self,
 		g_warning ("couldn't read attribute data from gnupg process");
 		result = FALSE;
 	} else if (buffer->len > 0) {
-		_gcr_debug ("received %d bytes of attribute data", (gint)buffer->len);
+		g_debug ("received %d bytes of attribute data", (gint)buffer->len);
 		if (self->pv->attributes != NULL)
 			g_output_stream_write_all (self->pv->attributes, buffer->data,
 			                           buffer->len, NULL,
@@ -727,7 +725,7 @@ on_gnupg_source_output (GcrGnupgProcess *self,
 		g_warning ("couldn't read output data from gnupg process");
 		result = FALSE;
 	} else if (buffer->len > 0) {
-		_gcr_debug ("received %d bytes of output data", (gint)buffer->len);
+		g_debug ("received %d bytes of output data", (gint)buffer->len);
 		if (self->pv->output != NULL)
 			g_output_stream_write_all (self->pv->output, buffer->data, buffer->len,
 			                           NULL, gnupg_source->cancellable, NULL);
@@ -853,7 +851,7 @@ on_gnupg_process_child_exited (GPid pid, gint status, gpointer user_data)
 	gint code;
 	guint i;
 
-	_gcr_debug ("process exited: %d", (int)pid);
+	g_debug ("process exited: %d", (int)pid);
 
 	g_spawn_close_pid (gnupg_source->child_pid);
 	gnupg_source->child_pid = 0;
@@ -875,7 +873,7 @@ on_gnupg_process_child_exited (GPid pid, gint status, gpointer user_data)
 
 	/* Take this as the async result error */
 	if (error && !self->pv->error) {
-		_gcr_debug ("%s", error->message);
+		g_debug ("%s", error->message);
 		self->pv->error = error;
 
 	/* Already have an error, just print out message */
@@ -919,7 +917,7 @@ on_cancellable_cancelled (GCancellable *cancellable, gpointer user_data)
 
 	g_assert (gnupg_source->process);
 
-	_gcr_debug ("process cancelled");
+	g_debug ("process cancelled");
 
 	/* Set an error, which is respected when this actually completes. */
 	if (gnupg_source->process->pv->error == NULL)
@@ -928,8 +926,8 @@ on_cancellable_cancelled (GCancellable *cancellable, gpointer user_data)
 
 	/* Try and kill the child process */
 	if (gnupg_source->child_pid) {
-		_gcr_debug ("sending term signal to process: %d",
-		            (int)gnupg_source->child_pid);
+		g_debug ("sending term signal to process: %d",
+		         (int)gnupg_source->child_pid);
 		kill (gnupg_source->child_pid, SIGTERM);
 	}
 }
@@ -1033,14 +1031,12 @@ _gcr_gnupg_process_run_async (GcrGnupgProcess *self, const gchar **argv, const g
 		g_ptr_array_add (envs, (gpointer)"LOCALE=C");
 	g_ptr_array_add (envs, NULL);
 
-	if (_gcr_debugging) {
-		gchar *command = g_strjoinv (" ", (gchar**)args->pdata);
-		gchar *environ = g_strjoinv (", ", (gchar**)envs->pdata);
-		_gcr_debug ("running command: %s", command);
-		_gcr_debug ("process environment: %s", environ);
-		g_free (command);
-		g_free (environ);
-	}
+	gchar *command = g_strjoinv (" ", (gchar**)args->pdata);
+	gchar *environ = g_strjoinv (", ", (gchar**)envs->pdata);
+	g_debug ("running command: %s", command);
+	g_debug ("process environment: %s", environ);
+	g_free (command);
+	g_free (environ);
 
 	g_spawn_async_with_pipes (self->pv->directory, (gchar**)args->pdata,
 	                          (gchar**)envs->pdata, G_SPAWN_DO_NOT_REAP_CHILD,
@@ -1067,7 +1063,7 @@ _gcr_gnupg_process_run_async (GcrGnupgProcess *self, const gchar **argv, const g
 		return;
 	}
 
-	_gcr_debug ("process started: %d", (int)pid);
+	g_debug ("process started: %d", (int)pid);
 
 	source = g_source_new (&gnupg_source_funcs, sizeof (GnupgSource));
 

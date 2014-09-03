@@ -20,8 +20,6 @@
  */
 #include "config.h"
 
-#define DEBUG_FLAG GCR_DEBUG_KEY
-#include "gcr-debug.h"
 #include "gcr-subject-public-key.h"
 #include "gcr-types.h"
 
@@ -72,14 +70,14 @@ load_object_basics (GckObject *object,
 	g_assert (type != NULL);
 
 	if (check_object_basics (builder, klass, type)) {
-		_gcr_debug ("already loaded: class = %lu, type = %lu", *klass, *type);
+		g_debug ("already loaded: class = %lu, type = %lu", *klass, *type);
 		return TRUE;
 	}
 
 	attrs = gck_object_cache_lookup (object, attr_types, G_N_ELEMENTS (attr_types),
 	                                 cancellable, &error);
 	if (error != NULL) {
-		_gcr_debug ("couldn't load: %s", error->message);
+		g_debug ("couldn't load: %s", error->message);
 		g_propagate_error (lerror, error);
 		return FALSE;
 	}
@@ -90,7 +88,7 @@ load_object_basics (GckObject *object,
 	if (!check_object_basics (builder, klass, type))
 		return FALSE;
 
-	_gcr_debug ("loaded: class = %lu, type = %lu", *klass, *type);
+	g_debug ("loaded: class = %lu, type = %lu", *klass, *type);
 	return TRUE;
 }
 
@@ -112,14 +110,14 @@ load_x509_attributes (GckObject *object,
 	GError *error = NULL;
 
 	if (check_x509_attributes (builder)) {
-		_gcr_debug ("already loaded");
+		g_debug ("already loaded");
 		return TRUE;
 	}
 
 	attrs = gck_object_cache_lookup (object, attr_types, G_N_ELEMENTS (attr_types),
 	                                 cancellable, &error);
 	if (error != NULL) {
-		_gcr_debug ("couldn't load: %s", error->message);
+		g_debug ("couldn't load: %s", error->message);
 		g_propagate_error (lerror, error);
 		return FALSE;
 	}
@@ -154,14 +152,14 @@ load_rsa_attributes (GckObject *object,
 	GError *error = NULL;
 
 	if (check_rsa_attributes (builder)) {
-		_gcr_debug ("rsa attributes already loaded");
+		g_debug ("rsa attributes already loaded");
 		return TRUE;
 	}
 
 	attrs = gck_object_cache_lookup (object, attr_types, G_N_ELEMENTS (attr_types),
 	                                 cancellable, &error);
 	if (error != NULL) {
-		_gcr_debug ("couldn't load rsa attributes: %s", error->message);
+		g_debug ("couldn't load rsa attributes: %s", error->message);
 		g_propagate_error (lerror, error);
 		return FALSE;
 	}
@@ -189,7 +187,7 @@ lookup_public_key (GckObject *object,
 	attrs = gck_object_cache_lookup (object, attr_types, G_N_ELEMENTS (attr_types),
 	                                 cancellable, &error);
 	if (error != NULL) {
-		_gcr_debug ("couldn't load private key id: %s", error->message);
+		g_debug ("couldn't load private key id: %s", error->message);
 		g_propagate_error (lerror, error);
 		return NULL;
 	}
@@ -197,7 +195,7 @@ lookup_public_key (GckObject *object,
 	id = gck_attributes_find (attrs, CKA_ID);
 	if (id == NULL || gck_attribute_is_invalid (id)) {
 		gck_attributes_unref (attrs);
-		_gcr_debug ("couldn't load private key id");
+		g_debug ("couldn't load private key id");
 		g_set_error_literal (lerror, GCK_ERROR, CKR_ATTRIBUTE_TYPE_INVALID,
 		                     gck_message_from_rv (CKR_ATTRIBUTE_TYPE_INVALID));
 		return NULL;
@@ -212,7 +210,7 @@ lookup_public_key (GckObject *object,
 	g_object_unref (session);
 
 	if (error != NULL) {
-		_gcr_debug ("couldn't lookup public key: %s", error->message);
+		g_debug ("couldn't lookup public key: %s", error->message);
 		g_propagate_error (lerror, error);
 		return NULL;
 	}
@@ -278,7 +276,7 @@ load_dsa_attributes (GckObject *object,
 	g_object_unref (publi);
 
 	if (error != NULL) {
-		_gcr_debug ("couldn't load rsa attributes: %s", error->message);
+		g_debug ("couldn't load rsa attributes: %s", error->message);
 		g_propagate_error (lerror, error);
 		return FALSE;
 	}
@@ -319,7 +317,7 @@ load_ec_attributes (GckObject *object,
 	gulong klass;
 
 	if (check_ec_attributes (builder)) {
-		_gcr_debug ("ec attributes already loaded");
+		g_debug ("ec attributes already loaded");
 		return TRUE;
 	}
 
@@ -341,7 +339,7 @@ load_ec_attributes (GckObject *object,
 	g_object_unref (publi);
 
 	if (error != NULL) {
-		_gcr_debug ("couldn't load ec attributes: %s", error->message);
+		g_debug ("couldn't load ec attributes: %s", error->message);
 		g_propagate_error (lerror, error);
 		return FALSE;
 	}
@@ -374,7 +372,7 @@ load_attributes (GckObject *object,
 			ret = load_x509_attributes (object, builder, cancellable, lerror);
 			break;
 		default:
-			_gcr_debug ("unsupported certificate type: %lu", type);
+			g_debug ("unsupported certificate type: %lu", type);
 			break;
 		}
 		break;
@@ -392,13 +390,13 @@ load_attributes (GckObject *object,
 			ret = load_ec_attributes (object, builder, cancellable, lerror);
 			break;
 		default:
-			_gcr_debug ("unsupported key type: %lu", type);
+			g_debug ("unsupported key type: %lu", type);
 			break;
 		}
 		break;
 
 	default:
-		_gcr_debug ("unsupported class: %lu", type);
+		g_debug ("unsupported class: %lu", type);
 		break;
 	}
 
@@ -794,7 +792,7 @@ cert_subject_public_key_from_attributes (GckAttributes *attributes)
 
 	attr = gck_attributes_find (attributes, CKA_VALUE);
 	if (attr == NULL || gck_attribute_is_invalid (attr)) {
-		_gcr_debug ("no value attribute for certificate");
+		g_debug ("no value attribute for certificate");
 		return NULL;
 	}
 
@@ -805,7 +803,7 @@ cert_subject_public_key_from_attributes (GckAttributes *attributes)
 	g_bytes_unref (bytes);
 
 	if (cert == NULL) {
-		_gcr_debug ("couldn't parse certificate value");
+		g_debug ("couldn't parse certificate value");
 		return NULL;
 	}
 
@@ -828,7 +826,7 @@ _gcr_subject_public_key_for_attributes (GckAttributes *attributes)
 	GNode *asn = NULL;
 
 	if (!gck_attributes_find_ulong (attributes, CKA_CLASS, &klass)) {
-		_gcr_debug ("no class in attributes");
+		g_debug ("no class in attributes");
 		return NULL;
 	}
 
@@ -837,7 +835,7 @@ _gcr_subject_public_key_for_attributes (GckAttributes *attributes)
 
 	} else if (klass == CKO_PUBLIC_KEY || klass == CKO_PRIVATE_KEY) {
 		if (!gck_attributes_find_ulong (attributes, CKA_KEY_TYPE, &key_type)) {
-			_gcr_debug ("no key type in attributes");
+			g_debug ("no key type in attributes");
 			return NULL;
 		}
 
@@ -854,7 +852,7 @@ _gcr_subject_public_key_for_attributes (GckAttributes *attributes)
 			ret = ec_subject_public_key_from_attributes (attributes, klass, asn);
 
 		} else {
-			_gcr_debug ("unsupported key type: %lu", key_type);
+			g_debug ("unsupported key type: %lu", key_type);
 			ret = FALSE;
 		}
 

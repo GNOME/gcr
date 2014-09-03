@@ -17,8 +17,6 @@
 
 #include "config.h"
 
-#define DEBUG_FLAG GCR_DEBUG_KEY
-#include "gcr-debug.h"
 #include "gcr-key-mechanisms.h"
 
 #include <glib/gi18n-lib.h>
@@ -52,7 +50,7 @@ find_first_usable_mechanism (GckObject *key,
 	gsize i;
 
 	if (gck_attributes_find_boolean (attrs, action_attr_type, &can) && !can) {
-		_gcr_debug ("key not capable of needed action");
+		g_debug ("key not capable of needed action");
 		return GCK_INVALID;
 	}
 
@@ -63,7 +61,7 @@ find_first_usable_mechanism (GckObject *key,
 	g_object_unref (session);
 
 	if (!mechs) {
-		_gcr_debug ("couldn't get slot mechanisms");
+		g_debug ("couldn't get slot mechanisms");
 		return GCK_INVALID;
 	}
 

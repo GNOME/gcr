@@ -22,8 +22,6 @@
 #include "config.h"
 
 #include "gcr-dbus-constants.h"
-#define DEBUG_FLAG GCR_DEBUG_PROMPT
-#include "gcr-debug.h"
 #include "gcr-internal.h"
 #include "gcr-library.h"
 #include "gcr-prompt.h"
@@ -436,7 +434,7 @@ on_prompter_stop_prompting (GObject *source,
 
 	retval = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source), result, &error);
 	if (error != NULL) {
-		_gcr_debug ("failed to stop prompting: %s", egg_error_message (error));
+		g_debug ("failed to stop prompting: %s", egg_error_message (error));
 		g_clear_error (&error);
 	}
 
@@ -464,7 +462,7 @@ perform_close (GcrSystemPrompt *self,
 	self->pv->closed = TRUE;
 
 	if (!closed)
-		_gcr_debug ("closing prompt");
+		g_debug ("closing prompt");
 
 	if (self->pv->pending) {
 		res = g_object_ref (self->pv->pending);
@@ -483,7 +481,7 @@ perform_close (GcrSystemPrompt *self,
 
 	if (self->pv->begun_prompting) {
 		if (self->pv->connection && self->pv->prompt_path && self->pv->prompt_owner) {
-			_gcr_debug ("Calling the prompter %s method", GCR_DBUS_PROMPTER_METHOD_STOP);
+			g_debug ("Calling the prompter %s method", GCR_DBUS_PROMPTER_METHOD_STOP);
 			g_dbus_connection_call (self->pv->connection,
 			                        self->pv->prompter_bus_name,
 			                        GCR_DBUS_PROMPTER_OBJECT_PATH,
@@ -608,7 +606,7 @@ gcr_system_prompt_get_secret_exchange (GcrSystemPrompt *self)
 	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPT (self), NULL);
 
 	if (!self->pv->exchange) {
-		_gcr_debug ("creating new secret exchange");
+		g_debug ("creating new secret exchange");
 		self->pv->exchange = gcr_secret_exchange_new (NULL);
 	}
 
@@ -801,7 +799,7 @@ on_prompter_vanished (GDBusConnection *connection,
 	if (self->pv->prompt_owner) {
 		g_free (self->pv->prompt_owner);
 		self->pv->prompt_owner = NULL;
-		_gcr_debug ("prompter name owner has vanished: %s", name);
+		g_debug ("prompter name owner has vanished: %s", name);
 		g_cancellable_cancel (call->cancellable);
 	}
 
@@ -822,11 +820,11 @@ on_bus_connected (GObject *source,
 	self->pv->connection = g_bus_get_finish (result, &error);
 
 	if (error != NULL) {
-		_gcr_debug ("failed to connect to bus: %s", egg_error_message (error));
+		g_debug ("failed to connect to bus: %s", egg_error_message (error));
 
 	} else {
 		g_return_if_fail (self->pv->connection != NULL);
-		_gcr_debug ("connected to bus");
+		g_debug ("connected to bus");
 
 		g_main_context_push_thread_default (closure->context);
 
@@ -869,15 +867,15 @@ on_prompter_begin_prompting (GObject *source,
 		self->pv->begun_prompting = TRUE;
 		g_variant_unref (ret);
 
-		_gcr_debug ("registered prompt %s: %s",
-		            self->pv->prompter_bus_name, self->pv->prompt_path);
+		g_debug ("registered prompt %s: %s",
+		         self->pv->prompter_bus_name, self->pv->prompt_path);
 
 		g_return_if_fail (self->pv->prompt_path != NULL);
 		perform_init_async (self, res);
 
 	} else {
-		_gcr_debug ("failed to register prompt %s: %s",
-		            self->pv->prompter_bus_name, egg_error_message (error));
+		g_debug ("failed to register prompt %s: %s",
+		         self->pv->prompter_bus_name, egg_error_message (error));
 
 		g_simple_async_result_take_error (res, error);
 		g_simple_async_result_complete (res);
@@ -940,7 +938,7 @@ perform_init_async (GcrSystemPrompt *self,
 
 	/* 1. Connect to the session bus */
 	if (!self->pv->connection) {
-		_gcr_debug ("connecting to bus");
+		g_debug ("connecting to bus");
 		g_bus_get (G_BUS_TYPE_SESSION, closure->cancellable,
 		           on_bus_connected, g_object_ref (res));
 
@@ -948,7 +946,7 @@ perform_init_async (GcrSystemPrompt *self,
 	} else if (!self->pv->begun_prompting) {
 		g_assert (self->pv->prompt_path != NULL);
 
-		_gcr_debug ("calling %s method on prompter", GCR_DBUS_PROMPTER_METHOD_BEGIN);
+		g_debug ("calling %s method on prompter", GCR_DBUS_PROMPTER_METHOD_BEGIN);
 		g_dbus_connection_call (self->pv->connection,
 		                        self->pv->prompter_bus_name,
 		                        GCR_DBUS_PROMPTER_OBJECT_PATH,
@@ -1186,7 +1184,7 @@ perform_prompt_async (GcrSystemPrompt *self,
 		return;
 	}
 
-	_gcr_debug ("prompting for password");
+	g_debug ("prompting for password");
 
 	exchange = gcr_system_prompt_get_secret_exchange (self);
 	if (self->pv->received)
@@ -1395,9 +1393,9 @@ gcr_system_prompt_open_for_prompter_async (const gchar *prompter_name,
 	g_return_if_fail (cancellable == NULL || G_CANCELLABLE (cancellable));
 
 	if (prompter_name == NULL)
-		_gcr_debug ("opening prompt");
+		g_debug ("opening prompt");
 	else
-		_gcr_debug ("opening prompt for prompter: %s", prompter_name);
+		g_debug ("opening prompt for prompter: %s", prompter_name);
 
 	g_async_initable_new_async (GCR_TYPE_SYSTEM_PROMPT,
 	                            G_PRIORITY_DEFAULT,
@@ -1504,9 +1502,9 @@ gcr_system_prompt_open_for_prompter (const gchar *prompter_name,
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
 	if (prompter_name == NULL)
-		_gcr_debug ("opening prompt");
+		g_debug ("opening prompt");
 	else
-		_gcr_debug ("opening prompt for prompter: %s", prompter_name);
+		g_debug ("opening prompt for prompter: %s", prompter_name);
 
 	return g_initable_new (GCR_TYPE_SYSTEM_PROMPT, cancellable, error,
 	                       "timeout-seconds", timeout_seconds,

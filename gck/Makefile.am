@@ -41,7 +41,6 @@ gck_PUBLIC_FILES = \
 
 gck_INTERNAL_FILES = \
 	gck/gck-call.c \
-	gck/gck-debug.c gck/gck-debug.h \
 	gck/gck-deprecated.h \
 	gck/gck-interaction.c \
 	gck/gck-private.h \

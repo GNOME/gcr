@@ -24,8 +24,6 @@
 #include "gcr-certificate-chain.h"
 
 #include "gcr-certificate.h"
-#define DEBUG_FLAG GCR_DEBUG_CERTIFICATE_CHAIN
-#include "gcr-debug.h"
 #include "gcr-pkcs11-certificate.h"
 #include "gcr-simple-certificate.h"
 #include "gcr-trust.h"
@@ -179,7 +177,7 @@ prep_chain_private_thread_safe (GcrCertificateChainPrivate *orig, const gchar *p
 			g_return_val_if_fail (der, NULL);
 			safe = gcr_simple_certificate_new (der, n_der);
 
-			_gcr_debug ("copying certificate so it's thread safe");
+			g_debug ("copying certificate so it's thread safe");
 
 			/* Always set the original certificate onto the safe one */
 			g_object_set_qdata_full (G_OBJECT (safe), Q_ORIGINAL_CERT,
@@ -253,7 +251,7 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 
 	/* This chain is built */
 	if (!pv->certificates->len) {
-		_gcr_debug ("empty certificate chain");
+		g_debug ("empty certificate chain");
 		return TRUE;
 	}
 
@@ -264,18 +262,16 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 	certificate = pop_certificate (input, NULL);
 	g_ptr_array_add (pv->certificates, certificate);
 
-	if (_gcr_debugging) {
-		subject = gcr_certificate_get_subject_dn (certificate);
-		_gcr_debug ("first certificate: %s", subject);
-		g_free (subject);
-	}
+	subject = gcr_certificate_get_subject_dn (certificate);
+	g_debug ("first certificate: %s", subject);
+	g_free (subject);
 
 	if (lookups && pv->peer) {
 		ret = gcr_trust_is_certificate_pinned (certificate, pv->purpose,
 		                                       pv->peer, cancellable, &error);
 		if (!ret && error) {
-			_gcr_debug ("failed to lookup pinned certificate: %s",
-			            egg_error_message (error));
+			g_debug ("failed to lookup pinned certificate: %s",
+			         egg_error_message (error));
 			g_propagate_error (rerror, error);
 			g_ptr_array_unref (input);
 			return FALSE;
@@ -286,8 +282,8 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 		 * is irrelevant, so truncate chain and consider built.
 		 */
 		if (ret) {
-			_gcr_debug ("found pinned certificate for peer '%s', truncating chain",
-			            pv->peer);
+			g_debug ("found pinned certificate for peer '%s', truncating chain",
+			         pv->peer);
 
 			g_ptr_array_unref (input);
 			pv->status = GCR_CERTIFICATE_CHAIN_PINNED;
@@ -301,7 +297,7 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 
 		/* Stop the chain if previous was self-signed */
 		if (gcr_certificate_is_issuer (certificate, certificate)) {
-			_gcr_debug ("found self-signed certificate");
+			g_debug ("found self-signed certificate");
 			pv->status = GCR_CERTIFICATE_CHAIN_SELFSIGNED;
 			break;
 		}
@@ -309,42 +305,38 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 		/* Get the next certificate */
 		certificate = pop_certificate (input, issued);
 		if (certificate) {
-			if (_gcr_debugging) {
-				subject = gcr_certificate_get_subject_dn (certificate);
-				_gcr_debug ("next certificate: %s", subject);
-				g_free (subject);
-			}
+			subject = gcr_certificate_get_subject_dn (certificate);
+			g_debug ("next certificate: %s", subject);
+			g_free (subject);
 
 		/* No more in chain, try to lookup */
 		} else if (lookups) {
 			certificate = gcr_pkcs11_certificate_lookup_issuer (issued,
 			                                                    cancellable, &error);
 			if (error != NULL) {
-				_gcr_debug ("failed to lookup issuer: %s", error->message);
+				g_debug ("failed to lookup issuer: %s", error->message);
 				g_propagate_error (rerror, error);
 				g_ptr_array_unref (input);
 				return FALSE;
 
 			} else if (certificate) {
-				if (_gcr_debugging) {
-					subject = gcr_certificate_get_subject_dn (certificate);
-					_gcr_debug ("found issuer certificate: %s", subject);
-					g_free (subject);
-				}
+				subject = gcr_certificate_get_subject_dn (certificate);
+				g_debug ("found issuer certificate: %s", subject);
+				g_free (subject);
 
 			} else {
-				_gcr_debug ("no issuer found");
+				g_debug ("no issuer found");
 			}
 
 		/* No more in chain, and can't lookup */
 		} else {
-			_gcr_debug ("no more certificates available, and no lookups");
+			g_debug ("no more certificates available, and no lookups");
 			certificate = NULL;
 		}
 
 		/* Stop the chain if nothing found */
 		if (certificate == NULL) {
-			_gcr_debug ("chain is incomplete");
+			g_debug ("chain is incomplete");
 			pv->status = GCR_CERTIFICATE_CHAIN_INCOMPLETE;
 			break;
 		}
@@ -358,15 +350,15 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 			                                         cancellable, &error);
 
 			if (!ret && error) {
-				_gcr_debug ("failed to lookup anchored certificate: %s",
-				            egg_error_message (error));
+				g_debug ("failed to lookup anchored certificate: %s",
+				         egg_error_message (error));
 				g_propagate_error (rerror, error);
 				g_ptr_array_unref (input);
 				return FALSE;
 
 			/* Stop the chain at the first anchor */
 			} else if (ret) {
-				_gcr_debug ("found anchored certificate");
+				g_debug ("found anchored certificate");
 				pv->status = GCR_CERTIFICATE_CHAIN_ANCHORED;
 				break;
 			}
@@ -389,7 +381,7 @@ thread_build_chain (GSimpleAsyncResult *result, GObject *object,
 	pv = g_object_get_qdata (G_OBJECT (result), Q_OPERATION_DATA);
 	g_assert (pv);
 
-	_gcr_debug ("building asynchronously in another thread");
+	g_debug ("building asynchronously in another thread");
 
 	if (!perform_build_chain (pv, cancellable, &error)) {
 		g_simple_async_result_set_from_error (result, error);

@@ -22,8 +22,6 @@
 #include "config.h"
 
 #include "gcr-callback-output-stream.h"
-#define DEBUG_FLAG GCR_DEBUG_GNUPG
-#include "gcr-debug.h"
 
 #include <glib/gi18n-lib.h>
 

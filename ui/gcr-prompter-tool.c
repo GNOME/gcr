@@ -24,8 +24,6 @@
 
 #include "gcr/gcr.h"
 #include "gcr/gcr-dbus-constants.h"
-#define DEBUG_FLAG GCR_DEBUG_PROMPT
-#include "gcr/gcr-debug.h"
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
@@ -48,7 +46,7 @@ static guint timeout_source = 0;
 static gboolean
 on_timeout_quit (gpointer unused)
 {
-	_gcr_debug ("%d second inactivity timeout, quitting", QUIT_TIMEOUT);
+	g_debug ("%d second inactivity timeout, quitting", QUIT_TIMEOUT);
 	gtk_main_quit ();
 
 	return FALSE; /* Don't run again */
@@ -88,7 +86,7 @@ on_bus_acquired (GDBusConnection *connection,
                  const gchar *name,
                  gpointer user_data)
 {
-	_gcr_debug ("bus acquired: %s", name);
+	g_debug ("bus acquired: %s", name);
 
 	if (!registered_prompter)
 		gcr_system_prompter_register (the_prompter, connection);
@@ -101,7 +99,7 @@ on_name_acquired (GDBusConnection *connection,
                   const gchar *name,
                   gpointer user_data)
 {
-	_gcr_debug ("acquired name: %s", name);
+	g_debug ("acquired name: %s", name);
 
 	if (g_strcmp0 (name, GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME) == 0)
 		acquired_system_prompter = TRUE;
@@ -115,7 +113,7 @@ on_name_lost (GDBusConnection *connection,
               const gchar *name,
               gpointer user_data)
 {
-	_gcr_debug ("lost name: %s", name);
+	g_debug ("lost name: %s", name);
 
 	/* Called like so when no connection can be made */
 	if (connection == NULL) {

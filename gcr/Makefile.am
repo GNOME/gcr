@@ -87,7 +87,6 @@ gcr_PRIVATE_FILES = \
 	gcr/gcr-certificate-extensions.c gcr/gcr-certificate-extensions.h \
 	gcr/gcr-column.c \
 	gcr/gcr-dbus-constants.h \
-	gcr/gcr-debug.c gcr/gcr-debug.h \
 	gcr/gcr-deprecated-base.h \
 	gcr/gcr-gnupg-collection.c gcr/gcr-gnupg-collection.h \
 	gcr/gcr-gnupg-importer.c gcr/gcr-gnupg-importer.h \

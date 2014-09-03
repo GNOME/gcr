@@ -22,8 +22,6 @@
 #include "config.h"
 
 #include "gcr-record.h"
-#define DEBUG_FLAG GCR_DEBUG_PARSE
-#include "gcr-debug.h"
 
 #include "egg/egg-timegm.h"
 
@@ -185,12 +183,12 @@ take_and_parse_internal (GcrRecordBlock *block,
 	result->block = block;
 	result->delimiter = delimiter;
 
-	_gcr_debug ("parsing line %s", block->value);
+	g_debug ("parsing line %s", block->value);
 
 	at = block->value;
 	for (;;) {
 		if (result->n_columns >= MAX_COLUMNS) {
-			_gcr_debug ("too many record (%d) in gnupg line", MAX_COLUMNS);
+			g_debug ("too many record (%d) in gnupg line", MAX_COLUMNS);
 			_gcr_record_free (result);
 			return NULL;
 		}
@@ -512,12 +510,12 @@ _gcr_record_get_uint (GcrRecord *record, guint column, guint *value)
 
 	result = g_ascii_strtoll (raw, &end, 10);
 	if (!end || end[0]) {
-		_gcr_debug ("invalid unsigned integer value: %s", raw);
+		g_debug ("invalid unsigned integer value: %s", raw);
 		return FALSE;
 	}
 
 	if (result < 0 || result > G_MAXUINT32) {
-		_gcr_debug ("unsigned integer value is out of range: %s", raw);
+		g_debug ("unsigned integer value is out of range: %s", raw);
 		return FALSE;
 	}
 
@@ -558,12 +556,12 @@ _gcr_record_get_ulong (GcrRecord *record,
 
 	result = g_ascii_strtoull (raw, &end, 10);
 	if (!end || end[0]) {
-		_gcr_debug ("invalid unsigned long value: %s", raw);
+		g_debug ("invalid unsigned long value: %s", raw);
 		return FALSE;
 	}
 
 	if (result < 0 || result > G_MAXULONG) {
-		_gcr_debug ("unsigned long value is out of range: %s", raw);
+		g_debug ("unsigned long value is out of range: %s", raw);
 		return FALSE;
 	}
 
@@ -616,7 +614,7 @@ _gcr_record_get_date (GcrRecord *record,
 	memset (&tm, 0, sizeof (tm));
 	end = strptime (raw, "%Y-%m-%d", &tm);
 	if (!end || end[0]) {
-		_gcr_debug ("invalid date value: %s", raw);
+		g_debug ("invalid date value: %s", raw);
 		return NULL;
 	}
 
@@ -683,8 +681,8 @@ _gcr_record_get_raw (GcrRecord *record, guint column)
 	g_return_val_if_fail (record, NULL);
 
 	if (column >= record->n_columns) {
-		_gcr_debug ("only %d columns exist, tried to access %d",
-		            record->n_columns, column);
+		g_debug ("only %d columns exist, tried to access %d",
+		         record->n_columns, column);
 		return NULL;
 	}
 

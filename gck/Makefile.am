@@ -213,11 +213,9 @@ test_gck_crypto_SOURCES = gck/test-gck-crypto.c
 test_gck_crypto_CFLAGS = $(gck_CFLAGS)
 test_gck_crypto_LDADD = $(gck_LIBS)
 
-test_gck_enumerator_SOURCES = \
-	gck/test-gck-enumerator.c \
-	gck/mock-interaction.c gck/mock-interaction.h
+test_gck_enumerator_SOURCES = gck/test-gck-enumerator.c
 test_gck_enumerator_CFLAGS = $(gck_CFLAGS)
-test_gck_enumerator_LDADD = $(gck_LIBS)
+test_gck_enumerator_LDADD = libegg-test.la $(gck_LIBS)
 
 test_gck_object_SOURCES = gck/test-gck-object.c
 test_gck_object_CFLAGS = $(gck_CFLAGS)
@@ -231,11 +229,9 @@ test_gck_modules_SOURCES = gck/test-gck-modules.c
 test_gck_modules_CFLAGS = $(gck_CFLAGS)
 test_gck_modules_LDADD = $(gck_LIBS)
 
-test_gck_session_SOURCES = \
-	gck/test-gck-session.c \
-	gck/mock-interaction.c gck/mock-interaction.h
+test_gck_session_SOURCES = gck/test-gck-session.c
 test_gck_session_CFLAGS = $(gck_CFLAGS)
-test_gck_session_LDADD = $(gck_LIBS)
+test_gck_session_LDADD = libegg-test.la $(gck_LIBS)
 
 test_gck_slot_SOURCES = gck/test-gck-slot.c
 test_gck_slot_CFLAGS = $(gck_CFLAGS)

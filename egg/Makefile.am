@@ -59,7 +59,8 @@ libegg_secmem_la_SOURCES = \
 	egg/egg-secure-memory.c egg/egg-secure-memory.h
 
 libegg_test_la_SOURCES = \
-	egg/egg-testing.c egg/egg-testing.h
+	egg/egg-testing.c egg/egg-testing.h \
+	egg/mock-interaction.c egg/mock-interaction.h
 
 libegg_test_la_CFLAGS = \
 	$(GLIB_CFLAGS)

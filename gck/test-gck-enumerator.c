@@ -27,9 +27,8 @@
 #include "gck/gck-private.h"
 #include "gck/gck-test.h"
 
-#include "mock-interaction.h"
-
 #include "egg/egg-testing.h"
+#include "egg/mock-interaction.h"
 
 #include <glib.h>
 

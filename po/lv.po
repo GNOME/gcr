@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
 "POT-Creation-Date: 2014-09-07 04:50+0000\n"
-"PO-Revision-Date: 2014-09-07 18:59+0300\n"
+"PO-Revision-Date: 2014-09-07 19:07+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -924,14 +924,14 @@ msgid "Public Elliptic Curve Key"
 msgstr "Publiskā eliptisko līkņu atslēga"
 
 #: ../ui/gcr-key-renderer.c:377
-#, fuzzy, c-format
+#, c-format
 #| msgid "%d bit"
 #| msgid_plural "%d bits"
 msgid "%u bit"
 msgid_plural "%u bits"
-msgstr[0] "%d bits"
-msgstr[1] "%d biti"
-msgstr[2] "%d bitu"
+msgstr[0] "%u bits"
+msgstr[1] "%u biti"
+msgstr[2] "%u bitu"
 
 #: ../ui/gcr-key-renderer.c:378
 msgid "Strength"

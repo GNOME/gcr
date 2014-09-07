@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-03-07 05:58+0000\n"
-"PO-Revision-Date: 2014-03-07 22:57+0200\n"
+"POT-Creation-Date: 2014-09-07 04:50+0000\n"
+"PO-Revision-Date: 2014-09-07 18:59+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -123,7 +123,7 @@ msgid "Pseudonym"
 msgstr "Pseidonīms"
 
 #: ../egg/egg-oid.c:97 ../ui/gcr-gnupg-renderer.c:199
-#: ../ui/gcr-key-renderer.c:428
+#: ../ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
@@ -140,7 +140,7 @@ msgid "SHA1 with RSA"
 msgstr "SHA1 ar RSA"
 
 #: ../egg/egg-oid.c:102 ../ui/gcr-gnupg-renderer.c:203
-#: ../ui/gcr-key-renderer.c:430
+#: ../ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
@@ -148,24 +148,53 @@ msgstr "DSA"
 msgid "SHA1 with DSA"
 msgstr "SHA1 ar DSA"
 
-#. Extended Key Usages
+#: ../egg/egg-oid.c:105 ../ui/gcr-key-renderer.c:389
+msgid "Elliptic Curve"
+msgstr "Eliptisko līkņu"
+
 #: ../egg/egg-oid.c:106
+#| msgid "SHA1 with DSA"
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 ar ECDSA"
+
+#: ../egg/egg-oid.c:107
+#| msgid "SHA1 with DSA"
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 ar ECDSA"
+
+#: ../egg/egg-oid.c:108
+#| msgid "SHA1 with DSA"
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 ar ECDSA"
+
+#: ../egg/egg-oid.c:109
+#| msgid "SHA1 with DSA"
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 ar ECDSA"
+
+#: ../egg/egg-oid.c:110
+#| msgid "SHA1 with DSA"
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 ar ECDSA"
+
+#. Extended Key Usages
+#: ../egg/egg-oid.c:113
 msgid "Server Authentication"
 msgstr "Servera autentificēšana"
 
-#: ../egg/egg-oid.c:107
+#: ../egg/egg-oid.c:114
 msgid "Client Authentication"
 msgstr "Klienta autentificēšana"
 
-#: ../egg/egg-oid.c:108
+#: ../egg/egg-oid.c:115
 msgid "Code Signing"
 msgstr "Koda parakstīšana"
 
-#: ../egg/egg-oid.c:109
+#: ../egg/egg-oid.c:116
 msgid "Email Protection"
 msgstr "E-pasta aizsardzība"
 
-#: ../egg/egg-oid.c:110
+#: ../egg/egg-oid.c:117
 msgid "Time Stamping"
 msgstr "Laika apzīmogošana"
 
@@ -201,8 +230,8 @@ msgstr "Šai URI ir slikta sintakse."
 msgid "The URI has a bad version number."
 msgstr "Šai URI ir slikts versijas numurs."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "Straume tika aizvērta"
@@ -225,7 +254,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Derīguma termiņš"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:321
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Sertifikāts"
@@ -294,7 +323,7 @@ msgstr "GnuPG atslēgu saišķis"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG atslēgu saišķis — %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:327
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP atslēga"
@@ -304,43 +333,43 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "Atslēgas ID"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Gnupg process izgāja ar kodu: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg process tika pārtraukts ar signālu: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2426
-#: ../gcr/gcr-parser.c:3032 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
+#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
 msgid "The operation was cancelled"
 msgstr "Darbība tika atcelta"
 
-#: ../gcr/gcr-parser.c:318 ../ui/gcr-key-renderer.c:406
+#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Privātā atslēga"
 
-#: ../gcr/gcr-parser.c:324 ../ui/gcr-certificate-renderer.c:881
-#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:413
+#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Publiskā atslēga"
 
-#: ../gcr/gcr-parser.c:330
+#: ../gcr/gcr-parser.c:334
 msgid "Certificate Request"
 msgstr "Sertifikāta pieprasījums"
 
-#: ../gcr/gcr-parser.c:2429
+#: ../gcr/gcr-parser.c:2554
 msgid "Unrecognized or unsupported data."
 msgstr "Neatpazīti vai neatbalstīti dati."
 
-#: ../gcr/gcr-parser.c:2432
+#: ../gcr/gcr-parser.c:2557
 msgid "Could not parse invalid or corrupted data."
 msgstr "Neizdevās parsēt nederīgus vai bojātus datus."
 
-#: ../gcr/gcr-parser.c:2435
+#: ../gcr/gcr-parser.c:2560
 msgid "The data is locked"
 msgstr "Dati ir noslēgti"
 
@@ -352,22 +381,22 @@ msgstr "Turpināt"
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: ../gcr/gcr-subject-public-key.c:344
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Neatpazīti vai nepieejami atslēgas atribūti"
 
-#: ../gcr/gcr-subject-public-key.c:428 ../gcr/gcr-subject-public-key.c:514
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
 msgid "Couldn't build public key"
 msgstr "Nevarēja izveidot publisko atslēgu"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:903
 msgid "Another prompt is already in progress"
 msgstr "Jau darbojas cita uzvedne"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
+#: ../gcr/gcr-trust.c:364
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "Nevarēja atrast vietu, kur glabāt sertifikātu"
@@ -631,7 +660,7 @@ msgid "Disabled"
 msgstr "Deaktivēts"
 
 #: ../ui/gcr-gnupg-renderer.c:253 ../ui/gcr-gnupg-renderer.c:412
-#: ../ui/gcr-key-renderer.c:432 ../ui/gcr-key-renderer.c:437
+#: ../ui/gcr-key-renderer.c:391 ../ui/gcr-key-renderer.c:395
 msgid "Unknown"
 msgstr "Nezināms"
 
@@ -713,7 +742,7 @@ msgid "Key ID"
 msgstr "Atslēgas ID"
 
 #: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
-#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:433
+#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
 msgid "Algorithm"
 msgstr "Algoritms"
 
@@ -747,7 +776,7 @@ msgstr "Komentārs"
 msgid "User Attribute"
 msgstr "Lietotāja atribūts"
 
-#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:440
+#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:398
 msgid "Size"
 msgstr "Izmērs"
 
@@ -874,51 +903,60 @@ msgstr "Nav datu, ko importēt"
 msgid "Key"
 msgstr "Atslēga"
 
-#: ../ui/gcr-key-renderer.c:402
+#: ../ui/gcr-key-renderer.c:355
 msgid "Private RSA Key"
 msgstr "Privātā RSA atslēga"
 
-#: ../ui/gcr-key-renderer.c:404
+#: ../ui/gcr-key-renderer.c:357
 msgid "Private DSA Key"
 msgstr "Privātā DSA atslēga"
 
-#: ../ui/gcr-key-renderer.c:409 ../ui/gcr-key-renderer.c:411
+#: ../ui/gcr-key-renderer.c:359
+msgid "Private Elliptic Curve Key"
+msgstr "Privātā eliptisko līkņu atslēga"
+
+#: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
 msgstr "Publiskā DSA atslēga"
 
-#: ../ui/gcr-key-renderer.c:420
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
+#: ../ui/gcr-key-renderer.c:368
+msgid "Public Elliptic Curve Key"
+msgstr "Publiskā eliptisko līkņu atslēga"
+
+#: ../ui/gcr-key-renderer.c:377
+#, fuzzy, c-format
+#| msgid "%d bit"
+#| msgid_plural "%d bits"
+msgid "%u bit"
+msgid_plural "%u bits"
 msgstr[0] "%d bits"
 msgstr[1] "%d biti"
 msgstr[2] "%d bitu"
 
-#: ../ui/gcr-key-renderer.c:421
+#: ../ui/gcr-key-renderer.c:378
 msgid "Strength"
 msgstr "Stiprums"
 
 #. Fingerprints
-#: ../ui/gcr-key-renderer.c:444
+#: ../ui/gcr-key-renderer.c:402
 msgid "Fingerprints"
 msgstr "Nospiedumi"
 
-#: ../ui/gcr-key-renderer.c:448
+#: ../ui/gcr-key-renderer.c:406
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../ui/gcr-key-renderer.c:453
+#: ../ui/gcr-key-renderer.c:411
 msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "At_celt"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "_Labi"
 
@@ -938,7 +976,7 @@ msgid "In order to import, please enter the password."
 msgstr "Lai importētu, ievadiet paroli."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "Parole:"
 
@@ -960,15 +998,15 @@ msgid "Import settings"
 msgstr "Importēt iestatījumus"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "Apstiprināt:"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "Paroles nesakrīt."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "Parole nevar būt tukša"
 
@@ -1068,11 +1106,11 @@ msgstr "Rādīt lietotnes versiju"
 msgid "[file...]"
 msgstr "[datne...]"
 
-#: ../ui/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- Skatīt sertifikātu un atslēgu datnes"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Sertifikātu skatītājs"
 

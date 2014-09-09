@@ -1,3 +1,18 @@
+gcr 3.13.91:
+ - Add support for parsing EC keys [#672137]
+ - Add support for EC keys to key renderer
+ - Parser support for PEM 'PUBLIC KEY' files
+ - Parser support for parsing ECDSA OpenSSH keys
+ - Fix use of libgcrypt 1.6+
+ - Fix for deprecations in Gtk 3.13.x
+ - Updated translations
+ - Use g_debug() instead of our own debug wrappers
+ - Bump required GLib version to 2.38.x
+ - Don't include deprecated library in our pkg-config file [#732082]
+ - Don't use non-portable 'sed -i' shell command [#728506]
+ - Change CVS to Git in error message [#730340]
+ - Build fixes
+
 gcr 3.12.0:
  - Use /usr/bin/env to find python [#726909]
  - Updated translations

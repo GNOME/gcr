@@ -46,12 +46,12 @@ typedef struct _GcrUnlockRendererPrivate GcrUnlockRendererPrivate;
 
 struct _GcrUnlockRenderer {
 	/*< private >*/
-	GtkAlignment parent;
+	GtkBin parent;
 	GcrUnlockRendererPrivate *pv;
 };
 
 struct _GcrUnlockRendererClass {
-	GtkAlignmentClass parent_class;
+	GtkBinClass parent_class;
 
 	/* signals */
 	void       (*unlock_clicked)        (GcrUnlockRenderer *unlock);

@@ -56,7 +56,7 @@ static guint signals[LAST_SIGNAL] = { 0 };
 
 static void gcr_renderer_iface_init (GcrRendererIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (GcrUnlockRenderer, _gcr_unlock_renderer, GTK_TYPE_ALIGNMENT,
+G_DEFINE_TYPE_WITH_CODE (GcrUnlockRenderer, _gcr_unlock_renderer, GTK_TYPE_BIN,
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_RENDERER, gcr_renderer_iface_init);
 );
 

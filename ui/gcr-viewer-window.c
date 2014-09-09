@@ -95,7 +95,6 @@ gcr_viewer_window_constructed (GObject *obj)
 	GtkWidget *bbox;
 	GtkWidget *box;
 	GtkWidget *button;
-	GtkWidget *align;
 
 	G_OBJECT_CLASS (gcr_viewer_window_parent_class)->constructed (obj);
 
@@ -122,10 +121,9 @@ gcr_viewer_window_constructed (GObject *obj)
 	gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (bbox), GTK_WIDGET (self->pv->import), FALSE, TRUE, 0);
 
-	align = gtk_alignment_new (0.5, 0.5, 1.0, 1.0);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (align), 0, 0, 0, 12);
-	gtk_widget_show (align);
-	gtk_container_add (GTK_CONTAINER (align), bbox);
+	gtk_widget_set_halign (bbox, 0.5);
+	gtk_widget_set_valign (bbox, 0.5);
+	gtk_widget_set_margin_end (bbox, 12);
 
 	self->pv->viewer = gcr_viewer_widget_new ();
 	g_object_bind_property (self->pv->viewer, "display-name",
@@ -139,7 +137,7 @@ gcr_viewer_window_constructed (GObject *obj)
 	gtk_widget_show (box);
 
 	gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (self->pv->viewer), TRUE, TRUE, 0);
-	gtk_box_pack_start (GTK_BOX (box), align, FALSE, FALSE, 6);
+	gtk_box_pack_start (GTK_BOX (box), bbox, FALSE, FALSE, 6);
 
 	gtk_container_add (GTK_CONTAINER (self), box);
 

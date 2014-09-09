@@ -207,7 +207,6 @@ main (int argc, char *argv[])
 	GtkDialog *dialog;
 	GcrParser *parser;
 	GtkWidget *button;
-	GtkWidget *align;
 	int i;
 
 	gtk_init (&argc, &argv);
@@ -221,11 +220,10 @@ main (int argc, char *argv[])
 	button = GTK_WIDGET (gcr_import_button_new ("Import Button"));
 	gtk_widget_show (button);
 
-	align = gtk_alignment_new (0.5, 0.5, 0, 0);
-	gtk_container_add (GTK_CONTAINER (align), button);
-	gtk_widget_show (align);
+	gtk_widget_set_halign (button, 0.5);
+	gtk_widget_set_valign (button, 0.5);
 
-	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (dialog)), align);
+	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (dialog)), button);
 
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 200, 300);
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 20);

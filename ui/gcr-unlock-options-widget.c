@@ -78,14 +78,14 @@ enum {
 };
 
 struct _GcrUnlockOptionsWidget {
-	GtkAlignment parent;
+	GtkBin parent;
 
 	/*< private >*/
 	GcrUnlockOptionsWidgetPrivate *pv;
 };
 
 struct _GcrUnlockOptionsWidgetClass {
-	GtkAlignmentClass parent_class;
+	GtkBinClass parent_class;
 };
 
 struct _GcrUnlockOptionsWidgetPrivate {
@@ -93,7 +93,7 @@ struct _GcrUnlockOptionsWidgetPrivate {
 	gchar *choice;
 };
 
-G_DEFINE_TYPE (GcrUnlockOptionsWidget, gcr_unlock_options_widget, GTK_TYPE_ALIGNMENT);
+G_DEFINE_TYPE (GcrUnlockOptionsWidget, gcr_unlock_options_widget, GTK_TYPE_BIN);
 
 /* -----------------------------------------------------------------------------
  * INTERNAL

@@ -60,7 +60,7 @@ enum {
 };
 
 struct _GcrKeyWidget {
-	GtkAlignment parent;
+	GtkBin parent;
 
 	/*< private >*/
 	GcrKeyWidgetPrivate *pv;
@@ -68,7 +68,7 @@ struct _GcrKeyWidget {
 
 struct _GcrKeyWidgetClass {
 	/*< private >*/
-	GtkAlignmentClass parent_class;
+	GtkBinClass parent_class;
 };
 
 struct _GcrKeyWidgetPrivate {
@@ -76,7 +76,7 @@ struct _GcrKeyWidgetPrivate {
 	GcrKeyRenderer *renderer;
 };
 
-G_DEFINE_TYPE (GcrKeyWidget, gcr_key_widget, GTK_TYPE_ALIGNMENT);
+G_DEFINE_TYPE (GcrKeyWidget, gcr_key_widget, GTK_TYPE_BIN);
 
 /* -----------------------------------------------------------------------------
  * OBJECT

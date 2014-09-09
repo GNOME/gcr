@@ -202,7 +202,7 @@ gcr_import_button_constructed (GObject *obj)
 	G_OBJECT_CLASS (gcr_import_button_parent_class)->constructed (obj);
 
 	self->pv->spinner = gtk_spinner_new ();
-	self->pv->arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_NONE);
+	self->pv->arrow = gtk_image_new_from_icon_name ("pan-down-symbolic", GTK_ICON_SIZE_BUTTON);
 	grid = gtk_grid_new ();
 
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (grid), GTK_ORIENTATION_HORIZONTAL);

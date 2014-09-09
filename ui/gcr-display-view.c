@@ -272,7 +272,6 @@ create_display_item (GcrDisplayView *self, GcrRenderer *renderer)
 	GtkTextIter iter;
 	GtkWidget *widget;
 	GtkWidget *label;
-	GtkWidget *alignment;
 	gchar *text;
 
 	item = g_new0 (GcrDisplayItem, 1);
@@ -321,14 +320,15 @@ create_display_item (GcrDisplayView *self, GcrRenderer *renderer)
 	item->expanded = gtk_expander_get_expanded (GTK_EXPANDER (widget));
 	g_free (text);
 
-	alignment = gtk_alignment_new (0.5, 0.5, 0.5, 0.5);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 6, 9, 0, 0);
-	gtk_container_add (GTK_CONTAINER (alignment), widget);
-	gtk_widget_show_all (alignment);
+	gtk_widget_set_halign (widget, 0.5);
+	gtk_widget_set_valign (widget, 0.5);
+	gtk_widget_set_margin_top (widget, 6);
+	gtk_widget_set_margin_bottom (widget, 9);
+	gtk_widget_show_all (widget);
 
 	item->details_widget = gtk_event_box_new ();
 	gtk_event_box_set_visible_window (GTK_EVENT_BOX (item->details_widget), FALSE);
-	gtk_container_add (GTK_CONTAINER (item->details_widget), alignment);
+	gtk_container_add (GTK_CONTAINER (item->details_widget), widget);
 	g_signal_connect (item->details_widget, "realize", G_CALLBACK (on_expander_realize), NULL);
 	g_object_ref (item->details_widget);
 
@@ -1168,7 +1168,8 @@ _gcr_display_view_append_message (GcrDisplayView *self,
 
 	if (name != NULL) {
 		image = gtk_image_new_from_icon_name (name, GTK_ICON_SIZE_MENU);
-		gtk_misc_set_padding (GTK_MISC (image), MESSAGE_PADDING, 0);
+		gtk_widget_set_margin_start (image, MESSAGE_PADDING);
+		gtk_widget_set_margin_end (image, MESSAGE_PADDING);
 		gtk_widget_show (image);
 
 		anchor = gtk_text_buffer_create_child_anchor (self->pv->buffer, &iter);

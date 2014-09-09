@@ -15,6 +15,8 @@ GLIB_REQ=2.38.0
 GLIB_MIN=GLIB_VERSION_2_38
 GLIB_MAX=GLIB_VERSION_2_38
 
+GCRYPT_VERSION=1.4.5
+
 dnl ****************************************************************************
 dnl Library package and libtool versioning
 dnl
@@ -187,7 +189,6 @@ AC_DEFINE_UNQUOTED([GPG_EXECUTABLE], ["$GNUPG"], [Path to gpg executable.])
 # libgcrypt
 #
 
-GCRYPT_VERSION=1.2.2
 GCRYPT_LIBVER=1
 
 AM_PATH_LIBGCRYPT($GCRYPT_LIBVER:$GCRYPT_VERSION,,

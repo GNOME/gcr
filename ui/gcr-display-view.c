@@ -1168,8 +1168,13 @@ _gcr_display_view_append_message (GcrDisplayView *self,
 
 	if (name != NULL) {
 		image = gtk_image_new_from_icon_name (name, GTK_ICON_SIZE_MENU);
+#if GTK_CHECK_VERSION (3, 12, 0)
 		gtk_widget_set_margin_start (image, MESSAGE_PADDING);
 		gtk_widget_set_margin_end (image, MESSAGE_PADDING);
+#else
+		gtk_widget_set_margin_left (image, MESSAGE_PADDING);
+		gtk_widget_set_margin_right (image, MESSAGE_PADDING);
+#endif
 		gtk_widget_show (image);
 
 		anchor = gtk_text_buffer_create_child_anchor (self->pv->buffer, &iter);

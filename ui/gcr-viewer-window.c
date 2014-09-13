@@ -123,7 +123,11 @@ gcr_viewer_window_constructed (GObject *obj)
 
 	gtk_widget_set_halign (bbox, 0.5);
 	gtk_widget_set_valign (bbox, 0.5);
+#if GTK_CHECK_VERSION (3, 12, 0)
 	gtk_widget_set_margin_end (bbox, 12);
+#else
+	gtk_widget_set_margin_right (bbox, 12);
+#endif
 
 	self->pv->viewer = gcr_viewer_widget_new ();
 	g_object_bind_property (self->pv->viewer, "display-name",

@@ -17,6 +17,8 @@ GLIB_MAX=GLIB_VERSION_2_38
 
 GCRYPT_VERSION=1.4.5
 
+GTK_REQ=3.10
+
 dnl ****************************************************************************
 dnl Library package and libtool versioning
 dnl
@@ -114,7 +116,7 @@ AC_ARG_WITH(gtk, [
 AM_CONDITIONAL(WITH_GTK, test "$with_gtk" != "no")
 
 if test "x$with_gtk" != "xno"; then
-	PKG_CHECK_MODULES(GTK, gtk+-3.0 >= 3.0)
+	PKG_CHECK_MODULES(GTK, gtk+-3.0 >= $GTK_REQ)
 	AC_SUBST(GTK_CFLAGS)
 	AC_SUBST(GTK_LIBS)
 fi

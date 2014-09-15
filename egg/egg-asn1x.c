@@ -2765,7 +2765,7 @@ egg_asn1x_set_null (GNode *node)
 
 	/* Encode zero characters */
 	anode_clr_value (node);
-	anode_set_value (node, g_bytes_new_static ("", 0));
+	anode_take_value (node, g_bytes_new_static ("", 0));
 }
 
 GQuark
@@ -2828,7 +2828,7 @@ egg_asn1x_set_enumerated (GNode *node,
 	anode_write_integer_ulong (val, data, &n_data);
 
 	anode_clr_value (node);
-	anode_set_value (node, g_bytes_new_take (data, n_data));
+	anode_take_value (node, g_bytes_new_take (data, n_data));
 }
 
 gboolean
@@ -3017,7 +3017,7 @@ egg_asn1x_take_integer_as_raw (GNode *node,
 	}
 
 	anode_clr_value (node);
-	anode_set_value (node, value);
+	anode_take_value (node, value);
 
 	an = node->data;
 	an->guarantee_unsigned = 0;
@@ -3041,7 +3041,7 @@ egg_asn1x_take_integer_as_usg (GNode *node,
 	g_return_if_fail (value != NULL);
 	g_return_if_fail (anode_def_type (node) == EGG_ASN1X_INTEGER);
 
-	anode_set_value (node, value);
+	anode_take_value (node, value);
 	an = node->data;
 	an->guarantee_unsigned = 1;
 }
@@ -3320,8 +3320,8 @@ egg_asn1x_set_string_as_raw (GNode *node,
 	                  type == EGG_ASN1X_UTF8_STRING ||
 	                  type == EGG_ASN1X_VISIBLE_STRING);
 
-	anode_set_value (node, g_bytes_new_with_free_func (data, n_data,
-	                                                   destroy, data));
+	anode_take_value (node, g_bytes_new_with_free_func (data, n_data,
+	                                                    destroy, data));
 }
 
 void
@@ -3345,7 +3345,7 @@ egg_asn1x_set_string_as_bytes (GNode *node,
 	                  type == EGG_ASN1X_UTF8_STRING ||
 	                  type == EGG_ASN1X_VISIBLE_STRING);
 
-	anode_set_value (node, g_bytes_ref (bytes));
+	anode_set_value (node, bytes);
 }
 
 GBytes *

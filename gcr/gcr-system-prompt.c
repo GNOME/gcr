@@ -531,6 +531,8 @@ gcr_system_prompt_finalize (GObject *obj)
 	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (obj);
 
 	g_free (self->pv->prompter_bus_name);
+	g_free (self->pv->prompt_owner);
+	g_free (self->pv->last_response);
 	g_hash_table_destroy (self->pv->properties);
 	g_hash_table_destroy (self->pv->dirty_properties);
 
@@ -1057,6 +1059,7 @@ sync_closure_free (gpointer data)
 	g_clear_object (&closure->result);
 	g_main_loop_unref (closure->loop);
 	g_main_context_unref (closure->context);
+	g_free (closure);
 }
 
 static void
@@ -1178,6 +1181,7 @@ perform_prompt_async (GcrSystemPrompt *self,
 	g_simple_async_result_set_op_res_gpointer (res, closure, call_closure_free);
 
 	if (self->pv->closed) {
+		g_free (self->pv->last_response);
 		self->pv->last_response = g_strdup (GCR_DBUS_PROMPT_REPLY_NONE);
 		g_simple_async_result_complete_in_idle (res);
 		g_object_unref (res);
@@ -1216,6 +1220,7 @@ perform_prompt_async (GcrSystemPrompt *self,
 	                        -1, cancellable,
 	                        on_perform_prompt_complete,
 	                        g_object_ref (res));
+	g_variant_builder_unref(builder);
 
 	self->pv->pending = res;
 	g_free (sent);

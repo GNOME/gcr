@@ -10,22 +10,23 @@
 # Wolfgang Stöggl <c72578@yahoo.de>, 2010, 2011, 2014.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2008-2010, 2012.
 # Tobias Endrigkeit <tobiasendrigkeit@googlemail.com>, 2012.
+# Benjamin Steinwender <b@stbe.at>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-04-14 05:09+0000\n"
-"PO-Revision-Date: 2014-04-14 12:16+0100\n"
-"Last-Translator: Wolfgang Stoeggl <c72578@yahoo.de>\n"
+"POT-Creation-Date: 2014-09-20 04:56+0000\n"
+"PO-Revision-Date: 2014-09-21 11:38+0200\n"
+"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -125,7 +126,7 @@ msgid "Pseudonym"
 msgstr "Pseudonym"
 
 #: ../egg/egg-oid.c:97 ../ui/gcr-gnupg-renderer.c:199
-#: ../ui/gcr-key-renderer.c:428
+#: ../ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
@@ -142,7 +143,7 @@ msgid "SHA1 with RSA"
 msgstr "SHA1 mit RSA"
 
 #: ../egg/egg-oid.c:102 ../ui/gcr-gnupg-renderer.c:203
-#: ../ui/gcr-key-renderer.c:430
+#: ../ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
@@ -150,24 +151,48 @@ msgstr "DSA"
 msgid "SHA1 with DSA"
 msgstr "SHA1 mit DSA"
 
-#. Extended Key Usages
+#: ../egg/egg-oid.c:105 ../ui/gcr-key-renderer.c:389
+msgid "Elliptic Curve"
+msgstr "Elliptische Kurve"
+
 #: ../egg/egg-oid.c:106
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 mit ECDSA"
+
+#: ../egg/egg-oid.c:107
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 mit ECDSA"
+
+#: ../egg/egg-oid.c:108
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 mit ECDSA"
+
+#: ../egg/egg-oid.c:109
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 mit ECDSA"
+
+#: ../egg/egg-oid.c:110
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 mit ECDSA"
+
+#. Extended Key Usages
+#: ../egg/egg-oid.c:113
 msgid "Server Authentication"
 msgstr "Server-Legitimierung"
 
-#: ../egg/egg-oid.c:107
+#: ../egg/egg-oid.c:114
 msgid "Client Authentication"
 msgstr "Client-Legitimierung"
 
-#: ../egg/egg-oid.c:108
+#: ../egg/egg-oid.c:115
 msgid "Code Signing"
 msgstr "Code-Signatur"
 
-#: ../egg/egg-oid.c:109
+#: ../egg/egg-oid.c:116
 msgid "Email Protection"
 msgstr "E-Mail-Schutz"
 
-#: ../egg/egg-oid.c:110
+#: ../egg/egg-oid.c:117
 msgid "Time Stamping"
 msgstr "Zeitstempel"
 
@@ -203,8 +228,8 @@ msgstr "Die Adresse hat eine ungültige Syntax."
 msgid "The URI has a bad version number."
 msgstr "Die Adresse hat eine falsche Versionsnummer."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "Der Datenstrom wurde geschlossen"
@@ -227,7 +252,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Läuft ab"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:321
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Zertifikat"
@@ -297,7 +322,7 @@ msgstr "GnuPG-Schlüsselbund"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG-Schlüsselbund: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:327
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP-Schlüssel"
@@ -307,43 +332,43 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "Schlüsselkennung"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Gnupg-Prozess endete mit Fehlercode: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg-Prozess wurde mit Signal beendet: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2426
-#: ../gcr/gcr-parser.c:3032 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
+#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
 msgid "The operation was cancelled"
 msgstr "Der Vorgang wurde abgebrochen"
 
-#: ../gcr/gcr-parser.c:318 ../ui/gcr-key-renderer.c:406
+#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Privater Schlüssel"
 
-#: ../gcr/gcr-parser.c:324 ../ui/gcr-certificate-renderer.c:881
-#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:413
+#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Öffentlicher Schlüssel"
 
-#: ../gcr/gcr-parser.c:330
+#: ../gcr/gcr-parser.c:334
 msgid "Certificate Request"
 msgstr "Zertifikatsanfrage"
 
-#: ../gcr/gcr-parser.c:2429
+#: ../gcr/gcr-parser.c:2554
 msgid "Unrecognized or unsupported data."
 msgstr "Unbekannte oder nicht unterstützte Daten"
 
-#: ../gcr/gcr-parser.c:2432
+#: ../gcr/gcr-parser.c:2557
 msgid "Could not parse invalid or corrupted data."
 msgstr "Ungültige oder defekte Daten konnten nicht verarbeitet werden."
 
-#: ../gcr/gcr-parser.c:2435
+#: ../gcr/gcr-parser.c:2560
 msgid "The data is locked"
 msgstr "Die Daten sind gesperrt"
 
@@ -355,22 +380,22 @@ msgstr "Fortsetzen"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../gcr/gcr-subject-public-key.c:344
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Unerkanntes oder nicht verfügbares Attribut für den Schlüssel"
 
-#: ../gcr/gcr-subject-public-key.c:428 ../gcr/gcr-subject-public-key.c:514
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
 msgid "Couldn't build public key"
 msgstr "Konnte keinen öffentlichen Schlüssel erzeugen"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:903
 msgid "Another prompt is already in progress"
 msgstr "Eine andere Anzeige läuft bereits"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
+#: ../gcr/gcr-trust.c:364
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr ""
@@ -588,7 +613,7 @@ msgstr "Typ"
 msgid "Challenge"
 msgstr "Aufgabe"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:316
 msgid "_Details"
 msgstr "_Details"
 
@@ -637,7 +662,7 @@ msgid "Disabled"
 msgstr "Deaktiviert"
 
 #: ../ui/gcr-gnupg-renderer.c:253 ../ui/gcr-gnupg-renderer.c:412
-#: ../ui/gcr-key-renderer.c:432 ../ui/gcr-key-renderer.c:437
+#: ../ui/gcr-key-renderer.c:391 ../ui/gcr-key-renderer.c:395
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -719,7 +744,7 @@ msgid "Key ID"
 msgstr "Schlüsselkennung"
 
 #: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
-#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:433
+#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
 msgid "Algorithm"
 msgstr "Algorithmus"
 
@@ -753,7 +778,7 @@ msgstr "Kommentar"
 msgid "User Attribute"
 msgstr "Benutzerattribut"
 
-#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:440
+#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:398
 msgid "Size"
 msgstr "Größe"
 
@@ -881,50 +906,57 @@ msgstr "Keine Dateien zu importieren"
 msgid "Key"
 msgstr "Schlüssel"
 
-#: ../ui/gcr-key-renderer.c:402
+#: ../ui/gcr-key-renderer.c:355
 msgid "Private RSA Key"
 msgstr "Privater RSA-Schlüssel"
 
-#: ../ui/gcr-key-renderer.c:404
+#: ../ui/gcr-key-renderer.c:357
 msgid "Private DSA Key"
 msgstr "Privater DSA-Schlüssel"
 
-#: ../ui/gcr-key-renderer.c:409 ../ui/gcr-key-renderer.c:411
+#: ../ui/gcr-key-renderer.c:359
+msgid "Private Elliptic Curve Key"
+msgstr "Privater elliptischer Kurvenschlüssel"
+
+#: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
 msgstr "Öffentlicher DSA-Schlüssel"
 
-#: ../ui/gcr-key-renderer.c:420
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] "%d bit"
-msgstr[1] "%d bit"
+#: ../ui/gcr-key-renderer.c:368
+msgid "Public Elliptic Curve Key"
+msgstr "Öffentlicher elliptischer Kurvenschlüssel"
 
-#: ../ui/gcr-key-renderer.c:421
+#: ../ui/gcr-key-renderer.c:377
+#, c-format
+msgid "%u bit"
+msgid_plural "%u bits"
+msgstr[0] "%u Bit"
+msgstr[1] "%u Bit"
+
+#: ../ui/gcr-key-renderer.c:378
 msgid "Strength"
 msgstr "Länge"
 
 #. Fingerprints
-#: ../ui/gcr-key-renderer.c:444
+#: ../ui/gcr-key-renderer.c:402
 msgid "Fingerprints"
 msgstr "Fingerabdrücke"
 
-#: ../ui/gcr-key-renderer.c:448
+#: ../ui/gcr-key-renderer.c:406
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../ui/gcr-key-renderer.c:453
+#: ../ui/gcr-key-renderer.c:411
 msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "A_bbrechen"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "_OK"
 
@@ -944,7 +976,7 @@ msgid "In order to import, please enter the password."
 msgstr "Um den Import zu starten, geben Sie bitte das Passwort ein."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "Passwort:"
 
@@ -966,15 +998,15 @@ msgid "Import settings"
 msgstr "Einstellungen importieren"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "Bestätige:"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "Passwörter stimmen nicht überein."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "Passwortfeld kann nicht leer sein"
 
@@ -1078,11 +1110,11 @@ msgstr "Die Version der Anwendung anzeigen"
 msgid "[file...]"
 msgstr "[Datei …]"
 
-#: ../ui/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- Zertifikat- und Schlüsseldateien anzeigen"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Zertifikatbetrachter"
 
@@ -1098,11 +1130,11 @@ msgstr "Importiert"
 msgid "Import failed"
 msgstr "Der Vorgang ist fehlgeschlagen"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Importieren"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "S_chließen"
 

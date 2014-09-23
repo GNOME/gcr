@@ -1,3 +1,6 @@
+gcr 3.14.0:
+ - Updated translations
+
 gcr 3.13.91:
  - Add support for parsing EC keys [#672137]
  - Add support for EC keys to key renderer

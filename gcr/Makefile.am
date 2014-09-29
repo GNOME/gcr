@@ -161,11 +161,11 @@ gcr/gcr-dbus-generated.c: $(DBUS_XML_DEFINITIONS)
 	$(AM_V_GEN) sed -e 's/gcr_dbus/_gcr_dbus/g' \
 		gcr/gcr-dbus-generated.c > gcr/gcr-dbus-generated.c.tmp && \
 	mv gcr/gcr-dbus-generated.c.tmp gcr/gcr-dbus-generated.c
-
-gcr/gcr-dbus-generated.h: gcr/gcr-dbus-generated.c
 	$(AM_V_GEN) sed -e 's/gcr_dbus/_gcr_dbus/g' \
 		gcr/gcr-dbus-generated.h > gcr/gcr-dbus-generated.h.tmp && \
 	mv gcr/gcr-dbus-generated.h.tmp gcr/gcr-dbus-generated.h
+
+gcr/gcr-dbus-generated.h: gcr/gcr-dbus-generated.c
 
 pkgconfig_DATA += \
 	gcr-base-$(GCR_MAJOR).pc

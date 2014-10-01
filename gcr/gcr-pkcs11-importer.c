@@ -105,6 +105,7 @@ gcr_importer_data_free (gpointer data)
 
 	g_clear_object (&state->cancellable);
 	g_clear_object (&state->importer);
+	gck_builder_unref (state->supplement);
 	g_free (state);
 }
 

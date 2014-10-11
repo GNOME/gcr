@@ -635,6 +635,7 @@ update_properties_from_iter (GcrSystemPrompt *self,
 			g_hash_table_replace (self->pv->properties, key, g_variant_ref (value));
 			g_object_notify (obj, name);
 		}
+		g_variant_unref (value);
 	}
 	g_object_thaw_notify (obj);
 }

@@ -3342,6 +3342,7 @@ gcr_parser_parse_stream (GcrParser *self, GInputStream *input, GCancellable *can
                          GError **error)
 {
 	GcrParsing *parsing;
+	gboolean result;
 
 	g_return_val_if_fail (GCR_IS_PARSER (self), FALSE);
 	g_return_val_if_fail (G_IS_INPUT_STREAM (input), FALSE);
@@ -3353,7 +3354,10 @@ gcr_parser_parse_stream (GcrParser *self, GInputStream *input, GCancellable *can
 	next_state (parsing, state_read_buffer);
 	g_assert (parsing->complete);
 
-	return gcr_parser_parse_stream_finish (self, G_ASYNC_RESULT (parsing), error);
+	result = gcr_parser_parse_stream_finish (self, G_ASYNC_RESULT (parsing), error);
+	g_object_unref (parsing);
+
+	return result;
 }
 
 /**

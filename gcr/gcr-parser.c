@@ -2343,6 +2343,9 @@ gcr_parser_finalize (GObject *obj)
 	g_ptr_array_free (self->pv->passwords, TRUE);
 	self->pv->passwords = NULL;
 
+	g_free (self->pv->filename);
+	self->pv->filename = NULL;
+
 	G_OBJECT_CLASS (gcr_parser_parent_class)->finalize (obj);
 }
 

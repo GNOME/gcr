@@ -270,6 +270,9 @@ teardown (Test *test, gconstpointer unused)
 	g_object_unref (test->cert_self);
 	g_object_unref (test->cert_signed);
 	g_object_unref (test->cert_ca);
+	g_object_unref (test->cert_host);
+	g_object_unref (test->cert_inter);
+	g_object_unref (test->cert_root);
 
 	rv = (test->funcs.C_Finalize) (NULL);
 	gck_assert_cmprv (rv, ==, CKR_OK);

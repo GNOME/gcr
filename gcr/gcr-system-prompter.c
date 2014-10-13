@@ -534,7 +534,7 @@ prompt_stop_prompting (GcrSystemPrompter *self,
 
 	/* Notify the caller */
 	if (send_done_message && wait_for_reply) {
-		g_debug ("calling the %s on %s@%s, and waiting for reply",
+		g_debug ("calling the %s method on %s@%s, and waiting for reply",
 		         GCR_DBUS_CALLBACK_METHOD_DONE, callback->path, callback->name);
 
 		retval = g_dbus_connection_call_sync (self->pv->connection,
@@ -553,7 +553,7 @@ prompt_stop_prompting (GcrSystemPrompter *self,
 		         GCR_DBUS_CALLBACK_METHOD_DONE, callback->path, callback->name);
 
 	} else if (send_done_message) {
-		g_debug ("calling the %s on %s@%s, and ignoring reply",
+		g_debug ("calling the %s method on %s@%s, and ignoring reply",
 		         GCR_DBUS_CALLBACK_METHOD_DONE, callback->path, callback->name);
 
 		g_dbus_connection_call (self->pv->connection,

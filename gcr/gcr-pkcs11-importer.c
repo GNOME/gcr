@@ -579,7 +579,6 @@ _gcr_pkcs11_importer_dispose (GObject *obj)
 
 	while (!g_queue_is_empty (self->queue))
 		gck_attributes_unref (g_queue_pop_head (self->queue));
-	g_queue_free (self->queue);
 
 	G_OBJECT_CLASS (_gcr_pkcs11_importer_parent_class)->dispose (obj);
 }
@@ -589,6 +588,7 @@ _gcr_pkcs11_importer_finalize (GObject *obj)
 {
 	GcrPkcs11Importer *self = GCR_PKCS11_IMPORTER (obj);
 
+	g_queue_free (self->queue);
 	g_clear_object (&self->slot);
 
 	G_OBJECT_CLASS (_gcr_pkcs11_importer_parent_class)->finalize (obj);

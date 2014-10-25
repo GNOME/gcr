@@ -21,6 +21,7 @@ frob-*
 *.pot
 *.service
 *.stamp
+*.swp
 *.tar.gz
 *.typelib
 *.valid

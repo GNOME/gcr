@@ -151,10 +151,14 @@ static void
 call_closure_free (gpointer data)
 {
 	CallClosure *closure = data;
-	if (closure->timeout)
+	if (closure->timeout) {
 		g_source_destroy (closure->timeout);
-	if (closure->waiting)
+		g_source_unref (closure->timeout);
+	}
+	if (closure->waiting) {
 		g_source_destroy (closure->waiting);
+		g_source_unref (closure->waiting);
+	}
 	if (closure->watch_id)
 		g_bus_unwatch_name (closure->watch_id);
 	g_object_unref (closure->cancellable);
@@ -896,6 +900,7 @@ on_call_timeout (gpointer user_data)
 	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
 
 	g_source_destroy (closure->timeout);
+	g_source_unref (closure->timeout);
 	closure->timeout = NULL;
 
 	/* Tell the prompter we're no longer interested */
@@ -919,6 +924,7 @@ on_call_cancelled (GCancellable *cancellable,
 	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
 
 	g_source_destroy (call->waiting);
+	g_source_unref (call->waiting);
 	call->waiting = NULL;
 
 	g_simple_async_result_set_error (async, G_IO_ERROR, G_IO_ERROR_CANCELLED,

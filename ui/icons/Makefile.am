@@ -26,4 +26,4 @@ install-data-hook:
 endif
 
 render:
-	python ui/icons/render-icons.py
+	cd $(srcdir) && python ui/icons/render-icons.py

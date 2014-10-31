@@ -12,8 +12,8 @@ import subprocess
 
 INKSCAPE = '/usr/bin/inkscape'
 OPTIPNG = '/usr/bin/optipng'
-SRC = 'src'
-OUT = '.'
+SRC = 'ui/icons/src'
+OUT = 'ui/icons'
 
 inkscape_process = None
 
@@ -24,16 +24,16 @@ def optimize_png(png_file):
 
 def wait_for_prompt(process, command=None):
     if command is not None:
-        process.stdin.write(command+'\n')
+        process.stdin.write((command+'\n').encode('utf-8'))
 
     # This is kinda ugly ...
     # Wait for just a '>', or '\n>' if some other char appearead first
     output = process.stdout.read(1)
-    if output == '>':
+    if output == b'>':
         return
 
     output += process.stdout.read(1)
-    while output != "\n>":
+    while output != b'\n>':
         output += process.stdout.read(1)
         output = output[1:]
 
@@ -75,7 +75,7 @@ class ContentHandler(xml.sax.ContentHandler):
                 self.inside.append(self.SVG)
                 return
         elif self.inside[-1] == self.SVG:
-            if (name == "g" and attrs.has_key('inkscape:groupmode') and attrs.has_key('inkscape:label')
+            if (name == "g" and ('inkscape:groupmode' in attrs) and ('inkscape:label' in attrs)
                and attrs['inkscape:groupmode'] == 'layer' and attrs['inkscape:label'].startswith('baseplate')):
                 self.stack.append(self.LAYER)
                 self.inside.append(self.LAYER)
@@ -84,13 +84,13 @@ class ContentHandler(xml.sax.ContentHandler):
                 self.rects = []
                 return
         elif self.inside[-1] == self.LAYER:
-            if name == "text" and attrs.has_key('inkscape:label') and attrs['inkscape:label'] == 'context':
+            if name == "text" and ('inkscape:label' in attrs) and attrs['inkscape:label'] == 'context':
                 self.stack.append(self.TEXT)
                 self.inside.append(self.TEXT)
                 self.text='context'
                 self.chars = ""
                 return
-            elif name == "text" and attrs.has_key('inkscape:label') and attrs['inkscape:label'] == 'icon-name':
+            elif name == "text" and ('inkscape:label' in attrs) and attrs['inkscape:label'] == 'icon-name':
                 self.stack.append(self.TEXT)
                 self.inside.append(self.TEXT)
                 self.text='icon-name'
@@ -121,7 +121,7 @@ class ContentHandler(xml.sax.ContentHandler):
             if self.filter is not None and not self.icon_name in self.filter:
                 return
 
-            print '%s %s' % (self.context, self.icon_name)
+            print (self.context, self.icon_name)
             for rect in self.rects:
                 width = rect['width']
                 height = rect['height']
@@ -154,7 +154,7 @@ class ContentHandler(xml.sax.ContentHandler):
 if len(sys.argv) == 1:
     if not os.path.exists(OUT):
         os.mkdir(OUT)
-    print 'Rendering from SVGs in %s' % SRC
+    print ('Rendering from SVGs in', SRC)
     for file in os.listdir(SRC):
         if file[-4:] == '.svg':
             file = os.path.join(SRC, file)
@@ -170,5 +170,5 @@ else:
         handler = ContentHandler(file, True, filter=icons)
         xml.sax.parse(open(file), handler)
     else:
-        print "Error: No such file %s" % file
+        print ("Error: No such file", file)
         sys.exit(1)

@@ -7,23 +7,26 @@
 # Görkem Çetin <gorkem@gorkemcetin.com>, 2004.
 # Serdar CICEK <serdar@nerd.com.tr>, 2008.
 # Baris Cicek <baris@teamforce.name.tr>, 2008, 2009.
-# Muhammet Kara <muhammetk@gmail.com>, 2011, 2014.
+# Necdet Yücel <necdetyucel@gmail.com>, 2015.
+# Simge Sezgin <simgesezgin88@gmail.com>, 2015.
+# Muhammet Kara <muhammetk@gmail.com>, 2011, 2014, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-04-19 20:37+0000\n"
-"PO-Revision-Date: 2014-12-11 00:29+0200\n"
+"POT-Creation-Date: 2015-01-07 17:42+0000\n"
+"PO-Revision-Date: 2015-02-20 11:14+0200\n"
 "Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
-"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
+"Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Gtranslator 2.91.6\n"
+"X-POOTLE-MTIME: 1420669651.000000\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -153,27 +156,22 @@ msgid "Elliptic Curve"
 msgstr "Eliptik Eğri"
 
 #: ../egg/egg-oid.c:106
-#| msgid "SHA1 with DSA"
 msgid "SHA1 with ECDSA"
 msgstr "ECDSA ile SHA1"
 
 #: ../egg/egg-oid.c:107
-#| msgid "SHA1 with DSA"
 msgid "SHA224 with ECDSA"
 msgstr "ECDSA ile SHA224"
 
 #: ../egg/egg-oid.c:108
-#| msgid "SHA1 with DSA"
 msgid "SHA256 with ECDSA"
 msgstr "ECDSA ile SHA256"
 
 #: ../egg/egg-oid.c:109
-#| msgid "SHA1 with DSA"
 msgid "SHA384 with ECDSA"
 msgstr "ECDSA ile SHA384"
 
 #: ../egg/egg-oid.c:110
-#| msgid "SHA1 with DSA"
 msgid "SHA512 with ECDSA"
 msgstr "ECDSA ile SHA512"
 
@@ -201,42 +199,40 @@ msgstr "Zaman Damgalama"
 #: ../gck/gck-module.c:344
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr ""
+msgstr "PKCS#11 modulü yüklemede hata: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr ""
+msgstr "PKCS#11 modülü başlatılamadı: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr ""
+msgstr "Kayıtlı PKCS#11 modülleri başlatılamadı: %s"
 
 #: ../gck/gck-uri.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "The URI has invalid encoding."
-msgstr "Şifreleme mekanizması geçersiz parametreye sahip"
+msgstr "URI geçersiz kodlamaya sahip."
 
 #: ../gck/gck-uri.c:228
 msgid "The URI does not have the 'pkcs11' scheme."
-msgstr ""
+msgstr "URI 'pkcs11' şemasına sahip değil."
 
 #: ../gck/gck-uri.c:232
-#, fuzzy
 msgid "The URI has bad syntax."
-msgstr "Diskte birkaç kötü sektör var"
+msgstr "URI kötü sözdizimine sahip."
 
 #: ../gck/gck-uri.c:236
-#, fuzzy
 msgid "The URI has a bad version number."
-msgstr "Diskte birkaç kötü sektör var"
+msgstr "URI kötü bir sürüm numarasına sahip."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
-#, fuzzy, c-format
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
+#, c-format
 msgid "The stream was closed"
-msgstr "Oturum kapatıldı"
+msgstr "Akış kapatıldı"
 
 #. later
 #. later
@@ -246,17 +242,15 @@ msgid "Name"
 msgstr "Ad"
 
 #: ../gcr/gcr-certificate.c:352
-#, fuzzy
 msgctxt "column"
 msgid "Issued By"
-msgstr "bölme işareti"
+msgstr "Sertifika Veren"
 
 #. later
 #: ../gcr/gcr-certificate.c:354
-#, fuzzy
 msgctxt "column"
 msgid "Expires"
-msgstr "Son Kullanım"
+msgstr "Bitiş Tarihi"
 
 #: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
@@ -264,18 +258,16 @@ msgid "Certificate"
 msgstr "Sertifika"
 
 #: ../gcr/gcr-certificate-extensions.c:177
-#, fuzzy
 msgid "Other Name"
-msgstr "Öznitelik Adı"
+msgstr "Diğer Ad"
 
 #: ../gcr/gcr-certificate-extensions.c:187
-#, fuzzy
 msgid "XMPP Addr"
-msgstr "IP Adresi"
+msgstr "XMPP Adresi"
 
 #: ../gcr/gcr-certificate-extensions.c:191
 msgid "DNS SRV"
-msgstr ""
+msgstr "DNS Sunucu"
 
 #: ../gcr/gcr-certificate-extensions.c:203 ../ui/gcr-gnupg-renderer.c:421
 #: ../ui/gcr-gnupg-renderer.c:703
@@ -295,9 +287,8 @@ msgid "Directory Name"
 msgstr "Dizin Adı"
 
 #: ../gcr/gcr-certificate-extensions.c:234
-#, fuzzy
 msgid "EDI Party Name"
-msgstr "Seçilen kullanıcı adı"
+msgstr "EDI Birim Adı"
 
 #: ../gcr/gcr-certificate-extensions.c:241
 msgid "URI"
@@ -308,29 +299,27 @@ msgid "IP Address"
 msgstr "IP Adresi"
 
 #: ../gcr/gcr-certificate-extensions.c:257
-#, fuzzy
 msgid "Registered ID"
-msgstr "Kullanıcı Kimliği"
+msgstr "Kayıtlı Kimlik"
 
 #: ../gcr/gcr-certificate-request.c:415
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr ""
+msgstr "Sertifika isteği için desteklenmeyen anahtar türü"
 
 #: ../gcr/gcr-certificate-request.c:502 ../gcr/gcr-certificate-request.c:587
 #, c-format
 msgid "The key cannot be used to sign the request"
-msgstr ""
+msgstr "Anahtar isteği imzalamak için kullanılabilir değildir"
 
 #: ../gcr/gcr-gnupg-importer.c:94
-#, fuzzy
 msgid "GnuPG Keyring"
-msgstr "Anahtarlık Kilidini Aç"
+msgstr "GnuPG Anahtarlığı"
 
 #: ../gcr/gcr-gnupg-importer.c:96
-#, fuzzy, c-format
+#, c-format
 msgid "GnuPG Keyring: %s"
-msgstr "PGP Anahtarı: %s"
+msgstr "GnuPG Anahtarlığı: %s"
 
 #: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
 #: ../ui/gcr-gnupg-renderer.c:87
@@ -342,18 +331,18 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "Anahtar Kimliği"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr ""
+msgstr "Gnupg süreci şu kod ile sonuçlandı: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr ""
+msgstr "Gnupg süreci sinyal ile sonlandırıldı: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "İşlem iptal edildi"
 
@@ -367,20 +356,18 @@ msgid "Public Key"
 msgstr "Genel Anahtar"
 
 #: ../gcr/gcr-parser.c:334
-#, fuzzy
-#| msgid "Certificate files"
 msgid "Certificate Request"
-msgstr "Sertifika dosyaları"
+msgstr "Sertifika İsteği"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Tanınmayan veya desteklenmeyen veri."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Geçersiz veya bozuk veri çözümlenemedi."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Veri kilitli"
 
@@ -392,34 +379,33 @@ msgstr "Devam et"
 msgid "Cancel"
 msgstr "İptal"
 
-#: ../gcr/gcr-subject-public-key.c:407
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "Anahtar için kullanılamaz ya da onaylanmamış öznitelikler"
 
-#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
 msgid "Couldn't build public key"
-msgstr ""
+msgstr "Açık anahtar oluşturulamadı"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
-msgstr ""
+msgstr "Başka istek zaten devam ediyor"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
-#, fuzzy, c-format
+#: ../gcr/gcr-trust.c:364
+#, c-format
 msgid "Couldn't find a place to store the pinned certificate"
-msgstr "İçe aktarılan sertifikaları/anahtarları saklamak için bir konum seçin."
+msgstr "Tutturulmuş sertifikayı saklamak için bir konum bulunamadı"
 
 #: ../ui/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
 msgstr "Temel Kısıtlar"
 
 #: ../ui/gcr-certificate-renderer.c:119
-#, fuzzy
 msgid "Certificate Authority"
-msgstr "Verilen Sertifika"
+msgstr "Sertifika Yetkilisi"
 
 #: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
 msgid "Yes"
@@ -430,75 +416,64 @@ msgid "No"
 msgstr "Hayır"
 
 #: ../ui/gcr-certificate-renderer.c:123
-#, fuzzy
 msgid "Max Path Length"
-msgstr "Projenin dosya sistemi yolu"
+msgstr "Azami Yol Uzunluğu"
 
 #: ../ui/gcr-certificate-renderer.c:124
 msgid "Unlimited"
 msgstr "Sınırsız"
 
 #: ../ui/gcr-certificate-renderer.c:143
-#, fuzzy
 msgid "Extended Key Usage"
-msgstr "Kullanım: orca [SEÇENEK...]"
+msgstr "Uzatılmış Anahtar Kullanımı"
 
 #: ../ui/gcr-certificate-renderer.c:154
-#, fuzzy
 msgid "Allowed Purposes"
-msgstr "İzin verilen tuşlar"
+msgstr "İzin Verilen Amaçlar"
 
 #: ../ui/gcr-certificate-renderer.c:174
-#, fuzzy
 msgid "Subject Key Identifier"
-msgstr "%(key)s %(value)s benek"
+msgstr "Konu Anahtar Tanımlayıcısı"
 
 #: ../ui/gcr-certificate-renderer.c:175
-#, fuzzy
 msgid "Key Identifier"
-msgstr "Anahtar Bağı"
+msgstr "Anahtar Tanımlayıcı"
 
 #: ../ui/gcr-certificate-renderer.c:186
 msgid "Digital signature"
 msgstr "Sayısal imza"
 
 #: ../ui/gcr-certificate-renderer.c:187
-#, fuzzy
 msgid "Key encipherment"
-msgstr "Anahtar Bağı"
+msgstr "Anahtar şifreleme"
 
 #: ../ui/gcr-certificate-renderer.c:188
-#, fuzzy
 msgid "Data encipherment"
-msgstr "%s (%s) – SMART Veri"
+msgstr "Veri şifreleme"
 
 #: ../ui/gcr-certificate-renderer.c:189
-#, fuzzy
 msgid "Key agreement"
-msgstr "Anahtar Bağı"
+msgstr "Anahtar anlaşması"
 
 #: ../ui/gcr-certificate-renderer.c:190
 msgid "Certificate signature"
 msgstr "Sertifika imzası"
 
 #: ../ui/gcr-certificate-renderer.c:191
-#, fuzzy
 msgid "Revocation list signature"
-msgstr "Anahtar Bağı Listesi"
+msgstr "İptal Listesi İmzası"
 
 #: ../ui/gcr-certificate-renderer.c:216
-#, fuzzy
 msgid "Key Usage"
-msgstr "Anahtar Bağı"
+msgstr "Anahtar Kullanımı"
 
 #: ../ui/gcr-certificate-renderer.c:217
 msgid "Usages"
 msgstr "Kullanımlar"
 
 #: ../ui/gcr-certificate-renderer.c:237
-#, fuzzy
 msgid "Subject Alternative Names"
-msgstr "Kıs_altılmış rol adları"
+msgstr "Konu Diğer İsimleri"
 
 #: ../ui/gcr-certificate-renderer.c:264
 msgid "Extension"
@@ -528,9 +503,8 @@ msgid "Verified by"
 msgstr "Doğrulayan:"
 
 #: ../ui/gcr-certificate-renderer.c:532 ../ui/gcr-gnupg-renderer.c:717
-#, fuzzy
 msgid "Expires"
-msgstr "Son Kullanım"
+msgstr "Bitiş Tarihi"
 
 #. The subject
 #: ../ui/gcr-certificate-renderer.c:539
@@ -581,9 +555,8 @@ msgid "Signature"
 msgstr "İmza"
 
 #: ../ui/gcr-certificate-renderer.c:616
-#, fuzzy
 msgid "Export Certificate…"
-msgstr "Verilen Sertifika"
+msgstr "Sertifikayı Dışarı Aktar…"
 
 #: ../ui/gcr-certificate-renderer.c:855
 msgid "Key Algorithm"
@@ -598,9 +571,8 @@ msgid "Key Size"
 msgstr "Anahtar Boyutu"
 
 #: ../ui/gcr-certificate-renderer.c:876
-#, fuzzy
 msgid "Key SHA1 Fingerprint"
-msgstr "RSA ile SHA1"
+msgstr "Anahtar SHA1 Parmakizi"
 
 #: ../ui/gcr-certificate-renderer.c:898
 msgid "Signature Algorithm"
@@ -620,7 +592,6 @@ msgstr "Kritik"
 #: ../ui/gcr-certificate-request-renderer.c:320
 #: ../ui/gcr-certificate-request-renderer.c:363
 #: ../ui/gcr-certificate-request-renderer.c:368
-#| msgid "Certificate files"
 msgid "Certificate request"
 msgstr "Sertifika talebi"
 
@@ -637,21 +608,20 @@ msgstr "Tür"
 
 #: ../ui/gcr-certificate-request-renderer.c:373
 msgid "Challenge"
-msgstr ""
+msgstr "Kimlik Sorma"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:316
 msgid "_Details"
 msgstr "_Ayrıntılar"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
 msgid "Could not display '%s'"
-msgstr ""
+msgstr "'%s' gösterilemedi"
 
 #: ../ui/gcr-failure-renderer.c:161
-#, fuzzy
 msgid "Could not display file"
-msgstr "Dosya silinemedi: %s"
+msgstr "Dosya gösterilemedi"
 
 #: ../ui/gcr-failure-renderer.c:166
 msgid "Reason"
@@ -660,7 +630,7 @@ msgstr "Sebep"
 #: ../ui/gcr-failure-renderer.c:216
 #, c-format
 msgid "Cannot display a file of this type."
-msgstr ""
+msgstr "Bu tür bir dosya gösteril emiyor."
 
 #: ../ui/gcr-gnupg-renderer.c:201
 msgid "Elgamal"
@@ -675,14 +645,12 @@ msgid "Sign"
 msgstr "İmzala"
 
 #: ../ui/gcr-gnupg-renderer.c:218
-#, fuzzy
 msgid "Certify"
-msgstr "Sertifika"
+msgstr "Onayla"
 
 #: ../ui/gcr-gnupg-renderer.c:220
-#, fuzzy
 msgid "Authenticate"
-msgstr "Sunucu Kimlik Denetimi"
+msgstr "Kimlik Doğrula"
 
 #: ../ui/gcr-gnupg-renderer.c:222
 msgctxt "capability"
@@ -713,65 +681,59 @@ msgstr "Süresi Dolmuş"
 
 #: ../ui/gcr-gnupg-renderer.c:263
 msgid "Undefined trust"
-msgstr ""
+msgstr "Tanımsız güven"
 
 #: ../ui/gcr-gnupg-renderer.c:265
 msgid "Distrusted"
-msgstr ""
+msgstr "Güvenilmez"
 
 #: ../ui/gcr-gnupg-renderer.c:267
 msgid "Marginally trusted"
-msgstr ""
+msgstr "Kısmi güvenilir"
 
 #: ../ui/gcr-gnupg-renderer.c:269
 msgid "Fully trusted"
-msgstr ""
+msgstr "Tam güvenilir"
 
 #: ../ui/gcr-gnupg-renderer.c:271
 msgid "Ultimately trusted"
-msgstr ""
+msgstr "Sınırsız güvenilir"
 
 #: ../ui/gcr-gnupg-renderer.c:285
-#, fuzzy
 msgid "The information in this key has not yet been verified"
-msgstr "Bilgi hassasdır ve gösterilemez"
+msgstr "Bu anahtardaki bilgi henüz doğrulanmamıştır"
 
 #: ../ui/gcr-gnupg-renderer.c:288
-#, fuzzy
 msgid "This key is invalid"
-msgstr "Oturum geçersiz"
+msgstr "Anahtar geçersiz"
 
 #: ../ui/gcr-gnupg-renderer.c:291
-#, fuzzy
 msgid "This key has been disabled"
-msgstr "Modül başlatılmamış"
+msgstr "Anahtar devre dışı bırakıldı"
 
 #: ../ui/gcr-gnupg-renderer.c:294
-#, fuzzy
 msgid "This key has been revoked"
-msgstr "Anahtarlığın kilidi zaten açılmış."
+msgstr "Anahtar iptal edildi"
 
 #: ../ui/gcr-gnupg-renderer.c:297
-#, fuzzy
 msgid "This key has expired"
-msgstr "Parola ya da PIN kullanım süresi doldu"
+msgstr "Bu anahtarın süresi doldu"
 
 #: ../ui/gcr-gnupg-renderer.c:302
 msgid "This key is distrusted"
-msgstr ""
+msgstr "Bu anahtar güvenilir anahtar değildir"
 
 #: ../ui/gcr-gnupg-renderer.c:305
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "Bu anahtar kısmi güvenilir anahtardır"
 
 #: ../ui/gcr-gnupg-renderer.c:308
-#, fuzzy
 msgid "This key is fully trusted"
-msgstr "Anahtar yanlış türde"
+msgstr "Bu anahtar tam güvenilir anahtardır"
 
 #: ../ui/gcr-gnupg-renderer.c:311
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "Bu anahtar sınırsız güvenilir anahtardır"
 
 #: ../ui/gcr-gnupg-renderer.c:336 ../ui/gcr-gnupg-renderer.c:562
 msgid "Key ID"
@@ -784,26 +746,23 @@ msgstr "Algoritma"
 
 #: ../ui/gcr-gnupg-renderer.c:359 ../ui/gcr-gnupg-renderer.c:436
 #: ../ui/gcr-gnupg-renderer.c:479
-#, fuzzy
 msgid "Created"
-msgstr "_Oluştur"
+msgstr "Oluşturuldu"
 
 #: ../ui/gcr-gnupg-renderer.c:368 ../ui/gcr-gnupg-renderer.c:445
 #: ../ui/gcr-gnupg-renderer.c:488
-#, fuzzy
 msgid "Expiry"
-msgstr "Son Kullanım"
+msgstr "Bitiş"
 
 #: ../ui/gcr-gnupg-renderer.c:377
 msgid "Capabilities"
-msgstr ""
+msgstr "Yetenekler"
 
 #: ../ui/gcr-gnupg-renderer.c:390
 msgid "Owner trust"
-msgstr ""
+msgstr "Sahip güvenilirliği"
 
 #: ../ui/gcr-gnupg-renderer.c:418
-#, fuzzy
 msgid "Name"
 msgstr "Ad"
 
@@ -820,72 +779,64 @@ msgid "Size"
 msgstr "Boyut"
 
 #: ../ui/gcr-gnupg-renderer.c:506
-#, fuzzy
 msgid "Signature of a binary document"
-msgstr "İmza Parametreleri"
+msgstr "İkili bir belgenin imzası"
 
 #: ../ui/gcr-gnupg-renderer.c:508
 msgid "Signature of a canonical text document"
-msgstr ""
+msgstr "Standart metin belgesi imzası"
 
 #: ../ui/gcr-gnupg-renderer.c:510
-#, fuzzy
 msgid "Standalone signature"
-msgstr "Sayısal imza"
+msgstr "Bağımsız imza"
 
 #: ../ui/gcr-gnupg-renderer.c:512
-#, fuzzy
 msgid "Generic certification of key"
-msgstr "Sertifikanın kilidini kaldır"
+msgstr "Genel anahtar sertifikası"
 
 #: ../ui/gcr-gnupg-renderer.c:514
 msgid "Persona certification of key"
-msgstr ""
+msgstr "Kişisel anahtar sertifikası"
 
 #: ../ui/gcr-gnupg-renderer.c:516
 msgid "Casual certification of key"
-msgstr ""
+msgstr "Anahtar için rastgele sertifika"
 
 #: ../ui/gcr-gnupg-renderer.c:518
 msgid "Positive certification of key"
-msgstr ""
+msgstr "Olumlu anahtar belgelendirme"
 
 #: ../ui/gcr-gnupg-renderer.c:520
 msgid "Subkey binding signature"
-msgstr ""
+msgstr "Alt anahtar bağlama imzası"
 
 #: ../ui/gcr-gnupg-renderer.c:522
 msgid "Primary key binding signature"
-msgstr ""
+msgstr "Birincil anahtar bağlama imzası"
 
 #: ../ui/gcr-gnupg-renderer.c:524
-#, fuzzy
 msgid "Signature directly on key"
-msgstr "İmza Parametreleri"
+msgstr "Anahtar üzerindeki doğrudan imza"
 
 #: ../ui/gcr-gnupg-renderer.c:526
-#, fuzzy
 msgid "Key revocation signature"
-msgstr "Anahtar Bağı Listesi"
+msgstr "Anahtar iptal imzası"
 
 #: ../ui/gcr-gnupg-renderer.c:528
-#, fuzzy
 msgid "Subkey revocation signature"
-msgstr "Anahtar Bağı Listesi"
+msgstr "Alt Anahtar iptal imzası"
 
 #: ../ui/gcr-gnupg-renderer.c:530
-#, fuzzy
 msgid "Certification revocation signature"
-msgstr "Sertifika imzası"
+msgstr "Sertifika iptal imzası"
 
 #: ../ui/gcr-gnupg-renderer.c:532
-#, fuzzy
 msgid "Timestamp signature"
-msgstr "Sayısal imza"
+msgstr "Zaman damgası imzası"
 
 #: ../ui/gcr-gnupg-renderer.c:534
 msgid "Third-party confirmation signature"
-msgstr ""
+msgstr "Üçüncü parti onaylama imzası"
 
 #: ../ui/gcr-gnupg-renderer.c:587 ../ui/gcr-gnupg-renderer.c:595
 msgid "Class"
@@ -897,60 +848,55 @@ msgstr "Sadece yerel"
 
 #: ../ui/gcr-gnupg-renderer.c:591
 msgid "Exportable"
-msgstr ""
+msgstr "Dışarı aktarılabilir"
 
 #: ../ui/gcr-gnupg-renderer.c:609
-#, fuzzy
 msgid "Revocation Key"
-msgstr "Anahtar Bağı Listesi"
+msgstr "İptal Anahtarı"
 
 #: ../ui/gcr-gnupg-renderer.c:623 ../ui/gcr-gnupg-renderer.c:647
 #: ../ui/gcr-gnupg-renderer.c:649
-#, fuzzy
 msgid "Fingerprint"
-msgstr "Parmak izleri"
+msgstr "Parmak izi"
 
 #: ../ui/gcr-gnupg-renderer.c:738
-#, fuzzy
 msgid "Public Subkey"
-msgstr "Genel Anahtar"
+msgstr "Açık Alt Anahtar"
 
 #: ../ui/gcr-gnupg-renderer.c:740
 msgid "Secret Key"
-msgstr ""
+msgstr "Gizli Anahtar"
 
 #: ../ui/gcr-gnupg-renderer.c:742
 msgid "Secret Subkey"
-msgstr ""
+msgstr "Gizli Alt Anahtar"
 
 #: ../ui/gcr-import-button.c:116
-#, fuzzy
 msgid "Initializing…"
-msgstr "Başharfleri"
+msgstr "Başlatılıyor…"
 
 #: ../ui/gcr-import-button.c:124
 msgid "Import is in progress…"
-msgstr ""
+msgstr "İçe aktarma işlemi devam ediyor…"
 
 #: ../ui/gcr-import-button.c:131
-#, fuzzy, c-format
+#, c-format
 msgid "Imported to: %s"
-msgstr "İçine Aktar:"
+msgstr "İçine aktarıldı: %s"
 
 #: ../ui/gcr-import-button.c:151
-#, fuzzy, c-format
+#, c-format
 msgid "Import to: %s"
-msgstr "İçine Aktar:"
+msgstr "İçeri aktar: %s"
 
 #: ../ui/gcr-import-button.c:164
-#, fuzzy
 msgid "Cannot import because there are no compatible importers"
-msgstr "İçe aktarılamıyor çünkü anahtar yanlış türde"
+msgstr ""
+"İçeri aktarma işlemi uyumlu içeri aktarıcı olmadığından dolayı yapılamıyor"
 
 #: ../ui/gcr-import-button.c:173
-#, fuzzy
 msgid "No data to import"
-msgstr "İçe aktarmak için kullanılabilir bir konum yok"
+msgstr "İçeri aktarılacak veri yok"
 
 #: ../ui/gcr-key-renderer.c:88
 msgid "Key"
@@ -966,7 +912,7 @@ msgstr "DSA Gizli Anahtarı"
 
 #: ../ui/gcr-key-renderer.c:359
 msgid "Private Elliptic Curve Key"
-msgstr ""
+msgstr "Özel Eliptik Eğri Anahtarı"
 
 #: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
@@ -974,15 +920,13 @@ msgstr "DSA Genel Anahtarı"
 
 #: ../ui/gcr-key-renderer.c:368
 msgid "Public Elliptic Curve Key"
-msgstr ""
+msgstr "Genel Eliptik Eğri Anahtarı"
 
 #: ../ui/gcr-key-renderer.c:377
-#, fuzzy, c-format
-#| msgid "%d bit"
-#| msgid_plural "%d bits"
+#, c-format
 msgid "%u bit"
 msgid_plural "%u bits"
-msgstr[0] "%d bit"
+msgstr[0] "%u bit"
 
 #: ../ui/gcr-key-renderer.c:378
 msgid "Strength"
@@ -1002,40 +946,38 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
 msgstr "_Vazgeç"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "_Tamam"
 
 #: ../ui/gcr-pkcs11-import-dialog.c:189
-#, fuzzy
 msgid "Automatically chosen"
-msgstr "Giriş yaptığımda bunun kendiliğinden kilidini aç"
+msgstr "Otomatik seçilmiş"
 
 #: ../ui/gcr-pkcs11-import-dialog.c:273
 #: ../ui/gcr-pkcs11-import-interaction.c:152
 #: ../ui/gcr-pkcs11-import-interaction.c:170
 #, c-format
 msgid "The user cancelled the operation"
-msgstr ""
+msgstr "Kullanıcı işlemi iptal etti"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:1
-#, fuzzy
 msgid "In order to import, please enter the password."
-msgstr "'%s' içe aktarmak için kilitli olmaması gerekmektedir"
+msgstr "Lütfen içeri aktarmak için parola girin."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "Parola:"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:3
 msgid "Token:"
-msgstr ""
+msgstr "İşaret:"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:69
 #: ../ui/gcr-unlock-renderer.c:124
@@ -1047,46 +989,37 @@ msgid "Label:"
 msgstr "Etiket:"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:6
-#, fuzzy
 msgid "Import settings"
-msgstr "İçine Aktar:"
+msgstr "İçeri Aktarma ayarları"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "Onayla:"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "Parolalar eşleşmiyor."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "Parola boş bırakılamaz"
 
 #: ../ui/gcr-prompter.desktop.in.in.h:1
 msgid "Access Prompt"
-msgstr ""
+msgstr "Erişim Ekranı"
 
 #: ../ui/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
-msgstr ""
+msgstr "Parolalar ve diğer gizli bilgiler için erişim kilidini kaldır"
 
 #: ../ui/gcr-certificate-exporter.c:225
 msgid "A file already exists with this name."
-msgstr ""
+msgstr "Bu isimle bir dosya zaten var."
 
 #: ../ui/gcr-certificate-exporter.c:226
-#, fuzzy
-#| msgid ""
-#| "<b>A file already exists with this name.</b>\n"
-#| "\n"
-#| "Do you want to replace it with a new file?"
 msgid "Do you want to replace it with a new file?"
-msgstr ""
-"<b>Bu isimde bir dosya zaten var.</b>\n"
-"\n"
-"Bu dosyayı yenisiyle değiştirmek ister misiniz?"
+msgstr "Yeni bir dosya ile değiştirmek istiyor musunuz?"
 
 #: ../ui/gcr-certificate-exporter.c:229
 msgid "_Replace"
@@ -1098,9 +1031,8 @@ msgid "The operation was cancelled."
 msgstr "İşlem iptal edildi."
 
 #: ../ui/gcr-certificate-exporter.c:303
-#, fuzzy
 msgid "Export certificate"
-msgstr "Verilen Sertifika"
+msgstr "Sertifikayı Dışa Aktar"
 
 #: ../ui/gcr-certificate-exporter.c:306
 msgid "_Save"
@@ -1115,22 +1047,18 @@ msgid "PEM files"
 msgstr "PEM dosyaları"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-#, fuzzy
 msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "Giriş yaptığımda bu anahtarlığın kilidini otomatik olarak aç"
+msgstr "Her oturum açtığımda, bu anahtarlığın kilidini otomatik olarak kaldır"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
-#, fuzzy
 msgid "Lock this keyring when I log out"
-msgstr "Bu anahtarlığı çıkış yaptığımda kilitle"
+msgstr "Oturumu kapattığımda bu anahtarlığı kilitle"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:3
-#, fuzzy
 msgid "Lock this keyring after"
 msgstr "Bu anahtarlığı şu kadar sonra kilitle"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:4
-#, fuzzy
 msgid "Lock this keyring if idle for"
 msgstr "Bu anahtarlığı şu kadar süre boştaysa kilitle"
 
@@ -1140,9 +1068,9 @@ msgid "minutes"
 msgstr "dakika"
 
 #: ../ui/gcr-unlock-renderer.c:67
-#, fuzzy, c-format
+#, c-format
 msgid "Unlock: %s"
-msgstr "Kilidini kaldır"
+msgstr "Kilidi kaldır: %s"
 
 #: ../ui/gcr-unlock-renderer.c:122
 msgid "Password"
@@ -1154,58 +1082,51 @@ msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
+"'%s' içeriği kilitlendi. İçeriği görüntülemek için doğru parolayı girin."
 
 #: ../ui/gcr-unlock-renderer.c:277
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
-msgstr ""
+msgstr "İçerikler kilitlendi. İçeriği görüntülemek için doğru parolayı girin."
 
 #: ../ui/gcr-viewer-tool.c:40
-#, fuzzy
 msgid "GCR Certificate and Key Viewer"
-msgstr "Sertifika ve Anahtar Deposu"
+msgstr "GCR Sertifika ve Anahtar Görüntüleyici"
 
 #: ../ui/gcr-viewer-tool.c:47
-#, fuzzy
 msgid "Show the application's version"
-msgstr "Uygulamanın anahtarlığa erişebilmesine izin verilsin mi?"
+msgstr "Uygulamanın sürümünü göster"
 
 #: ../ui/gcr-viewer-tool.c:49
 msgid "[file...]"
-msgstr ""
+msgstr "[dosya...]"
 
-#: ../ui/gcr-viewer-tool.c:104
-#, fuzzy
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
-msgstr "Sertifika dosyaları"
+msgstr "- Sertifika ve anahtar dosyaların görüntüle"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
-#, fuzzy
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
-msgstr "Sertifika dosyaları"
+msgstr "Sertifika Görüntüleyici"
 
 #: ../ui/gcr-viewer-widget.c:202
-#, fuzzy
 msgid "The password was incorrect"
-msgstr "Kilit açma parolası hatalı"
+msgstr "Parola hatalı"
 
 #: ../ui/gcr-viewer-window.c:75
-#, fuzzy
 msgid "Imported"
-msgstr "İçine Aktar:"
+msgstr "İçe aktarıldı"
 
 #: ../ui/gcr-viewer-window.c:79
-#, fuzzy
 msgid "Import failed"
-msgstr "İşlem başarısız oldu"
+msgstr "İçe aktarma başarısız oldu"
 
-#: ../ui/gcr-viewer-window.c:107
-#, fuzzy
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
-msgstr "İçine Aktar:"
+msgstr "İçe Aktar"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "Kapa_t"
 

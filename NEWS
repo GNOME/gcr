@@ -1,3 +1,8 @@
+gcr 3.15.90:
+ - Fix memory leaks [#738508 #739239]
+ - Updated translations
+ - Build fixes [#743201 #739449 #737622]
+
 gcr 3.14.0:
  - Updated translations
 

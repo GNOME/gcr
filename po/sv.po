@@ -1,191 +1,204 @@
 # Swedish messages for gnome-keyring.
-# Copyright (C) 2003-2012 Free Software Foundation, Inc.
+# Copyright (C) 2003-2015 Free Software Foundation, Inc.
 # Christian Rose <menthos@menthos.com>, 2003, 2004.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009, 2010, 2011, 2012.
+# Sebastian Rasmussen <sebras@gmail.com>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-30 11:33+0200\n"
-"PO-Revision-Date: 2012-03-30 11:36+0100\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2015-02-10 17:48+0000\n"
+"PO-Revision-Date: 2015-02-15 20:35+0100\n"
+"Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.10\n"
 
-#: ../egg/egg-oid.c:41
+#: ../egg/egg-oid.c:40
 msgid "Domain Component"
 msgstr "Domänkomponent"
 
-#: ../egg/egg-oid.c:43
-#: ../gcr/gcr-gnupg-renderer.c:409
-#: ../gcr/gcr-gnupg-renderer.c:578
+#: ../egg/egg-oid.c:42 ../ui/gcr-gnupg-renderer.c:408
+#: ../ui/gcr-gnupg-renderer.c:577
 msgid "User ID"
 msgstr "Användar-id"
 
-#: ../egg/egg-oid.c:46
+#: ../egg/egg-oid.c:45
 msgid "Email Address"
 msgstr "E-postadress"
 
-#: ../egg/egg-oid.c:54
+#: ../egg/egg-oid.c:53
 msgid "Date of Birth"
 msgstr "Födelsedag"
 
-#: ../egg/egg-oid.c:56
+#: ../egg/egg-oid.c:55
 msgid "Place of Birth"
 msgstr "Födelseort"
 
-#: ../egg/egg-oid.c:58
+#: ../egg/egg-oid.c:57
 msgid "Gender"
 msgstr "Kön"
 
-#: ../egg/egg-oid.c:60
+#: ../egg/egg-oid.c:59
 msgid "Country of Citizenship"
 msgstr "Nationalitet"
 
-#: ../egg/egg-oid.c:62
+#: ../egg/egg-oid.c:61
 msgid "Country of Residence"
 msgstr "Bostadsland"
 
-#: ../egg/egg-oid.c:65
+#: ../egg/egg-oid.c:64
 msgid "Common Name"
 msgstr "Common Name"
 
-#: ../egg/egg-oid.c:67
+#: ../egg/egg-oid.c:66
 msgid "Surname"
 msgstr "Förnamn"
 
-#: ../egg/egg-oid.c:69
-#: ../gcr/gcr-certificate-renderer.c:557
+#: ../egg/egg-oid.c:68 ../ui/gcr-certificate-renderer.c:559
 msgid "Serial Number"
 msgstr "Serienummer"
 
-#: ../egg/egg-oid.c:71
+#: ../egg/egg-oid.c:70
 msgid "Country"
 msgstr "Land"
 
-#: ../egg/egg-oid.c:73
+#: ../egg/egg-oid.c:72
 msgid "Locality"
 msgstr "Lokalitet"
 
-#: ../egg/egg-oid.c:75
+#: ../egg/egg-oid.c:74
 msgid "State"
 msgstr "Län"
 
-#: ../egg/egg-oid.c:77
+#: ../egg/egg-oid.c:76
 msgid "Street"
 msgstr "Gata"
 
-#: ../egg/egg-oid.c:79
+#: ../egg/egg-oid.c:78
 msgid "Organization"
 msgstr "Organisation"
 
-#: ../egg/egg-oid.c:81
+#: ../egg/egg-oid.c:80
 msgid "Organizational Unit"
 msgstr "Avdelning"
 
-#: ../egg/egg-oid.c:83
+#: ../egg/egg-oid.c:82
 msgid "Title"
 msgstr "Titel"
 
-#: ../egg/egg-oid.c:85
+#: ../egg/egg-oid.c:84
 msgid "Telephone Number"
 msgstr "Telefonnummer"
 
-#: ../egg/egg-oid.c:87
+#: ../egg/egg-oid.c:86
 msgid "Given Name"
 msgstr "Tilltalsnamn"
 
-#: ../egg/egg-oid.c:89
+#: ../egg/egg-oid.c:88
 msgid "Initials"
 msgstr "Initialer"
 
-#: ../egg/egg-oid.c:91
+#: ../egg/egg-oid.c:90
 msgid "Generation Qualifier"
 msgstr "Genereringskvalificerare"
 
-#: ../egg/egg-oid.c:93
+#: ../egg/egg-oid.c:92
 msgid "DN Qualifier"
 msgstr "DN-kvalificerare"
 
-#: ../egg/egg-oid.c:95
+#: ../egg/egg-oid.c:94
 msgid "Pseudonym"
 msgstr "Pseudonym"
 
-#: ../egg/egg-oid.c:98
-#: ../gcr/gcr-gnupg-renderer.c:200
-#: ../gcr/gcr-key-renderer.c:430
+#: ../egg/egg-oid.c:97 ../ui/gcr-gnupg-renderer.c:199
+#: ../ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
-#: ../egg/egg-oid.c:99
+#: ../egg/egg-oid.c:98
 msgid "MD2 with RSA"
 msgstr "MD2 med RSA"
 
-#: ../egg/egg-oid.c:100
+#: ../egg/egg-oid.c:99
 msgid "MD5 with RSA"
 msgstr "MD5 med RSA"
 
-#: ../egg/egg-oid.c:101
+#: ../egg/egg-oid.c:100
 msgid "SHA1 with RSA"
 msgstr "SHA1 med RSA"
 
-#: ../egg/egg-oid.c:103
-#: ../gcr/gcr-gnupg-renderer.c:204
-#: ../gcr/gcr-key-renderer.c:432
+#: ../egg/egg-oid.c:102 ../ui/gcr-gnupg-renderer.c:203
+#: ../ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
-#: ../egg/egg-oid.c:104
+#: ../egg/egg-oid.c:103
 msgid "SHA1 with DSA"
 msgstr "SHA1 med DSA"
 
-#. Extended Key Usages
+#: ../egg/egg-oid.c:105 ../ui/gcr-key-renderer.c:389
+msgid "Elliptic Curve"
+msgstr "Elliptisk kurva"
+
+#: ../egg/egg-oid.c:106
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 med ECDSA"
+
 #: ../egg/egg-oid.c:107
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 med ECDSA"
+
+#: ../egg/egg-oid.c:108
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 med ECDSA"
+
+#: ../egg/egg-oid.c:109
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 med ECDSA"
+
+#: ../egg/egg-oid.c:110
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 med ECDSA"
+
+#. Extended Key Usages
+#: ../egg/egg-oid.c:113
 msgid "Server Authentication"
 msgstr "Serverautentisering"
 
-#: ../egg/egg-oid.c:108
+#: ../egg/egg-oid.c:114
 msgid "Client Authentication"
 msgstr "Klientautentisering"
 
-#: ../egg/egg-oid.c:109
+#: ../egg/egg-oid.c:115
 msgid "Code Signing"
 msgstr "Kodsignering"
 
-#: ../egg/egg-oid.c:110
+#: ../egg/egg-oid.c:116
 msgid "Email Protection"
 msgstr "E-postskydd"
 
-#: ../egg/egg-oid.c:111
+#: ../egg/egg-oid.c:117
 msgid "Time Stamping"
 msgstr "Tidsstämpel"
 
-#: ../gck/gck-module.c:352
+#: ../gck/gck-module.c:344
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "Fel vid inläsning av PKCS#11-modul: %s"
 
-#: ../gck/gck-module.c:359
-#, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr "Ogiltig PKCS#11-modul: %s"
-
-#: ../gck/gck-module.c:368
-#, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "Kunde inte konfigurera PKCS#11-modul: %s"
-
-#: ../gck/gck-module.c:384
+#: ../gck/gck-module.c:358
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
 msgstr "Kunde inte initiera PKCS#11-modul: %s"
 
-#: ../gck/gck-modules.c:67
+#: ../gck/gck-modules.c:62
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgstr "Kunde inte initiera registrerade PKCS#11-moduler: %s"
@@ -197,7 +210,7 @@ msgstr "URI:n har en ogiltig kodning."
 
 #: ../gck/gck-uri.c:228
 msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "URI:n saknar \"pkcs11\"-schemat."
+msgstr "URI:n saknar ”pkcs11”-schemat."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -207,70 +220,36 @@ msgstr "URI:n har felaktig syntax."
 msgid "The URI has a bad version number."
 msgstr "URI:n har ett felaktigt versionsnummer."
 
-#: ../gcr/gcr-callback-output-stream.c:64
-#: ../gcr/gcr-callback-output-stream.c:81
-#, fuzzy, c-format
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
+#, c-format
 msgid "The stream was closed"
-msgstr "Sessionen är stängd"
+msgstr "Strömmen stängdes"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:308
-#: ../gcr/gcr-gnupg-key.c:432
+#: ../gcr/gcr-certificate.c:350 ../gcr/gcr-gnupg-key.c:430
 msgctxt "column"
 msgid "Name"
 msgstr "Namn"
 
-#: ../gcr/gcr-certificate.c:310
+#: ../gcr/gcr-certificate.c:352
 msgctxt "column"
 msgid "Issued By"
 msgstr "Utfärdat av"
 
 #. later
-#: ../gcr/gcr-certificate.c:312
+#: ../gcr/gcr-certificate.c:354
 msgctxt "column"
 msgid "Expires"
 msgstr "Går ut"
 
-#: ../gcr/gcr-certificate.c:1133
-#: ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:102
-#: ../gcr/gcr-parser.c:322
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Certifikat"
 
-#: ../gcr/gcr-certificate-exporter.c:225
-msgid ""
-"<b>A file already exists with this name.</b>\n"
-"\n"
-"Do you want to replace it with a new file?"
-msgstr ""
-"<b>En fil finns redan med detta namn.</b>\n"
-"\n"
-"Vill du ersätta den med en ny fil?"
-
-#: ../gcr/gcr-certificate-exporter.c:228
-msgid "_Replace"
-msgstr "_Ersätt"
-
-#: ../gcr/gcr-certificate-exporter.c:258
-#, c-format
-msgid "The operation was cancelled."
-msgstr "Åtgärden avbröts."
-
-#: ../gcr/gcr-certificate-exporter.c:302
-msgid "Export certificate"
-msgstr "Exportera certifikat"
-
-#: ../gcr/gcr-certificate-exporter.c:314
-msgid "Certificate files"
-msgstr "Certifikatfiler"
-
-#: ../gcr/gcr-certificate-exporter.c:325
-msgid "PEM files"
-msgstr "PEM-filer"
-
-#: ../gcr/gcr-certificate-extensions.c:178
+#: ../gcr/gcr-certificate-extensions.c:177
 msgid "Other Name"
 msgstr "Annat namn"
 
@@ -282,855 +261,865 @@ msgstr "XMPP Addr"
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: ../gcr/gcr-certificate-extensions.c:204
-#: ../gcr/gcr-gnupg-renderer.c:422
-#: ../gcr/gcr-gnupg-renderer.c:704
+#: ../gcr/gcr-certificate-extensions.c:203 ../ui/gcr-gnupg-renderer.c:421
+#: ../ui/gcr-gnupg-renderer.c:703
 msgid "Email"
 msgstr "E-post"
 
-#: ../gcr/gcr-certificate-extensions.c:212
+#: ../gcr/gcr-certificate-extensions.c:211
 msgid "DNS"
 msgstr "DNS"
 
-#: ../gcr/gcr-certificate-extensions.c:220
+#: ../gcr/gcr-certificate-extensions.c:219
 msgid "X400 Address"
 msgstr "X400-adress"
 
-#: ../gcr/gcr-certificate-extensions.c:227
+#: ../gcr/gcr-certificate-extensions.c:226
 msgid "Directory Name"
 msgstr "Katalognamn"
 
-#: ../gcr/gcr-certificate-extensions.c:235
+#: ../gcr/gcr-certificate-extensions.c:234
 msgid "EDI Party Name"
 msgstr "EDI Party Name"
 
-#: ../gcr/gcr-certificate-extensions.c:242
+#: ../gcr/gcr-certificate-extensions.c:241
 msgid "URI"
 msgstr "URI"
 
-#: ../gcr/gcr-certificate-extensions.c:250
+#: ../gcr/gcr-certificate-extensions.c:249
 msgid "IP Address"
 msgstr "IP-adress"
 
-#: ../gcr/gcr-certificate-extensions.c:258
+#: ../gcr/gcr-certificate-extensions.c:257
 msgid "Registered ID"
 msgstr "Registrerat ID"
 
-#: ../gcr/gcr-certificate-renderer.c:117
-msgid "Basic Constraints"
-msgstr "Användningsområde"
-
-#: ../gcr/gcr-certificate-renderer.c:119
-msgid "Certificate Authority"
-msgstr "Certifikatutfärdare"
-
-#: ../gcr/gcr-certificate-renderer.c:120
-#: ../gcr/gcr-certificate-renderer.c:961
-msgid "Yes"
-msgstr "Ja"
-
-#: ../gcr/gcr-certificate-renderer.c:120
-#: ../gcr/gcr-certificate-renderer.c:961
-msgid "No"
-msgstr "Nej"
-
-#: ../gcr/gcr-certificate-renderer.c:123
-msgid "Max Path Length"
-msgstr "Maximal sökvägslängd"
-
-#: ../gcr/gcr-certificate-renderer.c:124
-msgid "Unlimited"
-msgstr "Obegränsad"
-
-#: ../gcr/gcr-certificate-renderer.c:143
-msgid "Extended Key Usage"
-msgstr "Utökad nyckelanvändning"
-
-#: ../gcr/gcr-certificate-renderer.c:154
-msgid "Allowed Purposes"
-msgstr "Tillåtna syften"
-
-#: ../gcr/gcr-certificate-renderer.c:174
-msgid "Subject Key Identifier"
-msgstr "Identifierare för ämnesnyckel"
-
-#: ../gcr/gcr-certificate-renderer.c:175
-msgid "Key Identifier"
-msgstr "Nyckelidentifierare"
-
-#: ../gcr/gcr-certificate-renderer.c:186
-msgid "Digital signature"
-msgstr "Digital signatur"
-
-#: ../gcr/gcr-certificate-renderer.c:187
-msgid "Key encipherment"
-msgstr "Nyckelkryptering"
-
-#: ../gcr/gcr-certificate-renderer.c:188
-msgid "Data encipherment"
-msgstr "Datakryptering"
-
-#: ../gcr/gcr-certificate-renderer.c:189
-msgid "Key agreement"
-msgstr "Nyckelanvändning"
-
-#: ../gcr/gcr-certificate-renderer.c:190
-msgid "Certificate signature"
-msgstr "Certifikatsignatur"
-
-#: ../gcr/gcr-certificate-renderer.c:191
-msgid "Revocation list signature"
-msgstr "Signatur för spärrlista"
-
-#: ../gcr/gcr-certificate-renderer.c:216
-msgid "Key Usage"
-msgstr "Nyckelanvändning"
-
-#: ../gcr/gcr-certificate-renderer.c:217
-msgid "Usages"
-msgstr "Användningsområden"
-
-#: ../gcr/gcr-certificate-renderer.c:237
-msgid "Subject Alternative Names"
-msgstr "Alternativa ämnesnamn"
-
-#: ../gcr/gcr-certificate-renderer.c:264
-msgid "Extension"
-msgstr "Utökning"
-
-#: ../gcr/gcr-certificate-renderer.c:268
-msgid "Identifier"
-msgstr "Identifierare"
-
-#: ../gcr/gcr-certificate-renderer.c:269
-#: ../gcr/gcr-certificate-request-renderer.c:272
-#: ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-gnupg-renderer.c:430
-msgid "Value"
-msgstr "Värde"
-
-#: ../gcr/gcr-certificate-renderer.c:294
-msgid "Couldn't export the certificate."
-msgstr "Kunde inte exportera certifikatet."
-
-#: ../gcr/gcr-certificate-renderer.c:519
-#: ../gcr/gcr-certificate-request-renderer.c:313
-msgid "Identity"
-msgstr "Identitet"
-
-#: ../gcr/gcr-certificate-renderer.c:523
-msgid "Verified by"
-msgstr "Verifierat av"
-
-#: ../gcr/gcr-certificate-renderer.c:530
-#: ../gcr/gcr-gnupg-renderer.c:718
-msgid "Expires"
-msgstr "Går ut"
-
-#. The subject
-#: ../gcr/gcr-certificate-renderer.c:537
-#: ../gcr/gcr-certificate-request-renderer.c:319
-msgid "Subject Name"
-msgstr "Ämnesnamn"
-
-#. The Issuer
-#: ../gcr/gcr-certificate-renderer.c:542
-msgid "Issuer Name"
-msgstr "Utfärdarens namn"
-
-#. The Issued Parameters
-#: ../gcr/gcr-certificate-renderer.c:547
-msgid "Issued Certificate"
-msgstr "Utfärdat certifikat"
-
-#: ../gcr/gcr-certificate-renderer.c:552
-#: ../gcr/gcr-certificate-request-renderer.c:330
-msgid "Version"
-msgstr "Version"
-
-#: ../gcr/gcr-certificate-renderer.c:566
-msgid "Not Valid Before"
-msgstr "Inte giltigt före"
-
-#: ../gcr/gcr-certificate-renderer.c:571
-msgid "Not Valid After"
-msgstr "Inte giltigt efter"
-
-#. Fingerprints
-#: ../gcr/gcr-certificate-renderer.c:576
-msgid "Certificate Fingerprints"
-msgstr "Certifikatets fingeravtryck"
-
-#. Public Key Info
-#: ../gcr/gcr-certificate-renderer.c:582
-#: ../gcr/gcr-certificate-request-renderer.c:333
-#: ../gcr/gcr-certificate-request-renderer.c:379
-msgid "Public Key Info"
-msgstr "Information om publik nyckel"
-
-#. Signature
-#: ../gcr/gcr-certificate-renderer.c:597
-#: ../gcr/gcr-certificate-renderer.c:918
-#: ../gcr/gcr-certificate-request-renderer.c:349
-#: ../gcr/gcr-certificate-request-renderer.c:386
-#: ../gcr/gcr-gnupg-renderer.c:559
-msgid "Signature"
-msgstr "Signatur"
-
-#: ../gcr/gcr-certificate-renderer.c:864
-msgid "Key Algorithm"
-msgstr "Nyckelalgoritm"
-
-#: ../gcr/gcr-certificate-renderer.c:869
-msgid "Key Parameters"
-msgstr "Nyckelparametrar"
-
-#: ../gcr/gcr-certificate-renderer.c:877
-#: ../gcr/gcr-gnupg-renderer.c:352
-msgid "Key Size"
-msgstr "Nyckelstorlek"
-
-#: ../gcr/gcr-certificate-renderer.c:885
-msgid "Key SHA1 Fingerprint"
-msgstr "Nyckelns SHA1-fingeravtryck"
-
-#: ../gcr/gcr-certificate-renderer.c:890
-#: ../gcr/gcr-gnupg-renderer.c:737
-#: ../gcr/gcr-key-renderer.c:415
-#: ../gcr/gcr-parser.c:325
-msgid "Public Key"
-msgstr "Publik nyckel"
-
-#: ../gcr/gcr-certificate-renderer.c:907
-msgid "Signature Algorithm"
-msgstr "Signaturalgoritm"
-
-#: ../gcr/gcr-certificate-renderer.c:911
-msgid "Signature Parameters"
-msgstr "Signaturparametrar"
-
-#: ../gcr/gcr-certificate-renderer.c:960
-msgid "Critical"
-msgstr "Kritiskt"
-
-#: ../gcr/gcr-certificate-request.c:418
+#: ../gcr/gcr-certificate-request.c:415
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr ""
+msgstr "Stöd för nyckeltyp saknas för certifikatbegäran"
 
-#: ../gcr/gcr-certificate-request.c:508
-#: ../gcr/gcr-certificate-request.c:593
+#: ../gcr/gcr-certificate-request.c:502 ../gcr/gcr-certificate-request.c:587
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Nyckeln kan inte användas för att signera begäran"
 
-#. The certificate request type
-#: ../gcr/gcr-certificate-request-renderer.c:95
-#: ../gcr/gcr-certificate-request-renderer.c:308
-#: ../gcr/gcr-certificate-request-renderer.c:323
-#: ../gcr/gcr-certificate-request-renderer.c:366
-#: ../gcr/gcr-certificate-request-renderer.c:371
-msgid "Certificate request"
-msgstr "Certifikatbegäran"
-
-#: ../gcr/gcr-certificate-request-renderer.c:261
-msgid "Attribute"
-msgstr "Attribut"
-
-#: ../gcr/gcr-certificate-request-renderer.c:265
-#: ../gcr/gcr-certificate-request-renderer.c:324
-#: ../gcr/gcr-certificate-request-renderer.c:372
-#: ../gcr/gcr-gnupg-renderer.c:590
-#: ../gcr/gcr-gnupg-renderer.c:592
-msgid "Type"
-msgstr "Typ"
-
-#: ../gcr/gcr-certificate-request-renderer.c:376
-msgid "Challenge"
-msgstr ""
-
-#: ../gcr/gcr-display-view.c:319
-msgid "_Details"
-msgstr "_Detaljer"
-
-#: ../gcr/gcr-failure-renderer.c:160
-#, c-format
-msgid "Could not display '%s'"
-msgstr "Kunde inte visa \"%s\""
-
-#: ../gcr/gcr-failure-renderer.c:162
-msgid "Could not display file"
-msgstr "Kunde inte visa filen"
-
-#: ../gcr/gcr-failure-renderer.c:167
-msgid "Reason"
-msgstr "Anledning"
-
-#: ../gcr/gcr-failure-renderer.c:217
-#, c-format
-msgid "Cannot display a file of this type."
-msgstr "Kan inte visa en fil av denna typ."
-
-#: ../gcr/gcr-gnupg-importer.c:96
+#: ../gcr/gcr-gnupg-importer.c:94
 msgid "GnuPG Keyring"
 msgstr "GnuPG-nyckelring"
 
-#: ../gcr/gcr-gnupg-importer.c:98
+#: ../gcr/gcr-gnupg-importer.c:96
 #, c-format
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG-nyckelring: %s"
 
-#: ../gcr/gcr-gnupg-key.c:145
-#: ../gcr/gcr-gnupg-renderer.c:88
-#: ../gcr/gcr-parser.c:328
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP-nyckel"
 
-#: ../gcr/gcr-gnupg-key.c:434
+#: ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Key ID"
 msgstr "Nyckel-id"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Gnupg-processen avslutades med kod: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg-processen terminerades med signal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927
-#: ../gcr/gcr-parser.c:2481
-#: ../gcr/gcr-parser.c:2980
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Åtgärden avbröts"
 
-#: ../gcr/gcr-gnupg-renderer.c:202
-msgid "Elgamal"
-msgstr "Elgamal"
-
-#: ../gcr/gcr-gnupg-renderer.c:215
-msgid "Encrypt"
-msgstr "Kryptera"
-
-#: ../gcr/gcr-gnupg-renderer.c:217
-msgid "Sign"
-msgstr "Signera"
-
-#: ../gcr/gcr-gnupg-renderer.c:219
-msgid "Certify"
-msgstr "Certifiera"
-
-#: ../gcr/gcr-gnupg-renderer.c:221
-msgid "Authenticate"
-msgstr "Autentisera"
-
-#: ../gcr/gcr-gnupg-renderer.c:223
-#: ../gcr/gcr-gnupg-renderer.c:258
-msgid "Disabled"
-msgstr "Inaktiverad"
-
-#: ../gcr/gcr-gnupg-renderer.c:254
-#: ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-key-renderer.c:434
-#: ../gcr/gcr-key-renderer.c:439
-msgid "Unknown"
-msgstr "Okänd"
-
-#: ../gcr/gcr-gnupg-renderer.c:256
-msgid "Invalid"
-msgstr "Ogiltigt"
-
-#: ../gcr/gcr-gnupg-renderer.c:260
-msgid "Revoked"
-msgstr "Spärrat"
-
-#: ../gcr/gcr-gnupg-renderer.c:262
-msgid "Expired"
-msgstr "Utgånget"
-
-#: ../gcr/gcr-gnupg-renderer.c:264
-msgid "Undefined trust"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:266
-msgid "Distrusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:268
-msgid "Marginally trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:270
-msgid "Fully trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:272
-msgid "Ultimately trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:286
-#, fuzzy
-msgid "The information in this key has not yet been verified"
-msgstr "Informationen är känslig och kan inte visas"
-
-#: ../gcr/gcr-gnupg-renderer.c:289
-msgid "This key is invalid"
-msgstr "Denna nyckel är ogiltig"
-
-#: ../gcr/gcr-gnupg-renderer.c:292
-#, fuzzy
-msgid "This key has been disabled"
-msgstr "Modulen har inte initierats"
-
-#: ../gcr/gcr-gnupg-renderer.c:295
-#, fuzzy
-msgid "This key has been revoked"
-msgstr "Nyckelringen har redan låsts upp."
-
-#: ../gcr/gcr-gnupg-renderer.c:298
-#, fuzzy
-msgid "This key has expired"
-msgstr "Lösenordet eller PIN-koden har gått ut"
-
-#: ../gcr/gcr-gnupg-renderer.c:303
-msgid "This key is distrusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:306
-msgid "This key is marginally trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:309
-#, fuzzy
-msgid "This key is fully trusted"
-msgstr "Nyckeln är av fel typ"
-
-#: ../gcr/gcr-gnupg-renderer.c:312
-msgid "This key is ultimately trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:337
-#: ../gcr/gcr-gnupg-renderer.c:563
-#, fuzzy
-msgid "Key ID"
-msgstr "Nyckel-id"
-
-#: ../gcr/gcr-gnupg-renderer.c:345
-#: ../gcr/gcr-gnupg-renderer.c:571
-#: ../gcr/gcr-gnupg-renderer.c:618
-#: ../gcr/gcr-key-renderer.c:435
-msgid "Algorithm"
-msgstr "Algoritm"
-
-#: ../gcr/gcr-gnupg-renderer.c:360
-#: ../gcr/gcr-gnupg-renderer.c:437
-#: ../gcr/gcr-gnupg-renderer.c:480
-#, fuzzy
-msgid "Created"
-msgstr "S_kapa"
-
-#: ../gcr/gcr-gnupg-renderer.c:369
-#: ../gcr/gcr-gnupg-renderer.c:446
-#: ../gcr/gcr-gnupg-renderer.c:489
-#, fuzzy
-msgid "Expiry"
-msgstr "Går ut"
-
-#: ../gcr/gcr-gnupg-renderer.c:378
-msgid "Capabilities"
-msgstr "Förmågor"
-
-#: ../gcr/gcr-gnupg-renderer.c:391
-msgid "Owner trust"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:419
-msgid "Name"
-msgstr "Namn"
-
-#: ../gcr/gcr-gnupg-renderer.c:425
-#: ../gcr/gcr-gnupg-renderer.c:707
-msgid "Comment"
-msgstr "Kommentar"
-
-#: ../gcr/gcr-gnupg-renderer.c:465
-msgid "User Attribute"
-msgstr "Användarattribut"
-
-#: ../gcr/gcr-gnupg-renderer.c:472
-#: ../gcr/gcr-key-renderer.c:442
-msgid "Size"
-msgstr "Storlek"
-
-#: ../gcr/gcr-gnupg-renderer.c:507
-#, fuzzy
-msgid "Signature of a binary document"
-msgstr "Signaturparametrar"
-
-#: ../gcr/gcr-gnupg-renderer.c:509
-msgid "Signature of a canonical text document"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:511
-#, fuzzy
-msgid "Standalone signature"
-msgstr "Digital signatur"
-
-#: ../gcr/gcr-gnupg-renderer.c:513
-#, fuzzy
-msgid "Generic certification of key"
-msgstr "Lås upp certifikat"
-
-#: ../gcr/gcr-gnupg-renderer.c:515
-msgid "Persona certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:517
-msgid "Casual certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:519
-msgid "Positive certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:521
-msgid "Subkey binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:523
-msgid "Primary key binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:525
-#, fuzzy
-msgid "Signature directly on key"
-msgstr "Signaturparametrar"
-
-#: ../gcr/gcr-gnupg-renderer.c:527
-#, fuzzy
-msgid "Key revocation signature"
-msgstr "Signatur för spärrlista"
-
-#: ../gcr/gcr-gnupg-renderer.c:529
-#, fuzzy
-msgid "Subkey revocation signature"
-msgstr "Signatur för spärrlista"
-
-#: ../gcr/gcr-gnupg-renderer.c:531
-#, fuzzy
-msgid "Certification revocation signature"
-msgstr "Certifikatsignatur"
-
-#: ../gcr/gcr-gnupg-renderer.c:533
-#, fuzzy
-msgid "Timestamp signature"
-msgstr "Digital signatur"
-
-#: ../gcr/gcr-gnupg-renderer.c:535
-msgid "Third-party confirmation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:588
-#: ../gcr/gcr-gnupg-renderer.c:596
-msgid "Class"
-msgstr "Klass"
-
-#: ../gcr/gcr-gnupg-renderer.c:590
-msgid "Local only"
-msgstr "Endast lokal"
-
-#: ../gcr/gcr-gnupg-renderer.c:592
-msgid "Exportable"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:610
-#, fuzzy
-msgid "Revocation Key"
-msgstr "Signatur för spärrlista"
-
-#: ../gcr/gcr-gnupg-renderer.c:624
-#: ../gcr/gcr-gnupg-renderer.c:648
-#: ../gcr/gcr-gnupg-renderer.c:650
-msgid "Fingerprint"
-msgstr "Fingeravtryck"
-
-#: ../gcr/gcr-gnupg-renderer.c:739
-#, fuzzy
-msgid "Public Subkey"
-msgstr "Publik nyckel"
-
-#: ../gcr/gcr-gnupg-renderer.c:741
-msgid "Secret Key"
-msgstr "Hemlig nyckel"
-
-#: ../gcr/gcr-gnupg-renderer.c:743
-msgid "Secret Subkey"
-msgstr "Hemlig undernyckel"
-
-#: ../gcr/gcr-import-button.c:111
-msgid "Initializing..."
-msgstr "Initierar..."
-
-#: ../gcr/gcr-import-button.c:119
-msgid "Import is in progress..."
-msgstr "Import pågår..."
-
-#: ../gcr/gcr-import-button.c:126
-#, c-format
-msgid "Imported to: %s"
-msgstr "Importerades till: %s"
-
-#: ../gcr/gcr-import-button.c:146
-#, c-format
-msgid "Import to: %s"
-msgstr "Importera till: %s"
-
-#: ../gcr/gcr-import-button.c:159
-#, fuzzy
-msgid "Cannot import because there are no compatible importers"
-msgstr "Kan inte importera därför att nyckeln har felaktig typ"
-
-#: ../gcr/gcr-import-button.c:168
-msgid "No data to import"
-msgstr "Inget data att importera"
-
-#: ../gcr/gcr-key-renderer.c:90
-msgid "Key"
-msgstr "Nyckel"
-
-#: ../gcr/gcr-key-renderer.c:404
-msgid "Private RSA Key"
-msgstr "Privat RSA-nyckel"
-
-#: ../gcr/gcr-key-renderer.c:406
-msgid "Private DSA Key"
-msgstr "Privat DSA-nyckel"
-
-#: ../gcr/gcr-key-renderer.c:408
-#: ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Privat nyckel"
 
-#: ../gcr/gcr-key-renderer.c:411
-#: ../gcr/gcr-key-renderer.c:413
-msgid "Public DSA Key"
-msgstr "Publik DSA-nyckel"
+#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
+msgid "Public Key"
+msgstr "Publik nyckel"
 
-#: ../gcr/gcr-key-renderer.c:422
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] "%d bit"
-msgstr[1] "%d bitar"
-
-#: ../gcr/gcr-key-renderer.c:423
-msgid "Strength"
-msgstr "Styrka"
-
-#. Fingerprints
-#: ../gcr/gcr-key-renderer.c:446
-msgid "Fingerprints"
-msgstr "Fingeravtryck"
-
-#: ../gcr/gcr-key-renderer.c:450
-msgid "SHA1"
-msgstr "SHA1"
-
-#: ../gcr/gcr-key-renderer.c:455
-msgid "SHA256"
-msgstr "SHA256"
-
-#: ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-parser.c:334
 msgid "Certificate Request"
 msgstr "Certifikatbegäran"
 
-#: ../gcr/gcr-parser.c:2484
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Data är okänt eller stöds inte."
 
-#: ../gcr/gcr-parser.c:2487
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Kunde inte tolka ogiltigt eller skadat data."
 
-#: ../gcr/gcr-parser.c:2490
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Data är låst"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:187
-#, fuzzy
-msgid "Automatically chosen"
-msgstr "Lås automatiskt upp denna när jag loggar in"
-
-#: ../gcr/gcr-pkcs11-import-dialog.c:271
-#: ../gcr/gcr-pkcs11-import-interaction.c:153
-#: ../gcr/gcr-pkcs11-import-interaction.c:171
-#, c-format
-msgid "The user cancelled the operation"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-#, fuzzy
-msgid "In order to import, please enter the password."
-msgstr "\"%s\" måste låsas upp för att kunna importeras"
-
-#. The password label
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
-#: ../gcr/gcr-prompt-dialog.c:553
-msgid "Password:"
-msgstr "Lösenord:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
-msgid "Token:"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
-msgid "Label"
-msgstr "Etikett"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
-msgid "<b>Unlock</b>"
-msgstr "<b>Lås upp</b>"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
-msgid "Label:"
-msgstr "Etikett:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
-msgid "<b>Import settings</b>"
-msgstr "<b>Importinställningar</b>"
-
-#: ../gcr/gcr-prompt.c:218
+#: ../gcr/gcr-prompt.c:225
 msgid "Continue"
 msgstr "Fortsätt"
 
-#: ../gcr/gcr-prompt.c:227
+#: ../gcr/gcr-prompt.c:234
 msgid "Cancel"
 msgstr "Avbryt"
 
-#. The confirm label
-#: ../gcr/gcr-prompt-dialog.c:570
-msgid "Confirm:"
-msgstr "Bekräfta:"
-
-#: ../gcr/gcr-prompt-dialog.c:637
-msgid "Passwords do not match."
-msgstr "Lösenorden stämmer inte överens."
-
-#: ../gcr/gcr-prompt-dialog.c:644
-msgid "Password cannot be blank"
-msgstr "Lösenordet får inte vara blankt"
-
-#: ../gcr/gcr-prompter.desktop.in.in.h:1
-msgid "Access Prompt"
-msgstr ""
-
-#: ../gcr/gcr-prompter.desktop.in.in.h:2
-msgid "Unlock access to passwords and other secrets"
-msgstr ""
-
-#: ../gcr/gcr-subject-public-key.c:345
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "Okänt eller otillgängligt attribut för nyckel"
 
-#: ../gcr/gcr-subject-public-key.c:429
-#: ../gcr/gcr-subject-public-key.c:515
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
 msgid "Couldn't build public key"
 msgstr "Kunde inte bygga publik nyckel"
 
-#: ../gcr/gcr-system-prompt.c:753
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
-msgstr ""
+msgstr "En annan inmatning pågår redan"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:370
+#: ../gcr/gcr-trust.c:364
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr "Kunde inte hitta en plats att lagra de nålade certifikaten i"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:1
+#: ../ui/gcr-certificate-renderer.c:117
+msgid "Basic Constraints"
+msgstr "Användningsområde"
+
+#: ../ui/gcr-certificate-renderer.c:119
+msgid "Certificate Authority"
+msgstr "Certifikatutfärdare"
+
+#: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
+msgid "Yes"
+msgstr "Ja"
+
+#: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
+msgid "No"
+msgstr "Nej"
+
+#: ../ui/gcr-certificate-renderer.c:123
+msgid "Max Path Length"
+msgstr "Maximal sökvägslängd"
+
+#: ../ui/gcr-certificate-renderer.c:124
+msgid "Unlimited"
+msgstr "Obegränsad"
+
+#: ../ui/gcr-certificate-renderer.c:143
+msgid "Extended Key Usage"
+msgstr "Utökad nyckelanvändning"
+
+#: ../ui/gcr-certificate-renderer.c:154
+msgid "Allowed Purposes"
+msgstr "Tillåtna syften"
+
+#: ../ui/gcr-certificate-renderer.c:174
+msgid "Subject Key Identifier"
+msgstr "Identifierare för ämnesnyckel"
+
+#: ../ui/gcr-certificate-renderer.c:175
+msgid "Key Identifier"
+msgstr "Nyckelidentifierare"
+
+#: ../ui/gcr-certificate-renderer.c:186
+msgid "Digital signature"
+msgstr "Digital signatur"
+
+#: ../ui/gcr-certificate-renderer.c:187
+msgid "Key encipherment"
+msgstr "Nyckelkryptering"
+
+#: ../ui/gcr-certificate-renderer.c:188
+msgid "Data encipherment"
+msgstr "Datakryptering"
+
+#: ../ui/gcr-certificate-renderer.c:189
+msgid "Key agreement"
+msgstr "Nyckelanvändning"
+
+#: ../ui/gcr-certificate-renderer.c:190
+msgid "Certificate signature"
+msgstr "Certifikatsignatur"
+
+#: ../ui/gcr-certificate-renderer.c:191
+msgid "Revocation list signature"
+msgstr "Signatur för spärrlista"
+
+#: ../ui/gcr-certificate-renderer.c:216
+msgid "Key Usage"
+msgstr "Nyckelanvändning"
+
+#: ../ui/gcr-certificate-renderer.c:217
+msgid "Usages"
+msgstr "Användningsområden"
+
+#: ../ui/gcr-certificate-renderer.c:237
+msgid "Subject Alternative Names"
+msgstr "Alternativa ämnesnamn"
+
+#: ../ui/gcr-certificate-renderer.c:264
+msgid "Extension"
+msgstr "Utökning"
+
+#: ../ui/gcr-certificate-renderer.c:268
+msgid "Identifier"
+msgstr "Identifierare"
+
+#: ../ui/gcr-certificate-renderer.c:269
+#: ../ui/gcr-certificate-request-renderer.c:269 ../ui/gcr-gnupg-renderer.c:412
+#: ../ui/gcr-gnupg-renderer.c:429
+msgid "Value"
+msgstr "Värde"
+
+#: ../ui/gcr-certificate-renderer.c:287
+msgid "Couldn't export the certificate."
+msgstr "Kunde inte exportera certifikatet."
+
+#: ../ui/gcr-certificate-renderer.c:521
+#: ../ui/gcr-certificate-request-renderer.c:310
+msgid "Identity"
+msgstr "Identitet"
+
+#: ../ui/gcr-certificate-renderer.c:525
+msgid "Verified by"
+msgstr "Verifierat av"
+
+#: ../ui/gcr-certificate-renderer.c:532 ../ui/gcr-gnupg-renderer.c:717
+msgid "Expires"
+msgstr "Går ut"
+
+#. The subject
+#: ../ui/gcr-certificate-renderer.c:539
+#: ../ui/gcr-certificate-request-renderer.c:316
+msgid "Subject Name"
+msgstr "Ämnesnamn"
+
+#. The Issuer
+#: ../ui/gcr-certificate-renderer.c:544
+msgid "Issuer Name"
+msgstr "Utfärdarens namn"
+
+#. The Issued Parameters
+#: ../ui/gcr-certificate-renderer.c:549
+msgid "Issued Certificate"
+msgstr "Utfärdat certifikat"
+
+#: ../ui/gcr-certificate-renderer.c:554
+#: ../ui/gcr-certificate-request-renderer.c:327
+msgid "Version"
+msgstr "Version"
+
+#: ../ui/gcr-certificate-renderer.c:568
+msgid "Not Valid Before"
+msgstr "Inte giltigt före"
+
+#: ../ui/gcr-certificate-renderer.c:573
+msgid "Not Valid After"
+msgstr "Inte giltigt efter"
+
+#. Fingerprints
+#: ../ui/gcr-certificate-renderer.c:578
+msgid "Certificate Fingerprints"
+msgstr "Certifikatets fingeravtryck"
+
+#. Public Key Info
+#: ../ui/gcr-certificate-renderer.c:584
+#: ../ui/gcr-certificate-request-renderer.c:330
+#: ../ui/gcr-certificate-request-renderer.c:376
+msgid "Public Key Info"
+msgstr "Information om publik nyckel"
+
+#. Signature
+#: ../ui/gcr-certificate-renderer.c:599 ../ui/gcr-certificate-renderer.c:909
+#: ../ui/gcr-certificate-request-renderer.c:346
+#: ../ui/gcr-certificate-request-renderer.c:383 ../ui/gcr-gnupg-renderer.c:558
+msgid "Signature"
+msgstr "Signatur"
+
+#: ../ui/gcr-certificate-renderer.c:616
+msgid "Export Certificate…"
+msgstr "Exportera certifikat…"
+
+#: ../ui/gcr-certificate-renderer.c:855
+msgid "Key Algorithm"
+msgstr "Nyckelalgoritm"
+
+#: ../ui/gcr-certificate-renderer.c:860
+msgid "Key Parameters"
+msgstr "Nyckelparametrar"
+
+#: ../ui/gcr-certificate-renderer.c:868 ../ui/gcr-gnupg-renderer.c:351
+msgid "Key Size"
+msgstr "Nyckelstorlek"
+
+#: ../ui/gcr-certificate-renderer.c:876
+msgid "Key SHA1 Fingerprint"
+msgstr "Nyckelns SHA1-fingeravtryck"
+
+#: ../ui/gcr-certificate-renderer.c:898
+msgid "Signature Algorithm"
+msgstr "Signaturalgoritm"
+
+#: ../ui/gcr-certificate-renderer.c:902
+msgid "Signature Parameters"
+msgstr "Signaturparametrar"
+
+#: ../ui/gcr-certificate-renderer.c:951
+msgid "Critical"
+msgstr "Kritiskt"
+
+#. The certificate request type
+#: ../ui/gcr-certificate-request-renderer.c:94
+#: ../ui/gcr-certificate-request-renderer.c:305
+#: ../ui/gcr-certificate-request-renderer.c:320
+#: ../ui/gcr-certificate-request-renderer.c:363
+#: ../ui/gcr-certificate-request-renderer.c:368
+msgid "Certificate request"
+msgstr "Certifikatbegäran"
+
+#: ../ui/gcr-certificate-request-renderer.c:258
+msgid "Attribute"
+msgstr "Attribut"
+
+#: ../ui/gcr-certificate-request-renderer.c:262
+#: ../ui/gcr-certificate-request-renderer.c:321
+#: ../ui/gcr-certificate-request-renderer.c:369 ../ui/gcr-gnupg-renderer.c:589
+#: ../ui/gcr-gnupg-renderer.c:591
+msgid "Type"
+msgstr "Typ"
+
+#: ../ui/gcr-certificate-request-renderer.c:373
+msgid "Challenge"
+msgstr "Utmaning"
+
+#: ../ui/gcr-display-view.c:316
+msgid "_Details"
+msgstr "_Detaljer"
+
+#: ../ui/gcr-failure-renderer.c:159
+#, c-format
+msgid "Could not display '%s'"
+msgstr "Kunde inte visa ”%s”"
+
+#: ../ui/gcr-failure-renderer.c:161
+msgid "Could not display file"
+msgstr "Kunde inte visa filen"
+
+#: ../ui/gcr-failure-renderer.c:166
+msgid "Reason"
+msgstr "Anledning"
+
+#: ../ui/gcr-failure-renderer.c:216
+#, c-format
+msgid "Cannot display a file of this type."
+msgstr "Kan inte visa en fil av denna typ."
+
+#: ../ui/gcr-gnupg-renderer.c:201
+msgid "Elgamal"
+msgstr "Elgamal"
+
+#: ../ui/gcr-gnupg-renderer.c:214
+msgid "Encrypt"
+msgstr "Kryptera"
+
+#: ../ui/gcr-gnupg-renderer.c:216
+msgid "Sign"
+msgstr "Signera"
+
+#: ../ui/gcr-gnupg-renderer.c:218
+msgid "Certify"
+msgstr "Certifiera"
+
+#: ../ui/gcr-gnupg-renderer.c:220
+msgid "Authenticate"
+msgstr "Autentisera"
+
+#: ../ui/gcr-gnupg-renderer.c:222
+msgctxt "capability"
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: ../ui/gcr-gnupg-renderer.c:253 ../ui/gcr-gnupg-renderer.c:412
+#: ../ui/gcr-key-renderer.c:391 ../ui/gcr-key-renderer.c:395
+msgid "Unknown"
+msgstr "Okänd"
+
+#: ../ui/gcr-gnupg-renderer.c:255
+msgid "Invalid"
+msgstr "Ogiltigt"
+
+#: ../ui/gcr-gnupg-renderer.c:257
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgid "Revoked"
+msgstr "Spärrat"
+
+#: ../ui/gcr-gnupg-renderer.c:261
+msgid "Expired"
+msgstr "Utgånget"
+
+#: ../ui/gcr-gnupg-renderer.c:263
+msgid "Undefined trust"
+msgstr "Odefinierad tillit"
+
+#: ../ui/gcr-gnupg-renderer.c:265
+msgid "Distrusted"
+msgstr "Opålitlig"
+
+#: ../ui/gcr-gnupg-renderer.c:267
+msgid "Marginally trusted"
+msgstr "Marginellt pålitlig"
+
+#: ../ui/gcr-gnupg-renderer.c:269
+msgid "Fully trusted"
+msgstr "Fullständigt pålitlig"
+
+#: ../ui/gcr-gnupg-renderer.c:271
+msgid "Ultimately trusted"
+msgstr "Förbehållslöst pålitlig"
+
+#: ../ui/gcr-gnupg-renderer.c:285
+msgid "The information in this key has not yet been verified"
+msgstr "Informationen i denna nyckel har ännu inte verifierats"
+
+#: ../ui/gcr-gnupg-renderer.c:288
+msgid "This key is invalid"
+msgstr "Denna nyckel är ogiltig"
+
+#: ../ui/gcr-gnupg-renderer.c:291
+msgid "This key has been disabled"
+msgstr "Denna nyckel har inaktiverats"
+
+#: ../ui/gcr-gnupg-renderer.c:294
+msgid "This key has been revoked"
+msgstr "Denna nyckel har spärrats"
+
+#: ../ui/gcr-gnupg-renderer.c:297
+msgid "This key has expired"
+msgstr "Denna nyckel har gått ut"
+
+#: ../ui/gcr-gnupg-renderer.c:302
+msgid "This key is distrusted"
+msgstr "Denna nyckel är opålitlig"
+
+#: ../ui/gcr-gnupg-renderer.c:305
+msgid "This key is marginally trusted"
+msgstr "Denna nyckel är marginellt pålitlig"
+
+#: ../ui/gcr-gnupg-renderer.c:308
+msgid "This key is fully trusted"
+msgstr "Denna nyckel är fullständigt pålitlig"
+
+#: ../ui/gcr-gnupg-renderer.c:311
+msgid "This key is ultimately trusted"
+msgstr "Denna nyckel är förbehållslöst pålitlig"
+
+#: ../ui/gcr-gnupg-renderer.c:336 ../ui/gcr-gnupg-renderer.c:562
+msgid "Key ID"
+msgstr "Nyckel-ID"
+
+#: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
+#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
+msgid "Algorithm"
+msgstr "Algoritm"
+
+#: ../ui/gcr-gnupg-renderer.c:359 ../ui/gcr-gnupg-renderer.c:436
+#: ../ui/gcr-gnupg-renderer.c:479
+msgid "Created"
+msgstr "Skapad"
+
+#: ../ui/gcr-gnupg-renderer.c:368 ../ui/gcr-gnupg-renderer.c:445
+#: ../ui/gcr-gnupg-renderer.c:488
+msgid "Expiry"
+msgstr "Går ut"
+
+#: ../ui/gcr-gnupg-renderer.c:377
+msgid "Capabilities"
+msgstr "Förmågor"
+
+#: ../ui/gcr-gnupg-renderer.c:390
+msgid "Owner trust"
+msgstr "Ägartillit"
+
+#: ../ui/gcr-gnupg-renderer.c:418
+msgid "Name"
+msgstr "Namn"
+
+#: ../ui/gcr-gnupg-renderer.c:424 ../ui/gcr-gnupg-renderer.c:706
+msgid "Comment"
+msgstr "Kommentar"
+
+#: ../ui/gcr-gnupg-renderer.c:464
+msgid "User Attribute"
+msgstr "Användarattribut"
+
+#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:398
+msgid "Size"
+msgstr "Storlek"
+
+#: ../ui/gcr-gnupg-renderer.c:506
+msgid "Signature of a binary document"
+msgstr "Signatur av binärt dokument"
+
+#: ../ui/gcr-gnupg-renderer.c:508
+msgid "Signature of a canonical text document"
+msgstr "Signatur av ett kanoniskt textdokument"
+
+#: ../ui/gcr-gnupg-renderer.c:510
+msgid "Standalone signature"
+msgstr "Fristående signatur"
+
+#: ../ui/gcr-gnupg-renderer.c:512
+msgid "Generic certification of key"
+msgstr "Generell certifiering av nyckel"
+
+#: ../ui/gcr-gnupg-renderer.c:514
+msgid "Persona certification of key"
+msgstr "Persona-certifiering av nyckel"
+
+#: ../ui/gcr-gnupg-renderer.c:516
+msgid "Casual certification of key"
+msgstr "Tillfällig verifiering av nyckel"
+
+#: ../ui/gcr-gnupg-renderer.c:518
+msgid "Positive certification of key"
+msgstr "Säker verifiering av nyckel"
+
+#: ../ui/gcr-gnupg-renderer.c:520
+msgid "Subkey binding signature"
+msgstr "Bindningssignatur för undernyckel"
+
+#: ../ui/gcr-gnupg-renderer.c:522
+msgid "Primary key binding signature"
+msgstr "Bindningssignatur för primärnyckel"
+
+#: ../ui/gcr-gnupg-renderer.c:524
+msgid "Signature directly on key"
+msgstr "Signatur direkt på nyckel"
+
+#: ../ui/gcr-gnupg-renderer.c:526
+msgid "Key revocation signature"
+msgstr "Nyckelspärrsignatur"
+
+#: ../ui/gcr-gnupg-renderer.c:528
+msgid "Subkey revocation signature"
+msgstr "Undernyckelsspärrsignatur"
+
+#: ../ui/gcr-gnupg-renderer.c:530
+msgid "Certification revocation signature"
+msgstr "Certifikatsspärrsignatur"
+
+#: ../ui/gcr-gnupg-renderer.c:532
+msgid "Timestamp signature"
+msgstr "Tidsstämpelsignatur"
+
+#: ../ui/gcr-gnupg-renderer.c:534
+msgid "Third-party confirmation signature"
+msgstr "Bekräftande signatur från tredjepart"
+
+#: ../ui/gcr-gnupg-renderer.c:587 ../ui/gcr-gnupg-renderer.c:595
+msgid "Class"
+msgstr "Klass"
+
+#: ../ui/gcr-gnupg-renderer.c:589
+msgid "Local only"
+msgstr "Endast lokal"
+
+#: ../ui/gcr-gnupg-renderer.c:591
+msgid "Exportable"
+msgstr "Exporterbar"
+
+#: ../ui/gcr-gnupg-renderer.c:609
+msgid "Revocation Key"
+msgstr "Spärrnyckel"
+
+#: ../ui/gcr-gnupg-renderer.c:623 ../ui/gcr-gnupg-renderer.c:647
+#: ../ui/gcr-gnupg-renderer.c:649
+msgid "Fingerprint"
+msgstr "Fingeravtryck"
+
+#: ../ui/gcr-gnupg-renderer.c:738
+msgid "Public Subkey"
+msgstr "Publik undernyckel"
+
+#: ../ui/gcr-gnupg-renderer.c:740
+msgid "Secret Key"
+msgstr "Hemlig nyckel"
+
+#: ../ui/gcr-gnupg-renderer.c:742
+msgid "Secret Subkey"
+msgstr "Hemlig undernyckel"
+
+#: ../ui/gcr-import-button.c:116
+msgid "Initializing…"
+msgstr "Initierar…"
+
+#: ../ui/gcr-import-button.c:124
+msgid "Import is in progress…"
+msgstr "Import pågår…"
+
+#: ../ui/gcr-import-button.c:131
+#, c-format
+msgid "Imported to: %s"
+msgstr "Importerades till: %s"
+
+#: ../ui/gcr-import-button.c:151
+#, c-format
+msgid "Import to: %s"
+msgstr "Importera till: %s"
+
+#: ../ui/gcr-import-button.c:164
+msgid "Cannot import because there are no compatible importers"
+msgstr "Kan inte importera därför att det inte finns kompatibla importerare"
+
+#: ../ui/gcr-import-button.c:173
+msgid "No data to import"
+msgstr "Inget data att importera"
+
+#: ../ui/gcr-key-renderer.c:88
+msgid "Key"
+msgstr "Nyckel"
+
+#: ../ui/gcr-key-renderer.c:355
+msgid "Private RSA Key"
+msgstr "Privat RSA-nyckel"
+
+#: ../ui/gcr-key-renderer.c:357
+msgid "Private DSA Key"
+msgstr "Privat DSA-nyckel"
+
+#: ../ui/gcr-key-renderer.c:359
+msgid "Private Elliptic Curve Key"
+msgstr "Privat elliptisk kurvnyckel"
+
+#: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
+msgid "Public DSA Key"
+msgstr "Publik DSA-nyckel"
+
+#: ../ui/gcr-key-renderer.c:368
+msgid "Public Elliptic Curve Key"
+msgstr "Publik elliptisk kurvnyckel"
+
+#: ../ui/gcr-key-renderer.c:377
+#, c-format
+msgid "%u bit"
+msgid_plural "%u bits"
+msgstr[0] "%u bit"
+msgstr[1] "%u bitar"
+
+#: ../ui/gcr-key-renderer.c:378
+msgid "Strength"
+msgstr "Styrka"
+
+#. Fingerprints
+#: ../ui/gcr-key-renderer.c:402
+msgid "Fingerprints"
+msgstr "Fingeravtryck"
+
+#: ../ui/gcr-key-renderer.c:406
+msgid "SHA1"
+msgstr "SHA1"
+
+#: ../ui/gcr-key-renderer.c:411
+msgid "SHA256"
+msgstr "SHA256"
+
+#. Add our various buttons
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
+#: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
+msgid "_Cancel"
+msgstr "_Avbryt"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
+msgid "_OK"
+msgstr "_OK"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:189
+msgid "Automatically chosen"
+msgstr "Automatiskt vald"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:273
+#: ../ui/gcr-pkcs11-import-interaction.c:152
+#: ../ui/gcr-pkcs11-import-interaction.c:170
+#, c-format
+msgid "The user cancelled the operation"
+msgstr "Användaren avbröt åtgärden"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:1
+msgid "In order to import, please enter the password."
+msgstr "För att importera, mata in lösenordet."
+
+#. The password label
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
+msgid "Password:"
+msgstr "Lösenord:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:3
+msgid "Token:"
+msgstr "Symbol:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:69
+#: ../ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Lås upp"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:5
+msgid "Label:"
+msgstr "Etikett:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Import settings"
+msgstr "Importinställningar"
+
+#. The confirm label
+#: ../ui/gcr-prompt-dialog.c:578
+msgid "Confirm:"
+msgstr "Bekräfta:"
+
+#: ../ui/gcr-prompt-dialog.c:646
+msgid "Passwords do not match."
+msgstr "Lösenorden stämmer inte överens."
+
+#: ../ui/gcr-prompt-dialog.c:653
+msgid "Password cannot be blank"
+msgstr "Lösenordet får inte vara blankt"
+
+#: ../ui/gcr-prompter.desktop.in.in.h:1
+msgid "Access Prompt"
+msgstr "Åtkomstbegäran"
+
+#: ../ui/gcr-prompter.desktop.in.in.h:2
+msgid "Unlock access to passwords and other secrets"
+msgstr "Lås upp tillgång till lösenord och andra hemligheter"
+
+#: ../ui/gcr-certificate-exporter.c:225
+msgid "A file already exists with this name."
+msgstr "En fil med samma namn finns redan."
+
+#: ../ui/gcr-certificate-exporter.c:226
+msgid "Do you want to replace it with a new file?"
+msgstr "Vill du ersätta den med en ny fil?"
+
+#: ../ui/gcr-certificate-exporter.c:229
+msgid "_Replace"
+msgstr "_Ersätt"
+
+#: ../ui/gcr-certificate-exporter.c:259
+#, c-format
+msgid "The operation was cancelled."
+msgstr "Åtgärden avbröts."
+
+#: ../ui/gcr-certificate-exporter.c:303
+msgid "Export certificate"
+msgstr "Exportera certifikat"
+
+#: ../ui/gcr-certificate-exporter.c:306
+msgid "_Save"
+msgstr "_Spara"
+
+#: ../ui/gcr-certificate-exporter.c:315
+msgid "Certificate files"
+msgstr "Certifikatfiler"
+
+#: ../ui/gcr-certificate-exporter.c:326
+msgid "PEM files"
+msgstr "PEM-filer"
+
+#: ../ui/gcr-unlock-options-widget.ui.h:1
 msgid "Automatically unlock this keyring whenever I'm logged in"
 msgstr "Lås automatiskt upp den här nyckelringen när jag är inloggad"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:2
+#: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
 msgstr "Lås denna nyckelring när jag loggar ut"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:3
+#: ../ui/gcr-unlock-options-widget.ui.h:3
 msgid "Lock this keyring after"
 msgstr "Lås denna nyckelring efter"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:4
+#: ../ui/gcr-unlock-options-widget.ui.h:4
 msgid "Lock this keyring if idle for"
 msgstr "Lås denna nyckelring om inaktiv i"
 
 #. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
-#: ../gcr/gcr-unlock-options-widget.ui.h:6
+#: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minuter"
 
-#: ../gcr/gcr-unlock-renderer.c:69
+#: ../ui/gcr-unlock-renderer.c:67
 #, c-format
 msgid "Unlock: %s"
 msgstr "Lås upp: %s"
 
-#: ../gcr/gcr-unlock-renderer.c:71
-#: ../gcr/gcr-unlock-renderer.c:128
-msgid "Unlock"
-msgstr "Lås upp"
-
-#: ../gcr/gcr-unlock-renderer.c:125
+#: ../ui/gcr-unlock-renderer.c:122
 msgid "Password"
 msgstr "Lösenord"
 
-#: ../gcr/gcr-unlock-renderer.c:278
+#: ../ui/gcr-unlock-renderer.c:274
 #, c-format
-msgid "The contents of '%s' are locked. In order to view the contents, enter the correct password."
-msgstr "Innehållet för \"%s\" är låst. Ange det korrekta lösenordet för att visa innehållet."
+msgid ""
+"The contents of '%s' are locked. In order to view the contents, enter the "
+"correct password."
+msgstr ""
+"Innehållet för ”%s” är låst. Ange det korrekta lösenordet för att visa "
+"innehållet."
 
-#: ../gcr/gcr-unlock-renderer.c:281
-msgid "The contents are locked. In order to view the contents, enter the correct password."
-msgstr "Innehållet är låst. Ange det korrekta lösenordet för att visa innehållet."
+#: ../ui/gcr-unlock-renderer.c:277
+msgid ""
+"The contents are locked. In order to view the contents, enter the correct "
+"password."
+msgstr ""
+"Innehållet är låst. Ange det korrekta lösenordet för att visa innehållet."
 
-#: ../gcr/gcr-viewer-tool.c:41
+#: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"
 msgstr "GCR Certifikat- och nyckelvisare"
 
-#: ../gcr/gcr-viewer-tool.c:48
+#: ../ui/gcr-viewer-tool.c:47
 msgid "Show the application's version"
 msgstr "Visa programmets version"
 
-#: ../gcr/gcr-viewer-tool.c:50
+#: ../ui/gcr-viewer-tool.c:49
 msgid "[file...]"
-msgstr "[fil...]"
+msgstr "[fil…]"
 
-#: ../gcr/gcr-viewer-tool.c:103
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- Visa certifikat och nyckelfiler"
 
-#: ../gcr/gcr-viewer-tool.c:117
-#: ../gcr/gcr-viewer-widget.c:635
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Certifikatvisare"
 
-#: ../gcr/gcr-viewer-widget.c:203
+#: ../ui/gcr-viewer-widget.c:202
 msgid "The password was incorrect"
 msgstr "Lösenordet var felaktigt"
 
-#: ../gcr/gcr-viewer-window.c:76
-#, fuzzy
+#: ../ui/gcr-viewer-window.c:75
 msgid "Imported"
-msgstr "Importera"
+msgstr "Importerad"
 
-#: ../gcr/gcr-viewer-window.c:80
+#: ../ui/gcr-viewer-window.c:79
 msgid "Import failed"
 msgstr "Importen misslyckades"
 
-#: ../gcr/gcr-viewer-window.c:108
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Importera"
 
+#: ../ui/gcr-viewer-window.c:115
+msgid "_Close"
+msgstr "_Stäng"

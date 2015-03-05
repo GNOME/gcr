@@ -83,7 +83,7 @@ gck_object_cache_default_init (GckObjectCacheIface *iface)
 }
 
 /**
- * gck_object_cache_get_attributes:
+ * gck_object_cache_get_attributes: (skip):
  * @object: an object with an attribute cache
  *
  * Gets the attributes cached on this object.

@@ -243,7 +243,7 @@ endif # HAVE_INTROSPECTON
 # ----------------------------------------------------------------
 
 gcr-base-expected.abi: gcr/gcr-base.symbols
-	$(AM_V_GEN) cpp -P $< | sort > $@
+	$(AM_V_GEN) $(CPP) -P $< | sort > $@
 
 gcr-base-actual.abi: $(builddir)/.libs/libgcr-base-@GCR_MAJOR@.so
 	$(AM_V_GEN)  $(NM) -D -g --defined-only $< | \

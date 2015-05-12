@@ -52,7 +52,7 @@ dnl ****************************************************************************
 
 AC_CONFIG_MACRO_DIR([build/m4])
 AC_CONFIG_AUX_DIR([build])
-AM_INIT_AUTOMAKE([1.11 tar-ustar foreign -Wno-portability subdir-objects])
+AM_INIT_AUTOMAKE([1.11 no-dist-gzip dist-xz tar-ustar foreign -Wno-portability subdir-objects])
 AM_SANITY_CHECK
 AC_CONFIG_HEADERS(config.h)
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])

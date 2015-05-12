@@ -1,7 +1,7 @@
 
 m4_define([gcr_major], [3])
-m4_define([gcr_minor], [15])
-m4_define([gcr_micro], [92])
+m4_define([gcr_minor], [16])
+m4_define([gcr_micro], [0])
 
 AC_PREREQ([2.63])
 AC_INIT([gcr], [gcr_major.gcr_minor.gcr_micro],

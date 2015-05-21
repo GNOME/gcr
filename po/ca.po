@@ -331,7 +331,7 @@ msgstr "El procés GnuPG ha sortit amb el codi: %d"
 #: ../gcr/gcr-gnupg-process.c:873
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr "S'ha finalitzat el procés GnuPG amb la senyal: %d"
+msgstr "S'ha finalitzat el procés GnuPG amb el senyal: %d"
 
 #: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
 #: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
@@ -357,7 +357,7 @@ msgstr "Dades no reconegudes o no compatibles."
 
 #: ../gcr/gcr-parser.c:2557
 msgid "Could not parse invalid or corrupted data."
-msgstr "No s'han pogut analitzar les dades. No són vàlides o està malmeses."
+msgstr "No s'han pogut analitzar les dades. No són vàlides o estan malmeses."
 
 #: ../gcr/gcr-parser.c:2560
 msgid "The data is locked"
@@ -957,7 +957,7 @@ msgstr "S'han triat automàticament"
 #: ../ui/gcr-pkcs11-import-interaction.c:170
 #, c-format
 msgid "The user cancelled the operation"
-msgstr "L'usuari a cancel·lat l'operació"
+msgstr "L'usuari ha cancel·lat l'operació"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:1
 msgid "In order to import, please enter the password."
@@ -1116,7 +1116,7 @@ msgstr "S'ha importat"
 
 #: ../ui/gcr-viewer-window.c:79
 msgid "Import failed"
-msgstr "Ha fallat l'importació"
+msgstr "Ha fallat la importació"
 
 #: ../ui/gcr-viewer-window.c:107
 msgid "Import"

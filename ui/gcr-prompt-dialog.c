@@ -610,7 +610,7 @@ gcr_prompt_dialog_constructed (GObject *obj)
 	gtk_widget_show (widget);
 
 	/* The checkbox */
-	widget = gtk_check_button_new ();
+	widget = g_object_new (GTK_TYPE_CHECK_BUTTON, "use-underline", TRUE, NULL);
 	g_object_bind_property (self, "choice-label", widget, "label", G_BINDING_DEFAULT);
 	g_object_bind_property (self, "choice-visible", widget, "visible", G_BINDING_DEFAULT);
 	g_object_bind_property (self, "choice-chosen", widget, "active", G_BINDING_BIDIRECTIONAL);

@@ -17,7 +17,7 @@ GLIB_MAX=GLIB_VERSION_2_38
 
 GCRYPT_VERSION=1.4.5
 
-GTK_REQ=3.10
+GTK_REQ=3.12
 
 dnl ****************************************************************************
 dnl Library package and libtool versioning

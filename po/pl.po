@@ -7,14 +7,14 @@
 # Artur Flinta <aflinta@at.kernel.pl>, 2003-2006.
 # Stanisław Małolepszy <smalolepszy@aviary.pl>, 2006.
 # Tomasz Dominikowski <dominikowski@gmail.com>, 2007-2009.
-# Piotr Drąg <piotrdrag@gmail.com>, 2010-2014.
-# Aviary.pl <gnomepl@aviary.pl>, 2006-2014.
+# Piotr Drąg <piotrdrag@gmail.com>, 2010-2015.
+# Aviary.pl <gnomepl@aviary.pl>, 2006-2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-07 03:18+0200\n"
-"PO-Revision-Date: 2014-09-07 03:20+0200\n"
+"POT-Creation-Date: 2015-08-26 18:54+0200\n"
+"PO-Revision-Date: 2015-08-26 18:55+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -216,7 +216,7 @@ msgstr "Adres URI posiada nieprawidłową kodowanie."
 
 #: ../gck/gck-uri.c:228
 msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "Adres URI nie posiada schematu \"pkcs11\"."
+msgstr "Adres URI nie posiada schematu „pkcs11”."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -339,10 +339,10 @@ msgstr "Proces gnupg został zakończony z kodem: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Proces gnupg został zakończony za pomocą sygnału: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
-msgstr "Działanie zostało anulowane"
+msgstr "Anulowano działanie"
 
 #: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
@@ -357,15 +357,15 @@ msgstr "Klucz publiczny"
 msgid "Certificate Request"
 msgstr "Żądanie certyfikatu"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Nierozpoznane lub nieobsługiwane dane."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Nie można przetworzyć nieprawidłowych lub uszkodzonych danych."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Dane są zablokowane"
 
@@ -385,7 +385,7 @@ msgstr "Nierozpoznane lub niedostępne atrybuty dla klucza"
 msgid "Couldn't build public key"
 msgstr "Nie można zbudować klucza publicznego"
 
-#: ../gcr/gcr-system-prompt.c:903
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Trwa już inne zapytanie"
 
@@ -608,14 +608,14 @@ msgstr "Typ"
 msgid "Challenge"
 msgstr "Wyzwanie"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:316
 msgid "_Details"
 msgstr "_Szczegóły"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
 msgid "Could not display '%s'"
-msgstr "Nie można wyświetlić \"%s\""
+msgstr "Nie można wyświetlić „%s”"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -1027,7 +1027,7 @@ msgstr "_Zastąp"
 #: ../ui/gcr-certificate-exporter.c:259
 #, c-format
 msgid "The operation was cancelled."
-msgstr "Działanie zostało anulowane."
+msgstr "Anulowano działanie."
 
 #: ../ui/gcr-certificate-exporter.c:303
 msgid "Export certificate"
@@ -1061,7 +1061,7 @@ msgstr "Zablokowanie tej bazy kluczy po"
 msgid "Lock this keyring if idle for"
 msgstr "Zablokowanie tej bazy kluczy w razie bezczynności przez"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minut"
@@ -1081,7 +1081,7 @@ msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"Treść pliku \"%s\" jest zablokowana. Aby ją wyświetlić, należy wprowadzić "
+"Treść pliku „%s” jest zablokowana. Aby ją wyświetlić, należy wprowadzić "
 "poprawne hasło."
 
 #: ../ui/gcr-unlock-renderer.c:277
@@ -1101,11 +1101,11 @@ msgstr "Wyświetla wersję programu"
 
 #: ../ui/gcr-viewer-tool.c:49
 msgid "[file...]"
-msgstr "[plik...]"
+msgstr "[plik…]"
 
 #: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
-msgstr "- wyświetla pliki certyfikatów i kluczy"
+msgstr "— wyświetla pliki certyfikatów i kluczy"
 
 #: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
@@ -1123,10 +1123,10 @@ msgstr "Zaimportowano"
 msgid "Import failed"
 msgstr "Zaimportowanie się nie powiodło"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Zaimportuj"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "Za_mknij"

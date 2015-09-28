@@ -1,3 +1,6 @@
+gcr 3.18.0:
+- Updated translations
+
 gcr 3.17.4:
 - Bump up the GTK+ deps
 - Build fixes

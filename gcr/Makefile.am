@@ -214,7 +214,8 @@ Gcr_@GCR_MAJOR@_broken_gir_SCANNERFLAGS = \
 	--add-include-path=$(top_builddir)/gck \
 	--include-uninstalled=$(builddir)/Gck-@GCK_MAJOR@.gir \
 	--c-include "gcr/gcr-base.h" \
-	--identifier-prefix Gcr
+	--identifier-prefix Gcr \
+	--nsversion @GCR_MAJOR@
 
 gir_DATA += Gcr-@GCR_MAJOR@.gir
 

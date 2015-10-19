@@ -270,8 +270,8 @@ main (int argc, char **argv)
 {
 	g_test_init (&argc, &argv, NULL);
 
-	g_test_add_func ("/gcr/record/parse_colons", test_parse_colons);
-	g_test_add_func ("/gcr/record/parse_colons", test_parse_spaces);
+	g_test_add_func ("/gcr/record/parse-colons", test_parse_colons);
+	g_test_add_func ("/gcr/record/parse-spaces", test_parse_spaces);
 	g_test_add_func ("/gcr/record/parse_part", test_parse_part);
 	g_test_add_func ("/gcr/record/parse_too_long", test_parse_too_long);
 	g_test_add_func ("/gcr/record/free_null", test_free_null);

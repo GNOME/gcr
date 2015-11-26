@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: 3.12\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2015-06-08 05:01+0000\n"
+"POT-Creation-Date: 2015-11-03 06:33+0000\n"
 "PO-Revision-Date: 2015-06-25 08:46+0100\n"
 "Last-Translator: Pedro Albuquerque <palbuquerque73@openmailbox.com>\n"
 "Language-Team: Português <palbuquerque73@openmailbox.com>\n"
@@ -149,27 +149,22 @@ msgid "Elliptic Curve"
 msgstr "Curva elíptica"
 
 #: ../egg/egg-oid.c:106
-#| msgid "SHA1 with DSA"
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 com ECDSA"
 
 #: ../egg/egg-oid.c:107
-#| msgid "SHA1 with DSA"
 msgid "SHA224 with ECDSA"
 msgstr "SHA1 com ECDSA"
 
 #: ../egg/egg-oid.c:108
-#| msgid "SHA1 with DSA"
 msgid "SHA256 with ECDSA"
 msgstr "SHA1 com ECDSA"
 
 #: ../egg/egg-oid.c:109
-#| msgid "SHA1 with DSA"
 msgid "SHA384 with ECDSA"
 msgstr "SHA1 com ECDSA"
 
 #: ../egg/egg-oid.c:110
-#| msgid "SHA1 with DSA"
 msgid "SHA512 with ECDSA"
 msgstr "SHA1 com ECDSA"
 
@@ -922,8 +917,6 @@ msgstr "Chave pública da curva elíptica"
 
 #: ../ui/gcr-key-renderer.c:377
 #, c-format
-#| msgid "%d bit"
-#| msgid_plural "%d bits"
 msgid "%u bit"
 msgid_plural "%u bits"
 msgstr[0] "%u bit"
@@ -1064,7 +1057,7 @@ msgstr "Trancar este chaveiro após"
 msgid "Lock this keyring if idle for"
 msgstr "Trancar este chaveiro se inativo por"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minutos"

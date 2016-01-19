@@ -1,3 +1,7 @@
+gcr 3.19.4:
+- Build fixes [#756235 #755873]
+- Updated translations
+
 gcr 3.18.0:
 - Updated translations
 

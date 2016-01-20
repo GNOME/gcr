@@ -1,201 +1,216 @@
 # Vietnamese translation of GNOME Keyring.
-# Copyright © 2010 GNOME i18n Project for Vietnamese.
+# Copyright © 2016 GNOME i18n Project for Vietnamese.
 # Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2004,2008,2011-2012.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2010.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2016.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-keyring 2.26.3\n"
+"Project-Id-Version: gcr gnome-3-18\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2012-06-30 03:45+0000\n"
-"PO-Revision-Date: 2012-08-22 14:32+0700\n"
-"Last-Translator: Nguyễn Thái Ngọc Duy <pclouds@gmail.com>\n"
-"Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
+"POT-Creation-Date: 2016-01-19 18:34+0000\n"
+"PO-Revision-Date: 2016-01-20 14:21+0700\n"
+"Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
+"Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: LocFactoryEditor 1.8\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
-#: ../egg/egg-oid.c:41
+#: ../egg/egg-oid.c:40
 msgid "Domain Component"
 msgstr "Thành phần Miền"
 
-#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:409
-#: ../gcr/gcr-gnupg-renderer.c:578
+#: ../egg/egg-oid.c:42 ../ui/gcr-gnupg-renderer.c:408
+#: ../ui/gcr-gnupg-renderer.c:577
 msgid "User ID"
 msgstr "Mã số người dùng"
 
-#: ../egg/egg-oid.c:46
+#: ../egg/egg-oid.c:45
 msgid "Email Address"
 msgstr "Thư điện tử"
 
-#: ../egg/egg-oid.c:54
+#: ../egg/egg-oid.c:53
 msgid "Date of Birth"
 msgstr "Ngày sinh"
 
-#: ../egg/egg-oid.c:56
+#: ../egg/egg-oid.c:55
 msgid "Place of Birth"
 msgstr "Nơi sinh"
 
-#: ../egg/egg-oid.c:58
+#: ../egg/egg-oid.c:57
 msgid "Gender"
 msgstr "Giới tính"
 
-#: ../egg/egg-oid.c:60
+#: ../egg/egg-oid.c:59
 msgid "Country of Citizenship"
-msgstr "Quốc gia cấp công dân"
+msgstr "Quốc tịch"
 
-#: ../egg/egg-oid.c:62
+#: ../egg/egg-oid.c:61
 msgid "Country of Residence"
 msgstr "Quốc gia ở"
 
-#: ../egg/egg-oid.c:65
+#: ../egg/egg-oid.c:64
 msgid "Common Name"
-msgstr "Tên chung"
+msgstr "Tên thường gọi"
 
-#: ../egg/egg-oid.c:67
+#: ../egg/egg-oid.c:66
 msgid "Surname"
 msgstr "Họ"
 
-#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:557
+#: ../egg/egg-oid.c:68 ../ui/gcr-certificate-renderer.c:559
 msgid "Serial Number"
 msgstr "Số thứ tự"
 
-#: ../egg/egg-oid.c:71
+#: ../egg/egg-oid.c:70
 msgid "Country"
 msgstr "Quốc gia"
 
-#: ../egg/egg-oid.c:73
+#: ../egg/egg-oid.c:72
 msgid "Locality"
 msgstr "Vùng"
 
-#: ../egg/egg-oid.c:75
+#: ../egg/egg-oid.c:74
 msgid "State"
 msgstr "Tỉnh"
 
-#: ../egg/egg-oid.c:77
+#: ../egg/egg-oid.c:76
 msgid "Street"
 msgstr "Đường"
 
-#: ../egg/egg-oid.c:79
+#: ../egg/egg-oid.c:78
 msgid "Organization"
 msgstr "Tổ chức"
 
-#: ../egg/egg-oid.c:81
+#: ../egg/egg-oid.c:80
 msgid "Organizational Unit"
 msgstr "Đơn vị tổ chức"
 
-#: ../egg/egg-oid.c:83
+#: ../egg/egg-oid.c:82
 msgid "Title"
 msgstr "Tuổi tác"
 
-#: ../egg/egg-oid.c:85
+#: ../egg/egg-oid.c:84
 msgid "Telephone Number"
 msgstr "Số điện thoại"
 
-#: ../egg/egg-oid.c:87
+#: ../egg/egg-oid.c:86
 msgid "Given Name"
 msgstr "Tên hay gọi"
 
-#: ../egg/egg-oid.c:89
+#: ../egg/egg-oid.c:88
 msgid "Initials"
 msgstr "Tên viết tắt"
 
-#: ../egg/egg-oid.c:91
+#: ../egg/egg-oid.c:90
 msgid "Generation Qualifier"
 msgstr "Thế hệ dè dặt"
 
-#: ../egg/egg-oid.c:93
+#: ../egg/egg-oid.c:92
 msgid "DN Qualifier"
 msgstr "Tên miền dè dặt"
 
-#: ../egg/egg-oid.c:95
+#: ../egg/egg-oid.c:94
 msgid "Pseudonym"
 msgstr "Biệt hiệu"
 
-#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
-#: ../gcr/gcr-key-renderer.c:429
+#: ../egg/egg-oid.c:97 ../ui/gcr-gnupg-renderer.c:199
+#: ../ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
-#: ../egg/egg-oid.c:99
+#: ../egg/egg-oid.c:98
 msgid "MD2 with RSA"
-msgstr "MD2 với mã hoá RSA"
+msgstr "MD2 với mã hóa RSA"
+
+#: ../egg/egg-oid.c:99
+msgid "MD5 with RSA"
+msgstr "MD5 với mã hóa RSA"
 
 #: ../egg/egg-oid.c:100
-msgid "MD5 with RSA"
-msgstr "MD5 với mã hoá RSA"
-
-#: ../egg/egg-oid.c:101
 msgid "SHA1 with RSA"
-msgstr "SHA1 với mã hoá RSA"
+msgstr "SHA1 với mã hóa RSA"
 
-#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
-#: ../gcr/gcr-key-renderer.c:431
+#: ../egg/egg-oid.c:102 ../ui/gcr-gnupg-renderer.c:203
+#: ../ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
-#: ../egg/egg-oid.c:104
+#: ../egg/egg-oid.c:103
 msgid "SHA1 with DSA"
-msgstr "SHA1 với mã hoá DSA"
+msgstr "SHA1 với mã hóa DSA"
+
+#: ../egg/egg-oid.c:105 ../ui/gcr-key-renderer.c:389
+msgid "Elliptic Curve"
+msgstr "Elliptic Curve"
+
+#: ../egg/egg-oid.c:106
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 với mã hóa ECDSA"
+
+#: ../egg/egg-oid.c:107
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 với mã hóa ECDSA"
+
+#: ../egg/egg-oid.c:108
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 với mã hóa ECDSA"
+
+#: ../egg/egg-oid.c:109
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 với mã hóa ECDSA"
+
+#: ../egg/egg-oid.c:110
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 với mã hóa ECDSA"
 
 #. Extended Key Usages
-#: ../egg/egg-oid.c:107
+#: ../egg/egg-oid.c:113
 msgid "Server Authentication"
 msgstr "Xác thực máy chủ"
 
-#: ../egg/egg-oid.c:108
+#: ../egg/egg-oid.c:114
 msgid "Client Authentication"
 msgstr "Xác thực máy khách"
 
-#: ../egg/egg-oid.c:109
+#: ../egg/egg-oid.c:115
 msgid "Code Signing"
 msgstr "Ký mã"
 
-#: ../egg/egg-oid.c:110
+#: ../egg/egg-oid.c:116
 msgid "Email Protection"
 msgstr "Bảo vệ thư"
 
-#: ../egg/egg-oid.c:111
+#: ../egg/egg-oid.c:117
 msgid "Time Stamping"
 msgstr "Tem thời gian"
 
-#: ../gck/gck-module.c:352
+#: ../gck/gck-module.c:344
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr "Lỗi nạp môđun PKCS#11: %s"
+msgstr "Lỗi tải mô-đun PKCS#11: %s"
 
-#: ../gck/gck-module.c:359
-#, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr "Môđun PKCS#11 không hợp lệ: %s"
-
-#: ../gck/gck-module.c:368
-#, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "Không thể thiết lập môđun PKCS#11: %s"
-
-#: ../gck/gck-module.c:384
+#: ../gck/gck-module.c:358
 #, c-format
 msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr "Không thể khởi động môđun PKCS#11: %s"
+msgstr "Không thể khởi tạo mô-đun PKCS#11: %s"
 
-#: ../gck/gck-modules.c:67
+#: ../gck/gck-modules.c:62
 #, c-format
 msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr "Không thể khởi động môđun PKCS#11 đã đăng ký: %s"
+msgstr "Không thể khởi tạo mô-đun PKCS#11 đã đăng ký: %s"
 
 #: ../gck/gck-uri.c:224
 #, c-format
 msgid "The URI has invalid encoding."
-msgstr "URI chứa mã hoá không hợp lệ."
+msgstr "URI chứa mã hóa không hợp lệ."
 
 #: ../gck/gck-uri.c:228
 msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "URI không có 'pkcs11'."
+msgstr "URI không có “pkcs11”."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -205,878 +220,916 @@ msgstr "URI sai cú pháp."
 msgid "The URI has a bad version number."
 msgstr "URI có số phiên bản sai."
 
-#: ../gcr/gcr-callback-output-stream.c:64
-#: ../gcr/gcr-callback-output-stream.c:81
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "Luồng bị đóng"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
+#: ../gcr/gcr-certificate.c:350 ../gcr/gcr-gnupg-key.c:430
 msgctxt "column"
 msgid "Name"
 msgstr "Tên"
 
-#: ../gcr/gcr-certificate.c:310
+#: ../gcr/gcr-certificate.c:352
 msgctxt "column"
 msgid "Issued By"
 msgstr "Cấp bởi"
 
 #. later
-#: ../gcr/gcr-certificate.c:312
+#: ../gcr/gcr-certificate.c:354
 msgctxt "column"
 msgid "Expires"
 msgstr "Hết hạn"
 
-#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:102 ../gcr/gcr-parser.c:322
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Chứng nhận"
 
-#: ../gcr/gcr-certificate-exporter.c:225
-msgid ""
-"<b>A file already exists with this name.</b>\n"
-"\n"
-"Do you want to replace it with a new file?"
-msgstr ""
-"<b>Đã có tập tin với tên này.</b>\n"
-"\n"
-"Bạn có muốn thay thế bằng tập tin mới không?"
-
-#: ../gcr/gcr-certificate-exporter.c:228
-msgid "_Replace"
-msgstr "_Thay thế"
-
-#: ../gcr/gcr-certificate-exporter.c:258
-#, c-format
-msgid "The operation was cancelled."
-msgstr "Thao tác bị huỷ."
-
-#: ../gcr/gcr-certificate-exporter.c:302
-msgid "Export certificate"
-msgstr "Xuất chứng nhận"
-
-#: ../gcr/gcr-certificate-exporter.c:314
-msgid "Certificate files"
-msgstr "Tập tin chứng nhận"
-
-#: ../gcr/gcr-certificate-exporter.c:325
-msgid "PEM files"
-msgstr "Tập tin PEM"
-
-#: ../gcr/gcr-certificate-extensions.c:178
+#: ../gcr/gcr-certificate-extensions.c:177
 msgid "Other Name"
 msgstr "Tên khác"
 
-#: ../gcr/gcr-certificate-extensions.c:188
+#: ../gcr/gcr-certificate-extensions.c:187
 msgid "XMPP Addr"
 msgstr "ĐC XMPP"
 
-#: ../gcr/gcr-certificate-extensions.c:192
+#: ../gcr/gcr-certificate-extensions.c:191
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: ../gcr/gcr-certificate-extensions.c:204 ../gcr/gcr-gnupg-renderer.c:422
-#: ../gcr/gcr-gnupg-renderer.c:704
+#: ../gcr/gcr-certificate-extensions.c:203 ../ui/gcr-gnupg-renderer.c:421
+#: ../ui/gcr-gnupg-renderer.c:703
 msgid "Email"
 msgstr "Địa chỉ thư"
 
-#: ../gcr/gcr-certificate-extensions.c:212
+#: ../gcr/gcr-certificate-extensions.c:211
 msgid "DNS"
 msgstr "DNS"
 
-#: ../gcr/gcr-certificate-extensions.c:220
+#: ../gcr/gcr-certificate-extensions.c:219
 msgid "X400 Address"
 msgstr "Địa chỉ X400"
 
-#: ../gcr/gcr-certificate-extensions.c:227
+#: ../gcr/gcr-certificate-extensions.c:226
 msgid "Directory Name"
 msgstr "Tên thư mục"
 
-#: ../gcr/gcr-certificate-extensions.c:235
+#: ../gcr/gcr-certificate-extensions.c:234
 msgid "EDI Party Name"
-msgstr ""
+msgstr "Tên EDI Party"
 
-#: ../gcr/gcr-certificate-extensions.c:242
+#: ../gcr/gcr-certificate-extensions.c:241
 msgid "URI"
 msgstr "URI"
 
-#: ../gcr/gcr-certificate-extensions.c:250
+#: ../gcr/gcr-certificate-extensions.c:249
 msgid "IP Address"
 msgstr "Địa chỉ IP"
 
-#: ../gcr/gcr-certificate-extensions.c:258
+#: ../gcr/gcr-certificate-extensions.c:257
 msgid "Registered ID"
 msgstr "ID đăng ký"
 
-#: ../gcr/gcr-certificate-renderer.c:117
-msgid "Basic Constraints"
-msgstr "Ràng buộc cơ bản"
-
-#: ../gcr/gcr-certificate-renderer.c:119
-msgid "Certificate Authority"
-msgstr "Nhà cầm quyền Chứng nhận"
-
-#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
-msgid "Yes"
-msgstr "Có"
-
-#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
-msgid "No"
-msgstr "Không"
-
-#: ../gcr/gcr-certificate-renderer.c:123
-msgid "Max Path Length"
-msgstr "Chiều dài đường dẫn tối đa"
-
-#: ../gcr/gcr-certificate-renderer.c:124
-msgid "Unlimited"
-msgstr "Không giới hạn"
-
-#: ../gcr/gcr-certificate-renderer.c:143
-msgid "Extended Key Usage"
-msgstr "Cách dùng khoá mở rộng"
-
-#: ../gcr/gcr-certificate-renderer.c:154
-msgid "Allowed Purposes"
-msgstr "Mục đích cho phép"
-
-#: ../gcr/gcr-certificate-renderer.c:174
-msgid "Subject Key Identifier"
-msgstr "Định danh khoá chủ đề"
-
-#: ../gcr/gcr-certificate-renderer.c:175
-msgid "Key Identifier"
-msgstr "Định danh khoá"
-
-#: ../gcr/gcr-certificate-renderer.c:186
-msgid "Digital signature"
-msgstr "Chữ ký điện tử"
-
-#: ../gcr/gcr-certificate-renderer.c:187
-msgid "Key encipherment"
-msgstr "Mật mã hoá khoá"
-
-#: ../gcr/gcr-certificate-renderer.c:188
-msgid "Data encipherment"
-msgstr "Mật mã hoá dữ liệu"
-
-#: ../gcr/gcr-certificate-renderer.c:189
-msgid "Key agreement"
-msgstr "Thoả thuận khoá"
-
-#: ../gcr/gcr-certificate-renderer.c:190
-msgid "Certificate signature"
-msgstr "Chữ ký chứng nhận"
-
-#: ../gcr/gcr-certificate-renderer.c:191
-msgid "Revocation list signature"
-msgstr "Chữ ký danh mục thu hồi"
-
-#: ../gcr/gcr-certificate-renderer.c:216
-msgid "Key Usage"
-msgstr "Cách dùng khoá"
-
-#: ../gcr/gcr-certificate-renderer.c:217
-msgid "Usages"
-msgstr "Cách dùng"
-
-#: ../gcr/gcr-certificate-renderer.c:237
-msgid "Subject Alternative Names"
-msgstr "Tên chủ đề thay thế"
-
-#: ../gcr/gcr-certificate-renderer.c:264
-msgid "Extension"
-msgstr "Phần mở rộng"
-
-#: ../gcr/gcr-certificate-renderer.c:268
-msgid "Identifier"
-msgstr "Dấu nhận diện"
-
-#: ../gcr/gcr-certificate-renderer.c:269
-#: ../gcr/gcr-certificate-request-renderer.c:272
-#: ../gcr/gcr-gnupg-renderer.c:413 ../gcr/gcr-gnupg-renderer.c:430
-msgid "Value"
-msgstr "Giá trị"
-
-#: ../gcr/gcr-certificate-renderer.c:294
-msgid "Couldn't export the certificate."
-msgstr "Không thể xuất chứng nhận."
-
-#: ../gcr/gcr-certificate-renderer.c:519
-#: ../gcr/gcr-certificate-request-renderer.c:313
-msgid "Identity"
-msgstr "Nhận diện"
-
-#: ../gcr/gcr-certificate-renderer.c:523
-msgid "Verified by"
-msgstr "Kiểm chứng bởi"
-
-#: ../gcr/gcr-certificate-renderer.c:530 ../gcr/gcr-gnupg-renderer.c:718
-msgid "Expires"
-msgstr "Hết hạn"
-
-#. The subject
-#: ../gcr/gcr-certificate-renderer.c:537
-#: ../gcr/gcr-certificate-request-renderer.c:319
-msgid "Subject Name"
-msgstr "Tên chủ đề"
-
-#. The Issuer
-#: ../gcr/gcr-certificate-renderer.c:542
-msgid "Issuer Name"
-msgstr "Tên nhà cấp"
-
-#. The Issued Parameters
-#: ../gcr/gcr-certificate-renderer.c:547
-msgid "Issued Certificate"
-msgstr "Chứng nhận đã cấp"
-
-#: ../gcr/gcr-certificate-renderer.c:552
-#: ../gcr/gcr-certificate-request-renderer.c:330
-msgid "Version"
-msgstr "Phiên bản"
-
-#: ../gcr/gcr-certificate-renderer.c:566
-msgid "Not Valid Before"
-msgstr "Không đúng đắn trước"
-
-#: ../gcr/gcr-certificate-renderer.c:571
-msgid "Not Valid After"
-msgstr "Không đúng đắn sau"
-
-#. Fingerprints
-#: ../gcr/gcr-certificate-renderer.c:576
-msgid "Certificate Fingerprints"
-msgstr "Vân tay chứng nhận"
-
-#. Public Key Info
-#: ../gcr/gcr-certificate-renderer.c:582
-#: ../gcr/gcr-certificate-request-renderer.c:333
-#: ../gcr/gcr-certificate-request-renderer.c:379
-msgid "Public Key Info"
-msgstr "Thông tin khoá công khai"
-
-#. Signature
-#: ../gcr/gcr-certificate-renderer.c:597 ../gcr/gcr-certificate-renderer.c:918
-#: ../gcr/gcr-certificate-request-renderer.c:349
-#: ../gcr/gcr-certificate-request-renderer.c:386
-#: ../gcr/gcr-gnupg-renderer.c:559
-msgid "Signature"
-msgstr "Chữ ký"
-
-#: ../gcr/gcr-certificate-renderer.c:864
-msgid "Key Algorithm"
-msgstr "Thuật toán khoá"
-
-#: ../gcr/gcr-certificate-renderer.c:869
-msgid "Key Parameters"
-msgstr "Tham số Khoá"
-
-#: ../gcr/gcr-certificate-renderer.c:877 ../gcr/gcr-gnupg-renderer.c:352
-msgid "Key Size"
-msgstr "Cỡ khoá"
-
-#: ../gcr/gcr-certificate-renderer.c:885
-msgid "Key SHA1 Fingerprint"
-msgstr "Vân tay khoá SHA1"
-
-#: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
-#: ../gcr/gcr-key-renderer.c:414 ../gcr/gcr-parser.c:325
-msgid "Public Key"
-msgstr "Khoá công khai"
-
-#: ../gcr/gcr-certificate-renderer.c:907
-msgid "Signature Algorithm"
-msgstr "Thuật toán chữ ký"
-
-#: ../gcr/gcr-certificate-renderer.c:911
-msgid "Signature Parameters"
-msgstr "Tham số Chữ ký"
-
-#: ../gcr/gcr-certificate-renderer.c:960
-msgid "Critical"
-msgstr "Tới hạn"
-
-#: ../gcr/gcr-certificate-request.c:418
+#: ../gcr/gcr-certificate-request.c:415
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr "Loại khoá không hỗ trợ cho yêu cầu chứng nhận"
+msgstr "Loại khóa không hỗ trợ cho yêu cầu chứng nhận"
 
-#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
+#: ../gcr/gcr-certificate-request.c:502 ../gcr/gcr-certificate-request.c:587
 #, c-format
 msgid "The key cannot be used to sign the request"
-msgstr "Không thể dùng khoá này để ký yêu cầu"
+msgstr "Không thể dùng khóa này để ký yêu cầu"
 
-#. The certificate request type
-#: ../gcr/gcr-certificate-request-renderer.c:95
-#: ../gcr/gcr-certificate-request-renderer.c:308
-#: ../gcr/gcr-certificate-request-renderer.c:323
-#: ../gcr/gcr-certificate-request-renderer.c:366
-#: ../gcr/gcr-certificate-request-renderer.c:371
-msgid "Certificate request"
-msgstr "Yêu cầu chứng nhận"
-
-#: ../gcr/gcr-certificate-request-renderer.c:261
-msgid "Attribute"
-msgstr "Thuộc tính"
-
-#: ../gcr/gcr-certificate-request-renderer.c:265
-#: ../gcr/gcr-certificate-request-renderer.c:324
-#: ../gcr/gcr-certificate-request-renderer.c:372
-#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:592
-msgid "Type"
-msgstr "Loại"
-
-#: ../gcr/gcr-certificate-request-renderer.c:376
-msgid "Challenge"
-msgstr "Thử thách"
-
-#: ../gcr/gcr-display-view.c:319
-msgid "_Details"
-msgstr "Ch_i tiết"
-
-#: ../gcr/gcr-failure-renderer.c:160
-#, c-format
-msgid "Could not display '%s'"
-msgstr "Không thể hiển thị '%s'"
-
-#: ../gcr/gcr-failure-renderer.c:162
-msgid "Could not display file"
-msgstr "Không thể hiện tập tin"
-
-#: ../gcr/gcr-failure-renderer.c:167
-msgid "Reason"
-msgstr "Lí do"
-
-#: ../gcr/gcr-failure-renderer.c:217
-#, c-format
-msgid "Cannot display a file of this type."
-msgstr "Không thể hiện tập tin loại này."
+#: ../gcr/gcr-gnupg-importer.c:94
+msgid "GnuPG Keyring"
+msgstr "Vòng khóa GnuPG"
 
 #: ../gcr/gcr-gnupg-importer.c:96
-msgid "GnuPG Keyring"
-msgstr "Vòng khoá GnuPG"
-
-#: ../gcr/gcr-gnupg-importer.c:98
 #, c-format
 msgid "GnuPG Keyring: %s"
-msgstr "Vòng khoá GnuPG: %s"
+msgstr "Vòng khóa GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-gnupg-renderer.c:88
-#: ../gcr/gcr-parser.c:328
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "Khóa PGP"
 
-#: ../gcr/gcr-gnupg-key.c:434
+#: ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Key ID"
-msgstr "ID khoá"
+msgstr "ID khóa"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Tiến trình gpupg kết thúc với mã: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Tiến trình gpupg bị kết thúc bằng tín hiệu: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
-#: ../gcr/gcr-parser.c:2917
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
-msgstr "Thao tác bị huỷ"
+msgstr "Thao tác bị hủy"
 
-#: ../gcr/gcr-gnupg-renderer.c:202
-msgid "Elgamal"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:215
-msgid "Encrypt"
-msgstr "Mật mã hoá"
-
-#: ../gcr/gcr-gnupg-renderer.c:217
-msgid "Sign"
-msgstr "Ký"
-
-#: ../gcr/gcr-gnupg-renderer.c:219
-msgid "Certify"
-msgstr "Chứng nhận"
-
-#: ../gcr/gcr-gnupg-renderer.c:221
-msgid "Authenticate"
-msgstr "Xác thực"
-
-#: ../gcr/gcr-gnupg-renderer.c:223 ../gcr/gcr-gnupg-renderer.c:258
-msgid "Disabled"
-msgstr "Tắt"
-
-#: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-key-renderer.c:433 ../gcr/gcr-key-renderer.c:438
-msgid "Unknown"
-msgstr "Không biết"
-
-#: ../gcr/gcr-gnupg-renderer.c:256
-msgid "Invalid"
-msgstr "Không hợp lệ"
-
-#: ../gcr/gcr-gnupg-renderer.c:260
-msgid "Revoked"
-msgstr "Thu hồi"
-
-#: ../gcr/gcr-gnupg-renderer.c:262
-msgid "Expired"
-msgstr "Hết hạn"
-
-#: ../gcr/gcr-gnupg-renderer.c:264
-msgid "Undefined trust"
-msgstr "Không xác định"
-
-#: ../gcr/gcr-gnupg-renderer.c:266
-msgid "Distrusted"
-msgstr "Không tin cậy"
-
-#: ../gcr/gcr-gnupg-renderer.c:268
-msgid "Marginally trusted"
-msgstr "Có thể tin cậy"
-
-#: ../gcr/gcr-gnupg-renderer.c:270
-msgid "Fully trusted"
-msgstr "Tin cậy hoàn toàn"
-
-#: ../gcr/gcr-gnupg-renderer.c:272
-msgid "Ultimately trusted"
-msgstr "Tin cậy tuyệt đối"
-
-#: ../gcr/gcr-gnupg-renderer.c:286
-msgid "The information in this key has not yet been verified"
-msgstr "Thông tin trong khoá này chưa được xác minh"
-
-#: ../gcr/gcr-gnupg-renderer.c:289
-msgid "This key is invalid"
-msgstr "Khoá này không hợp lệ"
-
-#: ../gcr/gcr-gnupg-renderer.c:292
-msgid "This key has been disabled"
-msgstr "Khoá này bị vô hiệu hoá"
-
-#: ../gcr/gcr-gnupg-renderer.c:295
-msgid "This key has been revoked"
-msgstr "Khoá này bị thu hồi"
-
-#: ../gcr/gcr-gnupg-renderer.c:298
-msgid "This key has expired"
-msgstr "Khoá này đã hết hạn"
-
-#: ../gcr/gcr-gnupg-renderer.c:303
-msgid "This key is distrusted"
-msgstr "Khoá không được tin cập"
-
-#: ../gcr/gcr-gnupg-renderer.c:306
-msgid "This key is marginally trusted"
-msgstr "Khoá này được tin cậy một phần"
-
-#: ../gcr/gcr-gnupg-renderer.c:309
-msgid "This key is fully trusted"
-msgstr "Khoá này được tin cậy hoàn toàn"
-
-#: ../gcr/gcr-gnupg-renderer.c:312
-msgid "This key is ultimately trusted"
-msgstr "Khoá này được tin cậy tuyệt đối"
-
-#: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
-msgid "Key ID"
-msgstr "ID khoá"
-
-#: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
-#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:434
-msgid "Algorithm"
-msgstr "Thuật toán"
-
-#: ../gcr/gcr-gnupg-renderer.c:360 ../gcr/gcr-gnupg-renderer.c:437
-#: ../gcr/gcr-gnupg-renderer.c:480
-msgid "Created"
-msgstr "Lúc tạo"
-
-#: ../gcr/gcr-gnupg-renderer.c:369 ../gcr/gcr-gnupg-renderer.c:446
-#: ../gcr/gcr-gnupg-renderer.c:489
-msgid "Expiry"
-msgstr "Hết hạn"
-
-#: ../gcr/gcr-gnupg-renderer.c:378
-msgid "Capabilities"
-msgstr "Khả năng"
-
-#: ../gcr/gcr-gnupg-renderer.c:391
-msgid "Owner trust"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:419
-msgid "Name"
-msgstr "Tên"
-
-#: ../gcr/gcr-gnupg-renderer.c:425 ../gcr/gcr-gnupg-renderer.c:707
-msgid "Comment"
-msgstr "Ghi chú"
-
-#: ../gcr/gcr-gnupg-renderer.c:465
-msgid "User Attribute"
-msgstr "Thuộc tính người dùng"
-
-#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
-msgid "Size"
-msgstr "Cỡ"
-
-#: ../gcr/gcr-gnupg-renderer.c:507
-msgid "Signature of a binary document"
-msgstr "Chữ ký tài liệu nhị phân"
-
-#: ../gcr/gcr-gnupg-renderer.c:509
-msgid "Signature of a canonical text document"
-msgstr "Chữ ký văn bản thô"
-
-#: ../gcr/gcr-gnupg-renderer.c:511
-msgid "Standalone signature"
-msgstr "Chữ ký độc lập"
-
-#: ../gcr/gcr-gnupg-renderer.c:513
-msgid "Generic certification of key"
-msgstr "Chứng nhận chung của khoá"
-
-#: ../gcr/gcr-gnupg-renderer.c:515
-msgid "Persona certification of key"
-msgstr "Chứng nhận cá nhân của khoá"
-
-#: ../gcr/gcr-gnupg-renderer.c:517
-msgid "Casual certification of key"
-msgstr "Chứng nhận thường ngày của khoá"
-
-#: ../gcr/gcr-gnupg-renderer.c:519
-msgid "Positive certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:521
-msgid "Subkey binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:523
-msgid "Primary key binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:525
-msgid "Signature directly on key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:527
-msgid "Key revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:529
-msgid "Subkey revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:531
-msgid "Certification revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:533
-msgid "Timestamp signature"
-msgstr "Chữ ký tem thời gian"
-
-#: ../gcr/gcr-gnupg-renderer.c:535
-msgid "Third-party confirmation signature"
-msgstr "Chữ ký xác nhận bên thứ ba"
-
-#: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
-msgid "Class"
-msgstr "Lớp"
-
-#: ../gcr/gcr-gnupg-renderer.c:590
-msgid "Local only"
-msgstr "Chỉ nội bộ"
-
-#: ../gcr/gcr-gnupg-renderer.c:592
-msgid "Exportable"
-msgstr "Có thể xuất"
-
-#: ../gcr/gcr-gnupg-renderer.c:610
-msgid "Revocation Key"
-msgstr "Khoá thu hồi"
-
-#: ../gcr/gcr-gnupg-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:648
-#: ../gcr/gcr-gnupg-renderer.c:650
-msgid "Fingerprint"
-msgstr "Vân tay"
-
-#: ../gcr/gcr-gnupg-renderer.c:739
-msgid "Public Subkey"
-msgstr "Khoá công khai phụ"
-
-#: ../gcr/gcr-gnupg-renderer.c:741
-msgid "Secret Key"
-msgstr "Khoá mật"
-
-#: ../gcr/gcr-gnupg-renderer.c:743
-msgid "Secret Subkey"
-msgstr "Khoá mật phụ"
-
-#: ../gcr/gcr-import-button.c:111
-msgid "Initializing..."
-msgstr "Đang khởi động..."
-
-#: ../gcr/gcr-import-button.c:119
-msgid "Import is in progress..."
-msgstr "Đang nhập..."
-
-#: ../gcr/gcr-import-button.c:126
-#, c-format
-msgid "Imported to: %s"
-msgstr "Nhập vào: %s"
-
-#: ../gcr/gcr-import-button.c:146
-#, c-format
-msgid "Import to: %s"
-msgstr "Nhập vào: %s"
-
-#: ../gcr/gcr-import-button.c:159
-msgid "Cannot import because there are no compatible importers"
-msgstr ""
-
-#: ../gcr/gcr-import-button.c:168
-msgid "No data to import"
-msgstr "Không có dữ liệu để nhập"
-
-#: ../gcr/gcr-key-renderer.c:89
-msgid "Key"
-msgstr "Khóa"
-
-#: ../gcr/gcr-key-renderer.c:403
-msgid "Private RSA Key"
-msgstr "Khoá cá nhân RSA"
-
-#: ../gcr/gcr-key-renderer.c:405
-msgid "Private DSA Key"
-msgstr "Khoá cá nhân DSA"
-
-#: ../gcr/gcr-key-renderer.c:407 ../gcr/gcr-parser.c:319
+#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
-msgstr "Khoá cá nhân"
+msgstr "Khóa cá nhân"
 
-#: ../gcr/gcr-key-renderer.c:410 ../gcr/gcr-key-renderer.c:412
-msgid "Public DSA Key"
-msgstr "Khoá công khai DSA"
+#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
+msgid "Public Key"
+msgstr "Khóa công khai"
 
-#: ../gcr/gcr-key-renderer.c:421
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] "%d bit"
-
-#: ../gcr/gcr-key-renderer.c:422
-msgid "Strength"
-msgstr "Độ mạnh"
-
-#. Fingerprints
-#: ../gcr/gcr-key-renderer.c:445
-msgid "Fingerprints"
-msgstr "Vân tay"
-
-#: ../gcr/gcr-key-renderer.c:449
-msgid "SHA1"
-msgstr "SHA1"
-
-#: ../gcr/gcr-key-renderer.c:454
-msgid "SHA256"
-msgstr "SHA256"
-
-#: ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-parser.c:334
 msgid "Certificate Request"
 msgstr "Yêu cầu chứng nhận"
 
-#: ../gcr/gcr-parser.c:2427
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Dữ liệu không được nhận ra hay không được hỗ trợ."
 
-#: ../gcr/gcr-parser.c:2430
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr ""
 "Không thể phân tích cú pháp của dữ liệu không hợp lệ hay dữ liệu bị hỏng."
 
-#: ../gcr/gcr-parser.c:2433
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
-msgstr "Dữ liệu bị khoá"
+msgstr "Dữ liệu bị khóa"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:187
-msgid "Automatically chosen"
-msgstr "Tự động chọn"
-
-#: ../gcr/gcr-pkcs11-import-dialog.c:271
-#: ../gcr/gcr-pkcs11-import-interaction.c:153
-#: ../gcr/gcr-pkcs11-import-interaction.c:171
-#, c-format
-msgid "The user cancelled the operation"
-msgstr "Người dùng huỷ thao tác này"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-msgid "In order to import, please enter the password."
-msgstr "Để nhập, vui lòng nhập mật mã."
-
-#. The password label
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:559
-msgid "Password:"
-msgstr "Mật khẩu:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
-msgid "Token:"
-msgstr "Thẻ bài:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
-msgid "Label"
-msgstr "Nhãn"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5 ../gcr/gcr-unlock-renderer.c:71
-#: ../gcr/gcr-unlock-renderer.c:128
-msgid "Unlock"
-msgstr "Mở khoá"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
-msgid "Label:"
-msgstr "Nhãn:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
-msgid "Import settings"
-msgstr "Thiết lập nhập"
-
-#: ../gcr/gcr-prompt.c:218
+#: ../gcr/gcr-prompt.c:225
 msgid "Continue"
 msgstr "Tiếp tục"
 
-#: ../gcr/gcr-prompt.c:227
+#: ../gcr/gcr-prompt.c:234
 msgid "Cancel"
 msgstr "Thôi"
 
-#. The confirm label
-#: ../gcr/gcr-prompt-dialog.c:576
-msgid "Confirm:"
-msgstr "Xác nhận:"
-
-#: ../gcr/gcr-prompt-dialog.c:643
-msgid "Passwords do not match."
-msgstr "Mật khẩu không khớp."
-
-#: ../gcr/gcr-prompt-dialog.c:650
-msgid "Password cannot be blank"
-msgstr "Phải có mật khẩu"
-
-#: ../gcr/gcr-prompter.desktop.in.in.h:1
-msgid "Access Prompt"
-msgstr "Nhắc truy cập"
-
-#: ../gcr/gcr-prompter.desktop.in.in.h:2
-msgid "Unlock access to passwords and other secrets"
-msgstr "Mở khoá để truy cập mật khẩu và các bí mật khác"
-
-#: ../gcr/gcr-subject-public-key.c:345
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "các thuộc tính cho khóa không nhận ra hoặc không sẵn có"
 
-#: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
 msgid "Couldn't build public key"
-msgstr "Không thể tạo khoá công khai"
+msgstr "Không thể tạo khóa công khai"
 
-#: ../gcr/gcr-system-prompt.c:749
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Một câu hỏi khác đang chờ"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:370
+#: ../gcr/gcr-trust.c:364
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
-msgstr "Không tìm thấy vị trí lưu chứng nhận/khoá được nhập."
+msgstr "Không tìm thấy vị trí lưu chứng nhận/khóa được nhập."
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:1
+#: ../ui/gcr-certificate-renderer.c:117
+msgid "Basic Constraints"
+msgstr "Ràng buộc cơ bản"
+
+#: ../ui/gcr-certificate-renderer.c:119
+msgid "Certificate Authority"
+msgstr "Có quyền chứng nhận"
+
+#: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
+msgid "Yes"
+msgstr "Có"
+
+#: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
+msgid "No"
+msgstr "Không"
+
+#: ../ui/gcr-certificate-renderer.c:123
+msgid "Max Path Length"
+msgstr "Chiều dài đường dẫn tối đa"
+
+#: ../ui/gcr-certificate-renderer.c:124
+msgid "Unlimited"
+msgstr "Không giới hạn"
+
+#: ../ui/gcr-certificate-renderer.c:143
+msgid "Extended Key Usage"
+msgstr "Cách dùng khóa mở rộng"
+
+#: ../ui/gcr-certificate-renderer.c:154
+msgid "Allowed Purposes"
+msgstr "Mục đích cho phép"
+
+#: ../ui/gcr-certificate-renderer.c:174
+msgid "Subject Key Identifier"
+msgstr "Định danh khóa chủ thể"
+
+#: ../ui/gcr-certificate-renderer.c:175
+msgid "Key Identifier"
+msgstr "Định danh khóa"
+
+#: ../ui/gcr-certificate-renderer.c:186
+msgid "Digital signature"
+msgstr "Chữ ký điện tử"
+
+#: ../ui/gcr-certificate-renderer.c:187
+msgid "Key encipherment"
+msgstr "Mật mã hóa khóa"
+
+#: ../ui/gcr-certificate-renderer.c:188
+msgid "Data encipherment"
+msgstr "Mật mã hóa dữ liệu"
+
+#: ../ui/gcr-certificate-renderer.c:189
+msgid "Key agreement"
+msgstr "Thỏa thuận khóa"
+
+#: ../ui/gcr-certificate-renderer.c:190
+msgid "Certificate signature"
+msgstr "Chữ ký chứng nhận"
+
+#: ../ui/gcr-certificate-renderer.c:191
+msgid "Revocation list signature"
+msgstr "Chữ ký danh mục thu hồi"
+
+#: ../ui/gcr-certificate-renderer.c:216
+msgid "Key Usage"
+msgstr "Cách dùng khóa"
+
+#: ../ui/gcr-certificate-renderer.c:217
+msgid "Usages"
+msgstr "Cách dùng"
+
+#: ../ui/gcr-certificate-renderer.c:237
+msgid "Subject Alternative Names"
+msgstr "Tên chủ thể thay thế"
+
+#: ../ui/gcr-certificate-renderer.c:264
+msgid "Extension"
+msgstr "Phần mở rộng"
+
+#: ../ui/gcr-certificate-renderer.c:268
+msgid "Identifier"
+msgstr "Định danh"
+
+#: ../ui/gcr-certificate-renderer.c:269
+#: ../ui/gcr-certificate-request-renderer.c:269 ../ui/gcr-gnupg-renderer.c:412
+#: ../ui/gcr-gnupg-renderer.c:429
+msgid "Value"
+msgstr "Giá trị"
+
+#: ../ui/gcr-certificate-renderer.c:287
+msgid "Couldn't export the certificate."
+msgstr "Không thể xuất chứng nhận."
+
+#: ../ui/gcr-certificate-renderer.c:521
+#: ../ui/gcr-certificate-request-renderer.c:310
+msgid "Identity"
+msgstr "Định danh"
+
+#: ../ui/gcr-certificate-renderer.c:525
+msgid "Verified by"
+msgstr "Kiểm chứng bởi"
+
+#: ../ui/gcr-certificate-renderer.c:532 ../ui/gcr-gnupg-renderer.c:717
+msgid "Expires"
+msgstr "Hết hạn"
+
+#. The subject
+#: ../ui/gcr-certificate-renderer.c:539
+#: ../ui/gcr-certificate-request-renderer.c:316
+msgid "Subject Name"
+msgstr "Tên chủ thể"
+
+#. The Issuer
+#: ../ui/gcr-certificate-renderer.c:544
+msgid "Issuer Name"
+msgstr "Tên nhà cấp"
+
+#. The Issued Parameters
+#: ../ui/gcr-certificate-renderer.c:549
+msgid "Issued Certificate"
+msgstr "Chứng nhận đã cấp"
+
+#: ../ui/gcr-certificate-renderer.c:554
+#: ../ui/gcr-certificate-request-renderer.c:327
+msgid "Version"
+msgstr "Phiên bản"
+
+#: ../ui/gcr-certificate-renderer.c:568
+msgid "Not Valid Before"
+msgstr "Không hợp lệ trước"
+
+#: ../ui/gcr-certificate-renderer.c:573
+msgid "Not Valid After"
+msgstr "Không hợp lệ sau"
+
+#. Fingerprints
+#: ../ui/gcr-certificate-renderer.c:578
+msgid "Certificate Fingerprints"
+msgstr "Vân tay chứng nhận"
+
+#. Public Key Info
+#: ../ui/gcr-certificate-renderer.c:584
+#: ../ui/gcr-certificate-request-renderer.c:330
+#: ../ui/gcr-certificate-request-renderer.c:376
+msgid "Public Key Info"
+msgstr "Thông tin khóa công khai"
+
+#. Signature
+#: ../ui/gcr-certificate-renderer.c:599 ../ui/gcr-certificate-renderer.c:909
+#: ../ui/gcr-certificate-request-renderer.c:346
+#: ../ui/gcr-certificate-request-renderer.c:383 ../ui/gcr-gnupg-renderer.c:558
+msgid "Signature"
+msgstr "Chữ ký"
+
+#: ../ui/gcr-certificate-renderer.c:616
+msgid "Export Certificate…"
+msgstr "Xuất chứng nhận…"
+
+#: ../ui/gcr-certificate-renderer.c:855
+msgid "Key Algorithm"
+msgstr "Thuật toán khóa"
+
+#: ../ui/gcr-certificate-renderer.c:860
+msgid "Key Parameters"
+msgstr "Tham số khóa"
+
+#: ../ui/gcr-certificate-renderer.c:868 ../ui/gcr-gnupg-renderer.c:351
+msgid "Key Size"
+msgstr "Cỡ khóa"
+
+#: ../ui/gcr-certificate-renderer.c:876
+msgid "Key SHA1 Fingerprint"
+msgstr "Vân tay khóa SHA1"
+
+#: ../ui/gcr-certificate-renderer.c:898
+msgid "Signature Algorithm"
+msgstr "Thuật toán chữ ký"
+
+#: ../ui/gcr-certificate-renderer.c:902
+msgid "Signature Parameters"
+msgstr "Tham số chữ ký"
+
+#: ../ui/gcr-certificate-renderer.c:951
+msgid "Critical"
+msgstr "Tới hạn"
+
+#. The certificate request type
+#: ../ui/gcr-certificate-request-renderer.c:94
+#: ../ui/gcr-certificate-request-renderer.c:305
+#: ../ui/gcr-certificate-request-renderer.c:320
+#: ../ui/gcr-certificate-request-renderer.c:363
+#: ../ui/gcr-certificate-request-renderer.c:368
+msgid "Certificate request"
+msgstr "Yêu cầu chứng nhận"
+
+#: ../ui/gcr-certificate-request-renderer.c:258
+msgid "Attribute"
+msgstr "Thuộc tính"
+
+#: ../ui/gcr-certificate-request-renderer.c:262
+#: ../ui/gcr-certificate-request-renderer.c:321
+#: ../ui/gcr-certificate-request-renderer.c:369 ../ui/gcr-gnupg-renderer.c:589
+#: ../ui/gcr-gnupg-renderer.c:591
+msgid "Type"
+msgstr "Loại"
+
+#: ../ui/gcr-certificate-request-renderer.c:373
+msgid "Challenge"
+msgstr "Thử thách"
+
+#: ../ui/gcr-display-view.c:316
+msgid "_Details"
+msgstr "Ch_i tiết"
+
+#: ../ui/gcr-failure-renderer.c:159
+#, c-format
+msgid "Could not display '%s'"
+msgstr "Không thể hiển thị “%s”"
+
+#: ../ui/gcr-failure-renderer.c:161
+msgid "Could not display file"
+msgstr "Không thể hiện tập tin"
+
+#: ../ui/gcr-failure-renderer.c:166
+msgid "Reason"
+msgstr "Lý do"
+
+#: ../ui/gcr-failure-renderer.c:216
+#, c-format
+msgid "Cannot display a file of this type."
+msgstr "Không thể hiện tập tin loại này."
+
+#: ../ui/gcr-gnupg-renderer.c:201
+msgid "Elgamal"
+msgstr "Elgamal"
+
+#: ../ui/gcr-gnupg-renderer.c:214
+msgid "Encrypt"
+msgstr "Mã hóa"
+
+#: ../ui/gcr-gnupg-renderer.c:216
+msgid "Sign"
+msgstr "Ký"
+
+#: ../ui/gcr-gnupg-renderer.c:218
+msgid "Certify"
+msgstr "Chứng nhận"
+
+#: ../ui/gcr-gnupg-renderer.c:220
+msgid "Authenticate"
+msgstr "Xác thực"
+
+#: ../ui/gcr-gnupg-renderer.c:222
+msgctxt "capability"
+msgid "Disabled"
+msgstr "Bị tắt"
+
+#: ../ui/gcr-gnupg-renderer.c:253 ../ui/gcr-gnupg-renderer.c:412
+#: ../ui/gcr-key-renderer.c:391 ../ui/gcr-key-renderer.c:395
+msgid "Unknown"
+msgstr "Không biết"
+
+#: ../ui/gcr-gnupg-renderer.c:255
+msgid "Invalid"
+msgstr "Không hợp lệ"
+
+#: ../ui/gcr-gnupg-renderer.c:257
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Đã tắt"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgid "Revoked"
+msgstr "Thu hồi"
+
+#: ../ui/gcr-gnupg-renderer.c:261
+msgid "Expired"
+msgstr "Hết hạn"
+
+#: ../ui/gcr-gnupg-renderer.c:263
+msgid "Undefined trust"
+msgstr "Không xác định"
+
+#: ../ui/gcr-gnupg-renderer.c:265
+msgid "Distrusted"
+msgstr "Không tin cậy"
+
+#: ../ui/gcr-gnupg-renderer.c:267
+msgid "Marginally trusted"
+msgstr "Có thể tin cậy"
+
+#: ../ui/gcr-gnupg-renderer.c:269
+msgid "Fully trusted"
+msgstr "Tin cậy hoàn toàn"
+
+#: ../ui/gcr-gnupg-renderer.c:271
+msgid "Ultimately trusted"
+msgstr "Tin cậy tuyệt đối"
+
+#: ../ui/gcr-gnupg-renderer.c:285
+msgid "The information in this key has not yet been verified"
+msgstr "Thông tin trong khóa này chưa được xác minh"
+
+#: ../ui/gcr-gnupg-renderer.c:288
+msgid "This key is invalid"
+msgstr "Khóa này không hợp lệ"
+
+#: ../ui/gcr-gnupg-renderer.c:291
+msgid "This key has been disabled"
+msgstr "Khóa này bị vô hiệu hóa"
+
+#: ../ui/gcr-gnupg-renderer.c:294
+msgid "This key has been revoked"
+msgstr "Khóa này bị thu hồi"
+
+#: ../ui/gcr-gnupg-renderer.c:297
+msgid "This key has expired"
+msgstr "Khóa này đã hết hạn"
+
+#: ../ui/gcr-gnupg-renderer.c:302
+msgid "This key is distrusted"
+msgstr "Khóa không được tin cập"
+
+#: ../ui/gcr-gnupg-renderer.c:305
+msgid "This key is marginally trusted"
+msgstr "Khóa này được tin cậy một phần"
+
+#: ../ui/gcr-gnupg-renderer.c:308
+msgid "This key is fully trusted"
+msgstr "Khóa này được tin cậy hoàn toàn"
+
+#: ../ui/gcr-gnupg-renderer.c:311
+msgid "This key is ultimately trusted"
+msgstr "Khóa này được tin cậy tuyệt đối"
+
+#: ../ui/gcr-gnupg-renderer.c:336 ../ui/gcr-gnupg-renderer.c:562
+msgid "Key ID"
+msgstr "ID khóa"
+
+#: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
+#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
+msgid "Algorithm"
+msgstr "Thuật toán"
+
+#: ../ui/gcr-gnupg-renderer.c:359 ../ui/gcr-gnupg-renderer.c:436
+#: ../ui/gcr-gnupg-renderer.c:479
+msgid "Created"
+msgstr "Lúc tạo"
+
+#: ../ui/gcr-gnupg-renderer.c:368 ../ui/gcr-gnupg-renderer.c:445
+#: ../ui/gcr-gnupg-renderer.c:488
+msgid "Expiry"
+msgstr "Hết hạn"
+
+#: ../ui/gcr-gnupg-renderer.c:377
+msgid "Capabilities"
+msgstr "Khả năng"
+
+#: ../ui/gcr-gnupg-renderer.c:390
+msgid "Owner trust"
+msgstr "Tín nhiệm của chủ sở hữu"
+
+#: ../ui/gcr-gnupg-renderer.c:418
+msgid "Name"
+msgstr "Tên"
+
+#: ../ui/gcr-gnupg-renderer.c:424 ../ui/gcr-gnupg-renderer.c:706
+msgid "Comment"
+msgstr "Ghi chú"
+
+#: ../ui/gcr-gnupg-renderer.c:464
+msgid "User Attribute"
+msgstr "Thuộc tính người dùng"
+
+#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:398
+msgid "Size"
+msgstr "Cỡ"
+
+#: ../ui/gcr-gnupg-renderer.c:506
+msgid "Signature of a binary document"
+msgstr "Chữ ký tài liệu nhị phân"
+
+#: ../ui/gcr-gnupg-renderer.c:508
+msgid "Signature of a canonical text document"
+msgstr "Chữ ký văn bản thô"
+
+#: ../ui/gcr-gnupg-renderer.c:510
+msgid "Standalone signature"
+msgstr "Chữ ký độc lập"
+
+#: ../ui/gcr-gnupg-renderer.c:512
+msgid "Generic certification of key"
+msgstr "Chứng nhận chung của khóa"
+
+#: ../ui/gcr-gnupg-renderer.c:514
+msgid "Persona certification of key"
+msgstr "Chứng nhận cá nhân của khóa"
+
+#: ../ui/gcr-gnupg-renderer.c:516
+msgid "Casual certification of key"
+msgstr "Chứng nhận thường ngày của khóa"
+
+#: ../ui/gcr-gnupg-renderer.c:518
+msgid "Positive certification of key"
+msgstr "Chứng nhận xác thực của khóa"
+
+#: ../ui/gcr-gnupg-renderer.c:520
+msgid "Subkey binding signature"
+msgstr "Chữ ký ràng buộc khóa phụ"
+
+#: ../ui/gcr-gnupg-renderer.c:522
+msgid "Primary key binding signature"
+msgstr "Chữ ký ràng buộc khóa chính"
+
+#: ../ui/gcr-gnupg-renderer.c:524
+msgid "Signature directly on key"
+msgstr "Ký trực tiếp trên khóa"
+
+#: ../ui/gcr-gnupg-renderer.c:526
+msgid "Key revocation signature"
+msgstr "Chữ ký thu hồi khóa"
+
+#: ../ui/gcr-gnupg-renderer.c:528
+msgid "Subkey revocation signature"
+msgstr "Chữ ký thu hồi khóa phụ"
+
+#: ../ui/gcr-gnupg-renderer.c:530
+msgid "Certification revocation signature"
+msgstr "Chữ ký thu hồi chứng nhận"
+
+#: ../ui/gcr-gnupg-renderer.c:532
+msgid "Timestamp signature"
+msgstr "Chữ ký tem thời gian"
+
+#: ../ui/gcr-gnupg-renderer.c:534
+msgid "Third-party confirmation signature"
+msgstr "Chữ ký xác nhận bên thứ ba"
+
+#: ../ui/gcr-gnupg-renderer.c:587 ../ui/gcr-gnupg-renderer.c:595
+msgid "Class"
+msgstr "Lớp"
+
+#: ../ui/gcr-gnupg-renderer.c:589
+msgid "Local only"
+msgstr "Chỉ nội bộ"
+
+#: ../ui/gcr-gnupg-renderer.c:591
+msgid "Exportable"
+msgstr "Có thể xuất"
+
+#: ../ui/gcr-gnupg-renderer.c:609
+msgid "Revocation Key"
+msgstr "Khóa thu hồi"
+
+#: ../ui/gcr-gnupg-renderer.c:623 ../ui/gcr-gnupg-renderer.c:647
+#: ../ui/gcr-gnupg-renderer.c:649
+msgid "Fingerprint"
+msgstr "Vân tay"
+
+#: ../ui/gcr-gnupg-renderer.c:738
+msgid "Public Subkey"
+msgstr "Khóa công khai phụ"
+
+#: ../ui/gcr-gnupg-renderer.c:740
+msgid "Secret Key"
+msgstr "Khóa mật"
+
+#: ../ui/gcr-gnupg-renderer.c:742
+msgid "Secret Subkey"
+msgstr "Khóa mật phụ"
+
+#: ../ui/gcr-import-button.c:116
+msgid "Initializing…"
+msgstr "Đang khởi tạo…"
+
+#: ../ui/gcr-import-button.c:124
+msgid "Import is in progress…"
+msgstr "Đang nhập…"
+
+#: ../ui/gcr-import-button.c:131
+#, c-format
+msgid "Imported to: %s"
+msgstr "Nhập vào: %s"
+
+#: ../ui/gcr-import-button.c:151
+#, c-format
+msgid "Import to: %s"
+msgstr "Nhập vào: %s"
+
+#: ../ui/gcr-import-button.c:164
+msgid "Cannot import because there are no compatible importers"
+msgstr "Không thể nhập vào bởi vì không có cái gì tương thích cả"
+
+#: ../ui/gcr-import-button.c:173
+msgid "No data to import"
+msgstr "Không có dữ liệu để nhập"
+
+#: ../ui/gcr-key-renderer.c:88
+msgid "Key"
+msgstr "Khóa"
+
+#: ../ui/gcr-key-renderer.c:355
+msgid "Private RSA Key"
+msgstr "Khóa cá nhân RSA"
+
+#: ../ui/gcr-key-renderer.c:357
+msgid "Private DSA Key"
+msgstr "Khóa cá nhân DSA"
+
+#: ../ui/gcr-key-renderer.c:359
+msgid "Private Elliptic Curve Key"
+msgstr "Khóa riêng Elliptic Curve"
+
+#: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
+msgid "Public DSA Key"
+msgstr "Khóa công khai DSA"
+
+#: ../ui/gcr-key-renderer.c:368
+msgid "Public Elliptic Curve Key"
+msgstr "Khóa công khai Elliptic Curve"
+
+#: ../ui/gcr-key-renderer.c:377
+#, c-format
+msgid "%u bit"
+msgid_plural "%u bits"
+msgstr[0] "%u bit"
+
+#: ../ui/gcr-key-renderer.c:378
+msgid "Strength"
+msgstr "Độ mạnh"
+
+#. Fingerprints
+#: ../ui/gcr-key-renderer.c:402
+msgid "Fingerprints"
+msgstr "Vân tay"
+
+#: ../ui/gcr-key-renderer.c:406
+msgid "SHA1"
+msgstr "SHA1"
+
+#: ../ui/gcr-key-renderer.c:411
+msgid "SHA256"
+msgstr "SHA256"
+
+#. Add our various buttons
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
+#: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
+msgid "_Cancel"
+msgstr "T_hôi"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
+msgid "_OK"
+msgstr "Đượ_c"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:189
+msgid "Automatically chosen"
+msgstr "Tự động chọn"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:273
+#: ../ui/gcr-pkcs11-import-interaction.c:152
+#: ../ui/gcr-pkcs11-import-interaction.c:170
+#, c-format
+msgid "The user cancelled the operation"
+msgstr "Người dùng hủy thao tác này"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:1
+msgid "In order to import, please enter the password."
+msgstr "Để nhập, vui lòng nhập mật mã."
+
+#. The password label
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
+msgid "Password:"
+msgstr "Mật khẩu:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:3
+msgid "Token:"
+msgstr "Thẻ bài:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:69
+#: ../ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Mở khóa"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:5
+msgid "Label:"
+msgstr "Nhãn:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Import settings"
+msgstr "Cài đặt nhập"
+
+#. The confirm label
+#: ../ui/gcr-prompt-dialog.c:578
+msgid "Confirm:"
+msgstr "Xác nhận:"
+
+#: ../ui/gcr-prompt-dialog.c:646
+msgid "Passwords do not match."
+msgstr "Mật khẩu không khớp."
+
+#: ../ui/gcr-prompt-dialog.c:653
+msgid "Password cannot be blank"
+msgstr "Phải có mật khẩu"
+
+#: ../ui/gcr-prompter.desktop.in.in.h:1
+msgid "Access Prompt"
+msgstr "Nhắc truy cập"
+
+#: ../ui/gcr-prompter.desktop.in.in.h:2
+msgid "Unlock access to passwords and other secrets"
+msgstr "Mở khóa để truy cập mật khẩu và các bí mật khác"
+
+#: ../ui/gcr-certificate-exporter.c:225
+msgid "A file already exists with this name."
+msgstr "Một tập tin tên đó đã có rồi."
+
+#: ../ui/gcr-certificate-exporter.c:226
+msgid "Do you want to replace it with a new file?"
+msgstr "Bạn có muốn thay thế nó bằng tập tin mới không?"
+
+#: ../ui/gcr-certificate-exporter.c:229
+msgid "_Replace"
+msgstr "_Thay thế"
+
+#: ../ui/gcr-certificate-exporter.c:259
+#, c-format
+msgid "The operation was cancelled."
+msgstr "Thao tác bị hủy."
+
+#: ../ui/gcr-certificate-exporter.c:303
+msgid "Export certificate"
+msgstr "Xuất chứng nhận"
+
+#: ../ui/gcr-certificate-exporter.c:306
+msgid "_Save"
+msgstr "_Lưu"
+
+#: ../ui/gcr-certificate-exporter.c:315
+msgid "Certificate files"
+msgstr "Tập tin chứng nhận"
+
+#: ../ui/gcr-certificate-exporter.c:326
+msgid "PEM files"
+msgstr "Tập tin PEM"
+
+#: ../ui/gcr-unlock-options-widget.ui.h:1
 msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "Tự động gỡ khoá vòng khoá này khi nào tôi đã đăng nhập"
+msgstr "Tự động gỡ khóa vòng khóa này khi nào tôi đã đăng nhập"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:2
+#: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
-msgstr "Khoá vòng khoá này khi tôi đang xuất"
+msgstr "Khóa vòng khóa này khi tôi đang xuất"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:3
+#: ../ui/gcr-unlock-options-widget.ui.h:3
 msgid "Lock this keyring after"
-msgstr "Khoá vòng khoá này sau"
+msgstr "Khóa vòng khóa này sau"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:4
+#: ../ui/gcr-unlock-options-widget.ui.h:4
 msgid "Lock this keyring if idle for"
-msgstr "Khoá vòng khoá này nếu vẫn nghỉ sau"
+msgstr "Khóa vòng khóa này nếu vẫn nghỉ sau"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
-#: ../gcr/gcr-unlock-options-widget.ui.h:6
+#. Translators: The
+#: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "phút"
 
-#: ../gcr/gcr-unlock-renderer.c:69
+#: ../ui/gcr-unlock-renderer.c:67
 #, c-format
 msgid "Unlock: %s"
-msgstr "Mở khoá: %s"
+msgstr "Mở khóa: %s"
 
-#: ../gcr/gcr-unlock-renderer.c:125
+#: ../ui/gcr-unlock-renderer.c:122
 msgid "Password"
 msgstr "Mật khẩu"
 
-#: ../gcr/gcr-unlock-renderer.c:278
+#: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
 "correct password."
-msgstr "Nội dung của '%s' đang bị khoá. Nhập mật mã để xem."
+msgstr "Nội dung của “%s” đang bị khóa. Nhập mật mã để xem."
 
-#: ../gcr/gcr-unlock-renderer.c:281
+#: ../ui/gcr-unlock-renderer.c:277
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
-msgstr "Nội dung đang bị khoá. Nhập mật mã để xem."
+msgstr "Nội dung đang bị khóa. Nhập mật mã để xem."
 
-#: ../gcr/gcr-viewer-tool.c:41
+#: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"
-msgstr "GCR trình xem khoá và chứng nhận"
+msgstr "Ứng dụng GCR xem khóa và chứng nhận"
 
-#: ../gcr/gcr-viewer-tool.c:48
+#: ../ui/gcr-viewer-tool.c:47
 msgid "Show the application's version"
 msgstr "Hiện phiên bản ứng dụng"
 
-#: ../gcr/gcr-viewer-tool.c:50
+#: ../ui/gcr-viewer-tool.c:49
 msgid "[file...]"
-msgstr "[tập tin...]"
+msgstr "[tập tin…]"
 
-#: ../gcr/gcr-viewer-tool.c:103
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
-msgstr "- Xem chứng nhận và khoá"
+msgstr "- Xem chứng nhận và khóa"
 
-#: ../gcr/gcr-viewer-tool.c:117 ../gcr/gcr-viewer-widget.c:635
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Trình xem chứng nhận"
 
-#: ../gcr/gcr-viewer-widget.c:203
+#: ../ui/gcr-viewer-widget.c:202
 msgid "The password was incorrect"
 msgstr "Mật khẩu không đúng"
 
-#: ../gcr/gcr-viewer-window.c:76
+#: ../ui/gcr-viewer-window.c:75
 msgid "Imported"
 msgstr "Đã nhập"
 
-#: ../gcr/gcr-viewer-window.c:80
+#: ../ui/gcr-viewer-window.c:79
 msgid "Import failed"
 msgstr "Nhập thất bại"
 
-#: ../gcr/gcr-viewer-window.c:108
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Nhập"
 
+#: ../ui/gcr-viewer-window.c:115
+msgid "_Close"
+msgstr "Đón_g"
+
+#~ msgid "Invalid PKCS#11 module: %s"
+#~ msgstr "Môđun PKCS#11 không hợp lệ: %s"
+
+#~ msgid "Couldn't setup PKCS#11 module: %s"
+#~ msgstr "Không thể thiết lập môđun PKCS#11: %s"
+
+#~ msgid "Label"
+#~ msgstr "Nhãn"
+
 #, fuzzy
 #~ msgid "<b>Unlock</b>"
-#~ msgstr "Mở khoá"
+#~ msgstr "Mở khóa"

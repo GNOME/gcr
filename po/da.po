@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-20 17:18+0200\n"
-"PO-Revision-Date: 2014-09-19 21:19+0200\n"
+"POT-Creation-Date: 2016-02-07 16:41+0100\n"
+"PO-Revision-Date: 2016-02-04 19:11+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -339,8 +339,8 @@ msgstr "Gnupg-proces afsluttedes med kode: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg-proces blev afsluttet med signal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Operationen blev annulleret"
 
@@ -357,15 +357,15 @@ msgstr "Offentlig nøgle"
 msgid "Certificate Request"
 msgstr "Certifikatforespørgsel"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Ukendt eller ikke understøttetede data."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Kunne ikke fortolke ugyldige eller ødelagte data."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Dataene er låst"
 
@@ -385,7 +385,7 @@ msgstr "Ukendt eller utilgængelig attribut for nøgle"
 msgid "Couldn't build public key"
 msgstr "Kunne ikke bygge offentlig nøgle"
 
-#: ../gcr/gcr-system-prompt.c:903
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "En anden prompt er allerede i gang"
 
@@ -952,7 +952,7 @@ msgstr "_Annullér"
 
 #: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
-msgstr "_O.k."
+msgstr "_OK"
 
 #: ../ui/gcr-pkcs11-import-dialog.c:189
 msgid "Automatically chosen"

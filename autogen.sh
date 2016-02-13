@@ -5,6 +5,7 @@ PKG_NAME="gcr"
 USE_GNOME2_MACROS=1
 REQUIRED_AUTOMAKE_VERSION=1.11
 
+olddir=`pwd`
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
@@ -20,3 +21,9 @@ which gnome-autogen.sh || {
 }
 
 . gnome-autogen.sh
+
+# Put a redirect makefile here
+if [ ! -f $srcdir/Makefile ]; then
+    cat $srcdir/build/Makefile.redirect > $srcdir/Makefile
+    printf "\nREDIRECT = %s\n" "$(realpath $olddir)" >> $srcdir/Makefile
+fi

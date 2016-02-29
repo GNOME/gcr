@@ -2,23 +2,25 @@
 # Occitan translation of gnomekeyring.
 # Copyright (C) 2004-2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-keyring package.
-#
 # Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2006-2008
+# Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-27 12:37+0000\n"
-"PO-Revision-Date: 2014-01-18 11:23+0000\n"
-"Last-Translator: Cédric VALMARY (Tot en òc) <cvalmary@yahoo.fr>\n"
-"Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2016-02-18 06:32+0000\n"
+"PO-Revision-Date: 2016-02-29 22:36+0200\n"
+"Last-Translator: Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>\n"
+"Language-Team: Tot En Òc\n"
+"Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
 "X-Launchpad-Export-Date: 2015-05-20 16:36+0000\n"
-"X-Generator: Launchpad (build 17508)\n"
-"Language: oc\n"
+"X-Project-Style: gnome\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -145,27 +147,27 @@ msgstr "SHA1 amb DSA"
 
 #: ../egg/egg-oid.c:105 ../ui/gcr-key-renderer.c:389
 msgid "Elliptic Curve"
-msgstr ""
+msgstr "Corba elliptica"
 
 #: ../egg/egg-oid.c:106
 msgid "SHA1 with ECDSA"
-msgstr ""
+msgstr "SHA1 amb ECDSA"
 
 #: ../egg/egg-oid.c:107
 msgid "SHA224 with ECDSA"
-msgstr ""
+msgstr "SHA224 amb ECDSA"
 
 #: ../egg/egg-oid.c:108
 msgid "SHA256 with ECDSA"
-msgstr ""
+msgstr "SHA256 amb ECDSA"
 
 #: ../egg/egg-oid.c:109
 msgid "SHA384 with ECDSA"
-msgstr ""
+msgstr "SHA384 amb ECDSA"
 
 #: ../egg/egg-oid.c:110
 msgid "SHA512 with ECDSA"
-msgstr ""
+msgstr "SHA512 amb ECDSA"
 
 #. Extended Key Usages
 #: ../egg/egg-oid.c:113
@@ -333,8 +335,8 @@ msgstr "Lo processus gnupg s'es acabat amb lo còde : %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Lo processus gnupg es estat tampat pel senhal : %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "L'operacion es estada anullada"
 
@@ -349,19 +351,19 @@ msgstr "Clau publica"
 
 #: ../gcr/gcr-parser.c:334
 msgid "Certificate Request"
-msgstr "Requèta de certificat"
+msgstr "Requèsta de certificat"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Donadas invalidas o pas geridas."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Impossible d'analisar las donadas pas validas o corrompudas."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
-msgstr "Las donadas son varrolhadas"
+msgstr "Las donadas son verrolhadas"
 
 #: ../gcr/gcr-prompt.c:225
 msgid "Continue"
@@ -379,7 +381,7 @@ msgstr "Atributs de clau pas reconeguts o invalids"
 msgid "Couldn't build public key"
 msgstr "Impossible de crear la clau publica"
 
-#: ../gcr/gcr-system-prompt.c:903
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Una autre convit es ja en cors"
 
@@ -919,8 +921,8 @@ msgstr ""
 #, c-format
 msgid "%u bit"
 msgid_plural "%u bits"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u octet"
+msgstr[1] "%u octets"
 
 #: ../ui/gcr-key-renderer.c:378
 msgid "Strength"
@@ -943,11 +945,11 @@ msgstr "SHA256"
 #: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
-msgstr ""
+msgstr "A_nullar"
 
 #: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
-msgstr ""
+msgstr "_D'acòrdi"
 
 #: ../ui/gcr-pkcs11-import-dialog.c:189
 msgid "Automatically chosen"
@@ -976,7 +978,7 @@ msgstr "Jeton (token) :"
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:69
 #: ../ui/gcr-unlock-renderer.c:124
 msgid "Unlock"
-msgstr "Desvarrolhar"
+msgstr "Desverrolhar"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:5
 msgid "Label:"
@@ -1005,7 +1007,7 @@ msgstr "Convit d'accès"
 
 #: ../ui/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
-msgstr "Desvarrolhar l'accès als senhals e autres secrets"
+msgstr "Desverrolhar l'accès als senhals e autres secrets"
 
 #: ../ui/gcr-certificate-exporter.c:225
 msgid "A file already exists with this name."
@@ -1030,7 +1032,7 @@ msgstr "Exportar un certificat"
 
 #: ../ui/gcr-certificate-exporter.c:306
 msgid "_Save"
-msgstr ""
+msgstr "_Enregistrar"
 
 #: ../ui/gcr-certificate-exporter.c:315
 msgid "Certificate files"
@@ -1043,19 +1045,19 @@ msgstr "Fichièrs PEM"
 #: ../ui/gcr-unlock-options-widget.ui.h:1
 msgid "Automatically unlock this keyring whenever I'm logged in"
 msgstr ""
-"Desvarrolhar automaticament aqueste trossèl de claus quand soi connectat"
+"Desverrolhar automaticament aqueste trossèl de claus quand soi connectat"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
-msgstr "Varrolhar aqueste trossèl de claus quand me desconnècti"
+msgstr "Verrolhar aqueste trossèl de claus quand me desconnècti"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:3
 msgid "Lock this keyring after"
-msgstr "Varrolhar aqueste trossèl de claus aprèp"
+msgstr "Verrolhar aqueste trossèl de claus aprèp"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:4
 msgid "Lock this keyring if idle for"
-msgstr "Varrolhar aqueste trossèl de claus s'es inactiu pendent"
+msgstr "Verrolhar aqueste trossèl de claus s'es inactiu pendent"
 
 #. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
@@ -1065,7 +1067,7 @@ msgstr "minutas"
 #: ../ui/gcr-unlock-renderer.c:67
 #, c-format
 msgid "Unlock: %s"
-msgstr "Desvarrolhar : %s"
+msgstr "Desverrolhar : %s"
 
 #: ../ui/gcr-unlock-renderer.c:122
 msgid "Password"
@@ -1077,7 +1079,7 @@ msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"Lo contengut de « %s » es varrolhat. Per veire aquel contengut, picatz lo "
+"Lo contengut de « %s » es verrolhat. Per veire aquel contengut, picatz lo "
 "senhal corrècte."
 
 #: ../ui/gcr-unlock-renderer.c:277
@@ -1085,7 +1087,7 @@ msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr ""
-"Lo contengut es varrolhat. Per veire aquel contengut, picatz lo senhal "
+"Lo contengut es verrolhat. Per veire aquel contengut, picatz lo senhal "
 "corrècte."
 
 #: ../ui/gcr-viewer-tool.c:40
@@ -1126,9 +1128,8 @@ msgstr "Importar"
 
 #: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
-msgstr ""
+msgstr "_Tampar"
 
-#, c-format
 #~ msgid "%d bit"
 #~ msgid_plural "%d bits"
 #~ msgstr[0] "%d octet"

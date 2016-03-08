@@ -1325,7 +1325,7 @@ gck_enumerator_next_async (GckEnumerator *self, gint max_objects, GCancellable *
  * %NULL is also returned if the function fails. Use the @error to determine
  * whether a failure occurred or not.
  *
- * Returns: (element-type Gck.Module) (transfer full): The list of objects, which
+ * Returns: (element-type Gck.Object) (transfer full): The list of objects, which
  * should be freed with gck_list_unref_free()
  */
 GList*

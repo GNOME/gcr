@@ -254,7 +254,10 @@ style_display_item (GtkWidget *widget, GcrDisplayItem *item)
 	gtk_style_context_save (style);
 
 	gtk_style_context_add_class (style, GTK_STYLE_CLASS_VIEW);
-	gtk_style_context_get_background_color (style, GTK_STATE_FLAG_NORMAL, &color);
+	gtk_style_context_set_state (style, GTK_STATE_FLAG_NORMAL);
+	gtk_style_context_get_background_color (style,
+						gtk_style_context_get_state (style),
+						&color);
 
 	gtk_style_context_restore (style);
 
@@ -494,9 +497,12 @@ paint_item_border (GcrDisplayView *self,
 
 	ensure_text_height (self);
 
+	gtk_style_context_save (context);
+	gtk_style_context_set_state (context, GTK_STATE_FLAG_SELECTED | GTK_STATE_FLAG_FOCUSED);
 	gtk_style_context_get_background_color (context,
-	                                        GTK_STATE_FLAG_SELECTED | GTK_STATE_FLAG_FOCUSED,
+	                                        gtk_style_context_get_state (context),
 	                                        &color);
+	gtk_style_context_restore (context);
 
 	gtk_text_view_get_iter_location (view, &iter, &location);
 

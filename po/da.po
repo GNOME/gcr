@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-07 16:41+0100\n"
+"POT-Creation-Date: 2016-03-20 23:11+0100\n"
 "PO-Revision-Date: 2016-02-04 19:11+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -37,7 +37,7 @@ msgstr "Bruger-ID"
 
 #: ../egg/egg-oid.c:45
 msgid "Email Address"
-msgstr "E-post-adresse"
+msgstr "E-mail-adresse"
 
 #: ../egg/egg-oid.c:53
 msgid "Date of Birth"
@@ -188,7 +188,7 @@ msgstr "Kode-underskrivelse"
 
 #: ../egg/egg-oid.c:116
 msgid "Email Protection"
-msgstr "E-post-beskyttelse"
+msgstr "E-mail-beskyttelse"
 
 #: ../egg/egg-oid.c:117
 msgid "Time Stamping"
@@ -270,7 +270,7 @@ msgstr "DNS SRV"
 #: ../gcr/gcr-certificate-extensions.c:203 ../ui/gcr-gnupg-renderer.c:421
 #: ../ui/gcr-gnupg-renderer.c:703
 msgid "Email"
-msgstr "E-post-adresse"
+msgstr "E-mail-adresse"
 
 #: ../gcr/gcr-certificate-extensions.c:211
 msgid "DNS"
@@ -608,7 +608,7 @@ msgstr "Type"
 msgid "Challenge"
 msgstr "Udfordring"
 
-#: ../ui/gcr-display-view.c:316
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Detaljer"
 

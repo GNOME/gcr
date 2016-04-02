@@ -932,6 +932,7 @@ msgstr ""
 msgid "%u bit"
 msgid_plural "%u bits"
 msgstr[0] "%u bito"
+msgstr[1] "%u bitoj"
 
 #: ../ui/gcr-key-renderer.c:378
 msgid "Strength"

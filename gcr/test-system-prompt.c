@@ -723,7 +723,7 @@ test_watch_cancels (Test *test,
 	                                           on_result_pair_two, &pair);
 
 	/* Wait a bit before stopping, so outgoing request is done */
-	egg_test_wait_until (250);
+	egg_test_wait_until (1000);
 
 	/* Kill the mock prompter */
 	gcr_mock_prompter_disconnect ();

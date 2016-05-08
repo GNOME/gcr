@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2016-03-05 18:32+0000\n"
-"PO-Revision-Date: 2016-03-13 12:25+0200\n"
+"POT-Creation-Date: 2016-04-29 05:47+0000\n"
+"PO-Revision-Date: 2016-05-08 19:00+0200\n"
 "Last-Translator: Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -166,7 +166,7 @@ msgstr "SHA384 amb ECDSA"
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 amb ECDSA"
 
-#. Extended Key Usatges
+#. Extended Key Usages
 #: ../egg/egg-oid.c:113
 msgid "Server Authentication"
 msgstr "Autentificacion de servidor"
@@ -177,7 +177,7 @@ msgstr "Autentificacion de client"
 
 #: ../egg/egg-oid.c:115
 msgid "Code Signing"
-msgstr "Signatura de còde"
+msgstr "Signatura de còdi"
 
 #: ../egg/egg-oid.c:116
 msgid "Email Protection"
@@ -303,11 +303,11 @@ msgstr "Tipe de clau pas pres en carga per una requèsta de certificacion"
 msgid "The key cannot be used to sign the request"
 msgstr "La clau pòt pas èsser utilizada per signar la requèsta"
 
-#: ../gcr/gcr-gnupg-importar.c:94
+#: ../gcr/gcr-gnupg-importer.c:94
 msgid "GnuPG Keyring"
 msgstr "Trossèl de clau GnuPG"
 
-#: ../gcr/gcr-gnupg-importar.c:96
+#: ../gcr/gcr-gnupg-importer.c:96
 #, c-format
 msgid "GnuPG Keyring: %s"
 msgstr "Trossèl de clau GnuPG : %s"
@@ -325,7 +325,7 @@ msgstr "ID de la clau"
 #: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr "Lo processus gnupg s'es acabat amb lo còde : %d"
+msgstr "Lo processus gnupg s'es acabat amb lo còdi : %d"
 
 #: ../gcr/gcr-gnupg-process.c:871
 #, c-format
@@ -389,7 +389,7 @@ msgstr "Un autra convit es ja en cors"
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
 msgstr ""
-"Impossible de trobar un emplaçament per enregistrar lo certificat accepté."
+"Impossible de trobar un emplaçament per enregistrar lo certificat acceptat."
 
 #: ../ui/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
@@ -416,7 +416,8 @@ msgid "Unlimited"
 msgstr "Illimitat"
 
 #: ../ui/gcr-certificate-renderer.c:143
-msgid "Extended Key Usatge"
+#| msgid "Extended Key Usatge"
+msgid "Extended Key Usage"
 msgstr "Utilizacion de clau espandida"
 
 #: ../ui/gcr-certificate-renderer.c:154
@@ -456,12 +457,13 @@ msgid "Revocation list signature"
 msgstr "Signatura de lista de revocacion"
 
 #: ../ui/gcr-certificate-renderer.c:216
-msgid "Key Usatge"
+#| msgid "Key Usatge"
+msgid "Key Usage"
 msgstr "Utilizacion de clau"
 
 #: ../ui/gcr-certificate-renderer.c:217
-msgid "Usatges"
-msgstr "Utilizacions"
+msgid "Usages"
+msgstr ""
 
 #: ../ui/gcr-certificate-renderer.c:237
 msgid "Subject Alternative Names"
@@ -530,7 +532,7 @@ msgstr "Invalid aprèp"
 #. Fingerprints
 #: ../ui/gcr-certificate-renderer.c:578
 msgid "Certificate Fingerprints"
-msgstr "Emprenchas de certificat"
+msgstr "Emprentas de certificat"
 
 #. Public Key Info
 #: ../ui/gcr-certificate-renderer.c:584
@@ -564,7 +566,7 @@ msgstr "Talha de la clau"
 
 #: ../ui/gcr-certificate-renderer.c:876
 msgid "Key SHA1 Fingerprint"
-msgstr "Emprencha SHA1 de clau"
+msgstr "Emprenta SHA1 de clau"
 
 #: ../ui/gcr-certificate-renderer.c:898
 msgid "Signature Algorithm"
@@ -602,7 +604,7 @@ msgstr "Tipe"
 msgid "Challenge"
 msgstr "Challenge"
 
-#: ../ui/gcr-display-view.c:316
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Detalhs"
 
@@ -694,7 +696,7 @@ msgstr "Fisança ultima"
 #: ../ui/gcr-gnupg-renderer.c:285
 msgid "The information in this key has not yet been verified"
 msgstr ""
-"L'information contenguda dins aquesta clau es pas encara estada verificada"
+"L'informacion contenguda dins aquesta clau es pas encara estada verificada"
 
 #: ../ui/gcr-gnupg-renderer.c:288
 msgid "This key is invalid"
@@ -784,19 +786,23 @@ msgid "Standalone signature"
 msgstr "Signatura autonòma"
 
 #: ../ui/gcr-gnupg-renderer.c:512
-msgid "Generic certificacion of key"
+#| msgid "Generic certificacion of key"
+msgid "Generic certification of key"
 msgstr "Certificacion generica de clau"
 
 #: ../ui/gcr-gnupg-renderer.c:514
-msgid "Persona certificacion of key"
+#| msgid "Persona certificacion of key"
+msgid "Persona certification of key"
 msgstr "Certificacion de clau d'un escais"
 
 #: ../ui/gcr-gnupg-renderer.c:516
-msgid "Casual certificacion of key"
+#| msgid "Casual certificacion of key"
+msgid "Casual certification of key"
 msgstr "Certificacion temporària de clau"
 
 #: ../ui/gcr-gnupg-renderer.c:518
-msgid "Positive certificacion of key"
+#| msgid "Positive certificacion of key"
+msgid "Positive certification of key"
 msgstr "Certificacion positiva de clau"
 
 #: ../ui/gcr-gnupg-renderer.c:520
@@ -820,7 +826,8 @@ msgid "Subkey revocation signature"
 msgstr "Signatura de revocacion de sosclau"
 
 #: ../ui/gcr-gnupg-renderer.c:530
-msgid "Certificacion revocation signature"
+#| msgid "Certificacion revocation signature"
+msgid "Certification revocation signature"
 msgstr "Signatura de revocacion de certificat"
 
 #: ../ui/gcr-gnupg-renderer.c:532
@@ -850,7 +857,7 @@ msgstr "Clau de revocacion"
 #: ../ui/gcr-gnupg-renderer.c:623 ../ui/gcr-gnupg-renderer.c:647
 #: ../ui/gcr-gnupg-renderer.c:649
 msgid "Fingerprint"
-msgstr "Emprenchas"
+msgstr "Emprentas"
 
 #: ../ui/gcr-gnupg-renderer.c:738
 msgid "Public Subkey"
@@ -883,7 +890,8 @@ msgid "Import to: %s"
 msgstr "Importar cap a : %s"
 
 #: ../ui/gcr-import-button.c:164
-msgid "Cannot import because there are no compatible importars"
+#| msgid "Cannot import because there are no compatible importars"
+msgid "Cannot import because there are no compatible importers"
 msgstr "Impossible d'importar perque i a pas d'importatador compatible"
 
 #: ../ui/gcr-import-button.c:173
@@ -928,7 +936,7 @@ msgstr "Vigor"
 #. Fingerprints
 #: ../ui/gcr-key-renderer.c:402
 msgid "Fingerprints"
-msgstr "Emprenchas"
+msgstr "Emprentas"
 
 #: ../ui/gcr-key-renderer.c:406
 msgid "SHA1"
@@ -1072,16 +1080,22 @@ msgstr "Senhal"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
+#| msgid ""
+#| "The contents of '%s' are locked. In order to view the contents, enter the "
+#| "corrècte password."
 msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
-"corrècte password."
+"correct password."
 msgstr ""
 "Lo contengut de « %s » es verrolhat. Per veire aqueste contengut, sasissètz "
 "lo senhal corrècte."
 
 #: ../ui/gcr-unlock-renderer.c:277
+#| msgid ""
+#| "The contents are locked. In order to view the contents, enter the "
+#| "corrècte password."
 msgid ""
-"The contents are locked. In order to view the contents, enter the corrècte "
+"The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr ""
 "Lo contengut es verrolhat. Per veire aqueste contengut, sasissètz lo senhal "
@@ -1108,7 +1122,8 @@ msgid "Certificate Viewer"
 msgstr "Afichador de certificats"
 
 #: ../ui/gcr-viewer-widget.c:202
-msgid "The password was incorrècte"
+#| msgid "The password was incorrècte"
+msgid "The password was incorrect"
 msgstr "Lo senhal es pas corrècte"
 
 #: ../ui/gcr-viewer-window.c:75
@@ -1126,3 +1141,6 @@ msgstr "Importar"
 #: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_Tampar"
+
+#~ msgid "Usatges"
+#~ msgstr "Utilizacions"

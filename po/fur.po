@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
 "POT-Creation-Date: 2016-08-22 19:24+0000\n"
-"PO-Revision-Date: 2016-09-05 17:57+0200\n"
+"PO-Revision-Date: 2016-09-05 21:48+0200\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
 "MIME-Version: 1.0\n"
@@ -301,86 +301,86 @@ msgstr "Gjenar di clâf no supuartât pe domande di certificât"
 #: ../gcr/gcr-certificate-request.c:502 ../gcr/gcr-certificate-request.c:587
 #, c-format
 msgid "The key cannot be used to sign the request"
-msgstr ""
+msgstr "La clâf no pues jessi doprade par firmâ la domande"
 
 #: ../gcr/gcr-gnupg-importer.c:94
 msgid "GnuPG Keyring"
-msgstr ""
+msgstr "Puarteclâfs GnuPG"
 
 #: ../gcr/gcr-gnupg-importer.c:96
 #, c-format
 msgid "GnuPG Keyring: %s"
-msgstr ""
+msgstr "Puarteclâfs GnuPG: %s"
 
 #: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
-msgstr ""
+msgstr "Clâf PGP"
 
 #: ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Key ID"
-msgstr ""
+msgstr "ID clâf"
 
 #: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr ""
+msgstr "Procès Gnupg jessût cul codiç: %d"
 
 #: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr ""
+msgstr "Procès Gnupg terminât cul segnâl: %d"
 
 #: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
 #: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
-msgstr ""
+msgstr "La operazion e je stade anulade"
 
 #: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
-msgstr ""
+msgstr "Clâf privade"
 
 #: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
-msgstr ""
+msgstr "Clâf publiche"
 
 #: ../gcr/gcr-parser.c:334
 msgid "Certificate Request"
-msgstr ""
+msgstr "Domande di certificât"
 
 #: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
-msgstr ""
+msgstr "Dâts no ricognossûts o no supuartâts."
 
 #: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
-msgstr ""
+msgstr "Impussibil analizâ i dâts no valits o ruvinâts."
 
 #: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
-msgstr ""
+msgstr "I dâts a son blocâts"
 
 #: ../gcr/gcr-prompt.c:225
 msgid "Continue"
-msgstr ""
+msgstr "Continue"
 
 #: ../gcr/gcr-prompt.c:234
 msgid "Cancel"
-msgstr ""
+msgstr "Anule"
 
 #: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "Atribûts pe clâf no ricognossûts o no disponibii."
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
 msgid "Couldn't build public key"
-msgstr ""
+msgstr "Impussibil creâ la clâf publiche"
 
 #: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
-msgstr ""
+msgstr "Une altre domande e je in elaborazion"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
@@ -388,194 +388,194 @@ msgstr ""
 #: ../gcr/gcr-trust.c:364
 #, c-format
 msgid "Couldn't find a place to store the pinned certificate"
-msgstr ""
+msgstr "Impussibil cjatâ une posizion par archiviâ il certificât pontât"
 
 #: ../ui/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
-msgstr ""
+msgstr "Vincui di base"
 
 #: ../ui/gcr-certificate-renderer.c:119
 msgid "Certificate Authority"
-msgstr ""
+msgstr "Autoritât di certificazion"
 
 #: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
 msgid "Yes"
-msgstr ""
+msgstr "Sì"
 
 #: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: ../ui/gcr-certificate-renderer.c:123
 msgid "Max Path Length"
-msgstr ""
+msgstr "Lungjece massime dal percors"
 
 #: ../ui/gcr-certificate-renderer.c:124
 msgid "Unlimited"
-msgstr ""
+msgstr "Cence limit"
 
 #: ../ui/gcr-certificate-renderer.c:143
 msgid "Extended Key Usage"
-msgstr ""
+msgstr "Ûs complet de clâf"
 
 #: ../ui/gcr-certificate-renderer.c:154
 msgid "Allowed Purposes"
-msgstr ""
+msgstr "Proposits ametûts"
 
 #: ../ui/gcr-certificate-renderer.c:174
 msgid "Subject Key Identifier"
-msgstr ""
+msgstr "Identificadôr clâf sogjet"
 
 #: ../ui/gcr-certificate-renderer.c:175
 msgid "Key Identifier"
-msgstr ""
+msgstr "Identificadôr clâf"
 
 #: ../ui/gcr-certificate-renderer.c:186
 msgid "Digital signature"
-msgstr ""
+msgstr "Firme digjitâl"
 
 #: ../ui/gcr-certificate-renderer.c:187
 msgid "Key encipherment"
-msgstr ""
+msgstr "Cifradure clâf"
 
 #: ../ui/gcr-certificate-renderer.c:188
 msgid "Data encipherment"
-msgstr ""
+msgstr "Cifradure dâts"
 
 #: ../ui/gcr-certificate-renderer.c:189
 msgid "Key agreement"
-msgstr ""
+msgstr "Acuardi clâf"
 
 #: ../ui/gcr-certificate-renderer.c:190
 msgid "Certificate signature"
-msgstr ""
+msgstr "Firme certificât"
 
 #: ../ui/gcr-certificate-renderer.c:191
 msgid "Revocation list signature"
-msgstr ""
+msgstr "Firme de liste di revoche"
 
 #: ../ui/gcr-certificate-renderer.c:216
 msgid "Key Usage"
-msgstr ""
+msgstr "Ûs de clâf"
 
 #: ../ui/gcr-certificate-renderer.c:217
 msgid "Usages"
-msgstr ""
+msgstr "Utilizazions"
 
 #: ../ui/gcr-certificate-renderer.c:237
 msgid "Subject Alternative Names"
-msgstr ""
+msgstr "Nons alternatîfs sogjet"
 
 #: ../ui/gcr-certificate-renderer.c:264
 msgid "Extension"
-msgstr ""
+msgstr "Estension"
 
 #: ../ui/gcr-certificate-renderer.c:268
 msgid "Identifier"
-msgstr ""
+msgstr "Identificadôr"
 
 #: ../ui/gcr-certificate-renderer.c:269
 #: ../ui/gcr-certificate-request-renderer.c:269 ../ui/gcr-gnupg-renderer.c:412
 #: ../ui/gcr-gnupg-renderer.c:429
 msgid "Value"
-msgstr ""
+msgstr "Valôr"
 
 #: ../ui/gcr-certificate-renderer.c:287
 msgid "Couldn't export the certificate."
-msgstr ""
+msgstr "Impussibil espuartâ il certificât."
 
 #: ../ui/gcr-certificate-renderer.c:521
 #: ../ui/gcr-certificate-request-renderer.c:310
 msgid "Identity"
-msgstr ""
+msgstr "Identitât"
 
 #: ../ui/gcr-certificate-renderer.c:525
 msgid "Verified by"
-msgstr ""
+msgstr "Verificât di"
 
 #: ../ui/gcr-certificate-renderer.c:532 ../ui/gcr-gnupg-renderer.c:717
 msgid "Expires"
-msgstr ""
+msgstr "Scjadence"
 
 #. The subject
 #: ../ui/gcr-certificate-renderer.c:539
 #: ../ui/gcr-certificate-request-renderer.c:316
 msgid "Subject Name"
-msgstr ""
+msgstr "Non sogjet"
 
 #. The Issuer
 #: ../ui/gcr-certificate-renderer.c:544
 msgid "Issuer Name"
-msgstr ""
+msgstr "Non di cui che al à emetût"
 
 #. The Issued Parameters
 #: ../ui/gcr-certificate-renderer.c:549
 msgid "Issued Certificate"
-msgstr ""
+msgstr "Certificât dât fûr"
 
 #: ../ui/gcr-certificate-renderer.c:554
 #: ../ui/gcr-certificate-request-renderer.c:327
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: ../ui/gcr-certificate-renderer.c:568
 msgid "Not Valid Before"
-msgstr ""
+msgstr "No valit prime dal"
 
 #: ../ui/gcr-certificate-renderer.c:573
 msgid "Not Valid After"
-msgstr ""
+msgstr "No valit daspò il"
 
 #. Fingerprints
 #: ../ui/gcr-certificate-renderer.c:578
 msgid "Certificate Fingerprints"
-msgstr ""
+msgstr "Impronte digjitâl certificât"
 
 #. Public Key Info
 #: ../ui/gcr-certificate-renderer.c:584
 #: ../ui/gcr-certificate-request-renderer.c:330
 #: ../ui/gcr-certificate-request-renderer.c:376
 msgid "Public Key Info"
-msgstr ""
+msgstr "Informazions clâf publiche"
 
 #. Signature
 #: ../ui/gcr-certificate-renderer.c:599 ../ui/gcr-certificate-renderer.c:909
 #: ../ui/gcr-certificate-request-renderer.c:346
 #: ../ui/gcr-certificate-request-renderer.c:383 ../ui/gcr-gnupg-renderer.c:558
 msgid "Signature"
-msgstr ""
+msgstr "Firme"
 
 #: ../ui/gcr-certificate-renderer.c:616
 msgid "Export Certificate…"
-msgstr ""
+msgstr "Espuarte certificât..."
 
 #: ../ui/gcr-certificate-renderer.c:855
 msgid "Key Algorithm"
-msgstr ""
+msgstr "Algoritmi de clâf"
 
 #: ../ui/gcr-certificate-renderer.c:860
 msgid "Key Parameters"
-msgstr ""
+msgstr "Parametris de clâf"
 
 #: ../ui/gcr-certificate-renderer.c:868 ../ui/gcr-gnupg-renderer.c:351
 msgid "Key Size"
-msgstr ""
+msgstr "Dimension de clâf"
 
 #: ../ui/gcr-certificate-renderer.c:876
 msgid "Key SHA1 Fingerprint"
-msgstr ""
+msgstr "Impronte digjitâl de clâf SHA1"
 
 #: ../ui/gcr-certificate-renderer.c:898
 msgid "Signature Algorithm"
-msgstr ""
+msgstr "Algoritmi di firme"
 
 #: ../ui/gcr-certificate-renderer.c:902
 msgid "Signature Parameters"
-msgstr ""
+msgstr "Parametris de firme"
 
 #: ../ui/gcr-certificate-renderer.c:951
 msgid "Critical"
-msgstr ""
+msgstr "Critic"
 
 #. The certificate request type
 #: ../ui/gcr-certificate-request-renderer.c:94
@@ -584,488 +584,491 @@ msgstr ""
 #: ../ui/gcr-certificate-request-renderer.c:363
 #: ../ui/gcr-certificate-request-renderer.c:368
 msgid "Certificate request"
-msgstr ""
+msgstr "Domande di certificât"
 
 #: ../ui/gcr-certificate-request-renderer.c:258
 msgid "Attribute"
-msgstr ""
+msgstr "Atribût"
 
 #: ../ui/gcr-certificate-request-renderer.c:262
 #: ../ui/gcr-certificate-request-renderer.c:321
 #: ../ui/gcr-certificate-request-renderer.c:369 ../ui/gcr-gnupg-renderer.c:589
 #: ../ui/gcr-gnupg-renderer.c:591
 msgid "Type"
-msgstr ""
+msgstr "Gjenar"
 
 #: ../ui/gcr-certificate-request-renderer.c:373
 msgid "Challenge"
-msgstr ""
+msgstr "Sfide"
 
 #: ../ui/gcr-display-view.c:319
 msgid "_Details"
-msgstr ""
+msgstr "_Detais"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
 msgid "Could not display '%s'"
-msgstr ""
+msgstr "Impussibil visualizâ '%s'"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
-msgstr ""
+msgstr "Impussibil visualizâ il file"
 
 #: ../ui/gcr-failure-renderer.c:166
 msgid "Reason"
-msgstr ""
+msgstr "Motîf"
 
 #: ../ui/gcr-failure-renderer.c:216
 #, c-format
 msgid "Cannot display a file of this type."
-msgstr ""
+msgstr "Impussibil visualizâ un file di chest gjenar."
 
 #: ../ui/gcr-gnupg-renderer.c:201
 msgid "Elgamal"
-msgstr ""
+msgstr "Elgamal"
 
 #: ../ui/gcr-gnupg-renderer.c:214
 msgid "Encrypt"
-msgstr ""
+msgstr "Cifre"
 
 #: ../ui/gcr-gnupg-renderer.c:216
 msgid "Sign"
-msgstr ""
+msgstr "Firme"
 
 #: ../ui/gcr-gnupg-renderer.c:218
 msgid "Certify"
-msgstr ""
+msgstr "Certifiche"
 
 #: ../ui/gcr-gnupg-renderer.c:220
 msgid "Authenticate"
-msgstr ""
+msgstr "Autentiche"
 
 #: ../ui/gcr-gnupg-renderer.c:222
 msgctxt "capability"
 msgid "Disabled"
-msgstr ""
+msgstr "Disabilitade"
 
 #: ../ui/gcr-gnupg-renderer.c:253 ../ui/gcr-gnupg-renderer.c:412
 #: ../ui/gcr-key-renderer.c:391 ../ui/gcr-key-renderer.c:395
 msgid "Unknown"
-msgstr ""
+msgstr "No cognossude"
 
 #: ../ui/gcr-gnupg-renderer.c:255
 msgid "Invalid"
-msgstr ""
+msgstr "No valide"
 
 #: ../ui/gcr-gnupg-renderer.c:257
 msgctxt "ownertrust"
 msgid "Disabled"
-msgstr ""
+msgstr "Disabilitade"
 
 #: ../ui/gcr-gnupg-renderer.c:259
 msgid "Revoked"
-msgstr ""
+msgstr "Revocade"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Expired"
-msgstr ""
+msgstr "Scjadude"
 
 #: ../ui/gcr-gnupg-renderer.c:263
 msgid "Undefined trust"
-msgstr ""
+msgstr "Fiducie no definide"
 
 #: ../ui/gcr-gnupg-renderer.c:265
 msgid "Distrusted"
-msgstr ""
+msgstr "Cence fiducie"
 
 #: ../ui/gcr-gnupg-renderer.c:267
 msgid "Marginally trusted"
-msgstr ""
+msgstr "Fiducie margjinâl"
 
 #: ../ui/gcr-gnupg-renderer.c:269
 msgid "Fully trusted"
-msgstr ""
+msgstr "Fiducie plene"
 
 #: ../ui/gcr-gnupg-renderer.c:271
 msgid "Ultimately trusted"
-msgstr ""
+msgstr "Fiducie complete"
 
 #: ../ui/gcr-gnupg-renderer.c:285
 msgid "The information in this key has not yet been verified"
 msgstr ""
+"Lis informazions contignudis in cheste clâf no son ancjemò stadis "
+"verificadis"
 
 #: ../ui/gcr-gnupg-renderer.c:288
 msgid "This key is invalid"
-msgstr ""
+msgstr "Cheste clâf no je valide"
 
 #: ../ui/gcr-gnupg-renderer.c:291
 msgid "This key has been disabled"
-msgstr ""
+msgstr "Cheste clâf e je stade disabilitade"
 
 #: ../ui/gcr-gnupg-renderer.c:294
 msgid "This key has been revoked"
-msgstr ""
+msgstr "Cheste clâf e je stade revocade"
 
 #: ../ui/gcr-gnupg-renderer.c:297
 msgid "This key has expired"
-msgstr ""
+msgstr "Cheste clâf e je scjadude"
 
 #: ../ui/gcr-gnupg-renderer.c:302
 msgid "This key is distrusted"
-msgstr ""
+msgstr "Cheste clâf no je fidade"
 
 #: ../ui/gcr-gnupg-renderer.c:305
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "La fiducie di cheste clâf e je margjinâl"
 
 #: ../ui/gcr-gnupg-renderer.c:308
 msgid "This key is fully trusted"
-msgstr ""
+msgstr "La fiducie di cheste clâf e je plene"
 
 #: ../ui/gcr-gnupg-renderer.c:311
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "La fiducie di cheste clâf e je complete"
 
 #: ../ui/gcr-gnupg-renderer.c:336 ../ui/gcr-gnupg-renderer.c:562
 msgid "Key ID"
-msgstr ""
+msgstr "ID clâf"
 
 #: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
 #: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
 msgid "Algorithm"
-msgstr ""
+msgstr "Algoritmi"
 
 #: ../ui/gcr-gnupg-renderer.c:359 ../ui/gcr-gnupg-renderer.c:436
 #: ../ui/gcr-gnupg-renderer.c:479
 msgid "Created"
-msgstr ""
+msgstr "Creade"
 
 #: ../ui/gcr-gnupg-renderer.c:368 ../ui/gcr-gnupg-renderer.c:445
 #: ../ui/gcr-gnupg-renderer.c:488
 msgid "Expiry"
-msgstr ""
+msgstr "Scjadence"
 
 #: ../ui/gcr-gnupg-renderer.c:377
 msgid "Capabilities"
-msgstr ""
+msgstr "Funzionalitâts"
 
 #: ../ui/gcr-gnupg-renderer.c:390
 msgid "Owner trust"
-msgstr ""
+msgstr "Fiducie tal proprietari"
 
 #: ../ui/gcr-gnupg-renderer.c:418
 msgid "Name"
-msgstr ""
+msgstr "Non"
 
 #: ../ui/gcr-gnupg-renderer.c:424 ../ui/gcr-gnupg-renderer.c:706
 msgid "Comment"
-msgstr ""
+msgstr "Coment"
 
 #: ../ui/gcr-gnupg-renderer.c:464
 msgid "User Attribute"
-msgstr ""
+msgstr "Atribût utent"
 
 #: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:398
 msgid "Size"
-msgstr ""
+msgstr "Dimension"
 
 #: ../ui/gcr-gnupg-renderer.c:506
 msgid "Signature of a binary document"
-msgstr ""
+msgstr "Firme di un document binari"
 
 #: ../ui/gcr-gnupg-renderer.c:508
 msgid "Signature of a canonical text document"
-msgstr ""
+msgstr "Firme di un document in test normâl"
 
 #: ../ui/gcr-gnupg-renderer.c:510
 msgid "Standalone signature"
-msgstr ""
+msgstr "Firme indipendente"
 
 #: ../ui/gcr-gnupg-renderer.c:512
 msgid "Generic certification of key"
-msgstr ""
+msgstr "Certificazion gjeneriche de clâf"
 
 #: ../ui/gcr-gnupg-renderer.c:514
 msgid "Persona certification of key"
-msgstr ""
+msgstr "Certificazion personâl de clâf"
 
 #: ../ui/gcr-gnupg-renderer.c:516
 msgid "Casual certification of key"
-msgstr ""
+msgstr "Certificazion casuâl de clâf"
 
 #: ../ui/gcr-gnupg-renderer.c:518
 msgid "Positive certification of key"
-msgstr ""
+msgstr "Certificazion positive de clâf"
 
 #: ../ui/gcr-gnupg-renderer.c:520
 msgid "Subkey binding signature"
-msgstr ""
+msgstr "Firme vincul sot-clâf"
 
 #: ../ui/gcr-gnupg-renderer.c:522
 msgid "Primary key binding signature"
-msgstr ""
+msgstr "Firme vincul clâf primarie"
 
 #: ../ui/gcr-gnupg-renderer.c:524
 msgid "Signature directly on key"
-msgstr ""
+msgstr "Firme direte su pe clâf"
 
 #: ../ui/gcr-gnupg-renderer.c:526
 msgid "Key revocation signature"
-msgstr ""
+msgstr "Firme revoche di clâf"
 
 #: ../ui/gcr-gnupg-renderer.c:528
 msgid "Subkey revocation signature"
-msgstr ""
+msgstr "Firme revoche di sot-clâf"
 
 #: ../ui/gcr-gnupg-renderer.c:530
 msgid "Certification revocation signature"
-msgstr ""
+msgstr "Firme revoche di certificât"
 
 #: ../ui/gcr-gnupg-renderer.c:532
 msgid "Timestamp signature"
-msgstr ""
+msgstr "Firme marcadure orarie"
 
 #: ../ui/gcr-gnupg-renderer.c:534
 msgid "Third-party confirmation signature"
-msgstr ""
+msgstr "Firme conferme di tiercis parts"
 
 #: ../ui/gcr-gnupg-renderer.c:587 ../ui/gcr-gnupg-renderer.c:595
 msgid "Class"
-msgstr ""
+msgstr "Classe"
 
 #: ../ui/gcr-gnupg-renderer.c:589
 msgid "Local only"
-msgstr ""
+msgstr "Dome locâl"
 
 #: ../ui/gcr-gnupg-renderer.c:591
 msgid "Exportable"
-msgstr ""
+msgstr "Espuartabil"
 
 #: ../ui/gcr-gnupg-renderer.c:609
 msgid "Revocation Key"
-msgstr ""
+msgstr "Clâf di revoche"
 
 #: ../ui/gcr-gnupg-renderer.c:623 ../ui/gcr-gnupg-renderer.c:647
 #: ../ui/gcr-gnupg-renderer.c:649
 msgid "Fingerprint"
-msgstr ""
+msgstr "Impronte digjitâl"
 
 #: ../ui/gcr-gnupg-renderer.c:738
 msgid "Public Subkey"
-msgstr ""
+msgstr "Sot-clâf publiche"
 
 #: ../ui/gcr-gnupg-renderer.c:740
 msgid "Secret Key"
-msgstr ""
+msgstr "Clâf segrete"
 
 #: ../ui/gcr-gnupg-renderer.c:742
 msgid "Secret Subkey"
-msgstr ""
+msgstr "Sot-clâf segrete"
 
 #: ../ui/gcr-import-button.c:116
 msgid "Initializing…"
-msgstr ""
+msgstr "Daûr a inizializâ..."
 
 #: ../ui/gcr-import-button.c:124
 msgid "Import is in progress…"
-msgstr ""
+msgstr "Importazion in cors..."
 
 #: ../ui/gcr-import-button.c:131
 #, c-format
 msgid "Imported to: %s"
-msgstr ""
+msgstr "Impuartât in: %s"
 
 #: ../ui/gcr-import-button.c:151
 #, c-format
 msgid "Import to: %s"
-msgstr ""
+msgstr "Impuarte in: %s"
 
 #: ../ui/gcr-import-button.c:164
 msgid "Cannot import because there are no compatible importers"
 msgstr ""
+"Impussibil eseguî la operazion pe mancjance di impuartadôrs compatibii"
 
 #: ../ui/gcr-import-button.c:173
 msgid "No data to import"
-msgstr ""
+msgstr "Nissun dât di impuartâ"
 
 #: ../ui/gcr-key-renderer.c:88
 msgid "Key"
-msgstr ""
+msgstr "Clâf"
 
 #: ../ui/gcr-key-renderer.c:355
 msgid "Private RSA Key"
-msgstr ""
+msgstr "Clâf privade RSA"
 
 #: ../ui/gcr-key-renderer.c:357
 msgid "Private DSA Key"
-msgstr ""
+msgstr "Clâf privade DSA"
 
 #: ../ui/gcr-key-renderer.c:359
 msgid "Private Elliptic Curve Key"
-msgstr ""
+msgstr "Clâf curve elitiche privade"
 
 #: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
-msgstr ""
+msgstr "Clâf publiche DSA"
 
 #: ../ui/gcr-key-renderer.c:368
 msgid "Public Elliptic Curve Key"
-msgstr ""
+msgstr "Clâf curve elitiche publiche"
 
 #: ../ui/gcr-key-renderer.c:377
 #, c-format
 msgid "%u bit"
 msgid_plural "%u bits"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u bit"
+msgstr[1] "%u bit"
 
 #: ../ui/gcr-key-renderer.c:378
 msgid "Strength"
-msgstr ""
+msgstr "Robustece"
 
 #. Fingerprints
 #: ../ui/gcr-key-renderer.c:402
 msgid "Fingerprints"
-msgstr ""
+msgstr "Improntis digjitâi"
 
 #: ../ui/gcr-key-renderer.c:406
 msgid "SHA1"
-msgstr ""
+msgstr "SHA1"
 
 #: ../ui/gcr-key-renderer.c:411
 msgid "SHA256"
-msgstr ""
+msgstr "SHA256"
 
 #. Add our various buttons
 #: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
-msgstr ""
+msgstr "A_nule"
 
 #: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
-msgstr ""
+msgstr "_OK"
 
 #: ../ui/gcr-pkcs11-import-dialog.c:189
 msgid "Automatically chosen"
-msgstr ""
+msgstr "Sielt in automatic"
 
 #: ../ui/gcr-pkcs11-import-dialog.c:273
 #: ../ui/gcr-pkcs11-import-interaction.c:152
 #: ../ui/gcr-pkcs11-import-interaction.c:170
 #, c-format
 msgid "The user cancelled the operation"
-msgstr ""
+msgstr "L'utent al à anulât la operazion"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:1
 msgid "In order to import, please enter the password."
-msgstr ""
+msgstr "Par podê impuartâ, inserî la password."
 
 #. The password label
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
-msgstr ""
+msgstr "Password:"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:3
 msgid "Token:"
-msgstr ""
+msgstr "Token:"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:69
 #: ../ui/gcr-unlock-renderer.c:124
 msgid "Unlock"
-msgstr ""
+msgstr "Sbloche"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:5
 msgid "Label:"
-msgstr ""
+msgstr "Etichete:"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:6
 msgid "Import settings"
-msgstr ""
+msgstr "Impostazions importazion"
 
 #. The confirm label
 #: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
-msgstr ""
+msgstr "Conferme:"
 
 #: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Lis password no corispuindin."
 
 #: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
-msgstr ""
+msgstr "La password no pues jessi vueide"
 
 #: ../ui/gcr-prompter.desktop.in.in.h:1
 msgid "Access Prompt"
-msgstr ""
+msgstr "Pronte l'acès"
 
 #: ../ui/gcr-prompter.desktop.in.in.h:2
 msgid "Unlock access to passwords and other secrets"
-msgstr ""
+msgstr "Sbloche l'acès aes password e altris segrets"
 
 #: ../ui/gcr-certificate-exporter.c:225
 msgid "A file already exists with this name."
-msgstr ""
+msgstr "Un file cul stes non al esist za."
 
 #: ../ui/gcr-certificate-exporter.c:226
 msgid "Do you want to replace it with a new file?"
-msgstr ""
+msgstr "Sostituîlu cul gnûf file?"
 
 #: ../ui/gcr-certificate-exporter.c:229
 msgid "_Replace"
-msgstr ""
+msgstr "_Sostituìs"
 
 #: ../ui/gcr-certificate-exporter.c:259
 #, c-format
 msgid "The operation was cancelled."
-msgstr ""
+msgstr "La operazion e je stade anulade."
 
 #: ../ui/gcr-certificate-exporter.c:303
 msgid "Export certificate"
-msgstr ""
+msgstr "Espuarte certificât"
 
 #: ../ui/gcr-certificate-exporter.c:306
 msgid "_Save"
-msgstr ""
+msgstr "_Salve"
 
 #: ../ui/gcr-certificate-exporter.c:315
 msgid "Certificate files"
-msgstr ""
+msgstr "File certificâts"
 
 #: ../ui/gcr-certificate-exporter.c:326
 msgid "PEM files"
-msgstr ""
+msgstr "File PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
 msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr ""
+msgstr "Sbloche in automatic chest puarteclâfs al acès"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
-msgstr ""
+msgstr "Bloche chest puarteclâfs ae jessude de session"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:3
 msgid "Lock this keyring after"
-msgstr ""
+msgstr "Bloche chest puarteclâfs daspò"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:4
 msgid "Lock this keyring if idle for"
-msgstr ""
+msgstr "Bloche chest puarteclâfs se inatîf par"
 
 #. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
-msgstr ""
+msgstr "minûts"
 
 #: ../ui/gcr-unlock-renderer.c:67
 #, c-format
 msgid "Unlock: %s"
-msgstr ""
+msgstr "Sbloche: %s"
 
 #: ../ui/gcr-unlock-renderer.c:122
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
@@ -1073,49 +1076,52 @@ msgid ""
 "The contents of '%s' are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
+"I contignûts di '%s' a son blocâts. Par podêju viodi, scrîf la password "
+"juste."
 
 #: ../ui/gcr-unlock-renderer.c:277
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr ""
+"I contignûts a son blocâts. Par podêju viodi, scrîf la password juste."
 
 #: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"
-msgstr ""
+msgstr "Visualizadôr di certificâts e di clâfs GCR"
 
 #: ../ui/gcr-viewer-tool.c:47
 msgid "Show the application's version"
-msgstr ""
+msgstr "Mostre la version de aplicazion"
 
 #: ../ui/gcr-viewer-tool.c:49
 msgid "[file...]"
-msgstr ""
+msgstr "[file...]"
 
 #: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
-msgstr ""
+msgstr "- Visualize certificâts e file di clâfs"
 
 #: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
-msgstr ""
+msgstr "Visualizadôr di certificâts"
 
 #: ../ui/gcr-viewer-widget.c:202
 msgid "The password was incorrect"
-msgstr ""
+msgstr "La password no je juste"
 
 #: ../ui/gcr-viewer-window.c:75
 msgid "Imported"
-msgstr ""
+msgstr "Impuartade"
 
 #: ../ui/gcr-viewer-window.c:79
 msgid "Import failed"
-msgstr ""
+msgstr "Importazion falide"
 
 #: ../ui/gcr-viewer-window.c:106
 msgid "Import"
-msgstr ""
+msgstr "Impuarte"
 
 #: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
-msgstr ""
+msgstr "_Siere"

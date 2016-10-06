@@ -59,7 +59,7 @@ perform_initialize_registered (InitializeRegistered *args)
 	modules = p11_kit_modules_load_and_initialize (0);
 	if (modules == NULL) {
 		g_set_error (&args->error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM,
-		             _("Couldn't initialize registered PKCS#11 modules: %s"), p11_kit_message ());
+		             _("Couldn’t initialize registered PKCS#11 modules: %s"), p11_kit_message ());
 		return CKR_GCK_MODULE_PROBLEM;
 	}
 

@@ -488,7 +488,7 @@ _gcr_subject_public_key_load (GckObject *key,
 	asn = _gcr_subject_public_key_for_attributes (attributes);
 	if (asn == NULL) {
 		g_set_error_literal (error, GCK_ERROR, CKR_TEMPLATE_INCONSISTENT,
-		                     _("Couldn't build public key"));
+		                     _("Couldn’t build public key"));
 	}
 
 	gck_attributes_unref (attributes);
@@ -574,7 +574,7 @@ _gcr_subject_public_key_load_finish (GAsyncResult *result,
 	asn = _gcr_subject_public_key_for_attributes (attributes);
 	if (asn == NULL) {
 		g_set_error_literal (error, GCK_ERROR, CKR_TEMPLATE_INCONSISTENT,
-		                     _("Couldn't build public key"));
+		                     _("Couldn’t build public key"));
 	}
 
 	gck_attributes_unref (attributes);

@@ -361,7 +361,7 @@ perform_add_pinned_certificate (GckAttributes *search,
 		             /* Translators: A pinned certificate is an exception which
 		                trusts a given certificate explicitly for a purpose and
 		                communication with a certain peer. */
-		             _("Couldn't find a place to store the pinned certificate"));
+		             _("Couldn’t find a place to store the pinned certificate"));
 		ret = FALSE;
 	} else {
 		session = gck_slot_open_session (slot, CKF_RW_SESSION, NULL, &lerr);

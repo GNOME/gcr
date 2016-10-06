@@ -355,7 +355,7 @@ perform_initialize (Initialize *args)
 	if (rv != CKR_OK) {
 		p11_kit_module_release (funcs);
 		g_set_error (&args->error, GCK_ERROR, rv,
-		             _("Couldn't initialize PKCS#11 module: %s"),
+		             _("Couldn’t initialize PKCS#11 module: %s"),
 		             gck_message_from_rv (rv));
 		g_object_unref (result);
 		return rv;

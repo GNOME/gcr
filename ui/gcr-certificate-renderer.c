@@ -284,7 +284,7 @@ on_export_completed (GObject *source, GAsyncResult *result, gpointer user_data)
 			dialog = gtk_message_dialog_new_with_markup (parent,
 				  GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
 				  GTK_BUTTONS_OK, "<big>%s</big>\n\n%s",
-				  _("Couldn't export the certificate."),
+				  _("Couldn’t export the certificate."),
 				  error->message);
 			gtk_widget_show (dialog);
 			g_signal_connect (dialog, "delete-event",

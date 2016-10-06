@@ -156,7 +156,7 @@ gcr_failure_renderer_render (GcrRenderer *renderer,
 	_gcr_display_view_append_title (view, renderer, self->pv->label);
 
 	if (self->pv->label)
-		display = g_strdup_printf (_("Could not display '%s'"), self->pv->label);
+		display = g_strdup_printf (_("Could not display “%s”"), self->pv->label);
 	else
 		display = g_strdup (_("Could not display file"));
 	_gcr_display_view_append_content (view, renderer, display, NULL);

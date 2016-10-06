@@ -13,7 +13,7 @@
     <property name="spacing">6</property>
     <child>
       <object class="GtkRadioButton" id="lock_always_choice">
-        <property name="label" translatable="yes">Automatically unlock this keyring whenever I'm logged in</property>
+        <property name="label" translatable="yes">Automatically unlock this keyring whenever I’m logged in</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>

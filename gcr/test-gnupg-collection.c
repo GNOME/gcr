@@ -115,6 +115,14 @@ teardown (Test *test, gconstpointer unused)
 
 	g_object_unref (test->collection);
 
+        /* remove potential gpg 2.1 extras, ignore any errors. */
+        cmd = g_strdup_printf ("rm -rf %s/*.d", test->directory);
+        system (cmd);
+        g_free (cmd);
+        cmd = g_strdup_printf ("rm -f %s/.gpg-v21-migrated", test->directory);
+        system (cmd);
+        g_free (cmd);
+
 	cmd = g_strdup_printf ("rm -f %s/*", test->directory);
 	g_spawn_check_exit_status (system (cmd), &error);
 	g_assert_no_error (error);
@@ -202,7 +210,7 @@ test_reload (Test *test, gconstpointer unused)
 	GcrGnupgKey *key;
 
 	_gcr_gnupg_collection_load_async (test->collection, NULL, on_async_ready, test);
-	egg_test_wait_until (500);
+	egg_test_wait_until (2500);
 	g_assert (test->result);
 	_gcr_gnupg_collection_load_finish (test->collection, test->result, &error);
 	g_assert_no_error (error);

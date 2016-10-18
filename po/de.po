@@ -5,7 +5,7 @@
 # Hendrik Richter <hendrikr@gnome.org>, 2006.
 # Philipp Kerling <k.philipp@gmail.com>, 2008.
 # Stefan Horning <stefan@hornings.de>, 2009.
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2013.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2013, 2016.
 # Nathan-J. Hirschauer <nathanhirschauer@verfriemelt.org>, 2010.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2010, 2011, 2014.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2008-2010, 2012.
@@ -17,16 +17,16 @@ msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-09-20 04:56+0000\n"
-"PO-Revision-Date: 2014-09-21 11:38+0200\n"
-"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
+"POT-Creation-Date: 2016-10-18 09:40+0000\n"
+"PO-Revision-Date: 2016-10-18 12:02+0200\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -203,13 +203,13 @@ msgstr "Fehler beim Laden des PKCS#11-Moduls: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "PKCS#11-Modul konnte nicht initialisiert werden: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr "PKCS#11-Modul konnte nicht registriert werden: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr "Registrierte PKCS#11-Module konnten nicht initialisiert werden: %s"
 
 #: ../gck/gck-uri.c:224
 #, c-format
@@ -217,7 +217,7 @@ msgid "The URI has invalid encoding."
 msgstr "Die Adresse hat eine ungültige Zeichenkodierung."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "Die Adresse entspricht nicht dem Schema »PKCS11«."
 
 #: ../gck/gck-uri.c:232
@@ -342,8 +342,8 @@ msgstr "Gnupg-Prozess endete mit Fehlercode: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg-Prozess wurde mit Signal beendet: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Der Vorgang wurde abgebrochen"
 
@@ -360,15 +360,15 @@ msgstr "Öffentlicher Schlüssel"
 msgid "Certificate Request"
 msgstr "Zertifikatsanfrage"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Unbekannte oder nicht unterstützte Daten"
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Ungültige oder defekte Daten konnten nicht verarbeitet werden."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Die Daten sind gesperrt"
 
@@ -385,10 +385,10 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Unerkanntes oder nicht verfügbares Attribut für den Schlüssel"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
-msgstr "Konnte keinen öffentlichen Schlüssel erzeugen"
+msgid "Couldn’t build public key"
+msgstr "Öffentlicher Schlüssel konnte nicht erzeugt werden"
 
-#: ../gcr/gcr-system-prompt.c:903
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Eine andere Anzeige läuft bereits"
 
@@ -397,9 +397,9 @@ msgstr "Eine andere Anzeige läuft bereits"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr ""
-"Es konnte kein Ort für die Hinterlegung des importierten Zertifikats "
+"Es konnte kein Ort für die Hinterlegung des beschränkt gültigen Zertifikats "
 "gefunden werden"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -493,7 +493,7 @@ msgid "Value"
 msgstr "Wert"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Zertifikat konnte nicht exportiert werden."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -613,13 +613,13 @@ msgstr "Typ"
 msgid "Challenge"
 msgstr "Aufgabe"
 
-#: ../ui/gcr-display-view.c:316
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Details"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "»%s« kann nicht angezeigt werden"
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -1052,8 +1052,8 @@ msgid "PEM files"
 msgstr "PEM-Dateien"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "Diesen Schlüsselbund beim Anmelden automatisch entsperren."
+msgid "Automatically unlock this keyring whenever I’m logged in"
+msgstr "Diesen Schlüsselbund beim Anmelden automatisch entsperren"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
@@ -1067,7 +1067,7 @@ msgstr "Diesen Schlüsselbund sperren nach"
 msgid "Lock this keyring if idle for"
 msgstr "Diesen Schlüsselbund bei Untätigkeit sperren nach"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "Minuten"
@@ -1084,7 +1084,7 @@ msgstr "Passwort"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "Der Inhalt von »%s« ist gesperrt. Um den Inhalt anzeigen zu können, geben "

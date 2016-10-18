@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-22 21:22+0200\n"
-"PO-Revision-Date: 2016-08-22 21:23+0200\n"
+"POT-Creation-Date: 2016-10-18 21:04+0200\n"
+"PO-Revision-Date: 2016-10-18 21:05+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -197,12 +197,12 @@ msgstr "Błąd podczas wczytywania modułu PKCS#11: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Nie można zainicjować modułu PKCS#11: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Nie można zainicjować zarejestrowanych modułów PKCS#11: %s"
 
 #: ../gck/gck-uri.c:224
@@ -211,7 +211,7 @@ msgid "The URI has invalid encoding."
 msgstr "Adres URI ma nieprawidłową kodowanie."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "Adres URI nie ma schematu „pkcs11”."
 
 #: ../gck/gck-uri.c:232
@@ -378,7 +378,7 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Nierozpoznane lub niedostępne atrybuty dla klucza"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
 msgstr "Nie można zbudować klucza publicznego"
 
 #: ../gcr/gcr-system-prompt.c:911
@@ -390,7 +390,7 @@ msgstr "Trwa już inne zapytanie"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Nie można odnaleźć położenie do przechowywania przypiętego certyfikatu"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -484,7 +484,7 @@ msgid "Value"
 msgstr "Wartość"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Nie można wyeksportować certyfikatu."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -610,7 +610,7 @@ msgstr "_Szczegóły"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "Nie można wyświetlić „%s”"
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -1042,7 +1042,7 @@ msgid "PEM files"
 msgstr "Pliki PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Automatyczne odblokowanie tej bazy kluczy po zalogowaniu"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1074,7 +1074,7 @@ msgstr "Hasło"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "Treść pliku „%s” jest zablokowana. Aby ją wyświetlić, należy wprowadzić "

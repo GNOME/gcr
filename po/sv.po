@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2015-02-10 17:48+0000\n"
-"PO-Revision-Date: 2015-02-15 20:35+0100\n"
-"Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
+"POT-Creation-Date: 2016-10-18 09:40+0000\n"
+"PO-Revision-Date: 2016-10-22 23:09+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -195,12 +195,12 @@ msgstr "Fel vid inläsning av PKCS#11-modul: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Kunde inte initiera PKCS#11-modul: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Kunde inte initiera registrerade PKCS#11-moduler: %s"
 
 #: ../gck/gck-uri.c:224
@@ -209,7 +209,7 @@ msgid "The URI has invalid encoding."
 msgstr "URI:n har en ogiltig kodning."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "URI:n saknar ”pkcs11”-schemat."
 
 #: ../gck/gck-uri.c:232
@@ -376,7 +376,7 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Okänt eller otillgängligt attribut för nyckel"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
 msgstr "Kunde inte bygga publik nyckel"
 
 #: ../gcr/gcr-system-prompt.c:911
@@ -388,7 +388,7 @@ msgstr "En annan inmatning pågår redan"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Kunde inte hitta en plats att lagra de nålade certifikaten i"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -482,7 +482,7 @@ msgid "Value"
 msgstr "Värde"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Kunde inte exportera certifikatet."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -602,13 +602,13 @@ msgstr "Typ"
 msgid "Challenge"
 msgstr "Utmaning"
 
-#: ../ui/gcr-display-view.c:316
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Detaljer"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "Kunde inte visa ”%s”"
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -1039,7 +1039,7 @@ msgid "PEM files"
 msgstr "PEM-filer"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Lås automatiskt upp den här nyckelringen när jag är inloggad"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1054,7 +1054,7 @@ msgstr "Lås denna nyckelring efter"
 msgid "Lock this keyring if idle for"
 msgstr "Lås denna nyckelring om inaktiv i"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minuter"
@@ -1071,7 +1071,7 @@ msgstr "Lösenord"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "Innehållet för ”%s” är låst. Ange det korrekta lösenordet för att visa "

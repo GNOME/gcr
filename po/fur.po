@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2016-08-22 19:24+0000\n"
-"PO-Revision-Date: 2016-09-05 21:48+0200\n"
+"POT-Creation-Date: 2016-10-18 09:40+0000\n"
+"PO-Revision-Date: 2016-10-25 22:24+0200\n"
+"Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "X-Generator: Poedit 1.8.8\n"
 
 #: ../egg/egg-oid.c:40
@@ -194,12 +194,12 @@ msgstr "Erôr tal cjariâ il modul PKCS#11: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Impussibil inizializâ il modul PKCS#11: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Impussibil inizializâ i modui PKCS#11 regjistrâts: %s"
 
 #: ../gck/gck-uri.c:224
@@ -208,8 +208,8 @@ msgid "The URI has invalid encoding."
 msgstr "Il URI al à une codifiche no valide."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "Il URI nol à il scheme 'pkcs11'."
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "Il URI nol à il scheme “pkcs11”."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -375,8 +375,8 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Atribûts pe clâf no ricognossûts o no disponibii."
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
-msgstr "Impussibil creâ la clâf publiche"
+msgid "Couldn’t build public key"
+msgstr "Impussibil costruî la clâf publiche"
 
 #: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
@@ -387,7 +387,7 @@ msgstr "Une altre domande e je in elaborazion"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Impussibil cjatâ une posizion par archiviâ il certificât pontât"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -481,7 +481,7 @@ msgid "Value"
 msgstr "Valôr"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Impussibil espuartâ il certificât."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -607,8 +607,8 @@ msgstr "_Detais"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
-msgstr "Impussibil visualizâ '%s'"
+msgid "Could not display “%s”"
+msgstr "Impussibil visualizâ “%s”"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -693,8 +693,7 @@ msgstr "Fiducie complete"
 #: ../ui/gcr-gnupg-renderer.c:285
 msgid "The information in this key has not yet been verified"
 msgstr ""
-"Lis informazions contignudis in cheste clâf no son ancjemò stadis "
-"verificadis"
+"Lis informazions contignudis in cheste clâf no son ancjemò stadis verificadis"
 
 #: ../ui/gcr-gnupg-renderer.c:288
 msgid "This key is invalid"
@@ -884,8 +883,7 @@ msgstr "Impuarte in: %s"
 
 #: ../ui/gcr-import-button.c:164
 msgid "Cannot import because there are no compatible importers"
-msgstr ""
-"Impussibil eseguî la operazion pe mancjance di impuartadôrs compatibii"
+msgstr "Impussibil eseguî la operazion pe mancjance di impuartadôrs compatibii"
 
 #: ../ui/gcr-import-button.c:173
 msgid "No data to import"
@@ -1041,7 +1039,7 @@ msgid "PEM files"
 msgstr "File PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Sbloche in automatic chest puarteclâfs al acès"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1073,18 +1071,17 @@ msgstr "Password"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"I contignûts di '%s' a son blocâts. Par podêju viodi, scrîf la password "
+"I contignûts di “%s” a son blocâts. Par podêju viodi, inserìs la password "
 "juste."
 
 #: ../ui/gcr-unlock-renderer.c:277
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
-msgstr ""
-"I contignûts a son blocâts. Par podêju viodi, scrîf la password juste."
+msgstr "I contignûts a son blocâts. Par podêju viodi, scrîf la password juste."
 
 #: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"

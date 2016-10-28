@@ -8,15 +8,15 @@
 # Kamil Páral <ripper42@gmail.com>, 2008.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008, 2009, 2010.
-# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012, 2014.
+# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012, 2014, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-04-24 04:49+0000\n"
-"PO-Revision-Date: 2014-04-24 16:19+0200\n"
+"POT-Creation-Date: 2016-10-18 09:40+0000\n"
+"PO-Revision-Date: 2016-10-28 11:29+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -154,27 +154,22 @@ msgid "Elliptic Curve"
 msgstr "Eliptické křivky"
 
 #: ../egg/egg-oid.c:106
-#| msgid "SHA1 with DSA"
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 s ECDSA"
 
 #: ../egg/egg-oid.c:107
-#| msgid "SHA1 with DSA"
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 s ECDSA"
 
 #: ../egg/egg-oid.c:108
-#| msgid "SHA1 with DSA"
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 s ECDSA"
 
 #: ../egg/egg-oid.c:109
-#| msgid "SHA1 with DSA"
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 s ECDSA"
 
 #: ../egg/egg-oid.c:110
-#| msgid "SHA1 with DSA"
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 s ECDSA"
 
@@ -206,13 +201,13 @@ msgstr "Chyba při načítání modulu PKCS#11: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr "Nelze inicializovat modul PKCS#11: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr "Nezdařilo se inicializovat modul PKCS#11: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr "Nelze inicializovat registrovaný modul PKCS#11: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr "Nezdařilo se inicializovat registrovaný modul PKCS#11: %s"
 
 #: ../gck/gck-uri.c:224
 #, c-format
@@ -220,7 +215,7 @@ msgid "The URI has invalid encoding."
 msgstr "Adresa URI má neplatné kódování."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "Adresa URI nemá schéma „pkcs11“."
 
 #: ../gck/gck-uri.c:232
@@ -231,8 +226,8 @@ msgstr "Adresa URI má chybnou syntaxi."
 msgid "The URI has a bad version number."
 msgstr "Adresa URI má špatné číslo verze."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "Proud byl uzavřen"
@@ -334,18 +329,18 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "ID klíče"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Proces gnupg skončil kódem: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Proces gnupg byl ukončen signálem: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Operace byla zrušena"
 
@@ -362,15 +357,15 @@ msgstr "Veřejný klíč"
 msgid "Certificate Request"
 msgstr "Požadavek o certifikát"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Nerozpoznaná nebo nepodporovaná data."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Nelze analyzovat neplatná nebo poškozená data."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Data jsou uzamčena"
 
@@ -382,25 +377,25 @@ msgstr "Pokračovat"
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../gcr/gcr-subject-public-key.c:407
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Nerozpoznaný nebo nedostupný atribut pro klíč"
 
-#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
-msgid "Couldn't build public key"
-msgstr "Nelze sestavit veřejný klíč"
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
+msgid "Couldn’t build public key"
+msgstr "Nezdařilo se sestavit veřejný klíč"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Jiný dotaz již probíhá"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
+#: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
-msgstr "Nelze najít místo, kde se mají uchovávat vyznačené certifikáty"
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr "Nezdařilo se najít místo, kde se mají uchovávat vyznačené certifikáty"
 
 #: ../ui/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
@@ -493,8 +488,8 @@ msgid "Value"
 msgstr "Hodnota"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
-msgstr "Nelze exportovat certifikát."
+msgid "Couldn’t export the certificate."
+msgstr "Nezdařilo se exportovat certifikát."
 
 #: ../ui/gcr-certificate-renderer.c:521
 #: ../ui/gcr-certificate-request-renderer.c:310
@@ -613,14 +608,14 @@ msgstr "Typ"
 msgid "Challenge"
 msgstr "Zpochybnění"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "Po_drobnosti"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
-msgstr "Nelze zobrazit „%s“"
+msgid "Could not display “%s”"
+msgstr "Nezdařilo se zobrazit „%s“"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -927,8 +922,6 @@ msgstr "Veřejný klíč (eliptické křivky)"
 
 #: ../ui/gcr-key-renderer.c:377
 #, c-format
-#| msgid "%d bit"
-#| msgid_plural "%d bits"
 msgid "%u bit"
 msgid_plural "%u bits"
 msgstr[0] "%u bit"
@@ -953,12 +946,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "_Budiž"
 
@@ -978,7 +971,7 @@ msgid "In order to import, please enter the password."
 msgstr "Pokud chcete importovat, zadejte prosím heslo."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "Heslo:"
 
@@ -1000,15 +993,15 @@ msgid "Import settings"
 msgstr "Nastavení importu"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "Ověření:"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "Hesla si neodpovídají."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "Heslo nemůže být prázdné"
 
@@ -1054,7 +1047,7 @@ msgid "PEM files"
 msgstr "Soubory PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Automaticky odemknout klíčenku, kdykoliv se přihlásím"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1069,7 +1062,7 @@ msgstr "Uzamknout tuto klíčenku za"
 msgid "Lock this keyring if idle for"
 msgstr "Uzamknout tuto klíčenku při nečinnosti delší než"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minut"
@@ -1086,7 +1079,7 @@ msgstr "Heslo"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "Obsah „%s“ je zamknutý. Pro zobrazení obsahu musíte zadat správné heslo."
@@ -1109,11 +1102,11 @@ msgstr "Zobrazit verzi aplikace"
 msgid "[file...]"
 msgstr "[soubor…]"
 
-#: ../ui/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "– Zobrazit certifikáty a soubory s klíči"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Prohlížeč certifikátů"
 
@@ -1129,10 +1122,11 @@ msgstr "Naimportováno"
 msgid "Import failed"
 msgstr "Import selhal"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Importovat"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_Zavřít"
+

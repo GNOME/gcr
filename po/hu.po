@@ -4,7 +4,7 @@
 #
 # Gergely Nagy <greg at gnome dot hu>, 2004.
 # Laszlo Dvornik <dvornikl at mailbox dot hu>, 2004.
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016.
 # Mate ORY <orymate at gmail d0t com>, 2006.
 # Balázs Úr <urbalazs at gmail dot com>, 2013.
 # Balázs Úr <urbalazs@gmail.com>, 2014.
@@ -13,15 +13,15 @@ msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-09-11 04:53+0000\n"
-"PO-Revision-Date: 2014-09-11 18:02+0200\n"
-"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"POT-Creation-Date: 2016-10-18 09:40+0000\n"
+"PO-Revision-Date: 2016-10-30 18:35+0100\n"
+"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../egg/egg-oid.c:40
@@ -152,27 +152,22 @@ msgid "Elliptic Curve"
 msgstr "Elliptikus görbe"
 
 #: ../egg/egg-oid.c:106
-#| msgid "SHA1 with DSA"
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 ECDSA-val"
 
 #: ../egg/egg-oid.c:107
-#| msgid "SHA1 with DSA"
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 ECDSA-val"
 
 #: ../egg/egg-oid.c:108
-#| msgid "SHA1 with DSA"
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 ECDSA-val"
 
 #: ../egg/egg-oid.c:109
-#| msgid "SHA1 with DSA"
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 ECDSA-val"
 
 #: ../egg/egg-oid.c:110
-#| msgid "SHA1 with DSA"
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 ECDSA-val"
 
@@ -204,12 +199,14 @@ msgstr "Hiba a PKCS#11 modul betöltésekor: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+#| msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Nem készíthető elő a PKCS#11 modul: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Nem készíthetők elő a regisztrált PKCS#11 modulok: %s"
 
 #: ../gck/gck-uri.c:224
@@ -218,7 +215,8 @@ msgid "The URI has invalid encoding."
 msgstr "Az URI kódolása érvénytelen."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+#| msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "Az URI nem rendelkezik a „pkcs11” sémával."
 
 #: ../gck/gck-uri.c:232
@@ -342,8 +340,8 @@ msgstr "A Gnupg a következő kóddal lépett ki: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "A Gnupg folyamat befejeztetve a következő szignállal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "A művelet megszakítva"
 
@@ -360,15 +358,15 @@ msgstr "Nyilvános kulcs"
 msgid "Certificate Request"
 msgstr "Tanúsítványkérés"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Ismeretlen vagy nem támogatott adatok."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Nem sikerült feldolgozni az érvénytelen vagy hibás adatokat."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Az adatok zárolva vannak"
 
@@ -385,10 +383,11 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "A kulcs attribútumai azonosítatlanok vagy nem érhetők el"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+#| msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
 msgstr "Nem építhető fel a nyilvános kulcs"
 
-#: ../gcr/gcr-system-prompt.c:903
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Már folyamatban van egy másik kérés"
 
@@ -397,7 +396,8 @@ msgstr "Már folyamatban van egy másik kérés"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+#| msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Nem található tárolási hely a rögzített tanúsítványhoz"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -491,7 +491,8 @@ msgid "Value"
 msgstr "Érték"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+#| msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Nem exportálható a tanúsítvány."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -611,13 +612,14 @@ msgstr "Típus"
 msgid "Challenge"
 msgstr "Kihívás"
 
-#: ../ui/gcr-display-view.c:316
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "Rés_zletek"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+#| msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "„%s” nem jeleníthető meg"
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -924,8 +926,6 @@ msgstr "Nyilvános elliptikus görbe kulcs"
 
 #: ../ui/gcr-key-renderer.c:377
 #, c-format
-#| msgid "%d bit"
-#| msgid_plural "%d bits"
 msgid "%u bit"
 msgid_plural "%u bits"
 msgstr[0] "%u bit"
@@ -1050,8 +1050,9 @@ msgid "PEM files"
 msgstr "PEM-fájlok"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "Ezen kulcstartó automatikus feloldása, ha bejelentkeztem"
+#| msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
+msgstr "Ezen kulcstartó automatikus feloldása amikor bejelentkezem"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
@@ -1065,7 +1066,7 @@ msgstr "Kulcstartó zárolása:"
 msgid "Lock this keyring if idle for"
 msgstr "Kulcstartó zárolása üresjáratban töltött:"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "perc után"
@@ -1081,8 +1082,11 @@ msgstr "Jelszó"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
+#| msgid ""
+#| "The contents of '%s' are locked. In order to view the contents, enter the "
+#| "correct password."
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "A(z) „%s” tartalma zárolva van. A tartalom megjelenítéséhez adja meg a "

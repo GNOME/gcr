@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-16 04:50+0300\n"
-"PO-Revision-Date: 2014-05-16 04:53+0300\n"
+"POT-Creation-Date: 2016-11-17 23:01+0200\n"
+"PO-Revision-Date: 2016-11-17 23:03+0200\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
@@ -196,12 +196,12 @@ msgstr "שגיאה בטעינת PKCS#11:‏ %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "לא ניתן להפעיל את מודול ה־PKCS#11:‏ %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "לא ניתן להפעיל את מודולי ה־PKCS#11 הרשומים: %s"
 
 #: ../gck/gck-uri.c:224
@@ -210,8 +210,8 @@ msgid "The URI has invalid encoding."
 msgstr "הכתובת הנה בקידוד שגוי."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "לכתובת אין את הסכמה 'pkcs11'"
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "לכתובת אין את הסכמה „pkcs11”"
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -221,8 +221,8 @@ msgstr "לכתובת יש תחביר שגוי."
 msgid "The URI has a bad version number."
 msgstr "לכתובת יש מספר גרסה שגוי."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "התזרים נסגר"
@@ -324,18 +324,18 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "מזהה המפתח"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "התהליך Gnupg יצא עם הקוד: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "התהליך Gnupg חוסל עם האות: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "הפעולה בוטלה"
 
@@ -352,15 +352,15 @@ msgstr "מפתח ציבורי"
 msgid "Certificate Request"
 msgstr "בקשת אישור"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "הנתונים אינם מוכרים או שאינם נתמכים."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "לא ניתן לנתח נתונים שגויים או פגומים."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "הנתונים נעולים"
 
@@ -372,24 +372,24 @@ msgstr "המשך"
 msgid "Cancel"
 msgstr "ביטול"
 
-#: ../gcr/gcr-subject-public-key.c:407
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "מאפיין בלתי מוכר או בלתי זמין של המפתח"
 
-#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
-msgid "Couldn't build public key"
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
+msgid "Couldn’t build public key"
 msgstr "לא ניתן לבנות מפתח ציבורי"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "כבר מתבצע אימות אחר"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
+#: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "לא ניתן למצוא את המיקום לאחסון האישור המוצמד"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -483,7 +483,7 @@ msgid "Value"
 msgstr "ערך"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "לא ניתן לייצא את האישור."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -603,14 +603,14 @@ msgstr "סוג"
 msgid "Challenge"
 msgstr "אתגר"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_פרטים"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
-msgstr "לא ניתן להציג את '%s'"
+msgid "Could not display “%s”"
+msgstr "לא ניתן להציג את „%s”"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -939,12 +939,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
 msgstr "_ביטול"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "_אישור"
 
@@ -964,7 +964,7 @@ msgid "In order to import, please enter the password."
 msgstr "כדי לייבא, יש להזין את הססמה."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "ססמה:"
 
@@ -986,15 +986,15 @@ msgid "Import settings"
 msgstr "ייבוא הגדרות"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "אימות:"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "הססמאות אינן תואמות."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "הססמה לא יכולה להיות ריקה"
 
@@ -1040,7 +1040,7 @@ msgid "PEM files"
 msgstr "קובצי PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "יש לפתוח קבוצת ססמאות זו באופן אוטומטי בעת הכניסה למערכת"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1055,7 +1055,7 @@ msgstr "נעילת קבוצת ססמאות זו לאחר"
 msgid "Lock this keyring if idle for"
 msgstr "קבוצת ססמאות זו תנעל אם אינה בשימוש למשך"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "דקות"
@@ -1072,9 +1072,9 @@ msgstr "ססמה"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
-msgstr "התכנים של '%s' נעולים. כדי לצפות בתוכן, יש להזין את הססמה הנכונה."
+msgstr "התכנים של „%s” נעולים. כדי לצפות בתוכן, יש להזין את הססמה הנכונה."
 
 #: ../ui/gcr-unlock-renderer.c:277
 msgid ""
@@ -1094,11 +1094,11 @@ msgstr "הצגת גרסת היישום"
 msgid "[file...]"
 msgstr "[file...]"
 
-#: ../ui/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- צפייה באישור ובקובצי המפתח"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "מציג אישורים"
 
@@ -1114,11 +1114,11 @@ msgstr "ייובא"
 msgid "Import failed"
 msgstr "הייבוא נכשל"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "ייבוא:"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_סגירה"
 
@@ -1134,6 +1134,5 @@ msgstr "_סגירה"
 #~ msgid "Label"
 #~ msgstr "תווית"
 
-#, fuzzy
 #~ msgid "<b>Unlock</b>"
 #~ msgstr "פתח"

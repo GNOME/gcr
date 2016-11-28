@@ -160,7 +160,7 @@ gir_DATA += GcrUi-@GCR_MAJOR@.gir
 
 if ENABLE_VAPIGEN
 
-gcr-ui-@GCR_MAJOR@.vapi: GcrUi-@GCR_MAJOR@.gir ui/GcrUi-@GCR_MAJOR@.metadata gcr-ui-@GCR_MAJOR@.deps
+gcr-ui-@GCR_MAJOR@.vapi: GcrUi-@GCR_MAJOR@.gir ui/GcrUi-@GCR_MAJOR@.metadata gcr-ui-@GCR_MAJOR@.deps gck-@GCK_MAJOR@.vapi gcr-@GCR_MAJOR@.vapi
 
 VAPIGEN_VAPIS += gcr-ui-@GCR_MAJOR@.vapi
 

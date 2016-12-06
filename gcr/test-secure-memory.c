@@ -27,9 +27,11 @@
 
 #include <glib.h>
 
+#include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/resource.h>
 
 #define IS_ZERO -1
 
@@ -44,6 +46,32 @@ find_non_zero (gpointer mem, gsize len)
 	}
 
 	return -1;
+}
+
+extern int egg_secure_warnings;
+
+static gsize
+get_rlimit_memlock (void)
+{
+	struct rlimit memlock;
+
+	if (getrlimit (RLIMIT_MEMLOCK, &memlock) != 0)
+		g_error ("getrlimit() failed: %s", strerror (errno));
+
+	/* Check that the limit is finite, and that if the caller increases its
+	 * size by one (to get the first invalid allocation size), things won’t
+	 * explode. */
+	if (memlock.rlim_cur == RLIM_INFINITY ||
+	    memlock.rlim_cur >= G_MAXSIZE - 1) {
+		/* Try reducing the limit to 64KiB. */
+		memlock.rlim_cur = MIN (64 * 1024, memlock.rlim_max);
+		if (setrlimit (RLIMIT_MEMLOCK, &memlock) != 0) {
+			g_test_skip ("setrlimit() failed");
+			return 0;
+		}
+	}
+
+	return memlock.rlim_cur;
 }
 
 static void
@@ -87,6 +115,27 @@ test_alloc_two (void)
 
 	gcr_secure_memory_free (p2);
 	gcr_secure_memory_free (p);
+}
+
+/* Test alloc() with an allocation larger than RLIMIT_MEMLOCK, which should
+ * fail. */
+static void
+test_alloc_oversized (void)
+{
+	gsize limit;
+	gpointer mem;
+
+	limit = get_rlimit_memlock ();
+	if (limit == 0)
+		return;
+
+	/* Try the allocation. */
+	egg_secure_warnings = 0;
+
+	mem = gcr_secure_memory_try_alloc (limit + 1);
+	g_assert_null (mem);
+
+	egg_secure_warnings = 1;
 }
 
 static void
@@ -133,6 +182,32 @@ test_realloc_across (void)
 	gcr_secure_memory_free (p2);
 }
 
+/* Test realloc() with an allocation larger than RLIMIT_MEMLOCK, which should
+ * fail. */
+static void
+test_realloc_oversized (void)
+{
+	gsize limit;
+	gpointer mem, new_mem;
+
+	limit = get_rlimit_memlock ();
+	if (limit == 0)
+		return;
+
+	/* Try the allocation. */
+	mem = gcr_secure_memory_alloc (64);
+	g_assert_nonnull (mem);
+
+	egg_secure_warnings = 0;
+
+	new_mem = gcr_secure_memory_try_realloc (mem, limit + 1);
+	g_assert_null (new_mem);
+
+	egg_secure_warnings = 1;
+
+	gcr_secure_memory_free (mem);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -141,8 +216,10 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/memory/alloc-free", test_alloc_free);
 	g_test_add_func ("/memory/alloc-two", test_alloc_two);
+	g_test_add_func ("/memory/alloc-oversized", test_alloc_oversized);
 	g_test_add_func ("/memory/realloc", test_realloc);
 	g_test_add_func ("/memory/realloc-across", test_realloc_across);
+	g_test_add_func ("/memory/realloc-oversized", test_realloc_oversized);
 
 	return g_test_run ();
 }

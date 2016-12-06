@@ -178,8 +178,7 @@ gcr_secure_memory_try_realloc (gpointer memory,
 	new_memory = egg_secure_realloc_full ("gcr-secure-memory", memory,
 	                                      size, 0);
 
-	g_assert (new_memory != NULL);
-
+	/* Might be NULL if reallocation failed. */
 	return new_memory;
 }
 

@@ -141,7 +141,7 @@ test_alloc_oversized (void)
 static void
 test_realloc (void)
 {
-	gchar *str = "a test string to see if realloc works properly";
+	const gchar *str = "a test string to see if realloc works properly";
 	gpointer p, p2;
 	gsize len;
 

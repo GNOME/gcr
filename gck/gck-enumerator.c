@@ -825,7 +825,7 @@ free_enumerate_next (EnumerateNext *args)
  * Get the type of objects created by this enumerator. The type will always
  * either be #GckObject or derived from it.
  *
- * Returns: (transfer none): the type of objects created
+ * Returns: the type of objects created
  */
 GType
 gck_enumerator_get_object_type (GckEnumerator *self)

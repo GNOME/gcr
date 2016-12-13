@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+	<gresource prefix="/org/gnome/gcr/ui">
+		<file preprocess="xml-stripblanks">gcr-pkcs11-import-dialog.ui</file>
+		<file preprocess="xml-stripblanks">gcr-unlock-options-widget.ui</file>
+	</gresource>
+</gresources>

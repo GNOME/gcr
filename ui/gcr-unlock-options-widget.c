@@ -183,7 +183,7 @@ gcr_unlock_options_widget_constructor (GType type, guint n_props, GObjectConstru
 	if (obj) {
 		self = GCR_UNLOCK_OPTIONS_WIDGET (obj);
 
-		if (!gtk_builder_add_from_file (self->pv->builder, UIDIR "gcr-unlock-options-widget.ui", NULL))
+		if (!gtk_builder_add_from_resource (self->pv->builder, "/org/gnome/gcr/ui/gcr-unlock-options-widget.ui", NULL))
 			g_return_val_if_reached (obj);
 
 		widget = GTK_WIDGET (gtk_builder_get_object (self->pv->builder, "unlock-options-widget"));

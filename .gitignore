@@ -105,6 +105,8 @@ stamp-*
 /ui/gcr-viewer.desktop.in
 /ui/gcr-*.deps
 /ui/gcr-*.vapi
+/ui/gcr-resources.c
+/ui/gcr-resources.h
 
 /po/Makefile.in.in
 /po/*.sed

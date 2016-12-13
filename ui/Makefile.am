@@ -6,7 +6,8 @@ check-ui-symbols: gcr-ui-expected.abi gcr-ui-actual.abi
 		(echo "check-symbols: Symbols have CHANGED. Fix gcr-ui.symbols"; exit 1)
 
 ui_BUILT_SOURCES = \
-	ui/gcr-enum-types.c ui/gcr-enum-types.h
+	ui/gcr-enum-types.c ui/gcr-enum-types.h \
+	ui/gcr-resources.c ui/gcr-resources.h
 
 BUILT_SOURCES += \
 	$(ui_BUILT_SOURCES)
@@ -17,7 +18,6 @@ libgcr_ui_@GCR_MAJOR@_la_CFLAGS = \
 	-DP11_KIT_API_SUBJECT_TO_CHANGE \
 	-DG_LOG_DOMAIN=\"Gcr\" \
 	-DGCR_COMPILATION \
-	-DUIDIR=\""$(uidir)"\" \
 	$(P11_KIT_CFLAGS) \
 	$(GTK_CFLAGS)
 
@@ -41,12 +41,6 @@ install-exec-hook:
 	$(LN_S) -f `readlink $(DESTDIR)$(libdir)/libgcr-ui-@GCR_MAJOR@.so` $(DESTDIR)$(libdir)/libgcr-@GCR_MAJOR@.so
 	$(LN_S) -f `readlink $(DESTDIR)$(libdir)/libgcr-ui-@GCR_MAJOR@.so` $(DESTDIR)$(libdir)/libgcr-@GCR_MAJOR@.so.@GCR_CURRENT@
 	$(LN_S) -f `readlink $(DESTDIR)$(libdir)/libgcr-ui-@GCR_MAJOR@.so` $(DESTDIR)$(libdir)/libgcr-@GCR_MAJOR@.so.@GCR_CURRENT@.0.0
-
-uidir = $(datadir)/gcr-@GCR_MAJOR@/ui/
-
-ui_DATA = \
-	ui/gcr-pkcs11-import-dialog.ui \
-	ui/gcr-unlock-options-widget.ui
 
 lib_LTLIBRARIES += \
 	libgcr-ui-@GCR_MAJOR@.la
@@ -130,6 +124,14 @@ ui/gcr-enum-types.h: $(ENUM_TEMPLATE_H) $(ui_HEADER_FILES)
 
 ui/gcr-enum-types.c: $(ENUM_TEMPLATE_C) $(ui_HEADER_FILES)
 	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
+
+ui_RESOURCES = $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir)/ui --generate-dependencies $(srcdir)/ui/gcr.gresource.xml)
+
+ui/gcr-resources.h: ui/gcr.gresource.xml
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) $< --target=$@ --sourcedir=$(srcdir)/ui --generate-header --internal
+
+ui/gcr-resources.c: ui/gcr.gresource.xml $(ui_RESOURCES)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) $< --target=$@ --sourcedir=$(srcdir)/ui --generate-source --internal
 
 gcr-ui-$(GCR_MAJOR).pc: ui/gcr-ui.pc
 	$(AM_V_GEN) cp ui/gcr-ui.pc gcr-ui-$(GCR_MAJOR).pc
@@ -228,9 +230,10 @@ gcr_prompter_LDADD = \
 EXTRA_DIST += \
 	ui/gcr.pc.in \
 	ui/gcr-ui.pc.in \
-	$(ui_DATA) \
 	ui/gcr-ui.symbols \
+	ui/gcr.gresource.xml \
 	$(desktop_in_in_files) \
+	$(ui_RESOURCES) \
 	$(mime_DATA) \
 	ui/fixtures
 

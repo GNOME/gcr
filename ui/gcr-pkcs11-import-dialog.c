@@ -81,7 +81,7 @@ _gcr_pkcs11_import_dialog_constructed (GObject *obj)
 
 	G_OBJECT_CLASS (_gcr_pkcs11_import_dialog_parent_class)->constructed (obj);
 
-	if (!gtk_builder_add_from_file (self->builder, UIDIR "gcr-pkcs11-import-dialog.ui", &error)) {
+	if (!gtk_builder_add_from_resource (self->builder, "/org/gnome/gcr/ui/gcr-pkcs11-import-dialog.ui", &error)) {
 		g_warning ("couldn't load ui builder file: %s", error->message);
 		return;
 	}

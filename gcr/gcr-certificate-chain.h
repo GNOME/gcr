@@ -90,14 +90,14 @@ GcrCertificate*           gcr_certificate_chain_get_certificate    (GcrCertifica
 gboolean                  gcr_certificate_chain_build              (GcrCertificateChain *self,
                                                                     const gchar *purpose,
                                                                     const gchar *peer,
-                                                                    guint flags,
+                                                                    GcrCertificateChainFlags flags,
                                                                     GCancellable *cancellable,
                                                                     GError **error);
 
 void                      gcr_certificate_chain_build_async        (GcrCertificateChain *self,
                                                                     const gchar *purpose,
                                                                     const gchar *peer,
-                                                                    guint flags,
+                                                                    GcrCertificateChainFlags flags,
                                                                     GCancellable *cancellable,
                                                                     GAsyncReadyCallback callback,
                                                                     gpointer user_data);

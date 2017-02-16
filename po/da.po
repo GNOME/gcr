@@ -12,8 +12,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-20 23:11+0100\n"
+"Report-Msgid-Bugs-To: "
+"http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2016-10-18 09:40+0000\n"
 "PO-Revision-Date: 2016-02-04 19:11+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -201,12 +202,12 @@ msgstr "Fejl ved indlæsning af PKCS#11-modul: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Kunne ikke initialisere PKCS#11-modul: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Kunne ikke initialisere registrerede PKCS#11-moduler: %s"
 
 #: ../gck/gck-uri.c:224
@@ -215,7 +216,7 @@ msgid "The URI has invalid encoding."
 msgstr "URI'en har en ugyldig kodning."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "URI'en har ikke skemaet \"pkcs11\"."
 
 #: ../gck/gck-uri.c:232
@@ -382,7 +383,7 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Ukendt eller utilgængelig attribut for nøgle"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
 msgstr "Kunne ikke bygge offentlig nøgle"
 
 #: ../gcr/gcr-system-prompt.c:911
@@ -394,7 +395,7 @@ msgstr "En anden prompt er allerede i gang"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Kunne ikke finde et sted at gemme det fastsatte certifikat"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -488,7 +489,7 @@ msgid "Value"
 msgstr "Værdi"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Kunne ikke eksportere certifikatet."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -554,7 +555,7 @@ msgstr "Underskrift"
 
 #: ../ui/gcr-certificate-renderer.c:616
 msgid "Export Certificate…"
-msgstr "Eksportér certifikat…"
+msgstr "Eksportér certifikat …"
 
 #: ../ui/gcr-certificate-renderer.c:855
 msgid "Key Algorithm"
@@ -614,7 +615,7 @@ msgstr "_Detaljer"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "Kunne ikke vise \"%s\""
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -872,11 +873,11 @@ msgstr "Hemmelig undernøgle"
 
 #: ../ui/gcr-import-button.c:116
 msgid "Initializing…"
-msgstr "Klargør…"
+msgstr "Klargør …"
 
 #: ../ui/gcr-import-button.c:124
 msgid "Import is in progress…"
-msgstr "Import er i gang…"
+msgstr "Import er i gang …"
 
 #: ../ui/gcr-import-button.c:131
 #, c-format
@@ -1046,7 +1047,7 @@ msgid "PEM files"
 msgstr "PEM-filer"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Lås automatisk denne nøglering op når jeg logger ind"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1061,7 +1062,7 @@ msgstr "Lås denne nøglering efter"
 msgid "Lock this keyring if idle for"
 msgstr "Lås denne nøglering hvis inaktiv i"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minutter"
@@ -1078,7 +1079,7 @@ msgstr "Adgangskode"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "Indholdet af \"%s\" er låst. For at se indholdet så indtast den korrekte "
@@ -1101,7 +1102,7 @@ msgstr "Vis programmets version"
 
 #: ../ui/gcr-viewer-tool.c:49
 msgid "[file...]"
-msgstr "[fil...]"
+msgstr "[fil …]"
 
 #: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
@@ -1139,3 +1140,4 @@ msgstr "_Luk"
 
 #~ msgid "Label"
 #~ msgstr "Mærkat"
+

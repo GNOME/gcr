@@ -1,18 +1,18 @@
 # Italian Translation of gcr.
-# Copyright (C) 2004 - 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc
+# Copyright (C) 2004 - 2010, 2011, 2012, 2013, 2014, 2017 Free Software Foundation, Inc
 # This file is distributed under the same license as the gcr package.
 # Luca Ferretti <elle.uca@libero.it>, 2008.
 # 2008, 2009, 2010.
 # Francesco Marletta <francesco.marletta@tiscali.it>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
-# Milo Casagrande <milo@milo.name>, 2011, 2012, 2013, 2014.
+# Milo Casagrande <milo@milo.name>, 2011, 2012, 2013, 2014, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-10-05 04:55+0000\n"
-"PO-Revision-Date: 2014-10-05 14:50+0100\n"
+"POT-Creation-Date: 2016-10-18 09:40+0000\n"
+"PO-Revision-Date: 2017-02-15 09:41+0100\n"
 "Last-Translator: Milo Casagrande <milo@milo.name>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -199,12 +199,12 @@ msgstr "Errore nel caricare il modulo PKCS#11: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Impossibile inizializzare il modulo PKCS#11: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Impossibile inizializzare i moduli PKCS#11 registrati: %s"
 
 #: ../gck/gck-uri.c:224
@@ -214,7 +214,7 @@ msgstr "L'URI presenta una codifica non valida."
 
 # FIXME?
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "L'URI non presenta lo schema «pkcs11»."
 
 #: ../gck/gck-uri.c:232
@@ -339,8 +339,8 @@ msgstr "Processo Gnupg uscito col codice %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Processo Gnupg terminato col segnale %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "L'operazione è stata annullata"
 
@@ -358,15 +358,15 @@ msgstr "Chiave pubblica"
 msgid "Certificate Request"
 msgstr "Richiesta certificato"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Dati non riconosciuti o non supportati."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Impossibile analizzare i dati non validi o danneggiati."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "I dati sono bloccati"
 
@@ -383,21 +383,22 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Attributi per la chiave non riconosciuti o non disponibili"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
 msgstr "Impossibile generare la chiave pubblica"
 
-#: ../gcr/gcr-system-prompt.c:903
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "C'è già un altro prompt in elaborazione"
 
-# FIXME: magari ha già una traduzione in Firefox o altro??
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
-msgstr "Impossibile trovare una posizione per archiviare il certificato pinned"
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr ""
+"Impossibile trovare una posizione per archiviare il certificato vincolato "
+"(pinned)"
 
 #: ../ui/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
@@ -493,7 +494,7 @@ msgstr "Valore"
 
 # FIXME: magari ha già una traduzione in Firefox o altro??
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Impossibile esportare il certificato."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -616,13 +617,13 @@ msgstr "Tipo"
 msgid "Challenge"
 msgstr "Challenge"
 
-#: ../ui/gcr-display-view.c:316
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Dettagli"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "Impossibile visualizzare «%s»"
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -1064,7 +1065,7 @@ msgid "PEM files"
 msgstr "File PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Sbloccare automaticamente questo portachiavi all'accesso"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1079,7 +1080,7 @@ msgstr "Bloccare questo portachiavi dopo"
 msgid "Lock this keyring if idle for"
 msgstr "Bloccare questo portachiavi se inattivo per"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minuti"
@@ -1097,7 +1098,7 @@ msgstr "Password"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "Il contenuto di «%s» è bloccato. Per poterlo visualizzare, digitare la "

@@ -1,23 +1,23 @@
 # Kazakh translation for gcr.
 # Copyright (C) 2015 gcr's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gcr package.
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2015.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2015-2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2015-09-16 05:07+0000\n"
-"PO-Revision-Date: 2015-09-16 15:22+0500\n"
+"POT-Creation-Date: 2016-10-18 09:40+0000\n"
+"PO-Revision-Date: 2017-02-21 13:42+0500\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -194,12 +194,12 @@ msgstr ""
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr ""
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr ""
 
 #: ../gck/gck-uri.c:224
@@ -208,7 +208,7 @@ msgid "The URI has invalid encoding."
 msgstr ""
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr ""
 
 #: ../gck/gck-uri.c:232
@@ -375,7 +375,7 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr ""
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
 msgstr ""
 
 #: ../gcr/gcr-system-prompt.c:911
@@ -387,7 +387,7 @@ msgstr ""
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr ""
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -475,14 +475,14 @@ msgid "Identifier"
 msgstr "Анықтағыш"
 
 #: ../ui/gcr-certificate-renderer.c:269
-#: ../ui/gcr-certificate-request-renderer.c:269
-#: ../ui/gcr-gnupg-renderer.c:412 ../ui/gcr-gnupg-renderer.c:429
+#: ../ui/gcr-certificate-request-renderer.c:269 ../ui/gcr-gnupg-renderer.c:412
+#: ../ui/gcr-gnupg-renderer.c:429
 msgid "Value"
 msgstr "Мәні"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
-msgstr ""
+msgid "Couldn’t export the certificate."
+msgstr "Сертификатты экспорттау мүмкін емес."
 
 #: ../ui/gcr-certificate-renderer.c:521
 #: ../ui/gcr-certificate-request-renderer.c:310
@@ -541,8 +541,7 @@ msgstr ""
 #. Signature
 #: ../ui/gcr-certificate-renderer.c:599 ../ui/gcr-certificate-renderer.c:909
 #: ../ui/gcr-certificate-request-renderer.c:346
-#: ../ui/gcr-certificate-request-renderer.c:383
-#: ../ui/gcr-gnupg-renderer.c:558
+#: ../ui/gcr-certificate-request-renderer.c:383 ../ui/gcr-gnupg-renderer.c:558
 msgid "Signature"
 msgstr "Қолтаңба"
 
@@ -593,8 +592,8 @@ msgstr "Атрибут"
 
 #: ../ui/gcr-certificate-request-renderer.c:262
 #: ../ui/gcr-certificate-request-renderer.c:321
-#: ../ui/gcr-certificate-request-renderer.c:369
-#: ../ui/gcr-gnupg-renderer.c:589 ../ui/gcr-gnupg-renderer.c:591
+#: ../ui/gcr-certificate-request-renderer.c:369 ../ui/gcr-gnupg-renderer.c:589
+#: ../ui/gcr-gnupg-renderer.c:591
 msgid "Type"
 msgstr "Түрі"
 
@@ -602,13 +601,13 @@ msgstr "Түрі"
 msgid "Challenge"
 msgstr ""
 
-#: ../ui/gcr-display-view.c:316
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "Көбір_ек"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr ""
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -697,35 +696,35 @@ msgstr ""
 
 #: ../ui/gcr-gnupg-renderer.c:288
 msgid "This key is invalid"
-msgstr ""
+msgstr "Бұл кілт жарамсыз"
 
 #: ../ui/gcr-gnupg-renderer.c:291
 msgid "This key has been disabled"
-msgstr ""
+msgstr "Бұл кілт сөндірілген"
 
 #: ../ui/gcr-gnupg-renderer.c:294
 msgid "This key has been revoked"
-msgstr ""
+msgstr "Бұл кілт қайта шақырылған"
 
 #: ../ui/gcr-gnupg-renderer.c:297
 msgid "This key has expired"
-msgstr ""
+msgstr "Бұл кілттің мерзімі аяқталған"
 
 #: ../ui/gcr-gnupg-renderer.c:302
 msgid "This key is distrusted"
-msgstr ""
+msgstr "Бұл кілтке сенім жоқ"
 
 #: ../ui/gcr-gnupg-renderer.c:305
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "Бұл кілт шамалы сенімді"
 
 #: ../ui/gcr-gnupg-renderer.c:308
 msgid "This key is fully trusted"
-msgstr ""
+msgstr "Бұл кілт толығымен сенімді"
 
 #: ../ui/gcr-gnupg-renderer.c:311
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "Бұл кілт шексіз сенімді"
 
 #: ../ui/gcr-gnupg-renderer.c:336 ../ui/gcr-gnupg-renderer.c:562
 msgid "Key ID"
@@ -734,7 +733,7 @@ msgstr "Кілт идентификаторы"
 #: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
 #: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
 msgid "Algorithm"
-msgstr ""
+msgstr "Алгоритмі"
 
 #: ../ui/gcr-gnupg-renderer.c:359 ../ui/gcr-gnupg-renderer.c:436
 #: ../ui/gcr-gnupg-renderer.c:479
@@ -756,7 +755,7 @@ msgstr ""
 
 #: ../ui/gcr-gnupg-renderer.c:418
 msgid "Name"
-msgstr ""
+msgstr "Аты"
 
 #: ../ui/gcr-gnupg-renderer.c:424 ../ui/gcr-gnupg-renderer.c:706
 msgid "Comment"
@@ -895,11 +894,11 @@ msgstr "Кілт"
 
 #: ../ui/gcr-key-renderer.c:355
 msgid "Private RSA Key"
-msgstr ""
+msgstr "Жеке RSA кілті"
 
 #: ../ui/gcr-key-renderer.c:357
 msgid "Private DSA Key"
-msgstr ""
+msgstr "Жеке DSA кілті"
 
 #: ../ui/gcr-key-renderer.c:359
 msgid "Private Elliptic Curve Key"
@@ -1038,7 +1037,7 @@ msgid "PEM files"
 msgstr "PEM файлдары"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr ""
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1053,7 +1052,7 @@ msgstr ""
 msgid "Lock this keyring if idle for"
 msgstr ""
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "минут"
@@ -1070,7 +1069,7 @@ msgstr "Пароль"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 

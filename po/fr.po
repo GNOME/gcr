@@ -1,5 +1,5 @@
 # French translation of gnome-keyring.
-# Copyright (C) 2004-2014 Free Software Foundation, Inc.
+# Copyright (C) 2004-2017 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-keyring package.
 #
 # Sébastien Bacher <seb128@debian.org>, 2004.
@@ -7,7 +7,7 @@
 # Laurent Richard <laurent.richard@ael.be>, 2006.
 # Jonathan Ernst <jonathan@ernstfamily.ch>, 2006.
 # Yann Simon <yann.simon.fr@gmail.com>, 2007.
-# Claude Paroz <claude@2xlibre.net>, 2007-2014.
+# Claude Paroz <claude@2xlibre.net>, 2007-2017.
 # Robert-André Mauchin <zebob.m@pengzone.org>, 2008.
 # Bruno Brouard <annoa.b@gmail.com>, 2008-2011.
 # Laurent Coudeur <laurentc@iol.ie>, 2009-2010.
@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-08-27 04:53+0000\n"
-"PO-Revision-Date: 2014-08-27 08:27+0200\n"
+"POT-Creation-Date: 2016-10-18 09:40+0000\n"
+"PO-Revision-Date: 2017-02-22 20:12+0100\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -206,12 +206,12 @@ msgstr "Erreur de chargement du module PKCS#11 : %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Impossible d'initialiser le module PKCS#11 : %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Impossible d'initialiser les modules PKCS#11 enregistrés : %s"
 
 #: ../gck/gck-uri.c:224
@@ -220,7 +220,7 @@ msgid "The URI has invalid encoding."
 msgstr "Le codage de l'URI n'est pas valide."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "L'URI ne respecte pas le modèle « pkcs11 »."
 
 #: ../gck/gck-uri.c:232
@@ -231,8 +231,8 @@ msgstr "La syntaxe de l'URI n'est pas correcte."
 msgid "The URI has a bad version number."
 msgstr "Le numéro de version de l'URI n'est pas correct."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "Le flux a été fermé"
@@ -334,18 +334,18 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "ID de la clé"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Le processus gnupg s'est terminé avec le code : %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Le processus gnupg a été fermé par le signal : %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "L'opération a été annulée"
 
@@ -362,15 +362,15 @@ msgstr "Clé publique"
 msgid "Certificate Request"
 msgstr "Requête de certificat"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Données non valides ou non gérées."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Impossible d'analyser les données non valides ou corrompues."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Les données sont verrouillées"
 
@@ -382,24 +382,24 @@ msgstr "Continuer"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: ../gcr/gcr-subject-public-key.c:407
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Attributs de clé non reconnu ou non valide"
 
-#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
-msgid "Couldn't build public key"
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
+msgid "Couldn’t build public key"
 msgstr "Impossible de créer la clé publique"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Une autre invite est déjà en cours"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
+#: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr ""
 "Impossible de trouver un emplacement pour enregistrer le certificat accepté."
 
@@ -494,7 +494,7 @@ msgid "Value"
 msgstr "Valeur"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Impossible d'exporter le certificat."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -614,13 +614,13 @@ msgstr "Type"
 msgid "Challenge"
 msgstr "Challenge"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Détails"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "Impossible d'afficher « %s »"
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -950,12 +950,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "_Valider"
 
@@ -975,7 +975,7 @@ msgid "In order to import, please enter the password."
 msgstr "Afin d'importer, saisissez le mot de passe."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "Mot de passe :"
 
@@ -997,15 +997,15 @@ msgid "Import settings"
 msgstr "Paramètres d'importation"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "Confirmer :"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "Les mots de passe ne correspondent pas."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "Le mot de passe ne peut être vide"
 
@@ -1051,7 +1051,7 @@ msgid "PEM files"
 msgstr "Fichiers PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr ""
 "Déverrouiller automatiquement ce trousseau de clés quand je suis connecté"
 
@@ -1067,7 +1067,7 @@ msgstr "Verrouiller ce trousseau de clés après"
 msgid "Lock this keyring if idle for"
 msgstr "Verrouiller ce trousseau de clés s'il est inactif pendant"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minutes"
@@ -1084,7 +1084,7 @@ msgstr "Mot de passe"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "Le contenu de « %s » est verrouillé. Pour voir ce contenu, saisissez le mot "
@@ -1110,11 +1110,11 @@ msgstr "Affiche la version de l'application"
 msgid "[file...]"
 msgstr "[fichier...]"
 
-#: ../ui/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- Afficher des fichiers de certificats et de clés"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Afficheur de certificats"
 
@@ -1130,10 +1130,10 @@ msgstr "Importé"
 msgid "Import failed"
 msgstr "Échec de l'importation"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Importer"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_Fermer"

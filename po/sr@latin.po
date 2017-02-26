@@ -1,21 +1,21 @@
 # Serbian translation of gnome-keyring
-# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2014.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2017.
 # This file is distributed under the same license as the gnome-keyring package.
 # Maintainer: Danilo Šegan <danilo@gnome.org>
 # Reviewed on 2005-08-08 by: Igor Nestorović <igor@prevod.org>
 # Translated on 2009-05-09 by: Branko Kokanović <branko.kokanovic@gmail.com>
 # Miloš Popović <gpopac@gmail.com>, 2010.
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2011—2014.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2011—2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-09-17 16:49+0000\n"
-"PO-Revision-Date: 2014-09-17 21:00+0200\n"
+"POT-Creation-Date: 2016-10-18 09:40+0000\n"
+"PO-Revision-Date: 2017-02-25 19:23+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: Serbian <gnom@prevod.org>\n"
-"Language: sr@latin\n"
+"Language-Team: Serbian <(nothing)>\n"
+"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -34,7 +34,7 @@ msgstr "IB korisnika"
 
 #: ../egg/egg-oid.c:45
 msgid "Email Address"
-msgstr "Adresa el. pošte"
+msgstr "Adresa e-pošte"
 
 #: ../egg/egg-oid.c:53
 msgid "Date of Birth"
@@ -151,27 +151,22 @@ msgid "Elliptic Curve"
 msgstr "Kriva elipse"
 
 #: ../egg/egg-oid.c:106
-#| msgid "SHA1 with DSA"
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 sa ECDSA"
 
 #: ../egg/egg-oid.c:107
-#| msgid "SHA1 with DSA"
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 sa ECDSA"
 
 #: ../egg/egg-oid.c:108
-#| msgid "SHA1 with DSA"
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 sa ECDSA"
 
 #: ../egg/egg-oid.c:109
-#| msgid "SHA1 with DSA"
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 sa ECDSA"
 
 #: ../egg/egg-oid.c:110
-#| msgid "SHA1 with DSA"
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 sa ECDSA"
 
@@ -203,12 +198,14 @@ msgstr "Greška učitavanja PKCS#11 modula: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+#| msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Ne mogu da pokrenem PKCS#11 modul: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Ne mogu da pokrenem zabeležene PKCS#11 module: %s"
 
 #: ../gck/gck-uri.c:224
@@ -217,7 +214,8 @@ msgid "The URI has invalid encoding."
 msgstr "Putanja ima neispravno kodiranje."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+#| msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "Putanja nema „pkcs11“ šemu."
 
 #: ../gck/gck-uri.c:232
@@ -272,7 +270,7 @@ msgstr "DNS SRV"
 #: ../gcr/gcr-certificate-extensions.c:203 ../ui/gcr-gnupg-renderer.c:421
 #: ../ui/gcr-gnupg-renderer.c:703
 msgid "Email"
-msgstr "El. pošta"
+msgstr "E-pošta"
 
 #: ../gcr/gcr-certificate-extensions.c:211
 msgid "DNS"
@@ -341,8 +339,8 @@ msgstr "Gnupg proces je izašao sa kodom: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg proces je okončan signalom: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Radnja je otkazana"
 
@@ -359,15 +357,15 @@ msgstr "Javni ključ"
 msgid "Certificate Request"
 msgstr "Zahtev uverenja"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Neppoznati ili nepodržani podaci."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Ne mogu da obradim neispravne ili oštećene podatke."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Podaci su zaključani"
 
@@ -384,10 +382,11 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Nepoznate ili nedostupne osobine ključa"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+#| msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
 msgstr "Ne mogu da izgradim javni ključ"
 
-#: ../gcr/gcr-system-prompt.c:903
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Drugi upit je već u toku"
 
@@ -396,7 +395,8 @@ msgstr "Drugi upit je već u toku"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+#| msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Ne mogu da pronađem mesto da uskladištim prikačeno uverenje"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -490,7 +490,8 @@ msgid "Value"
 msgstr "Vrednost"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+#| msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Ne mogu da izvezem uverenje."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -610,13 +611,14 @@ msgstr "Vrsta"
 msgid "Challenge"
 msgstr "Izazov"
 
-#: ../ui/gcr-display-view.c:316
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Pojedinosti"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+#| msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "Ne mogu da prikažem „%s“"
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -923,8 +925,6 @@ msgstr "Javni ključ krive elipse"
 
 #: ../ui/gcr-key-renderer.c:377
 #, c-format
-#| msgid "%d bit"
-#| msgid_plural "%d bits"
 msgid "%u bit"
 msgid_plural "%u bits"
 msgstr[0] "%u bit"
@@ -1051,7 +1051,8 @@ msgid "PEM files"
 msgstr "PEM datoteke"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+#| msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Sam otključaj ovaj privezak kad god se prijavim"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1066,7 +1067,7 @@ msgstr "Zaključaj ovaj privezak nakon"
 msgid "Lock this keyring if idle for"
 msgstr "Zaključaj ovaj privezak ako je neaktivan"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minuta"
@@ -1082,8 +1083,11 @@ msgstr "Lozinka"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
+#| msgid ""
+#| "The contents of '%s' are locked. In order to view the contents, enter the "
+#| "correct password."
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "Sadržaji „%s“ su zaključani. Da biste videli sadržaj, unesite ispravnu "

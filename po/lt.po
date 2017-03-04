@@ -4,15 +4,15 @@
 # Tomas Kuliavas <tokul@users.sourceforge.net>, 2004.
 # Žygimantas Beručka <zygis@gnome.org>, 2004-2007, 2010.
 # Gintautas Miliauskas <gintas@akl.lt>, 2008.
-# Aurimas Černius <aurisc4@gmail.com>, 2013, 2014.
+# Aurimas Černius <aurisc4@gmail.com>, 2013, 2014, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring HEAD\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-07-05 04:58+0000\n"
-"PO-Revision-Date: 2014-07-05 14:00+0300\n"
+"POT-Creation-Date: 2017-02-28 06:36+0000\n"
+"PO-Revision-Date: 2017-03-04 18:19+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -151,27 +151,22 @@ msgid "Elliptic Curve"
 msgstr "Elisinė kreivė"
 
 #: ../egg/egg-oid.c:106
-#| msgid "SHA1 with DSA"
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 su ECDSA"
 
 #: ../egg/egg-oid.c:107
-#| msgid "SHA1 with DSA"
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 su ECDSA"
 
 #: ../egg/egg-oid.c:108
-#| msgid "SHA1 with DSA"
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 su ECDSA"
 
 #: ../egg/egg-oid.c:109
-#| msgid "SHA1 with DSA"
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 su ECDSA"
 
 #: ../egg/egg-oid.c:110
-#| msgid "SHA1 with DSA"
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 su ECDSA"
 
@@ -203,12 +198,12 @@ msgstr "Klaida įkeliant PKCS#11 modulį: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Nepavyko inicijuoti PKCS#11 modulio: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Nepavyko inicijuoti registruotų PKCS#11 modulių: %s"
 
 #: ../gck/gck-uri.c:224
@@ -217,7 +212,7 @@ msgid "The URI has invalid encoding."
 msgstr "Bloga URI koduotė."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "URI neturi „pkcs11“ schemos."
 
 #: ../gck/gck-uri.c:232
@@ -228,8 +223,8 @@ msgstr "Bloga URI sintaksė."
 msgid "The URI has a bad version number."
 msgstr "Blogas URI versijos numeris."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "Srautas buvo užvertas"
@@ -331,18 +326,18 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "Rakto ID"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Gnupg procesas baigėsi su kodu: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg procesas baigėsi su signalu: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Operacija nutraukta"
 
@@ -359,15 +354,15 @@ msgstr "Viešasis raktas"
 msgid "Certificate Request"
 msgstr "Liudijimo užklausa"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Duomenys netaisyklingi arba neatpažinti"
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Nepavyko apdoroti netaisyklingų arba sugadintų duomenų."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Duomenys užrakinti"
 
@@ -379,25 +374,25 @@ msgstr "Tęsti"
 msgid "Cancel"
 msgstr "Atsisakyti"
 
-#: ../gcr/gcr-subject-public-key.c:407
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Neatpažinti arba nepasiekiami rakto atributai"
 
-#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
-msgid "Couldn't build public key"
-msgstr "Negalima sukurti viešo rakto"
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
+msgid "Couldn’t build public key"
+msgstr "Negalima sukurti viešojo rakto"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Kitas užklausimas yra yra eigoje"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
+#: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
-msgstr "Nepavyksta rasti vietos prisegto sertifikato įrašymui"
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr "Nepavyksta rasti vietos prisegto liudijimo įrašymui"
 
 #: ../ui/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
@@ -490,8 +485,8 @@ msgid "Value"
 msgstr "Reikšmė"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
-msgstr "Nepavyko eksportuoti sertifikato."
+msgid "Couldn’t export the certificate."
+msgstr "Nepavyko eksportuoti liudijimo."
 
 #: ../ui/gcr-certificate-renderer.c:521
 #: ../ui/gcr-certificate-request-renderer.c:310
@@ -538,7 +533,7 @@ msgstr "Negalioja po "
 #. Fingerprints
 #: ../ui/gcr-certificate-renderer.c:578
 msgid "Certificate Fingerprints"
-msgstr "Sertifikato kontroliniai kodai"
+msgstr "Liudijimo kontroliniai kodai"
 
 #. Public Key Info
 #: ../ui/gcr-certificate-renderer.c:584
@@ -610,13 +605,13 @@ msgstr "Tipas"
 msgid "Challenge"
 msgstr "Challenge"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Išsami informacija"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "Nepavyko parodyti „%s“"
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -923,8 +918,6 @@ msgstr "Viešas elipsinės kreivės raktas"
 
 #: ../ui/gcr-key-renderer.c:377
 #, c-format
-#| msgid "%d bit"
-#| msgid_plural "%d bits"
 msgid "%u bit"
 msgid_plural "%u bits"
 msgstr[0] "%u bitas"
@@ -949,12 +942,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "_Gerai"
 
@@ -974,7 +967,7 @@ msgid "In order to import, please enter the password."
 msgstr "Importavimui įveskite slaptažodį."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "Slaptažodis:"
 
@@ -996,15 +989,15 @@ msgid "Import settings"
 msgstr "Importavimo nustatymai"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "Patvirtinti:"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "Slaptažodžiai nesutampa."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "Slaptažodis negali būti tuščias"
 
@@ -1050,7 +1043,8 @@ msgid "PEM files"
 msgstr "PEM failai"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+#| msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Automatiškai atrakinti šią raktinę, kai prisijungiu"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1065,7 +1059,7 @@ msgstr "Užrakinti šią raktinę po"
 msgid "Lock this keyring if idle for"
 msgstr "Užrakinti šią raktinę, jei nenaudojama"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minučių"
@@ -1082,7 +1076,7 @@ msgstr "Slaptažodis"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "„%s“ turinys užrakintas. Norėdami pamatyti turinį, įveskite teisingą "
@@ -1107,11 +1101,11 @@ msgstr "Rodyti programos versiją"
 msgid "[file...]"
 msgstr "[failas...]"
 
-#: ../ui/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- žiūrėti liudijimų ir raktų failus"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Liudijimų žiūryklė"
 
@@ -1127,10 +1121,10 @@ msgstr "Importuota"
 msgid "Import failed"
 msgstr "Importavimas nepavyko"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Importavimas"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_Užverti"

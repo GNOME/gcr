@@ -2,15 +2,15 @@
 # This file is distributed under the same license as the gcr package.
 #
 # Young-Ho Cha <ganadist@gmail.com>, 2006.
-# Changwoo Ryu <cwryu@debian.org>, 2004, 2006-2014.
+# Changwoo Ryu <cwryu@debian.org>, 2004, 2006-2014, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-09-06 04:54+0000\n"
-"PO-Revision-Date: 2014-09-06 18:18+0900\n"
+"POT-Creation-Date: 2017-02-22 19:17+0000\n"
+"PO-Revision-Date: 2017-03-04 03:28+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -194,12 +194,12 @@ msgstr "PKCS#11 모듈을 읽어들이는데 오류: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "PKCS#11 모듈을 초기화할 수 없습니다: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "등록한 PKCS#11 모듈을 초기화할 수 없습니다: %s"
 
 #: ../gck/gck-uri.c:224
@@ -208,8 +208,8 @@ msgid "The URI has invalid encoding."
 msgstr "URI 인코딩이 잘못되었습니다."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "URI에 'pkcs11' 스킴이 들어있지 않습니다."
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "URI에 “pkcs11” 스킴이 들어있지 않습니다."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -332,8 +332,8 @@ msgstr "gnupg 프로세스가 다음 리턴값으로 끝났습니다: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "gnupg 프로세스가 다음 시그널로 강제 종료되었습니다: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "작업을 취소했습니다"
 
@@ -350,15 +350,15 @@ msgstr "공개 키"
 msgid "Certificate Request"
 msgstr "인증서 요청"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "알지 못하거나 지원하지 않는 데이터."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "잘못되었거나 손상된 데이터를 파싱할 수 없습니다."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "데이터가 잠겨 있습니다"
 
@@ -375,10 +375,10 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "키에 알 수 없는 속성이 있거나 속성이 없습니다"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
 msgstr "공개키를 만들 수 없습니다"
 
-#: ../gcr/gcr-system-prompt.c:903
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "다른 프롬프트가 이미 진행 중입니다"
 
@@ -387,7 +387,7 @@ msgstr "다른 프롬프트가 이미 진행 중입니다"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "지정한 인증서를 저장할 위치를 찾을 수 없습니다"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -481,7 +481,7 @@ msgid "Value"
 msgstr "값"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "인증서를 내보낼 수 없습니다."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -601,14 +601,14 @@ msgstr "종류"
 msgid "Challenge"
 msgstr "시험"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "상세 정보(_D)"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
-msgstr "'%s'을(를) 표시할 수 없습니다"
+msgid "Could not display “%s”"
+msgstr "“%s”을(를) 표시할 수 없습니다"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -1038,7 +1038,7 @@ msgid "PEM files"
 msgstr "PEM 파일"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "로그인할 때 자동으로 이 키 모음 잠금 풀기"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1053,7 +1053,7 @@ msgstr "다음 동작 뒤에 키 모음 잠그기"
 msgid "Lock this keyring if idle for"
 msgstr "일정 시간 입력이 없으면 키 모음 잠그기"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "분"
@@ -1070,9 +1070,9 @@ msgstr "암호"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
-msgstr "'%s'의 내용이 잠겨 있습니다. 내용을 보려면 올바른 암호를 입력하십시오."
+msgstr "“%s”의 내용이 잠겨 있습니다. 내용을 보려면 올바른 암호를 입력하십시오."
 
 #: ../ui/gcr-unlock-renderer.c:277
 msgid ""
@@ -1113,10 +1113,10 @@ msgstr "가져옴"
 msgid "Import failed"
 msgstr "가져오기 실패"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "가져오기"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "닫기(_C)"

@@ -7,17 +7,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-06-25 16:52+0000\n"
-"PO-Revision-Date: 2014-06-26 19:04+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2017-02-22 19:17+0000\n"
+"PO-Revision-Date: 2017-02-25 18:05+0700\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.8.11\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../egg/egg-oid.c:40
@@ -148,27 +148,22 @@ msgid "Elliptic Curve"
 msgstr "Elliptic Curve"
 
 #: ../egg/egg-oid.c:106
-#| msgid "SHA1 with DSA"
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 dengan ECDSA"
 
 #: ../egg/egg-oid.c:107
-#| msgid "SHA1 with DSA"
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 dengan ECDSA"
 
 #: ../egg/egg-oid.c:108
-#| msgid "SHA1 with DSA"
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 dengan ECDSA"
 
 #: ../egg/egg-oid.c:109
-#| msgid "SHA1 with DSA"
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 dengan ECDSA"
 
 #: ../egg/egg-oid.c:110
-#| msgid "SHA1 with DSA"
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 dengan ECDSA"
 
@@ -200,12 +195,12 @@ msgstr "Galat saat memuat modul PKCS#11: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Tak bisa menginisiasi modul PKCS#11: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Tak bisa menginisiasi modul PKCS#11 yang terdaftar: %s"
 
 #: ../gck/gck-uri.c:224
@@ -214,8 +209,8 @@ msgid "The URI has invalid encoding."
 msgstr "URI memiliki pengkodean yang tak valid."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "URI tak memiliki skema 'pkcs11'."
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "URI tak memiliki skema \"pkcs11\"."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -225,8 +220,8 @@ msgstr "URI memiliki sintaks salah."
 msgid "The URI has a bad version number."
 msgstr "URI memiliki nomor versi yang salah."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "Stream ditutup"
@@ -328,18 +323,18 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "ID Kunci"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Proses gnupg keluar dengan kode: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Proses gnupg diakhiri dengan sinyal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Operasi dibatalkan"
 
@@ -356,15 +351,15 @@ msgstr "Kunci Publik"
 msgid "Certificate Request"
 msgstr "Permintaan Sertifikat"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Data tak dikenali atau tak didukung."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Tak bisa mengurai data tak valid atau rusak."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Data dikunci"
 
@@ -376,24 +371,24 @@ msgstr "Lanjutkan"
 msgid "Cancel"
 msgstr "Batalkan"
 
-#: ../gcr/gcr-subject-public-key.c:407
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Atribut yang tak dikenal atau tak tersedia bagi kunci"
 
-#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
-msgid "Couldn't build public key"
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
+msgid "Couldn’t build public key"
 msgstr "Tak bisa membangun kunci publik"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Sapaan lain tengah berlangsung"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
+#: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Tak bisa menemukan tempat untuk menyimpan sertifikat yang dipin"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -487,7 +482,7 @@ msgid "Value"
 msgstr "Nilai"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Tak bisa mengekspor sertifikat."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -607,14 +602,14 @@ msgstr "Tipe"
 msgid "Challenge"
 msgstr "Challenge"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Detail"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
-msgstr "Tak bisa menampilkan '%s'"
+msgid "Could not display “%s”"
+msgstr "Tak bisa menampilkan \"%s\""
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -920,8 +915,6 @@ msgstr "Kunci Publik Elliptic Curve"
 
 #: ../ui/gcr-key-renderer.c:377
 #, c-format
-#| msgid "%d bit"
-#| msgid_plural "%d bits"
 msgid "%u bit"
 msgid_plural "%u bits"
 msgstr[0] "%u bit"
@@ -944,12 +937,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
 msgstr "_Batal"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "_OK"
 
@@ -969,7 +962,7 @@ msgid "In order to import, please enter the password."
 msgstr "Untuk mengimpor, silakan masukkan sandi."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "Sandi:"
 
@@ -991,15 +984,15 @@ msgid "Import settings"
 msgstr "Pengaturan impor"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "Konfirmasi:"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "Sandi tak cocok."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "Sandi tak boleh kosong"
 
@@ -1045,7 +1038,7 @@ msgid "PEM files"
 msgstr "Berkas PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Otomatis buka ring kunci ini ketika saya log masuk"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1060,7 +1053,7 @@ msgstr "Mengunci ring kunci ini setelah"
 msgid "Lock this keyring if idle for"
 msgstr "Mengunci ring kunci ini bila menganggur selama"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "menit"
@@ -1077,9 +1070,9 @@ msgstr "Sandi"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
-msgstr "Isi '%s' terkunci. Untuk melihat isi, masukkan sandi yang benar."
+msgstr "Isi \"%s\" terkunci. Untuk melihat isi, masukkan sandi yang benar."
 
 #: ../ui/gcr-unlock-renderer.c:277
 msgid ""
@@ -1099,11 +1092,11 @@ msgstr "Tampilkan versi aplikasi"
 msgid "[file...]"
 msgstr "[berkas...]"
 
-#: ../ui/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- Tilik berkas kunci dan sertifikat"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Penilik Sertifikat"
 
@@ -1119,10 +1112,10 @@ msgstr "Diimpor"
 msgid "Import failed"
 msgstr "Pengimporan gagal"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Impor"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_Tutup"

@@ -486,7 +486,7 @@ msgstr "Nomes alternativos do portador"
 
 #: ../ui/gcr-certificate-renderer.c:264
 msgid "Extension"
-msgstr "Ramal"
+msgstr "Extensão"
 
 #: ../ui/gcr-certificate-renderer.c:268
 msgid "Identifier"

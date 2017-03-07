@@ -168,7 +168,7 @@ gck-$(GCK_MAJOR).pc: gck/gck.pc
 	$(AM_V_GEN) cp gck/gck.pc gck-$(GCK_MAJOR).pc
 
 gck-expected.abi: gck/gck.symbols
-	$(AM_V_GEN) cpp -P $< | sort > $@
+	$(AM_V_GEN) $(CPP) -P $< | sort > $@
 
 gck-actual.abi: $(builddir)/.libs/libgck-@GCK_MAJOR@.so
 	$(AM_V_GEN)  $(NM) -D -g --defined-only $< | \

@@ -187,7 +187,7 @@ pkgconfig_DATA += \
 	gcr-ui-$(GCR_MAJOR).pc
 
 gcr-ui-expected.abi: ui/gcr-ui.symbols
-	$(AM_V_GEN) cpp -P $< | sort > $@
+	$(AM_V_GEN) $(CPP) -P $< | sort > $@
 
 desktopdir = $(datadir)/applications
 desktop_in_in_files = ui/gcr-viewer.desktop.in.in ui/gcr-prompter.desktop.in.in

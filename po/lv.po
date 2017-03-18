@@ -6,14 +6,14 @@
 # Raivis Dejus <orvils@gmail.com>, 2006.
 # Peteris Krisjanis <pecisk@gmail.com>, 2010.
 # Rudolfs <rudolfs.mazurs@gmail.com>, 2011.
-# Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012, 2013, 2014.
+# Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012, 2013, 2014, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-09-07 04:50+0000\n"
-"PO-Revision-Date: 2014-09-07 19:07+0300\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-k"
+"eyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2017-02-22 19:17+0000\n"
+"PO-Revision-Date: 2017-03-18 12:12+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -21,9 +21,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2009-01-04 12:36+0000\n"
-"X-Generator: Lokalize 1.5\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"X-Generator: Lokalize 2.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
+" 2);\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -153,27 +153,22 @@ msgid "Elliptic Curve"
 msgstr "Eliptisko līkņu"
 
 #: ../egg/egg-oid.c:106
-#| msgid "SHA1 with DSA"
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 ar ECDSA"
 
 #: ../egg/egg-oid.c:107
-#| msgid "SHA1 with DSA"
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 ar ECDSA"
 
 #: ../egg/egg-oid.c:108
-#| msgid "SHA1 with DSA"
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 ar ECDSA"
 
 #: ../egg/egg-oid.c:109
-#| msgid "SHA1 with DSA"
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 ar ECDSA"
 
 #: ../egg/egg-oid.c:110
-#| msgid "SHA1 with DSA"
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 ar ECDSA"
 
@@ -205,12 +200,14 @@ msgstr "Kļūda, ielādējot PKCS#11 moduli — %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+#| msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Nevarēja inicializēt PKCS#11 moduli — %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Nevarēja inicializēt reģistrētus PKCS#11 moduļus — %s"
 
 #: ../gck/gck-uri.c:224
@@ -219,7 +216,8 @@ msgid "The URI has invalid encoding."
 msgstr "Šai URI ir nederīgs kodējums."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+#| msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "URI neatbilst “pkcs11” shēmai."
 
 #: ../gck/gck-uri.c:232
@@ -343,8 +341,8 @@ msgstr "Gnupg process izgāja ar kodu: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg process tika pārtraukts ar signālu: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Darbība tika atcelta"
 
@@ -361,15 +359,15 @@ msgstr "Publiskā atslēga"
 msgid "Certificate Request"
 msgstr "Sertifikāta pieprasījums"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Neatpazīti vai neatbalstīti dati."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Neizdevās parsēt nederīgus vai bojātus datus."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Dati ir noslēgti"
 
@@ -386,10 +384,11 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Neatpazīti vai nepieejami atslēgas atribūti"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+#| msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
 msgstr "Nevarēja izveidot publisko atslēgu"
 
-#: ../gcr/gcr-system-prompt.c:903
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Jau darbojas cita uzvedne"
 
@@ -398,7 +397,8 @@ msgstr "Jau darbojas cita uzvedne"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+#| msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Nevarēja atrast vietu, kur glabāt sertifikātu"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -492,7 +492,8 @@ msgid "Value"
 msgstr "Vērtība"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+#| msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Neizdevās eksportēt sertifikātu."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -612,13 +613,14 @@ msgstr "Tips"
 msgid "Challenge"
 msgstr "Izaicinājums"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Sīkāka informācija"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+#| msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "Neizdevās attēlot “%s”"
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -925,8 +927,6 @@ msgstr "Publiskā eliptisko līkņu atslēga"
 
 #: ../ui/gcr-key-renderer.c:377
 #, c-format
-#| msgid "%d bit"
-#| msgid_plural "%d bits"
 msgid "%u bit"
 msgid_plural "%u bits"
 msgstr[0] "%u bits"
@@ -1052,7 +1052,8 @@ msgid "PEM files"
 msgstr "PEM datnes"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+#| msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Automātiski atbloķēt šo saišķi tad, kad es ierakstos"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1067,7 +1068,7 @@ msgstr "Bloķēt šo saišķi pēc"
 msgid "Lock this keyring if idle for"
 msgstr "Bloķēt šo saišķi, ja nekas nenotiek"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minūtes"
@@ -1083,8 +1084,11 @@ msgstr "Parole"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
+#| msgid ""
+#| "The contents of '%s' are locked. In order to view the contents, enter the "
+#| "correct password."
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr "“%s” saturs ir bloķēts. Lai skatītu saturu, ievadiet pareizu paroli."
 
@@ -1126,11 +1130,11 @@ msgstr "Importēts"
 msgid "Import failed"
 msgstr "Importēšana neizdevās"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Importēt"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_Aizvērt"
 

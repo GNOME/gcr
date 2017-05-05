@@ -3,25 +3,24 @@
 # This file is distributed under the same license as the gcr package.
 #
 # Matic Žgur <mr.zgur@gmail.com>, 2006.
-# Matej Urbančič <mateju@svn.gnome.org>, 2005-2014.
+# Matej Urbančič <mateju@svn.gnome.org>, 2005–2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-09-14 16:49+0000\n"
-"PO-Revision-Date: 2014-09-14 22:17+0100\n"
+"POT-Creation-Date: 2017-05-05 14:00+0200\n"
+"PO-Revision-Date: 2017-05-05 14:01+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -30,7 +29,7 @@ msgstr "Enota domene"
 #: ../egg/egg-oid.c:42 ../ui/gcr-gnupg-renderer.c:408
 #: ../ui/gcr-gnupg-renderer.c:577
 msgid "User ID"
-msgstr "Uporabnikov ID"
+msgstr "Uporabniški ID"
 
 #: ../egg/egg-oid.c:45
 msgid "Email Address"
@@ -38,7 +37,7 @@ msgstr "Elektronski naslov"
 
 #: ../egg/egg-oid.c:53
 msgid "Date of Birth"
-msgstr "Rojstni datum"
+msgstr "Datum rojstva"
 
 #: ../egg/egg-oid.c:55
 msgid "Place of Birth"
@@ -86,7 +85,7 @@ msgstr "Ulica"
 
 #: ../egg/egg-oid.c:78
 msgid "Organization"
-msgstr "Organizacija"
+msgstr "Ustanova"
 
 #: ../egg/egg-oid.c:80
 msgid "Organizational Unit"
@@ -114,7 +113,7 @@ msgstr "Red potomstva"
 
 #: ../egg/egg-oid.c:92
 msgid "DN Qualifier"
-msgstr "DN določilo"
+msgstr "Določilo DN"
 
 #: ../egg/egg-oid.c:94
 msgid "Pseudonym"
@@ -198,13 +197,13 @@ msgstr "Odkodirnika PKCS#11 ni mogoče naložiti: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Odkodirnika PKCS#11 ni mogoče začeti: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr "Odkodirnikov PKCS#11 ni mogoče začeti: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr "Vpisanih modulov PKCS#11 ni mogoče začeti: %s"
 
 #: ../gck/gck-uri.c:224
 #, c-format
@@ -212,8 +211,8 @@ msgid "The URI has invalid encoding."
 msgstr "Naslov URI je zapisan v neveljavnem kodnem zapisu."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "Naslov URI je brez ustrezne sheme 'pkcs11'."
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "Naslov URI je brez ustrezne sheme »pkcs11«."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -239,7 +238,7 @@ msgstr "Ime"
 #: ../gcr/gcr-certificate.c:352
 msgctxt "column"
 msgid "Issued By"
-msgstr "Izdal"
+msgstr "Izdalno prek"
 
 #. later
 #: ../gcr/gcr-certificate.c:354
@@ -336,8 +335,8 @@ msgstr "Opravilo Gnupg je končano z napako: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Opravilo Gnupg je nepričakovano končano s signalom: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:922
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Dejanje je preklicano."
 
@@ -354,15 +353,15 @@ msgstr "Javni ključ"
 msgid "Certificate Request"
 msgstr "Zahteva potrdila"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Neznani ali nepodprti podatki."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Ni mogoče razčleniti neveljavnih ali pokvarjenih podatkov."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Podatki so zaklenjeni"
 
@@ -379,10 +378,10 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Neprepoznani ali nerazpoložljivi atributi ključa"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
 msgstr "Ni mogoče izgraditi javnega ključa"
 
-#: ../gcr/gcr-system-prompt.c:903
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Drug vnos je že v teku"
 
@@ -391,7 +390,7 @@ msgstr "Drug vnos je že v teku"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Ni mogoče najti mesta za shranjevanje uvoženih potrdil"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -485,8 +484,8 @@ msgid "Value"
 msgstr "Vrednost"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
-msgstr "Ni mogoče izvoziti potrdil."
+msgid "Couldn’t export the certificate."
+msgstr "Ni mogoče izvoziti potrdila."
 
 #: ../ui/gcr-certificate-renderer.c:521
 #: ../ui/gcr-certificate-request-renderer.c:310
@@ -605,14 +604,14 @@ msgstr "Vrsta"
 msgid "Challenge"
 msgstr "Izzovi"
 
-#: ../ui/gcr-display-view.c:316
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Podrobnosti"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
-msgstr "Ni mogoče prikazati '%s'"
+msgid "Could not display “%s”"
+msgstr "Ni mogoče prikazati »%s«"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -1044,8 +1043,8 @@ msgid "PEM files"
 msgstr "Datoteke PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "Samodejno odkleni zbirko ključev ob prijavi."
+msgid "Automatically unlock this keyring whenever I’m logged in"
+msgstr "Ob prijavi samodejno odkleni zbirko ključev"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
@@ -1059,7 +1058,7 @@ msgstr "Zakleni zbirko ključev po"
 msgid "Lock this keyring if idle for"
 msgstr "Zakleni zbirko ključev ob nedejavnosti"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minut"
@@ -1076,10 +1075,10 @@ msgstr "Geslo"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"Vsebina '%s' je zaklenjena. Za ogled vsebine je treba vnesti pravilno geslo."
+"Vsebina »%s« je zaklenjena. Za ogled vsebine je treba vnesti pravilno geslo."
 
 #: ../ui/gcr-unlock-renderer.c:277
 msgid ""

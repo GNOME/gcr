@@ -6,15 +6,15 @@
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2004, 2006.
 #
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011., 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011., 2012, 2013, 2014, 2016.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011., 2012, 2013, 2014, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2016-10-18 09:40+0000\n"
-"PO-Revision-Date: 2016-12-20 15:33+0100\n"
+"POT-Creation-Date: 2017-04-15 18:27+0000\n"
+"PO-Revision-Date: 2017-06-21 08:18+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -199,13 +199,11 @@ msgstr "Error al cargar el módulo PKCS#11: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-#| msgid "Couldn't initialize PKCS#11 module: %s"
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "No se pudo inicializar el módulo PKCS#11: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "No se pudieron inicializar los módulos PKCS#11 registrados: %s"
 
@@ -215,7 +213,6 @@ msgid "The URI has invalid encoding."
 msgstr "El URI tiene una codificación no válida."
 
 #: ../gck/gck-uri.c:228
-#| msgid "The URI does not have the 'pkcs11' scheme."
 msgid "The URI does not have the “pkcs11” scheme."
 msgstr "El URI no tiene el esquema «pkcs11»."
 
@@ -352,7 +349,7 @@ msgstr "Clave privada"
 #: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
-msgstr "Clave privada"
+msgstr "Clave pública"
 
 #: ../gcr/gcr-parser.c:334
 msgid "Certificate Request"
@@ -383,7 +380,6 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Atributos de la clave no reconocidos o no disponibles"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-#| msgid "Couldn't build public key"
 msgid "Couldn’t build public key"
 msgstr "No se pudo generar la clave pública"
 
@@ -396,7 +392,6 @@ msgstr "Ya hay otra petición en progreso"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-#| msgid "Couldn't find a place to store the pinned certificate"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "No se pudo encontrar un lugar para almacenar el certificado firmado"
 
@@ -491,7 +486,6 @@ msgid "Value"
 msgstr "Valor"
 
 #: ../ui/gcr-certificate-renderer.c:287
-#| msgid "Couldn't export the certificate."
 msgid "Couldn’t export the certificate."
 msgstr "No se pudo exportar el certificado."
 
@@ -618,7 +612,6 @@ msgstr "_Detalles"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-#| msgid "Could not display '%s'"
 msgid "Could not display “%s”"
 msgstr "No se pudo mostrar «%s»"
 
@@ -1050,7 +1043,6 @@ msgid "PEM files"
 msgstr "Archivos PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-#| msgid "Automatically unlock this keyring whenever I'm logged in"
 msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Desbloquear este depósito de claves siempre que haya iniciado sesión"
 
@@ -1082,9 +1074,6 @@ msgstr "Contraseña"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
-#| msgid ""
-#| "The contents of '%s' are locked. In order to view the contents, enter the "
-#| "correct password."
 msgid ""
 "The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."

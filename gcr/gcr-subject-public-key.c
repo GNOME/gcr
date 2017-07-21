@@ -750,8 +750,8 @@ ec_subject_public_key_from_attributes (GckAttributes *attrs,
                                        GNode *info_asn)
 {
 	const GckAttribute *ec_params, *ec_point;
-	GNode *params_asn;
-	GBytes *bytes;
+	GNode *params_asn, *point_asn;
+	GBytes *bytes, *key_bytes;
 
 	ec_params = gck_attributes_find (attrs, CKA_EC_PARAMS);
 	ec_point = gck_attributes_find (attrs, CKA_EC_POINT);
@@ -770,14 +770,27 @@ ec_subject_public_key_from_attributes (GckAttributes *attrs,
 
 	bytes = g_bytes_new_with_free_func (ec_point->value, ec_point->length,
 	                                    gck_attributes_unref, gck_attributes_ref (attrs));
+	point_asn = egg_asn1x_create_and_decode (pk_asn1_tab, "ECPoint", bytes);
+	g_bytes_unref (bytes);
+
+	if (point_asn == NULL) {
+		egg_asn1x_destroy (params_asn);
+		return FALSE;
+	}
+	key_bytes = egg_asn1x_get_string_as_bytes (point_asn);
+	egg_asn1x_destroy (point_asn);
+	if (key_bytes == NULL) {
+		egg_asn1x_destroy (params_asn);
+		return FALSE;
+	}
 
 	egg_asn1x_set_bits_as_raw (egg_asn1x_node (info_asn, "subjectPublicKey", NULL),
-	                           bytes, g_bytes_get_size (bytes) * 8);
+	                           key_bytes, g_bytes_get_size (key_bytes) * 8);
 	egg_asn1x_set_any_from (egg_asn1x_node (info_asn, "algorithm", "parameters", NULL), params_asn);
 
 	egg_asn1x_set_oid_as_quark (egg_asn1x_node (info_asn, "algorithm", "algorithm", NULL), GCR_OID_PKIX1_EC);
 
-	g_bytes_unref (bytes);
+	g_bytes_unref (key_bytes);
 	egg_asn1x_destroy (params_asn);
 	return TRUE;
 }

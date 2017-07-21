@@ -247,6 +247,39 @@ parse_v1_public_line (const gchar *line,
 }
 
 static gboolean
+read_buffer_mpi_to_der (EggBuffer *buffer,
+                        gsize *offset,
+                        GckBuilder *builder,
+                        gulong attribute_type)
+{
+	const guchar *data, *data_value;
+	GBytes *der_data = NULL;
+	gsize len, data_len;
+	GNode *asn = NULL;
+	gboolean rv = FALSE;
+
+	if (!egg_buffer_get_byte_array (buffer, *offset, offset, &data, &len))
+		return FALSE;
+
+	asn = egg_asn1x_create (pk_asn1_tab, "ECPoint");
+	if (!asn)
+		return FALSE;
+
+	egg_asn1x_set_string_as_raw (asn, data, len, NULL);
+	der_data = egg_asn1x_encode (asn, g_realloc);
+	if (!der_data)
+		goto out;
+
+	data_value = g_bytes_get_data (der_data, &data_len);
+	gck_builder_add_data (builder, attribute_type, data_value, data_len);
+	rv = TRUE;
+out:
+	g_bytes_unref (der_data);
+	egg_asn1x_destroy (asn);
+	return rv;
+}
+
+static gboolean
 read_buffer_mpi (EggBuffer *buffer,
                  gsize *offset,
                  GckBuilder *builder,
@@ -346,7 +379,8 @@ read_v2_public_ecdsa (EggBuffer *buffer,
 	gck_builder_add_data (builder, CKA_EC_PARAMS, data, len);
 	g_bytes_unref (bytes);
 
-	if (!read_buffer_mpi (buffer, offset, builder, CKA_EC_POINT))
+	/* need to convert to DER encoded OCTET STRING */
+	if (!read_buffer_mpi_to_der (buffer, offset, builder, CKA_EC_POINT))
 		return FALSE;
 
 	gck_builder_add_ulong (builder, CKA_KEY_TYPE, CKK_ECDSA);

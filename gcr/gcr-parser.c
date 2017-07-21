@@ -279,6 +279,25 @@ parsed_asn1_element (GcrParsed *parsed,
 	return TRUE;
 }
 
+static gboolean
+parsed_asn1_structure (GcrParsed *parsed,
+                      GNode *asn,
+                      CK_ATTRIBUTE_TYPE type)
+{
+	GBytes *value;
+
+	g_assert (asn);
+	g_assert (parsed);
+
+	value = egg_asn1x_encode (asn, g_realloc);
+	if (value == NULL)
+		return FALSE;
+
+	parsed_attribute_bytes (parsed, type, value);
+	g_bytes_unref (value);
+	return TRUE;
+}
+
 static void
 parsed_ulong_attribute (GcrParsed *parsed,
                         CK_ATTRIBUTE_TYPE type,
@@ -625,6 +644,7 @@ parse_der_private_key_ec (GcrParser *self,
 	GNode *asn = NULL;
 	GBytes *value = NULL;
 	GBytes *pub = NULL;
+	GNode *asn_q = NULL;
 	GcrParsed *parsed;
 	guint bits;
 	gulong version;
@@ -660,8 +680,16 @@ parse_der_private_key_ec (GcrParser *self,
 	parsed_attribute_bytes (parsed, CKA_VALUE, value);
 
 	pub = egg_asn1x_get_bits_as_raw (egg_asn1x_node (asn, "publicKey", NULL), &bits);
-	if (pub && bits  == 8 * g_bytes_get_size (pub))
-		parsed_attribute_bytes (parsed, CKA_EC_POINT, pub);
+	if (!pub || bits != 8 * g_bytes_get_size (pub))
+		goto done;
+	asn_q = egg_asn1x_create (pk_asn1_tab, "ECPoint");
+	if (!asn_q)
+		goto done;
+	egg_asn1x_set_string_as_bytes (asn_q, pub);
+
+	if (!parsed_asn1_structure (parsed, asn_q, CKA_EC_POINT))
+		goto done;
+
 	parsed_fire (self, parsed);
 	ret = SUCCESS;
 
@@ -671,6 +699,7 @@ done:
 	if (value)
 		g_bytes_unref (value);
 	egg_asn1x_destroy (asn);
+	egg_asn1x_destroy (asn_q);
 	if (ret == GCR_ERROR_FAILURE)
 		g_message ("invalid EC key");
 
@@ -767,17 +796,26 @@ handle_subject_public_key_ec (GcrParser *self,
                               GBytes *key,
                               GNode *params)
 {
-	GBytes *bytes;
+	gint ret = GCR_ERROR_FAILURE;
+	GBytes *bytes = NULL;
+	GNode *asn = NULL;
 
 	parsing_object (parsed, CKO_PUBLIC_KEY);
 	parsed_ulong_attribute (parsed, CKA_KEY_TYPE, CKK_EC);
 
 	bytes = egg_asn1x_encode (params, g_realloc);
 	parsed_attribute_bytes (parsed, CKA_EC_PARAMS, bytes);
-	parsed_attribute_bytes (parsed, CKA_EC_POINT, key);
 	g_bytes_unref (bytes);
 
-	return SUCCESS;
+	asn = egg_asn1x_create (pk_asn1_tab, "ECPoint");
+	if (!asn)
+		goto done;
+	egg_asn1x_set_string_as_bytes (asn, key);
+	parsed_asn1_structure (parsed, asn, CKA_EC_POINT);
+	ret = SUCCESS;
+done:
+	egg_asn1x_destroy (asn);
+	return ret;
 }
 
 static gint

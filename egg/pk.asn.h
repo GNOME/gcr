@@ -70,6 +70,7 @@ const asn1_static_node pk_asn1_tab[] = {
   { "ECPoint", 1073741831, NULL },
   { "ECParameters", 1610612754, NULL },
   { "namedCurve", 12, NULL },
+  { "ECKeyQ", 1073741831, NULL },
   { "ECPrivateKey", 536870917, NULL },
   { "version", 1610874883, NULL },
   { "ecPrivkeyVer1", 1, "1"},

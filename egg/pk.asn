@@ -118,6 +118,9 @@ ECParameters ::= CHOICE {
 
 -- rfc5915 (EC private key structure)
 
+-- bogus attribute used to encode Q into PKCS#11 CKA_EC_POINT
+ECKeyQ ::= OCTET STRING
+
 ECPrivateKey ::= SEQUENCE {
   version        INTEGER { ecPrivkeyVer1(1) },
   privateKey     OCTET STRING,

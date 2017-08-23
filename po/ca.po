@@ -8,17 +8,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-08-17 04:55+0000\n"
-"PO-Revision-Date: 2014-08-17 13:58+0200\n"
+"POT-Creation-Date: 2017-07-30 12:12+0000\n"
+"PO-Revision-Date: 2017-08-22 14:56+0200\n"
 "Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -195,12 +196,12 @@ msgstr "S'ha produït un error en carregar el mòdul PKCS#11: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "No s'ha pogut inicialitzar el mòdul PKCS#11: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "No s'han pogut inicialitzar els mòduls PKCS#11 registrats: %s"
 
 #: ../gck/gck-uri.c:224
@@ -209,7 +210,7 @@ msgid "The URI has invalid encoding."
 msgstr "La codificació de l'URI no és vàlida."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "L'URI no té l'esquema «pkcs11»."
 
 #: ../gck/gck-uri.c:232
@@ -220,8 +221,8 @@ msgstr "La sintaxi de l'URI no és correcta."
 msgid "The URI has a bad version number."
 msgstr "El número de versió de l'URI no és correcte."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "El flux està tancat"
@@ -323,18 +324,18 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "ID de la clau"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "El procés GnuPG ha sortit amb el codi: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "S'ha finalitzat el procés GnuPG amb el senyal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "S'ha cancel·lat l'operació"
 
@@ -351,15 +352,15 @@ msgstr "Clau pública"
 msgid "Certificate Request"
 msgstr "Sol·licitud de certificat"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Dades no reconegudes o no compatibles."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "No s'han pogut analitzar les dades. No són vàlides o estan malmeses."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "Les dades estan blocades"
 
@@ -371,24 +372,24 @@ msgstr "Continua"
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: ../gcr/gcr-subject-public-key.c:407
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Atributs de la clau no reconeguts o no disponibles"
 
-#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
-msgid "Couldn't build public key"
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
+msgid "Couldn’t build public key"
 msgstr "No s'ha pogut construir la clau pública"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Ja hi ha una altra petició en progrés"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
+#: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr ""
 "No s'ha pogut trobar una ubicació on emmagatzemar el certificat importat"
 
@@ -483,7 +484,7 @@ msgid "Value"
 msgstr "Valor"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "No s'ha pogut exportar el certificat."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -603,13 +604,13 @@ msgstr "Tipus"
 msgid "Challenge"
 msgstr "Desafiament"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Detalls"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "No s'ha pogut mostrar «%s»"
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -939,12 +940,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "D'ac_ord"
 
@@ -964,7 +965,7 @@ msgid "In order to import, please enter the password."
 msgstr "Introduïu la contrasenya per poder importar."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "Contrasenya:"
 
@@ -986,15 +987,15 @@ msgid "Import settings"
 msgstr "Paràmetres d'importació"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "Confirma:"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "Les contrasenyes no coincideixen."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "La contrasenya no pot estar en blanc"
 
@@ -1040,7 +1041,7 @@ msgid "PEM files"
 msgstr "Fitxers PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Desbloca l'anell de claus automàticament quan estigui en la sessió"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1055,7 +1056,7 @@ msgstr "Bloca aquest anell de claus després de"
 msgid "Lock this keyring if idle for"
 msgstr "Bloca aquest anell de claus si està inactiu durant"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minuts"
@@ -1072,7 +1073,7 @@ msgstr "Contrasenya"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "El contingut de «%s» està bloquejat. Per poder visualitzar el contingut, "
@@ -1098,11 +1099,11 @@ msgstr "Mostra la versió de l'aplicació"
 msgid "[file...]"
 msgstr "[fitxer...]"
 
-#: ../ui/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- Visualitza fitxers de certificats i de claus"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Visualitzador de certificats"
 
@@ -1118,10 +1119,10 @@ msgstr "S'ha importat"
 msgid "Import failed"
 msgstr "Ha fallat la importació"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Importa"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "Tan_ca"

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: "
-"http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2016-10-18 09:40+0000\n"
+"https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2017-04-15 18:27+0000\n"
 "PO-Revision-Date: 2016-02-04 19:11+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -217,7 +217,7 @@ msgstr "URI'en har en ugyldig kodning."
 
 #: ../gck/gck-uri.c:228
 msgid "The URI does not have the “pkcs11” scheme."
-msgstr "URI'en har ikke skemaet \"pkcs11\"."
+msgstr "URI'en har ikke skemaet “pkcs11”."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -616,7 +616,7 @@ msgstr "_Detaljer"
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
 msgid "Could not display “%s”"
-msgstr "Kunne ikke vise \"%s\""
+msgstr "Kunne ikke vise “%s”"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -1082,7 +1082,7 @@ msgid ""
 "The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"Indholdet af \"%s\" er låst. For at se indholdet så indtast den korrekte "
+"Indholdet af “%s” er låst. For at se indholdet så indtast den korrekte "
 "adgangskode."
 
 #: ../ui/gcr-unlock-renderer.c:277
@@ -1140,4 +1140,5 @@ msgstr "_Luk"
 
 #~ msgid "Label"
 #~ msgstr "Mærkat"
+
 

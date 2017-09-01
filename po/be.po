@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2016-10-18 16:34+0000\n"
-"PO-Revision-Date: 2017-04-15 21:25+0300\n"
+"POT-Creation-Date: 2017-04-15 18:27+0000\n"
+"PO-Revision-Date: 2017-09-01 18:52+0300\n"
 "Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
@@ -195,12 +195,12 @@ msgstr "Памылка загрузкі модуля PKCS#11: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Не ўдалося ініцыяваць модуль PKCS#11: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Не ўдалося ініцыяваць зарэгістраваны модуль PKCS#11: %s"
 
 #: ../gck/gck-uri.c:224
@@ -209,7 +209,7 @@ msgid "The URI has invalid encoding."
 msgstr "URI-адрас мае хібнае кадаванне."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr "URI-адрас не мае схемы \"pkcs11\"."
 
 #: ../gck/gck-uri.c:232
@@ -376,7 +376,7 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Невядомыя ці недаступныя атрыбуты ключа"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
 msgstr "Не ўдалося стварыць адкрыты ключ"
 
 #: ../gcr/gcr-system-prompt.c:911
@@ -388,7 +388,7 @@ msgstr "Ужо адкрыта іншая копія запыту доступу"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Не ўдалося знайсці месца для захавання прышпіленага сертыфіката"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -482,7 +482,7 @@ msgid "Value"
 msgstr "Значэнне"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Не ўдалося экспартаваць сертыфікат."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -608,7 +608,7 @@ msgstr "_Падрабязнасці"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "Не ўдалося паказаць \"%s\""
 
 #: ../ui/gcr-failure-renderer.c:161
@@ -1040,7 +1040,7 @@ msgid "PEM files"
 msgstr "PEM-файлы"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Аўтаматычна разблакіраваць гэту вязку ключоў пры ўваходзе ў сістэму"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1072,7 +1072,7 @@ msgstr "Пароль"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "Змесціва \"%s\" заблакіравана. Каб разблакіраваць гэты аб'ект, трэба ўвесці "

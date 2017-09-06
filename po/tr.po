@@ -10,22 +10,23 @@
 # Necdet Yücel <necdetyucel@gmail.com>, 2015.
 # Simge Sezgin <simgesezgin88@gmail.com>, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2014, 2015.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2015-01-07 17:42+0000\n"
-"PO-Revision-Date: 2015-02-20 11:14+0200\n"
-"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
-"Language-Team: Turkish <gnome-turk@gnome.org>\n"
+"POT-Creation-Date: 2017-02-22 19:17+0000\n"
+"PO-Revision-Date: 2017-09-06 09:31+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Gtranslator 2.91.7\n"
 "X-POOTLE-MTIME: 1420669651.000000\n"
 
 #: ../egg/egg-oid.c:40
@@ -35,7 +36,7 @@ msgstr "Alan Bileşeni"
 #: ../egg/egg-oid.c:42 ../ui/gcr-gnupg-renderer.c:408
 #: ../ui/gcr-gnupg-renderer.c:577
 msgid "User ID"
-msgstr "Kullanıcı ID"
+msgstr "Kullanıcı Kimliği"
 
 #: ../egg/egg-oid.c:45
 msgid "Email Address"
@@ -91,11 +92,11 @@ msgstr "Sokak"
 
 #: ../egg/egg-oid.c:78
 msgid "Organization"
-msgstr "Organizasyon"
+msgstr "Kurum"
 
 #: ../egg/egg-oid.c:80
 msgid "Organizational Unit"
-msgstr "Organizasyon Birimi"
+msgstr "Kurum Birimi"
 
 #: ../egg/egg-oid.c:82
 msgid "Title"
@@ -203,12 +204,14 @@ msgstr "PKCS#11 modulü yüklemede hata: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+#| msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "PKCS#11 modülü başlatılamadı: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Kayıtlı PKCS#11 modülleri başlatılamadı: %s"
 
 #: ../gck/gck-uri.c:224
@@ -217,8 +220,9 @@ msgid "The URI has invalid encoding."
 msgstr "URI geçersiz kodlamaya sahip."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "URI 'pkcs11' şemasına sahip değil."
+#| msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "URI, “pkcs11” şemasına sahip değil."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -384,8 +388,9 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Anahtar için kullanılamaz ya da onaylanmamış öznitelikler"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
-msgstr "Açık anahtar oluşturulamadı"
+#| msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
+msgstr "Genel anahtar oluşturulamadı"
 
 #: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
@@ -396,7 +401,8 @@ msgstr "Başka istek zaten devam ediyor"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+#| msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Tutturulmuş sertifikayı saklamak için bir konum bulunamadı"
 
 #: ../ui/gcr-certificate-renderer.c:117
@@ -473,7 +479,7 @@ msgstr "Kullanımlar"
 
 #: ../ui/gcr-certificate-renderer.c:237
 msgid "Subject Alternative Names"
-msgstr "Konu Diğer İsimleri"
+msgstr "Konu Diğer Adları"
 
 #: ../ui/gcr-certificate-renderer.c:264
 msgid "Extension"
@@ -490,7 +496,8 @@ msgid "Value"
 msgstr "Değer"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+#| msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Sertifika dışa aktarılamadı."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -500,7 +507,7 @@ msgstr "Kimlik"
 
 #: ../ui/gcr-certificate-renderer.c:525
 msgid "Verified by"
-msgstr "Doğrulayan:"
+msgstr "Doğrulayan"
 
 #: ../ui/gcr-certificate-renderer.c:532 ../ui/gcr-gnupg-renderer.c:717
 msgid "Expires"
@@ -515,7 +522,7 @@ msgstr "Konu Adı"
 #. The Issuer
 #: ../ui/gcr-certificate-renderer.c:544
 msgid "Issuer Name"
-msgstr "Veren İsmi"
+msgstr "Veren Adı"
 
 #. The Issued Parameters
 #: ../ui/gcr-certificate-renderer.c:549
@@ -610,14 +617,15 @@ msgstr "Tür"
 msgid "Challenge"
 msgstr "Kimlik Sorma"
 
-#: ../ui/gcr-display-view.c:316
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Ayrıntılar"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
-msgstr "'%s' gösterilemedi"
+#| msgid "Could not display '%s'"
+msgid "Could not display “%s”"
+msgstr "“%s” gösterilemedi"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -737,7 +745,7 @@ msgstr "Bu anahtar sınırsız güvenilir anahtardır"
 
 #: ../ui/gcr-gnupg-renderer.c:336 ../ui/gcr-gnupg-renderer.c:562
 msgid "Key ID"
-msgstr "Anahtar Kimliği (ID)"
+msgstr "Anahtar Kimliği"
 
 #: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
 #: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
@@ -844,7 +852,7 @@ msgstr "Sınıf"
 
 #: ../ui/gcr-gnupg-renderer.c:589
 msgid "Local only"
-msgstr "Sadece yerel"
+msgstr "Yalnızca yerel"
 
 #: ../ui/gcr-gnupg-renderer.c:591
 msgid "Exportable"
@@ -957,7 +965,7 @@ msgstr "_Tamam"
 
 #: ../ui/gcr-pkcs11-import-dialog.c:189
 msgid "Automatically chosen"
-msgstr "Otomatik seçilmiş"
+msgstr "Kendiliğinden seçilmiş"
 
 #: ../ui/gcr-pkcs11-import-dialog.c:273
 #: ../ui/gcr-pkcs11-import-interaction.c:152
@@ -1015,7 +1023,7 @@ msgstr "Parolalar ve diğer gizli bilgiler için erişim kilidini kaldır"
 
 #: ../ui/gcr-certificate-exporter.c:225
 msgid "A file already exists with this name."
-msgstr "Bu isimle bir dosya zaten var."
+msgstr "Bu adda bir dosya zaten var."
 
 #: ../ui/gcr-certificate-exporter.c:226
 msgid "Do you want to replace it with a new file?"
@@ -1047,8 +1055,9 @@ msgid "PEM files"
 msgstr "PEM dosyaları"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "Her oturum açtığımda, bu anahtarlığın kilidini otomatik olarak kaldır"
+#| msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
+msgstr "Her oturum açtığımda, bu anahtarlığın kilidini kendiliğinden kaldır"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
@@ -1062,7 +1071,7 @@ msgstr "Bu anahtarlığı şu kadar sonra kilitle"
 msgid "Lock this keyring if idle for"
 msgstr "Bu anahtarlığı şu kadar süre boştaysa kilitle"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "dakika"
@@ -1078,11 +1087,14 @@ msgstr "Parola"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
+#| msgid ""
+#| "The contents of '%s' are locked. In order to view the contents, enter the "
+#| "correct password."
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"'%s' içeriği kilitlendi. İçeriği görüntülemek için doğru parolayı girin."
+"“%s” içeriği kilitlendi. İçeriği görüntülemek için doğru parolayı girin."
 
 #: ../ui/gcr-unlock-renderer.c:277
 msgid ""

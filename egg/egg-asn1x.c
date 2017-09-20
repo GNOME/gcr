@@ -2213,7 +2213,7 @@ anode_read_time (GNode *node,
 		return anode_failure (node, "invalid time content");
 
 	/* In order to work with 32 bit time_t. */
-	if (sizeof (time_t) <= 4 && when->tm_year >= 2038) {
+	if (sizeof (time_t) <= 4 && when->tm_year >= 138) {
 		*value = (time_t)2145914603;  /* 2037-12-31 23:23:23 */
 
 	/* Convert to seconds since epoch */
@@ -4685,7 +4685,7 @@ egg_asn1x_parse_time_general (const gchar *time, gssize n_time)
 		return -1;
 
 	/* In order to work with 32 bit time_t. */
-	if (sizeof (time_t) <= 4 && when.tm_year >= 2038) {
+	if (sizeof (time_t) <= 4 && when.tm_year >= 138) {
 		value = (time_t)2145914603;  /* 2037-12-31 23:23:23 */
 
 	/* Convert to seconds since epoch */
@@ -4716,7 +4716,7 @@ egg_asn1x_parse_time_utc (const gchar *time, gssize n_time)
 		return -1;
 
 	/* In order to work with 32 bit time_t. */
-	if (sizeof (time_t) <= 4 && when.tm_year >= 2038) {
+	if (sizeof (time_t) <= 4 && when.tm_year >= 138) {
 		value = (time_t)2145914603;  /* 2037-12-31 23:23:23 */
 
 	/* Convert to seconds since epoch */

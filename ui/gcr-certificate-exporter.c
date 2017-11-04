@@ -340,7 +340,7 @@ exporter_display_chooser (GcrCertificateExporter *self)
 		g_cancellable_connect (self->pv->cancellable,
 		                       G_CALLBACK (on_cancel_chooser_dialog), self, NULL);
 
-	gtk_widget_show (GTK_WIDGET (self->pv->chooser_dialog));
+	gtk_dialog_run (GTK_DIALOG (self->pv->chooser_dialog));
 }
 
 /* -----------------------------------------------------------------------------
@@ -522,10 +522,10 @@ _gcr_certificate_exporter_export_async (GcrCertificateExporter *self,
 	if (cancellable)
 		self->pv->cancellable = g_object_ref (cancellable);
 
-	exporter_display_chooser (self);
-
 	/* Matching in export_finish */
 	g_object_ref (self);
+
+	exporter_display_chooser (self);
 }
 
 gboolean

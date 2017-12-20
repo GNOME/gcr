@@ -5,8 +5,8 @@
 #
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2004, 2006.
 #
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011., 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011., 2012, 2013, 2014, 2016, 2017.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009-2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011-2014, 2016-2017.
 #
 msgid ""
 msgstr ""

@@ -2,16 +2,16 @@
 # Copyright (C) 2011 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gcr package.
 # Michael MORONI, < >, 2011.
-# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011, 2016.
+# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011, 2016, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-04-19 20:37+0000\n"
-"PO-Revision-Date: 2016-04-02 23:14+0200\n"
+"POT-Creation-Date: 2017-02-22 19:17+0000\n"
+"PO-Revision-Date: 2017-12-23 21:23+0200\n"
 "Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
-"Language-Team: Esperanto <gnome-l10n-eo@lists.launchpad.net>\n"
+"Language-Team: Esperanto <gnome-eo-list@gnome.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -148,27 +148,22 @@ msgid "Elliptic Curve"
 msgstr ""
 
 #: ../egg/egg-oid.c:106
-#| msgid "SHA1 with DSA"
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 kun ECDSA"
 
 #: ../egg/egg-oid.c:107
-#| msgid "SHA1 with DSA"
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 kun ECDSA"
 
 #: ../egg/egg-oid.c:108
-#| msgid "SHA1 with DSA"
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 kun ECDSA"
 
 #: ../egg/egg-oid.c:109
-#| msgid "SHA1 with DSA"
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 kun ECDSA"
 
 #: ../egg/egg-oid.c:110
-#| msgid "SHA1 with DSA"
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 kun ECDSA"
 
@@ -199,13 +194,14 @@ msgid "Error loading PKCS#11 module: %s"
 msgstr "Eraro dum ŝarĝo de PKCS#11-modulo: %s"
 
 #: ../gck/gck-module.c:358
-#, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr ""
+#, fuzzy, c-format
+#| msgid "Error loading PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr "Eraro dum ŝarĝo de PKCS#11-modulo: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr ""
 
 #: ../gck/gck-uri.c:224
@@ -214,7 +210,7 @@ msgid "The URI has invalid encoding."
 msgstr "La URI havas nevalidan kodadon."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
 msgstr ""
 
 #: ../gck/gck-uri.c:232
@@ -225,8 +221,8 @@ msgstr "La URI havas malbonan sintakson."
 msgid "The URI has a bad version number."
 msgstr "La URI havas malbonan versionombron."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "La fluo estas fermita"
@@ -303,7 +299,7 @@ msgstr "Registrita ID"
 #: ../gcr/gcr-certificate-request.c:415
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr "Nesuptenata ŝlosiltipo por aŭtentigilo-peto"
+msgstr "Nesubtenata ŝlosiltipo por aŭtentigilo-peto"
 
 #: ../gcr/gcr-certificate-request.c:502 ../gcr/gcr-certificate-request.c:587
 #, c-format
@@ -329,18 +325,18 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "Ŝlosil-ID"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr ""
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "La ago estis nuligita"
 
@@ -357,15 +353,15 @@ msgstr "Publika ŝlosilo"
 msgid "Certificate Request"
 msgstr "Atestil-peto"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2557
 msgid "Unrecognized or unsupported data."
 msgstr "Nekonataj aŭ nesubtenataj datumoj."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2560
 msgid "Could not parse invalid or corrupted data."
 msgstr "Ne povus analizi nevalidan aŭ difektitan datumojn."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2563
 msgid "The data is locked"
 msgstr "La datumoj estas ŝlositaj"
 
@@ -377,25 +373,27 @@ msgstr "Daŭrigi"
 msgid "Cancel"
 msgstr "Nuligi"
 
-#: ../gcr/gcr-subject-public-key.c:407
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr ""
 
-#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
-msgid "Couldn't build public key"
-msgstr "Ne povus krei publikan ŝlosilon"
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
+#| msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
+msgstr "Ne eblis krei publikan ŝlosilon"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr ""
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
-#, c-format
-msgid "Couldn't find a place to store the pinned certificate"
-msgstr ""
+#: ../gcr/gcr-trust.c:364
+#, fuzzy, c-format
+#| msgid "Couldn't export the certificate."
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr "Ne eblis trovi lokon por konservi la atestilon"
 
 #: ../ui/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
@@ -490,7 +488,8 @@ msgid "Value"
 msgstr "Valoro"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+#| msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Ne eblis elporti la atestilon."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -612,14 +611,15 @@ msgstr "Tipo"
 msgid "Challenge"
 msgstr ""
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Detaloj"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
-msgstr "Ne eblis montri '%s'"
+#| msgid "Could not display '%s'"
+msgid "Could not display “%s”"
+msgstr "Ne eblis montri na “%s”"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -865,9 +865,8 @@ msgid "Fingerprint"
 msgstr "Fingropremaĵo"
 
 #: ../ui/gcr-gnupg-renderer.c:738
-#, fuzzy
 msgid "Public Subkey"
-msgstr "Publika ŝlosilo"
+msgstr "Publika subŝlosilo"
 
 #: ../ui/gcr-gnupg-renderer.c:740
 msgid "Secret Key"
@@ -952,12 +951,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
 msgstr "_Nuligi"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "_Bone"
 
@@ -977,7 +976,7 @@ msgid "In order to import, please enter the password."
 msgstr "Por enporti, bonvole enigu pasvorton."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "Pasvorto:"
 
@@ -999,15 +998,15 @@ msgid "Import settings"
 msgstr "Enport-agordoj"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "Konfirmi:"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "Pasvortoj ne kongruas."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "Pasvorto ne povas esti malplena"
 
@@ -1053,7 +1052,9 @@ msgid "PEM files"
 msgstr "PEM-dosieroj"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+#, fuzzy
+#| msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Aŭtomate malŝlosi ĉi tiun ŝlosilaron ĉiam kiam mi estas ensalutita"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1068,7 +1069,7 @@ msgstr "Ŝlosi ĉi tiun ŝlosilaron poste"
 msgid "Lock this keyring if idle for"
 msgstr ""
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minutoj"
@@ -1085,7 +1086,7 @@ msgstr "Pasvorto"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 
@@ -1107,11 +1108,11 @@ msgstr "Montri la version de la programo"
 msgid "[file...]"
 msgstr "[dosiero...]"
 
-#: ../ui/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- Montri dosierojn de atestiloj kaj ŝlosiloj"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Atestil-vidigilo"
 
@@ -1127,11 +1128,11 @@ msgstr "Enportite"
 msgid "Import failed"
 msgstr "Enporto malsukcesis"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Enporti"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_Fermi"
 

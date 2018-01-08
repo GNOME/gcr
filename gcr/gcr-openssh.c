@@ -265,7 +265,7 @@ read_buffer_mpi_to_der (EggBuffer *buffer,
 	if (!asn)
 		return FALSE;
 
-	egg_asn1x_set_string_as_raw (asn, data, len, NULL);
+	egg_asn1x_set_string_as_raw (asn, (guchar *)data, len, NULL);
 	der_data = egg_asn1x_encode (asn, g_realloc);
 	if (!der_data)
 		goto out;

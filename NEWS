@@ -1,3 +1,11 @@
+gcr 3.27.4:
+- Fix encoding of EC parameters [#785234]
+- Fix hang in certificate export dialog [#789804]
+- Fix failure case in gcr_secure_memory_try_realloc() [#775685]
+- Switch to using GLib resources
+- Build fixes [#771052, #775685, #775966, #774312, #774311, #764562, #764569]
+- Updated translations
+
 gcr 3.20.0:
 - Build fixes [#763488 #766301
 - Updated translations

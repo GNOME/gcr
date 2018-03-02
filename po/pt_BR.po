@@ -1,5 +1,5 @@
 # Brazilian Portuguese translation of GNOME Keyring.
-# Copyright (C) 2004-2017 the GNOME Keyring authors.
+# Copyright (C) 2004-2018 the GNOME Keyring authors.
 # This file is distributed under the same license as the gnome-keyring package.
 # Guilherme de S. Pastore <gpastore@gnome.org>, 2004-2005.
 # Leonardo Ferreira Fontenelle <leonardof@gnome.org>, 2006, 2008, 2009.
@@ -13,14 +13,14 @@
 # Rodrigo Padula de Oliveira <contato@rodrigopadula.com>, 2011.
 # Gabriel Speckhahn <gabspeck@gmail.com>, 2011.
 # Enrico Nicoletto <liverig@gmail.com>, 2008, 2013, 2014.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2012, 2013, 2014, 2017.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2012-2014, 2017-2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2017-02-22 19:17+0000\n"
-"PO-Revision-Date: 2017-02-25 18:33-0200\n"
+"POT-Creation-Date: 2018-03-02 13:46+0000\n"
+"PO-Revision-Date: 2018-03-02 12:44-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -206,13 +206,11 @@ msgstr "Erro ao carregar o módulo PKCS#11: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-#| msgid "Couldn't initialize PKCS#11 module: %s"
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Não foi possível inicializar o módulo PKCS#11: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Não foi possível inicializar os módulos PKCS#11 registrados: %s"
 
@@ -222,7 +220,6 @@ msgid "The URI has invalid encoding."
 msgstr "A codificação do URI é inválida."
 
 #: ../gck/gck-uri.c:228
-#| msgid "The URI does not have the 'pkcs11' scheme."
 msgid "The URI does not have the “pkcs11” scheme."
 msgstr "O URI não possui o esquema “pkcs11”."
 
@@ -258,7 +255,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Válido até"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Certificado"
@@ -327,7 +324,7 @@ msgstr "Chaveiro GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Chaveiro GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "Chave PGP"
@@ -347,33 +344,33 @@ msgstr "O processo do Gnupg saiu com o código %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "O processo do Gnupg foi finalizado com o sinal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
-#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "A operação foi cancelada"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Chave privada"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Chave pública"
 
-#: ../gcr/gcr-parser.c:334
+#: ../gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "Requisição de certificado"
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "Dados não reconhecidos ou sem suporte."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "Não foi possível analisar dados inválidos ou corrompidos."
 
-#: ../gcr/gcr-parser.c:2563
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "Os dados estão bloqueados"
 
@@ -385,12 +382,15 @@ msgstr "Continuar"
 msgid "Cancel"
 msgstr "Cancelar"
 
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "Insira sua senha de OpenSSH"
+
 #: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Atributos não reconhecidos ou não disponíveis para chave"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-#| msgid "Couldn't build public key"
 msgid "Couldn’t build public key"
 msgstr "Não é possível criar chave pública"
 
@@ -403,7 +403,6 @@ msgstr "Outro prompt já está em progresso"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-#| msgid "Couldn't find a place to store the pinned certificate"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr ""
 "Não foi possível encontrar um lugar para armazenar o certificado marcado"
@@ -499,7 +498,6 @@ msgid "Value"
 msgstr "Valor"
 
 #: ../ui/gcr-certificate-renderer.c:287
-#| msgid "Couldn't export the certificate."
 msgid "Couldn’t export the certificate."
 msgstr "Não foi possível exportar o certificado."
 
@@ -626,7 +624,6 @@ msgstr "_Detalhes"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-#| msgid "Could not display '%s'"
 msgid "Could not display “%s”"
 msgstr "Não foi possível exibir “%s”"
 
@@ -1058,7 +1055,6 @@ msgid "PEM files"
 msgstr "Arquivos PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-#| msgid "Automatically unlock this keyring whenever I'm logged in"
 msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Desbloquear este chaveiro automaticamente quando eu iniciar a sessão"
 
@@ -1090,9 +1086,6 @@ msgstr "Senha"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
-#| msgid ""
-#| "The contents of '%s' are locked. In order to view the contents, enter the "
-#| "correct password."
 msgid ""
 "The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."

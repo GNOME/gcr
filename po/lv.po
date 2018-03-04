@@ -6,14 +6,14 @@
 # Raivis Dejus <orvils@gmail.com>, 2006.
 # Peteris Krisjanis <pecisk@gmail.com>, 2010.
 # Rudolfs <rudolfs.mazurs@gmail.com>, 2011.
-# Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012, 2013, 2014, 2017.
+# Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012, 2013, 2014, 2017, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-k"
 "eyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2017-02-22 19:17+0000\n"
-"PO-Revision-Date: 2017-03-18 12:12+0200\n"
+"POT-Creation-Date: 2018-03-02 13:46+0000\n"
+"PO-Revision-Date: 2018-03-04 17:59+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -200,13 +200,11 @@ msgstr "Kļūda, ielādējot PKCS#11 moduli — %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-#| msgid "Couldn't initialize PKCS#11 module: %s"
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Nevarēja inicializēt PKCS#11 moduli — %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Nevarēja inicializēt reģistrētus PKCS#11 moduļus — %s"
 
@@ -216,7 +214,6 @@ msgid "The URI has invalid encoding."
 msgstr "Šai URI ir nederīgs kodējums."
 
 #: ../gck/gck-uri.c:228
-#| msgid "The URI does not have the 'pkcs11' scheme."
 msgid "The URI does not have the “pkcs11” scheme."
 msgstr "URI neatbilst “pkcs11” shēmai."
 
@@ -252,7 +249,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Derīguma termiņš"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Sertifikāts"
@@ -321,7 +318,7 @@ msgstr "GnuPG atslēgu saišķis"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG atslēgu saišķis — %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP atslēga"
@@ -341,33 +338,33 @@ msgstr "Gnupg process izgāja ar kodu: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg process tika pārtraukts ar signālu: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
-#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Darbība tika atcelta"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Privātā atslēga"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Publiskā atslēga"
 
-#: ../gcr/gcr-parser.c:334
+#: ../gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "Sertifikāta pieprasījums"
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "Neatpazīti vai neatbalstīti dati."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "Neizdevās parsēt nederīgus vai bojātus datus."
 
-#: ../gcr/gcr-parser.c:2563
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "Dati ir noslēgti"
 
@@ -379,12 +376,15 @@ msgstr "Turpināt"
 msgid "Cancel"
 msgstr "Atcelt"
 
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "Ievadiet savu OpenSSH paroli"
+
 #: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Neatpazīti vai nepieejami atslēgas atribūti"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-#| msgid "Couldn't build public key"
 msgid "Couldn’t build public key"
 msgstr "Nevarēja izveidot publisko atslēgu"
 
@@ -397,7 +397,6 @@ msgstr "Jau darbojas cita uzvedne"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-#| msgid "Couldn't find a place to store the pinned certificate"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Nevarēja atrast vietu, kur glabāt sertifikātu"
 
@@ -492,7 +491,6 @@ msgid "Value"
 msgstr "Vērtība"
 
 #: ../ui/gcr-certificate-renderer.c:287
-#| msgid "Couldn't export the certificate."
 msgid "Couldn’t export the certificate."
 msgstr "Neizdevās eksportēt sertifikātu."
 
@@ -619,7 +617,6 @@ msgstr "_Sīkāka informācija"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-#| msgid "Could not display '%s'"
 msgid "Could not display “%s”"
 msgstr "Neizdevās attēlot “%s”"
 
@@ -1052,7 +1049,6 @@ msgid "PEM files"
 msgstr "PEM datnes"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-#| msgid "Automatically unlock this keyring whenever I'm logged in"
 msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Automātiski atbloķēt šo saišķi tad, kad es ierakstos"
 
@@ -1084,9 +1080,6 @@ msgstr "Parole"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
-#| msgid ""
-#| "The contents of '%s' are locked. In order to view the contents, enter the "
-#| "correct password."
 msgid ""
 "The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
@@ -1137,16 +1130,3 @@ msgstr "Importēt"
 #: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_Aizvērt"
-
-#~ msgid "Invalid PKCS#11 module: %s"
-#~ msgstr "Nederīgs PKCS#11 modulis — %s"
-
-#~ msgid "Couldn't setup PKCS#11 module: %s"
-#~ msgstr "Nevarēja iestatīt PKCS#11 moduli — %s"
-
-#~ msgid "Label"
-#~ msgstr "Etiķete"
-
-#, fuzzy
-#~ msgid "<b>Unlock</b>"
-#~ msgstr "Atslēgt"

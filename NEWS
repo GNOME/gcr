@@ -1,3 +1,7 @@
+gcr 3.27.92:
+- Provide API for reliably calling ssh programs [#735873]
+- Updated translations
+
 gcr 3.27.4:
 - Fix encoding of EC parameters [#785234]
 - Fix hang in certificate export dialog [#789804]

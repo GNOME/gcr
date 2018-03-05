@@ -162,8 +162,11 @@ class TapDriver(Driver):
             return
         description = description.lstrip()
 
-        # Special case if description starts with this, then skip
-        if description.lower().startswith("# skip"):
+        # Parse out a directive from description, if any
+        (description, unused, directive) = description.partition("#")
+
+        # Special case if directive starts with this, then skip
+        if directive.lstrip().lower().startswith("skip"):
             self.result_skip(num, description)
         elif ok:
             self.result_pass(num, description)
@@ -222,9 +225,12 @@ class TapDriver(Driver):
             if code != "SKIP":
                 skipped = False
 
-        if not self.errored and returncode:
-            self.report_error("process failed: %d" % returncode)
-            self.errored = True
+        if not self.errored:
+            if returncode == 77:
+                skipped = True
+            elif returncode:
+                self.report_error("process failed: %d" % returncode)
+                self.errored = True
 
         # Check the plan
         if not self.errored:

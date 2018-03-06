@@ -8,18 +8,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-07-04 16:53+0000\n"
-"PO-Revision-Date: 2014-07-16 12:59+0200\n"
-"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
+"POT-Creation-Date: 2018-03-02 13:46+0000\n"
+"PO-Revision-Date: 2018-03-07 00:41+0200\n"
+"Last-Translator: Tom Tryfonidis <tomtryf@gnome.org>\n"
 "Language-Team: www.gnome.gr\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Project-Style: gnome\n"
 
 #: ../egg/egg-oid.c:40
@@ -197,12 +197,12 @@ msgstr "Σφάλμα κατά την εκκίνηση του αρθρώματο�
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Αδύνατη η αρχικοποίηση του αρθρώματος PKCS#11: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Αδύνατη η αρχικοποίηση του κατωχηρωμένου αρθρώματος PKCS#11: %s"
 
 #: ../gck/gck-uri.c:224
@@ -211,8 +211,8 @@ msgid "The URI has invalid encoding."
 msgstr "Το URI έχει μη έγκυρη κωδικοποίηση."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "Το URI δεν έχει το σχήμα 'pkcs11'."
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "Το URI δεν έχει το σχήμα «pkcs11»."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -222,8 +222,8 @@ msgstr "Το URI έχει κακή σύνταξη."
 msgid "The URI has a bad version number."
 msgstr "Το URI έχει κακό αριθμό έκδοσης."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "Η ροή έκλεισε"
@@ -246,7 +246,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Λήγει"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Πιστοποιητικό"
@@ -315,7 +315,7 @@ msgstr "Κλειδοθήκη GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Κλειδοθήκη GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "Κλειδί PGP"
@@ -325,43 +325,43 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "Αναγνωριστικό κλειδιού"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Η διεργασία Gnupg τερματίστηκε με κωδικό: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Η διεργασία Gnupg τερματίστηκε με σήμα: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Η διεργασία ακυρώθηκε"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Ιδιωτικό κλειδί"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Δημόσιο κλειδί"
 
-#: ../gcr/gcr-parser.c:334
+#: ../gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "Αίτηση πιστοποιητικού"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "Μη αναγνωρίσιμα ή μη υποστηριζόμενα δεδομένα."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "Αδυναμία ανάλυσης άκυρων ή κατεστραμμένων δεδομένων."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "Τα δεδομένα είναι κλειδωμένα"
 
@@ -373,25 +373,31 @@ msgstr "Συνέχεια"
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: ../gcr/gcr-subject-public-key.c:407
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "Εισάγετε το συνθηματικό ασφαλούς κελύφους σας"
+
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Άγνωστες ή μη διαθέσιμες ιδιότητες για το κλειδί"
 
-#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
-msgid "Couldn't build public key"
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
+msgid "Couldn’t build public key"
 msgstr "Αδυναμία δημιουργίας δημόσιου κλειδιού"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Ένα άλλο τερματικό βρίσκεται ήδη σε εξέλιξη"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
+#: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
-msgstr "Αδυναμία εύρεσης τοποθεσίας για την αποθήκευση του πιστοποιητικού"
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr ""
+"Αδυναμία εύρεσης τοποθεσίας για την αποθήκευση του καρφιτσωμένου "
+"πιστοποιητικού"
 
 #: ../ui/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
@@ -484,7 +490,7 @@ msgid "Value"
 msgstr "Τιμή"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
 msgstr "Αδυναμία εξαγωγής πιστοποιητικού."
 
 #: ../ui/gcr-certificate-renderer.c:521
@@ -604,14 +610,14 @@ msgstr "Τύπος"
 msgid "Challenge"
 msgstr "Πρόκληση"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Λεπτομέρειες"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
-msgstr "Αδύνατη η εμφάνιση του '%s'"
+msgid "Could not display “%s”"
+msgstr "Αδύνατη η εμφάνιση του «%s»"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -940,12 +946,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
 msgstr "A_κύρωση"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "Ε_ντάξει"
 
@@ -965,7 +971,7 @@ msgid "In order to import, please enter the password."
 msgstr "Για να γίνει εισαγωγή, παρακαλούμε δώστε τον κωδικό πρόσβασης."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "Κωδικός πρόσβασης:"
 
@@ -987,15 +993,15 @@ msgid "Import settings"
 msgstr "Εισαγωγή ρυθμίσεων"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "Επιβεβαίωση:"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "Οι κωδικοί πρόσβασης δεν ταιριάζουν."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός"
 
@@ -1041,7 +1047,7 @@ msgid "PEM files"
 msgstr "Αρχεία PEM"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Αυτόματο ξεκλείδωμα αυτής της κλειδοθήκης κατά την είσοδό μου"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
@@ -1056,7 +1062,7 @@ msgstr "Κλείδωμα αυτής της κλειδοθήκης μετά απ�
 msgid "Lock this keyring if idle for"
 msgstr "Κλείδωμα αυτής της κλειδοθήκης αν είναι αδρανές για"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "λεπτά"
@@ -1073,11 +1079,11 @@ msgstr "Κωδικός πρόσβασης"
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"Τα περιεχόμενα του '%s' είναι κλειδωμένα. Για να τα δείτε, πληκτρολογήστε "
-"τον σωστό κωδικό πρόσβασης."
+"Τα περιεχόμενα του «%s» είναι κλειδωμένα. Για να τα δείτε, πληκτρολογήστε το "
+"σωστό συνθηματικό."
 
 #: ../ui/gcr-unlock-renderer.c:277
 msgid ""
@@ -1099,11 +1105,11 @@ msgstr "Εμφάνιση έκδοσης της εφαρμογής"
 msgid "[file...]"
 msgstr "[αρχείο...]"
 
-#: ../ui/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- Προβολή πιστοποιητικών και κλειδιών"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Εφαρμογή προβολής πιστοποιητικών"
 
@@ -1119,11 +1125,11 @@ msgstr "Εισήχθη"
 msgid "Import failed"
 msgstr "Η εισαγωγή απέτυχε"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Εισαγωγή"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_Κλείσιμο"
 

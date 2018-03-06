@@ -1,21 +1,21 @@
 # Danish translation of gnome-keyring.
-# Copyright (C) 2004-14 Free Software Foundation, Inc.
+# Copyright (C) 2004-14, 2018 Free Software Foundation, Inc.
 # Ole Laursen <olau@hardworking.dk>, 2004.
 # Peter Bach <bach.peter@gmail.com>, 2007.
 # Kenneth Nielsen <k.nielsen81@gmail.com>, 2008, 2012.
 # Per Kongstad <p_kongstad@op.pl>, 2009.
 # Kris Thomsen <lakristho@gmail.com>, 2011.
 # Joe Hansen <joedalton2@yahoo.dk>, 2011.
-# Ask Hjorth Larsen <asklarsen@gmail.com>, 2007, 2008, 10, 13, 14.
+# Ask Hjorth Larsen <asklarsen@gmail.com>, 2007, 2008, 10, 13, 14, 2018.
 #
 # signatur -> underskrift
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: "
-"https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2017-04-15 18:27+0000\n"
-"PO-Revision-Date: 2016-02-04 19:11+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2018-03-02 13:46+0000\n"
+"PO-Revision-Date: 2018-03-02 18:34+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -251,7 +251,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Udløber"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Certifikat"
@@ -320,7 +320,7 @@ msgstr "GnuPG-nøglering"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG-nøglering: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP-nøgle"
@@ -340,33 +340,33 @@ msgstr "Gnupg-proces afsluttedes med kode: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg-proces blev afsluttet med signal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
-#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Operationen blev annulleret"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Privat nøgle"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Offentlig nøgle"
 
-#: ../gcr/gcr-parser.c:334
+#: ../gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "Certifikatforespørgsel"
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "Ukendt eller ikke understøttetede data."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "Kunne ikke fortolke ugyldige eller ødelagte data."
 
-#: ../gcr/gcr-parser.c:2563
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "Dataene er låst"
 
@@ -377,6 +377,10 @@ msgstr "Fortsæt"
 #: ../gcr/gcr-prompt.c:234
 msgid "Cancel"
 msgstr "Annuller"
+
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "Indtast din adgangsfrase til OpenSSH"
 
 #: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
@@ -1140,5 +1144,3 @@ msgstr "_Luk"
 
 #~ msgid "Label"
 #~ msgstr "Mærkat"
-
-

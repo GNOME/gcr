@@ -7,18 +7,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2014-04-19 20:37+0000\n"
-"PO-Revision-Date: 2016-09-18 11:15+0100\n"
-"Last-Translator: David King <amigadave@amigadave.com>\n"
+"POT-Creation-Date: 2018-03-02 13:46+0000\n"
+"PO-Revision-Date: 2018-03-10 17:30+0000\n"
+"Last-Translator: Bruce Cowan <bruce@bcowan.eu>\n"
 "Language-Team: British English <en@li.org>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Project-Style: gnome\n"
 
 #: ../egg/egg-oid.c:40
@@ -196,13 +196,15 @@ msgstr "Error loading PKCS#11 module: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr "Couldn't initialise PKCS#11 module: %s"
+#| msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr "Couldn’t initialise PKCS#11 module: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr "Couldn't initialise registered PKCS#11 modules: %s"
+#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr "Couldn’t initialise registered PKCS#11 modules: %s"
 
 #: ../gck/gck-uri.c:224
 #, c-format
@@ -210,8 +212,9 @@ msgid "The URI has invalid encoding."
 msgstr "The URI has invalid encoding."
 
 #: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "The URI does not have the 'pkcs11' scheme."
+#| msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "The URI does not have the “pkcs11” scheme."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -221,8 +224,8 @@ msgstr "The URI has bad syntax."
 msgid "The URI has a bad version number."
 msgstr "The URI has a bad version number."
 
-#: ../gcr/gcr-callback-output-stream.c:62
-#: ../gcr/gcr-callback-output-stream.c:79
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
 #, c-format
 msgid "The stream was closed"
 msgstr "The stream was closed"
@@ -245,7 +248,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Expires"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Certificate"
@@ -314,7 +317,7 @@ msgstr "GnuPG Keyring"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG Keyring: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP Key"
@@ -324,43 +327,43 @@ msgctxt "column"
 msgid "Key ID"
 msgstr "Key ID"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Gnupg process exited with code: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg process was terminated with signal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2551
-#: ../gcr/gcr-parser.c:3157 ../gcr/gcr-system-prompt.c:924
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "The operation was cancelled"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Private Key"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Public Key"
 
-#: ../gcr/gcr-parser.c:334
+#: ../gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "Certificate Request"
 
-#: ../gcr/gcr-parser.c:2554
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "Unrecognised or unsupported data."
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "Could not parse invalid or corrupted data."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "The data is locked"
 
@@ -372,25 +375,31 @@ msgstr "Continue"
 msgid "Cancel"
 msgstr "Cancel"
 
-#: ../gcr/gcr-subject-public-key.c:407
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "Enter your OpenSSH passphrase"
+
+#: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Unrecognised or unavailable attributes for key"
 
-#: ../gcr/gcr-subject-public-key.c:493 ../gcr/gcr-subject-public-key.c:579
-msgid "Couldn't build public key"
-msgstr "Couldn't build public key"
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
+#| msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
+msgstr "Couldn’t build public key"
 
-#: ../gcr/gcr-system-prompt.c:905
+#: ../gcr/gcr-system-prompt.c:911
 msgid "Another prompt is already in progress"
 msgstr "Another prompt is already in progress"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:366
+#: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
-msgstr "Couldn't find a place to store the pinned certificate"
+#| msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr "Couldn’t find a place to store the pinned certificate"
 
 #: ../ui/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
@@ -483,8 +492,9 @@ msgid "Value"
 msgstr "Value"
 
 #: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
-msgstr "Couldn't export the certificate."
+#| msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
+msgstr "Couldn’t export the certificate."
 
 #: ../ui/gcr-certificate-renderer.c:521
 #: ../ui/gcr-certificate-request-renderer.c:310
@@ -603,14 +613,15 @@ msgstr "Type"
 msgid "Challenge"
 msgstr "Challenge"
 
-#: ../ui/gcr-display-view.c:317
+#: ../ui/gcr-display-view.c:319
 msgid "_Details"
 msgstr "_Details"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-msgid "Could not display '%s'"
-msgstr "Could not display '%s'"
+#| msgid "Could not display '%s'"
+msgid "Could not display “%s”"
+msgstr "Could not display “%s”"
 
 #: ../ui/gcr-failure-renderer.c:161
 msgid "Could not display file"
@@ -939,12 +950,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:502
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
 #: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
 msgid "_Cancel"
 msgstr "_Cancel"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:505
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "_OK"
 
@@ -964,7 +975,7 @@ msgid "In order to import, please enter the password."
 msgstr "In order to import, please enter the password."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:563
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "Password:"
 
@@ -986,15 +997,15 @@ msgid "Import settings"
 msgstr "Import settings"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:580
+#: ../ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "Confirm:"
 
-#: ../ui/gcr-prompt-dialog.c:648
+#: ../ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "Passwords do not match."
 
-#: ../ui/gcr-prompt-dialog.c:655
+#: ../ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "Password cannot be blank"
 
@@ -1040,8 +1051,9 @@ msgid "PEM files"
 msgstr "PEM files"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "Automatically unlock this keyring whenever I'm logged in"
+#| msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
+msgstr "Automatically unlock this keyring whenever I’m logged in"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
@@ -1055,7 +1067,7 @@ msgstr "Lock this keyring after"
 msgid "Lock this keyring if idle for"
 msgstr "Lock this keyring if idle for"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
 msgid "minutes"
 msgstr "minutes"
@@ -1071,11 +1083,14 @@ msgstr "Password"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
+#| msgid ""
+#| "The contents of '%s' are locked. In order to view the contents, enter the "
+#| "correct password."
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 
 #: ../ui/gcr-unlock-renderer.c:277
@@ -1098,11 +1113,11 @@ msgstr "Show the  version of the application"
 msgid "[file...]"
 msgstr "[file…]"
 
-#: ../ui/gcr-viewer-tool.c:104
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- View certificate and key files"
 
-#: ../ui/gcr-viewer-tool.c:118 ../ui/gcr-viewer-widget.c:684
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
 msgstr "Certificate Viewer"
 
@@ -1118,11 +1133,11 @@ msgstr "Imported"
 msgid "Import failed"
 msgstr "Import failed"
 
-#: ../ui/gcr-viewer-window.c:107
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
 msgstr "Import"
 
-#: ../ui/gcr-viewer-window.c:116
+#: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_Close"
 

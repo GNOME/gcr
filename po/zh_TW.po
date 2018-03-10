@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring 3.1.91\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2017-02-22 19:17+0000\n"
-"PO-Revision-Date: 2017-02-28 12:20+0800\n"
+"POT-Creation-Date: 2018-03-02 13:46+0000\n"
+"PO-Revision-Date: 2018-03-03 15:15+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (traditional)\n"
 "Language: zh_TW\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -242,7 +242,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "到期"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "憑證"
@@ -311,7 +311,7 @@ msgstr "GnuPG 鑰匙圈"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG 鑰匙圈：%s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP 金鑰"
@@ -331,33 +331,33 @@ msgstr "Gnupg 程序不正常結束。錯誤碼：%d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg 程序被信號 %d 中止。"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
-#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "該操作已取消"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "私鑰"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "公鑰"
 
-#: ../gcr/gcr-parser.c:334
+#: ../gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "憑證要求"
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "無法辨識或不支援的資料。"
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "無法解析無效或損毀的資料。"
 
-#: ../gcr/gcr-parser.c:2563
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "資料已被鎖定"
 
@@ -368,6 +368,10 @@ msgstr "繼續"
 #: ../gcr/gcr-prompt.c:234
 msgid "Cancel"
 msgstr "取消"
+
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "輸入您的 OpenSSH 密語"
 
 #: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"

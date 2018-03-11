@@ -9,17 +9,17 @@
 # Baris Cicek <baris@teamforce.name.tr>, 2008, 2009.
 # Necdet Yücel <necdetyucel@gmail.com>, 2015.
 # Simge Sezgin <simgesezgin88@gmail.com>, 2015.
-# Muhammet Kara <muhammetk@gmail.com>, 2011, 2014, 2015.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2017.
+# Muhammet Kara <muhammetk@gmail.com>, 2011, 2014, 2015, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2017-02-22 19:17+0000\n"
-"PO-Revision-Date: 2017-09-06 09:31+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2018-03-02 13:46+0000\n"
+"PO-Revision-Date: 2018-03-11 10:16+0300\n"
+"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -204,13 +204,11 @@ msgstr "PKCS#11 modulü yüklemede hata: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-#| msgid "Couldn't initialize PKCS#11 module: %s"
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "PKCS#11 modülü başlatılamadı: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Kayıtlı PKCS#11 modülleri başlatılamadı: %s"
 
@@ -220,7 +218,6 @@ msgid "The URI has invalid encoding."
 msgstr "URI geçersiz kodlamaya sahip."
 
 #: ../gck/gck-uri.c:228
-#| msgid "The URI does not have the 'pkcs11' scheme."
 msgid "The URI does not have the “pkcs11” scheme."
 msgstr "URI, “pkcs11” şemasına sahip değil."
 
@@ -256,7 +253,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Bitiş Tarihi"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Sertifika"
@@ -325,7 +322,7 @@ msgstr "GnuPG Anahtarlığı"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG Anahtarlığı: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP Anahtarı"
@@ -345,33 +342,33 @@ msgstr "Gnupg süreci şu kod ile sonuçlandı: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg süreci sinyal ile sonlandırıldı: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
-#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "İşlem iptal edildi"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Özel Anahtar"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Genel Anahtar"
 
-#: ../gcr/gcr-parser.c:334
+#: ../gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "Sertifika İsteği"
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "Tanınmayan veya desteklenmeyen veri."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "Geçersiz veya bozuk veri çözümlenemedi."
 
-#: ../gcr/gcr-parser.c:2563
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "Veri kilitli"
 
@@ -383,12 +380,15 @@ msgstr "Devam et"
 msgid "Cancel"
 msgstr "İptal"
 
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "OpenSSH parolanızı giriniz"
+
 #: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Anahtar için kullanılamaz ya da onaylanmamış öznitelikler"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-#| msgid "Couldn't build public key"
 msgid "Couldn’t build public key"
 msgstr "Genel anahtar oluşturulamadı"
 
@@ -401,7 +401,6 @@ msgstr "Başka istek zaten devam ediyor"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-#| msgid "Couldn't find a place to store the pinned certificate"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Tutturulmuş sertifikayı saklamak için bir konum bulunamadı"
 
@@ -496,7 +495,6 @@ msgid "Value"
 msgstr "Değer"
 
 #: ../ui/gcr-certificate-renderer.c:287
-#| msgid "Couldn't export the certificate."
 msgid "Couldn’t export the certificate."
 msgstr "Sertifika dışa aktarılamadı."
 
@@ -623,7 +621,6 @@ msgstr "_Ayrıntılar"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-#| msgid "Could not display '%s'"
 msgid "Could not display “%s”"
 msgstr "“%s” gösterilemedi"
 
@@ -1055,7 +1052,6 @@ msgid "PEM files"
 msgstr "PEM dosyaları"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-#| msgid "Automatically unlock this keyring whenever I'm logged in"
 msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Her oturum açtığımda, bu anahtarlığın kilidini kendiliğinden kaldır"
 
@@ -1087,9 +1083,6 @@ msgstr "Parola"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
-#| msgid ""
-#| "The contents of '%s' are locked. In order to view the contents, enter the "
-#| "correct password."
 msgid ""
 "The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."

@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2017-02-22 19:17+0000\n"
-"PO-Revision-Date: 2017-02-25 18:05+0700\n"
+"POT-Creation-Date: 2018-03-02 13:46+0000\n"
+"PO-Revision-Date: 2018-03-05 13:44+0700\n"
 "Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../egg/egg-oid.c:40
@@ -244,7 +244,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Kadaluarsa"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Sertifikat"
@@ -313,7 +313,7 @@ msgstr "Ring Kunci GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Kunci Ring GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "Kunci PGP"
@@ -333,33 +333,33 @@ msgstr "Proses gnupg keluar dengan kode: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Proses gnupg diakhiri dengan sinyal: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
-#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Operasi dibatalkan"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Kunci Pribadi"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Kunci Publik"
 
-#: ../gcr/gcr-parser.c:334
+#: ../gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "Permintaan Sertifikat"
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "Data tak dikenali atau tak didukung."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "Tak bisa mengurai data tak valid atau rusak."
 
-#: ../gcr/gcr-parser.c:2563
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "Data dikunci"
 
@@ -370,6 +370,10 @@ msgstr "Lanjutkan"
 #: ../gcr/gcr-prompt.c:234
 msgid "Cancel"
 msgstr "Batalkan"
+
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "Masukkan frasa sandi OpenSSH Anda"
 
 #: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"

@@ -1,3 +1,8 @@
+gcr 3.28.0:
+- Fix year 2038 workaround in ASN.1 decoder [#787963]
+- Fix test errors when ssh-keygen is not found
+- Updated translations
+
 gcr 3.27.92:
 - Provide API for reliably calling ssh programs [#735873]
 - Updated translations

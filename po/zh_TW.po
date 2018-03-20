@@ -7,9 +7,9 @@ msgstr ""
 "Project-Id-Version: gnome-keyring 3.1.91\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2018-03-02 13:46+0000\n"
-"PO-Revision-Date: 2018-03-03 15:15+0800\n"
-"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
+"POT-Creation-Date: 2018-03-13 13:00+0000\n"
+"PO-Revision-Date: 2018-03-20 23:10+0800\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (traditional)\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
-msgstr "網域元件"
+msgstr "網域組件"
 
 #: ../egg/egg-oid.c:42 ../ui/gcr-gnupg-renderer.c:408
 #: ../ui/gcr-gnupg-renderer.c:577
@@ -45,7 +45,7 @@ msgstr "性別"
 
 #: ../egg/egg-oid.c:59
 msgid "Country of Citizenship"
-msgstr "哪個國家公民"
+msgstr "公民身份屬國"
 
 #: ../egg/egg-oid.c:61
 msgid "Country of Residence"
@@ -97,23 +97,23 @@ msgstr "電話號碼"
 
 #: ../egg/egg-oid.c:86
 msgid "Given Name"
-msgstr "名字"
+msgstr "名"
 
 #: ../egg/egg-oid.c:88
 msgid "Initials"
-msgstr "縮寫"
+msgstr "首字母縮寫"
 
 #: ../egg/egg-oid.c:90
 msgid "Generation Qualifier"
-msgstr "世代辨識符號"
+msgstr "世代修飾碼"
 
 #: ../egg/egg-oid.c:92
 msgid "DN Qualifier"
-msgstr "DN 辨識符號"
+msgstr "DN 修飾碼"
 
 #: ../egg/egg-oid.c:94
 msgid "Pseudonym"
-msgstr "筆名"
+msgstr "假名"
 
 #: ../egg/egg-oid.c:97 ../ui/gcr-gnupg-renderer.c:199
 #: ../ui/gcr-key-renderer.c:385
@@ -135,7 +135,7 @@ msgstr "SHA1 附 RSA 加密"
 #: ../egg/egg-oid.c:102 ../ui/gcr-gnupg-renderer.c:203
 #: ../ui/gcr-key-renderer.c:387
 msgid "DSA"
-msgstr "DSA 加密"
+msgstr "DSA"
 
 #: ../egg/egg-oid.c:103
 msgid "SHA1 with DSA"
@@ -532,7 +532,7 @@ msgstr "在此之後無效"
 #. Fingerprints
 #: ../ui/gcr-certificate-renderer.c:578
 msgid "Certificate Fingerprints"
-msgstr "憑證數位指紋"
+msgstr "憑證指紋"
 
 #. Public Key Info
 #: ../ui/gcr-certificate-renderer.c:584
@@ -566,7 +566,7 @@ msgstr "金鑰大小"
 
 #: ../ui/gcr-certificate-renderer.c:876
 msgid "Key SHA1 Fingerprint"
-msgstr "金鑰 SHA1 數位指紋"
+msgstr "金鑰 SHA1 指紋"
 
 #: ../ui/gcr-certificate-renderer.c:898
 msgid "Signature Algorithm"
@@ -591,7 +591,7 @@ msgstr "憑證要求"
 
 #: ../ui/gcr-certificate-request-renderer.c:258
 msgid "Attribute"
-msgstr "屬性"
+msgstr "特性"
 
 #: ../ui/gcr-certificate-request-renderer.c:262
 #: ../ui/gcr-certificate-request-renderer.c:321
@@ -658,7 +658,7 @@ msgstr "不明"
 
 #: ../ui/gcr-gnupg-renderer.c:255
 msgid "Invalid"
-msgstr "無效的"
+msgstr "無效"
 
 #: ../ui/gcr-gnupg-renderer.c:257
 msgctxt "ownertrust"
@@ -699,7 +699,7 @@ msgstr "這個金鑰中的資訊尚未被驗證"
 
 #: ../ui/gcr-gnupg-renderer.c:288
 msgid "This key is invalid"
-msgstr "這個金鑰是無效的"
+msgstr "這個金鑰無效"
 
 #: ../ui/gcr-gnupg-renderer.c:291
 msgid "This key has been disabled"
@@ -719,15 +719,15 @@ msgstr "這個金鑰不被信任"
 
 #: ../ui/gcr-gnupg-renderer.c:305
 msgid "This key is marginally trusted"
-msgstr "這個金鑰是最低限度信任的"
+msgstr "這個金鑰可最低限度信任"
 
 #: ../ui/gcr-gnupg-renderer.c:308
 msgid "This key is fully trusted"
-msgstr "這個金鑰是完整信任的"
+msgstr "這個金鑰可完整信任"
 
 #: ../ui/gcr-gnupg-renderer.c:311
 msgid "This key is ultimately trusted"
-msgstr "這個金鑰是絕對信任的"
+msgstr "這個金鑰可絕對信任"
 
 #: ../ui/gcr-gnupg-renderer.c:336 ../ui/gcr-gnupg-renderer.c:562
 msgid "Key ID"
@@ -867,7 +867,7 @@ msgstr "子密鑰"
 
 #: ../ui/gcr-import-button.c:116
 msgid "Initializing…"
-msgstr "正在初始化..."
+msgstr "正在初始化…"
 
 #: ../ui/gcr-import-button.c:124
 msgid "Import is in progress…"
@@ -961,7 +961,7 @@ msgstr "使用者已取消的操作"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:1
 msgid "In order to import, please enter the password."
-msgstr "為了匯入，請輸入密碼。"
+msgstr "若要匯入，請輸入密碼。"
 
 #. The password label
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
@@ -970,7 +970,7 @@ msgstr "密碼:"
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:3
 msgid "Token:"
-msgstr "智慧卡："
+msgstr "代符："
 
 #: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:69
 #: ../ui/gcr-unlock-renderer.c:124
@@ -1104,7 +1104,7 @@ msgstr "憑證檢視器"
 
 #: ../ui/gcr-viewer-widget.c:202
 msgid "The password was incorrect"
-msgstr "密碼是不正確的"
+msgstr "密碼不正確"
 
 #: ../ui/gcr-viewer-window.c:75
 msgid "Imported"

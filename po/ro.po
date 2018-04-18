@@ -9,1053 +9,1132 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.HEAD.ro\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-06 11:51+0200\n"
-"PO-Revision-Date: 2011-03-14 13:06+0200\n"
-"Last-Translator: Lucian Adrian Grijincu <lucian.grijincu@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"keyring&keywords=I18N+L10N&component=gcr\n"
+"POT-Creation-Date: 2018-03-13 13:00+0000\n"
+"PO-Revision-Date: 2018-04-15 21:04+0300\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
 "Language-Team: Romanian Gnome Team <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2);;\n"
-"X-Generator: Virtaal 0.6.1\n"
+"20)) ? 1 : 2);\n"
+"X-Generator: Poedit 2.0.6\n"
 
-#: ../egg/egg-oid.c:41
+#: ../egg/egg-oid.c:40
 msgid "Domain Component"
 msgstr "Component domeniu"
 
-#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:411
-#: ../gcr/gcr-gnupg-renderer.c:580
+#: ../egg/egg-oid.c:42 ../ui/gcr-gnupg-renderer.c:408
+#: ../ui/gcr-gnupg-renderer.c:577
 msgid "User ID"
 msgstr "ID utilizator"
 
-#: ../egg/egg-oid.c:46
+#: ../egg/egg-oid.c:45
 msgid "Email Address"
 msgstr "Adresă de email"
 
-#: ../egg/egg-oid.c:54
+#: ../egg/egg-oid.c:53
 msgid "Date of Birth"
 msgstr "Data nașterii"
 
-#: ../egg/egg-oid.c:56
+#: ../egg/egg-oid.c:55
 msgid "Place of Birth"
 msgstr "Locul nașterii"
 
-#: ../egg/egg-oid.c:58
+#: ../egg/egg-oid.c:57
 msgid "Gender"
 msgstr "Gen"
 
-#: ../egg/egg-oid.c:60
+#: ../egg/egg-oid.c:59
 msgid "Country of Citizenship"
 msgstr "Naționalitate"
 
-#: ../egg/egg-oid.c:62
+#: ../egg/egg-oid.c:61
 msgid "Country of Residence"
 msgstr "Țară de rezidență"
 
-#: ../egg/egg-oid.c:65
+#: ../egg/egg-oid.c:64
 msgid "Common Name"
 msgstr "Nume comun"
 
-#: ../egg/egg-oid.c:67
+#: ../egg/egg-oid.c:66
 msgid "Surname"
 msgstr "Nume familie"
 
-#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:652
+#: ../egg/egg-oid.c:68 ../ui/gcr-certificate-renderer.c:559
 msgid "Serial Number"
 msgstr "Număr serial"
 
-#: ../egg/egg-oid.c:71
+#: ../egg/egg-oid.c:70
 msgid "Country"
 msgstr "Țară"
 
-#: ../egg/egg-oid.c:73
+#: ../egg/egg-oid.c:72
 msgid "Locality"
 msgstr "Localitate"
 
-#: ../egg/egg-oid.c:75
+#: ../egg/egg-oid.c:74
 msgid "State"
 msgstr "Stat"
 
-#: ../egg/egg-oid.c:77
+#: ../egg/egg-oid.c:76
 msgid "Street"
 msgstr "Stradă"
 
-#: ../egg/egg-oid.c:79
+#: ../egg/egg-oid.c:78
 msgid "Organization"
 msgstr "Organizație"
 
-#: ../egg/egg-oid.c:81
+#: ../egg/egg-oid.c:80
 msgid "Organizational Unit"
 msgstr "Departament organizație"
 
-#: ../egg/egg-oid.c:83
+#: ../egg/egg-oid.c:82
 msgid "Title"
 msgstr "Titlu"
 
-#: ../egg/egg-oid.c:85
+#: ../egg/egg-oid.c:84
 msgid "Telephone Number"
 msgstr "Număr de telefon"
 
-#: ../egg/egg-oid.c:87
+#: ../egg/egg-oid.c:86
 msgid "Given Name"
 msgstr "Prenume"
 
-#: ../egg/egg-oid.c:89
+#: ../egg/egg-oid.c:88
 msgid "Initials"
 msgstr "Inițiale"
 
-#: ../egg/egg-oid.c:91
+#: ../egg/egg-oid.c:90
 msgid "Generation Qualifier"
 msgstr "Caracteristică generare"
 
-#: ../egg/egg-oid.c:93
+#: ../egg/egg-oid.c:92
 msgid "DN Qualifier"
 msgstr "Caracteristică DN"
 
-#: ../egg/egg-oid.c:95
+#: ../egg/egg-oid.c:94
 msgid "Pseudonym"
 msgstr "Pseudonim"
 
-#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:202
-#: ../gcr/gcr-key-renderer.c:308
+#: ../egg/egg-oid.c:97 ../ui/gcr-gnupg-renderer.c:199
+#: ../ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
-#: ../egg/egg-oid.c:99
+#: ../egg/egg-oid.c:98
 msgid "MD2 with RSA"
 msgstr "MD2 cu RSA"
 
-#: ../egg/egg-oid.c:100
+#: ../egg/egg-oid.c:99
 msgid "MD5 with RSA"
 msgstr "MD5 cu RSA"
 
-#: ../egg/egg-oid.c:101
+#: ../egg/egg-oid.c:100
 msgid "SHA1 with RSA"
 msgstr "SHA1 cu RSA"
 
-#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:206
-#: ../gcr/gcr-key-renderer.c:310
+#: ../egg/egg-oid.c:102 ../ui/gcr-gnupg-renderer.c:203
+#: ../ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
-#: ../egg/egg-oid.c:104
+#: ../egg/egg-oid.c:103
 msgid "SHA1 with DSA"
 msgstr "SHA1 cu DSA"
 
-#. Extended Key Usages
+#: ../egg/egg-oid.c:105 ../ui/gcr-key-renderer.c:389
+msgid "Elliptic Curve"
+msgstr "Curbă eliptică"
+
+#: ../egg/egg-oid.c:106
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 cu ECDSA"
+
 #: ../egg/egg-oid.c:107
-#, fuzzy
-msgid "Server Authentication"
-msgstr "Certificat server SSL"
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 cu ECDSA"
 
 #: ../egg/egg-oid.c:108
-#, fuzzy
-msgid "Client Authentication"
-msgstr "Certificat client SSL"
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 cu ECDSA"
 
 #: ../egg/egg-oid.c:109
-msgid "Code Signing"
-msgstr ""
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 cu ECDSA"
 
 #: ../egg/egg-oid.c:110
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 cu ECDSA"
+
+#. Extended Key Usages
+#: ../egg/egg-oid.c:113
+msgid "Server Authentication"
+msgstr "Autentificare server"
+
+#: ../egg/egg-oid.c:114
+msgid "Client Authentication"
+msgstr "Autentificare client"
+
+#: ../egg/egg-oid.c:115
+msgid "Code Signing"
+msgstr "Semnare de cod"
+
+#: ../egg/egg-oid.c:116
 msgid "Email Protection"
-msgstr ""
+msgstr "Protecție email"
 
-#: ../egg/egg-oid.c:111
+#: ../egg/egg-oid.c:117
 msgid "Time Stamping"
-msgstr ""
+msgstr "Marcare de timp"
 
-#: ../gck/gck-module.c:353
+#: ../gck/gck-module.c:344
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr ""
+msgstr "Eroare la încărcarea modulului PKCS#11: %s"
 
-#: ../gck/gck-module.c:360
+#: ../gck/gck-module.c:358
 #, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr ""
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr "Nu s-a putut inițializa modulul PKCS#11: %s"
 
-#: ../gck/gck-module.c:369
-#, fuzzy, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "Nu s-a putut șterge fișierul: %s"
-
-#: ../gck/gck-module.c:385
+#: ../gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr ""
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr "Nu s-au putut inițializa modulele PKCS#11 înregistrate: %s"
 
-#: ../gck/gck-modules.c:67
+#: ../gck/gck-uri.c:224
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr ""
+msgid "The URI has invalid encoding."
+msgstr "URI-ul are o codare nevalidă."
 
-#: ../gcr/gcr-callback-output-stream.c:64
-#: ../gcr/gcr-callback-output-stream.c:81
-#, fuzzy, c-format
+#: ../gck/gck-uri.c:228
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "URI-ul nu are schema „pkcs11”."
+
+#: ../gck/gck-uri.c:232
+msgid "The URI has bad syntax."
+msgstr "URI-ul are sintaxă nepotrivită."
+
+#: ../gck/gck-uri.c:236
+msgid "The URI has a bad version number."
+msgstr "URI-ul are un număr de versiune nepotrivit."
+
+#: ../gcr/gcr-callback-output-stream.c:60
+#: ../gcr/gcr-callback-output-stream.c:77
+#, c-format
 msgid "The stream was closed"
-msgstr "Sesiunea este închisă"
+msgstr "Fluxul a fost închis"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:378 ../gcr/gcr-gnupg-key.c:521
-#, fuzzy
+#: ../gcr/gcr-certificate.c:350 ../gcr/gcr-gnupg-key.c:430
 msgctxt "column"
 msgid "Name"
-msgstr "_Nume:"
+msgstr "Nume"
 
-#: ../gcr/gcr-certificate.c:380
-#, fuzzy
+#: ../gcr/gcr-certificate.c:352
 msgctxt "column"
 msgid "Issued By"
-msgstr "Emis la"
+msgstr "Emis de"
 
 #. later
-#: ../gcr/gcr-certificate.c:382
-#, fuzzy
+#: ../gcr/gcr-certificate.c:354
 msgctxt "column"
 msgid "Expires"
-msgstr "Expiră la"
+msgstr "Expiră"
 
-#: ../gcr/gcr-certificate.c:1067 ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:101 ../gcr/gcr-parser.c:316
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
+#: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Certificat"
 
-#: ../gcr/gcr-certificate-exporter.c:225
-msgid ""
-"<b>A file already exists with this name.</b>\n"
-"\n"
-"Do you want to replace it with a new file?"
-msgstr ""
-
-#: ../gcr/gcr-certificate-exporter.c:228
-msgid "_Replace"
-msgstr ""
-
-#: ../gcr/gcr-certificate-exporter.c:258
-#, fuzzy, c-format
-msgid "The operation was cancelled."
-msgstr "Operația a fost anulată"
-
-#: ../gcr/gcr-certificate-exporter.c:302
-#, fuzzy
-msgid "Export certificate"
-msgstr "Deblocare certificat"
-
-#: ../gcr/gcr-certificate-exporter.c:314
-#, fuzzy
-msgid "Certificate files"
-msgstr "Certificat"
-
-#: ../gcr/gcr-certificate-exporter.c:325
-msgid "PEM files"
-msgstr ""
-
-#: ../gcr/gcr-certificate-extensions.c:141
-#, fuzzy
+#: ../gcr/gcr-certificate-extensions.c:177
 msgid "Other Name"
-msgstr "Nume emitent"
+msgstr "Alt nume"
 
-#: ../gcr/gcr-certificate-extensions.c:150
+#: ../gcr/gcr-certificate-extensions.c:187
 msgid "XMPP Addr"
-msgstr ""
+msgstr "Adr XMPP"
 
-#: ../gcr/gcr-certificate-extensions.c:154
+#: ../gcr/gcr-certificate-extensions.c:191
 msgid "DNS SRV"
-msgstr ""
+msgstr "SRV DNS"
 
-#: ../gcr/gcr-certificate-extensions.c:166 ../gcr/gcr-gnupg-renderer.c:424
-#: ../gcr/gcr-gnupg-renderer.c:706
+#: ../gcr/gcr-certificate-extensions.c:203 ../ui/gcr-gnupg-renderer.c:421
+#: ../ui/gcr-gnupg-renderer.c:703
 msgid "Email"
 msgstr "Email"
 
-#: ../gcr/gcr-certificate-extensions.c:174
-#, fuzzy
+#: ../gcr/gcr-certificate-extensions.c:211
 msgid "DNS"
-msgstr "DSA"
+msgstr "DNS"
 
-#: ../gcr/gcr-certificate-extensions.c:182
-#, fuzzy
+#: ../gcr/gcr-certificate-extensions.c:219
 msgid "X400 Address"
-msgstr "Adresă de email"
+msgstr "Adresă X400"
 
-#: ../gcr/gcr-certificate-extensions.c:189
-#, fuzzy
+#: ../gcr/gcr-certificate-extensions.c:226
 msgid "Directory Name"
-msgstr "Nume subiect"
+msgstr "Nume director"
 
-#: ../gcr/gcr-certificate-extensions.c:197
+#: ../gcr/gcr-certificate-extensions.c:234
 msgid "EDI Party Name"
-msgstr ""
+msgstr "Nume parte EDI"
 
-#: ../gcr/gcr-certificate-extensions.c:204
+#: ../gcr/gcr-certificate-extensions.c:241
 msgid "URI"
-msgstr ""
+msgstr "URI"
 
-#: ../gcr/gcr-certificate-extensions.c:212
-#, fuzzy
+#: ../gcr/gcr-certificate-extensions.c:249
 msgid "IP Address"
-msgstr "Adresă de email"
+msgstr "Adresă IP"
 
-#: ../gcr/gcr-certificate-extensions.c:220
+#: ../gcr/gcr-certificate-extensions.c:257
 msgid "Registered ID"
-msgstr ""
+msgstr "ID înregistrat"
 
-#: ../gcr/gcr-certificate-renderer.c:116
-msgid "Basic Constraints"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:118
-#, fuzzy
-msgid "Certificate Authority"
-msgstr "Certificat"
-
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
-msgid "Yes"
-msgstr "Da"
-
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
-msgid "No"
-msgstr "Nu"
-
-#: ../gcr/gcr-certificate-renderer.c:122
-msgid "Max Path Length"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:123
-msgid "Unlimited"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:142
-msgid "Extended Key Usage"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:153
-msgid "Allowed Purposes"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:173
-#, fuzzy
-msgid "Subject Key Identifier"
-msgstr "Identificator"
-
-#: ../gcr/gcr-certificate-renderer.c:174
-#, fuzzy
-msgid "Key Identifier"
-msgstr "Identificator"
-
-#: ../gcr/gcr-certificate-renderer.c:185
-#, fuzzy
-msgid "Digital signature"
-msgstr "Semnătură"
-
-#: ../gcr/gcr-certificate-renderer.c:186
-msgid "Key encipherment"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:187
-msgid "Data encipherment"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:188
-#, fuzzy
-msgid "Key agreement"
-msgstr "Parametrii cheie"
-
-#: ../gcr/gcr-certificate-renderer.c:189
-#, fuzzy
-msgid "Certificate signature"
-msgstr "Certificat"
-
-#: ../gcr/gcr-certificate-renderer.c:190
-msgid "Revocation list signature"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:215
-msgid "Key Usage"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:216
-msgid "Usages"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:236
-#, fuzzy
-msgid "Subject Alternative Names"
-msgstr "Nume subiect"
-
-#: ../gcr/gcr-certificate-renderer.c:261
-msgid "Extension"
-msgstr "Extensie"
-
-#: ../gcr/gcr-certificate-renderer.c:265
-msgid "Identifier"
-msgstr "Identificator"
-
-#: ../gcr/gcr-certificate-renderer.c:266 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-gnupg-renderer.c:432
-msgid "Value"
-msgstr "Valoare"
-
-#: ../gcr/gcr-certificate-renderer.c:313
-msgid "Critical"
-msgstr "Critic"
-
-#: ../gcr/gcr-certificate-renderer.c:386
-#, fuzzy
-msgid "Couldn't export the certificate."
-msgstr ""
-"Nu s-a putut găsi o locație în care să se stocheze certificatele fixate."
-
-#: ../gcr/gcr-certificate-renderer.c:613
-msgid "Identity"
-msgstr "Identitate"
-
-#: ../gcr/gcr-certificate-renderer.c:617
-msgid "Verified by"
-msgstr "Verificat de"
-
-#: ../gcr/gcr-certificate-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:720
-msgid "Expires"
-msgstr "Expiră la"
-
-#. The subject
-#: ../gcr/gcr-certificate-renderer.c:634
-msgid "Subject Name"
-msgstr "Nume subiect"
-
-#. The Issuer
-#: ../gcr/gcr-certificate-renderer.c:638
-msgid "Issuer Name"
-msgstr "Nume emitent"
-
-#. The Issued Parameters
-#: ../gcr/gcr-certificate-renderer.c:642
-msgid "Issued Certificate"
-msgstr "Certificat emis"
-
-#: ../gcr/gcr-certificate-renderer.c:647
-msgid "Version"
-msgstr "Versiune"
-
-#: ../gcr/gcr-certificate-renderer.c:658
-msgid "Not Valid Before"
-msgstr "Nu este valid înainte"
-
-#: ../gcr/gcr-certificate-renderer.c:663
-msgid "Not Valid After"
-msgstr "Nu este valid după"
-
-#. Fingerprints
-#: ../gcr/gcr-certificate-renderer.c:668
-#, fuzzy
-msgid "Certificate Fingerprints"
-msgstr "Amprente"
-
-#. Signature
-#: ../gcr/gcr-certificate-renderer.c:674 ../gcr/gcr-certificate-renderer.c:686
-#: ../gcr/gcr-gnupg-renderer.c:561
-msgid "Signature"
-msgstr "Semnătură"
-
-#: ../gcr/gcr-certificate-renderer.c:678
-msgid "Signature Algorithm"
-msgstr "Algoritm semnătură"
-
-#: ../gcr/gcr-certificate-renderer.c:682
-msgid "Signature Parameters"
-msgstr "Parametrii semnătură"
-
-#. Public Key Info
-#: ../gcr/gcr-certificate-renderer.c:690
-msgid "Public Key Info"
-msgstr "Informații cheie publică"
-
-#: ../gcr/gcr-certificate-renderer.c:695
-msgid "Key Algorithm"
-msgstr "Algoritm cheie"
-
-#: ../gcr/gcr-certificate-renderer.c:700
-msgid "Key Parameters"
-msgstr "Parametrii cheie"
-
-#: ../gcr/gcr-certificate-renderer.c:705 ../gcr/gcr-gnupg-renderer.c:354
-msgid "Key Size"
-msgstr "Dimensiune cheie"
-
-#: ../gcr/gcr-certificate-renderer.c:712
-#, fuzzy
-msgid "Key SHA1 Fingerprint"
-msgstr "Amprentă SHA1"
-
-#: ../gcr/gcr-certificate-renderer.c:718 ../gcr/gcr-gnupg-renderer.c:739
-#: ../gcr/gcr-key-renderer.c:292 ../gcr/gcr-parser.c:319
-msgid "Public Key"
-msgstr "Cheie publică"
-
-#: ../gcr/gcr-display-view.c:319
-#, fuzzy
-msgid "_Details"
-msgstr "_Detalii:"
-
-#: ../gcr/gcr-failure-renderer.c:161
+#: ../gcr/gcr-certificate-request.c:415
 #, c-format
-msgid "Could not display '%s'"
-msgstr ""
+msgid "Unsupported key type for certificate request"
+msgstr "Tip de cheie nesuportat pentru cererea de certificat"
 
-#: ../gcr/gcr-failure-renderer.c:163
-#, fuzzy
-msgid "Could not display file"
-msgstr "Nu s-a putut șterge fișierul: %s"
-
-#: ../gcr/gcr-failure-renderer.c:168
-msgid "Reason"
-msgstr ""
-
-#: ../gcr/gcr-failure-renderer.c:218
+#: ../gcr/gcr-certificate-request.c:502 ../gcr/gcr-certificate-request.c:587
 #, c-format
-msgid "Cannot display a file of this type."
-msgstr ""
+msgid "The key cannot be used to sign the request"
+msgstr "Cheia nu poate fi utilizată pentru a semna cererea"
 
-#: ../gcr/gcr-gnupg-importer.c:93
-#, fuzzy
+#: ../gcr/gcr-gnupg-importer.c:94
 msgid "GnuPG Keyring"
-msgstr "Deblochează inelul de chei"
+msgstr "Inel de chei GnuPG"
 
-#: ../gcr/gcr-gnupg-importer.c:95
-#, fuzzy, c-format
+#: ../gcr/gcr-gnupg-importer.c:96
+#, c-format
 msgid "GnuPG Keyring: %s"
-msgstr "Cheie PGP: %s"
+msgstr "Inel de chei GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:234 ../gcr/gcr-gnupg-renderer.c:88
-#: ../gcr/gcr-parser.c:322
-#, fuzzy
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
+#: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
-msgstr "Cheie PGP: %s"
+msgstr "Cheie PGP"
 
-#: ../gcr/gcr-gnupg-key.c:523
+#: ../gcr/gcr-gnupg-key.c:432
 msgctxt "column"
 msgid "Key ID"
-msgstr ""
+msgstr "ID cheie"
 
-#: ../gcr/gcr-gnupg-process.c:860
+#: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr ""
+msgstr "Procesul Gnupg a ieșit cu codul: %d"
 
-#: ../gcr/gcr-gnupg-process.c:867
+#: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr ""
+msgstr "Procesul Gnupg s-a terminat cu semnalul: %d"
 
-#: ../gcr/gcr-gnupg-process.c:921 ../gcr/gcr-parser.c:2177
-#: ../gcr/gcr-parser.c:2681
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Operația a fost anulată"
 
-#: ../gcr/gcr-gnupg-renderer.c:204
-msgid "Elgamal"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:217
-msgid "Encrypt"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:219
-#, fuzzy
-msgid "Sign"
-msgstr "Semnătură"
-
-#: ../gcr/gcr-gnupg-renderer.c:221
-#, fuzzy
-msgid "Certify"
-msgstr "Certificat"
-
-#: ../gcr/gcr-gnupg-renderer.c:223
-#, fuzzy
-msgid "Authenticate"
-msgstr "Certificat"
-
-#: ../gcr/gcr-gnupg-renderer.c:225 ../gcr/gcr-gnupg-renderer.c:260
-msgid "Disabled"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:256 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-key-renderer.c:312 ../gcr/gcr-key-renderer.c:317
-msgid "Unknown"
-msgstr "Necunoscut"
-
-#: ../gcr/gcr-gnupg-renderer.c:258
-msgid "Invalid"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:262
-msgid "Revoked"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:264
-#, fuzzy
-msgid "Expired"
-msgstr "Expiră la"
-
-#: ../gcr/gcr-gnupg-renderer.c:266
-msgid "Undefined trust"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:268
-msgid "Distrusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:270
-msgid "Marginally trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:272
-msgid "Fully trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:274
-msgid "Ultimately trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:288
-#, fuzzy
-msgid "The information in this key has not yet been verified"
-msgstr "Informațiile sunt sensibile și nu pot fi dezvăluite"
-
-#: ../gcr/gcr-gnupg-renderer.c:291
-#, fuzzy
-msgid "This key is invalid"
-msgstr "Sesiunea nu este validă"
-
-#: ../gcr/gcr-gnupg-renderer.c:294
-#, fuzzy
-msgid "This key has been disabled"
-msgstr "Modulul nu a fost inițializat"
-
-#: ../gcr/gcr-gnupg-renderer.c:297
-#, fuzzy
-msgid "This key has been revoked"
-msgstr "Inelul de chei a fost deja deblocat."
-
-#: ../gcr/gcr-gnupg-renderer.c:300
-#, fuzzy
-msgid "This key has expired"
-msgstr "Parola sau PIN-ul au expirat"
-
-#: ../gcr/gcr-gnupg-renderer.c:305
-msgid "This key is distrusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:308
-msgid "This key is marginally trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:311
-#, fuzzy
-msgid "This key is fully trusted"
-msgstr "Cheia este de tip greșit"
-
-#: ../gcr/gcr-gnupg-renderer.c:314
-msgid "This key is ultimately trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:339 ../gcr/gcr-gnupg-renderer.c:565
-msgid "Key ID"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:347 ../gcr/gcr-gnupg-renderer.c:573
-#: ../gcr/gcr-gnupg-renderer.c:620 ../gcr/gcr-key-renderer.c:313
-msgid "Algorithm"
-msgstr "Algoritm"
-
-#: ../gcr/gcr-gnupg-renderer.c:362 ../gcr/gcr-gnupg-renderer.c:439
-#: ../gcr/gcr-gnupg-renderer.c:482
-#, fuzzy
-msgid "Created"
-msgstr "C_reează"
-
-#: ../gcr/gcr-gnupg-renderer.c:371 ../gcr/gcr-gnupg-renderer.c:448
-#: ../gcr/gcr-gnupg-renderer.c:491
-#, fuzzy
-msgid "Expiry"
-msgstr "Expiră la"
-
-#: ../gcr/gcr-gnupg-renderer.c:380
-msgid "Capabilities"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:393
-msgid "Owner trust"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:421
-#, fuzzy
-msgid "Name"
-msgstr "_Nume:"
-
-#: ../gcr/gcr-gnupg-renderer.c:427 ../gcr/gcr-gnupg-renderer.c:709
-msgid "Comment"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:467
-msgid "User Attribute"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:474 ../gcr/gcr-key-renderer.c:320
-msgid "Size"
-msgstr "Dimensiune"
-
-#: ../gcr/gcr-gnupg-renderer.c:509
-#, fuzzy
-msgid "Signature of a binary document"
-msgstr "Parametrii semnătură"
-
-#: ../gcr/gcr-gnupg-renderer.c:511
-msgid "Signature of a canonical text document"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:513
-#, fuzzy
-msgid "Standalone signature"
-msgstr "Semnătură"
-
-#: ../gcr/gcr-gnupg-renderer.c:515
-#, fuzzy
-msgid "Generic certification of key"
-msgstr "Deblocare certificat"
-
-#: ../gcr/gcr-gnupg-renderer.c:517
-msgid "Persona certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:519
-msgid "Casual certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:521
-msgid "Positive certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:523
-msgid "Subkey binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:525
-msgid "Primary key binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:527
-#, fuzzy
-msgid "Signature directly on key"
-msgstr "Parametrii semnătură"
-
-#: ../gcr/gcr-gnupg-renderer.c:529
-msgid "Key revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:531
-msgid "Subkey revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:533
-msgid "Certification revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:535
-msgid "Timestamp signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:537
-msgid "Third-party confirmation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:598
-msgid "Class"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:592 ../gcr/gcr-gnupg-renderer.c:594
-msgid "Type"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:592
-#, fuzzy
-msgid "Local only"
-msgstr "Localitate"
-
-#: ../gcr/gcr-gnupg-renderer.c:594
-msgid "Exportable"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:612
-msgid "Revocation Key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:626 ../gcr/gcr-gnupg-renderer.c:650
-#: ../gcr/gcr-gnupg-renderer.c:652
-msgid "Fingerprint"
-msgstr "Amprentă"
-
-#: ../gcr/gcr-gnupg-renderer.c:741
-#, fuzzy
-msgid "Public Subkey"
-msgstr "Cheie publică"
-
-#: ../gcr/gcr-gnupg-renderer.c:743
-msgid "Secret Key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:745
-msgid "Secret Subkey"
-msgstr ""
-
-#: ../gcr/gcr-import-button.c:108
-#, fuzzy
-msgid "Initializing..."
-msgstr "Inițiale"
-
-#: ../gcr/gcr-import-button.c:116
-msgid "Import is in progress..."
-msgstr ""
-
-#: ../gcr/gcr-import-button.c:123
-#, fuzzy, c-format
-msgid "Imported to: %s"
-msgstr "Importă în:"
-
-#: ../gcr/gcr-import-button.c:143
-#, fuzzy, c-format
-msgid "Import to: %s"
-msgstr "Importă în:"
-
-#: ../gcr/gcr-import-button.c:156
-#, fuzzy
-msgid "Cannot import because there are no compatible importers"
-msgstr "Nu se poate importa deoarece cheia este de tip greșit"
-
-#: ../gcr/gcr-import-button.c:165
-#, fuzzy
-msgid "No data to import"
-msgstr "Nici o locație disponibilă pentru importare"
-
-#: ../gcr/gcr-key-renderer.c:82
-msgid "Key"
-msgstr "Cheie"
-
-#: ../gcr/gcr-key-renderer.c:281
-msgid "Private RSA Key"
-msgstr "Cheie privată RSA"
-
-#: ../gcr/gcr-key-renderer.c:283
-msgid "Private DSA Key"
-msgstr "Cheie privată DSA"
-
-#: ../gcr/gcr-key-renderer.c:285 ../gcr/gcr-parser.c:313
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Cheie privată"
 
-#: ../gcr/gcr-key-renderer.c:288 ../gcr/gcr-key-renderer.c:290
-msgid "Public DSA Key"
-msgstr "Cheie publică DSA"
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
+#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
+msgid "Public Key"
+msgstr "Cheie publică"
 
-#: ../gcr/gcr-key-renderer.c:299
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] "%d bit"
-msgstr[1] "%d biți"
-msgstr[2] "%d de biți"
+#: ../gcr/gcr-parser.c:353
+msgid "Certificate Request"
+msgstr "Cerere de certificat"
 
-#: ../gcr/gcr-key-renderer.c:300
-msgid "Strength"
-msgstr "Putere"
-
-#. Fingerprints
-#: ../gcr/gcr-key-renderer.c:324
-msgid "Fingerprints"
-msgstr "Amprente"
-
-#: ../gcr/gcr-key-renderer.c:329
-msgid "SHA1"
-msgstr ""
-
-#: ../gcr/gcr-key-renderer.c:335
-msgid "SHA256"
-msgstr ""
-
-#: ../gcr/gcr-parser.c:2180
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
-msgstr "Date nerecunoscute sau nesuportate"
+msgstr "Date nerecunoscute sau nesuportate."
 
-#: ../gcr/gcr-parser.c:2183
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "Nu s-au putut analiza date nevalide sau nesuportate."
 
-#: ../gcr/gcr-parser.c:2186
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "Datele sunt blocate"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:186
-#, fuzzy
-msgid "Automatically chosen"
-msgstr "Deblochează automat la autentificare."
+#: ../gcr/gcr-prompt.c:225
+msgid "Continue"
+msgstr "Continuă"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:270
-#: ../gcr/gcr-pkcs11-import-interaction.c:153
-#: ../gcr/gcr-pkcs11-import-interaction.c:171
-#, c-format
-msgid "The user cancelled the operation"
-msgstr ""
+#: ../gcr/gcr-prompt.c:234
+msgid "Cancel"
+msgstr "Anulează"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-msgid "<b>Import settings</b>"
-msgstr ""
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "Introduceți parola de tip frază OpenSSH"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
-#, fuzzy
-msgid "<b>Unlock</b>"
-msgstr "Deblochează"
+#: ../gcr/gcr-subject-public-key.c:405
+msgid "Unrecognized or unavailable attributes for key"
+msgstr "Atribute nerecunoscute sau nedisponibile pentru cheia"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
-#, fuzzy
-msgid "In order to import, please enter the password."
-msgstr "Pentru a importa „%s”, trebuie deblocat"
+#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
+msgid "Couldn’t build public key"
+msgstr "Nu s-a putut genera cheia publică"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
-msgid "Label"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
-msgid "Label:"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
-msgid "Password:"
-msgstr "Parolă:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
-msgid "Token:"
-msgstr ""
+#: ../gcr/gcr-system-prompt.c:911
+msgid "Another prompt is already in progress"
+msgstr "O altă solicitare este deja în progres"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:376
+#: ../gcr/gcr-trust.c:364
 #, c-format
-msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
 msgstr ""
-"Nu s-a putut găsi o locație în care să se stocheze certificatele fixate."
+"Nu s-a putut găsi o locație în care să se stocheze certificatele fixate"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "La autentificare deblochează automat acest inel de chei"
+#: ../ui/gcr-certificate-renderer.c:117
+msgid "Basic Constraints"
+msgstr "Restricții de bază"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:2
-msgid "Lock this keyring after"
-msgstr "Blochează acest inel de chei după"
+#: ../ui/gcr-certificate-renderer.c:119
+msgid "Certificate Authority"
+msgstr "Autoritate de certificat"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:3
-msgid "Lock this keyring if idle for"
-msgstr "Blochează acest inel de chei după o lipsă de activitate de"
+#: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
+msgid "Yes"
+msgstr "Da"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:4
-msgid "Lock this keyring when I log out"
-msgstr "Blochează acest inel de chei la ieșirea din sesiune"
+#: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
+msgid "No"
+msgstr "Nu"
 
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
-#: ../gcr/gcr-unlock-options-widget.ui.h:6
-msgid "minutes"
-msgstr "minute"
+#: ../ui/gcr-certificate-renderer.c:123
+msgid "Max Path Length"
+msgstr "Lungime cale maximă"
 
-#: ../gcr/gcr-unlock-renderer.c:70
-#, fuzzy, c-format
-msgid "Unlock: %s"
-msgstr "Deblochează"
+#: ../ui/gcr-certificate-renderer.c:124
+msgid "Unlimited"
+msgstr "Nelimitat"
 
-#: ../gcr/gcr-unlock-renderer.c:72 ../gcr/gcr-unlock-renderer.c:129
+#: ../ui/gcr-certificate-renderer.c:143
+msgid "Extended Key Usage"
+msgstr "Mod extins de utilizare a cheii"
+
+#: ../ui/gcr-certificate-renderer.c:154
+msgid "Allowed Purposes"
+msgstr "Scopuri permise"
+
+#: ../ui/gcr-certificate-renderer.c:174
+msgid "Subject Key Identifier"
+msgstr "Identificator de chei subiect"
+
+#: ../ui/gcr-certificate-renderer.c:175
+msgid "Key Identifier"
+msgstr "Identificator de cheie"
+
+#: ../ui/gcr-certificate-renderer.c:186
+msgid "Digital signature"
+msgstr "Semnătură digitală"
+
+#: ../ui/gcr-certificate-renderer.c:187
+msgid "Key encipherment"
+msgstr "Cifrare de cheie"
+
+#: ../ui/gcr-certificate-renderer.c:188
+msgid "Data encipherment"
+msgstr "Cifrare de date"
+
+#: ../ui/gcr-certificate-renderer.c:189
+msgid "Key agreement"
+msgstr "Acord cheie"
+
+#: ../ui/gcr-certificate-renderer.c:190
+msgid "Certificate signature"
+msgstr "Semnătură de certificat"
+
+#: ../ui/gcr-certificate-renderer.c:191
+msgid "Revocation list signature"
+msgstr "Semnătură de listă revocare"
+
+#: ../ui/gcr-certificate-renderer.c:216
+msgid "Key Usage"
+msgstr "Mod de utilizare cheie"
+
+#: ../ui/gcr-certificate-renderer.c:217
+msgid "Usages"
+msgstr "Moduri de utilizare"
+
+#: ../ui/gcr-certificate-renderer.c:237
+msgid "Subject Alternative Names"
+msgstr "Nume alternative subiect"
+
+#: ../ui/gcr-certificate-renderer.c:264
+msgid "Extension"
+msgstr "Extensie"
+
+#: ../ui/gcr-certificate-renderer.c:268
+msgid "Identifier"
+msgstr "Identificator"
+
+#: ../ui/gcr-certificate-renderer.c:269
+#: ../ui/gcr-certificate-request-renderer.c:269 ../ui/gcr-gnupg-renderer.c:412
+#: ../ui/gcr-gnupg-renderer.c:429
+msgid "Value"
+msgstr "Valoare"
+
+#: ../ui/gcr-certificate-renderer.c:287
+msgid "Couldn’t export the certificate."
+msgstr "Nu s-a putut exporta certificatul."
+
+#: ../ui/gcr-certificate-renderer.c:521
+#: ../ui/gcr-certificate-request-renderer.c:310
+msgid "Identity"
+msgstr "Identitate"
+
+#: ../ui/gcr-certificate-renderer.c:525
+msgid "Verified by"
+msgstr "Verificat de"
+
+#: ../ui/gcr-certificate-renderer.c:532 ../ui/gcr-gnupg-renderer.c:717
+msgid "Expires"
+msgstr "Expiră la"
+
+#. The subject
+#: ../ui/gcr-certificate-renderer.c:539
+#: ../ui/gcr-certificate-request-renderer.c:316
+msgid "Subject Name"
+msgstr "Nume subiect"
+
+#. The Issuer
+#: ../ui/gcr-certificate-renderer.c:544
+msgid "Issuer Name"
+msgstr "Nume emitent"
+
+#. The Issued Parameters
+#: ../ui/gcr-certificate-renderer.c:549
+msgid "Issued Certificate"
+msgstr "Certificat emis"
+
+#: ../ui/gcr-certificate-renderer.c:554
+#: ../ui/gcr-certificate-request-renderer.c:327
+msgid "Version"
+msgstr "Versiune"
+
+#: ../ui/gcr-certificate-renderer.c:568
+msgid "Not Valid Before"
+msgstr "Nu este valid înainte"
+
+#: ../ui/gcr-certificate-renderer.c:573
+msgid "Not Valid After"
+msgstr "Nu este valid după"
+
+#. Fingerprints
+#: ../ui/gcr-certificate-renderer.c:578
+msgid "Certificate Fingerprints"
+msgstr "Amprente de certificat"
+
+#. Public Key Info
+#: ../ui/gcr-certificate-renderer.c:584
+#: ../ui/gcr-certificate-request-renderer.c:330
+#: ../ui/gcr-certificate-request-renderer.c:376
+msgid "Public Key Info"
+msgstr "Informații cheie publică"
+
+#. Signature
+#: ../ui/gcr-certificate-renderer.c:599 ../ui/gcr-certificate-renderer.c:909
+#: ../ui/gcr-certificate-request-renderer.c:346
+#: ../ui/gcr-certificate-request-renderer.c:383 ../ui/gcr-gnupg-renderer.c:558
+msgid "Signature"
+msgstr "Semnătură"
+
+#: ../ui/gcr-certificate-renderer.c:616
+msgid "Export Certificate…"
+msgstr "Exportă un certificat…"
+
+#: ../ui/gcr-certificate-renderer.c:855
+msgid "Key Algorithm"
+msgstr "Algoritm cheie"
+
+#: ../ui/gcr-certificate-renderer.c:860
+msgid "Key Parameters"
+msgstr "Parametrii cheie"
+
+#: ../ui/gcr-certificate-renderer.c:868 ../ui/gcr-gnupg-renderer.c:351
+msgid "Key Size"
+msgstr "Dimensiune cheie"
+
+#: ../ui/gcr-certificate-renderer.c:876
+msgid "Key SHA1 Fingerprint"
+msgstr "Amprentă SHA1 de cheie"
+
+#: ../ui/gcr-certificate-renderer.c:898
+msgid "Signature Algorithm"
+msgstr "Algoritm semnătură"
+
+#: ../ui/gcr-certificate-renderer.c:902
+msgid "Signature Parameters"
+msgstr "Parametrii semnătură"
+
+#: ../ui/gcr-certificate-renderer.c:951
+msgid "Critical"
+msgstr "Critic"
+
+#. The certificate request type
+#: ../ui/gcr-certificate-request-renderer.c:94
+#: ../ui/gcr-certificate-request-renderer.c:305
+#: ../ui/gcr-certificate-request-renderer.c:320
+#: ../ui/gcr-certificate-request-renderer.c:363
+#: ../ui/gcr-certificate-request-renderer.c:368
+msgid "Certificate request"
+msgstr "Cerere de certificat"
+
+#: ../ui/gcr-certificate-request-renderer.c:258
+msgid "Attribute"
+msgstr "Atribut"
+
+#: ../ui/gcr-certificate-request-renderer.c:262
+#: ../ui/gcr-certificate-request-renderer.c:321
+#: ../ui/gcr-certificate-request-renderer.c:369 ../ui/gcr-gnupg-renderer.c:589
+#: ../ui/gcr-gnupg-renderer.c:591
+msgid "Type"
+msgstr "Tip"
+
+#: ../ui/gcr-certificate-request-renderer.c:373
+msgid "Challenge"
+msgstr "Provocare"
+
+#: ../ui/gcr-display-view.c:319
+msgid "_Details"
+msgstr "_Detalii"
+
+#: ../ui/gcr-failure-renderer.c:159
+#, c-format
+msgid "Could not display “%s”"
+msgstr "Nu s-a putut afișa „%s”"
+
+#: ../ui/gcr-failure-renderer.c:161
+msgid "Could not display file"
+msgstr "Nu s-a putut afișa fișierul"
+
+#: ../ui/gcr-failure-renderer.c:166
+msgid "Reason"
+msgstr "Motiv"
+
+#: ../ui/gcr-failure-renderer.c:216
+#, c-format
+msgid "Cannot display a file of this type."
+msgstr "Nu se poate afișa un fișier de acest tip."
+
+#: ../ui/gcr-gnupg-renderer.c:201
+msgid "Elgamal"
+msgstr "ElGamal"
+
+#: ../ui/gcr-gnupg-renderer.c:214
+msgid "Encrypt"
+msgstr "Criptează"
+
+#: ../ui/gcr-gnupg-renderer.c:216
+msgid "Sign"
+msgstr "Semnează"
+
+#: ../ui/gcr-gnupg-renderer.c:218
+msgid "Certify"
+msgstr "Certifică"
+
+#: ../ui/gcr-gnupg-renderer.c:220
+msgid "Authenticate"
+msgstr "Autentifică"
+
+#: ../ui/gcr-gnupg-renderer.c:222
+msgctxt "capability"
+msgid "Disabled"
+msgstr "Dezactivat"
+
+#: ../ui/gcr-gnupg-renderer.c:253 ../ui/gcr-gnupg-renderer.c:412
+#: ../ui/gcr-key-renderer.c:391 ../ui/gcr-key-renderer.c:395
+msgid "Unknown"
+msgstr "Necunoscut"
+
+#: ../ui/gcr-gnupg-renderer.c:255
+msgid "Invalid"
+msgstr "Nevalid"
+
+#: ../ui/gcr-gnupg-renderer.c:257
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Dezactivat"
+
+#: ../ui/gcr-gnupg-renderer.c:259
+msgid "Revoked"
+msgstr "Revocat"
+
+#: ../ui/gcr-gnupg-renderer.c:261
+msgid "Expired"
+msgstr "Expirat"
+
+#: ../ui/gcr-gnupg-renderer.c:263
+msgid "Undefined trust"
+msgstr "Încredere nedefinită"
+
+#: ../ui/gcr-gnupg-renderer.c:265
+msgid "Distrusted"
+msgstr "Nu este de încredere"
+
+#: ../ui/gcr-gnupg-renderer.c:267
+msgid "Marginally trusted"
+msgstr "De încredere la limită"
+
+#: ../ui/gcr-gnupg-renderer.c:269
+msgid "Fully trusted"
+msgstr "Pe deplin de încredere"
+
+#: ../ui/gcr-gnupg-renderer.c:271
+msgid "Ultimately trusted"
+msgstr "De încredere în cele din urmă"
+
+#: ../ui/gcr-gnupg-renderer.c:285
+msgid "The information in this key has not yet been verified"
+msgstr "Informațiile din această cheie nu au fost verificate încă"
+
+#: ../ui/gcr-gnupg-renderer.c:288
+msgid "This key is invalid"
+msgstr "Această cheie nu este validă"
+
+#: ../ui/gcr-gnupg-renderer.c:291
+msgid "This key has been disabled"
+msgstr "Această cheie a fost dezactivată"
+
+#: ../ui/gcr-gnupg-renderer.c:294
+msgid "This key has been revoked"
+msgstr "Această cheie a fost revocată"
+
+#: ../ui/gcr-gnupg-renderer.c:297
+msgid "This key has expired"
+msgstr "Această cheie a expirat"
+
+#: ../ui/gcr-gnupg-renderer.c:302
+msgid "This key is distrusted"
+msgstr "Această cheie nu este de încredere"
+
+#: ../ui/gcr-gnupg-renderer.c:305
+msgid "This key is marginally trusted"
+msgstr "Această cheie este de încredere la limită"
+
+#: ../ui/gcr-gnupg-renderer.c:308
+msgid "This key is fully trusted"
+msgstr "Această cheie este pe deplin de încredere"
+
+#: ../ui/gcr-gnupg-renderer.c:311
+msgid "This key is ultimately trusted"
+msgstr "Această cheie este de încredere în cele din urmă"
+
+#: ../ui/gcr-gnupg-renderer.c:336 ../ui/gcr-gnupg-renderer.c:562
+msgid "Key ID"
+msgstr "ID cheie"
+
+#: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
+#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
+msgid "Algorithm"
+msgstr "Algoritm"
+
+#: ../ui/gcr-gnupg-renderer.c:359 ../ui/gcr-gnupg-renderer.c:436
+#: ../ui/gcr-gnupg-renderer.c:479
+msgid "Created"
+msgstr "Creat"
+
+#: ../ui/gcr-gnupg-renderer.c:368 ../ui/gcr-gnupg-renderer.c:445
+#: ../ui/gcr-gnupg-renderer.c:488
+msgid "Expiry"
+msgstr "Expirare"
+
+#: ../ui/gcr-gnupg-renderer.c:377
+msgid "Capabilities"
+msgstr "Capacități"
+
+#: ../ui/gcr-gnupg-renderer.c:390
+msgid "Owner trust"
+msgstr "Încredere deținător"
+
+#: ../ui/gcr-gnupg-renderer.c:418
+msgid "Name"
+msgstr "Nume"
+
+#: ../ui/gcr-gnupg-renderer.c:424 ../ui/gcr-gnupg-renderer.c:706
+msgid "Comment"
+msgstr "Commentariu"
+
+#: ../ui/gcr-gnupg-renderer.c:464
+msgid "User Attribute"
+msgstr "Atribut utilizator"
+
+#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:398
+msgid "Size"
+msgstr "Dimensiune"
+
+#: ../ui/gcr-gnupg-renderer.c:506
+msgid "Signature of a binary document"
+msgstr "Semnătura unui document binar"
+
+#: ../ui/gcr-gnupg-renderer.c:508
+msgid "Signature of a canonical text document"
+msgstr "Semnătura unui document text canonic"
+
+#: ../ui/gcr-gnupg-renderer.c:510
+msgid "Standalone signature"
+msgstr "Semnătură autonomă"
+
+#: ../ui/gcr-gnupg-renderer.c:512
+msgid "Generic certification of key"
+msgstr "Certificare generică pentru cheia"
+
+#: ../ui/gcr-gnupg-renderer.c:514
+msgid "Persona certification of key"
+msgstr "Certificare persona de cheie"
+
+#: ../ui/gcr-gnupg-renderer.c:516
+msgid "Casual certification of key"
+msgstr "Certificare ocazională de cheie"
+
+#: ../ui/gcr-gnupg-renderer.c:518
+msgid "Positive certification of key"
+msgstr "Certificare pozitivă de cheie"
+
+#: ../ui/gcr-gnupg-renderer.c:520
+msgid "Subkey binding signature"
+msgstr "Semnătură de asociere subcheie"
+
+#: ../ui/gcr-gnupg-renderer.c:522
+msgid "Primary key binding signature"
+msgstr "Semnătură de asociere cheie primară"
+
+#: ../ui/gcr-gnupg-renderer.c:524
+msgid "Signature directly on key"
+msgstr "Semnătură direct pe cheie"
+
+#: ../ui/gcr-gnupg-renderer.c:526
+msgid "Key revocation signature"
+msgstr "Semnătură de revocare cheie"
+
+#: ../ui/gcr-gnupg-renderer.c:528
+msgid "Subkey revocation signature"
+msgstr "Semnătură de revocare subcheie"
+
+#: ../ui/gcr-gnupg-renderer.c:530
+msgid "Certification revocation signature"
+msgstr "Semnătură de revocare certificat"
+
+#: ../ui/gcr-gnupg-renderer.c:532
+msgid "Timestamp signature"
+msgstr "Semnătură de marcaj de timp"
+
+#: ../ui/gcr-gnupg-renderer.c:534
+msgid "Third-party confirmation signature"
+msgstr "Semnătură de confirmare parte terță"
+
+#: ../ui/gcr-gnupg-renderer.c:587 ../ui/gcr-gnupg-renderer.c:595
+msgid "Class"
+msgstr "Clasă"
+
+#: ../ui/gcr-gnupg-renderer.c:589
+msgid "Local only"
+msgstr "Doar local"
+
+#: ../ui/gcr-gnupg-renderer.c:591
+msgid "Exportable"
+msgstr "Exportabil"
+
+#: ../ui/gcr-gnupg-renderer.c:609
+msgid "Revocation Key"
+msgstr "Cheire de revocare"
+
+#: ../ui/gcr-gnupg-renderer.c:623 ../ui/gcr-gnupg-renderer.c:647
+#: ../ui/gcr-gnupg-renderer.c:649
+msgid "Fingerprint"
+msgstr "Amprentă"
+
+#: ../ui/gcr-gnupg-renderer.c:738
+msgid "Public Subkey"
+msgstr "Subcheie publică"
+
+#: ../ui/gcr-gnupg-renderer.c:740
+msgid "Secret Key"
+msgstr "Cheie secretă"
+
+#: ../ui/gcr-gnupg-renderer.c:742
+msgid "Secret Subkey"
+msgstr "Subcheie secretă"
+
+#: ../ui/gcr-import-button.c:116
+msgid "Initializing…"
+msgstr "Se inițializează…"
+
+#: ../ui/gcr-import-button.c:124
+msgid "Import is in progress…"
+msgstr "Importarea este în progres…"
+
+#: ../ui/gcr-import-button.c:131
+#, c-format
+msgid "Imported to: %s"
+msgstr "Importat la: %s"
+
+#: ../ui/gcr-import-button.c:151
+#, c-format
+msgid "Import to: %s"
+msgstr "Importă la: %s"
+
+#: ../ui/gcr-import-button.c:164
+msgid "Cannot import because there are no compatible importers"
+msgstr "Nu se poate importa pentru că nu există importatoare compatibile"
+
+#: ../ui/gcr-import-button.c:173
+msgid "No data to import"
+msgstr "Nu sunt date de importat"
+
+#: ../ui/gcr-key-renderer.c:88
+msgid "Key"
+msgstr "Cheie"
+
+#: ../ui/gcr-key-renderer.c:355
+msgid "Private RSA Key"
+msgstr "Cheie privată RSA"
+
+#: ../ui/gcr-key-renderer.c:357
+msgid "Private DSA Key"
+msgstr "Cheie privată DSA"
+
+#: ../ui/gcr-key-renderer.c:359
+msgid "Private Elliptic Curve Key"
+msgstr "Cheie curbă eliptică privată"
+
+#: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
+msgid "Public DSA Key"
+msgstr "Cheie publică DSA"
+
+#: ../ui/gcr-key-renderer.c:368
+msgid "Public Elliptic Curve Key"
+msgstr "Cheie curbă eliptică publică"
+
+#: ../ui/gcr-key-renderer.c:377
+#, c-format
+msgid "%u bit"
+msgid_plural "%u bits"
+msgstr[0] "%u bit"
+msgstr[1] "%u biți"
+msgstr[2] "%u de biți"
+
+#: ../ui/gcr-key-renderer.c:378
+msgid "Strength"
+msgstr "Putere"
+
+#. Fingerprints
+#: ../ui/gcr-key-renderer.c:402
+msgid "Fingerprints"
+msgstr "Amprente"
+
+#: ../ui/gcr-key-renderer.c:406
+msgid "SHA1"
+msgstr "SHA1"
+
+#: ../ui/gcr-key-renderer.c:411
+msgid "SHA256"
+msgstr "SHA256"
+
+#. Add our various buttons
+#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
+#: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
+msgid "_Cancel"
+msgstr "_Anulează"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
+msgid "_OK"
+msgstr "_OK"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:189
+msgid "Automatically chosen"
+msgstr "Ales automat"
+
+#: ../ui/gcr-pkcs11-import-dialog.c:273
+#: ../ui/gcr-pkcs11-import-interaction.c:152
+#: ../ui/gcr-pkcs11-import-interaction.c:170
+#, c-format
+msgid "The user cancelled the operation"
+msgstr "Utilizatorul a anulat operația"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:1
+msgid "In order to import, please enter the password."
+msgstr "Pentru a importa, introduceți parola."
+
+#. The password label
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
+msgid "Password:"
+msgstr "Parolă:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:3
+msgid "Token:"
+msgstr "Jeton:"
+
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:69
+#: ../ui/gcr-unlock-renderer.c:124
 msgid "Unlock"
 msgstr "Deblochează"
 
-#: ../gcr/gcr-unlock-renderer.c:126
-#, fuzzy
-msgid "Password"
-msgstr "Parolă:"
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:5
+msgid "Label:"
+msgstr "Etichetă:"
 
-#: ../gcr/gcr-unlock-renderer.c:279
+#: ../ui/gcr-pkcs11-import-dialog.ui.h:6
+msgid "Import settings"
+msgstr "Configurări de importare"
+
+#. The confirm label
+#: ../ui/gcr-prompt-dialog.c:578
+msgid "Confirm:"
+msgstr "Confirmă:"
+
+#: ../ui/gcr-prompt-dialog.c:646
+msgid "Passwords do not match."
+msgstr "Parolele nu se potrivesc."
+
+#: ../ui/gcr-prompt-dialog.c:653
+msgid "Password cannot be blank"
+msgstr "Parola nu poate fi vidă"
+
+#: ../ui/gcr-prompter.desktop.in.in.h:1
+msgid "Access Prompt"
+msgstr "Prompter de acces"
+
+#: ../ui/gcr-prompter.desktop.in.in.h:2
+msgid "Unlock access to passwords and other secrets"
+msgstr "Deblochează accesul la parole și alte secrete"
+
+#: ../ui/gcr-certificate-exporter.c:225
+msgid "A file already exists with this name."
+msgstr "Un fișier cu acest nume există deja."
+
+#: ../ui/gcr-certificate-exporter.c:226
+msgid "Do you want to replace it with a new file?"
+msgstr "Doriți să îl înlocuiți cu un fișier nou?"
+
+#: ../ui/gcr-certificate-exporter.c:229
+msgid "_Replace"
+msgstr "Înlocui_ește"
+
+#: ../ui/gcr-certificate-exporter.c:259
+#, c-format
+msgid "The operation was cancelled."
+msgstr "Operația a fost anulată."
+
+#: ../ui/gcr-certificate-exporter.c:303
+msgid "Export certificate"
+msgstr "Exportă certificatul"
+
+#: ../ui/gcr-certificate-exporter.c:306
+msgid "_Save"
+msgstr "_Salvează"
+
+#: ../ui/gcr-certificate-exporter.c:315
+msgid "Certificate files"
+msgstr "Fișiere de certificat"
+
+#: ../ui/gcr-certificate-exporter.c:326
+msgid "PEM files"
+msgstr "Fișiere PEM"
+
+#: ../ui/gcr-unlock-options-widget.ui.h:1
+msgid "Automatically unlock this keyring whenever I’m logged in"
+msgstr ""
+"Deblochează automat acest inel de chei de fiecare dată când sunt autentificat"
+
+#: ../ui/gcr-unlock-options-widget.ui.h:2
+msgid "Lock this keyring when I log out"
+msgstr "Blochează acest inel de chei la ieșirea din sesiune"
+
+#: ../ui/gcr-unlock-options-widget.ui.h:3
+msgid "Lock this keyring after"
+msgstr "Blochează acest inel de chei după"
+
+#: ../ui/gcr-unlock-options-widget.ui.h:4
+msgid "Lock this keyring if idle for"
+msgstr "Blochează acest inel de chei după o lipsă de activitate de"
+
+#. Translators: The
+#: ../ui/gcr-unlock-options-widget.ui.h:6
+msgid "minutes"
+msgstr "minute"
+
+#: ../ui/gcr-unlock-renderer.c:67
+#, c-format
+msgid "Unlock: %s"
+msgstr "Deblochează: %s"
+
+#: ../ui/gcr-unlock-renderer.c:122
+msgid "Password"
+msgstr "Parolă"
+
+#: ../ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
+"Conținuturile de la „%s” sunt blocate. Pentru a le vizualiza, introduceți "
+"parola corectă."
 
-#: ../gcr/gcr-unlock-renderer.c:282
+#: ../ui/gcr-unlock-renderer.c:277
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr ""
+"Conținuturile sunt blocate. Pentru a le vizualiza, introduceți parola "
+"corectă."
 
-#: ../gcr/gcr-viewer-tool.c:41
-#, fuzzy
+#: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"
-msgstr "Mediu de stocare pentru certificate și chei"
+msgstr "Vizualizator de cheie și certificat GCR"
 
-#: ../gcr/gcr-viewer-tool.c:48
-#, fuzzy
+#: ../ui/gcr-viewer-tool.c:47
 msgid "Show the application's version"
-msgstr "Permiteți accesul aplicației la inelul de chei?"
+msgstr "Afișează versiunea aplicației"
 
-#: ../gcr/gcr-viewer-tool.c:50
+#: ../ui/gcr-viewer-tool.c:49
 msgid "[file...]"
-msgstr ""
+msgstr "[fișier...]"
 
-#: ../gcr/gcr-viewer-tool.c:104
-#, fuzzy
+#: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
-msgstr "Mediu de stocare pentru certificate și chei"
+msgstr "- Vizualizați fișierele de certificat și cheie"
 
-#: ../gcr/gcr-viewer-tool.c:118
-#, fuzzy
+#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
 msgid "Certificate Viewer"
-msgstr "Certificat"
+msgstr "Vizualizator certificat"
 
-#: ../gcr/gcr-viewer-widget.c:191
-#, fuzzy
+#: ../ui/gcr-viewer-widget.c:202
 msgid "The password was incorrect"
-msgstr "Parola de deblocare nu a fost corectă"
+msgstr "Parola nu a fost corectă"
 
-#: ../gcr/gcr-viewer-window.c:68
-#, fuzzy
+#: ../ui/gcr-viewer-window.c:75
 msgid "Imported"
-msgstr "Importă în:"
+msgstr "Importat"
 
-#: ../gcr/gcr-viewer-window.c:72
-#, fuzzy
+#: ../ui/gcr-viewer-window.c:79
 msgid "Import failed"
-msgstr "Operația a eșuat"
+msgstr "Importarea a eșuat"
 
-#: ../gcr/gcr-viewer-window.c:103
-#, fuzzy
+#: ../ui/gcr-viewer-window.c:106
 msgid "Import"
-msgstr "Importă în:"
+msgstr "Importă"
 
-#: ../gck/gck-uri.c:223
-#, fuzzy, c-format
-msgid "The URI has invalid encoding."
-msgstr "URI-ul are sintaxă nevalidă. Codificarea câmpului „%s” nu este validă."
+#: ../ui/gcr-viewer-window.c:115
+msgid "_Close"
+msgstr "În_chide"
 
-#: ../gck/gck-uri.c:227
 #, fuzzy
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "URI-ul nu are schema „pkcs11”."
-
-#: ../gck/gck-uri.c:231
-msgid "The URI has bad syntax."
-msgstr ""
-
-#: ../gck/gck-uri.c:235
-msgid "The URI has a bad version number."
-msgstr ""
+#~ msgid "<b>Unlock</b>"
+#~ msgstr "Deblochează"

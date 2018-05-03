@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2018-03-13 13:00+0000\n"
-"PO-Revision-Date: 2018-05-03 17:53+0300\n"
+"POT-Creation-Date: 2018-05-03 14:54+0000\n"
+"PO-Revision-Date: 2018-05-03 19:11+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -406,11 +406,11 @@ msgstr "Varmenteen vienti epäonnistui."
 
 #: ../ui/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
-msgstr ""
+msgstr "Perusrajoitukset"
 
 #: ../ui/gcr-certificate-renderer.c:119
 msgid "Certificate Authority"
-msgstr "Varmentaja"
+msgstr "Varmentajataho (CA)"
 
 #: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
 msgid "Yes"
@@ -422,7 +422,7 @@ msgstr "Ei"
 
 #: ../ui/gcr-certificate-renderer.c:123
 msgid "Max Path Length"
-msgstr ""
+msgstr "Polun enimmäispituus"
 
 #: ../ui/gcr-certificate-renderer.c:124
 msgid "Unlimited"
@@ -474,11 +474,11 @@ msgstr "Avaimen käyttö"
 
 #: ../ui/gcr-certificate-renderer.c:217
 msgid "Usages"
-msgstr ""
+msgstr "Käyttötavat"
 
 #: ../ui/gcr-certificate-renderer.c:237
 msgid "Subject Alternative Names"
-msgstr ""
+msgstr "Kohteen vaihtoehtoiset nimet (SAN)"
 
 #: ../ui/gcr-certificate-renderer.c:264
 msgid "Extension"
@@ -643,22 +643,19 @@ msgstr ""
 
 #: ../ui/gcr-gnupg-renderer.c:214
 msgid "Encrypt"
-msgstr ""
+msgstr "Salaa"
 
 #: ../ui/gcr-gnupg-renderer.c:216
-#, fuzzy
 msgid "Sign"
-msgstr "Allekirjoitus"
+msgstr "Allekirjoita"
 
 #: ../ui/gcr-gnupg-renderer.c:218
-#, fuzzy
 msgid "Certify"
-msgstr "Varmenne"
+msgstr "Varmenna"
 
 #: ../ui/gcr-gnupg-renderer.c:220
-#, fuzzy
 msgid "Authenticate"
-msgstr "Varmenne"
+msgstr "Todenna"
 
 #: ../ui/gcr-gnupg-renderer.c:222
 msgctxt "capability"

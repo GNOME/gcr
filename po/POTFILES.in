@@ -36,6 +36,7 @@ ui/gcr-prompter.desktop.in.in
 ui/gcr-certificate-exporter.c
 [type: gettext/glade]ui/gcr-unlock-options-widget.ui
 ui/gcr-unlock-renderer.c
+ui/gcr-viewer.desktop.in.in
 ui/gcr-viewer-tool.c
 ui/gcr-viewer-widget.c
 ui/gcr-viewer-window.c

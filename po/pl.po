@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-02 18:15+0100\n"
-"PO-Revision-Date: 2018-03-02 18:20+0100\n"
+"POT-Creation-Date: 2018-05-27 07:41+0200\n"
+"PO-Revision-Date: 2018-05-27 07:42+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1090,6 +1090,10 @@ msgid ""
 "password."
 msgstr ""
 "Treść jest zablokowana. Aby ją wyświetlić, należy podać poprawne hasło."
+
+#: ../ui/gcr-viewer.desktop.in.in.h:1
+msgid "View file"
+msgstr "Wyświetl plik"
 
 #: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"

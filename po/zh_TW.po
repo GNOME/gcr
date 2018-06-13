@@ -5,10 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring 3.1.91\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2018-03-13 13:00+0000\n"
-"PO-Revision-Date: 2018-03-20 23:10+0800\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2018-06-06 08:41+0000\n"
+"PO-Revision-Date: 2018-06-09 11:38+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (traditional)\n"
 "Language: zh_TW\n"
@@ -16,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.8\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -1081,6 +1080,10 @@ msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr "內容已鎖定。為了檢視內容，請輸入正確的密碼。"
+
+#: ../ui/gcr-viewer.desktop.in.in.h:1
+msgid "View file"
+msgstr "檢視檔案"
 
 #: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"

@@ -69,6 +69,16 @@ recheck-memory: valgrind-suppressions
 	$(MAKE) LOG_FLAGS="-- libtool --mode=execute valgrind $(VALGRIND_ARGS)" \
 		$(AM_MAKEFLAGS) recheck
 
+coverage:
+	mkdir -p $(top_builddir)/build/coverage
+	$(LCOV) --directory . --capture --output-file $(top_builddir)/build/coverage.info
+	$(GENHTML) --output-directory $(top_builddir)/build/coverage $(top_builddir)/build/coverage.info
+	$(LCOV) --directory . --zerocounters
+	@echo "file://$(abs_top_builddir)/build/coverage/index.html"
+
+clear-coverage:
+	$(LCOV) --directory . --zerocounters
+
 AM_CPPFLAGS = \
 	-I$(srcdir) \
 	-I$(builddir) \

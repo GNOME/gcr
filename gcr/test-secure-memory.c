@@ -71,6 +71,7 @@ get_rlimit_memlock (void)
 		}
 	}
 
+	g_print ("%d\n", memlock.rlim_cur);
 	return memlock.rlim_cur;
 }
 

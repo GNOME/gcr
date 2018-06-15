@@ -350,6 +350,16 @@ if test "$enable_coverage" = "yes"; then
 		AC_MSG_ERROR(gcov tool is not available)
 	fi
 
+	AC_PATH_PROG(LCOV, lcov, no)
+	if test "$LCOV" = "no" ; then
+		AC_MSG_ERROR(lcov tool is not installed)
+	fi
+
+	AC_PATH_PROG(GENHTML, genhtml, no)
+	if test "$GENHTML" = "no" ; then
+		AC_MSG_ERROR(lcov's genhtml tool is not installed)
+	fi
+
 	CFLAGS="$CFLAGS -O0 -g --coverage"
 	LDFLAGS="$LDFLAGS --coverage"
 fi

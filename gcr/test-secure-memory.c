@@ -32,6 +32,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/resource.h>
+#include <unistd.h>
+#include <sys/types.h>
 
 #define IS_ZERO -1
 
@@ -54,6 +56,15 @@ static gsize
 get_rlimit_memlock (void)
 {
 	struct rlimit memlock;
+
+	/* If the test program is running as a privileged user, it is
+	 * not possible to set the limit. Skip the test entirely.
+	 * FIXME: make this check more accurate, e.g., using capabilities
+	 */
+	if (getuid () == 0) {
+		g_test_skip ("test cannot run as root");
+		return 0;
+	}
 
 	if (getrlimit (RLIMIT_MEMLOCK, &memlock) != 0)
 		g_error ("getrlimit() failed: %s", strerror (errno));

@@ -15,10 +15,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2018-03-02 13:46+0000\n"
-"PO-Revision-Date: 2018-03-03 10:15+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2018-06-06 08:41+0000\n"
+"PO-Revision-Date: 2018-08-04 19:27+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -26,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.9\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -311,7 +310,7 @@ msgstr "Nicht unterstützter Schlüsseltyp für die Anfrage des Zertifikats"
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr ""
-"Dieser Schlüssel kann nicht genutzt werden, um die Anfrage zu unterzeichnen."
+"Dieser Schlüssel kann nicht genutzt werden, um die Anfrage zu unterzeichnen"
 
 #: ../gcr/gcr-gnupg-importer.c:94
 msgid "GnuPG Keyring"
@@ -362,7 +361,7 @@ msgstr "Zertifikatsanfrage"
 
 #: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
-msgstr "Unbekannte oder nicht unterstützte Daten"
+msgstr "Unbekannte oder nicht unterstützte Daten."
 
 #: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
@@ -709,7 +708,7 @@ msgstr "Ultimativ vertrauenswürdig"
 
 #: ../ui/gcr-gnupg-renderer.c:285
 msgid "The information in this key has not yet been verified"
-msgstr "Die Informationen in diesem Schlüssel wurde noch nicht verifiziert."
+msgstr "Die Informationen in diesem Schlüssel wurden noch nicht verifiziert"
 
 #: ../ui/gcr-gnupg-renderer.c:288
 msgid "This key is invalid"
@@ -1061,7 +1060,7 @@ msgstr "Diesen Schlüsselbund beim Anmelden automatisch entsperren"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
-msgstr "Diesen Schlüsselbund beim Abmelden automatisch sperren."
+msgstr "Diesen Schlüsselbund beim Abmelden automatisch sperren"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:3
 msgid "Lock this keyring after"
@@ -1101,6 +1100,10 @@ msgid ""
 msgstr ""
 "Der Inhalt ist gesperrt. Um den Inhalt anzeigen zu können, geben Sie das "
 "korrekte Passwort ein."
+
+#: ../ui/gcr-viewer.desktop.in.in.h:1
+msgid "View file"
+msgstr "Datei betrachten"
 
 #: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"

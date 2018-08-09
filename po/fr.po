@@ -1,13 +1,13 @@
-# French translation of gnome-keyring.
-# Copyright (C) 2004-2017 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gnome-keyring package.
+# French translation of gcr.
+# Copyright (C) 2004-2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gcr package.
 #
 # Sébastien Bacher <seb128@debian.org>, 2004.
 # Christophe Merlet <redfox@redfoxcenter.org>, 2004.
 # Laurent Richard <laurent.richard@ael.be>, 2006.
 # Jonathan Ernst <jonathan@ernstfamily.ch>, 2006.
 # Yann Simon <yann.simon.fr@gmail.com>, 2007.
-# Claude Paroz <claude@2xlibre.net>, 2007-2017.
+# Claude Paroz <claude@2xlibre.net>, 2007-2018.
 # Robert-André Mauchin <zebob.m@pengzone.org>, 2008.
 # Bruno Brouard <annoa.b@gmail.com>, 2008-2011.
 # Laurent Coudeur <laurentc@iol.ie>, 2009-2010.
@@ -19,11 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-keyring HEAD\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2018-03-02 13:46+0000\n"
-"PO-Revision-Date: 2018-03-03 13:27+0100\n"
+"Project-Id-Version: gcr master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2018-06-06 08:41+0000\n"
+"PO-Revision-Date: 2018-08-09 10:36+0200\n"
 "Last-Translator: Guillaume Bernard <associations@guillaume-bernard.fr>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -31,7 +30,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Generator: Poedit 2.0.6\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -1104,6 +1102,10 @@ msgstr ""
 "Le contenu est verrouillé. Pour voir ce contenu, saisissez le mot de passe "
 "correct."
 
+#: ../ui/gcr-viewer.desktop.in.in.h:1
+msgid "View file"
+msgstr "Afficher le fichier"
+
 #: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"
 msgstr "Afficheur de certificats et de clés GCR"
@@ -1114,7 +1116,7 @@ msgstr "Affiche la version de l’application"
 
 #: ../ui/gcr-viewer-tool.c:49
 msgid "[file...]"
-msgstr "[fichier...]"
+msgstr "[fichier…]"
 
 #: ../ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"

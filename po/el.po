@@ -8,18 +8,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2018-03-02 13:46+0000\n"
-"PO-Revision-Date: 2018-03-07 00:41+0200\n"
-"Last-Translator: Tom Tryfonidis <tomtryf@gnome.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2018-06-06 08:41+0000\n"
+"PO-Revision-Date: 2018-08-14 01:44+0300\n"
+"Last-Translator: Efstathios Iosifidis <iosifidis@opensuse.org>\n"
 "Language-Team: www.gnome.gr\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.9\n"
 "X-Project-Style: gnome\n"
 
 #: ../egg/egg-oid.c:40
@@ -1092,6 +1091,10 @@ msgid ""
 msgstr ""
 "Τα περιεχόμενα είναι κλειδωμένα. Για να τα δείτε, πληκτρολογήστε τον σωστό "
 "κωδικό πρόσβασης."
+
+#: ../ui/gcr-viewer.desktop.in.in.h:1
+msgid "View file"
+msgstr "Προβολή αρχείου"
 
 #: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"

@@ -2,15 +2,14 @@
 # This file is distributed under the same license as the gcr package.
 #
 # Young-Ho Cha <ganadist@gmail.com>, 2006.
-# Changwoo Ryu <cwryu@debian.org>, 2004, 2006-2014, 2017.
+# Changwoo Ryu <cwryu@debian.org>, 2004, 2006-2014, 2017-2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2017-02-22 19:17+0000\n"
-"PO-Revision-Date: 2017-03-04 03:28+0900\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2018-06-06 08:41+0000\n"
+"PO-Revision-Date: 2018-08-25 16:54+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -243,7 +242,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "만료 날짜"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "인증서"
@@ -312,7 +311,7 @@ msgstr "GnuPG 키 모음"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG 키 모음: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP 키"
@@ -332,33 +331,33 @@ msgstr "gnupg 프로세스가 다음 리턴값으로 끝났습니다: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "gnupg 프로세스가 다음 시그널로 강제 종료되었습니다: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
-#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "작업을 취소했습니다"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "개인 키"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "공개 키"
 
-#: ../gcr/gcr-parser.c:334
+#: ../gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "인증서 요청"
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "알지 못하거나 지원하지 않는 데이터."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "잘못되었거나 손상된 데이터를 파싱할 수 없습니다."
 
-#: ../gcr/gcr-parser.c:2563
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "데이터가 잠겨 있습니다"
 
@@ -369,6 +368,10 @@ msgstr "계속"
 #: ../gcr/gcr-prompt.c:234
 msgid "Cancel"
 msgstr "취소"
+
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "OpenSSH 암호글을 입력하십시오"
 
 #: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
@@ -1079,6 +1082,10 @@ msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr "내용이 잠겨 있습니다. 내용을 보려면 올바른 암호를 입력하십시오."
+
+#: ../ui/gcr-viewer.desktop.in.in.h:1
+msgid "View file"
+msgstr "파일 보기"
 
 #: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"

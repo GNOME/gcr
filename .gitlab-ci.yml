@@ -6,7 +6,7 @@ variables:
   DEPENDENCIES: dbus-x11 gcc gtk-doc make openssh python redhat-rpm-config
 
 fedora:Werror:
-  image: fedora:rawhide
+  image: fedora:latest
   stage: build
   before_script:
     - dnf install -y 'dnf-command(builddep)'
@@ -25,7 +25,7 @@ fedora:Werror:
       - gcr-*/_build/sub/test-suite.log
 
 fedora:asan:
-  image: fedora:rawhide
+  image: fedora:latest
   stage: build
   before_script:
     - dnf install -y 'dnf-command(builddep)'
@@ -43,7 +43,7 @@ fedora:asan:
       - test-suite.log
 
 fedora:ubsan:
-  image: fedora:rawhide
+  image: fedora:latest
   stage: build
   before_script:
     - dnf install -y 'dnf-command(builddep)'
@@ -61,7 +61,7 @@ fedora:ubsan:
       - test-suite.log
 
 fedora:coverage:
-  image: fedora:rawhide
+  image: fedora:latest
   stage: build
   before_script:
     - dnf install -y 'dnf-command(builddep)'

@@ -10,10 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-k"
-"eyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2018-03-02 13:46+0000\n"
-"PO-Revision-Date: 2018-03-04 17:59+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2018-06-06 08:41+0000\n"
+"PO-Revision-Date: 2018-08-31 19:30+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -1091,6 +1090,10 @@ msgid ""
 "password."
 msgstr "Saturs ir bloķēts. Lai skatītu saturu, ievadiet pareizu paroli."
 
+#: ../ui/gcr-viewer.desktop.in.in.h:1
+msgid "View file"
+msgstr "Skatīt datni"
+
 #: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"
 msgstr "GCR sertifikātu un atslēgu skatītājs"
@@ -1130,3 +1133,4 @@ msgstr "Importēt"
 #: ../ui/gcr-viewer-window.c:115
 msgid "_Close"
 msgstr "_Aizvērt"
+

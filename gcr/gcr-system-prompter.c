@@ -491,17 +491,19 @@ prompt_stop_prompting (GcrSystemPrompter *self,
 	ActivePrompt *active;
 	GVariant *retval;
 	gpointer watch;
+	Callback *orig_callback;
 
 	g_debug ("stopping prompting for operation %s@%s",
 	         callback->path, callback->name);
 
 	/* Get a pointer to our actual callback */
 	if (!g_hash_table_lookup_extended (self->pv->callbacks, callback,
-	                                   (gpointer *)&callback, &watch)) {
+	                                   (gpointer *)&orig_callback, &watch)) {
 		g_debug ("couldn't find the callback for prompting operation %s@%s",
 		         callback->path, callback->name);
 		return;
 	}
+	callback = orig_callback;
 
 	/*
 	 * We remove these from the callbacks hash table so that we don't

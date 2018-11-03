@@ -6,14 +6,13 @@
 # Alberto Fernández <afernn@euskalnet.net>, 2004.
 # Julen Ruiz Aizpuru <julenx@gmail.com>, 2011.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2004, 2006, 2008, 2009, 2010, 2011.
-# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2012, 2013, 2014, 2017.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2012, 2013, 2014, 2017, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2016-10-18 09:40+0000\n"
-"PO-Revision-Date: 2017-02-16 17:15+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2018-06-06 08:41+0000\n"
+"PO-Revision-Date: 2018-11-01 15:50+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -21,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 2.0\n"
 "X-Project-Style: gnome\n"
 
 #: ../egg/egg-oid.c:40
@@ -199,13 +198,11 @@ msgstr "Errorea PKCS#11 modulua kargatzean: %s"
 
 #: ../gck/gck-module.c:358
 #, c-format
-#| msgid "Couldn't initialize PKCS#11 module: %s"
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Ezin izan da PKCS#11 modulua hasieratu: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
-#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Ezin izan dira erregistratutako PKCS#11 moduluak hasieratu: %s"
 
@@ -215,7 +212,6 @@ msgid "The URI has invalid encoding."
 msgstr "URIak kodeketa baliogabea du."
 
 #: ../gck/gck-uri.c:228
-#| msgid "The URI does not have the 'pkcs11' scheme."
 msgid "The URI does not have the “pkcs11” scheme."
 msgstr "URIak ez dauka “pkcs11“ eskema."
 
@@ -251,7 +247,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Iraungitze-data"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Ziurtagiria"
@@ -320,7 +316,7 @@ msgstr "GnuPG gako-sorta"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG gako-sorta: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP gakoa"
@@ -340,33 +336,33 @@ msgstr "Gnupg prozesua ondorengo kodearekin irten da: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg prozesua ondorengo seinalearekin amaitu da: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
-#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "Eragiketa bertan behera utzi da"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Gako pribatua"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Gako publikoa"
 
-#: ../gcr/gcr-parser.c:334
+#: ../gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "Ziurtagiriaren eskaera"
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "Datu ezezaguna edo onartu gabea."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "Ezin izan dira hondatutako edo baliogabeak diren datuak analizatu."
 
-#: ../gcr/gcr-parser.c:2563
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "Datuak blokeatuta daude"
 
@@ -378,12 +374,15 @@ msgstr "Jarraitu"
 msgid "Cancel"
 msgstr "Utzi"
 
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "Sartu zure OpenSSH pasaesaldia"
+
 #: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Gakoaren atributu ezezagunak edo erabilkaitzak"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-#| msgid "Couldn't build public key"
 msgid "Couldn’t build public key"
 msgstr "Ezin izan da gako publikoa eraiki"
 
@@ -396,7 +395,6 @@ msgstr "Beste gonbite bat jadanik lantzen ari da"
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
 #, c-format
-#| msgid "Couldn't find a place to store the pinned certificate"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Ezin izan da salbuespen-ziurtagiria gordetzeko lekurik aurkitu"
 
@@ -491,7 +489,6 @@ msgid "Value"
 msgstr "Balioa"
 
 #: ../ui/gcr-certificate-renderer.c:287
-#| msgid "Couldn't export the certificate."
 msgid "Couldn’t export the certificate."
 msgstr "Ezin izan da ziurtagiria esportatu."
 
@@ -618,7 +615,6 @@ msgstr "_Xehetasunak"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-#| msgid "Could not display '%s'"
 msgid "Could not display “%s”"
 msgstr "Ezin izan da “%s“ bistaratu"
 
@@ -1050,7 +1046,6 @@ msgid "PEM files"
 msgstr "PEM fitxategiak"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-#| msgid "Automatically unlock this keyring whenever I'm logged in"
 msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Desblokeatu automatikoki gako-sorta hau saioa hastean"
 
@@ -1082,9 +1077,6 @@ msgstr "Pasahitza"
 
 #: ../ui/gcr-unlock-renderer.c:274
 #, c-format
-#| msgid ""
-#| "The contents of '%s' are locked. In order to view the contents, enter the "
-#| "correct password."
 msgid ""
 "The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
@@ -1097,6 +1089,10 @@ msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr "Blokeatuta daude edukiak. Ikusi ahal izateko, sartu pasahitz zuzena."
+
+#: ../ui/gcr-viewer.desktop.in.in.h:1
+msgid "View file"
+msgstr "Ikusi fitxategia"
 
 #: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"

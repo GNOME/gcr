@@ -2,14 +2,14 @@
 # Copyright (C) 2011 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gcr package.
 # Michael MORONI, < >, 2011.
-# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011, 2016, 2017.
+# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011, 2016, 2017, 2018.
+# Carmen Bianca BAKKER <carmen@carmenbianca.eu>, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2017-02-22 19:17+0000\n"
-"PO-Revision-Date: 2017-12-23 21:23+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2018-06-06 08:41+0000\n"
+"PO-Revision-Date: 2018-11-17 15:57+0200\n"
 "Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
 "Language-Team: Esperanto <gnome-eo-list@gnome.org>\n"
 "Language: eo\n"
@@ -21,8 +21,9 @@ msgstr ""
 "X-Project-Style: gnome\n"
 
 #: ../egg/egg-oid.c:40
+#, fuzzy
 msgid "Domain Component"
-msgstr ""
+msgstr "Domajna ero"
 
 #: ../egg/egg-oid.c:42 ../ui/gcr-gnupg-renderer.c:408
 #: ../ui/gcr-gnupg-renderer.c:577
@@ -55,7 +56,7 @@ msgstr "Loĝlando"
 
 #: ../egg/egg-oid.c:64
 msgid "Common Name"
-msgstr "Komuna nomo"
+msgstr "Voknomo"
 
 #: ../egg/egg-oid.c:66
 msgid "Surname"
@@ -99,7 +100,7 @@ msgstr "Telefonnumero"
 
 #: ../egg/egg-oid.c:86
 msgid "Given Name"
-msgstr "Donita nomo"
+msgstr "Persona nomo"
 
 #: ../egg/egg-oid.c:88
 msgid "Initials"
@@ -107,15 +108,15 @@ msgstr "Inicialoj"
 
 #: ../egg/egg-oid.c:90
 msgid "Generation Qualifier"
-msgstr ""
+msgstr "Genera kvalifikilo"
 
 #: ../egg/egg-oid.c:92
 msgid "DN Qualifier"
-msgstr ""
+msgstr "DN-kvalifikilo"
 
 #: ../egg/egg-oid.c:94
 msgid "Pseudonym"
-msgstr "Pseŭdonimo"
+msgstr "Kaŝnomo"
 
 #: ../egg/egg-oid.c:97 ../ui/gcr-gnupg-renderer.c:199
 #: ../ui/gcr-key-renderer.c:385
@@ -145,7 +146,7 @@ msgstr "SHA1 kun DSA"
 
 #: ../egg/egg-oid.c:105 ../ui/gcr-key-renderer.c:389
 msgid "Elliptic Curve"
-msgstr ""
+msgstr "Elipsa kurbo"
 
 #: ../egg/egg-oid.c:106
 msgid "SHA1 with ECDSA"
@@ -178,7 +179,7 @@ msgstr "Kliento-aŭtentigo"
 
 #: ../egg/egg-oid.c:115
 msgid "Code Signing"
-msgstr ""
+msgstr "Subskribado de kodo"
 
 #: ../egg/egg-oid.c:116
 msgid "Email Protection"
@@ -186,7 +187,7 @@ msgstr "Retpoŝta protekto"
 
 #: ../egg/egg-oid.c:117
 msgid "Time Stamping"
-msgstr ""
+msgstr "Tempindiko"
 
 #: ../gck/gck-module.c:344
 #, c-format
@@ -194,15 +195,14 @@ msgid "Error loading PKCS#11 module: %s"
 msgstr "Eraro dum ŝarĝo de PKCS#11-modulo: %s"
 
 #: ../gck/gck-module.c:358
-#, fuzzy, c-format
-#| msgid "Error loading PKCS#11 module: %s"
+#, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
-msgstr "Eraro dum ŝarĝo de PKCS#11-modulo: %s"
+msgstr "Ne povis pravalorizi PKCS#11-modulon: %s"
 
 #: ../gck/gck-modules.c:62
 #, c-format
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
-msgstr ""
+msgstr "Ne povis pravalorizi registritan PKCS#11-modulon: %s"
 
 #: ../gck/gck-uri.c:224
 #, c-format
@@ -211,7 +211,7 @@ msgstr "La URI havas nevalidan kodadon."
 
 #: ../gck/gck-uri.c:228
 msgid "The URI does not have the “pkcs11” scheme."
-msgstr ""
+msgstr "URI ne havas la “pkcs11”-skemon."
 
 #: ../gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -235,7 +235,6 @@ msgid "Name"
 msgstr "Nomo"
 
 #: ../gcr/gcr-certificate.c:352
-#, fuzzy
 msgctxt "column"
 msgid "Issued By"
 msgstr "Eldonite je"
@@ -246,7 +245,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "Senvalidiĝos"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
+#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:344
 #: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Atestilo"
@@ -261,7 +260,7 @@ msgstr "XMPP-adreso"
 
 #: ../gcr/gcr-certificate-extensions.c:191
 msgid "DNS SRV"
-msgstr ""
+msgstr "DNS-servilo"
 
 #: ../gcr/gcr-certificate-extensions.c:203 ../ui/gcr-gnupg-renderer.c:421
 #: ../ui/gcr-gnupg-renderer.c:703
@@ -315,7 +314,7 @@ msgstr "GnuPG-ŝlosilaro"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG-ŝlosilaro: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331
+#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87
 msgid "PGP Key"
 msgstr "PGP-ŝlosilo"
@@ -328,40 +327,40 @@ msgstr "Ŝlosil-ID"
 #: ../gcr/gcr-gnupg-process.c:864
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr ""
+msgstr "Gnupg-procezo ĉesis kun kodo: %d"
 
 #: ../gcr/gcr-gnupg-process.c:871
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr ""
+msgstr "Gnupg-procezo estis ĉesigita kun signalo: %d"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554
-#: ../gcr/gcr-parser.c:3160 ../gcr/gcr-system-prompt.c:931
+#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2592
+#: ../gcr/gcr-parser.c:3198 ../gcr/gcr-system-prompt.c:931
 msgid "The operation was cancelled"
 msgstr "La ago estis nuligita"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: ../gcr/gcr-parser.c:341 ../ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Privata ŝlosilo"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
+#: ../gcr/gcr-parser.c:347 ../ui/gcr-certificate-renderer.c:881
 #: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Publika ŝlosilo"
 
-#: ../gcr/gcr-parser.c:334
+#: ../gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "Atestil-peto"
 
-#: ../gcr/gcr-parser.c:2557
+#: ../gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "Nekonataj aŭ nesubtenataj datumoj."
 
-#: ../gcr/gcr-parser.c:2560
+#: ../gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "Ne povus analizi nevalidan aŭ difektitan datumojn."
 
-#: ../gcr/gcr-parser.c:2563
+#: ../gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "La datumoj estas ŝlositaj"
 
@@ -373,12 +372,15 @@ msgstr "Daŭrigi"
 msgid "Cancel"
 msgstr "Nuligi"
 
+#: ../gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "Enigu vian OpenSSH-pasfrazon"
+
 #: ../gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "Nekonataj aŭ nedisponeblaj atributoj por ŝlosilo"
 
 #: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-#| msgid "Couldn't build public key"
 msgid "Couldn’t build public key"
 msgstr "Ne eblis krei publikan ŝlosilon"
 
@@ -390,14 +392,13 @@ msgstr ""
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
 #: ../gcr/gcr-trust.c:364
-#, fuzzy, c-format
-#| msgid "Couldn't export the certificate."
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Ne eblis trovi lokon por konservi la atestilon"
 
 #: ../ui/gcr-certificate-renderer.c:117
 msgid "Basic Constraints"
-msgstr ""
+msgstr "Bazaj limigoj"
 
 #: ../ui/gcr-certificate-renderer.c:119
 msgid "Certificate Authority"
@@ -413,7 +414,7 @@ msgstr "Ne"
 
 #: ../ui/gcr-certificate-renderer.c:123
 msgid "Max Path Length"
-msgstr ""
+msgstr "Maksimuma voja longo"
 
 #: ../ui/gcr-certificate-renderer.c:124
 msgid "Unlimited"
@@ -421,11 +422,11 @@ msgstr "Nelimigite"
 
 #: ../ui/gcr-certificate-renderer.c:143
 msgid "Extended Key Usage"
-msgstr ""
+msgstr "Etendita ŝlosila uzado"
 
 #: ../ui/gcr-certificate-renderer.c:154
 msgid "Allowed Purposes"
-msgstr ""
+msgstr "Permesitaj celoj"
 
 #: ../ui/gcr-certificate-renderer.c:174
 #, fuzzy
@@ -437,21 +438,20 @@ msgid "Key Identifier"
 msgstr "Ŝlosil-identigilo"
 
 #: ../ui/gcr-certificate-renderer.c:186
-#, fuzzy
 msgid "Digital signature"
-msgstr "Subskribo"
+msgstr "Cifera subskribo"
 
 #: ../ui/gcr-certificate-renderer.c:187
 msgid "Key encipherment"
-msgstr ""
+msgstr "Ĉifrado de ŝlosilo"
 
 #: ../ui/gcr-certificate-renderer.c:188
 msgid "Data encipherment"
-msgstr ""
+msgstr "Ĉifrado de datumoj"
 
 #: ../ui/gcr-certificate-renderer.c:189
 msgid "Key agreement"
-msgstr ""
+msgstr "Ŝlosila akordo"
 
 #: ../ui/gcr-certificate-renderer.c:190
 msgid "Certificate signature"
@@ -459,15 +459,15 @@ msgstr "Atestil-subskribo"
 
 #: ../ui/gcr-certificate-renderer.c:191
 msgid "Revocation list signature"
-msgstr ""
+msgstr "Subskribo de senvalidiga listo"
 
 #: ../ui/gcr-certificate-renderer.c:216
 msgid "Key Usage"
-msgstr ""
+msgstr "Ŝlosila uzado"
 
 #: ../ui/gcr-certificate-renderer.c:217
 msgid "Usages"
-msgstr ""
+msgstr "Uzadoj"
 
 #: ../ui/gcr-certificate-renderer.c:237
 msgid "Subject Alternative Names"
@@ -488,7 +488,6 @@ msgid "Value"
 msgstr "Valoro"
 
 #: ../ui/gcr-certificate-renderer.c:287
-#| msgid "Couldn't export the certificate."
 msgid "Couldn’t export the certificate."
 msgstr "Ne eblis elporti la atestilon."
 
@@ -509,7 +508,7 @@ msgstr "Senvalidiĝos"
 #: ../ui/gcr-certificate-renderer.c:539
 #: ../ui/gcr-certificate-request-renderer.c:316
 msgid "Subject Name"
-msgstr ""
+msgstr "Nomo de la temo"
 
 #. The Issuer
 #: ../ui/gcr-certificate-renderer.c:544
@@ -536,16 +535,15 @@ msgstr "Ne valida poste"
 
 #. Fingerprints
 #: ../ui/gcr-certificate-renderer.c:578
-#, fuzzy
 msgid "Certificate Fingerprints"
-msgstr "Fingropremaĵoj"
+msgstr "Atestilaj fingropremoj"
 
 #. Public Key Info
 #: ../ui/gcr-certificate-renderer.c:584
 #: ../ui/gcr-certificate-request-renderer.c:330
 #: ../ui/gcr-certificate-request-renderer.c:376
 msgid "Public Key Info"
-msgstr ""
+msgstr "Informoj de publika ŝlosilo"
 
 #. Signature
 #: ../ui/gcr-certificate-renderer.c:599 ../ui/gcr-certificate-renderer.c:909
@@ -560,32 +558,31 @@ msgstr "Elporti atestilon…"
 
 #: ../ui/gcr-certificate-renderer.c:855
 msgid "Key Algorithm"
-msgstr ""
+msgstr "Ŝlosila algoritmo"
 
 #: ../ui/gcr-certificate-renderer.c:860
 msgid "Key Parameters"
-msgstr ""
+msgstr "Ŝlosilaj parametroj"
 
 #: ../ui/gcr-certificate-renderer.c:868 ../ui/gcr-gnupg-renderer.c:351
 msgid "Key Size"
 msgstr "Ŝlosilgrando"
 
 #: ../ui/gcr-certificate-renderer.c:876
-#, fuzzy
 msgid "Key SHA1 Fingerprint"
-msgstr "SHA1-Fingropremaĵo"
+msgstr "Ŝlosila SHA1-fingropremo"
 
 #: ../ui/gcr-certificate-renderer.c:898
 msgid "Signature Algorithm"
-msgstr ""
+msgstr "Subskriba algoritmo"
 
 #: ../ui/gcr-certificate-renderer.c:902
 msgid "Signature Parameters"
-msgstr ""
+msgstr "Subskribaj parametroj"
 
 #: ../ui/gcr-certificate-renderer.c:951
 msgid "Critical"
-msgstr "Kritike"
+msgstr "Kritika"
 
 #. The certificate request type
 #: ../ui/gcr-certificate-request-renderer.c:94
@@ -609,7 +606,7 @@ msgstr "Tipo"
 
 #: ../ui/gcr-certificate-request-renderer.c:373
 msgid "Challenge"
-msgstr ""
+msgstr "Defio"
 
 #: ../ui/gcr-display-view.c:319
 msgid "_Details"
@@ -617,7 +614,6 @@ msgstr "_Detaloj"
 
 #: ../ui/gcr-failure-renderer.c:159
 #, c-format
-#| msgid "Could not display '%s'"
 msgid "Could not display “%s”"
 msgstr "Ne eblis montri na “%s”"
 
@@ -636,11 +632,11 @@ msgstr "Ne povas montri dosieron de ĉi tiu tipo."
 
 #: ../ui/gcr-gnupg-renderer.c:201
 msgid "Elgamal"
-msgstr ""
+msgstr "Elgamal"
 
 #: ../ui/gcr-gnupg-renderer.c:214
 msgid "Encrypt"
-msgstr "Ĉifradi"
+msgstr "Ĉifri"
 
 #: ../ui/gcr-gnupg-renderer.c:216
 msgid "Sign"
@@ -657,25 +653,25 @@ msgstr "Aŭtentigi"
 #: ../ui/gcr-gnupg-renderer.c:222
 msgctxt "capability"
 msgid "Disabled"
-msgstr "Elŝaltite"
+msgstr "Malŝaltita"
 
 #: ../ui/gcr-gnupg-renderer.c:253 ../ui/gcr-gnupg-renderer.c:412
 #: ../ui/gcr-key-renderer.c:391 ../ui/gcr-key-renderer.c:395
 msgid "Unknown"
-msgstr "Nekonate"
+msgstr "Nekonata"
 
 #: ../ui/gcr-gnupg-renderer.c:255
 msgid "Invalid"
-msgstr "Nevalide"
+msgstr "Nevalida"
 
 #: ../ui/gcr-gnupg-renderer.c:257
 msgctxt "ownertrust"
 msgid "Disabled"
-msgstr "Elŝaltite"
+msgstr "Malŝaltita"
 
 #: ../ui/gcr-gnupg-renderer.c:259
 msgid "Revoked"
-msgstr ""
+msgstr "Senvalidigita"
 
 #: ../ui/gcr-gnupg-renderer.c:261
 msgid "Expired"
@@ -683,23 +679,23 @@ msgstr "Senvalidiĝis"
 
 #: ../ui/gcr-gnupg-renderer.c:263
 msgid "Undefined trust"
-msgstr ""
+msgstr "Nedifinita fido"
 
 #: ../ui/gcr-gnupg-renderer.c:265
 msgid "Distrusted"
-msgstr ""
+msgstr "Malfidita"
 
 #: ../ui/gcr-gnupg-renderer.c:267
 msgid "Marginally trusted"
-msgstr ""
+msgstr "Iom fidita"
 
 #: ../ui/gcr-gnupg-renderer.c:269
 msgid "Fully trusted"
-msgstr ""
+msgstr "Plene fidita"
 
 #: ../ui/gcr-gnupg-renderer.c:271
 msgid "Ultimately trusted"
-msgstr ""
+msgstr "Pleje fidita"
 
 #: ../ui/gcr-gnupg-renderer.c:285
 msgid "The information in this key has not yet been verified"
@@ -711,15 +707,15 @@ msgstr "La ŝlosilo estas nevalida"
 
 #: ../ui/gcr-gnupg-renderer.c:291
 msgid "This key has been disabled"
-msgstr "Ĉi tiu ŝlosilo estis elŝaltita"
+msgstr "Ĉi tiu ŝlosilo estis malŝaltita"
 
 #: ../ui/gcr-gnupg-renderer.c:294
 msgid "This key has been revoked"
-msgstr ""
+msgstr "Ĉi tiu ŝlosilo estis senvalidigita"
 
 #: ../ui/gcr-gnupg-renderer.c:297
 msgid "This key has expired"
-msgstr "Ĉi tiu ŝlosilo eksvalidiĝis"
+msgstr "Ĉi tiu ŝlosilo senvalidiĝis"
 
 #: ../ui/gcr-gnupg-renderer.c:302
 msgid "This key is distrusted"
@@ -727,15 +723,15 @@ msgstr "Ĉi tiu ŝlosilo estas malfidita"
 
 #: ../ui/gcr-gnupg-renderer.c:305
 msgid "This key is marginally trusted"
-msgstr ""
+msgstr "Ĉi tiu ŝlosilo estas iom fidita"
 
 #: ../ui/gcr-gnupg-renderer.c:308
 msgid "This key is fully trusted"
-msgstr ""
+msgstr "Ĉi tiu ŝlosilo estas plene fidita"
 
 #: ../ui/gcr-gnupg-renderer.c:311
 msgid "This key is ultimately trusted"
-msgstr ""
+msgstr "Ĉi tiu ŝlosilo estas pleje fidita"
 
 #: ../ui/gcr-gnupg-renderer.c:336 ../ui/gcr-gnupg-renderer.c:562
 msgid "Key ID"
@@ -749,13 +745,12 @@ msgstr "Algoritmo"
 #: ../ui/gcr-gnupg-renderer.c:359 ../ui/gcr-gnupg-renderer.c:436
 #: ../ui/gcr-gnupg-renderer.c:479
 msgid "Created"
-msgstr "Kreite"
+msgstr "Kreita"
 
 #: ../ui/gcr-gnupg-renderer.c:368 ../ui/gcr-gnupg-renderer.c:445
 #: ../ui/gcr-gnupg-renderer.c:488
-#, fuzzy
 msgid "Expiry"
-msgstr "Senvalidiĝos"
+msgstr "Senvalidiĝo"
 
 #: ../ui/gcr-gnupg-renderer.c:377
 msgid "Capabilities"
@@ -763,7 +758,7 @@ msgstr "Kapabloj"
 
 #: ../ui/gcr-gnupg-renderer.c:390
 msgid "Owner trust"
-msgstr ""
+msgstr "Fido de posedanto"
 
 #: ../ui/gcr-gnupg-renderer.c:418
 msgid "Name"
@@ -775,7 +770,7 @@ msgstr "Komento"
 
 #: ../ui/gcr-gnupg-renderer.c:464
 msgid "User Attribute"
-msgstr ""
+msgstr "Atributo de uzanto"
 
 #: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:398
 msgid "Size"
@@ -783,33 +778,31 @@ msgstr "Grando"
 
 #: ../ui/gcr-gnupg-renderer.c:506
 msgid "Signature of a binary document"
-msgstr ""
+msgstr "Subskribo de duuma dosiero"
 
 #: ../ui/gcr-gnupg-renderer.c:508
 msgid "Signature of a canonical text document"
-msgstr ""
+msgstr "Subskribo de baza tekstdokumento"
 
 #: ../ui/gcr-gnupg-renderer.c:510
-#, fuzzy
 msgid "Standalone signature"
-msgstr "Subskribo"
+msgstr "Memstara subskribo"
 
 #: ../ui/gcr-gnupg-renderer.c:512
-#, fuzzy
 msgid "Generic certification of key"
-msgstr "Malŝlosi atestilon"
+msgstr "Ĝenerala atestilo de ŝlosilo"
 
 #: ../ui/gcr-gnupg-renderer.c:514
 msgid "Persona certification of key"
-msgstr ""
+msgstr "Persona atestilo de ŝlosilo"
 
 #: ../ui/gcr-gnupg-renderer.c:516
 msgid "Casual certification of key"
-msgstr ""
+msgstr "Okaza atestilo de ŝlosilo"
 
 #: ../ui/gcr-gnupg-renderer.c:518
 msgid "Positive certification of key"
-msgstr ""
+msgstr "Pozitiva atestilo de ŝlosilo"
 
 #: ../ui/gcr-gnupg-renderer.c:520
 msgid "Subkey binding signature"
@@ -821,23 +814,23 @@ msgstr ""
 
 #: ../ui/gcr-gnupg-renderer.c:524
 msgid "Signature directly on key"
-msgstr ""
+msgstr "Subskribo rekte sur ŝlosilo"
 
 #: ../ui/gcr-gnupg-renderer.c:526
 msgid "Key revocation signature"
-msgstr ""
+msgstr "Subskribo de ŝlosila senvalidigo"
 
 #: ../ui/gcr-gnupg-renderer.c:528
 msgid "Subkey revocation signature"
-msgstr ""
+msgstr "Subskribo de subŝlosila senvalidigo"
 
 #: ../ui/gcr-gnupg-renderer.c:530
 msgid "Certification revocation signature"
-msgstr ""
+msgstr "Subskribo de atestila senvalidigo"
 
 #: ../ui/gcr-gnupg-renderer.c:532
 msgid "Timestamp signature"
-msgstr ""
+msgstr "Subskribo de tempindiko"
 
 #: ../ui/gcr-gnupg-renderer.c:534
 msgid "Third-party confirmation signature"
@@ -849,7 +842,7 @@ msgstr "Klaso"
 
 #: ../ui/gcr-gnupg-renderer.c:589
 msgid "Local only"
-msgstr "Nur loke"
+msgstr "Nur loka"
 
 #: ../ui/gcr-gnupg-renderer.c:591
 msgid "Exportable"
@@ -857,7 +850,7 @@ msgstr "Elportebla"
 
 #: ../ui/gcr-gnupg-renderer.c:609
 msgid "Revocation Key"
-msgstr ""
+msgstr "Senvalidiga ŝlosilo"
 
 #: ../ui/gcr-gnupg-renderer.c:623 ../ui/gcr-gnupg-renderer.c:647
 #: ../ui/gcr-gnupg-renderer.c:649
@@ -874,11 +867,11 @@ msgstr "Sekreta ŝlosilo"
 
 #: ../ui/gcr-gnupg-renderer.c:742
 msgid "Secret Subkey"
-msgstr ""
+msgstr "Sekreta subŝlosilo"
 
 #: ../ui/gcr-import-button.c:116
 msgid "Initializing…"
-msgstr "Pravaloriante…"
+msgstr "Pravalorizante…"
 
 #: ../ui/gcr-import-button.c:124
 msgid "Import is in progress…"
@@ -916,7 +909,7 @@ msgstr "Privata DSA-ŝlosilo"
 
 #: ../ui/gcr-key-renderer.c:359
 msgid "Private Elliptic Curve Key"
-msgstr ""
+msgstr "Privata elipsa kurba ŝlosilo"
 
 #: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
@@ -924,7 +917,7 @@ msgstr "Publika DSA-ŝlosilo"
 
 #: ../ui/gcr-key-renderer.c:368
 msgid "Public Elliptic Curve Key"
-msgstr ""
+msgstr "Publika elipsa kurba ŝlosilo"
 
 #: ../ui/gcr-key-renderer.c:377
 #, c-format
@@ -1052,14 +1045,12 @@ msgid "PEM files"
 msgstr "PEM-dosieroj"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:1
-#, fuzzy
-#| msgid "Automatically unlock this keyring whenever I'm logged in"
 msgid "Automatically unlock this keyring whenever I’m logged in"
-msgstr "Aŭtomate malŝlosi ĉi tiun ŝlosilaron ĉiam kiam mi estas ensalutita"
+msgstr "Aŭtomate malŝlosi ĉi tiun ŝlosilaron ĉiam kiam mi salutas"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:2
 msgid "Lock this keyring when I log out"
-msgstr "Ŝlosi ĉi tiun ŝlosilaron kiam mi elsalutas"
+msgstr "Ŝlosi ĉi tiun ŝlosilaron kiam mi adiaŭas"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:3
 msgid "Lock this keyring after"
@@ -1067,7 +1058,7 @@ msgstr "Ŝlosi ĉi tiun ŝlosilaron poste"
 
 #: ../ui/gcr-unlock-options-widget.ui.h:4
 msgid "Lock this keyring if idle for"
-msgstr ""
+msgstr "Ŝlosi ĉi tiun ŝlosilaron kiam senokupe por"
 
 #. Translators: The
 #: ../ui/gcr-unlock-options-widget.ui.h:6
@@ -1089,12 +1080,19 @@ msgid ""
 "The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
+"La enhavoj de “%s” estas ŝlosita. Por vidi la enhavojn, enigu la ĝustan "
+"pasvorton."
 
 #: ../ui/gcr-unlock-renderer.c:277
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr ""
+"La enhavoj estas ŝlosita. Por vidi la enhavojn, enigu la ĝustan pasvorton."
+
+#: ../ui/gcr-viewer.desktop.in.in.h:1
+msgid "View file"
+msgstr "Vidi dosieron"
 
 #: ../ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"

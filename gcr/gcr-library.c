@@ -486,7 +486,9 @@ gcr_pkcs11_add_module_from_file (const gchar *module_path, gpointer unused,
  *
  * When done with the #GckSlot, use g_object_unref() to release it.
  *
- * Returns: (transfer full): the #GckSlot to use for trust assertions.
+ * Returns: (transfer full) (nullable): the #GckSlot to use for trust
+ *          assertions, or null if not initialized or no appropriate
+ *          trust store could be found.
  */
 GckSlot *
 gcr_pkcs11_get_trust_store_slot (void)
@@ -498,6 +500,11 @@ gcr_pkcs11_get_trust_store_slot (void)
 		return NULL;
 
 	initialize_uris ();
+	if (!trust_store_uri) {
+		g_warning ("no slot available for storing assertions");
+		return NULL;
+	}
+
 	slot = gck_modules_token_for_uri (all_modules, trust_store_uri, &error);
 	if (!slot) {
 		if (error) {
@@ -523,8 +530,9 @@ gcr_pkcs11_get_trust_store_slot (void)
  *
  * When done with the list, free it with gck_list_unref_free().
  *
- * Returns: (transfer full) (element-type Gck.Slot): a list of #GckSlot objects
- *          to use for lookup of trust.
+ * Returns: (transfer full) (element-type Gck.Slot): a list of #GckSlot
+ *          objects to use for lookup of trust, or the empty list if not
+ *          initialized or no appropriate trust stores could be found.
  */
 GList*
 gcr_pkcs11_get_trust_lookup_slots (void)
@@ -537,6 +545,10 @@ gcr_pkcs11_get_trust_lookup_slots (void)
 		return NULL;
 
 	initialize_uris ();
+	if (!trust_lookup_uris) {
+		g_warning ("no slots available for assertion lookup");
+		return NULL;
+	}
 
 	for (uri = trust_lookup_uris; uri && *uri; ++uri) {
 		results = g_list_concat (results, gck_modules_tokens_for_uri (all_modules, *uri, &error));

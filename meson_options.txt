@@ -1,0 +1,5 @@
+option('gtk',
+  type: 'boolean',
+  value: true,
+  description: 'Build code that uses GTK+'
+)

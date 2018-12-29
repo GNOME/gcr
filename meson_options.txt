@@ -1,0 +1,15 @@
+option('introspection',
+  type: 'boolean',
+  value: true,
+  description: 'Build GObject Introspection (GIR) files',
+)
+option('gtk',
+  type: 'boolean',
+  value: true,
+  description: 'Build code that uses GTK+',
+)
+option('gtk_doc',
+  type: 'boolean',
+  value: true,
+  description: 'Build the reference documentation (requires gtk-doc)',
+)

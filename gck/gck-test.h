@@ -27,6 +27,10 @@
 #ifndef GCK_TEST_H
 #define GCK_TEST_H
 
+#ifndef _GCK_TEST_MODULE_PATH
+#define _GCK_TEST_MODULE_PATH BUILDDIR "/.libs/libmock-test-module.so"
+#endif
+
 #define         gck_assert_cmprv(v1, cmp, v2) \
 		do { CK_RV __v1 = (v1), __v2 = (v2); \
 			if (__v1 cmp __v2) ; else \

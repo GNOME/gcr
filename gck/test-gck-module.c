@@ -41,7 +41,11 @@ setup (Test *test, gconstpointer unused)
 	GError *err = NULL;
 
 	/* Successful load */
+#ifdef _GCK_TEST_MODULE_PATH
+	test->module = gck_module_initialize (_GCK_TEST_MODULE_PATH, NULL, &err);
+#else
 	test->module = gck_module_initialize (BUILDDIR "/.libs/libmock-test-module.so", NULL, &err);
+#endif
 	g_assert_no_error (err);
 	g_assert (test->module);
 	g_object_add_weak_pointer (G_OBJECT (test->module), (gpointer *)&test->module);
@@ -70,8 +74,13 @@ test_initialize_async (void)
 	GError *error = NULL;
 
 	/* Shouldn't be able to load modules */
+#ifdef _GCK_TEST_MODULE_PATH
+	gck_module_initialize_async (_GCK_TEST_MODULE_PATH,
+	                             NULL, fetch_async_result, &result);
+#else
 	gck_module_initialize_async (BUILDDIR "/.libs/libmock-test-module.so",
 	                             NULL, fetch_async_result, &result);
+#endif
 
 	egg_test_wait_until (500);
 	g_assert (result != NULL);
@@ -138,7 +147,11 @@ test_module_props (Test *test, gconstpointer unused)
 
 	g_object_get (test->module, "path", &path, NULL);
 	g_assert (path != NULL && "no module-path");
+#ifdef _GCK_TEST_MODULE_PATH
+	g_assert (strcmp (_GCK_TEST_MODULE_PATH, path) == 0 && "module path wrong");
+#else
 	g_assert (strcmp (BUILDDIR "/.libs/libmock-test-module.so", path) == 0 && "module path wrong");
+#endif
 	g_free (path);
 }
 

@@ -47,7 +47,11 @@ setup (Test *test, gconstpointer unused)
 	GError *err = NULL;
 
 	/* Successful load */
+#ifdef _GCK_TEST_MODULE_PATH
+	module = gck_module_initialize (_GCK_TEST_MODULE_PATH, NULL, &err);
+#else
 	module = gck_module_initialize (BUILDDIR "/.libs/libmock-test-module.so", NULL, &err);
+#endif
 	g_assert_no_error (err);
 	g_assert (GCK_IS_MODULE (module));
 

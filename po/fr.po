@@ -16,20 +16,22 @@
 # Josselin TILLAY-DOLEDEC <josselin.td@gmail.com>, 2012.
 # Alexandre Franke <alexandre.franke@gmail.com>, 2012.
 # Guillaume Bernard <associations@guillaume-bernard.fr>, 2018
+# Charles Monzat <charles.monzat@numericable.fr>, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2018-06-06 08:41+0000\n"
-"PO-Revision-Date: 2018-08-09 10:36+0200\n"
-"Last-Translator: Guillaume Bernard <associations@guillaume-bernard.fr>\n"
-"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
+"POT-Creation-Date: 2018-08-09 08:36+0000\n"
+"PO-Revision-Date: 2018-11-18 17:59+0100\n"
+"Last-Translator: Charles Monzat <charles.monzat@numericable.fr>\n"
+"Language-Team: français <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n>1;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Gtranslator 3.30.0\n"
 
 #: ../egg/egg-oid.c:40
 msgid "Domain Component"
@@ -135,7 +137,7 @@ msgstr "RSA"
 
 #: ../egg/egg-oid.c:98
 msgid "MD2 with RSA"
-msgstr "MD avec RSA"
+msgstr "MD2 avec RSA"
 
 #: ../egg/egg-oid.c:99
 msgid "MD5 with RSA"
@@ -143,7 +145,7 @@ msgstr "MD5 avec RSA"
 
 #: ../egg/egg-oid.c:100
 msgid "SHA1 with RSA"
-msgstr "SHA+ avec RSA"
+msgstr "SHA1 avec RSA"
 
 #: ../egg/egg-oid.c:102 ../ui/gcr-gnupg-renderer.c:203
 #: ../ui/gcr-key-renderer.c:387
@@ -317,12 +319,12 @@ msgstr "La clé ne peut pas être utilisée pour signer la requête"
 
 #: ../gcr/gcr-gnupg-importer.c:94
 msgid "GnuPG Keyring"
-msgstr "Trousseau de clé GnuPG"
+msgstr "Trousseau de clés GnuPG"
 
 #: ../gcr/gcr-gnupg-importer.c:96
 #, c-format
 msgid "GnuPG Keyring: %s"
-msgstr "Trousseau de clé GnuPG : %s"
+msgstr "Trousseau de clés GnuPG : %s"
 
 #: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:350
 #: ../ui/gcr-gnupg-renderer.c:87

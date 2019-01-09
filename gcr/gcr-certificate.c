@@ -853,9 +853,6 @@ gcr_certificate_get_key_size (GcrCertificate *self)
  *
  * Calculate the fingerprint for this certificate.
  *
- * You can pass G_CHECKSUM_SHA1 or G_CHECKSUM_MD5 as the @type
- * parameter.
- *
  * The caller should free the returned data using g_free() when
  * it is no longer required.
  *
@@ -892,9 +889,6 @@ gcr_certificate_get_fingerprint (GcrCertificate *self, GChecksumType type, gsize
  *
  * Calculate the fingerprint for this certificate, and return it
  * as a hex string.
- *
- * You can pass G_CHECKSUM_SHA1 or G_CHECKSUM_MD5 as the @type
- * parameter.
  *
  * The caller should free the returned data using g_free() when
  * it is no longer required.

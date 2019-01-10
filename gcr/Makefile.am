@@ -78,6 +78,7 @@ gcr_PUBLIC_FILES = \
 	gcr/gcr-ssh-askpass.c gcr/gcr-ssh-askpass.h \
 	gcr/gcr-system-prompt.c gcr/gcr-system-prompt.h \
 	gcr/gcr-system-prompter.c gcr/gcr-system-prompter.h \
+	gcr/gcr-trust.c gcr/gcr-trust.h \
 	gcr/gcr-types.h \
 	gcr/gcr-union-collection.c gcr/gcr-union-collection.h \
 	gcr/gcr-unlock-options.h \
@@ -105,7 +106,6 @@ gcr_PRIVATE_FILES = \
 	gcr/gcr-record.c gcr/gcr-record.h \
 	gcr/gcr-single-collection.c gcr/gcr-single-collection.h \
 	gcr/gcr-subject-public-key.c gcr/gcr-subject-public-key.h \
-	gcr/gcr-trust.c gcr/gcr-trust.h \
 	gcr/gcr-util.c gcr/gcr-util.h \
 	$(NULL)
 

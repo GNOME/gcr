@@ -1,3 +1,7 @@
+gcr 3.28.1:
+- system-prompter: Fix use of g_hash_table_lookup_extended [#9]
+- Updated translations
+
 gcr 3.28.0:
 - Fix year 2038 workaround in ASN.1 decoder [#787963]
 - Fix test errors when ssh-keygen is not found

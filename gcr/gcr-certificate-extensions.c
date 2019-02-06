@@ -305,7 +305,7 @@ _gcr_certificate_extension_subject_alt_name (GBytes *data)
 		else if (g_str_equal (node_name, "uniformResourceIdentifier"))
 			general_name_parse_uri (choice, &general);
 
-		else if (g_str_equal (node_name, "IPAddress"))
+		else if (g_str_equal (node_name, "iPAddress"))
 			general_name_parse_ip (choice, &general);
 
 		else if (g_str_equal (node_name, "registeredID"))

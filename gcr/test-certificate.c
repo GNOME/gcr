@@ -23,6 +23,7 @@
 
 #include "gcr/gcr-base.h"
 #include "gcr/gcr-internal.h"
+#include "gcr/gcr-certificate-extensions.h"
 
 #include "egg/egg-testing.h"
 
@@ -58,7 +59,7 @@ setup (Test *test, gconstpointer unused)
 	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/dhansak-collabora.cer", &contents, &n_contents, NULL))
 		g_assert_not_reached ();
 	test->dhansak_cert = gcr_simple_certificate_new ((const guchar *)contents, n_contents);
-	g_assert (test->certificate);
+	g_assert (test->dhansak_cert);
 	g_free (contents);
 }
 
@@ -265,6 +266,27 @@ test_basic_constraints (Test *test,
 	g_assert (path_len == -1);
 }
 
+static void
+test_subject_alt_name (void)
+{
+	const guint8 extension[] = { 0x30, 0x18, 0x87, 0x04, 0xC0, 0x00, 0x02, 0x01, 0x82, 0x10, 0x74, 0x65, 0x73, 0x74, 0x2E, 0x65, 0x78, 0x61, 0x6D, 0x70, 0x6C, 0x65, 0x2E, 0x63, 0x6F, 0x6D };
+	GBytes *bytes;
+	GArray *result;
+	GcrGeneralName *general_name;
+
+	bytes = g_bytes_new_static (extension, sizeof(extension));
+	result = _gcr_certificate_extension_subject_alt_name (bytes);
+	g_bytes_unref (bytes);
+
+	g_assert_nonnull (result);
+	g_assert_cmpint (result->len, ==, 2);
+	general_name = &g_array_index (result, GcrGeneralName, 0);
+	g_assert_cmpint (general_name->type, ==, GCR_GENERAL_NAME_IP);
+	general_name = &g_array_index (result, GcrGeneralName, 1);
+	g_assert_cmpint (general_name->type, ==, GCR_GENERAL_NAME_DNS);
+	_gcr_general_names_free (result);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -287,6 +309,7 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/certificate/key_size", Test, NULL, setup, test_certificate_key_size, teardown);
 	g_test_add ("/gcr/certificate/is_issuer", Test, NULL, setup, test_certificate_is_issuer, teardown);
 	g_test_add ("/gcr/certificate/basic_constraints", Test, NULL, setup, test_basic_constraints, teardown);
+	g_test_add_func ("/gcr/certificate/subject_alt_name", test_subject_alt_name);
 
 	return g_test_run ();
 }

@@ -425,7 +425,7 @@ gck_builder_copy (GckBuilder *builder)
  * gck_builder_take_data:
  * @builder: the builder
  * @attr_type: the new attribute type
- * @value: (transfer full): (array length=length): (allow-none): the new
+ * @value: (transfer full) (array length=length) (allow-none): the new
  *         attribute memory
  * @length: the length of the memory
  *
@@ -474,7 +474,7 @@ gck_builder_take_data (GckBuilder *builder,
  * gck_builder_add_data:
  * @builder: the builder
  * @attr_type: the new attribute type
- * @value: (array length=length): (allow-none): the new attribute memory
+ * @value: (array length=length) (allow-none): the new attribute memory
  * @length: the length of the memory
  *
  * Add a new attribute to the builder with an arbitrary value. Unconditionally
@@ -515,7 +515,7 @@ gck_builder_add_data (GckBuilder *builder,
  * gck_builder_set_data:
  * @builder: the builder
  * @attr_type: the attribute type
- * @value: (array length=length): (allow-none): the new attribute memory
+ * @value: (array length=length) (allow-none): the new attribute memory
  * @length: the length of the memory
  *
  * Set a new attribute to the builder with an arbitrary value. If an attribute
@@ -2320,7 +2320,7 @@ gck_attributes_ref_sink (GckAttributes *attrs)
 
 /**
  * gck_attributes_unref:
- * @attrs: (allow-none): (type Gck.Attributes): An attribute array
+ * @attrs: (allow-none) (type Gck.Attributes): An attribute array
  *
  * Unreference this attribute array.
  *

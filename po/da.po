@@ -7,13 +7,13 @@
 # Kris Thomsen <lakristho@gmail.com>, 2011.
 # Joe Hansen <joedalton2@yahoo.dk>, 2011.
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2007, 2008, 10, 13, 14, 2018.
-#
+# 
 # signatur -> underskrift
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2019-02-07 09:18+0000\n"
+"POT-Creation-Date: 2019-02-24 13:22+0000\n"
 "PO-Revision-Date: 2019-02-24 12:52+0100\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"

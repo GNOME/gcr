@@ -115,7 +115,7 @@ struct _GckEnumeratorPrivate {
 	GckEnumerator *chained;
 };
 
-G_DEFINE_TYPE (GckEnumerator, gck_enumerator, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE (GckEnumerator, gck_enumerator, G_TYPE_OBJECT);
 
 static gpointer state_modules        (GckEnumeratorState *args,
                                       gboolean forward);
@@ -560,7 +560,7 @@ state_results (GckEnumeratorState *args,
 static void
 gck_enumerator_init (GckEnumerator *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCK_TYPE_ENUMERATOR, GckEnumeratorPrivate);
+	self->pv = gck_enumerator_get_instance_private (self);
 	self->pv->mutex = g_new0 (GMutex, 1);
 	g_mutex_init (self->pv->mutex);
 	self->pv->the_state = g_new0 (GckEnumeratorState, 1);
@@ -656,8 +656,6 @@ gck_enumerator_class_init (GckEnumeratorClass *klass)
 	gobject_class->set_property = gck_enumerator_set_property;
 	gobject_class->dispose = gck_enumerator_dispose;
 	gobject_class->finalize = gck_enumerator_finalize;
-
-	g_type_class_add_private (klass, sizeof (GckEnumeratorPrivate));
 
 	/**
 	 * GckEnumerator:interaction:

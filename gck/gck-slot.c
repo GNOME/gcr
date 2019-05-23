@@ -55,7 +55,7 @@ struct _GckSlotPrivate {
 	CK_SLOT_ID handle;
 };
 
-G_DEFINE_TYPE (GckSlot, gck_slot, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE (GckSlot, gck_slot, G_TYPE_OBJECT);
 
 /* ----------------------------------------------------------------------------
  * OBJECT
@@ -64,7 +64,7 @@ G_DEFINE_TYPE (GckSlot, gck_slot, G_TYPE_OBJECT);
 static void
 gck_slot_init (GckSlot *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCK_TYPE_SLOT, GckSlotPrivate);
+	self->pv = gck_slot_get_instance_private (self);
 }
 
 static void
@@ -148,8 +148,6 @@ gck_slot_class_init (GckSlotClass *klass)
 	g_object_class_install_property (gobject_class, PROP_HANDLE,
 		g_param_spec_ulong ("handle", "Handle", "PKCS11 Slot ID",
 		                   0, G_MAXULONG, 0, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-
-	g_type_class_add_private (gobject_class, sizeof (GckSlotPrivate));
 }
 
 /* ----------------------------------------------------------------------------

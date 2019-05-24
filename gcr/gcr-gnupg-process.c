@@ -231,8 +231,9 @@ _gcr_gnupg_process_class_init (GcrGnupgProcessClass *klass)
 	 * ~/.gnupg/ directory.
 	 */
 	g_object_class_install_property (gobject_class, PROP_DIRECTORY,
-	           g_param_spec_string ("directory", "Directory", "Gnupg Directory",
-	                                NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		g_param_spec_string ("directory", "Directory", "Gnupg Directory",
+		                     NULL,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgProcess:executable:
@@ -240,8 +241,9 @@ _gcr_gnupg_process_class_init (GcrGnupgProcessClass *klass)
 	 * Path to the gnupg executable, or %NULL for default.
 	 */
 	g_object_class_install_property (gobject_class, PROP_EXECUTABLE,
-	           g_param_spec_string ("executable", "Executable", "Gnupg Executable",
-	                                GPG_EXECUTABLE, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		g_param_spec_string ("executable", "Executable", "Gnupg Executable",
+		                     GPG_EXECUTABLE,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgProcess:input-stream:
@@ -249,8 +251,9 @@ _gcr_gnupg_process_class_init (GcrGnupgProcessClass *klass)
 	 * Input for gnupg, or %NULL for no input.
 	 */
 	g_object_class_install_property (gobject_class, PROP_INPUT_STREAM,
-	           g_param_spec_object ("input-stream", "Input Stream", "Input Stream",
-	                                G_TYPE_INPUT_STREAM, G_PARAM_READWRITE));
+		g_param_spec_object ("input-stream", "Input Stream", "Input Stream",
+		                     G_TYPE_INPUT_STREAM,
+		                     G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgProcess:output-stream:
@@ -258,8 +261,9 @@ _gcr_gnupg_process_class_init (GcrGnupgProcessClass *klass)
 	 * Output from gnupg, or %NULL for ignored output.
 	 */
 	g_object_class_install_property (gobject_class, PROP_OUTPUT_STREAM,
-	           g_param_spec_object ("output-stream", "Output Stream", "Output Stream",
-	                                G_TYPE_OUTPUT_STREAM, G_PARAM_READWRITE));
+		g_param_spec_object ("output-stream", "Output Stream", "Output Stream",
+		                     G_TYPE_OUTPUT_STREAM,
+		                     G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgProcess:attribute-stream:
@@ -267,8 +271,9 @@ _gcr_gnupg_process_class_init (GcrGnupgProcessClass *klass)
 	 * Output of attribute data from gnupg, or %NULL for ignored attributes.
 	 */
 	g_object_class_install_property (gobject_class, PROP_ATTRIBUTE_STREAM,
-	           g_param_spec_object ("attribute-stream", "Attribute Stream", "Attribute Stream",
-	                                G_TYPE_OUTPUT_STREAM, G_PARAM_READWRITE));
+		g_param_spec_object ("attribute-stream", "Attribute Stream", "Attribute Stream",
+		                     G_TYPE_OUTPUT_STREAM,
+		                     G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgProcess::error-line:

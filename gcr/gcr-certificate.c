@@ -267,7 +267,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		         g_param_spec_string ("label", "Label", "Certificate label",
-		                              "", G_PARAM_READABLE));
+		                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrCertificate:description:
@@ -276,7 +276,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		         g_param_spec_string ("description", "Description", "Description of object being rendered",
-		                              "", G_PARAM_READABLE));
+		                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrCertificate:markup:
@@ -285,7 +285,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		         g_param_spec_string ("markup", "Markup", "Markup which describes object being rendered",
-		                              "", G_PARAM_READABLE));
+		                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrCertificate:icon:
@@ -294,7 +294,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		         g_param_spec_object ("icon", "Icon", "Icon for the object being rendered",
-		                              G_TYPE_ICON, G_PARAM_READABLE));
+		                              G_TYPE_ICON, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrCertificate:subject:
@@ -303,7 +303,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		           g_param_spec_string ("subject", "Subject", "Common name of subject",
-		                                "", G_PARAM_READABLE));
+		                                "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrCertificate:issuer:
@@ -312,7 +312,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		           g_param_spec_string ("issuer", "Issuer", "Common name of issuer",
-		                                "", G_PARAM_READABLE));
+		                                "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrCertificate:expiry:
@@ -321,7 +321,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		           g_param_spec_boxed ("expiry", "Expiry", "Certificate expiry",
-		                               G_TYPE_DATE, G_PARAM_READABLE));
+		                               G_TYPE_DATE, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		g_once_init_leave (&initialized, 1);
 	}

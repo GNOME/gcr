@@ -54,6 +54,7 @@ struct _GcrGnupgRendererPrivate {
 static void _gcr_gnupg_renderer_iface_init (GcrRendererIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrGnupgRenderer, _gcr_gnupg_renderer, G_TYPE_OBJECT,
+	G_ADD_PRIVATE (GcrGnupgRenderer);
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_RENDERER, _gcr_gnupg_renderer_iface_init);
 );
 
@@ -90,8 +91,7 @@ calculate_label (GcrGnupgRenderer *self)
 static void
 _gcr_gnupg_renderer_init (GcrGnupgRenderer *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_GNUPG_RENDERER,
-	                                         GcrGnupgRendererPrivate));
+	self->pv = _gcr_gnupg_renderer_get_instance_private (self);
 }
 
 static void
@@ -165,7 +165,6 @@ _gcr_gnupg_renderer_class_init (GcrGnupgRendererClass *klass)
 	GckBuilder builder = GCK_BUILDER_INIT;
 
 	_gcr_gnupg_renderer_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (GcrGnupgRendererPrivate));
 
 	gobject_class->finalize = _gcr_gnupg_renderer_finalize;
 	gobject_class->set_property = _gcr_gnupg_renderer_set_property;

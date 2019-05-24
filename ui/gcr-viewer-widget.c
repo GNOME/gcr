@@ -115,7 +115,7 @@ static guint signals[LAST_SIGNAL] = { 0, };
 static void viewer_load_next_file (GcrViewerWidget *self);
 static void viewer_stop_loading_files (GcrViewerWidget *self);
 
-G_DEFINE_TYPE (GcrViewerWidget, gcr_viewer_widget, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrViewerWidget, gcr_viewer_widget, GTK_TYPE_BOX);
 
 static const gchar *
 get_parsed_label_or_display_name (GcrViewerWidget *self,
@@ -236,8 +236,7 @@ gcr_viewer_widget_init (GcrViewerWidget *self)
 {
 	GtkWidget *area;
 
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_VIEWER_WIDGET,
-	                                        GcrViewerWidgetPrivate);
+	self->pv = gcr_viewer_widget_get_instance_private (self);
 
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (self),
 	                                GTK_ORIENTATION_VERTICAL);
@@ -351,8 +350,6 @@ gcr_viewer_widget_class_init (GcrViewerWidgetClass *klass)
 	gobject_class->finalize = gcr_viewer_widget_finalize;
 	gobject_class->get_property = gcr_viewer_widget_get_property;
 	gobject_class->set_property = gcr_viewer_widget_set_property;
-
-	g_type_class_add_private (klass, sizeof (GcrViewerWidgetPrivate));
 
 	/**
 	 * GcrViewerWidget:parser:

@@ -46,7 +46,7 @@ struct _GcrGnupgKeyPrivate {
 	GIcon *icon;
 };
 
-G_DEFINE_TYPE (GcrGnupgKey, _gcr_gnupg_key, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrGnupgKey, _gcr_gnupg_key, G_TYPE_OBJECT);
 
 static gchar *
 calculate_name (GcrGnupgKey *self)
@@ -85,7 +85,7 @@ calculate_markup (GcrGnupgKey *self)
 static void
 _gcr_gnupg_key_init (GcrGnupgKey *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_GNUPG_KEY, GcrGnupgKeyPrivate));
+	self->pv = _gcr_gnupg_key_get_instance_private (self);
 }
 
 static void
@@ -163,7 +163,6 @@ _gcr_gnupg_key_class_init (GcrGnupgKeyClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
 	_gcr_gnupg_key_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (GcrGnupgKeyPrivate));
 
 	gobject_class->finalize = _gcr_gnupg_key_finalize;
 	gobject_class->set_property = _gcr_gnupg_key_set_property;

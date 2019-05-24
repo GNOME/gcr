@@ -138,7 +138,7 @@ struct _GcrParserPrivate {
 	gchar *filename;
 };
 
-G_DEFINE_TYPE (GcrParser, gcr_parser, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrParser, gcr_parser, G_TYPE_OBJECT);
 
 typedef struct {
 	gint ask_state;
@@ -2347,7 +2347,7 @@ gcr_parser_constructor (GType type, guint n_props, GObjectConstructParam *props)
 static void
 gcr_parser_init (GcrParser *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_PARSER, GcrParserPrivate);
+	self->pv = gcr_parser_get_instance_private (self);
 	self->pv->passwords = g_ptr_array_new ();
 	self->pv->normal_formats = TRUE;
 }
@@ -2438,8 +2438,6 @@ gcr_parser_class_init (GcrParserClass *klass)
 	 * Get the attributes that make up the currently parsed item. This is
 	 * generally only valid during a #GcrParser::parsed signal.
 	 */
-	g_type_class_add_private (gobject_class, sizeof (GcrParserPrivate));
-
 	g_object_class_install_property (gobject_class, PROP_PARSED_ATTRIBUTES,
 	           g_param_spec_boxed ("parsed-attributes", "Parsed Attributes", "Parsed PKCS#11 attributes",
 	                               GCK_TYPE_ATTRIBUTES, G_PARAM_READABLE));

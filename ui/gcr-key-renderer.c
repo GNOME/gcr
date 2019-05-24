@@ -66,6 +66,7 @@ struct _GcrKeyRendererPrivate {
 static void gcr_key_renderer_renderer_iface (GcrRendererIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrKeyRenderer, gcr_key_renderer, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GcrKeyRenderer);
                          G_IMPLEMENT_INTERFACE (GCR_TYPE_RENDERER, gcr_key_renderer_renderer_iface));
 
 /* -----------------------------------------------------------------------------
@@ -173,7 +174,7 @@ on_object_cache_attributes (GObject *obj,
 static void
 gcr_key_renderer_init (GcrKeyRenderer *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_KEY_RENDERER, GcrKeyRendererPrivate));
+	self->pv = gcr_key_renderer_get_instance_private (self);
 	self->pv->icon = g_themed_icon_new (GCR_ICON_KEY);
 }
 
@@ -284,7 +285,6 @@ gcr_key_renderer_class_init (GcrKeyRendererClass *klass)
 	GckBuilder builder = GCK_BUILDER_INIT;
 
 	gcr_key_renderer_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (GcrKeyRendererPrivate));
 
 	gobject_class->dispose = gcr_key_renderer_dispose;
 	gobject_class->finalize = gcr_key_renderer_finalize;

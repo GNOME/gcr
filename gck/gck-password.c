@@ -64,12 +64,12 @@ struct _GckPasswordPrivate {
 	gpointer token_or_key;
 };
 
-G_DEFINE_TYPE (GckPassword, gck_password, G_TYPE_TLS_PASSWORD);
+G_DEFINE_TYPE_WITH_PRIVATE (GckPassword, gck_password, G_TYPE_TLS_PASSWORD);
 
 static void
 gck_password_init (GckPassword *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCK_TYPE_PASSWORD, GckPasswordPrivate);
+	self->pv = gck_password_get_instance_private (self);
 }
 
 static void
@@ -189,8 +189,6 @@ gck_password_class_init (GckPasswordClass *klass)
 	g_object_class_install_property (gobject_class, PROP_KEY,
 		g_param_spec_object ("key", "Object", "PKCS11 Key Object",
 		                     GCK_TYPE_OBJECT, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-
-	g_type_class_add_private (gobject_class, sizeof (GckPasswordPrivate));
 }
 
 /**

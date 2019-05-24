@@ -91,12 +91,12 @@ static GQuark QUARK_IMPORTER = 0;
 #error Port this class to derive from GtkMenuButton during 4.x ABI bump
 #endif
 
-G_DEFINE_TYPE (GcrImportButton, gcr_import_button, GTK_TYPE_BUTTON);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrImportButton, gcr_import_button, GTK_TYPE_BUTTON);
 
 static void
 gcr_import_button_init (GcrImportButton *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_IMPORT_BUTTON, GcrImportButtonPrivate);
+	self->pv = gcr_import_button_get_instance_private (self);
 	self->pv->cancellable = g_cancellable_new ();
 	self->pv->label = gtk_label_new ("");
 }
@@ -523,8 +523,6 @@ gcr_import_button_class_init (GcrImportButtonClass *klass)
 	                                  G_TYPE_NONE, 2, G_TYPE_OBJECT, G_TYPE_ERROR);
 
 	QUARK_IMPORTER = g_quark_from_static_string ("gcr-import-button-importer");
-
-	g_type_class_add_private (klass, sizeof (GcrImportButtonPrivate));
 }
 
 /**

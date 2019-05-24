@@ -92,7 +92,7 @@ static void egg_image_menu_item_screen_changed       (GtkWidget       *widget,
 
 static void egg_image_menu_item_recalculate          (EggImageMenuItem *image_menu_item);
 
-G_DEFINE_TYPE (EggImageMenuItem, egg_image_menu_item, GTK_TYPE_MENU_ITEM);
+G_DEFINE_TYPE_WITH_PRIVATE (EggImageMenuItem, egg_image_menu_item, GTK_TYPE_MENU_ITEM);
 
 static void
 egg_image_menu_item_class_init (EggImageMenuItemClass *klass)
@@ -137,8 +137,6 @@ egg_image_menu_item_class_init (EggImageMenuItemClass *klass)
                                                          "Whether the image will always be shown",
                                                          FALSE,
                                                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_CONSTRUCT));
-
-  g_type_class_add_private (gobject_class, sizeof (EggImageMenuItemPrivate));
 }
 
 static void
@@ -146,7 +144,7 @@ egg_image_menu_item_init (EggImageMenuItem *image_menu_item)
 {
   EggImageMenuItemPrivate *priv;
 
-  image_menu_item->priv = G_TYPE_INSTANCE_GET_PRIVATE (image_menu_item, EGG_TYPE_IMAGE_MENU_ITEM, EggImageMenuItemPrivate);
+  image_menu_item->priv = egg_image_menu_item_get_instance_private (image_menu_item);
   priv = image_menu_item->priv;
 
   priv->image = NULL;

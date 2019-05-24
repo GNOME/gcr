@@ -74,7 +74,7 @@ struct _GckObjectPrivate {
 	CK_OBJECT_HANDLE handle;
 };
 
-G_DEFINE_TYPE (GckObject, gck_object, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE (GckObject, gck_object, G_TYPE_OBJECT);
 
 /* ----------------------------------------------------------------------------
  * OBJECT
@@ -83,7 +83,7 @@ G_DEFINE_TYPE (GckObject, gck_object, G_TYPE_OBJECT);
 static void
 gck_object_init (GckObject *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCK_TYPE_OBJECT, GckObjectPrivate);
+	self->pv = gck_object_get_instance_private (self);
 }
 
 static void
@@ -192,8 +192,6 @@ gck_object_class_init (GckObjectClass *klass)
 	g_object_class_install_property (gobject_class, PROP_SESSION,
 		g_param_spec_object ("session", "session", "PKCS11 Session to make calls on",
 		                     GCK_TYPE_SESSION, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-
-	g_type_class_add_private (klass, sizeof (GckObjectPrivate));
 }
 
 /* ----------------------------------------------------------------------------

@@ -62,6 +62,7 @@ struct _GcrSimpleCertificatePrivate {
 static void gcr_simple_certificate_iface_init (GcrCertificateIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrSimpleCertificate, gcr_simple_certificate, G_TYPE_OBJECT,
+	G_ADD_PRIVATE (GcrSimpleCertificate);
 	GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE ();
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_CERTIFICATE, gcr_simple_certificate_iface_init);
 );
@@ -73,7 +74,7 @@ G_DEFINE_TYPE_WITH_CODE (GcrSimpleCertificate, gcr_simple_certificate, G_TYPE_OB
 static void
 gcr_simple_certificate_init (GcrSimpleCertificate *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_SIMPLE_CERTIFICATE, GcrSimpleCertificatePrivate);
+	self->pv = gcr_simple_certificate_get_instance_private (self);
 }
 
 static void
@@ -96,8 +97,6 @@ gcr_simple_certificate_class_init (GcrSimpleCertificateClass *klass)
 
 	gobject_class->finalize = gcr_simple_certificate_real_finalize;
 	gobject_class->get_property = gcr_certificate_mixin_get_property;
-
-	g_type_class_add_private (gobject_class, sizeof (GcrSimpleCertificatePrivate));
 
 	gcr_certificate_mixin_class_init (gobject_class);
 	_gcr_initialize_library ();

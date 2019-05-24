@@ -41,14 +41,14 @@ struct _GcrFailureRendererPrivate {
 static void gcr_renderer_iface_init (GcrRendererIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrFailureRenderer, gcr_failure_renderer, G_TYPE_OBJECT,
+	G_ADD_PRIVATE (GcrFailureRenderer);
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_RENDERER, gcr_renderer_iface_init);
 );
 
 static void
 gcr_failure_renderer_init (GcrFailureRenderer *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_FAILURE_RENDERER,
-	                                         GcrFailureRendererPrivate));
+	self->pv = gcr_failure_renderer_get_instance_private (self);
 }
 
 static void
@@ -110,8 +110,6 @@ static void
 gcr_failure_renderer_class_init (GcrFailureRendererClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
-	g_type_class_add_private (klass, sizeof (GcrFailureRendererPrivate));
 
 	gobject_class->finalize = gcr_failure_renderer_finalize;
 	gobject_class->set_property = gcr_failure_renderer_set_property;

@@ -76,7 +76,7 @@ struct _GcrKeyWidgetPrivate {
 	GcrKeyRenderer *renderer;
 };
 
-G_DEFINE_TYPE (GcrKeyWidget, gcr_key_widget, GTK_TYPE_BIN);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrKeyWidget, gcr_key_widget, GTK_TYPE_BIN);
 
 /* -----------------------------------------------------------------------------
  * OBJECT
@@ -103,7 +103,7 @@ gcr_key_widget_constructor (GType type, guint n_props, GObjectConstructParam *pr
 static void
 gcr_key_widget_init (GcrKeyWidget *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_KEY_WIDGET, GcrKeyWidgetPrivate));
+	self->pv = gcr_key_widget_get_instance_private (self);
 	self->pv->renderer = gcr_key_renderer_new (NULL, NULL);
 }
 
@@ -160,7 +160,6 @@ gcr_key_widget_class_init (GcrKeyWidgetClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
 	gcr_key_widget_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (GcrKeyWidgetPrivate));
 
 	gobject_class->constructor = gcr_key_widget_constructor;
 	gobject_class->finalize = gcr_key_widget_finalize;

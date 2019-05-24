@@ -132,6 +132,7 @@ static void     perform_init_async                     (GcrSystemPrompt *self,
                                                         GSimpleAsyncResult *res);
 
 G_DEFINE_TYPE_WITH_CODE (GcrSystemPrompt, gcr_system_prompt, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GcrSystemPrompt);
                          G_IMPLEMENT_INTERFACE (GCR_TYPE_PROMPT, gcr_system_prompt_prompt_iface);
                          G_IMPLEMENT_INTERFACE (G_TYPE_INITABLE, gcr_system_prompt_initable_iface);
                          G_IMPLEMENT_INTERFACE (G_TYPE_ASYNC_INITABLE, gcr_system_prompt_async_initable_iface);
@@ -198,8 +199,7 @@ call_closure_new (GCancellable *cancellable)
 static void
 gcr_system_prompt_init (GcrSystemPrompt *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_SYSTEM_PROMPT,
-	                                        GcrSystemPromptPrivate);
+	self->pv = gcr_system_prompt_get_instance_private (self);
 
 	self->pv->timeout_seconds = -1;
 	self->pv->properties = g_hash_table_new_full (g_direct_hash, g_direct_equal,
@@ -553,8 +553,6 @@ gcr_system_prompt_class_init (GcrSystemPromptClass *klass)
 	gobject_class->set_property = gcr_system_prompt_set_property;
 	gobject_class->dispose = gcr_system_prompt_dispose;
 	gobject_class->finalize = gcr_system_prompt_finalize;
-
-	g_type_class_add_private (gobject_class, sizeof (GcrSystemPromptPrivate));
 
 	/**
 	 * GcrSystemPrompt:bus-name:

@@ -36,6 +36,7 @@ static void _gcr_memory_icon_iface_icon (GIconIface *iface);
 static void _gcr_memory_icon_iface_loadable_icon (GLoadableIconIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrMemoryIcon, _gcr_memory_icon, G_TYPE_OBJECT,
+	G_ADD_PRIVATE (GcrMemoryIcon);
 	G_IMPLEMENT_INTERFACE (G_TYPE_ICON, _gcr_memory_icon_iface_icon);
 	G_IMPLEMENT_INTERFACE (G_TYPE_LOADABLE_ICON, _gcr_memory_icon_iface_loadable_icon);
 );
@@ -44,7 +45,7 @@ G_DEFINE_TYPE_WITH_CODE (GcrMemoryIcon, _gcr_memory_icon, G_TYPE_OBJECT,
 static void
 _gcr_memory_icon_init (GcrMemoryIcon *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_MEMORY_ICON, GcrMemoryIconPrivate));
+	self->pv = _gcr_memory_icon_get_instance_private (self);
 }
 
 static void
@@ -63,8 +64,6 @@ static void
 _gcr_memory_icon_class_init (GcrMemoryIconClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
-	g_type_class_add_private (klass, sizeof (GcrMemoryIconPrivate));
 
 	gobject_class->finalize = _gcr_memory_icon_finalize;
 }

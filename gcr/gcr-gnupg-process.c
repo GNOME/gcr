@@ -108,13 +108,13 @@ struct _GcrGnupgProcessPrivate {
 static void _gcr_gnupg_process_init_async (GAsyncResultIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrGnupgProcess, _gcr_gnupg_process, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GcrGnupgProcess);
                          G_IMPLEMENT_INTERFACE (G_TYPE_ASYNC_RESULT, _gcr_gnupg_process_init_async));
 
 static void
 _gcr_gnupg_process_init (GcrGnupgProcess *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_GNUPG_PROCESS,
-	                                        GcrGnupgProcessPrivate);
+	self->pv = _gcr_gnupg_process_get_instance_private (self);
 }
 
 static void
@@ -292,8 +292,6 @@ _gcr_gnupg_process_class_init (GcrGnupgProcessClass *klass)
 	           G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GcrGnupgProcessClass, status_record),
 	           NULL, NULL, _gcr_marshal_VOID__BOXED,
 	           G_TYPE_NONE, 1, GCR_TYPE_RECORD);
-
-	g_type_class_add_private (gobject_class, sizeof (GcrGnupgProcessPrivate));
 }
 
 static gpointer

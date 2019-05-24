@@ -35,7 +35,7 @@ struct _GcrViewerWindowPrivate {
 	GcrImportButton *import;
 };
 
-G_DEFINE_TYPE (GcrViewerWindow, gcr_viewer_window, GTK_TYPE_WINDOW);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrViewerWindow, gcr_viewer_window, GTK_TYPE_WINDOW);
 
 static void
 on_viewer_renderer_added (GcrViewerWidget *viewer,
@@ -50,8 +50,7 @@ on_viewer_renderer_added (GcrViewerWidget *viewer,
 static void
 gcr_viewer_window_init (GcrViewerWindow *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_VIEWER_WINDOW,
-	                                        GcrViewerWindowPrivate);
+	self->pv = gcr_viewer_window_get_instance_private (self);
 }
 
 static void
@@ -154,8 +153,6 @@ gcr_viewer_window_class_init (GcrViewerWindowClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
 	gobject_class->constructed = gcr_viewer_window_constructed;
-
-	g_type_class_add_private (klass, sizeof (GcrViewerWindow));
 }
 
 /**

@@ -73,6 +73,7 @@ static void gcr_renderer_iface_init (GcrRendererIface *iface);
 static void gcr_renderer_certificate_iface_init (GcrCertificateIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrCertificateRenderer, gcr_certificate_renderer, G_TYPE_OBJECT,
+	G_ADD_PRIVATE (GcrCertificateRenderer);
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_RENDERER, gcr_renderer_iface_init);
 	GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE ();
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_CERTIFICATE, gcr_renderer_certificate_iface_init);
@@ -328,7 +329,7 @@ on_certificate_export (GtkMenuItem *menuitem, gpointer user_data)
 static void
 gcr_certificate_renderer_init (GcrCertificateRenderer *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_CERTIFICATE_RENDERER, GcrCertificateRendererPrivate));
+	self->pv = gcr_certificate_renderer_get_instance_private (self);
 }
 
 static void
@@ -424,7 +425,6 @@ gcr_certificate_renderer_class_init (GcrCertificateRendererClass *klass)
 	GckBuilder builder = GCK_BUILDER_INIT;
 
 	gcr_certificate_renderer_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (GcrCertificateRendererPrivate));
 
 	gobject_class->dispose = gcr_certificate_renderer_dispose;
 	gobject_class->finalize = gcr_certificate_renderer_finalize;

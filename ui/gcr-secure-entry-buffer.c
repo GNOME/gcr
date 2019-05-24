@@ -71,7 +71,7 @@ struct _GcrSecureEntryBufferPrivate
 	guint text_chars;
 };
 
-G_DEFINE_TYPE (GcrSecureEntryBuffer, gcr_secure_entry_buffer, GTK_TYPE_ENTRY_BUFFER);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrSecureEntryBuffer, gcr_secure_entry_buffer, GTK_TYPE_ENTRY_BUFFER);
 
 static const gchar *
 gcr_secure_entry_buffer_real_get_text (GtkEntryBuffer *buffer,
@@ -176,7 +176,7 @@ static void
 gcr_secure_entry_buffer_init (GcrSecureEntryBuffer *self)
 {
 	GcrSecureEntryBufferPrivate *pv;
-	pv = self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_SECURE_ENTRY_BUFFER, GcrSecureEntryBufferPrivate);
+	pv = self->pv = gcr_secure_entry_buffer_get_instance_private (self);
 
 	pv->text = NULL;
 	pv->text_chars = 0;
@@ -212,8 +212,6 @@ gcr_secure_entry_buffer_class_init (GcrSecureEntryBufferClass *klass)
 	buffer_class->get_length = gcr_secure_entry_buffer_real_get_length;
 	buffer_class->insert_text = gcr_secure_entry_buffer_real_insert_text;
 	buffer_class->delete_text = gcr_secure_entry_buffer_real_delete_text;
-
-	g_type_class_add_private (gobject_class, sizeof (GcrSecureEntryBufferPrivate));
 }
 
 /**

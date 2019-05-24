@@ -101,7 +101,7 @@ struct _GcrSecretExchangePrivate {
 	gsize n_secret;
 };
 
-G_DEFINE_TYPE (GcrSecretExchange, gcr_secret_exchange, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrSecretExchange, gcr_secret_exchange, G_TYPE_OBJECT);
 
 static void
 key_file_set_base64 (GKeyFile *key_file, const gchar *section,
@@ -136,8 +136,7 @@ key_file_get_base64 (GKeyFile *key_file, const gchar *section,
 static void
 gcr_secret_exchange_init (GcrSecretExchange *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_SECRET_EXCHANGE,
-	                                        GcrSecretExchangePrivate);
+	self->pv = gcr_secret_exchange_get_instance_private (self);
 }
 
 
@@ -856,8 +855,6 @@ gcr_secret_exchange_class_init (GcrSecretExchangeClass *klass)
 	klass->derive_transport_key = gcr_secret_exchange_default_derive_transport_key;
 	klass->decrypt_transport_data = gcr_secret_exchange_default_decrypt_transport_data;
 	klass->encrypt_transport_data = gcr_secret_exchange_default_encrypt_transport_data;
-
-	g_type_class_add_private (gobject_class, sizeof (GcrSecretExchangePrivate));
 
 	egg_libgcrypt_initialize ();
 

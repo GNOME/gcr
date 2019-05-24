@@ -100,7 +100,7 @@ struct _GckModulePrivate {
 	gint finalized;
 };
 
-G_DEFINE_TYPE (GckModule, gck_module, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE (GckModule, gck_module, G_TYPE_OBJECT);
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
@@ -123,7 +123,7 @@ gck_module_real_authenticate_object (GckModule *module, GckObject *object, gchar
 static void
 gck_module_init (GckModule *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCK_TYPE_MODULE, GckModulePrivate);
+	self->pv = gck_module_get_instance_private (self);
 }
 
 static void
@@ -269,8 +269,6 @@ gck_module_class_init (GckModuleClass *klass)
 			G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GckModuleClass, authenticate_object),
 			g_signal_accumulator_true_handled, NULL, _gck_marshal_BOOLEAN__OBJECT_STRING_POINTER,
 			G_TYPE_BOOLEAN, 3, GCK_TYPE_OBJECT, G_TYPE_STRING, G_TYPE_POINTER);
-
-	g_type_class_add_private (gobject_class, sizeof (GckModulePrivate));
 }
 
 GType

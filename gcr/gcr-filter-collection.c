@@ -77,6 +77,7 @@ struct _GcrFilterCollectionPrivate {
 static void       gcr_filter_collection_iface       (GcrCollectionIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrFilterCollection, gcr_filter_collection, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GcrFilterCollection);
                          G_IMPLEMENT_INTERFACE (GCR_TYPE_COLLECTION, gcr_filter_collection_iface));
 
 static void
@@ -134,7 +135,7 @@ on_collection_removed (GcrCollection *collection,
 static void
 gcr_filter_collection_init (GcrFilterCollection *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_FILTER_COLLECTION, GcrFilterCollectionPrivate);
+	self->pv = gcr_filter_collection_get_instance_private (self);
 	self->pv->items = g_hash_table_new_full (g_direct_hash, g_direct_equal, g_object_unref, NULL);
 }
 
@@ -211,8 +212,6 @@ gcr_filter_collection_class_init (GcrFilterCollectionClass *klass)
 	gobject_class->get_property = gcr_filter_collection_get_property;
 	gobject_class->set_property = gcr_filter_collection_set_property;
 	gobject_class->finalize = gcr_filter_collection_finalize;
-
-	g_type_class_add_private (gobject_class, sizeof (GcrFilterCollectionPrivate));
 
 	g_object_class_install_property (gobject_class, PROP_UNDERLYING,
 	            g_param_spec_object ("underlying", "Underlying", "Underlying collection",

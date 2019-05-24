@@ -100,6 +100,7 @@ static void    gck_session_initable_iface        (GInitableIface *iface);
 static void    gck_session_async_initable_iface  (GAsyncInitableIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GckSession, gck_session, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GckSession);
                          G_IMPLEMENT_INTERFACE (G_TYPE_INITABLE, gck_session_initable_iface);
                          G_IMPLEMENT_INTERFACE (G_TYPE_ASYNC_INITABLE, gck_session_async_initable_iface);
 );
@@ -138,7 +139,7 @@ gck_session_real_discard_handle (GckSession *self, CK_OBJECT_HANDLE handle)
 static void
 gck_session_init (GckSession *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCK_TYPE_SESSION, GckSessionPrivate);
+	self->pv = gck_session_get_instance_private (self);
 	self->pv->mutex = g_new0 (GMutex, 1);
 	g_mutex_init (self->pv->mutex);
 }
@@ -361,8 +362,6 @@ gck_session_class_init (GckSessionClass *klass)
 	                G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GckSessionClass, discard_handle),
 			g_signal_accumulator_true_handled, NULL,
 			_gck_marshal_BOOLEAN__ULONG, G_TYPE_BOOLEAN, 1, G_TYPE_ULONG);
-
-	g_type_class_add_private (klass, sizeof (GckSessionPrivate));
 }
 
 typedef struct OpenSession {

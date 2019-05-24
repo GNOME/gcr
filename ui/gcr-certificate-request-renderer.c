@@ -64,6 +64,7 @@ struct _GcrCertificateRequestRendererPrivate {
 static void     _gcr_certificate_request_renderer_iface    (GcrRendererIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrCertificateRequestRenderer, _gcr_certificate_request_renderer, G_TYPE_OBJECT,
+	G_ADD_PRIVATE (GcrCertificateRequestRenderer);
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_RENDERER, _gcr_certificate_request_renderer_iface);
 );
 
@@ -97,8 +98,7 @@ calculate_label (GcrCertificateRequestRenderer *self)
 static void
 _gcr_certificate_request_renderer_init (GcrCertificateRequestRenderer *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_CERTIFICATE_REQUEST_RENDERER,
-	                                         GcrCertificateRequestRendererPrivate));
+	self->pv = _gcr_certificate_request_renderer_get_instance_private (self);
 }
 
 static void
@@ -168,8 +168,6 @@ _gcr_certificate_request_renderer_class_init (GcrCertificateRequestRendererClass
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GckBuilder builder = GCK_BUILDER_INIT;
-
-	g_type_class_add_private (klass, sizeof (GcrCertificateRequestRendererPrivate));
 
 	gobject_class->finalize = _gcr_certificate_request_renderer_finalize;
 	gobject_class->set_property = _gcr_certificate_request_renderer_set_property;

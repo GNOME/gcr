@@ -57,6 +57,7 @@ static guint signals[LAST_SIGNAL] = { 0 };
 static void gcr_renderer_iface_init (GcrRendererIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrUnlockRenderer, _gcr_unlock_renderer, GTK_TYPE_BIN,
+	G_ADD_PRIVATE (GcrUnlockRenderer);
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_RENDERER, gcr_renderer_iface_init);
 );
 
@@ -108,8 +109,7 @@ _gcr_unlock_renderer_init (GcrUnlockRenderer *self)
 	GtkWidget *button;
 	GtkEntryBuffer *buffer;
 
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_UNLOCK_RENDERER,
-	                                         GcrUnlockRendererPrivate));
+	self->pv = _gcr_unlock_renderer_get_instance_private (self);
 
 	box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
 
@@ -199,8 +199,6 @@ static void
 _gcr_unlock_renderer_class_init (GcrUnlockRendererClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
-	g_type_class_add_private (klass, sizeof (GcrUnlockRendererPrivate));
 
 	gobject_class->finalize = _gcr_unlock_renderer_finalize;
 	gobject_class->set_property = _gcr_unlock_renderer_set_property;

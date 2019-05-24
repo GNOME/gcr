@@ -69,7 +69,7 @@ struct _GcrCertificateWidgetPrivate {
 	GcrCertificateRenderer *renderer;
 };
 
-G_DEFINE_TYPE (GcrCertificateWidget, gcr_certificate_widget, GTK_TYPE_BIN);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrCertificateWidget, gcr_certificate_widget, GTK_TYPE_BIN);
 
 /* -----------------------------------------------------------------------------
  * OBJECT
@@ -96,7 +96,7 @@ gcr_certificate_widget_constructor (GType type, guint n_props, GObjectConstructP
 static void
 gcr_certificate_widget_init (GcrCertificateWidget *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_CERTIFICATE_WIDGET, GcrCertificateWidgetPrivate));
+	self->pv = gcr_certificate_widget_get_instance_private (self);
 	self->pv->renderer = gcr_certificate_renderer_new (NULL);
 }
 
@@ -159,7 +159,6 @@ gcr_certificate_widget_class_init (GcrCertificateWidgetClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
 	gcr_certificate_widget_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (GcrCertificateWidgetPrivate));
 
 	gobject_class->constructor = gcr_certificate_widget_constructor;
 	gobject_class->finalize = gcr_certificate_widget_finalize;

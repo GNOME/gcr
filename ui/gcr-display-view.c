@@ -29,9 +29,6 @@
 
 static void _gcr_display_view_viewer_iface (GcrViewerIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (GcrDisplayView, _gcr_display_view, GTK_TYPE_TEXT_VIEW,
-                         G_IMPLEMENT_INTERFACE (GCR_TYPE_VIEWER, _gcr_display_view_viewer_iface));
-
 #define ZWSP "\342\200\213"
 #define NORMAL_MARGIN 10
 #define FIELD_MARGIN 17
@@ -76,6 +73,10 @@ struct _GcrDisplayViewPrivate {
 	gint minimal_height;
 	gint natural_height;
 };
+
+G_DEFINE_TYPE_WITH_CODE (GcrDisplayView, _gcr_display_view, GTK_TYPE_TEXT_VIEW,
+                         G_ADD_PRIVATE (GcrDisplayView);
+                         G_IMPLEMENT_INTERFACE (GCR_TYPE_VIEWER, _gcr_display_view_viewer_iface));
 
 /* -----------------------------------------------------------------------------
  * INTERNAL
@@ -579,7 +580,7 @@ _gcr_display_view_constructor (GType type, guint n_props, GObjectConstructParam 
 static void
 _gcr_display_view_init (GcrDisplayView *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_DISPLAY_VIEW, GcrDisplayViewPrivate));
+	self->pv = _gcr_display_view_get_instance_private (self);
 	self->pv->items = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, destroy_display_item);
 	self->pv->renderers = g_ptr_array_new_with_free_func (g_object_unref);
 }
@@ -765,7 +766,6 @@ _gcr_display_view_class_init (GcrDisplayViewClass *klass)
 	GtkTextViewClass *text_view_class = GTK_TEXT_VIEW_CLASS (klass);
 
 	_gcr_display_view_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (GcrDisplayViewPrivate));
 
 	gobject_class->constructor = _gcr_display_view_constructor;
 	gobject_class->dispose = _gcr_display_view_dispose;

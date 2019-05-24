@@ -63,6 +63,7 @@ static void _gcr_certificate_exporter_async_result_init (GAsyncResultIface *ifac
 static void write_to_outputstream (GcrCertificateExporter *self, GOutputStream *os);
 
 G_DEFINE_TYPE_WITH_CODE (GcrCertificateExporter, _gcr_certificate_exporter, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GcrCertificateExporter);
                          G_IMPLEMENT_INTERFACE (G_TYPE_ASYNC_RESULT, _gcr_certificate_exporter_async_result_init));
 
 typedef void (*PrepareDataFunc) (GcrCertificateExporter *self);
@@ -350,8 +351,7 @@ exporter_display_chooser (GcrCertificateExporter *self)
 static void
 _gcr_certificate_exporter_init (GcrCertificateExporter *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_CERTIFICATE_EXPORTER,
-	                                         GcrCertificateExporterPrivate));
+	self->pv = _gcr_certificate_exporter_get_instance_private (self);
 }
 
 static void
@@ -448,7 +448,6 @@ _gcr_certificate_exporter_class_init (GcrCertificateExporterClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
 	_gcr_certificate_exporter_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (GcrCertificateExporterPrivate));
 
 	gobject_class->dispose = _gcr_certificate_exporter_dispose;
 	gobject_class->finalize = _gcr_certificate_exporter_finalize;

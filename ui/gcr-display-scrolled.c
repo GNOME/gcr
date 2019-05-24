@@ -25,12 +25,13 @@
 
 static void _gcr_display_scrolled_viewer_iface (GcrViewerIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (GcrDisplayScrolled, _gcr_display_scrolled, GTK_TYPE_SCROLLED_WINDOW,
-                         G_IMPLEMENT_INTERFACE (GCR_TYPE_VIEWER, _gcr_display_scrolled_viewer_iface));
-
 struct _GcrDisplayScrolledPrivate {
 	GcrViewer *internal;
 };
+
+G_DEFINE_TYPE_WITH_CODE (GcrDisplayScrolled, _gcr_display_scrolled, GTK_TYPE_SCROLLED_WINDOW,
+                         G_ADD_PRIVATE (GcrDisplayScrolled);
+                         G_IMPLEMENT_INTERFACE (GCR_TYPE_VIEWER, _gcr_display_scrolled_viewer_iface));
 
 /* -----------------------------------------------------------------------------
  * INTERNAL
@@ -43,7 +44,7 @@ struct _GcrDisplayScrolledPrivate {
 static void
 _gcr_display_scrolled_init (GcrDisplayScrolled *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_DISPLAY_SCROLLED, GcrDisplayScrolledPrivate));
+	self->pv = _gcr_display_scrolled_get_instance_private (self);
 	self->pv->internal = gcr_viewer_new ();
 }
 
@@ -112,8 +113,6 @@ _gcr_display_scrolled_class_init (GcrDisplayScrolledClass *klass)
 	widget_class->get_preferred_width = _gcr_display_scrolled_get_preferred_width;
 
 	object_class->constructed = _gcr_display_scrolled_constructed;
-
-	g_type_class_add_private (klass, sizeof (GcrDisplayScrolledPrivate));
 }
 
 static void

@@ -61,7 +61,7 @@ struct _GcrTreeSelectorPrivate {
 	GcrCollectionModel *model;
 };
 
-G_DEFINE_TYPE (GcrTreeSelector, gcr_tree_selector, GTK_TYPE_TREE_VIEW);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrTreeSelector, gcr_tree_selector, GTK_TYPE_TREE_VIEW);
 
 /* -----------------------------------------------------------------------------
  * INTERNAL
@@ -174,7 +174,7 @@ gcr_tree_selector_constructor (GType type, guint n_props, GObjectConstructParam 
 static void
 gcr_tree_selector_init (GcrTreeSelector *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_TREE_SELECTOR, GcrTreeSelectorPrivate);
+	self->pv = gcr_tree_selector_get_instance_private (self);
 }
 
 static void
@@ -255,8 +255,6 @@ gcr_tree_selector_class_init (GcrTreeSelectorClass *klass)
 	gobject_class->finalize = gcr_tree_selector_finalize;
 	gobject_class->set_property = gcr_tree_selector_set_property;
 	gobject_class->get_property = gcr_tree_selector_get_property;
-
-	g_type_class_add_private (gobject_class, sizeof (GcrTreeSelectorPrivate));
 
 	/**
 	 * GcrTreeSelector:collection:

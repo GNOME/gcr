@@ -120,6 +120,7 @@ static gboolean ungrab_keyboard                      (GtkWidget *win,
                                                       gpointer unused);
 
 G_DEFINE_TYPE_WITH_CODE (GcrPromptDialog, gcr_prompt_dialog, GTK_TYPE_DIALOG,
+                         G_ADD_PRIVATE (GcrPromptDialog);
                          G_IMPLEMENT_INTERFACE (GCR_TYPE_PROMPT, gcr_prompt_dialog_prompt_iface);
 );
 
@@ -163,8 +164,7 @@ update_transient_for (GcrPromptDialog *self)
 static void
 gcr_prompt_dialog_init (GcrPromptDialog *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_PROMPT_DIALOG,
-	                                        GcrPromptDialogPrivate);
+	self->pv = gcr_prompt_dialog_get_instance_private (self);
 
 	/*
 	 * This is a stupid hack to work around to help the window act like
@@ -761,8 +761,6 @@ gcr_prompt_dialog_class_init (GcrPromptDialogClass *klass)
 	gobject_class->finalize = gcr_prompt_dialog_finalize;
 
 	dialog_class->response = gcr_prompt_dialog_response;
-
-	g_type_class_add_private (gobject_class, sizeof (GcrPromptDialogPrivate));
 
 	g_object_class_override_property (gobject_class, PROP_MESSAGE, "message");
 

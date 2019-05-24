@@ -93,7 +93,7 @@ struct _GcrUnlockOptionsWidgetPrivate {
 	gchar *choice;
 };
 
-G_DEFINE_TYPE (GcrUnlockOptionsWidget, gcr_unlock_options_widget, GTK_TYPE_BIN);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrUnlockOptionsWidget, gcr_unlock_options_widget, GTK_TYPE_BIN);
 
 /* -----------------------------------------------------------------------------
  * INTERNAL
@@ -215,7 +215,7 @@ gcr_unlock_options_widget_constructor (GType type, guint n_props, GObjectConstru
 static void
 gcr_unlock_options_widget_init (GcrUnlockOptionsWidget *self)
 {
-	self->pv = (G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_UNLOCK_OPTIONS_WIDGET, GcrUnlockOptionsWidgetPrivate));
+	self->pv = gcr_unlock_options_widget_get_instance_private (self);
 	self->pv->builder = gtk_builder_new ();
 }
 
@@ -287,7 +287,6 @@ gcr_unlock_options_widget_class_init (GcrUnlockOptionsWidgetClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
 	gcr_unlock_options_widget_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (GcrUnlockOptionsWidgetPrivate));
 
 	gobject_class->constructor = gcr_unlock_options_widget_constructor;
 	gobject_class->dispose = gcr_unlock_options_widget_dispose;

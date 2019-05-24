@@ -36,13 +36,13 @@
 
 #include <string.h>
 
-G_DEFINE_TYPE (GcrLiveSearch, _gcr_live_search, GTK_TYPE_BOX)
-
 struct _GcrLiveSearchPrivate {
 	GtkWidget *search_entry;
 	GtkWidget *hook_widget;
 	GPtrArray *stripped_words;
 };
+
+G_DEFINE_TYPE_WITH_PRIVATE (GcrLiveSearch, _gcr_live_search, GTK_TYPE_BOX)
 
 enum {
 	PROP_0,
@@ -512,15 +512,12 @@ _gcr_live_search_class_init (GcrLiveSearchClass *klass)
 	                                  "The text of the live search entry",
 	                                  "", G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 	g_object_class_install_property (object_class, PROP_TEXT, param_spec);
-
-	g_type_class_add_private (klass, sizeof (GcrLiveSearchPrivate));
 }
 
 static void
 _gcr_live_search_init (GcrLiveSearch *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE ((self), GCR_TYPE_LIVE_SEARCH,
-	                                        GcrLiveSearchPrivate);
+	self->pv = _gcr_live_search_get_instance_private (self);
 
 	gtk_widget_set_no_show_all (GTK_WIDGET (self), TRUE);
 

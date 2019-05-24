@@ -134,6 +134,7 @@ static void gcr_collection_model_tree_model_init (GtkTreeModelIface *iface);
 static void gcr_collection_model_tree_sortable_init (GtkTreeSortableIface *iface);
 
 G_DEFINE_TYPE_EXTENDED (GcrCollectionModel, gcr_collection_model, G_TYPE_OBJECT, 0,
+                        G_ADD_PRIVATE (GcrCollectionModel);
                         G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_MODEL, gcr_collection_model_tree_model_init)
                         G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_SORTABLE, gcr_collection_model_tree_sortable_init)
 );
@@ -1136,7 +1137,7 @@ gcr_collection_model_tree_sortable_init (GtkTreeSortableIface *iface)
 static void
 gcr_collection_model_init (GcrCollectionModel *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_COLLECTION_MODEL, GcrCollectionModelPrivate);
+	self->pv = gcr_collection_model_get_instance_private (self);
 
 	self->pv->root_sequence = g_sequence_new (NULL);
 	self->pv->object_to_seq = g_hash_table_new (g_direct_hash, g_direct_equal);
@@ -1259,8 +1260,6 @@ gcr_collection_model_class_init (GcrCollectionModelClass *klass)
 	g_object_class_install_property (gobject_class, PROP_COLUMNS,
 		g_param_spec_pointer ("columns", "Columns", "Columns for the model",
 		                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-
-	g_type_class_add_private (klass, sizeof (GcrCollectionModelPrivate));
 }
 
 /**

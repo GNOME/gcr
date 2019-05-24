@@ -59,7 +59,7 @@ struct _GcrComboSelectorPrivate {
 	GcrCollectionModel *model;
 };
 
-G_DEFINE_TYPE (GcrComboSelector, gcr_combo_selector, GTK_TYPE_COMBO_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrComboSelector, gcr_combo_selector, GTK_TYPE_COMBO_BOX);
 
 /* -----------------------------------------------------------------------------
  * INTERNAL
@@ -102,7 +102,7 @@ gcr_combo_selector_constructor (GType type, guint n_props, GObjectConstructParam
 static void
 gcr_combo_selector_init (GcrComboSelector *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_COMBO_SELECTOR, GcrComboSelectorPrivate);
+	self->pv = gcr_combo_selector_get_instance_private (self);
 }
 
 static void
@@ -176,8 +176,6 @@ gcr_combo_selector_class_init (GcrComboSelectorClass *klass)
 	gobject_class->finalize = gcr_combo_selector_finalize;
 	gobject_class->set_property = gcr_combo_selector_set_property;
 	gobject_class->get_property = gcr_combo_selector_get_property;
-
-	g_type_class_add_private (gobject_class, sizeof (GcrComboSelectorPrivate));
 
 	/**
 	 * GcrComboSelector:collection:

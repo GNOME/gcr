@@ -169,7 +169,8 @@ gck_object_class_init (GckObjectClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_MODULE,
 		g_param_spec_object ("module", "Module", "PKCS11 Module",
-		                     GCK_TYPE_MODULE, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                     GCK_TYPE_MODULE,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckObject:handle:
@@ -178,7 +179,8 @@ gck_object_class_init (GckObjectClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_HANDLE,
 		g_param_spec_ulong ("handle", "Object Handle", "PKCS11 Object Handle",
-		                   0, G_MAXULONG, 0, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                   0, G_MAXULONG, 0,
+		                   G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckObject:session:
@@ -191,7 +193,8 @@ gck_object_class_init (GckObjectClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_SESSION,
 		g_param_spec_object ("session", "session", "PKCS11 Session to make calls on",
-		                     GCK_TYPE_SESSION, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                     GCK_TYPE_SESSION,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 /* ----------------------------------------------------------------------------

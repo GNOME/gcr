@@ -69,6 +69,7 @@ struct _GcrPkcs11CertificatePrivate {
 
 static void gcr_certificate_iface (GcrCertificateIface *iface);
 G_DEFINE_TYPE_WITH_CODE (GcrPkcs11Certificate, gcr_pkcs11_certificate, GCK_TYPE_OBJECT,
+	G_ADD_PRIVATE (GcrPkcs11Certificate);
 	GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE ();
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_CERTIFICATE, gcr_certificate_iface);
 );
@@ -222,7 +223,7 @@ gcr_pkcs11_certificate_constructor (GType type, guint n_props, GObjectConstructP
 static void
 gcr_pkcs11_certificate_init (GcrPkcs11Certificate *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_PKCS11_CERTIFICATE, GcrPkcs11CertificatePrivate);
+	self->pv = gcr_pkcs11_certificate_get_instance_private (self);
 }
 
 static void
@@ -287,8 +288,6 @@ gcr_pkcs11_certificate_class_init (GcrPkcs11CertificateClass *klass)
 	g_object_class_install_property (gobject_class, PROP_ATTRIBUTES,
 	         g_param_spec_boxed ("attributes", "Attributes", "The data displayed in the renderer",
 	                             GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-
-	g_type_class_add_private (gobject_class, sizeof (GcrPkcs11CertificatePrivate));
 
 	gcr_certificate_mixin_class_init (gobject_class);
 	_gcr_initialize_library ();

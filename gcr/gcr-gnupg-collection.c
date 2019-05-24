@@ -49,6 +49,7 @@ struct _GcrGnupgCollectionPrivate {
 static void _gcr_collection_iface (GcrCollectionIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrGnupgCollection, _gcr_gnupg_collection, G_TYPE_OBJECT,
+	G_ADD_PRIVATE (GcrGnupgCollection);
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_COLLECTION, _gcr_collection_iface)
 );
 
@@ -56,8 +57,7 @@ G_DEFINE_TYPE_WITH_CODE (GcrGnupgCollection, _gcr_gnupg_collection, G_TYPE_OBJEC
 static void
 _gcr_gnupg_collection_init (GcrGnupgCollection *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_GNUPG_COLLECTION,
-	                                        GcrGnupgCollectionPrivate);
+	self->pv = _gcr_gnupg_collection_get_instance_private (self);
 
 	self->pv->items = g_hash_table_new_full (g_str_hash, g_str_equal,
 	                                         g_free, g_object_unref);
@@ -146,7 +146,6 @@ _gcr_gnupg_collection_class_init (GcrGnupgCollectionClass *klass)
 	           g_param_spec_string ("directory", "Directory", "Gnupg Directory",
 	                                NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
-	g_type_class_add_private (gobject_class, sizeof (GcrGnupgCollectionPrivate));
 	_gcr_initialize_library ();
 }
 

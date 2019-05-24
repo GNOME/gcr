@@ -58,6 +58,7 @@ struct _GcrUnionCollectionPrivate {
 static void      gcr_collection_iface       (GcrCollectionIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrUnionCollection, gcr_union_collection, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GcrUnionCollection);
                          G_IMPLEMENT_INTERFACE (GCR_TYPE_COLLECTION, gcr_collection_iface));
 
 static void
@@ -132,7 +133,7 @@ disconnect_from_collection (GcrUnionCollection *self,
 static void
 gcr_union_collection_init (GcrUnionCollection *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_UNION_COLLECTION, GcrUnionCollectionPrivate);
+	self->pv = gcr_union_collection_get_instance_private (self);
 	self->pv->items = g_hash_table_new_full (g_direct_hash, g_direct_equal,
 	                                         NULL, g_free);
 	self->pv->collections = g_hash_table_new_full (g_direct_hash, g_direct_equal,
@@ -175,7 +176,6 @@ gcr_union_collection_class_init (GcrUnionCollectionClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	gobject_class->dispose = gcr_union_collection_dispose;
 	gobject_class->finalize = gcr_union_collection_finalize;
-	g_type_class_add_private (gobject_class, sizeof (GcrUnionCollectionPrivate));
 }
 
 static guint

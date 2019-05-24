@@ -100,7 +100,7 @@ struct _GcrSystemPrompterPrivate {
 
 static guint signals[LAST_SIGNAL] = { 0, };
 
-G_DEFINE_TYPE (GcrSystemPrompter, gcr_system_prompter, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE (GcrSystemPrompter, gcr_system_prompter, G_TYPE_OBJECT);
 
 typedef struct {
 	const gchar *path;
@@ -257,8 +257,7 @@ unwatch_name (gpointer data)
 static void
 gcr_system_prompter_init (GcrSystemPrompter *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_SYSTEM_PROMPTER,
-	                                        GcrSystemPrompterPrivate);
+	self->pv = gcr_system_prompter_get_instance_private (self);
 	self->pv->callbacks = g_hash_table_new_full (callback_hash, callback_equal, callback_free, unwatch_name);
 	self->pv->active = g_hash_table_new_full (callback_hash, callback_equal, NULL, active_prompt_unref);
 }
@@ -376,8 +375,6 @@ gcr_system_prompter_class_init (GcrSystemPrompterClass *klass)
 	gobject_class->finalize = gcr_system_prompter_finalize;
 
 	klass->new_prompt = gcr_system_prompter_new_prompt;
-
-	g_type_class_add_private (gobject_class, sizeof (GcrSystemPrompterPrivate));
 
 	/**
 	 * GcrSystemPrompter:mode:

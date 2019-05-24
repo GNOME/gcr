@@ -48,13 +48,14 @@ struct _GcrGnupgImporterPrivate {
 static void gcr_gnupg_importer_iface (GcrImporterIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrGnupgImporter, _gcr_gnupg_importer, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GcrGnupgImporter);
                          G_IMPLEMENT_INTERFACE (GCR_TYPE_IMPORTER, gcr_gnupg_importer_iface);
 );
 
 static void
 _gcr_gnupg_importer_init (GcrGnupgImporter *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_GNUPG_IMPORTER, GcrGnupgImporterPrivate);
+	self->pv = _gcr_gnupg_importer_get_instance_private (self);
 	self->pv->packets = G_MEMORY_INPUT_STREAM (g_memory_input_stream_new ());
 	self->pv->imported = g_array_new (TRUE, TRUE, sizeof (gchar *));
 }
@@ -233,8 +234,6 @@ _gcr_gnupg_importer_class_init (GcrGnupgImporterClass *klass)
 	gobject_class->finalize = _gcr_gnupg_importer_finalize;
 	gobject_class->set_property = _gcr_gnupg_importer_set_property;
 	gobject_class->get_property = _gcr_gnupg_importer_get_property;
-
-	g_type_class_add_private (gobject_class, sizeof (GcrGnupgImporterPrivate));
 
 	g_object_class_override_property (gobject_class, PROP_LABEL, "label");
 	g_object_class_override_property (gobject_class, PROP_ICON, "icon");

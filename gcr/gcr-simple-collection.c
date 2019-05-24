@@ -55,6 +55,7 @@ struct _GcrSimpleCollectionPrivate {
 
 static void gcr_collection_iface (GcrCollectionIface *iface);
 G_DEFINE_TYPE_WITH_CODE (GcrSimpleCollection, gcr_simple_collection, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GcrSimpleCollection);
                          G_IMPLEMENT_INTERFACE (GCR_TYPE_COLLECTION, gcr_collection_iface));
 
 #define UNUSED_VALUE  GUINT_TO_POINTER (1)
@@ -66,7 +67,7 @@ G_DEFINE_TYPE_WITH_CODE (GcrSimpleCollection, gcr_simple_collection, G_TYPE_OBJE
 static void
 gcr_simple_collection_init (GcrSimpleCollection *self)
 {
-	self->pv = G_TYPE_INSTANCE_GET_PRIVATE (self, GCR_TYPE_SIMPLE_COLLECTION, GcrSimpleCollectionPrivate);
+	self->pv = gcr_simple_collection_get_instance_private (self);
 	self->pv->items = g_hash_table_new_full (g_direct_hash, g_direct_equal, g_object_unref, NULL);
 }
 
@@ -99,7 +100,6 @@ gcr_simple_collection_class_init (GcrSimpleCollectionClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	gobject_class->dispose = gcr_simple_collection_dispose;
 	gobject_class->finalize = gcr_simple_collection_finalize;
-	g_type_class_add_private (gobject_class, sizeof (GcrSimpleCollectionPrivate));
 }
 
 static guint

@@ -241,12 +241,14 @@ _gcr_gnupg_importer_class_init (GcrGnupgImporterClass *klass)
 	g_object_class_override_property (gobject_class, PROP_URI, "uri");
 
 	g_object_class_install_property (gobject_class, PROP_IMPORTED,
-	           g_param_spec_boxed ("imported", "Imported", "Fingerprints of imported keys",
-	                               G_TYPE_STRV, G_PARAM_READABLE));
+		g_param_spec_boxed ("imported", "Imported", "Fingerprints of imported keys",
+		                    G_TYPE_STRV,
+		                    G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_DIRECTORY,
-	           g_param_spec_string ("directory", "Directory", "Directory to import keys to",
-	                                NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		g_param_spec_string ("directory", "Directory", "Directory to import keys to",
+		                     NULL,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_GCR_GNUPG_RECORDS);
 	gcr_importer_register (GCR_TYPE_GNUPG_IMPORTER, gck_builder_end (&builder));

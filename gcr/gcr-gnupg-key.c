@@ -175,7 +175,7 @@ _gcr_gnupg_key_class_init (GcrGnupgKeyClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_PUBLIC_RECORDS,
 	         g_param_spec_boxed ("public-records", "Public Records", "Public Key Colon Records",
-	                             G_TYPE_PTR_ARRAY, G_PARAM_READWRITE));
+	                             G_TYPE_PTR_ARRAY, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgKey:secret-records:
@@ -185,7 +185,7 @@ _gcr_gnupg_key_class_init (GcrGnupgKeyClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_SECRET_RECORDS,
 	         g_param_spec_boxed ("secret-records", "Secret Records", "Secret Key Colon Records",
-	                             G_TYPE_PTR_ARRAY, G_PARAM_READWRITE));
+	                             G_TYPE_PTR_ARRAY, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgKey:keyid:
@@ -194,7 +194,7 @@ _gcr_gnupg_key_class_init (GcrGnupgKeyClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_KEYID,
 	         g_param_spec_string ("keyid", "Key ID", "Key identifier",
-	                              "", G_PARAM_READABLE));
+	                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgKey:label:
@@ -203,7 +203,7 @@ _gcr_gnupg_key_class_init (GcrGnupgKeyClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_LABEL,
 	         g_param_spec_string ("label", "Label", "Key label",
-	                              "", G_PARAM_READABLE));
+	                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgKey::description:
@@ -212,7 +212,7 @@ _gcr_gnupg_key_class_init (GcrGnupgKeyClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_DESCRIPTION,
 	         g_param_spec_string ("description", "Description", "Description of object type",
-	                              "", G_PARAM_READABLE));
+	                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgKey:markup:
@@ -221,7 +221,7 @@ _gcr_gnupg_key_class_init (GcrGnupgKeyClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_MARKUP,
 	         g_param_spec_string ("markup", "Markup", "Markup which describes key",
-	                              "", G_PARAM_READABLE));
+	                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgKey:short-keyid:
@@ -230,7 +230,7 @@ _gcr_gnupg_key_class_init (GcrGnupgKeyClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_SHORT_KEYID,
 	         g_param_spec_string ("short-keyid", "Short Key ID", "Display key identifier",
-	                              "", G_PARAM_READABLE));
+	                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrGnupgKey:icon:
@@ -239,7 +239,7 @@ _gcr_gnupg_key_class_init (GcrGnupgKeyClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_ICON,
 	         g_param_spec_object ("icon", "Icon", "Icon for this key",
-	                              G_TYPE_ICON, G_PARAM_READABLE));
+	                              G_TYPE_ICON, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 }
 
 /**

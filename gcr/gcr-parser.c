@@ -2440,7 +2440,8 @@ gcr_parser_class_init (GcrParserClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_PARSED_ATTRIBUTES,
 	           g_param_spec_boxed ("parsed-attributes", "Parsed Attributes", "Parsed PKCS#11 attributes",
-	                               GCK_TYPE_ATTRIBUTES, G_PARAM_READABLE));
+	                               GCK_TYPE_ATTRIBUTES,
+	                               G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrParser:parsed-label:
@@ -2450,7 +2451,8 @@ gcr_parser_class_init (GcrParserClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_PARSED_LABEL,
 	           g_param_spec_string ("parsed-label", "Parsed Label", "Parsed item label",
-	                                "", G_PARAM_READABLE));
+	                                "",
+	                                G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrParser:parsed-description:
@@ -2460,7 +2462,8 @@ gcr_parser_class_init (GcrParserClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_PARSED_DESCRIPTION,
 	           g_param_spec_string ("parsed-description", "Parsed Description", "Parsed item description",
-	                                "", G_PARAM_READABLE));
+	                                "",
+	                                G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrParser::authenticate:

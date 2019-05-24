@@ -714,16 +714,18 @@ _gcr_pkcs11_importer_class_init (GcrPkcs11ImporterClass *klass)
 	g_object_class_override_property (gobject_class, PROP_URI, "uri");
 
 	g_object_class_install_property (gobject_class, PROP_SLOT,
-	           g_param_spec_object ("slot", "Slot", "PKCS#11 slot to import data into",
-	                                GCK_TYPE_SLOT, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		g_param_spec_object ("slot", "Slot", "PKCS#11 slot to import data into",
+		                     GCK_TYPE_SLOT,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_IMPORTED,
-	           g_param_spec_boxed ("imported", "Imported", "Imported objects",
-	                               GCK_TYPE_LIST, G_PARAM_READABLE));
+		g_param_spec_boxed ("imported", "Imported", "Imported objects",
+		                    GCK_TYPE_LIST,
+		                    G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_QUEUED,
-	           g_param_spec_pointer ("queued", "Queued", "Queued attributes",
-	                                 G_PARAM_READABLE));
+		g_param_spec_pointer ("queued", "Queued", "Queued attributes",
+		                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
 	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);

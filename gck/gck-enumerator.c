@@ -666,7 +666,8 @@ gck_enumerator_class_init (GckEnumeratorClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_INTERACTION,
 		g_param_spec_object ("interaction", "Interaction", "Interaction asking for pins",
-		                     G_TYPE_TLS_INTERACTION, G_PARAM_READWRITE));
+		                     G_TYPE_TLS_INTERACTION,
+		                     G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckEnumerator:object-type: (skip)
@@ -676,7 +677,8 @@ gck_enumerator_class_init (GckEnumeratorClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_OBJECT_TYPE,
 		g_param_spec_gtype ("object-type", "Object Type", "Type of objects created",
-		                    GCK_TYPE_OBJECT, G_PARAM_READWRITE));
+		                    GCK_TYPE_OBJECT,
+		                    G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckEnumerator:chained:
@@ -685,8 +687,9 @@ gck_enumerator_class_init (GckEnumeratorClass *klass)
 	 * has enumerated all its objects.
 	 */
 	g_object_class_install_property (gobject_class, PROP_CHAINED,
-	            g_param_spec_object ("chained", "Chained", "Chained enumerator",
-	                                 GCK_TYPE_ENUMERATOR, G_PARAM_READWRITE));
+		g_param_spec_object ("chained", "Chained", "Chained enumerator",
+		                     GCK_TYPE_ENUMERATOR,
+		                     G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 static void

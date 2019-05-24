@@ -138,7 +138,8 @@ gck_slot_class_init (GckSlotClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_MODULE,
 		g_param_spec_object ("module", "Module", "PKCS11 Module",
-		                     GCK_TYPE_MODULE, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                     GCK_TYPE_MODULE,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckSlot:handle:
@@ -147,7 +148,8 @@ gck_slot_class_init (GckSlotClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_HANDLE,
 		g_param_spec_ulong ("handle", "Handle", "PKCS11 Slot ID",
-		                   0, G_MAXULONG, 0, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                   0, G_MAXULONG, 0,
+		                   G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 /* ----------------------------------------------------------------------------

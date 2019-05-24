@@ -156,7 +156,7 @@ _gck_interaction_class_init (GckInteractionClass *klass)
 
 	g_object_class_install_property (object_class, PROP_MODULE,
 		g_param_spec_object ("module", "Module", "PKCS11 Module",
-		                     GCK_TYPE_MODULE, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                     GCK_TYPE_MODULE, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 GTlsInteraction *

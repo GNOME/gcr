@@ -286,8 +286,9 @@ gck_session_class_init (GckSessionClass *klass)
 	 * The GckModule that this session is opened on.
 	 */
 	g_object_class_install_property (gobject_class, PROP_MODULE,
-	            g_param_spec_object ("module", "Module", "PKCS11 Module",
-	                                 GCK_TYPE_MODULE, G_PARAM_READABLE));
+		g_param_spec_object ("module", "Module", "PKCS11 Module",
+		                     GCK_TYPE_MODULE,
+		                     G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckSession:handle:
@@ -296,7 +297,8 @@ gck_session_class_init (GckSessionClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_HANDLE,
 		g_param_spec_ulong ("handle", "Session Handle", "PKCS11 Session Handle",
-		                    0, G_MAXULONG, 0, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                    0, G_MAXULONG, 0,
+		                    G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckSession:slot:
@@ -305,7 +307,8 @@ gck_session_class_init (GckSessionClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_SLOT,
 		g_param_spec_object ("slot", "Slot that this session uses", "PKCS11 Slot",
-		                     GCK_TYPE_SLOT, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                     GCK_TYPE_SLOT,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckSession:options:
@@ -315,7 +318,7 @@ gck_session_class_init (GckSessionClass *klass)
 	g_object_class_install_property (gobject_class, PROP_OPTIONS,
 		g_param_spec_flags ("options", "Session Options", "Session Options",
 		                    GCK_TYPE_SESSION_OPTIONS, GCK_SESSION_READ_ONLY,
-		                    G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                    G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckSession:interaction:
@@ -326,7 +329,8 @@ gck_session_class_init (GckSessionClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_INTERACTION,
 		g_param_spec_object ("interaction", "Interaction", "Interaction asking for pins",
-		                     G_TYPE_TLS_INTERACTION, G_PARAM_READWRITE));
+		                     G_TYPE_TLS_INTERACTION,
+		                     G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckSession:opening-flags:
@@ -334,8 +338,9 @@ gck_session_class_init (GckSessionClass *klass)
 	 * Raw PKCS\#11 flags used to open the PKCS\#11 session.
 	 */
 	g_object_class_install_property (gobject_class, PROP_OPENING_FLAGS,
-	             g_param_spec_ulong ("opening-flags", "Opening flags", "PKCS#11 open session flags",
-	                                 0, G_MAXULONG, 0, G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
+		g_param_spec_ulong ("opening-flags", "Opening flags", "PKCS#11 open session flags",
+		                    0, G_MAXULONG, 0,
+		                    G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckSession:app-data:
@@ -343,8 +348,8 @@ gck_session_class_init (GckSessionClass *klass)
 	 * Raw PKCS\#11 application data used to open the PKCS\#11 session.
 	 */
 	g_object_class_install_property (gobject_class, PROP_APP_DATA,
-	           g_param_spec_pointer ("app-data", "App data", "PKCS#11 application data",
-	                                 G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
+		g_param_spec_pointer ("app-data", "App data", "PKCS#11 application data",
+		                      G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckSession::discard-handle:

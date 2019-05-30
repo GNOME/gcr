@@ -190,9 +190,10 @@ gcr-ui-expected.abi: ui/gcr-ui.symbols
 	$(AM_V_GEN) cpp -P $< | sort > $@
 
 desktopdir = $(datadir)/applications
-desktop_in_in_files = ui/gcr-viewer.desktop.in.in ui/gcr-prompter.desktop.in.in
-desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
+desktop_in_files = ui/gcr-viewer.desktop.in ui/gcr-prompter.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+$(desktop_DATA): $(desktop_in_files)
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 bin_PROGRAMS = gcr-viewer
 

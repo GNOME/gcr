@@ -29,14 +29,14 @@ ui/gcr-gnupg-renderer.c
 ui/gcr-import-button.c
 ui/gcr-key-renderer.c
 ui/gcr-pkcs11-import-dialog.c
-[type: gettext/glade]ui/gcr-pkcs11-import-dialog.ui
+ui/gcr-pkcs11-import-dialog.ui
 ui/gcr-pkcs11-import-interaction.c
 ui/gcr-prompt-dialog.c
-ui/gcr-prompter.desktop.in.in
+ui/gcr-prompter.desktop.in
 ui/gcr-certificate-exporter.c
-[type: gettext/glade]ui/gcr-unlock-options-widget.ui
+ui/gcr-unlock-options-widget.ui
 ui/gcr-unlock-renderer.c
-ui/gcr-viewer.desktop.in.in
+ui/gcr-viewer.desktop.in
 ui/gcr-viewer-tool.c
 ui/gcr-viewer-widget.c
 ui/gcr-viewer-window.c

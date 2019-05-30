@@ -17,9 +17,7 @@ DISTCHECK_CONFIGURE_FLAGS = \
 	--with-pkcs11-modules=$(abs_srcdir)/$(top_distdir)/_inst/lib/
 
 DISTCLEANFILES = \
-	intltool-extract \
-	intltool-merge \
-	intltool-update
+	$(NULL)
 
 dist-hook:
 	@if test -d "$(srcdir)/.git"; \
@@ -109,9 +107,6 @@ CLEANFILES = \
 	$(pkgconfig_DATA)
 
 EXTRA_DIST = \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in \
 	HACKING \
 	build/valgrind \
 	$(VALGRIND_SUPPRESSIONS) \
@@ -147,8 +142,6 @@ SED_SUBST = sed \
 
 .desktop.in.in.desktop.in:
 	$(V_SED) $(SED_SUBST) $< > $@
-
-@INTLTOOL_DESKTOP_RULE@
 
 .service.in.service:
 	$(V_SED) $(SED_SUBST) $< > $@

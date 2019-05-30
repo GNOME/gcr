@@ -71,13 +71,13 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
-IT_PROG_INTLTOOL([0.35.0])
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 GETTEXT_PACKAGE=gcr
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [The gettext domain name])
 AC_SUBST(GETTEXT_PACKAGE)
-AM_GLIB_GNU_GETTEXT
 
 # -----------------------------------------------------------------------------
 # GLib and GTK+ stuff

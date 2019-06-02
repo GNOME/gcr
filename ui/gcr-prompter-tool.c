@@ -72,7 +72,7 @@ stop_timeout (void)
 
 static void
 on_prompter_prompting (GObject *obj,
-                       GParamSpec param,
+                       GParamSpec *param,
                        gpointer user_data)
 {
 	if (gcr_system_prompter_get_prompting (the_prompter))

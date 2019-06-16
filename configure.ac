@@ -421,6 +421,8 @@ gcr/gcr-version.h
 po/Makefile.in
 ui/gcr.pc
 ui/gcr-ui.pc
+ui/gcr-prompter.desktop.in
+ui/gcr-viewer.desktop.in
 ui/icons/16x16/Makefile
 ui/icons/22x22/Makefile
 ui/icons/24x24/Makefile

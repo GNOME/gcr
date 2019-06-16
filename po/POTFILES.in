@@ -32,11 +32,11 @@ ui/gcr-pkcs11-import-dialog.c
 ui/gcr-pkcs11-import-dialog.ui
 ui/gcr-pkcs11-import-interaction.c
 ui/gcr-prompt-dialog.c
-ui/gcr-prompter.desktop.in
+ui/gcr-prompter.desktop.in.in
 ui/gcr-certificate-exporter.c
 ui/gcr-unlock-options-widget.ui
 ui/gcr-unlock-renderer.c
-ui/gcr-viewer.desktop.in
+ui/gcr-viewer.desktop.in.in
 ui/gcr-viewer-tool.c
 ui/gcr-viewer-widget.c
 ui/gcr-viewer-window.c

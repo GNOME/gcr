@@ -189,13 +189,6 @@ pkgconfig_DATA += \
 gcr-ui-expected.abi: ui/gcr-ui.symbols
 	$(AM_V_GEN) cpp -P $< | sort > $@
 
-desktopdir = $(datadir)/applications
-desktop_in_in_files = ui/gcr-viewer.desktop.in.in ui/gcr-prompter.desktop.in.in
-desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-$(desktop_DATA): $(desktop_in_files)
-	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
-
 bin_PROGRAMS = gcr-viewer
 
 gcr_viewer_SOURCES = \
@@ -213,6 +206,12 @@ gcr_viewer_LDADD = \
 	$(GLIB_LIBS) \
 	$(GTK_LIBS)
 
+viewer_desktop_in_in = ui/gcr-viewer.desktop.in.in
+viewer_desktop_in = $(viewer_desktop_in_in:.desktop.in.in=.desktop.in)
+viewer_desktop = $(viewer_desktop_in:.desktop.in=.desktop)
+$(viewer_desktop): $(viewer_desktop_in)
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
+
 libexec_PROGRAMS += gcr-prompter
 
 gcr_prompter_SOURCES = \
@@ -229,12 +228,23 @@ gcr_prompter_LDADD = \
 	libgck-@GCK_MAJOR@.la \
 	$(GTK_LIBS)
 
+prompter_desktop_in_in = ui/gcr-prompter.desktop.in.in
+prompter_desktop_in = $(prompter_desktop_in_in:.desktop.in.in=.desktop.in)
+prompter_desktop = $(prompter_desktop_in:.desktop.in=.desktop)
+$(prompter_desktop): $(prompter_desktop_in)
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
+
+desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
+desktopdir = $(datadir)/applications
+desktop_DATA = \
+	$(prompter_desktop) \
+	$(viewer_desktop)
+
 EXTRA_DIST += \
 	ui/gcr.pc.in \
 	ui/gcr-ui.pc.in \
 	ui/gcr-ui.symbols \
 	ui/gcr.gresource.xml \
-	$(desktop_in_in_files) \
 	$(ui_RESOURCES) \
 	$(mime_DATA) \
 	ui/fixtures

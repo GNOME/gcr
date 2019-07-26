@@ -1,3 +1,14 @@
+gcr 3.33.4:
+- Move from intltool to gettext [GNOME/gcr#18]
+- Fix parameter type for signal handler causing stack smashing on ppc64le [GNOME/gcr!16]
+- cleanup: Don't use deprecated g_type_class_add_private() anymore [GNOME/gcr!12]
+- Fix GIR annotations [GNOME/gcr!10]
+- Fix hashtable ordering assumptions [GNOME/gcr!9]
+- build: Fix gcr-trust symbols not appearing in GIR, and hence also VAPI [GNOME/gcr!7]
+- Update gcr_pkcs11_get_trust_{store|lookup}_slot URI checks [GNOME/gcr!5]
+- build: Update tap scripts for Python 3 compat [GNOME/gcr!2]
+- Updated translations
+
 gcr 3.28.0:
 - Fix year 2038 workaround in ASN.1 decoder [#787963]
 - Fix test errors when ssh-keygen is not found

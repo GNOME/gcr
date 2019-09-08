@@ -34,12 +34,14 @@ G_BEGIN_DECLS
 #define GCR_DBUS_PROMPT_OBJECT_PREFIX                "/org/gnome/keyring/Prompt"
 
 #define GCR_DBUS_PROMPTER_INTERFACE                  "org.gnome.keyring.internal.Prompter"
+#define GCR_DBUS_PROMPTER2_INTERFACE                 "org.gnome.keyring.internal.Prompter2"
 
 #define GCR_DBUS_PROMPTER_METHOD_BEGIN               "BeginPrompting"
 #define GCR_DBUS_PROMPTER_METHOD_STOP                "StopPrompting"
 #define GCR_DBUS_PROMPTER_METHOD_PERFORM             "PerformPrompt"
 
 #define GCR_DBUS_CALLBACK_INTERFACE                  "org.gnome.keyring.internal.Prompter.Callback"
+#define GCR_DBUS_CALLBACK2_INTERFACE                 "org.gnome.keyring.internal.Prompter.Callback2"
 
 #define GCR_DBUS_PROMPT_ERROR_IN_PROGRESS            "org.gnome.keyring.Prompter.InProgress"
 #define GCR_DBUS_PROMPT_ERROR_FAILED                 "org.gnome.keyring.Prompter.Failed"

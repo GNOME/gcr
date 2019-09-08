@@ -1,0 +1,84 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+
+<node>
+	<!--
+	 * WARNING: This is an internal interface, and not a public API. It
+	 * can change between releases.
+	 *
+	 * This can be viewed as an interface for remoting the GcrPrompt
+	 * interface.
+	 *
+	 * We use a callback interface exported from the prompting client.
+	 * The prompter calls this rather than emit signals. It does this so
+	 * that the prompter can be aware if the client returns errors or is
+	 * no longer around.
+	-->
+
+	<interface name="org.gnome.keyring.internal.Prompter2">
+		<!--
+		 * Prompts first call BeginPrompting() with the path that. This
+		 * returns immediately. The prompter then calls PromptReady()
+		 * on the callback when it's ready for that client prompt to
+		 * start showing prompts.
+		-->
+		<method name="BeginPrompting">
+			<!-- DBus path to the client prompt callback -->
+			<arg name="callback" type="o" direction="in"/>
+		</method>
+
+		<!--
+		 * Called by client prompts to actually show a prompt. This can
+		 * only be called after the prompter calls PromptReady() on
+		 * the callback.
+		 *
+		 * This returns immediately, and PromptReady() will be called
+		 * on the callback when the prompt completes.
+		-->
+		<method name="PerformPrompt">
+			<!-- DBus path to the client prompt callback -->
+			<arg name="callback" type="o" direction="in"/>
+
+			<!-- Type of prompt: 'password' or 'confirm' -->
+			<arg name="type" type="s" direction="in"/>
+
+			<!-- GcrPrompt properties which changed since last prompt -->
+			<arg name="properties" type="a{sv}" direction="in"/>
+
+			<annotation name="org.gtk.GDBus.C.UnixFD" value="true"/>
+			<arg type="h" name="fd" direction="in"/>
+		</method>
+
+		<!--
+		 * Called by client prompts to stop prompting. If a prompt is
+		 * currently being displayed then it will be cancelled as if
+		 * the user cancelled it.
+		 *
+		 * Will call PromptDone() on the client callback.
+		-->
+		<method name="StopPrompting">
+			<!-- DBus path to the client prompt callback -->
+			<arg name="callback" type="o" direction="in"/>
+		</method>
+	</interface>
+
+	<!-- Called when ready to prompt or a prompt completes -->
+	<interface name="org.gnome.keyring.internal.Prompter.Callback2">
+
+		<!--
+		 * Called by the prompter when ready to show a prompt. This
+		 * occurs when the prompter is ready for the first prompt,
+		 * and also after prompts complete.
+		-->
+		<method name="PromptReady">
+			<arg name="reply" type="s" direction="in"/>
+			<arg name="properties" type="a{sv}" direction="in"/>
+		</method>
+
+		<!--
+		 * Called when the prompter stops prompting for this callback
+		-->
+		<method name="PromptDone">
+		</method>
+	</interface>
+</node>

@@ -35,6 +35,8 @@
 
 #include "egg/egg-error.h"
 
+#include <gio/gunixfdlist.h>
+#include <gio/gunixoutputstream.h>
 #include <string.h>
 
 /**
@@ -91,6 +93,7 @@ struct _GcrSystemPrompterPrivate {
 	GType prompt_type;
 
 	guint prompter_registered;
+	guint prompter2_registered;
 	GDBusConnection *connection;
 
 	GHashTable *callbacks;       /* Callback -> guint watch_id */
@@ -105,6 +108,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (GcrSystemPrompter, gcr_system_prompter, G_TYPE_OBJEC
 typedef struct {
 	const gchar *path;
 	const gchar *name;
+	const gchar *interface_name;
 } Callback;
 
 typedef struct {
@@ -120,6 +124,7 @@ typedef struct {
 	gboolean received;
 	gboolean closed;
 	guint close_sig;
+	gint fd;
 } ActivePrompt;
 
 static void    prompt_send_ready               (ActivePrompt *active,
@@ -165,8 +170,10 @@ callback_dup (Callback *original)
 	g_assert (original != NULL);
 	g_assert (original->path != NULL);
 	g_assert (original->name != NULL);
+	g_assert (original->interface_name != NULL);
 	callback->path = g_strdup (original->path);
 	callback->name = g_strdup (original->name);
+	callback->interface_name = g_strdup (original->interface_name);
 	return callback;
 }
 
@@ -176,6 +183,7 @@ callback_free (gpointer data)
 	Callback *callback = data;
 	g_free ((gchar *)callback->path);
 	g_free ((gchar *)callback->name);
+	g_free ((gchar *)callback->interface_name);
 	g_slice_free (Callback, callback);
 }
 
@@ -209,6 +217,8 @@ active_prompt_unref (gpointer data)
 			g_signal_handler_disconnect (active->prompt, active->notify_sig);
 		if (g_signal_handler_is_connected (active->prompt, active->close_sig))
 			g_signal_handler_disconnect (active->prompt, active->close_sig);
+		if (active->fd >= 0)
+			close (active->fd);
 		g_object_unref (active->prompt);
 		g_hash_table_destroy (active->changed);
 		if (active->exchange)
@@ -242,6 +252,7 @@ active_prompt_create (GcrSystemPrompter *self,
 	active->notify_sig = g_signal_connect (active->prompt, "notify", G_CALLBACK (on_prompt_notify), active);
 	active->close_sig = g_signal_connect (active->prompt, "prompt-close", G_CALLBACK (on_prompt_close), active);
 	active->changed = g_hash_table_new (g_direct_hash, g_direct_equal);
+	active->fd = -1;
 
 	/* Insert us into the active hash table */
 	g_hash_table_replace (self->pv->active, active->callback, active);
@@ -629,39 +640,65 @@ prompt_send_ready (ActivePrompt *active,
 {
 	GcrSystemPrompter *self;
 	GVariantBuilder *builder;
-	GcrSecretExchange *exchange;
-	gchar *sent;
 
 	g_assert (active->ready == FALSE);
-
-	exchange = active_prompt_get_secret_exchange (active);
-	if (!active->received) {
-		g_return_if_fail (secret == NULL);
-		sent = gcr_secret_exchange_begin (exchange);
-	} else {
-		sent = gcr_secret_exchange_send (exchange, secret, -1);
-	}
 
 	self = active->prompter;
 	builder = prompt_build_properties (active->prompt, active->changed);
 
-	g_debug ("calling the %s method on %s@%s",
-	         GCR_DBUS_CALLBACK_METHOD_READY, active->callback->path, active->callback->name);
+	g_debug ("calling the %s.%s method on %s@%s",
+		 active->callback->interface_name, GCR_DBUS_CALLBACK_METHOD_READY,
+		 active->callback->path, active->callback->name);
 
-	g_dbus_connection_call (self->pv->connection,
-	                        active->callback->name,
-	                        active->callback->path,
-	                        GCR_DBUS_CALLBACK_INTERFACE,
-	                        GCR_DBUS_CALLBACK_METHOD_READY,
-	                        g_variant_new ("(sa{sv}s)", response, builder, sent),
-	                        G_VARIANT_TYPE ("()"),
-	                        G_DBUS_CALL_FLAGS_NO_AUTO_START,
-	                        -1, active->cancellable,
-	                        on_prompt_ready_complete,
-	                        active_prompt_ref (active));
+	if (g_str_equal (active->callback->interface_name, GCR_DBUS_PROMPTER2_INTERFACE)) {
+		GOutputStream *stream;
+
+		stream = g_unix_output_stream_new (active->fd, TRUE);
+		if (!g_output_stream_write_all (stream, secret, strlen (secret), NULL, NULL, &error)) {
+			g_object_unref (stream);
+			g_dbus_method_invocation_take_error (invocation, error);
+		}
+
+		g_dbus_connection_call (self->pv->connection,
+					active->callback->name,
+					active->callback->path,
+					GCR_DBUS_CALLBACK2_INTERFACE,
+					GCR_DBUS_CALLBACK_METHOD_READY,
+					g_variant_new ("(sa{sv})", response, builder),
+					G_VARIANT_TYPE ("()"),
+					G_DBUS_CALL_FLAGS_NO_AUTO_START,
+					-1, active->cancellable,
+					on_prompt_ready_complete,
+					active_prompt_ref (active));
+
+	} else {
+		GcrSecretExchange *exchange;
+		gchar *sent;
+
+		exchange = active_prompt_get_secret_exchange (active);
+		if (!active->received) {
+			g_return_if_fail (secret == NULL);
+			sent = gcr_secret_exchange_begin (exchange);
+		} else {
+			sent = gcr_secret_exchange_send (exchange, secret, -1);
+		}
+
+		g_dbus_connection_call (self->pv->connection,
+					active->callback->name,
+					active->callback->path,
+					GCR_DBUS_CALLBACK_INTERFACE,
+					GCR_DBUS_CALLBACK_METHOD_READY,
+					g_variant_new ("(sa{sv}s)", response, builder, sent),
+					G_VARIANT_TYPE ("()"),
+					G_DBUS_CALL_FLAGS_NO_AUTO_START,
+					-1, active->cancellable,
+					on_prompt_ready_complete,
+					active_prompt_ref (active));
+
+		g_free (sent);
+	}
 
 	g_variant_builder_unref (builder);
-	g_free (sent);
 }
 
 static void
@@ -768,6 +805,7 @@ prompter_method_begin_prompting (GcrSystemPrompter *self,
 	guint watch_id;
 
 	lookup.name = caller = g_dbus_method_invocation_get_sender (invocation);
+	lookup.interface_name = g_dbus_method_invocation_get_interface_name (invocation);
 	g_variant_get (parameters, "(&o)", &lookup.path);
 
 	g_debug ("received %s call from callback %s@%s",
@@ -881,13 +919,31 @@ prompter_method_perform_prompt (GcrSystemPrompter *self,
 	const gchar *type;
 	GVariantIter *iter;
 	const gchar *received;
+	gint fd;
 
 	lookup.name = g_dbus_method_invocation_get_sender (invocation);
-	g_variant_get (parameters, "(&o&sa{sv}&s)",
-	               &lookup.path, &type, &iter, &received);
+	lookup.interface_name = g_dbus_method_invocation_get_interface_name (invocation);
+	if (g_strcmp0 (lookup.interface_name, GCR_DBUS_PROMPTER2_INTERFACE)) {
+		GDBusMessage *message;
+		GUnixFDList *fd_list;
+		gint idx;
 
-	g_debug ("received %s call from callback %s@%s",
-	         GCR_DBUS_PROMPTER_METHOD_PERFORM,
+		message = g_dbus_method_invocation_get_message (invocation);
+		fd_list = g_dbus_message_get_unix_fd_list (message);
+
+		g_assert (fd_list != NULL);
+
+		g_variant_get (parameters, "(&o&sa{sv}&h)",
+			       &lookup.path, &type, &iter, &idx);
+
+		fd = g_unix_fd_list_get (fd_list, idx, NULL);
+	} else {
+		g_variant_get (parameters, "(&o&sa{sv}&s)",
+			       &lookup.path, &type, &iter, &received);
+	}
+
+	g_debug ("received %s.%s call from callback %s@%s",
+		 lookup.interface_name, GCR_DBUS_PROMPTER_METHOD_PERFORM,
 	         lookup.path, lookup.name);
 
 	active = g_hash_table_lookup (self->pv->active, &lookup);
@@ -914,13 +970,17 @@ prompter_method_perform_prompt (GcrSystemPrompter *self,
 	prompt_update_properties (active->prompt, iter);
 	g_variant_iter_free (iter);
 
-	exchange = active_prompt_get_secret_exchange (active);
-	if (!gcr_secret_exchange_receive (exchange, received)) {
-		g_debug ("received invalid secret exchange from callback %s@%s",
-		         lookup.path, lookup.name);
-		g_dbus_method_invocation_return_error (invocation, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
-		                                       "Invalid secret exchange received");
-		return;
+	if (g_strcmp0 (lookup.interface_name, GCR_DBUS_PROMPTER2_INTERFACE))
+		active->fd = fd;
+	else {
+		exchange = active_prompt_get_secret_exchange (active);
+		if (!gcr_secret_exchange_receive (exchange, received)) {
+			g_debug ("received invalid secret exchange from callback %s@%s",
+				 lookup.path, lookup.name);
+			g_dbus_method_invocation_return_error (invocation, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
+							       "Invalid secret exchange received");
+			return;
+		}
 	}
 
 	active->received = TRUE;
@@ -1039,6 +1099,16 @@ gcr_system_prompter_register (GcrSystemPrompter *self,
 		g_warning ("error registering prompter %s", egg_error_message (error));
 		g_clear_error (&error);
 	}
+
+	self->pv->prompter2_registered = g_dbus_connection_register_object (connection,
+									    GCR_DBUS_PROMPTER_OBJECT_PATH,
+									    _gcr_dbus_prompter2_interface_info (),
+									    &prompter_dbus_vtable,
+									    self, NULL, &error);
+	if (error != NULL) {
+		g_warning ("error registering prompter2 %s", egg_error_message (error));
+		g_clear_error (&error);
+	}
 }
 
 /**
@@ -1077,6 +1147,10 @@ gcr_system_prompter_unregister (GcrSystemPrompter *self,
 	if (!g_dbus_connection_unregister_object (self->pv->connection, self->pv->prompter_registered))
 		g_assert_not_reached ();
 	self->pv->prompter_registered = 0;
+
+	if (!g_dbus_connection_unregister_object (self->pv->connection, self->pv->prompter2_registered))
+		g_assert_not_reached ();
+	self->pv->prompter2_registered = 0;
 
 	g_clear_object (&self->pv->connection);
 }

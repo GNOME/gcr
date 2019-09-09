@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Copied from gnome-icon-theme and adjusted lightly.
 #

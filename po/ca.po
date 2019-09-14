@@ -6,6 +6,7 @@
 # Gil Forcada <gilforcada@guifi.net>, 2014.
 # Jordi Serratosa <jordis@softcatala.cat>, 2017.
 #
+# N.T.: En el context de certificats digitals "subject" vol dir el "subjecte" (al que s'assigna el certificat) no pas l'assumpte
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
@@ -431,7 +432,7 @@ msgstr "Propòsits permesos"
 
 #: ../ui/gcr-certificate-renderer.c:175
 msgid "Subject Key Identifier"
-msgstr "Identificador de l'assumpte de la clau"
+msgstr "Identificador de la clau del subjecte"
 
 #: ../ui/gcr-certificate-renderer.c:176
 msgid "Key Identifier"
@@ -471,7 +472,7 @@ msgstr "Utilitzacions"
 
 #: ../ui/gcr-certificate-renderer.c:238
 msgid "Subject Alternative Names"
-msgstr "Noms alternatius de l'assumpte"
+msgstr "Noms alternatius del subjecte"
 
 #: ../ui/gcr-certificate-renderer.c:265
 msgid "Extension"
@@ -508,7 +509,7 @@ msgstr "Venç"
 #: ../ui/gcr-certificate-renderer.c:539
 #: ../ui/gcr-certificate-request-renderer.c:314
 msgid "Subject Name"
-msgstr "Nom de l'assumpte"
+msgstr "Nom del subjecte"
 
 #. The Issuer
 #: ../ui/gcr-certificate-renderer.c:544

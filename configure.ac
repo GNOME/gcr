@@ -71,7 +71,7 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
-AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
+PKG_PROG_PKG_CONFIG
 
 AM_GNU_GETTEXT([external])
 # FIXME: Remove AM_GNU_GETTEXT_VERSION once autoreconf supports REQUIRE_VERSION
@@ -312,7 +312,7 @@ if test "$enable_strict" = "yes"; then
 	TEST_MODE="thorough"
 	# HACK: Only set strict introspection if gir is greater than 1.39
 	# https://bugzilla.gnome.org/show_bug.cgi?id=698367
-	case $(pkg-config --modversion gobject-introspection-1.0) in
+	case $($PKG_CONFIG --modversion gobject-introspection-1.0) in
 	1.3[[45678]]*)
 		INTROSPECTION_FLAGS=""
 		;;

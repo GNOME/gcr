@@ -312,7 +312,7 @@ if test "$enable_strict" = "yes"; then
 	TEST_MODE="thorough"
 	# HACK: Only set strict introspection if gir is greater than 1.39
 	# https://bugzilla.gnome.org/show_bug.cgi?id=698367
-	case $(pkg-config --modversion gobject-introspection-1.0) in
+	case $($PKG_CONFIG --modversion gobject-introspection-1.0) in
 	1.3[[45678]]*)
 		INTROSPECTION_FLAGS=""
 		;;

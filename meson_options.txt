@@ -1,0 +1,10 @@
+option('introspection',
+  type: 'boolean',
+  value: true,
+  description: 'Build GObject Introspection (GIR) files',
+)
+option('gtk',
+  type: 'boolean',
+  value: true,
+  description: 'Build code that uses GTK+',
+)

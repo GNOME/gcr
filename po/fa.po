@@ -2,15 +2,15 @@
 # Copyright (C) 2011 Iranian Free Software Users Group (IFSUG.org)translation team.
 # This file is distributed under the same license as the gnome-keyring package.
 # Arash Mousavi <mousavi.arash@gmail.com>, 2011, 2012, 2013, 2015.
+# Danial Behzadi <dani.behzi@ubuntu.com>, 2016, 2017, 2018, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2015-09-16 17:07+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2019-09-25 11:24+0000\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -18,1100 +18,1095 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 2.2.1\n"
 
-#: ../egg/egg-oid.c:40
+#: egg/egg-oid.c:40
 msgid "Domain Component"
 msgstr "عناصر دامنه"
 
-#: ../egg/egg-oid.c:42 ../ui/gcr-gnupg-renderer.c:408
-#: ../ui/gcr-gnupg-renderer.c:577
+#: egg/egg-oid.c:42 ui/gcr-gnupg-renderer.c:407 ui/gcr-gnupg-renderer.c:576
 msgid "User ID"
-msgstr "شناسه کاربر"
+msgstr "شناسهٔ کاربر"
 
-#: ../egg/egg-oid.c:45
+#: egg/egg-oid.c:45
 msgid "Email Address"
-msgstr "آدرس پست الکترونیکی"
+msgstr "نشانی رایانامه"
 
-#: ../egg/egg-oid.c:53
+#: egg/egg-oid.c:53
 msgid "Date of Birth"
-msgstr "تاریخ تولد"
+msgstr "تاریخ تولّد"
 
-#: ../egg/egg-oid.c:55
+#: egg/egg-oid.c:55
 msgid "Place of Birth"
-msgstr "محل تولد"
+msgstr "محل تولّد"
 
-#: ../egg/egg-oid.c:57
+#: egg/egg-oid.c:57
 msgid "Gender"
 msgstr "جنسیت"
 
-#: ../egg/egg-oid.c:59
+#: egg/egg-oid.c:59
 msgid "Country of Citizenship"
 msgstr "کشور تابعیت"
 
-#: ../egg/egg-oid.c:61
+#: egg/egg-oid.c:61
 msgid "Country of Residence"
-msgstr "کشور محل اقامت"
+msgstr "کشور اقامت"
 
-#: ../egg/egg-oid.c:64
+#: egg/egg-oid.c:64
 msgid "Common Name"
 msgstr "نام متعارف"
 
-#: ../egg/egg-oid.c:66
+#: egg/egg-oid.c:66
 msgid "Surname"
 msgstr "نام خانوادگی"
 
-#: ../egg/egg-oid.c:68 ../ui/gcr-certificate-renderer.c:559
+#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:559
 msgid "Serial Number"
-msgstr "شماره سریال"
+msgstr "شمارهٔ سریال"
 
-#: ../egg/egg-oid.c:70
+#: egg/egg-oid.c:70
 msgid "Country"
 msgstr "کشور"
 
-#: ../egg/egg-oid.c:72
+#: egg/egg-oid.c:72
 msgid "Locality"
 msgstr "مکان"
 
-#: ../egg/egg-oid.c:74
+#: egg/egg-oid.c:74
 msgid "State"
 msgstr "استان"
 
-#: ../egg/egg-oid.c:76
+#: egg/egg-oid.c:76
 msgid "Street"
 msgstr "خیابان"
 
-#: ../egg/egg-oid.c:78
+#: egg/egg-oid.c:78
 msgid "Organization"
 msgstr "سازمان"
 
-#: ../egg/egg-oid.c:80
+#: egg/egg-oid.c:80
 msgid "Organizational Unit"
 msgstr "واحد سازمانی"
 
-#: ../egg/egg-oid.c:82
+#: egg/egg-oid.c:82
 msgid "Title"
 msgstr "سمت"
 
-#: ../egg/egg-oid.c:84
+#: egg/egg-oid.c:84
 msgid "Telephone Number"
 msgstr "شماره تلفن"
 
-#: ../egg/egg-oid.c:86
+#: egg/egg-oid.c:86
 msgid "Given Name"
 msgstr "نام"
 
-#: ../egg/egg-oid.c:88
+#: egg/egg-oid.c:88
 msgid "Initials"
 msgstr "قسمت‌های اولیه"
 
-#: ../egg/egg-oid.c:90
+#: egg/egg-oid.c:90
 msgid "Generation Qualifier"
 msgstr "توصیف کننده ساخت"
 
-#: ../egg/egg-oid.c:92
+#: egg/egg-oid.c:92
 msgid "DN Qualifier"
 msgstr "توصیف کننده DN"
 
-#: ../egg/egg-oid.c:94
+#: egg/egg-oid.c:94
 msgid "Pseudonym"
 msgstr "اسم مستعار"
 
-#: ../egg/egg-oid.c:97 ../ui/gcr-gnupg-renderer.c:199 ../ui/gcr-key-renderer.c:385
+#: egg/egg-oid.c:97 ui/gcr-gnupg-renderer.c:198 ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
-#: ../egg/egg-oid.c:98
+#: egg/egg-oid.c:98
 msgid "MD2 with RSA"
 msgstr "MD2 همراه با RSA"
 
-#: ../egg/egg-oid.c:99
+#: egg/egg-oid.c:99
 msgid "MD5 with RSA"
 msgstr "MD5 همراه با RSA"
 
-#: ../egg/egg-oid.c:100
+#: egg/egg-oid.c:100
 msgid "SHA1 with RSA"
 msgstr "SHA1 همراه با RSA"
 
-#: ../egg/egg-oid.c:102 ../ui/gcr-gnupg-renderer.c:203 ../ui/gcr-key-renderer.c:387
+#: egg/egg-oid.c:102 ui/gcr-gnupg-renderer.c:202 ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
-#: ../egg/egg-oid.c:103
+#: egg/egg-oid.c:103
 msgid "SHA1 with DSA"
 msgstr "SHA1 همراه با DSA"
 
-#: ../egg/egg-oid.c:105 ../ui/gcr-key-renderer.c:389
+#: egg/egg-oid.c:105 ui/gcr-key-renderer.c:389
 msgid "Elliptic Curve"
 msgstr "منحنی بیضوی"
 
-#: ../egg/egg-oid.c:106
+#: egg/egg-oid.c:106
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 همراه با ECDSA"
 
-#: ../egg/egg-oid.c:107
+#: egg/egg-oid.c:107
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 همراه با ECDSA"
 
-#: ../egg/egg-oid.c:108
+#: egg/egg-oid.c:108
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 همراه با ECDSA"
 
-#: ../egg/egg-oid.c:109
+#: egg/egg-oid.c:109
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 همراه با ECDSA"
 
-#: ../egg/egg-oid.c:110
+#: egg/egg-oid.c:110
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 همراه با ECDSA"
 
 #. Extended Key Usages
-#: ../egg/egg-oid.c:113
+#: egg/egg-oid.c:113
 msgid "Server Authentication"
-msgstr "تصدیق هویت کارگزار"
+msgstr "تصدیق هویت کارساز"
 
-#: ../egg/egg-oid.c:114
+#: egg/egg-oid.c:114
 msgid "Client Authentication"
-msgstr "تصدیق هویت کارگیر"
+msgstr "تصدیق هویت کارخواه"
 
-#: ../egg/egg-oid.c:115
+#: egg/egg-oid.c:115
 msgid "Code Signing"
 msgstr "امضا کد"
 
-#: ../egg/egg-oid.c:116
+#: egg/egg-oid.c:116
 msgid "Email Protection"
-msgstr "محافظت از پست‌الکترونیکی"
+msgstr "محافظت از رایانامه"
 
-#: ../egg/egg-oid.c:117
+#: egg/egg-oid.c:117
 msgid "Time Stamping"
 msgstr "ثبت وقایع"
 
-#: ../gck/gck-module.c:344
+#: gck/gck-module.c:342
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "خطا در هنگام بار کردن ماژول PKCS#11، خطا: %s"
 
-#: ../gck/gck-module.c:358
+#: gck/gck-module.c:356
 #, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr "نمی‌توان ماژول PKCS#11 را مقدار دهی اولیه کرد: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr "نمی‌توان پیمانهٔ PKCS#11 را مقدار دهی نخستین کرد: %s"
 
-#: ../gck/gck-modules.c:62
+#: gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr "نمی‌توان ماژول PKCS#11 ثبت شده را مقدار دهی اولیه کرد: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr "نمی‌توان ماژول PKCS#11 ثبت شده را مقدار دهی نخستین کرد: %s"
 
-#: ../gck/gck-uri.c:224
-#, c-format
+#: gck/gck-uri.c:224
 msgid "The URI has invalid encoding."
 msgstr "کدگذاری آدرس نادرست است."
 
-#: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "آدرس شِمای «pkcs11» را ندارد."
+#: gck/gck-uri.c:228
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "نشانی، شِمای «pkcs11» را ندارد."
 
-#: ../gck/gck-uri.c:232
+#: gck/gck-uri.c:232
 msgid "The URI has bad syntax."
 msgstr "آدرس ترکیب بدی دارد."
 
-#: ../gck/gck-uri.c:236
+#: gck/gck-uri.c:236
 msgid "The URI has a bad version number."
 msgstr "عدد نسخه آدرس مناسب نیست."
 
-#: ../gcr/gcr-callback-output-stream.c:60 ../gcr/gcr-callback-output-stream.c:77
-#, c-format
+#: gcr/gcr-callback-output-stream.c:60 gcr/gcr-callback-output-stream.c:77
 msgid "The stream was closed"
 msgstr "جریان بسته شد"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:350 ../gcr/gcr-gnupg-key.c:430
+#: gcr/gcr-certificate.c:350 gcr/gcr-gnupg-key.c:429
 msgctxt "column"
 msgid "Name"
 msgstr "نام"
 
-#: ../gcr/gcr-certificate.c:352
+#: gcr/gcr-certificate.c:352
 msgctxt "column"
 msgid "Issued By"
-msgstr "صادر شده توسط"
+msgstr "صادر شده به دست"
 
 #. later
-#: ../gcr/gcr-certificate.c:354
+#: gcr/gcr-certificate.c:354
 msgctxt "column"
 msgid "Expires"
 msgstr "انقضا"
 
-#: ../gcr/gcr-certificate.c:1192 ../gcr/gcr-parser.c:325
-#: ../ui/gcr-certificate-renderer.c:102 ../ui/gcr-certificate-exporter.c:464
+#: gcr/gcr-certificate.c:1186 gcr/gcr-parser.c:344
+#: ui/gcr-certificate-renderer.c:103 ui/gcr-certificate-exporter.c:463
 msgid "Certificate"
 msgstr "گواهینامه"
 
-#: ../gcr/gcr-certificate-extensions.c:177
+#: gcr/gcr-certificate-extensions.c:177
 msgid "Other Name"
 msgstr "نام دیگر"
 
-#: ../gcr/gcr-certificate-extensions.c:187
+#: gcr/gcr-certificate-extensions.c:187
 msgid "XMPP Addr"
 msgstr "آدرس XMPP"
 
-#: ../gcr/gcr-certificate-extensions.c:191
+#: gcr/gcr-certificate-extensions.c:191
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: ../gcr/gcr-certificate-extensions.c:203 ../ui/gcr-gnupg-renderer.c:421
-#: ../ui/gcr-gnupg-renderer.c:703
+#: gcr/gcr-certificate-extensions.c:203 ui/gcr-gnupg-renderer.c:420
+#: ui/gcr-gnupg-renderer.c:702
 msgid "Email"
-msgstr "پست‌الکترونیکی"
+msgstr "رایانامه"
 
-#: ../gcr/gcr-certificate-extensions.c:211
+#: gcr/gcr-certificate-extensions.c:211
 msgid "DNS"
 msgstr "دی‌ان‌اس"
 
-#: ../gcr/gcr-certificate-extensions.c:219
+#: gcr/gcr-certificate-extensions.c:219
 msgid "X400 Address"
 msgstr "آدرس X400"
 
-#: ../gcr/gcr-certificate-extensions.c:226
+#: gcr/gcr-certificate-extensions.c:226
 msgid "Directory Name"
 msgstr "نام شاخه"
 
-#: ../gcr/gcr-certificate-extensions.c:234
+#: gcr/gcr-certificate-extensions.c:234
 msgid "EDI Party Name"
 msgstr "نام دسته EDI"
 
-#: ../gcr/gcr-certificate-extensions.c:241
+#: gcr/gcr-certificate-extensions.c:241
 msgid "URI"
 msgstr "آدرس اینترنتی"
 
-#: ../gcr/gcr-certificate-extensions.c:249
+#: gcr/gcr-certificate-extensions.c:249
 msgid "IP Address"
 msgstr "آدرس آی‌پی"
 
-#: ../gcr/gcr-certificate-extensions.c:257
+#: gcr/gcr-certificate-extensions.c:257
 msgid "Registered ID"
 msgstr "شناسه ثبت شده"
 
-#: ../gcr/gcr-certificate-request.c:415
-#, c-format
+#: gcr/gcr-certificate-request.c:415
 msgid "Unsupported key type for certificate request"
 msgstr "نوع کلید پشتیبانی نشده برای درخواست گواهینامه"
 
-#: ../gcr/gcr-certificate-request.c:502 ../gcr/gcr-certificate-request.c:587
-#, c-format
+#: gcr/gcr-certificate-request.c:502 gcr/gcr-certificate-request.c:587
 msgid "The key cannot be used to sign the request"
 msgstr "برای امضا درخواست نمی‌توان از کلید استفاده کرد"
 
-#: ../gcr/gcr-gnupg-importer.c:94
+#: gcr/gcr-gnupg-importer.c:95
 msgid "GnuPG Keyring"
 msgstr "دسته‌کلید GnuPG"
 
-#: ../gcr/gcr-gnupg-importer.c:96
+#: gcr/gcr-gnupg-importer.c:97
 #, c-format
 msgid "GnuPG Keyring: %s"
 msgstr "دسته‌کلید GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:143 ../gcr/gcr-parser.c:331 ../ui/gcr-gnupg-renderer.c:87
+#: gcr/gcr-gnupg-key.c:143 gcr/gcr-parser.c:350 ui/gcr-gnupg-renderer.c:88
 msgid "PGP Key"
 msgstr "کلید PGP"
 
-#: ../gcr/gcr-gnupg-key.c:432
+#: gcr/gcr-gnupg-key.c:431
 msgctxt "column"
 msgid "Key ID"
 msgstr "شناسه کلید"
 
-#: ../gcr/gcr-gnupg-process.c:864
+#: gcr/gcr-gnupg-process.c:862
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "فراروند Gnupg با کد مقابل خارج شد: %Id"
 
-#: ../gcr/gcr-gnupg-process.c:871
+#: gcr/gcr-gnupg-process.c:869
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "فراروند Gnupg با کد پایان یافت: %Id"
 
-#: ../gcr/gcr-gnupg-process.c:925 ../gcr/gcr-parser.c:2554 ../gcr/gcr-parser.c:3160
-#: ../gcr/gcr-system-prompt.c:931
+#: gcr/gcr-gnupg-process.c:923 gcr/gcr-parser.c:2590 gcr/gcr-parser.c:3196
+#: gcr/gcr-system-prompt.c:929
 msgid "The operation was cancelled"
 msgstr "عملیات لغو شد"
 
-#: ../gcr/gcr-parser.c:322 ../ui/gcr-key-renderer.c:361
+#: gcr/gcr-parser.c:341 ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "کلید خصوصی"
 
-#: ../gcr/gcr-parser.c:328 ../ui/gcr-certificate-renderer.c:881
-#: ../ui/gcr-gnupg-renderer.c:736 ../ui/gcr-key-renderer.c:370
+#: gcr/gcr-parser.c:347 ui/gcr-certificate-renderer.c:881
+#: ui/gcr-gnupg-renderer.c:735 ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "کلید عمومی"
 
-#: ../gcr/gcr-parser.c:334
+#: gcr/gcr-parser.c:353
 msgid "Certificate Request"
 msgstr "درخواست گواهینامه"
 
-#: ../gcr/gcr-parser.c:2557
+#: gcr/gcr-parser.c:2593
 msgid "Unrecognized or unsupported data."
 msgstr "اطلاعات پشتیبانی یا تشخیص داده نشده."
 
-#: ../gcr/gcr-parser.c:2560
+#: gcr/gcr-parser.c:2596
 msgid "Could not parse invalid or corrupted data."
 msgstr "نمی‌توان اطلاعات نادرست یا خراب را تجزیه کرد."
 
-#: ../gcr/gcr-parser.c:2563
+#: gcr/gcr-parser.c:2599
 msgid "The data is locked"
 msgstr "اطلاعات قفل است"
 
-#: ../gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:225
 msgid "Continue"
 msgstr "ادامه"
 
-#: ../gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:234
 msgid "Cancel"
 msgstr "لغو"
 
-#: ../gcr/gcr-subject-public-key.c:405
+#: gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "ورود عبارت‌عبور OpenSSHتان"
+
+#: gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "متغیرهای ناشناخته یا ناموجود برای کلید"
 
-#: ../gcr/gcr-subject-public-key.c:491 ../gcr/gcr-subject-public-key.c:577
-msgid "Couldn't build public key"
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+msgid "Couldn’t build public key"
 msgstr "نمی‌توان کلید عمومی را ساخت"
 
-#: ../gcr/gcr-system-prompt.c:911
+#: gcr/gcr-system-prompt.c:909
 msgid "Another prompt is already in progress"
-msgstr "یک فرمان دیگر در حال اجراست."
+msgstr "فرمانی دیگر در حال اجراست"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:364
-#, c-format
-msgid "Couldn't find a place to store the pinned certificate"
-msgstr "نمی‌توان یک محل برای دخیره گواهینامه پین شده پیدا کرد"
+#: gcr/gcr-trust.c:364
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr "نمی‌توان مکانی برای انباشت گواهینامهٔ سنجاق‌شده یافت"
 
-#: ../ui/gcr-certificate-renderer.c:117
+#: ui/gcr-certificate-renderer.c:118
 msgid "Basic Constraints"
 msgstr "محدودیت‌های پایه"
 
-#: ../ui/gcr-certificate-renderer.c:119
+#: ui/gcr-certificate-renderer.c:120
 msgid "Certificate Authority"
 msgstr "گواهینامه مجاز"
 
-#: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:952
 msgid "Yes"
 msgstr "بله"
 
-#: ../ui/gcr-certificate-renderer.c:120 ../ui/gcr-certificate-renderer.c:952
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:952
 msgid "No"
 msgstr "خیر"
 
-#: ../ui/gcr-certificate-renderer.c:123
+#: ui/gcr-certificate-renderer.c:124
 msgid "Max Path Length"
 msgstr "بیشینه اندازه مسیر"
 
-#: ../ui/gcr-certificate-renderer.c:124
+#: ui/gcr-certificate-renderer.c:125
 msgid "Unlimited"
 msgstr "نامحدود"
 
-#: ../ui/gcr-certificate-renderer.c:143
+#: ui/gcr-certificate-renderer.c:144
 msgid "Extended Key Usage"
 msgstr "نحوه استفاده از کلید تعمیم یافته"
 
-#: ../ui/gcr-certificate-renderer.c:154
+#: ui/gcr-certificate-renderer.c:155
 msgid "Allowed Purposes"
 msgstr "اهداف مجاز"
 
-#: ../ui/gcr-certificate-renderer.c:174
+#: ui/gcr-certificate-renderer.c:175
 msgid "Subject Key Identifier"
 msgstr "شناساگر کلید موضوع"
 
-#: ../ui/gcr-certificate-renderer.c:175
+#: ui/gcr-certificate-renderer.c:176
 msgid "Key Identifier"
 msgstr "شناساگر کلید"
 
-#: ../ui/gcr-certificate-renderer.c:186
+#: ui/gcr-certificate-renderer.c:187
 msgid "Digital signature"
 msgstr "امضا دیجیتالی"
 
-#: ../ui/gcr-certificate-renderer.c:187
+#: ui/gcr-certificate-renderer.c:188
 msgid "Key encipherment"
 msgstr "کلید encipherment"
 
-#: ../ui/gcr-certificate-renderer.c:188
+#: ui/gcr-certificate-renderer.c:189
 msgid "Data encipherment"
 msgstr "اطلاعات encipherment"
 
-#: ../ui/gcr-certificate-renderer.c:189
+#: ui/gcr-certificate-renderer.c:190
 msgid "Key agreement"
 msgstr "موافقتنامه کلید"
 
-#: ../ui/gcr-certificate-renderer.c:190
+#: ui/gcr-certificate-renderer.c:191
 msgid "Certificate signature"
 msgstr "امضا گواهینامه"
 
-#: ../ui/gcr-certificate-renderer.c:191
+#: ui/gcr-certificate-renderer.c:192
 msgid "Revocation list signature"
 msgstr "فهرست ابطال امضا"
 
-#: ../ui/gcr-certificate-renderer.c:216
+#: ui/gcr-certificate-renderer.c:217
 msgid "Key Usage"
 msgstr "نحوه استفاده کلید"
 
-#: ../ui/gcr-certificate-renderer.c:217
+#: ui/gcr-certificate-renderer.c:218
 msgid "Usages"
 msgstr "نحوه استفاده"
 
-#: ../ui/gcr-certificate-renderer.c:237
+#: ui/gcr-certificate-renderer.c:238
 msgid "Subject Alternative Names"
 msgstr "نام‌های جایگزین موضوع"
 
-#: ../ui/gcr-certificate-renderer.c:264
+#: ui/gcr-certificate-renderer.c:265
 msgid "Extension"
 msgstr "افزونه"
 
-#: ../ui/gcr-certificate-renderer.c:268
+#: ui/gcr-certificate-renderer.c:269
 msgid "Identifier"
 msgstr "شناساگر"
 
-#: ../ui/gcr-certificate-renderer.c:269
-#: ../ui/gcr-certificate-request-renderer.c:269 ../ui/gcr-gnupg-renderer.c:412
-#: ../ui/gcr-gnupg-renderer.c:429
+#: ui/gcr-certificate-renderer.c:270 ui/gcr-certificate-request-renderer.c:267
+#: ui/gcr-gnupg-renderer.c:411 ui/gcr-gnupg-renderer.c:428
 msgid "Value"
 msgstr "مقدار"
 
-#: ../ui/gcr-certificate-renderer.c:287
-msgid "Couldn't export the certificate."
-msgstr "نمی‌توان گواهینامه صادر کرد."
+#: ui/gcr-certificate-renderer.c:288
+msgid "Couldn’t export the certificate."
+msgstr "نمی‌توان گواهینامه را برون ریخت."
 
-#: ../ui/gcr-certificate-renderer.c:521
-#: ../ui/gcr-certificate-request-renderer.c:310
+#: ui/gcr-certificate-renderer.c:521 ui/gcr-certificate-request-renderer.c:308
 msgid "Identity"
 msgstr "هویت"
 
-#: ../ui/gcr-certificate-renderer.c:525
+#: ui/gcr-certificate-renderer.c:525
 msgid "Verified by"
 msgstr "تایید شده توسط"
 
-#: ../ui/gcr-certificate-renderer.c:532 ../ui/gcr-gnupg-renderer.c:717
+#: ui/gcr-certificate-renderer.c:532 ui/gcr-gnupg-renderer.c:716
 msgid "Expires"
 msgstr "انقضا"
 
 #. The subject
-#: ../ui/gcr-certificate-renderer.c:539
-#: ../ui/gcr-certificate-request-renderer.c:316
+#: ui/gcr-certificate-renderer.c:539 ui/gcr-certificate-request-renderer.c:314
 msgid "Subject Name"
 msgstr "نام موضوع"
 
 #. The Issuer
-#: ../ui/gcr-certificate-renderer.c:544
+#: ui/gcr-certificate-renderer.c:544
 msgid "Issuer Name"
 msgstr "نام صادر کننده"
 
 #. The Issued Parameters
-#: ../ui/gcr-certificate-renderer.c:549
+#: ui/gcr-certificate-renderer.c:549
 msgid "Issued Certificate"
 msgstr "گواهینامه صادر شده"
 
-#: ../ui/gcr-certificate-renderer.c:554
-#: ../ui/gcr-certificate-request-renderer.c:327
+#: ui/gcr-certificate-renderer.c:554 ui/gcr-certificate-request-renderer.c:325
 msgid "Version"
 msgstr "نسخه"
 
-#: ../ui/gcr-certificate-renderer.c:568
+#: ui/gcr-certificate-renderer.c:568
 msgid "Not Valid Before"
 msgstr "معتبر نیست قبل از"
 
-#: ../ui/gcr-certificate-renderer.c:573
+#: ui/gcr-certificate-renderer.c:573
 msgid "Not Valid After"
 msgstr "معتبر نیست بعد از"
 
 #. Fingerprints
-#: ../ui/gcr-certificate-renderer.c:578
+#: ui/gcr-certificate-renderer.c:578
 msgid "Certificate Fingerprints"
 msgstr "اثرهای انگشت گواهینامه"
 
 #. Public Key Info
-#: ../ui/gcr-certificate-renderer.c:584
-#: ../ui/gcr-certificate-request-renderer.c:330
-#: ../ui/gcr-certificate-request-renderer.c:376
+#: ui/gcr-certificate-renderer.c:584 ui/gcr-certificate-request-renderer.c:328
+#: ui/gcr-certificate-request-renderer.c:374
 msgid "Public Key Info"
 msgstr "اطلاعات کلید عمومی"
 
 #. Signature
-#: ../ui/gcr-certificate-renderer.c:599 ../ui/gcr-certificate-renderer.c:909
-#: ../ui/gcr-certificate-request-renderer.c:346
-#: ../ui/gcr-certificate-request-renderer.c:383 ../ui/gcr-gnupg-renderer.c:558
+#: ui/gcr-certificate-renderer.c:599 ui/gcr-certificate-renderer.c:909
+#: ui/gcr-certificate-request-renderer.c:344
+#: ui/gcr-certificate-request-renderer.c:381 ui/gcr-gnupg-renderer.c:557
 msgid "Signature"
 msgstr "امضا"
 
-#: ../ui/gcr-certificate-renderer.c:616
+#: ui/gcr-certificate-renderer.c:616
 msgid "Export Certificate…"
-msgstr "صدور گواهینامه..."
+msgstr "برون‌ریزی گواهینامه…"
 
-#: ../ui/gcr-certificate-renderer.c:855
+#: ui/gcr-certificate-renderer.c:855
 msgid "Key Algorithm"
 msgstr "الگوریتم کلید"
 
-#: ../ui/gcr-certificate-renderer.c:860
+#: ui/gcr-certificate-renderer.c:860
 msgid "Key Parameters"
 msgstr "پارامترهای کلید"
 
-#: ../ui/gcr-certificate-renderer.c:868 ../ui/gcr-gnupg-renderer.c:351
+#: ui/gcr-certificate-renderer.c:868 ui/gcr-gnupg-renderer.c:350
 msgid "Key Size"
 msgstr "اندازه کلید"
 
-#: ../ui/gcr-certificate-renderer.c:876
+#: ui/gcr-certificate-renderer.c:876
 msgid "Key SHA1 Fingerprint"
 msgstr "کلید اثرانگشت SHA1"
 
-#: ../ui/gcr-certificate-renderer.c:898
+#: ui/gcr-certificate-renderer.c:898
 msgid "Signature Algorithm"
 msgstr "الگوریتم امضا"
 
-#: ../ui/gcr-certificate-renderer.c:902
+#: ui/gcr-certificate-renderer.c:902
 msgid "Signature Parameters"
 msgstr "پارامترهای امضا"
 
-#: ../ui/gcr-certificate-renderer.c:951
+#: ui/gcr-certificate-renderer.c:951
 msgid "Critical"
 msgstr "حیاتی"
 
 #. The certificate request type
-#: ../ui/gcr-certificate-request-renderer.c:94
-#: ../ui/gcr-certificate-request-renderer.c:305
-#: ../ui/gcr-certificate-request-renderer.c:320
-#: ../ui/gcr-certificate-request-renderer.c:363
-#: ../ui/gcr-certificate-request-renderer.c:368
+#: ui/gcr-certificate-request-renderer.c:95
+#: ui/gcr-certificate-request-renderer.c:303
+#: ui/gcr-certificate-request-renderer.c:318
+#: ui/gcr-certificate-request-renderer.c:361
+#: ui/gcr-certificate-request-renderer.c:366
 msgid "Certificate request"
 msgstr "درخواست گواهینامه"
 
-#: ../ui/gcr-certificate-request-renderer.c:258
+#: ui/gcr-certificate-request-renderer.c:256
 msgid "Attribute"
 msgstr "متغیر"
 
-#: ../ui/gcr-certificate-request-renderer.c:262
-#: ../ui/gcr-certificate-request-renderer.c:321
-#: ../ui/gcr-certificate-request-renderer.c:369 ../ui/gcr-gnupg-renderer.c:589
-#: ../ui/gcr-gnupg-renderer.c:591
+#: ui/gcr-certificate-request-renderer.c:260
+#: ui/gcr-certificate-request-renderer.c:319
+#: ui/gcr-certificate-request-renderer.c:367 ui/gcr-gnupg-renderer.c:588
+#: ui/gcr-gnupg-renderer.c:590
 msgid "Type"
 msgstr "نوع"
 
-#: ../ui/gcr-certificate-request-renderer.c:373
+#: ui/gcr-certificate-request-renderer.c:371
 msgid "Challenge"
 msgstr "چالش"
 
-#: ../ui/gcr-display-view.c:316
+#: ui/gcr-display-view.c:320
 msgid "_Details"
 msgstr "_جزئیات"
 
-#: ../ui/gcr-failure-renderer.c:159
+#: ui/gcr-failure-renderer.c:157
 #, c-format
-msgid "Could not display '%s'"
+msgid "Could not display “%s”"
 msgstr "نمی‌توان «%s» را نمایش داد"
 
-#: ../ui/gcr-failure-renderer.c:161
+#: ui/gcr-failure-renderer.c:159
 msgid "Could not display file"
 msgstr "نمی‌توان پرونده را نمایش داد"
 
-#: ../ui/gcr-failure-renderer.c:166
+#: ui/gcr-failure-renderer.c:164
 msgid "Reason"
 msgstr "دلیل"
 
-#: ../ui/gcr-failure-renderer.c:216
-#, c-format
+#: ui/gcr-failure-renderer.c:214
 msgid "Cannot display a file of this type."
 msgstr "نمی‌توان پرونده‌ای با این نوع را نمایش داد."
 
-#: ../ui/gcr-gnupg-renderer.c:201
+#: ui/gcr-gnupg-renderer.c:200
 msgid "Elgamal"
 msgstr "Elgamal"
 
-#: ../ui/gcr-gnupg-renderer.c:214
+#: ui/gcr-gnupg-renderer.c:213
 msgid "Encrypt"
 msgstr "رمزنگاری"
 
-#: ../ui/gcr-gnupg-renderer.c:216
+#: ui/gcr-gnupg-renderer.c:215
 msgid "Sign"
 msgstr "امضا"
 
-#: ../ui/gcr-gnupg-renderer.c:218
+#: ui/gcr-gnupg-renderer.c:217
 msgid "Certify"
 msgstr "گواهی"
 
-#: ../ui/gcr-gnupg-renderer.c:220
+#: ui/gcr-gnupg-renderer.c:219
 msgid "Authenticate"
 msgstr "تصدیق‌هویت"
 
-#: ../ui/gcr-gnupg-renderer.c:222
+#: ui/gcr-gnupg-renderer.c:221
 msgctxt "capability"
 msgid "Disabled"
-msgstr "غیرفعال شده"
+msgstr "از کار افتاده"
 
-#: ../ui/gcr-gnupg-renderer.c:253 ../ui/gcr-gnupg-renderer.c:412
-#: ../ui/gcr-key-renderer.c:391 ../ui/gcr-key-renderer.c:395
+#: ui/gcr-gnupg-renderer.c:252 ui/gcr-gnupg-renderer.c:411
+#: ui/gcr-key-renderer.c:391 ui/gcr-key-renderer.c:395
 msgid "Unknown"
 msgstr "ناشناس"
 
-#: ../ui/gcr-gnupg-renderer.c:255
+#: ui/gcr-gnupg-renderer.c:254
 msgid "Invalid"
 msgstr "نامعتبر"
 
-#: ../ui/gcr-gnupg-renderer.c:257
+#: ui/gcr-gnupg-renderer.c:256
 msgctxt "ownertrust"
 msgid "Disabled"
-msgstr "غیرفعال شده"
+msgstr "از کار افتاده"
 
-#: ../ui/gcr-gnupg-renderer.c:259
+#: ui/gcr-gnupg-renderer.c:258
 msgid "Revoked"
 msgstr "لغو شد"
 
-#: ../ui/gcr-gnupg-renderer.c:261
+#: ui/gcr-gnupg-renderer.c:260
 msgid "Expired"
 msgstr "منقضی شده"
 
-#: ../ui/gcr-gnupg-renderer.c:263
+#: ui/gcr-gnupg-renderer.c:262
 msgid "Undefined trust"
 msgstr "اطمینان تعریف نشده"
 
-#: ../ui/gcr-gnupg-renderer.c:265
+#: ui/gcr-gnupg-renderer.c:264
 msgid "Distrusted"
 msgstr "نامطمئن شد"
 
-#: ../ui/gcr-gnupg-renderer.c:267
+#: ui/gcr-gnupg-renderer.c:266
 msgid "Marginally trusted"
 msgstr "حدودا مورد اطمینان شد"
 
-#: ../ui/gcr-gnupg-renderer.c:269
+#: ui/gcr-gnupg-renderer.c:268
 msgid "Fully trusted"
 msgstr "کاملا مورد اطمینان شد"
 
-#: ../ui/gcr-gnupg-renderer.c:271
+#: ui/gcr-gnupg-renderer.c:270
 msgid "Ultimately trusted"
 msgstr "به شدت مورد اطمینان شد"
 
-#: ../ui/gcr-gnupg-renderer.c:285
+#: ui/gcr-gnupg-renderer.c:284
 msgid "The information in this key has not yet been verified"
 msgstr "اطلاعات درون این کلید تایید نشده‌اند"
 
-#: ../ui/gcr-gnupg-renderer.c:288
+#: ui/gcr-gnupg-renderer.c:287
 msgid "This key is invalid"
 msgstr "این کلید نامعتبر است"
 
-#: ../ui/gcr-gnupg-renderer.c:291
+#: ui/gcr-gnupg-renderer.c:290
 msgid "This key has been disabled"
 msgstr "این کلید غیرفعال شده است"
 
-#: ../ui/gcr-gnupg-renderer.c:294
+#: ui/gcr-gnupg-renderer.c:293
 msgid "This key has been revoked"
 msgstr "این کلید لغو شده است"
 
-#: ../ui/gcr-gnupg-renderer.c:297
+#: ui/gcr-gnupg-renderer.c:296
 msgid "This key has expired"
 msgstr "این کلید منقضی شده است"
 
-#: ../ui/gcr-gnupg-renderer.c:302
+#: ui/gcr-gnupg-renderer.c:301
 msgid "This key is distrusted"
 msgstr "این کلید مورد اطمینان نیست"
 
-#: ../ui/gcr-gnupg-renderer.c:305
+#: ui/gcr-gnupg-renderer.c:304
 msgid "This key is marginally trusted"
 msgstr "این کلید تقریبا مورد اطمینان است"
 
-#: ../ui/gcr-gnupg-renderer.c:308
+#: ui/gcr-gnupg-renderer.c:307
 msgid "This key is fully trusted"
 msgstr "این کلید کاملا مورد اطمینان است"
 
-#: ../ui/gcr-gnupg-renderer.c:311
+#: ui/gcr-gnupg-renderer.c:310
 msgid "This key is ultimately trusted"
 msgstr "این کلید به شدت قابل اعتماد است"
 
-#: ../ui/gcr-gnupg-renderer.c:336 ../ui/gcr-gnupg-renderer.c:562
+#: ui/gcr-gnupg-renderer.c:335 ui/gcr-gnupg-renderer.c:561
 msgid "Key ID"
 msgstr "شناسه کلید"
 
-#: ../ui/gcr-gnupg-renderer.c:344 ../ui/gcr-gnupg-renderer.c:570
-#: ../ui/gcr-gnupg-renderer.c:617 ../ui/gcr-key-renderer.c:392
+#: ui/gcr-gnupg-renderer.c:343 ui/gcr-gnupg-renderer.c:569
+#: ui/gcr-gnupg-renderer.c:616 ui/gcr-key-renderer.c:392
 msgid "Algorithm"
 msgstr "الگوریتم"
 
-#: ../ui/gcr-gnupg-renderer.c:359 ../ui/gcr-gnupg-renderer.c:436
-#: ../ui/gcr-gnupg-renderer.c:479
+#: ui/gcr-gnupg-renderer.c:358 ui/gcr-gnupg-renderer.c:435
+#: ui/gcr-gnupg-renderer.c:478
 msgid "Created"
 msgstr "ساخته شده"
 
-#: ../ui/gcr-gnupg-renderer.c:368 ../ui/gcr-gnupg-renderer.c:445
-#: ../ui/gcr-gnupg-renderer.c:488
+#: ui/gcr-gnupg-renderer.c:367 ui/gcr-gnupg-renderer.c:444
+#: ui/gcr-gnupg-renderer.c:487
 msgid "Expiry"
 msgstr "انقضا"
 
-#: ../ui/gcr-gnupg-renderer.c:377
+#: ui/gcr-gnupg-renderer.c:376
 msgid "Capabilities"
 msgstr "قابلیت‌ها"
 
-#: ../ui/gcr-gnupg-renderer.c:390
+#: ui/gcr-gnupg-renderer.c:389
 msgid "Owner trust"
 msgstr "اعتماد مالک"
 
-#: ../ui/gcr-gnupg-renderer.c:418
+#: ui/gcr-gnupg-renderer.c:417
 msgid "Name"
 msgstr "نام"
 
-#: ../ui/gcr-gnupg-renderer.c:424 ../ui/gcr-gnupg-renderer.c:706
+#: ui/gcr-gnupg-renderer.c:423 ui/gcr-gnupg-renderer.c:705
 msgid "Comment"
 msgstr "نظر"
 
-#: ../ui/gcr-gnupg-renderer.c:464
+#: ui/gcr-gnupg-renderer.c:463
 msgid "User Attribute"
 msgstr "متغیر کاربر"
 
-#: ../ui/gcr-gnupg-renderer.c:471 ../ui/gcr-key-renderer.c:398
+#: ui/gcr-gnupg-renderer.c:470 ui/gcr-key-renderer.c:398
 msgid "Size"
 msgstr "اندازه"
 
-#: ../ui/gcr-gnupg-renderer.c:506
+#: ui/gcr-gnupg-renderer.c:505
 msgid "Signature of a binary document"
 msgstr "امضا یک سند باینری"
 
-#: ../ui/gcr-gnupg-renderer.c:508
+#: ui/gcr-gnupg-renderer.c:507
 msgid "Signature of a canonical text document"
 msgstr "امضا یک سند متنی معیار"
 
-#: ../ui/gcr-gnupg-renderer.c:510
+#: ui/gcr-gnupg-renderer.c:509
 msgid "Standalone signature"
 msgstr "امضا متکی به خود"
 
-#: ../ui/gcr-gnupg-renderer.c:512
+#: ui/gcr-gnupg-renderer.c:511
 msgid "Generic certification of key"
 msgstr "گواهینامه عمومی کلید"
 
-#: ../ui/gcr-gnupg-renderer.c:514
+#: ui/gcr-gnupg-renderer.c:513
 msgid "Persona certification of key"
 msgstr "گواهینامه شخصی کلید"
 
-#: ../ui/gcr-gnupg-renderer.c:516
+#: ui/gcr-gnupg-renderer.c:515
 msgid "Casual certification of key"
 msgstr "گواهینامه اتفاقی کلید"
 
-#: ../ui/gcr-gnupg-renderer.c:518
+#: ui/gcr-gnupg-renderer.c:517
 msgid "Positive certification of key"
 msgstr "گواهینامه مثبت کلید"
 
-#: ../ui/gcr-gnupg-renderer.c:520
+#: ui/gcr-gnupg-renderer.c:519
 msgid "Subkey binding signature"
 msgstr "امضا مقیدسازی زیرکلید"
 
-#: ../ui/gcr-gnupg-renderer.c:522
+#: ui/gcr-gnupg-renderer.c:521
 msgid "Primary key binding signature"
 msgstr "امضا مقیدسازی کلید اصلی"
 
-#: ../ui/gcr-gnupg-renderer.c:524
+#: ui/gcr-gnupg-renderer.c:523
 msgid "Signature directly on key"
 msgstr "امضا مستقیما بر کلید"
 
-#: ../ui/gcr-gnupg-renderer.c:526
+#: ui/gcr-gnupg-renderer.c:525
 msgid "Key revocation signature"
 msgstr "امضا لغو کلید"
 
-#: ../ui/gcr-gnupg-renderer.c:528
+#: ui/gcr-gnupg-renderer.c:527
 msgid "Subkey revocation signature"
 msgstr "امضا لغو زیرکلید"
 
-#: ../ui/gcr-gnupg-renderer.c:530
+#: ui/gcr-gnupg-renderer.c:529
 msgid "Certification revocation signature"
 msgstr "امضا لغو گواهینامه"
 
-#: ../ui/gcr-gnupg-renderer.c:532
+#: ui/gcr-gnupg-renderer.c:531
 msgid "Timestamp signature"
 msgstr "امضا زمان"
 
-#: ../ui/gcr-gnupg-renderer.c:534
+#: ui/gcr-gnupg-renderer.c:533
 msgid "Third-party confirmation signature"
 msgstr "امضا تایید شخص‌ثالث"
 
-#: ../ui/gcr-gnupg-renderer.c:587 ../ui/gcr-gnupg-renderer.c:595
+#: ui/gcr-gnupg-renderer.c:586 ui/gcr-gnupg-renderer.c:594
 msgid "Class"
 msgstr "کلاس"
 
-#: ../ui/gcr-gnupg-renderer.c:589
+#: ui/gcr-gnupg-renderer.c:588
 msgid "Local only"
 msgstr "تنها محلی"
 
-#: ../ui/gcr-gnupg-renderer.c:591
+#: ui/gcr-gnupg-renderer.c:590
 msgid "Exportable"
 msgstr "قابل خارج کردن"
 
-#: ../ui/gcr-gnupg-renderer.c:609
+#: ui/gcr-gnupg-renderer.c:608
 msgid "Revocation Key"
 msgstr "کلید لغو"
 
-#: ../ui/gcr-gnupg-renderer.c:623 ../ui/gcr-gnupg-renderer.c:647
-#: ../ui/gcr-gnupg-renderer.c:649
+#: ui/gcr-gnupg-renderer.c:622 ui/gcr-gnupg-renderer.c:646
+#: ui/gcr-gnupg-renderer.c:648
 msgid "Fingerprint"
 msgstr "اثر انگشت"
 
-#: ../ui/gcr-gnupg-renderer.c:738
+#: ui/gcr-gnupg-renderer.c:737
 msgid "Public Subkey"
 msgstr "زیرکلید عمومی"
 
-#: ../ui/gcr-gnupg-renderer.c:740
+#: ui/gcr-gnupg-renderer.c:739
 msgid "Secret Key"
 msgstr "کلید مخفی"
 
-#: ../ui/gcr-gnupg-renderer.c:742
+#: ui/gcr-gnupg-renderer.c:741
 msgid "Secret Subkey"
 msgstr "زیرکلیدهای مخفی"
 
-#: ../ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:116
 msgid "Initializing…"
-msgstr "درحال مقداردهی اولیه..."
+msgstr "درحال مقداردهی نخستین…"
 
-#: ../ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:124
 msgid "Import is in progress…"
-msgstr "وارد کردن در حال پیشروی است..."
+msgstr "درون‌ریزی در حال پیشروی…"
 
-#: ../ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:131
 #, c-format
 msgid "Imported to: %s"
 msgstr "وارد شد به: %s"
 
-#: ../ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:151
 #, c-format
 msgid "Import to: %s"
-msgstr "وارد کردن به: %s"
+msgstr "درون‌ریزی به: %s"
 
-#: ../ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:164
 msgid "Cannot import because there are no compatible importers"
-msgstr "بدلیل اینکه هیچ واردکننده‌ی سازگاری وجود ندارد، نمی‌توان وارد کرد"
+msgstr "بدلیل اینکه هیچ واردکنندهٔ سازگاری وجود ندارد، نمی‌توان وارد کرد"
 
-#: ../ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:173
 msgid "No data to import"
 msgstr "هیچ اطلاعاتی برای واردکردن نیست"
 
-#: ../ui/gcr-key-renderer.c:88
+#: ui/gcr-key-renderer.c:89
 msgid "Key"
 msgstr "کلید"
 
-#: ../ui/gcr-key-renderer.c:355
+#: ui/gcr-key-renderer.c:355
 msgid "Private RSA Key"
 msgstr "کلید RSA خصوصی"
 
-#: ../ui/gcr-key-renderer.c:357
+#: ui/gcr-key-renderer.c:357
 msgid "Private DSA Key"
 msgstr "کلید DSA خصوصی"
 
-#: ../ui/gcr-key-renderer.c:359
+#: ui/gcr-key-renderer.c:359
 msgid "Private Elliptic Curve Key"
 msgstr "کلید منحنی بیضوی خصوصی"
 
-#: ../ui/gcr-key-renderer.c:364 ../ui/gcr-key-renderer.c:366
+#: ui/gcr-key-renderer.c:364 ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
 msgstr "کلید DSA عمومی"
 
-#: ../ui/gcr-key-renderer.c:368
+#: ui/gcr-key-renderer.c:368
 msgid "Public Elliptic Curve Key"
 msgstr "کلید منحنی بیضوی عمومی"
 
-#: ../ui/gcr-key-renderer.c:377
+#: ui/gcr-key-renderer.c:377
 #, c-format
 msgid "%u bit"
 msgid_plural "%u bits"
 msgstr[0] "%Iu بیت"
 
-#: ../ui/gcr-key-renderer.c:378
+#: ui/gcr-key-renderer.c:378
 msgid "Strength"
 msgstr "استحکام"
 
 #. Fingerprints
-#: ../ui/gcr-key-renderer.c:402
+#: ui/gcr-key-renderer.c:402
 msgid "Fingerprints"
 msgstr "اثرهای انگشت"
 
-#: ../ui/gcr-key-renderer.c:406
+#: ui/gcr-key-renderer.c:406
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../ui/gcr-key-renderer.c:411
+#: ui/gcr-key-renderer.c:411
 msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ../ui/gcr-pkcs11-import-dialog.c:114 ../ui/gcr-prompt-dialog.c:500
-#: ../ui/gcr-certificate-exporter.c:228 ../ui/gcr-certificate-exporter.c:305
+#: ui/gcr-pkcs11-import-dialog.c:114 ui/gcr-prompt-dialog.c:500
+#: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "_لغو"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:116 ../ui/gcr-prompt-dialog.c:503
+#: ui/gcr-pkcs11-import-dialog.c:116 ui/gcr-prompt-dialog.c:503
 msgid "_OK"
 msgstr "_تایید"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:189
+#: ui/gcr-pkcs11-import-dialog.c:189
 msgid "Automatically chosen"
 msgstr "به‌طور خودکار انتخاب شد"
 
-#: ../ui/gcr-pkcs11-import-dialog.c:273 ../ui/gcr-pkcs11-import-interaction.c:152
-#: ../ui/gcr-pkcs11-import-interaction.c:170
-#, c-format
+#: ui/gcr-pkcs11-import-dialog.c:273 ui/gcr-pkcs11-import-interaction.c:152
+#: ui/gcr-pkcs11-import-interaction.c:170
 msgid "The user cancelled the operation"
 msgstr "کاربر عملیات را لغو کرد"
 
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:1
+#: ui/gcr-pkcs11-import-dialog.ui:31
 msgid "In order to import, please enter the password."
-msgstr "برای وارد کردن، لطفا گذرواژه را وارد کنید."
+msgstr "برای درون‌ریزی، لطفا گذرواژه را وارد کنید."
 
 #. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:561
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:561
 msgid "Password:"
 msgstr "گذرواژه:"
 
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:3
+#: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "نشان:"
 
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:69
-#: ../ui/gcr-unlock-renderer.c:124
+#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
+#: ui/gcr-unlock-renderer.c:124
 msgid "Unlock"
-msgstr "بازکردن قفل"
+msgstr "گشودن قفل"
 
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:5
+#: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
 msgstr "برچسب:"
 
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:6
+#: ui/gcr-pkcs11-import-dialog.ui:233
 msgid "Import settings"
-msgstr "وارد کردن تنظیمات"
+msgstr "درون‌ریزی تنظیمات"
 
 #. The confirm label
-#: ../ui/gcr-prompt-dialog.c:578
+#: ui/gcr-prompt-dialog.c:578
 msgid "Confirm:"
 msgstr "تایید:"
 
-#: ../ui/gcr-prompt-dialog.c:646
+#: ui/gcr-prompt-dialog.c:646
 msgid "Passwords do not match."
 msgstr "گذرواژه‌ها مطابقت ندارند."
 
-#: ../ui/gcr-prompt-dialog.c:653
+#: ui/gcr-prompt-dialog.c:653
 msgid "Password cannot be blank"
 msgstr "گذرواژه نمی‌تواند خالی باشد"
 
-#: ../ui/gcr-prompter.desktop.in.in.h:1
+#: ui/gcr-prompter.desktop.in.in:3
 msgid "Access Prompt"
 msgstr "فرمان دسترسی"
 
-#: ../ui/gcr-prompter.desktop.in.in.h:2
+#: ui/gcr-prompter.desktop.in.in:4
 msgid "Unlock access to passwords and other secrets"
-msgstr "باز کردن قفل دسترسی به گذرواژها و رازهای دیگر"
+msgstr "گشودن قفل دسترسی به گذرواژها و رازهای دیگر"
 
-#: ../ui/gcr-certificate-exporter.c:225
+#: ui/gcr-certificate-exporter.c:226
 msgid "A file already exists with this name."
 msgstr "یک پرونده از قبل با این نام وجود دارد."
 
-#: ../ui/gcr-certificate-exporter.c:226
+#: ui/gcr-certificate-exporter.c:227
 msgid "Do you want to replace it with a new file?"
 msgstr "آیا می‌خواهید آن را با پرونده جدید جای‌گزین کنید؟"
 
-#: ../ui/gcr-certificate-exporter.c:229
+#: ui/gcr-certificate-exporter.c:230
 msgid "_Replace"
 msgstr "_جای‌گزین کردن"
 
-#: ../ui/gcr-certificate-exporter.c:259
-#, c-format
+#: ui/gcr-certificate-exporter.c:260
 msgid "The operation was cancelled."
 msgstr "عملیات لغو شد."
 
-#: ../ui/gcr-certificate-exporter.c:303
+#: ui/gcr-certificate-exporter.c:304
 msgid "Export certificate"
 msgstr "صدور گواهینامه"
 
-#: ../ui/gcr-certificate-exporter.c:306
+#: ui/gcr-certificate-exporter.c:307
 msgid "_Save"
 msgstr "_ذخیره"
 
-#: ../ui/gcr-certificate-exporter.c:315
+#: ui/gcr-certificate-exporter.c:316
 msgid "Certificate files"
 msgstr "پرونده‌های گواهینامه"
 
-#: ../ui/gcr-certificate-exporter.c:326
+#: ui/gcr-certificate-exporter.c:327
 msgid "PEM files"
 msgstr "پرونده‌های PEM"
 
-#: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "به طور خودکار هنگامی که وارد سیستم شدم قفل این دسته‌کلید را باز کن"
+#: ui/gcr-unlock-options-widget.ui:16
+msgid "Automatically unlock this keyring whenever I’m logged in"
+msgstr "به طور خودکار هنگامی که وارد سامانه شدم قفل این دسته‌کلید را بگشا"
 
-#: ../ui/gcr-unlock-options-widget.ui.h:2
+#: ui/gcr-unlock-options-widget.ui:31
 msgid "Lock this keyring when I log out"
-msgstr "قفل کردن این دسته‌کلید هنگامی که از سیستم خارج شدم"
+msgstr "قفل کردن این دسته‌کلید هنگامی که از سامانه خارج شدم"
 
-#: ../ui/gcr-unlock-options-widget.ui.h:3
+#: ui/gcr-unlock-options-widget.ui:53
 msgid "Lock this keyring after"
 msgstr "قفل کردن این دسته‌کلید بعد از"
 
-#: ../ui/gcr-unlock-options-widget.ui.h:4
+#: ui/gcr-unlock-options-widget.ui:67
 msgid "Lock this keyring if idle for"
 msgstr "قفل کردن این دسته‌کلید اگر بیکار بود، برای"
 
 #. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
-#: ../ui/gcr-unlock-options-widget.ui.h:6
+#: ui/gcr-unlock-options-widget.ui:103
 msgid "minutes"
 msgstr "دقیقه"
 
-#: ../ui/gcr-unlock-renderer.c:67
+#: ui/gcr-unlock-renderer.c:68
 #, c-format
 msgid "Unlock: %s"
-msgstr "بازکردن قفل: %s"
+msgstr "گشودن قفل: %s"
 
-#: ../ui/gcr-unlock-renderer.c:122
+#: ui/gcr-unlock-renderer.c:122
 msgid "Password"
 msgstr "گذرواژه"
 
-#: ../ui/gcr-unlock-renderer.c:274
+#: ui/gcr-unlock-renderer.c:272
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
-msgstr "محتویات «%s» قفل شده است. جهت نمایش محتویات، گذرواژه صحیح را وارد کنید."
+msgstr ""
+"محتویات «%s» قفل شده است. جهت نمایش محتویات، گذرواژه صحیح را وارد کنید."
 
-#: ../ui/gcr-unlock-renderer.c:277
+#: ui/gcr-unlock-renderer.c:275
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr "محتویات قفل شده‌اند. جهت نمایش محتویات، گذرواژه صحیح را وارد کنید."
 
-#: ../ui/gcr-viewer-tool.c:40
+#: ui/gcr-viewer.desktop.in.in:3
+msgid "View file"
+msgstr "نمایش پرونده"
+
+#: ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"
 msgstr "نمایشگر گواهی‌نامه و کلید GCR"
 
-#: ../ui/gcr-viewer-tool.c:47
+#: ui/gcr-viewer-tool.c:47
 msgid "Show the application's version"
 msgstr "نمایش نسخه برنامه"
 
-#: ../ui/gcr-viewer-tool.c:49
+#: ui/gcr-viewer-tool.c:49
 msgid "[file...]"
 msgstr "[file...]"
 
-#: ../ui/gcr-viewer-tool.c:100
+#: ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "- نمایش پرونده‌های گواهینامه و کلید"
 
-#: ../ui/gcr-viewer-tool.c:114 ../ui/gcr-viewer-widget.c:684
+#: ui/gcr-viewer-tool.c:114 ui/gcr-viewer-widget.c:681
 msgid "Certificate Viewer"
 msgstr "نمایشگر گواهینامه"
 
-#: ../ui/gcr-viewer-widget.c:202
+#: ui/gcr-viewer-widget.c:202
 msgid "The password was incorrect"
 msgstr "گذرواژه‌ نادرست بود"
 
-#: ../ui/gcr-viewer-window.c:75
+#: ui/gcr-viewer-window.c:74
 msgid "Imported"
 msgstr "وارد شد"
 
-#: ../ui/gcr-viewer-window.c:79
+#: ui/gcr-viewer-window.c:78
 msgid "Import failed"
-msgstr "وارد کردن شکست خورد"
+msgstr "درون‌ریزی شکست خورد"
 
-#: ../ui/gcr-viewer-window.c:106
+#: ui/gcr-viewer-window.c:105
 msgid "Import"
 msgstr "واردکردن"
 
-#: ../ui/gcr-viewer-window.c:115
+#: ui/gcr-viewer-window.c:114
 msgid "_Close"
 msgstr "_خروج"
 
@@ -1126,4 +1121,4 @@ msgstr "_خروج"
 
 #, fuzzy
 #~ msgid "<b>Unlock</b>"
-#~ msgstr "بازکردن قفل"
+#~ msgstr "گشودن قفل"

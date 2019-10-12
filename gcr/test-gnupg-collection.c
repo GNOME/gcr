@@ -210,7 +210,7 @@ test_reload (Test *test, gconstpointer unused)
 	GcrGnupgKey *key;
 
 	_gcr_gnupg_collection_load_async (test->collection, NULL, on_async_ready, test);
-	egg_test_wait_until (2500);
+	egg_test_wait_until (500000);
 	g_assert (test->result);
 	_gcr_gnupg_collection_load_finish (test->collection, test->result, &error);
 	g_assert_no_error (error);

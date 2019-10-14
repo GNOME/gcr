@@ -1,3 +1,11 @@
+gcr 3.34.0:
+- gcr-prompt-dialog: Allow the use of mnemonics in the choice label [GNOME/gcr!22]
+- Use python3 shebang in ui/icons/render-icons.py [GNOME/gcr!21]
+- configure: Use PKG_PROG_PKG_CONFIG instead of reinventing it [GNOME/gcr!20]
+- Replace tap-gtester with one that relies on GLib 2.38+ TAP output [GNOME/gcr!19]
+- Remove SKS network from keyserver defaults [GNOME/gcr!18]
+- Updated translations
+
 gcr 3.33.4:
 - Move from intltool to gettext [GNOME/gcr#18]
 - Fix parameter type for signal handler causing stack smashing on ppc64le [GNOME/gcr!16]

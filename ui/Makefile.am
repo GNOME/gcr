@@ -209,6 +209,8 @@ gcr_viewer_LDADD = \
 viewer_desktop_in_in = ui/gcr-viewer.desktop.in.in
 viewer_desktop_in = $(viewer_desktop_in_in:.desktop.in.in=.desktop.in)
 viewer_desktop = $(viewer_desktop_in:.desktop.in=.desktop)
+$(viewer_desktop_in): $(viewer_desktop_in_in)
+	$(AM_V_GEN) sed 's|@bindir[@]|$(bindir)|g' $< > $@
 $(viewer_desktop): $(viewer_desktop_in)
 	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
@@ -231,9 +233,12 @@ gcr_prompter_LDADD = \
 prompter_desktop_in_in = ui/gcr-prompter.desktop.in.in
 prompter_desktop_in = $(prompter_desktop_in_in:.desktop.in.in=.desktop.in)
 prompter_desktop = $(prompter_desktop_in:.desktop.in=.desktop)
+$(prompter_desktop_in): $(prompter_desktop_in_in)
+	$(AM_V_GEN) sed 's|@libexecdir[@]|$(libexecdir)|g' $< > $@
 $(prompter_desktop): $(prompter_desktop_in)
 	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
+desktop_in_in_files = $(viewer_desktop_in_in) $(prompter_desktop_in_in)
 desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
 desktopdir = $(datadir)/applications
 desktop_DATA = \
@@ -247,6 +252,7 @@ EXTRA_DIST += \
 	ui/gcr.gresource.xml \
 	$(ui_RESOURCES) \
 	$(mime_DATA) \
+	$(desktop_in_in_files) \
 	ui/fixtures
 
 CLEANFILES += \

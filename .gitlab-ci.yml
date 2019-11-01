@@ -3,7 +3,7 @@ stages:
   - deploy
 
 variables:
-  DEPENDENCIES: dbus-x11 gcc gtk-doc make openssh python redhat-rpm-config
+  DEPENDENCIES: dbus-x11 diffutils gcc gtk-doc make openssh python redhat-rpm-config
 
 fedora:Werror:
   image: fedora:latest

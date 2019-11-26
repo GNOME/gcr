@@ -55,11 +55,13 @@ static void
 test_init_boolean (void)
 {
 	GckAttribute attr;
+	CK_BBOOL ck_value = CK_FALSE;
 
 	gck_attribute_init_boolean (&attr, ATTR_TYPE, TRUE);
 	g_assert (attr.type == ATTR_TYPE);
 	g_assert (attr.length == sizeof (CK_BBOOL));
-	g_assert (*((CK_BBOOL*)attr.value) == CK_TRUE);
+	memcpy(&ck_value, attr.value, sizeof (CK_BBOOL));
+	g_assert (ck_value == CK_TRUE);
 
 	gck_attribute_clear (&attr);
 }
@@ -88,11 +90,13 @@ static void
 test_init_ulong (void)
 {
 	GckAttribute attr;
+	CK_ULONG ck_value = 0;
 
 	gck_attribute_init_ulong (&attr, ATTR_TYPE, 88);
 	g_assert (attr.type == ATTR_TYPE);
 	g_assert (attr.length == sizeof (CK_ULONG));
-	g_assert (*((CK_ULONG*)attr.value) == 88);
+	memcpy(&ck_value, attr.value, sizeof (CK_ULONG));
+	g_assert (ck_value == 88);
 
 	gck_attribute_clear (&attr);
 }
@@ -154,11 +158,13 @@ static void
 test_new_boolean (void)
 {
 	GckAttribute *attr;
+	CK_BBOOL ck_value = CK_FALSE;
 
 	attr = gck_attribute_new_boolean (ATTR_TYPE, TRUE);
 	g_assert (attr->type == ATTR_TYPE);
 	g_assert (attr->length == sizeof (CK_BBOOL));
-	g_assert (*((CK_BBOOL*)attr->value) == CK_TRUE);
+	memcpy(&ck_value, attr->value, sizeof (CK_BBOOL));
+	g_assert (ck_value == CK_TRUE);
 
 	gck_attribute_free (attr);
 }
@@ -187,11 +193,13 @@ static void
 test_new_ulong (void)
 {
 	GckAttribute *attr;
+	CK_ULONG ck_value = 0;
 
 	attr = gck_attribute_new_ulong (ATTR_TYPE, 88);
 	g_assert (attr->type == ATTR_TYPE);
 	g_assert (attr->length == sizeof (CK_ULONG));
-	g_assert (*((CK_ULONG*)attr->value) == 88);
+	memcpy(&ck_value, attr->value, sizeof (CK_ULONG));
+	g_assert (ck_value == 88);
 
 	gck_attribute_free (attr);
 }
@@ -536,6 +544,7 @@ test_build_boolean (void)
 	GckAttributes *attrs;
 	const GckAttribute *attr;
 	gboolean value;
+	CK_BBOOL ck_value = CK_FALSE;
 
 	g_assert (gck_builder_find_boolean (&builder, 5, &value) == FALSE);
 
@@ -549,7 +558,8 @@ test_build_boolean (void)
 	g_assert (attr != NULL);
 	g_assert (attr->type == ATTR_TYPE);
 	g_assert (attr->length == sizeof (CK_BBOOL));
-	g_assert (*((CK_BBOOL*)attr->value) == CK_FALSE);
+	memcpy(&ck_value, attr->value, sizeof (CK_BBOOL));
+	g_assert (ck_value == CK_FALSE);
 	if (!gck_builder_find_boolean (&builder, ATTR_TYPE, &value))
 		g_assert_not_reached ();
 	g_assert (value == FALSE);
@@ -557,7 +567,8 @@ test_build_boolean (void)
 	gck_builder_set_boolean (&builder, ATTR_TYPE, TRUE);
 	g_assert (attr->type == ATTR_TYPE);
 	g_assert (attr->length == sizeof (CK_BBOOL));
-	g_assert (*((CK_BBOOL*)attr->value) == CK_TRUE);
+	memcpy(&ck_value, attr->value, sizeof (CK_BBOOL));
+	g_assert (ck_value == CK_TRUE);
 	if (!gck_builder_find_boolean (&builder, ATTR_TYPE, &value))
 		g_assert_not_reached ();
 	g_assert (value == TRUE);
@@ -572,7 +583,8 @@ test_build_boolean (void)
 
 	g_assert (attr->type == ATTR_TYPE);
 	g_assert (attr->length == sizeof (CK_BBOOL));
-	g_assert (*((CK_BBOOL*)attr->value) == CK_TRUE);
+	memcpy(&ck_value, attr->value, sizeof (CK_BBOOL));
+	g_assert (ck_value == CK_TRUE);
 
 	if (!gck_attributes_find_boolean (attrs, ATTR_TYPE, &value))
 		g_assert_not_reached ();
@@ -662,6 +674,7 @@ test_build_ulong (void)
 	GckAttributes *attrs;
 	const GckAttribute *attr;
 	gulong value;
+	CK_ULONG ck_value = 0;
 
 	g_assert (gck_builder_find_ulong (&builder, 5, &value) == FALSE);
 
@@ -675,7 +688,8 @@ test_build_ulong (void)
 	g_assert (attr != NULL);
 	g_assert (attr->type == ATTR_TYPE);
 	g_assert (attr->length == sizeof (CK_ULONG));
-	g_assert (*((CK_ULONG*)attr->value) == 99);
+	memcpy(&ck_value, attr->value, sizeof (CK_ULONG));
+	g_assert (ck_value == 99);
 	if (!gck_builder_find_ulong (&builder, ATTR_TYPE, &value))
 		g_assert_not_reached ();
 	g_assert (value == 99);
@@ -683,7 +697,8 @@ test_build_ulong (void)
 	gck_builder_set_ulong (&builder, ATTR_TYPE, 88);
 	g_assert (attr->type == ATTR_TYPE);
 	g_assert (attr->length == sizeof (CK_ULONG));
-	g_assert (*((CK_ULONG*)attr->value) == 88);
+	memcpy(&ck_value, attr->value, sizeof (CK_ULONG));
+	g_assert (ck_value == 88);
 	if (!gck_builder_find_ulong (&builder, ATTR_TYPE, &value))
 		g_assert_not_reached ();
 	g_assert (value == 88);
@@ -697,7 +712,8 @@ test_build_ulong (void)
 	g_assert (attr != NULL);
 	g_assert (attr->type == ATTR_TYPE);
 	g_assert (attr->length == sizeof (CK_ULONG));
-	g_assert (*((CK_ULONG*)attr->value) == 88);
+	memcpy(&ck_value, attr->value, sizeof (CK_ULONG));
+	g_assert (ck_value == 88);
 
 	if (!gck_attributes_find_ulong (attrs, ATTR_TYPE, &value))
 		g_assert_not_reached ();

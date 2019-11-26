@@ -2814,13 +2814,13 @@ _gck_format_attributes (GString *output,
 		if (attr->length == GCK_INVALID) {
 			g_string_append_printf (output, " (-1) INVALID");
 		} else if (_gck_attribute_is_ulong_of_type (attr, CKA_CLASS)) {
-			_gck_format_class (output, *((CK_OBJECT_CLASS_PTR)attr->value));
+			_gck_format_class (output, (CK_OBJECT_CLASS) gck_attribute_get_ulong(attr));
 		} else if (_gck_attribute_is_ulong_of_type (attr, CKA_X_ASSERTION_TYPE)) {
-			_gck_format_assertion_type (output, *((CK_X_ASSERTION_TYPE *)attr->value));
+			_gck_format_assertion_type (output, (CK_X_ASSERTION_TYPE) gck_attribute_get_ulong(attr));
 		} else if (_gck_attribute_is_ulong_of_type (attr, CKA_CERTIFICATE_TYPE)) {
-			_gck_format_certificate_type (output, *((CK_CERTIFICATE_TYPE *)attr->value));
+			_gck_format_certificate_type (output, (CK_CERTIFICATE_TYPE) gck_attribute_get_ulong(attr));
 		} else if (_gck_attribute_is_ulong_of_type (attr, CKA_KEY_TYPE)) {
-			_gck_format_key_type (output, *((CK_KEY_TYPE *)attr->value));
+			_gck_format_key_type (output, (CK_KEY_TYPE) gck_attribute_get_ulong(attr));
 		} else if (_gck_attribute_is_sensitive (attr)) {
 			g_string_append_printf (output, " (%lu) NOT-PRINTED", attr->length);
 		} else {

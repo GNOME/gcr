@@ -31,6 +31,8 @@
 
 #include <glib/gi18n-lib.h>
 
+#include <string.h>
+
 EGG_SECURE_DEFINE_GLIB_GLOBALS ();
 
 /**
@@ -430,7 +432,7 @@ _gck_ulong_hash (gconstpointer v)
 gboolean
 _gck_ulong_equal (gconstpointer v1, gconstpointer v2)
 {
-	return *((const gulong*)v1) == *((const gulong*)v2);
+	return memcmp(v1, v2, sizeof (gulong)) == 0;
 }
 
 /**
@@ -451,7 +453,7 @@ gck_value_to_ulong (const guchar *value,
 	if (!value || length != sizeof (CK_ULONG))
 		return FALSE;
 	if (result)
-		*result = *((CK_ULONG*)value);
+		memcpy(result, value, sizeof(CK_ULONG));
 	return TRUE;
 }
 
@@ -470,10 +472,13 @@ gck_value_to_boolean (const guchar *value,
                       gsize length,
                       gboolean *result)
 {
+	CK_BBOOL tempval = CK_FALSE;
 	if (!value || length != sizeof (CK_BBOOL))
 		return FALSE;
-	if (result)
-		*result = *((CK_BBOOL*)value) ? TRUE : FALSE;
+	if (result) {
+		memcpy(&tempval, value, sizeof(CK_BBOOL));
+		*result = tempval ? TRUE : FALSE;
+	}
 	return TRUE;
 }
 

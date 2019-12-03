@@ -84,7 +84,6 @@ gcr_ui_deps = [
   gck_dep,
   gcr_base_dep,
   gtk_dep,
-  gtk_x11_dep,
 ]
 
 gcr_ui_cflags = [

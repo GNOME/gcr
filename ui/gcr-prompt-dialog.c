@@ -30,6 +30,9 @@
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
 #endif
+#ifdef GDK_WINDOWING_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
 #include <glib/gi18n.h>
 
 /**
@@ -130,14 +133,61 @@ G_DEFINE_TYPE_WITH_CODE (GcrPromptDialog, gcr_prompt_dialog, GTK_TYPE_DIALOG,
                          G_IMPLEMENT_INTERFACE (GCR_TYPE_PROMPT, gcr_prompt_dialog_prompt_iface);
 );
 
+#ifdef GDK_WINDOWING_X11
+static gboolean
+update_transient_for_x11 (GcrPromptDialog *self, GdkWindow *window)
+{
+	gint64 handle;
+	gchar *end;
+	GdkDisplay *display;
+	GdkWindow *transient_for;
+
+	if (!GDK_IS_X11_WINDOW (window))
+		return FALSE;
+
+	handle = g_ascii_strtoll (self->pv->caller_window, &end, 10);
+	if (!end || *end != '\0') {
+		g_warning ("couldn't parse caller-window property: %s", self->pv->caller_window);
+		return FALSE;
+	}
+
+	display = gtk_widget_get_display (GTK_WIDGET (self));
+	transient_for = gdk_x11_window_foreign_new_for_display (display, (Window)handle);
+	if (transient_for == NULL) {
+		g_warning ("caller-window property doesn't represent a window on current display: %s",
+		           self->pv->caller_window);
+		return FALSE;
+	}
+
+	gdk_window_set_transient_for (window, transient_for);
+	g_object_unref (transient_for);
+	return TRUE;
+}
+#endif
+
+#ifdef GDK_WINDOWING_WAYLAND
+static gboolean
+update_transient_for_wl (GcrPromptDialog *self, GdkWindow *window)
+{
+	if (!GDK_IS_WAYLAND_WINDOW (window))
+		return FALSE;
+
+	if (gdk_wayland_window_set_transient_for_exported (window, self->pv->caller_window)) {
+		g_debug ("Succesfully set transient for WL window %s", self->pv->caller_window);
+		return TRUE;
+	}
+
+	g_warning ("caller-window property doesn't represent a window on current display: %s",
+	           self->pv->caller_window);
+	return FALSE;
+}
+#endif
+
 static void
 update_transient_for (GcrPromptDialog *self)
 {
-	GdkDisplay *display;
-	GdkWindow *transient_for = NULL;
 	GdkWindow *window;
-	gint64 handle;
-	gchar *end;
+	gboolean success = FALSE;
 
 	if (self->pv->caller_window == NULL || g_str_equal (self->pv->caller_window, "")) {
 		gtk_window_set_modal (GTK_WINDOW (self), FALSE);
@@ -149,22 +199,17 @@ update_transient_for (GcrPromptDialog *self)
 		return;
 
 #ifdef GDK_WINDOWING_X11
-	handle = g_ascii_strtoll (self->pv->caller_window, &end, 10);
-	if (!end || *end != '\0') {
-		g_warning ("couldn't parse caller-window property: %s", self->pv->caller_window);
-		return;
-	}
-
-	display = gtk_widget_get_display (GTK_WIDGET (self));
-	transient_for = gdk_x11_window_foreign_new_for_display (display, (Window)handle);
-	if (transient_for == NULL) {
-		g_warning ("caller-window property doesn't represent a window on current display: %s",
-		           self->pv->caller_window);
-	} else {
-		gdk_window_set_transient_for (window, transient_for);
-		g_object_unref (transient_for);
-	}
+	if (!success)
+		success |= update_transient_for_x11 (self, window);
 #endif
+#ifdef GDK_WINDOWING_WAYLAND
+	if (!success)
+		success |= update_transient_for_wl (self, window);
+#endif
+
+	if (!success) {
+		g_warning ("Couldn't set transient to caller window");
+	}
 
 	gtk_window_set_modal (GTK_WINDOW (self), TRUE);
 }

@@ -53,9 +53,8 @@ if p11_system_config_modules == ''
 endif
 
 if get_option('gtk')
-  gtk_min_version = '3.12'
+  gtk_min_version = '3.22'
   gtk_dep = dependency('gtk+-3.0', version: '>=' + gtk_min_version)
-  gtk_x11_dep = dependency('gtk+-x11-3.0', version: '>=' + gtk_min_version)
 endif
 
 # configuration

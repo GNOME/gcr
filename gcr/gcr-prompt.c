@@ -210,6 +210,10 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		 * The caller window indicates to the prompt which window is prompting the
 		 * user. The prompt may choose to ignore this information or use it in whatever
 		 * way it sees fit.
+		 *
+		 * In X11, this will be a stringified version of the XWindow handle; in
+		 * Wayland this is the result of an export using the XDG foreign
+		 * protocol.
 		 */
 		g_object_interface_install_property (iface,
 		                g_param_spec_string ("caller-window", "Caller window", "Window ID of application window requesting prompt",

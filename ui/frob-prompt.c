@@ -63,7 +63,7 @@ prompt_perform (GtkWidget *parent)
 
 	file = g_key_file_new ();
 	if (!g_key_file_load_from_file (file, file_name, G_KEY_FILE_NONE, &error))
-		errx (1, "couldn't load prompt info: %s", error->message);
+		g_error ("couldn't load prompt info: %s", error->message);
 
 	if (!prompt_type || g_str_equal (prompt_type, "dialog"))
 		prompt = g_object_new (GCR_TYPE_PROMPT_DIALOG, NULL);
@@ -72,10 +72,10 @@ prompt_perform (GtkWidget *parent)
 	else if (g_str_equal (prompt_type, "private"))
 		prompt = gcr_system_prompt_open_for_prompter ("org.gnome.keyring.PrivatePrompter", 5, NULL, &error);
 	else
-		errx (2, "invalid type: %s", prompt_type);
+		g_error ("invalid type: %s", prompt_type);
 
 	if (error != NULL)
-		errx (1, "couldn't create prompt: %s", error->message);
+		g_error ("couldn't create prompt: %s", error->message);
 
 	if (parent) {
 		caller_id = g_strdup_printf ("%lu", (gulong)GDK_WINDOW_XID (gtk_widget_get_window (parent)));
@@ -99,7 +99,7 @@ prompt_perform (GtkWidget *parent)
 				continue;
 			spec = g_object_class_find_property (G_OBJECT_GET_CLASS (prompt), key);
 			if (spec == NULL)
-				errx (1, "couldn't find property %s on prompt %s",
+				g_error ("couldn't find property %s on prompt %s",
 				      key, G_OBJECT_TYPE_NAME (prompt));
 			g_value_init (&value, spec->value_type);
 			switch (spec->value_type) {
@@ -113,7 +113,7 @@ prompt_perform (GtkWidget *parent)
 				g_value_set_boolean (&value, g_key_file_get_boolean (file, groups[i], key, NULL));
 				break;
 			default:
-				errx (1, "unsupported type %s for property %s",
+				g_error ("unsupported type %s for property %s",
 				      g_type_name (spec->value_type), key);
 				break;
 			}
@@ -128,18 +128,18 @@ prompt_perform (GtkWidget *parent)
 		if (g_strcmp0 (type, "password") == 0) {
 			password = gcr_prompt_password_run (prompt, NULL, &error);
 			if (error != NULL)
-				errx (1, "couldn't prompt for password: %s", error->message);
+				g_error ("couldn't prompt for password: %s", error->message);
 			g_print ("prompt password: %s\n", password);
 			g_print ("password strength: %d\n", gcr_prompt_get_password_strength (prompt));
 			cont = (password != NULL);
 		} else if (g_strcmp0 (type, "confirm") == 0) {
 			reply = gcr_prompt_confirm_run (prompt, NULL, &error);
 			if (error != NULL)
-				errx (1, "couldn't prompt for confirm: %s", error->message);
+				g_error ("couldn't prompt for confirm: %s", error->message);
 			g_print ("prompt confirm: %d\n", reply);
 			cont = (reply != GCR_PROMPT_REPLY_CANCEL);
 		} else {
-			errx (1, "unsupported prompt type: %s", type);
+			g_error ("unsupported prompt type: %s", type);
 		}
 		g_free (type);
 
@@ -199,12 +199,12 @@ main (int argc, char *argv[])
 	g_option_context_add_group (context, gtk_get_option_group (TRUE));
 
 	if (!g_option_context_parse (context, &argc, &argv, &error))
-		errx (2, "%s", error->message);
+		g_error ("%s", error->message);
 
 	g_option_context_free (context);
 
 	if (argc < 2)
-		errx (2, "specify file");
+		g_error ("specify file");
 	file_name = argv[1];
 
 	if (prompt_window) {

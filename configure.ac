@@ -119,7 +119,7 @@ AC_ARG_WITH(gtk, [
 AM_CONDITIONAL(WITH_GTK, test "$with_gtk" != "no")
 
 if test "x$with_gtk" != "xno"; then
-	PKG_CHECK_MODULES(GTK, gtk+-3.0 >= $GTK_REQ gtk+-x11-3.0 >= $GTK_REQ)
+	PKG_CHECK_MODULES(GTK, gtk+-3.0 >= $GTK_REQ)
 	AC_SUBST(GTK_CFLAGS)
 	AC_SUBST(GTK_LIBS)
 fi

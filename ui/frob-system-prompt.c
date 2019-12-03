@@ -23,10 +23,10 @@
 
 #include "gcr/gcr.h"
 
-#include "egg/egg-testing.h"
-
 #include <gtk/gtk.h>
+#ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
+#endif
 
 #include <unistd.h>
 #include <string.h>
@@ -54,9 +54,11 @@ on_prompt_clicked (GtkToolButton *button,
 	gcr_prompt_set_message (GCR_PROMPT (prompt), "This is the message");
 	gcr_prompt_set_description (GCR_PROMPT (prompt), "This is the description");
 
+#ifdef GDK_WINDOWING_X11
 	caller_id = g_strdup_printf ("%lu", (gulong)GDK_WINDOW_XID (gtk_widget_get_window (parent)));
 	gcr_prompt_set_caller_window (GCR_PROMPT (prompt), caller_id);
 	g_free (caller_id);
+#endif
 
 	password = gcr_prompt_password_run (GCR_PROMPT (prompt), NULL, &error);
 	if (error != NULL) {

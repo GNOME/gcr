@@ -27,7 +27,9 @@
 #include "gcr-secure-entry-buffer.h"
 
 #include <gtk/gtk.h>
+#ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
+#endif
 #include <glib/gi18n.h>
 
 /**
@@ -132,7 +134,7 @@ static void
 update_transient_for (GcrPromptDialog *self)
 {
 	GdkDisplay *display;
-	GdkWindow *transient_for;
+	GdkWindow *transient_for = NULL;
 	GdkWindow *window;
 	gint64 handle;
 	gchar *end;
@@ -146,6 +148,7 @@ update_transient_for (GcrPromptDialog *self)
 	if (window == NULL)
 		return;
 
+#ifdef GDK_WINDOWING_X11
 	handle = g_ascii_strtoll (self->pv->caller_window, &end, 10);
 	if (!end || *end != '\0') {
 		g_warning ("couldn't parse caller-window property: %s", self->pv->caller_window);
@@ -161,6 +164,7 @@ update_transient_for (GcrPromptDialog *self)
 		gdk_window_set_transient_for (window, transient_for);
 		g_object_unref (transient_for);
 	}
+#endif
 
 	gtk_window_set_modal (GTK_WINDOW (self), TRUE);
 }

@@ -27,38 +27,19 @@
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
 #endif
+#ifdef GDK_WINDOWING_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
 
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
 
 static void
-on_prompt_clicked (GtkToolButton *button,
-                   gpointer user_data)
+run_prompt (GcrPrompt *prompt)
 {
-	GcrPrompt *prompt;
+	const char *password;
 	GError *error = NULL;
-	const gchar *password;
-	GtkWidget *parent = user_data;
-	gchar *caller_id;
-
-	prompt = gcr_system_prompt_open (-1, NULL, &error);
-	if (error != NULL) {
-		g_warning ("couldn't open prompt: %s", error->message);
-		g_error_free (error);
-		return;
-	}
-	g_object_add_weak_pointer (G_OBJECT (prompt), (gpointer *)&prompt);
-
-	gcr_prompt_set_title (GCR_PROMPT (prompt), "This is the title");
-	gcr_prompt_set_message (GCR_PROMPT (prompt), "This is the message");
-	gcr_prompt_set_description (GCR_PROMPT (prompt), "This is the description");
-
-#ifdef GDK_WINDOWING_X11
-	caller_id = g_strdup_printf ("%lu", (gulong)GDK_WINDOW_XID (gtk_widget_get_window (parent)));
-	gcr_prompt_set_caller_window (GCR_PROMPT (prompt), caller_id);
-	g_free (caller_id);
-#endif
 
 	password = gcr_prompt_password_run (GCR_PROMPT (prompt), NULL, &error);
 	if (error != NULL) {
@@ -70,7 +51,61 @@ on_prompt_clicked (GtkToolButton *button,
 
 	g_print ("password: %s\n", password);
 	g_object_unref (prompt);
-	g_assert (prompt == NULL);
+}
+
+static void
+on_gdk_wl_window_exported (GdkWindow *window,
+                           const char *handle,
+                           gpointer user_data)
+{
+	GcrPrompt *prompt = GCR_PROMPT (user_data);
+
+	g_return_if_fail (handle);
+
+	gcr_prompt_set_caller_window (prompt, handle);
+	run_prompt (prompt);
+}
+
+static void
+on_prompt_clicked (GtkToolButton *button,
+                   gpointer user_data)
+{
+	GcrPrompt *prompt;
+	GError *error = NULL;
+	GtkWidget *parent = user_data;
+	GdkWindow *window;
+	gchar *caller_id;
+
+	prompt = gcr_system_prompt_open (-1, NULL, &error);
+	if (error != NULL) {
+		g_warning ("couldn't open prompt: %s", error->message);
+		g_error_free (error);
+		return;
+	}
+
+	gcr_prompt_set_title (GCR_PROMPT (prompt), "This is the title");
+	gcr_prompt_set_message (GCR_PROMPT (prompt), "This is the message");
+	gcr_prompt_set_description (GCR_PROMPT (prompt), "This is the description");
+
+	window = gtk_widget_get_window (parent);
+#ifdef GDK_WINDOWING_X11
+	if (GDK_IS_X11_WINDOW (window)) {
+		caller_id = g_strdup_printf ("%lu", (gulong)GDK_WINDOW_XID (window));
+		gcr_prompt_set_caller_window (prompt, caller_id);
+		g_free (caller_id);
+	}
+#endif
+#ifdef GDK_WINDOWING_WAYLAND
+	if (GDK_IS_WAYLAND_WINDOW (window)) {
+		if (!gdk_wayland_window_export_handle (window, on_gdk_wl_window_exported, prompt, NULL)) {
+			g_warning ("Couldn't export Wayland window handle");
+		} else {
+			return; /* Don't run the prompt before the async method finished */
+		}
+	}
+#endif
+
+	run_prompt (prompt);
 }
 
 static gboolean

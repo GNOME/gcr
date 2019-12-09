@@ -28,8 +28,9 @@
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
 #endif
-
-#include <err.h>
+#ifdef GDK_WINDOWING_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
 
 static const gchar *file_name = NULL;
 static gchar *prompt_type = NULL;
@@ -44,6 +45,45 @@ on_delay_timeout (gpointer data)
 	return FALSE;
 }
 
+#ifdef GDK_WINDOWING_X11
+static void
+set_caller_window_x11 (GcrPrompt *prompt, GdkWindow *window)
+{
+	gchar *caller_id = NULL;
+
+	if (!GDK_IS_X11_WINDOW (window))
+		return;
+
+	caller_id = g_strdup_printf ("%lu", (gulong)GDK_WINDOW_XID (window));
+	gcr_prompt_set_caller_window (prompt, caller_id);
+	g_free (caller_id);
+}
+#endif
+
+#ifdef GDK_WINDOWING_WAYLAND
+static void
+on_window_wl_export_handle (GdkWindow  *window,
+                            const char *handle,
+                            gpointer    user_data)
+{
+	GcrPrompt *prompt = GCR_PROMPT (user_data);
+
+	g_return_if_fail (handle);
+
+	gcr_prompt_set_caller_window (prompt, handle);
+}
+
+static void
+set_caller_window_wl (GcrPrompt *prompt, GdkWindow *window)
+{
+	if (!GDK_IS_WAYLAND_WINDOW (window))
+		return;
+
+	if (!gdk_wayland_window_export_handle (window, on_window_wl_export_handle, prompt, NULL))
+		g_warning ("Couldn't export Wayland window handle");
+}
+#endif
+
 static void
 prompt_perform (GtkWidget *parent)
 {
@@ -56,7 +96,6 @@ prompt_perform (GtkWidget *parent)
 	const gchar *key;
 	const gchar *password;
 	GcrPromptReply reply;
-	gchar *caller_id = NULL;
 	gboolean cont = TRUE;
 	GMainLoop *loop;
 	gchar *type;
@@ -80,9 +119,15 @@ prompt_perform (GtkWidget *parent)
 		g_error ("couldn't create prompt: %s", error->message);
 
 	if (parent) {
-		caller_id = g_strdup_printf ("%lu", (gulong)GDK_WINDOW_XID (gtk_widget_get_window (parent)));
-		gcr_prompt_set_caller_window (GCR_PROMPT (prompt), caller_id);
-		g_free (caller_id);
+		GdkWindow *window;
+
+		window = gtk_widget_get_window (parent);
+#ifdef GDK_WINDOWING_X11
+		set_caller_window_x11 (prompt, window);
+#endif
+#ifdef GDK_WINDOWING_WAYLAND
+		set_caller_window_wl (prompt, window);
+#endif
 	}
 
 	loop = g_main_loop_new (NULL, FALSE);

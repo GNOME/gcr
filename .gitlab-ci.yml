@@ -3,7 +3,7 @@ stages:
   - deploy
 
 variables:
-  DEPENDENCIES: dbus-x11 diffutils gcc gtk-doc meson ninja-build openssh python redhat-rpm-config
+  DEPENDENCIES: dbus-daemon diffutils gcc gtk-doc meson ninja-build openssh python redhat-rpm-config
 
 fedora:Werror:
   image: fedora:latest
@@ -12,12 +12,10 @@ fedora:Werror:
     - dnf upgrade -y
     - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES
     - dnf builddep -y gcr
-    - dbus-uuidgen --ensure
   script:
     - meson _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
     - ninja -C _build
-    - eval `dbus-launch --sh-syntax`
-    - bash +x ./.gitlab-ci/run-tests.sh
+    - dbus-run-session -- bash +x ./.gitlab-ci/run-tests.sh
   artifacts:
     reports:
       junit: "_build/${CI_JOB_NAME}-report.xml"
@@ -37,11 +35,9 @@ fedora:asan:
     - dnf upgrade -y
     - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES libasan
     - dnf builddep -y gcr
-    - dbus-uuidgen --ensure
   script:
     - meson _build -Dsanitize=address
-    - eval `dbus-launch --sh-syntax`
-    - meson test -C _build
+    - dbus-run-session -- meson test -C _build
   artifacts:
     name: "gcr-asan-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     when: always
@@ -56,11 +52,9 @@ fedora:ubsan:
     - dnf upgrade -y
     - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES libubsan
     - dnf builddep -y gcr
-    - dbus-uuidgen --ensure
   script:
     - meson _build -Dsanitize=undefined
-    - eval `dbus-launch --sh-syntax`
-    - meson test -C _build
+    - dbus-run-session -- meson test -C _build
   artifacts:
     name: "gcr-ubsan-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     when: always
@@ -75,11 +69,9 @@ fedora:coverage:
     - dnf upgrade -y
     - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES lcov
     - dnf builddep -y gcr
-    - dbus-uuidgen --ensure
   script:
     - meson _build -Db_coverage=true
-    - eval `dbus-launch --sh-syntax`
-    - meson test -C _build
+    - dbus-run-session -- meson test -C _build
     - ninja coverage-html -C _build
   coverage: '/^\s+lines.+:\s+([\d.]+\%)\s+/'
   artifacts:

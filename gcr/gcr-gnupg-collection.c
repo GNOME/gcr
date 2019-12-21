@@ -233,7 +233,6 @@ typedef struct {
 	GcrLoadingPhase loading_phase;        /* Whether loading public or private */
 	GPtrArray *records;                   /* GcrRecord* not yet made into a key */
 	GcrGnupgProcess *process;             /* The gnupg process itself */
-	GCancellable *cancel;                 /* Cancellation for process */
 	GString *out_data;                    /* Pending output not yet parsed into colons */
 	GHashTable *difference;               /* Hashset gchar *keyid -> gchar *keyid */
 
@@ -248,7 +247,7 @@ typedef struct {
 } GcrGnupgCollectionLoad;
 
 /* Forward declarations */
-static void spawn_gnupg_list_process (GcrGnupgCollectionLoad *load, GSimpleAsyncResult *res);
+static void spawn_gnupg_list_process (GcrGnupgCollectionLoad *load, GTask *task);
 
 static void
 _gcr_gnupg_collection_load_free (gpointer data)
@@ -273,9 +272,6 @@ _gcr_gnupg_collection_load_free (gpointer data)
 	g_object_unref (load->output);
 	g_output_stream_close (load->outattr, NULL, NULL);
 	g_object_unref (load->outattr);
-
-	if (load->cancel)
-		g_object_unref (load->cancel);
 
 	if (load->attribute_queue) {
 		while (!g_queue_is_empty (load->attribute_queue))
@@ -517,8 +513,8 @@ on_gnupg_process_output_data (gconstpointer buffer,
                               gpointer user_data,
                               GError **error)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GcrGnupgCollectionLoad *load = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	GcrGnupgCollectionLoad *load = g_task_get_task_data (task);
 
 	g_string_append_len (load->out_data, buffer, count);
 	_gcr_util_parse_lines (load->out_data, FALSE, on_line_parse_output, load);
@@ -536,8 +532,8 @@ static void
 on_gnupg_process_status_record (GcrGnupgProcess *process, GcrRecord *record,
                                 gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GcrGnupgCollectionLoad *load = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	GcrGnupgCollectionLoad *load = g_task_get_task_data (task);
 
 	if (GCR_RECORD_SCHEMA_ATTRIBUTE != _gcr_record_get_schema (record))
 		return;
@@ -556,8 +552,8 @@ on_gnupg_process_attribute_data (gconstpointer buffer,
                                  gpointer user_data,
                                  GError **error)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GcrGnupgCollectionLoad *load = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	GcrGnupgCollectionLoad *load = g_task_get_task_data (task);
 
 	/* If we don't have a buffer, just claim this one */
 	if (!load->attribute_buf)
@@ -572,18 +568,16 @@ on_gnupg_process_attribute_data (gconstpointer buffer,
 static void
 on_gnupg_process_completed (GObject *source, GAsyncResult *result, gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GcrGnupgCollectionLoad *load = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	GcrGnupgCollectionLoad *load = g_task_get_task_data (task);
 	GHashTableIter iter;
 	GError *error = NULL;
 	GObject *object;
 	gpointer keyid;
 
 	if (!_gcr_gnupg_process_run_finish (GCR_GNUPG_PROCESS (source), result, &error)) {
-		g_simple_async_result_set_from_error (res, error);
-		g_simple_async_result_complete (res);
-		g_object_unref (res);
-		g_clear_error (&error);
+		g_task_return_error (task, g_steal_pointer (&error));
+		g_clear_object (&task);
 		return;
 	}
 
@@ -599,8 +593,8 @@ on_gnupg_process_completed (GObject *source, GAsyncResult *result, gpointer user
 	case GCR_LOADING_PHASE_PUBLIC:
 		g_debug ("public load phase completed");
 		load->loading_phase = GCR_LOADING_PHASE_SECRET;
-		spawn_gnupg_list_process (load, res);
-		g_object_unref (res);
+		spawn_gnupg_list_process (load, task);
+		g_clear_object (&task);
 		return;
 	case GCR_LOADING_PHASE_SECRET:
 		g_debug ("secret load phase completed");
@@ -623,13 +617,14 @@ on_gnupg_process_completed (GObject *source, GAsyncResult *result, gpointer user
 		}
 	}
 
-	g_simple_async_result_complete (res);
-	g_object_unref (res);
+	g_task_return_boolean (task, TRUE);
+	g_clear_object (&task);
 }
 
 static void
-spawn_gnupg_list_process (GcrGnupgCollectionLoad *load, GSimpleAsyncResult *res)
+spawn_gnupg_list_process (GcrGnupgCollectionLoad *load, GTask *task)
 {
+	GCancellable *cancellable = g_task_get_cancellable (task);
 	GcrGnupgProcessFlags flags = 0;
 	GPtrArray *argv;
 
@@ -658,8 +653,8 @@ spawn_gnupg_list_process (GcrGnupgCollectionLoad *load, GSimpleAsyncResult *res)
 
 	/* res is unreffed in on_gnupg_process_completed */
 	_gcr_gnupg_process_run_async (load->process, (const gchar**)argv->pdata, NULL, flags,
-	                              load->cancel, on_gnupg_process_completed,
-	                              g_object_ref (res));
+	                              cancellable, on_gnupg_process_completed,
+	                              g_object_ref (task));
 
 	g_ptr_array_unref (argv);
 }
@@ -667,7 +662,7 @@ spawn_gnupg_list_process (GcrGnupgCollectionLoad *load, GSimpleAsyncResult *res)
 /**
  * _gcr_gnupg_collection_load_async:
  * @self: The collection
- * @cancellable: Cancellation object or %NULL
+ * @cancellable: (nullable): Cancellation object or %NULL
  * @callback: Callback to call when result is ready
  * @user_data: Data for callback
  *
@@ -678,7 +673,7 @@ void
 _gcr_gnupg_collection_load_async (GcrGnupgCollection *self, GCancellable *cancellable,
                                   GAsyncReadyCallback callback, gpointer user_data)
 {
-	GSimpleAsyncResult *res;
+	GTask *task;
 	GcrGnupgCollectionLoad *load;
 	GHashTableIter iter;
 	gpointer keyid;
@@ -687,23 +682,22 @@ _gcr_gnupg_collection_load_async (GcrGnupgCollection *self, GCancellable *cancel
 
 	/* TODO: Cancellation not yet implemented */
 
-	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
-	                                 _gcr_gnupg_collection_load_async);
+	task = g_task_new (self, cancellable, callback, user_data);
+	g_task_set_source_tag (task, _gcr_gnupg_collection_load_async);
 
 	load = g_slice_new0 (GcrGnupgCollectionLoad);
 	load->records = g_ptr_array_new_with_free_func (_gcr_record_free);
 	load->out_data = g_string_sized_new (1024);
 	load->collection = g_object_ref (self);
-	load->cancel = cancellable ? g_object_ref (cancellable) : cancellable;
 
-	load->output = _gcr_callback_output_stream_new (on_gnupg_process_output_data, res, NULL);
-	load->outattr = _gcr_callback_output_stream_new (on_gnupg_process_attribute_data, res, NULL);
+	load->output = _gcr_callback_output_stream_new (on_gnupg_process_output_data, task, NULL);
+	load->outattr = _gcr_callback_output_stream_new (on_gnupg_process_attribute_data, task, NULL);
 
 	load->process = _gcr_gnupg_process_new (self->pv->directory, NULL);
 	_gcr_gnupg_process_set_output_stream (load->process, load->output);
 	_gcr_gnupg_process_set_attribute_stream (load->process, load->outattr);
-	load->error_sig = g_signal_connect (load->process, "error-line", G_CALLBACK (on_gnupg_process_error_line), res);
-	load->status_sig = g_signal_connect (load->process, "status-record", G_CALLBACK (on_gnupg_process_status_record), res);
+	load->error_sig = g_signal_connect (load->process, "error-line", G_CALLBACK (on_gnupg_process_error_line), task);
+	load->status_sig = g_signal_connect (load->process, "status-record", G_CALLBACK (on_gnupg_process_status_record), task);
 
 	/*
 	 * Track all the keys we currently have, at end remove those that
@@ -714,13 +708,12 @@ _gcr_gnupg_collection_load_async (GcrGnupgCollection *self, GCancellable *cancel
 	while (g_hash_table_iter_next (&iter, &keyid, NULL))
 		g_hash_table_insert (load->difference, keyid, keyid);
 
-	g_simple_async_result_set_op_res_gpointer (res, load,
-	                                           _gcr_gnupg_collection_load_free);
+	g_task_set_task_data (task, load, _gcr_gnupg_collection_load_free);
 
 	load->loading_phase = GCR_LOADING_PHASE_PUBLIC;
-	spawn_gnupg_list_process (load, res);
+	spawn_gnupg_list_process (load, task);
 
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 /**
@@ -739,11 +732,7 @@ _gcr_gnupg_collection_load_finish (GcrGnupgCollection *self, GAsyncResult *resul
 	g_return_val_if_fail (GCR_IS_GNUPG_COLLECTION (self), FALSE);
 	g_return_val_if_fail (!error || !*error, FALSE);
 
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (self),
-	                      _gcr_gnupg_collection_load_async), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, self), FALSE);
 
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	return TRUE;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }

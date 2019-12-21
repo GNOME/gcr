@@ -295,23 +295,23 @@ on_process_run_complete (GObject *source,
                          GAsyncResult *result,
                          gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GcrGnupgImporter *self = GCR_GNUPG_IMPORTER (g_async_result_get_source_object (user_data));
+	GTask *task = G_TASK (user_data);
+	GcrGnupgImporter *self = GCR_GNUPG_IMPORTER (g_task_get_source_object (task));
 	GError *error = NULL;
 
 	if (!_gcr_gnupg_process_run_finish (GCR_GNUPG_PROCESS (source), result, &error)) {
 		if (g_error_matches (error, G_SPAWN_ERROR, G_SPAWN_ERROR_FAILED) && self->pv->first_error) {
-			g_simple_async_result_set_error (res, G_SPAWN_ERROR, G_SPAWN_ERROR_FAILED,
-			                                 "%s", self->pv->first_error);
+			g_task_return_new_error (task, G_SPAWN_ERROR, G_SPAWN_ERROR_FAILED,
+			                         "%s", self->pv->first_error);
 			g_error_free (error);
 		} else {
-			g_simple_async_result_take_error (res, error);
+			g_task_return_error (task, g_steal_pointer (&error));
 		}
+	} else {
+		g_task_return_boolean (task, TRUE);
 	}
 
-	g_simple_async_result_complete (res);
-	g_object_unref (self);
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 static void
@@ -321,21 +321,20 @@ _gcr_gnupg_importer_import_async (GcrImporter *importer,
                                   gpointer user_data)
 {
 	GcrGnupgImporter *self = GCR_GNUPG_IMPORTER (importer);
-	GSimpleAsyncResult *res;
+	GTask *task;
 	const gchar *argv[] = { "--import", NULL };
 
-	g_free (self->pv->first_error);
-	self->pv->first_error = NULL;
+	g_clear_pointer (&self->pv->first_error, g_free);
 
-	res = g_simple_async_result_new (G_OBJECT (importer), callback, user_data,
-	                                 _gcr_gnupg_importer_import_async);
+	task = g_task_new (importer, cancellable, callback, user_data);
+	g_task_set_source_tag (task, _gcr_gnupg_importer_import_async);
 
 	_gcr_gnupg_process_run_async (self->pv->process, argv, NULL,
 	                              GCR_GNUPG_PROCESS_WITH_STATUS,
 	                              cancellable, on_process_run_complete,
-	                              g_object_ref (res));
+	                              g_steal_pointer (&task));
 
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 static gboolean
@@ -343,13 +342,9 @@ _gcr_gnupg_importer_import_finish (GcrImporter *importer,
                                    GAsyncResult *result,
                                    GError **error)
 {
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (importer),
-	                      _gcr_gnupg_importer_import_async), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, importer), FALSE);
 
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	return TRUE;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 static void

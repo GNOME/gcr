@@ -138,21 +138,22 @@ static void
 _gcr_memory_icon_load_async (GLoadableIcon *icon, int size, GCancellable *cancellable,
                              GAsyncReadyCallback callback, gpointer user_data)
 {
-	GSimpleAsyncResult *res;
+	GTask *task;
 
-	res = g_simple_async_result_new (G_OBJECT (icon), callback, user_data,
-	                                 _gcr_memory_icon_load_async);
+	task = g_task_new (icon, cancellable, callback, user_data);
+	g_task_set_source_tag (task, _gcr_memory_icon_load_async);
 
-	g_simple_async_result_complete_in_idle (res);
-	g_object_unref (res);
+	/* We don't do anything with the task value, so just return a bogus value */
+	g_task_return_pointer (task, NULL, NULL);
+	g_object_unref (task);
 }
 
 static GInputStream*
 _gcr_memory_icon_finish (GLoadableIcon *icon, GAsyncResult *res, char **type,
                          GError **error)
 {
-	g_return_val_if_fail (g_simple_async_result_is_valid (res, G_OBJECT (icon),
-	                      _gcr_memory_icon_load_async), NULL);
+	g_return_val_if_fail (g_task_is_valid (res, icon), NULL);
+
 	return _gcr_memory_icon_load (icon, 0, type, NULL, error);
 }
 

@@ -372,19 +372,21 @@ perform_build_chain (GcrCertificateChainPrivate *pv, GCancellable *cancellable,
 }
 
 static void
-thread_build_chain (GSimpleAsyncResult *result, GObject *object,
+thread_build_chain (GTask *task, gpointer src_object, gpointer task_data,
                     GCancellable *cancellable)
 {
 	GcrCertificateChainPrivate *pv;
 	GError *error = NULL;
 
-	pv = g_object_get_qdata (G_OBJECT (result), Q_OPERATION_DATA);
+	pv = g_object_get_qdata (G_OBJECT (task), Q_OPERATION_DATA);
 	g_assert (pv);
 
 	g_debug ("building asynchronously in another thread");
 
-	if (!perform_build_chain (pv, cancellable, &error)) {
-		g_simple_async_result_set_from_error (result, error);
+	if (perform_build_chain (pv, cancellable, &error)) {
+		g_task_return_boolean (task, TRUE);
+	} else {
+		g_task_return_error (task, g_steal_pointer (&error));
 		g_clear_error (&error);
 	}
 }
@@ -784,22 +786,19 @@ gcr_certificate_chain_build_async (GcrCertificateChain *self,
                                    gpointer user_data)
 {
 	GcrCertificateChainPrivate *pv;
-	GSimpleAsyncResult *result;
-
-	g_return_if_fail (GCR_IS_CERTIFICATE_CHAIN (self));
+	GTask *task;
 
 	g_return_if_fail (GCR_IS_CERTIFICATE_CHAIN (self));
 	g_return_if_fail (purpose);
 
 	pv = prep_chain_private_thread_safe (self->pv, purpose, peer, flags);
 
-	result = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
-	                                    gcr_certificate_chain_build_async);
-	g_object_set_qdata_full (G_OBJECT (result), Q_OPERATION_DATA, pv, free_chain_private);
+	task = g_task_new (self, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gcr_certificate_chain_build_async);
+	g_object_set_qdata_full (G_OBJECT (task), Q_OPERATION_DATA, pv, free_chain_private);
 
-	g_simple_async_result_run_in_thread (result, thread_build_chain,
-	                                     G_PRIORITY_DEFAULT, cancellable);
-	g_object_unref (result);
+	g_task_run_in_thread (task, thread_build_chain);
+	g_clear_object (&task);
 }
 
 /**
@@ -820,11 +819,9 @@ gcr_certificate_chain_build_finish (GcrCertificateChain *self, GAsyncResult *res
 	GcrCertificateChainPrivate *pv;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE_CHAIN (self), FALSE);
-	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (self),
-	                      gcr_certificate_chain_build_async), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, self), FALSE);
 
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
+	if (!g_task_propagate_boolean (G_TASK (result), error))
 		return FALSE;
 
 	pv = g_object_steal_qdata (G_OBJECT (result), Q_OPERATION_DATA);

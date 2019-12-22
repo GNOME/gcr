@@ -97,19 +97,6 @@
  * HELPERS
  */
 
-typedef struct {
-	GckAttributes *attrs;
-	gboolean found;
-} trust_closure;
-
-static void
-trust_closure_free (gpointer data)
-{
-	trust_closure *closure = data;
-	gck_attributes_unref (closure->attrs);
-	g_free (closure);
-}
-
 static void
 prepare_trust_attrs (GcrCertificate *certificate,
                      CK_X_ASSERTION_TYPE type,
@@ -211,18 +198,18 @@ gcr_trust_is_certificate_pinned (GcrCertificate *certificate, const gchar *purpo
 }
 
 static void
-thread_is_certificate_pinned (GSimpleAsyncResult *result, GObject *object, GCancellable *cancel)
+thread_is_certificate_pinned (GTask *task, gpointer object,
+                              gpointer task_data, GCancellable *cancellable)
 {
+	GckAttributes *attrs = task_data;
 	GError *error = NULL;
-	trust_closure *closure;
+	gboolean found;
 
-	closure = g_simple_async_result_get_op_res_gpointer (result);
-	closure->found = perform_is_certificate_pinned (closure->attrs, cancel, &error);
-
-	if (error != NULL) {
-		g_simple_async_result_set_from_error (result, error);
-		g_clear_error (&error);
-	}
+	found = perform_is_certificate_pinned (attrs, cancellable, &error);
+	if (error == NULL)
+		g_task_return_boolean (task, found);
+	else
+		g_task_return_error (task, g_steal_pointer (&error));
 }
 
 /**
@@ -246,24 +233,23 @@ gcr_trust_is_certificate_pinned_async (GcrCertificate *certificate, const gchar 
                                        const gchar *peer, GCancellable *cancellable,
                                        GAsyncReadyCallback callback, gpointer user_data)
 {
-	GSimpleAsyncResult *async;
-	trust_closure *closure;
+	GTask *task;
+	GckAttributes *attrs;
 
-	g_return_if_fail (GCR_CERTIFICATE (certificate));
+	g_return_if_fail (GCR_IS_CERTIFICATE (certificate));
 	g_return_if_fail (purpose);
 	g_return_if_fail (peer);
 
-	async = g_simple_async_result_new (NULL, callback, user_data,
-	                                   gcr_trust_is_certificate_pinned_async);
-	closure = g_new0 (trust_closure, 1);
-	closure->attrs = prepare_is_certificate_pinned (certificate, purpose, peer);
-	g_return_if_fail (closure->attrs);
-	g_simple_async_result_set_op_res_gpointer (async, closure, trust_closure_free);
+	task = g_task_new (NULL, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gcr_trust_is_certificate_pinned_async);
 
-	g_simple_async_result_run_in_thread (async, thread_is_certificate_pinned,
-	                                     G_PRIORITY_DEFAULT, cancellable);
+	attrs = prepare_is_certificate_pinned (certificate, purpose, peer);
+	g_return_if_fail (attrs);
+	g_task_set_task_data (task, attrs, gck_attributes_unref);
 
-	g_object_unref (async);
+	g_task_run_in_thread (task, thread_is_certificate_pinned);
+
+	g_clear_object (&task);
 }
 
 /**
@@ -282,19 +268,10 @@ gcr_trust_is_certificate_pinned_async (GcrCertificate *certificate, const gchar 
 gboolean
 gcr_trust_is_certificate_pinned_finish (GAsyncResult *result, GError **error)
 {
-	trust_closure *closure;
-
-	g_return_val_if_fail (G_IS_SIMPLE_ASYNC_RESULT (result), FALSE);
 	g_return_val_if_fail (!error || !*error, FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, NULL), FALSE);
 
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, NULL,
-	                      gcr_trust_is_certificate_pinned_async), FALSE);
-
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	closure = g_simple_async_result_get_op_res_gpointer (G_SIMPLE_ASYNC_RESULT (result));
-	return closure->found;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 /* ----------------------------------------------------------------------------------
@@ -428,18 +405,17 @@ gcr_trust_add_pinned_certificate (GcrCertificate *certificate, const gchar *purp
 }
 
 static void
-thread_add_pinned_certificate (GSimpleAsyncResult *result, GObject *object, GCancellable *cancel)
+thread_add_pinned_certificate (GTask *task, gpointer object,
+                               gpointer task_data, GCancellable *cancellable)
 {
+	GckAttributes *attrs = task_data;
 	GError *error = NULL;
-	trust_closure *closure;
 
-	closure = g_simple_async_result_get_op_res_gpointer (result);
-	perform_add_pinned_certificate (closure->attrs, cancel, &error);
-
-	if (error != NULL) {
-		g_simple_async_result_set_from_error (result, error);
-		g_clear_error (&error);
-	}
+	perform_add_pinned_certificate (attrs, cancellable, &error);
+	if (error == NULL)
+		g_task_return_boolean (task, TRUE);
+	else
+		g_task_return_error (task, g_steal_pointer (&error));
 }
 
 /**
@@ -467,24 +443,23 @@ gcr_trust_add_pinned_certificate_async (GcrCertificate *certificate, const gchar
                                         const gchar *peer, GCancellable *cancellable,
                                         GAsyncReadyCallback callback, gpointer user_data)
 {
-	GSimpleAsyncResult *async;
-	trust_closure *closure;
+	GTask *task;
+	GckAttributes *attrs;
 
 	g_return_if_fail (GCR_IS_CERTIFICATE (certificate));
 	g_return_if_fail (purpose);
 	g_return_if_fail (peer);
 
-	async = g_simple_async_result_new (NULL, callback, user_data,
-	                                   gcr_trust_add_pinned_certificate_async);
-	closure = g_new0 (trust_closure, 1);
-	closure->attrs = prepare_add_pinned_certificate (certificate, purpose, peer);
-	g_return_if_fail (closure->attrs);
-	g_simple_async_result_set_op_res_gpointer (async, closure, trust_closure_free);
+	task = g_task_new (NULL, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gcr_trust_add_pinned_certificate_async);
 
-	g_simple_async_result_run_in_thread (async, thread_add_pinned_certificate,
-	                                     G_PRIORITY_DEFAULT, cancellable);
+	attrs = prepare_add_pinned_certificate (certificate, purpose, peer);
+	g_return_if_fail (attrs);
+	g_task_set_task_data (task, attrs, gck_attributes_unref);
 
-	g_object_unref (async);
+	g_task_run_in_thread (task, thread_add_pinned_certificate);
+
+	g_clear_object (&task);
 }
 
 /**
@@ -500,16 +475,10 @@ gcr_trust_add_pinned_certificate_async (GcrCertificate *certificate, const gchar
 gboolean
 gcr_trust_add_pinned_certificate_finish (GAsyncResult *result, GError **error)
 {
-	g_return_val_if_fail (G_IS_SIMPLE_ASYNC_RESULT (result), FALSE);
 	g_return_val_if_fail (!error || !*error, FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, NULL), FALSE);
 
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, NULL,
-	                      gcr_trust_add_pinned_certificate_async), FALSE);
-
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	return TRUE;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 /* -----------------------------------------------------------------------
@@ -613,18 +582,18 @@ gcr_trust_remove_pinned_certificate (GcrCertificate *certificate, const gchar *p
 }
 
 static void
-thread_remove_pinned_certificate (GSimpleAsyncResult *result, GObject *object, GCancellable *cancel)
+thread_remove_pinned_certificate (GTask *task, gpointer object,
+                                  gpointer task_data, GCancellable *cancellable)
 {
+	GckAttributes *attrs = task_data;
 	GError *error = NULL;
-	trust_closure *closure;
 
-	closure = g_simple_async_result_get_op_res_gpointer (result);
-	perform_remove_pinned_certificate (closure->attrs, cancel, &error);
+	perform_remove_pinned_certificate (attrs, cancellable, &error);
 
-	if (error != NULL) {
-		g_simple_async_result_set_from_error (result, error);
-		g_clear_error (&error);
-	}
+	if (error == NULL)
+		g_task_return_boolean (task, TRUE);
+	else
+		g_task_return_error (task, g_steal_pointer (&error));
 }
 
 /**
@@ -646,28 +615,30 @@ thread_remove_pinned_certificate (GSimpleAsyncResult *result, GObject *object, G
  * operation.
  */
 void
-gcr_trust_remove_pinned_certificate_async (GcrCertificate *certificate, const gchar *purpose,
-                                           const gchar *peer, GCancellable *cancellable,
-                                           GAsyncReadyCallback callback, gpointer user_data)
+gcr_trust_remove_pinned_certificate_async (GcrCertificate *certificate,
+                                           const gchar *purpose,
+                                           const gchar *peer,
+                                           GCancellable *cancellable,
+                                           GAsyncReadyCallback callback,
+                                           gpointer user_data)
 {
-	GSimpleAsyncResult *async;
-	trust_closure *closure;
+	GTask *task;
+	GckAttributes *attrs;
 
 	g_return_if_fail (GCR_IS_CERTIFICATE (certificate));
 	g_return_if_fail (purpose);
 	g_return_if_fail (peer);
 
-	async = g_simple_async_result_new (NULL, callback, user_data,
-	                                   gcr_trust_remove_pinned_certificate_async);
-	closure = g_new0 (trust_closure, 1);
-	closure->attrs = prepare_remove_pinned_certificate (certificate, purpose, peer);
-	g_return_if_fail (closure->attrs);
-	g_simple_async_result_set_op_res_gpointer (async, closure, trust_closure_free);
+	task = g_task_new (NULL, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gcr_trust_remove_pinned_certificate_async);
 
-	g_simple_async_result_run_in_thread (async, thread_remove_pinned_certificate,
-	                                     G_PRIORITY_DEFAULT, cancellable);
+	attrs = prepare_remove_pinned_certificate (certificate, purpose, peer);
+	g_return_if_fail (attrs);
+	g_task_set_task_data (task, attrs, gck_attributes_unref);
 
-	g_object_unref (async);
+	g_task_run_in_thread (task, thread_remove_pinned_certificate);
+
+	g_clear_object (&task);
 }
 
 /**
@@ -683,16 +654,10 @@ gcr_trust_remove_pinned_certificate_async (GcrCertificate *certificate, const gc
 gboolean
 gcr_trust_remove_pinned_certificate_finish (GAsyncResult *result, GError **error)
 {
-	g_return_val_if_fail (G_IS_SIMPLE_ASYNC_RESULT (result), FALSE);
 	g_return_val_if_fail (!error || !*error, FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, NULL), FALSE);
 
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, NULL,
-	                      gcr_trust_remove_pinned_certificate_async), FALSE);
-
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	return TRUE;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 /* ----------------------------------------------------------------------------------
@@ -777,18 +742,18 @@ gcr_trust_is_certificate_anchored (GcrCertificate *certificate, const gchar *pur
 }
 
 static void
-thread_is_certificate_anchored (GSimpleAsyncResult *result, GObject *object, GCancellable *cancel)
+thread_is_certificate_anchored (GTask *task, gpointer object,
+                                gpointer task_data, GCancellable *cancellable)
 {
+	GckAttributes *attrs = task_data;
 	GError *error = NULL;
-	trust_closure *closure;
+	gboolean found;
 
-	closure = g_simple_async_result_get_op_res_gpointer (result);
-	closure->found = perform_is_certificate_anchored (closure->attrs, cancel, &error);
-
-	if (error != NULL) {
-		g_simple_async_result_set_from_error (result, error);
-		g_clear_error (&error);
-	}
+	found = perform_is_certificate_anchored (attrs, cancellable, &error);
+	if (error == NULL)
+		g_task_return_boolean (task, found);
+	else
+		g_task_return_error (task, g_steal_pointer (&error));
 }
 
 /**
@@ -811,23 +776,22 @@ gcr_trust_is_certificate_anchored_async (GcrCertificate *certificate, const gcha
                                          GCancellable *cancellable, GAsyncReadyCallback callback,
                                          gpointer user_data)
 {
-	GSimpleAsyncResult *async;
-	trust_closure *closure;
+	GTask *task;
+	GckAttributes *attrs;
 
 	g_return_if_fail (GCR_IS_CERTIFICATE (certificate));
 	g_return_if_fail (purpose);
 
-	async = g_simple_async_result_new (NULL, callback, user_data,
-	                                   gcr_trust_is_certificate_anchored_async);
-	closure = g_new0 (trust_closure, 1);
-	closure->attrs = prepare_is_certificate_anchored (certificate, purpose);
-	g_return_if_fail (closure->attrs);
-	g_simple_async_result_set_op_res_gpointer (async, closure, trust_closure_free);
+	task = g_task_new (NULL, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gcr_trust_is_certificate_anchored_async);
 
-	g_simple_async_result_run_in_thread (async, thread_is_certificate_anchored,
-	                                     G_PRIORITY_DEFAULT, cancellable);
+	attrs = prepare_is_certificate_anchored (certificate, purpose);
+	g_return_if_fail (attrs);
+	g_task_set_task_data (task, attrs, gck_attributes_unref);
 
-	g_object_unref (async);
+	g_task_run_in_thread (task, thread_is_certificate_anchored);
+
+	g_clear_object (&task);
 }
 
 /**
@@ -846,17 +810,8 @@ gcr_trust_is_certificate_anchored_async (GcrCertificate *certificate, const gcha
 gboolean
 gcr_trust_is_certificate_anchored_finish (GAsyncResult *result, GError **error)
 {
-	trust_closure *closure;
-
-	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
 	g_return_val_if_fail (!error || !*error, FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, NULL), FALSE);
 
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, NULL,
-	                      gcr_trust_is_certificate_anchored_async), FALSE);
-
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	closure = g_simple_async_result_get_op_res_gpointer (G_SIMPLE_ASYNC_RESULT (result));
-	return closure->found;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }

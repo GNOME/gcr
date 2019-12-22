@@ -62,28 +62,16 @@ struct _GcrPkcs11Importer {
 
 typedef struct  {
 	GcrPkcs11Importer *importer;
-	GCancellable *cancellable;
 	gboolean prompted;
 	gboolean async;
 	GckBuilder *supplement;
 } GcrImporterData;
 
-/* State forward declarations */
-static void   state_cancelled                  (GSimpleAsyncResult *res,
+/* frward declarations */
+static void   state_cancelled                  (GTask *task,
                                                 gboolean async);
-
-static void   state_complete                   (GSimpleAsyncResult *res,
+static void   state_create_object              (GTask *task,
                                                 gboolean async);
-
-static void   state_create_object              (GSimpleAsyncResult *res,
-                                                gboolean async);
-
-static void   state_supplement                 (GSimpleAsyncResult *res,
-                                                gboolean async);
-
-static void   state_open_session               (GSimpleAsyncResult *res,
-                                                gboolean async);
-
 static void   _gcr_pkcs11_importer_init_iface  (GcrImporterIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrPkcs11Importer, _gcr_pkcs11_importer, G_TYPE_OBJECT,
@@ -97,24 +85,23 @@ gcr_importer_data_free (gpointer data)
 {
 	GcrImporterData *state = data;
 
-	g_clear_object (&state->cancellable);
 	g_clear_object (&state->importer);
 	gck_builder_unref (state->supplement);
 	g_free (state);
 }
 
 static void
-next_state (GSimpleAsyncResult *res,
-            void (*state) (GSimpleAsyncResult *, gboolean))
+next_state (GTask *task,
+            void (*state) (GTask *, gboolean))
 {
-	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
+	GcrImporterData *data = g_task_get_task_data (task);
 
 	g_assert (state);
 
-	if (g_cancellable_is_cancelled (data->cancellable))
+	if (g_cancellable_is_cancelled (g_task_get_cancellable (task)))
 		state = state_cancelled;
 
-	(state) (res, data->async);
+	(state) (task, data->async);
 }
 
 /* ---------------------------------------------------------------------------------
@@ -122,25 +109,17 @@ next_state (GSimpleAsyncResult *res,
  */
 
 static void
-state_complete (GSimpleAsyncResult *res,
-                gboolean async)
-{
-	g_simple_async_result_complete (res);
-}
-
-static void
-state_cancelled (GSimpleAsyncResult *res,
+state_cancelled (GTask *task,
                  gboolean async)
 {
-	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
+	GCancellable *cancellable = g_task_get_cancellable (task);
 	GError *error = NULL;
 
-	if (data->cancellable && !g_cancellable_is_cancelled (data->cancellable))
-		g_cancellable_cancel (data->cancellable);
+	if (cancellable && !g_cancellable_is_cancelled (cancellable))
+		g_cancellable_cancel (cancellable);
 
-	g_cancellable_set_error_if_cancelled (data->cancellable, &error);
-	g_simple_async_result_take_error (res, error);
-	next_state (res, state_complete);
+	g_cancellable_set_error_if_cancelled (cancellable, &error);
+	g_task_return_error (task, g_steal_pointer (&error));
 }
 
 /* ---------------------------------------------------------------------------------
@@ -148,20 +127,19 @@ state_cancelled (GSimpleAsyncResult *res,
  */
 
 static void
-complete_create_object (GSimpleAsyncResult *res,
+complete_create_object (GTask *task,
                         GckObject *object,
                         GError *error)
 {
-	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
+	GcrImporterData *data = g_task_get_task_data (task);
 	GcrPkcs11Importer *self = data->importer;
 
 	if (object == NULL) {
-		g_simple_async_result_take_error (res, error);
-		next_state (res, state_complete);
+		g_task_return_error (task, g_steal_pointer (&error));
 
 	} else {
 		self->objects = g_list_append (self->objects, object);
-		next_state (res, state_create_object);
+		next_state (task, state_create_object);
 	}
 }
 
@@ -170,20 +148,21 @@ on_create_object (GObject *source,
                   GAsyncResult *result,
                   gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
+	GTask *task = G_TASK (user_data);
 	GError *error = NULL;
 	GckObject *object;
 
 	object = gck_session_create_object_finish (GCK_SESSION (source), result, &error);
-	complete_create_object (res, object, error);
-	g_object_unref (res);
+	complete_create_object (task, object, error);
+	g_clear_object (&task);
 }
 
 static void
-state_create_object (GSimpleAsyncResult *res,
+state_create_object (GTask *task,
                      gboolean async)
 {
-	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
+	GcrImporterData *data = g_task_get_task_data (task);
+	GCancellable *cancellable = g_task_get_cancellable (task);
 	GcrPkcs11Importer *self = data->importer;
 	GckAttributes *attrs;
 	GckObject *object;
@@ -191,7 +170,7 @@ state_create_object (GSimpleAsyncResult *res,
 
 	/* No more objects */
 	if (g_queue_is_empty (self->queue)) {
-		next_state (res, state_complete);
+		g_task_return_boolean (task, TRUE);
 
 	} else {
 
@@ -201,12 +180,12 @@ state_create_object (GSimpleAsyncResult *res,
 
 		if (async) {
 			gck_session_create_object_async (self->session, attrs,
-			                                 data->cancellable, on_create_object,
-			                                 g_object_ref (res));
+			                                 cancellable, on_create_object,
+			                                 g_object_ref (task));
 		} else {
 			object = gck_session_create_object (self->session, attrs,
-			                                    data->cancellable, &error);
-			complete_create_object (res, object, error);
+			                                    cancellable, &error);
+			complete_create_object (task, object, error);
 		}
 
 		gck_attributes_unref (attrs);
@@ -406,10 +385,10 @@ supplement_attributes (GcrPkcs11Importer *self,
 }
 
 static void
-complete_supplement (GSimpleAsyncResult *res,
+complete_supplement (GTask *task,
                      GError *error)
 {
-	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
+	GcrImporterData *data = g_task_get_task_data (task);
 	GckAttributes *attributes;
 
 	if (error == NULL) {
@@ -417,10 +396,9 @@ complete_supplement (GSimpleAsyncResult *res,
 		supplement_attributes (data->importer, attributes);
 		gck_attributes_unref (attributes);
 
-		next_state (res, state_create_object);
+		next_state (task, state_create_object);
 	} else {
-		g_simple_async_result_take_error (res, error);
-		next_state (res, state_complete);
+		g_task_return_error (task, g_steal_pointer (&error));
 	}
 }
 
@@ -429,44 +407,46 @@ on_supplement_done (GObject *source,
                     GAsyncResult *result,
                     gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	GcrImporterData *data = g_task_get_task_data (task);
 	GcrPkcs11Importer *self = data->importer;
 	GError *error = NULL;
 
 	gcr_import_interaction_supplement_finish (GCR_IMPORT_INTERACTION (self->interaction),
 	                                          result, &error);
-	complete_supplement (res, error);
-	g_object_unref (res);
+	complete_supplement (task, error);
+	g_clear_object (&task);
 }
 
 static void
-state_supplement (GSimpleAsyncResult *res,
+state_supplement (GTask *task,
                   gboolean async)
 {
-	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
+	GcrImporterData *data = g_task_get_task_data (task);
+	GCancellable *cancellable = g_task_get_cancellable (task);
 	GcrPkcs11Importer *self = data->importer;
 	GError *error = NULL;
 
 	if (self->interaction == NULL || !GCR_IS_IMPORT_INTERACTION (self->interaction)) {
-		complete_supplement (res, NULL);
+		complete_supplement (task, NULL);
 
 	} else if (async) {
 		gcr_import_interaction_supplement_async (GCR_IMPORT_INTERACTION (self->interaction),
-		                                         data->supplement, data->cancellable,
-		                                         on_supplement_done, g_object_ref (res));
+		                                         data->supplement, cancellable,
+		                                         on_supplement_done,
+		                                         g_object_ref (task));
 
 	} else {
 		gcr_import_interaction_supplement (GCR_IMPORT_INTERACTION (self->interaction),
-		                                   data->supplement, data->cancellable, &error);
-		complete_supplement (res, error);
+		                                   data->supplement, cancellable, &error);
+		complete_supplement (task, error);
 	}
 }
 
 static void
-supplement_prep (GSimpleAsyncResult *res)
+supplement_prep (GTask *task)
 {
-	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
+	GcrImporterData *data = g_task_get_task_data (task);
 	GcrPkcs11Importer *self = data->importer;
 	const GckAttribute *the_label = NULL;
 	const GckAttribute *attr;
@@ -503,21 +483,20 @@ supplement_prep (GSimpleAsyncResult *res)
  */
 
 static void
-complete_open_session (GSimpleAsyncResult *res,
+complete_open_session (GTask *task,
                        GckSession *session,
                        GError *error)
 {
-	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
+	GcrImporterData *data = g_task_get_task_data (task);
 	GcrPkcs11Importer *self = data->importer;
 
 	if (!session) {
-		g_simple_async_result_take_error (res, error);
-		next_state (res, state_complete);
+		g_task_return_error (task, g_steal_pointer (&error));
 
 	} else {
 		g_clear_object (&self->session);
 		self->session = session;
-		next_state (res, state_supplement);
+		next_state (task, state_supplement);
 	}
 }
 
@@ -526,20 +505,21 @@ on_open_session (GObject *source,
                  GAsyncResult *result,
                  gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
+	GTask *task = G_TASK (user_data);
 	GError *error = NULL;
 	GckSession *session;
 
 	session = gck_session_open_finish (result, &error);
-	complete_open_session (res, session, error);
-	g_object_unref (res);
+	complete_open_session (task, session, error);
+	g_clear_object (&task);
 }
 
 static void
-state_open_session (GSimpleAsyncResult *res,
+state_open_session (GTask *task,
                     gboolean async)
 {
-	GcrImporterData *data = g_simple_async_result_get_op_res_gpointer (res);
+	GcrImporterData *data = g_task_get_task_data (task);
+	GCancellable *cancellable = g_task_get_cancellable (task);
 	GcrPkcs11Importer *self = data->importer;
 	guint options = GCK_SESSION_READ_WRITE | GCK_SESSION_LOGIN_USER;
 	GckSession *session;
@@ -547,11 +527,11 @@ state_open_session (GSimpleAsyncResult *res,
 
 	if (async) {
 		gck_session_open_async (self->slot, options, self->interaction,
-		                        data->cancellable, on_open_session, g_object_ref (res));
+		                        cancellable, on_open_session, g_object_ref (task));
 	} else {
 		session = gck_session_open (self->slot, options, self->interaction,
-		                            data->cancellable, &error);
-		complete_open_session (res, session, error);
+		                            cancellable, &error);
+		complete_open_session (task, session, error);
 	}
 }
 
@@ -843,21 +823,21 @@ _gcr_pkcs11_importer_import_async (GcrImporter *importer,
                                    GAsyncReadyCallback callback,
                                    gpointer user_data)
 {
-	GSimpleAsyncResult *res;
+	GTask *task;
 	GcrImporterData *data;
 
-	res = g_simple_async_result_new (G_OBJECT (importer), callback, user_data,
-	                                 _gcr_pkcs11_importer_import_async);
+	task = g_task_new (importer, cancellable, callback, user_data);
+	g_task_set_source_tag (task, _gcr_pkcs11_importer_import_async);
+
 	data = g_new0 (GcrImporterData, 1);
 	data->async = TRUE;
 	data->importer = GCR_PKCS11_IMPORTER (g_object_ref (importer));
-	data->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
-	g_simple_async_result_set_op_res_gpointer (res, data, gcr_importer_data_free);
+	g_task_set_task_data (task, data, gcr_importer_data_free);
 
-	supplement_prep (res);
+	supplement_prep (task);
 
-	next_state (res, state_open_session);
-	g_object_unref (res);
+	next_state (task, state_open_session);
+	g_clear_object (&task);
 }
 
 static gboolean
@@ -865,13 +845,9 @@ _gcr_pkcs11_importer_import_finish (GcrImporter *importer,
                                     GAsyncResult *result,
                                     GError **error)
 {
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (importer),
-	                      _gcr_pkcs11_importer_import_async), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, importer), FALSE);
 
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	return TRUE;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 static void

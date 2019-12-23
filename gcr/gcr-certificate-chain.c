@@ -596,7 +596,7 @@ gcr_certificate_chain_get_status (GcrCertificateChain *self)
  * If an anchor is returned it does not mean that the certificate chain has
  * been verified, but merely that an anchor has been found.
  *
- * Returns: (transfer none): the anchor certificate, or NULL if not anchored.
+ * Returns: (transfer none): the anchor certificate, or %NULL if not anchored.
  */
 GcrCertificate *
 gcr_certificate_chain_get_anchor (GcrCertificateChain *self)
@@ -804,7 +804,7 @@ gcr_certificate_chain_build_async (GcrCertificateChain *self,
  * gcr_certificate_chain_build_finish:
  * @self: the #GcrCertificateChain
  * @result: the #GAsyncResult passed to the callback
- * @error: a #GError, or NULL
+ * @error: a #GError, or %NULL
  *
  * Finishes an asynchronous operation started by
  * gcr_certificate_chain_build_async().

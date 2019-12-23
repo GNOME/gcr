@@ -1380,7 +1380,7 @@ gck_builder_clear (GckBuilder *builder)
 /**
  * GckAttribute:
  * @type: The attribute type, such as CKA_LABEL.
- * @value: (array length=length): The value of the attribute. May be NULL.
+ * @value: (array length=length): The value of the attribute. May be %NULL.
  * @length: The length of the attribute. May be GCK_INVALID if the attribute is invalid.
  *
  * This structure represents a PKCS11 CK_ATTRIBUTE.
@@ -2057,10 +2057,10 @@ gck_attribute_hash (gconstpointer attr)
  * An allocator used to allocate data for the attributes in this GckAttributes set.
  *
  * This is a function that acts like g_realloc. Specifically it frees when length is
- * set to zero, it allocates when data is set to NULL, and it reallocates when both
+ * set to zero, it allocates when data is set to %NULL, and it reallocates when both
  * are valid.
  *
- * Returns: The allocated memory, or NULL when freeing.
+ * Returns: The allocated memory, or %NULL when freeing.
  **/
 
 GType

@@ -428,7 +428,7 @@ gcr_certificate_get_der_data (GcrCertificate *self,
  * This will try to lookup the common name, orianizational unit,
  * organization in that order.
  *
- * Returns: the allocated issuer name, or NULL if no issuer name
+ * Returns: the allocated issuer name, or %NULL if no issuer name
  */
 gchar *
 gcr_certificate_get_issuer_name (GcrCertificate *self)
@@ -453,7 +453,7 @@ gcr_certificate_get_issuer_name (GcrCertificate *self)
  * The string returned should be freed by the caller when no longer
  * required.
  *
- * Returns: The allocated issuer CN, or NULL if no issuer CN present.
+ * Returns: The allocated issuer CN, or %NULL if no issuer CN present.
  */
 gchar*
 gcr_certificate_get_issuer_cn (GcrCertificate *self)
@@ -613,7 +613,7 @@ gcr_certificate_get_issuer_dn (GcrCertificate *self)
  * The string returned should be freed by the caller when no longer
  * required.
  *
- * Returns: The allocated subject CN, or NULL if no subject CN present.
+ * Returns: The allocated subject CN, or %NULL if no subject CN present.
  */
 gchar*
 gcr_certificate_get_subject_cn (GcrCertificate *self)
@@ -630,7 +630,7 @@ gcr_certificate_get_subject_cn (GcrCertificate *self)
  * This will try to lookup the common name, orianizational unit,
  * organization in that order.
  *
- * Returns: the allocated subject name, or NULL if no subject name
+ * Returns: the allocated subject name, or %NULL if no subject name
  */
 gchar *
 gcr_certificate_get_subject_name (GcrCertificate *self)

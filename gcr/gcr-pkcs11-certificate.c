@@ -339,7 +339,7 @@ gcr_pkcs11_certificate_get_attributes (GcrPkcs11Certificate *self)
  * gcr_pkcs11_certificate_lookup_issuer:
  * @certificate: a #GcrCertificate
  * @cancellable: a #GCancellable
- * @error: a #GError, or NULL
+ * @error: a #GError, or %NULL
  *
  * Lookup a the issuer of a @certificate in the PKCS\#11 storage. The
  * lookup is done using the issuer DN of the certificate. No certificate chain
@@ -414,7 +414,7 @@ gcr_pkcs11_certificate_lookup_issuer_async (GcrCertificate *certificate, GCancel
 /**
  * gcr_pkcs11_certificate_lookup_issuer_finish:
  * @result: the #GAsyncResult passed to the callback
- * @error: a #GError, or NULL
+ * @error: a #GError, or %NULL
  *
  * Finishes an asynchronous operation started by
  * gcr_pkcs11_certificate_lookup_issuer_async().

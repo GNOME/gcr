@@ -419,7 +419,7 @@ _gcr_gnupg_key_get_icon (GcrGnupgKey *self)
  *
  * Get the columns that we should display for gnupg keys.
  *
- * Returns: (transfer none): The columns, NULL terminated, should not be freed.
+ * Returns: (transfer none): The columns, %NULL terminated, should not be freed.
  */
 const GcrColumn*
 _gcr_gnupg_key_get_columns (void)

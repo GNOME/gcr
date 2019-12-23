@@ -438,7 +438,7 @@ gcr_pkcs11_add_module (GckModule *module)
  * gcr_pkcs11_add_module_from_file:
  * @module_path: the full file path of the PKCS\#11 module
  * @unused: unused
- * @error: a #GError or NULL
+ * @error: a #GError or %NULL
  *
  * Initialize a PKCS\#11 module and add it to the modules that are
  * used by the GCR library. Note that is an error to initialize the same

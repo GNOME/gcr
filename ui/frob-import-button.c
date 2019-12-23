@@ -70,14 +70,14 @@ mock_importer_import_async (GcrImporter *importer,
                             GAsyncReadyCallback callback,
                             gpointer user_data)
 {
-	GSimpleAsyncResult *res;
+	GTask *task;
 
-	res = g_simple_async_result_new (G_OBJECT (importer), callback, user_data,
-	                                 mock_importer_import_async);
+	task = g_task_new (importer, cancellable, callback, user_data);
+	g_task_set_source_tag (task, mock_importer_import_async);
 
 	g_printerr ("Import %p\n", importer);
-	g_simple_async_result_complete_in_idle (res);
-	g_object_unref (res);
+	g_task_return_boolean (task, TRUE);
+	g_clear_object (&task);
 }
 
 
@@ -86,7 +86,7 @@ mock_importer_import_finish (GcrImporter *importer,
                              GAsyncResult *result,
                              GError **error)
 {
-	return !g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error);
+	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 

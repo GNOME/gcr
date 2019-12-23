@@ -430,7 +430,7 @@ _gcr_certificate_request_renderer_iface (GcrRendererIface *iface)
 
 /**
  * gcr_certificate_request_renderer_new_for_attributes:
- * @label: (allow-none): the label to display
+ * @label: (nullable): the label to display
  * @attrs: the attributes to display
  *
  * Create a new certificate request renderer to display the label and attributes.
@@ -456,7 +456,7 @@ _gcr_certificate_request_renderer_new_for_attributes (const gchar *label,
  *
  * Get the PKCS\#11 attributes, if any, set for this renderer to display.
  *
- * Returns: (allow-none) (transfer none): the attributes, owned by the renderer
+ * Returns: (nullable) (transfer none): the attributes, owned by the renderer
  */
 GckAttributes *
 _gcr_certificate_request_renderer_get_attributes (GcrCertificateRequestRenderer *self)
@@ -468,7 +468,7 @@ _gcr_certificate_request_renderer_get_attributes (GcrCertificateRequestRenderer 
 /**
  * gcr_certificate_request_renderer_set_attributes:
  * @self: the renderer
- * @attrs: (allow-none): attributes to set
+ * @attrs: (nullable): attributes to set
  *
  * Set the PKCS\#11 attributes for this renderer to display. One of the attributes
  * should be a CKA_VALUE type attribute containing a DER encoded PKCS\#10

@@ -505,7 +505,7 @@ gcr_importer_import_finish (GcrImporter *importer,
  * Get the interaction used to prompt the user when needed by this
  * importer.
  *
- * Returns: (transfer none) (allow-none): the interaction or %NULL
+ * Returns: (transfer none) (nullable): the interaction or %NULL
  */
 GTlsInteraction *
 gcr_importer_get_interaction (GcrImporter *importer)

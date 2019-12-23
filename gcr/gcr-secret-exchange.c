@@ -218,7 +218,7 @@ gcr_secret_exchange_finalize (GObject *obj)
 
 /**
  * gcr_secret_exchange_new:
- * @protocol: (allow-none): the exchange protocol to use
+ * @protocol: (nullable): the exchange protocol to use
  *
  * Create a new secret exchange object.
  *
@@ -454,7 +454,7 @@ gcr_secret_exchange_receive (GcrSecretExchange *self,
 /**
  * gcr_secret_exchange_get_secret:
  * @self: a #GcrSecretExchange object
- * @secret_len: (allow-none): optionally, a location to store the length of returned secret
+ * @secret_len: (out) (optional): optionally, a location to store the length of returned secret
  *
  * Returns the last secret received. If no secret has yet been received this
  * will return %NULL. The string is owned by the #GcrSecretExchange object
@@ -508,7 +508,7 @@ perform_encrypt (GcrSecretExchange *self,
 /**
  * gcr_secret_exchange_send:
  * @self: a #GcrSecretExchange object
- * @secret: (allow-none): optionally, a secret to send to the other side
+ * @secret: (nullable): optionally, a secret to send to the other side
  * @secret_len: length of @secret, or -1 if null terminated
  *
  * Send a reply to the other side of the secret exchange, optionally sending a

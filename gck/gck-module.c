@@ -376,7 +376,7 @@ free_initialize (Initialize *args)
 /**
  * gck_module_initialize:
  * @path: The file system path to the PKCS\#11 module to load.
- * @cancellable: (allow-none): optional cancellation object
+ * @cancellable: (nullable): optional cancellation object
  * @error: A location to store an error resulting from a failed load.
  *
  * Load and initialize a PKCS\#11 module represented by a GckModule object.
@@ -413,7 +413,7 @@ gck_module_initialize (const gchar *path,
 /**
  * gck_module_initialize_async:
  * @path: the file system path to the PKCS\#11 module to load
- * @cancellable: (allow-none): optional cancellation object
+ * @cancellable: (nullable): optional cancellation object
  * @callback: a callback which will be called when the operation completes
  * @user_data: data to pass to the callback
  *
@@ -444,7 +444,7 @@ gck_module_initialize_async (const gchar *path,
  *
  * Finishes the asynchronous initialize operation.
  *
- * Returns: (transfer full) (allow-none): The initialized module, or NULL
+ * Returns: (transfer full) (nullable): The initialized module, or NULL
  */
 GckModule *
 gck_module_initialize_finish (GAsyncResult *result,

@@ -317,8 +317,8 @@ _gcr_gnupg_process_init_async (GAsyncResultIface *iface)
 
 /**
  * _gcr_gnupg_process_new:
- * @directory: (allow-none): The gnupg home directory
- * @executable: (allow-none): The gpg executable
+ * @directory: (nullable): The gnupg home directory
+ * @executable: (nullable): The gpg executable
  *
  * Create a new GcrGnupgProcess.
  *
@@ -934,9 +934,9 @@ on_cancellable_cancelled (GCancellable *cancellable, gpointer user_data)
  * _gcr_gnupg_process_run_async:
  * @self: The process
  * @argv: (array zero-terminated=1): The arguments for the process, not including executable, terminated with %NULL.
- * @envp: (allow-none) (array zero-terminated=1): The environment for new process, terminated with %NULL.
+ * @envp: (nullable) (array zero-terminated=1): The environment for new process, terminated with %NULL.
  * @flags: Flags for starting the process.
- * @cancellable: (allow-none): Cancellation object
+ * @cancellable: (nullable): Cancellation object
  * @callback: Will be called when operation completes.
  * @user_data: (closure): Data passed to callback.
  *

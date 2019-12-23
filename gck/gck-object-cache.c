@@ -88,7 +88,7 @@ gck_object_cache_default_init (GckObjectCacheIface *iface)
  *
  * Gets the attributes cached on this object.
  *
- * Returns: (transfer full) (allow-none): the attributes
+ * Returns: (transfer full) (nullable): the attributes
  */
 GckAttributes *
 gck_object_cache_get_attributes (GckObjectCache *object)
@@ -102,7 +102,7 @@ gck_object_cache_get_attributes (GckObjectCache *object)
 /**
  * gck_object_cache_set_attributes:
  * @object: an object with an attribute cache
- * @attrs: (allow-none): the attributes to set
+ * @attrs: (nullable): the attributes to set
  *
  * Sets the attributes cached on this object.
  *

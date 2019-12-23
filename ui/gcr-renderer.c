@@ -190,7 +190,7 @@ gcr_renderer_emit_data_changed (GcrRenderer *self)
  *
  * Get the PKCS\#11 attributes, if any, set for this renderer to display.
  *
- * Returns: (allow-none) (transfer none): the attributes, owned by the renderer
+ * Returns: (nullable) (transfer none): the attributes, owned by the renderer
  */
 GckAttributes *
 gcr_renderer_get_attributes (GcrRenderer *self)
@@ -208,7 +208,7 @@ gcr_renderer_get_attributes (GcrRenderer *self)
 /**
  * gcr_renderer_set_attributes:
  * @self: The renderer
- * @attrs: (allow-none): attributes to set
+ * @attrs: (nullable): attributes to set
  *
  * Set the PKCS\#11 attributes for this renderer to display.
  */
@@ -242,13 +242,13 @@ sort_registered_by_n_attrs (gconstpointer a, gconstpointer b)
 
 /**
  * gcr_renderer_create:
- * @label: (allow-none): The label for the renderer
+ * @label: (nullable): The label for the renderer
  * @attrs: The attributes to render
  *
  * Create and initialize a renderer for the given attributes and label. These
  * renderers should have been preregistered via gcr_renderer_register().
  *
- * Returns: (transfer full) (allow-none): a new renderer, or %NULL if no renderer
+ * Returns: (transfer full) (nullable): a new renderer, or %NULL if no renderer
  *          matched the attributes; the render should be released with g_object_unref()
  */
 GcrRenderer *

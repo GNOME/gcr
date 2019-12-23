@@ -245,7 +245,7 @@ gcr_combo_selector_get_selected (GcrComboSelector *self)
 /**
  * gcr_combo_selector_set_selected:
  * @self: The selector
- * @selected: (allow-none): the object to select or %NULL
+ * @selected: (nullable): the object to select or %NULL
  *
  * Set the currently selected object in the selector, or clear the selection
  * if selected is set to %NULL.

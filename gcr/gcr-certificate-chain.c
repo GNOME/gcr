@@ -665,7 +665,7 @@ gcr_certificate_chain_get_certificate (GcrCertificateChain *self, guint index)
  * gcr_certificate_chain_build:
  * @self: the #GcrCertificateChain
  * @purpose: the purpose the certificate chain will be used for
- * @peer: (allow-none): the peer the certificate chain will be used with, or %NULL
+ * @peer: (nullable): the peer the certificate chain will be used with, or %NULL
  * @flags: chain completion flags
  * @cancellable: a #GCancellable or %NULL
  * @error: a #GError or %NULL
@@ -736,7 +736,7 @@ gcr_certificate_chain_build (GcrCertificateChain *self,
  * gcr_certificate_chain_build_async:
  * @self: the #GcrCertificateChain
  * @purpose: the purpose the certificate chain will be used for
- * @peer: (allow-none): the peer the certificate chain will be used with, or %NULL
+ * @peer: (nullable): the peer the certificate chain will be used with, or %NULL
  * @flags: chain completion flags
  * @cancellable: a #GCancellable or %NULL
  * @callback: this will be called when the operation completes.

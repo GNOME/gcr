@@ -189,7 +189,7 @@ _gcr_collection_iface (GcrCollectionIface *iface)
 
 /**
  * _gcr_gnupg_collection_new:
- * @directory: (allow-none): The gnupg home directory.
+ * @directory: (nullable): The gnupg home directory.
  *
  * Create a new GcrGnupgCollection.
  *

@@ -769,7 +769,7 @@ gck_session_get_options (GckSession *self)
  * Get the interaction object set on this session, which is used to prompt
  * for pins and the like.
  *
- * Returns: (transfer full) (allow-none): the interaction object, or %NULL
+ * Returns: (transfer full) (nullable): the interaction object, or %NULL
  */
 GTlsInteraction *
 gck_session_get_interaction (GckSession *self)
@@ -785,7 +785,7 @@ gck_session_get_interaction (GckSession *self)
 /**
  * gck_session_set_interaction:
  * @self: the session
- * @interaction: (allow-none): the interaction or %NULL
+ * @interaction: (nullable): the interaction or %NULL
  *
  * Set the interaction object on this session, which is used to prompt for
  * pins and the like.
@@ -816,7 +816,7 @@ gck_session_set_interaction (GckSession *self,
  * gck_session_open:
  * @slot: the slot to open session on
  * @options: session options
- * @interaction: (allow-none): optional interaction for logins or object authentication
+ * @interaction: (nullable): optional interaction for logins or object authentication
  * @cancellable: optional cancellation object
  * @error: location to place error or %NULL
  *
@@ -842,7 +842,7 @@ gck_session_open (GckSlot *slot,
  * gck_session_open_async:
  * @slot: the slot to open session on
  * @options: session options
- * @interaction: (allow-none): optional interaction for logins or object authentication
+ * @interaction: (nullable): optional interaction for logins or object authentication
  * @cancellable: optional cancellation object
  * @callback: called when the operation completes
  * @user_data: data to pass to callback
@@ -917,7 +917,7 @@ perform_init_pin (InitPin *args)
 /**
  * gck_session_init_pin:
  * @self: Initialize PIN for this session's slot.
- * @pin: (allow-none) (array length=n_pin): the user's PIN, or %NULL for
+ * @pin: (nullable) (array length=n_pin): the user's PIN, or %NULL for
  *       protected authentication path
  * @n_pin: the length of the PIN
  * @cancellable: Optional cancellation object, or NULL.
@@ -943,7 +943,7 @@ gck_session_init_pin (GckSession *self, const guchar *pin, gsize n_pin,
 /**
  * gck_session_init_pin_async:
  * @self: Initialize PIN for this session's slot.
- * @pin: (allow-none) (array length=n_pin): the user's PIN, or %NULL for protected authentication path
+ * @pin: (nullable) (array length=n_pin): the user's PIN, or %NULL for protected authentication path
  * @n_pin: the length of the PIN
  * @cancellable: Optional cancellation object, or NULL.
  * @callback: Called when the operation completes.
@@ -1015,10 +1015,10 @@ perform_set_pin (SetPin *args)
 /**
  * gck_session_set_pin:
  * @self: Change the PIN for this session's slot.
- * @old_pin: (allow-none) (array length=n_old_pin): the user's old PIN, or %NULL
+ * @old_pin: (nullable) (array length=n_old_pin): the user's old PIN, or %NULL
  *           for protected authentication path.
  * @n_old_pin: The length of the PIN.
- * @new_pin: (allow-none) (array length=n_new_pin): the user's new PIN, or %NULL
+ * @new_pin: (nullable) (array length=n_new_pin): the user's new PIN, or %NULL
  *           for protected authentication path
  * @n_new_pin: The length of the PIN.
  * @cancellable: Optional cancellation object, or NULL.
@@ -1042,10 +1042,10 @@ gck_session_set_pin (GckSession *self, const guchar *old_pin, gsize n_old_pin,
 /**
  * gck_session_set_pin_async:
  * @self: Change the PIN for this session's slot.
- * @old_pin: (allow-none) (array length=n_new_pin): the user's old PIN, or %NULL
+ * @old_pin: (nullable) (array length=n_new_pin): the user's old PIN, or %NULL
  *           for protected authentication path
  * @n_old_pin: the length of the old PIN
- * @new_pin: (allow-none) (array length=n_new_pin): the user's new PIN, or %NULL
+ * @new_pin: (nullable) (array length=n_new_pin): the user's new PIN, or %NULL
  *           for protected authentication path
  * @n_new_pin: the length of the new PIN
  * @cancellable: Optional cancellation object, or NULL.
@@ -1117,7 +1117,7 @@ perform_login (Login *args)
  * gck_session_login:
  * @self: Log in to this session.
  * @user_type: The type of login user.
- * @pin: (allow-none) (array length=n_pin): the user's PIN, or %NULL for
+ * @pin: (nullable) (array length=n_pin): the user's PIN, or %NULL for
  *       protected authentication path
  * @n_pin: The length of the PIN.
  * @cancellable: Optional cancellation object, or NULL.
@@ -1141,7 +1141,7 @@ gck_session_login (GckSession *self, gulong user_type, const guchar *pin,
  * gck_session_login_async:
  * @self: Log in to this session.
  * @user_type: The type of login user.
- * @pin: (allow-none) (array length=n_pin): the user's PIN, or %NULL for
+ * @pin: (nullable) (array length=n_pin): the user's PIN, or %NULL for
  *       protected authentication path
  * @n_pin: The length of the PIN.
  * @cancellable: Optional cancellation object, or NULL.
@@ -1208,7 +1208,7 @@ perform_interactive (Interactive *args)
  * gck_session_login_interactive:
  * @self: session to use for login
  * @user_type: the type of login user
- * @interaction: (allow-none): interaction to request PIN when necessary
+ * @interaction: (nullable): interaction to request PIN when necessary
  * @cancellable: optional cancellation object, or %NULL
  * @error: location to return an error
  *
@@ -1243,7 +1243,7 @@ gck_session_login_interactive (GckSession *self,
  * gck_session_login_interactive_async:
  * @self: session to use for login
  * @user_type: the type of login user
- * @interaction: (allow-none): interaction to request PIN when necessary
+ * @interaction: (nullable): interaction to request PIN when necessary
  * @cancellable: optional cancellation object, or %NULL
  * @callback: called when the operation completes
  * @user_data: data to pass to the callback
@@ -1573,7 +1573,7 @@ perform_find_objects (FindObjects *args)
  *
  * If the @match #GckAttributes is floating, it is consumed.
  *
- * Returns: (transfer full) (array length=n_handles) (allow-none): a list of
+ * Returns: (transfer full) (array length=n_handles) (nullable): a list of
  *          the matching objects, which may be empty
  **/
 gulong *
@@ -1645,7 +1645,7 @@ gck_session_find_handles_async (GckSession *self,
  *
  * Get the result of a find handles operation.
  *
- * Returns: (transfer full) (array length=n_handles) (allow-none): an array of
+ * Returns: (transfer full) (array length=n_handles) (nullable): an array of
  *          handles that matched, which may be empty, or %NULL on failure
  **/
 gulong *
@@ -1843,8 +1843,8 @@ perform_generate_key_pair (GenerateKeyPair *args)
  * @mech_type: The mechanism type to use for key generation.
  * @public_attrs: Additional attributes for the generated public key.
  * @private_attrs: Additional attributes for the generated private key.
- * @public_key: (allow-none) (out): location to return the resulting public key
- * @private_key: (allow-none) (out): location to return the resulting private key.
+ * @public_key: (optional) (out): location to return the resulting public key
+ * @private_key: (optional) (out): location to return the resulting private key.
  * @cancellable: Optional cancellation object, or NULL.
  * @error: A location to return an error, or NULL.
  *
@@ -1872,8 +1872,8 @@ gck_session_generate_key_pair (GckSession *self, gulong mech_type,
  * @mechanism: The mechanism to use for key generation.
  * @public_attrs: Additional attributes for the generated public key.
  * @private_attrs: Additional attributes for the generated private key.
- * @public_key: (allow-none) (out): a location to return the resulting public key
- * @private_key: (allow-none) (out): a location to return the resulting private key
+ * @public_key: (optional) (out): a location to return the resulting public key
+ * @private_key: (optional) (out): a location to return the resulting private key
  * @cancellable: Optional cancellation object, or NULL.
  * @error: A location to return an error, or NULL.
  *
@@ -1967,8 +1967,8 @@ gck_session_generate_key_pair_async (GckSession *self, GckMechanism *mechanism,
  * gck_session_generate_key_pair_finish:
  * @self: The session to use.
  * @result: The async result passed to the callback.
- * @public_key: (allow-none) (out): a location to return the resulting public key
- * @private_key: (allow-none) (out): a location to return the resulting private key
+ * @public_key: (optional) (out): a location to return the resulting public key
+ * @private_key: (optional) (out): a location to return the resulting private key
  * @error: A location to return an error.
  *
  * Get the result of a generate key pair operation.

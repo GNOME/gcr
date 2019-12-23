@@ -82,8 +82,8 @@ free_initialize_registered (InitializeRegistered *args)
 
 /**
  * gck_modules_initialize_registered:
- * @cancellable: (allow-none): optional cancellation object
- * @error: (allow-none): location to place an error on failure
+ * @cancellable: (nullable): optional cancellation object
+ * @error: (out) (optional): location to place an error on failure
  *
  * Load and initialize all the registered modules.
  *
@@ -333,7 +333,7 @@ gck_modules_tokens_for_uri (GList *modules,
  * This call can block. Use gck_modules_enumerate_uri() for a non-blocking
  * version.
  *
- * Returns: (transfer full) (allow-none): A new #GckObject which should be released with
+ * Returns: (transfer full) (nullable): A new #GckObject which should be released with
  * g_object_unref(), or %NULL if no matching object was found.
  */
 GckObject*

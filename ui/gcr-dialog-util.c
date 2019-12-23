@@ -27,7 +27,6 @@
 
 typedef struct {
 	GtkDialog *dialog;
-	gint response_id;
 	gboolean was_modal;
 	gboolean destroyed;
 	gulong response_sig;
@@ -49,11 +48,11 @@ dialog_run_closure_free (gpointer data)
 }
 
 static void
-complete_async_result (GSimpleAsyncResult *res)
+complete_task (GTask *task, int response_id)
 {
-	DialogRunClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
+	DialogRunClosure *closure = g_task_get_task_data (task);
 
-	g_object_ref (res);
+	g_object_ref (task);
 
 	if (!closure->destroyed) {
 		if (!closure->was_modal)
@@ -69,17 +68,17 @@ complete_async_result (GSimpleAsyncResult *res)
 		closure->destroy_sig = 0;
 	}
 
-	g_simple_async_result_complete (res);
-	g_object_unref (res);
+	g_task_return_int (task, response_id);
+	g_clear_object (&task);
 }
 
 static void
 on_dialog_unmap (GtkDialog *dialog,
                  gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
+	GTask *task = G_TASK (user_data);
 
-	complete_async_result (res);
+	complete_task (task, GTK_RESPONSE_NONE);
 }
 
 static void
@@ -87,11 +86,8 @@ on_dialog_response (GtkDialog *dialog,
                     gint response_id,
                     gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	DialogRunClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
-
-	closure->response_id = response_id;
-	complete_async_result (res);
+	GTask *task = G_TASK (user_data);
+	complete_task (task, response_id);
 }
 
 static gint
@@ -99,8 +95,8 @@ on_dialog_delete (GtkDialog *dialog,
                   GdkEventAny *event,
                   gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	complete_async_result (res);
+	GTask *task = G_TASK (user_data);
+	complete_task (task, GTK_RESPONSE_NONE);
 	return TRUE; /* Do not destroy */
 }
 
@@ -108,8 +104,8 @@ static void
 on_dialog_destroy (GtkDialog *dialog,
                    gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	DialogRunClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	DialogRunClosure *closure = g_task_get_task_data (task);
 
 	/* complete will be called by run_unmap_handler */
 	closure->destroyed = TRUE;
@@ -121,18 +117,17 @@ _gcr_dialog_util_run_async (GtkDialog *dialog,
                             GAsyncReadyCallback callback,
                             gpointer user_data)
 {
-	GSimpleAsyncResult *res;
+	GTask *task;
 	DialogRunClosure *closure;
 
 	g_return_if_fail (GTK_IS_DIALOG (dialog));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	res = g_simple_async_result_new (G_OBJECT (dialog), callback, user_data,
-	                                 _gcr_dialog_util_run_async);
-	closure = g_new0 (DialogRunClosure, 1);
+	task = g_task_new (dialog, cancellable, callback, user_data);
+	g_task_set_source_tag (task, _gcr_dialog_util_run_async);
 
+	closure = g_new0 (DialogRunClosure, 1);
 	closure->dialog = g_object_ref (dialog);
-	closure->response_id = GTK_RESPONSE_NONE;
 	closure->was_modal = gtk_window_get_modal (GTK_WINDOW (dialog));
 	if (!closure->was_modal)
 		gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
@@ -140,29 +135,29 @@ _gcr_dialog_util_run_async (GtkDialog *dialog,
 	if (!gtk_widget_get_visible (GTK_WIDGET (dialog)))
 		gtk_widget_show (GTK_WIDGET (dialog));
 
-	g_simple_async_result_set_op_res_gpointer (res, closure, dialog_run_closure_free);
+	g_task_set_task_data (task, closure, dialog_run_closure_free);
 
 	closure->response_sig = g_signal_connect_data (dialog, "response",
 	                                               G_CALLBACK (on_dialog_response),
-	                                               g_object_ref (res),
+	                                               g_object_ref (task),
 	                                               (GClosureNotify)g_object_unref, 0);
 
 	closure->unmap_sig = g_signal_connect_data (dialog, "unmap",
 	                                            G_CALLBACK (on_dialog_unmap),
-	                                            g_object_ref (res),
+	                                            g_object_ref (task),
 	                                            (GClosureNotify)g_object_unref, 0);
 
 	closure->delete_sig = g_signal_connect_data (dialog, "delete-event",
 	                                             G_CALLBACK (on_dialog_delete),
-	                                             g_object_ref (res),
+	                                             g_object_ref (task),
 	                                             (GClosureNotify)g_object_unref, 0);
 
 	closure->destroy_sig = g_signal_connect_data (dialog, "destroy",
 	                                              G_CALLBACK (on_dialog_destroy),
-	                                              g_object_ref (res),
+	                                              g_object_ref (task),
 	                                              (GClosureNotify)g_object_unref, 0);
 
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 
@@ -170,11 +165,7 @@ gint
 _gcr_dialog_util_run_finish (GtkDialog *dialog,
                              GAsyncResult *result)
 {
-	DialogRunClosure *closure;
+	g_return_val_if_fail (g_task_is_valid (result, dialog), GTK_RESPONSE_NONE);
 
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (dialog),
-	                      _gcr_dialog_util_run_async), GTK_RESPONSE_NONE);
-
-	closure = g_simple_async_result_get_op_res_gpointer (G_SIMPLE_ASYNC_RESULT (result));
-	return closure->response_id;
+	return g_task_propagate_int (G_TASK (result), NULL);
 }

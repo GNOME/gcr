@@ -66,13 +66,15 @@ G_STATIC_ASSERT (sizeof (GckRealBuilder) <= sizeof (GckBuilder));
 
 EGG_SECURE_DECLARE (attributes);
 
+#define MAX_ALIGN 16
+
 static guchar *
 value_take (gpointer data,
             gsize length,
             gboolean secure)
 {
-	gsize len = length + sizeof (gint);
-	gint *value;
+	gsize len = length + MAX_ALIGN;
+	guchar *value;
 
 	if (secure)
 		value = egg_secure_realloc (data, len);
@@ -80,17 +82,17 @@ value_take (gpointer data,
 		value = g_realloc (data, len);
 	g_assert (value != NULL);
 
-	memmove (value + 1, value, length);
-	g_atomic_int_set (value, 1);
-	return (guchar *)(value + 1);
+	memmove (value + MAX_ALIGN, value, length);
+	g_atomic_int_set ((gint *)value, 1);
+	return value + MAX_ALIGN;
 }
 
 static guchar *
 value_blank (gsize length,
              gboolean secure)
 {
-	gsize len = length + sizeof (gint);
-	gint *value;
+	gsize len = length + MAX_ALIGN;
+	guchar *value;
 
 	if (secure)
 		value = egg_secure_alloc (len);
@@ -98,8 +100,8 @@ value_blank (gsize length,
 		value = g_malloc (len);
 	g_assert (value != NULL);
 
-	g_atomic_int_set (value, 1);
-	return (guchar *)(value + 1);
+	g_atomic_int_set ((gint *)value, 1);
+	return value + MAX_ALIGN;
 }
 
 static guchar *
@@ -117,12 +119,12 @@ value_new (gconstpointer data,
 static guchar *
 value_ref (guchar *data)
 {
-	gint *value = ((gint *)data) - 1;
+	guchar *value = data - MAX_ALIGN;
 	gint previous;
 
 	g_assert (data != NULL);
 
-	previous = g_atomic_int_add (value, 1);
+	previous = g_atomic_int_add ((gint *)value, 1);
 	if (G_UNLIKELY (previous <= 0)) {
 		g_warning ("An owned GckAttribute value has been modified outside of the "
 		           "gck library or an invalid attribute was passed to gck_builder_add_attribute()");
@@ -133,13 +135,13 @@ value_ref (guchar *data)
 }
 
 static void
-value_unref (gpointer data)
+value_unref (guchar *data)
 {
-	gint *value = ((gint *)data) - 1;
+	guchar *value = data - MAX_ALIGN;
 
 	g_assert (data != NULL);
 
-	if (g_atomic_int_dec_and_test (value)) {
+	if (g_atomic_int_dec_and_test ((gint *)value)) {
 		if (egg_secure_check (value))
 			egg_secure_free (value);
 		else

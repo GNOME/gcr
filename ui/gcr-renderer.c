@@ -92,7 +92,8 @@ gcr_renderer_default_init (GcrRendererIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		         g_param_spec_string ("label", "Label", "The label for the renderer",
-		                              "", G_PARAM_READWRITE));
+		                              "",
+		                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrRenderer:attributes:
@@ -101,7 +102,8 @@ gcr_renderer_default_init (GcrRendererIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		         g_param_spec_boxed ("attributes", "Attributes", "The data displayed in the renderer",
-		                             GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE));
+		                             GCK_TYPE_ATTRIBUTES,
+		                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 		/**
 		 * GcrRenderer::data-changed:

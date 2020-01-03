@@ -144,11 +144,13 @@ mock_importer_class_init (MockImporterClass *klass)
 
 	g_object_class_install_property (gobject_class, PROP_LABEL,
 	           g_param_spec_string ("label", "", "",
-	                                NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	                                NULL,
+	                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_ICON,
 	           g_param_spec_object ("icon", "", "",
-	                                G_TYPE_ICON, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	                                G_TYPE_ICON,
+	                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_override_property (gobject_class, PROP_URI, "uri");
 	g_object_class_override_property (gobject_class, PROP_INTERACTION, "interaction");

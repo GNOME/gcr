@@ -168,7 +168,8 @@ gcr_key_widget_class_init (GcrKeyWidgetClass *klass)
 
 	g_object_class_install_property (gobject_class, PROP_ATTRIBUTES,
 	         g_param_spec_boxed ("attributes", "Attributes", "The data displayed in the widget",
-	                             GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE));
+	                             GCK_TYPE_ATTRIBUTES,
+	                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 /* -----------------------------------------------------------------------------

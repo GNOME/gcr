@@ -296,11 +296,13 @@ gcr_unlock_options_widget_class_init (GcrUnlockOptionsWidgetClass *klass)
 
 	g_object_class_install_property (gobject_class, PROP_CHOICE,
 	               g_param_spec_string ("choice", "Choice", "Unlock Option Choice",
-	                                    NULL, G_PARAM_READWRITE));
+	                                    NULL,
+	                                    G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_TTL,
 	               g_param_spec_uint ("ttl", "TTL", "Unlock Option Timeout in Seconds",
-	                                  0, G_MAXUINT, 0, G_PARAM_READWRITE));
+	                                  0, G_MAXUINT, 0,
+	                                  G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 /* -----------------------------------------------------------------------------

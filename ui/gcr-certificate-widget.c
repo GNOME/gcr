@@ -167,11 +167,13 @@ gcr_certificate_widget_class_init (GcrCertificateWidgetClass *klass)
 
 	g_object_class_install_property (gobject_class, PROP_CERTIFICATE,
 	           g_param_spec_object("certificate", "Certificate", "Certificate to display.",
-	                               GCR_TYPE_CERTIFICATE, G_PARAM_READWRITE));
+	                               GCR_TYPE_CERTIFICATE,
+	                               G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_ATTRIBUTES,
 	         g_param_spec_boxed ("attributes", "Attributes", "Attributes which contain the certificate",
-	                             GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE));
+	                             GCK_TYPE_ATTRIBUTES,
+	                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 /* -----------------------------------------------------------------------------

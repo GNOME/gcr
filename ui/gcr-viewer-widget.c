@@ -358,7 +358,8 @@ gcr_viewer_widget_class_init (GcrViewerWidgetClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_PARSER,
 	           g_param_spec_object ("parser", "Parser", "Parser used to parse viewable items",
-	                                GCR_TYPE_PARSER, G_PARAM_READABLE));
+	                                GCR_TYPE_PARSER,
+	                                G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrViewerWidget:display-name:
@@ -371,7 +372,8 @@ gcr_viewer_widget_class_init (GcrViewerWidgetClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_DISPLAY_NAME,
 	            g_param_spec_string ("display-name", "Display name", "Display name",
-	                                 NULL, G_PARAM_READWRITE));
+	                                 NULL,
+	                                 G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrViewerWidget::added:

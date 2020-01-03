@@ -172,15 +172,18 @@ _gcr_gnupg_renderer_class_init (GcrGnupgRendererClass *klass)
 
 	g_object_class_install_property (gobject_class, PROP_RECORDS,
 	           g_param_spec_boxed ("records", "Records", "Gnupg records to display",
-	                               G_TYPE_PTR_ARRAY, G_PARAM_READWRITE));
+	                               G_TYPE_PTR_ARRAY,
+	                               G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_ATTRIBUTES,
 	           g_param_spec_boxed ("attributes", "Attributes", "Certificate pkcs11 attributes",
-	                               GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE));
+	                               GCK_TYPE_ATTRIBUTES,
+	                               G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_LABEL,
 	           g_param_spec_string ("label", "Label", "Certificate Label",
-	                                "", G_PARAM_READWRITE));
+	                                "",
+	                                G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/* Register this as a renderer which can be loaded */
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_GCR_GNUPG_RECORDS);

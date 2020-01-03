@@ -77,7 +77,8 @@ test_collection_class_init (TestCollectionClass *klass)
 	gobject_class->finalize = test_collection_finalize;
 
 	g_object_class_install_property (gobject_class, PROP_LABEL,
-	           g_param_spec_string ("label", "label", "label", NULL, G_PARAM_READABLE));
+	           g_param_spec_string ("label", "label", "label", NULL,
+	                                G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 }
 
 static GcrSimpleCollection *

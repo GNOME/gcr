@@ -1251,15 +1251,16 @@ gcr_collection_model_class_init (GcrCollectionModelClass *klass)
 	g_object_class_install_property (gobject_class, PROP_MODE,
 	              g_param_spec_enum ("mode", "Mode", "Tree or list mode",
 	                                 GCR_TYPE_COLLECTION_MODEL_MODE, GCR_COLLECTION_MODEL_TREE,
-	                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_COLLECTION,
 	            g_param_spec_object ("collection", "Object Collection", "Collection to get objects from",
-	                                 GCR_TYPE_COLLECTION, G_PARAM_READWRITE));
+	                                 GCR_TYPE_COLLECTION,
+	                                 G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_COLUMNS,
 		g_param_spec_pointer ("columns", "Columns", "Columns for the model",
-		                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 /**

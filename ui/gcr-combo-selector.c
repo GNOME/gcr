@@ -184,7 +184,8 @@ gcr_combo_selector_class_init (GcrComboSelectorClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_COLLECTION,
 	           g_param_spec_object ("collection", "Collection", "Collection to select from",
-	                                GCR_TYPE_COLLECTION, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	                                GCR_TYPE_COLLECTION,
+	                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 /* -----------------------------------------------------------------------------

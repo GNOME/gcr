@@ -1,0 +1,7 @@
+{
+global:
+  gck_*;
+  SECMEM_*;
+local:
+  *;
+};

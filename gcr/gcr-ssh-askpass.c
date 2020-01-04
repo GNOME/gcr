@@ -442,7 +442,7 @@ gcr_ssh_askpass_class_init (GcrSshAskpassClass *klass)
 	g_object_class_install_property (gobject_class, PROP_INTERACTION,
 	           g_param_spec_object ("interaction", "Interaction", "Interaction",
 	                                G_TYPE_TLS_INTERACTION,
-	                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 #ifdef GCR_SSH_ASKPASS_TOOL

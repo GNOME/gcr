@@ -870,5 +870,5 @@ gcr_secret_exchange_class_init (GcrSecretExchangeClass *klass)
 	g_object_class_install_property (gobject_class, PROP_PROTOCOL,
 	           g_param_spec_string ("protocol", "Protocol", "Exchange protocol",
 	                                GCR_SECRET_EXCHANGE_PROTOCOL_1,
-	                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }

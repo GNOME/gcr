@@ -438,7 +438,8 @@ gcr_certificate_renderer_class_init (GcrCertificateRendererClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_CERTIFICATE,
 	           g_param_spec_object ("certificate", "Certificate", "Certificate to display.",
-	                                GCR_TYPE_CERTIFICATE, G_PARAM_READWRITE));
+	                                GCR_TYPE_CERTIFICATE,
+	                                G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrCertificateRenderer:attributes:
@@ -448,7 +449,8 @@ gcr_certificate_renderer_class_init (GcrCertificateRendererClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_ATTRIBUTES,
 	           g_param_spec_boxed ("attributes", "Attributes", "Certificate pkcs11 attributes",
-	                               GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE));
+	                               GCK_TYPE_ATTRIBUTES,
+	                               G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrCertificateRenderer:label:
@@ -457,7 +459,8 @@ gcr_certificate_renderer_class_init (GcrCertificateRendererClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_LABEL,
 	           g_param_spec_string ("label", "Label", "Certificate Label",
-	                                "", G_PARAM_READWRITE));
+	                                "",
+	                                G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	gcr_certificate_mixin_class_init (gobject_class);
 

@@ -505,12 +505,14 @@ _gcr_live_search_class_init (GcrLiveSearchClass *klass)
 
 	param_spec = g_param_spec_object ("hook-widget", "Live Search Hook Widget",
 	                                  "The live search catches key-press-events on this widget",
-	                                  GTK_TYPE_WIDGET, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+	                                  GTK_TYPE_WIDGET,
+	                                  G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_STATIC_STRINGS);
 	g_object_class_install_property (object_class, PROP_HOOK_WIDGET, param_spec);
 
 	param_spec = g_param_spec_string ("text", "Live Search Text",
 	                                  "The text of the live search entry",
-	                                  "", G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+	                                  "",
+	                                  G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_STATIC_STRINGS);
 	g_object_class_install_property (object_class, PROP_TEXT, param_spec);
 }
 

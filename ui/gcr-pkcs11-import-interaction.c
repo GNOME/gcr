@@ -245,7 +245,8 @@ _gcr_pkcs11_import_interaction_class_init (GcrPkcs11ImportInteractionClass *klas
 
 	g_object_class_install_property (gobject_class, PROP_PARENT_WINDOW,
 	              g_param_spec_object ("parent-window", "Parent Window", "Prompt Parent Window",
-	                                   GTK_TYPE_WINDOW, G_PARAM_READWRITE));
+	                                   GTK_TYPE_WINDOW,
+	                                   G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 GTlsInteraction *

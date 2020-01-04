@@ -456,15 +456,18 @@ _gcr_certificate_exporter_class_init (GcrCertificateExporterClass *klass)
 
 	g_object_class_install_property (gobject_class, PROP_CERTIFICATE,
 	           g_param_spec_object ("certificate", "Certificate", "Certificate to display.",
-	                               GCR_TYPE_CERTIFICATE, G_PARAM_READWRITE));
+	                               GCR_TYPE_CERTIFICATE,
+	                               G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_LABEL,
 	           g_param_spec_string ("label", "Label", "Label of certificate.",
-	                                _("Certificate"), G_PARAM_READWRITE));
+	                                _("Certificate"),
+	                                G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_TRANSIENT_FOR,
 	           g_param_spec_object ("transient-for", "Transient For", "Transient for this Window",
-	                                GTK_TYPE_WINDOW, G_PARAM_READWRITE));
+	                                GTK_TYPE_WINDOW,
+	                                G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 static GObject*

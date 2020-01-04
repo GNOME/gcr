@@ -128,7 +128,7 @@ egg_image_menu_item_class_init (EggImageMenuItemClass *klass)
                                                         "Image widget",
                                                         "Child widget to appear next to the menu text",
                                                         GTK_TYPE_WIDGET,
-                                                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+                                                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class,
                                    PROP_ALWAYS_SHOW_IMAGE,
@@ -136,7 +136,7 @@ egg_image_menu_item_class_init (EggImageMenuItemClass *klass)
                                                          "Always show image",
                                                          "Whether the image will always be shown",
                                                          FALSE,
-                                                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_CONSTRUCT));
+                                                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 }
 
 static void

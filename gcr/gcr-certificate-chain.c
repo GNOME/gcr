@@ -457,9 +457,10 @@ gcr_certificate_chain_class_init (GcrCertificateChainClass *klass)
 	 * The certificate chain status. See #GcrCertificateChainStatus
 	 */
 	g_object_class_install_property (gobject_class, PROP_STATUS,
-	           g_param_spec_enum ("status", "Status", "Status of certificate chain",
-	                              GCR_TYPE_CERTIFICATE_CHAIN_STATUS,
-	                              GCR_CERTIFICATE_CHAIN_UNKNOWN, G_PARAM_READABLE));
+		g_param_spec_enum ("status", "Status", "Status of certificate chain",
+		                   GCR_TYPE_CERTIFICATE_CHAIN_STATUS,
+		                   GCR_CERTIFICATE_CHAIN_UNKNOWN,
+		                   G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrCertificateChain:length:
@@ -467,8 +468,9 @@ gcr_certificate_chain_class_init (GcrCertificateChainClass *klass)
 	 * The length of the certificate chain.
 	 */
 	g_object_class_install_property (gobject_class, PROP_LENGTH,
-	           g_param_spec_uint ("length", "Length", "Length of certificate chain",
-	                              0, G_MAXUINT, 0, G_PARAM_READABLE));
+		g_param_spec_uint ("length", "Length", "Length of certificate chain",
+		                   0, G_MAXUINT, 0,
+		                   G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	Q_ORIGINAL_CERT = g_quark_from_static_string ("gcr-certificate-chain-original-cert");
 	Q_OPERATION_DATA = g_quark_from_static_string ("gcr-certificate-chain-operation-data");

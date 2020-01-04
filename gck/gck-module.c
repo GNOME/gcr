@@ -225,7 +225,8 @@ gck_module_class_init (GckModuleClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_PATH,
 		g_param_spec_string ("path", "Module Path", "Path to the PKCS11 Module",
-		                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                     NULL,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckModule:functions:
@@ -236,7 +237,7 @@ gck_module_class_init (GckModuleClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_FUNCTIONS,
 		g_param_spec_pointer ("functions", "Function List", "PKCS11 Function List",
-		                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckModule::authenticate-slot:

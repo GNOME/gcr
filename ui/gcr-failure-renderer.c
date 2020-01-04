@@ -117,11 +117,13 @@ gcr_failure_renderer_class_init (GcrFailureRendererClass *klass)
 
 	g_object_class_install_property (gobject_class, PROP_LABEL,
 	           g_param_spec_string ("label", "Label", "Failure Label",
-	                                "", G_PARAM_READWRITE));
+	                                "",
+	                                G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_ATTRIBUTES,
 	           g_param_spec_boxed ("attributes", "Attributes", "Renderer attributes",
-	                               GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE));
+	                               GCK_TYPE_ATTRIBUTES,
+	                               G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 static void

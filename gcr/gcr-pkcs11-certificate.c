@@ -287,7 +287,8 @@ gcr_pkcs11_certificate_class_init (GcrPkcs11CertificateClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_ATTRIBUTES,
 	         g_param_spec_boxed ("attributes", "Attributes", "The data displayed in the renderer",
-	                             GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	                             GCK_TYPE_ATTRIBUTES,
+	                             G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	gcr_certificate_mixin_class_init (gobject_class);
 	_gcr_initialize_library ();

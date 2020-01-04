@@ -561,8 +561,9 @@ gcr_system_prompt_class_init (GcrSystemPromptClass *klass)
 	 * for the default prompter.
 	 */
 	g_object_class_install_property (gobject_class, PROP_BUS_NAME,
-	            g_param_spec_string ("bus-name", "Bus name", "Prompter bus name",
-	                                 NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		g_param_spec_string ("bus-name", "Bus name", "Prompter bus name",
+		                     NULL,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrSystemPrompt:timeout-seconds:
@@ -570,8 +571,9 @@ gcr_system_prompt_class_init (GcrSystemPromptClass *klass)
 	 * The timeout in seconds to wait when opening the prompt.
 	 */
 	g_object_class_install_property (gobject_class, PROP_TIMEOUT_SECONDS,
-	               g_param_spec_int ("timeout-seconds", "Timeout seconds", "Timeout (in seconds) for opening prompt",
-	                                 -1, G_MAXINT, -1, G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
+		g_param_spec_int ("timeout-seconds", "Timeout seconds", "Timeout (in seconds) for opening prompt",
+		                  -1, G_MAXINT, -1,
+		                  G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrSystemPrompt:secret-exchange:
@@ -580,8 +582,9 @@ gcr_system_prompt_class_init (GcrSystemPromptClass *klass)
 	 * secret exchange will be used if this is not set.
 	 */
 	g_object_class_install_property (gobject_class, PROP_SECRET_EXCHANGE,
-	            g_param_spec_object ("secret-exchange", "Secret exchange", "Secret exchange for passing passwords",
-	                                 GCR_TYPE_SECRET_EXCHANGE, G_PARAM_READWRITE));
+		g_param_spec_object ("secret-exchange", "Secret exchange", "Secret exchange for passing passwords",
+		                     GCR_TYPE_SECRET_EXCHANGE,
+		                     G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_override_property (gobject_class, PROP_TITLE, "title");
 	g_object_class_override_property (gobject_class, PROP_MESSAGE, "message");

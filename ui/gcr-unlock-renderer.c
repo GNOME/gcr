@@ -206,11 +206,13 @@ _gcr_unlock_renderer_class_init (GcrUnlockRendererClass *klass)
 
 	g_object_class_install_property (gobject_class, PROP_LABEL,
 	           g_param_spec_string ("label", "Label", "Unlock Label",
-	                                "", G_PARAM_READWRITE));
+	                                "",
+	                                G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_ATTRIBUTES,
 	           g_param_spec_boxed ("attributes", "Attributes", "Certificate pkcs11 attributes",
-	                               GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE));
+	                               GCK_TYPE_ATTRIBUTES,
+	                               G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	signals[UNLOCK_CLICKED] = g_signal_new ("unlock-clicked", GCR_TYPE_UNLOCK_RENDERER, G_SIGNAL_RUN_LAST,
 	                                        G_STRUCT_OFFSET (GcrUnlockRendererClass, unlock_clicked),

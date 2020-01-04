@@ -789,7 +789,8 @@ gcr_prompt_dialog_class_init (GcrPromptDialogClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_PASSWORD_VISIBLE,
 	           g_param_spec_boolean ("password-visible", "Password visible", "Password field is visible",
-	                                 FALSE, G_PARAM_READABLE));
+	                                 FALSE,
+	                                 G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrPromptDialog:confirm-visible:
@@ -798,7 +799,8 @@ gcr_prompt_dialog_class_init (GcrPromptDialogClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_CONFIRM_VISIBLE,
 	           g_param_spec_boolean ("confirm-visible", "Confirm visible", "Confirm field is visible",
-	                                 FALSE, G_PARAM_READABLE));
+	                                 FALSE,
+	                                 G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrPromptDialog:warning-visible:
@@ -807,7 +809,8 @@ gcr_prompt_dialog_class_init (GcrPromptDialogClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_WARNING_VISIBLE,
 	           g_param_spec_boolean ("warning-visible", "Warning visible", "Warning is visible",
-	                                 FALSE, G_PARAM_READABLE));
+	                                 FALSE,
+	                                 G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrPromptDialog:choice-visible:
@@ -816,7 +819,8 @@ gcr_prompt_dialog_class_init (GcrPromptDialogClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_CHOICE_VISIBLE,
 	           g_param_spec_boolean ("choice-visible", "Choice visible", "Choice is visible",
-	                                 FALSE, G_PARAM_READABLE));
+	                                 FALSE,
+	                                 G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 }
 
 static void

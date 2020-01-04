@@ -168,7 +168,7 @@ gck_password_class_init (GckPasswordClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_MODULE,
 		g_param_spec_object ("module", "Module", "PKCS11 Module",
-		                     GCK_TYPE_MODULE, G_PARAM_READABLE));
+		                     GCK_TYPE_MODULE, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckPassword:token:
@@ -178,7 +178,7 @@ gck_password_class_init (GckPasswordClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_TOKEN,
 		g_param_spec_object ("token", "Token", "PKCS11 Token",
-		                     GCK_TYPE_SLOT, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                     GCK_TYPE_SLOT, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GckPassword:key:
@@ -188,7 +188,7 @@ gck_password_class_init (GckPasswordClass *klass)
 	 */
 	g_object_class_install_property (gobject_class, PROP_KEY,
 		g_param_spec_object ("key", "Object", "PKCS11 Key Object",
-		                     GCK_TYPE_OBJECT, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		                     GCK_TYPE_OBJECT, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 /**

@@ -205,8 +205,9 @@ gcr_certificate_request_class_init (GcrCertificateRequestClass *klass)
 	 * The private key that this certificate request is for.
 	 */
 	g_object_class_install_property (gobject_class, PROP_PRIVATE_KEY,
-	            g_param_spec_object ("private-key", "Private key", "Private key for request",
-	                                 GCK_TYPE_OBJECT, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		g_param_spec_object ("private-key", "Private key", "Private key for request",
+		                     GCK_TYPE_OBJECT,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GcrCertificateRequest:format:
@@ -214,9 +215,9 @@ gcr_certificate_request_class_init (GcrCertificateRequestClass *klass)
 	 * The format of the certificate request.
 	 */
 	g_object_class_install_property (gobject_class, PROP_FORMAT,
-	              g_param_spec_enum ("format", "Format", "Format of certificate request",
-	                                 GCR_TYPE_CERTIFICATE_REQUEST_FORMAT, GCR_CERTIFICATE_REQUEST_PKCS10,
-	                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+		g_param_spec_enum ("format", "Format", "Format of certificate request",
+		                   GCR_TYPE_CERTIFICATE_REQUEST_FORMAT, GCR_CERTIFICATE_REQUEST_PKCS10,
+		                   G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 /**

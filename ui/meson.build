@@ -59,6 +59,11 @@ gcr_ui_headers = files(
   'gcr-viewer-widget.h',
 )
 
+gcr_ui_deprecated_headers = files(
+  'gcr-certificate-basics-widget.h',
+  'gcr-certificate-details-widget.h',
+)
+
 # Generated sources
 gcr_ui_enums_gen = gnome.mkenums_simple('gcr-enum-types',
   sources: gcr_ui_headers,
@@ -131,7 +136,7 @@ pkgconfig.generate(gcr_ui_lib,
   description: 'GObject and GUI library for high level crypto parsing and display',
 )
 
-install_headers(gcr_ui_headers,
+install_headers([gcr_ui_headers, gcr_ui_deprecated_headers ],
   subdir: gcr_ui_headers_install_dir,
 )
 

@@ -480,7 +480,7 @@ gcr_prompt_get_warning (GcrPrompt *prompt)
 /**
  * gcr_prompt_set_warning:
  * @prompt: the prompt
- * @warning: (allow-none): the warning or %NULL
+ * @warning: (nullable): the warning or %NULL
  *
  * Set a prompt warning displayed on the prompt.
  *
@@ -520,7 +520,7 @@ gcr_prompt_get_choice_label (GcrPrompt *prompt)
 /**
  * gcr_prompt_set_choice_label:
  * @prompt: the prompt
- * @choice_label: (allow-none): the additional choice or %NULL
+ * @choice_label: (nullable): the additional choice or %NULL
  *
  * Set the label for the additional choice.
  *

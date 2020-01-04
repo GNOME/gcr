@@ -103,7 +103,7 @@ gcr_secure_memory_try_alloc (gsize size)
 
 /**
  * gcr_secure_memory_realloc: (skip)
- * @memory: (allow-none): pointer to reallocate or %NULL to allocate a new block
+ * @memory: (nullable): pointer to reallocate or %NULL to allocate a new block
  * @size: new desired size of the memory block, or 0 to free the memory
  *
  * Reallocate a block of non-pageable memory.
@@ -144,7 +144,7 @@ gcr_secure_memory_realloc (gpointer memory,
 
 /**
  * gcr_secure_memory_try_realloc: (skip)
- * @memory: (allow-none): pointer to reallocate or %NULL to allocate a new block
+ * @memory: (nullable): pointer to reallocate or %NULL to allocate a new block
  * @size: new desired size of the memory block
  *
  * Reallocate a block of non-pageable memory.
@@ -184,7 +184,7 @@ gcr_secure_memory_try_realloc (gpointer memory,
 
 /**
  * gcr_secure_memory_free: (skip)
- * @memory: (allow-none): pointer to the beginning of the block of memory to free
+ * @memory: (nullable): pointer to the beginning of the block of memory to free
  *
  * Free a block of non-pageable memory.
  *
@@ -216,7 +216,7 @@ gcr_secure_memory_is_secure (gpointer memory)
 
 /**
  * gcr_secure_memory_strdup: (skip)
- * @string: (allow-none): null terminated string to copy
+ * @string: (nullable): null terminated string to copy
  *
  * Copy a string into non-pageable memory. If the input string is %NULL, then
  * %NULL will be returned.
@@ -232,7 +232,7 @@ gcr_secure_memory_strdup (const gchar* string)
 
 /**
  * gcr_secure_memory_strfree: (skip)
- * @string: (allow-none): null terminated string to fere
+ * @string: (nullable): null terminated string to fere
  *
  * Free a string, whether securely allocated using these functions or not.
  * This will also clear out the contents of the string so they do not

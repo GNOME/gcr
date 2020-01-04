@@ -529,7 +529,7 @@ gcr_viewer_widget_load_file (GcrViewerWidget *self,
 /**
  * gcr_viewer_widget_load_bytes:
  * @self: a viewer widget
- * @display_name: (allow-none): label for the loaded data
+ * @display_name: (nullable): label for the loaded data
  * @data: data to load
  *
  * Parse and load some data to be displayed into the viewer widgets. The data
@@ -561,7 +561,7 @@ gcr_viewer_widget_load_bytes (GcrViewerWidget *self,
 /**
  * gcr_viewer_widget_load_data:
  * @self: a viewer widget
- * @display_name: (allow-none): label for the loaded data
+ * @display_name: (nullable): label for the loaded data
  * @data: (array length=n_data): data to load
  * @n_data: length of data to load
  *
@@ -621,7 +621,7 @@ gcr_viewer_widget_get_parser (GcrViewerWidget *self)
  * gcr_viewer_widget_show_error:
  * @self: a viewer widget
  * @message: descriptive error message
- * @error: (allow-none): detailed error
+ * @error: (nullable): detailed error
  *
  * Show an error on the viewer widget. This is displayed on a info bar near
  * the edge of the widget.

@@ -252,7 +252,7 @@ gcr_filter_collection_iface (GcrCollectionIface *iface)
 /**
  * gcr_filter_collection_new_with_callback:
  * @underlying: the underlying collection
- * @callback: (allow-none): function to call for each object
+ * @callback: (nullable): function to call for each object
  * @user_data: data to pass to the callback
  * @destroy_func: called for user_data when it is no longer needed
  *
@@ -287,7 +287,7 @@ gcr_filter_collection_new_with_callback (GcrCollection *underlying,
 /**
  * gcr_filter_collection_set_callback:
  * @self: a filter collection
- * @callback: (allow-none): function to call for each object
+ * @callback: (nullable): function to call for each object
  * @user_data: data to pass to the callback
  * @destroy_func: called for user_data when it is no longer needed
  *

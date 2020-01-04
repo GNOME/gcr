@@ -676,7 +676,7 @@ gcr_certificate_renderer_new (GcrCertificate *certificate)
 
 /**
  * gcr_certificate_renderer_new_for_attributes:
- * @label: (allow-none): the label to display
+ * @label: (nullable): the label to display
  * @attrs: The attributes to display
  *
  * Create a new certificate renderer to display the label and attributes. One
@@ -714,7 +714,7 @@ gcr_certificate_renderer_get_certificate (GcrCertificateRenderer *self)
 /**
  * gcr_certificate_renderer_set_certificate:
  * @self: The renderer
- * @certificate: (allow-none): the certificate to display
+ * @certificate: (nullable): the certificate to display
  *
  * Set a certificate to display in the renderer.
  */
@@ -744,7 +744,7 @@ gcr_certificate_renderer_set_certificate (GcrCertificateRenderer *self, GcrCerti
  *
  * Get the PKCS\#11 attributes, if any, set for this renderer to display.
  *
- * Returns: (allow-none) (transfer none): the attributes, owned by the renderer
+ * Returns: (nullable) (transfer none): the attributes, owned by the renderer
  *
  * Deprecated: 3.6: Use gcr_renderer_get_attributes() instead
  */
@@ -758,7 +758,7 @@ gcr_certificate_renderer_get_attributes (GcrCertificateRenderer *self)
 /**
  * gcr_certificate_renderer_set_attributes:
  * @self: The renderer
- * @attrs: (allow-none): attributes to set
+ * @attrs: (nullable): attributes to set
  *
  * Set the PKCS\#11 attributes for this renderer to display. One of the attributes
  * should be a CKA_VALUE type attribute containing a DER encoded certificate.

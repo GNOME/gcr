@@ -177,7 +177,7 @@ perform_is_certificate_pinned (GckAttributes *search,
  * @purpose: the purpose string
  * @peer: the peer for this pinned
  * @cancellable: a #GCancellable
- * @error: a #GError, or NULL
+ * @error: a #GError, or %NULL
  *
  * Check if @certificate is pinned for @purpose to communicate with @peer.
  * A pinned certificate overrides all other certificate verification.
@@ -269,7 +269,7 @@ gcr_trust_is_certificate_pinned_async (GcrCertificate *certificate, const gchar 
 /**
  * gcr_trust_is_certificate_pinned_finish:
  * @result: the #GAsyncResult passed to the callback
- * @error: a #GError, or NULL
+ * @error: a #GError, or %NULL
  *
  * Finishes an asynchronous operation started by
  * gcr_trust_is_certificate_pinned_async().
@@ -393,7 +393,7 @@ perform_add_pinned_certificate (GckAttributes *search,
  * @purpose: the purpose string
  * @peer: the peer for this pinned certificate
  * @cancellable: a #GCancellable
- * @error: a #GError, or NULL
+ * @error: a #GError, or %NULL
  *
  * Add a pinned @certificate for connections to @peer for @purpose. A pinned
  * certificate overrides all other certificate verification and should be
@@ -490,7 +490,7 @@ gcr_trust_add_pinned_certificate_async (GcrCertificate *certificate, const gchar
 /**
  * gcr_trust_add_pinned_certificate_finish:
  * @result: the #GAsyncResult passed to the callback
- * @error: a #GError, or NULL
+ * @error: a #GError, or %NULL
  *
  * Finishes an asynchronous operation started by
  * gcr_trust_add_pinned_certificate_async().
@@ -580,7 +580,7 @@ perform_remove_pinned_certificate (GckAttributes *attrs,
  * @purpose: the purpose string
  * @peer: the peer for this pinned certificate
  * @cancellable: a #GCancellable
- * @error: a #GError, or NULL
+ * @error: a #GError, or %NULL
  *
  * Remove a pinned certificate for communication with @peer for @purpose.
  *
@@ -673,7 +673,7 @@ gcr_trust_remove_pinned_certificate_async (GcrCertificate *certificate, const gc
 /**
  * gcr_trust_remove_pinned_certificate_finish:
  * @result: the #GAsyncResult passed to the callback
- * @error: a #GError, or NULL
+ * @error: a #GError, or %NULL
  *
  * Finishes an asynchronous operation started by
  * gcr_trust_remove_pinned_certificate_async().
@@ -743,7 +743,7 @@ perform_is_certificate_anchored (GckAttributes *attrs,
  * @certificate: a #GcrCertificate to check
  * @purpose: the purpose string
  * @cancellable: a #GCancellable
- * @error: a #GError, or NULL
+ * @error: a #GError, or %NULL
  *
  * Check if the @certificate is a trust anchor for the given @purpose. A trust
  * anchor is used to verify the signatures on other certificates when verifying
@@ -833,7 +833,7 @@ gcr_trust_is_certificate_anchored_async (GcrCertificate *certificate, const gcha
 /**
  * gcr_trust_is_certificate_anchored_finish:
  * @result: the #GAsyncResult passed to the callback
- * @error: a #GError, or NULL
+ * @error: a #GError, or %NULL
  *
  * Finishes an asynchronous operation started by
  * gcr_trust_is_certificate_anchored_async().

@@ -918,7 +918,7 @@ gck_enumerator_set_object_type_full (GckEnumerator *self,
  * Get the enumerator that will be run after all objects from this one
  * are seen.
  *
- * Returns: (transfer full) (allow-none): the chained enumerator or %NULL
+ * Returns: (transfer full) (nullable): the chained enumerator or %NULL
  */
 GckEnumerator *
 gck_enumerator_get_chained (GckEnumerator *self)
@@ -940,7 +940,7 @@ gck_enumerator_get_chained (GckEnumerator *self)
 /**
  * gck_enumerator_set_chained:
  * @self: the enumerator
- * @chained: (allow-none): the chained enumerator or %NULL
+ * @chained: (nullable): the chained enumerator or %NULL
  *
  * Set a chained enumerator that will be run after all objects from this one
  * are seen.
@@ -975,7 +975,7 @@ gck_enumerator_set_chained (GckEnumerator *self,
  *
  * Get the interaction used when a pin is needed
  *
- * Returns: (transfer full) (allow-none): the interaction or %NULL
+ * Returns: (transfer full) (nullable): the interaction or %NULL
  */
 GTlsInteraction *
 gck_enumerator_get_interaction (GckEnumerator *self)
@@ -997,7 +997,7 @@ gck_enumerator_get_interaction (GckEnumerator *self)
 /**
  * gck_enumerator_set_interaction:
  * @self: the enumerator
- * @interaction: (allow-none): the interaction or %NULL
+ * @interaction: (nullable): the interaction or %NULL
  *
  * Set the interaction used when a pin is needed
  */
@@ -1181,7 +1181,7 @@ extract_results (GckEnumeratorState *state,
  * %NULL is also returned if the function fails. Use the @error to determine
  * whether a failure occurred or not.
  *
- * Returns: (transfer full) (allow-none): The next object, which must be released
+ * Returns: (transfer full) (nullable): The next object, which must be released
  * using g_object_unref, or %NULL.
  */
 GckObject *

@@ -245,7 +245,7 @@ _gcr_gnupg_key_class_init (GcrGnupgKeyClass *klass)
 /**
  * _gcr_gnupg_key_new:
  * @pubset: array of GcrRecord* representing public part of key
- * @secset: (allow-none): array of GcrRecord* representing secret part of key.
+ * @secset: (nullable): array of GcrRecord* representing secret part of key.
  *
  * Create a new GcrGnupgKey for the record data passed. If the secret part
  * of the key is set, then this represents a secret key; otherwise it represents
@@ -325,7 +325,7 @@ _gcr_gnupg_key_set_public_records (GcrGnupgKey *self, GPtrArray *records)
  *
  * Get the record secret data this key is based on. %NULL if a public key.
  *
- * Returns: (transfer none) (allow-none): An array of GcrColons*.
+ * Returns: (transfer none) (nullable): An array of GcrColons*.
  */
 GPtrArray*
 _gcr_gnupg_key_get_secret_records (GcrGnupgKey *self)
@@ -337,7 +337,7 @@ _gcr_gnupg_key_get_secret_records (GcrGnupgKey *self)
 /**
  * _gcr_gnupg_key_set_secret_records:
  * @self: The key
- * @records: (allow-none): The new array of GcrRecord*
+ * @records: (nullable): The new array of GcrRecord*
  *
  * Set the secret data for this key. %NULL if public key.
  */
@@ -419,7 +419,7 @@ _gcr_gnupg_key_get_icon (GcrGnupgKey *self)
  *
  * Get the columns that we should display for gnupg keys.
  *
- * Returns: (transfer none): The columns, NULL terminated, should not be freed.
+ * Returns: (transfer none): The columns, %NULL terminated, should not be freed.
  */
 const GcrColumn*
 _gcr_gnupg_key_get_columns (void)

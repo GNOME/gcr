@@ -1387,7 +1387,7 @@ gcr_collection_model_get_collection (GcrCollectionModel *self)
 /**
  * gcr_collection_model_set_collection:
  * @self: a collection model
- * @collection: (allow-none): the collection or %NULL
+ * @collection: (nullable): the collection or %NULL
  *
  * Set the collection which this model represents
  */

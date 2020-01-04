@@ -2528,7 +2528,7 @@ gcr_parser_new (void)
 /**
  * gcr_parser_add_password:
  * @self: The parser
- * @password: (allow-none): a password to try
+ * @password: (nullable): a password to try
  *
  * Add a password to the set of passwords to try when parsing locked or encrypted
  * items. This is usually called from the #GcrParser::authenticate signal.
@@ -2771,7 +2771,7 @@ gcr_parser_get_filename (GcrParser *self)
 /**
  * gcr_parser_set_filename:
  * @self: a parser item
- * @filename: (allow-none): a string of the filename of the parser item
+ * @filename: (nullable): a string of the filename of the parser item
  *
  * Sets the filename of the parser item.
  */
@@ -2854,7 +2854,7 @@ gcr_parsed_unref (gpointer parsed)
  * Get a description for the type of the currently parsed item. This is generally
  * only valid during the #GcrParser::parsed signal.
  *
- * Returns: (allow-none): the description for the current item; this is owned by
+ * Returns: (nullable): the description for the current item; this is owned by
  *          the parser and should not be freed
  */
 const gchar*
@@ -2872,7 +2872,7 @@ gcr_parser_get_parsed_description (GcrParser *self)
  *
  * Get the descirption for a parsed item.
  *
- * Returns: (allow-none): the description
+ * Returns: (nullable): the description
  */
 const gchar*
 gcr_parsed_get_description (GcrParsed *parsed)
@@ -2893,7 +2893,7 @@ gcr_parsed_get_description (GcrParsed *parsed)
  * Get the attributes which make up the currently parsed item. This is generally
  * only valid during the #GcrParser::parsed signal.
  *
- * Returns: (transfer none) (allow-none): the attributes for the current item,
+ * Returns: (transfer none) (nullable): the attributes for the current item,
  *          which are owned by the parser and should not be freed
  */
 GckAttributes *
@@ -2911,7 +2911,7 @@ gcr_parser_get_parsed_attributes (GcrParser *self)
  *
  * Get the attributes which make up the parsed item.
  *
- * Returns: (transfer none) (allow-none): the attributes for the item; these
+ * Returns: (transfer none) (nullable): the attributes for the item; these
  *          are owned by the parsed item and should not be freed
  */
 GckAttributes *
@@ -2933,7 +2933,7 @@ gcr_parsed_get_attributes (GcrParsed *parsed)
  * Get the label of the currently parsed item. This is generally only valid
  * during the #GcrParser::parsed signal.
  *
- * Returns: (allow-none): the label of the currently parsed item. The value is
+ * Returns: (nullable): the label of the currently parsed item. The value is
  *          owned by the parser and should not be freed.
  */
 const gchar*
@@ -2951,7 +2951,7 @@ gcr_parser_get_parsed_label (GcrParser *self)
  *
  * Get the label for the parsed item.
  *
- * Returns: (allow-none): the label for the item
+ * Returns: (nullable): the label for the item
  */
 const gchar*
 gcr_parsed_get_label (GcrParsed *parsed)
@@ -2973,7 +2973,7 @@ gcr_parsed_get_label (GcrParsed *parsed)
  * Get the raw data block that represents this parsed object. This is only
  * valid during the #GcrParser::parsed signal.
  *
- * Returns: (transfer none) (array length=n_block) (allow-none): the raw data
+ * Returns: (transfer none) (array length=n_block) (nullable): the raw data
  *          block of the currently parsed item; the value is owned by the parser
  *          and should not be freed
  */
@@ -3011,7 +3011,7 @@ gcr_parser_get_parsed_bytes (GcrParser *self)
  *
  * Get the raw data block for the parsed item.
  *
- * Returns: (transfer none) (array length=n_data) (allow-none): the raw data of
+ * Returns: (transfer none) (array length=n_data) (nullable): the raw data of
  *          the parsed item, or %NULL
  */
 const guchar *

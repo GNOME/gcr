@@ -527,7 +527,7 @@ gcr_import_button_class_init (GcrImportButtonClass *klass)
 
 /**
  * gcr_import_button_new:
- * @label: (allow-none): label to display on the button
+ * @label: (nullable): label to display on the button
  *
  * Create a new #GcrImportButton.
  *

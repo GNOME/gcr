@@ -427,7 +427,7 @@ gck_builder_copy (GckBuilder *builder)
  * gck_builder_take_data:
  * @builder: the builder
  * @attr_type: the new attribute type
- * @value: (transfer full) (array length=length) (allow-none): the new
+ * @value: (transfer full) (array length=length) (nullable): the new
  *         attribute memory
  * @length: the length of the memory
  *
@@ -476,7 +476,7 @@ gck_builder_take_data (GckBuilder *builder,
  * gck_builder_add_data:
  * @builder: the builder
  * @attr_type: the new attribute type
- * @value: (array length=length) (allow-none): the new attribute memory
+ * @value: (array length=length) (nullable): the new attribute memory
  * @length: the length of the memory
  *
  * Add a new attribute to the builder with an arbitrary value. Unconditionally
@@ -517,7 +517,7 @@ gck_builder_add_data (GckBuilder *builder,
  * gck_builder_set_data:
  * @builder: the builder
  * @attr_type: the attribute type
- * @value: (array length=length) (allow-none): the new attribute memory
+ * @value: (array length=length) (nullable): the new attribute memory
  * @length: the length of the memory
  *
  * Set a new attribute to the builder with an arbitrary value. If an attribute
@@ -778,7 +778,7 @@ gck_builder_set_date (GckBuilder *builder,
  * gck_builder_add_string:
  * @builder: the builder
  * @attr_type: the new attribute type
- * @value: (allow-none): the attribute value
+ * @value: (nullable): the attribute value
  *
  * Add a new attribute to the builder for the string @value or %NULL.
  * Unconditionally adds a new attribute, even if one with the same @attr_type
@@ -1380,7 +1380,7 @@ gck_builder_clear (GckBuilder *builder)
 /**
  * GckAttribute:
  * @type: The attribute type, such as CKA_LABEL.
- * @value: (array length=length): The value of the attribute. May be NULL.
+ * @value: (array length=length): The value of the attribute. May be %NULL.
  * @length: The length of the attribute. May be GCK_INVALID if the attribute is invalid.
  *
  * This structure represents a PKCS11 CK_ATTRIBUTE.
@@ -1460,7 +1460,7 @@ gck_attribute_get_ulong (const GckAttribute *attr)
  * to this function unless you're know it's supposed to contain
  * a value of the right type.
  *
- * Return value: (allow-none): a null terminated string, to be freed with
+ * Return value: (nullable): a null terminated string, to be freed with
  *               g_free(), or %NULL if the value was invalid
  */
 gchar*
@@ -2057,10 +2057,10 @@ gck_attribute_hash (gconstpointer attr)
  * An allocator used to allocate data for the attributes in this GckAttributes set.
  *
  * This is a function that acts like g_realloc. Specifically it frees when length is
- * set to zero, it allocates when data is set to NULL, and it reallocates when both
+ * set to zero, it allocates when data is set to %NULL, and it reallocates when both
  * are valid.
  *
- * Returns: The allocated memory, or NULL when freeing.
+ * Returns: The allocated memory, or %NULL when freeing.
  **/
 
 GType
@@ -2322,7 +2322,7 @@ gck_attributes_ref_sink (GckAttributes *attrs)
 
 /**
  * gck_attributes_unref:
- * @attrs: (allow-none) (type Gck.Attributes): An attribute array
+ * @attrs: (nullable) (type Gck.Attributes): An attribute array
  *
  * Unreference this attribute array.
  *

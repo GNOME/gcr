@@ -52,11 +52,11 @@
  * @key_info: (array length=n_key_info): DER encoded subjectPublicKeyInfo structure
  * @n_key_info: length of DER encoded structure
  * @checksum_type: the type of fingerprint to create
- * @n_fingerprint: the length of fingerprint returned
+ * @n_fingerprint: (out): the length of fingerprint returned
  *
  * Create a key fingerprint for a DER encoded subjectPublicKeyInfo.
  *
- * Returns: (transfer full) (allow-none) (array length=n_fingerprint): the
+ * Returns: (transfer full) (nullable) (array length=n_fingerprint): the
  *          fingerprint or %NULL if the input was invalid.
  */
 guchar *
@@ -89,13 +89,13 @@ gcr_fingerprint_from_subject_public_key_info (const guchar *key_info,
  * gcr_fingerprint_from_attributes:
  * @attrs: attributes for key or certificate
  * @checksum_type: the type of fingerprint to create
- * @n_fingerprint: the length of fingerprint returned
+ * @n_fingerprint: (out): the length of fingerprint returned
  *
  * Create a key fingerprint for a certificate, public key or private key.
  * Note that this is not a fingerprint of certificate data, which you would
  * use gcr_certificate_get_fingerprint() for.
  *
- * Returns: (transfer full) (allow-none) (array length=n_fingerprint): the
+ * Returns: (transfer full) (nullable) (array length=n_fingerprint): the
  *          fingerprint or %NULL if the input was invalid.
  */
 guchar *

@@ -438,7 +438,7 @@ gcr_pkcs11_add_module (GckModule *module)
  * gcr_pkcs11_add_module_from_file:
  * @module_path: the full file path of the PKCS\#11 module
  * @unused: unused
- * @error: a #GError or NULL
+ * @error: a #GError or %NULL
  *
  * Initialize a PKCS\#11 module and add it to the modules that are
  * used by the GCR library. Note that is an error to initialize the same
@@ -571,7 +571,7 @@ gcr_pkcs11_get_trust_lookup_slots (void)
  * Get the PKCS\#11 URI that is used to identify which slot to use for
  * storing trust storage.
  *
- * Returns: (allow-none): the uri which identifies trust storage slot
+ * Returns: (nullable): the uri which identifies trust storage slot
  */
 const gchar*
 gcr_pkcs11_get_trust_store_uri (void)
@@ -582,7 +582,7 @@ gcr_pkcs11_get_trust_store_uri (void)
 
 /**
  * gcr_pkcs11_set_trust_store_uri:
- * @pkcs11_uri: (allow-none): the uri which identifies trust storage slot
+ * @pkcs11_uri: (nullable): the uri which identifies trust storage slot
  *
  * Set the PKCS\#11 URI that is used to identify which slot to use for
  * storing trust assertions.
@@ -609,7 +609,7 @@ gcr_pkcs11_set_trust_store_uri (const gchar *pkcs11_uri)
  * Get the PKCS\#11 URIs that are used to identify which slots to use for
  * lookup trust assertions.
  *
- * Returns: (allow-none) (transfer none): the uri which identifies trust storage slot
+ * Returns: (nullable) (transfer none): the uri which identifies trust storage slot
  */
 const gchar **
 gcr_pkcs11_get_trust_lookup_uris (void)
@@ -620,7 +620,7 @@ gcr_pkcs11_get_trust_lookup_uris (void)
 
 /**
  * gcr_pkcs11_set_trust_lookup_uris:
- * @pkcs11_uris: (allow-none): the uris which identifies trust lookup slots
+ * @pkcs11_uris: (nullable): the uris which identifies trust lookup slots
  *
  * Set the PKCS\#11 URIs that are used to identify which slots to use for
  * lookup of trust assertions.

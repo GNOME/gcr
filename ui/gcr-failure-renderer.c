@@ -175,7 +175,7 @@ gcr_renderer_iface_init (GcrRendererIface *iface)
 
 /**
  * gcr_failure_renderer_new:
- * @label: (allow-none): the label for the failure
+ * @label: (nullable): the label for the failure
  * @error: the error to display
  *
  * Create a new renderer for an error.

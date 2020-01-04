@@ -266,7 +266,8 @@ gck_objects_from_handle_array (GckSession *session,
  * Checks equality of two objects. Two GckObject objects can point to the same
  * underlying PKCS\#11 object.
  *
- * Return value: TRUE if object1 and object2 are equal. FALSE if either is not a GckObject.
+ * Return value: %TRUE if object1 and object2 are equal.
+ *               %FALSE if either is not a GckObject.
  **/
 gboolean
 gck_object_equal (gconstpointer object1, gconstpointer object2)
@@ -399,7 +400,7 @@ perform_destroy (Destroy *args)
 /**
  * gck_object_destroy:
  * @self: The object to destroy.
- * @cancellable: Optional cancellable object, or NULL to ignore.
+ * @cancellable: Optional cancellable object, or %NULL to ignore.
  * @error: A location to return an error.
  *
  * Destroy a PKCS\#11 object, deleting it from storage or the session.
@@ -423,7 +424,7 @@ gck_object_destroy (GckObject *self, GCancellable *cancellable, GError **error)
 /**
  * gck_object_destroy_async:
  * @self: The object to destroy.
- * @cancellable: Optional cancellable object, or NULL to ignore.
+ * @cancellable: Optional cancellable object, or %NULL to ignore.
  * @callback: Callback which is called when operation completes.
  * @user_data: Data to pass to the callback.
  *
@@ -499,7 +500,7 @@ free_set_attributes (SetAttributes *args)
  * gck_object_set:
  * @self: The object to set attributes on.
  * @attrs: The attributes to set on the object.
- * @cancellable: Optional cancellable object, or NULL to ignore.
+ * @cancellable: Optional cancellable object, or %NULL to ignore.
  * @error: A location to return an error.
  *
  * Set PKCS\#11 attributes on an object. This call may block for an indefinite period.
@@ -536,7 +537,7 @@ gck_object_set (GckObject *self, GckAttributes *attrs,
  * gck_object_set_async:
  * @self: The object to set attributes on.
  * @attrs: The attributes to set on the object.
- * @cancellable: Optional cancellable object, or NULL to ignore.
+ * @cancellable: Optional cancellable object, or %NULL to ignore.
  * @callback: Callback which is called when operation completes.
  * @user_data: Data to pass to the callback.
  *
@@ -783,7 +784,7 @@ gck_object_get_async (GckObject *self,
  * No extra references are added to the returned attributes pointer.
  *
  * Return value: The filled in attributes structure if successful or
- * NULL if not successful.
+ * %NULL if not successful.
  **/
 GckAttributes*
 gck_object_get_finish (GckObject *self, GAsyncResult *result, GError **error)
@@ -893,8 +894,8 @@ gck_object_get_data (GckObject *self,
  * gck_object_get_data_full: (skip)
  * @self: The object to get attribute data from.
  * @attr_type: The attribute to get data for.
- * @allocator: An allocator with which to allocate memory for the data, or NULL for default.
- * @cancellable: Optional cancellation object, or NULL.
+ * @allocator: An allocator with which to allocate memory for the data, or %NULL for default.
+ * @cancellable: Optional cancellation object, or %NULL.
  * @n_data: The length of the resulting data.
  * @error: A location to store an error.
  *
@@ -942,8 +943,8 @@ gck_object_get_data_full (GckObject *self, gulong attr_type, GckAllocator alloca
  * gck_object_get_data_async:
  * @self: The object to get attribute data from.
  * @attr_type: The attribute to get data for.
- * @allocator: (skip): An allocator with which to allocate memory for the data, or NULL for default.
- * @cancellable: Optional cancellation object, or NULL.
+ * @allocator: (skip): An allocator with which to allocate memory for the data, or %NULL for default.
+ * @cancellable: Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to be passed to the callback.
  *
@@ -1052,7 +1053,7 @@ free_set_template (set_template_args *args)
  * @self: The object to set an attribute template on.
  * @attr_type: The attribute template type.
  * @attrs: The attribute template.
- * @cancellable: Optional cancellation object, or NULL.
+ * @cancellable: Optional cancellation object, or %NULL.
  * @error: A location to store an error.
  *
  * Set an attribute template on the object. The attr_type must be for
@@ -1062,7 +1063,7 @@ free_set_template (set_template_args *args)
  *
  * This call may block for an indefinite period.
  *
- * Return value: TRUE if the operation succeeded.
+ * Return value: %TRUE if the operation succeeded.
  **/
 gboolean
 gck_object_set_template (GckObject *self, gulong attr_type, GckAttributes *attrs,
@@ -1094,7 +1095,7 @@ gck_object_set_template (GckObject *self, gulong attr_type, GckAttributes *attrs
  * @self: The object to set an attribute template on.
  * @attr_type: The attribute template type.
  * @attrs: The attribute template.
- * @cancellable: Optional cancellation object, or NULL.
+ * @cancellable: Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to be passed to the callback.
  *
@@ -1134,7 +1135,7 @@ gck_object_set_template_async (GckObject *self, gulong attr_type, GckAttributes 
  * Get the result of an operation to set attribute template on
  * an object.
  *
- * Return value: TRUE if the operation succeeded.
+ * Return value: %TRUE if the operation succeeded.
  **/
 gboolean
 gck_object_set_template_finish (GckObject *self, GAsyncResult *result, GError **error)
@@ -1214,7 +1215,7 @@ free_get_template (get_template_args *args)
  * gck_object_get_template:
  * @self: The object to get an attribute template from.
  * @attr_type: The template attribute type.
- * @cancellable: Optional cancellation object, or NULL.
+ * @cancellable: Optional cancellation object, or %NULL.
  * @error: A location to store an error.
  *
  * Get an attribute template from the object. The attr_type must be for
@@ -1254,7 +1255,7 @@ gck_object_get_template (GckObject *self, gulong attr_type,
  * gck_object_get_template_async:
  * @self: The object to get an attribute template from.
  * @attr_type: The template attribute type.
- * @cancellable: Optional cancellation object, or NULL.
+ * @cancellable: Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to be passed to the callback.
  *

@@ -211,7 +211,7 @@ gck_slot_info_copy (GckSlotInfo *slot_info)
 
 /**
  * gck_slot_info_free:
- * @slot_info: The slot info to free, or NULL.
+ * @slot_info: The slot info to free, or %NULL.
  *
  * Free the GckSlotInfo and associated resources.
  **/
@@ -295,7 +295,7 @@ gck_token_info_copy (GckTokenInfo *token_info)
 
 /**
  * gck_token_info_free:
- * @token_info: The token info to free, or NULL.
+ * @token_info: The token info to free, or %NULL.
  *
  * Free the GckTokenInfo and associated resources.
  **/
@@ -355,7 +355,7 @@ gck_mechanism_info_copy (GckMechanismInfo *mech_info)
 
 /**
  * gck_mechanism_info_free:
- * @mech_info: The mechanism info to free, or NULL.
+ * @mech_info: The mechanism info to free, or %NULL.
  *
  * Free the GckMechanismInfo and associated resources.
  **/
@@ -453,7 +453,8 @@ gck_mechanisms_check (GArray *mechanisms, ...)
  * Checks equality of two slots. Two GckSlot objects can point to the same
  * underlying PKCS\#11 slot.
  *
- * Return value: TRUE if slot1 and slot2 are equal. FALSE if either is not a GckSlot.
+ * Return value: %TRUE if slot1 and slot2 are equal.
+ *               %FALSE if either is not a GckSlot.
  **/
 gboolean
 gck_slot_equal (gconstpointer slot1, gconstpointer slot2)
@@ -799,7 +800,7 @@ gck_slot_get_mechanisms (GckSlot *self)
  *
  * Get information for the specified mechanism.
  *
- * Returns: (transfer full): the mechanism information, or NULL if failed; use
+ * Returns: (transfer full): the mechanism information, or %NULL if failed; use
  *          gck_mechanism_info_free() when done with it
  **/
 GckMechanismInfo*
@@ -970,8 +971,8 @@ gck_slot_open_session (GckSlot *self,
  * @pkcs11_flags: Additional raw PKCS\#11 flags.
  * @app_data: Application data for notification callback.
  * @notify: PKCS\#11 notification callback.
- * @cancellable: Optional cancellation object, or NULL.
- * @error: A location to return an error, or NULL.
+ * @cancellable: Optional cancellation object, or %NULL.
+ * @error: A location to return an error, or %NULL.
  *
  * Open a session on the slot. If the 'auto reuse' setting is set,
  * then this may be a recycled session with the same flags.
@@ -1001,7 +1002,7 @@ gck_slot_open_session_full (GckSlot *self,
  * gck_slot_open_session_async:
  * @self: The slot to open a session on.
  * @options: The options to open the new session with.
- * @cancellable: Optional cancellation object, or NULL.
+ * @cancellable: Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
  *
@@ -1046,7 +1047,7 @@ on_open_session_complete (GObject *source,
  * @pkcs11_flags: Additional raw PKCS\#11 flags.
  * @app_data: Application data for notification callback.
  * @notify: PKCS\#11 notification callback.
- * @cancellable: Optional cancellation object, or NULL.
+ * @cancellable: Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
  *
@@ -1089,7 +1090,7 @@ gck_slot_open_session_full_async (GckSlot *self,
  * gck_slot_open_session_finish:
  * @self: The slot to open a session on.
  * @result: The result passed to the callback.
- * @error: A location to return an error or NULL.
+ * @error: A location to return an error or %NULL.
  *
  * Get the result of an open session operation. If the 'auto reuse' setting is set,
  * then this may be a recycled session with the same flags.

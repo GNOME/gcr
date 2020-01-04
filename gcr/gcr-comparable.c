@@ -59,7 +59,7 @@ gcr_comparable_default_init (GcrComparableIface *iface)
 /**
  * gcr_comparable_compare:
  * @self: The comparable object
- * @other: (allow-none): Another comparable object
+ * @other: (nullable): Another comparable object
  *
  * Compare whether two objects represent the same thing. The return value can
  * also be used to sort the objects.

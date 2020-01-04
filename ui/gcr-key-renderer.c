@@ -428,8 +428,8 @@ gcr_key_renderer_renderer_iface (GcrRendererIface *iface)
 
 /**
  * gcr_key_renderer_new:
- * @label: (allow-none): label describing the key
- * @attrs: (allow-none): key to display, or %NULL
+ * @label: (nullable): label describing the key
+ * @attrs: (nullable): key to display, or %NULL
  *
  * Create a new key renderer which renders a given key in the attributes.
  *
@@ -445,7 +445,7 @@ gcr_key_renderer_new (const gchar *label, GckAttributes *attrs)
 /**
  * gcr_key_renderer_set_attributes:
  * @self: The key renderer
- * @attrs: (allow-none): the attributes to display
+ * @attrs: (nullable): the attributes to display
  *
  * Get the attributes displayed in the renderer. The attributes should represent
  * either an RSA, DSA, or EC key in PKCS\#11 style.
@@ -471,7 +471,7 @@ gcr_key_renderer_set_attributes (GcrKeyRenderer *self, GckAttributes *attrs)
  *
  * Get the attributes displayed in the renderer.
  *
- * Returns: (transfer none) (allow-none): the attributes, owned by the renderer
+ * Returns: (transfer none) (nullable): the attributes, owned by the renderer
  */
 GckAttributes*
 gcr_key_renderer_get_attributes (GcrKeyRenderer *self)

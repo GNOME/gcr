@@ -65,7 +65,7 @@
  * Holds information about the PKCS&num;11 module.
  *
  * This structure corresponds to CK_MODULE_INFO in the PKCS\#11 standard. The
- * strings are NULL terminated for easier use.
+ * strings are %NULL terminated for easier use.
  *
  * Use gck_module_info_free() to release this structure when done with it.
  */
@@ -308,7 +308,7 @@ gck_module_info_copy (GckModuleInfo *module_info)
 
 /**
  * gck_module_info_free:
- * @module_info: The module info to free, or NULL.
+ * @module_info: The module info to free, or %NULL.
  *
  * Free a GckModuleInfo structure.
  **/
@@ -376,7 +376,7 @@ free_initialize (Initialize *args)
 /**
  * gck_module_initialize:
  * @path: The file system path to the PKCS\#11 module to load.
- * @cancellable: (allow-none): optional cancellation object
+ * @cancellable: (nullable): optional cancellation object
  * @error: A location to store an error resulting from a failed load.
  *
  * Load and initialize a PKCS\#11 module represented by a GckModule object.
@@ -413,7 +413,7 @@ gck_module_initialize (const gchar *path,
 /**
  * gck_module_initialize_async:
  * @path: the file system path to the PKCS\#11 module to load
- * @cancellable: (allow-none): optional cancellation object
+ * @cancellable: (nullable): optional cancellation object
  * @callback: a callback which will be called when the operation completes
  * @user_data: data to pass to the callback
  *
@@ -444,7 +444,7 @@ gck_module_initialize_async (const gchar *path,
  *
  * Finishes the asynchronous initialize operation.
  *
- * Returns: (transfer full) (allow-none): The initialized module, or NULL
+ * Returns: (transfer full) (nullable): The initialized module, or %NULL
  */
 GckModule *
 gck_module_initialize_finish (GAsyncResult *result,
@@ -503,7 +503,8 @@ _gck_module_new_initialized (CK_FUNCTION_LIST_PTR funcs)
  * Checks equality of two modules. Two GckModule objects can point to the same
  * underlying PKCS\#11 module.
  *
- * Return value: TRUE if module1 and module2 are equal. FALSE if either is not a GckModule.
+ * Return value: %TRUE if module1 and module2 are equal.
+ *               %FALSE if either is not a GckModule.
  **/
 gboolean
 gck_module_equal (gconstpointer module1, gconstpointer module2)

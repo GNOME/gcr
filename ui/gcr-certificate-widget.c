@@ -180,7 +180,7 @@ gcr_certificate_widget_class_init (GcrCertificateWidgetClass *klass)
 
 /**
  * gcr_certificate_widget_new:
- * @certificate: (allow-none): certificate to display, or %NULL
+ * @certificate: (nullable): certificate to display, or %NULL
  *
  * Create a new certificate widget which displays a given certificate.
  *
@@ -199,7 +199,7 @@ gcr_certificate_widget_new (GcrCertificate *certificate)
  *
  * Get the certificate displayed in the widget.
  *
- * Returns: (allow-none) (transfer none): the certificate
+ * Returns: (nullable) (transfer none): the certificate
  */
 GcrCertificate *
 gcr_certificate_widget_get_certificate (GcrCertificateWidget *self)
@@ -211,7 +211,7 @@ gcr_certificate_widget_get_certificate (GcrCertificateWidget *self)
 /**
  * gcr_certificate_widget_set_certificate:
  * @self: The certificate widget
- * @certificate: (allow-none): the certificate to display
+ * @certificate: (nullable): the certificate to display
  *
  * Set the certificate displayed in the widget
  */
@@ -229,7 +229,7 @@ gcr_certificate_widget_set_certificate (GcrCertificateWidget *self, GcrCertifica
  * Get the attributes displayed in the widget. The attributes should contain
  * a certificate.
  *
- * Returns: (allow-none) (transfer none): the attributes, owned by the widget
+ * Returns: (nullable) (transfer none): the attributes, owned by the widget
  *
  * Deprecated: 3.6: Use gcr_renderer_get_attributes() instead
  */
@@ -243,7 +243,7 @@ gcr_certificate_widget_get_attributes (GcrCertificateWidget *self)
 /**
  * gcr_certificate_widget_set_attributes:
  * @self: The certificate widget
- * @attrs: (allow-none): the attributes to display
+ * @attrs: (nullable): the attributes to display
  *
  * Set the attributes displayed in the widget. The attributes should contain
  * a certificate.

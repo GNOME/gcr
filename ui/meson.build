@@ -111,11 +111,13 @@ gcr_ui_lib = shared_library(gcr_ui_basename,
 )
 
 pkgconfig.generate(gcr_ui_lib,
+  subdirs: 'gcr-@0@'.format(gcr_major_version),
   description: 'GObject and GUI library for high level crypto parsing and display',
 )
 pkgconfig.generate(gcr_ui_lib,
   filebase: gcr_basename,
   name: gcr_basename,
+  subdirs: 'gcr-@0@'.format(gcr_major_version),
   description: 'GObject and GUI library for high level crypto parsing and display',
 )
 

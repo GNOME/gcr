@@ -216,6 +216,7 @@ endif
 
 # pkg-config file
 pkgconfig.generate(gcr_base_lib,
+  subdirs: 'gcr-@0@'.format(gcr_major_version),
   description: 'GObject and GUI library for high level crypto parsing and display',
 )
 

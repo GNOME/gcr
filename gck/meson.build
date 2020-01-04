@@ -155,6 +155,7 @@ endif
 # pkg-config file
 pkgconfig.generate(gck_lib,
   description: 'GObject bindings for PKCS#11',
+  requires: [ glib_dep, gio_dep, gobject_dep, p11kit_dep ],
   subdirs: 'gck-@0@'.format(gck_major_version),
 )
 

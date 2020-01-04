@@ -34,14 +34,13 @@ podir = source_root / 'po'
 
 # Dependencies
 min_glib_version = '2.38'
-glib_deps = [
-  dependency('glib-2.0', version: '>=' + min_glib_version),
-  dependency('gmodule-no-export-2.0', version: '>=' + min_glib_version),
-  dependency('gthread-2.0', version: '>=' + min_glib_version),
-  dependency('gobject-2.0', version: '>=' + min_glib_version),
-  dependency('gio-2.0', version: '>=' + min_glib_version),
-  dependency('gio-unix-2.0',version: '>=' + min_glib_version),
-]
+glib_dep = dependency('glib-2.0', version: '>=' + min_glib_version)
+gmodule_dep = dependency('gmodule-no-export-2.0', version: '>=' + min_glib_version)
+gthread_dep = dependency('gthread-2.0', version: '>=' + min_glib_version)
+gobject_dep = dependency('gobject-2.0', version: '>=' + min_glib_version)
+gio_dep = dependency('gio-2.0', version: '>=' + min_glib_version)
+gio_unix_dep = dependency('gio-unix-2.0',version: '>=' + min_glib_version)
+glib_deps = [ glib_dep, gmodule_dep, gthread_dep, gobject_dep, gio_dep, gio_unix_dep, ]
 gpg_bin = find_program('gpg2', 'gpg')
 libgcrypt_dep = dependency('libgcrypt', version: '>= 1')
 p11kit_dep = dependency('p11-kit-1', version: '>= 0.19.0')

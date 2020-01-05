@@ -1,3 +1,12 @@
+gcr 3.35.1:
+- gcr-certificate: Add (virtual) annotation [GNOME/gcr!35, GNOME/gcr#37]
+- Always use G_PARAM_STATIC_STRINGS [GNOME/gcr!31]
+- Support Meson build system [GNOME/gcr!11,32,33,34]
+- Avoid potential 64-bit pointer aliasing alignment issues [GNOME/gcr!27, GNOME/gcr#34]
+- Update README to mention correct environment variables [GNOME/gcr!25]
+- build: Use sed for .desktop variables substitution [GNOME/gcr!24]
+- Updated translations
+
 gcr 3.34.0:
 - gcr-prompt-dialog: Allow the use of mnemonics in the choice label [GNOME/gcr!22]
 - Use python3 shebang in ui/icons/render-icons.py [GNOME/gcr!21]

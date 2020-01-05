@@ -401,7 +401,7 @@ gcr_certificate_compare (GcrComparable *first, GcrComparable *other)
 
 
 /**
- * gcr_certificate_get_der_data:
+ * gcr_certificate_get_der_data: (virtual get_der_data)
  * @self: a #GcrCertificate
  * @n_data: a pointer to a location to store the size of the resulting DER data.
  *

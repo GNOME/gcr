@@ -64,6 +64,8 @@ GList*                   gcr_list_selector_get_selected     (GcrListSelector *se
 void                     gcr_list_selector_set_selected     (GcrListSelector *self,
                                                              GList *selected);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrListSelector, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_LIST_SELECTOR_H__ */

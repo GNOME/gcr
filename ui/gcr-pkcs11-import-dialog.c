@@ -33,10 +33,6 @@
 
 EGG_SECURE_DECLARE (import_dialog);
 
-#define GCR_PKCS11_IMPORT_DIALOG_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_PKCS11_IMPORT_DIALOG, GcrPkcs11ImportDialogClass))
-#define GCR_IS_PKCS11_IMPORT_DIALOG_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_PKCS11_IMPORT_DIALOG))
-#define GCR_PKCS11_IMPORT_DIALOG_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_PKCS11_IMPORT_DIALOG, GcrPkcs11ImportDialogClass))
-
 enum {
 	PROP_0,
 	PROP_IMPORTER
@@ -51,12 +47,6 @@ struct _GcrPkcs11ImportDialog {
 	GtkEntry *password_entry;
 	GtkEntry *label_entry;
 	gboolean label_changed;
-};
-
-typedef struct _GcrPkcs11ImportDialogClass GcrPkcs11ImportDialogClass;
-
-struct _GcrPkcs11ImportDialogClass {
-	GtkDialogClass parent;
 };
 
 G_DEFINE_TYPE (GcrPkcs11ImportDialog, _gcr_pkcs11_import_dialog, GTK_TYPE_DIALOG);

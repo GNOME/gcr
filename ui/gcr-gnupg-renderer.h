@@ -70,6 +70,8 @@ GckAttributes *      _gcr_gnupg_renderer_get_attributes     (GcrGnupgRenderer *s
 void                 _gcr_gnupg_renderer_set_attributes     (GcrGnupgRenderer *self,
                                                              GckAttributes *attrs);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrGnupgRenderer, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_GNUPG_RENDERER_H__ */

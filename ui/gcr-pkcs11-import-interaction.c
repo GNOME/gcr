@@ -26,26 +26,16 @@
 
 #include <glib/gi18n-lib.h>
 
-#define GCR_PKCS11_IMPORT_INTERACTION_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_PKCS11_IMPORT_INTERACTION, GcrPkcs11ImportInteractionClass))
-#define GCR_IS_PKCS11_IMPORT_INTERACTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_PKCS11_IMPORT_INTERACTION))
-#define GCR_PKCS11_IMPORT_INTERACTION_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_PKCS11_IMPORT_INTERACTION, GcrPkcs11ImportInteractionClass))
-
 enum {
 	PROP_0,
 	PROP_PARENT_WINDOW
 };
-
-typedef struct _GcrPkcs11ImportInteractionClass GcrPkcs11ImportInteractionClass;
 
 struct _GcrPkcs11ImportInteraction {
 	GTlsInteraction parent;
 	gboolean supplemented;
 	GtkWindow *parent_window;
 	GcrPkcs11ImportDialog *dialog;
-};
-
-struct _GcrPkcs11ImportInteractionClass {
-	GTlsInteractionClass parent_class;
 };
 
 static void _gcr_pkcs11_import_interaction_iface_init (GcrImportInteractionIface *iface);

@@ -26,13 +26,10 @@
 
 G_BEGIN_DECLS
 
-#define GCR_TYPE_PKCS11_IMPORT_INTERACTION               (_gcr_pkcs11_import_interaction_get_type ())
-#define GCR_PKCS11_IMPORT_INTERACTION(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_PKCS11_IMPORT_INTERACTION, GcrPkcs11ImportInteraction))
-#define GCR_IS_PKCS11_IMPORT_INTERACTION(obj)            (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_PKCS11_IMPORT_INTERACTION))
-
-typedef struct _GcrPkcs11ImportInteraction GcrPkcs11ImportInteraction;
-
-GType               _gcr_pkcs11_import_interaction_get_type     (void) G_GNUC_CONST;
+#define GCR_TYPE_PKCS11_IMPORT_INTERACTION (_gcr_pkcs11_import_interaction_get_type ())
+G_DECLARE_FINAL_TYPE (GcrPkcs11ImportInteraction, _gcr_pkcs11_import_interaction,
+                      GCR, PKCS11_IMPORT_INTERACTION,
+                      GTlsInteraction)
 
 GTlsInteraction *   _gcr_pkcs11_import_interaction_new          (GtkWindow *parent_window);
 

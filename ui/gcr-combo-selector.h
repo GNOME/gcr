@@ -60,6 +60,8 @@ GObject*                 gcr_combo_selector_get_selected     (GcrComboSelector *
 void                     gcr_combo_selector_set_selected     (GcrComboSelector *self,
                                                               GObject *selected);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrComboSelector, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_COMBO_SELECTOR_H__ */

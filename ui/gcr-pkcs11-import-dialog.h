@@ -29,13 +29,10 @@
 
 G_BEGIN_DECLS
 
-#define GCR_TYPE_PKCS11_IMPORT_DIALOG               (_gcr_pkcs11_import_dialog_get_type ())
-#define GCR_PKCS11_IMPORT_DIALOG(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_PKCS11_IMPORT_DIALOG, GcrPkcs11ImportDialog))
-#define GCR_IS_PKCS11_IMPORT_DIALOG(obj)            (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_PKCS11_IMPORT_DIALOG))
-
-typedef struct _GcrPkcs11ImportDialog GcrPkcs11ImportDialog;
-
-GType                   _gcr_pkcs11_import_dialog_get_type          (void) G_GNUC_CONST;
+#define GCR_TYPE_PKCS11_IMPORT_DIALOG (_gcr_pkcs11_import_dialog_get_type ())
+G_DECLARE_FINAL_TYPE (GcrPkcs11ImportDialog, _gcr_pkcs11_import_dialog,
+                      GCR, PKCS11_IMPORT_DIALOG,
+                      GtkDialog)
 
 GcrPkcs11ImportDialog * _gcr_pkcs11_import_dialog_new               (GtkWindow *parent);
 

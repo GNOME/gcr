@@ -75,6 +75,8 @@ void                          gcr_unlock_options_widget_set_sensitive          (
                                                                                 gboolean sensitive,
                                                                                 const gchar *reason);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrUnlockOptionsWidget, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_UNLOCK_OPTIONS_WIDGET_H__ */

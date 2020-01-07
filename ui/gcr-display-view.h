@@ -109,6 +109,8 @@ void             _gcr_display_view_add_widget_area             (GcrDisplayView *
                                                                 GcrRenderer *render,
                                                                 GtkWidget *area);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrDisplayView, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_DISPLAY_VIEW_H__ */

@@ -54,6 +54,8 @@ void                    gcr_key_widget_set_attributes         (GcrKeyWidget *sel
 
 GckAttributes*          gcr_key_widget_get_attributes         (GcrKeyWidget *self);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrKeyWidget, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_KEY_WIDGET_H__ */

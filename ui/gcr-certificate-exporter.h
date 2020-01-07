@@ -67,6 +67,8 @@ gboolean                  _gcr_certificate_exporter_export_finish     (GcrCertif
                                                                        GAsyncResult *result,
                                                                        GError **error);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrCertificateExporter, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_CERTIFICATE_EXPORTER_H__ */

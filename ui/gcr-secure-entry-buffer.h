@@ -58,6 +58,8 @@ GType                     gcr_secure_entry_buffer_get_type               (void) 
 
 GtkEntryBuffer *          gcr_secure_entry_buffer_new                    (void);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrSecureEntryBuffer, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_SECURE_ENTRY_BUFFER_H__ */

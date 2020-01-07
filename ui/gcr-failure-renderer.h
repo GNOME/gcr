@@ -60,6 +60,8 @@ GcrRenderer *          gcr_failure_renderer_new              (const gchar *label
 
 GcrRenderer *          gcr_failure_renderer_new_unsupported  (const gchar *label);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrFailureRenderer, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_FAILURE_RENDERER_H__ */

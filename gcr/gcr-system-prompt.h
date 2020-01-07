@@ -104,6 +104,8 @@ gboolean             gcr_system_prompt_close_finish              (GcrSystemPromp
                                                                   GAsyncResult *result,
                                                                   GError **error);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrSystemPrompt, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_SYSTEM_PROMPT_H__ */

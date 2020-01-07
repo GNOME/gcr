@@ -59,6 +59,8 @@ GIcon*              _gcr_memory_icon_new_full             (const gchar *image_ty
                                                            goffset offset,
                                                            GDestroyNotify destroy);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrMemoryIcon, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_MEMORY_ICON_H__ */

@@ -62,6 +62,8 @@ gboolean            _gcr_gnupg_collection_load_finish             (GcrGnupgColle
                                                                    GAsyncResult *result,
                                                                    GError **error);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrGnupgCollection, g_object_unref)
+
 G_END_DECLS
 
 #endif /* GCR_GNUPG_COLLECTION_H */

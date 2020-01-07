@@ -60,6 +60,8 @@ GcrCertificate *    gcr_simple_certificate_new                    (const guchar 
 GcrCertificate *    gcr_simple_certificate_new_static             (const guchar *data,
                                                                    gsize n_data);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrSimpleCertificate, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_SIMPLE_CERTIFICATE_H__ */

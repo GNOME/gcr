@@ -32,10 +32,6 @@ struct _GcrCallbackOutputStream {
 	GDestroyNotify destroy_func;
 };
 
-struct _GcrCallbackOutputStreamClass {
-	GOutputStreamClass parent_class;
-};
-
 G_DEFINE_TYPE (GcrCallbackOutputStream, _gcr_callback_output_stream, G_TYPE_OUTPUT_STREAM);
 
 static void

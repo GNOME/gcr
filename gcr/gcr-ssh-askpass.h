@@ -30,17 +30,10 @@
 
 G_BEGIN_DECLS
 
-#define GCR_TYPE_SSH_ASKPASS               (gcr_ssh_askpass_get_type ())
-#define GCR_SSH_ASKPASS(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_SSH_ASKPASS, GcrSshAskpass))
-#define GCR_SSH_ASKPASS_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_SSH_ASKPASS, GcrSshAskpassClass))
-#define GCR_IS_SSH_ASKPASS(obj)            (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_SSH_ASKPASS))
-#define GCR_IS_SSH_ASKPASS_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_SSH_ASKPASS))
-#define GCR_SSH_ASKPASS_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_SSH_ASKPASS, GcrSshAskpassClass))
-
-typedef struct _GcrSshAskpass GcrSshAskpass;
-typedef struct _GcrSshAskpassClass GcrSshAskpassClass;
-
-GType               gcr_ssh_askpass_get_type        (void);
+#define GCR_TYPE_SSH_ASKPASS (gcr_ssh_askpass_get_type ())
+G_DECLARE_FINAL_TYPE (GcrSshAskpass, gcr_ssh_askpass,
+                      GCR, SSH_ASKPASS,
+                      GObject)
 
 GcrSshAskpass *     gcr_ssh_askpass_new             (GTlsInteraction *interaction);
 

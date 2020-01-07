@@ -149,6 +149,8 @@ void                gcr_certificate_mixin_get_property     (GObject *obj,
                                                             GValue *value,
                                                             GParamSpec *pspec);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrCertificate, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_CERTIFICATE_H__ */

@@ -96,6 +96,8 @@ gboolean            _gcr_gnupg_process_run_finish              (GcrGnupgProcess 
                                                                 GAsyncResult *result,
                                                                 GError **error);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrGnupgProcess, g_object_unref)
+
 G_END_DECLS
 
 #endif /* GCR_GNUPG_PROCESS_H */

@@ -58,6 +58,8 @@ void                gcr_simple_collection_add                     (GcrSimpleColl
 void                gcr_simple_collection_remove                  (GcrSimpleCollection *self,
                                                                    GObject *object);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrSimpleCollection, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_SIMPLE_COLLECTION_H__ */

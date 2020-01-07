@@ -191,6 +191,8 @@ void                gck_attribute_free                      (gpointer attr);
 
 void                gck_attribute_dump                      (const GckAttribute *attr);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckAttribute, gck_attribute_free);
+
 typedef struct _GckBuilder GckBuilder;
 
 struct _GckBuilder {
@@ -337,6 +339,8 @@ GckBuilder *         gck_builder_copy                       (GckBuilder *builder
 
 void                 gck_builder_clear                      (GckBuilder *builder);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckBuilder, gck_builder_unref);
+
 #define              GCK_TYPE_ATTRIBUTES                    (gck_attributes_get_boxed_type ())
 
 GType                gck_attributes_get_type                (void) G_GNUC_CONST;
@@ -383,6 +387,8 @@ void                 gck_attributes_dump                    (GckAttributes *attr
 
 gchar *              gck_attributes_to_string               (GckAttributes *attrs);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckAttributes, gck_attributes_unref);
+
 /* -------------------------------------------------------------------------
  * FORWARDS
  */
@@ -419,6 +425,8 @@ GType               gck_module_info_get_type               (void) G_GNUC_CONST;
 GckModuleInfo *     gck_module_info_copy                   (GckModuleInfo *module_info);
 
 void                gck_module_info_free                   (GckModuleInfo *module_info);
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckModuleInfo, gck_module_info_free);
 
 #define GCK_TYPE_MODULE             (gck_module_get_type())
 #define GCK_MODULE(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_MODULE, GckModule))
@@ -522,6 +530,8 @@ GckEnumerator*        gck_modules_enumerate_uri               (GList *modules,
                                                                GckSessionOptions session_options,
                                                                GError **error);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckModule, g_object_unref);
+
 
 /* ------------------------------------------------------------------------
  * ENUMERATOR
@@ -593,6 +603,8 @@ GList*                gck_enumerator_next_finish              (GckEnumerator *se
                                                                GAsyncResult *result,
                                                                GError **error);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckEnumerator, g_object_unref);
+
 /* ------------------------------------------------------------------------
  * SLOT
  */
@@ -616,6 +628,8 @@ GType               gck_slot_info_get_type                  (void) G_GNUC_CONST;
 GckSlotInfo *       gck_slot_info_copy                      (GckSlotInfo *slot_info);
 
 void                gck_slot_info_free                      (GckSlotInfo *slot_info);
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckSlotInfo, gck_slot_info_free);
 
 typedef struct _GckTokenInfo GckTokenInfo;
 
@@ -650,6 +664,8 @@ GckTokenInfo *      gck_token_info_copy                     (GckTokenInfo *token
 
 void                gck_token_info_free                     (GckTokenInfo *token_info);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckTokenInfo, gck_token_info_free);
+
 typedef struct _GckMechanismInfo GckMechanismInfo;
 
 struct _GckMechanismInfo {
@@ -672,6 +688,8 @@ void                gck_mechanism_info_free                 (GckMechanismInfo *m
 
 gboolean            gck_mechanisms_check                    (GArray *mechanisms,
                                                              ...);
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckMechanismInfo, gck_mechanism_info_free);
 
 #define GCK_TYPE_SLOT             (gck_slot_get_type())
 #define GCK_SLOT(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_SLOT, GckSlot))
@@ -767,6 +785,8 @@ GckEnumerator*      gck_slots_enumerate_objects             (GList *slots,
                                                              GckAttributes *match,
                                                              GckSessionOptions options);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckSlot, g_object_unref);
+
 /* ------------------------------------------------------------------------
  * SESSION
  */
@@ -787,6 +807,8 @@ GType               gck_session_info_get_type              (void) G_GNUC_CONST;
 GckSessionInfo *    gck_session_info_copy                  (GckSessionInfo *session_info);
 
 void                gck_session_info_free                  (GckSessionInfo *session_info);
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckSessionInfo, gck_session_info_free);
 
 #define GCK_TYPE_SESSION             (gck_session_get_type())
 #define GCK_SESSION(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_SESSION, GckSession))
@@ -1241,6 +1263,8 @@ GckObject*          gck_session_derive_key_finish            (GckSession *self,
                                                               GAsyncResult *result,
                                                               GError **error);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckSession, g_object_unref);
+
 /* ------------------------------------------------------------------------
  * OBJECT
  */
@@ -1397,6 +1421,8 @@ GckAttributes*      gck_object_get_template_finish          (GckObject *self,
                                                              GAsyncResult *result,
                                                              GError **error);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckObject, g_object_unref);
+
 /* ------------------------------------------------------------------------
  * OBJECT ATTRIBUTES
  */
@@ -1465,6 +1491,8 @@ GckAttributes *     gck_object_cache_lookup_finish         (GckObject *object,
                                                             GAsyncResult *result,
                                                             GError **error);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckObjectCache, g_object_unref);
+
 /* ------------------------------------------------------------------------
  * PASSWORD
  */
@@ -1502,6 +1530,8 @@ GckModule *         gck_password_get_module                 (GckPassword *self);
 GckSlot *           gck_password_get_token                  (GckPassword *self);
 
 GckObject *         gck_password_get_key                    (GckPassword *self);
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckPassword, g_object_unref);
 
 /* ----------------------------------------------------------------------------
  * URI
@@ -1560,6 +1590,8 @@ GType               gck_uri_data_get_type                   (void) G_GNUC_CONST;
 GckUriData *        gck_uri_data_copy                       (GckUriData *uri_data);
 
 void                gck_uri_data_free                       (GckUriData *uri_data);
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckUriData, gck_uri_data_free);
 
 G_END_DECLS
 

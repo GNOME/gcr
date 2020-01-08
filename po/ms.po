@@ -5,1046 +5,1111 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-06 11:51+0200\n"
-"PO-Revision-Date: 2010-05-14 22:56+0800\n"
-"Last-Translator: Ahmed Noor Kader Mustajir Md Eusoff <sir.ade@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2019-09-25 10:46+0000\n"
+"PO-Revision-Date: 2019-12-25 16:39+0800\n"
+"Last-Translator: abuyop <abuyop@gmail.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.net>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.0.6\n"
 
-#: ../egg/egg-oid.c:41
+#: egg/egg-oid.c:40
 msgid "Domain Component"
 msgstr "Komponen Domain"
 
-#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:411
-#: ../gcr/gcr-gnupg-renderer.c:580
+#: egg/egg-oid.c:42 ui/gcr-gnupg-renderer.c:407 ui/gcr-gnupg-renderer.c:576
 msgid "User ID"
 msgstr "ID Pengguna"
 
-#: ../egg/egg-oid.c:46
+#: egg/egg-oid.c:45
 msgid "Email Address"
-msgstr ""
+msgstr "Alamat E-mel"
 
-#: ../egg/egg-oid.c:54
+#: egg/egg-oid.c:53
 msgid "Date of Birth"
 msgstr "Tarikh Lahir"
 
-#: ../egg/egg-oid.c:56
+#: egg/egg-oid.c:55
 msgid "Place of Birth"
 msgstr "Tempat Lahir"
 
-#: ../egg/egg-oid.c:58
+#: egg/egg-oid.c:57
 msgid "Gender"
 msgstr "Jantina"
 
-#: ../egg/egg-oid.c:60
+#: egg/egg-oid.c:59
 msgid "Country of Citizenship"
 msgstr "Kerakyatan Negara"
 
-#: ../egg/egg-oid.c:62
+#: egg/egg-oid.c:61
 msgid "Country of Residence"
 msgstr "Negara Tempat Tinggal"
 
-#: ../egg/egg-oid.c:65
+#: egg/egg-oid.c:64
 msgid "Common Name"
 msgstr "Nama Biasa"
 
-#: ../egg/egg-oid.c:67
+#: egg/egg-oid.c:66
 msgid "Surname"
 msgstr "Nama keluarga"
 
-#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:652
+#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:559
 msgid "Serial Number"
 msgstr "Nombor Siri"
 
-#: ../egg/egg-oid.c:71
+#: egg/egg-oid.c:70
 msgid "Country"
 msgstr "Negara"
 
-#: ../egg/egg-oid.c:73
+#: egg/egg-oid.c:72
 msgid "Locality"
 msgstr "Lokaliti"
 
-#: ../egg/egg-oid.c:75
+#: egg/egg-oid.c:74
 msgid "State"
 msgstr "Negeri"
 
-#: ../egg/egg-oid.c:77
+#: egg/egg-oid.c:76
 msgid "Street"
 msgstr "Jalan"
 
-#: ../egg/egg-oid.c:79
+#: egg/egg-oid.c:78
 msgid "Organization"
 msgstr "Organisasi"
 
-#: ../egg/egg-oid.c:81
+#: egg/egg-oid.c:80
 msgid "Organizational Unit"
 msgstr "Unit Organisasi"
 
-#: ../egg/egg-oid.c:83
+#: egg/egg-oid.c:82
 msgid "Title"
 msgstr "Tajuk"
 
-#: ../egg/egg-oid.c:85
+#: egg/egg-oid.c:84
 msgid "Telephone Number"
 msgstr "Nombor Telefon"
 
-#: ../egg/egg-oid.c:87
+#: egg/egg-oid.c:86
 msgid "Given Name"
 msgstr "Nama Diberi"
 
-#: ../egg/egg-oid.c:89
+#: egg/egg-oid.c:88
 msgid "Initials"
-msgstr "Inisial"
+msgstr "Singkatan"
 
-#: ../egg/egg-oid.c:91
+#: egg/egg-oid.c:90
 msgid "Generation Qualifier"
-msgstr ""
+msgstr "Penerang Penjanaan"
 
-#: ../egg/egg-oid.c:93
+#: egg/egg-oid.c:92
 msgid "DN Qualifier"
-msgstr ""
+msgstr "Penerang DN"
 
-#: ../egg/egg-oid.c:95
+#: egg/egg-oid.c:94
 msgid "Pseudonym"
-msgstr ""
+msgstr "Nama samaran"
 
-#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:202
-#: ../gcr/gcr-key-renderer.c:308
+#: egg/egg-oid.c:97 ui/gcr-gnupg-renderer.c:198 ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
-#: ../egg/egg-oid.c:99
+#: egg/egg-oid.c:98
 msgid "MD2 with RSA"
 msgstr "MD2 dengan RSA"
 
-#: ../egg/egg-oid.c:100
+#: egg/egg-oid.c:99
 msgid "MD5 with RSA"
 msgstr "MD5 dengan RSA"
 
-#: ../egg/egg-oid.c:101
+#: egg/egg-oid.c:100
 msgid "SHA1 with RSA"
 msgstr "SHA1 dengan RSA"
 
-#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:206
-#: ../gcr/gcr-key-renderer.c:310
+#: egg/egg-oid.c:102 ui/gcr-gnupg-renderer.c:202 ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
-#: ../egg/egg-oid.c:104
+#: egg/egg-oid.c:103
 msgid "SHA1 with DSA"
 msgstr "SHA1 dengan DSA"
 
+#: egg/egg-oid.c:105 ui/gcr-key-renderer.c:389
+msgid "Elliptic Curve"
+msgstr "Lekuk Eliptik"
+
+#: egg/egg-oid.c:106
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 dengan ECDSA"
+
+#: egg/egg-oid.c:107
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 dengan ECDSA"
+
+#: egg/egg-oid.c:108
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 dengan ECDSA"
+
+#: egg/egg-oid.c:109
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 dengan ECDSA"
+
+#: egg/egg-oid.c:110
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 dengan ECDSA"
+
 #. Extended Key Usages
-#: ../egg/egg-oid.c:107
-#, fuzzy
+#: egg/egg-oid.c:113
 msgid "Server Authentication"
-msgstr "Sijil SSL Pelayan"
+msgstr "Pengesahihan Pelayan"
 
-#: ../egg/egg-oid.c:108
-#, fuzzy
+#: egg/egg-oid.c:114
 msgid "Client Authentication"
-msgstr "Sijil SSL Pelanggan"
+msgstr "Pengesahihan Klien"
 
-#: ../egg/egg-oid.c:109
+#: egg/egg-oid.c:115
 msgid "Code Signing"
-msgstr ""
+msgstr "Penandatangan Kod"
 
-#: ../egg/egg-oid.c:110
+#: egg/egg-oid.c:116
 msgid "Email Protection"
-msgstr ""
+msgstr "Perlindungan Emel"
 
-#: ../egg/egg-oid.c:111
+#: egg/egg-oid.c:117
 msgid "Time Stamping"
-msgstr ""
+msgstr "Peneraan Masa"
 
-#: ../gck/gck-module.c:353
+#: gck/gck-module.c:342
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr ""
+msgstr "Ralat memuatkan modul PKCS#11: %s"
 
-#: ../gck/gck-module.c:360
+#: gck/gck-module.c:356
 #, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr ""
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr "Tidak dapat awalkan modul PKCS#11: %s"
 
-#: ../gck/gck-module.c:369
+#: gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr ""
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr "Tidak dapat awalkan modul berdaftar PKCS#11: %s"
 
-#: ../gck/gck-module.c:385
-#, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr ""
+#: gck/gck-uri.c:224
+msgid "The URI has invalid encoding."
+msgstr "URI mempunyai pengekodan tidak sah."
 
-#: ../gck/gck-modules.c:67
-#, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr ""
+#: gck/gck-uri.c:228
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "URI tidak mempunyai skema \"pkcs11\"."
 
-#: ../gcr/gcr-callback-output-stream.c:64
-#: ../gcr/gcr-callback-output-stream.c:81
-#, fuzzy, c-format
+#: gck/gck-uri.c:232
+msgid "The URI has bad syntax."
+msgstr "URI mempunyai sintaks rosak."
+
+#: gck/gck-uri.c:236
+msgid "The URI has a bad version number."
+msgstr "URI mempunyai nombor versi yang rosak."
+
+#: gcr/gcr-callback-output-stream.c:60 gcr/gcr-callback-output-stream.c:77
 msgid "The stream was closed"
-msgstr "Sesi ditutup"
+msgstr "Strim telah ditutup"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:378 ../gcr/gcr-gnupg-key.c:521
-#, fuzzy
+#: gcr/gcr-certificate.c:350 gcr/gcr-gnupg-key.c:429
 msgctxt "column"
 msgid "Name"
-msgstr "_Nama:"
+msgstr "Nama"
 
-#: ../gcr/gcr-certificate.c:380
-#, fuzzy
+#: gcr/gcr-certificate.c:352
 msgctxt "column"
 msgid "Issued By"
-msgstr "Dikeluarkan Pada"
+msgstr "Dikeluarkan Oleh"
 
 #. later
-#: ../gcr/gcr-certificate.c:382
-#, fuzzy
+#: gcr/gcr-certificate.c:354
 msgctxt "column"
 msgid "Expires"
-msgstr "Luput Pada"
+msgstr "Luput"
 
-#: ../gcr/gcr-certificate.c:1067 ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:101 ../gcr/gcr-parser.c:316
+#: gcr/gcr-certificate.c:1186 gcr/gcr-parser.c:344
+#: ui/gcr-certificate-renderer.c:103 ui/gcr-certificate-exporter.c:463
 msgid "Certificate"
 msgstr "Sijil"
 
-#: ../gcr/gcr-certificate-exporter.c:225
-msgid ""
-"<b>A file already exists with this name.</b>\n"
-"\n"
-"Do you want to replace it with a new file?"
-msgstr ""
-
-#: ../gcr/gcr-certificate-exporter.c:228
-msgid "_Replace"
-msgstr ""
-
-#: ../gcr/gcr-certificate-exporter.c:258
-#, fuzzy, c-format
-msgid "The operation was cancelled."
-msgstr "Operasi dibatalkan"
-
-#: ../gcr/gcr-certificate-exporter.c:302
-#, fuzzy
-msgid "Export certificate"
-msgstr "Buka sijil"
-
-#: ../gcr/gcr-certificate-exporter.c:314
-#, fuzzy
-msgid "Certificate files"
-msgstr "Sijil"
-
-#: ../gcr/gcr-certificate-exporter.c:325
-msgid "PEM files"
-msgstr ""
-
-#: ../gcr/gcr-certificate-extensions.c:141
-#, fuzzy
+#: gcr/gcr-certificate-extensions.c:177
 msgid "Other Name"
-msgstr "Nama Pengeluar"
+msgstr "Nama Lain"
 
-#: ../gcr/gcr-certificate-extensions.c:150
+#: gcr/gcr-certificate-extensions.c:187
 msgid "XMPP Addr"
-msgstr ""
+msgstr "Alamat XMPP"
 
-#: ../gcr/gcr-certificate-extensions.c:154
+#: gcr/gcr-certificate-extensions.c:191
 msgid "DNS SRV"
-msgstr ""
+msgstr "DNS SRV"
 
-#: ../gcr/gcr-certificate-extensions.c:166 ../gcr/gcr-gnupg-renderer.c:424
-#: ../gcr/gcr-gnupg-renderer.c:706
+#: gcr/gcr-certificate-extensions.c:203 ui/gcr-gnupg-renderer.c:420
+#: ui/gcr-gnupg-renderer.c:702
 msgid "Email"
 msgstr "Email"
 
-#: ../gcr/gcr-certificate-extensions.c:174
-#, fuzzy
+#: gcr/gcr-certificate-extensions.c:211
 msgid "DNS"
-msgstr "DSA"
+msgstr "DNS"
 
-#: ../gcr/gcr-certificate-extensions.c:182
+#: gcr/gcr-certificate-extensions.c:219
 msgid "X400 Address"
-msgstr ""
+msgstr "Alamat X400"
 
-#: ../gcr/gcr-certificate-extensions.c:189
-#, fuzzy
+#: gcr/gcr-certificate-extensions.c:226
 msgid "Directory Name"
-msgstr "Nama Subjek"
+msgstr "Nama Direktori"
 
-#: ../gcr/gcr-certificate-extensions.c:197
+#: gcr/gcr-certificate-extensions.c:234
 msgid "EDI Party Name"
-msgstr ""
+msgstr "Nama Parti EDI"
 
-#: ../gcr/gcr-certificate-extensions.c:204
+#: gcr/gcr-certificate-extensions.c:241
 msgid "URI"
-msgstr ""
+msgstr "URI"
 
-#: ../gcr/gcr-certificate-extensions.c:212
+#: gcr/gcr-certificate-extensions.c:249
 msgid "IP Address"
-msgstr ""
+msgstr "Alamat IP"
 
-#: ../gcr/gcr-certificate-extensions.c:220
+#: gcr/gcr-certificate-extensions.c:257
 msgid "Registered ID"
-msgstr ""
+msgstr "ID Berdaftar"
 
-#: ../gcr/gcr-certificate-renderer.c:116
-msgid "Basic Constraints"
-msgstr ""
+#: gcr/gcr-certificate-request.c:415
+msgid "Unsupported key type for certificate request"
+msgstr "Jenis kunci tidak disokong untuk permintaan sijil"
 
-#: ../gcr/gcr-certificate-renderer.c:118
-#, fuzzy
-msgid "Certificate Authority"
-msgstr "Sijil"
+#: gcr/gcr-certificate-request.c:502 gcr/gcr-certificate-request.c:587
+msgid "The key cannot be used to sign the request"
+msgstr "Kunci tidak boleh digunakan untuk tanda tangan permintaan"
 
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
-msgid "Yes"
-msgstr "Ya"
-
-#: ../gcr/gcr-certificate-renderer.c:119 ../gcr/gcr-certificate-renderer.c:314
-msgid "No"
-msgstr "Tidak"
-
-#: ../gcr/gcr-certificate-renderer.c:122
-msgid "Max Path Length"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:123
-msgid "Unlimited"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:142
-msgid "Extended Key Usage"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:153
-msgid "Allowed Purposes"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:173
-#, fuzzy
-msgid "Subject Key Identifier"
-msgstr "Pengenalan"
-
-#: ../gcr/gcr-certificate-renderer.c:174
-#, fuzzy
-msgid "Key Identifier"
-msgstr "Pengenalan"
-
-#: ../gcr/gcr-certificate-renderer.c:185
-#, fuzzy
-msgid "Digital signature"
-msgstr "Tandatangan"
-
-#: ../gcr/gcr-certificate-renderer.c:186
-msgid "Key encipherment"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:187
-msgid "Data encipherment"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:188
-#, fuzzy
-msgid "Key agreement"
-msgstr "Parameter Kekunci"
-
-#: ../gcr/gcr-certificate-renderer.c:189
-#, fuzzy
-msgid "Certificate signature"
-msgstr "Sijil"
-
-#: ../gcr/gcr-certificate-renderer.c:190
-msgid "Revocation list signature"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:215
-msgid "Key Usage"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:216
-msgid "Usages"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:236
-#, fuzzy
-msgid "Subject Alternative Names"
-msgstr "Nama Subjek"
-
-#: ../gcr/gcr-certificate-renderer.c:261
-msgid "Extension"
-msgstr "Sambungan"
-
-#: ../gcr/gcr-certificate-renderer.c:265
-msgid "Identifier"
-msgstr "Pengenalan"
-
-#: ../gcr/gcr-certificate-renderer.c:266 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-gnupg-renderer.c:432
-msgid "Value"
-msgstr "Nilai"
-
-#: ../gcr/gcr-certificate-renderer.c:313
-msgid "Critical"
-msgstr "Kritikal"
-
-#: ../gcr/gcr-certificate-renderer.c:386
-#, fuzzy
-msgid "Couldn't export the certificate."
-msgstr "Masukkan katalaluan untuk membuka sijil"
-
-#: ../gcr/gcr-certificate-renderer.c:613
-#, fuzzy
-msgid "Identity"
-msgstr "Pengenalan"
-
-#: ../gcr/gcr-certificate-renderer.c:617
-msgid "Verified by"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:720
-#, fuzzy
-msgid "Expires"
-msgstr "Luput Pada"
-
-#. The subject
-#: ../gcr/gcr-certificate-renderer.c:634
-msgid "Subject Name"
-msgstr "Nama Subjek"
-
-#. The Issuer
-#: ../gcr/gcr-certificate-renderer.c:638
-msgid "Issuer Name"
-msgstr "Nama Pengeluar"
-
-#. The Issued Parameters
-#: ../gcr/gcr-certificate-renderer.c:642
-msgid "Issued Certificate"
-msgstr "Sijil Dikeluarkan"
-
-#: ../gcr/gcr-certificate-renderer.c:647
-msgid "Version"
-msgstr "Versi"
-
-#: ../gcr/gcr-certificate-renderer.c:658
-msgid "Not Valid Before"
-msgstr "Tidak Sah Sebelum"
-
-#: ../gcr/gcr-certificate-renderer.c:663
-msgid "Not Valid After"
-msgstr "Tidak Sah Selepas"
-
-#. Fingerprints
-#: ../gcr/gcr-certificate-renderer.c:668
-#, fuzzy
-msgid "Certificate Fingerprints"
-msgstr "Sijil"
-
-#. Signature
-#: ../gcr/gcr-certificate-renderer.c:674 ../gcr/gcr-certificate-renderer.c:686
-#: ../gcr/gcr-gnupg-renderer.c:561
-msgid "Signature"
-msgstr "Tandatangan"
-
-#: ../gcr/gcr-certificate-renderer.c:678
-msgid "Signature Algorithm"
-msgstr ""
-
-#: ../gcr/gcr-certificate-renderer.c:682
-msgid "Signature Parameters"
-msgstr ""
-
-#. Public Key Info
-#: ../gcr/gcr-certificate-renderer.c:690
-msgid "Public Key Info"
-msgstr "Info Kekunci Umum"
-
-#: ../gcr/gcr-certificate-renderer.c:695
-msgid "Key Algorithm"
-msgstr "Algoritma Kekunci"
-
-#: ../gcr/gcr-certificate-renderer.c:700
-msgid "Key Parameters"
-msgstr "Parameter Kekunci"
-
-#: ../gcr/gcr-certificate-renderer.c:705 ../gcr/gcr-gnupg-renderer.c:354
-msgid "Key Size"
-msgstr "Saiz Kekunci"
-
-#: ../gcr/gcr-certificate-renderer.c:712
-#, fuzzy
-msgid "Key SHA1 Fingerprint"
-msgstr "SHA1 Fingerprint"
-
-#: ../gcr/gcr-certificate-renderer.c:718 ../gcr/gcr-gnupg-renderer.c:739
-#: ../gcr/gcr-key-renderer.c:292 ../gcr/gcr-parser.c:319
-msgid "Public Key"
-msgstr "Kekunci Umum"
-
-#: ../gcr/gcr-display-view.c:319
-#, fuzzy
-msgid "_Details"
-msgstr "_Butiran:"
-
-#: ../gcr/gcr-failure-renderer.c:161
-#, c-format
-msgid "Could not display '%s'"
-msgstr ""
-
-#: ../gcr/gcr-failure-renderer.c:163
-msgid "Could not display file"
-msgstr ""
-
-#: ../gcr/gcr-failure-renderer.c:168
-msgid "Reason"
-msgstr ""
-
-#: ../gcr/gcr-failure-renderer.c:218
-#, c-format
-msgid "Cannot display a file of this type."
-msgstr ""
-
-#: ../gcr/gcr-gnupg-importer.c:93
-#, fuzzy
+#: gcr/gcr-gnupg-importer.c:95
 msgid "GnuPG Keyring"
-msgstr "Buka Keyring"
+msgstr "Gelang Kunci GnuPG"
 
-#: ../gcr/gcr-gnupg-importer.c:95
+#: gcr/gcr-gnupg-importer.c:97
 #, c-format
 msgid "GnuPG Keyring: %s"
-msgstr ""
+msgstr "Gelang Kunci GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:234 ../gcr/gcr-gnupg-renderer.c:88
-#: ../gcr/gcr-parser.c:322
+#: gcr/gcr-gnupg-key.c:143 gcr/gcr-parser.c:350 ui/gcr-gnupg-renderer.c:88
 msgid "PGP Key"
-msgstr ""
+msgstr "Kunci PGP"
 
-#: ../gcr/gcr-gnupg-key.c:523
+#: gcr/gcr-gnupg-key.c:431
 msgctxt "column"
 msgid "Key ID"
-msgstr ""
+msgstr "ID Kunci"
 
-#: ../gcr/gcr-gnupg-process.c:860
+#: gcr/gcr-gnupg-process.c:862
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr ""
+msgstr "Proses Gnupg keluar dengan kod: %d"
 
-#: ../gcr/gcr-gnupg-process.c:867
+#: gcr/gcr-gnupg-process.c:869
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr ""
+msgstr "Proses Gnupg dihentikan dengan isyarat: %d"
 
-#: ../gcr/gcr-gnupg-process.c:921 ../gcr/gcr-parser.c:2177
-#: ../gcr/gcr-parser.c:2681
+#: gcr/gcr-gnupg-process.c:923 gcr/gcr-parser.c:2590 gcr/gcr-parser.c:3196
+#: gcr/gcr-system-prompt.c:929
 msgid "The operation was cancelled"
 msgstr "Operasi dibatalkan"
 
-#: ../gcr/gcr-gnupg-renderer.c:204
-msgid "Elgamal"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:217
-msgid "Encrypt"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:219
-#, fuzzy
-msgid "Sign"
-msgstr "Tandatangan"
-
-#: ../gcr/gcr-gnupg-renderer.c:221
-#, fuzzy
-msgid "Certify"
-msgstr "Sijil"
-
-#: ../gcr/gcr-gnupg-renderer.c:223
-#, fuzzy
-msgid "Authenticate"
-msgstr "Sijil"
-
-#: ../gcr/gcr-gnupg-renderer.c:225 ../gcr/gcr-gnupg-renderer.c:260
-msgid "Disabled"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:256 ../gcr/gcr-gnupg-renderer.c:415
-#: ../gcr/gcr-key-renderer.c:312 ../gcr/gcr-key-renderer.c:317
-#, fuzzy
-msgid "Unknown"
-msgstr "Ralat tidak diketahui"
-
-#: ../gcr/gcr-gnupg-renderer.c:258
-msgid "Invalid"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:262
-msgid "Revoked"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:264
-#, fuzzy
-msgid "Expired"
-msgstr "Luput Pada"
-
-#: ../gcr/gcr-gnupg-renderer.c:266
-msgid "Undefined trust"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:268
-msgid "Distrusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:270
-msgid "Marginally trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:272
-msgid "Fully trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:274
-msgid "Ultimately trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:288
-#, fuzzy
-msgid "The information in this key has not yet been verified"
-msgstr "Informasi ini sensitif dan tidak boleh didedahkan"
-
-#: ../gcr/gcr-gnupg-renderer.c:291
-#, fuzzy
-msgid "This key is invalid"
-msgstr "Sesi tidak sah"
-
-#: ../gcr/gcr-gnupg-renderer.c:294
-msgid "This key has been disabled"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:297
-msgid "This key has been revoked"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:300
-#, fuzzy
-msgid "This key has expired"
-msgstr "Katalaluan atau PIN sudah luput"
-
-#: ../gcr/gcr-gnupg-renderer.c:305
-msgid "This key is distrusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:308
-msgid "This key is marginally trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:311
-#, fuzzy
-msgid "This key is fully trusted"
-msgstr "Kekunci adalah salah jenis"
-
-#: ../gcr/gcr-gnupg-renderer.c:314
-msgid "This key is ultimately trusted"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:339 ../gcr/gcr-gnupg-renderer.c:565
-msgid "Key ID"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:347 ../gcr/gcr-gnupg-renderer.c:573
-#: ../gcr/gcr-gnupg-renderer.c:620 ../gcr/gcr-key-renderer.c:313
-#, fuzzy
-msgid "Algorithm"
-msgstr "Algoritma Kekunci"
-
-#: ../gcr/gcr-gnupg-renderer.c:362 ../gcr/gcr-gnupg-renderer.c:439
-#: ../gcr/gcr-gnupg-renderer.c:482
-msgid "Created"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:371 ../gcr/gcr-gnupg-renderer.c:448
-#: ../gcr/gcr-gnupg-renderer.c:491
-#, fuzzy
-msgid "Expiry"
-msgstr "Luput Pada"
-
-#: ../gcr/gcr-gnupg-renderer.c:380
-msgid "Capabilities"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:393
-msgid "Owner trust"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:421
-#, fuzzy
-msgid "Name"
-msgstr "_Nama:"
-
-#: ../gcr/gcr-gnupg-renderer.c:427 ../gcr/gcr-gnupg-renderer.c:709
-msgid "Comment"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:467
-msgid "User Attribute"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:474 ../gcr/gcr-key-renderer.c:320
-#, fuzzy
-msgid "Size"
-msgstr "Saiz Kekunci"
-
-#: ../gcr/gcr-gnupg-renderer.c:509
-msgid "Signature of a binary document"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:511
-msgid "Signature of a canonical text document"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:513
-#, fuzzy
-msgid "Standalone signature"
-msgstr "Tandatangan"
-
-#: ../gcr/gcr-gnupg-renderer.c:515
-#, fuzzy
-msgid "Generic certification of key"
-msgstr "Buka sijil"
-
-#: ../gcr/gcr-gnupg-renderer.c:517
-msgid "Persona certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:519
-msgid "Casual certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:521
-msgid "Positive certification of key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:523
-msgid "Subkey binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:525
-msgid "Primary key binding signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:527
-msgid "Signature directly on key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:529
-msgid "Key revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:531
-msgid "Subkey revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:533
-msgid "Certification revocation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:535
-msgid "Timestamp signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:537
-msgid "Third-party confirmation signature"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:598
-msgid "Class"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:592 ../gcr/gcr-gnupg-renderer.c:594
-msgid "Type"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:592
-#, fuzzy
-msgid "Local only"
-msgstr "Lokaliti"
-
-#: ../gcr/gcr-gnupg-renderer.c:594
-msgid "Exportable"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:612
-msgid "Revocation Key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:626 ../gcr/gcr-gnupg-renderer.c:650
-#: ../gcr/gcr-gnupg-renderer.c:652
-#, fuzzy
-msgid "Fingerprint"
-msgstr "MD5 Fingerprint"
-
-#: ../gcr/gcr-gnupg-renderer.c:741
-#, fuzzy
-msgid "Public Subkey"
-msgstr "Kekunci Umum"
-
-#: ../gcr/gcr-gnupg-renderer.c:743
-msgid "Secret Key"
-msgstr ""
-
-#: ../gcr/gcr-gnupg-renderer.c:745
-msgid "Secret Subkey"
-msgstr ""
-
-#: ../gcr/gcr-import-button.c:108
-#, fuzzy
-msgid "Initializing..."
-msgstr "Inisial"
-
-#: ../gcr/gcr-import-button.c:116
-msgid "Import is in progress..."
-msgstr ""
-
-#: ../gcr/gcr-import-button.c:123
-#, fuzzy, c-format
-msgid "Imported to: %s"
-msgstr "Maklumat Import:"
-
-#: ../gcr/gcr-import-button.c:143
-#, fuzzy, c-format
-msgid "Import to: %s"
-msgstr "Maklumat Import:"
-
-#: ../gcr/gcr-import-button.c:156
-#, fuzzy
-msgid "Cannot import because there are no compatible importers"
-msgstr "Tidak dapat export kerana kekunci mempunyai jenis salah"
-
-#: ../gcr/gcr-import-button.c:165
-#, fuzzy
-msgid "No data to import"
-msgstr "Tiada lokasi untuk import kepada"
-
-#: ../gcr/gcr-key-renderer.c:82
-msgid "Key"
-msgstr ""
-
-#: ../gcr/gcr-key-renderer.c:281
-#, fuzzy
-msgid "Private RSA Key"
-msgstr "Kekunci Peribadi"
-
-#: ../gcr/gcr-key-renderer.c:283
-#, fuzzy
-msgid "Private DSA Key"
-msgstr "Kekunci Peribadi"
-
-#: ../gcr/gcr-key-renderer.c:285 ../gcr/gcr-parser.c:313
+#: gcr/gcr-parser.c:341 ui/gcr-key-renderer.c:361
 msgid "Private Key"
-msgstr "Kekunci Peribadi"
+msgstr "Kunci Persendirian"
 
-#: ../gcr/gcr-key-renderer.c:288 ../gcr/gcr-key-renderer.c:290
-#, fuzzy
-msgid "Public DSA Key"
-msgstr "Kekunci Umum"
+#: gcr/gcr-parser.c:347 ui/gcr-certificate-renderer.c:881
+#: ui/gcr-gnupg-renderer.c:735 ui/gcr-key-renderer.c:370
+msgid "Public Key"
+msgstr "Kunci Awam"
 
-#: ../gcr/gcr-key-renderer.c:299
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] ""
-msgstr[1] ""
+#: gcr/gcr-parser.c:353
+msgid "Certificate Request"
+msgstr "Permintaan Sijil"
 
-#: ../gcr/gcr-key-renderer.c:300
-#, fuzzy
-msgid "Strength"
-msgstr "Jalan"
-
-#. Fingerprints
-#: ../gcr/gcr-key-renderer.c:324
-msgid "Fingerprints"
-msgstr ""
-
-#: ../gcr/gcr-key-renderer.c:329
-msgid "SHA1"
-msgstr ""
-
-#: ../gcr/gcr-key-renderer.c:335
-msgid "SHA256"
-msgstr ""
-
-#: ../gcr/gcr-parser.c:2180
+#: gcr/gcr-parser.c:2593
 msgid "Unrecognized or unsupported data."
-msgstr ""
+msgstr "Data tidak dikenali atau tidak disokong."
 
-#: ../gcr/gcr-parser.c:2183
+#: gcr/gcr-parser.c:2596
 msgid "Could not parse invalid or corrupted data."
-msgstr ""
+msgstr "Tidak dapat menghurai data tidak sah atau rosak."
 
-#: ../gcr/gcr-parser.c:2186
+#: gcr/gcr-parser.c:2599
 msgid "The data is locked"
 msgstr "Data dikunci"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:186
-msgid "Automatically chosen"
-msgstr ""
+#: gcr/gcr-prompt.c:225
+msgid "Continue"
+msgstr "Teruskan"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:270
-#: ../gcr/gcr-pkcs11-import-interaction.c:153
-#: ../gcr/gcr-pkcs11-import-interaction.c:171
-#, c-format
-msgid "The user cancelled the operation"
-msgstr ""
+#: gcr/gcr-prompt.c:234
+msgid "Cancel"
+msgstr "Batal"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-msgid "<b>Import settings</b>"
-msgstr ""
+#: gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr "Masukkan frasa laluan OpenSSH anda"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2
-#, fuzzy
-msgid "<b>Unlock</b>"
-msgstr "Membuka"
+#: gcr/gcr-subject-public-key.c:405
+msgid "Unrecognized or unavailable attributes for key"
+msgstr "Atribut untuk kunci tidak dikenali atau tidak tersedia"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
-#, fuzzy
-msgid "In order to import, please enter the password."
-msgstr "Untuk mengimport '%s', ianya mesti dibuka"
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+msgid "Couldn’t build public key"
+msgstr "Tidak dapat bina kunci awam"
 
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
-msgid "Label"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5
-msgid "Label:"
-msgstr ""
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
-msgid "Password:"
-msgstr "Katalaluan:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
-msgid "Token:"
-msgstr ""
+#: gcr/gcr-system-prompt.c:909
+msgid "Another prompt is already in progress"
+msgstr "Makluman lain dalam proses"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:376
-#, fuzzy, c-format
-msgid "Couldn't find a place to store the pinned certificate"
-msgstr "Pilih lokasi untuk menyimpan sijil/kekunci yang diimport."
+#: gcr/gcr-trust.c:364
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr "Tidak dapat cari lokasi untuk menyimpan sijil tercemat"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr ""
+#: ui/gcr-certificate-renderer.c:118
+msgid "Basic Constraints"
+msgstr "Kekangan Asas"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:2
-msgid "Lock this keyring after"
-msgstr "Kunci keyring ini selepas"
+#: ui/gcr-certificate-renderer.c:120
+msgid "Certificate Authority"
+msgstr "Autoriti Sijil"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:3
-msgid "Lock this keyring if idle for"
-msgstr ""
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:952
+msgid "Yes"
+msgstr "Ya"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:4
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:952
+msgid "No"
+msgstr "Tidak"
+
+#: ui/gcr-certificate-renderer.c:124
+msgid "Max Path Length"
+msgstr "Panjang Laluan Maks"
+
+#: ui/gcr-certificate-renderer.c:125
+msgid "Unlimited"
+msgstr "Tanpa Had"
+
+#: ui/gcr-certificate-renderer.c:144
+msgid "Extended Key Usage"
+msgstr "Penggunaan Kunci Tambahan"
+
+#: ui/gcr-certificate-renderer.c:155
+msgid "Allowed Purposes"
+msgstr "Tujuan Dibenarkan"
+
+#: ui/gcr-certificate-renderer.c:175
+msgid "Subject Key Identifier"
+msgstr "Pengecam Kunci Subjek"
+
+#: ui/gcr-certificate-renderer.c:176
+msgid "Key Identifier"
+msgstr "Pengecam Kunci"
+
+#: ui/gcr-certificate-renderer.c:187
+msgid "Digital signature"
+msgstr "Tanda tangan digital"
+
+#: ui/gcr-certificate-renderer.c:188
+msgid "Key encipherment"
+msgstr "Penyulitan kunci"
+
+#: ui/gcr-certificate-renderer.c:189
+msgid "Data encipherment"
+msgstr "Penyulitan data"
+
+#: ui/gcr-certificate-renderer.c:190
+msgid "Key agreement"
+msgstr "Perjanjian kunci"
+
+#: ui/gcr-certificate-renderer.c:191
+msgid "Certificate signature"
+msgstr "Tanda tangan sijil"
+
+#: ui/gcr-certificate-renderer.c:192
+msgid "Revocation list signature"
+msgstr "Tanda tangan senarai pembatalan"
+
+#: ui/gcr-certificate-renderer.c:217
+msgid "Key Usage"
+msgstr "Penggunaan Kunci"
+
+#: ui/gcr-certificate-renderer.c:218
+msgid "Usages"
+msgstr "Penggunaan"
+
+#: ui/gcr-certificate-renderer.c:238
+msgid "Subject Alternative Names"
+msgstr "Nama Gantian Subjek"
+
+#: ui/gcr-certificate-renderer.c:265
+msgid "Extension"
+msgstr "Sambungan"
+
+#: ui/gcr-certificate-renderer.c:269
+msgid "Identifier"
+msgstr "Pengenalan"
+
+#: ui/gcr-certificate-renderer.c:270 ui/gcr-certificate-request-renderer.c:267
+#: ui/gcr-gnupg-renderer.c:411 ui/gcr-gnupg-renderer.c:428
+msgid "Value"
+msgstr "Nilai"
+
+#: ui/gcr-certificate-renderer.c:288
+msgid "Couldn’t export the certificate."
+msgstr "Tidak dapat mengeksport sijil."
+
+#: ui/gcr-certificate-renderer.c:521 ui/gcr-certificate-request-renderer.c:308
+msgid "Identity"
+msgstr "Identiti"
+
+#: ui/gcr-certificate-renderer.c:525
+msgid "Verified by"
+msgstr "Disahkan oleh"
+
+#: ui/gcr-certificate-renderer.c:532 ui/gcr-gnupg-renderer.c:716
+msgid "Expires"
+msgstr "Luput"
+
+#. The subject
+#: ui/gcr-certificate-renderer.c:539 ui/gcr-certificate-request-renderer.c:314
+msgid "Subject Name"
+msgstr "Nama Subjek"
+
+#. The Issuer
+#: ui/gcr-certificate-renderer.c:544
+msgid "Issuer Name"
+msgstr "Nama Pengeluar"
+
+#. The Issued Parameters
+#: ui/gcr-certificate-renderer.c:549
+msgid "Issued Certificate"
+msgstr "Sijil Dikeluarkan"
+
+#: ui/gcr-certificate-renderer.c:554 ui/gcr-certificate-request-renderer.c:325
+msgid "Version"
+msgstr "Versi"
+
+#: ui/gcr-certificate-renderer.c:568
+msgid "Not Valid Before"
+msgstr "Tidak Sah Sebelum"
+
+#: ui/gcr-certificate-renderer.c:573
+msgid "Not Valid After"
+msgstr "Tidak Sah Selepas"
+
+#. Fingerprints
+#: ui/gcr-certificate-renderer.c:578
+msgid "Certificate Fingerprints"
+msgstr "Cap Jari Sijil"
+
+#. Public Key Info
+#: ui/gcr-certificate-renderer.c:584 ui/gcr-certificate-request-renderer.c:328
+#: ui/gcr-certificate-request-renderer.c:374
+msgid "Public Key Info"
+msgstr "Info Kunci Awam"
+
+#. Signature
+#: ui/gcr-certificate-renderer.c:599 ui/gcr-certificate-renderer.c:909
+#: ui/gcr-certificate-request-renderer.c:344
+#: ui/gcr-certificate-request-renderer.c:381 ui/gcr-gnupg-renderer.c:557
+msgid "Signature"
+msgstr "Tanda tangan"
+
+#: ui/gcr-certificate-renderer.c:616
+msgid "Export Certificate…"
+msgstr "Eksport Sijil..."
+
+#: ui/gcr-certificate-renderer.c:855
+msgid "Key Algorithm"
+msgstr "Algoritma Kunci"
+
+#: ui/gcr-certificate-renderer.c:860
+msgid "Key Parameters"
+msgstr "Parameter Kunci"
+
+#: ui/gcr-certificate-renderer.c:868 ui/gcr-gnupg-renderer.c:350
+msgid "Key Size"
+msgstr "Saiz Kunci"
+
+#: ui/gcr-certificate-renderer.c:876
+msgid "Key SHA1 Fingerprint"
+msgstr "Cap Jari Kunci SHA1"
+
+#: ui/gcr-certificate-renderer.c:898
+msgid "Signature Algorithm"
+msgstr "Algoritma Tanda Tangan"
+
+#: ui/gcr-certificate-renderer.c:902
+msgid "Signature Parameters"
+msgstr "Parameter Tanda Tangan"
+
+#: ui/gcr-certificate-renderer.c:951
+msgid "Critical"
+msgstr "Kritikal"
+
+#. The certificate request type
+#: ui/gcr-certificate-request-renderer.c:95
+#: ui/gcr-certificate-request-renderer.c:303
+#: ui/gcr-certificate-request-renderer.c:318
+#: ui/gcr-certificate-request-renderer.c:361
+#: ui/gcr-certificate-request-renderer.c:366
+msgid "Certificate request"
+msgstr "Permintaan sijil"
+
+#: ui/gcr-certificate-request-renderer.c:256
+msgid "Attribute"
+msgstr "Atribut"
+
+#: ui/gcr-certificate-request-renderer.c:260
+#: ui/gcr-certificate-request-renderer.c:319
+#: ui/gcr-certificate-request-renderer.c:367 ui/gcr-gnupg-renderer.c:588
+#: ui/gcr-gnupg-renderer.c:590
+msgid "Type"
+msgstr "Jenis"
+
+#: ui/gcr-certificate-request-renderer.c:371
+msgid "Challenge"
+msgstr "Cabar"
+
+#: ui/gcr-display-view.c:320
+msgid "_Details"
+msgstr "_Perincian"
+
+#: ui/gcr-failure-renderer.c:157
+#, c-format
+msgid "Could not display “%s”"
+msgstr "Tidak dapat paparkan \"%s\""
+
+#: ui/gcr-failure-renderer.c:159
+msgid "Could not display file"
+msgstr "Tidak dapat paparkan fail"
+
+#: ui/gcr-failure-renderer.c:164
+msgid "Reason"
+msgstr "Alasan"
+
+#: ui/gcr-failure-renderer.c:214
+msgid "Cannot display a file of this type."
+msgstr "Tidak dapat paparkan fail jenis ini."
+
+#: ui/gcr-gnupg-renderer.c:200
+msgid "Elgamal"
+msgstr "Elgamal"
+
+#: ui/gcr-gnupg-renderer.c:213
+msgid "Encrypt"
+msgstr "Sulitkan"
+
+#: ui/gcr-gnupg-renderer.c:215
+msgid "Sign"
+msgstr "Tanda tangan"
+
+#: ui/gcr-gnupg-renderer.c:217
+msgid "Certify"
+msgstr "Sijilkan"
+
+#: ui/gcr-gnupg-renderer.c:219
+msgid "Authenticate"
+msgstr "Sahihkan"
+
+#: ui/gcr-gnupg-renderer.c:221
+msgctxt "capability"
+msgid "Disabled"
+msgstr "Dilumpuhkan"
+
+#: ui/gcr-gnupg-renderer.c:252 ui/gcr-gnupg-renderer.c:411
+#: ui/gcr-key-renderer.c:391 ui/gcr-key-renderer.c:395
+msgid "Unknown"
+msgstr "Tidak diketahui"
+
+#: ui/gcr-gnupg-renderer.c:254
+msgid "Invalid"
+msgstr "Tidak Sah"
+
+#: ui/gcr-gnupg-renderer.c:256
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Dilumpuhkan"
+
+#: ui/gcr-gnupg-renderer.c:258
+msgid "Revoked"
+msgstr "Ditarik Balik"
+
+#: ui/gcr-gnupg-renderer.c:260
+msgid "Expired"
+msgstr "Luput"
+
+#: ui/gcr-gnupg-renderer.c:262
+msgid "Undefined trust"
+msgstr "Kepercayaan tidak ditakrif"
+
+#: ui/gcr-gnupg-renderer.c:264
+msgid "Distrusted"
+msgstr "Tidak dipercayai"
+
+#: ui/gcr-gnupg-renderer.c:266
+msgid "Marginally trusted"
+msgstr "Dipercayai secara agak"
+
+#: ui/gcr-gnupg-renderer.c:268
+msgid "Fully trusted"
+msgstr "Dipercayai sepenuhnya"
+
+#: ui/gcr-gnupg-renderer.c:270
+msgid "Ultimately trusted"
+msgstr "Dipercayai secara muktamad"
+
+#: ui/gcr-gnupg-renderer.c:284
+msgid "The information in this key has not yet been verified"
+msgstr "Maklumat kunci ini belum lagi disahkan"
+
+#: ui/gcr-gnupg-renderer.c:287
+msgid "This key is invalid"
+msgstr "Kunci ini tidak sah"
+
+#: ui/gcr-gnupg-renderer.c:290
+msgid "This key has been disabled"
+msgstr "Kunci ini telah dilumpuhkan"
+
+#: ui/gcr-gnupg-renderer.c:293
+msgid "This key has been revoked"
+msgstr "Kunci ini telah ditarik balik"
+
+#: ui/gcr-gnupg-renderer.c:296
+msgid "This key has expired"
+msgstr "Kunci ini telah luput"
+
+#: ui/gcr-gnupg-renderer.c:301
+msgid "This key is distrusted"
+msgstr "Kunci ini tidak dipercayai"
+
+#: ui/gcr-gnupg-renderer.c:304
+msgid "This key is marginally trusted"
+msgstr "Kunci ini dipercayai secara agak"
+
+#: ui/gcr-gnupg-renderer.c:307
+msgid "This key is fully trusted"
+msgstr "Kunci ini dipercayai sepenuh"
+
+#: ui/gcr-gnupg-renderer.c:310
+msgid "This key is ultimately trusted"
+msgstr "Kunci ini dipercayai secara muktamad"
+
+#: ui/gcr-gnupg-renderer.c:335 ui/gcr-gnupg-renderer.c:561
+msgid "Key ID"
+msgstr "ID Kunci"
+
+#: ui/gcr-gnupg-renderer.c:343 ui/gcr-gnupg-renderer.c:569
+#: ui/gcr-gnupg-renderer.c:616 ui/gcr-key-renderer.c:392
+msgid "Algorithm"
+msgstr "Algoritma"
+
+#: ui/gcr-gnupg-renderer.c:358 ui/gcr-gnupg-renderer.c:435
+#: ui/gcr-gnupg-renderer.c:478
+msgid "Created"
+msgstr "Dicipta"
+
+#: ui/gcr-gnupg-renderer.c:367 ui/gcr-gnupg-renderer.c:444
+#: ui/gcr-gnupg-renderer.c:487
+msgid "Expiry"
+msgstr "Luput"
+
+#: ui/gcr-gnupg-renderer.c:376
+msgid "Capabilities"
+msgstr "Keupayaan"
+
+#: ui/gcr-gnupg-renderer.c:389
+msgid "Owner trust"
+msgstr "Dipercayai pemilik"
+
+#: ui/gcr-gnupg-renderer.c:417
+msgid "Name"
+msgstr "Nama"
+
+#: ui/gcr-gnupg-renderer.c:423 ui/gcr-gnupg-renderer.c:705
+msgid "Comment"
+msgstr "Ulasan"
+
+#: ui/gcr-gnupg-renderer.c:463
+msgid "User Attribute"
+msgstr "Atribut Pengguna"
+
+#: ui/gcr-gnupg-renderer.c:470 ui/gcr-key-renderer.c:398
+msgid "Size"
+msgstr "Saiz"
+
+#: ui/gcr-gnupg-renderer.c:505
+msgid "Signature of a binary document"
+msgstr "Tanda tangan dokumen binari"
+
+#: ui/gcr-gnupg-renderer.c:507
+msgid "Signature of a canonical text document"
+msgstr "Tanda tangan dokumen teks berkanonik"
+
+#: ui/gcr-gnupg-renderer.c:509
+msgid "Standalone signature"
+msgstr "Tanda tangan berdiri-sendiri"
+
+#: ui/gcr-gnupg-renderer.c:511
+msgid "Generic certification of key"
+msgstr "Persijilan generik kunci"
+
+#: ui/gcr-gnupg-renderer.c:513
+msgid "Persona certification of key"
+msgstr "Perseijilan persona kunci"
+
+#: ui/gcr-gnupg-renderer.c:515
+msgid "Casual certification of key"
+msgstr "Persijilan kasual kunci"
+
+#: ui/gcr-gnupg-renderer.c:517
+msgid "Positive certification of key"
+msgstr "Persijilan positif kunci"
+
+#: ui/gcr-gnupg-renderer.c:519
+msgid "Subkey binding signature"
+msgstr "Tanda tangan pengikatan subkunci"
+
+#: ui/gcr-gnupg-renderer.c:521
+msgid "Primary key binding signature"
+msgstr "Tanda tangan pengikatan kunci utama"
+
+#: ui/gcr-gnupg-renderer.c:523
+msgid "Signature directly on key"
+msgstr "Tanda tangan secara langsung pada kunci"
+
+#: ui/gcr-gnupg-renderer.c:525
+msgid "Key revocation signature"
+msgstr "Tanda tangan pembatalan kunci"
+
+#: ui/gcr-gnupg-renderer.c:527
+msgid "Subkey revocation signature"
+msgstr "Tanda tangan pembatalan subkunci"
+
+#: ui/gcr-gnupg-renderer.c:529
+msgid "Certification revocation signature"
+msgstr "Tanda tangan pembatalan persijilan"
+
+#: ui/gcr-gnupg-renderer.c:531
+msgid "Timestamp signature"
+msgstr "Tanda tangan setem masa"
+
+#: ui/gcr-gnupg-renderer.c:533
+msgid "Third-party confirmation signature"
+msgstr "Tanda tangan pengesahan pihak ketiga"
+
+#: ui/gcr-gnupg-renderer.c:586 ui/gcr-gnupg-renderer.c:594
+msgid "Class"
+msgstr "Kelas"
+
+#: ui/gcr-gnupg-renderer.c:588
+msgid "Local only"
+msgstr "Setempat sahaja"
+
+#: ui/gcr-gnupg-renderer.c:590
+msgid "Exportable"
+msgstr "Boleh dieksport"
+
+#: ui/gcr-gnupg-renderer.c:608
+msgid "Revocation Key"
+msgstr "Kunci Pembatalan"
+
+#: ui/gcr-gnupg-renderer.c:622 ui/gcr-gnupg-renderer.c:646
+#: ui/gcr-gnupg-renderer.c:648
+msgid "Fingerprint"
+msgstr "Cap jari"
+
+#: ui/gcr-gnupg-renderer.c:737
+msgid "Public Subkey"
+msgstr "Subkunci Awam"
+
+#: ui/gcr-gnupg-renderer.c:739
+msgid "Secret Key"
+msgstr "Kunci Rahsia"
+
+#: ui/gcr-gnupg-renderer.c:741
+msgid "Secret Subkey"
+msgstr "Subkunci Rahsia"
+
+#: ui/gcr-import-button.c:116
+msgid "Initializing…"
+msgstr "Mengawalkan..."
+
+#: ui/gcr-import-button.c:124
+msgid "Import is in progress…"
+msgstr "Import masih berlangsung..."
+
+#: ui/gcr-import-button.c:131
+#, c-format
+msgid "Imported to: %s"
+msgstr "Diimport ke: %s"
+
+#: ui/gcr-import-button.c:151
+#, c-format
+msgid "Import to: %s"
+msgstr "Import ke: %s"
+
+#: ui/gcr-import-button.c:164
+msgid "Cannot import because there are no compatible importers"
+msgstr "Tidak dapat import kerana terdapat pengimport yang tidak serasi"
+
+#: ui/gcr-import-button.c:173
+msgid "No data to import"
+msgstr "Tiada data hendak diimport"
+
+#: ui/gcr-key-renderer.c:89
+msgid "Key"
+msgstr "Kunci"
+
+#: ui/gcr-key-renderer.c:355
+msgid "Private RSA Key"
+msgstr "Kunci RSA Persendirian"
+
+#: ui/gcr-key-renderer.c:357
+msgid "Private DSA Key"
+msgstr "Kunci DSA Persendirian"
+
+#: ui/gcr-key-renderer.c:359
+msgid "Private Elliptic Curve Key"
+msgstr "Kunci Lekuk Eliptik Persendirian"
+
+#: ui/gcr-key-renderer.c:364 ui/gcr-key-renderer.c:366
+msgid "Public DSA Key"
+msgstr "Kunci DSA Awam"
+
+#: ui/gcr-key-renderer.c:368
+msgid "Public Elliptic Curve Key"
+msgstr "Kunci Lekuk Eliptik Awam"
+
+#: ui/gcr-key-renderer.c:377
+#, c-format
+msgid "%u bit"
+msgid_plural "%u bits"
+msgstr[0] "%u bit"
+
+#: ui/gcr-key-renderer.c:378
+msgid "Strength"
+msgstr "Kekuatan"
+
+#. Fingerprints
+#: ui/gcr-key-renderer.c:402
+msgid "Fingerprints"
+msgstr "Cap Jari"
+
+#: ui/gcr-key-renderer.c:406
+msgid "SHA1"
+msgstr "SHA1"
+
+#: ui/gcr-key-renderer.c:411
+msgid "SHA256"
+msgstr "SHA256"
+
+#. Add our various buttons
+#: ui/gcr-pkcs11-import-dialog.c:114 ui/gcr-prompt-dialog.c:500
+#: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
+msgid "_Cancel"
+msgstr "_Batal"
+
+#: ui/gcr-pkcs11-import-dialog.c:116 ui/gcr-prompt-dialog.c:503
+msgid "_OK"
+msgstr "_OK"
+
+#: ui/gcr-pkcs11-import-dialog.c:189
+msgid "Automatically chosen"
+msgstr "Dipilih secara automatik"
+
+#: ui/gcr-pkcs11-import-dialog.c:273 ui/gcr-pkcs11-import-interaction.c:152
+#: ui/gcr-pkcs11-import-interaction.c:170
+msgid "The user cancelled the operation"
+msgstr "Pengguna membatalkan operasi"
+
+#: ui/gcr-pkcs11-import-dialog.ui:31
+msgid "In order to import, please enter the password."
+msgstr "Untuk mengimport, sila masukkan kata laluan."
+
+#. The password label
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:561
+msgid "Password:"
+msgstr "Kata laluan:"
+
+#: ui/gcr-pkcs11-import-dialog.ui:80
+msgid "Token:"
+msgstr "Token:"
+
+#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
+#: ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Nyahkunci"
+
+#: ui/gcr-pkcs11-import-dialog.ui:178
+msgid "Label:"
+msgstr "Label:"
+
+#: ui/gcr-pkcs11-import-dialog.ui:233
+msgid "Import settings"
+msgstr "Tetapan import"
+
+#. The confirm label
+#: ui/gcr-prompt-dialog.c:578
+msgid "Confirm:"
+msgstr "Sahkan:"
+
+#: ui/gcr-prompt-dialog.c:646
+msgid "Passwords do not match."
+msgstr "Kata laluan tidak sepadan."
+
+#: ui/gcr-prompt-dialog.c:653
+msgid "Password cannot be blank"
+msgstr "Kata laluan tidak boleh kosong"
+
+#: ui/gcr-prompter.desktop.in.in:3
+msgid "Access Prompt"
+msgstr "Bisikan Capaian"
+
+#: ui/gcr-prompter.desktop.in.in:4
+msgid "Unlock access to passwords and other secrets"
+msgstr "Buka capaian ke kata laluan dan lain-lain rahsia"
+
+#: ui/gcr-certificate-exporter.c:226
+msgid "A file already exists with this name."
+msgstr "Satu fail sudah wujud dengan nama ini."
+
+#: ui/gcr-certificate-exporter.c:227
+msgid "Do you want to replace it with a new file?"
+msgstr "Anda hendak ganti ia dengan fail baharu?"
+
+#: ui/gcr-certificate-exporter.c:230
+msgid "_Replace"
+msgstr "_Ganti"
+
+#: ui/gcr-certificate-exporter.c:260
+msgid "The operation was cancelled."
+msgstr "Operasi telah dibatalkan."
+
+#: ui/gcr-certificate-exporter.c:304
+msgid "Export certificate"
+msgstr "Sijil eksport"
+
+#: ui/gcr-certificate-exporter.c:307
+msgid "_Save"
+msgstr "_Simpan"
+
+#: ui/gcr-certificate-exporter.c:316
+msgid "Certificate files"
+msgstr "Fail sijil"
+
+#: ui/gcr-certificate-exporter.c:327
+msgid "PEM files"
+msgstr "Fail PEM"
+
+#: ui/gcr-unlock-options-widget.ui:16
+msgid "Automatically unlock this keyring whenever I’m logged in"
+msgstr "Buka gelang kunci ini secara automatik bila mana saya mendaftar masuk"
+
+#: ui/gcr-unlock-options-widget.ui:31
 msgid "Lock this keyring when I log out"
-msgstr "Kunci keyring ini bila saya log keluar"
+msgstr "Kunci gelang kunci ini bila saya mendaftar keluar"
+
+#: ui/gcr-unlock-options-widget.ui:53
+msgid "Lock this keyring after"
+msgstr "Kunci gelang kunci ini selepas"
+
+#: ui/gcr-unlock-options-widget.ui:67
+msgid "Lock this keyring if idle for"
+msgstr "Kunci gelang kunci ini jika melahu selama"
 
 #. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
-#: ../gcr/gcr-unlock-options-widget.ui.h:6
+#: ui/gcr-unlock-options-widget.ui:103
 msgid "minutes"
 msgstr "minit"
 
-#: ../gcr/gcr-unlock-renderer.c:70
-#, fuzzy, c-format
+#: ui/gcr-unlock-renderer.c:68
+#, c-format
 msgid "Unlock: %s"
-msgstr "Membuka"
+msgstr "Buka: %s"
 
-#: ../gcr/gcr-unlock-renderer.c:72 ../gcr/gcr-unlock-renderer.c:129
-msgid "Unlock"
-msgstr "Membuka"
-
-#: ../gcr/gcr-unlock-renderer.c:126
-#, fuzzy
+#: ui/gcr-unlock-renderer.c:122
 msgid "Password"
-msgstr "Katalaluan:"
+msgstr "Kata Laluan"
 
-#: ../gcr/gcr-unlock-renderer.c:279
+#: ui/gcr-unlock-renderer.c:272
 #, c-format
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
+"Kandungan \"%s\" terkunci. Untuk melihat kandungan di dalamnya, sila "
+"masukkan kata laluan yang betul."
 
-#: ../gcr/gcr-unlock-renderer.c:282
+#: ui/gcr-unlock-renderer.c:275
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr ""
+"Kandungan '%s' dikunci. Untuk melihat kandungan, masukkan kata laluan yang "
+"betul."
 
-#: ../gcr/gcr-viewer-tool.c:41
-#, fuzzy
+#: ui/gcr-viewer.desktop.in.in:3
+msgid "View file"
+msgstr "Lihat fail"
+
+#: ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"
-msgstr "Sijil dan Penyimpanan Kekunci"
+msgstr "Pelihat Kunci dan Sijil GCR"
 
-#: ../gcr/gcr-viewer-tool.c:48
-#, fuzzy
+#: ui/gcr-viewer-tool.c:47
 msgid "Show the application's version"
-msgstr "Izinkan aplikasi mengakses keyring?"
+msgstr "Tunjuk versi aplikasi"
 
-#: ../gcr/gcr-viewer-tool.c:50
+#: ui/gcr-viewer-tool.c:49
 msgid "[file...]"
-msgstr ""
+msgstr "[Fail..]"
 
-#: ../gcr/gcr-viewer-tool.c:104
-#, fuzzy
+#: ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
-msgstr "Sijil dan Penyimpanan Kekunci"
+msgstr "- Lihat fail kunci dan sijil"
 
-#: ../gcr/gcr-viewer-tool.c:118
-#, fuzzy
+#: ui/gcr-viewer-tool.c:114 ui/gcr-viewer-widget.c:681
 msgid "Certificate Viewer"
-msgstr "Sijil"
+msgstr "Pelihat Sijil"
 
-#: ../gcr/gcr-viewer-widget.c:191
-#, fuzzy
+#: ui/gcr-viewer-widget.c:202
 msgid "The password was incorrect"
-msgstr "Katalaluan untuk buka tidak betul"
+msgstr "Kata laluan tidak betul"
 
-#: ../gcr/gcr-viewer-window.c:68
-#, fuzzy
+#: ui/gcr-viewer-window.c:74
 msgid "Imported"
-msgstr "Maklumat Import:"
+msgstr "Diimport"
 
-#: ../gcr/gcr-viewer-window.c:72
-#, fuzzy
+#: ui/gcr-viewer-window.c:78
 msgid "Import failed"
-msgstr "Operasi gagal"
+msgstr "Import gagal"
 
-#: ../gcr/gcr-viewer-window.c:103
-#, fuzzy
+#: ui/gcr-viewer-window.c:105
 msgid "Import"
-msgstr "Maklumat Import:"
+msgstr "Import"
 
-#: ../gck/gck-uri.c:223
-#, c-format
-msgid "The URI has invalid encoding."
-msgstr ""
+#: ui/gcr-viewer-window.c:114
+msgid "_Close"
+msgstr "_Tutup"
 
-#: ../gck/gck-uri.c:227
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr ""
-
-#: ../gck/gck-uri.c:231
-msgid "The URI has bad syntax."
-msgstr ""
-
-#: ../gck/gck-uri.c:235
-msgid "The URI has a bad version number."
-msgstr ""
+#, fuzzy
+#~ msgid "<b>Unlock</b>"
+#~ msgstr "Membuka"

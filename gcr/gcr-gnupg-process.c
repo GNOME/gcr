@@ -310,7 +310,7 @@ static GObject*
 _gcr_gnupg_process_get_source_object (GAsyncResult *result)
 {
 	g_return_val_if_fail (GCR_IS_GNUPG_PROCESS (result), NULL);
-	return g_object_ref (result);
+	return G_OBJECT (g_object_ref (result));
 }
 
 static void

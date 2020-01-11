@@ -856,7 +856,7 @@ _gcr_pkcs11_importer_import_async (GcrImporter *importer,
 	                                 _gcr_pkcs11_importer_import_async);
 	data = g_new0 (GcrImporterData, 1);
 	data->async = TRUE;
-	data->importer = g_object_ref (importer);
+	data->importer = GCR_PKCS11_IMPORTER (g_object_ref (importer));
 	data->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
 	g_simple_async_result_set_op_res_gpointer (res, data, gcr_importer_data_free);
 

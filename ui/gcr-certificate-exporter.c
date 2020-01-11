@@ -307,7 +307,7 @@ exporter_display_chooser (GcrCertificateExporter *self)
 	                     _("_Save"), GTK_RESPONSE_ACCEPT,
 	                     NULL);
 
-	self->pv->chooser_dialog = g_object_ref_sink(dialog);
+	self->pv->chooser_dialog = GTK_FILE_CHOOSER (g_object_ref_sink (dialog));
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 	                                 GTK_RESPONSE_ACCEPT);
 	gtk_file_chooser_set_local_only (self->pv->chooser_dialog, FALSE);

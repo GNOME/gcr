@@ -93,7 +93,7 @@ test_collection_instance (const gchar *label)
 	} else {
 		collection = g_hash_table_lookup (all_collections, label);
 		if (collection != NULL)
-			return g_object_ref (collection);
+			return GCR_SIMPLE_COLLECTION (g_object_ref (collection));
 	}
 
 	collection = g_object_new (TEST_TYPE_COLLECTION, NULL);

@@ -440,7 +440,7 @@ _gcr_list_selector_set_live_search (GcrListSelector *self, GcrLiveSearch *search
 
 	/* connect handlers if new search is not null */
 	if (search != NULL) {
-		self->pv->search_widget = g_object_ref (search);
+		self->pv->search_widget = GTK_WIDGET (g_object_ref (search));
 
 		g_signal_connect (self, "start-interactive-search",
 		                  G_CALLBACK (on_tree_view_start_search), NULL);

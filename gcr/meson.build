@@ -146,6 +146,7 @@ gcr_base_cflags = [
   '-DGCR_API_SUBJECT_TO_CHANGE',
   '-DGCK_API_SUBJECT_TO_CHANGE',
   '-DP11_KIT_API_SUBJECT_TO_CHANGE',
+  '-D_XOPEN_SOURCE',   # Needed for strptime()
 ]
 
 gcr_base_symbolmap = meson.current_source_dir() / 'libgcr-base.map'

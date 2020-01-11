@@ -28,6 +28,7 @@
 #include "egg/egg-timegm.h"
 
 #include <string.h>
+#include <time.h>
 
 /**
  * SECTION:gck-slot

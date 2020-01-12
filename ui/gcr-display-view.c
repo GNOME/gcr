@@ -230,7 +230,7 @@ create_tag_table (GcrDisplayView *self)
 static void
 on_expander_realize (GtkWidget *widget, gpointer user_data)
 {
-	GdkCursor *cursor = gdk_cursor_new (GDK_ARROW);
+	GdkCursor *cursor = gdk_cursor_new_for_display (gtk_widget_get_display (widget), GDK_ARROW);
 	gdk_window_set_cursor (gtk_widget_get_window (widget), cursor);
 	g_object_unref (cursor);
 }

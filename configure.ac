@@ -12,8 +12,8 @@ dnl ****************************************************************************
 dnl Dependency versions
 
 GLIB_REQ=2.44.0
-GLIB_MIN=GLIB_VERSION_2_38
-GLIB_MAX=GLIB_VERSION_2_38
+GLIB_MIN=GLIB_VERSION_2_44
+GLIB_MAX=GLIB_VERSION_2_44
 
 GCRYPT_VERSION=1.4.5
 

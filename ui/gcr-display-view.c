@@ -245,29 +245,6 @@ on_expander_expanded (GObject *object, GParamSpec *param_spec, gpointer user_dat
 	recalculate_and_resize (item->display_view);
 }
 
-static void
-style_display_item (GtkWidget *widget, GcrDisplayItem *item)
-{
-	GtkStyleContext *style;
-	GdkRGBA color;
-
-	style = gtk_widget_get_style_context (GTK_WIDGET (widget));
-	gtk_style_context_save (style);
-
-	gtk_style_context_add_class (style, GTK_STYLE_CLASS_VIEW);
-	gtk_style_context_set_state (style, GTK_STATE_FLAG_NORMAL);
-	gtk_style_context_get_background_color (style,
-						gtk_style_context_get_state (style),
-						&color);
-
-	gtk_style_context_restore (style);
-
-	color.red = 255;
-	color.green = 0;
-	color.blue = 0;
-	gtk_widget_override_background_color (item->details_widget, GTK_STATE_FLAG_NORMAL, &color);
-}
-
 static GcrDisplayItem*
 create_display_item (GcrDisplayView *self, GcrRenderer *renderer)
 {
@@ -276,6 +253,7 @@ create_display_item (GcrDisplayView *self, GcrRenderer *renderer)
 	GtkTextIter iter;
 	GtkWidget *widget;
 	GtkWidget *label;
+	GtkStyleContext *style;
 	gchar *text;
 
 	item = g_new0 (GcrDisplayItem, 1);
@@ -334,10 +312,9 @@ create_display_item (GcrDisplayView *self, GcrRenderer *renderer)
 	gtk_event_box_set_visible_window (GTK_EVENT_BOX (item->details_widget), FALSE);
 	gtk_container_add (GTK_CONTAINER (item->details_widget), widget);
 	g_signal_connect (item->details_widget, "realize", G_CALLBACK (on_expander_realize), NULL);
+	style = gtk_widget_get_style_context (GTK_WIDGET (item->details_widget));
+	gtk_style_context_add_class (style, "gcr-red");
 	g_object_ref (item->details_widget);
-
-	if (gtk_widget_get_realized (GTK_WIDGET (self)))
-		style_display_item (GTK_WIDGET (self), item);
 
 	return item;
 }
@@ -654,17 +631,10 @@ static void
 _gcr_display_view_realize (GtkWidget *widget)
 {
 	GcrDisplayView *self = GCR_DISPLAY_VIEW (widget);
-	GHashTableIter iter;
 	GdkDisplay *display;
-	gpointer value;
 
 	if (GTK_WIDGET_CLASS (_gcr_display_view_parent_class)->realize)
 		GTK_WIDGET_CLASS (_gcr_display_view_parent_class)->realize (widget);
-
-	/* Set style on all the items */
-	g_hash_table_iter_init (&iter, self->pv->items);
-	while (g_hash_table_iter_next (&iter, NULL, &value))
-		style_display_item (widget, value);
 
 	if (!self->pv->cursor) {
 		display = gtk_widget_get_display (GTK_WIDGET (self));
@@ -778,6 +748,25 @@ _gcr_display_view_class_init (GcrDisplayViewClass *klass)
 	widget_class->draw = _gcr_display_view_draw;
 
 	text_view_class->populate_popup = _gcr_display_view_populate_popup;
+
+	/* Load a CSS once */
+	do {
+		GtkCssProvider* provider = gtk_css_provider_new ();
+		GdkDisplay* display = gdk_display_get_default ();
+		GdkScreen* screen = gdk_display_get_default_screen (display);
+		GError *err = NULL;
+
+		gtk_style_context_add_provider_for_screen (screen,
+							   GTK_STYLE_PROVIDER(provider),
+							   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+		if (!gtk_css_provider_load_from_data (GTK_CSS_PROVIDER(provider),
+						      ".gcr-red * { background-color: red; }\n", -1, &err)) {
+			g_warning ("couldn't load style: %s",
+				  err && err->message ? err->message : "");
+		}
+		g_object_unref (provider);
+	} while (0);
 }
 
 static void

@@ -107,7 +107,11 @@ struct _GcrPromptDialogPrivate {
 	GtkEntryBuffer *password_buffer;
 	GtkEntryBuffer *confirm_buffer;
 	PromptMode mode;
+#if GTK_CHECK_VERSION (3,20,0)
+	GdkSeat *grabbed_seat;
+#else
 	GdkDevice *grabbed_device;
+#endif
 	gulong grab_broken_id;
 	gboolean grab_disabled;
 	gboolean was_closed;
@@ -394,6 +398,57 @@ on_grab_broken (GtkWidget *widget,
 	return TRUE;
 }
 
+#if GTK_CHECK_VERSION (3,20,0)
+static gboolean
+grab_keyboard (GtkWidget *widget,
+               GdkEvent *event,
+               gpointer user_data)
+{
+	GcrPromptDialog *self = GCR_PROMPT_DIALOG (user_data);
+	GdkGrabStatus status;
+	GdkSeat *seat;
+	GdkDisplay *display;
+
+	if (self->pv->grabbed_seat || !GRAB_KEYBOARD)
+		return FALSE;
+
+	display = gtk_widget_get_display (widget);
+	seat = gdk_display_get_default_seat (display);
+	status = gdk_seat_grab (seat, gtk_widget_get_window (widget),
+				GDK_SEAT_CAPABILITY_ALL,
+	                        TRUE, NULL, event, NULL, NULL);
+	if (status == GDK_GRAB_SUCCESS) {
+		self->pv->grab_broken_id = g_signal_connect (widget, "grab-broken-event",
+		                                             G_CALLBACK (on_grab_broken), self);
+		gtk_grab_add (widget);
+		self->pv->grabbed_seat = seat;
+	} else {
+		g_message ("could not grab keyboard: %s", grab_status_message (status));
+	}
+
+	/* Always return false, so event is handled elsewhere */
+	return FALSE;
+}
+
+static gboolean
+ungrab_keyboard (GtkWidget *widget,
+                 GdkEvent *event,
+                 gpointer user_data)
+{
+	GcrPromptDialog *self = GCR_PROMPT_DIALOG (user_data);
+
+	if (self->pv->grabbed_seat) {
+		g_signal_handler_disconnect (widget, self->pv->grab_broken_id);
+		gdk_seat_ungrab (self->pv->grabbed_seat);
+		gtk_grab_remove (widget);
+		self->pv->grabbed_seat = NULL;
+		self->pv->grab_broken_id = 0;
+	}
+
+	/* Always return false, so event is handled elsewhere */
+	return FALSE;
+}
+#else
 static gboolean
 grab_keyboard (GtkWidget *widget,
                GdkEvent *event,
@@ -461,6 +516,7 @@ ungrab_keyboard (GtkWidget *widget,
 	/* Always return false, so event is handled elsewhere */
 	return FALSE;
 }
+#endif
 
 static gboolean
 window_state_changed (GtkWidget *win, GdkEventWindowState *event, gpointer data)
@@ -725,7 +781,11 @@ gcr_prompt_dialog_dispose (GObject *obj)
 	gcr_prompt_close (GCR_PROMPT (self));
 
 	ungrab_keyboard (GTK_WIDGET (self), NULL, self);
+#if GTK_CHECK_VERSION (3,20,0)
+	g_assert (self->pv->grabbed_seat == NULL);
+#else
 	g_assert (self->pv->grabbed_device == NULL);
+#endif
 
 	G_OBJECT_CLASS (gcr_prompt_dialog_parent_class)->dispose (obj);
 }

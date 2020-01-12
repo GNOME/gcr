@@ -12,20 +12,20 @@ DEBUG TRACING
 The Gcr and Gck libraries contain statements which help debug flow
 and logic. In many cases these help you track down problems.
 
-Use the environment variable G_DEBUG_MESSAGES='all' or G_DEBUG_MESSAGES='xxx'
+Use the environment variable G_MESSAGES_DEBUG='all' or G_MESSAGES_DEBUG='xxx'
 to display either all messages or a specific categories of debug messages. You
 can separate categories in this list with spaces, commas or semicolons. Gcr
 library uses category 'Gcr', while Gck library uses category 'Gck'.
 
 Example to display all debug messages:
 
- $ G_DEBUG_MESSAGES=all gcr-viewer /path/to/certificate.crt
+ $ G_MESSAGES_DEBUG=all gcr-viewer /path/to/certificate.crt
  (gcr-viewer:9418): Gcr-DEBUG: gcr_pkcs11_initialize_async: starting initialize of registered modules
  ...
 
 Example to display debug messages for a specific category:
 
- $ G_DEBUG_MESSAGES="Gcr" gcr-viewer /path/to/certificate.crt
+ $ G_MESSAGES_DEBUG="Gcr" gcr-viewer /path/to/certificate.crt
  (gcr-viewer:9503): Gcr-DEBUG: gcr_pkcs11_initialize_async: starting initialize of registered modules
  ...
 

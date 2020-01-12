@@ -390,6 +390,7 @@ update_importer_menu (GcrImportButton *self)
 	}
 }
 
+#if !GTK_CHECK_VERSION (3,22,0)
 static void
 on_menu_position (GtkMenu *menu,
                   gint *x,
@@ -458,6 +459,7 @@ on_menu_position (GtkMenu *menu,
 
 	*push_in = FALSE;
 }
+#endif
 
 static void
 gcr_import_button_clicked (GtkButton *button)
@@ -470,8 +472,22 @@ gcr_import_button_clicked (GtkButton *button)
 	/* More than one importer, show the menu */
 	if (self->pv->importers->next) {
 		update_importer_menu (self);
+#if GTK_CHECK_VERSION (3,22,0)
+		if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_LTR)
+			gtk_menu_popup_at_widget (self->pv->menu,
+						  GTK_WIDGET (self),
+						  GDK_GRAVITY_SOUTH_WEST, GDK_GRAVITY_NORTH_WEST,
+						  NULL);
+		else
+			gtk_menu_popup_at_widget (self->pv->menu,
+						  GTK_WIDGET (self),
+						  GDK_GRAVITY_SOUTH_EAST, GDK_GRAVITY_NORTH_EAST,
+						  NULL);
+
+#else
 		gtk_menu_popup (self->pv->menu, NULL, NULL, on_menu_position,
 		                self, 1, gtk_get_current_event_time ());
+#endif
 
 	/* Only one importer, import on click */
 	} else {

@@ -457,7 +457,6 @@ paint_item_border (GcrDisplayView *self,
                    gint index,
                    cairo_t *cr)
 {
-	GdkRGBA color;
 	GtkTextView *view;
 	GtkTextIter iter, end;
 	GdkRectangle location;
@@ -475,13 +474,6 @@ paint_item_border (GcrDisplayView *self,
 
 	ensure_text_height (self);
 
-	gtk_style_context_save (context);
-	gtk_style_context_set_state (context, GTK_STATE_FLAG_SELECTED | GTK_STATE_FLAG_FOCUSED);
-	gtk_style_context_get_background_color (context,
-	                                        gtk_style_context_get_state (context),
-	                                        &color);
-	gtk_style_context_restore (context);
-
 	gtk_text_view_get_iter_location (view, &iter, &location);
 
 	location.height = 2;
@@ -492,17 +484,7 @@ paint_item_border (GcrDisplayView *self,
 	if (!gdk_rectangle_intersect (visible, &location, NULL))
 		return;
 
-	gtk_text_view_buffer_to_window_coords (view, GTK_TEXT_WINDOW_TEXT,
-	                                       location.x, location.y,
-	                                       &location.x, &location.y);
-
-	cairo_save (cr);
-	cairo_set_source_rgb (cr, color.red, color.green, color.blue);
-	cairo_set_line_width (cr, 0.5);
-	cairo_move_to (cr, location.x, location.y);
-	cairo_line_to (cr, location.x + location.width, location.y);
-	cairo_stroke (cr);
-	cairo_restore (cr);
+	gtk_render_background (context, cr, location.x, location.y - 0.5, location.width, 1);
 }
 
 static void

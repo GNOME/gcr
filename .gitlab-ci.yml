@@ -37,7 +37,7 @@ fedora:Werror:
     - dnf install -y $DEPENDENCIES
     - dbus-uuidgen --ensure
   script:
-    - ./autogen.sh --disable-dependency-tracking --enable-gtk-doc --enable-strict CFLAGS="-Wno-error=deprecated-declarations"
+    - ./autogen.sh --disable-dependency-tracking --enable-gtk-doc --enable-strict
     - make -j$(nproc) V=1
     - eval `dbus-launch --sh-syntax`
     - make -j$(nproc) V=1 distcheck

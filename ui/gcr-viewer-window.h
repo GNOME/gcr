@@ -60,6 +60,8 @@ void               gcr_viewer_window_load             (GcrViewerWindow *self,
 
 GcrViewer *        gcr_viewer_window_get_viewer       (GcrViewerWindow *self);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrViewerWindow, g_object_unref)
+
 #endif /* GCR_DISABLE_DEPRECATED */
 
 #endif /* GCR_VIEWER_WINDOW_H */

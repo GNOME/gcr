@@ -71,25 +71,12 @@ enum {
  * implementation, the parent class we derive from.
  */
 
-#define GCR_VIEWER_WIDGET_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_VIEWER_WIDGET, GcrViewerWidgetClass))
-#define GCR_IS_VIEWER_WIDGET_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_VIEWER_WIDGET))
-#define GCR_VIEWER_WIDGET_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_VIEWER_WIDGET, GcrViewerWidgetClass))
-
-typedef struct _GcrViewerWidgetClass GcrViewerWidgetClass;
 typedef struct _GcrViewerWidgetPrivate GcrViewerWidgetPrivate;
 
 struct _GcrViewerWidget {
 	/*< private >*/
 	GtkBox parent;
 	GcrViewerWidgetPrivate *pv;
-};
-
-struct _GcrViewerWidgetClass {
-	GtkBoxClass parent_class;
-
-	void       (*added)        (GcrViewerWidget *widget,
-	                            GcrRenderer *renderer,
-	                            GcrParsed *parsed);
 };
 
 struct _GcrViewerWidgetPrivate {
@@ -384,8 +371,7 @@ gcr_viewer_widget_class_init (GcrViewerWidgetClass *klass)
 	 * This signal is emitted when an item is added to the viewer widget.
 	 */
 	signals[ADDED] = g_signal_new ("added", GCR_TYPE_VIEWER_WIDGET, G_SIGNAL_RUN_LAST,
-	                               G_STRUCT_OFFSET (GcrViewerWidgetClass, added),
-	                               NULL, NULL, _gcr_marshal_VOID__OBJECT_BOXED,
+	                               0, NULL, NULL, _gcr_marshal_VOID__OBJECT_BOXED,
 	                               G_TYPE_NONE, 2, G_TYPE_OBJECT, GCR_TYPE_PARSED);
 }
 

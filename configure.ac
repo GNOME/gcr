@@ -11,7 +11,7 @@ AC_INIT([gcr], [gcr_major.gcr_minor.gcr_micro],
 dnl ****************************************************************************
 dnl Dependency versions
 
-GLIB_REQ=2.38.0
+GLIB_REQ=2.44.0
 GLIB_MIN=GLIB_VERSION_2_38
 GLIB_MAX=GLIB_VERSION_2_38
 

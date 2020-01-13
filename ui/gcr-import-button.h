@@ -67,6 +67,8 @@ GcrImportButton *   gcr_import_button_new                    (const gchar *label
 void                gcr_import_button_add_parsed             (GcrImportButton *self,
                                                               GcrParsed *parsed);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrImportButton, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_IMPORT_BUTTON_H__ */

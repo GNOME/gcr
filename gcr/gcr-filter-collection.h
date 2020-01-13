@@ -69,6 +69,8 @@ void                gcr_filter_collection_refilter                (GcrFilterColl
 
 GcrCollection *     gcr_filter_collection_get_underlying          (GcrFilterCollection *self);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrFilterCollection, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_FILTER_COLLECTION_H__ */

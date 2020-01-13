@@ -64,6 +64,8 @@ GckAttributes *   _gcr_certificate_request_renderer_get_attributes        (GcrCe
 void              _gcr_certificate_request_renderer_set_attributes        (GcrCertificateRequestRenderer *self,
                                                                        GckAttributes *attrs);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrCertificateRequestRenderer, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_CERTIFICATE_REQUEST_RENDERER_H__ */

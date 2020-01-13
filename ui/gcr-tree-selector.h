@@ -63,6 +63,8 @@ GList*                   gcr_tree_selector_get_selected      (GcrTreeSelector *s
 void                     gcr_tree_selector_set_selected      (GcrTreeSelector *self,
                                                               GList *selected);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrTreeSelector, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_TREE_SELECTOR_H__ */

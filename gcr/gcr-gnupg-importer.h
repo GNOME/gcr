@@ -60,6 +60,8 @@ GcrImporter *           _gcr_gnupg_importer_new              (const gchar *direc
 
 const gchar **          _gcr_gnupg_importer_get_imported     (GcrGnupgImporter *self);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrGnupgImporter, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_IMPORTER_H__ */

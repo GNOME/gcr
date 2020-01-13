@@ -106,6 +106,8 @@ gchar *             gcr_secret_exchange_send            (GcrSecretExchange *self
 const gchar *       gcr_secret_exchange_get_secret      (GcrSecretExchange *self,
                                                          gsize *secret_len);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrSecretExchange, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_SECRET_EXCHANGE_H__ */

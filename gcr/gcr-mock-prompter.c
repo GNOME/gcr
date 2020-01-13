@@ -46,17 +46,10 @@
  * provide a response.
  */
 
-GType   _gcr_mock_prompt_get_type       (void) G_GNUC_CONST;
-#define GCR_TYPE_MOCK_PROMPT            (_gcr_mock_prompt_get_type ())
-#define GCR_MOCK_PROMPT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_MOCK_PROMPT, GcrMockPrompt))
-#define GCR_IS_MOCK_PROMPT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_MOCK_PROMPT))
-#define GCR_IS_MOCK_PROMPT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_MOCK_PROMPT))
-#define GCR_MOCK_PROMPT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_MOCK_PROMPT, GcrMockPromptClass))
-#define GCR_MOCK_PROMPT_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_MOCK_PROMPT, GcrMockPromptClass))
-
-typedef struct _GcrMockPrompt GcrMockPrompt;
-typedef struct _GcrMockPromptClass GcrMockPromptClass;
-typedef struct _GcrMockPromptPrivate GcrMockPromptPrivate;
+#define GCR_TYPE_MOCK_PROMPT (_gcr_mock_prompt_get_type ())
+G_DECLARE_FINAL_TYPE (GcrMockPrompt, _gcr_mock_prompt,
+                      GCR, MOCK_PROMPT,
+                      GObject)
 
 enum {
 	PROP_0,
@@ -78,10 +71,6 @@ struct _GcrMockPrompt {
 	GObject parent;
 	GHashTable *properties;
 	gboolean disposed;
-};
-
-struct _GcrMockPromptClass {
-	GObjectClass parent_class;
 };
 
 typedef struct {

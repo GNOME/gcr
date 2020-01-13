@@ -50,8 +50,6 @@ enum {
 	PROP_URI
 };
 
-typedef struct _GcrPkcs11ImporterClass GcrPkcs11ImporterClass;
-
 struct _GcrPkcs11Importer {
 	GObject parent;
 	GckSlot *slot;
@@ -60,10 +58,6 @@ struct _GcrPkcs11Importer {
 	GQueue *queue;
 	GTlsInteraction *interaction;
 	gboolean any_private;
-};
-
-struct _GcrPkcs11ImporterClass {
-	GObjectClass parent_class;
 };
 
 typedef struct  {

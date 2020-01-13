@@ -42,10 +42,6 @@ struct _GcrSingleCollection {
  * The class for #GcrSingleCollection.
  */
 
-struct _GcrSingleCollectionClass {
-	GObjectClass parent_class;
-};
-
 static void _gcr_single_collection_iface (GcrCollectionIface *iface);
 G_DEFINE_TYPE_WITH_CODE (GcrSingleCollection, _gcr_single_collection, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (GCR_TYPE_COLLECTION, _gcr_single_collection_iface));

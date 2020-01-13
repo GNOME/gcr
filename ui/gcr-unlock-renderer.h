@@ -76,6 +76,8 @@ void                   _gcr_unlock_renderer_show_warning      (GcrUnlockRenderer
 
 GBytes *               _gcr_unlock_renderer_get_locked_data   (GcrUnlockRenderer *self);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrUnlockRenderer, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_UNLOCK_RENDERER_H__ */

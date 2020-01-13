@@ -56,6 +56,8 @@ struct _GcrPromptDialogClass {
 
 GType                gcr_prompt_dialog_get_type                  (void);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrPromptDialog, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_PROMPT_DIALOG_H__ */

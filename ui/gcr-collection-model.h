@@ -97,4 +97,6 @@ GList*                gcr_collection_model_get_selected_objects  (GcrCollectionM
 void                  gcr_collection_model_set_selected_objects  (GcrCollectionModel *self,
                                                                   GList *selected);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrCollectionModel, g_object_unref)
+
 #endif /* __GCR_COLLECTION_MODEL_H__ */

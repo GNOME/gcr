@@ -85,6 +85,8 @@ void                   gcr_system_prompter_register                (GcrSystemPro
 void                   gcr_system_prompter_unregister              (GcrSystemPrompter *self,
                                                                     gboolean wait);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrSystemPrompter, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_SYSTEM_PROMPTER_H__ */

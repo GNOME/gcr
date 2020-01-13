@@ -71,10 +71,6 @@ struct _GcrSshAskpass {
 	GMainContext *context;
 };
 
-struct _GcrSshAskpassClass {
-	GObjectClass parent;
-};
-
 G_DEFINE_TYPE (GcrSshAskpass, gcr_ssh_askpass, G_TYPE_OBJECT);
 
 static void

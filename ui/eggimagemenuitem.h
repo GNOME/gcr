@@ -73,6 +73,8 @@ void       egg_image_menu_item_set_image         (EggImageMenuItem *image_menu_i
                                                   GtkWidget        *image);
 GtkWidget* egg_image_menu_item_get_image         (EggImageMenuItem *image_menu_item);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (EggImageMenuItem, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __EGG_IMAGE_MENUITEM_H__ */

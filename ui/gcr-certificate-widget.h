@@ -61,6 +61,8 @@ GcrCertificate*         gcr_certificate_widget_get_certificate        (GcrCertif
 void                    gcr_certificate_widget_set_certificate        (GcrCertificateWidget *self,
                                                                        GcrCertificate *certificate);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrCertificateWidget, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_CERTIFICATE_WIDGET_H__ */

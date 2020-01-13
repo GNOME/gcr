@@ -61,12 +61,6 @@
  * The format of a certificate request. Currently only PKCS\#10 is supported.
  */
 
-#define GCR_CERTIFICATE_REQUEST_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_CERTIFICATE_REQUEST, GcrCertificateRequestClass))
-#define GCR_IS_CERTIFICATE_REQUEST_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_CERTIFICATE_REQUEST))
-#define GCR_CERTIFICATE_REQUEST_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_CERTIFICATE_REQUEST, GcrCertificateRequestClass))
-
-typedef struct _GcrCertificateRequestClass GcrCertificateRequestClass;
-
 struct _GcrCertificateRequest {
 	GObject parent;
 
@@ -74,10 +68,6 @@ struct _GcrCertificateRequest {
 	GNode *asn;
 	gulong *mechanisms;
 	gulong n_mechanisms;
-};
-
-struct _GcrCertificateRequestClass {
-	GObjectClass parent_class;
 };
 
 enum {

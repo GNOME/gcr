@@ -25,14 +25,10 @@
 
 #include <gtk/gtk.h>
 
-#define GCR_TYPE_VIEWER_WIDGET               (gcr_viewer_widget_get_type ())
-#define GCR_VIEWER_WIDGET(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_VIEWER_WIDGET, GcrViewerWidget))
-#define GCR_IS_VIEWER_WIDGET(obj)            (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_VIEWER_WIDGET))
-
-typedef struct _GcrViewerWidget GcrViewerWidget;
-
-
-GType              gcr_viewer_widget_get_type         (void);
+#define GCR_TYPE_VIEWER_WIDGET (gcr_viewer_widget_get_type ())
+G_DECLARE_FINAL_TYPE (GcrViewerWidget, gcr_viewer_widget,
+                      GCR, VIEWER_WIDGET,
+                      GtkBox)
 
 GcrViewerWidget *  gcr_viewer_widget_new              (void);
 

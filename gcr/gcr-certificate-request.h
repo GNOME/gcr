@@ -34,11 +34,10 @@ typedef enum {
 	GCR_CERTIFICATE_REQUEST_PKCS10 = 1,
 } GcrCertificateRequestFormat;
 
-#define GCR_TYPE_CERTIFICATE_REQUEST               (gcr_certificate_request_get_type ())
-#define GCR_CERTIFICATE_REQUEST(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_CERTIFICATE_REQUEST, GcrCertificateRequest))
-#define GCR_IS_CERTIFICATE_REQUEST(obj)            (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_CERTIFICATE_REQUEST))
-
-typedef struct _GcrCertificateRequest GcrCertificateRequest;
+#define GCR_TYPE_CERTIFICATE_REQUEST (gcr_certificate_request_get_type ())
+G_DECLARE_FINAL_TYPE (GcrCertificateRequest, gcr_certificate_request,
+                      GCR, CERTIFICATE_REQUEST,
+                      GObject)
 
 gboolean                     gcr_certificate_request_capable          (GckObject *private_key,
                                                                        GCancellable *cancellable,
@@ -52,8 +51,6 @@ void                         gcr_certificate_request_capable_async    (GckObject
 
 gboolean                     gcr_certificate_request_capable_finish   (GAsyncResult *result,
                                                                        GError **error);
-
-GType                        gcr_certificate_request_get_type         (void) G_GNUC_CONST;
 
 GcrCertificateRequest *      gcr_certificate_request_prepare          (GcrCertificateRequestFormat format,
                                                                        GckObject *private_key);

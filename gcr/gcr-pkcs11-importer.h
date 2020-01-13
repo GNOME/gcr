@@ -31,17 +31,10 @@
 
 G_BEGIN_DECLS
 
-#define GCR_TYPE_PKCS11_IMPORTER               (_gcr_pkcs11_importer_get_type ())
-#define GCR_PKCS11_IMPORTER(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_PKCS11_IMPORTER, GcrPkcs11Importer))
-#define GCR_PKCS11_IMPORTER_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_PKCS11_IMPORTER, GcrPkcs11ImporterClass))
-#define GCR_IS_PKCS11_IMPORTER(obj)            (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_PKCS11_IMPORTER))
-#define GCR_IS_PKCS11_IMPORTER_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), GCR_TYPE_PKCS11_IMPORTER))
-#define GCR_PKCS11_IMPORTER_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS ((obj), GCR_TYPE_PKCS11_IMPORTER, GcrPkcs11ImporterClass))
-
-typedef struct _GcrPkcs11Importer GcrPkcs11Importer;
-
-
-GType                     _gcr_pkcs11_importer_get_type        (void);
+#define GCR_TYPE_PKCS11_IMPORTER (_gcr_pkcs11_importer_get_type ())
+G_DECLARE_FINAL_TYPE (GcrPkcs11Importer, _gcr_pkcs11_importer,
+                      GCR, PKCS11_IMPORTER,
+                      GObject);
 
 GcrImporter *             _gcr_pkcs11_importer_new             (GckSlot *slot);
 

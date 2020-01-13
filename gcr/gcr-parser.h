@@ -144,6 +144,8 @@ GcrDataFormat            gcr_parsed_get_format             (GcrParsed *parsed);
 
 const gchar*             gcr_parsed_get_filename           (GcrParsed *parsed);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrParsed, g_object_unref)
+
 G_END_DECLS
 
 #endif /* __GCR_PARSER_H__ */

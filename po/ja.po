@@ -1,18 +1,20 @@
 # gnome-keyring ja.po.
-# Copyright (C) 2003-2010,2012 Free Software Foundation, Inc.
+# Copyright (C) 2003-2013, 2020 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-keyring package.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2003-2009.
 # Satoru SATOH <ss@gnome.gr.jp>, 2006.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2009-2010, 2012.
 # Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2010.
+# Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2013.
+# sicklylife <translation@sicklylife.jp>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring gnome-3-6\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
 "POT-Creation-Date: 2019-10-14 15:37+0000\n"
-"PO-Revision-Date: 2013-09-03 15:43+0900\n"
-"Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
+"PO-Revision-Date: 2020-01-28 00:00+0900\n"
+"Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -147,34 +149,24 @@ msgid "Elliptic Curve"
 msgstr ""
 
 #: egg/egg-oid.c:106
-#, fuzzy
-#| msgid "SHA1 with DSA"
 msgid "SHA1 with ECDSA"
-msgstr "DSA 付きの SHA1"
+msgstr "ECDSA 付きの SHA1"
 
 #: egg/egg-oid.c:107
-#, fuzzy
-#| msgid "SHA1 with DSA"
 msgid "SHA224 with ECDSA"
-msgstr "DSA 付きの SHA1"
+msgstr "ECDSA 付きの SHA224"
 
 #: egg/egg-oid.c:108
-#, fuzzy
-#| msgid "SHA1 with DSA"
 msgid "SHA256 with ECDSA"
-msgstr "DSA 付きの SHA1"
+msgstr "ECDSA 付きの SHA256"
 
 #: egg/egg-oid.c:109
-#, fuzzy
-#| msgid "SHA1 with DSA"
 msgid "SHA384 with ECDSA"
-msgstr "DSA 付きの SHA1"
+msgstr "ECDSA 付きの SHA384"
 
 #: egg/egg-oid.c:110
-#, fuzzy
-#| msgid "SHA1 with DSA"
 msgid "SHA512 with ECDSA"
-msgstr "DSA 付きの SHA1"
+msgstr "ECDSA 付きの SHA512"
 
 #. Extended Key Usages
 #: egg/egg-oid.c:113
@@ -203,14 +195,12 @@ msgid "Error loading PKCS#11 module: %s"
 msgstr "PKCS#11 モジュールの読み込み中にエラー: %s"
 
 #: gck/gck-module.c:356
-#, fuzzy, c-format
-#| msgid "Couldn't initialize PKCS#11 module: %s"
+#, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "PKCS#11 モジュールを初期化できませんでした: %s"
 
 #: gck/gck-modules.c:62
-#, fuzzy, c-format
-#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
+#, c-format
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "登録された PKCS#11 モジュールを初期化できませんでした: %s"
 
@@ -219,10 +209,8 @@ msgid "The URI has invalid encoding."
 msgstr "URI が不正な文字コードです。"
 
 #: gck/gck-uri.c:228
-#, fuzzy
-#| msgid "The URI does not have the 'pkcs11' scheme."
 msgid "The URI does not have the “pkcs11” scheme."
-msgstr "URI が 'pkcs11' スキームではありません。"
+msgstr "URI が“pkcs11”スキームではありません。"
 
 #: gck/gck-uri.c:232
 msgid "The URI has bad syntax."
@@ -387,8 +375,6 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "鍵の認識できないか利用できない属性"
 
 #: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
-#, fuzzy
-#| msgid "Couldn't build public key"
 msgid "Couldn’t build public key"
 msgstr "公開鍵を生成できませんでした"
 
@@ -400,8 +386,6 @@ msgstr "別の入力待ちが既に進行中です"
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
 #: gcr/gcr-trust.c:364
-#, fuzzy
-#| msgid "Couldn't find a place to store the pinned certificate"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "例外として受け入れた証明書の保存場所を見つけられませんでした"
 
@@ -495,8 +479,6 @@ msgid "Value"
 msgstr "値"
 
 #: ui/gcr-certificate-renderer.c:288
-#, fuzzy
-#| msgid "Couldn't export the certificate."
 msgid "Couldn’t export the certificate."
 msgstr "証明書をエクスポートできませんでした。"
 
@@ -618,10 +600,9 @@ msgid "_Details"
 msgstr "詳細(_D)"
 
 #: ui/gcr-failure-renderer.c:157
-#, fuzzy, c-format
-#| msgid "Could not display '%s'"
+#, c-format
 msgid "Could not display “%s”"
-msgstr "'%s' を表示できませんでした"
+msgstr "“%s”を表示できませんでした"
 
 #: ui/gcr-failure-renderer.c:159
 msgid "Could not display file"
@@ -926,12 +907,10 @@ msgid "Public Elliptic Curve Key"
 msgstr ""
 
 #: ui/gcr-key-renderer.c:377
-#, fuzzy, c-format
-#| msgid "%d bit"
-#| msgid_plural "%d bits"
+#, c-format
 msgid "%u bit"
 msgid_plural "%u bits"
-msgstr[0] "%d ビット"
+msgstr[0] "%u ビット"
 
 #: ui/gcr-key-renderer.c:378
 msgid "Strength"
@@ -953,14 +932,12 @@ msgstr "SHA256"
 #. Add our various buttons
 #: ui/gcr-pkcs11-import-dialog.c:114 ui/gcr-prompt-dialog.c:500
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "キャンセル"
+msgstr "キャンセル(_C)"
 
 #: ui/gcr-pkcs11-import-dialog.c:116 ui/gcr-prompt-dialog.c:503
 msgid "_OK"
-msgstr ""
+msgstr "OK(_O)"
 
 #: ui/gcr-pkcs11-import-dialog.c:189
 msgid "Automatically chosen"
@@ -1040,7 +1017,7 @@ msgstr "証明書をエクスポート"
 
 #: ui/gcr-certificate-exporter.c:307
 msgid "_Save"
-msgstr ""
+msgstr "保存(_S)"
 
 #: ui/gcr-certificate-exporter.c:316
 msgid "Certificate files"
@@ -1051,8 +1028,6 @@ msgid "PEM files"
 msgstr "PEM ファイル"
 
 #: ui/gcr-unlock-options-widget.ui:16
-#, fuzzy
-#| msgid "Automatically unlock this keyring whenever I'm logged in"
 msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "ログインしたら、このキーリングのロックを自動的に解除する"
 
@@ -1083,15 +1058,12 @@ msgid "Password"
 msgstr "パスワード"
 
 #: ui/gcr-unlock-renderer.c:272
-#, fuzzy, c-format
-#| msgid ""
-#| "The contents of '%s' are locked. In order to view the contents, enter the "
-#| "correct password."
+#, c-format
 msgid ""
 "The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"'%s' の内容はロックされています。内容を見るには正しいパスワードを入力してくだ"
+"“%s”の内容はロックされています。内容を見るには正しいパスワードを入力してくだ"
 "さい。"
 
 #: ui/gcr-unlock-renderer.c:275
@@ -1144,4 +1116,4 @@ msgstr "インポート"
 
 #: ui/gcr-viewer-window.c:114
 msgid "_Close"
-msgstr ""
+msgstr "閉じる(_C)"

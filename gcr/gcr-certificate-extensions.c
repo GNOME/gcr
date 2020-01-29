@@ -185,11 +185,11 @@ general_name_parse_other (GNode *node, GcrGeneralName *general)
 
 	if (oid == GCR_OID_ALT_NAME_XMPP_ADDR) {
 		general->description = _("XMPP Addr");
-		decode = egg_asn1x_get_any_as (any, pkix_asn1_tab, "UTF8String");
+		decode = egg_asn1x_get_any_as_string (any, EGG_ASN1X_UTF8_STRING);
 		general->display = egg_asn1x_get_string_as_utf8 (decode, g_realloc);
 	} else if (oid == GCR_OID_ALT_NAME_DNS_SRV) {
 		general->description = _("DNS SRV");
-		decode = egg_asn1x_get_any_as (any, pkix_asn1_tab, "IA5String");
+		decode = egg_asn1x_get_any_as_string (any, EGG_ASN1X_IA5_STRING);
 		general->display = egg_asn1x_get_string_as_utf8 (decode, g_realloc);
 	}
 

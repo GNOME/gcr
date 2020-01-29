@@ -70,7 +70,7 @@ const asn1_static_node pk_asn1_tab[] = {
   { "ECPoint", 1073741831, NULL },
   { "ECParameters", 1610612754, NULL },
   { "namedCurve", 12, NULL },
-  { "ECPrivateKey", 536870917, NULL },
+  { "ECPrivateKey", 1610612741, NULL },
   { "version", 1610874883, NULL },
   { "ecPrivkeyVer1", 1, "1"},
   { "privateKey", 1073741831, NULL },
@@ -78,5 +78,12 @@ const asn1_static_node pk_asn1_tab[] = {
   { NULL, 2056, "0"},
   { "publicKey", 536895494, NULL },
   { NULL, 2056, "1"},
+  { "GostR3410-2001-PublicKeyParameters", 1610612741, NULL },
+  { "publicKeyParamSet", 1073741836, NULL },
+  { "digestParamSet", 1073741836, NULL },
+  { "encryptionParamSet", 16396, NULL },
+  { "GostR3410-2012-PublicKeyParameters", 536870917, NULL },
+  { "publicKeyParamSet", 1073741836, NULL },
+  { "digestParamSet", 16396, NULL },
   { NULL, 0, NULL }
 };

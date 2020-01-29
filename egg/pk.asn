@@ -125,4 +125,17 @@ ECPrivateKey ::= SEQUENCE {
   publicKey  [1] BIT STRING OPTIONAL
 }
 
+-- The GOST public key parameters, defined by RFC 4491
+
+GostR3410-2001-PublicKeyParameters ::= SEQUENCE {
+  publicKeyParamSet OBJECT IDENTIFIER,
+  digestParamSet OBJECT IDENTIFIER,
+  encryptionParamSet OBJECT IDENTIFIER OPTIONAL
+}
+
+GostR3410-2012-PublicKeyParameters ::= SEQUENCE {
+  publicKeyParamSet OBJECT IDENTIFIER,
+  digestParamSet OBJECT IDENTIFIER OPTIONAL
+}
+
 END

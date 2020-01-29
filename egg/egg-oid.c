@@ -109,6 +109,13 @@ static OidInfo oid_info[] = {
 	{ 0, "1.2.840.10045.4.3.3", "sha384WithECDSA", N_("SHA384 with ECDSA"), 0 },
 	{ 0, "1.2.840.10045.4.3.4", "sha512WithECDSA", N_("SHA512 with ECDSA"), 0 },
 
+	{ 0, "1.2.643.2.2.3", "gostR3411-94-with-gostR3410-2001", N_("GOST R 34.11-94 with GOST R 34.10-2001"), 0 },
+	{ 0, "1.2.643.2.2.19", "gostr3410-2001", N_("GOST R 34.10-2001"), 0 },
+	{ 0, "1.2.643.7.1.1.1.1", "gost-3410-2012-256", N_("GOST R 34.10-2012 256-bit curve"), 0 },
+	{ 0, "1.2.643.7.1.1.1.2", "gost-3410-2012-512", N_("GOST R 34.10-2012 512-bit curve"), 0 },
+	{ 0, "1.2.643.7.1.1.3.2", "signwithdigest-gost-3410-2012-256", N_("GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"), 0 },
+	{ 0, "1.2.643.7.1.1.3.3", "signwithdigest-gost-3410-2012-512", N_("GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"), 0 },
+
 	/* Extended Key Usages */
 	{ 0, "1.3.6.1.5.5.7.3.1", NULL, N_("Server Authentication"), 0 },
 	{ 0, "1.3.6.1.5.5.7.3.2", NULL, N_("Client Authentication"), 0 },

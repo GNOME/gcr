@@ -1020,6 +1020,55 @@ calculate_ec_params_size (GNode *params)
 }
 
 static guint
+gost_curve_size (GNode *params)
+{
+	GQuark oid;
+	guint size;
+
+	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (params, "publicKeyParamSet", NULL));
+	if (oid == GCR_OID_GOSTR3410_TEST ||
+	    oid == GCR_OID_GOSTR3410_CRYPTOPRO_A ||
+	    oid == GCR_OID_GOSTR3410_CRYPTOPRO_B ||
+	    oid == GCR_OID_GOSTR3410_CRYPTOPRO_C ||
+	    oid == GCR_OID_GOSTR3410_CRYPTOPRO_XCHA ||
+	    oid == GCR_OID_GOSTR3410_CRYPTOPRO_XCHB ||
+	    oid == GCR_OID_GOSTR3410_GC256A ||
+	    oid == GCR_OID_GOSTR3410_GC256B ||
+	    oid == GCR_OID_GOSTR3410_GC256C ||
+	    oid == GCR_OID_GOSTR3410_GC256D)
+		size = 256;
+	else if (oid == GCR_OID_GOSTR3410_512_TEST ||
+		 oid == GCR_OID_GOSTR3410_GC512A ||
+		 oid == GCR_OID_GOSTR3410_GC512B ||
+		 oid == GCR_OID_GOSTR3410_GC512C)
+		size = 512;
+	else {
+		g_message ("unsupported curve: %s", g_quark_to_string (oid));
+		size = 0;
+	}
+	return size;
+
+}
+
+static guint
+calculate_gost_params_size (GNode *params, gboolean gost2012)
+{
+	GNode *asn;
+	guint size;
+
+	asn = egg_asn1x_get_any_as (params, pk_asn1_tab,
+				    gost2012 ?
+				    "GostR3410-2012-PublicKeyParameters" :
+				    "GostR3410-2001-PublicKeyParameters");
+	g_return_val_if_fail (asn, 0);
+
+	size = gost_curve_size (asn);
+	egg_asn1x_destroy (asn);
+
+	return size;
+}
+
+static guint
 attributes_ec_params_size (GckAttributes *attrs)
 {
 	GNode *asn;
@@ -1074,6 +1123,15 @@ _gcr_subject_public_key_calculate_size (GNode *subject_public_key)
 	} else if (oid == GCR_OID_PKIX1_EC) {
 		params = egg_asn1x_node (subject_public_key, "algorithm", "parameters", NULL);
 		key_size = calculate_ec_params_size (params);
+
+	} else if (oid == GCR_OID_GOSTR3410_2001) {
+		params = egg_asn1x_node (subject_public_key, "algorithm", "parameters", NULL);
+		key_size = calculate_gost_params_size (params, FALSE);
+
+	} else if (oid == GCR_OID_GOSTR3410_2012_256 ||
+		   oid == GCR_OID_GOSTR3410_2012_512) {
+		params = egg_asn1x_node (subject_public_key, "algorithm", "parameters", NULL);
+		key_size = calculate_gost_params_size (params, TRUE);
 
 	} else {
 		g_message ("unsupported key algorithm: %s", g_quark_to_string (oid));

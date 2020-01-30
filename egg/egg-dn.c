@@ -80,6 +80,15 @@ dn_print_oid_value_parsed (GQuark oid,
 	else
 		node = asn1;
 
+	if (egg_asn1x_type (node) == EGG_ASN1X_BMP_STRING) {
+		result = egg_asn1x_get_bmpstring_as_utf8 (node);
+		if (result) {
+			egg_asn1x_destroy (asn1);
+
+			return result;
+		}
+	}
+
 	value = egg_asn1x_get_value_raw (node);
 	data = g_bytes_get_data (value, &size);
 

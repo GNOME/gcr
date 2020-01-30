@@ -1334,4 +1334,22 @@ SignedPublicKeyAndChallenge ::= SEQUENCE {
 
 ExtensionRequest ::= SEQUENCE OF Extension
 
+
+-- Russian qualified certificate entries
+id-ogrn OBJECT IDENTIFIER ::=
+          {iso(1) member-body(2) ru(643) 100 1}
+OGRN ::= NumericString (SIZE (13))
+
+id-snils OBJECT IDENTIFIER ::=
+          {iso(1) member-body(2) ru(643) 100 3}
+SNILS ::= NumericString (SIZE (11))
+
+id-ogrn OBJECT IDENTIFIER ::=
+          {iso(1) member-body(2) ru(643) 100 5}
+OGRNIP ::= NumericString (SIZE (15))
+
+id-inn OBJECT IDENTIFIER ::=
+          {iso(1) member-body(2) ru(643) reg3(3) fns(131) 1 inn(1)}
+INN ::= NumericString (SIZE (12))
+
 END

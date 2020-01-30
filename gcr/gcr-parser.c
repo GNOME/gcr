@@ -178,6 +178,7 @@ static GQuark PEM_PRIVATE_KEY;
 static GQuark PEM_PKCS7;
 static GQuark PEM_PKCS12;
 static GQuark PEM_CERTIFICATE_REQUEST;
+static GQuark PEM_NEW_CERTIFICATE_REQUEST;
 static GQuark PEM_PUBLIC_KEY;
 
 static GQuark ARMOR_PGP_PUBLIC_KEY_BLOCK;
@@ -203,6 +204,7 @@ init_quarks (void)
 		QUARK (PEM_PKCS7, "PKCS7");
 		QUARK (PEM_PKCS12, "PKCS12");
 		QUARK (PEM_CERTIFICATE_REQUEST, "CERTIFICATE REQUEST");
+		QUARK (PEM_NEW_CERTIFICATE_REQUEST, "NEW CERTIFICATE REQUEST");
 		QUARK (PEM_PUBLIC_KEY, "PUBLIC KEY");
 
 		QUARK (ARMOR_PGP_PRIVATE_KEY_BLOCK, "PGP PRIVATE KEY BLOCK");
@@ -1878,6 +1880,9 @@ formats_for_armor_type (GQuark armor_type,
 		*inner_format = GCR_FORMAT_DER_PKCS7;
 		*outer_format = GCR_FORMAT_PEM_PKCS7;
 	} else if (armor_type == PEM_CERTIFICATE_REQUEST) {
+		*inner_format = GCR_FORMAT_DER_PKCS10;
+		*outer_format = GCR_FORMAT_PEM_PKCS10;
+	} else if (armor_type == PEM_NEW_CERTIFICATE_REQUEST) {
 		*inner_format = GCR_FORMAT_DER_PKCS10;
 		*outer_format = GCR_FORMAT_PEM_PKCS10;
 	} else if (armor_type == PEM_PKCS12) {

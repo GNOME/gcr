@@ -3081,6 +3081,61 @@ egg_asn1x_get_any_as_full (GNode *node,
 	return asn;
 }
 
+GNode *
+egg_asn1x_get_any_as_string (GNode *node,
+                             EggAsn1xType type)
+{
+	g_return_val_if_fail (node != NULL, NULL);
+	g_return_val_if_fail (egg_asn1x_type (node) == EGG_ASN1X_ANY, NULL);
+
+	return egg_asn1x_get_any_as_string_full (node, type, 0);
+}
+
+static const EggAsn1xDef def_bmpstring = {
+	.type = EGG_ASN1X_BMP_STRING | FLAG_UNIVERSAL | FLAG_IMPLICIT,
+};
+
+static const EggAsn1xDef def_utf8string = {
+	.type = EGG_ASN1X_UTF8_STRING | FLAG_UNIVERSAL | FLAG_IMPLICIT,
+};
+
+static const EggAsn1xDef def_ia5string = {
+	.type = EGG_ASN1X_IA5_STRING | FLAG_UNIVERSAL | FLAG_IMPLICIT,
+};
+
+GNode *
+egg_asn1x_get_any_as_string_full (GNode *node,
+                                  EggAsn1xType type,
+                                  gint options)
+{
+	GNode *asn;
+
+	g_return_val_if_fail (node != NULL, NULL);
+	g_return_val_if_fail (egg_asn1x_type (node) == EGG_ASN1X_ANY, NULL);
+
+	switch (type) {
+	case EGG_ASN1X_BMP_STRING:
+		asn = anode_new (&def_bmpstring);
+		break;
+	case EGG_ASN1X_UTF8_STRING:
+		asn = anode_new (&def_utf8string);
+		break;
+	case EGG_ASN1X_IA5_STRING:
+		asn = anode_new (&def_ia5string);
+		break;
+	default:
+		g_return_val_if_reached (NULL);
+	}
+	g_return_val_if_fail (asn != NULL, NULL);
+
+	if (!egg_asn1x_get_any_into_full (node, asn, options)) {
+		egg_asn1x_destroy (asn);
+		return NULL;
+	}
+
+	return asn;
+}
+
 gboolean
 egg_asn1x_get_any_into  (GNode *node,
                          GNode *into)

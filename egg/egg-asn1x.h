@@ -119,6 +119,13 @@ GNode *             egg_asn1x_get_any_as_full        (GNode *node,
                                                       const gchar *type,
                                                       gint options);
 
+GNode *             egg_asn1x_get_any_as_string      (GNode *node,
+                                                      EggAsn1xType type);
+
+GNode *             egg_asn1x_get_any_as_string_full (GNode *node,
+                                                      EggAsn1xType type,
+                                                      gint options);
+
 GBytes *            egg_asn1x_get_any_raw            (GNode *node,
                                                       EggAllocator allocator);
 

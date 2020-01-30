@@ -1262,7 +1262,7 @@ parse_pkcs12_bag_friendly_name (GNode *asn)
 		if (oid == GCR_OID_PKCS9_ATTRIBUTE_FRIENDLY) {
 			node = egg_asn1x_node (asn, i, "values", 1, NULL);
 			if (node != NULL) {
-				asn_str = egg_asn1x_get_any_as (node, pkix_asn1_tab, "BMPString");
+				asn_str = egg_asn1x_get_any_as_string (node, EGG_ASN1X_BMP_STRING);
 				if (asn_str) {
 					result = egg_asn1x_get_bmpstring_as_utf8 (asn_str);
 					egg_asn1x_destroy (asn_str);

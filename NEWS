@@ -1,3 +1,12 @@
+gcr 3.35.90:
+- Add support for "NEW CERTIFICATE REQUEST" header [GNOME/gcr!44]
+- Add support for GOST certificates [GNOME/gcr!43]
+- Rework handling of ASN.1 standard types [GNOME/gcr!42]
+- Fix a few regressions in the Meson build [GNOME/gcr!46, 7ba0e00d]
+- Add support for g_autoptr [GNOME/gcr!36, GNOME/gcr#16]
+- Fixed some compiler warnings [GNOME/gcr!38]
+- Updated translations
+
 gcr 3.35.1:
 - gcr-certificate: Add (virtual) annotation [GNOME/gcr!35, GNOME/gcr#37]
 - Always use G_PARAM_STATIC_STRINGS [GNOME/gcr!31]

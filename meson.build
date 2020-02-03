@@ -29,7 +29,7 @@ build_root = meson.current_build_dir()
 cc = meson.get_compiler('c')
 
 gcr_prefix = get_option('prefix')
-libexecbindir = gcr_prefix / get_option('libexecdir') / meson.project_name()
+libexecbindir = gcr_prefix / get_option('libexecdir')
 podir = source_root / 'po'
 
 # Dependencies

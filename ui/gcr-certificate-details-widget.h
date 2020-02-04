@@ -45,12 +45,16 @@ G_BEGIN_DECLS
 typedef GcrCertificateWidget GcrCertificateDetailsWidget;
 typedef GcrCertificateWidgetClass GcrCertificateDetailsWidgetClass;
 
+G_DEPRECATED_FOR(gcr_certificate_widget_get_type)
 GType                         gcr_certificate_details_widget_get_type               (void);
 
+G_DEPRECATED_FOR(gcr_certificate_widget_new)
 GcrCertificateDetailsWidget*  gcr_certificate_details_widget_new                    (GcrCertificate *cert);
 
+G_DEPRECATED_FOR(gcr_certificate_widget_get_certificate)
 GcrCertificate*               gcr_certificate_details_widget_get_certificate        (GcrCertificateDetailsWidget *details);
 
+G_DEPRECATED_FOR(gcr_certificate_widget_set_certificate)
 void                          gcr_certificate_details_widget_set_certificate        (GcrCertificateDetailsWidget *details,
                                                                                      GcrCertificate *cert);
 

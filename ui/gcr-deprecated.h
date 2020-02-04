@@ -37,11 +37,14 @@
 
 G_BEGIN_DECLS
 
+G_DEPRECATED_FOR(gcr_renderer_render_view)
 void              gcr_renderer_render                         (GcrRenderer *self,
                                                                GcrViewer *viewer);
 
+G_DEPRECATED_FOR(gcr_renderer_get_attributes)
 GckAttributes *   gcr_certificate_renderer_get_attributes     (GcrCertificateRenderer *self);
 
+G_DEPRECATED_FOR(gcr_renderer_set_attributes)
 void              gcr_certificate_renderer_set_attributes     (GcrCertificateRenderer *self,
                                                                GckAttributes *attrs);
 

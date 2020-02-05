@@ -341,7 +341,7 @@ void                 gck_builder_clear                      (GckBuilder *builder
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckBuilder, gck_builder_unref);
 
-#define              GCK_TYPE_ATTRIBUTES                    (gck_attributes_get_boxed_type ())
+#define              GCK_TYPE_ATTRIBUTES                    (gck_attributes_get_type ())
 
 GType                gck_attributes_get_type                (void) G_GNUC_CONST;
 

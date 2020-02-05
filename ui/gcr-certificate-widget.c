@@ -232,8 +232,6 @@ gcr_certificate_widget_set_certificate (GcrCertificateWidget *self, GcrCertifica
  * a certificate.
  *
  * Returns: (nullable) (transfer none): the attributes, owned by the widget
- *
- * Deprecated: 3.6: Use gcr_renderer_get_attributes() instead
  */
 GckAttributes *
 gcr_certificate_widget_get_attributes (GcrCertificateWidget *self)
@@ -249,8 +247,6 @@ gcr_certificate_widget_get_attributes (GcrCertificateWidget *self)
  *
  * Set the attributes displayed in the widget. The attributes should contain
  * a certificate.
- *
- * Deprecated: 3.6: Use gcr_renderer_set_attributes() instead
  */
 void
 gcr_certificate_widget_set_attributes (GcrCertificateWidget *self,

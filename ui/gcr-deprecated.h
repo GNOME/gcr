@@ -48,11 +48,6 @@ G_DEPRECATED_FOR(gcr_renderer_set_attributes)
 void              gcr_certificate_renderer_set_attributes     (GcrCertificateRenderer *self,
                                                                GckAttributes *attrs);
 
-GckAttributes *   gcr_certificate_widget_get_attributes       (GcrCertificateWidget *self);
-
-void              gcr_certificate_widget_set_attributes       (GcrCertificateWidget *self,
-                                                               GckAttributes *attrs);
-
 G_END_DECLS
 
 #endif /* __GI_SCANNER__ */

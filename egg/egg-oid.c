@@ -94,12 +94,16 @@ static OidInfo oid_info[] = {
 	{ 0, "2.5.4.65", "pseudonym", N_("Pseudonym"),
 		EGG_OID_PRINTABLE | EGG_OID_IS_CHOICE },
 
+	/* Translators: Russian: Main state registration number */
 	{ 0, "1.2.643.100.1", "OGRN", N_("OGRN"),
 		EGG_OID_PRINTABLE },
+	/* Translators: Russian: Individual insurance account number */
 	{ 0, "1.2.643.100.3", "SNILS", N_("SNILS"),
 		EGG_OID_PRINTABLE },
+	/* Translators: Russian: Main state registration number for individual enterpreneurs */
 	{ 0, "1.2.643.100.5", "OGRNIP", N_("OGRNIP"),
 		EGG_OID_PRINTABLE },
+	/* Translators: Russian: Individual taxpayer number */
 	{ 0, "1.2.643.3.131.1.1", "INN", N_("INN"),
 		EGG_OID_PRINTABLE },
 

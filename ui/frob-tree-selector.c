@@ -122,7 +122,7 @@ on_parser_parsed (GcrParser *parser, gpointer user_data)
 
 
 	testcol = test_collection_instance (group);
-	if (!gcr_simple_collection_contains (collection, G_OBJECT (testcol)))
+	if (!gcr_collection_contains (GCR_COLLECTION (collection), G_OBJECT (testcol)))
 		gcr_simple_collection_add (collection, G_OBJECT (testcol));
 
 	gcr_simple_collection_add (GCR_SIMPLE_COLLECTION (testcol), G_OBJECT (renderer));

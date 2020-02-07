@@ -38,18 +38,24 @@ G_BEGIN_DECLS
 
 #define           GCR_ERROR                                   (gcr_error_get_domain ())
 
+G_DEPRECATED
 GQuark            gcr_error_get_domain                        (void) G_GNUC_CONST;
 
+G_DEPRECATED_FOR(gcr_collection_contains)
 gboolean          gcr_simple_collection_contains              (GcrSimpleCollection *self,
                                                                GObject *object);
 
+G_DEPRECATED_FOR(gcr_importer_listen)
 GcrParser *       gcr_importer_get_parser                     (GcrImporter *self);
 
+G_DEPRECATED_FOR(gcr_importer_listen)
 void              gcr_importer_set_parser                     (GcrImporter *self,
                                                                GcrParser *parser);
 
+G_DEPRECATED
 GckSlot *         gcr_importer_get_slot                       (GcrImporter *self);
 
+G_DEPRECATED
 void              gcr_importer_set_slot                       (GcrImporter *self,
                                                                GckSlot *slot);
 
@@ -59,8 +65,10 @@ typedef enum {
 	GCR_IMPORTER_PROMPT_NEVER
 } GcrImporterPromptBehavior;
 
+G_DEPRECATED
 GcrImporterPromptBehavior  gcr_importer_get_prompt_behavior   (GcrImporter *self);
 
+G_DEPRECATED
 void                       gcr_importer_set_prompt_behavior   (GcrImporter *self,
                                                                GcrImporterPromptBehavior behavior);
 

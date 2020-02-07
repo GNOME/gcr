@@ -148,7 +148,7 @@ GQuark
 gck_uri_get_error_quark (void)
 {
 	/* This is deprecated version */
-	return gck_uri_get_error_quark ();
+	return gck_uri_error_get_quark ();
 }
 
 GQuark

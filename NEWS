@@ -1,3 +1,8 @@
+gcr 3.35.91:
+- Mark deprecated functions with G_DEPRECATED [GNOME/gcr#36, GNOME/gcr!47]
+- egg-oid: Add comments for translators for new abbrevations [GNOME/gcr#40, GNOME/gcr!45]
+- Updated translations
+
 gcr 3.35.90:
 - Add support for "NEW CERTIFICATE REQUEST" header [GNOME/gcr!44]
 - Add support for GOST certificates [GNOME/gcr!43]

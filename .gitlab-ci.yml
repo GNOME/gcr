@@ -50,6 +50,7 @@ fedora:Werror:
 fedora:asan:
   image: fedora:latest
   stage: build
+  tags: [ privileged ]
   before_script:
     - dnf install -y 'dnf-command(builddep)'
     - dnf builddep -y gcr

@@ -1,0 +1,1115 @@
+# Kurdish (Sorani) translation for gcr
+# Copyright (c) 2020 Rosetta Contributors and Canonical Ltd 2020
+# This file is distributed under the same license as the gcr package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gcr\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2019-10-14 17:40+0200\n"
+"PO-Revision-Date: 2020-03-05 19:38+0300\n"
+"Language-Team: Kurdish (Sorani) <ckb@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2020-03-05 15:52+0000\n"
+"X-Generator: Poedit 2.3\n"
+"Last-Translator: Jwtiyar Nariman <jwtiyar@gmail.com>\n"
+"Language: ckb\n"
+
+#: egg/egg-oid.c:40
+msgid "Domain Component"
+msgstr "پارچەکانی دۆمەین"
+
+#: egg/egg-oid.c:42 ui/gcr-gnupg-renderer.c:407 ui/gcr-gnupg-renderer.c:576
+msgid "User ID"
+msgstr "ناسنامەی بەکارهێنەر"
+
+#: egg/egg-oid.c:45
+msgid "Email Address"
+msgstr "پۆستی ئەلکترۆنی"
+
+#: egg/egg-oid.c:53
+msgid "Date of Birth"
+msgstr "ڕۆژی لەدایک بوون"
+
+#: egg/egg-oid.c:55
+msgid "Place of Birth"
+msgstr "شوێنی لە دایک بوون"
+
+#: egg/egg-oid.c:57
+msgid "Gender"
+msgstr "ڕەگەز"
+
+#: egg/egg-oid.c:59
+msgid "Country of Citizenship"
+msgstr "هاوڵاتی چ وڵآتێکیت"
+
+#: egg/egg-oid.c:61
+msgid "Country of Residence"
+msgstr "وڵاتی مانەوە"
+
+#: egg/egg-oid.c:64
+msgid "Common Name"
+msgstr "ناوی باو"
+
+#: egg/egg-oid.c:66
+msgid "Surname"
+msgstr "نازناو"
+
+#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:559
+msgid "Serial Number"
+msgstr "ژمارەی زنجیرەیی"
+
+#: egg/egg-oid.c:70
+msgid "Country"
+msgstr "وڵات"
+
+#: egg/egg-oid.c:72
+msgid "Locality"
+msgstr "ناوچە"
+
+#: egg/egg-oid.c:74
+msgid "State"
+msgstr "پارێزگا"
+
+#: egg/egg-oid.c:76
+msgid "Street"
+msgstr "شەقام"
+
+#: egg/egg-oid.c:78
+msgid "Organization"
+msgstr "دامەزراوە"
+
+#: egg/egg-oid.c:80
+msgid "Organizational Unit"
+msgstr "یەکەی دامازراوەیی"
+
+#: egg/egg-oid.c:82
+msgid "Title"
+msgstr "ناونیشان"
+
+#: egg/egg-oid.c:84
+msgid "Telephone Number"
+msgstr "ژمارەی تەلەفۆن"
+
+#: egg/egg-oid.c:86
+msgid "Given Name"
+msgstr "ناوی دراو"
+
+#: egg/egg-oid.c:88
+msgid "Initials"
+msgstr "سەرەتایی"
+
+#: egg/egg-oid.c:90
+msgid "Generation Qualifier"
+msgstr ""
+
+#: egg/egg-oid.c:92
+msgid "DN Qualifier"
+msgstr ""
+
+#: egg/egg-oid.c:94
+msgid "Pseudonym"
+msgstr "Pseudonym"
+
+#: egg/egg-oid.c:97 ui/gcr-gnupg-renderer.c:198 ui/gcr-key-renderer.c:385
+msgid "RSA"
+msgstr "RSA"
+
+#: egg/egg-oid.c:98
+msgid "MD2 with RSA"
+msgstr "MD2 لەگەڵ RSA"
+
+#: egg/egg-oid.c:99
+msgid "MD5 with RSA"
+msgstr "MD5 لەگەڵ RSA"
+
+#: egg/egg-oid.c:100
+msgid "SHA1 with RSA"
+msgstr "SHA1 لەگەڵ RSA"
+
+#: egg/egg-oid.c:102 ui/gcr-gnupg-renderer.c:202 ui/gcr-key-renderer.c:387
+msgid "DSA"
+msgstr "DSA"
+
+#: egg/egg-oid.c:103
+msgid "SHA1 with DSA"
+msgstr "SHA1 لەگەڵ DSA"
+
+#: egg/egg-oid.c:105 ui/gcr-key-renderer.c:389
+msgid "Elliptic Curve"
+msgstr "چەماوەی هێلکەیی"
+
+#: egg/egg-oid.c:106
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 لەگەڵ ECDSA"
+
+#: egg/egg-oid.c:107
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 لەگەڵ ECDSA"
+
+#: egg/egg-oid.c:108
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 لەگەڵ  ECDSA"
+
+#: egg/egg-oid.c:109
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 لەگەڵ ECDSA"
+
+#: egg/egg-oid.c:110
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 لەگەڵ ECDSA"
+
+#. Extended Key Usages
+#: egg/egg-oid.c:113
+msgid "Server Authentication"
+msgstr "ڕێگەپێدانی ڕاژە"
+
+#: egg/egg-oid.c:114
+msgid "Client Authentication"
+msgstr "ڕێگەپێدانی ڕاژەخواز"
+
+#: egg/egg-oid.c:115
+msgid "Code Signing"
+msgstr "مۆرکردنی کۆد"
+
+#: egg/egg-oid.c:116
+msgid "Email Protection"
+msgstr "پاراستنی پۆستی ئەلکترۆنی"
+
+#: egg/egg-oid.c:117
+msgid "Time Stamping"
+msgstr "پولی کات"
+
+#: gck/gck-module.c:342
+#, c-format
+msgid "Error loading PKCS#11 module: %s"
+msgstr ""
+
+#: gck/gck-module.c:356
+#, c-format
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr ""
+
+#: gck/gck-modules.c:62
+#, c-format
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr ""
+
+#: gck/gck-uri.c:224
+msgid "The URI has invalid encoding."
+msgstr "بەستەر بەکۆدکردنی هەڵەی تێدایە."
+
+#: gck/gck-uri.c:228
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr ""
+
+#: gck/gck-uri.c:232
+msgid "The URI has bad syntax."
+msgstr "بەستەر پێکهاتەی خراپی تیایە."
+
+#: gck/gck-uri.c:236
+msgid "The URI has a bad version number."
+msgstr "بەستەر ژمارەی وەشانی خراپە."
+
+#: gcr/gcr-callback-output-stream.c:60 gcr/gcr-callback-output-stream.c:77
+msgid "The stream was closed"
+msgstr "پەخش داخراوە"
+
+#. later
+#. later
+#: gcr/gcr-certificate.c:350 gcr/gcr-gnupg-key.c:429
+msgctxt "column"
+msgid "Name"
+msgstr "ناو"
+
+#: gcr/gcr-certificate.c:352
+msgctxt "column"
+msgid "Issued By"
+msgstr "بڵاوکراوە لە لایەن"
+
+#. later
+#: gcr/gcr-certificate.c:354
+msgctxt "column"
+msgid "Expires"
+msgstr "بەسەردەچێت"
+
+#: gcr/gcr-certificate.c:1186 gcr/gcr-parser.c:344
+#: ui/gcr-certificate-renderer.c:103 ui/gcr-certificate-exporter.c:463
+msgid "Certificate"
+msgstr "ىروانامە"
+
+#: gcr/gcr-certificate-extensions.c:177
+msgid "Other Name"
+msgstr "ناوی تر"
+
+#: gcr/gcr-certificate-extensions.c:187
+msgid "XMPP Addr"
+msgstr ""
+
+#: gcr/gcr-certificate-extensions.c:191
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: gcr/gcr-certificate-extensions.c:203 ui/gcr-gnupg-renderer.c:420
+#: ui/gcr-gnupg-renderer.c:702
+msgid "Email"
+msgstr "پۆستی ئەلکترۆنی"
+
+#: gcr/gcr-certificate-extensions.c:211
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions.c:219
+msgid "X400 Address"
+msgstr "ناونیشانی X400"
+
+#: gcr/gcr-certificate-extensions.c:226
+msgid "Directory Name"
+msgstr "ناوی پێڕست"
+
+#: gcr/gcr-certificate-extensions.c:234
+msgid "EDI Party Name"
+msgstr ""
+
+#: gcr/gcr-certificate-extensions.c:241
+msgid "URI"
+msgstr "یووئارئای"
+
+#: gcr/gcr-certificate-extensions.c:249
+msgid "IP Address"
+msgstr "ناونیشانی پرۆتۆکۆڵی ئینتەرنێت"
+
+#: gcr/gcr-certificate-extensions.c:257
+msgid "Registered ID"
+msgstr "ناسنامەی تۆمارکراو"
+
+#: gcr/gcr-certificate-request.c:415
+msgid "Unsupported key type for certificate request"
+msgstr ""
+
+#: gcr/gcr-certificate-request.c:502 gcr/gcr-certificate-request.c:587
+msgid "The key cannot be used to sign the request"
+msgstr ""
+
+#: gcr/gcr-gnupg-importer.c:95
+msgid "GnuPG Keyring"
+msgstr "بەکلیلکردنی GnuPG"
+
+#: gcr/gcr-gnupg-importer.c:97
+#, c-format
+msgid "GnuPG Keyring: %s"
+msgstr "ئەڵقەکلیلی GnuPG:%s"
+
+#: gcr/gcr-gnupg-key.c:143 gcr/gcr-parser.c:350 ui/gcr-gnupg-renderer.c:88
+msgid "PGP Key"
+msgstr "کلیلی PGP"
+
+#: gcr/gcr-gnupg-key.c:431
+msgctxt "column"
+msgid "Key ID"
+msgstr "ناسنامەی کلیل"
+
+#: gcr/gcr-gnupg-process.c:862
+#, c-format
+msgid "Gnupg process exited with code: %d"
+msgstr ""
+
+#: gcr/gcr-gnupg-process.c:869
+#, c-format
+msgid "Gnupg process was terminated with signal: %d"
+msgstr ""
+
+#: gcr/gcr-gnupg-process.c:923 gcr/gcr-parser.c:2590 gcr/gcr-parser.c:3196
+#: gcr/gcr-system-prompt.c:929
+msgid "The operation was cancelled"
+msgstr "کردار هەڵوەشێنرایەوە"
+
+#: gcr/gcr-parser.c:341 ui/gcr-key-renderer.c:361
+msgid "Private Key"
+msgstr "کلیلی تایبەت"
+
+#: gcr/gcr-parser.c:347 ui/gcr-certificate-renderer.c:881
+#: ui/gcr-gnupg-renderer.c:735 ui/gcr-key-renderer.c:370
+msgid "Public Key"
+msgstr "کلیلی گشتی"
+
+#: gcr/gcr-parser.c:353
+msgid "Certificate Request"
+msgstr "داواکردنی بڕوانامە"
+
+#: gcr/gcr-parser.c:2593
+msgid "Unrecognized or unsupported data."
+msgstr "زانیاری نەناسراو یان پشتگیرینەکراو ."
+
+#: gcr/gcr-parser.c:2596
+msgid "Could not parse invalid or corrupted data."
+msgstr ""
+
+#: gcr/gcr-parser.c:2599
+msgid "The data is locked"
+msgstr "زانیاری داخراوە"
+
+#: gcr/gcr-prompt.c:225
+msgid "Continue"
+msgstr "بەردەوام بە"
+
+#: gcr/gcr-prompt.c:234
+msgid "Cancel"
+msgstr "هەڵوەشاندنەوە"
+
+#: gcr/gcr-ssh-askpass.c:198
+msgid "Enter your OpenSSH passphrase"
+msgstr ""
+
+#: gcr/gcr-subject-public-key.c:405
+msgid "Unrecognized or unavailable attributes for key"
+msgstr ""
+
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+msgid "Couldn’t build public key"
+msgstr ""
+
+#: gcr/gcr-system-prompt.c:909
+msgid "Another prompt is already in progress"
+msgstr ""
+
+#. Translators: A pinned certificate is an exception which
+#. trusts a given certificate explicitly for a purpose and
+#. communication with a certain peer.
+#: gcr/gcr-trust.c:364
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:118
+msgid "Basic Constraints"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:120
+msgid "Certificate Authority"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:952
+msgid "Yes"
+msgstr "بەڵێ"
+
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:952
+msgid "No"
+msgstr "نەخێر"
+
+#: ui/gcr-certificate-renderer.c:124
+msgid "Max Path Length"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:125
+msgid "Unlimited"
+msgstr "بێسنور"
+
+#: ui/gcr-certificate-renderer.c:144
+msgid "Extended Key Usage"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:155
+msgid "Allowed Purposes"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:175
+msgid "Subject Key Identifier"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:176
+msgid "Key Identifier"
+msgstr "ناسێنەرەوەی کلیل"
+
+#: ui/gcr-certificate-renderer.c:187
+msgid "Digital signature"
+msgstr "واژۆی ڕەنووسی"
+
+#: ui/gcr-certificate-renderer.c:188
+msgid "Key encipherment"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:189
+msgid "Data encipherment"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:190
+msgid "Key agreement"
+msgstr "کیلی ڕێکەوتن"
+
+#: ui/gcr-certificate-renderer.c:191
+msgid "Certificate signature"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:192
+msgid "Revocation list signature"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:217
+msgid "Key Usage"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:218
+msgid "Usages"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:238
+msgid "Subject Alternative Names"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:265
+msgid "Extension"
+msgstr "زیادکراو"
+
+#: ui/gcr-certificate-renderer.c:269
+msgid "Identifier"
+msgstr "ناسێنەر"
+
+#: ui/gcr-certificate-renderer.c:270 ui/gcr-certificate-request-renderer.c:267
+#: ui/gcr-gnupg-renderer.c:411 ui/gcr-gnupg-renderer.c:428
+msgid "Value"
+msgstr "نرخ"
+
+#: ui/gcr-certificate-renderer.c:288
+msgid "Couldn’t export the certificate."
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:521 ui/gcr-certificate-request-renderer.c:308
+msgid "Identity"
+msgstr "ناسنامە"
+
+#: ui/gcr-certificate-renderer.c:525
+msgid "Verified by"
+msgstr "پەسەندکراوە لە لایەن"
+
+#: ui/gcr-certificate-renderer.c:532 ui/gcr-gnupg-renderer.c:716
+msgid "Expires"
+msgstr "بەسەردەچێت"
+
+#. The subject
+#: ui/gcr-certificate-renderer.c:539 ui/gcr-certificate-request-renderer.c:314
+msgid "Subject Name"
+msgstr "ناوی سەردێڕ"
+
+#. The Issuer
+#: ui/gcr-certificate-renderer.c:544
+msgid "Issuer Name"
+msgstr "ناوی بڵاوکەر"
+
+#. The Issued Parameters
+#: ui/gcr-certificate-renderer.c:549
+msgid "Issued Certificate"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:554 ui/gcr-certificate-request-renderer.c:325
+msgid "Version"
+msgstr "وه‌شان"
+
+#: ui/gcr-certificate-renderer.c:568
+msgid "Not Valid Before"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:573
+msgid "Not Valid After"
+msgstr ""
+
+#. Fingerprints
+#: ui/gcr-certificate-renderer.c:578
+msgid "Certificate Fingerprints"
+msgstr ""
+
+#. Public Key Info
+#: ui/gcr-certificate-renderer.c:584 ui/gcr-certificate-request-renderer.c:328
+#: ui/gcr-certificate-request-renderer.c:374
+msgid "Public Key Info"
+msgstr ""
+
+#. Signature
+#: ui/gcr-certificate-renderer.c:599 ui/gcr-certificate-renderer.c:909
+#: ui/gcr-certificate-request-renderer.c:344
+#: ui/gcr-certificate-request-renderer.c:381 ui/gcr-gnupg-renderer.c:557
+msgid "Signature"
+msgstr "واژۆ"
+
+#: ui/gcr-certificate-renderer.c:616
+msgid "Export Certificate…"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:855
+msgid "Key Algorithm"
+msgstr "کلیلی ئەلگۆریتم"
+
+#: ui/gcr-certificate-renderer.c:860
+msgid "Key Parameters"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:868 ui/gcr-gnupg-renderer.c:350
+msgid "Key Size"
+msgstr "قەبارەی کلیل"
+
+#: ui/gcr-certificate-renderer.c:876
+msgid "Key SHA1 Fingerprint"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:898
+msgid "Signature Algorithm"
+msgstr "ئەلگۆریتمی واژو"
+
+#: ui/gcr-certificate-renderer.c:902
+msgid "Signature Parameters"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:951
+msgid "Critical"
+msgstr "سەرەتایی"
+
+#. The certificate request type
+#: ui/gcr-certificate-request-renderer.c:95
+#: ui/gcr-certificate-request-renderer.c:303
+#: ui/gcr-certificate-request-renderer.c:318
+#: ui/gcr-certificate-request-renderer.c:361
+#: ui/gcr-certificate-request-renderer.c:366
+msgid "Certificate request"
+msgstr ""
+
+#: ui/gcr-certificate-request-renderer.c:256
+msgid "Attribute"
+msgstr "تایبەتمەندی"
+
+#: ui/gcr-certificate-request-renderer.c:260
+#: ui/gcr-certificate-request-renderer.c:319
+#: ui/gcr-certificate-request-renderer.c:367 ui/gcr-gnupg-renderer.c:588
+#: ui/gcr-gnupg-renderer.c:590
+msgid "Type"
+msgstr "جۆر"
+
+#: ui/gcr-certificate-request-renderer.c:371
+msgid "Challenge"
+msgstr "بەرەنگاری"
+
+#: ui/gcr-display-view.c:320
+msgid "_Details"
+msgstr "ـوردەکارییەکان"
+
+#: ui/gcr-failure-renderer.c:157
+#, c-format
+msgid "Could not display “%s”"
+msgstr "ناتوانرێت “%s” پیشان بدرێت"
+
+#: ui/gcr-failure-renderer.c:159
+msgid "Could not display file"
+msgstr "ناتوانرێت پەڕگە پیشان بدرێت"
+
+#: ui/gcr-failure-renderer.c:164
+msgid "Reason"
+msgstr "هۆکار"
+
+#: ui/gcr-failure-renderer.c:214
+msgid "Cannot display a file of this type."
+msgstr "ناتوانرێت پەڕگەی لەم جۆرە پیشان بدرێت."
+
+#: ui/gcr-gnupg-renderer.c:200
+msgid "Elgamal"
+msgstr "ئەلجەمال"
+
+#: ui/gcr-gnupg-renderer.c:213
+msgid "Encrypt"
+msgstr "بەهێماکردن"
+
+#: ui/gcr-gnupg-renderer.c:215
+msgid "Sign"
+msgstr "واژو"
+
+#: ui/gcr-gnupg-renderer.c:217
+msgid "Certify"
+msgstr "باوەڕپێدان"
+
+#: ui/gcr-gnupg-renderer.c:219
+msgid "Authenticate"
+msgstr "رێگەپێدان"
+
+#: ui/gcr-gnupg-renderer.c:221
+msgctxt "capability"
+msgid "Disabled"
+msgstr "ناچالاککراو"
+
+#: ui/gcr-gnupg-renderer.c:252 ui/gcr-gnupg-renderer.c:411
+#: ui/gcr-key-renderer.c:391 ui/gcr-key-renderer.c:395
+msgid "Unknown"
+msgstr "نەناسراو"
+
+#: ui/gcr-gnupg-renderer.c:254
+msgid "Invalid"
+msgstr "نادروست"
+
+#: ui/gcr-gnupg-renderer.c:256
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "ناچالاککراو"
+
+#: ui/gcr-gnupg-renderer.c:258
+msgid "Revoked"
+msgstr "لێسەندنەوە"
+
+#: ui/gcr-gnupg-renderer.c:260
+msgid "Expired"
+msgstr "بەسەرچووە"
+
+#: ui/gcr-gnupg-renderer.c:262
+msgid "Undefined trust"
+msgstr "باورپێدانی نەناسراو"
+
+#: ui/gcr-gnupg-renderer.c:264
+msgid "Distrusted"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:266
+msgid "Marginally trusted"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:268
+msgid "Fully trusted"
+msgstr "باورپێکراوی تەواو"
+
+#: ui/gcr-gnupg-renderer.c:270
+msgid "Ultimately trusted"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:284
+msgid "The information in this key has not yet been verified"
+msgstr "زانیاریەکانی ناو ئەم کلیلە هێستا پەسەند نەکراوە"
+
+#: ui/gcr-gnupg-renderer.c:287
+msgid "This key is invalid"
+msgstr "کلیل هەڵەیە"
+
+#: ui/gcr-gnupg-renderer.c:290
+msgid "This key has been disabled"
+msgstr "کلیل ناچالاککرا"
+
+#: ui/gcr-gnupg-renderer.c:293
+msgid "This key has been revoked"
+msgstr "کلیل لێ سەندرایەوە"
+
+#: ui/gcr-gnupg-renderer.c:296
+msgid "This key has expired"
+msgstr "کلیل بەسەرچووە"
+
+#: ui/gcr-gnupg-renderer.c:301
+msgid "This key is distrusted"
+msgstr "کلیل متمانەپێکراو نیە"
+
+#: ui/gcr-gnupg-renderer.c:304
+msgid "This key is marginally trusted"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:307
+msgid "This key is fully trusted"
+msgstr "کلیل بەتەواوی متمانەکپێکراوە"
+
+#: ui/gcr-gnupg-renderer.c:310
+msgid "This key is ultimately trusted"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:335 ui/gcr-gnupg-renderer.c:561
+msgid "Key ID"
+msgstr "ناسنامەی کلیل"
+
+#: ui/gcr-gnupg-renderer.c:343 ui/gcr-gnupg-renderer.c:569
+#: ui/gcr-gnupg-renderer.c:616 ui/gcr-key-renderer.c:392
+msgid "Algorithm"
+msgstr "ئەلگۆریتم"
+
+#: ui/gcr-gnupg-renderer.c:358 ui/gcr-gnupg-renderer.c:435
+#: ui/gcr-gnupg-renderer.c:478
+msgid "Created"
+msgstr "دروستکرا"
+
+#: ui/gcr-gnupg-renderer.c:367 ui/gcr-gnupg-renderer.c:444
+#: ui/gcr-gnupg-renderer.c:487
+msgid "Expiry"
+msgstr "بەسەرچوون"
+
+#: ui/gcr-gnupg-renderer.c:376
+msgid "Capabilities"
+msgstr "تواناکان"
+
+#: ui/gcr-gnupg-renderer.c:389
+msgid "Owner trust"
+msgstr "باوەڕپێدانی خاوەن"
+
+#: ui/gcr-gnupg-renderer.c:417
+msgid "Name"
+msgstr "ناو"
+
+#: ui/gcr-gnupg-renderer.c:423 ui/gcr-gnupg-renderer.c:705
+msgid "Comment"
+msgstr "لێدوان"
+
+#: ui/gcr-gnupg-renderer.c:463
+msgid "User Attribute"
+msgstr "تایبەتمەندی بەکارهێنەر"
+
+#: ui/gcr-gnupg-renderer.c:470 ui/gcr-key-renderer.c:398
+msgid "Size"
+msgstr "قەبارە"
+
+#: ui/gcr-gnupg-renderer.c:505
+msgid "Signature of a binary document"
+msgstr "واژۆی بەڵگەنامەی دووانەیی"
+
+#: ui/gcr-gnupg-renderer.c:507
+msgid "Signature of a canonical text document"
+msgstr "واژۆی بەڵگەی دەقی کانۆنیکاڵ"
+
+#: ui/gcr-gnupg-renderer.c:509
+msgid "Standalone signature"
+msgstr "واژۆی تەنیا"
+
+#: ui/gcr-gnupg-renderer.c:511
+msgid "Generic certification of key"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:513
+msgid "Persona certification of key"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:515
+msgid "Casual certification of key"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:517
+msgid "Positive certification of key"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:519
+msgid "Subkey binding signature"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:521
+msgid "Primary key binding signature"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:523
+msgid "Signature directly on key"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:525
+msgid "Key revocation signature"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:527
+msgid "Subkey revocation signature"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:529
+msgid "Certification revocation signature"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:531
+msgid "Timestamp signature"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:533
+msgid "Third-party confirmation signature"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:586 ui/gcr-gnupg-renderer.c:594
+msgid "Class"
+msgstr "پۆل"
+
+#: ui/gcr-gnupg-renderer.c:588
+msgid "Local only"
+msgstr "تەنها ناوخۆیی"
+
+#: ui/gcr-gnupg-renderer.c:590
+msgid "Exportable"
+msgstr "دەردەهێنرێت"
+
+#: ui/gcr-gnupg-renderer.c:608
+msgid "Revocation Key"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:622 ui/gcr-gnupg-renderer.c:646
+#: ui/gcr-gnupg-renderer.c:648
+msgid "Fingerprint"
+msgstr "جێپەنجە"
+
+#: ui/gcr-gnupg-renderer.c:737
+msgid "Public Subkey"
+msgstr ""
+
+#: ui/gcr-gnupg-renderer.c:739
+msgid "Secret Key"
+msgstr "وشەی پارێزراو"
+
+#: ui/gcr-gnupg-renderer.c:741
+msgid "Secret Subkey"
+msgstr ""
+
+#: ui/gcr-import-button.c:116
+msgid "Initializing…"
+msgstr "ڕێگەپێدان..."
+
+#: ui/gcr-import-button.c:124
+msgid "Import is in progress…"
+msgstr "هێنان لە کاردایە..."
+
+#: ui/gcr-import-button.c:131
+#, c-format
+msgid "Imported to: %s"
+msgstr "هێنرا بۆ:%s"
+
+#: ui/gcr-import-button.c:151
+#, c-format
+msgid "Import to: %s"
+msgstr "دەهێنرێت بۆ:%s"
+
+#: ui/gcr-import-button.c:164
+msgid "Cannot import because there are no compatible importers"
+msgstr ""
+
+#: ui/gcr-import-button.c:173
+msgid "No data to import"
+msgstr "هیچ زانیاریەک نیە بۆ هاوردەکردن"
+
+#: ui/gcr-key-renderer.c:89
+msgid "Key"
+msgstr "کلیل"
+
+#: ui/gcr-key-renderer.c:355
+msgid "Private RSA Key"
+msgstr "کلیلی RSA تایبەت"
+
+#: ui/gcr-key-renderer.c:357
+msgid "Private DSA Key"
+msgstr "کلیلی DSA تایبەت"
+
+#: ui/gcr-key-renderer.c:359
+msgid "Private Elliptic Curve Key"
+msgstr ""
+
+#: ui/gcr-key-renderer.c:364 ui/gcr-key-renderer.c:366
+msgid "Public DSA Key"
+msgstr "کلیلی DSA گشتی"
+
+#: ui/gcr-key-renderer.c:368
+msgid "Public Elliptic Curve Key"
+msgstr ""
+
+#: ui/gcr-key-renderer.c:377
+#, c-format
+msgid "%u bit"
+msgid_plural "%u bits"
+msgstr[0] "%u بت"
+msgstr[1] "%u بت"
+
+#: ui/gcr-key-renderer.c:378
+msgid "Strength"
+msgstr "هێز"
+
+#. Fingerprints
+#: ui/gcr-key-renderer.c:402
+msgid "Fingerprints"
+msgstr "جێپەنجەکان"
+
+#: ui/gcr-key-renderer.c:406
+msgid "SHA1"
+msgstr "SHA1"
+
+#: ui/gcr-key-renderer.c:411
+msgid "SHA256"
+msgstr "SHA256"
+
+#. Add our various buttons
+#: ui/gcr-pkcs11-import-dialog.c:114 ui/gcr-prompt-dialog.c:500
+#: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
+msgid "_Cancel"
+msgstr "_هەڵوەشاندنەوە"
+
+#: ui/gcr-pkcs11-import-dialog.c:116 ui/gcr-prompt-dialog.c:503
+msgid "_OK"
+msgstr "_باشە"
+
+#: ui/gcr-pkcs11-import-dialog.c:189
+msgid "Automatically chosen"
+msgstr "خۆکارانە دیاریدەکرێت"
+
+#: ui/gcr-pkcs11-import-dialog.c:273 ui/gcr-pkcs11-import-interaction.c:152
+#: ui/gcr-pkcs11-import-interaction.c:170
+msgid "The user cancelled the operation"
+msgstr "بەکارهێنەر کارەکەی هەڵوەشاندنەوە"
+
+#: ui/gcr-pkcs11-import-dialog.ui:31
+msgid "In order to import, please enter the password."
+msgstr "بۆ ئەوەی هێنان ئەنجامبدەیت، پێوویستە تیپەڕەوشە بنووسیت."
+
+#. The password label
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:561
+msgid "Password:"
+msgstr "تێپه‌ڕه‌وشه‌:"
+
+#: ui/gcr-pkcs11-import-dialog.ui:80
+msgid "Token:"
+msgstr "بەکارهێنراوە:"
+
+#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
+#: ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "کردنەوە"
+
+#: ui/gcr-pkcs11-import-dialog.ui:178
+msgid "Label:"
+msgstr "پێناس:"
+
+#: ui/gcr-pkcs11-import-dialog.ui:233
+msgid "Import settings"
+msgstr "ڕێکخستنەکانی هێنان"
+
+#. The confirm label
+#: ui/gcr-prompt-dialog.c:578
+msgid "Confirm:"
+msgstr "دووپاتکردنەوە:"
+
+#: ui/gcr-prompt-dialog.c:646
+msgid "Passwords do not match."
+msgstr "تێپەڕوشە وەک یەک نین."
+
+#: ui/gcr-prompt-dialog.c:653
+msgid "Password cannot be blank"
+msgstr "تێپەڕوشە نابێ بەتاڵ بێت"
+
+#: ui/gcr-prompter.desktop.in.in:3
+msgid "Access Prompt"
+msgstr ""
+
+#: ui/gcr-prompter.desktop.in.in:4
+msgid "Unlock access to passwords and other secrets"
+msgstr ""
+
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: ui/gcr-prompter.desktop.in.in:6
+msgid "security-medium"
+msgstr ""
+
+#: ui/gcr-certificate-exporter.c:226
+msgid "A file already exists with this name."
+msgstr "پەڕگە بوونی هەیە بەهەمان ناو."
+
+#: ui/gcr-certificate-exporter.c:227
+msgid "Do you want to replace it with a new file?"
+msgstr "دەتەوێت جێگۆڕکێی پێبکەیت لەگەڵ پەڕگە نوێیەکە؟"
+
+#: ui/gcr-certificate-exporter.c:230
+msgid "_Replace"
+msgstr "_جێگرتنەوە"
+
+#: ui/gcr-certificate-exporter.c:260
+msgid "The operation was cancelled."
+msgstr "کارەکە هەڵوەشێنرایەوە."
+
+#: ui/gcr-certificate-exporter.c:304
+msgid "Export certificate"
+msgstr ""
+
+#: ui/gcr-certificate-exporter.c:307
+msgid "_Save"
+msgstr "ـپاشەکەوتکردن"
+
+#: ui/gcr-certificate-exporter.c:316
+msgid "Certificate files"
+msgstr ""
+
+#: ui/gcr-certificate-exporter.c:327
+msgid "PEM files"
+msgstr "پەڕگەی PEM"
+
+#: ui/gcr-unlock-options-widget.ui:16
+msgid "Automatically unlock this keyring whenever I’m logged in"
+msgstr "خۆکارانە ئەم زنجیرە کلیلە بکەرەوە کاتێ من دێمە ژوورەوە"
+
+#: ui/gcr-unlock-options-widget.ui:31
+msgid "Lock this keyring when I log out"
+msgstr "ئەم ئەڵقە کلیلە دابخە کاتێک دەچمەدەرەوە"
+
+#: ui/gcr-unlock-options-widget.ui:53
+msgid "Lock this keyring after"
+msgstr "ئەڵقە کلیل دابخە دووای"
+
+#: ui/gcr-unlock-options-widget.ui:67
+msgid "Lock this keyring if idle for"
+msgstr "ئەم ئەڵقەکلیلە دابخە ئەگەر بێکاربوو بۆ"
+
+#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
+#: ui/gcr-unlock-options-widget.ui:103
+msgid "minutes"
+msgstr "خولەک"
+
+#: ui/gcr-unlock-renderer.c:68
+#, c-format
+msgid "Unlock: %s"
+msgstr "بیکەرەوە: %s"
+
+#: ui/gcr-unlock-renderer.c:122
+msgid "Password"
+msgstr "تێپەڕەوشە"
+
+#: ui/gcr-unlock-renderer.c:272
+#, c-format
+msgid ""
+"The contents of “%s” are locked. In order to view the contents, enter the "
+"correct password."
+msgstr ""
+
+#: ui/gcr-unlock-renderer.c:275
+msgid ""
+"The contents are locked. In order to view the contents, enter the correct "
+"password."
+msgstr ""
+
+#: ui/gcr-viewer.desktop.in.in:3
+msgid "View file"
+msgstr "پەڕگە پیشانبدە"
+
+#: ui/gcr-viewer-tool.c:40
+msgid "GCR Certificate and Key Viewer"
+msgstr ""
+
+#: ui/gcr-viewer-tool.c:47
+msgid "Show the application's version"
+msgstr "وەشانی داوانامە پیشانبدە"
+
+#: ui/gcr-viewer-tool.c:49
+msgid "[file...]"
+msgstr ""
+
+#: ui/gcr-viewer-tool.c:100
+msgid "- View certificate and key files"
+msgstr ""
+
+#: ui/gcr-viewer-tool.c:114 ui/gcr-viewer-widget.c:681
+msgid "Certificate Viewer"
+msgstr "پیشاندەری بڕوانامە"
+
+#: ui/gcr-viewer-widget.c:202
+msgid "The password was incorrect"
+msgstr "تێپەڕەوشە ڕاست نیە"
+
+#: ui/gcr-viewer-window.c:74
+msgid "Imported"
+msgstr "هێنرا"
+
+#: ui/gcr-viewer-window.c:78
+msgid "Import failed"
+msgstr "هێنان سەرکەوتونەبوو"
+
+#: ui/gcr-viewer-window.c:105
+msgid "Import"
+msgstr "هێنان"
+
+#: ui/gcr-viewer-window.c:114
+msgid "_Close"
+msgstr "_داخستن"

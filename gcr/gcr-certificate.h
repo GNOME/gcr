@@ -46,18 +46,15 @@ struct _GcrCertificateIface {
 	GTypeInterface parent;
 
 
-	/*
-	 * g-ir-scanner cannot comprehend this yet ...
-	 * See: https://bugzilla.gnome.org/show_bug.cgi?id=725501
-	 *
-	 * GcrCertificate.get_der_data:
+	/**
+	 * GcrCertificate::get_der_data:
 	 * @self: a #GcrCertificate
-	 * @n_data: a pointer to a location to store the size of the resulting DER data.
+	 * @n_data: (out): a location to store the size of the resulting DER data.
 	 *
 	 * Implemented to return the raw DER data for an X.509 certificate. The data
 	 * should be owned by the #GcrCertificate object.
 	 *
-	 * Returns: (array length=n_data): raw DER data of the X.509 certificate
+	 * Returns: (transfer none) (array length=n_data): raw DER data of the X.509 certificate
 	 */
 	const guint8 * (* get_der_data) (GcrCertificate *self,
 	                                 gsize *n_data);

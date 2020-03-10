@@ -47,7 +47,7 @@ struct _GcrCertificateIface {
 
 
 	/**
-	 * GcrCertificate::get_der_data:
+	 * GcrCertificateIface::get_der_data:
 	 * @self: a #GcrCertificate
 	 * @n_data: (out): a location to store the size of the resulting DER data.
 	 *

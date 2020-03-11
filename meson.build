@@ -41,7 +41,10 @@ gobject_dep = dependency('gobject-2.0', version: '>=' + min_glib_version)
 gio_dep = dependency('gio-2.0', version: '>=' + min_glib_version)
 gio_unix_dep = dependency('gio-unix-2.0',version: '>=' + min_glib_version)
 glib_deps = [ glib_dep, gmodule_dep, gthread_dep, gobject_dep, gio_dep, gio_unix_dep, ]
-gpg_bin = find_program('gpg2', 'gpg')
+gpg_path = get_option('gpg_path')
+if gpg_path == ''
+  gpg_path = find_program('gpg2', 'gpg').path()
+endif
 libgcrypt_dep = dependency('libgcrypt', version: '>= 1')
 p11kit_dep = dependency('p11-kit-1', version: '>= 0.19.0')
 p11_system_config_modules = p11kit_dep.get_pkgconfig_variable('p11_system_config_modules')
@@ -65,7 +68,7 @@ conf.set('HAVE_GETTEXT', true)
 conf.set('HAVE_LOCALE_H', cc.has_header('locale.h'))
 conf.set('HAVE_TIMEGM', cc.has_function('timegm'))
 conf.set('HAVE_MLOCK', cc.has_function('mlock'))
-conf.set_quoted('GPG_EXECUTABLE', gpg_bin.path())
+conf.set_quoted('GPG_EXECUTABLE', gpg_path)
 conf.set_quoted('LIBGCRYPT_VERSION', libgcrypt_dep.version())
 config_file = configure_file(
   output: 'config.h',

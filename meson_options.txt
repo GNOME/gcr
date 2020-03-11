@@ -13,3 +13,8 @@ option('gtk_doc',
   value: true,
   description: 'Build the reference documentation (requires gtk-doc)',
 )
+option('gpg_path',
+  type: 'string',
+  value: '',
+  description: 'Path to gpg, autodetected if not set',
+)

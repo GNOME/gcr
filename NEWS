@@ -1,3 +1,7 @@
+gcr 3.36.0:
+- gcr: Update gtk-doc get_der_data() vfunc [GNOME/gcr!48]
+- Updated translations
+
 gcr 3.35.91:
 - Mark deprecated functions with G_DEPRECATED [GNOME/gcr#36, GNOME/gcr!47]
 - egg-oid: Add comments for translators for new abbrevations [GNOME/gcr#40, GNOME/gcr!45]

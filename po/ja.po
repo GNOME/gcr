@@ -1073,11 +1073,11 @@ msgstr "PEM ファイル"
 
 #: ui/gcr-unlock-options-widget.ui:16
 msgid "Automatically unlock this keyring whenever I’m logged in"
-msgstr "ログインしたら、このキーリングのロックを自動的に解除する"
+msgstr "ログイン中は常に、このキーリングのロックを自動的に解除する"
 
 #: ui/gcr-unlock-options-widget.ui:31
 msgid "Lock this keyring when I log out"
-msgstr "ログアウトしたら、このキーリングの自動的にロックする"
+msgstr "ログアウトするときに、このキーリングをロックする"
 
 #: ui/gcr-unlock-options-widget.ui:53
 msgid "Lock this keyring after"

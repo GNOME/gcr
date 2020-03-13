@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring gnome-3-6\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-01-27 16:18+0000\n"
+"POT-Creation-Date: 2020-03-11 08:52+0000\n"
 "PO-Revision-Date: 2020-01-28 21:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -120,72 +120,116 @@ msgstr "DN 修飾子"
 msgid "Pseudonym"
 msgstr "仮名"
 
-#: egg/egg-oid.c:97 ui/gcr-gnupg-renderer.c:201 ui/gcr-key-renderer.c:385
+#. Translators: Russian: Main state registration number
+#: egg/egg-oid.c:98
+msgid "OGRN"
+msgstr ""
+
+#. Translators: Russian: Individual insurance account number
+#: egg/egg-oid.c:101
+msgid "SNILS"
+msgstr ""
+
+#. Translators: Russian: Main state registration number for individual enterpreneurs
+#: egg/egg-oid.c:104
+msgid "OGRNIP"
+msgstr ""
+
+#. Translators: Russian: Individual taxpayer number
+#: egg/egg-oid.c:107
+msgid "INN"
+msgstr ""
+
+#: egg/egg-oid.c:110 ui/gcr-gnupg-renderer.c:201 ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
-#: egg/egg-oid.c:98
+#: egg/egg-oid.c:111
 msgid "MD2 with RSA"
 msgstr "RSA 付きの MD2"
 
-#: egg/egg-oid.c:99
+#: egg/egg-oid.c:112
 msgid "MD5 with RSA"
 msgstr "RSA 付きの MD5"
 
-#: egg/egg-oid.c:100
+#: egg/egg-oid.c:113
 msgid "SHA1 with RSA"
 msgstr "RSA 付きの SHA1"
 
-#: egg/egg-oid.c:102 ui/gcr-gnupg-renderer.c:205 ui/gcr-key-renderer.c:387
+#: egg/egg-oid.c:115 ui/gcr-gnupg-renderer.c:205 ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
-#: egg/egg-oid.c:103
+#: egg/egg-oid.c:116
 msgid "SHA1 with DSA"
 msgstr "DSA 付きの SHA1"
 
-#: egg/egg-oid.c:105 ui/gcr-key-renderer.c:389
+#: egg/egg-oid.c:118 ui/gcr-key-renderer.c:389
 msgid "Elliptic Curve"
 msgstr "楕円曲線"
 
-#: egg/egg-oid.c:106
+#: egg/egg-oid.c:119
 msgid "SHA1 with ECDSA"
 msgstr "ECDSA 付きの SHA1"
 
-#: egg/egg-oid.c:107
+#: egg/egg-oid.c:120
 msgid "SHA224 with ECDSA"
 msgstr "ECDSA 付きの SHA224"
 
-#: egg/egg-oid.c:108
+#: egg/egg-oid.c:121
 msgid "SHA256 with ECDSA"
 msgstr "ECDSA 付きの SHA256"
 
-#: egg/egg-oid.c:109
+#: egg/egg-oid.c:122
 msgid "SHA384 with ECDSA"
 msgstr "ECDSA 付きの SHA384"
 
-#: egg/egg-oid.c:110
+#: egg/egg-oid.c:123
 msgid "SHA512 with ECDSA"
 msgstr "ECDSA 付きの SHA512"
 
+#: egg/egg-oid.c:125
+msgid "GOST R 34.11-94 with GOST R 34.10-2001"
+msgstr ""
+
+#: egg/egg-oid.c:126
+msgid "GOST R 34.10-2001"
+msgstr ""
+
+#: egg/egg-oid.c:127
+msgid "GOST R 34.10-2012 256-bit curve"
+msgstr ""
+
+#: egg/egg-oid.c:128
+msgid "GOST R 34.10-2012 512-bit curve"
+msgstr ""
+
+#: egg/egg-oid.c:129
+msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
+msgstr ""
+
+#: egg/egg-oid.c:130
+msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
+msgstr ""
+
 #. Extended Key Usages
-#: egg/egg-oid.c:113
+#: egg/egg-oid.c:133
 msgid "Server Authentication"
 msgstr "サーバー認証"
 
-#: egg/egg-oid.c:114
+#: egg/egg-oid.c:134
 msgid "Client Authentication"
 msgstr "クライアント認証"
 
-#: egg/egg-oid.c:115
+#: egg/egg-oid.c:135
 msgid "Code Signing"
 msgstr "コード署名"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:136
 msgid "Email Protection"
 msgstr "E-メール保護"
 
-#: egg/egg-oid.c:117
+#: egg/egg-oid.c:137
 msgid "Time Stamping"
 msgstr "タイムスタンプ"
 
@@ -242,7 +286,7 @@ msgctxt "column"
 msgid "Expires"
 msgstr "有効期限"
 
-#: gcr/gcr-certificate.c:1186 gcr/gcr-parser.c:344
+#: gcr/gcr-certificate.c:1186 gcr/gcr-parser.c:346
 #: ui/gcr-certificate-renderer.c:103 ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "証明書"
@@ -309,7 +353,7 @@ msgstr "GnuPG キーリング"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG キーリング: %s"
 
-#: gcr/gcr-gnupg-key.c:143 gcr/gcr-parser.c:350 ui/gcr-gnupg-renderer.c:88
+#: gcr/gcr-gnupg-key.c:143 gcr/gcr-parser.c:352 ui/gcr-gnupg-renderer.c:88
 msgid "PGP Key"
 msgstr "PGP 鍵"
 
@@ -328,33 +372,33 @@ msgstr "gnupg プロセスが次の終了コードで終了しました: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "gnupg プロセスが次のシグナルにより終了しました: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2593 gcr/gcr-parser.c:3199
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3204
 #: gcr/gcr-system-prompt.c:932
 msgid "The operation was cancelled"
 msgstr "処理をキャンセルしました"
 
-#: gcr/gcr-parser.c:341 ui/gcr-key-renderer.c:361
+#: gcr/gcr-parser.c:343 ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "秘密鍵"
 
-#: gcr/gcr-parser.c:347 ui/gcr-certificate-renderer.c:884
+#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:884
 #: ui/gcr-gnupg-renderer.c:738 ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "公開鍵"
 
-#: gcr/gcr-parser.c:353
+#: gcr/gcr-parser.c:355
 msgid "Certificate Request"
 msgstr "証明書署名要求"
 
-#: gcr/gcr-parser.c:2596
+#: gcr/gcr-parser.c:2601
 msgid "Unrecognized or unsupported data."
 msgstr "認識できないまたはサポートしていないデータです"
 
-#: gcr/gcr-parser.c:2599
+#: gcr/gcr-parser.c:2604
 msgid "Could not parse invalid or corrupted data."
 msgstr "データが不正または壊れているため解析できませんでした"
 
-#: gcr/gcr-parser.c:2602
+#: gcr/gcr-parser.c:2607
 msgid "The data is locked"
 msgstr "データにはロックがかかっています"
 
@@ -595,7 +639,7 @@ msgstr "タイプ"
 msgid "Challenge"
 msgstr "チャレンジ"
 
-#: ui/gcr-display-view.c:320
+#: ui/gcr-display-view.c:298
 msgid "_Details"
 msgstr "詳細(_D)"
 
@@ -930,12 +974,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:500
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:503
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
 msgid "_OK"
 msgstr "OK(_O)"
 
@@ -953,7 +997,7 @@ msgid "In order to import, please enter the password."
 msgstr "インポートする場合は、パスワードを入力してください。"
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:561
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
 msgid "Password:"
 msgstr "パスワード:"
 
@@ -975,15 +1019,15 @@ msgid "Import settings"
 msgstr "インポート設定"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:578
+#: ui/gcr-prompt-dialog.c:634
 msgid "Confirm:"
 msgstr "確認:"
 
-#: ui/gcr-prompt-dialog.c:646
+#: ui/gcr-prompt-dialog.c:702
 msgid "Passwords do not match."
 msgstr "パスワードが一致しません。"
 
-#: ui/gcr-prompt-dialog.c:653
+#: ui/gcr-prompt-dialog.c:709
 msgid "Password cannot be blank"
 msgstr "空のパスワードは認められません"
 
@@ -1029,11 +1073,11 @@ msgstr "PEM ファイル"
 
 #: ui/gcr-unlock-options-widget.ui:16
 msgid "Automatically unlock this keyring whenever I’m logged in"
-msgstr "ログインしたら、このキーリングのロックを自動的に解除する"
+msgstr "ログイン中は常に、このキーリングのロックを自動的に解除する"
 
 #: ui/gcr-unlock-options-widget.ui:31
 msgid "Lock this keyring when I log out"
-msgstr "ログアウトしたら、このキーリングの自動的にロックする"
+msgstr "ログアウトするときに、このキーリングをロックする"
 
 #: ui/gcr-unlock-options-widget.ui:53
 msgid "Lock this keyring after"

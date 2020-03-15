@@ -47,7 +47,9 @@ setup (Test *test, gconstpointer unused)
 	g_assert (GCK_IS_MODULE (test->module));
 
 	slots = gck_module_get_slots (test->module, TRUE);
-	g_assert (slots != NULL);
+	g_assert_nonnull (slots);
+	g_assert_true (GCK_IS_SLOT (slots->data));
+	g_assert_null (slots->next);
 
 	test->slot = GCK_SLOT (slots->data);
 	g_object_ref (test->slot);
@@ -70,44 +72,47 @@ test_slot_info (Test *test, gconstpointer unused)
 	GList *slots, *l;
 
 	slots = gck_module_get_slots (test->module, FALSE);
-	g_assert (2 == g_list_length (slots) && "wrong number of slots returned");
-	g_assert (GCK_IS_SLOT (slots->data) && "missing slot one");
-	g_assert (GCK_IS_SLOT (slots->next->data) && "missing slot two");
+	g_assert_cmpint (2, ==, g_list_length (slots));
+	g_assert_nonnull (slots);
+	g_assert_true (GCK_IS_SLOT (slots->data));
+	g_assert_nonnull (slots->next);
+	g_assert_true (GCK_IS_SLOT (slots->next->data));
+	g_assert_null (slots->next->next);
 
 	for (l = slots; l; l = g_list_next (l)) {
 		info = gck_slot_get_info (GCK_SLOT (l->data));
-		g_assert (info != NULL && "no slot info");
+		g_assert_nonnull (info);
 
-		g_assert (strcmp("TEST MANUFACTURER", info->manufacturer_id) == 0);
-		g_assert (strcmp("TEST SLOT", info->slot_description) == 0);
-		g_assert (55 == info->hardware_version_major);
-		g_assert (155 == info->hardware_version_minor);
-		g_assert (65 == info->firmware_version_major);
-		g_assert (165 == info->firmware_version_minor);
+		g_assert_cmpstr ("TEST MANUFACTURER", ==, info->manufacturer_id);
+		g_assert_cmpstr ("TEST SLOT", ==, info->slot_description);
+		g_assert_cmpint (55, ==, info->hardware_version_major);
+		g_assert_cmpint (155, ==, info->hardware_version_minor);
+		g_assert_cmpint (65, ==, info->firmware_version_major);
+		g_assert_cmpint (165, ==, info->firmware_version_minor);
 
 		if (info->flags & CKF_TOKEN_PRESENT) {
 			token = gck_slot_get_token_info (test->slot);
-			g_assert (token != NULL && "no token info");
+			g_assert_nonnull (token);
 
-			g_assert (strcmp ("TEST MANUFACTURER", token->manufacturer_id) == 0);
-			g_assert (strcmp ("TEST LABEL", token->label) == 0);
-			g_assert (strcmp ("TEST MODEL", token->model) == 0);
-			g_assert (strcmp ("TEST SERIAL", token->serial_number) == 0);
-			g_assert (1 == token->max_session_count);
-			g_assert (2 == token->session_count);
-			g_assert (3 == token->max_rw_session_count);
-			g_assert (4 == token->rw_session_count);
-			g_assert (5 == token->max_pin_len);
-			g_assert (6 == token->min_pin_len);
-			g_assert (7 == token->total_public_memory);
-			g_assert (8 == token->free_public_memory);
-			g_assert (9 == token->total_private_memory);
-			g_assert (10 == token->free_private_memory);
-			g_assert (75 == token->hardware_version_major);
-			g_assert (175 == token->hardware_version_minor);
-			g_assert (85 == token->firmware_version_major);
-			g_assert (185 == token->firmware_version_minor);
-			g_assert (927623999 == token->utc_time);
+			g_assert_cmpstr ("TEST MANUFACTURER", ==, token->manufacturer_id);
+			g_assert_cmpstr ("TEST LABEL", ==, token->label);
+			g_assert_cmpstr ("TEST MODEL", ==, token->model);
+			g_assert_cmpstr ("TEST SERIAL", ==, token->serial_number);
+			g_assert_cmpint (1, ==, token->max_session_count);
+			g_assert_cmpint (2, ==, token->session_count);
+			g_assert_cmpint (3, ==, token->max_rw_session_count);
+			g_assert_cmpint (4, ==, token->rw_session_count);
+			g_assert_cmpint (5, ==, token->max_pin_len);
+			g_assert_cmpint (6, ==, token->min_pin_len);
+			g_assert_cmpint (7, ==, token->total_public_memory);
+			g_assert_cmpint (8, ==, token->free_public_memory);
+			g_assert_cmpint (9, ==, token->total_private_memory);
+			g_assert_cmpint (10, ==, token->free_private_memory);
+			g_assert_cmpint (75, ==, token->hardware_version_major);
+			g_assert_cmpint (175, ==, token->hardware_version_minor);
+			g_assert_cmpint (85, ==, token->firmware_version_major);
+			g_assert_cmpint (185, ==, token->firmware_version_minor);
+			g_assert_cmpint (927623999, ==, token->utc_time);
 
 			gck_token_info_free (token);
 		}
@@ -125,8 +130,8 @@ test_slot_props (Test *test, gconstpointer unused)
 	CK_SLOT_ID slot_id;
 
 	g_object_get (test->slot, "module", &mod, "handle", &slot_id, NULL);
-	g_assert (mod == test->module);
-	g_assert (slot_id == 52);
+	g_assert_true (mod == test->module);
+	g_assert_cmpint (slot_id, ==, 52);
 
 	g_object_unref (mod);
 }
@@ -140,22 +145,22 @@ test_slot_equals_hash (Test *test, gconstpointer unused)
 	guint hash;
 
 	hash = gck_slot_hash (test->slot);
-	g_assert (hash != 0);
+	g_assert_cmpint (hash, !=, 0);
 
-	g_assert (gck_slot_equal (test->slot, test->slot));
+	g_assert_true (gck_slot_equal (test->slot, test->slot));
 
 	other_mod = gck_module_new (gck_module_get_functions (test->module));
 	other_slot = g_object_new (GCK_TYPE_SLOT, "module", other_mod, "handle", gck_slot_get_handle (test->slot), NULL);
-	g_assert (gck_slot_equal (test->slot, other_slot));
+	g_assert_true (gck_slot_equal (test->slot, other_slot));
 	g_object_unref (other_mod);
 	g_object_unref (other_slot);
 
 	obj = g_object_new (G_TYPE_OBJECT, NULL);
-	g_assert (!gck_slot_equal (test->slot, obj));
+	g_assert_false (gck_slot_equal (test->slot, obj));
 	g_object_unref (obj);
 
 	other_slot = g_object_new (GCK_TYPE_SLOT, "module", test->module, "handle", 8909, NULL);
-	g_assert (!gck_slot_equal (test->slot, other_slot));
+	g_assert_false (gck_slot_equal (test->slot, other_slot));
 	g_object_unref (other_slot);
 }
 
@@ -167,12 +172,12 @@ test_slot_mechanisms (Test *test, gconstpointer unused)
 	guint i;
 
 	mechs = gck_slot_get_mechanisms (test->slot);
-	g_assert (2 == gck_mechanisms_length (mechs) && "wrong number of mech types returned");
+	g_assert_cmpint (2, ==, gck_mechanisms_length (mechs));
 
 	for (i = 0; i < gck_mechanisms_length (mechs); ++i) {
 
 		info = gck_slot_get_mechanism_info (test->slot, gck_mechanisms_at (mechs, i));
-		g_assert (info != NULL && "no mech info returned");
+		g_assert_nonnull (info);
 
 		gck_mechanism_info_free (info);
 	}
@@ -185,14 +190,12 @@ test_token_info_match_null (Test *test, gconstpointer unused)
 {
 	GckTokenInfo *match;
 	GckTokenInfo *token;
-	gboolean ret;
 
 	token = gck_slot_get_token_info (test->slot);
 	match = g_new0 (GckTokenInfo, 1);
 
 	/* Should match, since no fields are set */
-	ret = _gck_token_info_match (match, token);
-	g_assert (ret);
+	g_assert_true (_gck_token_info_match (match, token));
 
 	gck_token_info_free (match);
 	gck_token_info_free (token);
@@ -203,7 +206,6 @@ test_token_info_match_label (Test *test, gconstpointer unused)
 {
 	GckTokenInfo *match;
 	GckTokenInfo *token;
-	gboolean ret;
 
 	token = gck_slot_get_token_info (test->slot);
 	match = g_new0 (GckTokenInfo, 1);
@@ -211,8 +213,7 @@ test_token_info_match_label (Test *test, gconstpointer unused)
 	/* Should match since the label and serial are matching */
 	match->label = g_strdup (token->label);
 	match->serial_number = g_strdup (token->serial_number);
-	ret = _gck_token_info_match (match, token);
-	g_assert (ret);
+	g_assert_true (_gck_token_info_match (match, token));
 
 	gck_token_info_free (match);
 	gck_token_info_free (token);
@@ -223,7 +224,6 @@ test_token_info_match_different (Test *test, gconstpointer unused)
 {
 	GckTokenInfo *match;
 	GckTokenInfo *token;
-	gboolean ret;
 
 	token = gck_slot_get_token_info (test->slot);
 	match = g_new0 (GckTokenInfo, 1);
@@ -231,8 +231,7 @@ test_token_info_match_different (Test *test, gconstpointer unused)
 	/* Should not match since serial is different */
 	match->label = g_strdup (token->label);
 	match->serial_number = g_strdup ("393939393939393");
-	ret = _gck_token_info_match (match, token);
-	g_assert (!ret);
+	g_assert_false (_gck_token_info_match (match, token));
 
 	gck_token_info_free (match);
 	gck_token_info_free (token);

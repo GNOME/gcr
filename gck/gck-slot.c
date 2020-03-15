@@ -607,7 +607,9 @@ _gck_token_info_from_pkcs11 (CK_TOKEN_INFO_PTR info)
 {
 	GckTokenInfo *token_info;
 	gchar *string;
-	struct tm tm;
+	/* Must be zero-filled, because strptime will leave tm_isdst
+	 * unchanged */
+	struct tm tm = { 0 };
 
 	token_info = g_new0 (GckTokenInfo, 1);
 	token_info->label = gck_string_from_chars (info->label, sizeof (info->label));

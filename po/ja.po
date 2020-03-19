@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring gnome-3-6\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-03-11 08:52+0000\n"
-"PO-Revision-Date: 2020-01-28 21:00+0900\n"
+"POT-Creation-Date: 2020-03-13 16:10+0000\n"
+"PO-Revision-Date: 2020-03-20 07:45+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -683,7 +683,7 @@ msgstr "認証"
 #: ui/gcr-gnupg-renderer.c:224
 msgctxt "capability"
 msgid "Disabled"
-msgstr ""
+msgstr "無効"
 
 #: ui/gcr-gnupg-renderer.c:255 ui/gcr-gnupg-renderer.c:414
 #: ui/gcr-key-renderer.c:391 ui/gcr-key-renderer.c:395
@@ -697,7 +697,7 @@ msgstr "不正"
 #: ui/gcr-gnupg-renderer.c:259
 msgctxt "ownertrust"
 msgid "Disabled"
-msgstr ""
+msgstr "無効"
 
 #: ui/gcr-gnupg-renderer.c:261
 msgid "Revoked"
@@ -932,23 +932,23 @@ msgstr "鍵"
 
 #: ui/gcr-key-renderer.c:355
 msgid "Private RSA Key"
-msgstr "秘密 RSA 鍵"
+msgstr "RSA 秘密鍵"
 
 #: ui/gcr-key-renderer.c:357
 msgid "Private DSA Key"
-msgstr "秘密 DSA 鍵"
+msgstr "DSA 秘密鍵"
 
 #: ui/gcr-key-renderer.c:359
 msgid "Private Elliptic Curve Key"
-msgstr "秘密楕円曲線鍵"
+msgstr "楕円曲線 秘密鍵"
 
 #: ui/gcr-key-renderer.c:364 ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
-msgstr "公開 DSA 鍵"
+msgstr "DSA 公開鍵"
 
 #: ui/gcr-key-renderer.c:368
 msgid "Public Elliptic Curve Key"
-msgstr "公開楕円曲線鍵"
+msgstr "楕円曲線 公開鍵"
 
 #: ui/gcr-key-renderer.c:377
 #, c-format

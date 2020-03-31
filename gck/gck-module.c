@@ -272,19 +272,8 @@ gck_module_class_init (GckModuleClass *klass)
 			G_TYPE_BOOLEAN, 3, GCK_TYPE_OBJECT, G_TYPE_STRING, G_TYPE_POINTER);
 }
 
-GType
-gck_module_info_get_type (void)
-{
-	static volatile gsize initialized = 0;
-	static GType type = 0;
-	if (g_once_init_enter (&initialized)) {
-		type = g_boxed_type_register_static ("GckModuleInfo",
-		                                     (GBoxedCopyFunc)gck_module_info_copy,
-		                                     (GBoxedFreeFunc)gck_module_info_free);
-		g_once_init_leave (&initialized, 1);
-	}
-	return type;
-}
+G_DEFINE_BOXED_TYPE (GckModuleInfo, gck_module_info,
+                     gck_module_info_copy, gck_module_info_free)
 
 /**
  * gck_module_info_copy:

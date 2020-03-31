@@ -149,19 +149,8 @@ value_unref (guchar *data)
 	}
 }
 
-GType
-gck_builder_get_type (void)
-{
-	static volatile gsize initialized = 0;
-	static GType type = 0;
-	if (g_once_init_enter (&initialized)) {
-		type = g_boxed_type_register_static ("GckBuilder",
-		                                     (GBoxedCopyFunc)gck_builder_ref,
-		                                     (GBoxedFreeFunc)gck_builder_unref);
-		g_once_init_leave (&initialized, 1);
-	}
-	return type;
-}
+G_DEFINE_BOXED_TYPE (GckBuilder, gck_builder,
+                     gck_builder_ref, gck_builder_unref)
 
 /**
  * GckBuilder:
@@ -1725,19 +1714,8 @@ gck_attribute_init_string (GckAttribute *attr,
 	                    value ? strlen (value) : 0);
 }
 
-GType
-gck_attribute_get_type (void)
-{
-	static volatile gsize initialized = 0;
-	static GType type = 0;
-	if (g_once_init_enter (&initialized)) {
-		type = g_boxed_type_register_static ("GckAttribute",
-		                                     (GBoxedCopyFunc)gck_attribute_dup,
-		                                     (GBoxedFreeFunc)gck_attribute_free);
-		g_once_init_leave (&initialized, 1);
-	}
-	return type;
-}
+G_DEFINE_BOXED_TYPE (GckAttribute, gck_attribute,
+                     gck_attribute_dup, gck_attribute_free)
 
 /**
  * gck_attribute_new:
@@ -2063,19 +2041,8 @@ gck_attribute_hash (gconstpointer attr)
  * Returns: The allocated memory, or %NULL when freeing.
  **/
 
-GType
-gck_attributes_get_type (void)
-{
-	static volatile gsize initialized = 0;
-	static GType type = 0;
-	if (g_once_init_enter (&initialized)) {
-		type = g_boxed_type_register_static ("GckAttributes",
-		                                     (GBoxedCopyFunc)gck_attributes_ref,
-		                                     (GBoxedFreeFunc)gck_attributes_unref);
-		g_once_init_leave (&initialized, 1);
-	}
-	return type;
-}
+G_DEFINE_BOXED_TYPE (GckAttributes, gck_attributes,
+                     gck_attributes_ref, gck_attributes_unref)
 
 GType
 gck_attributes_get_boxed_type (void)

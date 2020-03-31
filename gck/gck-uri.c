@@ -311,19 +311,8 @@ gck_uri_build (GckUriData *uri_data, GckUriFlags flags)
 	return string;
 }
 
-GType
-gck_uri_data_get_type (void)
-{
-	static volatile gsize initialized = 0;
-	static GType type = 0;
-	if (g_once_init_enter (&initialized)) {
-		type = g_boxed_type_register_static ("GckUriData",
-		                                     (GBoxedCopyFunc)gck_uri_data_copy,
-		                                     (GBoxedFreeFunc)gck_uri_data_free);
-		g_once_init_leave (&initialized, 1);
-	}
-	return type;
-}
+G_DEFINE_BOXED_TYPE (GckUriData, gck_uri_data,
+                     gck_uri_data_copy, gck_uri_data_free)
 
 /**
  * gck_uri_data_copy:

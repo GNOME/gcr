@@ -176,19 +176,8 @@ gck_slot_class_init (GckSlotClass *klass)
  * gck_slot_info_free().
  */
 
-GType
-gck_slot_info_get_type (void)
-{
-	static volatile gsize initialized = 0;
-	static GType type = 0;
-	if (g_once_init_enter (&initialized)) {
-		type = g_boxed_type_register_static ("GckSlotInfo",
-		                                     (GBoxedCopyFunc)gck_slot_info_copy,
-		                                     (GBoxedFreeFunc)gck_slot_info_free);
-		g_once_init_leave (&initialized, 1);
-	}
-	return type;
-}
+G_DEFINE_BOXED_TYPE (GckSlotInfo, gck_slot_info,
+                     gck_slot_info_copy, gck_slot_info_free)
 
 /**
  * gck_slot_info_copy:
@@ -260,19 +249,8 @@ gck_slot_info_free (GckSlotInfo *slot_info)
  * gck_token_info_free().
  */
 
-GType
-gck_token_info_get_type (void)
-{
-	static volatile gsize initialized = 0;
-	static GType type = 0;
-	if (g_once_init_enter (&initialized)) {
-		type = g_boxed_type_register_static ("GckTokenInfo",
-		                                     (GBoxedCopyFunc)gck_token_info_copy,
-		                                     (GBoxedFreeFunc)gck_token_info_free);
-		g_once_init_leave (&initialized, 1);
-	}
-	return type;
-}
+G_DEFINE_BOXED_TYPE (GckTokenInfo, gck_token_info,
+                     gck_token_info_copy, gck_token_info_free)
 
 /**
  * gck_token_info_copy:
@@ -328,19 +306,8 @@ gck_token_info_free (GckTokenInfo *token_info)
  * gck_mechanism_info_free().
  */
 
-GType
-gck_mechanism_info_get_type (void)
-{
-	static volatile gsize initialized = 0;
-	static GType type = 0;
-	if (g_once_init_enter (&initialized)) {
-		type = g_boxed_type_register_static ("GckMechanismInfo",
-		                                     (GBoxedCopyFunc)gck_mechanism_info_copy,
-		                                     (GBoxedFreeFunc)gck_mechanism_info_free);
-		g_once_init_leave (&initialized, 1);
-	}
-	return type;
-}
+G_DEFINE_BOXED_TYPE (GckMechanismInfo, gck_mechanism_info,
+                     gck_mechanism_info_copy, gck_mechanism_info_free)
 
 /**
  * gck_mechanism_info_copy:

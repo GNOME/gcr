@@ -2747,19 +2747,7 @@ gcr_parser_get_parsed (GcrParser *self)
 	return self->pv->parsed;
 }
 
-GType
-gcr_parsed_get_type (void)
-{
-	static volatile gsize initialized = 0;
-	static GType type = 0;
-	if (g_once_init_enter (&initialized)) {
-		type = g_boxed_type_register_static ("GcrParsed",
-		                                     (GBoxedCopyFunc)gcr_parsed_ref,
-		                                     (GBoxedFreeFunc)gcr_parsed_unref);
-		g_once_init_leave (&initialized, 1);
-	}
-	return type;
-}
+G_DEFINE_BOXED_TYPE (GcrParsed, gcr_parsed, gcr_parsed_ref, gcr_parsed_unref)
 
 /**
  * gcr_parser_get_filename:

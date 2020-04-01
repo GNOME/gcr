@@ -552,19 +552,8 @@ gck_session_async_initable_iface (GAsyncInitableIface *iface)
  * When done with this structure, release it using gck_session_info_free().
  */
 
-GType
-gck_session_info_get_type (void)
-{
-	static volatile gsize initialized = 0;
-	static GType type = 0;
-	if (g_once_init_enter (&initialized)) {
-		type = g_boxed_type_register_static ("GckSessionInfo",
-		                                     (GBoxedCopyFunc)gck_session_info_copy,
-		                                     (GBoxedFreeFunc)gck_session_info_free);
-		g_once_init_leave (&initialized, 1);
-	}
-	return type;
-}
+G_DEFINE_BOXED_TYPE (GckSessionInfo, gck_session_info,
+                     gck_session_info_copy, gck_session_info_free)
 
 /**
  * gck_session_info_copy:

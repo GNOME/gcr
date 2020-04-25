@@ -1,1085 +1,1186 @@
 # Ukrainian translation for gnome-keyring
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-keyring package.
-# Maxim Dzumanenko <dziumanenko@gmail.com>, 2004-2008
+# Maxim Dzumanenko <dziumanenko@gmail.com>, 2004-2008.
 # Korostil Daniel <ted.korostiled@gmail.com>, 2011, 2012.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-07 21:59+0300\n"
-"PO-Revision-Date: 2012-09-11 07:08-0700\n"
-"Last-Translator: Daniel <ted.korostiled@gmail.com>\n"
-"Language-Team: translation@linux.org.ua\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2020-03-11 08:52+0000\n"
+"PO-Revision-Date: 2020-03-12 19:16+0200\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Virtaal 0.7.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
+"=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 20.03.70\n"
 "X-Project-Style: gnome\n"
 
-#: ../egg/egg-oid.c:41
+#: egg/egg-oid.c:40
 msgid "Domain Component"
 msgstr "Область назв"
 
-#: ../egg/egg-oid.c:43 ../gcr/gcr-gnupg-renderer.c:409
-#: ../gcr/gcr-gnupg-renderer.c:578
+#: egg/egg-oid.c:42 ui/gcr-gnupg-renderer.c:410 ui/gcr-gnupg-renderer.c:579
 msgid "User ID"
 msgstr "Ідентифікатор користувача"
 
-#: ../egg/egg-oid.c:46
+#: egg/egg-oid.c:45
 msgid "Email Address"
 msgstr "Електронна адреса"
 
-#: ../egg/egg-oid.c:54
+#: egg/egg-oid.c:53
 msgid "Date of Birth"
 msgstr "Дата народження"
 
-#: ../egg/egg-oid.c:56
+#: egg/egg-oid.c:55
 msgid "Place of Birth"
 msgstr "Місце народження"
 
-#: ../egg/egg-oid.c:58
+#: egg/egg-oid.c:57
 msgid "Gender"
 msgstr "Стать"
 
-#: ../egg/egg-oid.c:60
+#: egg/egg-oid.c:59
 msgid "Country of Citizenship"
 msgstr "Громадянство"
 
-#: ../egg/egg-oid.c:62
+#: egg/egg-oid.c:61
 msgid "Country of Residence"
 msgstr "Країна проживання"
 
-#: ../egg/egg-oid.c:65
+#: egg/egg-oid.c:64
 msgid "Common Name"
 msgstr "Звичайне ім'я"
 
-#: ../egg/egg-oid.c:67
+#: egg/egg-oid.c:66
 msgid "Surname"
 msgstr "Прізвище"
 
-#: ../egg/egg-oid.c:69 ../gcr/gcr-certificate-renderer.c:557
+#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:562
 msgid "Serial Number"
 msgstr "Серійний номер"
 
-#: ../egg/egg-oid.c:71
+#: egg/egg-oid.c:70
 msgid "Country"
 msgstr "Країна"
 
-#: ../egg/egg-oid.c:73
+#: egg/egg-oid.c:72
 msgid "Locality"
 msgstr "Місцевість"
 
-#: ../egg/egg-oid.c:75
+#: egg/egg-oid.c:74
 msgid "State"
 msgstr "Область"
 
-#: ../egg/egg-oid.c:77
+#: egg/egg-oid.c:76
 msgid "Street"
 msgstr "Вулиця"
 
-#: ../egg/egg-oid.c:79
+#: egg/egg-oid.c:78
 msgid "Organization"
 msgstr "Організація"
 
-#: ../egg/egg-oid.c:81
+#: egg/egg-oid.c:80
 msgid "Organizational Unit"
 msgstr "Підрозділ"
 
-#: ../egg/egg-oid.c:83
+#: egg/egg-oid.c:82
 msgid "Title"
 msgstr "Назва"
 
-#: ../egg/egg-oid.c:85
+#: egg/egg-oid.c:84
 msgid "Telephone Number"
 msgstr "Номер телефону"
 
-#: ../egg/egg-oid.c:87
+#: egg/egg-oid.c:86
 msgid "Given Name"
 msgstr "Ім'я"
 
-#: ../egg/egg-oid.c:89
+#: egg/egg-oid.c:88
 msgid "Initials"
 msgstr "Ініціали"
 
-#: ../egg/egg-oid.c:91
+#: egg/egg-oid.c:90
 msgid "Generation Qualifier"
 msgstr "Позначка покоління"
 
-#: ../egg/egg-oid.c:93
+#: egg/egg-oid.c:92
 msgid "DN Qualifier"
 msgstr "Позначка розрізнюваного мені"
 
-#: ../egg/egg-oid.c:95
+#: egg/egg-oid.c:94
 msgid "Pseudonym"
 msgstr "Псевдонім"
 
-#: ../egg/egg-oid.c:98 ../gcr/gcr-gnupg-renderer.c:200
-#: ../gcr/gcr-key-renderer.c:429
+#. Translators: Russian: Main state registration number
+#: egg/egg-oid.c:98
+msgid "OGRN"
+msgstr "ОГРН"
+
+#. Translators: Russian: Individual insurance account number
+#: egg/egg-oid.c:101
+msgid "SNILS"
+msgstr "СНИЛС"
+
+#. Translators: Russian: Main state registration number for individual enterpreneurs
+#: egg/egg-oid.c:104
+msgid "OGRNIP"
+msgstr "ОГРНИП"
+
+#. Translators: Russian: Individual taxpayer number
+#: egg/egg-oid.c:107
+msgid "INN"
+msgstr "ИНН"
+
+#: egg/egg-oid.c:110 ui/gcr-gnupg-renderer.c:201 ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
-#: ../egg/egg-oid.c:99
+#: egg/egg-oid.c:111
 msgid "MD2 with RSA"
 msgstr "MD2 з ключем RSA"
 
-#: ../egg/egg-oid.c:100
+#: egg/egg-oid.c:112
 msgid "MD5 with RSA"
 msgstr "MD5 з ключем RSA"
 
-#: ../egg/egg-oid.c:101
+#: egg/egg-oid.c:113
 msgid "SHA1 with RSA"
 msgstr "SHA1 з ключем RSA"
 
-#: ../egg/egg-oid.c:103 ../gcr/gcr-gnupg-renderer.c:204
-#: ../gcr/gcr-key-renderer.c:431
+#: egg/egg-oid.c:115 ui/gcr-gnupg-renderer.c:205 ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
-#: ../egg/egg-oid.c:104
+#: egg/egg-oid.c:116
 msgid "SHA1 with DSA"
 msgstr "SHA1 з ключем DSA"
 
+#: egg/egg-oid.c:118 ui/gcr-key-renderer.c:389
+msgid "Elliptic Curve"
+msgstr "Еліптична крива"
+
+#: egg/egg-oid.c:119
+#| msgid "SHA1 with DSA"
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 з ECDSA"
+
+#: egg/egg-oid.c:120
+#| msgid "SHA1 with DSA"
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 з ECDSA"
+
+#: egg/egg-oid.c:121
+#| msgid "SHA1 with DSA"
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 з ECDSA"
+
+#: egg/egg-oid.c:122
+#| msgid "SHA1 with DSA"
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 з ECDSA"
+
+#: egg/egg-oid.c:123
+#| msgid "SHA1 with DSA"
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 з ECDSA"
+
+#: egg/egg-oid.c:125
+msgid "GOST R 34.11-94 with GOST R 34.10-2001"
+msgstr "ГОСТ Р 34.11-94 з ГОСТ Р 34.10-2001"
+
+#: egg/egg-oid.c:126
+msgid "GOST R 34.10-2001"
+msgstr "ГОСТ Р 34.10-2001"
+
+#: egg/egg-oid.c:127
+msgid "GOST R 34.10-2012 256-bit curve"
+msgstr "ГОСТ Р 34.10-2012 256-бітова крива"
+
+#: egg/egg-oid.c:128
+msgid "GOST R 34.10-2012 512-bit curve"
+msgstr "ГОСТ Р 34.10-2012 512-бітова крива"
+
+#: egg/egg-oid.c:129
+msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
+msgstr "ГОСТ Р 34.11-2012/256 з ГОСТ Р 34.10-2012 256-бітова крива"
+
+#: egg/egg-oid.c:130
+msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
+msgstr "ГОСТ Р 34.11-2012/512 з ГОСТ Р 34.10-2012 512-бітова крива"
+
 #. Extended Key Usages
-#: ../egg/egg-oid.c:107
+#: egg/egg-oid.c:133
 msgid "Server Authentication"
 msgstr "Автентифікація сервера"
 
-#: ../egg/egg-oid.c:108
+#: egg/egg-oid.c:134
 msgid "Client Authentication"
 msgstr "Автентифікація клієнта"
 
-#: ../egg/egg-oid.c:109
+#: egg/egg-oid.c:135
 msgid "Code Signing"
 msgstr "Підписування коду"
 
-#: ../egg/egg-oid.c:110
+#: egg/egg-oid.c:136
 msgid "Email Protection"
 msgstr "Захист пошти"
 
-#: ../egg/egg-oid.c:111
+#: egg/egg-oid.c:137
 msgid "Time Stamping"
 msgstr "Часове штампування"
 
-#: ../gck/gck-module.c:352
+#: gck/gck-module.c:343
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "Помилка завантаження модуля PKCS#11: %s"
 
-#: ../gck/gck-module.c:359
+#: gck/gck-module.c:357
 #, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr "Неправильний модуль PKCS#11: %s"
+#| msgid "Couldn't initialize PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr "Не вдалося запустити модуль PKCS#11: %s"
 
-#: ../gck/gck-module.c:368
+#: gck/gck-modules.c:62
 #, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "Неможливо налаштувати PKCS#11: %s"
+#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr "Не вдалося запустити зареєстровані модулі PKCS#11: %s"
 
-#: ../gck/gck-module.c:384
-#, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr "Неможливо запустити модуль PKCS#11: %s"
-
-#: ../gck/gck-modules.c:67
-#, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr "Неможливо запустити зареєстровані модулі PKCS#11: %s"
-
-#: ../gck/gck-uri.c:224
-#, c-format
+#: gck/gck-uri.c:224
 msgid "The URI has invalid encoding."
 msgstr "URI має неправильне кодування."
 
-#: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "URI не має схеми «pkcs11»."
+#: gck/gck-uri.c:228
+#| msgid "The URI does not have the 'pkcs11' scheme."
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "Адреса не містить схеми «pkcs11»."
 
-#: ../gck/gck-uri.c:232
+#: gck/gck-uri.c:232
 msgid "The URI has bad syntax."
 msgstr "URI має незграбний синтаксис."
 
-#: ../gck/gck-uri.c:236
+#: gck/gck-uri.c:236
 msgid "The URI has a bad version number."
 msgstr "URI має поганий номер версії."
 
-#: ../gcr/gcr-callback-output-stream.c:64
-#: ../gcr/gcr-callback-output-stream.c:81
-#, c-format
+#: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
 msgid "The stream was closed"
 msgstr "Потік закрито"
 
 #. later
 #. later
-#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
+#: gcr/gcr-certificate.c:350 gcr/gcr-gnupg-key.c:429
 msgctxt "column"
 msgid "Name"
 msgstr "Назва"
 
-#: ../gcr/gcr-certificate.c:310
+#: gcr/gcr-certificate.c:352
 msgctxt "column"
 msgid "Issued By"
 msgstr "Виданий"
 
 #. later
-#: ../gcr/gcr-certificate.c:312
+#: gcr/gcr-certificate.c:354
 msgctxt "column"
 msgid "Expires"
 msgstr "Строк"
 
-#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-certificate-exporter.c:463
-#: ../gcr/gcr-certificate-renderer.c:102 ../gcr/gcr-parser.c:322
+#: gcr/gcr-certificate.c:1186 gcr/gcr-parser.c:346
+#: ui/gcr-certificate-renderer.c:103 ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "Сертифікат"
 
-#: ../gcr/gcr-certificate-exporter.c:225
-msgid ""
-"<b>A file already exists with this name.</b>\n"
-"\n"
-"Do you want to replace it with a new file?"
-msgstr ""
-"<b>Файл з такою назвою вже існує.</b>\n"
-"\n"
-"Замінити його новим файлом?"
-
-#: ../gcr/gcr-certificate-exporter.c:228
-msgid "_Replace"
-msgstr "_Замінити"
-
-#: ../gcr/gcr-certificate-exporter.c:258
-#, c-format
-msgid "The operation was cancelled."
-msgstr "Операцію скасовано."
-
-#: ../gcr/gcr-certificate-exporter.c:302
-msgid "Export certificate"
-msgstr "Експортувати сертифікат"
-
-#: ../gcr/gcr-certificate-exporter.c:314
-msgid "Certificate files"
-msgstr "Файли сертифікатів"
-
-#: ../gcr/gcr-certificate-exporter.c:325
-msgid "PEM files"
-msgstr "Файли PEM"
-
-#: ../gcr/gcr-certificate-extensions.c:178
+#: gcr/gcr-certificate-extensions.c:177
 msgid "Other Name"
 msgstr "Інші назви"
 
-#: ../gcr/gcr-certificate-extensions.c:188
+#: gcr/gcr-certificate-extensions.c:187
 msgid "XMPP Addr"
 msgstr "XMPP Addr"
 
-#: ../gcr/gcr-certificate-extensions.c:192
+#: gcr/gcr-certificate-extensions.c:191
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: ../gcr/gcr-certificate-extensions.c:204 ../gcr/gcr-gnupg-renderer.c:422
-#: ../gcr/gcr-gnupg-renderer.c:704
+#: gcr/gcr-certificate-extensions.c:203 ui/gcr-gnupg-renderer.c:423
+#: ui/gcr-gnupg-renderer.c:705
 msgid "Email"
 msgstr "Пошта"
 
-#: ../gcr/gcr-certificate-extensions.c:212
+#: gcr/gcr-certificate-extensions.c:211
 msgid "DNS"
 msgstr "DNS"
 
-#: ../gcr/gcr-certificate-extensions.c:220
+#: gcr/gcr-certificate-extensions.c:219
 msgid "X400 Address"
 msgstr "Адреса X400"
 
-#: ../gcr/gcr-certificate-extensions.c:227
+#: gcr/gcr-certificate-extensions.c:226
 msgid "Directory Name"
 msgstr "Назва каталогу"
 
-#: ../gcr/gcr-certificate-extensions.c:235
+#: gcr/gcr-certificate-extensions.c:234
 msgid "EDI Party Name"
 msgstr "Часткова назва EDI"
 
-#: ../gcr/gcr-certificate-extensions.c:242
+#: gcr/gcr-certificate-extensions.c:241
 msgid "URI"
 msgstr "URI"
 
-#: ../gcr/gcr-certificate-extensions.c:250
+#: gcr/gcr-certificate-extensions.c:249
 msgid "IP Address"
 msgstr "Адреса IP"
 
-#: ../gcr/gcr-certificate-extensions.c:258
+#: gcr/gcr-certificate-extensions.c:257
 msgid "Registered ID"
 msgstr "Зареєстрований ID"
 
-#: ../gcr/gcr-certificate-renderer.c:117
-msgid "Basic Constraints"
-msgstr "Основні обмеження"
-
-#: ../gcr/gcr-certificate-renderer.c:119
-msgid "Certificate Authority"
-msgstr "Видавець сертифіката"
-
-#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
-msgid "Yes"
-msgstr "Так"
-
-#: ../gcr/gcr-certificate-renderer.c:120 ../gcr/gcr-certificate-renderer.c:961
-msgid "No"
-msgstr "Ні"
-
-#: ../gcr/gcr-certificate-renderer.c:123
-msgid "Max Path Length"
-msgstr "Максимальна довжина шляху"
-
-#: ../gcr/gcr-certificate-renderer.c:124
-msgid "Unlimited"
-msgstr "Необмежено"
-
-#: ../gcr/gcr-certificate-renderer.c:143
-msgid "Extended Key Usage"
-msgstr "Розширене використання ключа"
-
-#: ../gcr/gcr-certificate-renderer.c:154
-msgid "Allowed Purposes"
-msgstr "Дозволені цілі"
-
-#: ../gcr/gcr-certificate-renderer.c:174
-msgid "Subject Key Identifier"
-msgstr "Ідентифікатор ключа теми"
-
-#: ../gcr/gcr-certificate-renderer.c:175
-msgid "Key Identifier"
-msgstr "Ідентифікатор ключа"
-
-#: ../gcr/gcr-certificate-renderer.c:186
-msgid "Digital signature"
-msgstr "Цифровий підпис"
-
-#: ../gcr/gcr-certificate-renderer.c:187
-msgid "Key encipherment"
-msgstr "Шифрування ключа"
-
-#: ../gcr/gcr-certificate-renderer.c:188
-msgid "Data encipherment"
-msgstr "Шифрування даних"
-
-#: ../gcr/gcr-certificate-renderer.c:189
-msgid "Key agreement"
-msgstr "Договір ключа"
-
-#: ../gcr/gcr-certificate-renderer.c:190
-msgid "Certificate signature"
-msgstr "Підпис сертифіката"
-
-#: ../gcr/gcr-certificate-renderer.c:191
-msgid "Revocation list signature"
-msgstr "Анулювання підпису списку"
-
-#: ../gcr/gcr-certificate-renderer.c:216
-msgid "Key Usage"
-msgstr "Використання ключа"
-
-#: ../gcr/gcr-certificate-renderer.c:217
-msgid "Usages"
-msgstr "Використання"
-
-#: ../gcr/gcr-certificate-renderer.c:237
-msgid "Subject Alternative Names"
-msgstr "Альтернативні назви тем"
-
-#: ../gcr/gcr-certificate-renderer.c:264
-msgid "Extension"
-msgstr "Розширення"
-
-#: ../gcr/gcr-certificate-renderer.c:268
-msgid "Identifier"
-msgstr "Ідентифікатор"
-
-#: ../gcr/gcr-certificate-renderer.c:269
-#: ../gcr/gcr-certificate-request-renderer.c:272
-#: ../gcr/gcr-gnupg-renderer.c:413 ../gcr/gcr-gnupg-renderer.c:430
-msgid "Value"
-msgstr "Значення"
-
-#: ../gcr/gcr-certificate-renderer.c:294
-msgid "Couldn't export the certificate."
-msgstr "Неможливо експортувати сертифікат."
-
-#: ../gcr/gcr-certificate-renderer.c:519
-#: ../gcr/gcr-certificate-request-renderer.c:313
-msgid "Identity"
-msgstr "Профіль"
-
-#: ../gcr/gcr-certificate-renderer.c:523
-msgid "Verified by"
-msgstr "Перевірено"
-
-#: ../gcr/gcr-certificate-renderer.c:530 ../gcr/gcr-gnupg-renderer.c:718
-msgid "Expires"
-msgstr "Строк дії"
-
-#. The subject
-#: ../gcr/gcr-certificate-renderer.c:537
-#: ../gcr/gcr-certificate-request-renderer.c:319
-msgid "Subject Name"
-msgstr "Ім'я отримувача"
-
-#. The Issuer
-#: ../gcr/gcr-certificate-renderer.c:542
-msgid "Issuer Name"
-msgstr "Ім'я видавця"
-
-#. The Issued Parameters
-#: ../gcr/gcr-certificate-renderer.c:547
-msgid "Issued Certificate"
-msgstr "Виданий сертифікат"
-
-#: ../gcr/gcr-certificate-renderer.c:552
-#: ../gcr/gcr-certificate-request-renderer.c:330
-msgid "Version"
-msgstr "Версія"
-
-#: ../gcr/gcr-certificate-renderer.c:566
-msgid "Not Valid Before"
-msgstr "Не дійсний до"
-
-#: ../gcr/gcr-certificate-renderer.c:571
-msgid "Not Valid After"
-msgstr "Не дійсний після"
-
-#. Fingerprints
-#: ../gcr/gcr-certificate-renderer.c:576
-msgid "Certificate Fingerprints"
-msgstr "Відбитки сертифікатів"
-
-#. Public Key Info
-#: ../gcr/gcr-certificate-renderer.c:582
-#: ../gcr/gcr-certificate-request-renderer.c:333
-#: ../gcr/gcr-certificate-request-renderer.c:379
-msgid "Public Key Info"
-msgstr "Інформація про відкритий ключ"
-
-#. Signature
-#: ../gcr/gcr-certificate-renderer.c:597 ../gcr/gcr-certificate-renderer.c:918
-#: ../gcr/gcr-certificate-request-renderer.c:349
-#: ../gcr/gcr-certificate-request-renderer.c:386
-#: ../gcr/gcr-gnupg-renderer.c:559
-msgid "Signature"
-msgstr "Підпис"
-
-#: ../gcr/gcr-certificate-renderer.c:864
-msgid "Key Algorithm"
-msgstr "Алгоритм ключа"
-
-#: ../gcr/gcr-certificate-renderer.c:869
-msgid "Key Parameters"
-msgstr "Параметри ключа"
-
-#: ../gcr/gcr-certificate-renderer.c:877 ../gcr/gcr-gnupg-renderer.c:352
-msgid "Key Size"
-msgstr "Розмір ключа"
-
-#: ../gcr/gcr-certificate-renderer.c:885
-msgid "Key SHA1 Fingerprint"
-msgstr "Відбиток ключа SHA1"
-
-#: ../gcr/gcr-certificate-renderer.c:890 ../gcr/gcr-gnupg-renderer.c:737
-#: ../gcr/gcr-key-renderer.c:414 ../gcr/gcr-parser.c:325
-msgid "Public Key"
-msgstr "Публічний ключ"
-
-#: ../gcr/gcr-certificate-renderer.c:907
-msgid "Signature Algorithm"
-msgstr "Алгоритм підпису"
-
-#: ../gcr/gcr-certificate-renderer.c:911
-msgid "Signature Parameters"
-msgstr "Параметри підпису"
-
-#: ../gcr/gcr-certificate-renderer.c:960
-msgid "Critical"
-msgstr "Критичний"
-
-#: ../gcr/gcr-certificate-request.c:418
-#, c-format
+#: gcr/gcr-certificate-request.c:406
 msgid "Unsupported key type for certificate request"
 msgstr "Непідтримуваний тип ключа для запиту сертифіката"
 
-#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
-#, c-format
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
 msgid "The key cannot be used to sign the request"
 msgstr "Ключ неможливо використати для підписання запиту"
 
-#. The certificate request type
-#: ../gcr/gcr-certificate-request-renderer.c:95
-#: ../gcr/gcr-certificate-request-renderer.c:308
-#: ../gcr/gcr-certificate-request-renderer.c:323
-#: ../gcr/gcr-certificate-request-renderer.c:366
-#: ../gcr/gcr-certificate-request-renderer.c:371
-msgid "Certificate request"
-msgstr "Запит сертифіката"
-
-#: ../gcr/gcr-certificate-request-renderer.c:261
-msgid "Attribute"
-msgstr "Атрибут"
-
-#: ../gcr/gcr-certificate-request-renderer.c:265
-#: ../gcr/gcr-certificate-request-renderer.c:324
-#: ../gcr/gcr-certificate-request-renderer.c:372
-#: ../gcr/gcr-gnupg-renderer.c:590 ../gcr/gcr-gnupg-renderer.c:592
-msgid "Type"
-msgstr "Тип"
-
-#: ../gcr/gcr-certificate-request-renderer.c:376
-msgid "Challenge"
-msgstr "Випробування"
-
-#: ../gcr/gcr-display-view.c:319
-msgid "_Details"
-msgstr "П_одробиці"
-
-#: ../gcr/gcr-failure-renderer.c:160
-#, c-format
-msgid "Could not display '%s'"
-msgstr "Неможливо показати «%s»"
-
-#: ../gcr/gcr-failure-renderer.c:162
-msgid "Could not display file"
-msgstr "Неможливо показати файл"
-
-#: ../gcr/gcr-failure-renderer.c:167
-msgid "Reason"
-msgstr "Причина"
-
-#: ../gcr/gcr-failure-renderer.c:217
-#, c-format
-msgid "Cannot display a file of this type."
-msgstr "Неможливо показати файл цього типу."
-
-#: ../gcr/gcr-gnupg-importer.c:96
+#: gcr/gcr-gnupg-importer.c:95
 msgid "GnuPG Keyring"
 msgstr "Сховище ключів GnuPG"
 
-#: ../gcr/gcr-gnupg-importer.c:98
+#: gcr/gcr-gnupg-importer.c:97
 #, c-format
 msgid "GnuPG Keyring: %s"
 msgstr "Сховище ключів GnuPG: %s"
 
-#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-gnupg-renderer.c:88
-#: ../gcr/gcr-parser.c:328
+#: gcr/gcr-gnupg-key.c:143 gcr/gcr-parser.c:352 ui/gcr-gnupg-renderer.c:88
 msgid "PGP Key"
 msgstr "Ключ PGP"
 
-#: ../gcr/gcr-gnupg-key.c:434
+#: gcr/gcr-gnupg-key.c:431
 msgctxt "column"
 msgid "Key ID"
 msgstr "Ідентифікатор ключа"
 
-#: ../gcr/gcr-gnupg-process.c:866
+#: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
 msgstr "Процес Gnupg покинуто з кодом: %d"
 
-#: ../gcr/gcr-gnupg-process.c:873
+#: gcr/gcr-gnupg-process.c:874
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Процес Gnupg завершено зі сигналом: %d"
 
-#: ../gcr/gcr-gnupg-process.c:927 ../gcr/gcr-parser.c:2424
-#: ../gcr/gcr-parser.c:2917
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3204
+#: gcr/gcr-system-prompt.c:932
 msgid "The operation was cancelled"
 msgstr "Операцію скасовано"
 
-#: ../gcr/gcr-gnupg-renderer.c:202
-msgid "Elgamal"
-msgstr "Elgamal"
-
-#: ../gcr/gcr-gnupg-renderer.c:215
-msgid "Encrypt"
-msgstr "Зашифрувати"
-
-#: ../gcr/gcr-gnupg-renderer.c:217
-msgid "Sign"
-msgstr "Підписати"
-
-#: ../gcr/gcr-gnupg-renderer.c:219
-msgid "Certify"
-msgstr "Сертифікувати"
-
-#: ../gcr/gcr-gnupg-renderer.c:221
-msgid "Authenticate"
-msgstr "Автентифікувати"
-
-#: ../gcr/gcr-gnupg-renderer.c:223 ../gcr/gcr-gnupg-renderer.c:258
-msgid "Disabled"
-msgstr "Вимкнено"
-
-#: ../gcr/gcr-gnupg-renderer.c:254 ../gcr/gcr-gnupg-renderer.c:413
-#: ../gcr/gcr-key-renderer.c:433 ../gcr/gcr-key-renderer.c:438
-msgid "Unknown"
-msgstr "Невідомо"
-
-#: ../gcr/gcr-gnupg-renderer.c:256
-msgid "Invalid"
-msgstr "Неправильно"
-
-#: ../gcr/gcr-gnupg-renderer.c:260
-msgid "Revoked"
-msgstr "Відкликано"
-
-#: ../gcr/gcr-gnupg-renderer.c:262
-msgid "Expired"
-msgstr "Вичерпано"
-
-#: ../gcr/gcr-gnupg-renderer.c:264
-msgid "Undefined trust"
-msgstr "Невизначена довіра"
-
-#: ../gcr/gcr-gnupg-renderer.c:266
-msgid "Distrusted"
-msgstr "Сумнівна довіра"
-
-#: ../gcr/gcr-gnupg-renderer.c:268
-msgid "Marginally trusted"
-msgstr "Неповну довіра"
-
-#: ../gcr/gcr-gnupg-renderer.c:270
-msgid "Fully trusted"
-msgstr "Повну довіра"
-
-#: ../gcr/gcr-gnupg-renderer.c:272
-msgid "Ultimately trusted"
-msgstr "Безмежна довіра"
-
-#: ../gcr/gcr-gnupg-renderer.c:286
-msgid "The information in this key has not yet been verified"
-msgstr "Інформацію в цьому ключі ще не перевірено"
-
-#: ../gcr/gcr-gnupg-renderer.c:289
-msgid "This key is invalid"
-msgstr "Цей ключ неправильний"
-
-#: ../gcr/gcr-gnupg-renderer.c:292
-msgid "This key has been disabled"
-msgstr "Цей ключ вимкнено"
-
-#: ../gcr/gcr-gnupg-renderer.c:295
-msgid "This key has been revoked"
-msgstr "Цей ключ відкинуто"
-
-#: ../gcr/gcr-gnupg-renderer.c:298
-msgid "This key has expired"
-msgstr "Цей ключ вичерпано"
-
-#: ../gcr/gcr-gnupg-renderer.c:303
-msgid "This key is distrusted"
-msgstr "Цей ключ є підозрілим"
-
-#: ../gcr/gcr-gnupg-renderer.c:306
-msgid "This key is marginally trusted"
-msgstr "Цей ключ частково довірений"
-
-#: ../gcr/gcr-gnupg-renderer.c:309
-msgid "This key is fully trusted"
-msgstr "Цей ключ повністю довірений"
-
-#: ../gcr/gcr-gnupg-renderer.c:312
-msgid "This key is ultimately trusted"
-msgstr "Цей ключ однозначно довірено"
-
-#: ../gcr/gcr-gnupg-renderer.c:337 ../gcr/gcr-gnupg-renderer.c:563
-msgid "Key ID"
-msgstr "Ідентифікатор ключа"
-
-#: ../gcr/gcr-gnupg-renderer.c:345 ../gcr/gcr-gnupg-renderer.c:571
-#: ../gcr/gcr-gnupg-renderer.c:618 ../gcr/gcr-key-renderer.c:434
-msgid "Algorithm"
-msgstr "Алгоритм"
-
-#: ../gcr/gcr-gnupg-renderer.c:360 ../gcr/gcr-gnupg-renderer.c:437
-#: ../gcr/gcr-gnupg-renderer.c:480
-msgid "Created"
-msgstr "Створено"
-
-#: ../gcr/gcr-gnupg-renderer.c:369 ../gcr/gcr-gnupg-renderer.c:446
-#: ../gcr/gcr-gnupg-renderer.c:489
-msgid "Expiry"
-msgstr "Строк"
-
-#: ../gcr/gcr-gnupg-renderer.c:378
-msgid "Capabilities"
-msgstr "Можливості"
-
-#: ../gcr/gcr-gnupg-renderer.c:391
-msgid "Owner trust"
-msgstr "Довіра до власника"
-
-#: ../gcr/gcr-gnupg-renderer.c:419
-msgid "Name"
-msgstr "Назва"
-
-#: ../gcr/gcr-gnupg-renderer.c:425 ../gcr/gcr-gnupg-renderer.c:707
-msgid "Comment"
-msgstr "Коментар"
-
-#: ../gcr/gcr-gnupg-renderer.c:465
-msgid "User Attribute"
-msgstr "Атрибут користувача"
-
-#: ../gcr/gcr-gnupg-renderer.c:472 ../gcr/gcr-key-renderer.c:441
-msgid "Size"
-msgstr "Розмір"
-
-#: ../gcr/gcr-gnupg-renderer.c:507
-msgid "Signature of a binary document"
-msgstr "Підпис бінарного документа"
-
-#: ../gcr/gcr-gnupg-renderer.c:509
-msgid "Signature of a canonical text document"
-msgstr "Підпис текстового документа"
-
-#: ../gcr/gcr-gnupg-renderer.c:511
-msgid "Standalone signature"
-msgstr "Самостійний підпис"
-
-#: ../gcr/gcr-gnupg-renderer.c:513
-msgid "Generic certification of key"
-msgstr "Загальний сертифікат ключа"
-
-#: ../gcr/gcr-gnupg-renderer.c:515
-msgid "Persona certification of key"
-msgstr "Особистий сертифікат ключа"
-
-#: ../gcr/gcr-gnupg-renderer.c:517
-msgid "Casual certification of key"
-msgstr "Нерегулярний сертифікат ключ"
-
-#: ../gcr/gcr-gnupg-renderer.c:519
-msgid "Positive certification of key"
-msgstr "Певний сертифікат ключа"
-
-#: ../gcr/gcr-gnupg-renderer.c:521
-msgid "Subkey binding signature"
-msgstr "Підпис в'язки підключа"
-
-#: ../gcr/gcr-gnupg-renderer.c:523
-msgid "Primary key binding signature"
-msgstr "Основний підпис в'язки ключа "
-
-#: ../gcr/gcr-gnupg-renderer.c:525
-msgid "Signature directly on key"
-msgstr "Підпис прямо на ключі"
-
-#: ../gcr/gcr-gnupg-renderer.c:527
-msgid "Key revocation signature"
-msgstr "Анулювальний підпис ключа"
-
-#: ../gcr/gcr-gnupg-renderer.c:529
-msgid "Subkey revocation signature"
-msgstr "Анулювальний підпис підключа"
-
-#: ../gcr/gcr-gnupg-renderer.c:531
-msgid "Certification revocation signature"
-msgstr "Анулювальний підпис сертифіката"
-
-#: ../gcr/gcr-gnupg-renderer.c:533
-msgid "Timestamp signature"
-msgstr "Підпис часового штампу"
-
-#: ../gcr/gcr-gnupg-renderer.c:535
-msgid "Third-party confirmation signature"
-msgstr "Підпис підтвердження третьою стороною"
-
-#: ../gcr/gcr-gnupg-renderer.c:588 ../gcr/gcr-gnupg-renderer.c:596
-msgid "Class"
-msgstr "Клас"
-
-#: ../gcr/gcr-gnupg-renderer.c:590
-msgid "Local only"
-msgstr "Лише локальні"
-
-#: ../gcr/gcr-gnupg-renderer.c:592
-msgid "Exportable"
-msgstr "Експортні "
-
-#: ../gcr/gcr-gnupg-renderer.c:610
-msgid "Revocation Key"
-msgstr "Анулювальний ключ"
-
-#: ../gcr/gcr-gnupg-renderer.c:624 ../gcr/gcr-gnupg-renderer.c:648
-#: ../gcr/gcr-gnupg-renderer.c:650
-msgid "Fingerprint"
-msgstr "Відбитки"
-
-#: ../gcr/gcr-gnupg-renderer.c:739
-msgid "Public Subkey"
-msgstr "Відкритий підключ"
-
-#: ../gcr/gcr-gnupg-renderer.c:741
-msgid "Secret Key"
-msgstr "Таємний ключ"
-
-#: ../gcr/gcr-gnupg-renderer.c:743
-msgid "Secret Subkey"
-msgstr "Таємний підключ"
-
-#: ../gcr/gcr-import-button.c:111
-msgid "Initializing..."
-msgstr "Започаткування…"
-
-#: ../gcr/gcr-import-button.c:119
-msgid "Import is in progress..."
-msgstr "Імпортування триває…"
-
-#: ../gcr/gcr-import-button.c:126
-#, c-format
-msgid "Imported to: %s"
-msgstr "Імпортовано у: %s"
-
-#: ../gcr/gcr-import-button.c:146
-#, c-format
-msgid "Import to: %s"
-msgstr "Імпортувати у: %s"
-
-#: ../gcr/gcr-import-button.c:159
-msgid "Cannot import because there are no compatible importers"
-msgstr "Неможливо імпортувати, бо немає сумісного імпортера"
-
-#: ../gcr/gcr-import-button.c:168
-msgid "No data to import"
-msgstr "Немає даних для імпортування"
-
-#: ../gcr/gcr-key-renderer.c:89
-msgid "Key"
-msgstr "Ключ"
-
-#: ../gcr/gcr-key-renderer.c:403
-msgid "Private RSA Key"
-msgstr "Закритий ключ RSA"
-
-#: ../gcr/gcr-key-renderer.c:405
-msgid "Private DSA Key"
-msgstr "Закритий ключ DSA"
-
-#: ../gcr/gcr-key-renderer.c:407 ../gcr/gcr-parser.c:319
+#: gcr/gcr-parser.c:343 ui/gcr-key-renderer.c:361
 msgid "Private Key"
 msgstr "Закритий ключ"
 
-#: ../gcr/gcr-key-renderer.c:410 ../gcr/gcr-key-renderer.c:412
-msgid "Public DSA Key"
-msgstr "Відкритий ключ DSA"
+#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:884
+#: ui/gcr-gnupg-renderer.c:738 ui/gcr-key-renderer.c:370
+msgid "Public Key"
+msgstr "Публічний ключ"
 
-#: ../gcr/gcr-key-renderer.c:421
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] "%d біт"
-msgstr[1] "%d біти"
-msgstr[2] "%d бітів"
-
-#: ../gcr/gcr-key-renderer.c:422
-msgid "Strength"
-msgstr "Міцність"
-
-#. Fingerprints
-#: ../gcr/gcr-key-renderer.c:445
-msgid "Fingerprints"
-msgstr "Відбитки"
-
-#: ../gcr/gcr-key-renderer.c:449
-msgid "SHA1"
-msgstr "SHA1"
-
-#: ../gcr/gcr-key-renderer.c:454
-msgid "SHA256"
-msgstr "SHA256"
-
-#: ../gcr/gcr-parser.c:331
+#: gcr/gcr-parser.c:355
 msgid "Certificate Request"
 msgstr "Запит сертифіката"
 
-#: ../gcr/gcr-parser.c:2427
+#: gcr/gcr-parser.c:2601
 msgid "Unrecognized or unsupported data."
 msgstr "Нерозпізнані чи непідтримувані дані."
 
-#: ../gcr/gcr-parser.c:2430
+#: gcr/gcr-parser.c:2604
 msgid "Could not parse invalid or corrupted data."
 msgstr "Не вдалось розібрати некоректні чи пошкоджені дані."
 
-#: ../gcr/gcr-parser.c:2433
+#: gcr/gcr-parser.c:2607
 msgid "The data is locked"
 msgstr "Дані заблоковано"
 
-#: ../gcr/gcr-pkcs11-import-dialog.c:187
-msgid "Automatically chosen"
-msgstr "Автоматично вибрати"
-
-#: ../gcr/gcr-pkcs11-import-dialog.c:271
-#: ../gcr/gcr-pkcs11-import-interaction.c:153
-#: ../gcr/gcr-pkcs11-import-interaction.c:171
-#, c-format
-msgid "The user cancelled the operation"
-msgstr "Користувач скасував операцію"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:1
-msgid "In order to import, please enter the password."
-msgstr "Введіть пароль, щоб імпортувати."
-
-#. The password label
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:2 ../gcr/gcr-prompt-dialog.c:559
-msgid "Password:"
-msgstr "Пароль:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:3
-msgid "Token:"
-msgstr "Ознака:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:4
-msgid "Label"
-msgstr "Мітка"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:5 ../gcr/gcr-unlock-renderer.c:71
-#: ../gcr/gcr-unlock-renderer.c:128
-msgid "Unlock"
-msgstr "Розблокувати"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:6
-msgid "Label:"
-msgstr "Мітка:"
-
-#: ../gcr/gcr-pkcs11-import-dialog.ui.h:7
-msgid "Import settings"
-msgstr "Імпортувати параметри"
-
-#: ../gcr/gcr-prompt.c:218
+#: gcr/gcr-prompt.c:225
 msgid "Continue"
 msgstr "Продовжити"
 
-#: ../gcr/gcr-prompt.c:227
+#: gcr/gcr-prompt.c:234
 msgid "Cancel"
 msgstr "Скасувати"
 
-#. The confirm label
-#: ../gcr/gcr-prompt-dialog.c:576
-msgid "Confirm:"
-msgstr "Підтвердження:"
+#: gcr/gcr-ssh-askpass.c:194
+msgid "Enter your OpenSSH passphrase"
+msgstr "Введіть ваш пароль OpenSSH"
 
-#: ../gcr/gcr-prompt-dialog.c:643
-msgid "Passwords do not match."
-msgstr "Паролі не збігаються."
-
-#: ../gcr/gcr-prompt-dialog.c:650
-msgid "Password cannot be blank"
-msgstr "Пароль не може бути порожнім"
-
-#: ../gcr/gcr-prompter.desktop.in.in.h:1
-msgid "Access Prompt"
-msgstr "Спроба доступитись"
-
-#: ../gcr/gcr-prompter.desktop.in.in.h:2
-msgid "Unlock access to passwords and other secrets"
-msgstr "Заблокувати доступ до паролів й інших таємниць"
-
-#: ../gcr/gcr-subject-public-key.c:345
+#: gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Нерозпізнані або недоступні атрибути для ключа"
 
-#: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
-msgid "Couldn't build public key"
-msgstr "Неможливо зібрати відкритий ключ"
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#| msgid "Couldn't build public key"
+msgid "Couldn’t build public key"
+msgstr "Не вдалося побудувати відкритий ключ"
 
-#: ../gcr/gcr-system-prompt.c:749
+#: gcr/gcr-system-prompt.c:912
 msgid "Another prompt is already in progress"
 msgstr "Уже триває інакша спроба "
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: ../gcr/gcr-trust.c:370
-#, c-format
-msgid "Couldn't find a place to store the pinned certificate"
-msgstr "Неможливо знайти місце для збереження утриманих сертифікатів"
+#: gcr/gcr-trust.c:364
+#| msgid "Couldn't find a place to store the pinned certificate"
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr "Не вдалося знайти місце для збереження утриманих сертифікатів"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
+#: ui/gcr-certificate-renderer.c:118
+msgid "Basic Constraints"
+msgstr "Основні обмеження"
+
+#: ui/gcr-certificate-renderer.c:120
+msgid "Certificate Authority"
+msgstr "Видавець сертифіката"
+
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+msgid "Yes"
+msgstr "Так"
+
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+msgid "No"
+msgstr "Ні"
+
+#: ui/gcr-certificate-renderer.c:124
+msgid "Max Path Length"
+msgstr "Максимальна довжина шляху"
+
+#: ui/gcr-certificate-renderer.c:125
+msgid "Unlimited"
+msgstr "Необмежено"
+
+#: ui/gcr-certificate-renderer.c:144
+msgid "Extended Key Usage"
+msgstr "Розширене використання ключа"
+
+#: ui/gcr-certificate-renderer.c:155
+msgid "Allowed Purposes"
+msgstr "Дозволені цілі"
+
+#: ui/gcr-certificate-renderer.c:175
+msgid "Subject Key Identifier"
+msgstr "Ідентифікатор ключа теми"
+
+#: ui/gcr-certificate-renderer.c:176
+msgid "Key Identifier"
+msgstr "Ідентифікатор ключа"
+
+#: ui/gcr-certificate-renderer.c:187
+msgid "Digital signature"
+msgstr "Цифровий підпис"
+
+#: ui/gcr-certificate-renderer.c:188
+msgid "Key encipherment"
+msgstr "Шифрування ключа"
+
+#: ui/gcr-certificate-renderer.c:189
+msgid "Data encipherment"
+msgstr "Шифрування даних"
+
+#: ui/gcr-certificate-renderer.c:190
+msgid "Key agreement"
+msgstr "Узгодження ключа"
+
+#: ui/gcr-certificate-renderer.c:191
+msgid "Certificate signature"
+msgstr "Підпис сертифіката"
+
+#: ui/gcr-certificate-renderer.c:192
+msgid "Revocation list signature"
+msgstr "Анулювання підпису списку"
+
+#: ui/gcr-certificate-renderer.c:217
+msgid "Key Usage"
+msgstr "Використання ключа"
+
+#: ui/gcr-certificate-renderer.c:218
+msgid "Usages"
+msgstr "Використання"
+
+#: ui/gcr-certificate-renderer.c:238
+msgid "Subject Alternative Names"
+msgstr "Альтернативні назви тем"
+
+#: ui/gcr-certificate-renderer.c:265
+msgid "Extension"
+msgstr "Розширення"
+
+#: ui/gcr-certificate-renderer.c:269
+msgid "Identifier"
+msgstr "Ідентифікатор"
+
+#: ui/gcr-certificate-renderer.c:270 ui/gcr-certificate-request-renderer.c:268
+#: ui/gcr-gnupg-renderer.c:414 ui/gcr-gnupg-renderer.c:431
+msgid "Value"
+msgstr "Значення"
+
+#: ui/gcr-certificate-renderer.c:288
+#| msgid "Couldn't export the certificate."
+msgid "Couldn’t export the certificate."
+msgstr "Не вдалося експортувати сертифікат."
+
+#: ui/gcr-certificate-renderer.c:524 ui/gcr-certificate-request-renderer.c:309
+msgid "Identity"
+msgstr "Профіль"
+
+#: ui/gcr-certificate-renderer.c:528
+msgid "Verified by"
+msgstr "Перевірено"
+
+#: ui/gcr-certificate-renderer.c:535 ui/gcr-gnupg-renderer.c:719
+msgid "Expires"
+msgstr "Строк дії"
+
+#. The subject
+#: ui/gcr-certificate-renderer.c:542 ui/gcr-certificate-request-renderer.c:315
+msgid "Subject Name"
+msgstr "Ім'я отримувача"
+
+#. The Issuer
+#: ui/gcr-certificate-renderer.c:547
+msgid "Issuer Name"
+msgstr "Ім'я видавця"
+
+#. The Issued Parameters
+#: ui/gcr-certificate-renderer.c:552
+msgid "Issued Certificate"
+msgstr "Виданий сертифікат"
+
+#: ui/gcr-certificate-renderer.c:557 ui/gcr-certificate-request-renderer.c:326
+msgid "Version"
+msgstr "Версія"
+
+#: ui/gcr-certificate-renderer.c:571
+msgid "Not Valid Before"
+msgstr "Не дійсний до"
+
+#: ui/gcr-certificate-renderer.c:576
+msgid "Not Valid After"
+msgstr "Не дійсний після"
+
+#. Fingerprints
+#: ui/gcr-certificate-renderer.c:581
+msgid "Certificate Fingerprints"
+msgstr "Відбитки сертифікатів"
+
+#. Public Key Info
+#: ui/gcr-certificate-renderer.c:587 ui/gcr-certificate-request-renderer.c:329
+#: ui/gcr-certificate-request-renderer.c:375
+msgid "Public Key Info"
+msgstr "Інформація про відкритий ключ"
+
+#. Signature
+#: ui/gcr-certificate-renderer.c:602 ui/gcr-certificate-renderer.c:912
+#: ui/gcr-certificate-request-renderer.c:345
+#: ui/gcr-certificate-request-renderer.c:382 ui/gcr-gnupg-renderer.c:560
+msgid "Signature"
+msgstr "Підпис"
+
+#: ui/gcr-certificate-renderer.c:619
+#| msgid "Export certificate"
+msgid "Export Certificate…"
+msgstr "Експортувати сертифікат…"
+
+#: ui/gcr-certificate-renderer.c:858
+msgid "Key Algorithm"
+msgstr "Алгоритм ключа"
+
+#: ui/gcr-certificate-renderer.c:863
+msgid "Key Parameters"
+msgstr "Параметри ключа"
+
+#: ui/gcr-certificate-renderer.c:871 ui/gcr-gnupg-renderer.c:353
+msgid "Key Size"
+msgstr "Розмір ключа"
+
+#: ui/gcr-certificate-renderer.c:879
+msgid "Key SHA1 Fingerprint"
+msgstr "Відбиток ключа SHA1"
+
+#: ui/gcr-certificate-renderer.c:901
+msgid "Signature Algorithm"
+msgstr "Алгоритм підпису"
+
+#: ui/gcr-certificate-renderer.c:905
+msgid "Signature Parameters"
+msgstr "Параметри підпису"
+
+#: ui/gcr-certificate-renderer.c:954
+msgid "Critical"
+msgstr "Критичний"
+
+#. The certificate request type
+#: ui/gcr-certificate-request-renderer.c:95
+#: ui/gcr-certificate-request-renderer.c:304
+#: ui/gcr-certificate-request-renderer.c:319
+#: ui/gcr-certificate-request-renderer.c:362
+#: ui/gcr-certificate-request-renderer.c:367
+msgid "Certificate request"
+msgstr "Запит сертифіката"
+
+#: ui/gcr-certificate-request-renderer.c:257
+msgid "Attribute"
+msgstr "Атрибут"
+
+#: ui/gcr-certificate-request-renderer.c:261
+#: ui/gcr-certificate-request-renderer.c:320
+#: ui/gcr-certificate-request-renderer.c:368 ui/gcr-gnupg-renderer.c:591
+#: ui/gcr-gnupg-renderer.c:593
+msgid "Type"
+msgstr "Тип"
+
+#: ui/gcr-certificate-request-renderer.c:372
+msgid "Challenge"
+msgstr "Випробування"
+
+#: ui/gcr-display-view.c:298
+msgid "_Details"
+msgstr "П_одробиці"
+
+#: ui/gcr-failure-renderer.c:159
+#, c-format
+#| msgid "Could not display '%s'"
+msgid "Could not display “%s”"
+msgstr "Не вдалося показати «%s»"
+
+#: ui/gcr-failure-renderer.c:161
+msgid "Could not display file"
+msgstr "Неможливо показати файл"
+
+#: ui/gcr-failure-renderer.c:166
+msgid "Reason"
+msgstr "Причина"
+
+#: ui/gcr-failure-renderer.c:216
+msgid "Cannot display a file of this type."
+msgstr "Неможливо показати файл цього типу."
+
+#: ui/gcr-gnupg-renderer.c:203
+msgid "Elgamal"
+msgstr "Elgamal"
+
+#: ui/gcr-gnupg-renderer.c:216
+msgid "Encrypt"
+msgstr "Зашифрувати"
+
+#: ui/gcr-gnupg-renderer.c:218
+msgid "Sign"
+msgstr "Підписати"
+
+#: ui/gcr-gnupg-renderer.c:220
+msgid "Certify"
+msgstr "Сертифікувати"
+
+#: ui/gcr-gnupg-renderer.c:222
+msgid "Authenticate"
+msgstr "Автентифікувати"
+
+#: ui/gcr-gnupg-renderer.c:224
+#| msgid "Disabled"
+msgctxt "capability"
+msgid "Disabled"
+msgstr "Вимкнено"
+
+#: ui/gcr-gnupg-renderer.c:255 ui/gcr-gnupg-renderer.c:414
+#: ui/gcr-key-renderer.c:391 ui/gcr-key-renderer.c:395
+msgid "Unknown"
+msgstr "Невідомо"
+
+#: ui/gcr-gnupg-renderer.c:257
+msgid "Invalid"
+msgstr "Неправильно"
+
+#: ui/gcr-gnupg-renderer.c:259
+#| msgid "Disabled"
+msgctxt "ownertrust"
+msgid "Disabled"
+msgstr "Вимкнено"
+
+#: ui/gcr-gnupg-renderer.c:261
+msgid "Revoked"
+msgstr "Відкликано"
+
+#: ui/gcr-gnupg-renderer.c:263
+msgid "Expired"
+msgstr "Вичерпано"
+
+#: ui/gcr-gnupg-renderer.c:265
+msgid "Undefined trust"
+msgstr "Невизначена довіра"
+
+#: ui/gcr-gnupg-renderer.c:267
+msgid "Distrusted"
+msgstr "Сумнівна довіра"
+
+#: ui/gcr-gnupg-renderer.c:269
+msgid "Marginally trusted"
+msgstr "Неповну довіра"
+
+#: ui/gcr-gnupg-renderer.c:271
+msgid "Fully trusted"
+msgstr "Повну довіра"
+
+#: ui/gcr-gnupg-renderer.c:273
+msgid "Ultimately trusted"
+msgstr "Безмежна довіра"
+
+#: ui/gcr-gnupg-renderer.c:287
+msgid "The information in this key has not yet been verified"
+msgstr "Інформацію в цьому ключі ще не перевірено"
+
+#: ui/gcr-gnupg-renderer.c:290
+msgid "This key is invalid"
+msgstr "Цей ключ неправильний"
+
+#: ui/gcr-gnupg-renderer.c:293
+msgid "This key has been disabled"
+msgstr "Цей ключ вимкнено"
+
+#: ui/gcr-gnupg-renderer.c:296
+msgid "This key has been revoked"
+msgstr "Цей ключ відкинуто"
+
+#: ui/gcr-gnupg-renderer.c:299
+msgid "This key has expired"
+msgstr "Цей ключ вичерпано"
+
+#: ui/gcr-gnupg-renderer.c:304
+msgid "This key is distrusted"
+msgstr "Цей ключ є підозрілим"
+
+#: ui/gcr-gnupg-renderer.c:307
+msgid "This key is marginally trusted"
+msgstr "Цей ключ частково довірений"
+
+#: ui/gcr-gnupg-renderer.c:310
+msgid "This key is fully trusted"
+msgstr "Цей ключ повністю довірений"
+
+#: ui/gcr-gnupg-renderer.c:313
+msgid "This key is ultimately trusted"
+msgstr "Цей ключ однозначно довірено"
+
+#: ui/gcr-gnupg-renderer.c:338 ui/gcr-gnupg-renderer.c:564
+msgid "Key ID"
+msgstr "Ідентифікатор ключа"
+
+#: ui/gcr-gnupg-renderer.c:346 ui/gcr-gnupg-renderer.c:572
+#: ui/gcr-gnupg-renderer.c:619 ui/gcr-key-renderer.c:392
+msgid "Algorithm"
+msgstr "Алгоритм"
+
+#: ui/gcr-gnupg-renderer.c:361 ui/gcr-gnupg-renderer.c:438
+#: ui/gcr-gnupg-renderer.c:481
+msgid "Created"
+msgstr "Створено"
+
+#: ui/gcr-gnupg-renderer.c:370 ui/gcr-gnupg-renderer.c:447
+#: ui/gcr-gnupg-renderer.c:490
+msgid "Expiry"
+msgstr "Строк"
+
+#: ui/gcr-gnupg-renderer.c:379
+msgid "Capabilities"
+msgstr "Можливості"
+
+#: ui/gcr-gnupg-renderer.c:392
+msgid "Owner trust"
+msgstr "Довіра до власника"
+
+#: ui/gcr-gnupg-renderer.c:420
+msgid "Name"
+msgstr "Назва"
+
+#: ui/gcr-gnupg-renderer.c:426 ui/gcr-gnupg-renderer.c:708
+msgid "Comment"
+msgstr "Коментар"
+
+#: ui/gcr-gnupg-renderer.c:466
+msgid "User Attribute"
+msgstr "Атрибут користувача"
+
+#: ui/gcr-gnupg-renderer.c:473 ui/gcr-key-renderer.c:398
+msgid "Size"
+msgstr "Розмір"
+
+#: ui/gcr-gnupg-renderer.c:508
+msgid "Signature of a binary document"
+msgstr "Підпис бінарного документа"
+
+#: ui/gcr-gnupg-renderer.c:510
+msgid "Signature of a canonical text document"
+msgstr "Підпис текстового документа"
+
+#: ui/gcr-gnupg-renderer.c:512
+msgid "Standalone signature"
+msgstr "Самостійний підпис"
+
+#: ui/gcr-gnupg-renderer.c:514
+msgid "Generic certification of key"
+msgstr "Загальний сертифікат ключа"
+
+#: ui/gcr-gnupg-renderer.c:516
+msgid "Persona certification of key"
+msgstr "Особистий сертифікат ключа"
+
+#: ui/gcr-gnupg-renderer.c:518
+msgid "Casual certification of key"
+msgstr "Нерегулярний сертифікат ключ"
+
+#: ui/gcr-gnupg-renderer.c:520
+msgid "Positive certification of key"
+msgstr "Певний сертифікат ключа"
+
+#: ui/gcr-gnupg-renderer.c:522
+msgid "Subkey binding signature"
+msgstr "Підпис в'язки підключа"
+
+#: ui/gcr-gnupg-renderer.c:524
+msgid "Primary key binding signature"
+msgstr "Основний підпис в'язки ключа "
+
+#: ui/gcr-gnupg-renderer.c:526
+msgid "Signature directly on key"
+msgstr "Підпис прямо на ключі"
+
+#: ui/gcr-gnupg-renderer.c:528
+msgid "Key revocation signature"
+msgstr "Анулювальний підпис ключа"
+
+#: ui/gcr-gnupg-renderer.c:530
+msgid "Subkey revocation signature"
+msgstr "Анулювальний підпис підключа"
+
+#: ui/gcr-gnupg-renderer.c:532
+msgid "Certification revocation signature"
+msgstr "Анулювальний підпис сертифіката"
+
+#: ui/gcr-gnupg-renderer.c:534
+msgid "Timestamp signature"
+msgstr "Підпис часового штампу"
+
+#: ui/gcr-gnupg-renderer.c:536
+msgid "Third-party confirmation signature"
+msgstr "Підпис підтвердження третьою стороною"
+
+#: ui/gcr-gnupg-renderer.c:589 ui/gcr-gnupg-renderer.c:597
+msgid "Class"
+msgstr "Клас"
+
+#: ui/gcr-gnupg-renderer.c:591
+msgid "Local only"
+msgstr "Лише локальні"
+
+#: ui/gcr-gnupg-renderer.c:593
+msgid "Exportable"
+msgstr "Експортні "
+
+#: ui/gcr-gnupg-renderer.c:611
+msgid "Revocation Key"
+msgstr "Анулювальний ключ"
+
+#: ui/gcr-gnupg-renderer.c:625 ui/gcr-gnupg-renderer.c:649
+#: ui/gcr-gnupg-renderer.c:651
+msgid "Fingerprint"
+msgstr "Відбитки"
+
+#: ui/gcr-gnupg-renderer.c:740
+msgid "Public Subkey"
+msgstr "Відкритий підключ"
+
+#: ui/gcr-gnupg-renderer.c:742
+msgid "Secret Key"
+msgstr "Таємний ключ"
+
+#: ui/gcr-gnupg-renderer.c:744
+msgid "Secret Subkey"
+msgstr "Таємний підключ"
+
+#: ui/gcr-import-button.c:116
+#| msgid "Initializing..."
+msgid "Initializing…"
+msgstr "Ініціалізація…"
+
+#: ui/gcr-import-button.c:124
+#| msgid "Import is in progress..."
+msgid "Import is in progress…"
+msgstr "Триває імпортування…"
+
+#: ui/gcr-import-button.c:131
+#, c-format
+msgid "Imported to: %s"
+msgstr "Імпортовано у: %s"
+
+#: ui/gcr-import-button.c:151
+#, c-format
+msgid "Import to: %s"
+msgstr "Імпортувати у: %s"
+
+#: ui/gcr-import-button.c:164
+msgid "Cannot import because there are no compatible importers"
+msgstr "Неможливо імпортувати, бо немає сумісного імпортера"
+
+#: ui/gcr-import-button.c:173
+msgid "No data to import"
+msgstr "Немає даних для імпортування"
+
+#: ui/gcr-key-renderer.c:89
+msgid "Key"
+msgstr "Ключ"
+
+#: ui/gcr-key-renderer.c:355
+msgid "Private RSA Key"
+msgstr "Закритий ключ RSA"
+
+#: ui/gcr-key-renderer.c:357
+msgid "Private DSA Key"
+msgstr "Закритий ключ DSA"
+
+#: ui/gcr-key-renderer.c:359
+msgid "Private Elliptic Curve Key"
+msgstr "Закрити ключ еліптичної кривої"
+
+#: ui/gcr-key-renderer.c:364 ui/gcr-key-renderer.c:366
+msgid "Public DSA Key"
+msgstr "Відкритий ключ DSA"
+
+#: ui/gcr-key-renderer.c:368
+msgid "Public Elliptic Curve Key"
+msgstr "Відкритий ключ еліптичної кривої"
+
+#: ui/gcr-key-renderer.c:377
+#, c-format
+#| msgid "%d bit"
+#| msgid_plural "%d bits"
+msgid "%u bit"
+msgid_plural "%u bits"
+msgstr[0] "%u біт"
+msgstr[1] "%u біти"
+msgstr[2] "%u бітів"
+
+#: ui/gcr-key-renderer.c:378
+msgid "Strength"
+msgstr "Стійкість"
+
+#. Fingerprints
+#: ui/gcr-key-renderer.c:402
+msgid "Fingerprints"
+msgstr "Відбитки"
+
+#: ui/gcr-key-renderer.c:406
+msgid "SHA1"
+msgstr "SHA1"
+
+#: ui/gcr-key-renderer.c:411
+msgid "SHA256"
+msgstr "SHA256"
+
+#. Add our various buttons
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "_Скасувати"
+
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+msgid "_OK"
+msgstr "_Гаразд"
+
+#: ui/gcr-pkcs11-import-dialog.c:179
+msgid "Automatically chosen"
+msgstr "Автоматично вибрати"
+
+#: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
+#: ui/gcr-pkcs11-import-interaction.c:160
+msgid "The user cancelled the operation"
+msgstr "Користувач скасував операцію"
+
+#: ui/gcr-pkcs11-import-dialog.ui:31
+msgid "In order to import, please enter the password."
+msgstr "Введіть пароль, щоб імпортувати."
+
+#. The password label
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+msgid "Password:"
+msgstr "Пароль:"
+
+#: ui/gcr-pkcs11-import-dialog.ui:80
+msgid "Token:"
+msgstr "Ознака:"
+
+#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
+#: ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Розблокувати"
+
+#: ui/gcr-pkcs11-import-dialog.ui:178
+msgid "Label:"
+msgstr "Мітка:"
+
+#: ui/gcr-pkcs11-import-dialog.ui:233
+msgid "Import settings"
+msgstr "Імпортувати параметри"
+
+#. The confirm label
+#: ui/gcr-prompt-dialog.c:634
+msgid "Confirm:"
+msgstr "Підтвердження:"
+
+#: ui/gcr-prompt-dialog.c:702
+msgid "Passwords do not match."
+msgstr "Паролі не збігаються."
+
+#: ui/gcr-prompt-dialog.c:709
+msgid "Password cannot be blank"
+msgstr "Пароль не може бути порожнім"
+
+#: ui/gcr-prompter.desktop.in.in:3
+msgid "Access Prompt"
+msgstr "Спроба доступитись"
+
+#: ui/gcr-prompter.desktop.in.in:4
+msgid "Unlock access to passwords and other secrets"
+msgstr "Заблокувати доступ до паролів й інших таємниць"
+
+#: ui/gcr-certificate-exporter.c:226
+msgid "A file already exists with this name."
+msgstr "Файл з такою назвою вже існує."
+
+#: ui/gcr-certificate-exporter.c:227
+#| msgid ""
+#| "<b>A file already exists with this name.</b>\n"
+#| "\n"
+#| "Do you want to replace it with a new file?"
+msgid "Do you want to replace it with a new file?"
+msgstr "Замінити його новим файлом?"
+
+#: ui/gcr-certificate-exporter.c:230
+msgid "_Replace"
+msgstr "_Замінити"
+
+#: ui/gcr-certificate-exporter.c:260
+msgid "The operation was cancelled."
+msgstr "Операцію скасовано."
+
+#: ui/gcr-certificate-exporter.c:304
+msgid "Export certificate"
+msgstr "Експортувати сертифікат"
+
+#: ui/gcr-certificate-exporter.c:307
+msgid "_Save"
+msgstr "З_берегти"
+
+#: ui/gcr-certificate-exporter.c:316
+msgid "Certificate files"
+msgstr "Файли сертифікатів"
+
+#: ui/gcr-certificate-exporter.c:327
+msgid "PEM files"
+msgstr "Файли PEM"
+
+#: ui/gcr-unlock-options-widget.ui:16
+#| msgid "Automatically unlock this keyring whenever I'm logged in"
+msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Автоматично розблоковувати цю в'язку ключів після входу у сеанс"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:2
+#: ui/gcr-unlock-options-widget.ui:31
 msgid "Lock this keyring when I log out"
 msgstr "Автоматично блокувати в'язку ключів при завершенні сеансу"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:3
+#: ui/gcr-unlock-options-widget.ui:53
 msgid "Lock this keyring after"
 msgstr "Блокувати в'язку ключів після"
 
-#: ../gcr/gcr-unlock-options-widget.ui.h:4
+#: ui/gcr-unlock-options-widget.ui:67
 msgid "Lock this keyring if idle for"
 msgstr "Блокувати в'язку при простої"
 
 #. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
-#: ../gcr/gcr-unlock-options-widget.ui.h:6
+#: ui/gcr-unlock-options-widget.ui:103
 msgid "minutes"
 msgstr "хвилин"
 
-#: ../gcr/gcr-unlock-renderer.c:69
+#: ui/gcr-unlock-renderer.c:68
 #, c-format
 msgid "Unlock: %s"
 msgstr "Розблокувати: %s"
 
-#: ../gcr/gcr-unlock-renderer.c:125
+#: ui/gcr-unlock-renderer.c:122
 msgid "Password"
 msgstr "Пароль"
 
-#: ../gcr/gcr-unlock-renderer.c:278
+#: ui/gcr-unlock-renderer.c:274
 #, c-format
+#| msgid ""
+#| "The contents of '%s' are locked. In order to view the contents, enter the "
+#| "correct password."
 msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
+"The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
 "Вміст «%s» заблоковано. Введіть правильний пароль, щоб переглянути вміст."
 
-#: ../gcr/gcr-unlock-renderer.c:281
+#: ui/gcr-unlock-renderer.c:277
 msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr "Вміст заблоковано. Введіть правильний пароль, щоб переглянути вміст."
 
-#: ../gcr/gcr-viewer-tool.c:41
+#: ui/gcr-viewer.desktop.in.in:3
+msgid "View file"
+msgstr "Переглянути файл"
+
+#: ui/gcr-viewer-tool.c:40
 msgid "GCR Certificate and Key Viewer"
 msgstr "Переглядач сертифікатів GCR і ключів"
 
-#: ../gcr/gcr-viewer-tool.c:48
+#: ui/gcr-viewer-tool.c:47
 msgid "Show the application's version"
 msgstr "Показати версію програми"
 
-#: ../gcr/gcr-viewer-tool.c:50
+#: ui/gcr-viewer-tool.c:49
 msgid "[file...]"
 msgstr "[файл…]"
 
-#: ../gcr/gcr-viewer-tool.c:103
+#: ui/gcr-viewer-tool.c:100
 msgid "- View certificate and key files"
 msgstr "— Переглянути файли сертифікатів і ключів"
 
-#: ../gcr/gcr-viewer-tool.c:117 ../gcr/gcr-viewer-widget.c:635
+#: ui/gcr-viewer-tool.c:114 ui/gcr-viewer-widget.c:669
 msgid "Certificate Viewer"
 msgstr "Переглядач сертифікатів"
 
-#: ../gcr/gcr-viewer-widget.c:203
+#: ui/gcr-viewer-widget.c:189
 msgid "The password was incorrect"
 msgstr "Пароль неправильний"
 
-#: ../gcr/gcr-viewer-window.c:76
+#: ui/gcr-viewer-window.c:74
 msgid "Imported"
 msgstr "Імпортовано"
 
-#: ../gcr/gcr-viewer-window.c:80
+#: ui/gcr-viewer-window.c:78
 msgid "Import failed"
 msgstr "Не вдалось імпортувати"
 
-#: ../gcr/gcr-viewer-window.c:108
+#: ui/gcr-viewer-window.c:105
 msgid "Import"
 msgstr "Імпортувати"
 
-#, fuzzy
-#~ msgid "<b>Unlock</b>"
-#~ msgstr "Розблокувати"
+#: ui/gcr-viewer-window.c:114
+msgid "_Close"
+msgstr "_Закрити"

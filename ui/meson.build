@@ -174,8 +174,8 @@ if get_option('introspection')
     packages: [
       'glib-2.0',
       'gio-2.0',
-      'gck-@0@'.format(gck_major_version),
-      'gcr-@0@'.format(gcr_major_version),
+      gck_vapi,
+      gcr_vapi,
       'gtk+-3.0'
     ],
     metadata_dirs: meson.current_source_dir(),

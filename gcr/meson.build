@@ -203,7 +203,7 @@ if get_option('introspection')
 
   gcr_vapi = gnome.generate_vapi('gcr-@0@'.format(gcr_major_version),
     sources: gcr_gir[0],
-    packages: [ 'glib-2.0', 'gio-2.0', 'gck-@0@'.format(gck_major_version) ],
+    packages: [ 'glib-2.0', 'gio-2.0', gck_vapi ],
     metadata_dirs: meson.current_source_dir(),
     vapi_dirs: [
       build_root / 'gck',

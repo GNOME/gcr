@@ -3,18 +3,18 @@ stages:
   - deploy
 
 variables:
-  DEPENDENCIES: dbus-x11 diffutils gcc gtk-doc make openssh python redhat-rpm-config
+  DEPENDENCIES: dbus-x11 diffutils gcc gtk-doc meson ninja-build openssh python redhat-rpm-config
 
-fedora:meson:
+fedora:Werror:
   image: fedora:latest
   stage: build
   before_script:
-    - dnf install -y 'dnf-command(builddep)'
+    - dnf upgrade -y
+    - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES
     - dnf builddep -y gcr
-    - dnf install -y $DEPENDENCIES meson ninja-build
     - dbus-uuidgen --ensure
   script:
-    - meson _build
+    - meson _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
     - ninja -C _build
     - eval `dbus-launch --sh-syntax`
     - bash +x ./.gitlab-ci/run-tests.sh
@@ -28,87 +28,57 @@ fedora:meson:
       - "_build/meson-logs"
       - "_build/${CI_JOB_NAME}-report.xml"
 
-fedora:Werror:
-  image: fedora:latest
-  stage: build
-  before_script:
-    - dnf install -y 'dnf-command(builddep)'
-    - dnf builddep -y gcr
-    - dnf install -y $DEPENDENCIES
-    - dbus-uuidgen --ensure
-  script:
-    - ./autogen.sh --disable-dependency-tracking --enable-gtk-doc --enable-strict
-    - make -j$(nproc) V=1
-    - eval `dbus-launch --sh-syntax`
-    - make -j$(nproc) V=1 distcheck
-  artifacts:
-    when: on_failure
-    paths:
-      - test-suite.log
-      - gcr-*/_build/sub/test-suite.log
-
 fedora:asan:
   image: fedora:latest
   stage: build
   tags: [ privileged ]
   before_script:
-    - dnf install -y 'dnf-command(builddep)'
+    - dnf upgrade -y
+    - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES libasan
     - dnf builddep -y gcr
-    - dnf install -y $DEPENDENCIES libasan
     - dbus-uuidgen --ensure
   script:
-    - ./autogen.sh --disable-dependency-tracking CFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' CXXFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' LDFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' LIBS='-lasan -ldl -lpthread'
-    - make -j$(nproc) V=1
+    - meson _build -Dsanitize=address
     - eval `dbus-launch --sh-syntax`
-    - make -j$(nproc) V=1 DISABLE_HARD_ERRORS=1 XFAIL_TESTS="\$(JS_TESTS) \$(PY_TESTS)" check
-  artifacts:
-    when: on_failure
-    paths:
-      - test-suite.log
+    - meson test -C _build
 
 fedora:ubsan:
   image: fedora:latest
   stage: build
   before_script:
-    - dnf install -y 'dnf-command(builddep)'
+    - dnf upgrade -y
+    - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES libubsan
     - dnf builddep -y gcr
-    - dnf install -y $DEPENDENCIES libubsan
     - dbus-uuidgen --ensure
   script:
-    - ./autogen.sh --disable-dependency-tracking CFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' CXXFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' LDFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' LIBS='-lubsan -ldl -lpthread'
-    - make -j$(nproc) V=1
+    - meson _build -Dsanitize=undefined
     - eval `dbus-launch --sh-syntax`
-    - make -j$(nproc) V=1 check
-  artifacts:
-    when: on_failure
-    paths:
-      - test-suite.log
+    - meson test -C _build
 
 fedora:coverage:
   image: fedora:latest
   stage: build
   before_script:
-    - dnf install -y 'dnf-command(builddep)'
+    - dnf upgrade -y
+    - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES lcov
     - dnf builddep -y gcr
-    - dnf install -y $DEPENDENCIES lcov
     - dbus-uuidgen --ensure
   script:
-    - ./autogen.sh --disable-dependency-tracking --enable-coverage
-    - make -j$(nproc) V=1
+    - meson _build -Db_coverage=true
     - eval `dbus-launch --sh-syntax`
-    - make -j$(nproc) V=1 check
-    - make coverage
+    - meson test -C _build
+    - ninja coverage-html -C _build
   coverage: '/^\s+lines.+:\s+([\d.]+\%)\s+/'
   artifacts:
     name: "gcr-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     paths:
-      - build/coverage/
+      - _build/meson-logs/coveragereport/
 
 pages:
   stage: deploy
   script:
-    - mkdir -p public
-    - mv build/coverage public/coverage
+    - mv _build/meson-logs/coveragereport/ public/
   artifacts:
+    when: on_success
     paths:
       - public

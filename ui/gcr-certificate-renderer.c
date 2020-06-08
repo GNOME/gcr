@@ -185,11 +185,14 @@ static const struct {
 	const gchar *description;
 } usage_descriptions[] = {
 	{ GCR_KEY_USAGE_DIGITAL_SIGNATURE, N_("Digital signature") },
+	{ GCR_KEY_USAGE_NON_REPUDIATION, N_("Non repudiation") },
 	{ GCR_KEY_USAGE_KEY_ENCIPHERMENT, N_("Key encipherment") },
 	{ GCR_KEY_USAGE_DATA_ENCIPHERMENT, N_("Data encipherment") },
 	{ GCR_KEY_USAGE_KEY_AGREEMENT, N_("Key agreement") },
 	{ GCR_KEY_USAGE_KEY_CERT_SIGN, N_("Certificate signature") },
-	{ GCR_KEY_USAGE_CRL_SIGN, N_("Revocation list signature") }
+	{ GCR_KEY_USAGE_CRL_SIGN, N_("Revocation list signature") },
+	{ GCR_KEY_USAGE_ENCIPHER_ONLY, N_("Encipher only") },
+	{ GCR_KEY_USAGE_DECIPHER_ONLY, N_("Decipher only") }
 };
 
 static gboolean

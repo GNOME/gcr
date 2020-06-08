@@ -51,6 +51,8 @@ typedef enum {
 	GCR_KEY_USAGE_KEY_AGREEMENT = 1 << 4,
 	GCR_KEY_USAGE_KEY_CERT_SIGN = 1 << 5,
 	GCR_KEY_USAGE_CRL_SIGN = 1 << 6,
+	GCR_KEY_USAGE_ENCIPHER_ONLY = 1 << 7,
+	GCR_KEY_USAGE_DECIPHER_ONLY = 1 << 8,
 } GcrCertificateExtensionKeyUsage;
 
 gboolean   _gcr_certificate_extension_key_usage               (GBytes *data,

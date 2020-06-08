@@ -297,6 +297,33 @@ test_subject_alt_name (void)
 	_gcr_general_names_free (result);
 }
 
+static void
+test_key_usage (void)
+{
+    const guint8 usage[] = {
+            // ASN.1 encoded BIT STRING (16 bit) 1000011110000000
+            0x03, 0x03, 0x00, 0x87, 0x80
+    };
+    GBytes *bytes;
+    gboolean ret;
+    gulong key_usage;
+
+    bytes = g_bytes_new_static (usage, sizeof(usage));
+    ret = _gcr_certificate_extension_key_usage (bytes, &key_usage);
+    g_bytes_unref (bytes);
+
+    g_assert (ret == TRUE);
+    g_assert_cmpint (key_usage & GCR_KEY_USAGE_DIGITAL_SIGNATURE, ==, GCR_KEY_USAGE_DIGITAL_SIGNATURE);
+    g_assert_cmpint (key_usage & GCR_KEY_USAGE_NON_REPUDIATION, ==, 0);
+    g_assert_cmpint (key_usage & GCR_KEY_USAGE_KEY_ENCIPHERMENT, ==, 0);
+    g_assert_cmpint (key_usage & GCR_KEY_USAGE_DATA_ENCIPHERMENT, ==, 0);
+    g_assert_cmpint (key_usage & GCR_KEY_USAGE_KEY_AGREEMENT, ==, 0);
+    g_assert_cmpint (key_usage & GCR_KEY_USAGE_KEY_CERT_SIGN, ==, GCR_KEY_USAGE_KEY_CERT_SIGN);
+    g_assert_cmpint (key_usage & GCR_KEY_USAGE_CRL_SIGN, ==, GCR_KEY_USAGE_CRL_SIGN);
+    g_assert_cmpint (key_usage & GCR_KEY_USAGE_ENCIPHER_ONLY, ==, GCR_KEY_USAGE_ENCIPHER_ONLY);
+    g_assert_cmpint (key_usage & GCR_KEY_USAGE_DECIPHER_ONLY, ==, GCR_KEY_USAGE_DECIPHER_ONLY);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -320,6 +347,7 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/certificate/is_issuer", Test, NULL, setup, test_certificate_is_issuer, teardown);
 	g_test_add ("/gcr/certificate/basic_constraints", Test, NULL, setup, test_basic_constraints, teardown);
 	g_test_add_func ("/gcr/certificate/subject_alt_name", test_subject_alt_name);
+	g_test_add_func ("/gcr/certificate/key_usage", test_key_usage);
 
 	return g_test_run ();
 }

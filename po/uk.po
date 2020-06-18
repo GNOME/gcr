@@ -8,17 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-03-11 08:52+0000\n"
-"PO-Revision-Date: 2020-03-12 19:16+0200\n"
+"POT-Creation-Date: 2020-06-18 07:02+0000\n"
+"PO-Revision-Date: 2020-06-18 10:16+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
 "=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 20.03.70\n"
+"X-Generator: Lokalize 20.07.70\n"
 "X-Project-Style: gnome\n"
 
 #: egg/egg-oid.c:40
@@ -61,7 +61,7 @@ msgstr "Звичайне ім'я"
 msgid "Surname"
 msgstr "Прізвище"
 
-#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:562
+#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:565
 msgid "Serial Number"
 msgstr "Серійний номер"
 
@@ -166,27 +166,22 @@ msgid "Elliptic Curve"
 msgstr "Еліптична крива"
 
 #: egg/egg-oid.c:119
-#| msgid "SHA1 with DSA"
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 з ECDSA"
 
 #: egg/egg-oid.c:120
-#| msgid "SHA1 with DSA"
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 з ECDSA"
 
 #: egg/egg-oid.c:121
-#| msgid "SHA1 with DSA"
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 з ECDSA"
 
 #: egg/egg-oid.c:122
-#| msgid "SHA1 with DSA"
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 з ECDSA"
 
 #: egg/egg-oid.c:123
-#| msgid "SHA1 with DSA"
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 з ECDSA"
 
@@ -235,20 +230,18 @@ msgstr "Захист пошти"
 msgid "Time Stamping"
 msgstr "Часове штампування"
 
-#: gck/gck-module.c:343
+#: gck/gck-module.c:332
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "Помилка завантаження модуля PKCS#11: %s"
 
-#: gck/gck-module.c:357
+#: gck/gck-module.c:346
 #, c-format
-#| msgid "Couldn't initialize PKCS#11 module: %s"
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Не вдалося запустити модуль PKCS#11: %s"
 
 #: gck/gck-modules.c:62
 #, c-format
-#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Не вдалося запустити зареєстровані модулі PKCS#11: %s"
 
@@ -257,7 +250,6 @@ msgid "The URI has invalid encoding."
 msgstr "URI має неправильне кодування."
 
 #: gck/gck-uri.c:228
-#| msgid "The URI does not have the 'pkcs11' scheme."
 msgid "The URI does not have the “pkcs11” scheme."
 msgstr "Адреса не містить схеми «pkcs11»."
 
@@ -296,48 +288,48 @@ msgstr "Строк"
 msgid "Certificate"
 msgstr "Сертифікат"
 
-#: gcr/gcr-certificate-extensions.c:177
+#: gcr/gcr-certificate-extensions.c:190
 msgid "Other Name"
 msgstr "Інші назви"
 
-#: gcr/gcr-certificate-extensions.c:187
+#: gcr/gcr-certificate-extensions.c:200
 msgid "XMPP Addr"
 msgstr "XMPP Addr"
 
-#: gcr/gcr-certificate-extensions.c:191
+#: gcr/gcr-certificate-extensions.c:204
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: gcr/gcr-certificate-extensions.c:203 ui/gcr-gnupg-renderer.c:423
+#: gcr/gcr-certificate-extensions.c:216 ui/gcr-gnupg-renderer.c:423
 #: ui/gcr-gnupg-renderer.c:705
 msgid "Email"
 msgstr "Пошта"
 
-#: gcr/gcr-certificate-extensions.c:211
+#: gcr/gcr-certificate-extensions.c:224
 msgid "DNS"
 msgstr "DNS"
 
-#: gcr/gcr-certificate-extensions.c:219
+#: gcr/gcr-certificate-extensions.c:232
 msgid "X400 Address"
 msgstr "Адреса X400"
 
-#: gcr/gcr-certificate-extensions.c:226
+#: gcr/gcr-certificate-extensions.c:239
 msgid "Directory Name"
 msgstr "Назва каталогу"
 
-#: gcr/gcr-certificate-extensions.c:234
+#: gcr/gcr-certificate-extensions.c:247
 msgid "EDI Party Name"
 msgstr "Часткова назва EDI"
 
-#: gcr/gcr-certificate-extensions.c:241
+#: gcr/gcr-certificate-extensions.c:254
 msgid "URI"
 msgstr "URI"
 
-#: gcr/gcr-certificate-extensions.c:249
+#: gcr/gcr-certificate-extensions.c:262
 msgid "IP Address"
 msgstr "Адреса IP"
 
-#: gcr/gcr-certificate-extensions.c:257
+#: gcr/gcr-certificate-extensions.c:270
 msgid "Registered ID"
 msgstr "Зареєстрований ID"
 
@@ -377,7 +369,7 @@ msgstr "Процес Gnupg покинуто з кодом: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Процес Gnupg завершено зі сигналом: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3204
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3192
 #: gcr/gcr-system-prompt.c:932
 msgid "The operation was cancelled"
 msgstr "Операцію скасовано"
@@ -386,7 +378,7 @@ msgstr "Операцію скасовано"
 msgid "Private Key"
 msgstr "Закритий ключ"
 
-#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:884
+#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:887
 #: ui/gcr-gnupg-renderer.c:738 ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Публічний ключ"
@@ -424,7 +416,6 @@ msgid "Unrecognized or unavailable attributes for key"
 msgstr "Нерозпізнані або недоступні атрибути для ключа"
 
 #: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
-#| msgid "Couldn't build public key"
 msgid "Couldn’t build public key"
 msgstr "Не вдалося побудувати відкритий ключ"
 
@@ -436,7 +427,6 @@ msgstr "Уже триває інакша спроба "
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
 #: gcr/gcr-trust.c:364
-#| msgid "Couldn't find a place to store the pinned certificate"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Не вдалося знайти місце для збереження утриманих сертифікатів"
 
@@ -448,11 +438,11 @@ msgstr "Основні обмеження"
 msgid "Certificate Authority"
 msgstr "Видавець сертифіката"
 
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
 msgid "Yes"
 msgstr "Так"
 
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
 msgid "No"
 msgstr "Ні"
 
@@ -485,142 +475,153 @@ msgid "Digital signature"
 msgstr "Цифровий підпис"
 
 #: ui/gcr-certificate-renderer.c:188
+msgid "Non repudiation"
+msgstr "Строге виконання зобов'язань"
+
+#: ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "Шифрування ключа"
 
-#: ui/gcr-certificate-renderer.c:189
+#: ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "Шифрування даних"
 
-#: ui/gcr-certificate-renderer.c:190
+#: ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "Узгодження ключа"
 
-#: ui/gcr-certificate-renderer.c:191
+#: ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "Підпис сертифіката"
 
-#: ui/gcr-certificate-renderer.c:192
+#: ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "Анулювання підпису списку"
 
-#: ui/gcr-certificate-renderer.c:217
+#: ui/gcr-certificate-renderer.c:194
+msgid "Encipher only"
+msgstr "Лише шифрування"
+
+#: ui/gcr-certificate-renderer.c:195
+#| msgid "Data encipherment"
+msgid "Decipher only"
+msgstr "Лише розшифровування"
+
+#: ui/gcr-certificate-renderer.c:220
 msgid "Key Usage"
 msgstr "Використання ключа"
 
-#: ui/gcr-certificate-renderer.c:218
+#: ui/gcr-certificate-renderer.c:221
 msgid "Usages"
 msgstr "Використання"
 
-#: ui/gcr-certificate-renderer.c:238
+#: ui/gcr-certificate-renderer.c:241
 msgid "Subject Alternative Names"
 msgstr "Альтернативні назви тем"
 
-#: ui/gcr-certificate-renderer.c:265
+#: ui/gcr-certificate-renderer.c:268
 msgid "Extension"
 msgstr "Розширення"
 
-#: ui/gcr-certificate-renderer.c:269
+#: ui/gcr-certificate-renderer.c:272
 msgid "Identifier"
 msgstr "Ідентифікатор"
 
-#: ui/gcr-certificate-renderer.c:270 ui/gcr-certificate-request-renderer.c:268
+#: ui/gcr-certificate-renderer.c:273 ui/gcr-certificate-request-renderer.c:268
 #: ui/gcr-gnupg-renderer.c:414 ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "Значення"
 
-#: ui/gcr-certificate-renderer.c:288
-#| msgid "Couldn't export the certificate."
+#: ui/gcr-certificate-renderer.c:291
 msgid "Couldn’t export the certificate."
 msgstr "Не вдалося експортувати сертифікат."
 
-#: ui/gcr-certificate-renderer.c:524 ui/gcr-certificate-request-renderer.c:309
+#: ui/gcr-certificate-renderer.c:527 ui/gcr-certificate-request-renderer.c:309
 msgid "Identity"
 msgstr "Профіль"
 
-#: ui/gcr-certificate-renderer.c:528
+#: ui/gcr-certificate-renderer.c:531
 msgid "Verified by"
 msgstr "Перевірено"
 
-#: ui/gcr-certificate-renderer.c:535 ui/gcr-gnupg-renderer.c:719
+#: ui/gcr-certificate-renderer.c:538 ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "Строк дії"
 
 #. The subject
-#: ui/gcr-certificate-renderer.c:542 ui/gcr-certificate-request-renderer.c:315
+#: ui/gcr-certificate-renderer.c:545 ui/gcr-certificate-request-renderer.c:315
 msgid "Subject Name"
 msgstr "Ім'я отримувача"
 
 #. The Issuer
-#: ui/gcr-certificate-renderer.c:547
+#: ui/gcr-certificate-renderer.c:550
 msgid "Issuer Name"
 msgstr "Ім'я видавця"
 
 #. The Issued Parameters
-#: ui/gcr-certificate-renderer.c:552
+#: ui/gcr-certificate-renderer.c:555
 msgid "Issued Certificate"
 msgstr "Виданий сертифікат"
 
-#: ui/gcr-certificate-renderer.c:557 ui/gcr-certificate-request-renderer.c:326
+#: ui/gcr-certificate-renderer.c:560 ui/gcr-certificate-request-renderer.c:326
 msgid "Version"
 msgstr "Версія"
 
-#: ui/gcr-certificate-renderer.c:571
+#: ui/gcr-certificate-renderer.c:574
 msgid "Not Valid Before"
 msgstr "Не дійсний до"
 
-#: ui/gcr-certificate-renderer.c:576
+#: ui/gcr-certificate-renderer.c:579
 msgid "Not Valid After"
 msgstr "Не дійсний після"
 
 #. Fingerprints
-#: ui/gcr-certificate-renderer.c:581
+#: ui/gcr-certificate-renderer.c:584
 msgid "Certificate Fingerprints"
 msgstr "Відбитки сертифікатів"
 
 #. Public Key Info
-#: ui/gcr-certificate-renderer.c:587 ui/gcr-certificate-request-renderer.c:329
+#: ui/gcr-certificate-renderer.c:590 ui/gcr-certificate-request-renderer.c:329
 #: ui/gcr-certificate-request-renderer.c:375
 msgid "Public Key Info"
 msgstr "Інформація про відкритий ключ"
 
 #. Signature
-#: ui/gcr-certificate-renderer.c:602 ui/gcr-certificate-renderer.c:912
+#: ui/gcr-certificate-renderer.c:605 ui/gcr-certificate-renderer.c:915
 #: ui/gcr-certificate-request-renderer.c:345
 #: ui/gcr-certificate-request-renderer.c:382 ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "Підпис"
 
-#: ui/gcr-certificate-renderer.c:619
-#| msgid "Export certificate"
+#: ui/gcr-certificate-renderer.c:622
 msgid "Export Certificate…"
 msgstr "Експортувати сертифікат…"
 
-#: ui/gcr-certificate-renderer.c:858
+#: ui/gcr-certificate-renderer.c:861
 msgid "Key Algorithm"
 msgstr "Алгоритм ключа"
 
-#: ui/gcr-certificate-renderer.c:863
+#: ui/gcr-certificate-renderer.c:866
 msgid "Key Parameters"
 msgstr "Параметри ключа"
 
-#: ui/gcr-certificate-renderer.c:871 ui/gcr-gnupg-renderer.c:353
+#: ui/gcr-certificate-renderer.c:874 ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "Розмір ключа"
 
-#: ui/gcr-certificate-renderer.c:879
+#: ui/gcr-certificate-renderer.c:882
 msgid "Key SHA1 Fingerprint"
 msgstr "Відбиток ключа SHA1"
 
-#: ui/gcr-certificate-renderer.c:901
+#: ui/gcr-certificate-renderer.c:904
 msgid "Signature Algorithm"
 msgstr "Алгоритм підпису"
 
-#: ui/gcr-certificate-renderer.c:905
+#: ui/gcr-certificate-renderer.c:908
 msgid "Signature Parameters"
 msgstr "Параметри підпису"
 
-#: ui/gcr-certificate-renderer.c:954
+#: ui/gcr-certificate-renderer.c:957
 msgid "Critical"
 msgstr "Критичний"
 
@@ -654,7 +655,6 @@ msgstr "П_одробиці"
 
 #: ui/gcr-failure-renderer.c:159
 #, c-format
-#| msgid "Could not display '%s'"
 msgid "Could not display “%s”"
 msgstr "Не вдалося показати «%s»"
 
@@ -691,7 +691,6 @@ msgid "Authenticate"
 msgstr "Автентифікувати"
 
 #: ui/gcr-gnupg-renderer.c:224
-#| msgid "Disabled"
 msgctxt "capability"
 msgid "Disabled"
 msgstr "Вимкнено"
@@ -706,7 +705,6 @@ msgid "Invalid"
 msgstr "Неправильно"
 
 #: ui/gcr-gnupg-renderer.c:259
-#| msgid "Disabled"
 msgctxt "ownertrust"
 msgid "Disabled"
 msgstr "Вимкнено"
@@ -912,12 +910,10 @@ msgid "Secret Subkey"
 msgstr "Таємний підключ"
 
 #: ui/gcr-import-button.c:116
-#| msgid "Initializing..."
 msgid "Initializing…"
 msgstr "Ініціалізація…"
 
 #: ui/gcr-import-button.c:124
-#| msgid "Import is in progress..."
 msgid "Import is in progress…"
 msgstr "Триває імпортування…"
 
@@ -965,8 +961,6 @@ msgstr "Відкритий ключ еліптичної кривої"
 
 #: ui/gcr-key-renderer.c:377
 #, c-format
-#| msgid "%d bit"
-#| msgid_plural "%d bits"
 msgid "%u bit"
 msgid_plural "%u bits"
 msgstr[0] "%u біт"
@@ -993,7 +987,6 @@ msgstr "SHA256"
 #. Add our various buttons
 #: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "_Скасувати"
 
@@ -1062,10 +1055,6 @@ msgid "A file already exists with this name."
 msgstr "Файл з такою назвою вже існує."
 
 #: ui/gcr-certificate-exporter.c:227
-#| msgid ""
-#| "<b>A file already exists with this name.</b>\n"
-#| "\n"
-#| "Do you want to replace it with a new file?"
 msgid "Do you want to replace it with a new file?"
 msgstr "Замінити його новим файлом?"
 
@@ -1094,7 +1083,6 @@ msgid "PEM files"
 msgstr "Файли PEM"
 
 #: ui/gcr-unlock-options-widget.ui:16
-#| msgid "Automatically unlock this keyring whenever I'm logged in"
 msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr "Автоматично розблоковувати цю в'язку ключів після входу у сеанс"
 
@@ -1126,9 +1114,6 @@ msgstr "Пароль"
 
 #: ui/gcr-unlock-renderer.c:274
 #, c-format
-#| msgid ""
-#| "The contents of '%s' are locked. In order to view the contents, enter the "
-#| "correct password."
 msgid ""
 "The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."

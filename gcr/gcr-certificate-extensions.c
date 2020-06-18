@@ -147,6 +147,18 @@ _gcr_certificate_extension_subject_key_identifier (GBytes *data,
 	return result;
 }
 
+static gulong
+_gcr_reverse_bits(gulong num, guint n_bits)
+{
+    gulong reverse_num = 0;
+    guint i;
+    for (i = 0; i < n_bits; i++) {
+        if ((num & (1 << i)))
+            reverse_num |= 1 << ((n_bits - 1) - i);
+    }
+    return reverse_num;
+}
+
 gboolean
 _gcr_certificate_extension_key_usage (GBytes *data,
                                       gulong *key_usage)
@@ -163,6 +175,7 @@ _gcr_certificate_extension_key_usage (GBytes *data,
 
 	ret = egg_asn1x_get_bits_as_ulong (asn, key_usage, &n_bits);
 	egg_asn1x_destroy (asn);
+	*key_usage = _gcr_reverse_bits(*key_usage, n_bits);
 	return ret;
 }
 

@@ -9,9 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.HEAD.ro\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-03-11 08:52+0000\n"
-"PO-Revision-Date: 2020-03-31 02:26+0200\n"
-"Last-Translator: Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>\n"
+"POT-Creation-Date: 2020-06-18 07:02+0000\n"
+"PO-Revision-Date: 2020-06-19 09:20+0300\n"
+"Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
+"gmail [dot] com>\n"
 "Language-Team: Romanian Gnome Team <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -61,7 +62,7 @@ msgstr "Nume comun"
 msgid "Surname"
 msgstr "Nume familie"
 
-#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:562
+#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:565
 msgid "Serial Number"
 msgstr "Număr serial"
 
@@ -230,12 +231,12 @@ msgstr "Protecție email"
 msgid "Time Stamping"
 msgstr "Marcare de timp"
 
-#: gck/gck-module.c:343
+#: gck/gck-module.c:332
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "Eroare la încărcarea modulului PKCS#11: %s"
 
-#: gck/gck-module.c:357
+#: gck/gck-module.c:346
 #, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Nu s-a putut inițializa modulul PKCS#11: %s"
@@ -288,48 +289,48 @@ msgstr "Expiră"
 msgid "Certificate"
 msgstr "Certificat"
 
-#: gcr/gcr-certificate-extensions.c:177
+#: gcr/gcr-certificate-extensions.c:190
 msgid "Other Name"
 msgstr "Alt nume"
 
-#: gcr/gcr-certificate-extensions.c:187
+#: gcr/gcr-certificate-extensions.c:200
 msgid "XMPP Addr"
 msgstr "Adr XMPP"
 
-#: gcr/gcr-certificate-extensions.c:191
+#: gcr/gcr-certificate-extensions.c:204
 msgid "DNS SRV"
 msgstr "SRV DNS"
 
-#: gcr/gcr-certificate-extensions.c:203 ui/gcr-gnupg-renderer.c:423
+#: gcr/gcr-certificate-extensions.c:216 ui/gcr-gnupg-renderer.c:423
 #: ui/gcr-gnupg-renderer.c:705
 msgid "Email"
 msgstr "Email"
 
-#: gcr/gcr-certificate-extensions.c:211
+#: gcr/gcr-certificate-extensions.c:224
 msgid "DNS"
 msgstr "DNS"
 
-#: gcr/gcr-certificate-extensions.c:219
+#: gcr/gcr-certificate-extensions.c:232
 msgid "X400 Address"
 msgstr "Adresă X400"
 
-#: gcr/gcr-certificate-extensions.c:226
+#: gcr/gcr-certificate-extensions.c:239
 msgid "Directory Name"
 msgstr "Nume director"
 
-#: gcr/gcr-certificate-extensions.c:234
+#: gcr/gcr-certificate-extensions.c:247
 msgid "EDI Party Name"
 msgstr "Nume parte EDI"
 
-#: gcr/gcr-certificate-extensions.c:241
+#: gcr/gcr-certificate-extensions.c:254
 msgid "URI"
 msgstr "URI"
 
-#: gcr/gcr-certificate-extensions.c:249
+#: gcr/gcr-certificate-extensions.c:262
 msgid "IP Address"
 msgstr "Adresă IP"
 
-#: gcr/gcr-certificate-extensions.c:257
+#: gcr/gcr-certificate-extensions.c:270
 msgid "Registered ID"
 msgstr "ID înregistrat"
 
@@ -369,7 +370,7 @@ msgstr "Procesul Gnupg a ieșit cu codul: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Procesul Gnupg s-a terminat cu semnalul: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3204
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3192
 #: gcr/gcr-system-prompt.c:932
 msgid "The operation was cancelled"
 msgstr "Operația a fost anulată"
@@ -378,7 +379,7 @@ msgstr "Operația a fost anulată"
 msgid "Private Key"
 msgstr "Cheie privată"
 
-#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:884
+#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:887
 #: ui/gcr-gnupg-renderer.c:738 ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Cheie publică"
@@ -439,11 +440,11 @@ msgstr "Restricții de bază"
 msgid "Certificate Authority"
 msgstr "Autoritate de certificat"
 
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
 msgid "Yes"
 msgstr "Da"
 
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
 msgid "No"
 msgstr "Nu"
 
@@ -476,140 +477,152 @@ msgid "Digital signature"
 msgstr "Semnătură digitală"
 
 #: ui/gcr-certificate-renderer.c:188
+msgid "Non repudiation"
+msgstr "Non-repudiere"
+
+#: ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "Cifrare de cheie"
 
-#: ui/gcr-certificate-renderer.c:189
+#: ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "Cifrare de date"
 
-#: ui/gcr-certificate-renderer.c:190
+#: ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "Acord cheie"
 
-#: ui/gcr-certificate-renderer.c:191
+#: ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "Semnătură de certificat"
 
-#: ui/gcr-certificate-renderer.c:192
+#: ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "Semnătură de listă revocare"
 
-#: ui/gcr-certificate-renderer.c:217
+#: ui/gcr-certificate-renderer.c:194
+msgid "Encipher only"
+msgstr "Doar codificare"
+
+#: ui/gcr-certificate-renderer.c:195
+msgid "Decipher only"
+msgstr "Doar descifrare"
+
+#: ui/gcr-certificate-renderer.c:220
 msgid "Key Usage"
 msgstr "Mod de utilizare cheie"
 
-#: ui/gcr-certificate-renderer.c:218
+#: ui/gcr-certificate-renderer.c:221
 msgid "Usages"
 msgstr "Moduri de utilizare"
 
-#: ui/gcr-certificate-renderer.c:238
+#: ui/gcr-certificate-renderer.c:241
 msgid "Subject Alternative Names"
 msgstr "Nume alternative subiect"
 
-#: ui/gcr-certificate-renderer.c:265
+#: ui/gcr-certificate-renderer.c:268
 msgid "Extension"
 msgstr "Extensie"
 
-#: ui/gcr-certificate-renderer.c:269
+#: ui/gcr-certificate-renderer.c:272
 msgid "Identifier"
 msgstr "Identificator"
 
-#: ui/gcr-certificate-renderer.c:270 ui/gcr-certificate-request-renderer.c:268
+#: ui/gcr-certificate-renderer.c:273 ui/gcr-certificate-request-renderer.c:268
 #: ui/gcr-gnupg-renderer.c:414 ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "Valoare"
 
-#: ui/gcr-certificate-renderer.c:288
+#: ui/gcr-certificate-renderer.c:291
 msgid "Couldn’t export the certificate."
 msgstr "Nu s-a putut exporta certificatul."
 
-#: ui/gcr-certificate-renderer.c:524 ui/gcr-certificate-request-renderer.c:309
+#: ui/gcr-certificate-renderer.c:527 ui/gcr-certificate-request-renderer.c:309
 msgid "Identity"
 msgstr "Identitate"
 
-#: ui/gcr-certificate-renderer.c:528
+#: ui/gcr-certificate-renderer.c:531
 msgid "Verified by"
 msgstr "Verificat de"
 
-#: ui/gcr-certificate-renderer.c:535 ui/gcr-gnupg-renderer.c:719
+#: ui/gcr-certificate-renderer.c:538 ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "Expiră la"
 
 #. The subject
-#: ui/gcr-certificate-renderer.c:542 ui/gcr-certificate-request-renderer.c:315
+#: ui/gcr-certificate-renderer.c:545 ui/gcr-certificate-request-renderer.c:315
 msgid "Subject Name"
 msgstr "Nume subiect"
 
 #. The Issuer
-#: ui/gcr-certificate-renderer.c:547
+#: ui/gcr-certificate-renderer.c:550
 msgid "Issuer Name"
 msgstr "Nume emitent"
 
 #. The Issued Parameters
-#: ui/gcr-certificate-renderer.c:552
+#: ui/gcr-certificate-renderer.c:555
 msgid "Issued Certificate"
 msgstr "Certificat emis"
 
-#: ui/gcr-certificate-renderer.c:557 ui/gcr-certificate-request-renderer.c:326
+#: ui/gcr-certificate-renderer.c:560 ui/gcr-certificate-request-renderer.c:326
 msgid "Version"
 msgstr "Versiune"
 
-#: ui/gcr-certificate-renderer.c:571
+#: ui/gcr-certificate-renderer.c:574
 msgid "Not Valid Before"
 msgstr "Nu este valid înainte"
 
-#: ui/gcr-certificate-renderer.c:576
+#: ui/gcr-certificate-renderer.c:579
 msgid "Not Valid After"
 msgstr "Nu este valid după"
 
 #. Fingerprints
-#: ui/gcr-certificate-renderer.c:581
+#: ui/gcr-certificate-renderer.c:584
 msgid "Certificate Fingerprints"
 msgstr "Amprente de certificat"
 
 #. Public Key Info
-#: ui/gcr-certificate-renderer.c:587 ui/gcr-certificate-request-renderer.c:329
+#: ui/gcr-certificate-renderer.c:590 ui/gcr-certificate-request-renderer.c:329
 #: ui/gcr-certificate-request-renderer.c:375
 msgid "Public Key Info"
 msgstr "Informații cheie publică"
 
 #. Signature
-#: ui/gcr-certificate-renderer.c:602 ui/gcr-certificate-renderer.c:912
+#: ui/gcr-certificate-renderer.c:605 ui/gcr-certificate-renderer.c:915
 #: ui/gcr-certificate-request-renderer.c:345
 #: ui/gcr-certificate-request-renderer.c:382 ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "Semnătură"
 
-#: ui/gcr-certificate-renderer.c:619
+#: ui/gcr-certificate-renderer.c:622
 msgid "Export Certificate…"
 msgstr "Exportă un certificat…"
 
-#: ui/gcr-certificate-renderer.c:858
+#: ui/gcr-certificate-renderer.c:861
 msgid "Key Algorithm"
 msgstr "Algoritm cheie"
 
-#: ui/gcr-certificate-renderer.c:863
+#: ui/gcr-certificate-renderer.c:866
 msgid "Key Parameters"
 msgstr "Parametrii cheie"
 
-#: ui/gcr-certificate-renderer.c:871 ui/gcr-gnupg-renderer.c:353
+#: ui/gcr-certificate-renderer.c:874 ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "Dimensiune cheie"
 
-#: ui/gcr-certificate-renderer.c:879
+#: ui/gcr-certificate-renderer.c:882
 msgid "Key SHA1 Fingerprint"
 msgstr "Amprentă SHA1 de cheie"
 
-#: ui/gcr-certificate-renderer.c:901
+#: ui/gcr-certificate-renderer.c:904
 msgid "Signature Algorithm"
 msgstr "Algoritm semnătură"
 
-#: ui/gcr-certificate-renderer.c:905
+#: ui/gcr-certificate-renderer.c:908
 msgid "Signature Parameters"
 msgstr "Parametrii semnătură"
 
-#: ui/gcr-certificate-renderer.c:954
+#: ui/gcr-certificate-renderer.c:957
 msgid "Critical"
 msgstr "Critic"
 

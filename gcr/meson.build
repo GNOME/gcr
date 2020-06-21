@@ -178,7 +178,10 @@ endif
 gcr_base_dep = declare_dependency(
   link_with: gcr_base_lib,
   include_directories: include_directories('..'),
-  sources: gcr_enums_gen[1], # Make sure gcr-enum-types-base.h can be included
+  sources: [
+    gcr_enums_gen[1],
+    gcr_oids[1],
+  ],
 )
 
 if get_option('introspection')

@@ -9,15 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-02-02 11:37+0000\n"
-"PO-Revision-Date: 2020-02-13 19:14+0700\n"
+"POT-Creation-Date: 2020-06-19 06:21+0000\n"
+"PO-Revision-Date: 2020-08-14 18:20+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: egg/egg-oid.c:40
@@ -60,7 +60,7 @@ msgstr "Nama Umum"
 msgid "Surname"
 msgstr "Nama Keluarga"
 
-#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:562
+#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:565
 msgid "Serial Number"
 msgstr "Nomor Seri"
 
@@ -116,121 +116,125 @@ msgstr "Kualifier DN"
 msgid "Pseudonym"
 msgstr "Pseudonim"
 
-#: egg/egg-oid.c:97
+#. Translators: Russian: Main state registration number
+#: egg/egg-oid.c:98
 msgid "OGRN"
 msgstr "OGRN"
 
-#: egg/egg-oid.c:99
+#. Translators: Russian: Individual insurance account number
+#: egg/egg-oid.c:101
 msgid "SNILS"
 msgstr "SNILS"
 
-#: egg/egg-oid.c:101
+#. Translators: Russian: Main state registration number for individual enterpreneurs
+#: egg/egg-oid.c:104
 msgid "OGRNIP"
 msgstr "OGRNIP"
 
-#: egg/egg-oid.c:103
+#. Translators: Russian: Individual taxpayer number
+#: egg/egg-oid.c:107
 msgid "INN"
 msgstr "INN"
 
-#: egg/egg-oid.c:106 ui/gcr-gnupg-renderer.c:201 ui/gcr-key-renderer.c:385
+#: egg/egg-oid.c:110 ui/gcr-gnupg-renderer.c:201 ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
-#: egg/egg-oid.c:107
+#: egg/egg-oid.c:111
 msgid "MD2 with RSA"
 msgstr "MD2 dengan RSA"
 
-#: egg/egg-oid.c:108
+#: egg/egg-oid.c:112
 msgid "MD5 with RSA"
 msgstr "MD5 dengan RSA"
 
-#: egg/egg-oid.c:109
+#: egg/egg-oid.c:113
 msgid "SHA1 with RSA"
 msgstr "SHA1 dengan RSA"
 
-#: egg/egg-oid.c:111 ui/gcr-gnupg-renderer.c:205 ui/gcr-key-renderer.c:387
+#: egg/egg-oid.c:115 ui/gcr-gnupg-renderer.c:205 ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
-#: egg/egg-oid.c:112
+#: egg/egg-oid.c:116
 msgid "SHA1 with DSA"
 msgstr "SHA1 dengan DSA"
 
-#: egg/egg-oid.c:114 ui/gcr-key-renderer.c:389
+#: egg/egg-oid.c:118 ui/gcr-key-renderer.c:389
 msgid "Elliptic Curve"
 msgstr "Elliptic Curve"
 
-#: egg/egg-oid.c:115
+#: egg/egg-oid.c:119
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 dengan ECDSA"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:120
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 dengan ECDSA"
 
-#: egg/egg-oid.c:117
+#: egg/egg-oid.c:121
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 dengan ECDSA"
 
-#: egg/egg-oid.c:118
+#: egg/egg-oid.c:122
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 dengan ECDSA"
 
-#: egg/egg-oid.c:119
+#: egg/egg-oid.c:123
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 dengan ECDSA"
 
-#: egg/egg-oid.c:121
+#: egg/egg-oid.c:125
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "GOST R 34.11-94 dengan GOST R 34.10-2001"
 
-#: egg/egg-oid.c:122
+#: egg/egg-oid.c:126
 msgid "GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001"
 
-#: egg/egg-oid.c:123
+#: egg/egg-oid.c:127
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.10-2012 kurva 256-bit"
 
-#: egg/egg-oid.c:124
+#: egg/egg-oid.c:128
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.10-2012 kurva 512-bit"
 
-#: egg/egg-oid.c:125
+#: egg/egg-oid.c:129
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.11-2012/256 dengan GOST R 34.10-2012 kurva 256-bit"
 
-#: egg/egg-oid.c:126
+#: egg/egg-oid.c:130
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.11-2012/512 dengan GOST R 34.10-2012 kurva 512-bit"
 
 #. Extended Key Usages
-#: egg/egg-oid.c:129
+#: egg/egg-oid.c:133
 msgid "Server Authentication"
 msgstr "Autentikasi Server"
 
-#: egg/egg-oid.c:130
+#: egg/egg-oid.c:134
 msgid "Client Authentication"
 msgstr "Autentikasi Klien"
 
-#: egg/egg-oid.c:131
+#: egg/egg-oid.c:135
 msgid "Code Signing"
 msgstr "Penandatanganan Kode Program"
 
-#: egg/egg-oid.c:132
+#: egg/egg-oid.c:136
 msgid "Email Protection"
 msgstr "Proteksi Surel"
 
-#: egg/egg-oid.c:133
+#: egg/egg-oid.c:137
 msgid "Time Stamping"
 msgstr "Penandaan Waktu"
 
-#: gck/gck-module.c:343
+#: gck/gck-module.c:332
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "Galat saat memuat modul PKCS#11: %s"
 
-#: gck/gck-module.c:357
+#: gck/gck-module.c:346
 #, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Tak bisa menginisiasi modul PKCS#11: %s"
@@ -283,48 +287,48 @@ msgstr "Kadaluarsa"
 msgid "Certificate"
 msgstr "Sertifikat"
 
-#: gcr/gcr-certificate-extensions.c:177
+#: gcr/gcr-certificate-extensions.c:190
 msgid "Other Name"
 msgstr "Nama Lain"
 
-#: gcr/gcr-certificate-extensions.c:187
+#: gcr/gcr-certificate-extensions.c:200
 msgid "XMPP Addr"
 msgstr "Alamat XMPP"
 
-#: gcr/gcr-certificate-extensions.c:191
+#: gcr/gcr-certificate-extensions.c:204
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: gcr/gcr-certificate-extensions.c:203 ui/gcr-gnupg-renderer.c:423
+#: gcr/gcr-certificate-extensions.c:216 ui/gcr-gnupg-renderer.c:423
 #: ui/gcr-gnupg-renderer.c:705
 msgid "Email"
 msgstr "Surel"
 
-#: gcr/gcr-certificate-extensions.c:211
+#: gcr/gcr-certificate-extensions.c:224
 msgid "DNS"
 msgstr "DNS"
 
-#: gcr/gcr-certificate-extensions.c:219
+#: gcr/gcr-certificate-extensions.c:232
 msgid "X400 Address"
 msgstr "Alamat X400"
 
-#: gcr/gcr-certificate-extensions.c:226
+#: gcr/gcr-certificate-extensions.c:239
 msgid "Directory Name"
 msgstr "Nama Direktori"
 
-#: gcr/gcr-certificate-extensions.c:234
+#: gcr/gcr-certificate-extensions.c:247
 msgid "EDI Party Name"
 msgstr "Nama Partai EDI"
 
-#: gcr/gcr-certificate-extensions.c:241
+#: gcr/gcr-certificate-extensions.c:254
 msgid "URI"
 msgstr "URI"
 
-#: gcr/gcr-certificate-extensions.c:249
+#: gcr/gcr-certificate-extensions.c:262
 msgid "IP Address"
 msgstr "Alamat IP"
 
-#: gcr/gcr-certificate-extensions.c:257
+#: gcr/gcr-certificate-extensions.c:270
 msgid "Registered ID"
 msgstr "ID Terdaftar"
 
@@ -364,7 +368,7 @@ msgstr "Proses gnupg keluar dengan kode: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Proses gnupg diakhiri dengan sinyal: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3204
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3192
 #: gcr/gcr-system-prompt.c:932
 msgid "The operation was cancelled"
 msgstr "Operasi dibatalkan"
@@ -373,7 +377,7 @@ msgstr "Operasi dibatalkan"
 msgid "Private Key"
 msgstr "Kunci Pribadi"
 
-#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:884
+#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:887
 #: ui/gcr-gnupg-renderer.c:738 ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Kunci Publik"
@@ -433,11 +437,11 @@ msgstr "Kendala Dasar"
 msgid "Certificate Authority"
 msgstr "Otoritas Pengelola Sertifikat"
 
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
 msgid "Yes"
 msgstr "Ya"
 
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
 msgid "No"
 msgstr "Tidak"
 
@@ -470,140 +474,152 @@ msgid "Digital signature"
 msgstr "Tanda tangan digital"
 
 #: ui/gcr-certificate-renderer.c:188
+msgid "Non repudiation"
+msgstr "Nirsangkal"
+
+#: ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "Enkripsi kunci"
 
-#: ui/gcr-certificate-renderer.c:189
+#: ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "Enkripsi data"
 
-#: ui/gcr-certificate-renderer.c:190
+#: ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "Perjanjian kunci"
 
-#: ui/gcr-certificate-renderer.c:191
+#: ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "Tanda tangan sertifikat"
 
-#: ui/gcr-certificate-renderer.c:192
+#: ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "Tanda tangan daftar pencabutan"
 
-#: ui/gcr-certificate-renderer.c:217
+#: ui/gcr-certificate-renderer.c:194
+msgid "Encipher only"
+msgstr "Enkripsi saja"
+
+#: ui/gcr-certificate-renderer.c:195
+msgid "Decipher only"
+msgstr "Dekripsi saja"
+
+#: ui/gcr-certificate-renderer.c:220
 msgid "Key Usage"
 msgstr "Penggunaan Kunci"
 
-#: ui/gcr-certificate-renderer.c:218
+#: ui/gcr-certificate-renderer.c:221
 msgid "Usages"
 msgstr "Penggunaan"
 
-#: ui/gcr-certificate-renderer.c:238
+#: ui/gcr-certificate-renderer.c:241
 msgid "Subject Alternative Names"
 msgstr "Nama Alternatif Subjek"
 
-#: ui/gcr-certificate-renderer.c:265
+#: ui/gcr-certificate-renderer.c:268
 msgid "Extension"
 msgstr "Ekstensi"
 
-#: ui/gcr-certificate-renderer.c:269
+#: ui/gcr-certificate-renderer.c:272
 msgid "Identifier"
 msgstr "Identifair"
 
-#: ui/gcr-certificate-renderer.c:270 ui/gcr-certificate-request-renderer.c:268
+#: ui/gcr-certificate-renderer.c:273 ui/gcr-certificate-request-renderer.c:268
 #: ui/gcr-gnupg-renderer.c:414 ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "Nilai"
 
-#: ui/gcr-certificate-renderer.c:288
+#: ui/gcr-certificate-renderer.c:291
 msgid "Couldn’t export the certificate."
 msgstr "Tak bisa mengekspor sertifikat."
 
-#: ui/gcr-certificate-renderer.c:524 ui/gcr-certificate-request-renderer.c:309
+#: ui/gcr-certificate-renderer.c:527 ui/gcr-certificate-request-renderer.c:309
 msgid "Identity"
 msgstr "Identitas"
 
-#: ui/gcr-certificate-renderer.c:528
+#: ui/gcr-certificate-renderer.c:531
 msgid "Verified by"
 msgstr "Diverfikasi oleh"
 
-#: ui/gcr-certificate-renderer.c:535 ui/gcr-gnupg-renderer.c:719
+#: ui/gcr-certificate-renderer.c:538 ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "Kadaluwarsa"
 
 #. The subject
-#: ui/gcr-certificate-renderer.c:542 ui/gcr-certificate-request-renderer.c:315
+#: ui/gcr-certificate-renderer.c:545 ui/gcr-certificate-request-renderer.c:315
 msgid "Subject Name"
 msgstr "Nama Subjek"
 
 #. The Issuer
-#: ui/gcr-certificate-renderer.c:547
+#: ui/gcr-certificate-renderer.c:550
 msgid "Issuer Name"
 msgstr "Nama Penerbit"
 
 #. The Issued Parameters
-#: ui/gcr-certificate-renderer.c:552
+#: ui/gcr-certificate-renderer.c:555
 msgid "Issued Certificate"
 msgstr "Sertifikat Yang Diterbitkan"
 
-#: ui/gcr-certificate-renderer.c:557 ui/gcr-certificate-request-renderer.c:326
+#: ui/gcr-certificate-renderer.c:560 ui/gcr-certificate-request-renderer.c:326
 msgid "Version"
 msgstr "Versi"
 
-#: ui/gcr-certificate-renderer.c:571
+#: ui/gcr-certificate-renderer.c:574
 msgid "Not Valid Before"
 msgstr "Tak Valid Sebelum"
 
-#: ui/gcr-certificate-renderer.c:576
+#: ui/gcr-certificate-renderer.c:579
 msgid "Not Valid After"
 msgstr "Tak Valid Setelah"
 
 #. Fingerprints
-#: ui/gcr-certificate-renderer.c:581
+#: ui/gcr-certificate-renderer.c:584
 msgid "Certificate Fingerprints"
 msgstr "Sidik Jari Sertifikat"
 
 #. Public Key Info
-#: ui/gcr-certificate-renderer.c:587 ui/gcr-certificate-request-renderer.c:329
+#: ui/gcr-certificate-renderer.c:590 ui/gcr-certificate-request-renderer.c:329
 #: ui/gcr-certificate-request-renderer.c:375
 msgid "Public Key Info"
 msgstr "Info Kunci Publik"
 
 #. Signature
-#: ui/gcr-certificate-renderer.c:602 ui/gcr-certificate-renderer.c:912
+#: ui/gcr-certificate-renderer.c:605 ui/gcr-certificate-renderer.c:915
 #: ui/gcr-certificate-request-renderer.c:345
 #: ui/gcr-certificate-request-renderer.c:382 ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "Tanda Tangan"
 
-#: ui/gcr-certificate-renderer.c:619
+#: ui/gcr-certificate-renderer.c:622
 msgid "Export Certificate…"
 msgstr "Ekspor Sertifikat…"
 
-#: ui/gcr-certificate-renderer.c:858
+#: ui/gcr-certificate-renderer.c:861
 msgid "Key Algorithm"
 msgstr "Algoritma Kunci"
 
-#: ui/gcr-certificate-renderer.c:863
+#: ui/gcr-certificate-renderer.c:866
 msgid "Key Parameters"
 msgstr "Parameter Kunci"
 
-#: ui/gcr-certificate-renderer.c:871 ui/gcr-gnupg-renderer.c:353
+#: ui/gcr-certificate-renderer.c:874 ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "Ukuran Kunci"
 
-#: ui/gcr-certificate-renderer.c:879
+#: ui/gcr-certificate-renderer.c:882
 msgid "Key SHA1 Fingerprint"
 msgstr "Sidik Jari SHA1 Kunci"
 
-#: ui/gcr-certificate-renderer.c:901
+#: ui/gcr-certificate-renderer.c:904
 msgid "Signature Algorithm"
 msgstr "Algoritma Tanda Tangan"
 
-#: ui/gcr-certificate-renderer.c:905
+#: ui/gcr-certificate-renderer.c:908
 msgid "Signature Parameters"
 msgstr "Parameter Tanda Tangan"
 
-#: ui/gcr-certificate-renderer.c:954
+#: ui/gcr-certificate-renderer.c:957
 msgid "Critical"
 msgstr "Kritis"
 

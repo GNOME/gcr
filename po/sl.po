@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2020-06-22 21:49+0200\n"
+"POT-Creation-Date: 2020-08-19 05:31+0000\n"
+"PO-Revision-Date: 2020-08-19 21:35+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
@@ -191,27 +191,22 @@ msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "GOST R 34.11-94 z GOST R 34.10-2001"
 
 #: egg/egg-oid.c:126
-#, fuzzy
 msgid "GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001"
 
 #: egg/egg-oid.c:127
-#, fuzzy
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.10-2012 256-bit curve"
 
 #: egg/egg-oid.c:128
-#, fuzzy
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.10-2012 512-bit curve"
 
 #: egg/egg-oid.c:129
-#, fuzzy
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.11-2012/256 z GOST R 34.10-2012 256-bit curve"
 
 #: egg/egg-oid.c:130
-#, fuzzy
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.11-2012/512 z GOST R 34.10-2012 512-bit curve"
 
@@ -482,7 +477,7 @@ msgstr "Digitalni podpis"
 
 #: ui/gcr-certificate-renderer.c:188
 msgid "Non repudiation"
-msgstr ""
+msgstr "Neprepoznano"
 
 #: ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
@@ -600,7 +595,7 @@ msgstr "Podpis"
 
 #: ui/gcr-certificate-renderer.c:622
 msgid "Export Certificate…"
-msgstr "Izvozi potrdilo …"
+msgstr "Izvozi potrdilo ..."
 
 #: ui/gcr-certificate-renderer.c:861
 msgid "Key Algorithm"
@@ -916,11 +911,11 @@ msgstr "Skriti podključ"
 
 #: ui/gcr-import-button.c:116
 msgid "Initializing…"
-msgstr "Začenjanje …"
+msgstr "Začenjanje ..."
 
 #: ui/gcr-import-button.c:124
 msgid "Import is in progress…"
-msgstr "Poteka uvažanje …"
+msgstr "Poteka uvažanje ..."
 
 #: ui/gcr-import-button.c:131
 #, c-format

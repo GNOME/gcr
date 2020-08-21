@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring gnome-3-6\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-03-13 16:10+0000\n"
+"POT-Creation-Date: 2020-06-18 07:02+0000\n"
 "PO-Revision-Date: 2020-03-20 07:45+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -64,7 +64,7 @@ msgstr "一般名"
 msgid "Surname"
 msgstr "姓"
 
-#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:562
+#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:565
 msgid "Serial Number"
 msgstr "シリアル番号"
 
@@ -233,12 +233,12 @@ msgstr "E-メール保護"
 msgid "Time Stamping"
 msgstr "タイムスタンプ"
 
-#: gck/gck-module.c:343
+#: gck/gck-module.c:332
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "PKCS#11 モジュールの読み込み中にエラー: %s"
 
-#: gck/gck-module.c:357
+#: gck/gck-module.c:346
 #, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "PKCS#11 モジュールを初期化できませんでした: %s"
@@ -291,48 +291,48 @@ msgstr "有効期限"
 msgid "Certificate"
 msgstr "証明書"
 
-#: gcr/gcr-certificate-extensions.c:177
+#: gcr/gcr-certificate-extensions.c:190
 msgid "Other Name"
 msgstr "他の名前"
 
-#: gcr/gcr-certificate-extensions.c:187
+#: gcr/gcr-certificate-extensions.c:200
 msgid "XMPP Addr"
 msgstr "XMPP アドレス"
 
-#: gcr/gcr-certificate-extensions.c:191
+#: gcr/gcr-certificate-extensions.c:204
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: gcr/gcr-certificate-extensions.c:203 ui/gcr-gnupg-renderer.c:423
+#: gcr/gcr-certificate-extensions.c:216 ui/gcr-gnupg-renderer.c:423
 #: ui/gcr-gnupg-renderer.c:705
 msgid "Email"
 msgstr "E-メール"
 
-#: gcr/gcr-certificate-extensions.c:211
+#: gcr/gcr-certificate-extensions.c:224
 msgid "DNS"
 msgstr "DNS"
 
-#: gcr/gcr-certificate-extensions.c:219
+#: gcr/gcr-certificate-extensions.c:232
 msgid "X400 Address"
 msgstr "X.400 アドレス"
 
-#: gcr/gcr-certificate-extensions.c:226
+#: gcr/gcr-certificate-extensions.c:239
 msgid "Directory Name"
 msgstr "ディレクトリ名"
 
-#: gcr/gcr-certificate-extensions.c:234
+#: gcr/gcr-certificate-extensions.c:247
 msgid "EDI Party Name"
 msgstr "EDI パーティ名"
 
-#: gcr/gcr-certificate-extensions.c:241
+#: gcr/gcr-certificate-extensions.c:254
 msgid "URI"
 msgstr "URI"
 
-#: gcr/gcr-certificate-extensions.c:249
+#: gcr/gcr-certificate-extensions.c:262
 msgid "IP Address"
 msgstr "IP アドレス"
 
-#: gcr/gcr-certificate-extensions.c:257
+#: gcr/gcr-certificate-extensions.c:270
 msgid "Registered ID"
 msgstr "登録済 ID"
 
@@ -372,7 +372,7 @@ msgstr "gnupg プロセスが次の終了コードで終了しました: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "gnupg プロセスが次のシグナルにより終了しました: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3204
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3192
 #: gcr/gcr-system-prompt.c:932
 msgid "The operation was cancelled"
 msgstr "処理をキャンセルしました"
@@ -381,7 +381,7 @@ msgstr "処理をキャンセルしました"
 msgid "Private Key"
 msgstr "秘密鍵"
 
-#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:884
+#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:887
 #: ui/gcr-gnupg-renderer.c:738 ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "公開鍵"
@@ -441,11 +441,11 @@ msgstr "基本制約"
 msgid "Certificate Authority"
 msgstr "認証局"
 
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
 msgid "Yes"
 msgstr "はい"
 
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
 msgid "No"
 msgstr "いいえ"
 
@@ -478,140 +478,154 @@ msgid "Digital signature"
 msgstr "電子署名"
 
 #: ui/gcr-certificate-renderer.c:188
+msgid "Non repudiation"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "鍵暗号化"
 
-#: ui/gcr-certificate-renderer.c:189
+#: ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "データ暗号化"
 
-#: ui/gcr-certificate-renderer.c:190
+#: ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "鍵合致"
 
-#: ui/gcr-certificate-renderer.c:191
+#: ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "証明書署名"
 
-#: ui/gcr-certificate-renderer.c:192
+#: ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "失効リスト署名"
 
-#: ui/gcr-certificate-renderer.c:217
+#: ui/gcr-certificate-renderer.c:194
+msgid "Encipher only"
+msgstr ""
+
+#: ui/gcr-certificate-renderer.c:195
+#, fuzzy
+#| msgid "Data encipherment"
+msgid "Decipher only"
+msgstr "データ暗号化"
+
+#: ui/gcr-certificate-renderer.c:220
 msgid "Key Usage"
 msgstr "鍵用途"
 
-#: ui/gcr-certificate-renderer.c:218
+#: ui/gcr-certificate-renderer.c:221
 msgid "Usages"
 msgstr "用途"
 
-#: ui/gcr-certificate-renderer.c:238
+#: ui/gcr-certificate-renderer.c:241
 msgid "Subject Alternative Names"
 msgstr "サブジェクト代替名称"
 
-#: ui/gcr-certificate-renderer.c:265
+#: ui/gcr-certificate-renderer.c:268
 msgid "Extension"
 msgstr "拡張"
 
-#: ui/gcr-certificate-renderer.c:269
+#: ui/gcr-certificate-renderer.c:272
 msgid "Identifier"
 msgstr "識別子"
 
-#: ui/gcr-certificate-renderer.c:270 ui/gcr-certificate-request-renderer.c:268
+#: ui/gcr-certificate-renderer.c:273 ui/gcr-certificate-request-renderer.c:268
 #: ui/gcr-gnupg-renderer.c:414 ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "値"
 
-#: ui/gcr-certificate-renderer.c:288
+#: ui/gcr-certificate-renderer.c:291
 msgid "Couldn’t export the certificate."
 msgstr "証明書をエクスポートできませんでした。"
 
-#: ui/gcr-certificate-renderer.c:524 ui/gcr-certificate-request-renderer.c:309
+#: ui/gcr-certificate-renderer.c:527 ui/gcr-certificate-request-renderer.c:309
 msgid "Identity"
 msgstr "識別子"
 
-#: ui/gcr-certificate-renderer.c:528
+#: ui/gcr-certificate-renderer.c:531
 msgid "Verified by"
 msgstr "確認者"
 
-#: ui/gcr-certificate-renderer.c:535 ui/gcr-gnupg-renderer.c:719
+#: ui/gcr-certificate-renderer.c:538 ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "有効期限"
 
 #. The subject
-#: ui/gcr-certificate-renderer.c:542 ui/gcr-certificate-request-renderer.c:315
+#: ui/gcr-certificate-renderer.c:545 ui/gcr-certificate-request-renderer.c:315
 msgid "Subject Name"
 msgstr "サブジェクト名"
 
 #. The Issuer
-#: ui/gcr-certificate-renderer.c:547
+#: ui/gcr-certificate-renderer.c:550
 msgid "Issuer Name"
 msgstr "発行者の名前"
 
 #. The Issued Parameters
-#: ui/gcr-certificate-renderer.c:552
+#: ui/gcr-certificate-renderer.c:555
 msgid "Issued Certificate"
 msgstr "発行済の証明書"
 
-#: ui/gcr-certificate-renderer.c:557 ui/gcr-certificate-request-renderer.c:326
+#: ui/gcr-certificate-renderer.c:560 ui/gcr-certificate-request-renderer.c:326
 msgid "Version"
 msgstr "版"
 
-#: ui/gcr-certificate-renderer.c:571
+#: ui/gcr-certificate-renderer.c:574
 msgid "Not Valid Before"
 msgstr "次より古い日付は妥当ではない"
 
-#: ui/gcr-certificate-renderer.c:576
+#: ui/gcr-certificate-renderer.c:579
 msgid "Not Valid After"
 msgstr "次より新しい日付は妥当ではない"
 
 #. Fingerprints
-#: ui/gcr-certificate-renderer.c:581
+#: ui/gcr-certificate-renderer.c:584
 msgid "Certificate Fingerprints"
 msgstr "証明書の指紋"
 
 #. Public Key Info
-#: ui/gcr-certificate-renderer.c:587 ui/gcr-certificate-request-renderer.c:329
+#: ui/gcr-certificate-renderer.c:590 ui/gcr-certificate-request-renderer.c:329
 #: ui/gcr-certificate-request-renderer.c:375
 msgid "Public Key Info"
 msgstr "公開鍵の情報"
 
 #. Signature
-#: ui/gcr-certificate-renderer.c:602 ui/gcr-certificate-renderer.c:912
+#: ui/gcr-certificate-renderer.c:605 ui/gcr-certificate-renderer.c:915
 #: ui/gcr-certificate-request-renderer.c:345
 #: ui/gcr-certificate-request-renderer.c:382 ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "署名"
 
-#: ui/gcr-certificate-renderer.c:619
+#: ui/gcr-certificate-renderer.c:622
 msgid "Export Certificate…"
 msgstr "証明書をエクスポート…"
 
-#: ui/gcr-certificate-renderer.c:858
+#: ui/gcr-certificate-renderer.c:861
 msgid "Key Algorithm"
 msgstr "鍵のアルゴリズム"
 
-#: ui/gcr-certificate-renderer.c:863
+#: ui/gcr-certificate-renderer.c:866
 msgid "Key Parameters"
 msgstr "鍵のパラメーター"
 
-#: ui/gcr-certificate-renderer.c:871 ui/gcr-gnupg-renderer.c:353
+#: ui/gcr-certificate-renderer.c:874 ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "鍵のサイズ"
 
-#: ui/gcr-certificate-renderer.c:879
+#: ui/gcr-certificate-renderer.c:882
 msgid "Key SHA1 Fingerprint"
 msgstr "鍵の SHA1 指紋"
 
-#: ui/gcr-certificate-renderer.c:901
+#: ui/gcr-certificate-renderer.c:904
 msgid "Signature Algorithm"
 msgstr "署名アルゴリズム"
 
-#: ui/gcr-certificate-renderer.c:905
+#: ui/gcr-certificate-renderer.c:908
 msgid "Signature Parameters"
 msgstr "署名のパラメーター"
 
-#: ui/gcr-certificate-renderer.c:954
+#: ui/gcr-certificate-renderer.c:957
 msgid "Critical"
 msgstr "重大"
 

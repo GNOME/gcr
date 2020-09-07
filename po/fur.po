@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2020-07-12 18:39+0200\n"
+"POT-Creation-Date: 2020-08-22 15:40+0000\n"
+"PO-Revision-Date: 2020-09-07 08:28+0200\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -970,7 +970,7 @@ msgstr "Robustece"
 #. Fingerprints
 #: ui/gcr-key-renderer.c:402
 msgid "Fingerprints"
-msgstr "Improntis digjitâi"
+msgstr "Improntis digjitâls"
 
 #: ui/gcr-key-renderer.c:406
 msgid "SHA1"

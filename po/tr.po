@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-02-02 11:37+0000\n"
-"PO-Revision-Date: 2020-02-11 12:07+0300\n"
+"POT-Creation-Date: 2020-06-18 07:02+0000\n"
+"PO-Revision-Date: 2020-09-12 08:51+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-POOTLE-MTIME: 1420669651.000000\n"
 
 #: egg/egg-oid.c:40
@@ -68,7 +68,7 @@ msgstr "Ortak Ad"
 msgid "Surname"
 msgstr "Soyadı"
 
-#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:562
+#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:565
 msgid "Serial Number"
 msgstr "Seri Numarası"
 
@@ -124,121 +124,125 @@ msgstr "DN Belirteci"
 msgid "Pseudonym"
 msgstr "Takma Ad"
 
-#: egg/egg-oid.c:97
+#. Translators: Russian: Main state registration number
+#: egg/egg-oid.c:98
 msgid "OGRN"
 msgstr "OGRN"
 
-#: egg/egg-oid.c:99
+#. Translators: Russian: Individual insurance account number
+#: egg/egg-oid.c:101
 msgid "SNILS"
 msgstr "SNILS"
 
-#: egg/egg-oid.c:101
+#. Translators: Russian: Main state registration number for individual enterpreneurs
+#: egg/egg-oid.c:104
 msgid "OGRNIP"
 msgstr "OGRNIP"
 
-#: egg/egg-oid.c:103
+#. Translators: Russian: Individual taxpayer number
+#: egg/egg-oid.c:107
 msgid "INN"
 msgstr "INN"
 
-#: egg/egg-oid.c:106 ui/gcr-gnupg-renderer.c:201 ui/gcr-key-renderer.c:385
+#: egg/egg-oid.c:110 ui/gcr-gnupg-renderer.c:201 ui/gcr-key-renderer.c:385
 msgid "RSA"
 msgstr "RSA"
 
-#: egg/egg-oid.c:107
+#: egg/egg-oid.c:111
 msgid "MD2 with RSA"
 msgstr "RSA ile MD2"
 
-#: egg/egg-oid.c:108
+#: egg/egg-oid.c:112
 msgid "MD5 with RSA"
 msgstr "RSA ile MD5"
 
-#: egg/egg-oid.c:109
+#: egg/egg-oid.c:113
 msgid "SHA1 with RSA"
 msgstr "RSA ile SHA1"
 
-#: egg/egg-oid.c:111 ui/gcr-gnupg-renderer.c:205 ui/gcr-key-renderer.c:387
+#: egg/egg-oid.c:115 ui/gcr-gnupg-renderer.c:205 ui/gcr-key-renderer.c:387
 msgid "DSA"
 msgstr "DSA"
 
-#: egg/egg-oid.c:112
+#: egg/egg-oid.c:116
 msgid "SHA1 with DSA"
 msgstr "DSA ile SHA1"
 
-#: egg/egg-oid.c:114 ui/gcr-key-renderer.c:389
+#: egg/egg-oid.c:118 ui/gcr-key-renderer.c:389
 msgid "Elliptic Curve"
 msgstr "Eliptik Eğri"
 
-#: egg/egg-oid.c:115
+#: egg/egg-oid.c:119
 msgid "SHA1 with ECDSA"
 msgstr "ECDSA ile SHA1"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:120
 msgid "SHA224 with ECDSA"
 msgstr "ECDSA ile SHA224"
 
-#: egg/egg-oid.c:117
+#: egg/egg-oid.c:121
 msgid "SHA256 with ECDSA"
 msgstr "ECDSA ile SHA256"
 
-#: egg/egg-oid.c:118
+#: egg/egg-oid.c:122
 msgid "SHA384 with ECDSA"
 msgstr "ECDSA ile SHA384"
 
-#: egg/egg-oid.c:119
+#: egg/egg-oid.c:123
 msgid "SHA512 with ECDSA"
 msgstr "ECDSA ile SHA512"
 
-#: egg/egg-oid.c:121
+#: egg/egg-oid.c:125
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001 ile GOST R 34.11-94"
 
-#: egg/egg-oid.c:122
+#: egg/egg-oid.c:126
 msgid "GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001"
 
-#: egg/egg-oid.c:123
+#: egg/egg-oid.c:127
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.10-2012 256-bit eğri"
 
-#: egg/egg-oid.c:124
+#: egg/egg-oid.c:128
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.10-2012 512-bit eğri"
 
-#: egg/egg-oid.c:125
+#: egg/egg-oid.c:129
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.10-2012 256-bit eğri ile GOST R 34.11-2012/256"
 
-#: egg/egg-oid.c:126
+#: egg/egg-oid.c:130
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.10-2012 512-bit eğri ile GOST R 34.11-2012/512"
 
 #. Extended Key Usages
-#: egg/egg-oid.c:129
+#: egg/egg-oid.c:133
 msgid "Server Authentication"
 msgstr "Sunucu Kimlik Denetimi"
 
-#: egg/egg-oid.c:130
+#: egg/egg-oid.c:134
 msgid "Client Authentication"
 msgstr "İstemci Kimlik Denetimi"
 
-#: egg/egg-oid.c:131
+#: egg/egg-oid.c:135
 msgid "Code Signing"
 msgstr "Kod İmzalama"
 
-#: egg/egg-oid.c:132
+#: egg/egg-oid.c:136
 msgid "Email Protection"
 msgstr "E-posta Koruma"
 
-#: egg/egg-oid.c:133
+#: egg/egg-oid.c:137
 msgid "Time Stamping"
 msgstr "Zaman Damgalama"
 
-#: gck/gck-module.c:343
+#: gck/gck-module.c:332
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "PKCS#11 modulü yüklemede hata: %s"
 
-#: gck/gck-module.c:357
+#: gck/gck-module.c:346
 #, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "PKCS#11 modülü başlatılamadı: %s"
@@ -291,48 +295,48 @@ msgstr "Bitiş Tarihi"
 msgid "Certificate"
 msgstr "Sertifika"
 
-#: gcr/gcr-certificate-extensions.c:177
+#: gcr/gcr-certificate-extensions.c:190
 msgid "Other Name"
 msgstr "Diğer Ad"
 
-#: gcr/gcr-certificate-extensions.c:187
+#: gcr/gcr-certificate-extensions.c:200
 msgid "XMPP Addr"
 msgstr "XMPP Adresi"
 
-#: gcr/gcr-certificate-extensions.c:191
+#: gcr/gcr-certificate-extensions.c:204
 msgid "DNS SRV"
 msgstr "DNS Sunucu"
 
-#: gcr/gcr-certificate-extensions.c:203 ui/gcr-gnupg-renderer.c:423
+#: gcr/gcr-certificate-extensions.c:216 ui/gcr-gnupg-renderer.c:423
 #: ui/gcr-gnupg-renderer.c:705
 msgid "Email"
 msgstr "E-posta"
 
-#: gcr/gcr-certificate-extensions.c:211
+#: gcr/gcr-certificate-extensions.c:224
 msgid "DNS"
 msgstr "DNS"
 
-#: gcr/gcr-certificate-extensions.c:219
+#: gcr/gcr-certificate-extensions.c:232
 msgid "X400 Address"
 msgstr "X400 Adresi"
 
-#: gcr/gcr-certificate-extensions.c:226
+#: gcr/gcr-certificate-extensions.c:239
 msgid "Directory Name"
 msgstr "Dizin Adı"
 
-#: gcr/gcr-certificate-extensions.c:234
+#: gcr/gcr-certificate-extensions.c:247
 msgid "EDI Party Name"
 msgstr "EDI Birim Adı"
 
-#: gcr/gcr-certificate-extensions.c:241
+#: gcr/gcr-certificate-extensions.c:254
 msgid "URI"
 msgstr "URI"
 
-#: gcr/gcr-certificate-extensions.c:249
+#: gcr/gcr-certificate-extensions.c:262
 msgid "IP Address"
 msgstr "IP Adresi"
 
-#: gcr/gcr-certificate-extensions.c:257
+#: gcr/gcr-certificate-extensions.c:270
 msgid "Registered ID"
 msgstr "Kayıtlı Kimlik"
 
@@ -372,7 +376,7 @@ msgstr "Gnupg süreci şu kod ile sonuçlandı: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg süreci sinyal ile sonlandırıldı: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3204
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3192
 #: gcr/gcr-system-prompt.c:932
 msgid "The operation was cancelled"
 msgstr "İşlem iptal edildi"
@@ -381,7 +385,7 @@ msgstr "İşlem iptal edildi"
 msgid "Private Key"
 msgstr "Özel Anahtar"
 
-#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:884
+#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:887
 #: ui/gcr-gnupg-renderer.c:738 ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "Genel Anahtar"
@@ -404,7 +408,7 @@ msgstr "Veri kilitli"
 
 #: gcr/gcr-prompt.c:225
 msgid "Continue"
-msgstr "Devam et"
+msgstr "Sürdür"
 
 #: gcr/gcr-prompt.c:234
 msgid "Cancel"
@@ -441,11 +445,11 @@ msgstr "Temel Kısıtlar"
 msgid "Certificate Authority"
 msgstr "Sertifika Yetkilisi"
 
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
 msgid "Yes"
 msgstr "Evet"
 
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:955
+#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
 msgid "No"
 msgstr "Hayır"
 
@@ -478,140 +482,152 @@ msgid "Digital signature"
 msgstr "Sayısal imza"
 
 #: ui/gcr-certificate-renderer.c:188
+msgid "Non repudiation"
+msgstr "Red olmayan"
+
+#: ui/gcr-certificate-renderer.c:189
 msgid "Key encipherment"
 msgstr "Anahtar şifreleme"
 
-#: ui/gcr-certificate-renderer.c:189
+#: ui/gcr-certificate-renderer.c:190
 msgid "Data encipherment"
 msgstr "Veri şifreleme"
 
-#: ui/gcr-certificate-renderer.c:190
+#: ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
 msgstr "Anahtar anlaşması"
 
-#: ui/gcr-certificate-renderer.c:191
+#: ui/gcr-certificate-renderer.c:192
 msgid "Certificate signature"
 msgstr "Sertifika imzası"
 
-#: ui/gcr-certificate-renderer.c:192
+#: ui/gcr-certificate-renderer.c:193
 msgid "Revocation list signature"
 msgstr "İptal Listesi İmzası"
 
-#: ui/gcr-certificate-renderer.c:217
+#: ui/gcr-certificate-renderer.c:194
+msgid "Encipher only"
+msgstr "Yalnızca şifreleme"
+
+#: ui/gcr-certificate-renderer.c:195
+msgid "Decipher only"
+msgstr "Yalnızca şifre çözme"
+
+#: ui/gcr-certificate-renderer.c:220
 msgid "Key Usage"
 msgstr "Anahtar Kullanımı"
 
-#: ui/gcr-certificate-renderer.c:218
+#: ui/gcr-certificate-renderer.c:221
 msgid "Usages"
 msgstr "Kullanımlar"
 
-#: ui/gcr-certificate-renderer.c:238
+#: ui/gcr-certificate-renderer.c:241
 msgid "Subject Alternative Names"
 msgstr "Konu Diğer Adları"
 
-#: ui/gcr-certificate-renderer.c:265
+#: ui/gcr-certificate-renderer.c:268
 msgid "Extension"
 msgstr "Uzantı"
 
-#: ui/gcr-certificate-renderer.c:269
+#: ui/gcr-certificate-renderer.c:272
 msgid "Identifier"
 msgstr "Tanımlayıcı"
 
-#: ui/gcr-certificate-renderer.c:270 ui/gcr-certificate-request-renderer.c:268
+#: ui/gcr-certificate-renderer.c:273 ui/gcr-certificate-request-renderer.c:268
 #: ui/gcr-gnupg-renderer.c:414 ui/gcr-gnupg-renderer.c:431
 msgid "Value"
 msgstr "Değer"
 
-#: ui/gcr-certificate-renderer.c:288
+#: ui/gcr-certificate-renderer.c:291
 msgid "Couldn’t export the certificate."
 msgstr "Sertifika dışa aktarılamadı."
 
-#: ui/gcr-certificate-renderer.c:524 ui/gcr-certificate-request-renderer.c:309
+#: ui/gcr-certificate-renderer.c:527 ui/gcr-certificate-request-renderer.c:309
 msgid "Identity"
 msgstr "Kimlik"
 
-#: ui/gcr-certificate-renderer.c:528
+#: ui/gcr-certificate-renderer.c:531
 msgid "Verified by"
 msgstr "Doğrulayan"
 
-#: ui/gcr-certificate-renderer.c:535 ui/gcr-gnupg-renderer.c:719
+#: ui/gcr-certificate-renderer.c:538 ui/gcr-gnupg-renderer.c:719
 msgid "Expires"
 msgstr "Bitiş Tarihi"
 
 #. The subject
-#: ui/gcr-certificate-renderer.c:542 ui/gcr-certificate-request-renderer.c:315
+#: ui/gcr-certificate-renderer.c:545 ui/gcr-certificate-request-renderer.c:315
 msgid "Subject Name"
 msgstr "Konu Adı"
 
 #. The Issuer
-#: ui/gcr-certificate-renderer.c:547
+#: ui/gcr-certificate-renderer.c:550
 msgid "Issuer Name"
 msgstr "Veren Adı"
 
 #. The Issued Parameters
-#: ui/gcr-certificate-renderer.c:552
+#: ui/gcr-certificate-renderer.c:555
 msgid "Issued Certificate"
 msgstr "Verilen Sertifika"
 
-#: ui/gcr-certificate-renderer.c:557 ui/gcr-certificate-request-renderer.c:326
+#: ui/gcr-certificate-renderer.c:560 ui/gcr-certificate-request-renderer.c:326
 msgid "Version"
 msgstr "Sürüm"
 
-#: ui/gcr-certificate-renderer.c:571
+#: ui/gcr-certificate-renderer.c:574
 msgid "Not Valid Before"
 msgstr "Öncesi Geçerli Değil"
 
-#: ui/gcr-certificate-renderer.c:576
+#: ui/gcr-certificate-renderer.c:579
 msgid "Not Valid After"
 msgstr "Sonrası Geçerli Değil"
 
 #. Fingerprints
-#: ui/gcr-certificate-renderer.c:581
+#: ui/gcr-certificate-renderer.c:584
 msgid "Certificate Fingerprints"
-msgstr "Sertifika Parmakizleri"
+msgstr "Sertifika Parmak İzleri"
 
 #. Public Key Info
-#: ui/gcr-certificate-renderer.c:587 ui/gcr-certificate-request-renderer.c:329
+#: ui/gcr-certificate-renderer.c:590 ui/gcr-certificate-request-renderer.c:329
 #: ui/gcr-certificate-request-renderer.c:375
 msgid "Public Key Info"
 msgstr "Genel Anahtar Bilgisi"
 
 #. Signature
-#: ui/gcr-certificate-renderer.c:602 ui/gcr-certificate-renderer.c:912
+#: ui/gcr-certificate-renderer.c:605 ui/gcr-certificate-renderer.c:915
 #: ui/gcr-certificate-request-renderer.c:345
 #: ui/gcr-certificate-request-renderer.c:382 ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "İmza"
 
-#: ui/gcr-certificate-renderer.c:619
+#: ui/gcr-certificate-renderer.c:622
 msgid "Export Certificate…"
-msgstr "Sertifikayı Dışarı Aktar…"
+msgstr "Sertifikayı Dışa Aktar…"
 
-#: ui/gcr-certificate-renderer.c:858
+#: ui/gcr-certificate-renderer.c:861
 msgid "Key Algorithm"
 msgstr "Anahtar Algoritması"
 
-#: ui/gcr-certificate-renderer.c:863
+#: ui/gcr-certificate-renderer.c:866
 msgid "Key Parameters"
 msgstr "Anahtar Parametreleri"
 
-#: ui/gcr-certificate-renderer.c:871 ui/gcr-gnupg-renderer.c:353
+#: ui/gcr-certificate-renderer.c:874 ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "Anahtar Boyutu"
 
-#: ui/gcr-certificate-renderer.c:879
+#: ui/gcr-certificate-renderer.c:882
 msgid "Key SHA1 Fingerprint"
-msgstr "Anahtar SHA1 Parmakizi"
+msgstr "Anahtar SHA1 Parmak İzi"
 
-#: ui/gcr-certificate-renderer.c:901
+#: ui/gcr-certificate-renderer.c:904
 msgid "Signature Algorithm"
 msgstr "İmza Algoritması"
 
-#: ui/gcr-certificate-renderer.c:905
+#: ui/gcr-certificate-renderer.c:908
 msgid "Signature Parameters"
 msgstr "İmza Parametreleri"
 
-#: ui/gcr-certificate-renderer.c:954
+#: ui/gcr-certificate-renderer.c:957
 msgid "Critical"
 msgstr "Kritik"
 
@@ -622,7 +638,7 @@ msgstr "Kritik"
 #: ui/gcr-certificate-request-renderer.c:362
 #: ui/gcr-certificate-request-renderer.c:367
 msgid "Certificate request"
-msgstr "Sertifika talebi"
+msgstr "Sertifika istemi"
 
 #: ui/gcr-certificate-request-renderer.c:257
 msgid "Attribute"
@@ -654,7 +670,7 @@ msgstr "Dosya gösterilemedi"
 
 #: ui/gcr-failure-renderer.c:166
 msgid "Reason"
-msgstr "Sebep"
+msgstr "Neden"
 
 #: ui/gcr-failure-renderer.c:216
 msgid "Cannot display a file of this type."
@@ -721,7 +737,7 @@ msgstr "Kısmi güvenilir"
 
 #: ui/gcr-gnupg-renderer.c:271
 msgid "Fully trusted"
-msgstr "Tam güvenilir"
+msgstr "Tümüyle güvenilir"
 
 #: ui/gcr-gnupg-renderer.c:273
 msgid "Ultimately trusted"
@@ -775,7 +791,7 @@ msgstr "Algoritma"
 #: ui/gcr-gnupg-renderer.c:361 ui/gcr-gnupg-renderer.c:438
 #: ui/gcr-gnupg-renderer.c:481
 msgid "Created"
-msgstr "Oluşturuldu"
+msgstr "Oluşturulma"
 
 #: ui/gcr-gnupg-renderer.c:370 ui/gcr-gnupg-renderer.c:447
 #: ui/gcr-gnupg-renderer.c:490
@@ -876,7 +892,7 @@ msgstr "Yalnızca yerel"
 
 #: ui/gcr-gnupg-renderer.c:593
 msgid "Exportable"
-msgstr "Dışarı aktarılabilir"
+msgstr "Dışa aktarılabilir"
 
 #: ui/gcr-gnupg-renderer.c:611
 msgid "Revocation Key"
@@ -910,21 +926,20 @@ msgstr "İçe aktarma işlemi devam ediyor…"
 #: ui/gcr-import-button.c:131
 #, c-format
 msgid "Imported to: %s"
-msgstr "İçine aktarıldı: %s"
+msgstr "İçe aktarıldı: %s"
 
 #: ui/gcr-import-button.c:151
 #, c-format
 msgid "Import to: %s"
-msgstr "İçeri aktar: %s"
+msgstr "İçe aktar: %s"
 
 #: ui/gcr-import-button.c:164
 msgid "Cannot import because there are no compatible importers"
-msgstr ""
-"İçeri aktarma işlemi uyumlu içeri aktarıcı olmadığından dolayı yapılamıyor"
+msgstr "İçe aktarma işlemi uyumlu içe aktarıcı olmadığından yapılamıyor"
 
 #: ui/gcr-import-button.c:173
 msgid "No data to import"
-msgstr "İçeri aktarılacak veri yok"
+msgstr "İçe aktarılacak veri yok"
 
 #: ui/gcr-key-renderer.c:89
 msgid "Key"
@@ -994,7 +1009,7 @@ msgstr "Kullanıcı işlemi iptal etti"
 
 #: ui/gcr-pkcs11-import-dialog.ui:31
 msgid "In order to import, please enter the password."
-msgstr "Lütfen içeri aktarmak için parola girin."
+msgstr "Lütfen içe aktarmak için parola girin."
 
 #. The password label
 #: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
@@ -1003,12 +1018,12 @@ msgstr "Parola:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
-msgstr "İşaret:"
+msgstr "Jeton:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
 #: ui/gcr-unlock-renderer.c:124
 msgid "Unlock"
-msgstr "Kilidini kaldır"
+msgstr "Kilidi kaldır"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1016,7 +1031,7 @@ msgstr "Etiket:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:233
 msgid "Import settings"
-msgstr "İçeri Aktarma ayarları"
+msgstr "İçe Aktarma ayarları"
 
 #. The confirm label
 #: ui/gcr-prompt-dialog.c:634
@@ -1157,7 +1172,7 @@ msgstr "İçe Aktar"
 
 #: ui/gcr-viewer-window.c:114
 msgid "_Close"
-msgstr "Kapa_t"
+msgstr "_Kapat"
 
 #, fuzzy
 #~ msgid "Couldn't setup PKCS#11 module: %s"

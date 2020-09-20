@@ -1,3 +1,11 @@
+gcr 3.37.91:
+- meson: missing dependency on generated oids header [GNOME/gcr#48, GNOME/gcr!57]
+- Correct display of key usage extensions [GNOME/gcr#47, GNOME/gcr!56]
+- meson: Correctly set internal vapi dependencies [GNOME/gcr!55]
+- Cleanup GType boilerplate [GNOME/gcr!53]
+- gck: Fixed test failures [GNOME/gcr#42, GNOME/gcr!51, GNOME/gcr!52]
+- Updated translations
+
 gcr 3.36.0:
 - gcr: Update gtk-doc get_der_data() vfunc [GNOME/gcr!48]
 - Updated translations

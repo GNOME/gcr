@@ -18,3 +18,8 @@ option('gpg_path',
   value: '',
   description: 'Path to gpg, autodetected if not set',
 )
+option('ssh_agent',
+  type: 'boolean',
+  value: true,
+  description: 'Build ssh-agent binary',
+)

@@ -238,6 +238,29 @@ gcr_ssh_askpass = executable('gcr-ssh-askpass',
   install_dir: get_option('libexecdir'),
 )
 
+if get_option('ssh_agent')
+  # gcr-ssh-agent binary
+  gcr_ssh_agent_sources = [
+    'gcr-ssh-agent.c',
+    'gcr-ssh-agent-interaction.c',
+    'gcr-ssh-agent-preload.c',
+    'gcr-ssh-agent-process.c',
+    'gcr-ssh-agent-service.c',
+    'gcr-ssh-agent-util.c',
+  ]
+  gcr_ssh_agent = executable('gcr-ssh-agent',
+    gcr_ssh_agent_sources,
+    dependencies: [ gcr_base_deps, gcr_base_dep, libsecret_dep ],
+    c_args: [
+      '-DGCR_COMPILATION',
+      '-DGCR_API_SUBJECT_TO_CHANGE',
+    ],
+    include_directories: config_h_dir,
+    install: true,
+    install_dir: get_option('libexecdir'),
+  )
+endif
+
 # Services
 gcr_service_files = [
   'org.gnome.keyring.SystemPrompter.service',

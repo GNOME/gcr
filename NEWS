@@ -1,3 +1,6 @@
+gcr 3.38.0:
+- No changes from 3.37.91
+
 gcr 3.37.91:
 - meson: missing dependency on generated oids header [GNOME/gcr#48, GNOME/gcr!57]
 - Correct display of key usage extensions [GNOME/gcr#47, GNOME/gcr!56]

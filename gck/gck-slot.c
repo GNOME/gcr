@@ -702,7 +702,7 @@ gck_slot_get_token_info (GckSlot *self)
 	g_object_unref (module);
 
 	if (rv != CKR_OK) {
-		g_warning ("couldn't get slot info: %s", gck_message_from_rv (rv));
+		g_warning ("couldn't get token info: %s", gck_message_from_rv (rv));
 		return NULL;
 	}
 

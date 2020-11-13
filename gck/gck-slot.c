@@ -826,7 +826,7 @@ gck_slot_has_flags (GckSlot *self, gulong flags)
 {
 	CK_FUNCTION_LIST_PTR funcs;
 	GckModule *module = NULL;
-	CK_TOKEN_INFO info;
+	CK_SLOT_INFO info;
 	CK_SLOT_ID handle;
 	CK_RV rv;
 
@@ -839,7 +839,7 @@ gck_slot_has_flags (GckSlot *self, gulong flags)
 	g_return_val_if_fail (funcs, FALSE);
 
 	memset (&info, 0, sizeof (info));
-	rv = (funcs->C_GetTokenInfo) (handle, &info);
+	rv = (funcs->C_GetSlotInfo) (handle, &info);
 
 	g_object_unref (module);
 

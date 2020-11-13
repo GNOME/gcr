@@ -852,6 +852,45 @@ gck_slot_has_flags (GckSlot *self, gulong flags)
 }
 
 /**
+ * gck_slot_token_has_flags:
+ * @self: The GckSlot object.
+ * @flags: The flags to check.
+ *
+ * Check if the PKCS11 token in the slot has the given flags.
+ *
+ * Returns: Whether one or more flags exist.
+ */
+gboolean
+gck_slot_token_has_flags (GckSlot *self, gulong flags)
+{
+	CK_FUNCTION_LIST_PTR funcs;
+	GckModule *module = NULL;
+	CK_TOKEN_INFO info;
+	CK_SLOT_ID handle;
+	CK_RV rv;
+
+	g_return_val_if_fail (GCK_IS_SLOT (self), FALSE);
+
+	g_object_get (self, "module", &module, "handle", &handle, NULL);
+	g_return_val_if_fail (GCK_IS_MODULE (module), FALSE);
+
+	funcs = gck_module_get_functions (module);
+	g_return_val_if_fail (funcs, FALSE);
+
+	memset (&info, 0, sizeof (info));
+	rv = (funcs->C_GetTokenInfo) (handle, &info);
+
+	g_object_unref (module);
+
+	if (rv != CKR_OK) {
+		g_warning ("couldn't get slot info: %s", gck_message_from_rv (rv));
+		return FALSE;
+	}
+
+	return (info.flags & flags) != 0;
+}
+
+/**
  * gck_slot_enumerate_objects:
  * @self: a #GckSlot to enumerate objects on
  * @match: attributes that the objects must match, or empty for all objects

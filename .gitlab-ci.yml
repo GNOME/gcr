@@ -42,6 +42,12 @@ fedora:asan:
     - meson _build -Dsanitize=address
     - eval `dbus-launch --sh-syntax`
     - meson test -C _build
+  artifacts:
+    name: "gcr-asan-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
+    when: always
+    paths:
+      - "_build/config.h"
+      - "_build/meson-logs"
 
 fedora:ubsan:
   image: fedora:latest
@@ -55,6 +61,12 @@ fedora:ubsan:
     - meson _build -Dsanitize=undefined
     - eval `dbus-launch --sh-syntax`
     - meson test -C _build
+  artifacts:
+    name: "gcr-ubsan-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
+    when: always
+    paths:
+      - "_build/config.h"
+      - "_build/meson-logs"
 
 fedora:coverage:
   image: fedora:latest
@@ -74,6 +86,12 @@ fedora:coverage:
     name: "gcr-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     paths:
       - _build/meson-logs/coveragereport/
+  artifacts:
+    name: "gcr-coverage-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
+    when: always
+    paths:
+      - "_build/config.h"
+      - "_build/meson-logs"
 
 pages:
   stage: deploy

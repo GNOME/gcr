@@ -1306,12 +1306,12 @@ gck_enumerator_next_async (GckEnumerator *self, gint max_objects, GCancellable *
 	state = check_out_enumerator_state (self);
 	g_return_if_fail (state != NULL);
 
-	args =  _gck_call_async_prep (NULL, self, perform_enumerate_next, NULL,
+	args =  _gck_call_async_prep (NULL, perform_enumerate_next, NULL,
 	                               sizeof (*args), free_enumerate_next);
 	args->want_objects = max_objects <= 0 ? G_MAXINT : max_objects;
 
 	args->state = state;
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 	g_object_unref (self);
 }
 

@@ -216,14 +216,13 @@ _gck_call_sync (gpointer object, gpointer perform, gpointer complete,
 }
 
 gpointer
-_gck_call_async_prep (gpointer object, gpointer cb_object, gpointer perform,
-                       gpointer complete, gsize args_size, gpointer destroy)
+_gck_call_async_prep (gpointer object, gpointer perform, gpointer complete,
+                       gsize args_size, gpointer destroy)
 {
 	GckArguments *args;
 	GckCall *call;
 
 	g_assert (!object || G_IS_OBJECT (object));
-	g_assert (!cb_object || G_IS_OBJECT (cb_object));
 	g_assert (perform);
 
 	if (!destroy)
@@ -235,7 +234,6 @@ _gck_call_async_prep (gpointer object, gpointer cb_object, gpointer perform,
 
 	args = g_malloc0 (args_size);
 	call = g_object_new (GCK_TYPE_CALL, NULL);
-	call->task = g_task_new (cb_object, NULL, NULL, NULL);
 	call->destroy = (GDestroyNotify)destroy;
 	call->perform = (GckPerformFunc)perform;
 	call->complete = (GckCompleteFunc)complete;
@@ -269,20 +267,19 @@ _gck_call_async_object (GckCall *call, gpointer object)
 }
 
 GckCall*
-_gck_call_async_ready (gpointer data, GCancellable *cancellable,
-                        GAsyncReadyCallback callback, gpointer user_data)
+_gck_call_async_ready (gpointer data, gpointer cb_object,
+                       GCancellable *cancellable, GAsyncReadyCallback callback,
+                       gpointer user_data)
 {
 	GckArguments *args = (GckArguments*)data;
 	GckCall* call;
 	GTask* task;
 
 	g_assert (GCK_IS_CALL (args->call));
-	g_assert (G_IS_TASK (args->call->task));
+	g_assert (!cb_object || G_IS_OBJECT (cb_object));
 
-	/* XXX: Maybe move the callback object parameter to this function */
 	call = g_steal_pointer (&args->call);
-	task = g_task_new (g_task_get_source_object (call->task),
-			   cancellable, callback, user_data);
+	task = g_task_new (cb_object, cancellable, callback, user_data);
 	g_task_set_task_data (task, call, g_object_unref);
 	g_set_object (&call->task, task);
 
@@ -302,10 +299,11 @@ _gck_call_async_go (GckCall *call)
 }
 
 void
-_gck_call_async_ready_go (gpointer data, GCancellable *cancellable,
-                           GAsyncReadyCallback callback, gpointer user_data)
+_gck_call_async_ready_go (gpointer data, gpointer cb_object,
+                           GCancellable *cancellable,
+			   GAsyncReadyCallback callback, gpointer user_data)
 {
-	GckCall *call = _gck_call_async_ready (data, cancellable, callback, user_data);
+	GckCall *call = _gck_call_async_ready (data, cb_object, cancellable, callback, user_data);
 	_gck_call_async_go (call);
 }
 

@@ -420,11 +420,11 @@ gck_module_initialize_async (const gchar *path,
 
 	g_return_if_fail (path != NULL);
 
-	args =  _gck_call_async_prep (NULL, NULL, perform_initialize, NULL,
+	args =  _gck_call_async_prep (NULL, perform_initialize, NULL,
 	                              sizeof (*args), free_initialize);
 	args->path = g_strdup (path);
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, NULL, cancellable, callback, user_data);
 }
 
 /**

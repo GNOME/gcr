@@ -179,13 +179,13 @@ gboolean           _gck_call_sync                        (gpointer object,
                                                            GError **err);
 
 gpointer           _gck_call_async_prep                  (gpointer object,
-                                                           gpointer cb_object,
                                                            gpointer perform,
                                                            gpointer complete,
                                                            gsize args_size,
                                                            gpointer destroy_func);
 
 GckCall*          _gck_call_async_ready                 (gpointer args,
+                                                           gpointer cb_object,
                                                            GCancellable *cancellable,
                                                            GAsyncReadyCallback callback,
                                                            gpointer user_data);
@@ -193,6 +193,7 @@ GckCall*          _gck_call_async_ready                 (gpointer args,
 void               _gck_call_async_go                    (GckCall *call);
 
 void               _gck_call_async_ready_go              (gpointer args,
+                                                           gpointer cb_object,
                                                            GCancellable *cancellable,
                                                            GAsyncReadyCallback callback,
                                                            gpointer user_data);

@@ -478,13 +478,13 @@ gck_session_initable_init_async (GAsyncInitable *initable,
 
 	g_object_ref (self);
 
-	args =  _gck_call_async_prep (self->pv->slot, self, perform_open_session, NULL,
+	args =  _gck_call_async_prep (self->pv->slot, perform_open_session, NULL,
 	                              sizeof (*args), free_open_session);
 
 	want_login = (self->pv->options & GCK_SESSION_LOGIN_USER) == GCK_SESSION_LOGIN_USER;
 	args->session = self->pv->handle;
 
-	call = 	_gck_call_async_ready (args, cancellable, callback, user_data);
+	call = 	_gck_call_async_ready (args, self, cancellable, callback, user_data);
 
 	/* Already have a session setup? */
 	if (self->pv->handle && !want_login) {
@@ -954,12 +954,12 @@ gck_session_init_pin_async (GckSession *self, const guchar *pin, gsize n_pin,
                              GCancellable *cancellable, GAsyncReadyCallback callback,
                              gpointer user_data)
 {
-	InitPin* args = _gck_call_async_prep (self, self, perform_init_pin, NULL, sizeof (*args), free_init_pin);
+	InitPin* args = _gck_call_async_prep (self, perform_init_pin, NULL, sizeof (*args), free_init_pin);
 
 	args->pin = pin && n_pin ? g_memdup (pin, n_pin) : NULL;
 	args->n_pin = n_pin;
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**
@@ -1055,14 +1055,14 @@ gck_session_set_pin_async (GckSession *self, const guchar *old_pin, gsize n_old_
                             const guchar *new_pin, gsize n_new_pin, GCancellable *cancellable,
                             GAsyncReadyCallback callback, gpointer user_data)
 {
-	SetPin* args = _gck_call_async_prep (self, self, perform_set_pin, NULL, sizeof (*args), free_set_pin);
+	SetPin* args = _gck_call_async_prep (self, perform_set_pin, NULL, sizeof (*args), free_set_pin);
 
 	args->old_pin = old_pin && n_old_pin ? g_memdup (old_pin, n_old_pin) : NULL;
 	args->n_old_pin = n_old_pin;
 	args->new_pin = new_pin && n_new_pin ? g_memdup (new_pin, n_new_pin) : NULL;
 	args->n_new_pin = n_new_pin;
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**
@@ -1150,13 +1150,13 @@ gck_session_login_async (GckSession *self, gulong user_type, const guchar *pin,
                           gsize n_pin, GCancellable *cancellable, GAsyncReadyCallback callback,
                           gpointer user_data)
 {
-	Login* args = _gck_call_async_prep (self, self, perform_login, NULL, sizeof (*args), free_login);
+	Login* args = _gck_call_async_prep (self, perform_login, NULL, sizeof (*args), free_login);
 
 	args->user_type = user_type;
 	args->pin = pin && n_pin ? g_memdup (pin, n_pin) : NULL;
 	args->n_pin = n_pin;
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**
@@ -1253,7 +1253,7 @@ gck_session_login_interactive_async (GckSession *self,
                                      GAsyncReadyCallback callback,
                                      gpointer user_data)
 {
-	Interactive* args = _gck_call_async_prep (self, self, perform_interactive, NULL, sizeof (*args), free_interactive);
+	Interactive* args = _gck_call_async_prep (self, perform_interactive, NULL, sizeof (*args), free_interactive);
 
 	g_return_if_fail (GCK_IS_SESSION (self));
 	g_return_if_fail (interaction == NULL || G_IS_TLS_INTERACTION (interaction));
@@ -1266,7 +1266,7 @@ gck_session_login_interactive_async (GckSession *self,
 	args->interaction = interaction ? g_object_ref (interaction) : NULL;
 	args->token = g_object_ref (self->pv->slot);
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**
@@ -1328,8 +1328,8 @@ void
 gck_session_logout_async (GckSession *self, GCancellable *cancellable,
                            GAsyncReadyCallback callback, gpointer user_data)
 {
-	GckArguments *args = _gck_call_async_prep (self, self, perform_logout, NULL, 0, NULL);
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	GckArguments *args = _gck_call_async_prep (self, perform_logout, NULL, 0, NULL);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**
@@ -1442,14 +1442,14 @@ gck_session_create_object_async (GckSession *self, GckAttributes *attrs,
                                   GCancellable *cancellable, GAsyncReadyCallback callback,
                                   gpointer user_data)
 {
-	CreateObject *args = _gck_call_async_prep (self, self, perform_create_object,
+	CreateObject *args = _gck_call_async_prep (self, perform_create_object,
 	                                            NULL, sizeof (*args), free_create_object);
 
 	g_return_if_fail (attrs);
 
 	args->attrs = gck_attributes_ref_sink (attrs);
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**
@@ -1624,10 +1624,10 @@ gck_session_find_handles_async (GckSession *self,
 	g_return_if_fail (match != NULL);
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	args = _gck_call_async_prep (self, self, perform_find_objects,
+	args = _gck_call_async_prep (self, perform_find_objects,
 	                             NULL, sizeof (*args), free_find_objects);
 	args->attrs = gck_attributes_ref_sink (match);
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**
@@ -1940,7 +1940,7 @@ gck_session_generate_key_pair_async (GckSession *self, GckMechanism *mechanism,
                                       GCancellable *cancellable, GAsyncReadyCallback callback,
                                       gpointer user_data)
 {
-	GenerateKeyPair *args = _gck_call_async_prep (self, self, perform_generate_key_pair,
+	GenerateKeyPair *args = _gck_call_async_prep (self, perform_generate_key_pair,
 	                                               NULL, sizeof (*args), free_generate_key_pair);
 
 	g_return_if_fail (GCK_IS_SESSION (self));
@@ -1954,7 +1954,7 @@ gck_session_generate_key_pair_async (GckSession *self, GckMechanism *mechanism,
 	args->public_attrs = gck_attributes_ref_sink (public_attrs);
 	args->private_attrs = gck_attributes_ref_sink (private_attrs);
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**
@@ -2126,7 +2126,7 @@ gck_session_wrap_key_async (GckSession *self, GckObject *key, GckMechanism *mech
                              GckObject *wrapped, GCancellable *cancellable,
                              GAsyncReadyCallback callback, gpointer user_data)
 {
-	WrapKey *args = _gck_call_async_prep (self, self, perform_wrap_key,
+	WrapKey *args = _gck_call_async_prep (self, perform_wrap_key,
 	                                       NULL, sizeof (*args), free_wrap_key);
 
 	g_return_if_fail (GCK_IS_SESSION (self));
@@ -2142,7 +2142,7 @@ gck_session_wrap_key_async (GckSession *self, GckObject *key, GckMechanism *mech
 	g_object_get (wrapped, "handle", &args->wrapped, NULL);
 	g_return_if_fail (args->wrapped != 0);
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**
@@ -2334,7 +2334,7 @@ gck_session_unwrap_key_async (GckSession *self,
                               GAsyncReadyCallback callback,
                               gpointer user_data)
 {
-	UnwrapKey *args = _gck_call_async_prep (self, self, perform_unwrap_key,
+	UnwrapKey *args = _gck_call_async_prep (self, perform_unwrap_key,
 	                                         NULL, sizeof (*args), free_unwrap_key);
 
 	g_return_if_fail (GCK_IS_SESSION (self));
@@ -2351,7 +2351,7 @@ gck_session_unwrap_key_async (GckSession *self,
 	args->input = input;
 	args->n_input = n_input;
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**
@@ -2506,7 +2506,7 @@ gck_session_derive_key_async (GckSession *self, GckObject *base, GckMechanism *m
                                GckAttributes *attrs, GCancellable *cancellable,
                                GAsyncReadyCallback callback, gpointer user_data)
 {
-	DeriveKey *args = _gck_call_async_prep (self, self, perform_derive_key,
+	DeriveKey *args = _gck_call_async_prep (self, perform_derive_key,
 	                                         NULL, sizeof (*args), free_derive_key);
 
 	g_return_if_fail (GCK_IS_SESSION (self));
@@ -2521,7 +2521,7 @@ gck_session_derive_key_async (GckSession *self, GckObject *base, GckMechanism *m
 
 	args->attrs = gck_attributes_ref_sink (attrs);
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**
@@ -2674,7 +2674,7 @@ crypt_async (GckSession *self, GckObject *key, GckMechanism *mechanism, const gu
              gsize n_input, GCancellable *cancellable, GAsyncReadyCallback callback, gpointer user_data,
              CK_C_EncryptInit init_func, CK_C_Encrypt complete_func)
 {
-	Crypt *args = _gck_call_async_prep (self, self, perform_crypt, NULL, sizeof (*args), free_crypt);
+	Crypt *args = _gck_call_async_prep (self, perform_crypt, NULL, sizeof (*args), free_crypt);
 
 	g_return_if_fail (GCK_IS_OBJECT (key));
 	g_return_if_fail (mechanism);
@@ -2696,7 +2696,7 @@ crypt_async (GckSession *self, GckObject *key, GckMechanism *mechanism, const gu
 	args->key_object = g_object_ref (key);
 	args->interaction = gck_session_get_interaction (self);
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 static guchar*
@@ -3238,7 +3238,7 @@ gck_session_verify_async (GckSession *self, GckObject *key, GckMechanism *mechan
                            gsize n_signature, GCancellable *cancellable,
                            GAsyncReadyCallback callback, gpointer user_data)
 {
-	Verify *args = _gck_call_async_prep (self, self, perform_verify, NULL, sizeof (*args), free_verify);
+	Verify *args = _gck_call_async_prep (self, perform_verify, NULL, sizeof (*args), free_verify);
 
 	g_return_if_fail (GCK_IS_OBJECT (key));
 	g_return_if_fail (mechanism);
@@ -3257,7 +3257,7 @@ gck_session_verify_async (GckSession *self, GckObject *key, GckMechanism *mechan
 	args->key_object = g_object_ref (key);
 	args->interaction = gck_session_get_interaction (self);
 
-	_gck_call_async_ready_go (args, cancellable, callback, user_data);
+	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
 }
 
 /**

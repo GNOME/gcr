@@ -121,12 +121,12 @@ gck_modules_initialize_registered_async (GCancellable *cancellable,
                                          GAsyncReadyCallback callback,
                                          gpointer user_data)
 {
-	InitializeRegistered *args;
+	GckCall *call;
 
-	args =  _gck_call_async_prep (NULL, perform_initialize_registered, NULL,
-	                              sizeof (*args), free_initialize_registered);
+	call =  _gck_call_async_prep (NULL, perform_initialize_registered, NULL,
+	                              sizeof (InitializeRegistered), free_initialize_registered);
 
-	_gck_call_async_ready_go (args, NULL, cancellable, callback, user_data);
+	_gck_call_async_ready_go (call, NULL, cancellable, callback, user_data);
 }
 
 /**

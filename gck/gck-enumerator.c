@@ -1296,6 +1296,7 @@ gck_enumerator_next_async (GckEnumerator *self, gint max_objects, GCancellable *
 {
 	GckEnumeratorState *state;
 	EnumerateNext *args;
+	GckCall *call;
 
 	g_return_if_fail (GCK_IS_ENUMERATOR (self));
 	g_return_if_fail (max_objects == -1 || max_objects > 0);
@@ -1306,12 +1307,13 @@ gck_enumerator_next_async (GckEnumerator *self, gint max_objects, GCancellable *
 	state = check_out_enumerator_state (self);
 	g_return_if_fail (state != NULL);
 
-	args =  _gck_call_async_prep (NULL, perform_enumerate_next, NULL,
-	                               sizeof (*args), free_enumerate_next);
+	call = _gck_call_async_prep (NULL, perform_enumerate_next, NULL,
+	                             sizeof (*args), free_enumerate_next);
+	args = _gck_call_get_arguments (call);
 	args->want_objects = max_objects <= 0 ? G_MAXINT : max_objects;
 
 	args->state = state;
-	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
+	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 	g_object_unref (self);
 }
 

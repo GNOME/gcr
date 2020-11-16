@@ -154,7 +154,6 @@ _gck_call_finalize (GObject *obj)
 	call->module = NULL;
 
 	g_clear_object (&call->task);
-	g_clear_object (&call->args->call);
 
 	if (call->destroy)
 		(call->destroy) (call->args);
@@ -215,7 +214,7 @@ _gck_call_sync (gpointer object, gpointer perform, gpointer complete,
 	return FALSE;
 }
 
-gpointer
+GckCall*
 _gck_call_async_prep (gpointer object, gpointer perform, gpointer complete,
                        gsize args_size, gpointer destroy)
 {
@@ -240,13 +239,12 @@ _gck_call_async_prep (gpointer object, gpointer perform, gpointer complete,
 
 	/* Hook the two together */
 	call->args = args;
-	call->args->call = call;
 
 	/* Setup call object if available */
 	if (object != NULL)
 		_gck_call_async_object (call, object);
 
-	return args;
+	return call;
 }
 
 void
@@ -267,23 +265,24 @@ _gck_call_async_object (GckCall *call, gpointer object)
 }
 
 GckCall*
-_gck_call_async_ready (gpointer data, gpointer cb_object,
+_gck_call_async_ready (GckCall *call, gpointer cb_object,
                        GCancellable *cancellable, GAsyncReadyCallback callback,
                        gpointer user_data)
 {
-	GckArguments *args = (GckArguments*)data;
-	GckCall* call;
 	GTask* task;
 
-	g_assert (GCK_IS_CALL (args->call));
+	g_assert (GCK_IS_CALL (call));
+	g_assert (call->args && "GckCall not prepared");
 	g_assert (!cb_object || G_IS_OBJECT (cb_object));
 
-	call = g_steal_pointer (&args->call);
+	g_object_ref (call);
+
 	task = g_task_new (cb_object, cancellable, callback, user_data);
 	g_task_set_task_data (task, call, g_object_unref);
 	g_set_object (&call->task, task);
 
 	g_object_unref (task);
+	g_object_unref (call);
 
 	return call;
 }
@@ -299,11 +298,11 @@ _gck_call_async_go (GckCall *call)
 }
 
 void
-_gck_call_async_ready_go (gpointer data, gpointer cb_object,
+_gck_call_async_ready_go (GckCall *call, gpointer cb_object,
                            GCancellable *cancellable,
 			   GAsyncReadyCallback callback, gpointer user_data)
 {
-	GckCall *call = _gck_call_async_ready (data, cb_object, cancellable, callback, user_data);
+	_gck_call_async_ready (call, cb_object, cancellable, callback, user_data);
 	_gck_call_async_go (call);
 }
 

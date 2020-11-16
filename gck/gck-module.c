@@ -417,14 +417,16 @@ gck_module_initialize_async (const gchar *path,
                              gpointer user_data)
 {
 	Initialize *args;
+	GckCall *call;
 
 	g_return_if_fail (path != NULL);
 
-	args =  _gck_call_async_prep (NULL, perform_initialize, NULL,
+	call =  _gck_call_async_prep (NULL, perform_initialize, NULL,
 	                              sizeof (*args), free_initialize);
+	args = _gck_call_get_arguments (call);
 	args->path = g_strdup (path);
 
-	_gck_call_async_ready_go (args, NULL, cancellable, callback, user_data);
+	_gck_call_async_ready_go (call, NULL, cancellable, callback, user_data);
 }
 
 /**

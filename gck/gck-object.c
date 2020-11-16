@@ -438,15 +438,17 @@ void
 gck_object_destroy_async (GckObject *self, GCancellable *cancellable,
                            GAsyncReadyCallback callback, gpointer user_data)
 {
+	GckCall *call;
 	Destroy* args;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
 	g_return_if_fail (GCK_IS_SESSION (self->pv->session));
 
-	args = _gck_call_async_prep (self->pv->session, perform_destroy, NULL, sizeof (*args), NULL);
+	call = _gck_call_async_prep (self->pv->session, perform_destroy, NULL, sizeof (*args), NULL);
+	args = _gck_call_get_arguments (call);
 	args->object = self->pv->handle;
 
-	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
+	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
 
 /**
@@ -553,18 +555,20 @@ void
 gck_object_set_async (GckObject *self, GckAttributes *attrs, GCancellable *cancellable,
                        GAsyncReadyCallback callback, gpointer user_data)
 {
+	GckCall *call;
 	SetAttributes *args;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
 	g_return_if_fail (attrs != NULL);
 
-	args = _gck_call_async_prep (self->pv->session, perform_set_attributes,
+	call = _gck_call_async_prep (self->pv->session, perform_set_attributes,
 	                             NULL, sizeof (*args), free_set_attributes);
 
+	args = _gck_call_get_arguments (call);
 	args->attrs = gck_attributes_ref_sink (attrs);
 	args->object = self->pv->handle;
 
-	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
+	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
 
 /**
@@ -758,21 +762,23 @@ gck_object_get_async (GckObject *self,
                       GAsyncReadyCallback callback,
                       gpointer user_data)
 {
+	GckCall *call;
 	GetAttributes *args;
 	guint i;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
 
-	args = _gck_call_async_prep (self->pv->session, perform_get_attributes,
+	call = _gck_call_async_prep (self->pv->session, perform_get_attributes,
 	                             NULL, sizeof (*args), free_get_attributes);
 
+	args = _gck_call_get_arguments (call);
 	gck_builder_init (&args->builder);
 	for (i = 0; i < n_attr_types; ++i)
 		gck_builder_add_empty (&args->builder, attr_types[i]);
 
 	args->object = self->pv->handle;
 
-	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
+	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
 
 /**
@@ -960,6 +966,7 @@ gck_object_get_data_async (GckObject *self, gulong attr_type, GckAllocator alloc
                             GCancellable *cancellable, GAsyncReadyCallback callback,
                             gpointer user_data)
 {
+	GckCall *call;
 	GetAttributeData *args;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
@@ -967,14 +974,15 @@ gck_object_get_data_async (GckObject *self, gulong attr_type, GckAllocator alloc
 	if (!allocator)
 		allocator = g_realloc;
 
-	args = _gck_call_async_prep (self->pv->session, perform_get_attribute_data,
+	call = _gck_call_async_prep (self->pv->session, perform_get_attribute_data,
 	                             NULL, sizeof (*args), free_get_attribute_data);
 
+	args = _gck_call_get_arguments (call);
 	args->allocator = allocator;
 	args->object = self->pv->handle;
 	args->type = attr_type;
 
-	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
+	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
 
 /**
@@ -1114,19 +1122,21 @@ gck_object_set_template_async (GckObject *self, gulong attr_type, GckAttributes 
                                 GCancellable *cancellable, GAsyncReadyCallback callback,
                                 gpointer user_data)
 {
+	GckCall *call;
 	set_template_args *args;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
 	g_return_if_fail (attrs);
 
-	args = _gck_call_async_prep (self->pv->session, perform_set_template,
+	call = _gck_call_async_prep (self->pv->session, perform_set_template,
 	                             NULL, sizeof (*args), free_set_template);
 
+	args = _gck_call_get_arguments (call);
 	args->attrs = gck_attributes_ref_sink (attrs);
 	args->type = attr_type;
 	args->object = self->pv->handle;
 
-	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
+	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
 
 /**
@@ -1272,17 +1282,19 @@ gck_object_get_template_async (GckObject *self, gulong attr_type,
                                 GCancellable *cancellable, GAsyncReadyCallback callback,
                                 gpointer user_data)
 {
+	GckCall *call;
 	get_template_args *args;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
 
-	args = _gck_call_async_prep (self->pv->session, perform_get_template,
+	call = _gck_call_async_prep (self->pv->session, perform_get_template,
 	                             NULL, sizeof (*args), free_get_template);
 
+	args = _gck_call_get_arguments (call);
 	args->object = self->pv->handle;
 	args->type = attr_type;
 
-	_gck_call_async_ready_go (args, self, cancellable, callback, user_data);
+	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
 
 /**

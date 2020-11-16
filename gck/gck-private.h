@@ -145,8 +145,6 @@ typedef gboolean (*GckCompleteFunc) (gpointer call_data, CK_RV result);
 typedef struct _GckCall GckCall;
 
 typedef struct _GckArguments {
-	GckCall *call;
-
 	/* For the call function to use */
 	CK_FUNCTION_LIST_PTR pkcs11;
 	CK_ULONG handle;
@@ -155,7 +153,7 @@ typedef struct _GckArguments {
 
 #define GCK_MECHANISM_EMPTY        { 0UL, NULL, 0 }
 
-#define GCK_ARGUMENTS_INIT 	   { NULL, NULL, 0 }
+#define GCK_ARGUMENTS_INIT 	   { NULL, 0 }
 
 G_DECLARE_FINAL_TYPE (GckCall, _gck_call, GCK, CALL, GObject)
 
@@ -178,13 +176,13 @@ gboolean           _gck_call_sync                        (gpointer object,
                                                            GCancellable *cancellable,
                                                            GError **err);
 
-gpointer           _gck_call_async_prep                  (gpointer object,
+GckCall*           _gck_call_async_prep                  (gpointer object,
                                                            gpointer perform,
                                                            gpointer complete,
                                                            gsize args_size,
                                                            gpointer destroy_func);
 
-GckCall*          _gck_call_async_ready                 (gpointer args,
+GckCall*           _gck_call_async_ready                 (GckCall* call,
                                                            gpointer cb_object,
                                                            GCancellable *cancellable,
                                                            GAsyncReadyCallback callback,
@@ -192,7 +190,7 @@ GckCall*          _gck_call_async_ready                 (gpointer args,
 
 void               _gck_call_async_go                    (GckCall *call);
 
-void               _gck_call_async_ready_go              (gpointer args,
+void               _gck_call_async_ready_go              (GckCall *call,
                                                            gpointer cb_object,
                                                            GCancellable *cancellable,
                                                            GAsyncReadyCallback callback,

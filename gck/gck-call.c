@@ -2,6 +2,7 @@
 /* gck-call.c - the GObject PKCS#11 wrapper library
 
    Copyright (C) 2008, Stefan Walter
+   Copyright (C) 2020, Marco Trevisan
 
    The Gnome Keyring Library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public License as
@@ -26,39 +27,19 @@
 
 #include <string.h>
 
-typedef struct _GckCallSource GckCallSource;
-
-static gpointer _gck_call_parent_class = NULL;
-
 struct _GckCall {
 	GObject parent;
+	GTask *task;
 	GckModule *module;
 
 	/* For making the call */
 	GckPerformFunc perform;
 	GckCompleteFunc complete;
 	GckArguments *args;
-	GCancellable *cancellable;
 	GDestroyNotify destroy;
-	CK_RV rv;
-
-	/* For result callback only */
-	gpointer object;
-	GAsyncReadyCallback callback;
-	gpointer user_data;
 };
 
-struct _GckCallClass {
-	GObjectClass parent;
-	GThreadPool *thread_pool;
-	GAsyncQueue *completed_queue;
-	guint completed_id;
-};
-
-struct _GckCallSource {
-	GSource source;
-	GckCallClass *klass;
-};
+G_DEFINE_TYPE (GckCall, _gck_call, G_TYPE_OBJECT)
 
 /* ----------------------------------------------------------------------------
  * HELPER FUNCTIONS
@@ -106,110 +87,53 @@ complete_call (GckCompleteFunc func, GckArguments *args, CK_RV result)
 	return (func) (args, result);
 }
 
+static CK_RV
+perform_call_chain (GckPerformFunc perform, GckCompleteFunc complete,
+		    GCancellable *cancellable, GckArguments *args)
+{
+	CK_RV rv;
+
+	do {
+		rv = perform_call (perform, cancellable, args);
+		if (rv == CKR_FUNCTION_CANCELED)
+			break;
+	} while (!complete_call (complete, args, rv));
+
+	return rv;
+}
+
 
 static void
-process_async_call (gpointer data, GckCallClass *klass)
+_gck_task_return (GTask *task, CK_RV rv)
 {
-	GckCall *call = GCK_CALL (data);
-
-	g_assert (GCK_IS_CALL (call));
-
-	call->rv = perform_call (call->perform, call->cancellable, call->args);
-
-	g_async_queue_push (klass->completed_queue, call);
-
-	/* Wakeup main thread if on a separate thread */
-	g_main_context_wakeup (NULL);
+	if (rv == CKR_OK) {
+		g_task_return_boolean (task, TRUE);
+	} else if (rv == CKR_FUNCTION_CANCELED) {
+		g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_CANCELLED,
+					 "Gck function call cancelled");
+	} else {
+		g_task_return_new_error (task, GCK_ERROR, rv, "%s",
+					 gck_message_from_rv (rv));
+	}
 }
 
 static void
-process_result (GckCall *call, gpointer unused)
+_gck_call_thread_func (GTask        *task,
+		       gpointer      source_object,
+		       gpointer      task_data,
+		       GCancellable *cancellable)
 {
-	gboolean stop = FALSE;
+	GckCall *call = task_data;
+	CK_RV rv;
 
 	/* Double check a few things */
 	g_assert (GCK_IS_CALL (call));
 
-	if (call->cancellable) {
-		/* Don't call the callback when cancelled */
-		if (g_cancellable_is_cancelled (call->cancellable)) {
-			call->rv = CKR_FUNCTION_CANCELED;
-			stop = TRUE;
-		}
-	}
+	rv = perform_call_chain (call->perform, call->complete, cancellable,
+	                         call->args);
 
-	/*
-	 * Hmmm, does the function want to actually be done?
-	 * If not, then queue this call again.
-	 */
-	if (!stop && !complete_call (call->complete, call->args, call->rv)) {
-		g_object_ref (call);
-		g_thread_pool_push (GCK_CALL_GET_CLASS (call)->thread_pool, call, NULL);
-
-	/* All done, finish processing */
-	} else if (call->callback) {
-		(call->callback) (call->object, G_ASYNC_RESULT (call),
-				  call->user_data);
-	}
+	_gck_task_return (task, rv);
 }
-
-static gboolean
-process_completed (GckCallClass *klass)
-{
-	gpointer call;
-
-	g_assert (klass->completed_queue);
-
-	call = g_async_queue_try_pop (klass->completed_queue);
-	if (call) {
-		process_result (call, NULL);
-		g_object_unref (call);
-		return TRUE;
-	}
-
-	return FALSE;
-}
-
-static gboolean
-completed_prepare(GSource* base, gint *timeout)
-{
-	GckCallSource *source = (GckCallSource*)base;
-	gboolean have;
-
-	g_assert (source->klass->completed_queue);
-	have = g_async_queue_length (source->klass->completed_queue) > 0;
-	*timeout = have ? 0 : -1;
-	return have;
-}
-
-static gboolean
-completed_check(GSource* base)
-{
-	GckCallSource *source = (GckCallSource*)base;
-	g_assert (source->klass->completed_queue);
-	return g_async_queue_length (source->klass->completed_queue) > 0;
-}
-
-static gboolean
-completed_dispatch(GSource* base, GSourceFunc callback, gpointer user_data)
-{
-	GckCallSource *source = (GckCallSource*)base;
-	process_completed (source->klass);
-	return TRUE;
-}
-
-static void
-completed_finalize(GSource* base)
-{
-
-}
-
-static GSourceFuncs completed_functions = {
-	completed_prepare,
-	completed_check,
-	completed_dispatch,
-	completed_finalize
-};
 
 /* ----------------------------------------------------------------------------
  * OBJECT
@@ -218,7 +142,6 @@ static GSourceFuncs completed_functions = {
 static void
 _gck_call_init (GckCall *call)
 {
-	call->rv = CKR_OK;
 }
 
 static void
@@ -230,13 +153,8 @@ _gck_call_finalize (GObject *obj)
 		g_object_unref (call->module);
 	call->module = NULL;
 
-	if (call->object)
-		g_object_unref (call->object);
-	call->object = NULL;
-
-	if (call->cancellable)
-		g_object_unref (call->cancellable);
-	call->cancellable = NULL;
+	g_clear_object (&call->task);
+	g_clear_object (&call->args->call);
 
 	if (call->destroy)
 		(call->destroy) (call->args);
@@ -246,127 +164,12 @@ _gck_call_finalize (GObject *obj)
 	G_OBJECT_CLASS (_gck_call_parent_class)->finalize (obj);
 }
 
-static gpointer
-_gck_call_get_user_data (GAsyncResult *async_result)
-{
-	g_return_val_if_fail (GCK_IS_CALL (async_result), NULL);
-	return GCK_CALL (async_result)->user_data;
-}
-
-static GObject*
-_gck_call_get_source_object (GAsyncResult *async_result)
-{
-	GObject *source;
-
-	g_return_val_if_fail (GCK_IS_CALL (async_result), NULL);
-
-	source = GCK_CALL (async_result)->object;
-	return source ? g_object_ref (source): NULL;
-}
-
-static void
-_gck_call_implement_async_result (GAsyncResultIface *iface)
-{
-	iface->get_user_data = _gck_call_get_user_data;
-	iface->get_source_object = _gck_call_get_source_object;
-}
-
 static void
 _gck_call_class_init (GckCallClass *klass)
 {
 	GObjectClass *gobject_class = (GObjectClass*)klass;
 
-	_gck_call_parent_class = g_type_class_peek_parent (klass);
 	gobject_class->finalize = _gck_call_finalize;
-}
-
-static void
-_gck_call_base_init (GckCallClass *klass)
-{
-	GckCallSource *source;
-	GMainContext *context;
-	GError *err = NULL;
-
-	klass->thread_pool = g_thread_pool_new ((GFunc)process_async_call, klass, 16, FALSE, &err);
-	if (!klass->thread_pool) {
-		g_critical ("couldn't create thread pool: %s",
-		            err && err->message ? err->message : "");
-		return;
-	}
-
-	klass->completed_queue = g_async_queue_new_full (g_object_unref);
-	g_assert (klass->completed_queue);
-
-	context = g_main_context_default ();
-	g_assert (context);
-
-	/* Add our idle handler which processes other tasks */
-	source = (GckCallSource*)g_source_new (&completed_functions, sizeof (GckCallSource));
-	source->klass = klass;
-	klass->completed_id = g_source_attach ((GSource*)source, context);
-	g_source_set_callback ((GSource*)source, NULL, NULL, NULL);
-	g_source_unref ((GSource*)source);
-}
-
-static void
-_gck_call_base_finalize (GckCallClass *klass)
-{
-	GMainContext *context;
-	GSource *src;
-
-	if (klass->thread_pool) {
-		g_assert (g_thread_pool_unprocessed (klass->thread_pool) == 0);
-		g_thread_pool_free (klass->thread_pool, FALSE, TRUE);
-		klass->thread_pool = NULL;
-	}
-
-	if (klass->completed_id) {
-		context = g_main_context_default ();
-		g_return_if_fail (context);
-
-		src = g_main_context_find_source_by_id (context, klass->completed_id);
-		g_assert (src);
-		g_source_destroy (src);
-		klass->completed_id = 0;
-	}
-
-	if (klass->completed_queue) {
-		g_assert (g_async_queue_length (klass->completed_queue));
-		g_async_queue_unref (klass->completed_queue);
-		klass->completed_queue = NULL;
-	}
-}
-
-GType
-_gck_call_get_type (void)
-{
-	static volatile gsize type_id__volatile = 0;
-
-	if (g_once_init_enter (&type_id__volatile)) {
-
-		static const GTypeInfo type_info = {
-			sizeof (GckCallClass),
-			(GBaseInitFunc)_gck_call_base_init,
-			(GBaseFinalizeFunc)_gck_call_base_finalize,
-			(GClassInitFunc)_gck_call_class_init,
-			(GClassFinalizeFunc)NULL,
-			NULL,   // class_data
-			sizeof (GckCall),
-			0,      // n_preallocs
-			(GInstanceInitFunc)_gck_call_init,
-		};
-
-		static const GInterfaceInfo interface_info = {
-			(GInterfaceInitFunc)_gck_call_implement_async_result
-		};
-
-		GType type_id = g_type_register_static (G_TYPE_OBJECT, "_GckCall", &type_info, 0);
-		g_type_add_interface_static (type_id, G_TYPE_ASYNC_RESULT, &interface_info);
-
-		g_once_init_leave (&type_id__volatile, type_id);
-	}
-
-	return type_id__volatile;
 }
 
 /* ----------------------------------------------------------------------------
@@ -400,12 +203,7 @@ _gck_call_sync (gpointer object, gpointer perform, gpointer complete,
 		g_assert (args->pkcs11);
 	}
 
-	do {
-		rv = perform_call (perform, cancellable, args);
-		if (rv == CKR_FUNCTION_CANCELED)
-			break;
-
-	} while (!complete_call (complete, args, rv));
+	rv = perform_call_chain (perform, complete, cancellable, args);
 
 	if (module)
 		g_object_unref (module);
@@ -437,10 +235,10 @@ _gck_call_async_prep (gpointer object, gpointer cb_object, gpointer perform,
 
 	args = g_malloc0 (args_size);
 	call = g_object_new (GCK_TYPE_CALL, NULL);
+	call->task = g_task_new (cb_object, NULL, NULL, NULL);
 	call->destroy = (GDestroyNotify)destroy;
 	call->perform = (GckPerformFunc)perform;
 	call->complete = (GckCompleteFunc)complete;
-	call->object = cb_object ? g_object_ref (cb_object) : NULL;
 
 	/* Hook the two together */
 	call->args = args;
@@ -475,30 +273,32 @@ _gck_call_async_ready (gpointer data, GCancellable *cancellable,
                         GAsyncReadyCallback callback, gpointer user_data)
 {
 	GckArguments *args = (GckArguments*)data;
+	GckCall* call;
+	GTask* task;
+
 	g_assert (GCK_IS_CALL (args->call));
+	g_assert (G_IS_TASK (args->call->task));
 
-	args->call->cancellable = cancellable;
-	if (cancellable) {
-		g_assert (G_IS_CANCELLABLE (cancellable));
-		g_object_ref (cancellable);
-	}
+	/* XXX: Maybe move the callback object parameter to this function */
+	call = g_steal_pointer (&args->call);
+	task = g_task_new (g_task_get_source_object (call->task),
+			   cancellable, callback, user_data);
+	g_task_set_task_data (task, call, g_object_unref);
+	g_set_object (&call->task, task);
 
-	args->call->callback = callback;
-	args->call->user_data = user_data;
+	g_object_unref (task);
 
-	return args->call;
+	return call;
 }
 
 void
 _gck_call_async_go (GckCall *call)
 {
 	g_assert (GCK_IS_CALL (call));
+	g_assert (G_IS_TASK (call->task));
 
-	/* To keep things balanced, process at one completed event */
-	process_completed(GCK_CALL_GET_CLASS (call));
-
-	g_assert (GCK_CALL_GET_CLASS (call)->thread_pool);
-	g_thread_pool_push (GCK_CALL_GET_CLASS (call)->thread_pool, call, NULL);
+	g_task_run_in_thread (call->task, _gck_call_thread_func);
+	g_clear_object (&call->task);
 }
 
 void
@@ -512,16 +312,9 @@ _gck_call_async_ready_go (gpointer data, GCancellable *cancellable,
 gboolean
 _gck_call_basic_finish (GAsyncResult *result, GError **err)
 {
-	CK_RV rv;
+	g_return_val_if_fail (G_IS_TASK (result), FALSE);
 
-	g_return_val_if_fail (GCK_IS_CALL (result), FALSE);
-
-	rv = GCK_CALL (result)->rv;
-	if (rv == CKR_OK)
-		return TRUE;
-
-	g_set_error (err, GCK_ERROR, rv, "%s", gck_message_from_rv (rv));
-	return FALSE;
+	return g_task_propagate_boolean (G_TASK (result), err);
 }
 
 void
@@ -529,11 +322,10 @@ _gck_call_async_short (GckCall *call, CK_RV rv)
 {
 	g_assert (GCK_IS_CALL (call));
 
-	call->rv = rv;
-
 	/* Already complete, so just push it for processing in main loop */
-	g_assert (GCK_CALL_GET_CLASS (call)->completed_queue);
-	g_async_queue_push (GCK_CALL_GET_CLASS (call)->completed_queue, call);
+	_gck_task_return (call->task, rv);
+	g_clear_object (&call->task);
+
 	g_main_context_wakeup (NULL);
 }
 

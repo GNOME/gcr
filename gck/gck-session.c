@@ -518,7 +518,7 @@ gck_session_initable_init_finish (GAsyncInitable *initable,
 		OpenSession *args;
 
 		if (_gck_call_basic_finish (result, error)) {
-			args = _gck_call_arguments (result, OpenSession);
+			args = _gck_call_async_result_arguments (result, OpenSession);
 			self->pv->handle = args->session;
 			ret = TRUE;
 		}
@@ -1467,7 +1467,7 @@ gck_session_create_object_finish (GckSession *self, GAsyncResult *result, GError
 {
 	CreateObject *args;
 
-	args = _gck_call_arguments (result, CreateObject);
+	args = _gck_call_async_result_arguments (result, CreateObject);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
@@ -1655,7 +1655,7 @@ gck_session_find_handles_finish (GckSession *self,
 	g_return_val_if_fail (n_handles != NULL, NULL);
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-	args = _gck_call_arguments (result, FindObjects);
+	args = _gck_call_async_result_arguments (result, FindObjects);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
@@ -1982,7 +1982,7 @@ gck_session_generate_key_pair_finish (GckSession *self,
 	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	args = _gck_call_arguments (result, GenerateKeyPair);
+	args = _gck_call_async_result_arguments (result, GenerateKeyPair);
 
 	if (!_gck_call_basic_finish (result, error))
 		return FALSE;
@@ -2167,7 +2167,7 @@ gck_session_wrap_key_finish (GckSession *self, GAsyncResult *result,
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
 	g_return_val_if_fail (n_result, NULL);
 
-	args = _gck_call_arguments (result, WrapKey);
+	args = _gck_call_async_result_arguments (result, WrapKey);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
@@ -2372,7 +2372,7 @@ gck_session_unwrap_key_finish (GckSession *self, GAsyncResult *result, GError **
 
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
 
-	args = _gck_call_arguments (result, UnwrapKey);
+	args = _gck_call_async_result_arguments (result, UnwrapKey);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
@@ -2542,7 +2542,7 @@ gck_session_derive_key_finish (GckSession *self, GAsyncResult *result, GError **
 
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
 
-	args = _gck_call_arguments (result, DeriveKey);
+	args = _gck_call_async_result_arguments (result, DeriveKey);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
@@ -2707,7 +2707,7 @@ crypt_finish (GckSession *self, GAsyncResult *result, gsize *n_result, GError **
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
-	args = _gck_call_arguments (result, Crypt);
+	args = _gck_call_async_result_arguments (result, Crypt);
 
 	/* Steal the values from the results */
 	res = args->result;

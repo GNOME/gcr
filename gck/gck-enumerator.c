@@ -1339,7 +1339,7 @@ gck_enumerator_next_finish (GckEnumerator *self, GAsyncResult *result, GError **
 
 	g_object_ref (self);
 
-	args = _gck_call_arguments (result, EnumerateNext);
+	args = _gck_call_async_result_arguments (result, EnumerateNext);
 	state = args->state;
 	args->state = NULL;
 	want_objects = args->want_objects;

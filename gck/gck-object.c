@@ -464,7 +464,7 @@ gboolean
 gck_object_destroy_finish (GckObject *self, GAsyncResult *result, GError **error)
 {
 	g_return_val_if_fail (GCK_IS_OBJECT (self), FALSE);
-	g_return_val_if_fail (GCK_IS_CALL (result), FALSE);
+	g_return_val_if_fail (G_IS_TASK (result), FALSE);
 	return _gck_call_basic_finish (result, error);
 }
 
@@ -584,11 +584,11 @@ gck_object_set_finish (GckObject *self, GAsyncResult *result, GError **error)
 	SetAttributes *args;
 
 	g_return_val_if_fail (GCK_IS_OBJECT (self), FALSE);
-	g_return_val_if_fail (GCK_IS_CALL (result), FALSE);
+	g_return_val_if_fail (G_IS_TASK (result), FALSE);
 	g_return_val_if_fail (!error || !*error, FALSE);
 
 	/* Unlock the attributes we were using */
-	args = _gck_call_arguments (result, SetAttributes);
+	args = _gck_call_async_result_arguments (result, SetAttributes);
 	g_assert (args->attrs);
 
 	return _gck_call_basic_finish (result, error);
@@ -795,10 +795,10 @@ gck_object_get_finish (GckObject *self, GAsyncResult *result, GError **error)
 	GetAttributes *args;
 
 	g_return_val_if_fail (GCK_IS_OBJECT (self), NULL);
-	g_return_val_if_fail (GCK_IS_CALL (result), NULL);
+	g_return_val_if_fail (G_IS_TASK (result), NULL);
 	g_return_val_if_fail (!error || !*error, NULL);
 
-	args = _gck_call_arguments (result, GetAttributes);
+	args = _gck_call_async_result_arguments (result, GetAttributes);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
@@ -1001,14 +1001,14 @@ gck_object_get_data_finish (GckObject *self,
 	guchar *data;
 
 	g_return_val_if_fail (GCK_IS_OBJECT (self), NULL);
-	g_return_val_if_fail (GCK_IS_CALL (result), NULL);
+	g_return_val_if_fail (G_IS_TASK (result), NULL);
 	g_return_val_if_fail (n_data, NULL);
 	g_return_val_if_fail (!error || !*error, NULL);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
 
-	args = _gck_call_arguments (result, GetAttributeData);
+	args = _gck_call_async_result_arguments (result, GetAttributeData);
 
 	*n_data = args->n_result;
 	data = args->result;
@@ -1146,11 +1146,11 @@ gck_object_set_template_finish (GckObject *self, GAsyncResult *result, GError **
 	set_template_args *args;
 
 	g_return_val_if_fail (GCK_IS_OBJECT (self), FALSE);
-	g_return_val_if_fail (GCK_IS_CALL (result), FALSE);
+	g_return_val_if_fail (G_IS_TASK (result), FALSE);
 	g_return_val_if_fail (!error || !*error, FALSE);
 
 	/* Unlock the attributes we were using */
-	args = _gck_call_arguments (result, set_template_args);
+	args = _gck_call_async_result_arguments (result, set_template_args);
 	g_assert (args->attrs);
 
 	return _gck_call_basic_finish (result, error);
@@ -1304,12 +1304,12 @@ gck_object_get_template_finish (GckObject *self, GAsyncResult *result,
 	get_template_args *args;
 
 	g_return_val_if_fail (GCK_IS_OBJECT (self), NULL);
-	g_return_val_if_fail (GCK_IS_CALL (result), NULL);
+	g_return_val_if_fail (G_IS_TASK (result), NULL);
 	g_return_val_if_fail (!error || !*error, NULL);
 
 	if (!_gck_call_basic_finish (result, error))
 		return NULL;
 
-	args = _gck_call_arguments (result, get_template_args);
+	args = _gck_call_async_result_arguments (result, get_template_args);
 	return gck_attributes_ref_sink (gck_builder_end (&args->builder));
 }

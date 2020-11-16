@@ -51,6 +51,7 @@ static void
 teardown (Test *test, gconstpointer unused)
 {
 	g_object_unref (test->module);
+	egg_test_wait_for_gtask_thread (test->module);
 	g_assert_null (test->module);
 }
 

@@ -443,7 +443,7 @@ gck_module_initialize_finish (GAsyncResult *result,
 	GckModule *module = NULL;
 	Initialize *args;
 
-	args = _gck_call_arguments (result, Initialize);
+	args = _gck_call_async_result_arguments (result, Initialize);
 	if (_gck_call_basic_finish (result, error)) {
 		module = args->result;
 		args->result = NULL;

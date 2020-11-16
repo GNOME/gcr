@@ -74,6 +74,8 @@ teardown (Test *test, gconstpointer unused)
 	g_object_unref (test->slot);
 	g_object_unref (test->module);
 
+	egg_test_wait_for_gtask_thread (test->session || test->slot || test->module);
+
 	g_assert_null (test->session);
 	g_assert_null (test->slot);
 	g_assert_null (test->module);
@@ -148,6 +150,7 @@ test_open_close_session (Test *test, gconstpointer unused)
 	g_assert_null (result);
 
 	g_object_unref (sess);
+	egg_test_wait_for_gtask_thread (sess);
 	g_assert_null (sess);
 }
 

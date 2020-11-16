@@ -88,6 +88,8 @@ teardown (Test *test, gconstpointer unused)
 	g_object_unref (test->module);
 	g_object_unref (test->session_with_auth);
 
+	egg_test_wait_for_gtask_thread (test->session || test->session_with_auth || test->module);
+
 	g_assert_null (test->session);
 	g_assert_null (test->session_with_auth);
 	g_assert_null (test->module);
@@ -290,6 +292,7 @@ test_login_context_specific (Test *test, gconstpointer unused)
 	g_error_free (error);
 
 	g_object_unref (key);
+	egg_test_wait_for_gtask_thread (key);
 	g_assert_null (key);
 }
 
@@ -389,6 +392,7 @@ test_verify (Test *test, gconstpointer unused)
 	g_object_unref (result);
 
 	g_object_unref (key);
+	egg_test_wait_for_gtask_thread (key);
 	g_assert_null (key);
 }
 

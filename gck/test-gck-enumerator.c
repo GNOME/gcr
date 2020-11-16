@@ -62,9 +62,8 @@ teardown (Test *test, gconstpointer unused)
 	gck_list_unref_free (test->modules);
 
 	g_object_unref (test->module);
+	egg_test_wait_for_gtask_thread (test->module);
 	g_assert_null (test->module);
-
-	g_thread_pool_stop_unused_threads ();
 }
 
 static void

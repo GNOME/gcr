@@ -157,18 +157,15 @@ typedef struct _GckArguments {
 
 #define GCK_ARGUMENTS_INIT 	   { NULL, NULL, 0 }
 
+G_DECLARE_FINAL_TYPE (GckCall, _gck_call, GCK, CALL, GObject)
+
 #define GCK_TYPE_CALL             (_gck_call_get_type())
-#define GCK_CALL(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_CALL, GckCall))
-#define GCK_CALL_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_CALL, GckCall))
-#define GCK_IS_CALL(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_CALL))
-#define GCK_IS_CALL_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_CALL))
-#define GCK_CALL_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_CALL, GckCallClass))
 
-typedef struct _GckCallClass GckCallClass;
+#define            _gck_call_arguments(call, type) (type*) \
+   (_gck_call_get_arguments (GCK_CALL (call)))
 
-GType              _gck_call_get_type                    (void) G_GNUC_CONST;
-
-#define            _gck_call_arguments(call, type)       (type*)(_gck_call_get_arguments (GCK_CALL (call)))
+#define            _gck_call_async_result_arguments(task, type) \
+   (type*)(_gck_call_get_arguments (g_task_get_task_data (G_TASK (task))))
 
 gpointer           _gck_call_get_arguments               (GckCall *call);
 

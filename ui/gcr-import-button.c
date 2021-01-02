@@ -98,7 +98,9 @@ gcr_import_button_init (GcrImportButton *self)
 {
 	self->pv = gcr_import_button_get_instance_private (self);
 	self->pv->cancellable = g_cancellable_new ();
+
 	self->pv->label = gtk_label_new ("");
+	gtk_label_set_use_underline (GTK_LABEL (self->pv->label), TRUE);
 }
 
 static void

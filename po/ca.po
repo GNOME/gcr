@@ -341,7 +341,7 @@ msgstr "Tipus de clau no admès per la sol·licitud de certificat"
 
 #: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
 msgid "The key cannot be used to sign the request"
-msgstr "No es pot utilitzar la clau per signar la sol·licitud"
+msgstr "No es pot utilitzar la clau per a signar la sol·licitud"
 
 #: gcr/gcr-gnupg-importer.c:95
 msgid "GnuPG Keyring"
@@ -1006,7 +1006,7 @@ msgstr "L'usuari ha cancel·lat l'operació"
 
 #: ui/gcr-pkcs11-import-dialog.ui:31
 msgid "In order to import, please enter the password."
-msgstr "Introduïu la contrasenya per poder importar."
+msgstr "Introduïu la contrasenya per a poder importar."
 
 #. The password label
 #: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
@@ -1119,7 +1119,7 @@ msgid ""
 "The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."
 msgstr ""
-"El contingut de «%s» està bloquejat. Per poder visualitzar el contingut, "
+"El contingut de «%s» està bloquejat. Per a poder visualitzar el contingut, "
 "introduïu la contrasenya correcta."
 
 #: ui/gcr-unlock-renderer.c:277
@@ -1127,7 +1127,7 @@ msgid ""
 "The contents are locked. In order to view the contents, enter the correct "
 "password."
 msgstr ""
-"El contingut està bloquejat. Per poder visualitzar el contingut, introduïu "
+"El contingut està bloquejat. Per a poder visualitzar el contingut, introduïu "
 "la contrasenya correcta."
 
 #: ui/gcr-viewer.desktop.in.in:3

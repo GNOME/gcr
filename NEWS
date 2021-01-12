@@ -1,3 +1,7 @@
+gcr 3.38.1:
+- ui: Set "use-underline" for GcrImportButton [GNOME/gcr!63]
+- Updated Chinese (Taiwan) translation
+
 gcr 3.38.0:
 - No changes from 3.37.91
 

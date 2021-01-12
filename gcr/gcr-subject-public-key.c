@@ -510,15 +510,16 @@ load_closure_free (gpointer data)
 }
 
 static void
-thread_key_attributes (GSimpleAsyncResult *res,
-                       GObject *object,
+thread_key_attributes (GTask *task, gpointer src_object, gpointer task_data,
                        GCancellable *cancellable)
 {
-	LoadClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
+	LoadClosure *closure = task_data;
 	GError *error = NULL;
 
-	if (!load_attributes (closure->object, &closure->builder, cancellable, &error))
-		g_simple_async_result_take_error (res, error);
+	if (load_attributes (closure->object, &closure->builder, cancellable, &error))
+		g_task_return_boolean (task, TRUE);
+	else
+		g_task_return_error (task, g_steal_pointer (&error));
 }
 
 void
@@ -527,29 +528,28 @@ _gcr_subject_public_key_load_async (GckObject *key,
                                     GAsyncReadyCallback callback,
                                     gpointer user_data)
 {
-	GSimpleAsyncResult *res;
+	GTask *task;
 	LoadClosure *closure;
 
 	g_return_if_fail (GCK_IS_OBJECT (key));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	res = g_simple_async_result_new (NULL, callback, user_data,
-	                                 _gcr_subject_public_key_load_async);
+	task = g_task_new (NULL, cancellable, callback, user_data);
+	g_task_set_source_tag (task, _gcr_subject_public_key_load_async);
 
 	closure = g_slice_new0 (LoadClosure);
 	closure->object = g_object_ref (key);
 	lookup_attributes (key, &closure->builder);
-	g_simple_async_result_set_op_res_gpointer (res, closure, load_closure_free);
+	g_task_set_task_data (task, closure, load_closure_free);
 
 	if (check_attributes (&closure->builder)) {
-		g_simple_async_result_complete_in_idle (res);
-		g_object_unref (res);
+		g_task_return_boolean (task, TRUE);
+		g_clear_object (&task);
 		return;
 	}
 
-	g_simple_async_result_run_in_thread (res, thread_key_attributes,
-	                                     G_PRIORITY_DEFAULT, cancellable);
-	g_object_unref (res);
+	g_task_run_in_thread (task, thread_key_attributes);
+	g_clear_object (&task);
 }
 
 GNode *
@@ -557,19 +557,16 @@ _gcr_subject_public_key_load_finish (GAsyncResult *result,
                                      GError **error)
 {
 	GckAttributes *attributes;
-	GSimpleAsyncResult *res;
 	LoadClosure *closure;
 	GNode *asn;
 
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, NULL,
-	                      _gcr_subject_public_key_load_async), NULL);
+	g_return_val_if_fail (g_task_is_valid (result, NULL), NULL);
 
-	res = G_SIMPLE_ASYNC_RESULT (result);
-	if (g_simple_async_result_propagate_error (res, error))
+	if (!g_task_propagate_boolean (G_TASK (result), error))
 		return NULL;
 
-	closure = g_simple_async_result_get_op_res_gpointer (res);
+	closure = g_task_get_task_data (G_TASK (result));
 	attributes = gck_attributes_ref_sink (gck_builder_end (&closure->builder));
 	asn = _gcr_subject_public_key_for_attributes (attributes);
 	if (asn == NULL) {

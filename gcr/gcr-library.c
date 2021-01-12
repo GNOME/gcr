@@ -239,38 +239,36 @@ on_initialize_registered (GObject *object,
                           GAsyncResult *result,
                           gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
+	GTask *task = G_TASK (user_data);
 	GError *error = NULL;
 	GList *results;
 
 	results = gck_modules_initialize_registered_finish (result, &error);
 	if (error != NULL) {
 		g_debug ("failed %s", error->message);
-		g_simple_async_result_take_error (res, error);
-
-	} else {
-
-		G_LOCK (modules);
-
-		if (!initialized_modules) {
-			all_modules = g_list_concat(all_modules, results);
-			results = NULL;
-			initialized_modules = TRUE;
-		}
-
-		G_UNLOCK (modules);
+		g_task_return_error (task, g_steal_pointer (&error));
+		g_clear_object (&task);
+		return;
 	}
+
+	G_LOCK (modules);
+	if (!initialized_modules) {
+		all_modules = g_list_concat (all_modules, results);
+		results = NULL;
+		initialized_modules = TRUE;
+	}
+	G_UNLOCK (modules);
 
 	gck_list_unref_free (results);
 
 	g_debug ("completed initialize of registered modules");
-	g_simple_async_result_complete (res);
-	g_object_unref (res);
+	g_task_return_boolean (task, TRUE);
+	g_clear_object (&task);
 }
 
 /**
  * gcr_pkcs11_initialize_async:
- * @cancellable: optional cancellable used to cancel the operation
+ * @cancellable: (nullable): optional cancellable used to cancel the operation
  * @callback: callback which will be called when the operation completes
  * @user_data: data passed to the callback
  *
@@ -281,22 +279,24 @@ gcr_pkcs11_initialize_async (GCancellable *cancellable,
                              GAsyncReadyCallback callback,
                              gpointer user_data)
 {
-	GSimpleAsyncResult *res;
+	GTask *task;
 
-	res = g_simple_async_result_new (NULL, callback, user_data,
-	                                 gcr_pkcs11_initialize_async);
+	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
+
+	task = g_task_new (NULL, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gcr_pkcs11_initialize_async);
 
 	if (initialized_modules) {
 		g_debug ("already initialized, no need to async");
-		g_simple_async_result_complete_in_idle (res);
+		g_task_return_boolean (task, TRUE);
 	} else {
 		gck_modules_initialize_registered_async (cancellable,
 		                                         on_initialize_registered,
-		                                         g_object_ref (res));
+		                                         g_steal_pointer (&task));
 		g_debug ("starting initialize of registered modules");
 	}
 
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 /**
@@ -313,13 +313,9 @@ gboolean
 gcr_pkcs11_initialize_finish (GAsyncResult *result,
                               GError **error)
 {
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, NULL,
-	                      gcr_pkcs11_initialize_async), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, NULL), FALSE);
 
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	return TRUE;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 /**

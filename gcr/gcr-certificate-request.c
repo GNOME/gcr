@@ -516,7 +516,6 @@ gcr_certificate_request_complete (GcrCertificateRequest *self,
 
 typedef struct {
 	GcrCertificateRequest *request;
-	GCancellable *cancellable;
 	GQuark algorithm;
 	GNode *subject_public_key;
 	GckMechanism mechanism;
@@ -530,7 +529,6 @@ complete_closure_free (gpointer data)
 	CompleteClosure *closure = data;
 	egg_asn1x_destroy (closure->subject_public_key);
 	g_clear_object (&closure->request);
-	g_clear_object (&closure->cancellable);
 	g_clear_object (&closure->session);
 	if (closure->tbs)
 		g_bytes_unref (closure->tbs);
@@ -542,8 +540,8 @@ on_certificate_request_signed (GObject *source,
                                GAsyncResult *result,
                                gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	CompleteClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	CompleteClosure *closure = g_task_get_task_data (task);
 	GError *error = NULL;
 	guchar *signature;
 	gsize n_signature;
@@ -555,12 +553,12 @@ on_certificate_request_signed (GObject *source,
 		                                    closure->subject_public_key,
 		                                    signature, n_signature);
 
+		g_task_return_boolean (task, TRUE);
 	} else {
-		g_simple_async_result_take_error (res, error);
+		g_task_return_error (task, g_steal_pointer (&error));
 	}
 
-	g_simple_async_result_complete (res);
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 static void
@@ -568,15 +566,15 @@ on_mechanism_check (GObject *source,
                     GAsyncResult *result,
                     gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	CompleteClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	CompleteClosure *closure = g_task_get_task_data (task);
+	GCancellable *cancellable = g_task_get_cancellable (task);
 
 	closure->mechanism.type =  _gcr_key_mechanisms_check_finish (closure->request->private_key,
 	                                                             result, NULL);
 	if (closure->mechanism.type == GCK_INVALID) {
-		g_simple_async_result_set_error (res, GCK_ERROR, CKR_KEY_TYPE_INCONSISTENT,
-		                                 _("The key cannot be used to sign the request"));
-		g_simple_async_result_complete (res);
+		g_task_return_new_error (task, GCK_ERROR, CKR_KEY_TYPE_INCONSISTENT,
+		                         _("The key cannot be used to sign the request"));
 
 	} else {
 		closure->tbs = prepare_to_be_signed (closure->request, &closure->mechanism);
@@ -585,12 +583,12 @@ on_mechanism_check (GObject *source,
 		                        &closure->mechanism,
 		                        g_bytes_get_data (closure->tbs, NULL),
 		                        g_bytes_get_size (closure->tbs),
-		                        closure->cancellable,
+		                        cancellable,
 		                        on_certificate_request_signed,
-		                        g_object_ref (res));
+		                        g_steal_pointer (&task));
 	}
 
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 static void
@@ -598,8 +596,9 @@ on_subject_public_key_loaded (GObject *source,
                               GAsyncResult *result,
                               gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	CompleteClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	CompleteClosure *closure = g_task_get_task_data (task);
+	GCancellable *cancellable = g_task_get_cancellable (task);
 	const gulong *mechanisms;
 	gsize n_mechanisms;
 	GError *error = NULL;
@@ -615,23 +614,21 @@ on_subject_public_key_loaded (GObject *source,
 	}
 
 	if (error != NULL) {
-		g_simple_async_result_take_error (res, error);
-		g_simple_async_result_complete (res);
-
-	} else {
-		_gcr_key_mechanisms_check_async (closure->request->private_key,
-		                                 mechanisms, n_mechanisms, CKA_SIGN,
-		                                 closure->cancellable, on_mechanism_check,
-		                                 g_object_ref (res));
+		g_task_return_error (task, g_steal_pointer (&error));
+		g_clear_object (&task);
+		return;
 	}
 
-	g_object_unref (res);
+	_gcr_key_mechanisms_check_async (closure->request->private_key,
+	                                 mechanisms, n_mechanisms, CKA_SIGN,
+	                                 cancellable, on_mechanism_check,
+	                                 g_steal_pointer (&task));
 }
 
 /**
  * gcr_certificate_request_complete_async:
  * @self: a certificate request
- * @cancellable: a cancellation object
+ * @cancellable: (nullable): a cancellation object
  * @callback: called when the operation completes
  * @user_data: data to pass to the callback
  *
@@ -646,25 +643,24 @@ gcr_certificate_request_complete_async (GcrCertificateRequest *self,
                                         GAsyncReadyCallback callback,
                                         gpointer user_data)
 {
-	GSimpleAsyncResult *res;
+	GTask *task;
 	CompleteClosure *closure;
 
 	g_return_if_fail (GCR_IS_CERTIFICATE_REQUEST (self));
 	g_return_if_fail (cancellable == NULL || G_CANCELLABLE (cancellable));
 
-	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
-	                                 gcr_certificate_request_complete_async);
+	task = g_task_new (self, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gcr_certificate_request_complete_async);
 	closure = g_new0 (CompleteClosure, 1);
-	closure->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
 	closure->session = gck_object_get_session (self->private_key);
 	closure->request = g_object_ref (self);
-	g_simple_async_result_set_op_res_gpointer (res, closure, complete_closure_free);
+	g_task_set_task_data (task, closure, complete_closure_free);
 
 	_gcr_subject_public_key_load_async (self->private_key, cancellable,
 	                                    on_subject_public_key_loaded,
-	                                    g_object_ref (res));
+	                                    g_steal_pointer (&task));
 
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 /**
@@ -685,13 +681,9 @@ gcr_certificate_request_complete_finish (GcrCertificateRequest *self,
 {
 	g_return_val_if_fail (GCR_IS_CERTIFICATE_REQUEST (self), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (self),
-	                      gcr_certificate_request_complete_async), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, self), FALSE);
 
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	return TRUE;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 /**

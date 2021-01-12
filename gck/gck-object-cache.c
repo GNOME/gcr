@@ -209,7 +209,7 @@ on_cache_object_get (GObject *source,
                      GAsyncResult *result,
                      gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
+	GTask *task = G_TASK (user_data);
 	GckAttributes *attrs;
 	GError *error = NULL;
 
@@ -217,12 +217,12 @@ on_cache_object_get (GObject *source,
 	if (error == NULL) {
 		gck_object_cache_fill (GCK_OBJECT_CACHE (source), attrs);
 		gck_attributes_unref (attrs);
+		g_task_return_boolean (task, TRUE);
 	} else {
-		g_simple_async_result_take_error (res, error);
+		g_task_return_error (task, g_steal_pointer (&error));
 	}
 
-	g_simple_async_result_complete (res);
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 /**
@@ -248,7 +248,7 @@ gck_object_cache_update_async (GckObjectCache *object,
                                gpointer user_data)
 {
 	GckObjectCacheIface *iface;
-	GSimpleAsyncResult *res;
+	GTask *task;
 
 	g_return_if_fail (GCK_IS_OBJECT_CACHE (object));
 	g_return_if_fail (attr_types != NULL || n_attr_types == 0);
@@ -267,13 +267,13 @@ gck_object_cache_update_async (GckObjectCache *object,
 		}
 	}
 
-	res = g_simple_async_result_new (G_OBJECT (object), callback, user_data,
-	                                 gck_object_cache_update_async);
+	task = g_task_new (object, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gck_object_cache_update_async);
 
 	gck_object_get_async (GCK_OBJECT (object), attr_types, n_attr_types,
-	                      cancellable, on_cache_object_get, g_object_ref (res));
+	                      cancellable, on_cache_object_get, g_steal_pointer (&task));
 
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 /**
@@ -293,14 +293,10 @@ gck_object_cache_update_finish (GckObjectCache *object,
                                 GError **error)
 {
 	g_return_val_if_fail (GCK_IS_OBJECT_CACHE (object), FALSE);
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (object),
-	                      gck_object_cache_update_async), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, object), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	return TRUE;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 static gboolean
@@ -404,26 +400,27 @@ gck_object_cache_lookup_async (GckObject *object,
                                GAsyncReadyCallback callback,
                                gpointer user_data)
 {
-	GSimpleAsyncResult *res;
-	GckAttributes *attrs;
-	GckObjectCache *cache;
-	gboolean have;
-
 	g_return_if_fail (GCK_IS_OBJECT (object));
 	g_return_if_fail (attr_types != NULL || n_attr_types == 0);
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
 	if (GCK_IS_OBJECT_CACHE (object)) {
+		GckObjectCache *cache;
+		GckAttributes *attrs;
+		gboolean have;
+
 		cache = GCK_OBJECT_CACHE (object);
 		attrs = gck_object_cache_get_attributes (cache);
 		have = check_have_attributes (attrs, attr_types, n_attr_types);
 		gck_attributes_unref (attrs);
 
 		if (have) {
-			res = g_simple_async_result_new (G_OBJECT (cache), callback, user_data,
-			                                 gck_object_cache_lookup_async);
-			g_simple_async_result_complete_in_idle (res);
-			g_object_unref (res);
+			GTask *task;
+
+			task = g_task_new (cache, cancellable, callback, user_data);
+			g_task_set_source_tag (task, gck_object_cache_lookup_async);
+			g_task_return_boolean (task, TRUE);
+			g_clear_object (&task);
 		} else {
 			gck_object_cache_update_async (cache, attr_types, n_attr_types,
 			                               cancellable, callback, user_data);
@@ -457,13 +454,11 @@ gck_object_cache_lookup_finish (GckObject *object,
 
 	if (GCK_IS_OBJECT_CACHE (object)) {
 		cache = GCK_OBJECT_CACHE (object);
-		if (!g_simple_async_result_is_valid (result, G_OBJECT (object),
-		                                     gck_object_cache_lookup_async))
+		if (!g_task_is_valid (result, object))
 			if (!gck_object_cache_update_finish (cache, result, error))
 				return NULL;
 		return gck_object_cache_get_attributes (cache);
-	} else {
-
-		return gck_object_get_finish (object, result, error);
 	}
+
+	return gck_object_get_finish (object, result, error);
 }

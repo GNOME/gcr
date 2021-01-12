@@ -1037,18 +1037,17 @@ on_open_session_complete (GObject *source,
                           GAsyncResult *result,
                           gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
+	GTask *task = G_TASK (user_data);
 	GError *error = NULL;
 	GObject *session;
 
 	session = g_async_initable_new_finish (G_ASYNC_INITABLE (source), result, &error);
 	if (session != NULL)
-		g_simple_async_result_set_op_res_gpointer (res, session, g_object_unref);
+		g_task_return_pointer (task, session, g_object_unref);
 	else
-		g_simple_async_result_take_error (res, error);
+		g_task_return_error (task, g_steal_pointer (&error));
 
-	g_simple_async_result_complete (res);
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 /**
@@ -1058,7 +1057,7 @@ on_open_session_complete (GObject *source,
  * @pkcs11_flags: Additional raw PKCS\#11 flags.
  * @app_data: Application data for notification callback.
  * @notify: PKCS\#11 notification callback.
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
  *
@@ -1077,24 +1076,24 @@ gck_slot_open_session_full_async (GckSlot *self,
                                   GAsyncReadyCallback callback,
                                   gpointer user_data)
 {
-	GSimpleAsyncResult *res;
+	GTask *task;
 
 	g_return_if_fail (GCK_IS_SLOT (self));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
-	                                 gck_slot_open_session_full_async);
+	task = g_task_new (self, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gck_slot_open_session_full_async);
 
 	g_async_initable_new_async (GCK_TYPE_SESSION, G_PRIORITY_DEFAULT,
 	                            cancellable, on_open_session_complete,
-	                            g_object_ref (res),
+	                            g_steal_pointer (&task),
 	                            "options", options,
 	                            "slot", self,
 	                            "opening-flags", pkcs11_flags,
 	                            "app-data", app_data,
 	                            NULL);
 
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 /**
@@ -1111,18 +1110,11 @@ gck_slot_open_session_full_async (GckSlot *self,
 GckSession *
 gck_slot_open_session_finish (GckSlot *self, GAsyncResult *result, GError **error)
 {
-	GSimpleAsyncResult *res;
-
 	g_return_val_if_fail (GCK_IS_SLOT (self), NULL);
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (self),
-	                      gck_slot_open_session_full_async), NULL);
+	g_return_val_if_fail (g_task_is_valid (result, self), NULL);
 
-	res = G_SIMPLE_ASYNC_RESULT (result);
-	if (g_simple_async_result_propagate_error (res, error))
-		return NULL;
-
-	return g_object_ref (g_simple_async_result_get_op_res_gpointer (res));
+	return g_task_propagate_pointer (G_TASK (result), error);
 }
 
 /**

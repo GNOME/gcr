@@ -149,19 +149,19 @@ on_dialog_run_async (GObject *source,
                      GAsyncResult *result,
                      gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GckBuilder *builder = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	GckBuilder *builder = g_task_get_task_data (task);
 
 	if (_gcr_pkcs11_import_dialog_run_finish (GCR_PKCS11_IMPORT_DIALOG (source), result)) {
 		_gcr_pkcs11_import_dialog_get_supplements (GCR_PKCS11_IMPORT_DIALOG  (source), builder);
+		g_task_return_boolean (task, TRUE);
 
 	} else {
-		g_simple_async_result_set_error (res, G_IO_ERROR, G_IO_ERROR_CANCELLED,
-		                                 _("The user cancelled the operation"));
+		g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_CANCELLED,
+		                         _("The user cancelled the operation"));
 	}
 
-	g_simple_async_result_complete (res);
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 static void
@@ -172,26 +172,27 @@ _gcr_pkcs11_import_interaction_supplement_async (GcrImportInteraction *interacti
                                                  gpointer user_data)
 {
 	GcrPkcs11ImportInteraction *self = GCR_PKCS11_IMPORT_INTERACTION (interaction);
-	GSimpleAsyncResult *res;
+	GTask *task;
 
 	g_return_if_fail (self->dialog != NULL);
 
-	res = g_simple_async_result_new (G_OBJECT (interaction), callback, user_data,
-	                                 _gcr_pkcs11_import_interaction_supplement_async);
+	task = g_task_new (interaction, cancellable, callback, user_data);
+	g_task_set_source_tag (task, _gcr_pkcs11_import_interaction_supplement_async);
 
 	/* If dialog was already shown, then short circuit */
 	if (self->supplemented) {
-		g_simple_async_result_complete_in_idle (res);
+		g_task_return_boolean (task, TRUE);
 
 	} else {
 		self->supplemented = TRUE;
-		g_simple_async_result_set_op_res_gpointer (res, gck_builder_ref (builder),
-		                                           (GDestroyNotify)gck_builder_unref);
+		g_task_set_task_data (task, gck_builder_ref (builder),
+		                      (GDestroyNotify) gck_builder_unref);
 		_gcr_pkcs11_import_dialog_run_async (self->dialog, cancellable,
-		                                     on_dialog_run_async, g_object_ref (res));
+		                                     on_dialog_run_async,
+		                                     g_object_ref (task));
 	}
 
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 static GTlsInteractionResult
@@ -202,10 +203,9 @@ _gcr_pkcs11_import_interaction_supplement_finish (GcrImportInteraction *interact
 	GcrPkcs11ImportInteraction *self = GCR_PKCS11_IMPORT_INTERACTION (interaction);
 
 	g_return_val_if_fail (self->dialog != NULL, G_TLS_INTERACTION_UNHANDLED);
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (interaction),
-	                      _gcr_pkcs11_import_interaction_supplement_async), G_TLS_INTERACTION_UNHANDLED);
+	g_return_val_if_fail (g_task_is_valid (result, interaction), G_TLS_INTERACTION_UNHANDLED);
 
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
+	if (!g_task_propagate_boolean (G_TASK (result), error))
 		return G_TLS_INTERACTION_FAILED;
 
 	return G_TLS_INTERACTION_HANDLED;

@@ -44,7 +44,7 @@ setup (Test *test, gconstpointer unused)
 	/* Successful load */
 	test->module = gck_module_initialize (_GCK_TEST_MODULE_PATH, NULL, &err);
 	g_assert_no_error (err);
-	g_assert (GCK_IS_MODULE (test->module));
+	g_assert_true (GCK_IS_MODULE (test->module));
 
 	slots = gck_module_get_slots (test->module, TRUE);
 	g_assert_nonnull (slots);

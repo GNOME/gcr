@@ -41,12 +41,11 @@ test_init_memory (void)
 {
 	GckAttribute attr;
 
-	g_assert (sizeof (attr) == sizeof (CK_ATTRIBUTE));
+	g_assert_cmpuint (sizeof (attr), ==, sizeof (CK_ATTRIBUTE));
 
 	gck_attribute_init (&attr, ATTR_TYPE, (const guchar *)ATTR_DATA, N_ATTR_DATA);
-	g_assert (attr.type == ATTR_TYPE);
-	g_assert (attr.length == N_ATTR_DATA);
-	g_assert (memcmp (attr.value, ATTR_DATA, attr.length) == 0);
+	g_assert_cmpuint (attr.type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr.value, attr.length, ATTR_DATA, N_ATTR_DATA);
 
 	gck_attribute_clear (&attr);
 }
@@ -58,10 +57,10 @@ test_init_boolean (void)
 	CK_BBOOL ck_value = CK_FALSE;
 
 	gck_attribute_init_boolean (&attr, ATTR_TYPE, TRUE);
-	g_assert (attr.type == ATTR_TYPE);
-	g_assert (attr.length == sizeof (CK_BBOOL));
+	g_assert_cmpuint (attr.type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr.length, ==, sizeof (CK_BBOOL));
 	memcpy(&ck_value, attr.value, sizeof (CK_BBOOL));
-	g_assert (ck_value == CK_TRUE);
+	g_assert_cmpint (ck_value, ==, CK_TRUE);
 
 	gck_attribute_clear (&attr);
 }
@@ -79,9 +78,8 @@ test_init_date (void)
 	memcpy (ck_date.day, "05", 2);
 	gck_attribute_init_date (&attr, ATTR_TYPE, date);
 	g_date_free (date);
-	g_assert (attr.type == ATTR_TYPE);
-	g_assert (attr.length == sizeof (CK_DATE));
-	g_assert (memcmp (attr.value, &ck_date, attr.length) == 0);
+	g_assert_cmpuint (attr.type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr.value, attr.length, &ck_date, sizeof (CK_DATE));
 
 	gck_attribute_clear (&attr);
 }
@@ -93,10 +91,10 @@ test_init_ulong (void)
 	CK_ULONG ck_value = 0;
 
 	gck_attribute_init_ulong (&attr, ATTR_TYPE, 88);
-	g_assert (attr.type == ATTR_TYPE);
-	g_assert (attr.length == sizeof (CK_ULONG));
+	g_assert_cmpuint (attr.type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr.length, ==, sizeof (CK_ULONG));
 	memcpy(&ck_value, attr.value, sizeof (CK_ULONG));
-	g_assert (ck_value == 88);
+	g_assert_cmpuint (ck_value, ==, 88);
 
 	gck_attribute_clear (&attr);
 }
@@ -107,9 +105,8 @@ test_init_string (void)
 	GckAttribute attr;
 
 	gck_attribute_init_string (&attr, ATTR_TYPE, "a test string");
-	g_assert (attr.type == ATTR_TYPE);
-	g_assert (attr.length == strlen ("a test string"));
-	g_assert (memcmp (attr.value, "a test string", attr.length) == 0);
+	g_assert_cmpuint (attr.type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr.value, attr.length, "a test string", strlen ("a test string"));
 
 	gck_attribute_clear (&attr);
 }
@@ -120,11 +117,11 @@ test_init_invalid (void)
 	GckAttribute attr;
 
 	gck_attribute_init_invalid (&attr, ATTR_TYPE);
-	g_assert (attr.type == ATTR_TYPE);
-	g_assert (attr.length == (gulong)-1);
-	g_assert (attr.value == NULL);
+	g_assert_cmpuint (attr.type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr.length, ==, (gulong)-1);
+	g_assert_null (attr.value);
 
-	g_assert (gck_attribute_is_invalid (&attr));
+	g_assert_true (gck_attribute_is_invalid (&attr));
 	gck_attribute_clear (&attr);
 }
 
@@ -134,9 +131,9 @@ test_init_empty (void)
 	GckAttribute attr;
 
 	gck_attribute_init_empty (&attr, ATTR_TYPE);
-	g_assert (attr.type == ATTR_TYPE);
-	g_assert (attr.length == 0);
-	g_assert (attr.value == NULL);
+	g_assert_cmpuint (attr.type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr.length, ==, 0);
+	g_assert_null (attr.value);
 
 	gck_attribute_clear (&attr);
 }
@@ -147,9 +144,8 @@ test_new_memory (void)
 	GckAttribute *attr;
 
 	attr = gck_attribute_new (ATTR_TYPE, ATTR_DATA, N_ATTR_DATA);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == N_ATTR_DATA);
-	g_assert (memcmp (attr->value, ATTR_DATA, attr->length) == 0);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, ATTR_DATA, N_ATTR_DATA);
 
 	gck_attribute_free (attr);
 }
@@ -161,10 +157,10 @@ test_new_boolean (void)
 	CK_BBOOL ck_value = CK_FALSE;
 
 	attr = gck_attribute_new_boolean (ATTR_TYPE, TRUE);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_BBOOL));
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, sizeof (CK_BBOOL));
 	memcpy(&ck_value, attr->value, sizeof (CK_BBOOL));
-	g_assert (ck_value == CK_TRUE);
+	g_assert_cmpuint (ck_value, ==, CK_TRUE);
 
 	gck_attribute_free (attr);
 }
@@ -182,9 +178,8 @@ test_new_date (void)
 	memcpy (ck_date.day, "05", 2);
 	attr = gck_attribute_new_date (ATTR_TYPE, date);
 	g_date_free (date);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_DATE));
-	g_assert (memcmp (attr->value, &ck_date, attr->length) == 0);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, &ck_date, sizeof (CK_DATE));
 
 	gck_attribute_free (attr);
 }
@@ -196,10 +191,10 @@ test_new_ulong (void)
 	CK_ULONG ck_value = 0;
 
 	attr = gck_attribute_new_ulong (ATTR_TYPE, 88);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_ULONG));
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, sizeof (CK_ULONG));
 	memcpy(&ck_value, attr->value, sizeof (CK_ULONG));
-	g_assert (ck_value == 88);
+	g_assert_cmpuint (ck_value, ==, 88);
 
 	gck_attribute_free (attr);
 }
@@ -211,9 +206,8 @@ test_new_string (void)
 	GckAttribute *attr;
 
 	attr = gck_attribute_new_string (ATTR_TYPE, "a test string");
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == strlen ("a test string"));
-	g_assert (memcmp (attr->value, "a test string", attr->length) == 0);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, "a test string", strlen ("a test string"));
 
 	gck_attribute_free (attr);
 }
@@ -224,11 +218,11 @@ test_new_invalid (void)
 	GckAttribute *attr;
 
 	attr = gck_attribute_new_invalid (ATTR_TYPE);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == (gulong)-1);
-	g_assert (attr->value == NULL);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, (gulong)-1);
+	g_assert_null (attr->value);
 
-	g_assert (gck_attribute_is_invalid (attr));
+	g_assert_true (gck_attribute_is_invalid (attr));
 
 	gck_attribute_free (attr);
 }
@@ -239,9 +233,9 @@ test_new_empty (void)
 	GckAttribute *attr;
 
 	attr = gck_attribute_new_empty (ATTR_TYPE);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == 0);
-	g_assert (attr->value == NULL);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, 0);
+	g_assert_null (attr->value);
 
 	gck_attribute_free (attr);
 }
@@ -252,7 +246,7 @@ test_get_boolean (void)
 	GckAttribute *attr;
 
 	attr = gck_attribute_new_boolean (ATTR_TYPE, TRUE);
-	g_assert (gck_attribute_get_boolean (attr) == TRUE);
+	g_assert_true (gck_attribute_get_boolean (attr));
 	gck_attribute_free (attr);
 }
 
@@ -269,7 +263,7 @@ test_get_date (void)
 	memcpy (ck_date.day, "05", 2);
 	attr = gck_attribute_new_date (ATTR_TYPE, &date);
 	gck_attribute_get_date (attr, &date2);
-	g_assert (g_date_compare (&date, &date2) == 0);
+	g_assert_true (g_date_compare (&date, &date2) == 0);
 	gck_attribute_free (attr);
 }
 
@@ -279,7 +273,7 @@ test_get_ulong (void)
 	GckAttribute *attr;
 
 	attr = gck_attribute_new_ulong (ATTR_TYPE, 88);
-	g_assert (gck_attribute_get_ulong (attr) == 88);
+	g_assert_cmpuint (gck_attribute_get_ulong (attr), ==, 88);
 	gck_attribute_free (attr);
 }
 
@@ -291,14 +285,14 @@ test_get_string (void)
 
 	attr = gck_attribute_new_string (ATTR_TYPE, "a test string");
 	value = gck_attribute_get_string (attr);
-	g_assert (strcmp ("a test string", value) == 0);
+	g_assert_cmpstr ("a test string", ==, value);
 	g_free (value);
 	gck_attribute_free (attr);
 
 	/* Should be able to store null strings */
 	attr = gck_attribute_new_string (ATTR_TYPE, NULL);
 	value = gck_attribute_get_string (attr);
-	g_assert (value == NULL);
+	g_assert_null (value);
 	gck_attribute_free (attr);
 }
 
@@ -310,13 +304,13 @@ test_dup_attribute (void)
 	gck_attribute_init_ulong (&attr, ATTR_TYPE, 88);
 	dup = gck_attribute_dup (&attr);
 	gck_attribute_clear (&attr);
-	g_assert (gck_attribute_get_ulong (dup) == 88);
-	g_assert (dup->type == ATTR_TYPE);
+	g_assert_cmpuint (gck_attribute_get_ulong (dup), ==, 88);
+	g_assert_cmpuint (dup->type, ==, ATTR_TYPE);
 	gck_attribute_free (dup);
 
 	/* Should be able to dup null */
 	dup = gck_attribute_dup (NULL);
-	g_assert (dup == NULL);
+	g_assert_null (dup);
 }
 
 static void
@@ -327,8 +321,8 @@ test_copy_attribute (void)
 	gck_attribute_init_ulong (&attr, ATTR_TYPE, 88);
 	gck_attribute_init_copy (&copy, &attr);
 	gck_attribute_clear (&attr);
-	g_assert (gck_attribute_get_ulong (&copy) == 88);
-	g_assert (copy.type == ATTR_TYPE);
+	g_assert_cmpuint (gck_attribute_get_ulong (&copy), ==, 88);
+	g_assert_cmpuint (copy.type, ==, ATTR_TYPE);
 	gck_attribute_clear (&copy);
 }
 
@@ -353,7 +347,7 @@ test_builder_blank (void)
 	GckBuilder builder;
 
 	gck_builder_init (&builder);
-	g_assert (gck_builder_find (&builder, 88) == NULL);
+	g_assert_null (gck_builder_find (&builder, 88));
 	gck_builder_clear (&builder);
 }
 
@@ -366,20 +360,17 @@ test_build_data (void)
 
 	gck_builder_add_data (&builder, ATTR_TYPE, (const guchar *)"Hello", 5);
 	attr = gck_builder_find (&builder, ATTR_TYPE);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == 5);
-	g_assert (memcmp (attr->value, "Hello", attr->length) == 0);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, "Hello", 5);
 
 	gck_builder_set_data (&builder, ATTR_TYPE, (const guchar *)ATTR_DATA, N_ATTR_DATA);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == N_ATTR_DATA);
-	g_assert (memcmp (attr->value, ATTR_DATA, attr->length) == 0);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, ATTR_DATA, N_ATTR_DATA);
 
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == N_ATTR_DATA);
-	g_assert (memcmp (attr->value, ATTR_DATA, attr->length) == 0);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, ATTR_DATA, N_ATTR_DATA);
 
 	gck_attributes_unref (attrs);
 }
@@ -395,8 +386,8 @@ test_build_data_invalid (void)
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
 
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (gck_attribute_is_invalid (attr));
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_true (gck_attribute_is_invalid (attr));
 
 	gck_attributes_unref (attrs);
 }
@@ -414,10 +405,9 @@ test_build_data_secure (void)
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
 
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == 8);
-	g_assert (memcmp (attr->value, "password", attr->length) == 0);
-	g_assert (egg_secure_check (attr->value) == TRUE);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, "password", 8);
+	g_assert_true (egg_secure_check (attr->value));
 
 	egg_secure_free (memory);
 	gck_attributes_unref (attrs);
@@ -437,9 +427,8 @@ test_build_take (void)
 
 	attr = gck_attributes_at (attrs, 0);
 
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == N_ATTR_DATA);
-	g_assert (memcmp (attr->value, ATTR_DATA, attr->length) == 0);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, ATTR_DATA, N_ATTR_DATA);
 
 	gck_attributes_unref (attrs);
 }
@@ -463,8 +452,8 @@ test_build_take_invalid (void)
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
 
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (gck_attribute_is_invalid (attr));
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_true (gck_attribute_is_invalid (attr));
 
 	gck_attributes_unref (attrs);
 }
@@ -482,10 +471,9 @@ test_build_take_secure (void)
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
 
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == 8);
-	g_assert (memcmp (attr->value, "password", attr->length) == 0);
-	g_assert (egg_secure_check (attr->value) == TRUE);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, "password", 8);
+	g_assert_true (egg_secure_check (attr->value));
 
 	gck_attributes_unref (attrs);
 }
@@ -500,7 +488,7 @@ test_value_to_boolean (void)
 	if (!gck_value_to_boolean (&data, sizeof (data), &result))
 		g_assert_not_reached ();
 
-	g_assert (result == TRUE);
+	g_assert_true (result);
 
 	if (!gck_value_to_boolean (&data, sizeof (data), NULL))
 		g_assert_not_reached ();
@@ -523,7 +511,7 @@ test_value_to_ulong (void)
 	if (!gck_value_to_ulong ((const guchar *)&data, sizeof (data), &result))
 		g_assert_not_reached ();
 
-	g_assert (result == 34343);
+	g_assert_cmpuint (result, ==, 34343);
 
 	if (!gck_value_to_ulong ((const guchar *)&data, sizeof (data), NULL))
 		g_assert_not_reached ();
@@ -546,51 +534,51 @@ test_build_boolean (void)
 	gboolean value;
 	CK_BBOOL ck_value = CK_FALSE;
 
-	g_assert (gck_builder_find_boolean (&builder, 5, &value) == FALSE);
+	g_assert_false (gck_builder_find_boolean (&builder, 5, &value));
 
 	gck_builder_add_boolean (&builder, ATTR_TYPE, FALSE);
 
 	gck_builder_set_invalid (&builder, 5);
-	g_assert (gck_builder_find_boolean (&builder, 5, &value) == FALSE);
+	g_assert_false (gck_builder_find_boolean (&builder, 5, &value));
 	gck_builder_set_boolean (&builder, 5, TRUE);
 
 	attr = gck_builder_find (&builder, ATTR_TYPE);
-	g_assert (attr != NULL);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_BBOOL));
+	g_assert_nonnull (attr);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, sizeof (CK_BBOOL));
 	memcpy(&ck_value, attr->value, sizeof (CK_BBOOL));
-	g_assert (ck_value == CK_FALSE);
+	g_assert_cmpuint (ck_value, ==, CK_FALSE);
 	if (!gck_builder_find_boolean (&builder, ATTR_TYPE, &value))
 		g_assert_not_reached ();
-	g_assert (value == FALSE);
+	g_assert_false (value);
 
 	gck_builder_set_boolean (&builder, ATTR_TYPE, TRUE);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_BBOOL));
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, sizeof (CK_BBOOL));
 	memcpy(&ck_value, attr->value, sizeof (CK_BBOOL));
-	g_assert (ck_value == CK_TRUE);
+	g_assert_cmpuint (ck_value, ==, CK_TRUE);
 	if (!gck_builder_find_boolean (&builder, ATTR_TYPE, &value))
 		g_assert_not_reached ();
-	g_assert (value == TRUE);
+	g_assert_true (value);
 
 	if (!gck_builder_find_boolean (&builder, 5, &value))
 		g_assert_not_reached ();
-	g_assert (value == TRUE);
+	g_assert_true (value);
 
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
-	g_assert (attr != NULL);
+	g_assert_nonnull (attr);
 
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_BBOOL));
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, sizeof (CK_BBOOL));
 	memcpy(&ck_value, attr->value, sizeof (CK_BBOOL));
-	g_assert (ck_value == CK_TRUE);
+	g_assert_cmpuint (ck_value, ==, CK_TRUE);
 
 	if (!gck_attributes_find_boolean (attrs, ATTR_TYPE, &value))
 		g_assert_not_reached ();
-	g_assert (value == TRUE);
+	g_assert_true (value);
 
-	g_assert (gck_attribute_get_boolean (attr) == TRUE);
+	g_assert_true (gck_attribute_get_boolean (attr));
 
 	g_assert_cmpuint (gck_attributes_count (attrs), ==, 2);
 	gck_attributes_unref (attrs);
@@ -605,7 +593,7 @@ test_build_date (void)
 	CK_DATE ck_date;
 	GDate *date, date2;
 
-	g_assert (gck_builder_find_date (&builder, 5, &date2) == FALSE);
+	g_assert_false (gck_builder_find_date (&builder, 5, &date2));
 
 	date = g_date_new_dmy(8, 8, 1960);
 	memcpy (ck_date.year, "1960", 4);
@@ -615,7 +603,7 @@ test_build_date (void)
 	gck_builder_add_date (&builder, ATTR_TYPE, date);
 
 	gck_builder_set_invalid (&builder, 5);
-	g_assert (gck_builder_find_date (&builder, 5, &date2) == FALSE);
+	g_assert_false (gck_builder_find_date (&builder, 5, &date2));
 	attr = gck_builder_find (&builder, 5);
 	gck_attribute_get_date (attr, &date2);
 	g_assert_cmpint (date2.day, ==, 0);
@@ -625,17 +613,16 @@ test_build_date (void)
 	gck_builder_set_date (&builder, 5, date);
 
 	attr = gck_builder_find (&builder, ATTR_TYPE);
-	g_assert (attr != NULL);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_DATE));
-	g_assert (memcmp (attr->value, &ck_date, attr->length) == 0);
+	g_assert_nonnull (attr);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, &ck_date, sizeof (CK_DATE));
 	if (!gck_builder_find_date (&builder, ATTR_TYPE, &date2))
 		g_assert_not_reached ();
-	g_assert (g_date_compare (date, &date2) == 0);
+	g_assert_true (g_date_compare (date, &date2) == 0);
 
 	if (!gck_builder_find_date (&builder, 5, &date2))
 		g_assert_not_reached ();
-	g_assert (g_date_compare (date, &date2) == 0);
+	g_assert_true (g_date_compare (date, &date2) == 0);
 
 	g_date_free (date);
 
@@ -644,22 +631,20 @@ test_build_date (void)
 	memcpy (ck_date.month, "06", 2);
 	memcpy (ck_date.day, "05", 2);
 	gck_builder_set_date (&builder, ATTR_TYPE, date);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_DATE));
-	g_assert (memcmp (attr->value, &ck_date, attr->length) == 0);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, &ck_date, sizeof (CK_DATE));
 	if (!gck_builder_find_date (&builder, ATTR_TYPE, &date2))
 		g_assert_not_reached ();
-	g_assert (g_date_compare (date, &date2) == 0);
+	g_assert_true (g_date_compare (date, &date2) == 0);
 
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
-	g_assert (attr != NULL);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_DATE));
-	g_assert (memcmp (attr->value, &ck_date, attr->length) == 0);
+	g_assert_nonnull (attr);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, &ck_date, sizeof (CK_DATE));
 
 	gck_attribute_get_date (attr, &date2);
-	g_assert (g_date_compare (date, &date2) == 0);
+	g_assert_true (g_date_compare (date, &date2) == 0);
 
 	g_date_free (date);
 
@@ -676,49 +661,49 @@ test_build_ulong (void)
 	gulong value;
 	CK_ULONG ck_value = 0;
 
-	g_assert (gck_builder_find_ulong (&builder, 5, &value) == FALSE);
+	g_assert_false (gck_builder_find_ulong (&builder, 5, &value));
 
 	gck_builder_add_ulong (&builder, ATTR_TYPE, 99);
 
 	gck_builder_set_invalid (&builder, 5);
-	g_assert (gck_builder_find_ulong (&builder, 5, &value) == FALSE);
+	g_assert_false (gck_builder_find_ulong (&builder, 5, &value));
 	gck_builder_set_ulong (&builder, 5, 292);
 
 	attr = gck_builder_find (&builder, ATTR_TYPE);
-	g_assert (attr != NULL);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_ULONG));
+	g_assert_nonnull (attr);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, sizeof (CK_ULONG));
 	memcpy(&ck_value, attr->value, sizeof (CK_ULONG));
-	g_assert (ck_value == 99);
+	g_assert_cmpuint (ck_value, ==, 99);
 	if (!gck_builder_find_ulong (&builder, ATTR_TYPE, &value))
 		g_assert_not_reached ();
-	g_assert (value == 99);
+	g_assert_cmpuint (value, ==, 99);
 
 	gck_builder_set_ulong (&builder, ATTR_TYPE, 88);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_ULONG));
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, sizeof (CK_ULONG));
 	memcpy(&ck_value, attr->value, sizeof (CK_ULONG));
-	g_assert (ck_value == 88);
+	g_assert_cmpuint (ck_value, ==, 88);
 	if (!gck_builder_find_ulong (&builder, ATTR_TYPE, &value))
 		g_assert_not_reached ();
-	g_assert (value == 88);
+	g_assert_cmpuint (value, ==, 88);
 
 	if (!gck_builder_find_ulong (&builder, 5, &value))
 		g_assert_not_reached ();
-	g_assert (value == 292);
+	g_assert_cmpuint (value, ==, 292);
 
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
-	g_assert (attr != NULL);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == sizeof (CK_ULONG));
+	g_assert_nonnull (attr);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, sizeof (CK_ULONG));
 	memcpy(&ck_value, attr->value, sizeof (CK_ULONG));
-	g_assert (ck_value == 88);
+	g_assert_cmpuint (ck_value, ==, 88);
 
 	if (!gck_attributes_find_ulong (attrs, ATTR_TYPE, &value))
 		g_assert_not_reached ();
-	g_assert (value == 88);
-	g_assert (gck_attribute_get_ulong (attr) == 88);
+	g_assert_cmpuint (value, ==, 88);
+	g_assert_cmpuint (gck_attribute_get_ulong (attr), ==, 88);
 
 	g_assert_cmpuint (gck_attributes_count (attrs), ==, 2);
 	gck_attributes_unref (attrs);
@@ -732,19 +717,18 @@ test_build_string (void)
 	const GckAttribute *attr;
 	gchar *value;
 
-	g_assert (gck_builder_find_string (&builder, 5, &value) == FALSE);
+	g_assert_false (gck_builder_find_string (&builder, 5, &value));
 
 	gck_builder_add_string (&builder, ATTR_TYPE, "My my");
 
 	gck_builder_set_invalid (&builder, 5);
-	g_assert (gck_builder_find_string (&builder, 5, &value) == FALSE);
+	g_assert_false (gck_builder_find_string (&builder, 5, &value));
 	gck_builder_set_string (&builder, 5, "Hello");
 
 	attr = gck_builder_find (&builder, ATTR_TYPE);
-	g_assert (attr != NULL);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == strlen ("My my"));
-	g_assert (memcmp (attr->value, "My my", attr->length) == 0);
+	g_assert_nonnull (attr);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length, "My my", strlen ("My my"));
 
 	if (!gck_builder_find_string (&builder, 5, &value))
 		g_assert_not_reached ();
@@ -752,17 +736,17 @@ test_build_string (void)
 	g_free (value);
 
 	gck_builder_set_string (&builder, ATTR_TYPE, "a test string");
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == strlen ("a test string"));
-	g_assert (memcmp (attr->value, "a test string", attr->length) == 0);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length,
+	                 "a test string", strlen ("a test string"));
 
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
-	g_assert (attr != NULL);
+	g_assert_nonnull (attr);
 
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == strlen ("a test string"));
-	g_assert (memcmp (attr->value, "a test string", attr->length) == 0);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpmem (attr->value, attr->length,
+	                 "a test string", strlen ("a test string"));
 
 	if (!gck_attributes_find_string (attrs, ATTR_TYPE, &value))
 		g_assert_not_reached ();
@@ -787,15 +771,15 @@ test_build_string_null (void)
 
 	gck_builder_add_string (&builder, ATTR_TYPE, NULL);
 
-	g_assert (gck_builder_find_string (&builder, ATTR_TYPE, &value) == FALSE);
+	g_assert_false (gck_builder_find_string (&builder, ATTR_TYPE, &value));
 
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
-	g_assert (attr->value == NULL);
-	g_assert (attr->length == 0);
+	g_assert_null (attr->value);
+	g_assert_cmpuint (attr->length, ==, 0);
 
 	value = gck_attribute_get_string (attr);
-	g_assert (value == NULL);
+	g_assert_null (value);
 
 	gck_attributes_unref (attrs);
 }
@@ -813,11 +797,11 @@ test_build_invalid (void)
 
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == (gulong)-1);
-	g_assert (attr->value == NULL);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, (gulong)-1);
+	g_assert_null (attr->value);
 
-	g_assert (gck_attribute_is_invalid (attr));
+	g_assert_true (gck_attribute_is_invalid (attr));
 
 	g_assert_cmpuint (gck_attributes_count (attrs), ==, 2);
 	gck_attributes_unref (attrs);
@@ -835,15 +819,15 @@ test_build_empty (void)
 	gck_builder_set_empty (&builder, 5);
 
 	attr = gck_builder_find (&builder, 5);
-	g_assert (attr->type == 5);
-	g_assert (attr->length == 0);
-	g_assert (attr->value == NULL);
+	g_assert_cmpuint (attr->type, ==, 5);
+	g_assert_cmpuint (attr->length, ==, 0);
+	g_assert_null (attr->value);
 
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
-	g_assert (attr->type == ATTR_TYPE);
-	g_assert (attr->length == 0);
-	g_assert (attr->value == NULL);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
+	g_assert_cmpuint (attr->length, ==, 0);
+	g_assert_null (attr->value);
 
 	g_assert_cmpuint (gck_attributes_count (attrs), ==, 2);
 	gck_attributes_unref (attrs);
@@ -862,7 +846,7 @@ test_builder_secure (void)
 	attrs = gck_builder_end (&builder);
 	attr = gck_attributes_at (attrs, 0);
 
-	g_assert (egg_secure_check (attr->value));
+	g_assert_true (egg_secure_check (attr->value));
 
 	gck_attributes_unref (attrs);
 }
@@ -883,12 +867,12 @@ test_builder_copy (void)
 	gck_builder_unref (copy);
 
 	attr = gck_attributes_at (attrs, 0);
-	g_assert (gck_attribute_get_ulong (attr) == 88);
-	g_assert (attr->type == ATTR_TYPE);
+	g_assert_cmpuint (gck_attribute_get_ulong (attr), ==, 88);
+	g_assert_cmpuint (attr->type, ==, ATTR_TYPE);
 
 	/* Should be able to copy null */
 	copy = gck_builder_copy (NULL);
-	g_assert (copy == NULL);
+	g_assert_null (copy);
 
 	gck_attributes_unref (attrs);
 }
@@ -904,17 +888,17 @@ test_builder_refs (void)
 
 	two = gck_builder_ref (builder);
 
-	g_assert (builder == two);
+	g_assert_true (builder == two);
 
 	if (!gck_builder_find_ulong (builder, 88, &check))
 		g_assert_not_reached ();
-	g_assert (check == 99);
+	g_assert_cmpuint (check, ==, 99);
 
 	gck_builder_unref (builder);
 
 	if (!gck_builder_find_ulong (two, 88, &check))
 		g_assert_not_reached ();
-	g_assert (check == 99);
+	g_assert_cmpuint (check, ==, 99);
 
 	gck_builder_unref (two);
 }
@@ -930,17 +914,17 @@ test_builder_boxed (void)
 
 	two = g_boxed_copy (GCK_TYPE_BUILDER, builder);
 
-	g_assert (builder == two);
+	g_assert_true (builder == two);
 
 	if (!gck_builder_find_ulong (builder, 88, &check))
 		g_assert_not_reached ();
-	g_assert (check == 99);
+	g_assert_cmpuint (check, ==, 99);
 
 	g_boxed_free (GCK_TYPE_BUILDER, builder);
 
 	if (!gck_builder_find_ulong (two, 88, &check))
 		g_assert_not_reached ();
-	g_assert (check == 99);
+	g_assert_cmpuint (check, ==, 99);
 
 	gck_builder_unref (two);
 }
@@ -964,7 +948,7 @@ test_builder_add_attr (void)
 
 	/* Should be equal, and also share the values */
 	gck_attribute_equal (aone, atwo);
-	g_assert (aone->value == atwo->value);
+	g_assert_true (aone->value == atwo->value);
 
 	gck_attributes_unref (aones);
 
@@ -1007,10 +991,10 @@ test_attributes_refs (void)
 	GckAttributes *attrs;
 
 	attrs = gck_builder_end (&builder);
-	g_assert (attrs != NULL);
-	g_assert (gck_attributes_count (attrs) == 0);
+	g_assert_nonnull (attrs);
+	g_assert_cmpuint (gck_attributes_count (attrs), ==, 0);
 
-	g_assert (gck_attributes_ref (attrs) == attrs);
+	g_assert_true (gck_attributes_ref (attrs) == attrs);
 	gck_attributes_unref (attrs);
 
 	gck_attributes_unref (attrs);
@@ -1028,50 +1012,49 @@ test_attributes_contents (GckAttributes *attrs,
 	gchar *value;
 	GDate date, *check;
 
-	g_assert (attrs != NULL);
+	g_assert_nonnull (attrs);
 	if (count < 0)
 		count = extras ? 7 : 5;
 	g_assert_cmpuint (gck_attributes_count (attrs), ==, count);
 
 	attr = gck_attributes_at (attrs, 0);
-	g_assert (attr->type == 0);
-	g_assert (gck_attribute_get_boolean (attr) == TRUE);
+	g_assert_cmpuint (attr->type, ==, 0);
+	g_assert_true (gck_attribute_get_boolean (attr));
 
 	attr = gck_attributes_at (attrs, 1);
-	g_assert (attr->type == 101);
+	g_assert_cmpuint (attr->type, ==, 101);
 	gck_assert_cmpulong (gck_attribute_get_ulong (attr), ==, 888);
 
 	attr = gck_attributes_at (attrs, 2);
-	g_assert (attr->type == 202);
+	g_assert_cmpuint (attr->type, ==, 202);
 	value = gck_attribute_get_string (attr);
-	g_assert (strcmp (value, "string") == 0);
+	g_assert_cmpstr (value, ==, "string");
 	g_free (value);
 
 	attr = gck_attributes_at (attrs, 3);
-	g_assert (attr->type == 303);
+	g_assert_cmpuint (attr->type, ==, 303);
 	check = g_date_new_dmy (11, 12, 2008);
 	gck_attribute_get_date (attr, &date);
-	g_assert (g_date_compare (&date, check) == 0);
+	g_assert_true (g_date_compare (&date, check) == 0);
 	g_date_free (check);
 
 	attr = gck_attributes_at (attrs, 4);
-	g_assert (attr->type == 404);
-	g_assert (attr->length == N_ATTR_DATA);
-	g_assert (memcmp (attr->value, ATTR_DATA, N_ATTR_DATA) == 0);
+	g_assert_cmpuint (attr->type, ==, 404);
+	g_assert_cmpmem (attr->value, attr->length, ATTR_DATA, N_ATTR_DATA);
 
 	if (!extras)
 		return;
 
 	attr = gck_attributes_at (attrs, 5);
-	g_assert (attr->type == 505);
-	g_assert (attr->length == (gulong)-1);
-	g_assert (attr->value == NULL);
-	g_assert (gck_attribute_is_invalid (attr));
+	g_assert_cmpuint (attr->type, ==, 505);
+	g_assert_cmpuint (attr->length, ==, (gulong)-1);
+	g_assert_null (attr->value);
+	g_assert_true (gck_attribute_is_invalid (attr));
 
 	attr = gck_attributes_at (attrs, 6);
-	g_assert (attr->type == 606);
-	g_assert (attr->length == 0);
-	g_assert (attr->value == NULL);
+	g_assert_cmpuint (attr->type, ==, 606);
+	g_assert_cmpuint (attr->length, ==, 0);
+	g_assert_null (attr->value);
 }
 
 static void
@@ -1087,13 +1070,13 @@ test_attributes_new_empty (void)
 	attrs = gck_attributes_new_empty (CKA_ID, CKA_LABEL, GCK_INVALID);
 	g_assert_cmpuint (gck_attributes_count (attrs), ==, 2);
 	attr = gck_attributes_at (attrs, 0);
-	g_assert (attr->type == CKA_ID);
-	g_assert (attr->length == 0);
-	g_assert (attr->value == NULL);
+	g_assert_cmpuint (attr->type, ==, CKA_ID);
+	g_assert_cmpuint (attr->length, ==, 0);
+	g_assert_null (attr->value);
 	attr = gck_attributes_at (attrs, 1);
-	g_assert (attr->type == CKA_LABEL);
-	g_assert (attr->length == 0);
-	g_assert (attr->value == NULL);
+	g_assert_cmpuint (attr->type, ==, CKA_LABEL);
+	g_assert_cmpuint (attr->length, ==, 0);
+	g_assert_null (attr->value);
 	gck_attributes_unref (attrs);
 }
 
@@ -1114,9 +1097,9 @@ test_attributes_empty (void)
 	g_assert_cmpuint (gck_attributes_count (attrs), ==, 4);
 	for (i = 0; i < gck_attributes_count (attrs); ++i) {
 		attr = gck_attributes_at (attrs, i);
-		g_assert (attr->type == ((i + 1) * 100) + i + 1);
-		g_assert (attr->value == NULL);
-		g_assert (attr->length == 0);
+		g_assert_cmpuint (attr->type, ==, ((i + 1) * 100) + i + 1);
+		g_assert_null (attr->value);
+		g_assert_cmpuint (attr->length, ==, 0);
 	}
 
 	gck_attributes_unref (attrs);
@@ -1191,7 +1174,7 @@ test_builder_set_blank (void)
 	gck_builder_set_boolean (&builder, 5, TRUE);
 	if (!gck_builder_find_boolean (&builder, 5, &value))
 		g_assert_not_reached ();
-	g_assert (value == TRUE);
+	g_assert_true (value);
 	gck_builder_clear (&builder);
 }
 
@@ -1209,14 +1192,14 @@ test_builder_add_only (void)
 	gck_attributes_unref (attrs);
 	attrs = gck_builder_end (&two);
 
-	g_assert (gck_attributes_find (attrs, 0UL) != NULL);
-	g_assert (gck_attributes_find (attrs, 202UL) != NULL);
-	g_assert (gck_attributes_find (attrs, 404UL) != NULL);
-	g_assert (gck_attributes_find (attrs, 606UL) != NULL);
+	g_assert_nonnull (gck_attributes_find (attrs, 0UL));
+	g_assert_nonnull (gck_attributes_find (attrs, 202UL));
+	g_assert_nonnull (gck_attributes_find (attrs, 404UL));
+	g_assert_nonnull (gck_attributes_find (attrs, 606UL));
 
-	g_assert (gck_attributes_find (attrs, 101UL) == NULL);
-	g_assert (gck_attributes_find (attrs, 303UL) == NULL);
-	g_assert (gck_attributes_find (attrs, 505UL) == NULL);
+	g_assert_null (gck_attributes_find (attrs, 101UL));
+	g_assert_null (gck_attributes_find (attrs, 303UL));
+	g_assert_null (gck_attributes_find (attrs, 505UL));
 
 	gck_attributes_unref (attrs);
 }
@@ -1235,14 +1218,14 @@ test_builder_add_except (void)
 	gck_attributes_unref (attrs);
 	attrs = gck_builder_end (&two);
 
-	g_assert (gck_attributes_find (attrs, 0UL) == NULL);
-	g_assert (gck_attributes_find (attrs, 202UL) == NULL);
-	g_assert (gck_attributes_find (attrs, 404UL) == NULL);
-	g_assert (gck_attributes_find (attrs, 606UL) == NULL);
+	g_assert_null (gck_attributes_find (attrs, 0UL));
+	g_assert_null (gck_attributes_find (attrs, 202UL));
+	g_assert_null (gck_attributes_find (attrs, 404UL));
+	g_assert_null (gck_attributes_find (attrs, 606UL));
 
-	g_assert (gck_attributes_find (attrs, 101UL) != NULL);
-	g_assert (gck_attributes_find (attrs, 303UL) != NULL);
-	g_assert (gck_attributes_find (attrs, 505UL) != NULL);
+	g_assert_nonnull (gck_attributes_find (attrs, 101UL));
+	g_assert_nonnull (gck_attributes_find (attrs, 303UL));
+	g_assert_nonnull (gck_attributes_find (attrs, 505UL));
 
 	gck_attributes_unref (attrs);
 }
@@ -1285,27 +1268,26 @@ test_find_attributes (void)
 	attrs = gck_builder_end (&builder);
 
 	attr = gck_attributes_find (attrs, 404);
-	g_assert (attr != NULL);
-	g_assert (attr->length == N_ATTR_DATA);
-	g_assert (memcmp (attr->value, ATTR_DATA, N_ATTR_DATA) == 0);
+	g_assert_nonnull (attr);
+	g_assert_cmpmem (attr->value, attr->length, ATTR_DATA, N_ATTR_DATA);
 
 	ret = gck_attributes_find_boolean (attrs, 0UL, &bvalue);
-	g_assert (ret == TRUE);
-	g_assert (bvalue == TRUE);
+	g_assert_true (ret);
+	g_assert_true (bvalue);
 
 	ret = gck_attributes_find_ulong (attrs, 101UL, &uvalue);
-	g_assert (ret == TRUE);
-	g_assert (uvalue == 888);
+	g_assert_true (ret);
+	g_assert_cmpuint (uvalue, ==, 888);
 
 	ret = gck_attributes_find_string (attrs, 202UL, &svalue);
-	g_assert (ret == TRUE);
-	g_assert (svalue != NULL);
-	g_assert (strcmp (svalue, "string") == 0);
+	g_assert_true (ret);
+	g_assert_nonnull (svalue);
+	g_assert_cmpstr (svalue, ==, "string");
 	g_free (svalue);
 
 	ret = gck_attributes_find_date (attrs, 303UL, &check);
-	g_assert (ret == TRUE);
-	g_assert (g_date_compare (date, &check) == 0);
+	g_assert_true (ret);
+	g_assert_true (g_date_compare (date, &check) == 0);
 
 	gck_attributes_unref (attrs);
 	g_date_free (date);

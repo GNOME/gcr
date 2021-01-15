@@ -61,4 +61,17 @@ gboolean   egg_test_wait_until                 (int timeout);
 
 gint       egg_tests_run_with_loop             (void);
 
+/* It's possible that a GTask that has been called with g_task_run_in_thread()
+ * still has a reference held by that thread after the _finish() function has
+ * been called. This is a little problematic for tests that check for the
+ * final reference, so use this as a workaround instead.
+ *
+ * See https://gitlab.gnome.org/GNOME/glib/-/issues/1346 for more info
+ */
+#define    egg_test_wait_for_gtask_thread(expr)  G_STMT_START                                \
+                                                 while (expr) {                              \
+                                                     g_main_context_iteration (NULL, FALSE); \
+                                                 }                                           \
+                                                 G_STMT_END
+
 #endif /* EGG_DH_H_ */

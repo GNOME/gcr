@@ -58,23 +58,23 @@ setup (Test *test, gconstpointer unused)
 	/* Successful load */
 	test->module = gck_module_initialize (_GCK_TEST_MODULE_PATH, NULL, &err);
 	g_assert_no_error (err);
-	g_assert (GCK_IS_MODULE (test->module));
+	g_assert_true (GCK_IS_MODULE (test->module));
 	g_object_add_weak_pointer (G_OBJECT (test->module), (gpointer *)&test->module);
 
 	slots = gck_module_get_slots (test->module, TRUE);
-	g_assert (slots != NULL);
+	g_assert_nonnull (slots);
 
 	test->session = gck_slot_open_session (slots->data, 0, NULL, &err);
 	g_assert_no_error (err);
-	g_assert (GCK_IS_SESSION (test->session));
+	g_assert_true (GCK_IS_SESSION (test->session));
 	g_object_add_weak_pointer (G_OBJECT (test->session), (gpointer *)&test->session);
 
 	slot = gck_session_get_slot (test->session);
-	g_assert (slot);
+	g_assert_nonnull (slot);
 
 	test->session_with_auth = gck_session_from_handle (slot, gck_session_get_handle (test->session), GCK_SESSION_AUTHENTICATE);
 	g_signal_connect (test->session_with_auth, "discard-handle", G_CALLBACK (on_discard_handle_ignore), NULL);
-	g_assert (test->session_with_auth);
+	g_assert_nonnull (test->session_with_auth);
 	g_object_add_weak_pointer (G_OBJECT (test->session_with_auth), (gpointer *)&test->session_with_auth);
 
 	g_object_unref (slot);
@@ -88,9 +88,9 @@ teardown (Test *test, gconstpointer unused)
 	g_object_unref (test->module);
 	g_object_unref (test->session_with_auth);
 
-	g_assert (test->session == NULL);
-	g_assert (test->session_with_auth == NULL);
-	g_assert (test->module == NULL);
+	g_assert_null (test->session);
+	g_assert_null (test->session_with_auth);
+	g_assert_null (test->module);
 }
 
 static void
@@ -113,14 +113,14 @@ find_key (GckSession *session, CK_ATTRIBUTE_TYPE method, CK_MECHANISM_TYPE mech)
 
 	gck_builder_add_boolean (&builder, method, TRUE);
 	objects = gck_session_find_objects (session, gck_builder_end (&builder), NULL, NULL);
-	g_assert (objects);
+	g_assert_nonnull (objects);
 
 	for (l = objects; l; l = g_list_next (l)) {
 		if (mech) {
 			mechs = (gulong *)gck_object_get_data (l->data, CKA_ALLOWED_MECHANISMS,
 			                                       NULL, &n_mechs, NULL);
-			g_assert (mechs);
-			g_assert (n_mechs == sizeof (CK_MECHANISM_TYPE));
+			g_assert_nonnull (mechs);
+			g_assert_cmpuint (n_mechs, ==, sizeof (CK_MECHANISM_TYPE));
 
 			/* We know all of them only have one allowed mech */
 			match = (*mechs != mech);
@@ -147,7 +147,7 @@ find_key_with_value (GckSession *session, const gchar *value)
 
 	gck_builder_add_string (&builder, CKA_VALUE, value);
 	objects = gck_session_find_objects (session, gck_builder_end (&builder), NULL, NULL);
-	g_assert (objects);
+	g_assert_nonnull (objects);
 
 	object = g_object_ref (objects->data);
 	gck_list_unref_free (objects);
@@ -162,17 +162,16 @@ check_key_with_value (GckSession *session, GckObject *key, CK_OBJECT_CLASS klass
 	gulong check;
 
 	attrs = gck_object_get (key, NULL, NULL, CKA_CLASS, CKA_VALUE, GCK_INVALID);
-	g_assert (attrs);
+	g_assert_nonnull (attrs);
 
 	if (!gck_attributes_find_ulong (attrs, CKA_CLASS, &check))
 		g_assert_not_reached ();
-	g_assert (check == klass);
+	g_assert_cmpuint (check, ==, klass);
 
 	attr = gck_attributes_find (attrs, CKA_VALUE);
-	g_assert (attr);
-	g_assert (!gck_attribute_is_invalid (attr));
-	egg_assert_cmpsize (attr->length, ==, strlen (value));
-	g_assert (memcmp (attr->value, value, attr->length) == 0);
+	g_assert_nonnull (attr);
+	g_assert_false (gck_attribute_is_invalid (attr));
+	g_assert_cmpmem (attr->value, attr->length, value, strlen (value));
 
 	gck_attributes_unref (attrs);
 }
@@ -180,10 +179,10 @@ check_key_with_value (GckSession *session, GckObject *key, CK_OBJECT_CLASS klass
 static gboolean
 authenticate_object (GckSlot *module, GckObject *object, gchar *label, gchar **password)
 {
-	g_assert (GCK_IS_MODULE (module));
-	g_assert (GCK_IS_OBJECT (object));
-	g_assert (password);
-	g_assert (!*password);
+	g_assert_true (GCK_IS_MODULE (module));
+	g_assert_true (GCK_IS_OBJECT (object));
+	g_assert_nonnull (password);
+	g_assert_null (*password);
 
 	*password = g_strdup ("booo");
 	return TRUE;
@@ -201,13 +200,13 @@ test_encrypt (Test *test, gconstpointer unused)
 
 	/* Find the right key */
 	key = find_key (test->session, CKA_ENCRYPT, CKM_MOCK_CAPITALIZE);
-	g_assert (key);
+	g_assert_nonnull (key);
 
 	/* Simple one */
 	output = gck_session_encrypt (test->session, key, CKM_MOCK_CAPITALIZE, (const guchar*)"blah blah", 10, &n_output, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (output);
-	g_assert (n_output == 10);
+	g_assert_nonnull (output);
+	g_assert_cmpuint (n_output, ==, 10);
 	g_assert_cmpstr ((gchar*)output, ==, "BLAH BLAH");
 	g_free (output);
 
@@ -215,13 +214,13 @@ test_encrypt (Test *test, gconstpointer unused)
 	gck_session_encrypt_async (test->session, key, &mech, (const guchar*)"second chance", 14, NULL, fetch_async_result, &result);
 
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 
 	/* Get the result */
 	output = gck_session_encrypt_finish (test->session, result, &n_output, &error);
 	g_assert_no_error (error);
-	g_assert (output);
-	g_assert (n_output == 14);
+	g_assert_nonnull (output);
+	g_assert_cmpuint (n_output, ==, 14);
 	g_assert_cmpstr ((gchar*)output, ==, "SECOND CHANCE");
 	g_free (output);
 
@@ -241,13 +240,13 @@ test_decrypt (Test *test, gconstpointer unused)
 
 	/* Find the right key */
 	key = find_key (test->session, CKA_DECRYPT, CKM_MOCK_CAPITALIZE);
-	g_assert (key);
+	g_assert_nonnull (key);
 
 	/* Simple one */
 	output = gck_session_decrypt (test->session, key, CKM_MOCK_CAPITALIZE, (const guchar*)"FRY???", 7, &n_output, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (output);
-	g_assert (n_output == 7);
+	g_assert_nonnull (output);
+	g_assert_cmpuint (n_output, ==, 7);
 	g_assert_cmpstr ((gchar*)output, ==, "fry???");
 	g_free (output);
 
@@ -255,13 +254,13 @@ test_decrypt (Test *test, gconstpointer unused)
 	gck_session_decrypt_async (test->session, key, &mech, (const guchar*)"FAT CHANCE", 11, NULL, fetch_async_result, &result);
 
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 
 	/* Get the result */
 	output = gck_session_decrypt_finish (test->session, result, &n_output, &error);
 	g_assert_no_error (error);
-	g_assert (output);
-	g_assert (n_output == 11);
+	g_assert_nonnull (output);
+	g_assert_cmpuint (n_output, ==, 11);
 	g_assert_cmpstr ((gchar*)output, ==, "fat chance");
 	g_free (output);
 
@@ -281,17 +280,17 @@ test_login_context_specific (Test *test, gconstpointer unused)
 
 	/* Find the right key */
 	key = find_key (test->session, CKA_SIGN, CKM_MOCK_PREFIX);
-	g_assert (GCK_IS_OBJECT (key));
+	g_assert_true (GCK_IS_OBJECT (key));
 	g_object_add_weak_pointer (G_OBJECT (key), (gpointer *)&key);
 
 	/* Simple one */
 	output = gck_session_sign (test->session, key, CKM_MOCK_PREFIX, (const guchar*)"TV Monster", 11, &n_output, NULL, &error);
 	g_assert_error (error, GCK_ERROR, CKR_USER_NOT_LOGGED_IN);
-	g_assert (output == NULL);
+	g_assert_null (output);
 	g_error_free (error);
 
 	g_object_unref (key);
-	g_assert (key == NULL);
+	g_assert_null (key);
 }
 
 static void
@@ -309,12 +308,12 @@ test_sign (Test *test, gconstpointer unused)
 
 	/* Find the right key */
 	key = find_key (test->session_with_auth, CKA_SIGN, CKM_MOCK_PREFIX);
-	g_assert (key);
+	g_assert_nonnull (key);
 
 	/* Simple one */
 	output = gck_session_sign (test->session_with_auth, key, CKM_MOCK_PREFIX, (const guchar*)"Labarbara", 10, &n_output, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (output);
+	g_assert_nonnull (output);
 	g_assert_cmpuint (n_output, ==, 24);
 	g_assert_cmpstr ((gchar*)output, ==, "signed-prefix:Labarbara");
 	g_free (output);
@@ -323,12 +322,12 @@ test_sign (Test *test, gconstpointer unused)
 	gck_session_sign_async (test->session_with_auth, key, &mech, (const guchar*)"Conrad", 7, NULL, fetch_async_result, &result);
 
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 
 	/* Get the result */
 	output = gck_session_sign_finish (test->session_with_auth, result, &n_output, &error);
 	g_assert_no_error (error);
-	g_assert (output);
+	g_assert_nonnull (output);
 	g_assert_cmpuint (n_output, ==, 17);
 	g_assert_cmpstr ((gchar*)output, ==, "my-prefix:Conrad");
 	g_free (output);
@@ -351,30 +350,30 @@ test_verify (Test *test, gconstpointer unused)
 
 	/* Find the right key */
 	key = find_key (test->session, CKA_VERIFY, CKM_MOCK_PREFIX);
-	g_assert (GCK_IS_OBJECT (key));
+	g_assert_true (GCK_IS_OBJECT (key));
 	g_object_add_weak_pointer (G_OBJECT (key), (gpointer *)&key);
 
 	/* Simple one */
 	ret = gck_session_verify (test->session, key, CKM_MOCK_PREFIX, (const guchar*)"Labarbara", 10,
 	                           (const guchar*)"signed-prefix:Labarbara", 24, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (ret);
+	g_assert_true (ret);
 
 	/* Failure one */
 	ret = gck_session_verify_full (test->session, key, &mech, (const guchar*)"Labarbara", 10,
 	                                (const guchar*)"my-prefix:Loborboro", 20, NULL, &error);
-	g_assert (error != NULL);
-	g_assert (!ret);
+	g_assert_nonnull (error);
+	g_assert_false (ret);
 	g_clear_error (&error);
 
 	/* Asynchronous one */
 	gck_session_verify_async (test->session, key, &mech, (const guchar*)"Labarbara", 10,
 	                           (const guchar*)"my-prefix:Labarbara", 20, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 	ret = gck_session_verify_finish (test->session, result, &error);
 	g_assert_no_error (error);
-	g_assert (ret);
+	g_assert_true (ret);
 	g_object_unref (result);
 
 	/* Asynchronous failure */
@@ -382,15 +381,15 @@ test_verify (Test *test, gconstpointer unused)
 	gck_session_verify_async (test->session, key, &mech, (const guchar*)"Labarbara", 10,
 	                           (const guchar*)"my-prefix:Labarxoro", 20, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 	ret = gck_session_verify_finish (test->session, result, &error);
-	g_assert (error != NULL);
-	g_assert (!ret);
+	g_assert_nonnull (error);
+	g_assert_false (ret);
 	g_clear_error (&error);
 	g_object_unref (result);
 
 	g_object_unref (key);
-	g_assert (key == NULL);
+	g_assert_null (key);
 }
 
 static void
@@ -413,7 +412,7 @@ test_generate_key_pair (Test *test, gconstpointer unused)
 	ret = gck_session_generate_key_pair_full (test->session, &mech, pub_attrs, prv_attrs,
 	                                           &pub_key, &prv_key, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (ret);
+	g_assert_true (ret);
 	g_object_unref (pub_key);
 	g_object_unref (prv_key);
 
@@ -422,20 +421,20 @@ test_generate_key_pair (Test *test, gconstpointer unused)
 	pub_key = prv_key = NULL;
 	ret = gck_session_generate_key_pair_full (test->session, &mech, pub_attrs, prv_attrs,
 	                                           &pub_key, &prv_key, NULL, &error);
-	g_assert (error != NULL);
-	g_assert (!ret);
+	g_assert_nonnull (error);
+	g_assert_false (ret);
 	g_clear_error (&error);
-	g_assert (pub_key == NULL);
-	g_assert (prv_key == NULL);
+	g_assert_null (pub_key);
+	g_assert_null (prv_key);
 
 	/* Asynchronous one */
 	mech.type = CKM_MOCK_GENERATE;
 	gck_session_generate_key_pair_async (test->session, &mech, pub_attrs, prv_attrs, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 	ret = gck_session_generate_key_pair_finish (test->session, result, &pub_key, &prv_key, &error);
 	g_assert_no_error (error);
-	g_assert (ret);
+	g_assert_true (ret);
 	g_object_unref (result);
 	g_object_unref (pub_key);
 	g_object_unref (prv_key);
@@ -446,14 +445,14 @@ test_generate_key_pair (Test *test, gconstpointer unused)
 	pub_key = prv_key = NULL;
 	gck_session_generate_key_pair_async (test->session, &mech, pub_attrs, prv_attrs, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 	ret = gck_session_generate_key_pair_finish (test->session, result, &pub_key, &prv_key, &error);
-	g_assert (error != NULL);
-	g_assert (!ret);
+	g_assert_nonnull (error);
+	g_assert_false (ret);
 	g_clear_error (&error);
 	g_object_unref (result);
-	g_assert (pub_key == NULL);
-	g_assert (prv_key == NULL);
+	g_assert_null (pub_key);
+	g_assert_null (prv_key);
 
 	gck_attributes_unref (pub_attrs);
 	gck_attributes_unref (prv_attrs);
@@ -475,25 +474,23 @@ test_wrap_key (Test *test, gconstpointer unused)
 	/* Simple One */
 	output = gck_session_wrap_key (test->session, wrapper, CKM_MOCK_WRAP, wrapped, &n_output, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (output);
-	egg_assert_cmpsize (n_output, ==, 5);
-	g_assert (memcmp (output, "value", 5) == 0);
+	g_assert_nonnull (output);
+    g_assert_cmpmem (output, n_output, "value", 5);
 	g_free (output);
 
 	/* Full One*/
 	output = gck_session_wrap_key_full (test->session, wrapper, &mech, wrapped, &n_output, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (output);
-	egg_assert_cmpsize (n_output, ==, 5);
-	g_assert (memcmp (output, "value", 5) == 0);
+	g_assert_nonnull (output);
+    g_assert_cmpmem (output, n_output, "value", 5);
 	g_free (output);
 
 	/* Failure one */
 	mech.type = 0;
 	n_output = 0;
 	output = gck_session_wrap_key_full (test->session, wrapper, &mech, wrapped, &n_output, NULL, &error);
-	g_assert (error != NULL);
-	g_assert (!output);
+	g_assert_nonnull (error);
+	g_assert_null (output);
 	g_clear_error (&error);
 	egg_assert_cmpsize (n_output, ==, 0);
 
@@ -501,12 +498,11 @@ test_wrap_key (Test *test, gconstpointer unused)
 	mech.type = CKM_MOCK_WRAP;
 	gck_session_wrap_key_async (test->session, wrapper, &mech, wrapped, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 	output = gck_session_wrap_key_finish (test->session, result, &n_output, &error);
 	g_assert_no_error (error);
-	g_assert (output);
-	egg_assert_cmpsize (n_output, ==, 5);
-	g_assert (memcmp (output, "value", 5) == 0);
+	g_assert_nonnull (output);
+    g_assert_cmpmem (output, n_output, "value", 5);
 	g_object_unref (result);
 	g_free (output);
 
@@ -516,10 +512,10 @@ test_wrap_key (Test *test, gconstpointer unused)
 	n_output = 0;
 	gck_session_wrap_key_async (test->session, wrapper, &mech, wrapped, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 	output = gck_session_wrap_key_finish (test->session, result, &n_output, &error);
-	g_assert (error != NULL);
-	g_assert (!output);
+	g_assert_nonnull (error);
+	g_assert_null (output);
 	g_clear_error (&error);
 	egg_assert_cmpsize (n_output, ==, 0);
 	g_object_unref (result);
@@ -545,25 +541,25 @@ test_unwrap_key (Test *test, gconstpointer unused)
 	/* Full One*/
 	unwrapped = gck_session_unwrap_key_full (test->session, wrapper, &mech, (const guchar *)"special", 7, attrs, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (GCK_IS_OBJECT (unwrapped));
+	g_assert_true (GCK_IS_OBJECT (unwrapped));
 	check_key_with_value (test->session, unwrapped, CKO_SECRET_KEY, "special");
 	g_object_unref (unwrapped);
 
 	/* Failure one */
 	mech.type = 0;
 	unwrapped = gck_session_unwrap_key_full (test->session, wrapper, &mech, (const guchar *)"special", 7, attrs, NULL, &error);
-	g_assert (error != NULL);
-	g_assert (!unwrapped);
+	g_assert_nonnull (error);
+	g_assert_null (unwrapped);
 	g_clear_error (&error);
 
 	/* Asynchronous one */
 	mech.type = CKM_MOCK_WRAP;
 	gck_session_unwrap_key_async (test->session, wrapper, &mech, (const guchar *)"special", 7, attrs, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 	unwrapped = gck_session_unwrap_key_finish (test->session, result, &error);
 	g_assert_no_error (error);
-	g_assert (GCK_IS_OBJECT (unwrapped));
+	g_assert_true (GCK_IS_OBJECT (unwrapped));
 	check_key_with_value (test->session, unwrapped, CKO_SECRET_KEY, "special");
 	g_object_unref (unwrapped);
 	g_object_unref (result);
@@ -573,10 +569,10 @@ test_unwrap_key (Test *test, gconstpointer unused)
 	mech.type = 0;
 	gck_session_unwrap_key_async (test->session, wrapper, &mech, (const guchar *)"special", 6, attrs, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 	unwrapped = gck_session_unwrap_key_finish (test->session, result, &error);
-	g_assert (error != NULL);
-	g_assert (!unwrapped);
+	g_assert_nonnull (error);
+	g_assert_null (unwrapped);
 	g_clear_error (&error);
 	g_object_unref (result);
 
@@ -601,25 +597,25 @@ test_derive_key (Test *test, gconstpointer unused)
 	/* Full One*/
 	derived = gck_session_derive_key_full (test->session, wrapper, &mech, attrs, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (GCK_IS_OBJECT (derived));
+	g_assert_true (GCK_IS_OBJECT (derived));
 	check_key_with_value (test->session, derived, CKO_SECRET_KEY, "derived");
 	g_object_unref (derived);
 
 	/* Failure one */
 	mech.type = 0;
 	derived = gck_session_derive_key_full (test->session, wrapper, &mech, attrs, NULL, &error);
-	g_assert (error != NULL);
-	g_assert (!derived);
+	g_assert_nonnull (error);
+	g_assert_null (derived);
 	g_clear_error (&error);
 
 	/* Asynchronous one */
 	mech.type = CKM_MOCK_DERIVE;
 	gck_session_derive_key_async (test->session, wrapper, &mech, attrs, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 	derived = gck_session_derive_key_finish (test->session, result, &error);
 	g_assert_no_error (error);
-	g_assert (GCK_IS_OBJECT (derived));
+	g_assert_true (GCK_IS_OBJECT (derived));
 	check_key_with_value (test->session, derived, CKO_SECRET_KEY, "derived");
 	g_object_unref (derived);
 	g_object_unref (result);
@@ -629,10 +625,10 @@ test_derive_key (Test *test, gconstpointer unused)
 	mech.type = 0;
 	gck_session_derive_key_async (test->session, wrapper, &mech, attrs, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 	derived = gck_session_derive_key_finish (test->session, result, &error);
-	g_assert (error != NULL);
-	g_assert (!derived);
+	g_assert_nonnull (error);
+	g_assert_null (derived);
 	g_clear_error (&error);
 	g_object_unref (result);
 

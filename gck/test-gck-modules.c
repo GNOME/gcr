@@ -49,7 +49,7 @@ setup (Test *test, gconstpointer unused)
 	/* Successful load */
 	module = gck_module_initialize (_GCK_TEST_MODULE_PATH, NULL, &err);
 	g_assert_no_error (err);
-	g_assert (GCK_IS_MODULE (module));
+	g_assert_true (GCK_IS_MODULE (module));
 
 	test->modules = g_list_append (NULL, module);
 }
@@ -71,12 +71,12 @@ test_enumerate_objects (Test *test, gconstpointer unused)
 
 	gck_builder_add_string (&builder, CKA_LABEL, "Private Capitalize Key");
 	en = gck_modules_enumerate_objects (test->modules, gck_builder_end (&builder), 0);
-	g_assert (GCK_IS_ENUMERATOR (en));
+	g_assert_true (GCK_IS_ENUMERATOR (en));
 
 	objects = gck_enumerator_next_n (en, -1, NULL, &error);
 	g_assert_no_error (error);
 	g_assert_cmpint (g_list_length (objects), ==, 1);
-	g_assert (GCK_IS_OBJECT (objects->data));
+	g_assert_true (GCK_IS_OBJECT (objects->data));
 
 	gck_list_unref_free (objects);
 	g_object_unref (en);
@@ -90,7 +90,7 @@ test_token_for_uri (Test *test, gconstpointer unused)
 	GError *error = NULL;
 
 	slot = gck_modules_token_for_uri (test->modules, "pkcs11:token=TEST%20LABEL", &error);
-	g_assert (GCK_IS_SLOT (slot));
+	g_assert_true (GCK_IS_SLOT (slot));
 
 	g_object_unref (slot);
 }
@@ -102,8 +102,8 @@ test_token_for_uri_not_found (Test *test, gconstpointer unused)
 	GError *error = NULL;
 
 	slot = gck_modules_token_for_uri (test->modules, "pkcs11:token=UNKNOWN", &error);
-	g_assert (slot == NULL);
-	g_assert (error == NULL);
+	g_assert_null (slot);
+	g_assert_no_error (error);
 }
 
 static void
@@ -113,9 +113,8 @@ test_token_for_uri_error (Test *test, gconstpointer unused)
 	GError *error = NULL;
 
 	slot = gck_modules_token_for_uri (test->modules, "http://invalid.uri", &error);
-	g_assert (slot == NULL);
-	g_assert (error != NULL);
-	g_assert (g_error_matches (error, GCK_URI_ERROR, GCK_URI_BAD_PREFIX));
+	g_assert_null (slot);
+	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_PREFIX);
 	g_error_free (error);
 }
 
@@ -126,7 +125,7 @@ test_object_for_uri (Test *test, gconstpointer unused)
 	GError *error = NULL;
 
 	object = gck_modules_object_for_uri (test->modules, "pkcs11:object=Public%20Capitalize%20Key;objecttype=public", 0, &error);
-	g_assert (GCK_IS_OBJECT (object));
+	g_assert_true (GCK_IS_OBJECT (object));
 	g_object_unref (object);
 }
 
@@ -137,8 +136,8 @@ test_object_for_uri_not_found (Test *test, gconstpointer unused)
 	GError *error = NULL;
 
 	object = gck_modules_object_for_uri (test->modules, "pkcs11:object=Unknown%20Label", 0, &error);
-	g_assert (object == NULL);
-	g_assert (error == NULL);
+	g_assert_null (object);
+	g_assert_null (error);
 }
 
 static void
@@ -148,9 +147,8 @@ test_object_for_uri_error (Test *test, gconstpointer unused)
 	GError *error = NULL;
 
 	object = gck_modules_object_for_uri (test->modules, "http://invalid.uri", 0, &error);
-	g_assert (object == NULL);
-	g_assert (error != NULL);
-	g_assert (g_error_matches (error, GCK_URI_ERROR, GCK_URI_BAD_PREFIX));
+	g_assert_null (object);
+	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_PREFIX);
 	g_error_free (error);
 }
 
@@ -161,8 +159,8 @@ test_objects_for_uri (Test *test, gconstpointer unused)
 	GError *error = NULL;
 
 	objects = gck_modules_objects_for_uri (test->modules, "pkcs11:token=TEST%20LABEL", 0, &error);
-	g_assert (objects);
-	g_assert (!error);
+	g_assert_nonnull (objects);
+	g_assert_no_error (error);
 	g_assert_cmpint (g_list_length (objects), ==, 5);
 
 	gck_list_unref_free (objects);
@@ -176,12 +174,12 @@ test_enumerate_uri (Test *test, gconstpointer unused)
 	GError *error = NULL;
 
 	en = gck_modules_enumerate_uri (test->modules, "pkcs11:token=TEST%20LABEL", 0, &error);
-	g_assert (GCK_IS_ENUMERATOR (en));
-	g_assert (!error);
+	g_assert_true (GCK_IS_ENUMERATOR (en));
+	g_assert_no_error (error);
 
 	objects = gck_enumerator_next_n (en, -1, NULL, &error);
 	g_assert_cmpint (g_list_length (objects), ==, 5);
-	g_assert (!error);
+	g_assert_no_error (error);
 
 	g_object_unref (en);
 	gck_list_unref_free (objects);

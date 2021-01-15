@@ -43,7 +43,7 @@ setup (Test *test, gconstpointer unused)
 	/* Successful load */
 	test->module = gck_module_initialize (_GCK_TEST_MODULE_PATH, NULL, &err);
 	g_assert_no_error (err);
-	g_assert (test->module);
+	g_assert_nonnull (test->module);
 	g_object_add_weak_pointer (G_OBJECT (test->module), (gpointer *)&test->module);
 }
 
@@ -51,7 +51,7 @@ static void
 teardown (Test *test, gconstpointer unused)
 {
 	g_object_unref (test->module);
-	g_assert (test->module == NULL);
+	g_assert_null (test->module);
 }
 
 static void
@@ -74,12 +74,12 @@ test_initialize_async (void)
 	                             NULL, fetch_async_result, &result);
 
 	egg_test_wait_until (500);
-	g_assert (result != NULL);
+	g_assert_nonnull (result);
 
 	/* Get the result */
 	module = gck_module_initialize_finish (result, &error);
 	g_assert_no_error (error);
-	g_assert (GCK_IS_MODULE (module));
+	g_assert_true (GCK_IS_MODULE (module));
 
 	g_object_unref (result);
 	g_object_unref (module);
@@ -95,14 +95,14 @@ test_invalid_modules (Test *test, gconstpointer unused)
 	/* Shouldn't be able to load modules */
 	invalid = gck_module_initialize ("blah-blah-non-existant", NULL, &error);
 	g_assert_error (error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM);
-	g_assert (invalid == NULL);
+	g_assert_null (invalid);
 
 	g_clear_error (&error);
 
 	/* Shouldn't be able to load any file successfully */
 	invalid = gck_module_initialize ("/usr/lib/libm.so", NULL, &error);
 	g_assert_error (error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM);
-	g_assert (invalid == NULL);
+	g_assert_null (invalid);
 
 	g_clear_error (&error);
 }
@@ -115,17 +115,17 @@ test_module_equals_hash (Test *test, gconstpointer unused)
 	guint hash;
 
 	hash = gck_module_hash (test->module);
-	g_assert (hash != 0);
+	g_assert_cmpuint (hash, !=, 0);
 
-	g_assert (gck_module_equal (test->module, test->module));
+	g_assert_true (gck_module_equal (test->module, test->module));
 
 	other = gck_module_new (gck_module_get_functions (test->module));
 	obj = g_object_new (G_TYPE_OBJECT, NULL);
 
-	g_assert (gck_module_equal (test->module, other));
+	g_assert_true (gck_module_equal (test->module, other));
 
 	/* TODO: Could do with another test for inequality */
-	g_assert (!gck_module_equal (test->module, obj));
+	g_assert_false (gck_module_equal (test->module, obj));
 
 	g_object_unref (other);
 	g_object_unref (obj);
@@ -137,8 +137,8 @@ test_module_props (Test *test, gconstpointer unused)
 	gchar *path;
 
 	g_object_get (test->module, "path", &path, NULL);
-	g_assert (path != NULL && "no module-path");
-	g_assert (strcmp (_GCK_TEST_MODULE_PATH, path) == 0 && "module path wrong");
+	g_assert_nonnull (path);
+	g_assert_cmpstr (_GCK_TEST_MODULE_PATH, ==, path);
 	g_free (path);
 }
 
@@ -148,15 +148,15 @@ test_module_info (Test *test, gconstpointer unused)
 	GckModuleInfo *info;
 
 	info = gck_module_get_info (test->module);
-	g_assert (info != NULL && "no module info");
+	g_assert_nonnull (info);
 
-	g_assert (info->pkcs11_version_major == CRYPTOKI_VERSION_MAJOR && "wrong major version");
-	g_assert (info->pkcs11_version_minor == CRYPTOKI_VERSION_MINOR && "wrong minor version");
-	g_assert (strcmp ("TEST MANUFACTURER", info->manufacturer_id) == 0);
-	g_assert (strcmp ("TEST LIBRARY", info->library_description) == 0);
-	g_assert (0 == info->flags);
-	g_assert (45 == info->library_version_major);
-	g_assert (145 == info->library_version_minor);
+	g_assert_cmpuint (info->pkcs11_version_major, ==, CRYPTOKI_VERSION_MAJOR);
+	g_assert_cmpuint (info->pkcs11_version_minor, ==, CRYPTOKI_VERSION_MINOR);
+	g_assert_cmpstr ("TEST MANUFACTURER", ==, info->manufacturer_id);
+	g_assert_cmpstr ("TEST LIBRARY", ==, info->library_description);
+	g_assert_cmpuint (0, ==, info->flags);
+	g_assert_cmpuint (45, ==, info->library_version_major);
+	g_assert_cmpuint (145, ==, info->library_version_minor);
 
 	gck_module_info_free (info);
 }

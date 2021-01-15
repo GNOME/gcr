@@ -255,9 +255,11 @@ teardown_module (TestModule *test,
 	CK_RV rv;
 
 	g_object_unref (test->session);
-	g_assert (test->session == NULL);
-
 	g_object_unref (test->module);
+
+	egg_test_wait_for_gtask_thread (test->session || test->module);
+
+	g_assert (test->session == NULL);
 	g_assert (test->module == NULL);
 
 	rv = (test->funcs.C_Finalize) (NULL);
@@ -307,12 +309,13 @@ teardown_loading (TestLoading *test,
                   gconstpointer fixture)
 {
 	g_object_unref (test->crt_object);
-	g_assert (test->crt_object == NULL);
-
 	g_object_unref (test->prv_object);
-	g_assert (test->prv_object == NULL);
-
 	g_object_unref (test->pub_object);
+
+	egg_test_wait_for_gtask_thread (test->crt_object || test->prv_object || test->pub_object);
+
+	g_assert (test->crt_object == NULL);
+	g_assert (test->prv_object == NULL);
 	g_assert (test->pub_object == NULL);
 
 	teardown_module (&test->mo, NULL);

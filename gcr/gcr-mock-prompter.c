@@ -67,6 +67,11 @@ enum {
 	PROP_CANCEL_LABEL,
 };
 
+typedef struct _MockProperty {
+	const char *name;
+	GValue value;
+} MockProperty;
+
 struct _GcrMockPrompt {
 	GObject parent;
 	GHashTable *properties;
@@ -107,7 +112,7 @@ G_DEFINE_TYPE_WITH_CODE (GcrMockPrompt, _gcr_mock_prompt, G_TYPE_OBJECT,
 static void
 mock_property_free (gpointer data)
 {
-	GParameter *param = data;
+	MockProperty *param = data;
 	g_value_unset (&param->value);
 	g_free (param);
 }
@@ -129,9 +134,9 @@ static void
 blank_string_property (GHashTable *properties,
                        const gchar *property)
 {
-	GParameter *param;
+	MockProperty *param;
 
-	param = g_new0 (GParameter, 1);
+	param = g_new0 (MockProperty, 1);
 	param->name = property;
 	g_value_init (&param->value, G_TYPE_STRING);
 	g_value_set_string (&param->value, "");
@@ -143,9 +148,9 @@ static void
 blank_boolean_property (GHashTable *properties,
                         const gchar *property)
 {
-	GParameter *param;
+	MockProperty *param;
 
-	param = g_new0 (GParameter, 1);
+	param = g_new0 (MockProperty, 1);
 	param->name = property;
 	g_value_init (&param->value, G_TYPE_BOOLEAN);
 	g_value_set_boolean (&param->value, FALSE);
@@ -156,9 +161,9 @@ static void
 blank_int_property (GHashTable *properties,
                     const gchar *property)
 {
-	GParameter *param;
+	MockProperty *param;
 
-	param = g_new0 (GParameter, 1);
+	param = g_new0 (MockProperty, 1);
 	param->name = property;
 	g_value_init (&param->value, G_TYPE_INT);
 	g_value_set_int (&param->value, 0);
@@ -195,7 +200,7 @@ _gcr_mock_prompt_set_property (GObject *obj,
                               GParamSpec *pspec)
 {
 	GcrMockPrompt *self = GCR_MOCK_PROMPT (obj);
-	GParameter *param;
+	MockProperty *param;
 
 	switch (prop_id) {
 	case PROP_TITLE:
@@ -208,7 +213,7 @@ _gcr_mock_prompt_set_property (GObject *obj,
 	case PROP_CALLER_WINDOW:
 	case PROP_CONTINUE_LABEL:
 	case PROP_CANCEL_LABEL:
-		param = g_new0 (GParameter, 1);
+		param = g_new0 (MockProperty, 1);
 		param->name = pspec->name;
 		g_value_init (&param->value, pspec->value_type);
 		g_value_copy (value, &param->value);
@@ -228,7 +233,7 @@ _gcr_mock_prompt_get_property (GObject *obj,
                               GParamSpec *pspec)
 {
 	GcrMockPrompt *self = GCR_MOCK_PROMPT (obj);
-	GParameter *param;
+	MockProperty *param;
 
 	switch (prop_id) {
 	case PROP_TITLE:
@@ -322,7 +327,7 @@ prompt_set_or_check_properties (GcrMockPrompt *self,
 {
 	GValue value = G_VALUE_INIT;
 	GObjectClass *object_class;
-	GParameter *param;
+	MockProperty *param;
 	GParamSpec *spec;
 	GList *l;
 
@@ -471,11 +476,11 @@ static void
 ensure_password_strength (GcrMockPrompt *self,
                           const gchar *password)
 {
-	GParameter *param;
+	MockProperty *param;
 	gint strength;
 
 	strength = strlen (password) > 0 ? 1 : 0;
-	param = g_new0 (GParameter, 1);
+	param = g_new0 (MockProperty, 1);
 	param->name = "password-strength";
 	g_value_init (&param->value, G_TYPE_INT);
 	g_value_set_int (&param->value, strength);
@@ -574,7 +579,7 @@ build_properties (GObjectClass *object_class,
 	name = first_property;
 	while (name) {
 		GValue value = G_VALUE_INIT;
-		GParameter *parameter;
+		MockProperty *parameter;
 		GParamSpec *spec;
 		gchar *error = NULL;
 
@@ -597,7 +602,7 @@ build_properties (GObjectClass *object_class,
 			break;
 		}
 
-		parameter = g_new0 (GParameter, 1);
+		parameter = g_new0 (MockProperty, 1);
 		parameter->name = g_intern_string (name);
 		memcpy (&parameter->value, &value, sizeof (value));
 		result = g_list_prepend (result, parameter);

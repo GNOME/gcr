@@ -113,7 +113,7 @@ gcr_renderer_default_init (GcrRendererIface *iface)
 		 */
 		signals[DATA_CHANGED] = g_signal_new ("data-changed", GCR_TYPE_RENDERER, G_SIGNAL_RUN_LAST,
 		                                      G_STRUCT_OFFSET (GcrRendererIface, data_changed),
-		                                      NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+		                                      NULL, NULL, NULL, G_TYPE_NONE, 0);
 
 		initialized = TRUE;
 	}

@@ -69,7 +69,7 @@ gcr_collection_default_init (GcrCollectionIface *iface)
 		 */
 		signals[ADDED] = g_signal_new ("added", GCR_TYPE_COLLECTION,
 		                               G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GcrCollectionIface, added),
-		                               NULL, NULL, g_cclosure_marshal_VOID__OBJECT,
+		                               NULL, NULL, NULL,
 		                               G_TYPE_NONE, 1, G_TYPE_OBJECT);
 
 		/**
@@ -81,7 +81,7 @@ gcr_collection_default_init (GcrCollectionIface *iface)
 		 */
 		signals[REMOVED] = g_signal_new ("removed", GCR_TYPE_COLLECTION,
 		                                 G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GcrCollectionIface, removed),
-		                                 NULL, NULL, g_cclosure_marshal_VOID__OBJECT,
+		                                 NULL, NULL, NULL,
 		                                 G_TYPE_NONE, 1, G_TYPE_OBJECT);
 
 		g_once_init_leave (&initialized, 1);

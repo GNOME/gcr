@@ -491,8 +491,7 @@ _gcr_live_search_class_init (GcrLiveSearchClass *klass)
 	                                  G_TYPE_FROM_CLASS (object_class),
 	                                  G_SIGNAL_RUN_LAST,
 	                                  0,
-	                                  NULL, NULL,
-	                                  g_cclosure_marshal_VOID__VOID,
+	                                  NULL, NULL, NULL,
 	                                  G_TYPE_NONE, 0);
 
 	signals[KEYNAV] = g_signal_new ("key-navigation",

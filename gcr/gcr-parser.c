@@ -2505,7 +2505,7 @@ gcr_parser_class_init (GcrParserClass *klass)
 	 */
 	signals[PARSED] = g_signal_new ("parsed", GCR_TYPE_PARSER,
 	                                G_SIGNAL_RUN_FIRST, G_STRUCT_OFFSET (GcrParserClass, parsed),
-	                                NULL, NULL, g_cclosure_marshal_VOID__VOID,
+	                                NULL, NULL, NULL,
 	                                G_TYPE_NONE, 0);
 
 	init_quarks ();

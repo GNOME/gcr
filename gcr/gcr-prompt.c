@@ -248,7 +248,7 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		 */
 		signals[PROMPT_CLOSE] = g_signal_new ("prompt-close", GCR_TYPE_PROMPT, G_SIGNAL_RUN_FIRST,
 		                                      G_STRUCT_OFFSET (GcrPromptIface, prompt_close),
-		                                      NULL, NULL, g_cclosure_marshal_generic,
+		                                      NULL, NULL, NULL,
 		                                      G_TYPE_NONE, 0);
 
 		g_once_init_leave (&initialized, 1);

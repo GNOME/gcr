@@ -216,7 +216,7 @@ _gcr_unlock_renderer_class_init (GcrUnlockRendererClass *klass)
 
 	signals[UNLOCK_CLICKED] = g_signal_new ("unlock-clicked", GCR_TYPE_UNLOCK_RENDERER, G_SIGNAL_RUN_LAST,
 	                                        G_STRUCT_OFFSET (GcrUnlockRendererClass, unlock_clicked),
-	                                        NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	                                        NULL, NULL, NULL, G_TYPE_NONE, 0);
 }
 
 static void

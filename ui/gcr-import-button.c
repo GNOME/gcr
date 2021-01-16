@@ -524,7 +524,7 @@ gcr_import_button_class_init (GcrImportButtonClass *klass)
 	 */
 	signals[IMPORTING] = g_signal_new ("importing", GCR_TYPE_IMPORT_BUTTON, G_SIGNAL_RUN_LAST,
 	                                  G_STRUCT_OFFSET (GcrImportButtonClass, importing),
-	                                  NULL, NULL, g_cclosure_marshal_VOID__OBJECT,
+	                                  NULL, NULL, NULL,
 	                                  G_TYPE_NONE, 1, G_TYPE_OBJECT);
 
 	/**

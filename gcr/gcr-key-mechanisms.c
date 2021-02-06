@@ -118,7 +118,6 @@ typedef struct {
 	gulong *mechanisms;
 	gsize n_mechanisms;
 	gulong action_attr_type;
-	GckAttributes *attrs;
 } CheckClosure;
 
 static void
@@ -126,7 +125,6 @@ check_closure_free (gpointer data)
 {
 	CheckClosure *closure = data;
 	g_free (closure->mechanisms);
-	gck_attributes_unref (closure->attrs);
 	g_free (closure);
 }
 
@@ -135,16 +133,17 @@ on_check_get_attributes (GObject *source,
                          GAsyncResult *result,
                          gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	CheckClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	GckAttributes *attrs;
 	GError *error = NULL;
 
-	closure->attrs = gck_object_cache_lookup_finish (GCK_OBJECT (source), result, &error);
+	attrs = gck_object_cache_lookup_finish (GCK_OBJECT (source), result, &error);
 	if (error != NULL)
-		g_simple_async_result_take_error (res, error);
+		g_task_return_error (task, g_steal_pointer (&error));
+	else
+		g_task_return_pointer (task, attrs, gck_attributes_unref);
 
-	g_simple_async_result_complete (res);
-	g_object_unref (res);
+	g_clear_object (&task);
 }
 
 void
@@ -158,25 +157,24 @@ _gcr_key_mechanisms_check_async (GckObject *key,
 {
 	gulong attr_types[] = { action_attr_type };
 	CheckClosure *closure;
-	GSimpleAsyncResult *res;
+	GTask *task;
 
 	g_return_if_fail (GCK_IS_OBJECT (key));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	res = g_simple_async_result_new (G_OBJECT (key), callback, user_data,
-	                                 _gcr_key_mechanisms_check_async);
+	task = g_task_new (key, cancellable, callback, user_data);
+	g_task_set_source_tag (task, _gcr_key_mechanisms_check_async);
 	closure = g_new0 (CheckClosure, 1);
 	closure->mechanisms = g_memdup (mechanisms, n_mechanisms * sizeof (gulong));
 	closure->n_mechanisms = n_mechanisms;
 	closure->action_attr_type = action_attr_type;
-	g_simple_async_result_set_op_res_gpointer (res, closure, check_closure_free);
+	g_task_set_task_data (task, closure, check_closure_free);
 
 	gck_object_cache_lookup_async (key, attr_types, G_N_ELEMENTS (attr_types),
-	                               cancellable, on_check_get_attributes, g_object_ref (res));
+	                               cancellable, on_check_get_attributes,
+	                               g_steal_pointer (&task));
 
-	g_object_unref (res);
-
-
+	g_clear_object (&task);
 }
 
 gulong
@@ -185,21 +183,26 @@ _gcr_key_mechanisms_check_finish (GckObject *key,
                                   GError **error)
 {
 	CheckClosure *closure;
-	GSimpleAsyncResult *res;
+	GckAttributes *attrs;
+	gulong ret = GCK_INVALID;
 
 	g_return_val_if_fail (GCK_IS_OBJECT (key), GCK_INVALID);
 	g_return_val_if_fail (error == NULL || *error == NULL, GCK_INVALID);
 
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (key),
-	                      _gcr_key_mechanisms_check_async), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, key), GCK_INVALID);
+	g_return_val_if_fail (g_task_get_source_tag (G_TASK (result)) ==
+	                      _gcr_key_mechanisms_check_async, GCK_INVALID);
 
-	res = G_SIMPLE_ASYNC_RESULT (result);
-	if (g_simple_async_result_propagate_error (res, error))
-		return FALSE;
+	closure = g_task_get_task_data (G_TASK (result));
 
-	closure = g_simple_async_result_get_op_res_gpointer (res);
+	attrs = g_task_propagate_pointer (G_TASK (result), error);
+	if (!attrs)
+		return GCK_INVALID;
 
-	return find_first_usable_mechanism (GCK_OBJECT (key), closure->attrs,
-	                                    closure->mechanisms, closure->n_mechanisms,
-	                                    closure->action_attr_type);
+	ret = find_first_usable_mechanism (GCK_OBJECT (key), attrs,
+	                                   closure->mechanisms, closure->n_mechanisms,
+	                                   closure->action_attr_type);
+
+	gck_attributes_unref (attrs);
+	return ret;
 }

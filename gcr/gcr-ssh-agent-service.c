@@ -49,7 +49,8 @@ static const GcrSshAgentOperation operations[GCR_SSH_OP_MAX];
 enum {
 	PROP_0,
 	PROP_PATH,
-	PROP_PRELOAD
+	PROP_PRELOAD,
+	PROP_INTERACTION
 };
 
 struct _GcrSshAgentService
@@ -58,6 +59,8 @@ struct _GcrSshAgentService
 	gchar *path;
 	GcrSshAgentPreload *preload;
 	GcrSshAgentProcess *process;
+	/* for mocking */
+	GTlsInteraction *interaction;
 	GSocketAddress *address;
 	GSocketListener *listener;
 	GHashTable *keys;
@@ -106,6 +109,9 @@ gcr_ssh_agent_service_set_property (GObject *object,
 	case PROP_PRELOAD:
 		self->preload = g_value_dup_object (value);
 		break;
+	case PROP_INTERACTION:
+		self->interaction = g_value_dup_object (value);
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -119,6 +125,7 @@ gcr_ssh_agent_service_finalize (GObject *object)
 
 	g_free (self->path);
 	g_object_unref (self->preload);
+	g_clear_object (&self->interaction);
 
 	g_object_unref (self->process);
 	g_object_unref (self->listener);
@@ -145,6 +152,10 @@ gcr_ssh_agent_service_class_init (GcrSshAgentServiceClass *klass)
 		 g_param_spec_object ("preload", "Preload", "Preload",
 				      GCR_TYPE_SSH_AGENT_PRELOAD,
 				      G_PARAM_CONSTRUCT_ONLY | G_PARAM_WRITABLE));
+	g_object_class_install_property (gobject_class, PROP_INTERACTION,
+		 g_param_spec_object ("interaction", "Interaction", "Interaction",
+				      G_TYPE_TLS_INTERACTION,
+				      G_PARAM_WRITABLE));
 }
 
 static gboolean
@@ -243,7 +254,11 @@ ensure_key (GcrSshAgentService *self,
 
 	label = info->comment[0] != '\0' ? info->comment : _("Unnamed");
 
-	interaction = gcr_ssh_agent_interaction_new (NULL, label, fields);
+	if (self->interaction) {
+		interaction = g_object_ref (self->interaction);
+	} else {
+		interaction = gcr_ssh_agent_interaction_new (NULL, label, fields);
+	}
 	askpass = gcr_ssh_askpass_new (interaction);
 	g_object_unref (interaction);
 

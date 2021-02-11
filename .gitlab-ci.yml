@@ -3,7 +3,7 @@ stages:
   - deploy
 
 variables:
-  DEPENDENCIES: dbus-daemon diffutils gcc gtk-doc meson ninja-build openssh python redhat-rpm-config
+  DEPENDENCIES: dbus-daemon diffutils gcc gtk-doc libsecret-devel meson ninja-build openssh openssh-clients python redhat-rpm-config systemd-devel
 
 fedora:Werror:
   image: fedora:latest

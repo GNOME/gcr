@@ -23,3 +23,8 @@ option('ssh_agent',
   value: true,
   description: 'Build ssh-agent binary',
 )
+option('systemd',
+  type: 'feature',
+  value: 'auto',
+  description: 'Use systemd socket activation for server programs'
+)

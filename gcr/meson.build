@@ -250,7 +250,7 @@ if get_option('ssh_agent')
 
   gcr_ssh_agent = executable('gcr-ssh-agent',
     gcr_ssh_agent_lib_sources + [ 'gcr-ssh-agent.c' ],
-    dependencies: [ gcr_base_deps, gcr_base_dep, libsecret_dep ],
+    dependencies: [ gcr_base_deps, gcr_base_dep, libsecret_dep, libsystemd_deps ],
     c_args: [
       '-DGCR_COMPILATION',
       '-DGCR_API_SUBJECT_TO_CHANGE',
@@ -260,6 +260,19 @@ if get_option('ssh_agent')
     install_dir: get_option('libexecdir'),
   )
 
+  if with_systemd
+    configure_file(
+      input: 'gcr-ssh-agent.service.in',
+      output: '@BASENAME@',
+      configuration: {
+        'libexecdir': gcr_prefix / get_option('libexecdir'),
+      },
+      install_dir: systemduserunitdir,
+    )
+    install_data('gcr-ssh-agent.socket',
+		 install_dir: systemduserunitdir)
+  endif
+
   gcr_ssh_agent_test_cflags = [
     '-DSRCDIR="@0@"'.format(source_root),
     '-D_GCR_TEST_SSH_ASKPASS_PATH="@0@"'.format(gcr_ssh_askpass.full_path()),
@@ -267,7 +280,7 @@ if get_option('ssh_agent')
 
   gcr_ssh_agent_test_lib = static_library('gcr-ssh-agent-test',
     sources: gcr_ssh_agent_lib_sources + [ 'gcr-ssh-agent-test.c' ],
-    dependencies: [ gcr_base_deps, gcr_base_dep, libsecret_dep ],
+    dependencies: [ gcr_base_deps, gcr_base_dep, libsecret_dep, libsystemd_deps ],
     c_args: [
       '-DGCR_COMPILATION',
       '-DGCR_API_SUBJECT_TO_CHANGE',

@@ -39,6 +39,10 @@
 #include <glib/gstdio.h>
 #include <gcr/gcr-base.h>
 
+#ifdef WITH_SYSTEMD
+#include <systemd/sd-daemon.h>
+#endif
+
 #include <glib/gi18n-lib.h>
 
 EGG_SECURE_DECLARE (ssh_agent);
@@ -370,31 +374,61 @@ on_closed (GcrSshAgentProcess *process,
 gboolean
 gcr_ssh_agent_service_start (GcrSshAgentService *self)
 {
-	gchar *path;
-	GError *error;
+	GError *error = NULL;
 
-	path = g_strdup_printf ("%s/ssh", self->path);
-	g_unlink (path);
-	self->address = g_unix_socket_address_new (path);
-	g_free (path);
+#if WITH_SYSTEMD
+	int ret;
 
-	error = NULL;
-	if (!g_socket_listener_add_address (self->listener,
-					    self->address,
-					    G_SOCKET_TYPE_STREAM,
-					    G_SOCKET_PROTOCOL_DEFAULT,
-					    NULL,
-					    NULL,
-					    &error)) {
-		g_warning ("couldn't listen on %s: %s",
-			   g_unix_socket_address_get_path (G_UNIX_SOCKET_ADDRESS (self->address)),
-			   error->message);
-		g_error_free (error);
+	ret = sd_listen_fds (0);
+	if (ret > 1) {
+		g_warning ("too many file descriptors received");
 		return FALSE;
-	}
+	} else if (ret == 1) {
+		GSocket *socket;
 
-	/* For the ssh-add command called upon SSH_AGENTC_SIGN_REQUEST */
-	g_setenv ("SSH_AUTH_SOCK", g_unix_socket_address_get_path (G_UNIX_SOCKET_ADDRESS (self->address)), TRUE);
+		socket = g_socket_new_from_fd (SD_LISTEN_FDS_START, &error);
+		if (!socket) {
+			g_warning ("couldn't create a socket: %s", error->message);
+			g_error_free (error);
+			return FALSE;
+		}
+		if (!g_socket_listener_add_socket (self->listener,
+						   socket,
+						   G_OBJECT (self),
+						   &error)) {
+			g_warning ("couldn't bind socket on %d: %s",
+				   g_socket_get_fd (socket),
+				   error->message);
+			g_object_unref (socket);
+			g_error_free (error);
+			return FALSE;
+		}
+	} else
+#endif
+	{
+		gchar *path;
+		path = g_strdup_printf ("%s/ssh", self->path);
+		g_unlink (path);
+		self->address = g_unix_socket_address_new (path);
+		g_free (path);
+
+		if (!g_socket_listener_add_address (self->listener,
+						    self->address,
+						    G_SOCKET_TYPE_STREAM,
+						    G_SOCKET_PROTOCOL_DEFAULT,
+						    NULL,
+						    NULL,
+						    &error)) {
+			g_warning ("couldn't listen on %s: %s",
+				   g_unix_socket_address_get_path (G_UNIX_SOCKET_ADDRESS (self->address)),
+				   error->message);
+			g_error_free (error);
+			return FALSE;
+		}
+
+		/* For the ssh-add command called upon SSH_AGENTC_SIGN_REQUEST */
+		g_setenv ("SSH_AUTH_SOCK", g_unix_socket_address_get_path (G_UNIX_SOCKET_ADDRESS (self->address)), TRUE);
+	}
 
 	g_signal_connect (self->listener, "run", G_CALLBACK (on_run), self);
 	g_signal_connect (self->process, "closed", G_CALLBACK (on_closed), self);

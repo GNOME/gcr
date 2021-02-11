@@ -1,0 +1,15 @@
+[Unit]
+Description=GCR ssh-agent wrapper
+
+Requires=gcr-ssh-agent.socket
+
+[Service]
+Type=simple
+StandardError=journal
+Environment=SSH_AUTH_SOCK=%t/gcr/ssh
+ExecStart=@libexecdir@/gcr-ssh-agent %t/gcr
+Restart=on-failure
+
+[Install]
+Also=gcr-ssh-agent.socket
+WantedBy=default.target

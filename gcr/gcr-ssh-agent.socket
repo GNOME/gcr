@@ -1,0 +1,11 @@
+[Unit]
+Description=GCR ssh-agent wrapper
+
+[Socket]
+Priority=6
+Backlog=5
+ListenStream=%t/gcr/ssh
+DirectoryMode=0700
+
+[Install]
+WantedBy=sockets.target

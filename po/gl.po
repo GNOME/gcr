@@ -3,28 +3,28 @@
 # Copyright (C) 2010 Fran Diéguez.
 # Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
 # colaborar connosco, podes atopar máis información en http://www.trasno.net
+#
 # Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005, 2006.
 # Ignacio Casal Quinteiro <icq@svn.gnome.org>, 2007, 2008.
 # Mancomún - Centro de Referencia e Servizos de Software Libre <g11n@mancomun.org>, 2009.
 # Antón Méixome <meixome@mancomun.org>, 2009.
 # Fran Diéguez <frandieguez@gnome.org>, 2009, 2010, 2011, 2012.
 # Leandro Regueiro <leandro.regueiro@gmail.com>, 2012.
-# Fran Dieguez <frandieguez@gnome.org>, 2013-2020.
-#
+# Fran Dieguez <frandieguez@gnome.org>, 2013-2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2020-08-13 00:43+0200\n"
+"POT-Creation-Date: 2020-08-22 15:40+0000\n"
+"PO-Revision-Date: 2021-02-23 23:43+0100\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
-"Language-Team: Galician <proxecto@trasno.gal>\n"
+"Language-Team: Proxecto Trasno <proxecto@trasno.gal>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"X-Generator: Gtranslator 3.38.0\n"
 "X-Project-Style: gnome\n"
 
 #: egg/egg-oid.c:40
@@ -434,7 +434,7 @@ msgstr "Xa hai outra petición en progreso"
 #. communication with a certain peer.
 #: gcr/gcr-trust.c:364
 msgid "Couldn’t find a place to store the pinned certificate"
-msgstr "Non foi posíbel atopar un lugar para almacenar o certificado anclado"
+msgstr "Non foi posíbel atopar un lugar para almacenar o certificado ancorado"
 
 #: ui/gcr-certificate-renderer.c:118
 msgid "Basic Constraints"
@@ -509,7 +509,6 @@ msgid "Encipher only"
 msgstr "Só cifrador"
 
 #: ui/gcr-certificate-renderer.c:195
-#| msgid "Data encipherment"
 msgid "Decipher only"
 msgstr "Só descifrador"
 
@@ -777,7 +776,7 @@ msgstr "Esta chave está confiada completamente"
 
 #: ui/gcr-gnupg-renderer.c:313
 msgid "This key is ultimately trusted"
-msgstr "Esta chave está confiada últimamente"
+msgstr "Esta chave está confiada ultimamente"
 
 #: ui/gcr-gnupg-renderer.c:338 ui/gcr-gnupg-renderer.c:564
 msgid "Key ID"
@@ -832,7 +831,7 @@ msgstr "Sinatura dun documento de texto canónico"
 
 #: ui/gcr-gnupg-renderer.c:512
 msgid "Standalone signature"
-msgstr "Sinatura indpendente"
+msgstr "Sinatura independente"
 
 #: ui/gcr-gnupg-renderer.c:514
 msgid "Generic certification of key"
@@ -1168,7 +1167,7 @@ msgstr "Importado"
 
 #: ui/gcr-viewer-window.c:78
 msgid "Import failed"
-msgstr "Fallou a importación"
+msgstr "Fallou a importación"
 
 #: ui/gcr-viewer-window.c:105
 msgid "Import"

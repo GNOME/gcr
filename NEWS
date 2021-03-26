@@ -1,3 +1,17 @@
+gcr 3.40.0:
+- FEATURE: add hkps://keys.openpgp.org to keyserver defaults [GNOME/gcr!62]
+- gcr/key-mechanism: Port to GTask [GNOME/gcr!66]
+- GckCall: Simplify the code by using GTask based implementation [GNOME/gcr!61]
+- Remove Autotools [GNOME/gcr!58]
+- gck: Don't use g_assert() in tests [GNOME/gcr!64]
+- Create a workaround for tests and GTask [GNOME/gcr!65]
+- ui: Set "use-underline" for GcrImportButton [GNOME/gcr!63]
+- Get rid of most GSimpleAsyncResult usages [GNOME/gcr!29]
+- Gck flags check fixes [GNOME/gcr!60]
+- Increase test-gnupg-collection timeout [GNOME/gcr#29, GNOME/gcr!23]
+- ci: Fix ASAN jobs [GNOME/gcr!59]
+- Updated translations
+
 gcr 3.38.0:
 - No changes from 3.37.91
 

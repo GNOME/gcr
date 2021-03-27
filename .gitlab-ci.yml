@@ -87,6 +87,9 @@ fedora:coverage:
 
 pages:
   stage: deploy
+  only:
+    - master
+  needs: ['fedora:coverage']
   script:
     - mv _build/meson-logs/coveragereport/ public/
   artifacts:

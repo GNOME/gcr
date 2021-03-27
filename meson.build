@@ -51,6 +51,19 @@ p11_system_config_modules = p11kit_dep.get_pkgconfig_variable('p11_system_config
 if p11_system_config_modules == ''
   error('Couldn\'t find location for pkcs11 module config')
 endif
+libsecret_dep = dependency('libsecret-1', version: '>= 0.20', required: get_option('ssh_agent'))
+ssh_add_path = find_program('ssh-add', required: get_option('ssh_agent')).path()
+ssh_agent_path = find_program('ssh-agent', required: get_option('ssh_agent')).path()
+
+with_systemd = false
+libsystemd_deps = []
+libsystemd = dependency('libsystemd', required: get_option('systemd'))
+systemd = dependency('systemd', required: get_option('systemd'))
+if libsystemd.found() and systemd.found()
+  systemduserunitdir = systemd.get_pkgconfig_variable('systemduserunitdir')
+  libsystemd_deps += libsystemd
+  with_systemd = true
+endif
 
 if get_option('gtk')
   gtk_min_version = '3.22'
@@ -69,6 +82,9 @@ conf.set('HAVE_TIMEGM', cc.has_function('timegm'))
 conf.set('HAVE_MLOCK', cc.has_function('mlock'))
 conf.set_quoted('GPG_EXECUTABLE', gpg_path)
 conf.set_quoted('LIBGCRYPT_VERSION', libgcrypt_dep.version())
+conf.set_quoted('SSH_ADD_EXECUTABLE', ssh_add_path)
+conf.set_quoted('SSH_AGENT_EXECUTABLE', ssh_agent_path)
+conf.set10('WITH_SYSTEMD', with_systemd)
 config_file = configure_file(
   output: 'config.h',
   configuration: conf,

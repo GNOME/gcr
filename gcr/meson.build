@@ -238,6 +238,79 @@ gcr_ssh_askpass = executable('gcr-ssh-askpass',
   install_dir: get_option('libexecdir'),
 )
 
+if get_option('ssh_agent')
+  # gcr-ssh-agent binary
+  gcr_ssh_agent_lib_sources = [
+    'gcr-ssh-agent-interaction.c',
+    'gcr-ssh-agent-preload.c',
+    'gcr-ssh-agent-process.c',
+    'gcr-ssh-agent-service.c',
+    'gcr-ssh-agent-util.c',
+  ]
+
+  gcr_ssh_agent = executable('gcr-ssh-agent',
+    gcr_ssh_agent_lib_sources + [ 'gcr-ssh-agent.c' ],
+    dependencies: [ gcr_base_deps, gcr_base_dep, libsecret_dep, libsystemd_deps ],
+    c_args: [
+      '-DGCR_COMPILATION',
+      '-DGCR_API_SUBJECT_TO_CHANGE',
+    ],
+    include_directories: config_h_dir,
+    install: true,
+    install_dir: get_option('libexecdir'),
+  )
+
+  if with_systemd
+    configure_file(
+      input: 'gcr-ssh-agent.service.in',
+      output: '@BASENAME@',
+      configuration: {
+        'libexecdir': gcr_prefix / get_option('libexecdir'),
+      },
+      install_dir: systemduserunitdir,
+    )
+    install_data('gcr-ssh-agent.socket',
+		 install_dir: systemduserunitdir)
+  endif
+
+  gcr_ssh_agent_test_cflags = [
+    '-DSRCDIR="@0@"'.format(source_root),
+    '-D_GCR_TEST_SSH_ASKPASS_PATH="@0@"'.format(gcr_ssh_askpass.full_path()),
+  ]
+
+  gcr_ssh_agent_test_lib = static_library('gcr-ssh-agent-test',
+    sources: gcr_ssh_agent_lib_sources + [ 'gcr-ssh-agent-test.c' ],
+    dependencies: [ gcr_base_deps, gcr_base_dep, libsecret_dep, libsystemd_deps ],
+    c_args: [
+      '-DGCR_COMPILATION',
+      '-DGCR_API_SUBJECT_TO_CHANGE',
+    ] + gcr_ssh_agent_test_cflags,
+    include_directories: config_h_dir,
+  )
+
+  gcr_ssh_agent_test_names = [
+    'preload',
+    'process',
+    'service',
+    'util',
+  ]
+
+  foreach _test : gcr_ssh_agent_test_names
+    test_bin = executable('test-ssh-agent-'+_test,
+      'test-ssh-agent-@0@.c'.format(_test),
+      dependencies: [ gcr_base_deps, gcr_base_dep ],
+      link_with: [ gcr_ssh_agent_test_lib, egg_test_lib ],
+      c_args: [ gcr_base_cflags, gcr_ssh_agent_test_cflags ],
+      include_directories: config_h_dir,
+    )
+
+    test(_test, test_bin,
+      suite: 'gcr-ssh-agent',
+      depends: gcr_ssh_askpass,
+    )
+  endforeach
+endif
+
 # Services
 gcr_service_files = [
   'org.gnome.keyring.SystemPrompter.service',

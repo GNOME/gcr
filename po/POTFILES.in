@@ -16,6 +16,8 @@ gcr/gcr-importer.c
 gcr/gcr-library.c
 gcr/gcr-parser.c
 gcr/gcr-prompt.c
+gcr/gcr-ssh-agent-interaction.c
+gcr/gcr-ssh-agent-service.c
 gcr/gcr-ssh-askpass.c
 gcr/gcr-subject-public-key.c
 gcr/gcr-system-prompt.c

@@ -181,6 +181,7 @@ gcr_base_dep = declare_dependency(
   sources: [
     gcr_enums_gen[1],
     gcr_oids[1],
+    gcr_marshal_gen[1],
   ],
 )
 

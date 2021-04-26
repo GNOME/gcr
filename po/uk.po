@@ -3,22 +3,21 @@
 # This file is distributed under the same license as the gnome-keyring package.
 # Maxim Dzumanenko <dziumanenko@gmail.com>, 2004-2008.
 # Korostil Daniel <ted.korostiled@gmail.com>, 2011, 2012.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2020-06-18 10:16+0300\n"
+"POT-Creation-Date: 2021-03-27 11:26+0000\n"
+"PO-Revision-Date: 2021-04-26 20:09+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
-"=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 20.07.70\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 20.12.0\n"
 "X-Project-Style: gnome\n"
 
 #: egg/egg-oid.c:40
@@ -246,6 +245,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Не вдалося запустити зареєстровані модулі PKCS#11: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "URI має неправильне кодування."
 
@@ -262,6 +262,7 @@ msgid "The URI has a bad version number."
 msgstr "URI має поганий номер версії."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "Потік закрито"
 
@@ -334,10 +335,12 @@ msgid "Registered ID"
 msgstr "Зареєстрований ID"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Непідтримуваний тип ключа для запиту сертифіката"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Ключ неможливо використати для підписання запиту"
 
@@ -399,13 +402,56 @@ msgstr "Не вдалось розібрати некоректні чи пош�
 msgid "The data is locked"
 msgstr "Дані заблоковано"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "Продовжити"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "Скасувати"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+#| msgid "Unlock: %s"
+msgid "Unlock password for: %s"
+msgstr "Пароль розблоковування для %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+#| msgid "Private Key"
+msgid "Unlock private key"
+msgstr "Розблокувати закритий ключ"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr ""
+"Введіть пароль для розблокування закритого ключа"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr ""
+"Програма хоче отримати доступ до закритого ключа «%s», але його заблоковано"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+#| msgid "Automatically unlock this keyring whenever I’m logged in"
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "Автоматично розблоковувати цей ключ після входу у сеанс"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Розблокувати"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+#| msgid "The password was incorrect"
+msgid "The unlock password was incorrect"
+msgstr "Неправильний пароль для розблоковування"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr ""
+"Без назви"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -415,7 +461,7 @@ msgstr "Введіть ваш пароль OpenSSH"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Нерозпізнані або недоступні атрибути для ключа"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "Не вдалося побудувати відкритий ключ"
 
@@ -426,7 +472,8 @@ msgstr "Уже триває інакша спроба "
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Не вдалося знайти місце для збереження утриманих сертифікатів"
 
@@ -503,7 +550,6 @@ msgid "Encipher only"
 msgstr "Лише шифрування"
 
 #: ui/gcr-certificate-renderer.c:195
-#| msgid "Data encipherment"
 msgid "Decipher only"
 msgstr "Лише розшифровування"
 
@@ -667,6 +713,7 @@ msgid "Reason"
 msgstr "Причина"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "Неможливо показати файл цього типу."
 
@@ -909,29 +956,29 @@ msgstr "Таємний ключ"
 msgid "Secret Subkey"
 msgstr "Таємний підключ"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "Ініціалізація…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "Триває імпортування…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "Імпортовано у: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "Імпортувати у: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "Неможливо імпортувати, бо немає сумісного імпортера"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "Немає даних для імпортування"
 
@@ -985,12 +1032,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "_Гаразд"
 
@@ -999,7 +1046,8 @@ msgid "Automatically chosen"
 msgstr "Автоматично вибрати"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "Користувач скасував операцію"
 
@@ -1008,18 +1056,13 @@ msgid "In order to import, please enter the password."
 msgstr "Введіть пароль, щоб імпортувати."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "Пароль:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "Ознака:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "Розблокувати"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1030,15 +1073,15 @@ msgid "Import settings"
 msgstr "Імпортувати параметри"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "Підтвердження:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "Паролі не збігаються."
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "Пароль не може бути порожнім"
 
@@ -1063,6 +1106,7 @@ msgid "_Replace"
 msgstr "_Замінити"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "Операцію скасовано."
 

@@ -56,7 +56,7 @@ G_DEFINE_INTERFACE (GcrCollection, gcr_collection, G_TYPE_OBJECT);
 static void
 gcr_collection_default_init (GcrCollectionIface *iface)
 {
-	static volatile gsize initialized = 0;
+	static size_t initialized = 0;
 
 	if (g_once_init_enter (&initialized)) {
 

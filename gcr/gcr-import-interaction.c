@@ -58,7 +58,7 @@ G_DEFINE_INTERFACE (GcrImportInteraction, gcr_import_interaction, G_TYPE_TLS_INT
 static void
 gcr_import_interaction_default_init (GcrImportInteractionIface *iface)
 {
-	static volatile gsize initialized = 0;
+	static size_t initialized = 0;
 
 	if (g_once_init_enter (&initialized)) {
 		g_once_init_leave (&initialized, 1);

@@ -187,7 +187,7 @@ static GQuark ARMOR_PGP_PRIVATE_KEY_BLOCK;
 static void
 init_quarks (void)
 {
-	static volatile gsize quarks_inited = 0;
+	static size_t quarks_inited = 0;
 
 	if (g_once_init_enter (&quarks_inited)) {
 

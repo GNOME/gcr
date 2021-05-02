@@ -86,7 +86,7 @@ static gboolean registered_sorted = FALSE;
 static void
 gcr_importer_default_init (GcrImporterIface *iface)
 {
-	static volatile gsize initialized = 0;
+	static size_t initialized = 0;
 
 	if (g_once_init_enter (&initialized)) {
 

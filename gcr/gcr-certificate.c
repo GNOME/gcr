@@ -255,7 +255,7 @@ on_transform_date_to_string (const GValue *src, GValue *dest)
 static void
 gcr_certificate_default_init (GcrCertificateIface *iface)
 {
-	static volatile gsize initialized = 0;
+	static size_t initialized = 0;
 
 	if (g_once_init_enter (&initialized)) {
 		CERTIFICATE_INFO = g_quark_from_static_string ("_gcr_certificate_certificate_info");

@@ -66,7 +66,7 @@ G_DEFINE_INTERFACE (GckObjectCache, gck_object_cache, GCK_TYPE_OBJECT);
 static void
 gck_object_cache_default_init (GckObjectCacheIface *iface)
 {
-	static volatile gsize initialized = 0;
+	static size_t initialized = 0;
 	if (g_once_init_enter (&initialized)) {
 
 		/**

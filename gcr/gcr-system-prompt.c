@@ -1642,7 +1642,7 @@ static const GDBusErrorEntry SYSTEM_PROMPT_ERRORS[] = {
 GQuark
 gcr_system_prompt_error_get_domain (void)
 {
-	static volatile gsize quark_volatile = 0;
+	static size_t quark_volatile = 0;
 	g_dbus_error_register_error_domain ("gcr-system-prompt-error-domain",
 	                                    &quark_volatile,
 	                                    SYSTEM_PROMPT_ERRORS,

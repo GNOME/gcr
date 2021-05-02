@@ -139,7 +139,7 @@ GQuark
 gck_error_get_quark (void)
 {
 	static GQuark domain = 0;
-	static volatile gsize quark_inited = 0;
+	static size_t quark_inited = 0;
 
 	if (g_once_init_enter (&quark_inited)) {
 		domain = g_quark_from_static_string ("gck-error");

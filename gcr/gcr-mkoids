@@ -38,7 +38,7 @@ generate_source ()
 			echo "GQuark"
 			echo "_${LOWER}_oid_${lname}_get_quark (void)"
 			echo "{"
-			echo "	static volatile gsize inited = 0;"
+			echo "	static size_t inited = 0;"
 			echo "	static GQuark quark = 0;"
 			echo "	if (g_once_init_enter (&inited)) {"
 			echo "		quark = g_quark_from_static_string (\"${oid}\");"

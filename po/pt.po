@@ -5,21 +5,22 @@
 # Tiago S. <almosthumane@portugalmail.pt>, 2014.
 # Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
 # Juliano Camargo <julianosc@pm.me>, 2020.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 3.12\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2020-09-09 00:27+0100\n"
-"Last-Translator: Juliano Camargo <julianosc@pm.me>\n"
-"Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
+"POT-Creation-Date: 2021-04-26 17:11+0000\n"
+"PO-Revision-Date: 2021-06-26 22:13+0100\n"
+"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
+"Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -237,22 +238,20 @@ msgstr "Erro ao ler o módulo PKCS#11: %s"
 
 #: gck/gck-module.c:346
 #, c-format
-#| msgid "Couldn't initialize PKCS#11 module: %s"
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "Impossível inicializar o módulo PKCS#11: %s"
 
 #: gck/gck-modules.c:62
 #, c-format
-#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Impossível inicializar os módulos PKCS#11 registados: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "O URI tem uma codificação inválida."
 
 #: gck/gck-uri.c:228
-#| msgid "The URI does not have the 'pkcs11' scheme."
 msgid "The URI does not have the “pkcs11” scheme."
 msgstr "O URI não tem o esquema \"pkcs11\"."
 
@@ -265,6 +264,7 @@ msgid "The URI has a bad version number."
 msgstr "O URI tem um número de versão inválido."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "O fluxo foi fechado"
 
@@ -337,10 +337,12 @@ msgid "Registered ID"
 msgstr "ID registado"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Tipo de chave não suportado para pedido de certificado"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "A chave não pode ser utilizada para assinar o pedido"
 
@@ -402,13 +404,51 @@ msgstr "Impossível processar dados inválidos ou corrompidos."
 msgid "The data is locked"
 msgstr "Os dados estão trancados"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "Continuar"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "Cancelar"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "Desbloquear a palavra-passe para: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "Desbloquear a chave privada"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "Insira a palavra-passe para desbloquear a chave privada"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr "Uma aplicação quer acesso à chave privada \"%s\", mas está bloqueada"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr ""
+"Desbloquear automaticamente esta chave sempre que estiver com a sessão "
+"iniciada"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Destrancar"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "A palavra-passe de desbloqueio estava incorreta"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "Sem nome"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -418,8 +458,7 @@ msgstr "Insira a frase-passe OpenSSH"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Atributos desconhecidos ou indisponíveis para chave"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
-#| msgid "Couldn't build public key"
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "Impossível construir chave pública"
 
@@ -430,8 +469,8 @@ msgstr "Já está em curso outro pedido de dados"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
-#| msgid "Couldn't find a place to store the pinned certificate"
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr ""
 "Impossível encontrar uma localização onde armazenar o certificado marcado"
@@ -509,7 +548,6 @@ msgid "Encipher only"
 msgstr "Só cifrar"
 
 #: ui/gcr-certificate-renderer.c:195
-#| msgid "Data encipherment"
 msgid "Decipher only"
 msgstr "Só decifrar"
 
@@ -539,7 +577,6 @@ msgid "Value"
 msgstr "Valor"
 
 #: ui/gcr-certificate-renderer.c:291
-#| msgid "Couldn't export the certificate."
 msgid "Couldn’t export the certificate."
 msgstr "Impossível exportar o certificado."
 
@@ -662,7 +699,6 @@ msgstr "_Detalhes"
 
 #: ui/gcr-failure-renderer.c:159
 #, c-format
-#| msgid "Could not display '%s'"
 msgid "Could not display “%s”"
 msgstr "Impossível mostrar “%s”"
 
@@ -675,6 +711,7 @@ msgid "Reason"
 msgstr "Motivo"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "Impossível mostrar um ficheiro deste tipo."
 
@@ -917,29 +954,29 @@ msgstr "Chave secreta"
 msgid "Secret Subkey"
 msgstr "Subchave secreta"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "A inicializar…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "Importação em curso…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "Importado para: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "Importar para: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "Impossível importar porque não existem importadores compatíveis"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "Nenhuns dados a importar"
 
@@ -992,12 +1029,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "_Aceitar"
 
@@ -1006,7 +1043,8 @@ msgid "Automatically chosen"
 msgstr "Selecionada automaticamente"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "O utilizador cancelou a operação"
 
@@ -1015,18 +1053,13 @@ msgid "In order to import, please enter the password."
 msgstr "De forma a importar, por favor, insira a palavra-passe."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "Palavra-passe:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "Bloco:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "Destrancar"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1037,15 +1070,15 @@ msgid "Import settings"
 msgstr "Definições de importação"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "Confirmar:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "Palavras-passe não coincidem."
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "Palavra-passe não pode ser vazia"
 
@@ -1070,6 +1103,7 @@ msgid "_Replace"
 msgstr "_Substituir"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "A operação foi cancelada."
 
@@ -1090,7 +1124,6 @@ msgid "PEM files"
 msgstr "Ficheiros PEM"
 
 #: ui/gcr-unlock-options-widget.ui:16
-#| msgid "Automatically unlock this keyring whenever I'm logged in"
 msgid "Automatically unlock this keyring whenever I’m logged in"
 msgstr ""
 "Destrancar automaticamente este chaveiro sempre que existir uma sessão minha"
@@ -1123,9 +1156,6 @@ msgstr "Palavra-passe"
 
 #: ui/gcr-unlock-renderer.c:274
 #, c-format
-#| msgid ""
-#| "The contents of '%s' are locked. In order to view the contents, enter the "
-#| "correct password."
 msgid ""
 "The contents of “%s” are locked. In order to view the contents, enter the "
 "correct password."

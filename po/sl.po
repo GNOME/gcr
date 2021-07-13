@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the gcr package.
 #
 # Matic Žgur <mr.zgur@gmail.com>, 2006.
-# Matej Urbančič <mateju@svn.gnome.org>, 2005–2020.
+# Matej Urbančič <mateju@svn.gnome.org>, 2005–2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-08-19 05:31+0000\n"
-"PO-Revision-Date: 2020-08-19 21:35+0200\n"
+"POT-Creation-Date: 2021-07-10 20:44+0000\n"
+"PO-Revision-Date: 2021-07-13 21:38+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -247,6 +247,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Vpisanih modulov PKCS#11 ni mogoče začeti: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "Naslov URI je zapisan v neveljavnem kodnem zapisu."
 
@@ -263,6 +264,7 @@ msgid "The URI has a bad version number."
 msgstr "Naslov URI vsebuje nepravilno vrednost različice."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "Pretok je zaprt"
 
@@ -335,10 +337,12 @@ msgid "Registered ID"
 msgstr "Vpisan ID"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Nepodprta vrsta ključa za zahtevo datoteke potrdila"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Ključa ni mogoče uporabiti za podpis zahteve"
 
@@ -400,13 +404,50 @@ msgstr "Ni mogoče razčleniti neveljavnih ali pokvarjenih podatkov."
 msgid "The data is locked"
 msgstr "Podatki so zaklenjeni"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "Nadaljuj"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "Prekliči"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "Geslo odklepanja za: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "Odkleni osebni ključ"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "Vnesite geslo za odklepanje osebnega ključa"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr ""
+"Program zahteva dostop do osebnega ključa »%s«, vendar je ta zaklenjen."
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "Samodejno odkleni ključ ob prijavi"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Odkleni"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "Geslo za odklepanje je napačno."
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "Neimenovan"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -416,7 +457,7 @@ msgstr "Vpišite šifrirno geslo varne lupine OpenSSH"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Neprepoznani ali nerazpoložljivi atributi ključa"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "Ni mogoče izgraditi javnega ključa"
 
@@ -427,7 +468,8 @@ msgstr "Drug vnos je že v teku"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Ni mogoče najti mesta za shranjevanje uvoženih potrdil"
 
@@ -595,7 +637,7 @@ msgstr "Podpis"
 
 #: ui/gcr-certificate-renderer.c:622
 msgid "Export Certificate…"
-msgstr "Izvozi potrdilo ..."
+msgstr "Izvozi potrdilo …"
 
 #: ui/gcr-certificate-renderer.c:861
 msgid "Key Algorithm"
@@ -667,6 +709,7 @@ msgid "Reason"
 msgstr "Vzrok"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "Ni mogoče prikazati datoteke te vrste."
 
@@ -909,29 +952,29 @@ msgstr "Skriti ključ"
 msgid "Secret Subkey"
 msgstr "Skriti podključ"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
-msgstr "Začenjanje ..."
+msgstr "Začenjanje …"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
-msgstr "Poteka uvažanje ..."
+msgstr "Poteka uvažanje …"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "Uvoženo v: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "Uvozi v: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "Uvoz ni mogoč, ker ni ustreznih uvoznikov"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "Ni podatkov za uvoz"
 
@@ -986,12 +1029,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "_V redu"
 
@@ -1000,27 +1043,23 @@ msgid "Automatically chosen"
 msgstr "Samodejno izbrano"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
-msgstr "Uporabnik je preklical opravilo."
+msgstr "Uporabnik je preklical opravilo"
 
 #: ui/gcr-pkcs11-import-dialog.ui:31
 msgid "In order to import, please enter the password."
 msgstr "Za uvoz predmeta je treba vpisati geslo."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "Geslo:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "Žeton:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "Odkleni"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1031,15 +1070,15 @@ msgid "Import settings"
 msgstr "Nastavitve uvoza"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "Potrditev:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "Gesli se ne skladata."
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "Geslo ne more biti prazno"
 
@@ -1064,6 +1103,7 @@ msgid "_Replace"
 msgstr "_Zamenjaj"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "Dejanje je preklicano."
 

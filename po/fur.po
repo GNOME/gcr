@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-08-22 15:40+0000\n"
-"PO-Revision-Date: 2020-09-07 08:28+0200\n"
+"POT-Creation-Date: 2021-04-26 17:11+0000\n"
+"PO-Revision-Date: 2021-07-24 10:32+0200\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.0\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -243,6 +243,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Impussibil inizializâ i modui PKCS#11 regjistrâts: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "Il URI al à une codifiche no valide."
 
@@ -259,6 +260,7 @@ msgid "The URI has a bad version number."
 msgstr "Il URI al à un numar di version sbaliât."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "Il flùs al è stât sierât"
 
@@ -331,10 +333,12 @@ msgid "Registered ID"
 msgstr "ID regjistrât"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Gjenar di clâf no supuartât pe domande di certificât"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "La clâf no pues jessi doprade par firmâ la domande"
 
@@ -396,13 +400,50 @@ msgstr "Impussibil analizâ i dâts no valits o ruvinâts."
 msgid "The data is locked"
 msgstr "I dâts a son blocâts"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "Continue"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "Anule"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "Password di sbloc par: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "Sbloche la clâf privade"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "Inserìs la password par sblocâ la clâf privade"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr ""
+"Une aplicazion e vûl acedi ae clâf privade “%s”, ma cheste e je blocade"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "Sbloche in automatic cheste clâf ogni volte che o jentri"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Sbloche"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "La password di sbloc no jere juste"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "Cence non"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -412,7 +453,7 @@ msgstr "Inserìs la tô passphrase par OpenSSH"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Atribûts pe clâf no ricognossûts o no disponibii"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "Impussibil costruî la clâf publiche"
 
@@ -423,7 +464,8 @@ msgstr "Une altre domande e je in elaborazion"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Impussibil cjatâ une posizion par archiviâ il certificât pontât"
 
@@ -663,6 +705,7 @@ msgid "Reason"
 msgstr "Motîf"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "Impussibil visualizâ un file di chest gjenar."
 
@@ -906,29 +949,29 @@ msgstr "Clâf segrete"
 msgid "Secret Subkey"
 msgstr "Sot-clâf segrete"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "Daûr a inizializâ…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "Importazion in cors…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "Impuartât in: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "Impuarte in: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "Impussibil eseguî la operazion pe mancjance di impuartadôrs compatibii"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "Nissun dât di impuartâ"
 
@@ -981,12 +1024,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "A_nule"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "_OK"
 
@@ -995,7 +1038,8 @@ msgid "Automatically chosen"
 msgstr "Sielt in automatic"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "L'utent al à anulât la operazion"
 
@@ -1004,18 +1048,13 @@ msgid "In order to import, please enter the password."
 msgstr "Par podê impuartâ, inserî la password."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "Password:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "Token:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "Sbloche"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1026,15 +1065,15 @@ msgid "Import settings"
 msgstr "Impostazions importazion"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "Conferme:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "Lis password no corispuindin."
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "La password no pues jessi vueide"
 
@@ -1059,6 +1098,7 @@ msgid "_Replace"
 msgstr "_Sostituìs"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "La operazion e je stade anulade."
 

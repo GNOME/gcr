@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2021-04-26 17:11+0000\n"
+"POT-Creation-Date: 2021-07-17 14:28+0000\n"
 "PO-Revision-Date: 2021-07-17 21:27+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
@@ -427,8 +427,7 @@ msgstr "Masukkan kata sandi untuk membuka kunci privat"
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
-msgstr ""
-"Sebuah aplikasi ingin mengakses kunci privat \"%s\", tapi itu terkunci"
+msgstr "Sebuah aplikasi ingin mengakses kunci privat \"%s\", tapi itu terkunci"
 
 #: gcr/gcr-ssh-agent-interaction.c:161
 msgid "Automatically unlock this key whenever I’m logged in"

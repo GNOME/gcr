@@ -8,14 +8,14 @@
 # Kamil Páral <ripper42@gmail.com>, 2008.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008, 2009, 2010.
-# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012, 2014, 2016, 2018, 2020.
+# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012, 2014, 2016, 2018, 2020, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2020-08-13 19:41+0200\n"
+"POT-Creation-Date: 2021-04-26 17:11+0000\n"
+"PO-Revision-Date: 2021-08-17 11:51+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -250,6 +250,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Nezdařilo se inicializovat registrovaný modul PKCS#11: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "Adresa URI má neplatné kódování."
 
@@ -266,6 +267,7 @@ msgid "The URI has a bad version number."
 msgstr "Adresa URI má špatné číslo verze."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "Proud byl uzavřen"
 
@@ -338,10 +340,12 @@ msgid "Registered ID"
 msgstr "Registrované ID"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Nepodporovaný typ klíče pro požadavek o certifikát"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Klíč nemůže být použit k podepsání požadavku"
 
@@ -403,13 +407,50 @@ msgstr "Nelze analyzovat neplatná nebo poškozená data."
 msgid "The data is locked"
 msgstr "Data jsou uzamčena"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "Pokračovat"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "Zrušit"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "Odemykací heslo pro: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "Odemknutí soukromého klíče"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "Zadejte heslo pro odemknutí soukromého klíče"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr ""
+"Nějaká aplikace chce přístup k soukromému klíči „%s“, ale ten je zamknutý."
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "Automaticky odemknout tento klíč, kdykoliv se přihlásím"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Odemknout"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "Heslo pro odemknutí nebylo správně"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "bez názvu"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -419,7 +460,7 @@ msgstr "Zadejte svoje heslo pro OpenSSH"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Nerozpoznaný nebo nedostupný atribut pro klíč"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "Nezdařilo se sestavit veřejný klíč"
 
@@ -430,7 +471,8 @@ msgstr "Jiný dotaz již probíhá"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Nezdařilo se najít místo, kde se mají uchovávat vyznačené certifikáty"
 
@@ -670,6 +712,7 @@ msgid "Reason"
 msgstr "Důvod"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "Nelze zobrazit soubor tohoto typu."
 
@@ -912,30 +955,30 @@ msgstr "Tajný klíč"
 msgid "Secret Subkey"
 msgstr "Tajný podřízený klíč"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "Inicializuje se…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "Probíhá import…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "Naimportováno do: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "Import do: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr ""
 "Nelze importovat, protože nejsou k dispozici kompatibilní importní funkce"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "Nejsou žádná data, která by šlo importovat"
 
@@ -989,12 +1032,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "_Budiž"
 
@@ -1003,7 +1046,8 @@ msgid "Automatically chosen"
 msgstr "Automaticky zvolený"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "Uživatel operaci zrušil"
 
@@ -1012,18 +1056,13 @@ msgid "In order to import, please enter the password."
 msgstr "Pokud chcete importovat, zadejte prosím heslo."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "Heslo:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "Kupon:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "Odemknout"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1034,15 +1073,15 @@ msgid "Import settings"
 msgstr "Nastavení importu"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "Ověření:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "Hesla si neodpovídají."
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "Heslo nemůže být prázdné"
 
@@ -1067,6 +1106,7 @@ msgid "_Replace"
 msgstr "_Nahradit"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "Operace byla zrušena."
 

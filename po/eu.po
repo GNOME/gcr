@@ -7,13 +7,13 @@
 # Julen Ruiz Aizpuru <julenx@gmail.com>, 2011.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2004, 2006, 2008, 2009, 2010, 2011.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2012, 2013, 2014, 2017, 2018.
-# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2020.
+# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2020, 2921.
 #
 msgid ""
 msgstr "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2020-08-28 15:50+0100\n"
+"POT-Creation-Date: 2021-04-26 17:11+0000\n"
+"PO-Revision-Date: 2021-08-18 15:50+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -247,6 +247,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Ezin izan dira erregistratutako PKCS#11 moduluak hasieratu: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "URIak kodeketa baliogabea du."
 
@@ -263,6 +264,7 @@ msgid "The URI has a bad version number."
 msgstr "URIak bertsio-zenbaki okerra dauka."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "Korrontea itxi da"
 
@@ -335,10 +337,12 @@ msgid "Registered ID"
 msgstr "Erregistratutako IDa"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Onartu gabeko gako mota ziurtagiriaren eskaeran"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Gakoa ezin da erabili eskaera sinatzeko"
 
@@ -400,13 +404,49 @@ msgstr "Ezin izan dira hondatutako edo baliogabeak diren datuak analizatu."
 msgid "The data is locked"
 msgstr "Datuak blokeatuta daude"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "Jarraitu"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "Utzi"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "Desblokeatu pasahitza honetarako: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "Desblokeatu gako pribatua"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "Sartu pasahitza gako pribatua desblokeatzeko"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr "Aplikazio batek “%s” gako pribatua atzitu nahi du, baina blokeatuta dago"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "Automatikoki desblokeatu gako hau saioa hasita nagoenean"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Desblokeatu"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "Desblokeatzeko pasahitza ez da zuzena"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "Izengabea"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -416,7 +456,7 @@ msgstr "Sartu zure OpenSSH pasaesaldia"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Gakoaren atributu ezezagunak edo erabilkaitzak"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "Ezin izan da gako publikoa eraiki"
 
@@ -427,7 +467,8 @@ msgstr "Beste gonbite bat jadanik lantzen ari da"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Ezin izan da salbuespen-ziurtagiria gordetzeko lekurik aurkitu"
 
@@ -667,6 +708,7 @@ msgid "Reason"
 msgstr "Arrazoia"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "Ezin da mota honetako fitxategirik bistaratu."
 
@@ -909,29 +951,29 @@ msgstr "Ezkutuko gakoa"
 msgid "Secret Subkey"
 msgstr "Ezkutuko azpigakoa"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "Hasieratzen…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "Inportatzen ari da…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "Hona inportatuta: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "Inportatu hona: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "Ezin da inportatu ez daudelako inportatzaile bateragarririk"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "Ez dago daturik inportatzeko"
 
@@ -984,12 +1026,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "_Utzi"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "_Ados"
 
@@ -998,7 +1040,8 @@ msgid "Automatically chosen"
 msgstr "Automatikoki aukeratuta"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "Erabiltzaileak bertan behera utzitako eragiketa"
 
@@ -1007,18 +1050,13 @@ msgid "In order to import, please enter the password."
 msgstr "Inportatzeko xedearekin, sartu pasahitza."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "Pasahitza:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "Tokena:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "Desblokeatu"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1029,15 +1067,15 @@ msgid "Import settings"
 msgstr "Inportatzeko ezarpenak"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "Berretsi:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "Pasahitzak ez datoz bat"
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "Pasahitza ezin da hutsa izan"
 
@@ -1062,6 +1100,7 @@ msgid "_Replace"
 msgstr "_Ordeztu"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "Eragiketa bertan behera utzi da."
 

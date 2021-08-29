@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2021-02-26 13:54+0200\n"
+"POT-Creation-Date: 2021-04-26 17:11+0000\n"
+"PO-Revision-Date: 2021-08-29 13:33+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2011-09-08 09:16+0000\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -191,7 +191,7 @@ msgstr "SHA512 ja ECDSA"
 
 #: egg/egg-oid.c:125
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
-msgstr ""
+msgstr "GOST R 34.11-94 käyttäen GOST R 34.10-2001"
 
 #: egg/egg-oid.c:126
 msgid "GOST R 34.10-2001"
@@ -207,11 +207,11 @@ msgstr "GOST R 34.10-2012 512-bit käyrä"
 
 #: egg/egg-oid.c:129
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
-msgstr ""
+msgstr "GOST R 34.11-2012/256 käyttäen 256-bittistä GOST R 34.10-2012 -käyrää"
 
 #: egg/egg-oid.c:130
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
-msgstr ""
+msgstr "GOST R 34.11-2012/512 käyttäen 512-bittistä GOST R 34.10-2012 -käyrää"
 
 #. Extended Key Usages
 #: egg/egg-oid.c:133
@@ -240,35 +240,34 @@ msgid "Error loading PKCS#11 module: %s"
 msgstr "Virhe PKCS#11-moduulia ladatessa: %s"
 
 #: gck/gck-module.c:346
-#, fuzzy, c-format
-#| msgid "Couldn't initialize PKCS#11 module: %s"
+#, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
-msgstr "PKCS#11-moduulin alustaminen epäonnistui: %s"
+msgstr "PKCS#11-moduulia ei voitu alustaa: %s"
 
 #: gck/gck-modules.c:62
-#, fuzzy, c-format
-#| msgid "Couldn't initialize PKCS#11 module: %s"
+#, c-format
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
-msgstr "PKCS#11-moduulin alustaminen epäonnistui: %s"
+msgstr "Rekisteröityjä PKCS#11-moduuleja ei voitu alustaa: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
-msgstr ""
+msgstr "URI:lla on virheellinen koodaus."
 
 #: gck/gck-uri.c:228
 msgid "The URI does not have the “pkcs11” scheme."
-msgstr ""
+msgstr "URI ei sisällä “pkcs11”-skeemaa."
 
 #: gck/gck-uri.c:232
 msgid "The URI has bad syntax."
-msgstr ""
+msgstr "URI:n syntaksi on väärin."
 
 #: gck/gck-uri.c:236
 msgid "The URI has a bad version number."
-msgstr ""
+msgstr "URI:n versionumero on väärin."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
-#, fuzzy
+#, fuzzy, c-format
 msgid "The stream was closed"
 msgstr "Istunto on suljettu"
 
@@ -341,10 +340,12 @@ msgid "Registered ID"
 msgstr ""
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
-msgstr ""
+msgstr "Avaimen tyyppi ei ole tuettu varmennepyyntöä varten"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Avainta ei voi käyttää pyynnön allekirjoittamiseen"
 
@@ -406,13 +407,50 @@ msgstr "Virheellistä tai viallista tietoa ei voitu tulkita."
 msgid "The data is locked"
 msgstr "tiedot on lukittu"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "Jatka"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "Peru"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+#| msgid "Unlock: %s"
+msgid "Unlock password for: %s"
+msgstr "Lukituksen avauksen salasana kohteelle: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "Avaa yksityisen avaimen lukitus"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "Anna salasana avataksesi yksityisen avaimen lukituksen"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr "Sovellus haluaa pääsyn yksityiseen avaimeen“%s”, mutta se on lukittu"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "Avaa tämä avain automaattisesti kun olen sisäänkirjautunut"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Avaa lukitus"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "Lukituksen avauksen salasana oli väärä"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "Nimetön"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -422,19 +460,19 @@ msgstr "Anna OpenSSH-tunnuslauseesi"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr ""
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "Julkista avainta ei voitu rakentaa"
 
 #: gcr/gcr-system-prompt.c:912
 msgid "Another prompt is already in progress"
-msgstr ""
+msgstr "Toinen kehote on jo käynnissä"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
-#, fuzzy
+#: gcr/gcr-trust.c:341
+#, fuzzy, c-format
 #| msgid "Couldn't export the certificate."
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Varmenteen vienti epäonnistui."
@@ -675,6 +713,7 @@ msgid "Reason"
 msgstr "Syy"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "Tämän tyyppistä tiedostoa ei voi näyttää."
 
@@ -920,29 +959,29 @@ msgstr "Salainen avain"
 msgid "Secret Subkey"
 msgstr "Salainen aliavain"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "Alustetaan…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "Tuonti on meneillään…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "Tuotu kohteeseen: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "Tuo kohteeseen: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "Tuonti ei onnistu, koska yhteensopivia tuontityökaluja ei ole"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "Ei tietoja tuotavaksi"
 
@@ -960,7 +999,7 @@ msgstr "Yksityinen DSA-avain"
 
 #: ui/gcr-key-renderer.c:359
 msgid "Private Elliptic Curve Key"
-msgstr ""
+msgstr "Yksityinen elliptisen käyrän avain"
 
 #: ui/gcr-key-renderer.c:364 ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
@@ -968,7 +1007,7 @@ msgstr "Julkinen DSA-avain"
 
 #: ui/gcr-key-renderer.c:368
 msgid "Public Elliptic Curve Key"
-msgstr ""
+msgstr "Julkinen elliptisen käyrän avain"
 
 #: ui/gcr-key-renderer.c:377
 #, c-format
@@ -995,12 +1034,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "_Peru"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "_OK"
 
@@ -1009,7 +1048,8 @@ msgid "Automatically chosen"
 msgstr "Automaattisesti valittu"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "Käyttäjä perui toiminnon"
 
@@ -1018,18 +1058,13 @@ msgid "In order to import, please enter the password."
 msgstr "Anna salasana suorittaaksesi tuonnin."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "Salasana:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "Poletti:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "Avaa lukitus"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1040,21 +1075,21 @@ msgid "Import settings"
 msgstr "Tuontiasetukset"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "Vahvista:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "Salasanat eivät täsmää."
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "Salasana ei voi olla tyhjä"
 
 #: ui/gcr-prompter.desktop.in.in:3
 msgid "Access Prompt"
-msgstr ""
+msgstr "Käyttökehote"
 
 #: ui/gcr-prompter.desktop.in.in:4
 msgid "Unlock access to passwords and other secrets"
@@ -1073,6 +1108,7 @@ msgid "_Replace"
 msgstr "_Korvaa"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "Toiminto peruttiin."
 

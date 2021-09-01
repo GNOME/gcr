@@ -36,3 +36,11 @@ After the user has requested to override the trust decision about a given
 certificate then a pinned certificates can be added by using the
 [func@Gcr.trust_add_pinned_certificate] function, or
 [func@Gcr.trust_add_pinned_certificate_async] for the asynchronous version.
+
+Distrusted certificates
+------------------------
+Certificates can be marked _distrusted_, either by manual action of the user, or
+by Certificate Authorities (CAs) that add them in a Certificate Revocation List
+(CRL) or other means. To check if a certificate is distrusted, one can use
+[func@Gcr.trust_is_certificate_distrusted], or
+[func@Gcr.trust_is_certificate_distrusted_async] for the asynchronous version.

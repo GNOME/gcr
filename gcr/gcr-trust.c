@@ -783,3 +783,189 @@ gcr_trust_is_certificate_anchored_finish (GAsyncResult *result, GError **error)
 
 	return g_task_propagate_boolean (G_TASK (result), error);
 }
+
+/* ----------------------------------------------------------------------------------
+ * DISTRUSTED CERTIFICATE
+ */
+
+static GckAttributes *
+prepare_is_certificate_distrusted (unsigned char *serial_nr,
+                                   size_t         serial_nr_len,
+                                   unsigned char *issuer,
+                                   size_t         issuer_len)
+{
+    GckBuilder builder = GCK_BUILDER_INIT;
+
+    gck_builder_add_ulong (&builder, CKA_CLASS, CKO_X_TRUST_ASSERTION);
+    gck_builder_add_ulong (&builder, CKA_X_ASSERTION_TYPE, CKT_X_DISTRUSTED_CERTIFICATE);
+    gck_builder_add_data (&builder, CKA_SERIAL_NUMBER, serial_nr, serial_nr_len);
+    gck_builder_add_data (&builder, CKA_ISSUER, issuer, issuer_len);
+
+    return gck_builder_end (&builder);
+}
+
+static gboolean
+perform_is_certificate_distrusted (GckAttributes *attrs,
+                                   GCancellable  *cancellable,
+                                   GError       **error)
+{
+    GckEnumerator *en;
+    GList *slots;
+    GckObject *object;
+
+    if (!gcr_pkcs11_initialize (cancellable, error))
+        return FALSE;
+
+    slots = gcr_pkcs11_get_trust_lookup_slots ();
+    g_debug ("searching for certificate distrust assertion in %d slots",
+             g_list_length (slots));
+    en = gck_slots_enumerate_objects (slots, attrs, 0);
+    gck_list_unref_free (slots);
+
+    object = gck_enumerator_next (en, cancellable, error);
+    g_object_unref (en);
+
+    if (object != NULL)
+        g_object_unref (object);
+
+    g_debug ("%s certificate distrust", object ? "found" : "did not find");
+    return (object != NULL);
+}
+
+/**
+ * gcr_trust_is_certificate_distrusted:
+ * @serial_nr: (array length=serial_nr_len): The serial number of the certificate
+ * @serial_nr_len: The nr of bytes in @serial_nr
+ * @issuer: (array length=issuer_len): The raw issuer
+ * @issuer_len: The nr of bytes in @issuer
+ * @cancellable: (nullable): a #GCancellable or %NULL
+ * @error: a #GError, or %NULL
+ *
+ * Checks whether the certificate that can be uniquely identified with the
+ * given @serial_nr and @issuer is marked as distrusted (for example by the
+ * user, or because it's part of a CRL).
+ *
+ * Since we can't directly use [iface@Certificate] to fetch these values, you
+ * need to call these with the raw serial number and issuer as provided by the
+ * PKCS#11 fields `CKA_SERIAL_NR` and `CKA_ISSUER`.
+ *
+ * Returns: %TRUE if the certificate is marked as distrusted
+ */
+gboolean
+gcr_trust_is_certificate_distrusted (unsigned char *serial_nr,
+                                     size_t         serial_nr_len,
+                                     unsigned char *issuer,
+                                     size_t         issuer_len,
+                                     GCancellable  *cancellable,
+                                     GError       **error)
+{
+    GckAttributes *search;
+    gboolean ret;
+
+    g_return_val_if_fail (serial_nr, FALSE);
+    g_return_val_if_fail (serial_nr_len > 0, FALSE);
+    g_return_val_if_fail (issuer, FALSE);
+    g_return_val_if_fail (issuer_len > 0, FALSE);
+    g_return_val_if_fail (G_IS_CANCELLABLE (cancellable) || !cancellable, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    search = prepare_is_certificate_distrusted (serial_nr, serial_nr_len, issuer, issuer_len);
+    g_return_val_if_fail (search, FALSE);
+
+    ret = perform_is_certificate_distrusted (search, cancellable, error);
+    gck_attributes_unref (search);
+
+    return ret;
+}
+
+static void
+thread_is_certificate_distrusted (GTask        *task,
+                                  void         *object,
+                                  void         *task_data,
+                                  GCancellable *cancellable)
+{
+    GckAttributes *attrs = task_data;
+    GError *error = NULL;
+    gboolean found;
+
+    found = perform_is_certificate_distrusted (attrs, cancellable, &error);
+    if (error == NULL)
+        g_task_return_boolean (task, found);
+    else
+        g_task_return_error (task, g_steal_pointer (&error));
+}
+
+/**
+ * gcr_trust_is_certificate_distrusted_async:
+ * @serial_nr: (array length=serial_nr_len): The serial number of the certificate
+ * @serial_nr_len: The nr of bytes in @serial_nr
+ * @issuer: (array length=issuer_len): The raw issuer
+ * @issuer_len: The number of bytes in @issuer
+ * @cancellable: (nullable): a #GCancellable or %NULL
+ * @callback: a #GAsyncReadyCallback to call when the operation completes
+ * @user_data: the data to pass to callback function
+ *
+ * Asynchronously checks whether the certificate that can be uniquely
+ * identified with the given @serial_nr and @issuer is marked as distrusted
+ * (for example by the user, or because it's part of a CRL).
+ *
+ * Since we can't directly use [iface@Certificate] to fetch these values, you
+ * need to call these with the raw serial number and issuer as provided by the
+ * PKCS#11 fields `CKA_SERIAL_NR` and `CKA_ISSUER`.
+ *
+ * When the operation is finished, @callback will be called. You can then call
+ * [func@trust_is_certificate_distrusted_finish] to get the result of the
+ * operation.
+ */
+void
+gcr_trust_is_certificate_distrusted_async (unsigned char      *serial_nr,
+                                           size_t              serial_nr_len,
+                                           unsigned char      *issuer,
+                                           size_t              issuer_len,
+                                           GCancellable       *cancellable,
+                                           GAsyncReadyCallback callback,
+                                           void               *user_data)
+{
+    GTask *task;
+    GckAttributes *attrs;
+
+    g_return_if_fail (serial_nr);
+    g_return_if_fail (serial_nr_len > 0);
+    g_return_if_fail (issuer);
+    g_return_if_fail (issuer_len > 0);
+    g_return_if_fail (G_IS_CANCELLABLE (cancellable) || !cancellable);
+
+    task = g_task_new (NULL, cancellable, callback, user_data);
+    g_task_set_source_tag (task, gcr_trust_is_certificate_distrusted_async);
+
+    attrs = prepare_is_certificate_distrusted (serial_nr, serial_nr_len, issuer, issuer_len);
+    g_return_if_fail (attrs);
+    g_task_set_task_data (task, attrs, gck_attributes_unref);
+
+    g_task_run_in_thread (task, thread_is_certificate_distrusted);
+
+    g_clear_object (&task);
+}
+
+/**
+ * gcr_trust_is_certificate_distrusted_finish:
+ * @result: the #GAsyncResult passed to the callback
+ * @error: a #GError, or %NULL
+ *
+ * Finishes an asynchronous operation started by
+ * [func@trust_is_certificate_distrusted_async].
+ *
+ * In the case of an error, %FALSE is also returned. Check @error to detect
+ * if an error occurred.
+ *
+ * Returns: %TRUE if the certificate is a trust anchor
+ */
+gboolean
+gcr_trust_is_certificate_distrusted_finish (GAsyncResult *result,
+                                            GError      **error)
+{
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+    g_return_val_if_fail (g_task_is_valid (result, NULL), FALSE);
+
+    return g_task_propagate_boolean (G_TASK (result), error);
+}

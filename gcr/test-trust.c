@@ -305,6 +305,89 @@ test_is_certificate_anchored_async (Test *test, gconstpointer unused)
 	g_object_unref (result);
 }
 
+static void
+test_is_certificate_distrusted_not (Test *test, gconstpointer unused)
+{
+	guchar *serial_nr = NULL;
+	size_t serial_nr_len;
+	guchar *issuer = NULL;
+	size_t issuer_len;
+	GError *error = NULL;
+	gboolean ret;
+
+	serial_nr = gcr_certificate_get_serial_number (test->certificate, &serial_nr_len);
+	issuer = gcr_certificate_get_issuer_raw (test->certificate, &issuer_len);
+
+	ret = gcr_trust_is_certificate_distrusted (serial_nr, serial_nr_len,
+	                                           issuer, issuer_len,
+	                                           NULL, &error);
+	g_assert_false (ret);
+	g_assert_no_error (error);
+
+	g_free (issuer);
+	g_free (serial_nr);
+}
+
+static void
+test_is_certificate_distrusted_yes (Test *test, gconstpointer unused)
+{
+	GckBuilder builder = GCK_BUILDER_INIT;
+	guchar *serial_nr = NULL;
+	size_t serial_nr_len;
+	guchar *issuer = NULL;
+	size_t issuer_len;
+	GError *error = NULL;
+	gboolean ret;
+
+	serial_nr = gcr_certificate_get_serial_number (test->certificate, &serial_nr_len);
+	issuer = gcr_certificate_get_issuer_raw (test->certificate, &issuer_len);
+
+	/* Create "distrusted certificate" trust assertion */
+	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_X_TRUST_ASSERTION);
+	gck_builder_add_ulong (&builder, CKA_X_ASSERTION_TYPE, CKT_X_DISTRUSTED_CERTIFICATE);
+        gck_builder_add_data (&builder, CKA_SERIAL_NUMBER, serial_nr, serial_nr_len);
+        gck_builder_add_data (&builder, CKA_ISSUER, issuer, issuer_len);
+	gck_mock_module_add_object (gck_builder_end (&builder));
+
+	ret = gcr_trust_is_certificate_distrusted (serial_nr, serial_nr_len,
+	                                           issuer, issuer_len,
+	                                           NULL, &error);
+	g_assert_true (ret);
+	g_assert_no_error (error);
+
+	g_free (issuer);
+	g_free (serial_nr);
+}
+
+static void
+test_is_certificate_distrusted_async (Test *test, gconstpointer unused)
+{
+	guchar *serial_nr = NULL;
+	size_t serial_nr_len;
+	guchar *issuer = NULL;
+	size_t issuer_len;
+	GAsyncResult *result = NULL;
+	GError *error = NULL;
+	gboolean ret;
+
+	serial_nr = gcr_certificate_get_serial_number (test->certificate, &serial_nr_len);
+	issuer = gcr_certificate_get_issuer_raw (test->certificate, &issuer_len);
+
+	gcr_trust_is_certificate_distrusted_async (serial_nr, serial_nr_len,
+	                                           issuer, issuer_len,
+	                                           NULL, fetch_async_result, &result);
+	egg_test_wait_until (500);
+	g_assert_nonnull (result);
+
+	ret = gcr_trust_is_certificate_distrusted_finish (result, &error);
+	g_assert_false (ret);
+	g_assert_no_error (error);
+
+	g_free (issuer);
+	g_free (serial_nr);
+	g_object_unref (result);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -320,6 +403,9 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/trust/is_certificate_anchored_not", Test, NULL, setup, test_is_certificate_anchored_not, teardown);
 	g_test_add ("/gcr/trust/is_certificate_anchored_yes", Test, NULL, setup, test_is_certificate_anchored_yes, teardown);
 	g_test_add ("/gcr/trust/is_certificate_anchored_async", Test, NULL, setup, test_is_certificate_anchored_async, teardown);
+	g_test_add ("/gcr/trust/is_certificate_distrusted_not", Test, NULL, setup, test_is_certificate_distrusted_not, teardown);
+	g_test_add ("/gcr/trust/is_certificate_distrusted_yes", Test, NULL, setup, test_is_certificate_distrusted_yes, teardown);
+	g_test_add ("/gcr/trust/is_certificate_distrusted_async", Test, NULL, setup, test_is_certificate_distrusted_async, teardown);
 
 	return egg_tests_run_with_loop ();
 }

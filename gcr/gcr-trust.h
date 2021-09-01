@@ -96,6 +96,24 @@ void           gcr_trust_is_certificate_anchored_async         (GcrCertificate *
 gboolean       gcr_trust_is_certificate_anchored_finish        (GAsyncResult *result,
                                                                 GError **error);
 
+gboolean       gcr_trust_is_certificate_distrusted             (unsigned char *serial_nr,
+                                                                size_t         serial_nr_len,
+                                                                unsigned char *issuer,
+                                                                size_t         issuer_len,
+                                                                GCancellable  *cancellable,
+                                                                GError       **error);
+
+void           gcr_trust_is_certificate_distrusted_async      (unsigned char      *serial_nr,
+                                                               size_t              serial_nr_len,
+                                                               unsigned char      *issuer,
+                                                               size_t              issuer_len,
+                                                               GCancellable       *cancellable,
+                                                               GAsyncReadyCallback callback,
+                                                               void               *user_data);
+
+gboolean       gcr_trust_is_certificate_distrusted_finish     (GAsyncResult *result,
+                                                               GError      **error);
+
 G_END_DECLS
 
 #endif /* __GCR_TOKEN_MANAGER_H__ */

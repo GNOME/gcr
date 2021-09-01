@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2021-03-27 11:22+0000\n"
+"POT-Creation-Date: 2021-05-06 15:55+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
@@ -22,11 +22,11 @@ msgstr ""
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
-msgstr "عناصر دامنه"
+msgstr "مولّفه‌های دامنه"
 
 #: egg/egg-oid.c:42 ui/gcr-gnupg-renderer.c:410 ui/gcr-gnupg-renderer.c:579
 msgid "User ID"
-msgstr "شناسهٔ کاربر"
+msgstr "شناسهٔ کاربری"
 
 #: egg/egg-oid.c:45
 msgid "Email Address"
@@ -409,6 +409,42 @@ msgstr "ادامه"
 #: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "لغو"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "گذرواژهٔ قفل‌گشایی برای: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "قفل‌گشایی کلید خصوصی"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "ورود گذرواژه برای قفل‌گشایی کلید خصوصی"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr "برنامه‌ای درخواست دسترسی به کلید خصوصی «%s» را دارد، ولی قفل است"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "قفل‌گشایی خودکار این کلید هنگام ورودم"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "گشودن قفل"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "گذرواژه‌ٔ قفل گشایی نادرست بود"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "بی‌نام"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -1018,11 +1054,6 @@ msgstr "گذرواژه:"
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "نشان:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "گشودن قفل"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"

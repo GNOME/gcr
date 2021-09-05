@@ -21,16 +21,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-08-19 05:31+0000\n"
-"PO-Revision-Date: 2020-08-27 09:09-0400\n"
-"Last-Translator: Mingcong Bai <jeffbai@aosc.xyz>\n"
+"POT-Creation-Date: 2021-04-26 17:11+0000\n"
+"PO-Revision-Date: 2021-09-05 16:38-0400\n"
+"Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.0\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -257,6 +257,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "无法初始化注册的 PKCS#11 模块：%s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "该 URI 的编码无效。"
 
@@ -273,6 +274,7 @@ msgid "The URI has a bad version number."
 msgstr "URI 版本号错误。"
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "会话已关闭"
 
@@ -345,10 +347,12 @@ msgid "Registered ID"
 msgstr "注册的 ID"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "不支持证书请求的密钥类型"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "该密钥无法用于签署请求"
 
@@ -410,13 +414,49 @@ msgstr "无法解析非法的或已损坏的数据。"
 msgid "The data is locked"
 msgstr "数据已被锁定"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "继续"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "取消"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "适用于 %s 的解锁密码"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "解锁私钥"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "输入密码以解锁私钥"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr "有应用程序想要访问私钥“%s”，但它已锁定"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "当我登录时自动解锁此密钥"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "解锁"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "解锁密码不正确"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "未命名"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -426,7 +466,7 @@ msgstr "输入你的 OpenSSH 密码"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "无法识别或不可用的密钥属性"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "无法创建公开密钥"
 
@@ -437,7 +477,8 @@ msgstr "另一个提示正在进行中"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "找不到可以用来保存固定证书的位置"
 
@@ -678,6 +719,7 @@ msgid "Reason"
 msgstr "原因"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "无法显示此类型的文件。"
 
@@ -920,29 +962,29 @@ msgstr "私有密钥"
 msgid "Secret Subkey"
 msgstr "私有子密钥"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "初始化…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "正在进行导入…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "导入到： %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "导入： %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "无法导入，因为没有兼容的导入方"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "无可导入数据"
 
@@ -994,12 +1036,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "确定(_O)"
 
@@ -1008,7 +1050,8 @@ msgid "Automatically chosen"
 msgstr "自动选择"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "用户已取消操作"
 
@@ -1017,18 +1060,13 @@ msgid "In order to import, please enter the password."
 msgstr "要导入，请输入密码。"
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "密码："
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "令牌："
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "解锁"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1039,15 +1077,15 @@ msgid "Import settings"
 msgstr "导入设置"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "确认："
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "密码不匹配。"
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "密码不能为空"
 
@@ -1072,6 +1110,7 @@ msgid "_Replace"
 msgstr "替换(_R)"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "操作已取消。"
 

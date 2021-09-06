@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the gcr package.
 #
 # Young-Ho Cha <ganadist@gmail.com>, 2006.
-# Changwoo Ryu <cwryu@debian.org>, 2004, 2006-2014, 2017-2018, 2020.
+# Changwoo Ryu <cwryu@debian.org>, 2004, 2006-2014, 2017-2018, 2020-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-08-28 11:09+0000\n"
-"PO-Revision-Date: 2020-09-05 00:13+0900\n"
+"POT-Creation-Date: 2021-04-26 17:11+0000\n"
+"PO-Revision-Date: 2021-09-04 22:58+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -243,6 +243,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "등록한 PKCS#11 모듈을 초기화할 수 없습니다: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "URI 인코딩이 잘못되었습니다."
 
@@ -259,6 +260,7 @@ msgid "The URI has a bad version number."
 msgstr "URI 버전이 잘못되었습니다."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "스트림이 잠겨 있습니다"
 
@@ -331,10 +333,12 @@ msgid "Registered ID"
 msgstr "등록 ID"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "인증서 요청에 있는 키 종류를 지원하지 않습니다"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "요청에 서명하는데 이 키를 사용할 수 없습니다"
 
@@ -396,13 +400,49 @@ msgstr "잘못되었거나 손상된 데이터를 파싱할 수 없습니다."
 msgid "The data is locked"
 msgstr "데이터가 잠겨 있습니다"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "계속"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "취소"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "다음에 대한 잠금 풀기: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "개인 키 잠금 풀기"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "개인 키 잠금을 풀 암호를 입력하십시오"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr "프로그램에서 개인 키 “%s”에 접근하려 하지만, 잠겨 있습니다"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "로그인할 때 자동으로 이 키 모음 잠금 풀기"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "잠금 풀기"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "잠금 해제 암호가 올바르지 않습니다"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "이름 없음"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -412,7 +452,7 @@ msgstr "OpenSSH 암호글을 입력하십시오"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "키에 알 수 없는 속성이 있거나 속성이 없습니다"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "공개키를 만들 수 없습니다"
 
@@ -423,7 +463,8 @@ msgstr "다른 프롬프트가 이미 진행 중입니다"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "지정한 인증서를 저장할 위치를 찾을 수 없습니다"
 
@@ -663,6 +704,7 @@ msgid "Reason"
 msgstr "이유"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "이 종류의 파일을 표시할 수 없습니다."
 
@@ -906,29 +948,29 @@ msgstr "비밀 키"
 msgid "Secret Subkey"
 msgstr "비밀 서브키"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "초기화 중…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "가져오기가 진행 중입니다…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "가져온 위치: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "다음 위치에 가져오기: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "호환되는 가져오기 기능이 없으므로 가져올 수 없습니다"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "가져올 데이터가 없습니다"
 
@@ -980,12 +1022,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "취소(_C)"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "확인(_O)"
 
@@ -994,7 +1036,8 @@ msgid "Automatically chosen"
 msgstr "자동으로 선택"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "사용자가 작업을 취소했습니다"
 
@@ -1003,18 +1046,13 @@ msgid "In order to import, please enter the password."
 msgstr "가져오려면 암호를 입력하십시오."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "암호:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "토큰:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "잠금 풀기"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1025,15 +1063,15 @@ msgid "Import settings"
 msgstr "가져오기 설정"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "확인:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "암호가 일치하지 않습니다."
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "암호를 비워둘 수 없습니다"
 
@@ -1058,6 +1096,7 @@ msgid "_Replace"
 msgstr "바꾸기(_R)"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "작업을 취소했습니다."
 

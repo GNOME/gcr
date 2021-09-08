@@ -262,17 +262,47 @@ add_pinned_to_module (GcrCertificate *certificate, const gchar *purpose, const g
 	gck_mock_module_add_object (gck_builder_end (&builder));
 }
 
+void
+on_toggle_notify (gpointer data,
+                  GObject *object,
+                  gboolean is_last_ref)
+{
+	gboolean *last_ref = data;
+
+	*last_ref = is_last_ref;
+}
+
+static void
+wait_for_object_finalized (GObject *object)
+{
+	gpointer weak_object = object;
+	gboolean last_ref = FALSE;
+
+	/* GTask may release the object later than us as per GNOME/glib#1346,
+	 * causing the test to fail when checking in which thread the objects
+	 * are finalized. To ensure that the order is preserved we need then
+	 * to wait that the GTask releases its last reference before we do.
+	 */
+	g_object_add_weak_pointer (object, &weak_object);
+	g_object_add_toggle_ref (object, on_toggle_notify, &last_ref);
+	g_object_unref (object);
+	egg_test_wait_for_gtask_thread (!last_ref);
+
+	g_object_remove_toggle_ref (object, on_toggle_notify, &last_ref);
+	g_assert_null (weak_object);
+}
+
 static void
 teardown (Test *test, gconstpointer unused)
 {
 	CK_RV rv;
 
 	g_object_unref (test->cert_self);
-	g_object_unref (test->cert_signed);
-	g_object_unref (test->cert_ca);
-	g_object_unref (test->cert_host);
-	g_object_unref (test->cert_inter);
-	g_object_unref (test->cert_root);
+	wait_for_object_finalized (G_OBJECT (test->cert_signed));
+	wait_for_object_finalized (G_OBJECT (test->cert_ca));
+	wait_for_object_finalized (G_OBJECT (test->cert_host));
+	wait_for_object_finalized (G_OBJECT (test->cert_inter));
+	wait_for_object_finalized (G_OBJECT (test->cert_root));
 
 	rv = (test->funcs.C_Finalize) (NULL);
 	gck_assert_cmprv (rv, ==, CKR_OK);

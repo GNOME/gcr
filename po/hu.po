@@ -1,26 +1,26 @@
 # Hungarian translation for gcr.
-# Copyright (C) 2004, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2018, 2020 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2018, 2020, 2021 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gcr package.
 #
 # Gergely Nagy <greg at gnome dot hu>, 2004.
 # Laszlo Dvornik <dvornikl at mailbox dot hu>, 2004.
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016.
 # Mate ORY <orymate at gmail d0t com>, 2006.
-# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2018, 2020.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2018, 2020, 2021.
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2020-09-06 15:40+0200\n"
-"Last-Translator: Meskó Balázs <mesko.balazs@fsf.hu>\n"
+"POT-Creation-Date: 2021-04-26 17:11+0000\n"
+"PO-Revision-Date: 2021-09-10 22:04+0200\n"
+"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Lokalize 19.12.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: egg/egg-oid.c:40
@@ -33,7 +33,7 @@ msgstr "Felhasználóazonosító"
 
 #: egg/egg-oid.c:45
 msgid "Email Address"
-msgstr "E-mail cím"
+msgstr "E-mail-cím"
 
 #: egg/egg-oid.c:53
 msgid "Date of Birth"
@@ -57,7 +57,7 @@ msgstr "Lakóhely"
 
 #: egg/egg-oid.c:64
 msgid "Common Name"
-msgstr "Közönséges név"
+msgstr "Általános név"
 
 #: egg/egg-oid.c:66
 msgid "Surname"
@@ -250,6 +250,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Nem készíthetők elő a regisztrált PKCS#11 modulok: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "Az URI kódolása érvénytelen."
 
@@ -266,6 +267,7 @@ msgid "The URI has a bad version number."
 msgstr "Az URI verziószáma hibás."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "Az adatfolyam lezárult"
 
@@ -298,7 +300,7 @@ msgstr "Egyéb név"
 
 #: gcr/gcr-certificate-extensions.c:200
 msgid "XMPP Addr"
-msgstr "XMPP cím"
+msgstr "XMPP-cím"
 
 #: gcr/gcr-certificate-extensions.c:204
 msgid "DNS SRV"
@@ -315,7 +317,7 @@ msgstr "DNS"
 
 #: gcr/gcr-certificate-extensions.c:232
 msgid "X400 Address"
-msgstr "X400 cím"
+msgstr "X400-cím"
 
 #: gcr/gcr-certificate-extensions.c:239
 msgid "Directory Name"
@@ -338,10 +340,12 @@ msgid "Registered ID"
 msgstr "Regisztrált azonosító"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Nem támogatott kulcstípus a tanúsítványkéréshez"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "A kulcs nem használható a kérés aláírásához"
 
@@ -356,7 +360,7 @@ msgstr "GnuPG kulcstartó: %s"
 
 #: gcr/gcr-gnupg-key.c:143 gcr/gcr-parser.c:352 ui/gcr-gnupg-renderer.c:88
 msgid "PGP Key"
-msgstr "PGP kulcs"
+msgstr "PGP-kulcs"
 
 #: gcr/gcr-gnupg-key.c:431
 msgctxt "column"
@@ -380,7 +384,7 @@ msgstr "A művelet megszakítva"
 
 #: gcr/gcr-parser.c:343 ui/gcr-key-renderer.c:361
 msgid "Private Key"
-msgstr "Magánkulcs"
+msgstr "Személyes kulcs"
 
 #: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:887
 #: ui/gcr-gnupg-renderer.c:738 ui/gcr-key-renderer.c:370
@@ -403,13 +407,55 @@ msgstr "Nem sikerült feldolgozni az érvénytelen vagy hibás adatokat."
 msgid "The data is locked"
 msgstr "Az adatok zárolva vannak"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "Folytatás"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "Mégse"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+#| msgid "Unlock: %s"
+msgid "Unlock password for: %s"
+msgstr "Jelszó feloldása ehhez: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+#| msgid "Private Key"
+msgid "Unlock private key"
+msgstr "Személyes kulcs feloldása"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "Adja meg a jelszót a személyes kulcs feloldásához"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr ""
+"Egy alkalmazás hozzá szeretne férni a(z) „%s” személyes kulcshoz, de az"
+" zárolva van"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+#| msgid "Automatically unlock this keyring whenever I’m logged in"
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "Ezen kulcs automatikus feloldása, amikor bejelentkezem"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Feloldás"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+#| msgid "The password was incorrect"
+msgid "The unlock password was incorrect"
+msgstr "A feloldási jelszó helytelen volt"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "Névtelen"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -419,7 +465,7 @@ msgstr "Adja meg az OpenSSH jelszavát"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "A kulcs attribútumai azonosítatlanok vagy nem érhetők el"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "Nem építhető fel a nyilvános kulcs"
 
@@ -430,7 +476,8 @@ msgstr "Már folyamatban van egy másik kérés"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Nem található tárolási hely a rögzített tanúsítványhoz"
 
@@ -670,6 +717,7 @@ msgid "Reason"
 msgstr "Ok"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "Az ilyen típusú fájl nem jeleníthető meg."
 
@@ -912,29 +960,29 @@ msgstr "Titkos kulcs"
 msgid "Secret Subkey"
 msgstr "Titkos részkulcs"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "Előkészítés…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "Importálás folyamatban…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "Importálva ebbe: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "Importálás ebbe: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "Nem lehet importálni, mert nincsenek kompatibilis importálók"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "Nincsenek importálható adatok"
 
@@ -944,11 +992,11 @@ msgstr "Kulcs"
 
 #: ui/gcr-key-renderer.c:355
 msgid "Private RSA Key"
-msgstr "Magán RSA kulcs"
+msgstr "Személyes RSA kulcs"
 
 #: ui/gcr-key-renderer.c:357
 msgid "Private DSA Key"
-msgstr "Magán DSA kulcs"
+msgstr "Személyes DSA kulcs"
 
 #: ui/gcr-key-renderer.c:359
 msgid "Private Elliptic Curve Key"
@@ -987,12 +1035,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "Mé_gse"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "_OK"
 
@@ -1001,7 +1049,8 @@ msgid "Automatically chosen"
 msgstr "Automatikusan kiválasztott"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "A felhasználó megszakította a műveletet"
 
@@ -1010,18 +1059,13 @@ msgid "In order to import, please enter the password."
 msgstr "Az importáláshoz adja meg a jelszót."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "Jelszó:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "Jelsor:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "Feloldás"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1032,15 +1076,15 @@ msgid "Import settings"
 msgstr "Importálás beállításai"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "Megerősítés:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "Nem egyeznek a jelszavak."
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "A jelszó nem lehet üres"
 
@@ -1065,6 +1109,7 @@ msgid "_Replace"
 msgstr "_Csere"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "A művelet megszakítva."
 

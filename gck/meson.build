@@ -22,6 +22,15 @@ gck_sources_private = files(
 
 gck_headers = files(
   'gck.h',
+  'gck-attributes.h',
+  'gck-enumerator.h',
+  'gck-module.h',
+  'gck-object.h',
+  'gck-object-cache.h',
+  'gck-password.h',
+  'gck-session.h',
+  'gck-slot.h',
+  'gck-uri.h',
 )
 
 # Generated sources
@@ -79,6 +88,7 @@ gck_cflags = [
   '-DPKCS11_REGISTRY_DIR="@0@"'.format(get_option('prefix') / get_option('libdir') / 'pkcs11'),
   '-D_XOPEN_SOURCE',   # Needed for strptime()
   '-D_DEFAULT_SOURCE', # Needed for timegm
+  '-DGCK_COMPILATION',
 ]
 
 gck_symbolmap = meson.current_source_dir() / 'libgck.map'

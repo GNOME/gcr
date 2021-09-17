@@ -22,10 +22,12 @@
 
 #include "config.h"
 
-#include "gck.h"
+#include "gck-enumerator.h"
+#include "gck-attributes.h"
 #include "gck-private.h"
 
 #include <string.h>
+#include <p11-kit/pkcs11.h>
 
 /**
  * SECTION:gck-enumerator

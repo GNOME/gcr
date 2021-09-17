@@ -22,7 +22,7 @@
 
 #include "config.h"
 
-#include "gck.h"
+#include "gck-module.h"
 #include "gck-private.h"
 
 #include "gck/gck-marshal.h"

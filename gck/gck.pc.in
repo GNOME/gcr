@@ -11,4 +11,4 @@ Description: GObject bindings for PKCS#11
 Version: @VERSION@
 Requires: glib-2.0 gobject-2.0 gio-2.0 p11-kit-1
 Libs: -L${libdir} -lgck-@GCK_MAJOR@
-Cflags: -I${includedir}/gck-@GCK_MAJOR@
+Cflags: -I${includedir} -I${includedir}/gck-@GCK_MAJOR@

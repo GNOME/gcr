@@ -23,7 +23,9 @@
 #ifndef GCK_DEPRECATED_H
 #define GCK_DEPRECATED_H
 
-#include "gck.h"
+#include <glib.h>
+#include <gck/gck.h>
+#include <gck/gck-attributes.h>
 
 G_BEGIN_DECLS
 

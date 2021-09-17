@@ -22,7 +22,7 @@
 
 #include "config.h"
 
-#include "gck.h"
+#include "gck-slot.h"
 #include "gck-private.h"
 
 #include "egg/egg-timegm.h"

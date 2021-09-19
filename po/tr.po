@@ -10,14 +10,15 @@
 # Necdet Yücel <necdetyucel@gmail.com>, 2015.
 # Simge Sezgin <simgesezgin88@gmail.com>, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2014, 2015, 2018.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2017, 2018, 2020.
+# Burhan Keleş <klsburhan@hotmail.com>, 2021.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2017, 2018, 2020, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2020-09-12 08:51+0300\n"
+"POT-Creation-Date: 2021-07-13 19:42+0000\n"
+"PO-Revision-Date: 2021-09-19 13:34+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 3.0\n"
 "X-POOTLE-MTIME: 1420669651.000000\n"
 
 #: egg/egg-oid.c:40
@@ -253,6 +254,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Kayıtlı PKCS#11 modülleri başlatılamadı: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "URI geçersiz kodlamaya sahip."
 
@@ -269,6 +271,7 @@ msgid "The URI has a bad version number."
 msgstr "URI kötü bir sürüm numarasına sahip."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "Akış kapatıldı"
 
@@ -341,10 +344,12 @@ msgid "Registered ID"
 msgstr "Kayıtlı Kimlik"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Sertifika isteği için desteklenmeyen anahtar türü"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Anahtar isteği imzalamak için kullanılabilir değildir"
 
@@ -406,13 +411,50 @@ msgstr "Geçersiz veya bozuk veri çözümlenemedi."
 msgid "The data is locked"
 msgstr "Veri kilitli"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "Sürdür"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "İptal"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "Şunun için kilit açma şifresi: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "Özel anahtar kilidini aç"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "Özel anahtar kilidini açmak için parolayı gir"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr ""
+"Bir uygulama “%s” özel anahtarına erişmek istiyor ancak anahtar kilitli"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "Her oturum açtığımda bu anahtarın kilidini kendiliğinden aç"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Kilidi aç"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "Kilit açma parolası yanlıştı"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "Adsız"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -422,18 +464,19 @@ msgstr "OpenSSH parolanızı giriniz"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Anahtar için kullanılamaz ya da onaylanmamış öznitelikler"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "Genel anahtar oluşturulamadı"
 
 #: gcr/gcr-system-prompt.c:912
 msgid "Another prompt is already in progress"
-msgstr "Başka istek zaten devam ediyor"
+msgstr "Başka istek zaten sürüyor"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Tutturulmuş sertifikayı saklayacak konum bulunamadı"
 
@@ -673,6 +716,7 @@ msgid "Reason"
 msgstr "Neden"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "Bu türde dosya gösterilemiyor."
 
@@ -915,29 +959,29 @@ msgstr "Gizli Anahtar"
 msgid "Secret Subkey"
 msgstr "Gizli Alt Anahtar"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "Başlatılıyor…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "İçe aktarma işlemi devam ediyor…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "İçe aktarıldı: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "İçe aktar: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "İçe aktarma işlemi uyumlu içe aktarıcı olmadığından yapılamıyor"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "İçe aktarılacak veri yok"
 
@@ -989,12 +1033,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "_Vazgeç"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "_Tamam"
 
@@ -1003,7 +1047,8 @@ msgid "Automatically chosen"
 msgstr "Kendiliğinden seçilmiş"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "Kullanıcı işlemi iptal etti"
 
@@ -1012,18 +1057,13 @@ msgid "In order to import, please enter the password."
 msgstr "Lütfen içe aktarmak için parola girin."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "Parola:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "Jeton:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "Kilidi kaldır"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1034,15 +1074,15 @@ msgid "Import settings"
 msgstr "İçe Aktarma ayarları"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "Onayla:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "Parolalar eşleşmiyor."
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "Parola boş bırakılamaz"
 
@@ -1052,7 +1092,7 @@ msgstr "Erişim Ekranı"
 
 #: ui/gcr-prompter.desktop.in.in:4
 msgid "Unlock access to passwords and other secrets"
-msgstr "Parolalar ve diğer gizli bilgiler için erişim kilidini kaldır"
+msgstr "Parolalar ve diğer gizli bilgiler için erişim kilidini aç"
 
 #: ui/gcr-certificate-exporter.c:226
 msgid "A file already exists with this name."
@@ -1067,6 +1107,7 @@ msgid "_Replace"
 msgstr "_Değiştir"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "İşlem iptal edildi."
 
@@ -1088,7 +1129,7 @@ msgstr "PEM dosyaları"
 
 #: ui/gcr-unlock-options-widget.ui:16
 msgid "Automatically unlock this keyring whenever I’m logged in"
-msgstr "Her oturum açtığımda, bu anahtarlığın kilidini kendiliğinden kaldır"
+msgstr "Her oturum açtığımda, bu anahtarlığın kilidini kendiliğinden aç"
 
 #: ui/gcr-unlock-options-widget.ui:31
 msgid "Lock this keyring when I log out"
@@ -1110,7 +1151,7 @@ msgstr "dakika"
 #: ui/gcr-unlock-renderer.c:68
 #, c-format
 msgid "Unlock: %s"
-msgstr "Kilidi kaldır: %s"
+msgstr "Kilidi aç: %s"
 
 #: ui/gcr-unlock-renderer.c:122
 msgid "Password"

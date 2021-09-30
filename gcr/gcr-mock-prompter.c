@@ -31,17 +31,15 @@
 #include <string.h>
 
 /**
- * SECTION:gcr-mock-prompter
- * @title: GcrMockPrompter
- * @short_description: a mock GcrSystemPrompter for testing
+ * GcrMockPrompter:
  *
- * A mock GcrSystemPrompter used for testing against.
+ * A mock [class@SystemPrompter] used for testing against.
  *
- * Use gcr_mock_prompter_start() to start the mock prompter in another
+ * Use [func@MockPrompter.start] to start the mock prompter in another
  * thread. The returned string is the dbus address of the mock prompter.
- * You can pass this to gcr_system_prompt_open() as the prompter bus name.
+ * You can pass this to [func@SystemPrompt.open] as the prompter bus name.
  *
- * Use the gcr_mock_prompter_expect_confirm_ok() function and friends before
+ * Use the [func@MockPrompter.expect_confirm_ok] function and friends before
  * prompting to verify that the prompts are displayed as expected, and to
  * provide a response.
  */

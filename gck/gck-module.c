@@ -35,21 +35,14 @@
 #include <string.h>
 
 /**
- * SECTION:gck-module
- * @title: GckModule
- * @short_description: A loaded and initialized PKCS\#11 module.
- *
- * A GckModule object holds a loaded PKCS\#11 module. A PKCS\#11 module is a shared library.
- *
- * You can load and initialize a PKCS\#11 module with the gck_module_initialize() call. If you already
- * have a loaded and initialized module that you'd like to use with the various gck functions, then
- * you can use gck_module_new().
- */
-
-/**
  * GckModule:
  *
- * Holds a loaded and initialized PKCS\#11 module.
+ * Holds a loaded PKCS#11 module. A PKCS#11 module is a shared library.
+ *
+ * You can load and initialize a PKCS#11 module with the
+ * [func@Module.initialize] call. If you already have a loaded and
+ * initialized module that you'd like to use with the various Gck functions,
+ * then you can use [ctor@Module.new].
  */
 
 /**
@@ -62,9 +55,9 @@
  * @library_version_major: The major version of the library.
  * @library_version_minor: The minor version of the library.
  *
- * Holds information about the PKCS&num;11 module.
+ * Holds information about the PKCS#11 module.
  *
- * This structure corresponds to CK_MODULE_INFO in the PKCS\#11 standard. The
+ * This structure corresponds to `CK_MODULE_INFO` in the PKCS#11 standard. The
  * strings are %NULL terminated for easier use.
  *
  * Use gck_module_info_free() to release this structure when done with it.
@@ -365,13 +358,13 @@ free_initialize (Initialize *args)
 
 /**
  * gck_module_initialize:
- * @path: The file system path to the PKCS\#11 module to load.
+ * @path: The file system path to the PKCS#11 module to load.
  * @cancellable: (nullable): optional cancellation object
  * @error: A location to store an error resulting from a failed load.
  *
- * Load and initialize a PKCS\#11 module represented by a GckModule object.
+ * Load and initialize a PKCS#11 module represented by a GckModule object.
  *
- * Return value: (transfer full): The loaded PKCS\#11 module or %NULL if failed.
+ * Return value: (transfer full): The loaded PKCS#11 module or %NULL if failed.
  **/
 GckModule*
 gck_module_initialize (const gchar *path,
@@ -402,13 +395,13 @@ gck_module_initialize (const gchar *path,
 
 /**
  * gck_module_initialize_async:
- * @path: the file system path to the PKCS\#11 module to load
+ * @path: the file system path to the PKCS#11 module to load
  * @cancellable: (nullable): optional cancellation object
  * @callback: a callback which will be called when the operation completes
  * @user_data: data to pass to the callback
  *
- * Asynchronously load and initialize a PKCS\#11 module represented by a
- * #GckModule object.
+ * Asynchronously load and initialize a PKCS#11 module represented by a
+ * [class@Module] object.
  **/
 void
 gck_module_initialize_async (const gchar *path,
@@ -464,13 +457,13 @@ gck_module_initialize_finish (GAsyncResult *result,
 
 /**
  * gck_module_new: (skip)
- * @funcs: Initialized PKCS\#11 function list pointer
+ * @funcs: Initialized PKCS#11 function list pointer
  *
- * Create a GckModule representing a PKCS\#11 module. It is assumed that
+ * Create a [class@Module] representing a PKCS#11 module. It is assumed that
  * this the module is already initialized. In addition it will not be
  * finalized when complete.
  *
- * Return value: The new PKCS\#11 module.
+ * Return value: The new PKCS#11 module.
  **/
 GckModule*
 gck_module_new (CK_FUNCTION_LIST_PTR funcs)
@@ -493,7 +486,7 @@ _gck_module_new_initialized (CK_FUNCTION_LIST_PTR funcs)
  * @module2: (type Gck.Module): a pointer to the second #GckModule
  *
  * Checks equality of two modules. Two GckModule objects can point to the same
- * underlying PKCS\#11 module.
+ * underlying PKCS#11 module.
  *
  * Return value: %TRUE if module1 and module2 are equal.
  *               %FALSE if either is not a GckModule.
@@ -520,8 +513,8 @@ gck_module_equal (gconstpointer module1, gconstpointer module2)
  *
  * Create a hash value for the GckModule.
  *
- * This function is intended for easily hashing a GckModule to add to
- * a GHashTable or similar data structure.
+ * This function is intended for easily hashing a [class@Module] to add to
+ * a [struct@GLib.HashTable] or similar data structure.
  *
  * Return value: An integer that can be used as a hash value, or 0 if invalid.
  **/
@@ -577,7 +570,7 @@ _gck_module_info_to_pkcs11 (GckModuleInfo* module_info, CK_INFO_PTR info)
  * gck_module_get_info:
  * @self: The module to get info for.
  *
- * Get the info about a PKCS\#11 module.
+ * Get the info about a PKCS#11 module.
  *
  * Returns: (transfer full): the module info; release this with gck_module_info_free()
  **/
@@ -654,7 +647,7 @@ gck_module_get_slots (GckModule *self, gboolean token_present)
  * @self: The module for which to get the path.
  *
  * Get the file path of this module. This may not be an absolute path, and
- * usually reflects the path passed to gck_module_initialize().
+ * usually reflects the path passed to [func@Module.initialize].
  *
  * Return value: The path, do not modify or free this value.
  **/
@@ -669,7 +662,7 @@ gck_module_get_path (GckModule *self)
  * gck_module_get_functions: (skip)
  * @self: The module for which to get the function list.
  *
- * Get the PKCS\#11 function list for the module.
+ * Get the PKCS#11 function list for the module.
  *
  * Return value: The function list, do not modify this structure.
  **/
@@ -685,7 +678,7 @@ gck_module_get_functions (GckModule *self)
  * @self: the module to match
  * @uri: the uri to match against the module
  *
- * Check whether the PKCS\#11 URI matches the module
+ * Check whether the PKCS#11 URI matches the module
  *
  * Returns: whether the URI matches or not
  */

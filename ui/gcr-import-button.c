@@ -39,19 +39,13 @@ enum {
 };
 
 /**
- * SECTION:gcr-import-button
- * @title: GcrImportButton
- * @short_description: Button which imports parsed certificates and keys
- *
- * A button which imports keys and certificates. Shows a spinner when the
- * button is activated. When more than one importer is available shows
- * a drop down to select which to import to.
- */
-
-/**
  * GcrImportButton:
  *
- * Button which imports parsed certificates and keys.
+ * A button which imports keys and certificates.
+ *
+ * The import button shows a spinner when the button is activated. When more
+ * than one importer is available, it shows a drop down to select which to
+ * import to.
  */
 
 /**
@@ -60,7 +54,7 @@ enum {
  * @importing: Emitted when the import begins.
  * @imported: Emitted when the import completes, or fails.
  *
- * Class for #GcrImportButton.
+ * Class struct for [class@ImportButton].
  */
 
 struct _GcrImportButtonPrivate {

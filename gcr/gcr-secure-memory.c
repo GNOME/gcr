@@ -32,22 +32,6 @@
 #include <string.h>
 
 /**
- * SECTION:gcr-secure-memory
- * @title: Non-pageable Memory
- * @short_description: Secure non-pageable memory
- *
- * Normal allocated memory can be paged to disk at the whim of the operating
- * system. This can be a problem for sensitive information like passwords, keys
- * and secrets.
- *
- * The Gcr library holds passwords and keys in non-pageable, or locked memory.
- * This is only possible if the OS contains support for it.
- *
- * These functions allow applications to use secure memory to hold passwords
- * and other sensitive information.
- */
-
-/**
  * gcr_secure_memory_new: (skip)
  * @type: C type of the objects to allocate
  * @n_objects: number of objects to allocate

@@ -25,12 +25,12 @@
 #include <string.h>
 
 /**
- * SECTION:gcr-filter-collection
- * @title: GcrFilterCollection
- * @short_description: A collection which filters a GcrCollection
+ * GcrFilterCollection:
  *
- * An implementation of #GcrCollection which filters objects from another
- * underlying collection. Use gcr_filter_collection_new_with_callback()
+ * A collection which filters a [iface@Collection].
+ *
+ * An implementation of [iface@Collection] which filters objects from another
+ * underlying collection. Use [ctor@FilterCollection.new_with_callback]
  * to create a new filter collection.
  *
  * The callback will determine the criteria for whether an object shows through
@@ -38,16 +38,10 @@
  */
 
 /**
- * GcrFilterCollection:
- *
- * A filter implementation of #GcrCollection.
- */
-
-/**
  * GcrFilterCollectionClass:
  * @parent_class: the parent class
  *
- * The class for #GcrFilterCollection.
+ * The class struct for [class@FilterCollection].
  */
 
 /**
@@ -55,7 +49,7 @@
  * @object: object to filter
  * @user_data: user data passed to the callback
  *
- * A function which is called by #GcrFilterCollection in order to determine
+ * A function which is called by [class@FilterCollection] in order to determine
  * whether an object should show through the filter or not.
  *
  * Returns: %TRUE if an object should be included in the filtered collection

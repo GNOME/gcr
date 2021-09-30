@@ -32,25 +32,18 @@
 #include <gtk/gtk.h>
 
 /**
- * SECTION:gcr-renderer
- * @title: GcrRenderer
- * @short_description: An interface implemented by renderers.
+ * GcrRenderer:
  *
- * A #GcrRenderer is an interface that's implemented by renderers which wish
- * to render data to a #GcrViewer.
+ * An interface that's implemented by renderers which wish to render data to a
+ * [class@Viewer].
  *
- * The interaction between #GcrRenderer and #GcrViewer is not stable yet, and
- * so new renderers cannot be implemented outside the Gcr library at this time.
+ * The interaction between [class@Renderer] and [class@Viewer] is not stable
+ * yet, and so new renderers cannot be implemented outside the Gcr library at
+ * this time.
  *
  * To lookup a renderer for a given set of attributes, use the gcr_renderer_create()
  * function. This will create and initialize a renderer that's capable of viewing
  * the data in those attributes.
- */
-
-/**
- * GcrRenderer:
- *
- * A renderer.
  */
 
 /**
@@ -190,7 +183,7 @@ gcr_renderer_emit_data_changed (GcrRenderer *self)
  * gcr_renderer_get_attributes:
  * @self: The renderer
  *
- * Get the PKCS\#11 attributes, if any, set for this renderer to display.
+ * Get the PKCS#11 attributes, if any, set for this renderer to display.
  *
  * Returns: (nullable) (transfer none): the attributes, owned by the renderer
  */
@@ -212,7 +205,7 @@ gcr_renderer_get_attributes (GcrRenderer *self)
  * @self: The renderer
  * @attrs: (nullable): attributes to set
  *
- * Set the PKCS\#11 attributes for this renderer to display.
+ * Set the PKCS#11 attributes for this renderer to display.
  */
 void
 gcr_renderer_set_attributes (GcrRenderer *self,

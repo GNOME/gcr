@@ -30,28 +30,22 @@
 #include <string.h>
 
 /**
- * SECTION:gck-password
- * @title: GckPassword
- * @short_description: Represents a password hich is requested of the user
- *
- * This is used in conjuction with GTlsInteraction. #GckPassword is a
- * GTlsPassword which contains additional information about which PKCS\#11
- * token or key the password is being requested for.
- */
-
-/**
  * GckPassword:
  *
- * A #GTlsPasswordClass that contains information about the PKCS\#11 token
- * or key the password is being requested for.
+ * Represents a password which is requested of the user.
+ *
+ * This is used in conjuction with [class@Gio.TlsInteraction]. `GckPassword` is
+ * a [class@Gio.TlsPassword] which contains additional information about which
+ * PKCS#11 token or key the password is being requested for.
  */
 
 /**
  * GckPasswordClass:
  * @parent: parent class
  *
- * The class for #GTlsPassword.
+ * The class struct for [class@Password].
  */
+
 enum {
 	PROP_0,
 	PROP_MODULE,
@@ -164,7 +158,7 @@ gck_password_class_init (GckPasswordClass *klass)
 	/**
 	 * GckPassword:module:
 	 *
-	 * The PKCS\#11 module that is requesting the password
+	 * The PKCS#11 module that is requesting the password
 	 */
 	g_object_class_install_property (gobject_class, PROP_MODULE,
 		g_param_spec_object ("module", "Module", "PKCS11 Module",
@@ -173,7 +167,7 @@ gck_password_class_init (GckPasswordClass *klass)
 	/**
 	 * GckPassword:token:
 	 *
-	 * The PKCS\#11 token the password is for, if this is set then
+	 * The PKCS#11 token the password is for, if this is set then
 	 * the GckPassword:object property will be %NULL
 	 */
 	g_object_class_install_property (gobject_class, PROP_TOKEN,
@@ -183,7 +177,7 @@ gck_password_class_init (GckPasswordClass *klass)
 	/**
 	 * GckPassword:key:
 	 *
-	 * The PKCS\#11 key that the password is being requested for. If this
+	 * The PKCS#11 key that the password is being requested for. If this
 	 * is set then the GckPassword:token property will be %NULL
 	 */
 	g_object_class_install_property (gobject_class, PROP_KEY,
@@ -195,7 +189,7 @@ gck_password_class_init (GckPasswordClass *klass)
  * gck_password_get_module:
  * @self: the password object
  *
- * Get the PKCS\#11 module that is requesting the password.
+ * Get the PKCS#11 module that is requesting the password.
  *
  * Returns: (transfer full): the module that is requesting the password, which
  *          must be unreferenced after use
@@ -214,7 +208,7 @@ gck_password_get_module (GckPassword *self)
  * gck_password_get_token:
  * @self: the password object
  *
- * If the password request is to unlock a PKCS\#11 token, then this is the
+ * If the password request is to unlock a PKCS#11 token, then this is the
  * slot containing that token.
  *
  * Returns: (transfer full): the slot that contains the token, or %NULL if not
@@ -234,7 +228,7 @@ gck_password_get_token (GckPassword *self)
  * gck_password_get_key:
  * @self: the password object
  *
- * If the password request is to unlock a PKCS\#11 key, then this is the
+ * If the password request is to unlock a PKCS#11 key, then this is the
  * the object representing that key.
  *
  * Returns: (transfer full): the password is for this key, or %NULL if not

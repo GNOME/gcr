@@ -33,11 +33,9 @@
 #include "egg/egg-error.h"
 
 /**
- * SECTION:gcr-certificate-chain
- * @title: GcrCertificateChain
- * @short_description: A certificate chain
+ * GcrCertificateChain:
  *
- * #GcrCertificateChain represents a chain of certificates, normally used to
+ * Represents a chain of certificates, normally used to
  * validate the trust in a certificate. An X.509 certificate chain has one
  * endpoint certificate (the one for which trust is being verified) and then
  * in turn the certificate that issued each previous certificate in the chain.
@@ -49,30 +47,23 @@
  * The order of certificates in the chain should be first the endpoint
  * certificates and then the signing certificates.
  *
- * Create a new certificate chain with gcr_certificate_chain_new() and then
- * add the certificates with gcr_certificate_chain_add().
+ * Create a new certificate chain with [ctor@CertificateChain.new] and then
+ * add the certificates with [method@CertificateChain.add].
  *
- * You can then use gcr_certificate_chain_build() to build the remainder of
- * the chain. This will lookup missing certificates in PKCS\#11 modules and
+ * You can then use [method@CertificateChain.build] to build the remainder of
+ * the chain. This will lookup missing certificates in PKCS#11 modules and
  * also check that each certificate in the chain is the signer of the previous
  * one. If a trust anchor, pinned certificate, or self-signed certificate is
  * found, then the chain is considered built. Any extra certificates are
  * removed from the chain.
  *
  * Once the certificate chain has been built, you can access its status
- * through gcr_certificate_chain_get_status(). The status signifies whether
+ * through [method@CertificateChain.get_status]. The status signifies whether
  * the chain is anchored on a trust root, self-signed, incomplete etc. See
- * #GcrCertificateChainStatus for information on the various statuses.
+ * [enum@CertificateChainStatus] for information on the various statuses.
  *
  * It's important to understand that the building of a certificate chain is
  * merely the first step towards verifying trust in a certificate.
- */
-
-
-/**
- * GcrCertificateChain:
- *
- * A chain of certificates.
  */
 
 /**
@@ -518,7 +509,7 @@ gcr_certificate_chain_class_init (GcrCertificateChainClass *klass)
  * @GCR_CERTIFICATE_CHAIN_NO_LOOKUPS: If this flag is specified then no
  * lookups for anchors or pinned certificates are done, and the resulting chain
  * will be neither anchored or pinned. Additionally no missing certificate
- * authorities are looked up in PKCS\#11.
+ * authorities are looked up in PKCS#11.
  *
  * Flags to be used with the gcr_certificate_chain_build() operation.
  */
@@ -677,7 +668,7 @@ gcr_certificate_chain_get_certificate (GcrCertificateChain *self, guint index)
  * Complete a certificate chain. Once a certificate chain has been built
  * its status can be examined.
  *
- * This operation will lookup missing certificates in PKCS\#11
+ * This operation will lookup missing certificates in PKCS#11
  * modules and also that each certificate in the chain is the signer of the
  * previous one. If a trust anchor, pinned certificate, or self-signed certificate
  * is found, then the chain is considered built. Any extra certificates are
@@ -699,7 +690,7 @@ gcr_certificate_chain_get_certificate (GcrCertificateChain *self, guint index)
  * If the %GCR_CERTIFICATE_CHAIN_NO_LOOKUPS flag is specified then no
  * lookups for anchors or pinned certificates are done, and the resulting chain
  * will be neither anchored or pinned. Additionally no missing certificate
- * authorities are looked up in PKCS\#11
+ * authorities are looked up in PKCS#11
  *
  * This call will block, see gcr_certificate_chain_build_async() for the
  * asynchronous version.
@@ -749,7 +740,7 @@ gcr_certificate_chain_build (GcrCertificateChain *self,
  * Complete a certificate chain. Once a certificate chain has been built
  * its status can be examined.
  *
- * This will lookup missing certificates in PKCS\#11
+ * This will lookup missing certificates in PKCS#11
  * modules and also that each certificate in the chain is the signer of the
  * previous one. If a trust anchor, pinned certificate, or self-signed certificate
  * is found, then the chain is considered built. Any extra certificates are
@@ -771,7 +762,7 @@ gcr_certificate_chain_build (GcrCertificateChain *self,
  * If the %GCR_CERTIFICATE_CHAIN_NO_LOOKUPS flag is specified then no
  * lookups for anchors or pinned certificates are done, and the resulting chain
  * will be neither anchored or pinned. Additionally no missing certificate
- * authorities are looked up in PKCS\#11
+ * authorities are looked up in PKCS#11
  *
  * When the operation is finished, @callback will be called. You can then call
  * gcr_certificate_chain_build_finish() to get the result of the operation.

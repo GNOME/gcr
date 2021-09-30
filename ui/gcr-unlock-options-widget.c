@@ -22,17 +22,16 @@
 #include <glib/gi18n-lib.h>
 
 /**
- * SECTION:gcr-unlock-options-widget
- * @title: GcrUnlockOptionsWidget
- * @short_description: A widget for unlock options
+ * GcrUnlockOptionsWidget:
  *
- * This widget displays a set of unlock options for the user to select. The user
- * can choose between keeping caching the unlock indefinitely, or for a given
- * amount of time.
+ * This widget displays a set of unlock options for the user to select.
+ *
+ * The user can choose between keeping caching the unlock indefinitely, or for
+ * a given amount of time.
  *
  * Each option has a different name, for example #GCR_UNLOCK_OPTION_ALWAYS. These
  * names are used together with the various functions like
- * gcr_unlock_options_widget_get_choice().
+ * [method@UnlockOptionsWidget.get_choice].
  */
 
 /**
@@ -57,18 +56,6 @@
  * GCR_UNLOCK_OPTION_TIMEOUT:
  *
  * Option name for caching unlock for a certain amount of time.
- */
-
-/**
- * GcrUnlockOptionsWidget:
- *
- * An unlock options widget.
- */
-
-/**
- * GcrUnlockOptionsWidgetClass:
- *
- * Class for #GcrUnlockOptionsWidget.
  */
 
 enum {

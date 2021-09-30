@@ -35,10 +35,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-/**
- * SECTION:gck-modules
- * @title: GckModule lists
- * @short_description: Dealing with lists of PKCS\#11 modules.
+/*
+ * GckModule lists:
  *
  * These functions are useful for dealing with lists of modules, and performing
  * operations on all of them.
@@ -135,7 +133,7 @@ gck_modules_initialize_registered_async (GCancellable *cancellable,
  * @error: location to place an error on failure
  *
  * Finishes the asynchronous operation to initialize the registered
- * PKCS\#11 modules.
+ * PKCS#11 modules.
  *
  * Returns: (transfer full) (element-type Gck.Module): a list of newly
  * initialized #GckModule objects
@@ -197,7 +195,7 @@ gck_modules_get_slots (GList *modules, gboolean token_present)
  *
  * This call will not block but will return an enumerator immediately.
  *
- * If the @attrs #GckAttributes is floating, it is consumed.
+ * If the @attrs [struct@Attributes] is floating, it is consumed.
  *
  * Return value: (transfer full): A new enumerator, which should be released
  * with g_object_unref().
@@ -330,7 +328,7 @@ gck_modules_tokens_for_uri (GList *modules,
  *
  * Find an object that matches a URI.
  *
- * This call can block. Use gck_modules_enumerate_uri() for a non-blocking
+ * This call can block. Use [func@modules_enumerate_uri] for a non-blocking
  * version.
  *
  * Returns: (transfer full) (nullable): A new #GckObject which should be released with
@@ -367,7 +365,7 @@ gck_modules_object_for_uri (GList *modules,
  *
  * Find objects that match a URI.
  *
- * This call can block. Use gck_modules_enumerate_uri() for a non-blocking
+ * This call can block. Use [func@modules_enumerate_uri] for a non-blocking
  * version.
  *
  * Returns: (transfer full) (element-type Gck.Object): A list of #GckObject which
@@ -405,7 +403,7 @@ gck_modules_objects_for_uri (GList *modules,
  *
  * Enumerate objects that match a URI.
  *
- * This call will not block. Use the #GckEnumerator functions in order to
+ * This call will not block. Use the [class@Enumerator] functions in order to
  * get at the actual objects that match.
  *
  * Returns: (transfer full): A new #GckEnumerator, or %NULL if an error occurs.

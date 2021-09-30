@@ -23,24 +23,17 @@
 #include "gcr-viewer.h"
 
 /**
- * SECTION:gcr-viewer
- * @title: GcrViewer
- * @short_description: A viewer which can hold renderers
- *
- * A #GcrViewer is an abstract interface that represents a widget that can hold
- * various renderers and display their contents.
- *
- * The interaction between #GcrRenderer and #GcrViewer is not stable yet, and
- * so viewers cannot be implemented outside the Gcr library at this time.
- *
- * Use the gcr_viewer_new() and gcr_viewer_new_scrolled() to get default
- * implementations of viewers.
- */
-
-/**
  * GcrViewer:
  *
- * An abstract viewer which displays renderers contents.
+ * An abstract interface that represents a widget that can hold
+ * various renderers and display their contents.
+ *
+ * The interaction between [class@Renderer] and [class@Viewer] is not stable
+ * yet, and so viewers cannot be implemented outside the Gcr library at this
+ * time.
+ *
+ * Use the [func@Viewer.new] and [func@Viewer.new_scrolled] to get default
+ * implementations of viewers.
  */
 
 /**
@@ -99,7 +92,7 @@ gcr_viewer_new_scrolled (void)
 }
 
 /**
- * gcr_viewer_add_renderer:
+ * gcr_viewer_add_renderer: (virtual add_renderer)
  * @viewer: The viewer
  * @renderer: The renderer to add
  *
@@ -116,7 +109,7 @@ gcr_viewer_add_renderer (GcrViewer *viewer,
 }
 
 /**
- * gcr_viewer_insert_renderer:
+ * gcr_viewer_insert_renderer: (virtual insert_renderer)
  * @viewer: the viewer
  * @renderer: the renderer to insert
  * @before: (nullable): the renderer to insert before
@@ -136,7 +129,7 @@ gcr_viewer_insert_renderer (GcrViewer *viewer,
 }
 
 /**
- * gcr_viewer_remove_renderer:
+ * gcr_viewer_remove_renderer: (virtual remove_renderer)
  * @viewer: The viewer
  * @renderer: The renderer to remove
  *
@@ -153,7 +146,7 @@ gcr_viewer_remove_renderer (GcrViewer *viewer,
 }
 
 /**
- * gcr_viewer_count_renderers:
+ * gcr_viewer_count_renderers: (virtual count_renderers)
  * @viewer: The viewer
  *
  * Get the number of renderers present in the viewer.
@@ -169,7 +162,7 @@ gcr_viewer_count_renderers (GcrViewer *viewer)
 }
 
 /**
- * gcr_viewer_get_renderer:
+ * gcr_viewer_get_renderer: (virtual get_renderer)
  * @viewer: The viewer
  * @index_: The index of the renderer to get
  *

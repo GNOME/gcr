@@ -1,4 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
 /* gck-misc.c - the GObject PKCS#11 wrapper library
 
    Copyright (C) 2008, Stefan Walter
@@ -36,30 +35,19 @@
 EGG_SECURE_DEFINE_GLIB_GLOBALS ();
 
 /**
- * SECTION:gck-library
- * @title: Library Utilities
- * @short_description: Library utilities such as version checks
- *
- * Basic library utilities such as version checks.
- */
-
-/**
  * GCK_CHECK_VERSION:
  * @major: the major version to check for
  * @minor: the minor version to check for
  * @micro: the micro version to check for
  *
- * Checks the version of the Gck libarry that is being compiled
+ * Checks the version of the Gck library that is being compiled
  * against.
  *
- * <example>
- * <title>Checking the version of the Gck library</title>
- * <programlisting>
+ * ```
  * #if !GCK_CHECK_VERSION (3, 0, 0)
  * #warning Old Gck version, disabling functionality
  * #endif
- * </programlisting>
- * </example>
+ * ```
  *
  * Returns: %TRUE if the version of the GLib header files
  * is the same as or newer than the passed-in version.
@@ -84,23 +72,6 @@ EGG_SECURE_DEFINE_GLIB_GLOBALS ();
  */
 
 /**
- * SECTION:gck-error
- * @title: Errors
- * @short_description: Gck Errors and error codes.
- *
- * Errors are returned as GError structures. The code member of GError
- * contains the raw PKCS11 CK_RV result value.
- */
-
-/**
- * SECTION:gck-private
- * @title: Private, not used in docs
- * @short_description: Should not show up in docs
- *
- * Should not show up in the docs
- */
-
-/**
  * GCK_INVALID:
  *
  * Used as a terminator at the end of variable argument lists.
@@ -109,17 +80,20 @@ EGG_SECURE_DEFINE_GLIB_GLOBALS ();
 /**
  * GCK_VENDOR_CODE:
  *
- * Custom PKCS11 errors that originate from the gck library, are
+ * Custom PKCS#11 errors that originate from the gck library, are
  * based at this error code.
  */
 
 /**
  * GckError:
  * @GCK_ERROR_MODULE_PROBLEM: a result code that signifies there was a problem
- *                            loading a PKCS\#11 module, usually a shared library
+ *                            loading a PKCS#11 module, usually a shared library
  *
- * Various error codes. All the CKR_XXX error codes from PKCS\#11 are also
+ * Various error codes. All the `CKR_XXX` error codes from PKCS#11 are also
  * relevant error codes.
+ *
+ * Note that errors are returned as [class@GLib.Error] structures. The `code`
+ * member of the error then contains the raw PKCS#11 `CK_RV` result value.
  */
 
 /**
@@ -151,13 +125,13 @@ gck_error_get_quark (void)
 
 /**
  * gck_message_from_rv:
- * @rv: The PKCS\#11 return value to get a message for.
+ * @rv: The PKCS#11 return value to get a message for.
  *
- * Get a message for a PKCS\#11 return value or error code. Do not
- * pass CKR_OK or other such non errors to this function.
+ * Get a message for a PKCS#11 return value or error code. Do not
+ * pass `CKR_OK` or other non-errors to this function.
  *
  * Return value: The user readable message.
- **/
+ */
 const gchar*
 gck_message_from_rv (gulong rv)
 {
@@ -287,15 +261,6 @@ _gck_rv_from_error (GError *error,
 	return catch_all_code;
 }
 
-/**
- * SECTION:gck-misc
- * @title: Miscellaneous Functions
- * @short_description: Other miscellaneous functions.
- *
- * A few supporting functions that come in handy when dealing with the gck
- * library or PKCS11 in general.
- */
-
 GType
 gck_list_get_boxed_type (void)
 {
@@ -353,9 +318,9 @@ gck_list_ref_copy (GList *reflist)
  * @data: The character data to turn into a null terminated string.
  * @max: The maximum length of the charater data.
  *
- * Create a string from a set of PKCS\#11 characters. This is
- * similar to g_strndup, except for that it also strips trailing
- * spaces. These space padded strings are often used in PKCS\#11
+ * Create a string from a set of PKCS#11 characters. This is
+ * similar to [func@GLib.strndup], except for that it also strips trailing
+ * spaces. These space padded strings are often used in PKCS#11
  * structures.
  *
  * If the space padded string is filled with null characters then
@@ -386,7 +351,7 @@ gck_string_from_chars (const guchar *data, gsize max)
  * @max: The maximum length of the charater buffer.
  * @string: The string to place in the buffer.
  *
- * Create a space padded PKCS\#11 string from a null terminated string.
+ * Create a space padded PKCS#11 string from a null terminated string.
  * The string must be shorter than the buffer or %FALSE will be
  * returned.
  *
@@ -441,7 +406,7 @@ _gck_ulong_equal (gconstpointer v1, gconstpointer v2)
  * @length: length of memory
  * @result: A location to store the result
  *
- * Convert CK_ULONG type memory to a boolean.
+ * Convert `CK_ULONG` type memory to a boolean.
  *
  * Returns: Whether the conversion was successful.
  */
@@ -463,7 +428,7 @@ gck_value_to_ulong (const guchar *value,
  * @length: length of memory
  * @result: A location to store the result
  *
- * Convert CK_BBOOL type memory to a boolean.
+ * Convert `CK_BBOOL` type memory to a boolean.
  *
  * Returns: Whether the conversion was successful.
  */

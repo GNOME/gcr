@@ -32,29 +32,19 @@
 #include <glib.h>
 
 /**
- * SECTION:gcr-fingerprint
- * @title: Key Fingerprints
- * @short_description: Fingerprints for public and private keys
- *
- * These functions generate key fingerprints for public keys, certificates and
- * key data. The fingerprints are created so that they they will be identical
- * for a key and its corresponding certificate.
- *
- * Note that in the case of certificates these are not fingerprints of the
- * actual certificate data, but rather of the public key contained in a
- * certificate.
- *
- * These fingerprints are created using the subjectPublicKeyInfo ASN.1 structure.
- */
-
-/**
  * gcr_fingerprint_from_subject_public_key_info:
  * @key_info: (array length=n_key_info): DER encoded subjectPublicKeyInfo structure
  * @n_key_info: length of DER encoded structure
  * @checksum_type: the type of fingerprint to create
  * @n_fingerprint: (out): the length of fingerprint returned
  *
- * Create a key fingerprint for a DER encoded subjectPublicKeyInfo.
+ * Create a key fingerprint for a DER encoded subjectPublicKeyInfo. The
+ * fingerprint is created so that it will be identical for a key and its
+ * corresponding certificate.
+ *
+ * Note that in the case of certificates this is not a fingerprint of the
+ * actual certificate data, but rather of the public key contained in a
+ * certificate.
  *
  * Returns: (transfer full) (nullable) (array length=n_fingerprint): the
  *          fingerprint or %NULL if the input was invalid.

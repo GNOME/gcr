@@ -35,24 +35,10 @@
 const char *gcr_ssh_askpass_executable = LIBEXECDIR "/gcr-ssh-askpass";
 
 /**
- * SECTION:gcr-ssh-askpass
- * @title: GcrSshAskpass
- * @short_description: Allows an ssh command to callback for a password
+ * GcrSshAskpass:
  *
  * When used as the setup function while spawning an ssh command like ssh-add
  * or ssh, this allows callbacks for passwords on the provided interaction.
- */
-
-/**
- * GcrSshAskpass:
- *
- * An object containing the password prompting state.
- */
-
-/**
- * GcrSshAskpassClass:
- *
- * The class for #GcrSshAskpass
  */
 
 enum {

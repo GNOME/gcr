@@ -26,33 +26,26 @@
 #include <glib/gi18n-lib.h>
 
 /**
- * SECTION:gcr-prompt
- * @title: GcrPrompt
- * @short_description: a user prompt
+ * GcrPrompt:
  *
- * A #GcrPrompt represents a prompt displayed to the user. It is an interface
- * with various implementations.
+ * A prompt displayed to the user. It is an interface with various
+ * implementations.
  *
  * Various properties are set on the prompt, and then the prompt is displayed
- * the various prompt methods like gcr_prompt_password_run().
+ * the various prompt methods like [method@Prompt.password_run].
  *
- * A #GcrPrompt may be used to display multiple related prompts. Most
- * implemantions do not hide the window between display of multiple related
+ * A `GcrPrompt` may be used to display multiple related prompts. Most
+ * implementions do not hide the window between display of multiple related
  * prompts, and the #GcrPrompt must be closed or destroyed in order to make
  * it go away. This allows the user to see that the prompts are related.
  *
- * Use #GcrPromptDialog to create an in-process GTK+ dialog prompt. Use
- * #GcrSystemPrompt to create a system prompt in a prompter process.
+ * Use `GcrPromptDialog` (part of gcr-ui) to create an in-process GTK+ dialog
+ * prompt. Use [class@SystemPrompt] to create a system prompt in a prompter
+ * process.
  *
- * The prompt implementation will always display the GcrPrompt:message property,
- * but may choose not to display the GcrPrompt:description or GcrPrompt:title
- * properties.
- */
-
-/**
- * GcrPrompt:
- *
- * Represents a #GcrPrompt displayed to the user.
+ * The prompt implementation will always display the [property@Prompt:message]
+ * property, but may choose not to display the [property@Prompt:description] or
+ * [property@Prompt:title] properties.
  */
 
 /**
@@ -64,7 +57,7 @@
  * @prompt_confirm_finish: complete a confirm prompt
  * @prompt_close: close a prompt
  *
- * The interface for implementing #GcrPrompt.
+ * The interface for implementing [class@Prompt].
  */
 
 /**
@@ -72,7 +65,7 @@
  * @GCR_PROMPT_REPLY_CONTINUE: the user replied with 'ok'
  * @GCR_PROMPT_REPLY_CANCEL: the prompt was cancelled
  *
- * Various replies returned by gcr_prompt_confirm() and friends.
+ * Various replies returned by [method@Prompt.confirm] and friends.
  */
 
 enum {
@@ -244,7 +237,7 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		 * handler has run, the prompt is closed. The various prompting methods
 		 * will return results as if the user dismissed the prompt.
 		 *
-		 * You can use the gcr_prompt_close() method to emit this signal.
+		 * You can use the [method@Prompt.close] method to emit this signal.
 		 */
 		signals[PROMPT_CLOSE] = g_signal_new ("prompt-close", GCR_TYPE_PROMPT, G_SIGNAL_RUN_FIRST,
 		                                      G_STRUCT_OFFSET (GcrPromptIface, prompt_close),
@@ -760,7 +753,7 @@ gcr_prompt_set_cancel_label (GcrPrompt *prompt,
 }
 
 /**
- * gcr_prompt_password_async:
+ * gcr_prompt_password_async: (virtual prompt_password_async)
  * @prompt: a prompt
  * @cancellable: optional cancellation object
  * @callback: called when the operation completes
@@ -789,7 +782,7 @@ gcr_prompt_password_async (GcrPrompt *prompt,
 }
 
 /**
- * gcr_prompt_password_finish:
+ * gcr_prompt_password_finish: (virtual prompt_password_finish)
  * @prompt: a prompt
  * @result: asynchronous result passed to callback
  * @error: location to place error on failure
@@ -913,7 +906,7 @@ gcr_prompt_password_run (GcrPrompt *prompt,
 }
 
 /**
- * gcr_prompt_confirm_async:
+ * gcr_prompt_confirm_async: (virtual prompt_confirm_async)
  * @prompt: a prompt
  * @cancellable: optional cancellation object
  * @callback: called when the operation completes
@@ -943,7 +936,7 @@ gcr_prompt_confirm_async (GcrPrompt *prompt,
 }
 
 /**
- * gcr_prompt_confirm_finish:
+ * gcr_prompt_confirm_finish: (virtual prompt_confirm_finish)
  * @prompt: a prompt
  * @result: asynchronous result passed to callback
  * @error: location to place error on failure
@@ -1026,7 +1019,7 @@ gcr_prompt_confirm (GcrPrompt *prompt,
  * represent the question correctly.
  *
  * This method will block until the a response is returned from the prompter
- * and will run a main loop similar to a gtk_dialog_run(). The application
+ * and will run a main loop similar to a `gtk_dialog_run()`. The application
  * will remain responsive but care must be taken to handle reentrancy issues.
  *
  * %GCR_PROMPT_REPLY_CONTINUE will be returned if the user confirms the prompt. The
@@ -1066,9 +1059,9 @@ gcr_prompt_confirm_run (GcrPrompt *prompt,
  * Closes the prompt so that in can no longer be used to prompt. The various
  * prompt methods will return results as if the user dismissed the prompt.
  *
- * The prompt may also be closed by the implementor of the #GcrPrompt object.
+ * The prompt may also be closed by the implementor of the prompt object.
  *
- * This emits the GcrPrompt::prompt-close signal on the prompt object.
+ * This emits the [signal@Prompt::prompt-close] signal on the prompt object.
  */
 void
 gcr_prompt_close (GcrPrompt *prompt)

@@ -1,3 +1,10 @@
+gcr 3.41.0:
+- Port ssh-agent from gnome-keyring [GNOME/gcr!67]
+- build: Fix parallel build failure due to missing marshal dependency [GNOME/gcr!68]
+- Fix warnings by dropping `volatile` for g_once_init_inter locations [GNOME/gcr!69]
+- tests: More robust against GTask unref race condition [GNOME/gcr!72,GNOME/gcr#84]
+- Updated translations
+
 gcr 3.40.0:
 - FEATURE: add hkps://keys.openpgp.org to keyserver defaults [GNOME/gcr!62]
 - gcr/key-mechanism: Port to GTask [GNOME/gcr!66]

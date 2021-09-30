@@ -14,17 +14,16 @@ fedora:Werror:
     - dnf builddep -y gcr
   script:
     - meson _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
-    - ninja -C _build
-    - dbus-run-session -- bash +x ./.gitlab-ci/run-tests.sh
+    - meson compile -C _build
+    - dbus-run-session -- meson test -C _build
   artifacts:
     reports:
-      junit: "_build/${CI_JOB_NAME}-report.xml"
+      junit: "_build/meson-logs/testlog.junit.xml"
     name: "gcr-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     when: always
     paths:
       - "_build/config.h"
       - "_build/meson-logs"
-      - "_build/${CI_JOB_NAME}-report.xml"
 
 fedora:asan:
   image: fedora:latest

@@ -1,4 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
 /* gck-session.h - the GObject PKCS#11 wrapper library
 
    Copyright (C) 2008, Stefan Walter
@@ -32,18 +31,12 @@
 #include <glib/gi18n-lib.h>
 
 /**
- * SECTION:gck-session
- * @title: GckSession
- * @short_description: Represents an open PKCS11 session.
- *
- * Before performing any PKCS11 operations, a session must be opened. This is
- * analogous to an open database handle, or a file handle.
- */
-
-/**
  * GckSession:
  *
  * Represents an open PKCS11 session.
+ *
+ * Before performing any PKCS11 operations, a session must be opened. This is
+ * analogous to an open database handle, or a file handle.
  */
 
 /**
@@ -335,7 +328,7 @@ gck_session_class_init (GckSessionClass *klass)
 	/**
 	 * GckSession:opening-flags:
 	 *
-	 * Raw PKCS\#11 flags used to open the PKCS\#11 session.
+	 * Raw PKCS#11 flags used to open the PKCS#11 session.
 	 */
 	g_object_class_install_property (gobject_class, PROP_OPENING_FLAGS,
 		g_param_spec_ulong ("opening-flags", "Opening flags", "PKCS#11 open session flags",
@@ -345,7 +338,7 @@ gck_session_class_init (GckSessionClass *klass)
 	/**
 	 * GckSession:app-data:
 	 *
-	 * Raw PKCS\#11 application data used to open the PKCS\#11 session.
+	 * Raw PKCS#11 application data used to open the PKCS#11 session.
 	 */
 	g_object_class_install_property (gobject_class, PROP_APP_DATA,
 		g_param_spec_pointer ("app-data", "App data", "PKCS#11 application data",
@@ -587,11 +580,11 @@ gck_session_info_free (GckSessionInfo *session_info)
 /**
  * gck_session_from_handle:
  * @slot: The slot which the session belongs to.
- * @session_handle: the raw PKCS\#11 handle of the session
+ * @session_handle: the raw PKCS#11 handle of the session
  * @options: Session options. Those which are used during opening a session have no effect.
  *
- * Initialize a GckSession object from a raw PKCS\#11 session handle.
- * Usually one would use the gck_slot_open_session() function to
+ * Initialize a session object from a raw PKCS#11 session handle.
+ * Usually one would use the [method@Slot.open_session] function to
  * create a session.
  *
  * Returns: (transfer full): the new GckSession object
@@ -618,7 +611,7 @@ gck_session_from_handle (GckSlot *slot,
  * gck_session_get_handle:
  * @self: The session object.
  *
- * Get the raw PKCS\#11 session handle from a GckSession object.
+ * Get the raw PKCS#11 session handle from a session object.
  *
  * Return value: The raw session handle.
  **/
@@ -633,7 +626,7 @@ gck_session_get_handle (GckSession *self)
  * gck_session_get_module:
  * @self: The session object.
  *
- * Get the PKCS\#11 module to which this session belongs.
+ * Get the PKCS#11 module to which this session belongs.
  *
  * Returns: (transfer full): the module, which should be unreffed after use
  **/
@@ -648,7 +641,7 @@ gck_session_get_module (GckSession *self)
  * gck_session_get_slot:
  * @self: The session object.
  *
- * Get the PKCS\#11 slot to which this session belongs.
+ * Get the PKCS#11 slot to which this session belongs.
  *
  * Return value: (transfer full): The slot, which should be unreffed after use.
  **/
@@ -709,7 +702,7 @@ gck_session_get_info (GckSession *self)
  * gck_session_get_state:
  * @self: the session
  *
- * Get the session state. The state is the various PKCS\#11 CKS_XXX flags.
+ * Get the session state. The state is the various PKCS#11 CKS_XXX flags.
  *
  * Returns: the session state
  */
@@ -812,7 +805,7 @@ gck_session_set_interaction (GckSession *self,
  * @slot: the slot to open session on
  * @options: session options
  * @interaction: (nullable): optional interaction for logins or object authentication
- * @cancellable: optional cancellation object
+ * @cancellable: (nullable): optional cancellation object
  * @error: location to place error or %NULL
  *
  * Open a session on the slot. This call may block for an indefinite period.
@@ -915,11 +908,11 @@ perform_init_pin (InitPin *args)
  * @pin: (nullable) (array length=n_pin): the user's PIN, or %NULL for
  *       protected authentication path
  * @n_pin: the length of the PIN
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @error: A location to return an error.
  *
  * Initialize the user's pin on this slot that this session is opened on.
- * According to the PKCS\#11 standards, the session must be logged in with
+ * According to the PKCS#11 standards, the session must be logged in with
  * the CKU_SO user type.
  *
  * This call may block for an indefinite period.
@@ -940,13 +933,13 @@ gck_session_init_pin (GckSession *self, const guchar *pin, gsize n_pin,
  * @self: Initialize PIN for this session's slot.
  * @pin: (nullable) (array length=n_pin): the user's PIN, or %NULL for protected authentication path
  * @n_pin: the length of the PIN
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
  *
  * Initialize the user's pin on this slot that this session is opened on.
- * According to the PKCS\#11 standards, the session must be logged in with
- * the CKU_SO user type.
+ * According to the PKCS#11 standards, the session must be logged in with
+ * the `CKU_SO` user type.
  *
  * This call will return immediately and completes asynchronously.
  **/
@@ -1020,7 +1013,7 @@ perform_set_pin (SetPin *args)
  * @new_pin: (nullable) (array length=n_new_pin): the user's new PIN, or %NULL
  *           for protected authentication path
  * @n_new_pin: The length of the PIN.
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @error: A location to return an error.
  *
  * Change the user's pin on this slot that this session is opened on.
@@ -1047,7 +1040,7 @@ gck_session_set_pin (GckSession *self, const guchar *old_pin, gsize n_old_pin,
  * @new_pin: (nullable) (array length=n_new_pin): the user's new PIN, or %NULL
  *           for protected authentication path
  * @n_new_pin: the length of the new PIN
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
  *
@@ -1123,7 +1116,7 @@ perform_login (Login *args)
  * @pin: (nullable) (array length=n_pin): the user's PIN, or %NULL for
  *       protected authentication path
  * @n_pin: The length of the PIN.
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @error: A location to return an error.
  *
  * Login the user on the session. This call may block for
@@ -1147,7 +1140,7 @@ gck_session_login (GckSession *self, gulong user_type, const guchar *pin,
  * @pin: (nullable) (array length=n_pin): the user's PIN, or %NULL for
  *       protected authentication path
  * @n_pin: The length of the PIN.
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
  *
@@ -1216,7 +1209,7 @@ perform_interactive (Interactive *args)
  * @self: session to use for login
  * @user_type: the type of login user
  * @interaction: (nullable): interaction to request PIN when necessary
- * @cancellable: optional cancellation object, or %NULL
+ * @cancellable: (nullable): optional cancellation object, or %NULL
  * @error: location to return an error
  *
  * Login the user on the session requesting the password interactively
@@ -1251,7 +1244,7 @@ gck_session_login_interactive (GckSession *self,
  * @self: session to use for login
  * @user_type: the type of login user
  * @interaction: (nullable): interaction to request PIN when necessary
- * @cancellable: optional cancellation object, or %NULL
+ * @cancellable: (nullable): optional cancellation object, or %NULL
  * @callback: called when the operation completes
  * @user_data: data to pass to the callback
  *
@@ -1317,7 +1310,7 @@ perform_logout (GckArguments *args)
 /**
  * gck_session_logout:
  * @self: Logout of this session.
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @error: A location to return an error.
  *
  * Log out of the session. This call may block for an indefinite period.
@@ -1368,8 +1361,6 @@ gck_session_logout_finish (GckSession *self, GAsyncResult *result, GError **erro
 }
 
 
-
-
 /* CREATE OBJECT */
 
 typedef struct _CreateObject {
@@ -1413,10 +1404,10 @@ perform_create_object (CreateObject *args)
  * gck_session_create_object:
  * @self: The session to create the object on.
  * @attrs: The attributes to create the object with.
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @error: A location to return an error, or %NULL.
  *
- * Create a new PKCS\#11 object. This call may block for an
+ * Create a new PKCS#11 object. This call may block for an
  * indefinite period.
  *
  * If the @attrs #GckAttributes is floating, it is consumed.
@@ -1447,14 +1438,14 @@ gck_session_create_object (GckSession *self, GckAttributes *attrs,
  * gck_session_create_object_async:
  * @self: The session to create the object on.
  * @attrs: The attributes to create the object with.
- * @cancellable: Optional cancellation object or %NULL.
+ * @cancellable: (nullable): Optional cancellation object or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
  *
- * Create a new PKCS\#11 object. This call will return immediately
+ * Create a new PKCS#11 object. This call will return immediately
  * and complete asynchronously.
  *
- * If the @attrs #GckAttributes is floating, it is consumed.
+ * If @attrs is a floating reference, it is consumed.
  **/
 void
 gck_session_create_object_async (GckSession *self, GckAttributes *attrs,
@@ -1481,7 +1472,7 @@ gck_session_create_object_async (GckSession *self, GckAttributes *attrs,
  * @result: The result passed to the callback.
  * @error: A location to return an error, or %NULL.
  *
- * Get the result of creating a new PKCS\#11 object.
+ * Get the result of creating a new PKCS#11 object.
  *
  * Return value: (transfer full): the newly created object or %NULL if an error occurred
  **/
@@ -1496,7 +1487,6 @@ gck_session_create_object_finish (GckSession *self, GAsyncResult *result, GError
 		return NULL;
 	return gck_object_from_handle (self, args->object);
 }
-
 
 
 /* FIND OBJECTS */
@@ -1581,14 +1571,14 @@ perform_find_objects (FindObjects *args)
  * gck_session_find_handles:
  * @self: the session to find objects on
  * @match: the attributes to match against objects
- * @cancellable: optional cancellation object or %NULL
+ * @cancellable: (nullable): optional cancellation object or %NULL
  * @n_handles: location to return number of handles
  * @error: a location to return an error or %NULL
  *
  * Find the objects matching the passed attributes. This call may
  * block for an indefinite period.
  *
- * If the @match #GckAttributes is floating, it is consumed.
+ * If @match is a floating reference, it is consumed.
  *
  * Returns: (transfer full) (array length=n_handles) (nullable): a list of
  *          the matching objects, which may be empty
@@ -1625,14 +1615,14 @@ gck_session_find_handles (GckSession *self,
  * gck_session_find_handles_async:
  * @self: the session to find objects on
  * @match: the attributes to match against the objects
- * @cancellable: optional cancellation object or %NULL
+ * @cancellable: (nullable): optional cancellation object or %NULL
  * @callback: called when the operation completes
  * @user_data: data to pass to the callback
  *
  * Find the objects matching the passed attributes. This call will
  * return immediately and complete asynchronously.
  *
- * If the @match #GckAttributes is floating, it is consumed.
+ * If @match is a floating reference, it is consumed.
  **/
 void
 gck_session_find_handles_async (GckSession *self,
@@ -1694,13 +1684,13 @@ gck_session_find_handles_finish (GckSession *self,
  * gck_session_find_objects:
  * @self: The session to find objects on.
  * @match: the attributes to match
- * @cancellable: Optional cancellation object or %NULL.
+ * @cancellable: (nullable): Optional cancellation object or %NULL.
  * @error: A location to return an error or %NULL.
  *
  * Find the objects matching the passed attributes. This call may
  * block for an indefinite period.
  *
- * If the @match #GckAttributes is floating, it is consumed.
+ * If @match is a floating reference, it is consumed.
  *
  * Returns: (transfer full) (element-type Gck.Object): a list of the matching
  *          objects, which may be empty
@@ -1733,7 +1723,7 @@ gck_session_find_objects (GckSession *self,
  * gck_session_find_objects_async:
  * @self: The session to find objects on.
  * @match: The attributes to match.
- * @cancellable: Optional cancellation object or %NULL.
+ * @cancellable: (nullable): Optional cancellation object or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
  *
@@ -1796,7 +1786,7 @@ gck_session_find_objects_finish (GckSession *self,
  *
  * Setup an enumerator for listing matching objects available via this session.
  *
- * If the @match #GckAttributes is floating, it is consumed.
+ * If @match is a floating reference, it is consumed.
  *
  * This call will not block but will return an enumerator immediately.
  *
@@ -1864,13 +1854,13 @@ perform_generate_key_pair (GenerateKeyPair *args)
  * @private_attrs: Additional attributes for the generated private key.
  * @public_key: (optional) (out): location to return the resulting public key
  * @private_key: (optional) (out): location to return the resulting private key.
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @error: A location to return an error, or %NULL.
  *
- * Generate a new key pair of public and private keys. This call may block for an
- * indefinite period.
+ * Generate a new key pair of public and private keys. This call may block for
+ * an indefinite period.
  *
- * If the @public_attrs and/or @private_attrs #GckAttributes is floating, it is
+ * If @public_attrs and/or @private_attrs is a floating reference, it is
  * consumed.
  *
  * Return value: %TRUE if the operation succeeded.
@@ -1893,13 +1883,13 @@ gck_session_generate_key_pair (GckSession *self, gulong mech_type,
  * @private_attrs: Additional attributes for the generated private key.
  * @public_key: (optional) (out): a location to return the resulting public key
  * @private_key: (optional) (out): a location to return the resulting private key
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @error: A location to return an error, or %NULL.
  *
  * Generate a new key pair of public and private keys. This call may block for an
  * indefinite period.
  *
- * If the @public_attrs and/or @private_attrs #GckAttributes is floating, it is
+ * If @public_attrs and/or @private_attrs is a floating reference, it is
  * consumed.
  *
  * Return value: %TRUE if the operation succeeded.
@@ -1949,14 +1939,14 @@ gck_session_generate_key_pair_full (GckSession *self,
  * @mechanism: The mechanism to use for key generation.
  * @public_attrs: Additional attributes for the generated public key.
  * @private_attrs: Additional attributes for the generated private key.
- * @cancellable: Optional cancellation object or %NULL.
+ * @cancellable: (nullable): Optional cancellation object or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
  *
  * Generate a new key pair of public and private keys. This call will
  * return immediately and complete asynchronously.
  *
- * If the @public_attrs and/or @private_attrs #GckAttributes is floating, it is
+ * If @public_attrs and/or @private_attrs is a floating reference, it is
  * consumed.
  **/
 void
@@ -2073,7 +2063,7 @@ perform_wrap_key (WrapKey *args)
  * @mech_type: The mechanism type to use for wrapping.
  * @wrapped: The key to wrap.
  * @n_result: A location in which to return the length of the wrapped data.
- * @cancellable: A #GCancellable or %NULL
+ * @cancellable: (nullable): A #GCancellable or %NULL
  * @error: A location to return an error, or %NULL.
  *
  * Wrap a key into a byte stream. This call may block for an
@@ -2097,7 +2087,7 @@ gck_session_wrap_key (GckSession *self, GckObject *key, gulong mech_type,
  * @mechanism: The mechanism to use for wrapping.
  * @wrapped: The key to wrap.
  * @n_result: A location in which to return the length of the wrapped data.
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @error: A location to return an error, or %NULL.
  *
  * Wrap a key into a byte stream. This call may block for an
@@ -2143,7 +2133,7 @@ gck_session_wrap_key_full (GckSession *self, GckObject *wrapper, GckMechanism *m
  * @wrapper: The key to use for wrapping.
  * @mechanism: The mechanism to use for wrapping.
  * @wrapped: The key to wrap.
- * @cancellable: Optional cancellation object or %NULL.
+ * @cancellable: (nullable): Optional cancellation object or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
  *
@@ -2259,13 +2249,13 @@ perform_unwrap_key (UnwrapKey *args)
  * @input: (array length=n_input): the wrapped data as a byte stream
  * @n_input: The length of the wrapped data.
  * @attrs: Additional attributes for the unwrapped key.
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @error: A location to return an error, or %NULL.
  *
  * Unwrap a key from a byte stream. This call may block for an
  * indefinite period.
  *
- * If the @attrs #GckAttributes is floating, it is consumed.
+ * If @attrs is a floating reference, it is consumed.
  *
  * Returns: (transfer full): the new unwrapped key or %NULL if the
  *          operation failed
@@ -2292,13 +2282,13 @@ gck_session_unwrap_key (GckSession *self,
  * @input: (array length=n_input): the wrapped data as a byte stream
  * @n_input: The length of the wrapped data.
  * @attrs: Additional attributes for the unwrapped key.
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @error: A location to return an error, or %NULL.
  *
  * Unwrap a key from a byte stream. This call may block for an
  * indefinite period.
  *
- * If the @attrs #GckAttributes is floating, it is consumed.
+ * If @attrs is a floating reference, it is consumed.
  *
  * Returns: (transfer full): the new unwrapped key or %NULL if the operation
  *          failed
@@ -2347,14 +2337,14 @@ gck_session_unwrap_key_full (GckSession *self,
  * @input: (array length=n_input): the wrapped data as a byte stream
  * @n_input: The length of the wrapped data.
  * @attrs: Additional attributes for the unwrapped key.
- * @cancellable: Optional cancellation object or %NULL.
+ * @cancellable: (nullable): Optional cancellation object or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
  *
  * Unwrap a key from a byte stream. This call will
  * return immediately and complete asynchronously.
  *
- * If the @attrs #GckAttributes is floating, it is consumed.
+ * If @attrs is a floating reference, it is consumed.
  **/
 void
 gck_session_unwrap_key_async (GckSession *self,

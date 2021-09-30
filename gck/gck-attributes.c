@@ -32,16 +32,18 @@
 #include <string.h>
 
 /**
- * SECTION:gck-attribute
- * @title: GckAttribute
- * @short_description: A PKCS11 attribute.
+ * GckAttribute:
+ * @type: The attribute type, such as `CKA_LABEL`.
+ * @value: (array length=length): The value of the attribute. May be %NULL.
+ * @length: The length of the attribute. May be [const@INVALID] if the
+ * attribute is invalid.
  *
- * This structure represents a PKCS11 CK_ATTRIBUTE. These attributes contain i
- * about a PKCS11 object. Use gck_object_get() or gck_object_set() to set and
- * attributes on an object.
+ * This structure represents a PKCS#11 `CK_ATTRIBUTE`. These attributes contain
+ * information about a PKCS#11 object. Use [method@Object.get] or
+ * [method@Object.set] to set and attributes on an object.
  *
- * Although you are free to allocate a #GckAttribute in your own code, no functions in
- * this library will operate on such an attribute.
+ * Although you are free to allocate a `GckAttribute` in your own code, no
+ * functions in this library will operate on such an attribute.
  */
 
 G_STATIC_ASSERT (sizeof (GckAttribute) == sizeof (CK_ATTRIBUTE));
@@ -156,7 +158,7 @@ G_DEFINE_BOXED_TYPE (GckBuilder, gck_builder,
  * GckBuilder:
  *
  * A builder for a set of attributes. Add attributes to a builder, and then use
- * gck_builder_end() to get the completed #GckAttributes.
+ * [method@Builder.end] to get the completed [struct@Attributes].
  *
  * The fields of #GckBuilder are private and not to be accessed directly.
  */
@@ -166,7 +168,7 @@ G_DEFINE_BOXED_TYPE (GckBuilder, gck_builder,
  * @GCK_BUILDER_NONE: no special flags
  * @GCK_BUILDER_SECURE_MEMORY: use non-pageable memory for the values of the attributes
  *
- * Flags to be used with a gck_builder_init_full() and gck_builder_new().
+ * Flags to be used with a [method@Builder.init_full] and [ctor@Builder.new].
  */
 
 /**
@@ -174,19 +176,19 @@ G_DEFINE_BOXED_TYPE (GckBuilder, gck_builder,
  *
  * Values that can be assigned to a #GckBuilder allocated on the stack.
  *
- * <informalexample><programlisting>
+ * ```c
  * GckBuilder builder = GCK_BUILDER_INIT;
- * </programlisting></informalexample>
+ * ```
  */
 
 /**
  * gck_builder_new:
  * @flags: flags for the new builder
  *
- * Create a new #GckBuilder not allocated on the stack, so it can be shared
+ * Create a new `GckBuilder` not allocated on the stack, so it can be shared
  * across a single scope, and referenced / unreferenced.
  *
- * Normally a #GckBuilder is created on the stack, and simply initialized.
+ * Normally a `GckBuilder` is created on the stack, and simply initialized.
  *
  * If the %GCK_BUILDER_SECURE_MEMORY flag is specified then non-pageable memory
  * will be used for the various values of the attributes in the builder
@@ -209,7 +211,7 @@ gck_builder_new (GckBuilderFlags flags)
  * gck_builder_ref:
  * @builder: the builder
  *
- * Add a reference to a builder that was created with gck_builder_new(). The
+ * Add a reference to a builder that was created with [ctor@Builder.new]. The
  * builder must later be unreferenced again with gck_builder_unref().
  *
  * It is an error to use this function on builders that were allocated on the
@@ -289,8 +291,8 @@ gck_builder_init_full (GckBuilder *builder,
  * This is equivalent to initializing a builder variable with the
  * %GCK_BUILDER_INIT constant, or setting it to zeroed memory.
  *
- * <informalexample><programlisting>
- * /<!-- -->* Equivalent ways of initializing a GckBuilder *<!-- -->/
+ * ```c
+ * // Equivalent ways of initializing a GckBuilder
  * GckBuilder builder = GCK_BUILDER_INIT;
  * GckBuilder builder2;
  * GckBuilder builder3;
@@ -298,7 +300,7 @@ gck_builder_init_full (GckBuilder *builder,
  * gck_builder_init (&builder2);
  *
  * memset (&builder3, 0, sizeof (builder3));
- * </programlisting></informalexample>
+ * ```
  */
 void
 gck_builder_init (GckBuilder *builder)
@@ -387,7 +389,7 @@ builder_copy (GckBuilder *builder,
  * @builder: the builder to copy
  *
  * Make a copy of the builder and its state. The new builder is allocated
- * with gck_builder_new() and should be freed with gck_builder_unref().
+ * with [ctor@Builder.new] and should be freed with gck_builder_unref().
  *
  * Attribute value memory is automatically shared between the two builders,
  * and is only freed when both are gone.
@@ -428,8 +430,8 @@ gck_builder_copy (GckBuilder *builder)
  * using the standard GLib memory allocation routines.
  *
  * %NULL may be specified for the @value argument, in which case an empty
- * attribute is created. GCK_INVALID may be specified for the length, in
- * which case an invalid attribute is created in the PKCS\#11 style.
+ * attribute is created. [const@INVALID] may be specified for the length, in
+ * which case an invalid attribute is created in the PKCS#11 style.
  */
 void
 gck_builder_take_data (GckBuilder *builder,
@@ -474,8 +476,8 @@ gck_builder_take_data (GckBuilder *builder,
  * The memory in @value is copied by the builder.
  *
  * %NULL may be specified for the @value argument, in which case an empty
- * attribute is created. GCK_INVALID may be specified for the length, in
- * which case an invalid attribute is created in the PKCS\#11 style.
+ * attribute is created. [const@INVALID] may be specified for the length, in
+ * which case an invalid attribute is created in the PKCS#11 style.
  */
 void
 gck_builder_add_data (GckBuilder *builder,
@@ -516,8 +518,8 @@ gck_builder_add_data (GckBuilder *builder,
  * The memory in @value is copied by the builder.
  *
  * %NULL may be specified for the @value argument, in which case an empty
- * attribute is created. GCK_INVALID may be specified for the length, in
- * which case an invalid attribute is created in the PKCS\#11 style.
+ * attribute is created. [const@INVALID] may be specified for the length, in
+ * which case an invalid attribute is created in the PKCS#11 style.
  */
 void
 gck_builder_set_data (GckBuilder *builder,
@@ -584,7 +586,7 @@ gck_builder_set_empty (GckBuilder *builder,
  * @builder: the builder
  * @attr_type: the new attribute type
  *
- * Add a new attribute to the builder that is invalid in the PKCS\#11 sense.
+ * Add a new attribute to the builder that is invalid in the PKCS#11 sense.
  * Unconditionally adds a new attribute, even if one with the same @attr_type
  * already exists.
  */
@@ -605,7 +607,7 @@ gck_builder_add_invalid (GckBuilder *builder,
  * @builder: the builder
  * @attr_type: the attribute type
  *
- * Set an attribute on the builder that is invalid in the PKCS\#11 sense.
+ * Set an attribute on the builder that is invalid in the PKCS#11 sense.
  * If an attribute with @attr_type already exists in the builder then it is
  * changed to the new value, otherwise an attribute is added.
  */
@@ -810,7 +812,7 @@ gck_builder_set_string (GckBuilder *builder,
  * or not an attribute with the same type already exists on the builder.
  *
  * The @attr attribute must have been created or owned by the Gck library.
- * If you call this function on an arbitrary #GckAttribute that is allocated on
+ * If you call this function on an arbitrary `GckAttribute` that is allocated on
  * the stack or elsewhere, then this will result in undefined behavior.
  *
  * As an optimization, the attribute memory value is automatically shared
@@ -856,7 +858,7 @@ gck_builder_add_all (GckBuilder *builder,
  * @builder: the builder
  * @attrs: the attributes to add
  * @only_type: the first type of attribute to add
- * @...: the remaining attribute types to add, ending with %GCK_INVALID
+ * @...: the remaining attribute types to add, ending with [const@INVALID]
  *
  * Add the attributes specified in the argument list from @attrs to the
  * builder. The attributes are added uncondititionally whether or not
@@ -864,10 +866,10 @@ gck_builder_add_all (GckBuilder *builder,
  *
  * The variable arguments must be unsigned longs.
  *
- * <informalexample><programlisting>
- * /<!-- -->* Add the CKA_ID and CKA_CLASS attributes from attrs to builder *<!-- -->/
+ * ```c
+ * // Add the CKA_ID and CKA_CLASS attributes from attrs to builder
  * gck_builder_add_only (builder, attrs, CKA_ID, CKA_CLASS, GCK_INVALID);
- * </programlisting></informalexample>
+ * ```
  *
  * As an optimization, the attribute memory values are automatically shared
  * between the attributes and the builder.
@@ -908,11 +910,11 @@ gck_builder_add_only (GckBuilder *builder,
  * builder. The attributes are added uncondititionally whether or not
  * attributes with the same types already exist in the builder.
  *
- * <informalexample><programlisting>
- * /<!-- -->* Add the CKA_ID and CKA_CLASS attributes from attrs to builder *<!-- -->/
+ * ```c
+ * // Add the CKA_ID and CKA_CLASS attributes from attrs to builder
  * gulong only[] = { CKA_ID, CKA_CLASS };
  * gck_builder_add_onlyv (builder, attrs, only, 2);
- * </programlisting></informalexample>
+ * ```
  *
  * As an optimization, the attribute memory values are automatically shared
  * between the attributes and the builder.
@@ -942,7 +944,7 @@ gck_builder_add_onlyv (GckBuilder *builder,
  * @builder: the builder
  * @attrs: the attributes to add
  * @except_type: the first type of attribute to to exclude
- * @...: the remaining attribute types to exclude, ending with %GCK_INVALID
+ * @...: the remaining attribute types to exclude, ending with [const@INVALID]
  *
  * Add the attributes in @attrs to the builder, with the exception of those
  * in the argument list. The attributes are added uncondititionally whether or
@@ -950,10 +952,10 @@ gck_builder_add_onlyv (GckBuilder *builder,
  *
  * The variable arguments must be unsigned longs.
  *
- * <informalexample><programlisting>
- * /<!-- -->* Add all attributes in attrs except CKA_CLASS to the builder *<!-- -->/
+ * ```c
+ * // Add all attributes in attrs except CKA_CLASS to the builder
  * gck_builder_add_except (builder, attrs, CKA_CLASS, GCK_INVALID);
- * </programlisting></informalexample>
+ * ```
  *
  * As an optimization, the attribute memory values are automatically shared
  * between the attributes and the builder.
@@ -995,11 +997,11 @@ gck_builder_add_except (GckBuilder *builder,
  * uncondititionally whether or not attributes with the same types already
  * exist in the builder.
  *
- * <informalexample><programlisting>
- * /<!-- -->* Add all attributes in attrs except CKA_CLASS to the builder *<!-- -->/
- * gulong except_types[] = { CKA_CLASS };
+ * ```c
+ * // Add all attributes in attrs except CKA_CLASS to the builder
+ * unsigned long except_types[] = { CKA_CLASS };
  * gck_builder_add_exceptv (builder, attrs, except_types, 1);
- * </programlisting></informalexample>
+ * ```
  *
  * As an optimization, the attribute memory values are automatically shared
  * between the attributes and the builder.
@@ -1057,12 +1059,12 @@ gck_builder_set_all (GckBuilder *builder,
  * @attr_type: the type of attribute to find
  *
  * Find an attribute in the builder. Both valid and invalid attributes (in
- * the PKCS\#11 sense) are returned. If multiple attributes exist for the given
+ * the PKCS#11 sense) are returned. If multiple attributes exist for the given
  * attribute type, then the first one is returned.
  *
- * The returned #GckAttribute is owned by the builder and may not be modified
- * in any way. It is only valid until another attribute is added to or set on
- * the builder, or until the builder is cleared or unreferenced.
+ * The returned [struct@Attribute] is owned by the builder and may not be
+ * modified in any way. It is only valid until another attribute is added to or
+ * set on the builder, or until the builder is cleared or unreferenced.
  *
  * Returns: the attribute or %NULL if not found
  */
@@ -1102,7 +1104,7 @@ find_attribute_boolean (GckAttribute *attrs,
  * @value: (out): the location to place the found value
  *
  * Find a boolean attribute in the builder that has the type @attr_type, is
- * of the correct boolean size, and is not invalid in the PKCS\#11 sense.
+ * of the correct boolean size, and is not invalid in the PKCS#11 sense.
  * If multiple attributes exist for the given attribute type, then the first\
  * one is returned.
  *
@@ -1146,8 +1148,8 @@ find_attribute_ulong (GckAttribute *attrs,
  * @value: (out): the location to place the found value
  *
  * Find a unsigned long attribute in the builder that has the type @attr_type,
- * is of the correct unsigned long size, and is not invalid in the PKCS\#11 sense.
- * If multiple attributes exist for the given attribute type, then the first\
+ * is of the correct unsigned long size, and is not invalid in the PKCS#11 sense.
+ * If multiple attributes exist for the given attribute type, then the first
  * one is returned.
  *
  * Returns: whether a valid unsigned long attribute was found
@@ -1195,7 +1197,7 @@ find_attribute_string (GckAttribute *attrs,
  * @value: (out): the location to place the found value
  *
  * Find a string attribute in the builder that has the type @attr_type, has a
- * non %NULL value pointer, and is not invalid in the PKCS\#11 sense.
+ * non %NULL value pointer, and is not invalid in the PKCS#11 sense.
  * If multiple attributes exist for the given attribute type, then the first
  * one is returned.
  *
@@ -1240,7 +1242,7 @@ find_attribute_date (GckAttribute *attrs,
  * @value: (out): the location to place the found value
  *
  * Find a date attribute in the builder that has the type @attr_type, is of
- * the correct date size, and is not invalid in the PKCS\#11 sense.
+ * the correct date size, and is not invalid in the PKCS#11 sense.
  * If multiple attributes exist for the given attribute type, then the first
  * one is returned.
  *
@@ -1308,7 +1310,7 @@ gck_builder_steal (GckBuilder *builder)
  *
  * Complete the #GckBuilder, and return the attributes contained in the builder.
  * The #GckBuilder will be cleared after this function call, and it is no
- * longer necessary to use gck_builder_clear() on it, although it is also
+ * longer necessary to use [method@Builder.clear] on it, although it is also
  * permitted. The builder may be used again to build another set of attributes
  * after this function call.
  *
@@ -1367,20 +1369,11 @@ gck_builder_clear (GckBuilder *builder)
 }
 
 /**
- * GckAttribute:
- * @type: The attribute type, such as CKA_LABEL.
- * @value: (array length=length): The value of the attribute. May be %NULL.
- * @length: The length of the attribute. May be GCK_INVALID if the attribute is invalid.
- *
- * This structure represents a PKCS11 CK_ATTRIBUTE.
- */
-
-/**
  * gck_attribute_is_invalid:
  * @attr: The attribute to check.
  *
- * Check if the PKCS\#11 attribute represents 'invalid' or 'not found'
- * according to the PKCS\#11 spec. That is, having length
+ * Check if the PKCS#11 attribute represents 'invalid' or 'not found'
+ * according to the PKCS#11 spec. That is, having length
  * of (CK_ULONG)-1.
  *
  * Return value: Whether the attribute represents invalid or not.
@@ -1396,7 +1389,7 @@ gck_attribute_is_invalid (const GckAttribute *attr)
  * gck_attribute_get_boolean:
  * @attr: The attribute to retrieve value from.
  *
- * Get the CK_BBOOL of a PKCS\#11 attribute. No conversion
+ * Get the CK_BBOOL of a PKCS#11 attribute. No conversion
  * is performed. It is an error to pass an attribute to this
  * function unless you're know it's supposed to contain a
  * boolean value.
@@ -1420,7 +1413,7 @@ gck_attribute_get_boolean (const GckAttribute *attr)
  * gck_attribute_get_ulong:
  * @attr: The attribute to retrieve value from.
  *
- * Get the CK_ULONG value of a PKCS\#11 attribute. No
+ * Get the CK_ULONG value of a PKCS#11 attribute. No
  * conversion is performed. It is an error to pass an attribute
  * to this function unless you're know it's supposed to contain
  * a value of the right type.
@@ -1444,7 +1437,7 @@ gck_attribute_get_ulong (const GckAttribute *attr)
  * gck_attribute_get_string:
  * @attr: The attribute to retrieve value from.
  *
- * Get the string value of a PKCS\#11 attribute. No
+ * Get the string value of a PKCS#11 attribute. No
  * conversion is performed. It is an error to pass an attribute
  * to this function unless you're know it's supposed to contain
  * a value of the right type.
@@ -1470,7 +1463,7 @@ gck_attribute_get_string (const GckAttribute *attr)
  * @attr: The attribute to retrieve value from.
  * @value: The date value to fill in with the parsed date.
  *
- * Get the CK_DATE of a PKCS\#11 attribute. No
+ * Get the CK_DATE of a PKCS#11 attribute. No
  * conversion is performed. It is an error to pass an attribute
  * to this function unless you're know it's supposed to contain
  * a value of the right type.
@@ -1546,14 +1539,14 @@ gck_attribute_get_data (const GckAttribute *attr,
 /**
  * gck_attribute_init: (skip)
  * @attr: an uninitialized attribute
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  * @value: (array length=length): The raw value of the attribute.
  * @length: The length of the raw value.
  *
- * Initialize a PKCS\#11 attribute. This copies the value memory
+ * Initialize a PKCS#11 attribute. This copies the value memory
  * into an internal buffer.
  *
- * When done with the attribute you should use gck_attribute_clear()
+ * When done with the attribute you should use [method@Attribute.clear]
  * to free the internal memory.
  **/
 void
@@ -1580,13 +1573,13 @@ gck_attribute_init (GckAttribute *attr,
 /**
  * gck_attribute_init_invalid: (skip)
  * @attr: an uninitialized attribute
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  *
- * Initialize a PKCS\#11 attribute to an 'invalid' or 'not found'
+ * Initialize a PKCS#11 attribute to an 'invalid' or 'not found'
  * state. Specifically this sets the value length to (CK_ULONG)-1
- * as specified in the PKCS\#11 specification.
+ * as specified in the PKCS#11 specification.
  *
- * When done with the attribute you should use gck_attribute_clear()
+ * When done with the attribute you should use [method@Attribute.clear]
  * to free the internal memory.
  **/
 void
@@ -1602,12 +1595,12 @@ gck_attribute_init_invalid (GckAttribute *attr,
 /**
  * gck_attribute_init_empty: (skip)
  * @attr: an uninitialized attribute
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  *
- * Initialize a PKCS\#11 attribute to an empty state. The attribute
+ * Initialize a PKCS#11 attribute to an empty state. The attribute
  * type will be set, but no data will be set.
  *
- * When done with the attribute you should use gck_attribute_clear()
+ * When done with the attribute you should use [method@Attribute.clear]
  * to free the internal memory.
  **/
 void
@@ -1623,13 +1616,13 @@ gck_attribute_init_empty (GckAttribute *attr, gulong attr_type)
 /**
  * gck_attribute_init_boolean: (skip)
  * @attr: an uninitialized attribute
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  * @value: the boolean value of the attribute
  *
- * Initialize a PKCS\#11 attribute to boolean. This will result
- * in a CK_BBOOL attribute from the PKCS\#11 specs.
+ * Initialize a PKCS#11 attribute to boolean. This will result
+ * in a CK_BBOOL attribute from the PKCS#11 specs.
  *
- * When done with the attribute you should use gck_attribute_clear()
+ * When done with the attribute you should use [method@Attribute.clear]
  * to free the internal memory.
  **/
 void
@@ -1645,13 +1638,13 @@ gck_attribute_init_boolean (GckAttribute *attr,
 /**
  * gck_attribute_init_date: (skip)
  * @attr: an uninitialized attribute
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  * @value: the date value of the attribute
  *
- * Initialize a PKCS\#11 attribute to a date. This will result
- * in a CK_DATE attribute from the PKCS\#11 specs.
+ * Initialize a PKCS#11 attribute to a date. This will result
+ * in a CK_DATE attribute from the PKCS#11 specs.
  *
- * When done with the attribute you should use gck_attribute_clear()
+ * When done with the attribute you should use [method@Attribute.clear]
  * to free the internal memory.
  **/
 void
@@ -1671,13 +1664,13 @@ gck_attribute_init_date (GckAttribute *attr,
 /**
  * gck_attribute_init_ulong: (skip)
  * @attr: an uninitialized attribute
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  * @value: the ulong value of the attribute
  *
- * Initialize a PKCS\#11 attribute to a unsigned long. This will result
- * in a CK_ULONG attribute from the PKCS\#11 specs.
+ * Initialize a PKCS#11 attribute to a unsigned long. This will result
+ * in a CK_ULONG attribute from the PKCS#11 specs.
  *
- * When done with the attribute you should use gck_attribute_clear()
+ * When done with the attribute you should use [method@Attribute.clear]
  * to free the internal memory.
  **/
 void
@@ -1693,15 +1686,15 @@ gck_attribute_init_ulong (GckAttribute *attr,
 /**
  * gck_attribute_init_string: (skip)
  * @attr: an uninitialized attribute
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  * @value: the null terminated string value of the attribute
  *
- * Initialize a PKCS\#11 attribute to a string. This will result
+ * Initialize a PKCS#11 attribute to a string. This will result
  * in an attribute containing the text, but not the null terminator.
  * The text in the attribute will be of the same encoding as you pass
  * to this function.
  *
- * When done with the attribute you should use gck_attribute_clear()
+ * When done with the attribute you should use [method@Attribute.clear]
  * to free the internal memory.
  **/
 void
@@ -1719,11 +1712,11 @@ G_DEFINE_BOXED_TYPE (GckAttribute, gck_attribute,
 
 /**
  * gck_attribute_new:
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  * @value: the raw value of the attribute
  * @length: the length of the attribute
  *
- * Create a new PKCS\#11 attribute. The value will be copied
+ * Create a new PKCS#11 attribute. The value will be copied
  * into the new attribute.
  *
  * Returns: (transfer full): the new attribute; when done with the attribute
@@ -1741,11 +1734,11 @@ gck_attribute_new (gulong attr_type,
 
 /**
  * gck_attribute_new_invalid:
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  *
- * Create a new PKCS\#11 attribute as 'invalid' or 'not found'
+ * Create a new PKCS#11 attribute as 'invalid' or 'not found'
  * state. Specifically this sets the value length to (CK_ULONG)-1
- * as specified in the PKCS\#11 specification.
+ * as specified in the PKCS#11 specification.
  *
  * Returns: (transfer full): the new attribute; when done with the attribute
  *          use gck_attribute_free() to free it
@@ -1760,9 +1753,9 @@ gck_attribute_new_invalid (gulong attr_type)
 
 /**
  * gck_attribute_new_empty:
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  *
- * Create a new PKCS\#11 attribute with empty data.
+ * Create a new PKCS#11 attribute with empty data.
  *
  * Returns: (transfer full): the new attribute; when done with the attribute
  *          use gck_attribute_free() to free it
@@ -1777,11 +1770,11 @@ gck_attribute_new_empty (gulong attr_type)
 
 /**
  * gck_attribute_new_boolean:
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  * @value: the boolean value of the attribute
  *
- * Initialize a PKCS\#11 attribute to boolean. This will result
- * in a CK_BBOOL attribute from the PKCS\#11 specs.
+ * Initialize a PKCS#11 attribute to boolean. This will result
+ * in a CK_BBOOL attribute from the PKCS#11 specs.
  *
  * Returns: (transfer full): the new attribute; when done with the attribute u
  *          gck_attribute_free() to free it
@@ -1797,11 +1790,11 @@ gck_attribute_new_boolean (gulong attr_type,
 
 /**
  * gck_attribute_new_date:
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  * @value: the date value of the attribute
  *
- * Initialize a PKCS\#11 attribute to a date. This will result
- * in a CK_DATE attribute from the PKCS\#11 specs.
+ * Initialize a PKCS#11 attribute to a date. This will result
+ * in a CK_DATE attribute from the PKCS#11 specs.
  *
  * Returns: (transfer full): the new attribute; when done with the attribute u
  *          gck_attribute_free() to free it
@@ -1817,11 +1810,11 @@ gck_attribute_new_date (gulong attr_type,
 
 /**
  * gck_attribute_new_ulong:
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  * @value: the ulong value of the attribute
  *
- * Initialize a PKCS\#11 attribute to a unsigned long. This will result
- * in a CK_ULONG attribute from the PKCS\#11 specs.
+ * Initialize a PKCS#11 attribute to a unsigned long. This will result
+ * in a `CK_ULONG` attribute from the PKCS#11 specs.
  *
  * Returns: (transfer full): the new attribute; when done with the attribute u
  *          gck_attribute_free() to free it
@@ -1837,10 +1830,10 @@ gck_attribute_new_ulong (gulong attr_type,
 
 /**
  * gck_attribute_new_string:
- * @attr_type: the PKCS\#11 attribute type to set on the attribute
+ * @attr_type: the PKCS#11 attribute type to set on the attribute
  * @value: the null-terminated string value of the attribute
  *
- * Initialize a PKCS\#11 attribute to a string. This will result
+ * Initialize a PKCS#11 attribute to a string. This will result
  * in an attribute containing the text, but not the null terminator.
  * The text in the attribute will be of the same encoding as you pass
  * to this function.
@@ -1861,7 +1854,7 @@ gck_attribute_new_string (gulong attr_type,
  * gck_attribute_dup:
  * @attr: the attribute to duplicate
  *
- * Duplicate the PKCS\#11 attribute. All value memory is
+ * Duplicate the PKCS#11 attribute. All value memory is
  * also copied.
  *
  * The @attr must have been allocated or initialized by a Gck function or
@@ -1888,12 +1881,12 @@ gck_attribute_dup (const GckAttribute *attr)
  * @dest: An uninitialized attribute.
  * @src: An attribute to copy.
  *
- * Initialize a PKCS\#11 attribute as a copy of another attribute.
+ * Initialize a PKCS#11 attribute as a copy of another attribute.
  * This copies the value memory as well.
  *
  * When done with the copied attribute you should use
- * gck_attribute_clear() to free the internal memory.
- **/
+ * [method@Attribute.clear] to free the internal memory.
+ */
 void
 gck_attribute_init_copy (GckAttribute *dest,
                          const GckAttribute *src)
@@ -1941,7 +1934,7 @@ gck_attribute_clear (GckAttribute *attr)
  * @attr: (type Gck.Attribute): attribute to free
  *
  * Free an attribute and its allocated memory. These is usually
- * used with attributes that are allocated by gck_attribute_new()
+ * used with attributes that are allocated by [ctor@Attribute.new]
  * or a similar function.
  **/
 void
@@ -2012,19 +2005,13 @@ gck_attribute_hash (gconstpointer attr)
 }
 
 /**
- * SECTION:gck-attributes
- * @title: GckAttributes
- * @short_description: A set of PKCS11 attributes.
- *
- * A set of GckAttribute structures. These attributes contain information
- * about a PKCS11 object. Use gck_object_get() or gck_object_set() to set and retrieve
- * attributes on an object.
- */
-
-/**
  * GckAttributes:
  *
- * A set of GckAttribute structures.
+ * A set of [struct@Attribute] structures.
+ *
+ * These attributes contain information about a PKCS11 object. Use
+ * [method@Object.get] or [method@Object.set] to set and retrieve attributes on
+ * an object.
  */
 
 /**
@@ -2032,7 +2019,8 @@ gck_attribute_hash (gconstpointer attr)
  * @data: Memory to allocate or deallocate.
  * @length: New length of memory.
  *
- * An allocator used to allocate data for the attributes in this GckAttributes set.
+ * An allocator used to allocate data for the attributes in this
+ * [struct@Attributes] set.
  *
  * This is a function that acts like g_realloc. Specifically it frees when length is
  * set to zero, it allocates when data is set to %NULL, and it reallocates when both
@@ -2058,7 +2046,7 @@ gck_attributes_get_boxed_type (void)
  *
  * Creates an GckAttributes array with empty attributes
  *
- * Terminate the argument list with %GCK_INVALID.
+ * Terminate the argument list with [const@INVALID].
  *
  * The returned set of attributes is floating, and should either be passed to
  * another gck library function which consumes this floating reference, or if
@@ -2092,7 +2080,7 @@ gck_attributes_new_empty (gulong first_type,
  *
  * Get attribute at the specified index in the attribute array.
  *
- * Use gck_attributes_count() to determine how many attributes are
+ * Use [method@Attributes.count] to determine how many attributes are
  * in the array.
  *
  * Returns: (transfer none): the specified attribute
@@ -2252,12 +2240,12 @@ gck_attributes_ref (GckAttributes *attrs)
  * gck_attributes_ref_sink:
  * @attrs: an attribute array
  *
- * #GckAttributes uses a floating reference count system. gck_builder_end()
- * and gck_attributes_new_empty() both return floating references.
+ * #GckAttributes uses a floating reference count system. [method@Builder.end]
+ * and [ctor@Attributes.new_empty] both return floating references.
  *
- * Calling gck_attributes_ref_sink() on a #GckAttributes with a floating
+ * Calling this function on a `GckAttributes` with a floating
  * reference will convert the floating reference into a full reference.
- * Calling gck_attributes_ref_sink() on a non-floating #GckAttributes results
+ * Calling this function on a non-floating `GckAttributes` results
  * in an additional normal reference being added.
  *
  * In other words, if the @attrs is floating, then this call "assumes
@@ -2822,9 +2810,9 @@ gck_attributes_to_string (GckAttributes *attrs)
 
 /**
  * gck_attributes_new:
- * @reserved: Should be set to always be GCK_INVALID
+ * @reserved: Should be set to always be [const@INVALID]
  *
- * Create a new empty GckAttributes array.
+ * Create a new empty `GckAttributes` array.
  *
  * The returned set of attributes is floating, and should either be passed to
  * another gck library function which consumes this floating reference, or if
@@ -2847,7 +2835,7 @@ gck_attributes_new (gulong reserved)
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_set_all() instead.
+ * Deprecated: 3.4: Use [method@Builder.set_all] instead.
  *
  * Returns: returns %NULL
  **/
@@ -2865,7 +2853,7 @@ gck_attributes_new_full (GckAllocator allocator)
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_set_all() instead.
+ * Deprecated: 3.4: Use [method@Builder.set_all] instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -2884,7 +2872,7 @@ gck_attributes_add (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_set_data() instead.
+ * Deprecated: 3.4: Use [method@Builder.set_data] instead.
  **/
 void
 gck_attributes_set (GckAttributes *attrs,
@@ -2902,7 +2890,7 @@ gck_attributes_set (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_add_data() instead.
+ * Deprecated: 3.4: Use [method@Builder.add_data] instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -2923,7 +2911,7 @@ gck_attributes_add_data (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_add_invalid() instead
+ * Deprecated: 3.4: Use [method@Builder.add_invalid] instead
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -2942,7 +2930,7 @@ gck_attributes_add_invalid (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_add_empty() instead.
+ * Deprecated: 3.4: Use [method@Builder.add_empty] instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -2962,7 +2950,7 @@ gck_attributes_add_empty (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_add_boolean() instead.
+ * Deprecated: 3.4: Use [method@Builder.add_boolean] instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -2983,7 +2971,7 @@ gck_attributes_add_boolean (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_set_boolean() instead.
+ * Deprecated: 3.4: Use [method@Builder.set_boolean] instead.
  */
 void
 gck_attributes_set_boolean (GckAttributes *attrs,
@@ -3002,7 +2990,7 @@ gck_attributes_set_boolean (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_add_string() instead.
+ * Deprecated: 3.4: Use [method@Builder.add_string] instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -3023,7 +3011,7 @@ gck_attributes_add_string (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_set_string() instead.
+ * Deprecated: 3.4: Use [method@Builder.set_string] instead.
  */
 void
 gck_attributes_set_string (GckAttributes *attrs,
@@ -3041,7 +3029,7 @@ gck_attributes_set_string (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_add_date() instead.
+ * Deprecated: 3.4: Use [method@Builder.add_date] instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -3062,7 +3050,7 @@ gck_attributes_add_date (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_set_date() instead.
+ * Deprecated: 3.4: Use [method@Builder.set_date] instead.
  */
 void
 gck_attributes_set_date (GckAttributes *attrs,
@@ -3080,7 +3068,7 @@ gck_attributes_set_date (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_add_ulong() instead.
+ * Deprecated: 3.4: Use [method@Builder.add_ulong] instead.
  *
  * Returns: (transfer none): returns %NULL
  **/
@@ -3101,7 +3089,7 @@ gck_attributes_add_ulong (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_set_ulong() instead.
+ * Deprecated: 3.4: Use [method@Builder.set_ulong] instead.
  */
 void
 gck_attributes_set_ulong (GckAttributes *attrs,
@@ -3118,7 +3106,7 @@ gck_attributes_set_ulong (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_add_all() instead.
+ * Deprecated: 3.4: Use [method@Builder.add_all] instead.
  */
 void
 gck_attributes_add_all (GckAttributes *attrs,
@@ -3134,7 +3122,7 @@ gck_attributes_add_all (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable. This method no longer does anything.
  *
- * Deprecated: 3.4: Use gck_builder_set_all() instead.
+ * Deprecated: 3.4: Use [method@Builder.set_all] instead.
  */
 void
 gck_attributes_set_all (GckAttributes *attrs,
@@ -3149,7 +3137,7 @@ gck_attributes_set_all (GckAttributes *attrs,
  *
  * #GckAttributes are now immutable, and can be used in mulitple places.
  *
- * Deprecated: 3.4: Use gck_attributes_ref() or gck_builder_add_all() instead.
+ * Deprecated: 3.4: Use gck_attributes_ref() or [method@Builder.add_all] instead.
  *
  * Returns: (transfer none): a new floating #GckAttributes
  */

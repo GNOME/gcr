@@ -37,30 +37,19 @@
 #include <glib/gi18n-lib.h>
 
 /**
- * SECTION:gcr-library
- * @title: Library Utilities
- * @short_description: Library utilities such as version checks
- *
- * Basic library utilities such as version checks.
- */
-
-/**
  * GCR_CHECK_VERSION:
  * @major: the major version to check for
  * @minor: the minor version to check for
  * @micro: the micro version to check for
  *
- * Checks the version of the Gcr libarry that is being compiled
+ * Checks the version of the Gcr library that is being compiled
  * against.
  *
- * <example>
- * <title>Checking the version of the Gcr library</title>
- * <programlisting>
+ * ```
  * #if !GCR_CHECK_VERSION (3, 0, 0)
  * #warning Old Gcr version, disabling functionality
  * #endif
- * </programlisting>
- * </example>
+ * ```
  *
  * Returns: %TRUE if the version of the Gcr header files
  * is the same as or newer than the passed-in version.
@@ -82,35 +71,6 @@
  * GCR_MICRO_VERSION:
  *
  * The micro version number of the Gcr library.
- */
-
-/**
- * SECTION:gcr-pkcs11
- * @title: Library PKCS#11
- * @short_description: functions for manipulating GCR library global settings.
- *
- * Manage or lookup various global aspesct and settings of the library.
- *
- * The GCR library maintains a global list of PKCS\#11 modules to use for
- * its various lookups and storage operations. Each module is represented by
- * a GckModule object. You can examine this list by using
- * gcr_pkcs11_get_modules().
- *
- * The list is configured automatically by looking for system installed
- * PKCS\#11 modules. It's not not normally necessary to modify this list. But
- * if you have special needs, you can use the gcr_pkcs11_set_modules() and
- * gcr_pkcs11_add_module() to do so.
- *
- * Trust assertions are stored and looked up in specific PKCS\#11 slots.
- * You can examine this list with gcr_pkcs11_get_trust_lookup_slots()
- */
-
-/**
- * SECTION:gcr-private
- * @title: Private declarations
- * @short_description: private declarations to supress warnings.
- *
- * This section is only here to supress warnings, and should not be displayed.
  */
 
 G_LOCK_DEFINE_STATIC (modules);
@@ -272,7 +232,7 @@ on_initialize_registered (GObject *object,
  * @callback: callback which will be called when the operation completes
  * @user_data: data passed to the callback
  *
- * Asynchronously initialize the registered PKCS\#11 modules.
+ * Asynchronously initialize the registered PKCS#11 modules.
  */
 void
 gcr_pkcs11_initialize_async (GCancellable *cancellable,
@@ -304,7 +264,7 @@ gcr_pkcs11_initialize_async (GCancellable *cancellable,
  * @result: the asynchronous result
  * @error: location to place an error on failure
  *
- * Complete the asynchronous operation to initialize the registered PKCS\#11
+ * Complete the asynchronous operation to initialize the registered PKCS#11
  * modules.
  *
  * Returns: whether the operation was successful or not.
@@ -323,11 +283,10 @@ gcr_pkcs11_initialize_finish (GAsyncResult *result,
  * @cancellable: optional cancellable used to cancel the operation
  * @error: location to place an error on failure
  *
- * Asynchronously initialize the registered PKCS\#11 modules.
+ * Asynchronously initialize the registered PKCS#11 modules.
  *
  * Returns: whether the operation was successful or not.
  */
-
 gboolean
 gcr_pkcs11_initialize (GCancellable *cancellable,
                        GError **error)
@@ -366,11 +325,11 @@ gcr_pkcs11_initialize (GCancellable *cancellable,
 /**
  * gcr_pkcs11_get_modules:
  *
- * List all the PKCS\#11 modules that are used by the GCR library.
- * Each module is a #GckModule object.
+ * List all the PKCS#11 modules that are used by the GCR library.
+ * Each module is a [class@Gck.Module] object.
  *
- * An empty list of modules will be returned if gcr_pkcs11_set_modules(),
- * or gcr_pkcs11_initialize() has not yet run.
+ * An empty list of modules will be returned if [func@pkcs11_set_modules],
+ * or [func@pkcs11_initialize] has not yet run.
  *
  * When done with the list, free it with gck_list_unref_free().
  *
@@ -389,13 +348,13 @@ gcr_pkcs11_get_modules (void)
 
 /**
  * gcr_pkcs11_set_modules:
- * @modules: (element-type Gck.Module): a list of #GckModule
+ * @modules: (element-type Gck.Module): a list of PKCS#11 modules
  *
- * Set the list of PKCS\#11 modules that are used by the GCR library.
- * Each module in the list is a #GckModule object.
+ * Set the list of PKCS#11 modules that are used by the GCR library.
+ * Each module in the list is a [class@Gck.Module] object.
  *
  * It is not normally necessary to call this function. The available
- * PKCS\#11 modules installed on the system are automatically loaded
+ * PKCS#11 modules installed on the system are automatically loaded
  * by the GCR library.
  */
 void
@@ -416,11 +375,11 @@ gcr_pkcs11_set_modules (GList *modules)
  * gcr_pkcs11_add_module:
  * @module: a #GckModule
  *
- * Add a #GckModule to the list of PKCS\#11 modules that are used by the
+ * Add a #GckModule to the list of PKCS#11 modules that are used by the
  * GCR library.
  *
  * It is not normally necessary to call this function. The available
- * PKCS\#11 modules installed on the system are automatically loaded
+ * PKCS#11 modules installed on the system are automatically loaded
  * by the GCR library.
  */
 void
@@ -432,16 +391,16 @@ gcr_pkcs11_add_module (GckModule *module)
 
 /**
  * gcr_pkcs11_add_module_from_file:
- * @module_path: the full file path of the PKCS\#11 module
+ * @module_path: the full file path of the PKCS#11 module
  * @unused: unused
  * @error: a #GError or %NULL
  *
- * Initialize a PKCS\#11 module and add it to the modules that are
+ * Initialize a PKCS#11 module and add it to the modules that are
  * used by the GCR library. Note that is an error to initialize the same
- * PKCS\#11 module twice.
+ * PKCS#11 module twice.
  *
  * It is not normally necessary to call this function. The available
- * PKCS\#11 modules installed on the system are automatically loaded
+ * PKCS#11 modules installed on the system are automatically loaded
  * by the GCR library.
  *
  * Returns: whether the module was sucessfully added.
@@ -474,10 +433,10 @@ gcr_pkcs11_add_module_from_file (const gchar *module_path, gpointer unused,
 /**
  * gcr_pkcs11_get_trust_store_slot:
  *
- * Selects an appropriate PKCS\#11 slot to store trust assertions. The slot
+ * Selects an appropriate PKCS#11 slot to store trust assertions. The slot
  * to use is normally configured automatically by the system.
  *
- * This will only return a valid result after the gcr_pkcs11_initialize()
+ * This will only return a valid result after the [func@pkcs11_initialize]
  * method has been called.
  *
  * When done with the #GckSlot, use g_object_unref() to release it.
@@ -518,13 +477,11 @@ gcr_pkcs11_get_trust_store_slot (void)
 /**
  * gcr_pkcs11_get_trust_lookup_slots:
  *
- * List all the PKCS\#11 slots that are used by the GCR library for lookup
- * of trust assertions. Each slot is a #GckSlot object.
+ * List all the PKCS#11 slots that are used by the GCR library for lookup
+ * of trust assertions. Each slot is a [class@Gck.Slot] object.
  *
- * This will return an empty list if the gcr_pkcs11_initialize() function has
+ * This will return an empty list if the [func@pkcs11_initialize] function has
  * not yet been called.
- *
- * When done with the list, free it with gck_list_unref_free().
  *
  * Returns: (transfer full) (element-type Gck.Slot): a list of #GckSlot
  *          objects to use for lookup of trust, or the empty list if not
@@ -564,7 +521,7 @@ gcr_pkcs11_get_trust_lookup_slots (void)
 /**
  * gcr_pkcs11_get_trust_store_uri:
  *
- * Get the PKCS\#11 URI that is used to identify which slot to use for
+ * Get the PKCS#11 URI that is used to identify which slot to use for
  * storing trust storage.
  *
  * Returns: (nullable): the uri which identifies trust storage slot
@@ -580,11 +537,11 @@ gcr_pkcs11_get_trust_store_uri (void)
  * gcr_pkcs11_set_trust_store_uri:
  * @pkcs11_uri: (nullable): the uri which identifies trust storage slot
  *
- * Set the PKCS\#11 URI that is used to identify which slot to use for
+ * Set the PKCS#11 URI that is used to identify which slot to use for
  * storing trust assertions.
  *
  * It is not normally necessary to call this function. The relevant
- * PKCS\#11 slot is automatically configured by the GCR library.
+ * PKCS#11 slot is automatically configured by the GCR library.
  */
 void
 gcr_pkcs11_set_trust_store_uri (const gchar *pkcs11_uri)
@@ -602,7 +559,7 @@ gcr_pkcs11_set_trust_store_uri (const gchar *pkcs11_uri)
 /**
  * gcr_pkcs11_get_trust_lookup_uris:
  *
- * Get the PKCS\#11 URIs that are used to identify which slots to use for
+ * Get the PKCS#11 URIs that are used to identify which slots to use for
  * lookup trust assertions.
  *
  * Returns: (nullable) (transfer none): the uri which identifies trust storage slot
@@ -618,11 +575,11 @@ gcr_pkcs11_get_trust_lookup_uris (void)
  * gcr_pkcs11_set_trust_lookup_uris:
  * @pkcs11_uris: (nullable): the uris which identifies trust lookup slots
  *
- * Set the PKCS\#11 URIs that are used to identify which slots to use for
+ * Set the PKCS#11 URIs that are used to identify which slots to use for
  * lookup of trust assertions.
  *
  * It is not normally necessary to call this function. The relevant
- * PKCS\#11 slots are automatically configured by the GCR library.
+ * PKCS#11 slots are automatically configured by the GCR library.
  */
 void
 gcr_pkcs11_set_trust_lookup_uris (const gchar **pkcs11_uris)

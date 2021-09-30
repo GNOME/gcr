@@ -1,4 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
 /* gck-object-cache.c - the GObject PKCS#11 wrapper library
 
    Copyright (C) 2011 Collabora Ltd.
@@ -28,20 +27,13 @@
 #include <string.h>
 
 /**
- * SECTION:gck-object-cache
- * @title: GckObjectCache
- * @short_description: An interface which holds attributes for a PKCS\#11 object
- *
- * #GckObjectCache is an interface implemented by derived classes of
- * #GckObject to indicate which attributes they'd like an enumerator to retrieve.
- * These attributes are then cached on the object and can be retrieved through
- * the #GckObjectCache:attributes property.
- */
-
-/**
  * GckObjectCache:
  *
- * An interface implemented on an #GckObject which contains a cache of attributes.
+ * An interface implemented by derived classes of [class@Object] to indicate
+ * which attributes they'd like an enumerator to retrieve.
+ *
+ * These attributes are then cached on the object and can be retrieved through
+ * the [property@ObjectCache:attributes] property.
  */
 
 /**
@@ -52,9 +44,10 @@
  * @n_default_types: number of attribute types to be retrieved
  * @fill: virtual method to add attributes to the cache
  *
- * Interface for #GckObjectCache. If the @default_types field is set by
- * a implementing class, then the a #GckEnumerator which has been setup using
- * gck_enumerator_set_object_type()
+ * Interface for [iface@ObjectCache]. If the @default_types field is
+ * implemented by a implementing class, then that will be used by a
+ * [class@Enumerator] which has been setup using
+ * [method@Enumerator.set_object_type]
  *
  * The implementation for @populate should add the attributes to the
  * cache. It must be thread safe.

@@ -28,32 +28,20 @@
 #include <glib/gi18n-lib.h>
 
 /**
- * SECTION:gcr-key-widget
- * @title: GcrKeyWidget
- * @short_description: Key widget and renderer
- *
- * A #GcrKeyWidget can be used to display a RSA, DSA or EC key. The widget
- * is normally in a collapsed state showing only details, but can be expanded
- * by the user.
- *
- * Use gcr_key_widget_new() to create a new key widget. Only
- * one key can be displayed.  A #GcrKeyWidget contains a
- * #GcrViewer internally and #GcrKeyRenderer is used to render the
- * key to the viewer. To show more than one key in a view,
- * create the viewer and add renderers to it.
- */
-
-/**
  * GcrKeyWidget:
  *
- * A widget that displays a key.
+ * A key widget and renderer
+ *
+ * A key widget can be used to display a RSA, DSA or EC key. The widget is
+ * normally in a collapsed state showing only details, but can be expanded by
+ * the user.
+ *
+ * Use [ctor@KeyWidget.new] to create a new key widget. Only one key can be
+ * displayed. A key widget contains a [iface@Viewer] internally and
+ * [class@KeyRenderer] is used to render the key to the viewer. To show more
+ * than one key in a view, create the viewer and add renderers to it.
  */
 
-/**
- * GcrKeyWidgetClass:
- *
- * The class for #GcrKeyWidget
- */
 enum {
 	PROP_0,
 	PROP_ATTRIBUTES
@@ -197,7 +185,7 @@ gcr_key_widget_new (GckAttributes *attrs)
  * @attrs: (nullable): the attributes to display
  *
  * Get the attributes displayed in the widget. The attributes should represent
- * either an RSA, DSA or EC key in PKCS\#11 style.
+ * either an RSA, DSA or EC key in PKCS#11 style.
  */
 void
 gcr_key_widget_set_attributes (GcrKeyWidget *self, GckAttributes *attrs)

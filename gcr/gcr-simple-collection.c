@@ -27,26 +27,13 @@
 #include <string.h>
 
 /**
- * SECTION:gcr-simple-collection
- * @title: GcrSimpleCollection
- * @short_description: A simple implementation of GcrCollection
- *
- * A simple implementation of #GcrCollection, which you can add and remove
- * objects from. Use gcr_simple_collection_add() to do this
- * gcr_simple_collection_remove().
- */
-
-/**
  * GcrSimpleCollection:
  *
- * A simple implementation of #GcrCollection.
- */
-
-/**
- * GcrSimpleCollectionClass:
- * @parent_class: The parent class
+ * A simple implementation of [iface@Collection], which you can add and remove
+ * objects from.
  *
- * The class for #GcrSimpleCollection.
+ * You can use [method@SimpleCollection.add] to add objects, and
+ * [method@SimpleCollection.remove] to remove them again.
  */
 
 struct _GcrSimpleCollectionPrivate {

@@ -29,24 +29,10 @@
 #include <string.h>
 
 /**
- * SECTION:gcr-combo-selector
- * @title: GcrComboSelector
- * @short_description: A selector widget to select a single certificate or key.
- *
- * The #GcrComboSelector can be used to select a certificate or key. It allows
- * the user to select one object from the selector at a time.
- */
-
-/**
  * GcrComboSelector:
  *
- * A combo selector widget.
- */
-
-/**
- * GcrComboSelectorClass:
- *
- * The class for #GcrComboSelector.
+ * A widget that can be used to select a certificate or key. It allows
+ * the user to select one object from the selector at a time.
  */
 
 enum {
@@ -60,10 +46,6 @@ struct _GcrComboSelectorPrivate {
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (GcrComboSelector, gcr_combo_selector, GTK_TYPE_COMBO_BOX);
-
-/* -----------------------------------------------------------------------------
- * INTERNAL
- */
 
 /* -----------------------------------------------------------------------------
  * OBJECT

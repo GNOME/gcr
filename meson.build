@@ -1,6 +1,6 @@
 project('gcr', 'c',
   version: '3.41.0',
-  meson_version: '>= 0.49',
+  meson_version: '>= 0.52',
   license: 'GPL2+',
 )
 
@@ -101,6 +101,10 @@ if get_option('gtk')
   subdir('ui')
 endif
 if get_option('gtk_doc')
+  if not get_option('introspection')
+    error('Can\'t generate docs without introspection enabled!')
+  endif
+
   subdir('docs')
 endif
 

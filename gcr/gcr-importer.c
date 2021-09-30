@@ -33,30 +33,23 @@
 #include <glib/gi18n-lib.h>
 
 /**
- * SECTION:gcr-importer
- * @title: GcrImporter
- * @short_description: Import certificates and keys
- *
- * An interface which allows importing of certificates and keys. Each
- * #GcrImporter is registered with a set of PKCS\#11 attributes to match
- * stuff that it can import.
- *
- * An importer gets passed a #GcrParser and accesses the currently parsed
- * item. To create a set of importers that can import the currently parsed
- * item in a #GcrParser, use gcr_importer_create_for_parsed(). The list of
- * importers returned has the parsed item queued for import.
- *
- * To queue additional items with a importer use gcr_importer_queue_for_parsed().
- * In addition you can try and queue an additional item with a set of importers
- * using the gcr_importer_queue_and_filter_for_parsed().
- *
- * To start the import use gcr_importer_import() or the async variants.
- */
-
-/**
  * GcrImporter:
  *
- * Imports certificates and keys
+ * An interface which allows importing of certificates and keys. Each importer
+ * is registered with a set of PKCS#11 attributes to match stuff that it can
+ * import.
+ *
+ * An importer gets passed a [class@Parser] and accesses the currently parsed
+ * item. To create a set of importers that can import the currently parsed
+ * item in a parser, use [func@Importer.create_for_parsed]. The list of
+ * importers returned has the parsed item queued for import.
+ *
+ * To queue additional items with a importer use
+ * [method@Importer.queue_for_parsed].  In addition you can try and queue an
+ * additional item with a set of importers using the
+ * [func@Importer.queue_and_filter_for_parsed].
+ *
+ * To start the import, use [method@Importer.import] or its async variants.
  */
 
 /**
@@ -64,9 +57,9 @@
  * @parent: parent interface
  * @create_for_parsed: implementation of gcr_importer_create_for_parsed(), required
  * @queue_for_parsed: implementation of gcr_importer_queue_for_parsed(), required
- * @import_sync: optional implemantionon of gcr_importer_import()
- * @import_async: implementation of gcr_importer_import_async(), required
- * @import_finish: implementation of gcr_importer_import_finish()
+ * @import_sync: optional implementation of [method@Importer.import]
+ * @import_async: implementation of [method@Importer.import_async], required
+ * @import_finish: implementation of [method@Importer.import_finish]
  *
  * Interface implemented for a #GcrImporter.
  */
@@ -282,7 +275,7 @@ gcr_importer_create_for_parsed (GcrParsed *parsed)
  * @parsed: a parsed item to import
  *
  * Queues an additional item to be imported. The parsed item is represented
- * by the state of the #GcrParser at the time of calling this method.
+ * by the state of the [class@Parser] at the time of calling this method.
  *
  * If the parsed item is incompatible with the importer, then this will
  * fail and the item will not be queued.
@@ -545,7 +538,7 @@ gcr_importer_set_interaction (GcrImporter *importer,
 /**
  * gcr_importer_register_well_known:
  *
- * Register built-in PKCS\#11 and GnuPG importers.
+ * Register built-in PKCS#11 and GnuPG importers.
  */
 void
 gcr_importer_register_well_known (void)

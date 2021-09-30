@@ -27,29 +27,13 @@
 #include <string.h>
 
 /**
- * SECTION:gcr-simple-certificate
- * @title: GcrSimpleCertificate
- * @short_description: A certificate loaded from a memory buffer
- *
- * An implementation of #GcrCertificate which loads a certificate from DER
- * data already located in memory.
- *
- * To create a #GcrSimpleCertificate object use the
- * gcr_simple_certificate_new() or gcr_simple_certificate_new_static()
- * functions.
- */
-
-/**
  * GcrSimpleCertificate:
  *
- * A #GcrCertificate which represents a certificate already in memory.
- */
-
-/**
- * GcrSimpleCertificateClass:
- * @parent_class: The parent class
+ * An implementation of [iface@Certificate] which loads a certificate from DER
+ * data already located in memory.
  *
- * The class for #GcrSimpleCertificate.
+ * To create an object, use the [ctor@SimpleCertificate.new] or
+ * [ctor@SimpleCertificate.new_static] functions.
  */
 
 struct _GcrSimpleCertificatePrivate {

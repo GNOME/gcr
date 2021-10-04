@@ -139,22 +139,6 @@ gcr_renderer_render_view (GcrRenderer *self, GcrViewer *viewer)
 }
 
 /**
- * gcr_renderer_render:
- * @self: the renderer
- * @viewer: the viewer to render to
- *
- * Render a renderer to the viewer.
- *
- * Deprecated: 3.2: Use gcr_renderer_render_view() instead
- */
-void
-gcr_renderer_render (GcrRenderer *self,
-                     GcrViewer *viewer)
-{
-	gcr_renderer_render_view (self, viewer);
-}
-
-/**
  * gcr_renderer_popuplate_popup:
  * @self: The renderer
  * @viewer: The viewer that is displaying a popup

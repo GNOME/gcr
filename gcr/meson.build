@@ -56,7 +56,6 @@ gcr_base_headers = files(
   'gcr-collection.h',
   'gcr-column.h',
   'gcr-comparable.h',
-  'gcr-deprecated-base.h',
   'gcr-fingerprint.h',
   'gcr-filter-collection.h',
   'gcr-icons.h',

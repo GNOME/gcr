@@ -20,7 +20,6 @@
 #include "config.h"
 
 #include "gcr-collection.h"
-#include "gcr-deprecated-base.h"
 #include "gcr-internal.h"
 #include "gcr-simple-collection.h"
 
@@ -184,23 +183,4 @@ gcr_simple_collection_remove (GcrSimpleCollection *self, GObject *object)
 	g_hash_table_remove (self->pv->items, object);
 	gcr_collection_emit_removed (GCR_COLLECTION (self), object);
 	g_object_unref (object);
-}
-
-/**
- * gcr_simple_collection_contains:
- * @self: The collection
- * @object: The object to check
- *
- * Check if the collection contains a certain object.
- *
- * Deprecated: use gcr_collection_contains() instead
- *
- * Returns: %TRUE if the collection contains the object.
- */
-gboolean
-gcr_simple_collection_contains (GcrSimpleCollection *self, GObject *object)
-{
-	g_return_val_if_fail (GCR_IS_SIMPLE_COLLECTION (self), FALSE);
-	g_return_val_if_fail (G_IS_OBJECT (object), FALSE);
-	return gcr_collection_contains (GCR_COLLECTION (self), object);
 }

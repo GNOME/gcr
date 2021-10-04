@@ -19,7 +19,6 @@
 
 #include "config.h"
 
-#include "gcr-deprecated-base.h"
 #include "gcr-internal.h"
 #include "gcr-library.h"
 #include "gcr-types.h"
@@ -132,15 +131,6 @@ gcr_data_error_get_domain (void)
 	static GQuark domain = 0;
 	if (domain == 0)
 		domain = g_quark_from_static_string ("gcr-parser-error");
-	return domain;
-}
-
-GQuark
-gcr_error_get_domain (void)
-{
-	static GQuark domain = 0;
-	if (domain == 0)
-		domain = g_quark_from_static_string ("gcr-error");
 	return domain;
 }
 

@@ -38,7 +38,6 @@
 #include <gcr/gcr-certificate-chain.h>
 #include <gcr/gcr-certificate-request.h>
 #include <gcr/gcr-column.h>
-#include <gcr/gcr-deprecated-base.h>
 #include <gcr/gcr-enum-types-base.h>
 #include <gcr/gcr-filter-collection.h>
 #include <gcr/gcr-icons.h>

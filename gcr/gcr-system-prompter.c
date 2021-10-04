@@ -444,7 +444,7 @@ prompt_build_properties (GcrPrompt *prompt,
 	while (g_hash_table_iter_next (&iter, (gpointer *)&property_name, NULL)) {
 
 		/* Make sure this property is on the prompt interface */
-		pspec = g_object_interface_find_property (GCR_PROMPT_GET_INTERFACE (obj),
+		pspec = g_object_interface_find_property (GCR_PROMPT_GET_IFACE (obj),
 		                                          property_name);
 		if (pspec == NULL)
 			continue;

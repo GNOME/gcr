@@ -122,7 +122,7 @@ struct _GcrSystemPromptPrivate {
 	gchar *last_response;
 };
 
-static void     gcr_system_prompt_prompt_iface         (GcrPromptIface *iface);
+static void     gcr_system_prompt_prompt_iface         (GcrPromptInterface *iface);
 
 static void     gcr_system_prompt_initable_iface       (GInitableIface *iface);
 
@@ -1338,7 +1338,7 @@ gcr_system_prompt_real_close (GcrPrompt *prompt)
 }
 
 static void
-gcr_system_prompt_prompt_iface (GcrPromptIface *iface)
+gcr_system_prompt_prompt_iface (GcrPromptInterface *iface)
 {
 	iface->prompt_password_async = gcr_system_prompt_password_async;
 	iface->prompt_password_finish = gcr_system_prompt_password_finish;

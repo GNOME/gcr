@@ -122,7 +122,7 @@ struct _GcrPromptDialogPrivate {
 	gboolean was_closed;
 };
 
-static void     gcr_prompt_dialog_prompt_iface       (GcrPromptIface *iface);
+static void     gcr_prompt_dialog_prompt_iface       (GcrPromptInterface *iface);
 
 static gboolean ungrab_keyboard                      (GtkWidget *win,
                                                       GdkEvent *event,
@@ -1065,7 +1065,7 @@ gcr_prompt_dialog_close (GcrPrompt *prompt)
 }
 
 static void
-gcr_prompt_dialog_prompt_iface (GcrPromptIface *iface)
+gcr_prompt_dialog_prompt_iface (GcrPromptInterface *iface)
 {
 	iface->prompt_password_async = gcr_prompt_dialog_password_async;
 	iface->prompt_password_finish = gcr_prompt_dialog_password_finish;

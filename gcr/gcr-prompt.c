@@ -56,7 +56,7 @@
  */
 
 /**
- * GcrPromptIface:
+ * GcrPromptInterface:
  * @parent_iface: parent interface
  * @prompt_password_async: begin a password prompt
  * @prompt_password_finish: complete a password prompt
@@ -88,171 +88,162 @@ typedef struct {
 	GMainContext *context;
 } RunClosure;
 
-typedef GcrPromptIface GcrPromptInterface;
-
-static void   gcr_prompt_default_init    (GcrPromptIface *iface);
+static void   gcr_prompt_default_init    (GcrPromptInterface *iface);
 
 G_DEFINE_INTERFACE (GcrPrompt, gcr_prompt, G_TYPE_OBJECT);
 
 static void
-gcr_prompt_default_init (GcrPromptIface *iface)
+gcr_prompt_default_init (GcrPromptInterface *iface)
 {
-	static gsize initialized = 0;
+	/**
+	 * GcrPrompt:title:
+	 *
+	 * The title of the prompt.
+	 *
+	 * A prompt implementation may choose not to display the prompt title. The
+	 * #GcrPrompt:message should contain relevant information.
+	 */
+	g_object_interface_install_property (iface,
+	                g_param_spec_string ("title", "Title", "Prompt title",
+	                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
-	if (g_once_init_enter (&initialized)) {
+	/**
+	 * GcrPrompt:message:
+	 *
+	 * The prompt message for the user.
+	 *
+	 * A prompt implementation should always display this message.
+	 */
+	g_object_interface_install_property (iface,
+	                g_param_spec_string ("message", "Message", "Prompt message",
+	                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
-		/**
-		 * GcrPrompt:title:
-		 *
-		 * The title of the prompt.
-		 *
-		 * A prompt implementation may choose not to display the prompt title. The
-		 * #GcrPrompt:message should contain relevant information.
-		 */
-		g_object_interface_install_property (iface,
-		                g_param_spec_string ("title", "Title", "Prompt title",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
+	/**
+	 * GcrPrompt:description:
+	 *
+	 * The detailed description of the prompt.
+	 *
+	 * A prompt implementation may choose not to display this detailed description.
+	 * The prompt message should contain relevant information.
+	 */
+	g_object_interface_install_property (iface,
+	                g_param_spec_string ("description", "Description", "Prompt description",
+	                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
-		/**
-		 * GcrPrompt:message:
-		 *
-		 * The prompt message for the user.
-		 *
-		 * A prompt implementation should always display this message.
-		 */
-		g_object_interface_install_property (iface,
-		                g_param_spec_string ("message", "Message", "Prompt message",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
+	/**
+	 * GcrPrompt:warning:
+	 *
+	 * A prompt warning displayed on the prompt, or %NULL for no warning.
+	 *
+	 * This is a warning like "The password is incorrect." usually displayed to the
+	 * user about a previous 'unsuccessful' prompt.
+	 */
+	g_object_interface_install_property (iface,
+	                g_param_spec_string ("warning", "Warning", "Prompt warning",
+	                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
-		/**
-		 * GcrPrompt:description:
-		 *
-		 * The detailed description of the prompt.
-		 *
-		 * A prompt implementation may choose not to display this detailed description.
-		 * The prompt message should contain relevant information.
-		 */
-		g_object_interface_install_property (iface,
-		                g_param_spec_string ("description", "Description", "Prompt description",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
+	/**
+	 * GcrPrompt:password-new:
+	 *
+	 * Whether the prompt will prompt for a new password.
+	 *
+	 * This will cause the prompt implementation to ask the user to confirm the
+	 * password and/or display other relevant user interface for creating a new
+	 * password.
+	 */
+	g_object_interface_install_property (iface,
+	               g_param_spec_boolean ("password-new", "Password new", "Whether prompting for a new password",
+	                                     FALSE, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
-		/**
-		 * GcrPrompt:warning:
-		 *
-		 * A prompt warning displayed on the prompt, or %NULL for no warning.
-		 *
-		 * This is a warning like "The password is incorrect." usually displayed to the
-		 * user about a previous 'unsuccessful' prompt.
-		 */
-		g_object_interface_install_property (iface,
-		                g_param_spec_string ("warning", "Warning", "Prompt warning",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
+	/**
+	 * GcrPrompt:password-strength:
+	 *
+	 * Indication of the password strength.
+	 *
+	 * Prompts will return a zero value if the password is empty, and a value
+	 * greater than zero if the password has any characters.
+	 *
+	 * This is only valid after a successful prompt for a password.
+	 */
+	g_object_interface_install_property (iface,
+	                   g_param_spec_int ("password-strength", "Password strength", "String of new password",
+	                                     0, G_MAXINT, 0, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
-		/**
-		 * GcrPrompt:password-new:
-		 *
-		 * Whether the prompt will prompt for a new password.
-		 *
-		 * This will cause the prompt implementation to ask the user to confirm the
-		 * password and/or display other relevant user interface for creating a new
-		 * password.
-		 */
-		g_object_interface_install_property (iface,
-		               g_param_spec_boolean ("password-new", "Password new", "Whether prompting for a new password",
-		                                     FALSE, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+	/**
+	 * GcrPrompt:choice-label:
+	 *
+	 * The label for the additional choice.
+	 *
+	 * If this is a non-%NULL value then an additional boolean choice will be
+	 * displayed by the prompt allowing the user to select or deselect it.
+	 *
+	 * If %NULL, then no additional choice is displayed.
+	 *
+	 * The initial value of the choice can be set with #GcrPrompt:choice-chosen.
+	 */
+	g_object_interface_install_property (iface,
+	                g_param_spec_string ("choice-label", "Choice label", "Label for prompt choice",
+	                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
-		/**
-		 * GcrPrompt:password-strength:
-		 *
-		 * Indication of the password strength.
-		 *
-		 * Prompts will return a zero value if the password is empty, and a value
-		 * greater than zero if the password has any characters.
-		 *
-		 * This is only valid after a successful prompt for a password.
-		 */
-		g_object_interface_install_property (iface,
-		                   g_param_spec_int ("password-strength", "Password strength", "String of new password",
-		                                     0, G_MAXINT, 0, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
+	/**
+	 * GcrPrompt:choice-chosen:
+	 *
+	 * Whether the additional choice is chosen or not.
+	 *
+	 * The additional choice would have been setup using #GcrPrompt:choice-label.
+	 */
+	g_object_interface_install_property (iface,
+	               g_param_spec_boolean ("choice-chosen", "Choice chosen", "Whether prompt choice is chosen",
+	                                     FALSE, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
-		/**
-		 * GcrPrompt:choice-label:
-		 *
-		 * The label for the additional choice.
-		 *
-		 * If this is a non-%NULL value then an additional boolean choice will be
-		 * displayed by the prompt allowing the user to select or deselect it.
-		 *
-		 * If %NULL, then no additional choice is displayed.
-		 *
-		 * The initial value of the choice can be set with #GcrPrompt:choice-chosen.
-		 */
-		g_object_interface_install_property (iface,
-		                g_param_spec_string ("choice-label", "Choice label", "Label for prompt choice",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
+	/**
+	 * GcrPrompt:caller-window:
+	 *
+	 * The string handle of the caller's window.
+	 *
+	 * The caller window indicates to the prompt which window is prompting the
+	 * user. The prompt may choose to ignore this information or use it in whatever
+	 * way it sees fit.
+	 *
+	 * In X11, this will be a stringified version of the XWindow handle; in
+	 * Wayland this is the result of an export using the XDG foreign
+	 * protocol.
+	 */
+	g_object_interface_install_property (iface,
+	                g_param_spec_string ("caller-window", "Caller window", "Window ID of application window requesting prompt",
+	                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
-		/**
-		 * GcrPrompt:choice-chosen:
-		 *
-		 * Whether the additional choice is chosen or not.
-		 *
-		 * The additional choice would have been setup using #GcrPrompt:choice-label.
-		 */
-		g_object_interface_install_property (iface,
-		               g_param_spec_boolean ("choice-chosen", "Choice chosen", "Whether prompt choice is chosen",
-		                                     FALSE, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+	/**
+	 * GcrPrompt:continue-label:
+	 *
+	 * The label for the continue button in the prompt.
+	 */
+	g_object_interface_install_property (iface,
+	                g_param_spec_string ("continue-label", "Continue label", "Continue button label",
+	                                     _("Continue"), G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
-		/**
-		 * GcrPrompt:caller-window:
-		 *
-		 * The string handle of the caller's window.
-		 *
-		 * The caller window indicates to the prompt which window is prompting the
-		 * user. The prompt may choose to ignore this information or use it in whatever
-		 * way it sees fit.
-		 *
-		 * In X11, this will be a stringified version of the XWindow handle; in
-		 * Wayland this is the result of an export using the XDG foreign
-		 * protocol.
-		 */
-		g_object_interface_install_property (iface,
-		                g_param_spec_string ("caller-window", "Caller window", "Window ID of application window requesting prompt",
-		                                     NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
+	/**
+	 * GcrPrompt:cancel-label:
+	 *
+	 * The label for the cancel button in the prompt.
+	 */
+	g_object_interface_install_property (iface,
+	                g_param_spec_string ("cancel-label", "Cancel label", "Cancel button label",
+	                                     _("Cancel"), G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
-		/**
-		 * GcrPrompt:continue-label:
-		 *
-		 * The label for the continue button in the prompt.
-		 */
-		g_object_interface_install_property (iface,
-		                g_param_spec_string ("continue-label", "Continue label", "Continue button label",
-		                                     _("Continue"), G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
-
-		/**
-		 * GcrPrompt:cancel-label:
-		 *
-		 * The label for the cancel button in the prompt.
-		 */
-		g_object_interface_install_property (iface,
-		                g_param_spec_string ("cancel-label", "Cancel label", "Cancel button label",
-		                                     _("Cancel"), G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
-
-		/**
-		 * GcrPrompt::prompt-close:
-		 *
-		 * Action signal fired when the prompt is to be closed. After the default
-		 * handler has run, the prompt is closed. The various prompting methods
-		 * will return results as if the user dismissed the prompt.
-		 *
-		 * You can use the gcr_prompt_close() method to emit this signal.
-		 */
-		signals[PROMPT_CLOSE] = g_signal_new ("prompt-close", GCR_TYPE_PROMPT, G_SIGNAL_RUN_FIRST,
-		                                      G_STRUCT_OFFSET (GcrPromptIface, prompt_close),
-		                                      NULL, NULL, NULL,
-		                                      G_TYPE_NONE, 0);
-
-		g_once_init_leave (&initialized, 1);
-	}
+	/**
+	 * GcrPrompt::prompt-close:
+	 *
+	 * Action signal fired when the prompt is to be closed. After the default
+	 * handler has run, the prompt is closed. The various prompting methods
+	 * will return results as if the user dismissed the prompt.
+	 *
+	 * You can use the gcr_prompt_close() method to emit this signal.
+	 */
+	signals[PROMPT_CLOSE] = g_signal_new ("prompt-close", GCR_TYPE_PROMPT, G_SIGNAL_RUN_FIRST,
+	                                      G_STRUCT_OFFSET (GcrPromptInterface, prompt_close),
+	                                      NULL, NULL, NULL,
+	                                      G_TYPE_NONE, 0);
 }
 
 static void
@@ -304,12 +295,12 @@ void
 gcr_prompt_reset (GcrPrompt *prompt)
 {
 	GParamSpec **params;
-	GcrPromptIface *iface;
+	GcrPromptInterface *iface;
 	guint i, n_params;
 
 	g_return_if_fail (GCR_IS_PROMPT (prompt));
 
-	iface = GCR_PROMPT_GET_INTERFACE (prompt);
+	iface = GCR_PROMPT_GET_IFACE (prompt);
 	params = g_object_interface_list_properties (iface, &n_params);
 
 	g_object_freeze_notify (G_OBJECT (prompt));
@@ -777,12 +768,12 @@ gcr_prompt_password_async (GcrPrompt *prompt,
                            GAsyncReadyCallback callback,
                            gpointer user_data)
 {
-	GcrPromptIface *iface;
+	GcrPromptInterface *iface;
 
 	g_return_if_fail (GCR_IS_PROMPT (prompt));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	iface = GCR_PROMPT_GET_INTERFACE (prompt);
+	iface = GCR_PROMPT_GET_IFACE (prompt);
 	g_return_if_fail (iface->prompt_password_async);
 
 	(iface->prompt_password_async) (prompt, cancellable, callback, user_data);
@@ -810,13 +801,13 @@ gcr_prompt_password_finish (GcrPrompt *prompt,
                             GAsyncResult *result,
                             GError **error)
 {
-	GcrPromptIface *iface;
+	GcrPromptInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_PROMPT (prompt), NULL);
 	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), NULL);
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-	iface = GCR_PROMPT_GET_INTERFACE (prompt);
+	iface = GCR_PROMPT_GET_IFACE (prompt);
 	g_return_val_if_fail (iface->prompt_password_async, NULL);
 
 	return (iface->prompt_password_finish) (prompt, result, error);
@@ -931,12 +922,12 @@ gcr_prompt_confirm_async (GcrPrompt *prompt,
                           GAsyncReadyCallback callback,
                           gpointer user_data)
 {
-	GcrPromptIface *iface;
+	GcrPromptInterface *iface;
 
 	g_return_if_fail (GCR_IS_PROMPT (prompt));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	iface = GCR_PROMPT_GET_INTERFACE (prompt);
+	iface = GCR_PROMPT_GET_IFACE (prompt);
 	g_return_if_fail (iface->prompt_confirm_async);
 
 	(iface->prompt_confirm_async) (prompt, cancellable, callback, user_data);
@@ -961,13 +952,13 @@ gcr_prompt_confirm_finish (GcrPrompt *prompt,
                            GAsyncResult *result,
                            GError **error)
 {
-	GcrPromptIface *iface;
+	GcrPromptInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_PROMPT (prompt), GCR_PROMPT_REPLY_CANCEL);
 	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), GCR_PROMPT_REPLY_CANCEL);
 	g_return_val_if_fail (error == NULL || *error == NULL, GCR_PROMPT_REPLY_CANCEL);
 
-	iface = GCR_PROMPT_GET_INTERFACE (prompt);
+	iface = GCR_PROMPT_GET_IFACE (prompt);
 	g_return_val_if_fail (iface->prompt_confirm_async, GCR_PROMPT_REPLY_CANCEL);
 
 	return (iface->prompt_confirm_finish) (prompt, result, error);

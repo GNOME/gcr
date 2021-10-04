@@ -65,7 +65,6 @@ gck_sources = [
 gck_exported_headers = [
   gck_headers,
   gck_version_h,
-  'gck-deprecated.h',
   'pkcs11.h',
   'pkcs11n.h',
   'pkcs11x.h',

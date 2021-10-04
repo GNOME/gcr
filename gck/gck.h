@@ -47,7 +47,6 @@
 #include <gck/gck-object-cache.h>
 #include <gck/gck-password.h>
 #include <gck/gck-uri.h>
-#include <gck/gck-deprecated.h>
 
 #undef __GCK_INSIDE_HEADER__
 

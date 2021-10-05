@@ -125,14 +125,7 @@ static gchar **trust_lookup_uris = NULL;
  * ERRORS
  */
 
-GQuark
-gcr_data_error_get_domain (void)
-{
-	static GQuark domain = 0;
-	if (domain == 0)
-		domain = g_quark_from_static_string ("gcr-parser-error");
-	return domain;
-}
+G_DEFINE_QUARK(gcr-data-error, gcr_data_error)
 
 /* -----------------------------------------------------------------------------
  * INITIALIZATION

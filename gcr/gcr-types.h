@@ -45,9 +45,9 @@
 
 G_BEGIN_DECLS
 
-#define             GCR_DATA_ERROR                    (gcr_data_error_get_domain ())
+#define             GCR_DATA_ERROR                    (gcr_data_error_quark ())
 
-GQuark 	            gcr_data_error_get_domain         (void) G_GNUC_CONST;
+GQuark 	            gcr_data_error_quark              (void) G_GNUC_CONST;
 
 typedef enum {
 	GCR_ERROR_FAILURE = -1,

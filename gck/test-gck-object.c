@@ -60,7 +60,7 @@ setup (Test *test, gconstpointer unused)
 	g_object_ref (test->slot);
 	g_list_free_full (slots, g_object_unref);
 
-	test->session = gck_slot_open_session (test->slot, 0, NULL, &err);
+	test->session = gck_slot_open_session (test->slot, 0, NULL, NULL, &err);
 	g_assert_no_error (err);
 	g_assert_true (GCK_IS_SESSION (test->session));
 
@@ -108,7 +108,7 @@ test_object_equals_hash (Test *test, gconstpointer unused)
 	g_assert_true (gck_object_equal (test->object, test->object));
 
 	other_slot = g_object_new (GCK_TYPE_SLOT, "module", test->module, "handle", GCK_MOCK_SLOT_TWO_ID, NULL);
-	other_session = gck_slot_open_session (other_slot, 0, NULL, &err);
+	other_session = gck_slot_open_session (other_slot, 0, NULL, NULL, &err);
 	g_assert_no_error (err);
 	g_assert_true (GCK_IS_SESSION (other_session));
 	other_object = gck_object_from_handle (other_session, gck_object_get_handle (test->object));

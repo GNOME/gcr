@@ -236,7 +236,7 @@ gck_builder_ref (GckBuilder *builder)
 
 /**
  * gck_builder_unref:
- * @builder: the builder
+ * @builder: (transfer full): the builder
  *
  * Unreferences a builder. If this was the last reference then the builder
  * is freed.
@@ -245,7 +245,7 @@ gck_builder_ref (GckBuilder *builder)
  * stack.
  */
 void
-gck_builder_unref (gpointer builder)
+gck_builder_unref (GckBuilder *builder)
 {
 	GckRealBuilder *real = (GckRealBuilder *)builder;
 

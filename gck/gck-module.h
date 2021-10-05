@@ -66,10 +66,6 @@ struct _GckModule {
 struct _GckModuleClass {
 	GObjectClass parent;
 
-	gboolean (*authenticate_slot) (GckModule *self, GckSlot *slot, gchar *label, gchar **password);
-
-	gboolean (*authenticate_object) (GckModule *self, GckObject *object, gchar *label, gchar **password);
-
 	/*< private >*/
 	gpointer reserved[8];
 };

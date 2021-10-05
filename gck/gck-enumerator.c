@@ -363,7 +363,6 @@ state_slot (GckEnumeratorState *args, gboolean forward)
 static gpointer
 state_session (GckEnumeratorState *args, gboolean forward)
 {
-	GTlsInteraction *interaction;
 	CK_RV rv;
 
 	g_assert (args->funcs);
@@ -379,17 +378,9 @@ state_session (GckEnumeratorState *args, gboolean forward)
 			return state_find;
 		}
 
-		/* Compatibility, hook into GckModule signals if no interaction set */
-		if (args->interaction)
-			interaction = g_object_ref (args->interaction);
-		else
-			interaction = _gck_interaction_new (args->slot);
-
 		rv = _gck_session_authenticate_token (args->funcs,
 		                                      gck_session_get_handle (args->session),
-		                                      args->slot, interaction, NULL);
-
-		g_object_unref (interaction);
+		                                      args->slot, args->interaction, NULL);
 
 		if (rv != CKR_OK)
 			g_message ("couldn't authenticate when enumerating: %s", gck_message_from_rv (rv));
@@ -399,8 +390,7 @@ state_session (GckEnumeratorState *args, gboolean forward)
 
 	/* Session to slot state */
 	} else {
-		g_object_unref (args->session);
-		args->session = NULL;
+		g_clear_object (&args->session);
 		return state_slot;
 	}
 }

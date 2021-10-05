@@ -17,7 +17,6 @@ gck_sources_public = files(
 
 gck_sources_private = files(
   'gck-call.c',
-  'gck-interaction.c',
 )
 
 gck_headers = files(

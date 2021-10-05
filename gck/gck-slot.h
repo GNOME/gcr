@@ -161,11 +161,13 @@ gboolean            gck_slot_has_flags                      (GckSlot *self,
 
 GckSession*         gck_slot_open_session                   (GckSlot *self,
                                                              GckSessionOptions options,
+                                                             GTlsInteraction *interaction,
                                                              GCancellable *cancellable,
                                                              GError **error);
 
 GckSession*         gck_slot_open_session_full              (GckSlot *self,
                                                              GckSessionOptions options,
+                                                             GTlsInteraction *interaction,
                                                              gulong pkcs11_flags,
                                                              gpointer app_data,
                                                              CK_NOTIFY notify,
@@ -174,12 +176,14 @@ GckSession*         gck_slot_open_session_full              (GckSlot *self,
 
 void                gck_slot_open_session_async             (GckSlot *self,
                                                              GckSessionOptions options,
+                                                             GTlsInteraction *interaction,
                                                              GCancellable *cancellable,
                                                              GAsyncReadyCallback callback,
                                                              gpointer user_data);
 
 void                gck_slot_open_session_full_async        (GckSlot *self,
                                                              GckSessionOptions options,
+                                                             GTlsInteraction *interaction,
                                                              gulong pkcs11_flags,
                                                              gpointer app_data,
                                                              CK_NOTIFY notify,

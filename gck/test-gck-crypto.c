@@ -27,6 +27,7 @@
 #include "gck/gck-test.h"
 
 #include "egg/egg-testing.h"
+#include "egg/mock-interaction.h"
 
 #include <glib.h>
 
@@ -54,6 +55,7 @@ setup (Test *test, gconstpointer unused)
 	GError *err = NULL;
 	GList *slots;
 	GckSlot *slot;
+	GTlsInteraction *interaction;
 
 	/* Successful load */
 	test->module = gck_module_initialize (_GCK_TEST_MODULE_PATH, NULL, &err);
@@ -64,7 +66,7 @@ setup (Test *test, gconstpointer unused)
 	slots = gck_module_get_slots (test->module, TRUE);
 	g_assert_nonnull (slots);
 
-	test->session = gck_slot_open_session (slots->data, 0, NULL, &err);
+	test->session = gck_slot_open_session (slots->data, 0, NULL, NULL, &err);
 	g_assert_no_error (err);
 	g_assert_true (GCK_IS_SESSION (test->session));
 	g_object_add_weak_pointer (G_OBJECT (test->session), (gpointer *)&test->session);
@@ -74,6 +76,10 @@ setup (Test *test, gconstpointer unused)
 
 	test->session_with_auth = gck_session_from_handle (slot, gck_session_get_handle (test->session), GCK_SESSION_AUTHENTICATE);
 	g_signal_connect (test->session_with_auth, "discard-handle", G_CALLBACK (on_discard_handle_ignore), NULL);
+	interaction = mock_interaction_new ("booo");
+	gck_session_set_interaction (test->session_with_auth, interaction);
+	g_object_unref (interaction);
+
 	g_assert_nonnull (test->session_with_auth);
 	g_object_add_weak_pointer (G_OBJECT (test->session_with_auth), (gpointer *)&test->session_with_auth);
 
@@ -176,18 +182,6 @@ check_key_with_value (GckSession *session, GckObject *key, CK_OBJECT_CLASS klass
 	g_assert_cmpmem (attr->value, attr->length, value, strlen (value));
 
 	gck_attributes_unref (attrs);
-}
-
-static gboolean
-authenticate_object (GckSlot *module, GckObject *object, gchar *label, gchar **password)
-{
-	g_assert_true (GCK_IS_MODULE (module));
-	g_assert_true (GCK_IS_OBJECT (object));
-	g_assert_nonnull (password);
-	g_assert_null (*password);
-
-	*password = g_strdup ("booo");
-	return TRUE;
 }
 
 static void
@@ -306,9 +300,6 @@ test_sign (Test *test, gconstpointer unused)
 	guchar *output;
 	gsize n_output;
 
-	/* Enable auto-login on this test->session, see previous test */
-	g_signal_connect (test->module, "authenticate-object", G_CALLBACK (authenticate_object), NULL);
-
 	/* Find the right key */
 	key = find_key (test->session_with_auth, CKA_SIGN, CKM_MOCK_PREFIX);
 	g_assert_nonnull (key);
@@ -345,11 +336,14 @@ test_verify (Test *test, gconstpointer unused)
 	GckMechanism mech = { CKM_MOCK_PREFIX, (guchar *)"my-prefix:", 10 };
 	GError *error = NULL;
 	GAsyncResult *result = NULL;
+	GTlsInteraction *interaction;
 	GckObject *key;
 	gboolean ret;
 
 	/* Enable auto-login on this session, shouldn't be needed */
-	g_signal_connect (test->module, "authenticate-object", G_CALLBACK (authenticate_object), NULL);
+	interaction = mock_interaction_new ("booo");
+	gck_session_set_interaction (test->session, interaction);
+	g_object_unref (interaction);
 
 	/* Find the right key */
 	key = find_key (test->session, CKA_VERIFY, CKM_MOCK_PREFIX);

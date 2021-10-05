@@ -341,7 +341,7 @@ perform_add_pinned_certificate (GckAttributes *search,
 		             _("Couldn’t find a place to store the pinned certificate"));
 		ret = FALSE;
 	} else {
-		session = gck_slot_open_session (slot, CKF_RW_SESSION, NULL, &lerr);
+		session = gck_slot_open_session (slot, CKF_RW_SESSION, NULL, NULL, &lerr);
 		if (session != NULL) {
 			object = gck_session_create_object (session, gck_builder_end (&builder),
 			                                    cancellable, &lerr);

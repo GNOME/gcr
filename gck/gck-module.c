@@ -84,12 +84,6 @@ enum {
 	PROP_FUNCTIONS
 };
 
-enum {
-	AUTHENTICATE_SLOT,
-	AUTHENTICATE_OBJECT,
-	LAST_SIGNAL
-};
-
 struct _GckModulePrivate {
 	gchar *path;
 	gboolean initialized;
@@ -102,23 +96,9 @@ struct _GckModulePrivate {
 
 G_DEFINE_TYPE_WITH_PRIVATE (GckModule, gck_module, G_TYPE_OBJECT);
 
-static guint signals[LAST_SIGNAL] = { 0 };
-
 /* ----------------------------------------------------------------------------
  * OBJECT
  */
-
-static gboolean
-gck_module_real_authenticate_slot (GckModule *module, GckSlot *self, gchar *label, gchar **password)
-{
-	return FALSE;
-}
-
-static gboolean
-gck_module_real_authenticate_object (GckModule *module, GckObject *object, gchar *label, gchar **password)
-{
-	return FALSE;
-}
 
 static void
 gck_module_init (GckModule *self)
@@ -212,9 +192,6 @@ gck_module_class_init (GckModuleClass *klass)
 	gobject_class->dispose = gck_module_dispose;
 	gobject_class->finalize = gck_module_finalize;
 
-	klass->authenticate_object = gck_module_real_authenticate_object;
-	klass->authenticate_slot = gck_module_real_authenticate_slot;
-
 	/**
 	 * GckModule:path:
 	 *
@@ -238,38 +215,6 @@ gck_module_class_init (GckModuleClass *klass)
 	g_object_class_install_property (gobject_class, PROP_FUNCTIONS,
 		g_param_spec_pointer ("functions", "Function List", "PKCS11 Function List",
 		                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
-
-	/**
-	 * GckModule::authenticate-slot:
-	 * @module: The module
-	 * @slot: The slot to be authenticated.
-	 * @string: A displayable label which describes the object.
-	 * @password: A gchar** where a password should be returned.
-	 *
-	 * Use gck_session_set_interaction() instead of connecting to this signal.
-	 *
-	 * Deprecated: Since 3.4
-	 */
-	signals[AUTHENTICATE_SLOT] = g_signal_new ("authenticate-slot", GCK_TYPE_MODULE,
-			G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GckModuleClass, authenticate_slot),
-			g_signal_accumulator_true_handled, NULL, _gck_marshal_BOOLEAN__OBJECT_STRING_POINTER,
-			G_TYPE_BOOLEAN, 3, GCK_TYPE_SLOT, G_TYPE_STRING, G_TYPE_POINTER);
-
-	/**
-	 * GckModule::authenticate-object:
-	 * @module: The module.
-	 * @object: The object to be authenticated.
-	 * @label: A displayable label which describes the object.
-	 * @password: A gchar** where a password should be returned.
-	 *
-	 * Use gck_session_set_interaction() instead of connecting to this signal.
-	 *
-	 * Deprecated: Since 3.4
-	 */
-	signals[AUTHENTICATE_OBJECT] = g_signal_new ("authenticate-object", GCK_TYPE_MODULE,
-			G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GckModuleClass, authenticate_object),
-			g_signal_accumulator_true_handled, NULL, _gck_marshal_BOOLEAN__OBJECT_STRING_POINTER,
-			G_TYPE_BOOLEAN, 3, GCK_TYPE_OBJECT, G_TYPE_STRING, G_TYPE_POINTER);
 }
 
 G_DEFINE_BOXED_TYPE (GckModuleInfo, gck_module_info,

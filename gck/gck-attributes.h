@@ -180,7 +180,7 @@ GckBuilder *         gck_builder_new                        (GckBuilderFlags fla
 
 GckBuilder *         gck_builder_ref                        (GckBuilder *builder);
 
-void                 gck_builder_unref                      (gpointer builder);
+void                 gck_builder_unref                      (GckBuilder *builder);
 
 void                 gck_builder_init                       (GckBuilder *builder);
 

@@ -279,8 +279,8 @@ test_attribute_match (Test *test, gconstpointer unused)
 }
 
 static void
-test_authenticate_interaction (Test *test,
-                               gconstpointer unused)
+test_authenticate (Test *test,
+                   gconstpointer unused)
 {
 	GTlsInteraction *interaction;
 	GTlsInteraction *check;
@@ -314,54 +314,6 @@ test_authenticate_interaction (Test *test,
 	g_assert_null (en);
 	g_assert_null (obj);
 	g_assert_null (interaction);
-}
-
-static gboolean
-on_authenticate_token (GckModule *module,
-                       GckSlot *slot,
-                       gchar *label,
-                       gchar **password,
-                       gpointer unused)
-{
-	g_assert_true (unused == GUINT_TO_POINTER (35));
-	g_assert_nonnull (password);
-	g_assert_null (*password);
-	g_assert_true (GCK_IS_MODULE (module));
-	g_assert_true (GCK_IS_SLOT (slot));
-
-	*password = g_strdup ("booo");
-	return TRUE;
-}
-
-static void
-test_authenticate_compat (Test *test,
-                          gconstpointer unused)
-{
-	GckUriData *uri_data;
-	GError *error = NULL;
-	GckEnumerator *en;
-	GckObject *obj;
-	gulong sig;
-
-	sig = g_signal_connect (test->modules->data, "authenticate-slot",
-	                        G_CALLBACK (on_authenticate_token), GUINT_TO_POINTER (35));
-
-	uri_data = gck_uri_data_new ();
-	en = _gck_enumerator_new_for_modules (test->modules, GCK_SESSION_LOGIN_USER, uri_data);
-	g_assert_true (GCK_IS_ENUMERATOR (en));
-	g_object_add_weak_pointer (G_OBJECT (en), (gpointer *)&en);
-
-	obj = gck_enumerator_next (en, NULL, &error);
-	g_assert_true (GCK_IS_OBJECT (obj));
-	g_object_add_weak_pointer (G_OBJECT (obj), (gpointer *)&obj);
-
-	g_object_unref (obj);
-	g_object_unref (en);
-
-	g_signal_handler_disconnect (test->modules->data, sig);
-
-	g_assert_null (obj);
-	g_assert_null (en);
 }
 
 static void
@@ -616,8 +568,7 @@ main (int argc, char **argv)
 	g_test_add ("/gck/enumerator/next_n", Test, NULL, setup, test_next_n, teardown);
 	g_test_add ("/gck/enumerator/next_async", Test, NULL, setup, test_next_async, teardown);
 	g_test_add ("/gck/enumerator/session", Test, NULL, setup, test_enumerate_session, teardown);
-	g_test_add ("/gck/enumerator/authenticate-interaction", Test, NULL, setup, test_authenticate_interaction, teardown);
-	g_test_add ("/gck/enumerator/authenticate-compat", Test, NULL, setup, test_authenticate_compat, teardown);
+	g_test_add ("/gck/enumerator/authenticate", Test, NULL, setup, test_authenticate, teardown);
 	g_test_add ("/gck/enumerator/attribute_match", Test, NULL, setup, test_attribute_match, teardown);
 	g_test_add ("/gck/enumerator/token_match", Test, NULL, setup, test_token_match, teardown);
 	g_test_add ("/gck/enumerator/attribute_get", Test, NULL, setup, test_attribute_get, teardown);

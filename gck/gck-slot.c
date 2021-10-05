@@ -956,6 +956,7 @@ gck_slots_enumerate_objects (GList *slots,
  * gck_slot_open_session:
  * @self: The slot ot open a session on.
  * @options: The #GckSessionOptions to open a session with.
+ * @interaction: (nullable): The #GTlsInteraction to use, or %NULL.
  * @cancellable: An optional cancellation object, or %NULL.
  * @error: A location to return an error, or %NULL.
  *
@@ -969,16 +970,18 @@ gck_slots_enumerate_objects (GList *slots,
 GckSession *
 gck_slot_open_session (GckSlot *self,
                        GckSessionOptions options,
+                       GTlsInteraction *interaction,
                        GCancellable *cancellable,
                        GError **error)
 {
-	return gck_slot_open_session_full (self, options, 0, NULL, NULL, cancellable, error);
+	return gck_slot_open_session_full (self, options, interaction, 0, NULL, NULL, cancellable, error);
 }
 
 /**
  * gck_slot_open_session_full: (skip)
  * @self: The slot to open a session on.
  * @options: The options to open the new session with.
+ * @interaction: (nullable): The #GTlsInteraction to use, or %NULL.
  * @pkcs11_flags: Additional raw PKCS\#11 flags.
  * @app_data: Application data for notification callback.
  * @notify: PKCS\#11 notification callback.
@@ -995,6 +998,7 @@ gck_slot_open_session (GckSlot *self,
 GckSession *
 gck_slot_open_session_full (GckSlot *self,
                             GckSessionOptions options,
+                            GTlsInteraction *interaction,
                             gulong pkcs11_flags,
                             gpointer app_data,
                             CK_NOTIFY notify,
@@ -1003,6 +1007,7 @@ gck_slot_open_session_full (GckSlot *self,
 {
 	return g_initable_new (GCK_TYPE_SESSION, cancellable, error,
 	                       "options", options,
+	                       "interaction", interaction,
 	                       "slot", self,
 	                       "opening-flags", pkcs11_flags,
 	                       "app-data", app_data,
@@ -1013,6 +1018,7 @@ gck_slot_open_session_full (GckSlot *self,
  * gck_slot_open_session_async:
  * @self: The slot to open a session on.
  * @options: The options to open the new session with.
+ * @interaction: (nullable): The #GTlsInteraction to use, or %NULL.
  * @cancellable: Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
@@ -1025,11 +1031,12 @@ gck_slot_open_session_full (GckSlot *self,
 void
 gck_slot_open_session_async (GckSlot *self,
                              GckSessionOptions options,
+                             GTlsInteraction *interaction,
                              GCancellable *cancellable,
                              GAsyncReadyCallback callback,
                              gpointer user_data)
 {
-	gck_slot_open_session_full_async (self, options, 0UL, NULL, NULL, cancellable, callback, user_data);
+	gck_slot_open_session_full_async (self, options, interaction, 0UL, NULL, NULL, cancellable, callback, user_data);
 }
 
 static void
@@ -1054,6 +1061,7 @@ on_open_session_complete (GObject *source,
  * gck_slot_open_session_full_async: (skip)
  * @self: The slot to open a session on.
  * @options: Options to open the new session with.
+ * @interaction: (nullable): The #GTlsInteraction to use, or %NULL.
  * @pkcs11_flags: Additional raw PKCS\#11 flags.
  * @app_data: Application data for notification callback.
  * @notify: PKCS\#11 notification callback.
@@ -1069,6 +1077,7 @@ on_open_session_complete (GObject *source,
 void
 gck_slot_open_session_full_async (GckSlot *self,
                                   GckSessionOptions options,
+                                  GTlsInteraction *interaction,
                                   gulong pkcs11_flags,
                                   gpointer app_data,
                                   CK_NOTIFY notify,
@@ -1088,6 +1097,7 @@ gck_slot_open_session_full_async (GckSlot *self,
 	                            cancellable, on_open_session_complete,
 	                            g_steal_pointer (&task),
 	                            "options", options,
+	                            "interaction", interaction,
 	                            "slot", self,
 	                            "opening-flags", pkcs11_flags,
 	                            "app-data", app_data,

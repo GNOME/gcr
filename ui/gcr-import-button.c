@@ -267,8 +267,7 @@ gcr_import_button_dispose (GObject *obj)
 {
 	GcrImportButton *self = GCR_IMPORT_BUTTON (obj);
 
-	gck_list_unref_free (self->pv->importers);
-	self->pv->importers = NULL;
+	g_clear_list (&self->pv->importers, g_object_unref);
 	g_cancellable_cancel (self->pv->cancellable);
 	g_clear_object (&self->pv->menu);
 
@@ -303,8 +302,7 @@ on_import_complete (GObject *importer,
 	gcr_importer_import_finish (GCR_IMPORTER (importer), result, &error);
 	if (error == NULL) {
 		g_object_get (importer, "label", &self->pv->imported, NULL);
-		gck_list_unref_free (self->pv->importers);
-		self->pv->importers = NULL;
+		g_clear_list (&self->pv->importers, g_object_unref);
 	}
 
 	g_signal_emit (self, signals[IMPORTED], 0, importer, error);
@@ -591,7 +589,7 @@ gcr_import_button_add_parsed (GcrImportButton *self,
 		self->pv->created = TRUE;
 	}
 
-	gck_list_unref_free (self->pv->importers);
+	g_list_free_full (self->pv->importers, g_object_unref);
 	self->pv->importers = importers;
 
 	update_import_button (self);

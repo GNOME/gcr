@@ -71,7 +71,7 @@ setup (Test *test, gconstpointer unused)
 	module = gck_module_new (&test->funcs);
 	modules = g_list_prepend (modules, module);
 	gcr_pkcs11_set_modules (modules);
-	gck_list_unref_free (modules);
+	g_list_free_full (modules, g_object_unref);
 
 	uris[0] = GCK_MOCK_SLOT_ONE_URI;
 	uris[1] = NULL;

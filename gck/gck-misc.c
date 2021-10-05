@@ -24,6 +24,7 @@
 
 #include "gck.h"
 #include "gck-private.h"
+#include "gck-attributes.h"
 
 #include "egg/egg-secure-memory.h"
 
@@ -123,31 +124,13 @@ EGG_SECURE_DEFINE_GLIB_GLOBALS ();
  */
 
 /**
- * GCK_ERROR:
+ * gck_error_quark:
  *
- * The error domain for gck library errors.
- */
-
-GQuark
-gck_get_error_quark (void)
-{
-	/* This is the deprecated version */
-	return gck_error_get_quark ();
-}
-
-GQuark
-gck_error_get_quark (void)
-{
-	static GQuark domain = 0;
-	static size_t quark_inited = 0;
-
-	if (g_once_init_enter (&quark_inited)) {
-		domain = g_quark_from_static_string ("gck-error");
-		g_once_init_leave (&quark_inited, 1);
-	}
-
-	return domain;
-}
+ * Gets the Gck Error Quark.
+ *
+ * Returns: a #GQuark.
+ **/
+G_DEFINE_QUARK(gck-error, gck_error)
 
 /**
  * gck_message_from_rv:
@@ -295,58 +278,6 @@ _gck_rv_from_error (GError *error,
  * A few supporting functions that come in handy when dealing with the gck
  * library or PKCS11 in general.
  */
-
-GType
-gck_list_get_boxed_type (void)
-{
-	static GType type = 0;
-	if (!type)
-		type = g_boxed_type_register_static ("GckList",
-		                                     (GBoxedCopyFunc)gck_list_ref_copy,
-		                                     (GBoxedFreeFunc)gck_list_unref_free);
-	return type;
-
-}
-
-/**
- * gck_list_unref_free: (skip)
- * @reflist: (element-type GObject.Object): list of Gobject reference counted pointers
- *
- * Free a list of GObject based pointers. All objects in the list
- * will be unreffed and then the list itself will be freed.
- **/
-void
-gck_list_unref_free (GList *reflist)
-{
-	GList *l;
-	for (l = reflist; l; l = g_list_next (l)) {
-		g_return_if_fail (G_IS_OBJECT (l->data));
-		g_object_unref (l->data);
-	}
-	g_list_free (reflist);
-}
-
-/**
- * gck_list_ref_copy: (skip)
- * @reflist: (element-type GObject.Object): list of GObject reference counted
- *           objects
- *
- * Copy a list of GObject based pointers. All objects
- * in the list will be reffed and the list will be copied.
- *
- * Return value: (transfer full) (element-type GObject.Object): the copied and
- *               reffed list, when done, free it with gck_list_unref_free ()
- **/
-GList *
-gck_list_ref_copy (GList *reflist)
-{
-	GList *l, *copy = g_list_copy (reflist);
-	for (l = copy; l; l = g_list_next (l)) {
-		g_return_val_if_fail (G_IS_OBJECT (l->data), NULL);
-		g_object_ref (l->data);
-	}
-	return copy;
-}
 
 /**
  * gck_string_from_chars: (skip)

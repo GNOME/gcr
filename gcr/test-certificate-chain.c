@@ -162,7 +162,7 @@ setup (Test *test, gconstpointer unused)
 	uris[1] = NULL;
 	gcr_pkcs11_set_trust_lookup_uris (uris);
 	gcr_pkcs11_set_trust_store_uri (GCK_MOCK_SLOT_ONE_URI);
-	gck_list_unref_free (modules);
+	g_list_free_full (modules, g_object_unref);
 
 	/* A self-signed certificate */
 	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/der-certificate.crt", &contents, &n_contents, NULL))

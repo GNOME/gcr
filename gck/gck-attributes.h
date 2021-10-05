@@ -24,17 +24,14 @@ typedef enum {
 	GCK_ERROR_MODULE_PROBLEM = (CKR_VENDOR_DEFINED | (GCK_VENDOR_CODE + 1)),
 } GckError;
 
-#define             GCK_ERROR                               (gck_error_get_quark ())
+/**
+ * GCK_ERROR:
+ *
+ * The error domain for gck library errors.
+ */
+#define             GCK_ERROR                               (gck_error_quark ())
 
-GQuark              gck_error_get_quark                     (void) G_GNUC_CONST;
-
-#define             GCK_TYPE_LIST                           (gck_list_get_boxed_type ())
-
-GType               gck_list_get_boxed_type                 (void) G_GNUC_CONST;
-
-GList*              gck_list_ref_copy                       (GList *reflist);
-
-void                gck_list_unref_free                     (GList *reflist);
+GQuark              gck_error_quark                         (void) G_GNUC_CONST;
 
 const gchar*        gck_message_from_rv                     (gulong rv);
 

@@ -78,7 +78,7 @@ setup (Test *test, gconstpointer unused)
 	g_object_add_weak_pointer (G_OBJECT (test->session_with_auth), (gpointer *)&test->session_with_auth);
 
 	g_object_unref (slot);
-	gck_list_unref_free (slots);
+	g_list_free_full (slots, g_object_unref);
 }
 
 static void
@@ -136,7 +136,7 @@ find_key (GckSession *session, CK_ATTRIBUTE_TYPE method, CK_MECHANISM_TYPE mech)
 		break;
 	}
 
-	gck_list_unref_free (objects);
+	g_list_free_full (objects, g_object_unref);
 	return object;
 }
 
@@ -152,7 +152,7 @@ find_key_with_value (GckSession *session, const gchar *value)
 	g_assert_nonnull (objects);
 
 	object = g_object_ref (objects->data);
-	gck_list_unref_free (objects);
+	g_list_free_full (objects, g_object_unref);
 	return object;
 }
 

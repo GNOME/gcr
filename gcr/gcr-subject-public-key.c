@@ -219,7 +219,7 @@ lookup_public_key (GckObject *object,
 		return NULL;
 
 	result = g_object_ref (objects->data);
-	gck_list_unref_free (objects);
+	g_list_free_full (objects, g_object_unref);
 
 	return result;
 }

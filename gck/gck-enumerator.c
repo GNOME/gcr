@@ -196,9 +196,7 @@ cleanup_state (GckEnumeratorState *args)
 		args->results = NULL;
 	}
 
-	gck_list_unref_free (args->modules);
-	args->modules = NULL;
-
+	g_clear_list (&args->modules, g_object_unref);
 	g_clear_object (&args->interaction);
 
 	if (args->object_class)
@@ -314,9 +312,7 @@ state_slots (GckEnumeratorState *args, gboolean forward)
 
 	/* slots state to modules state */
 	} else {
-
-		gck_list_unref_free (args->slots);
-		args->slots = NULL;
+		g_clear_list (&args->slots, g_object_unref);
 		return state_modules;
 	}
 }
@@ -719,7 +715,7 @@ _gck_enumerator_new_for_modules (GList *modules,
 
 	state->session_options = session_options;
 
-	state->modules = gck_list_ref_copy (modules);
+	state->modules = g_list_copy_deep (modules, (GCopyFunc) g_object_ref, NULL);
 	state->slots = NULL;
 	state->handler = state_modules;
 	state->match = uri_data;
@@ -741,7 +737,7 @@ _gck_enumerator_new_for_slots (GList *slots,
 
 	state->session_options = session_options;
 
-	state->slots = gck_list_ref_copy (slots);
+	state->slots = g_list_copy_deep (slots, (GCopyFunc) g_object_ref, NULL);
 	state->modules = NULL;
 	state->handler = state_slots;
 	state->match = uri_data;
@@ -1236,7 +1232,7 @@ gck_enumerator_next (GckEnumerator *self,
  * whether a failure occurred or not.
  *
  * Returns: (transfer full) (element-type Gck.Object): A list of objects, which
- * should be freed using gck_list_unref_free().
+ * should be freed using g_list_free_full(list, g_object_unref).
  */
 GList *
 gck_enumerator_next_n (GckEnumerator *self,
@@ -1331,7 +1327,7 @@ gck_enumerator_next_async (GckEnumerator *self, gint max_objects, GCancellable *
  * whether a failure occurred or not.
  *
  * Returns: (element-type Gck.Object) (transfer full): The list of objects, which
- * should be freed with gck_list_unref_free()
+ * should be freed with g_list_free_full(list, g_object_unref)
  */
 GList*
 gck_enumerator_next_finish (GckEnumerator *self, GAsyncResult *result, GError **error)

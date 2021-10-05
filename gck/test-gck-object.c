@@ -58,7 +58,7 @@ setup (Test *test, gconstpointer unused)
 
 	test->slot = GCK_SLOT (slots->data);
 	g_object_ref (test->slot);
-	gck_list_unref_free (slots);
+	g_list_free_full (slots, g_object_unref);
 
 	test->session = gck_slot_open_session (test->slot, 0, NULL, &err);
 	g_assert_no_error (err);
@@ -374,13 +374,13 @@ test_find_objects (Test *test, gconstpointer unused)
 	objects = gck_session_find_objects (test->session, gck_builder_end (&builder), NULL, &err);
 	g_assert_no_error (err);
 	g_assert_cmpuint (g_list_length (objects), ==, 1);
-	gck_list_unref_free (objects);
+	g_list_free_full (objects, g_object_unref);
 
 	/* Full, All */
 	objects = gck_session_find_objects (test->session, gck_builder_end (&builder), NULL, &err);
 	g_assert_no_error (err);
 	g_assert_cmpuint (g_list_length (objects), >, 1);
-	gck_list_unref_free (objects);
+	g_list_free_full (objects, g_object_unref);
 
 	/* Async, None */
 	gck_builder_add_string (&builder, CKA_LABEL, "blah blah");
@@ -391,7 +391,7 @@ test_find_objects (Test *test, gconstpointer unused)
 	objects = gck_session_find_objects_finish (test->session, result, &err);
 	g_object_unref (result);
 	g_assert_null (objects);
-	gck_list_unref_free (objects);
+	g_list_free_full (objects, g_object_unref);
 }
 
 int

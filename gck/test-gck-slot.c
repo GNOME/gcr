@@ -53,7 +53,7 @@ setup (Test *test, gconstpointer unused)
 
 	test->slot = GCK_SLOT (slots->data);
 	g_object_ref (test->slot);
-	gck_list_unref_free (slots);
+	g_list_free_full (slots, g_object_unref);
 
 }
 
@@ -120,7 +120,7 @@ test_slot_info (Test *test, gconstpointer unused)
 		gck_slot_info_free (info);
 	}
 
-	gck_list_unref_free (slots);
+	g_list_free_full (slots, g_object_unref);
 }
 
 static void

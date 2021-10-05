@@ -546,8 +546,7 @@ _gcr_pkcs11_importer_dispose (GObject *obj)
 {
 	GcrPkcs11Importer *self = GCR_PKCS11_IMPORTER (obj);
 
-	gck_list_unref_free (self->objects);
-	self->objects = NULL;
+	g_clear_list (&self->objects, g_object_unref);
 	g_clear_object (&self->session);
 	g_clear_object (&self->interaction);
 
@@ -654,7 +653,7 @@ _gcr_pkcs11_importer_get_property (GObject *obj,
 		g_value_set_object (value, _gcr_pkcs11_importer_get_slot (self));
 		break;
 	case PROP_IMPORTED:
-		g_value_take_boxed (value, _gcr_pkcs11_importer_get_imported (self));
+		g_value_set_pointer (value, _gcr_pkcs11_importer_get_imported (self));
 		break;
 	case PROP_QUEUED:
 		g_value_set_pointer (value, _gcr_pkcs11_importer_get_queued (self));
@@ -693,9 +692,8 @@ _gcr_pkcs11_importer_class_init (GcrPkcs11ImporterClass *klass)
 		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_IMPORTED,
-		g_param_spec_boxed ("imported", "Imported", "Imported objects",
-		                    GCK_TYPE_LIST,
-		                    G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
+		g_param_spec_pointer ("imported", "Imported", "Imported objects",
+		                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (gobject_class, PROP_QUEUED,
 		g_param_spec_pointer ("queued", "Queued", "Queued attributes",
@@ -719,7 +717,7 @@ list_all_slots (void)
 
 	modules = gcr_pkcs11_get_modules ();
 	results = gck_modules_get_slots (modules, TRUE);
-	gck_list_unref_free (modules);
+	g_list_free_full (modules, g_object_unref);
 
 	return results;
 }
@@ -797,7 +795,7 @@ _gcr_pkcs11_importer_create_for_parsed (GcrParsed *parsed)
 
 		gck_token_info_free (token_info);
 	}
-	gck_list_unref_free (slots);
+	g_list_free_full (slots, g_object_unref);
 
 	return g_list_reverse (results);
 }
@@ -887,14 +885,14 @@ GList *
 _gcr_pkcs11_importer_get_imported (GcrPkcs11Importer *self)
 {
 	g_return_val_if_fail (GCR_IS_PKCS11_IMPORTER (self), NULL);
-	return g_list_copy (self->objects);
+	return self->objects;
 }
 
 GList *
 _gcr_pkcs11_importer_get_queued (GcrPkcs11Importer *self)
 {
 	g_return_val_if_fail (GCR_IS_PKCS11_IMPORTER (self), NULL);
-	return g_list_copy (self->queue->head);
+	return self->queue->head;
 }
 
 void

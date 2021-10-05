@@ -48,7 +48,7 @@ load_key_for_uri (const gchar *uri)
 	modules = gcr_pkcs11_get_modules ();
 	enumerator = gck_modules_enumerate_uri (modules, uri, GCK_SESSION_LOGIN_USER |
 	                                        GCK_SESSION_READ_ONLY, &error);
-	gck_list_unref_free (modules);
+	g_list_free_full (modules, g_object_unref);
 
 	interaction = console_interaction_new ();
 	gck_enumerator_set_interaction (enumerator, interaction);

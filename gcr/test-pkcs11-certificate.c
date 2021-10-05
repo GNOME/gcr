@@ -79,7 +79,7 @@ setup (Test *test, gconstpointer unused)
 	module = gck_module_new (&test->funcs);
 	modules = g_list_prepend (modules, module);
 	gcr_pkcs11_set_modules (modules);
-	gck_list_unref_free (modules);
+	g_list_free_full (modules, g_object_unref);
 
 	bytes = g_bytes_new_static (test->cert_data, test->n_cert_data);
 	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate", bytes);

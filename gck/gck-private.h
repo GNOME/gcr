@@ -122,20 +122,6 @@ void               _gck_password_update                     (GckPassword *self,
                                                              gboolean request_retry);
 
 /* ----------------------------------------------------------------------------
- * INTERACTION
- */
-
-#define GCK_TYPE_INTERACTION    (_gck_interaction_get_type ())
-#define GCK_INTERACTION(obj)    (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCK_TYPE_INTERACTION, GckInteraction))
-#define GCK_IS_INTERACTION(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCK_TYPE_INTERACTION))
-
-typedef struct _GckInteraction GckInteraction;
-
-GType               _gck_interaction_get_type               (void) G_GNUC_CONST;
-
-GTlsInteraction *   _gck_interaction_new                    (gpointer token_or_key);
-
-/* ----------------------------------------------------------------------------
  * CALL
  */
 

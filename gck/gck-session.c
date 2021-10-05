@@ -384,7 +384,6 @@ free_open_session (OpenSession *args)
 static CK_RV
 perform_open_session (OpenSession *args)
 {
-	GTlsInteraction *interaction;
 	CK_RV rv = CKR_OK;
 
 	/* First step, open session */
@@ -396,16 +395,8 @@ perform_open_session (OpenSession *args)
 	if (rv != CKR_OK || !args->auto_login)
 		return rv;
 
-	/* Compatibility, hook into GckModule signals if no interaction set */
-	if (args->interaction)
-		interaction = g_object_ref (args->interaction);
-	else
-		interaction = _gck_interaction_new (args->slot);
-
 	rv = _gck_session_authenticate_token (args->base.pkcs11, args->session,
-	                                      args->slot, interaction, NULL);
-
-	g_object_unref (interaction);
+	                                      args->slot, args->interaction, NULL);
 
 	return rv;
 }
@@ -782,22 +773,12 @@ void
 gck_session_set_interaction (GckSession *self,
                              GTlsInteraction *interaction)
 {
-	GTlsInteraction *previous;
 	g_return_if_fail (GCK_IS_SESSION (self));
 	g_return_if_fail (interaction == NULL || G_IS_TLS_INTERACTION (interaction));
 
-	if (interaction)
-		g_object_ref (interaction);
-
 	g_mutex_lock (self->pv->mutex);
-
-		previous = self->pv->interaction;
-		self->pv->interaction = interaction;
-
+	g_set_object (&self->pv->interaction, interaction);
 	g_mutex_unlock (self->pv->mutex);
-
-	if (previous)
-		g_object_unref (previous);
 }
 
 /**
@@ -2611,7 +2592,6 @@ typedef struct _Crypt {
 static CK_RV
 perform_crypt (Crypt *args)
 {
-	GTlsInteraction *interaction;
 	CK_RV rv;
 
 	g_assert (args);
@@ -2625,16 +2605,8 @@ perform_crypt (Crypt *args)
 	if (rv != CKR_OK)
 		return rv;
 
-	/* Compatibility, hook into GckModule signals if no interaction set */
-	if (args->interaction)
-		interaction = g_object_ref (args->interaction);
-	else
-		interaction = _gck_interaction_new (args->key_object);
-
 	rv = _gck_session_authenticate_key (args->base.pkcs11, args->base.handle,
-	                                    args->key_object, interaction, NULL);
-
-	g_object_unref (interaction);
+	                                    args->key_object, args->interaction, NULL);
 
 	if (rv != CKR_OK)
 		return rv;
@@ -3135,7 +3107,6 @@ typedef struct _Verify {
 static CK_RV
 perform_verify (Verify *args)
 {
-	GTlsInteraction *interaction;
 	CK_RV rv;
 
 	/* Initialize the crypt operation */
@@ -3143,17 +3114,8 @@ perform_verify (Verify *args)
 	if (rv != CKR_OK)
 		return rv;
 
-	/* Compatibility, hook into GckModule signals if no interaction set */
-	if (args->interaction)
-		interaction = g_object_ref (args->interaction);
-	else
-		interaction = _gck_interaction_new (args->key_object);
-
-
 	rv = _gck_session_authenticate_key (args->base.pkcs11, args->base.handle,
-	                                    args->key_object, interaction, NULL);
-
-	g_object_unref (interaction);
+	                                    args->key_object, args->interaction, NULL);
 
 	if (rv != CKR_OK)
 		return rv;

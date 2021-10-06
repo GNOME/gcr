@@ -52,9 +52,9 @@ struct _GckUriData {
 	gpointer dummy[4];
 };
 
-#define             GCK_URI_ERROR                           (gck_uri_error_get_quark ())
+#define             GCK_URI_ERROR                           (gck_uri_error_quark ())
 
-GQuark              gck_uri_error_get_quark                 (void) G_GNUC_CONST;
+GQuark              gck_uri_error_quark                     (void) G_GNUC_CONST;
 
 GckUriData*         gck_uri_data_new                        (void);
 

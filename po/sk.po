@@ -4,22 +4,22 @@
 # Marcel Telka <marcel@telka.sk>, 2004, 2005.
 # Peter Tuharsky <tuharsky@misbb.sk>, 2007.
 # Mário Buči <mario.buci@gmail.com>, 2009.
-# Dušan Kazik <prescott66@gmail.com>, 2013.
+# Dušan Kazik <prescott66@gmail.com>, 2013-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2020-09-17 09:25+0200\n"
+"POT-Creation-Date: 2021-09-30 14:31+0000\n"
+"PO-Revision-Date: 2021-10-06 08:25+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 2.4.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0\n"
+"X-Generator: Gtranslator 40.0\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -248,6 +248,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Nepodarilo sa inicializovať registrované moduly PKCS#11: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "Identifikátor URI obsahuje neplatné kódovanie."
 
@@ -264,6 +265,7 @@ msgid "The URI has a bad version number."
 msgstr "Identifikátor URI obsahuje nesprávne číslo verzie."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "Tok údajov bol zatvorený"
 
@@ -339,10 +341,12 @@ msgid "Registered ID"
 msgstr "Registrovaný ID"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Nepodporovaný typ kľúča pre žiadosť o certifikát"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "Kľúč sa nedá použiť na podpísanie požiadavky"
 
@@ -404,13 +408,56 @@ msgstr "Nepodarilo sa analyzovať neplatné alebo porušené údaje."
 msgid "The data is locked"
 msgstr "Údaj je uzamknutý"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "Pokračovať"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "Zrušiť"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+#| msgid "Unlock: %s"
+msgid "Unlock password for: %s"
+msgstr "Odomykacie heslo pre: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+#| msgid "Private Key"
+msgid "Unlock private key"
+msgstr "Odomknutie súkromného kľúča"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "Zadajte heslo na odomknutie súkromného kľúča"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr ""
+"Aplikácia požaduje prístup k súkromnému kľúču „%s“, ten je ale uzamknutý"
+
+# GtkRadioButton label
+#: gcr/gcr-ssh-agent-interaction.c:161
+#| msgid "Automatically unlock this keyring whenever I’m logged in"
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "Automaticky odomknúť tento kľúč zakaždým keď sa prihlásim"
+
+# GtkLabel label; button
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Odomknúť"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+#| msgid "The password was incorrect"
+msgid "The unlock password was incorrect"
+msgstr "Odomykacie heslo nebolo správne"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "Bez názvu"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -420,7 +467,7 @@ msgstr "Zadajte vaše OpenSSH heslo"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Nerozpoznané alebo nedostupné atribúty pre kľúč"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "Nepodarilo sa zostaviť verejný kľúč"
 
@@ -431,7 +478,8 @@ msgstr "Už prebieha iná výzva"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Nepodarilo sa nájsť miesto na uloženie pripnutého certifikátu"
 
@@ -690,6 +738,7 @@ msgid "Reason"
 msgstr "Príčina"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "Nedá sa zobraziť súbor tohoto typu."
 
@@ -983,37 +1032,37 @@ msgstr "Tajný podkľúč"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=707078
 # spinner tooltip
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "Inicializuje sa…"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=707078
 # spinner tooltip
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "Prebieha importovanie…"
 
 # spinner tooltip
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "Importované do: %s"
 
 # spinner tooltip
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "Importovať do: %s"
 
 # spinner tooltip
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr ""
 "Nedá sa importovať, pretože nie sú dostupné žiadne kompatibilné nástroje na "
 "importovanie"
 
 # spinner tooltip
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "Žiadne údaje na importovanie"
 
@@ -1068,12 +1117,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "_OK"
 
@@ -1082,7 +1131,8 @@ msgid "Automatically chosen"
 msgstr "Automaticky zvolený"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "Používateľ zrušil operáciu"
 
@@ -1092,7 +1142,7 @@ msgid "In order to import, please enter the password."
 msgstr "Ak chcete vykonať importovanie, prosím, zadajte heslo."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "Heslo:"
 
@@ -1100,12 +1150,6 @@ msgstr "Heslo:"
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "Token:"
-
-# GtkLabel label; button
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "Odomknúť"
 
 # GtkLabel label
 #: ui/gcr-pkcs11-import-dialog.ui:178
@@ -1118,15 +1162,15 @@ msgid "Import settings"
 msgstr "Importovať nastavenia"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "Potvrdenie:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "Heslá nie sú zhodné."
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "Heslo nemôže byť prázdne"
 
@@ -1154,6 +1198,7 @@ msgid "_Replace"
 msgstr "_Nahradiť"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "Operácia bola zrušená."
 

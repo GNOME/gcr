@@ -314,7 +314,7 @@ gck_uri_data_copy (GckUriData *uri_data)
 
 /**
  * gck_uri_data_free:
- * @uri_data: URI data to free.
+ * @uri_data: (transfer full): URI data to free.
  *
  * Free a #GckUriData.
  */

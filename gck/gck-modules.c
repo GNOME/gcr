@@ -231,7 +231,7 @@ tokens_for_uri (GList *modules,
 	GckUriFlags flags;
 
 	flags = GCK_URI_FOR_OBJECT_ON_TOKEN_AND_MODULE | GCK_URI_FOR_MODULE_WITH_VERSION;
-	uri_data = gck_uri_parse (uri, flags, error);
+	uri_data = gck_uri_data_parse (uri, flags, error);
 	if (uri_data == NULL)
 		return NULL;
 
@@ -418,7 +418,7 @@ gck_modules_enumerate_uri (GList *modules,
 
 	g_return_val_if_fail (uri != NULL, NULL);
 
-	uri_data = gck_uri_parse (uri, GCK_URI_FOR_ANY, error);
+	uri_data = gck_uri_data_parse (uri, GCK_URI_FOR_ANY, error);
 	if (uri_data == NULL)
 		return NULL;
 

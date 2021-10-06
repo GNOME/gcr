@@ -1572,10 +1572,10 @@ GQuark              gck_uri_error_get_quark                 (void) G_GNUC_CONST;
 
 GckUriData*         gck_uri_data_new                        (void);
 
-gchar*              gck_uri_build                           (GckUriData *uri_data,
+gchar*              gck_uri_data_build                      (GckUriData *uri_data,
                                                              GckUriFlags flags);
 
-GckUriData*         gck_uri_parse                           (const gchar *string,
+GckUriData*         gck_uri_data_parse                      (const gchar *string,
                                                              GckUriFlags flags,
                                                              GError **error);
 

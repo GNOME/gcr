@@ -2226,7 +2226,7 @@ gck_attributes_find_date (GckAttributes *attrs, gulong attr_type, GDate *value)
  *
  * Reference this attributes array.
  *
- * Returns: the attributes
+ * Returns: (transfer full): the attributes
  **/
 GckAttributes *
 gck_attributes_ref (GckAttributes *attrs)
@@ -2256,9 +2256,9 @@ gck_attributes_ref (GckAttributes *attrs)
  * All Gck library functions that assume ownership of floating references
  * are documented as such. Essentially any Gck function that performs
  * an operation using a #GckAttributes argument rather than operating on the
- * atributes themselves, will accept a floating reference.
+ * attributes themselves, will accept a floating reference.
  *
- * Returns: the referenced attributes
+ * Returns: (transfer full): the referenced attributes
  */
 GckAttributes *
 gck_attributes_ref_sink (GckAttributes *attrs)
@@ -2277,7 +2277,7 @@ gck_attributes_ref_sink (GckAttributes *attrs)
 
 /**
  * gck_attributes_unref:
- * @attrs: (nullable) (type Gck.Attributes): An attribute array
+ * @attrs: (nullable) (type Gck.Attributes) (transfer full): An attribute array
  *
  * Unreference this attribute array.
  *

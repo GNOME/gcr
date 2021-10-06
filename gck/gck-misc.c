@@ -404,7 +404,7 @@ _gck_ulong_equal (gconstpointer v1, gconstpointer v2)
  * gck_value_to_ulong:
  * @value: (array length=length): memory to convert
  * @length: length of memory
- * @result: A location to store the result
+ * @result: (out): A location to store the result
  *
  * Convert `CK_ULONG` type memory to a boolean.
  *
@@ -426,7 +426,7 @@ gck_value_to_ulong (const guchar *value,
  * gck_value_to_boolean:
  * @value: (array length=length): memory to convert
  * @length: length of memory
- * @result: A location to store the result
+ * @result: (out): A location to store the result
  *
  * Convert `CK_BBOOL` type memory to a boolean.
  *

@@ -686,7 +686,7 @@ created_enumerator (GckUriData *uri_data,
 {
 	gchar *attrs, *uri;
 	attrs = uri_data->attributes ? gck_attributes_to_string (uri_data->attributes) : NULL;
-	uri = uri_data ? gck_uri_build (uri_data, GCK_URI_FOR_TOKEN | GCK_URI_FOR_MODULE) : NULL;
+	uri = uri_data ? gck_uri_data_build (uri_data, GCK_URI_FOR_TOKEN | GCK_URI_FOR_MODULE) : NULL;
 	g_debug ("for = %s, tokens = %s, objects = %s", type, uri, attrs);
 	g_free (attrs);
 	g_free (uri);

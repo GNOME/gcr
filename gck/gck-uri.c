@@ -118,22 +118,6 @@
  * Error domain for URI errors.
  */
 
-/**
- * GCK_URI_BAD_PREFIX:
- *
- * Use %GCK_URI_BAD_SCHEME instead.
- *
- * Deprecated: Since 3.2
- */
-
-/**
- * CKR_GCK_MODULE_PROBLEM:
- *
- * Use %GCK_ERROR_MODULE_PROBLEM instead.
- *
- * Deprecated: Since 3.4
- */
-
 #define URI_PREFIX "pkcs11:"
 #define N_URI_PREFIX 7
 
@@ -158,11 +142,11 @@ G_DEFINE_QUARK(gck-uri-error, gck_uri_error)
 GckUriData *
 gck_uri_data_new (void)
 {
-	return g_slice_new0 (GckUriData);
+	return g_new0 (GckUriData, 1);
 }
 
 /**
- * gck_uri_parse:
+ * gck_uri_data_parse:
  * @string: the URI to parse.
  * @flags: the context in which the URI will be used.
  * @error: a #GError, or %NULL.
@@ -177,7 +161,7 @@ gck_uri_data_new (void)
  *          freed with gck_uri_data_free()
  */
 GckUriData*
-gck_uri_parse (const gchar *string, GckUriFlags flags, GError **error)
+gck_uri_data_parse (const gchar *string, GckUriFlags flags, GError **error)
 {
 	GckUriData *uri_data = NULL;
 	GckBuilder builder;
@@ -243,7 +227,7 @@ gck_uri_parse (const gchar *string, GckUriFlags flags, GError **error)
 }
 
 /**
- * gck_uri_build:
+ * gck_uri_data_build:
  * @uri_data: the info to build the URI from.
  * @flags: The context that the URI is for
  *
@@ -253,7 +237,7 @@ gck_uri_parse (const gchar *string, GckUriFlags flags, GError **error)
  * Return value: a newly allocated string containing a PKCS\#11 URI.
  */
 gchar*
-gck_uri_build (GckUriData *uri_data, GckUriFlags flags)
+gck_uri_data_build (GckUriData *uri_data, GckUriFlags flags)
 {
 	const GckAttribute *attr;
 	P11KitUri *p11_uri = 0;
@@ -317,20 +301,18 @@ gck_uri_data_copy (GckUriData *uri_data)
 
 /**
  * gck_uri_data_free:
- * @uri_data: URI data to free.
+ * @uri_data: (transfer full): URI data to free.
  *
  * Free a #GckUriData.
  */
 void
 gck_uri_data_free (GckUriData *uri_data)
 {
-	if (uri_data) {
-		if (uri_data->attributes)
-			gck_attributes_unref (uri_data->attributes);
-		if (uri_data->module_info)
-			gck_module_info_free (uri_data->module_info);
-		if (uri_data->token_info)
-			gck_token_info_free (uri_data->token_info);
-		g_slice_free (GckUriData, uri_data);
-	}
+	if (!uri_data)
+		return;
+
+	g_clear_pointer (&uri_data->attributes, gck_attributes_unref);
+	g_clear_pointer (&uri_data->module_info, gck_module_info_free);
+	g_clear_pointer (&uri_data->token_info, gck_token_info_free);
+	g_free (uri_data);
 }

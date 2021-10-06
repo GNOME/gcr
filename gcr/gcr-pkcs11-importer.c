@@ -627,7 +627,7 @@ calculate_uri (GcrPkcs11Importer *self)
 
 	data = gck_uri_data_new ();
 	data->token_info = gck_slot_get_token_info (self->slot);
-	uri = gck_uri_build (data, GCK_URI_FOR_TOKEN);
+	uri = gck_uri_data_build (data, GCK_URI_FOR_TOKEN);
 	data->token_info = NULL;
 	gck_uri_data_free (data);
 
@@ -752,7 +752,7 @@ is_slot_importable (GckSlot *slot,
 	}
 
 	for (i = 0; token_blacklist[i] != NULL; i++) {
-		uri = gck_uri_parse (token_blacklist[i], GCK_URI_FOR_TOKEN | GCK_URI_FOR_MODULE, &error);
+		uri = gck_uri_data_parse (token_blacklist[i], GCK_URI_FOR_TOKEN | GCK_URI_FOR_MODULE, &error);
 		if (uri == NULL) {
 			g_warning ("couldn't parse pkcs11 blacklist uri: %s", error->message);
 			g_clear_error (&error);

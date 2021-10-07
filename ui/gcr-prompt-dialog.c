@@ -103,7 +103,7 @@ struct _GcrPromptDialogPrivate {
 	gchar *cancel_label;
 
 	GSimpleAsyncResult *async_result;
-	GcrPromptReply last_reply;
+	gboolean last_reply;
 	GtkWidget *widget_grid;
 	GtkWidget *continue_button;
 	GtkWidget *spinner;
@@ -798,11 +798,11 @@ gcr_prompt_dialog_response (GtkDialog *dialog,
 		default:
 			break;
 		}
-		self->pv->last_reply = GCR_PROMPT_REPLY_CONTINUE;
+		self->pv->last_reply = TRUE;
 		break;
 
 	default:
-		self->pv->last_reply = GCR_PROMPT_REPLY_CANCEL;
+		self->pv->last_reply = FALSE;
 		break;
 	}
 
@@ -954,7 +954,7 @@ gcr_prompt_dialog_password_async (GcrPrompt *prompt,
 	gtk_entry_buffer_set_text (self->pv->confirm_buffer, "", 0);
 
 	if (self->pv->was_closed) {
-		self->pv->last_reply = GCR_PROMPT_REPLY_CANCEL;
+		self->pv->last_reply = FALSE;
 		g_simple_async_result_complete_in_idle (self->pv->async_result);
 		return;
 	}
@@ -989,7 +989,7 @@ gcr_prompt_dialog_password_finish (GcrPrompt *prompt,
 	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
 		return NULL;
 
-	if (self->pv->last_reply == GCR_PROMPT_REPLY_CONTINUE)
+	if (self->pv->last_reply == TRUE)
 		return gtk_entry_buffer_get_text (self->pv->password_buffer);
 	return NULL;
 }
@@ -1014,7 +1014,7 @@ gcr_prompt_dialog_confirm_async (GcrPrompt *prompt,
 	                                                    gcr_prompt_dialog_confirm_async);
 
 	if (self->pv->was_closed) {
-		self->pv->last_reply = GCR_PROMPT_REPLY_CANCEL;
+		self->pv->last_reply = FALSE;
 		g_simple_async_result_complete_in_idle (self->pv->async_result);
 		return;
 	}
@@ -1038,7 +1038,7 @@ gcr_prompt_dialog_confirm_async (GcrPrompt *prompt,
 	gtk_widget_show (GTK_WIDGET (self));
 }
 
-static GcrPromptReply
+static gboolean
 gcr_prompt_dialog_confirm_finish (GcrPrompt *prompt,
                                   GAsyncResult *result,
                                   GError **error)
@@ -1046,10 +1046,10 @@ gcr_prompt_dialog_confirm_finish (GcrPrompt *prompt,
 	GcrPromptDialog *self = GCR_PROMPT_DIALOG (prompt);
 
 	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (prompt),
-	                      gcr_prompt_dialog_confirm_async), GCR_PROMPT_REPLY_CANCEL);
+	                      gcr_prompt_dialog_confirm_async), FALSE);
 
 	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return GCR_PROMPT_REPLY_CANCEL;
+		return FALSE;
 
 	return self->pv->last_reply;
 }

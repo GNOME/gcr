@@ -835,7 +835,7 @@ on_prompt_confirm (GObject *source,
                    gpointer user_data)
 {
 	ActivePrompt *active = user_data;
-	GcrPromptReply reply;
+	gboolean reply;
 	GError *error = NULL;
 	const gchar *response;
 
@@ -853,10 +853,10 @@ on_prompt_confirm (GObject *source,
 	}
 
 	switch (reply) {
-	case GCR_PROMPT_REPLY_CONTINUE:
+	case TRUE:
 		response = GCR_DBUS_PROMPT_REPLY_YES;
 		break;
-	case GCR_PROMPT_REPLY_CANCEL:
+	case FALSE:
 		response = GCR_DBUS_PROMPT_REPLY_NO;
 		break;
 	default:

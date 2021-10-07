@@ -32,11 +32,6 @@
 
 G_BEGIN_DECLS
 
-typedef enum {
-	GCR_PROMPT_REPLY_CANCEL = 0,
-	GCR_PROMPT_REPLY_CONTINUE = 1,
-} GcrPromptReply;
-
 #define GCR_TYPE_PROMPT gcr_prompt_get_type ()
 G_DECLARE_INTERFACE(GcrPrompt, gcr_prompt, GCR, PROMPT, GObject)
 
@@ -57,7 +52,7 @@ struct _GcrPromptInterface {
 	                                                 GAsyncReadyCallback callback,
 	                                                 gpointer user_data);
 
-	GcrPromptReply     (* prompt_confirm_finish)    (GcrPrompt *prompt,
+	gboolean           (* prompt_confirm_finish)    (GcrPrompt *prompt,
 	                                                 GAsyncResult *result,
 	                                                 GError **error);
 
@@ -140,15 +135,15 @@ void                 gcr_prompt_confirm_async             (GcrPrompt *prompt,
                                                            GAsyncReadyCallback callback,
                                                            gpointer user_data);
 
-GcrPromptReply       gcr_prompt_confirm_finish            (GcrPrompt *prompt,
+gboolean             gcr_prompt_confirm_finish            (GcrPrompt *prompt,
                                                            GAsyncResult *result,
                                                            GError **error);
 
-GcrPromptReply       gcr_prompt_confirm                   (GcrPrompt *prompt,
+gboolean             gcr_prompt_confirm                   (GcrPrompt *prompt,
                                                            GCancellable *cancellable,
                                                            GError **error);
 
-GcrPromptReply       gcr_prompt_confirm_run               (GcrPrompt *prompt,
+gboolean             gcr_prompt_confirm_run               (GcrPrompt *prompt,
                                                            GCancellable *cancellable,
                                                            GError **error);
 

@@ -67,14 +67,6 @@
  * The interface for implementing #GcrPrompt.
  */
 
-/**
- * GcrPromptReply:
- * @GCR_PROMPT_REPLY_CONTINUE: the user replied with 'ok'
- * @GCR_PROMPT_REPLY_CANCEL: the prompt was cancelled
- *
- * Various replies returned by gcr_prompt_confirm() and friends.
- */
-
 enum {
 	PROMPT_CLOSE,
 	NUM_SIGNALS
@@ -941,25 +933,24 @@ gcr_prompt_confirm_async (GcrPrompt *prompt,
  *
  * Complete an operation to prompt for confirmation.
  *
- * %GCR_PROMPT_REPLY_CONTINUE will be returned if the user confirms the prompt. The
- * return value will also be %GCR_PROMPT_REPLY_CANCEL if the user cancels or if
- * an error occurs. Check the @error argument to tell the difference.
+ * %TRUE will be returned if the user confirms the prompt. Check the @error
+ * argument to tell the difference between cancellation and error.
  *
- * Returns: the reply from the prompt
+ * Returns: %TRUE if the user confirmed the prompt
  */
-GcrPromptReply
+gboolean
 gcr_prompt_confirm_finish (GcrPrompt *prompt,
                            GAsyncResult *result,
                            GError **error)
 {
 	GcrPromptInterface *iface;
 
-	g_return_val_if_fail (GCR_IS_PROMPT (prompt), GCR_PROMPT_REPLY_CANCEL);
-	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), GCR_PROMPT_REPLY_CANCEL);
-	g_return_val_if_fail (error == NULL || *error == NULL, GCR_PROMPT_REPLY_CANCEL);
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), FALSE);
+	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	iface = GCR_PROMPT_GET_IFACE (prompt);
-	g_return_val_if_fail (iface->prompt_confirm_async, GCR_PROMPT_REPLY_CANCEL);
+	g_return_val_if_fail (iface->prompt_confirm_async, FALSE);
 
 	return (iface->prompt_confirm_finish) (prompt, result, error);
 }
@@ -976,23 +967,22 @@ gcr_prompt_confirm_finish (GcrPrompt *prompt,
  *
  * This method will block until the a response is returned from the prompter.
  *
- * %GCR_PROMPT_REPLY_CONTINUE will be returned if the user confirms the prompt. The
- * return value will also be %GCR_PROMPT_REPLY_CANCEL if the user cancels or if
- * an error occurs. Check the @error argument to tell the difference.
+ * %TRUE will be returned if the user confirms the prompt. Check the @error
+ * argument to tell the difference between cancellation and error.
  *
- * Returns: the reply from the prompt
+ * Returns: %TRUE if the user confirmed the prompt
  */
-GcrPromptReply
+gboolean
 gcr_prompt_confirm (GcrPrompt *prompt,
                     GCancellable *cancellable,
                     GError **error)
 {
 	RunClosure *closure;
-	GcrPromptReply reply;
+	gboolean reply;
 
-	g_return_val_if_fail (GCR_IS_PROMPT (prompt), GCR_PROMPT_REPLY_CANCEL);
-	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), GCR_PROMPT_REPLY_CANCEL);
-	g_return_val_if_fail (error == NULL || *error == NULL, GCR_PROMPT_REPLY_CANCEL);
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), FALSE);
+	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	closure = run_closure_begin (g_main_context_new ());
 
@@ -1020,23 +1010,22 @@ gcr_prompt_confirm (GcrPrompt *prompt,
  * and will run a main loop similar to a gtk_dialog_run(). The application
  * will remain responsive but care must be taken to handle reentrancy issues.
  *
- * %GCR_PROMPT_REPLY_CONTINUE will be returned if the user confirms the prompt. The
- * return value will also be %GCR_PROMPT_REPLY_CANCEL if the user cancels or if
- * an error occurs. Check the @error argument to tell the difference.
+ * %TRUE will be returned if the user confirms the prompt. Check the @error
+ * argument to tell the difference between cancellation and error.
  *
- * Returns: the reply from the prompt
+ * Returns: %TRUE if the user confirmed the prompt
  */
-GcrPromptReply
+gboolean
 gcr_prompt_confirm_run (GcrPrompt *prompt,
                         GCancellable *cancellable,
                         GError **error)
 {
 	RunClosure *closure;
-	GcrPromptReply reply;
+	gboolean reply;
 
-	g_return_val_if_fail (GCR_IS_PROMPT (prompt), GCR_PROMPT_REPLY_CANCEL);
-	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), GCR_PROMPT_REPLY_CANCEL);
-	g_return_val_if_fail (error == NULL || *error == NULL, GCR_PROMPT_REPLY_CANCEL);
+	g_return_val_if_fail (GCR_IS_PROMPT (prompt), FALSE);
+	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	closure = run_closure_begin (NULL);
 

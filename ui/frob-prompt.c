@@ -95,7 +95,7 @@ prompt_perform (GtkWidget *parent)
 	GcrPrompt *prompt;
 	const gchar *key;
 	const gchar *password;
-	GcrPromptReply reply;
+	gboolean reply;
 	gboolean cont = TRUE;
 	GMainLoop *loop;
 	gchar *type;
@@ -184,7 +184,7 @@ prompt_perform (GtkWidget *parent)
 			if (error != NULL)
 				g_error ("couldn't prompt for confirm: %s", error->message);
 			g_print ("prompt confirm: %d\n", reply);
-			cont = (reply != GCR_PROMPT_REPLY_CANCEL);
+			cont = (reply != FALSE);
 		} else {
 			g_error ("unsupported prompt type: %s", type);
 		}

@@ -601,7 +601,7 @@ test_close_from_prompter (Test *test,
 
 	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (ret == GCR_PROMPT_REPLY_CANCEL);
+	g_assert (ret == FALSE);
 
 	/* The prompt should be closed now, these shouldn't reach the mock prompter */
 
@@ -610,7 +610,7 @@ test_close_from_prompter (Test *test,
 
 	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (ret == GCR_PROMPT_REPLY_CANCEL);
+	g_assert (ret == FALSE);
 
 	password = gcr_prompt_password_run (prompt, NULL, &error);
 	g_assert_no_error (error);
@@ -643,7 +643,7 @@ test_after_close_dismisses (Test *test,
 
 	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (ret == GCR_PROMPT_REPLY_CONTINUE);
+	g_assert (ret == TRUE);
 
 	gcr_prompt_close (prompt);
 	g_assert (prompt_closed);
@@ -652,7 +652,7 @@ test_after_close_dismisses (Test *test,
 
 	ret = gcr_prompt_confirm_run (prompt, NULL, &error);
 	g_assert_no_error (error);
-	g_assert (ret == GCR_PROMPT_REPLY_CANCEL);
+	g_assert (ret == FALSE);
 
 	password = gcr_prompt_password_run (prompt, NULL, &error);
 	g_assert_no_error (error);

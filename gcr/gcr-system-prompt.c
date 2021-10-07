@@ -1234,24 +1234,23 @@ perform_prompt_async (GcrSystemPrompt *self,
 	g_free (sent);
 }
 
-static GcrPromptReply
+static gboolean
 handle_last_response (GcrSystemPrompt *self)
 {
-	GcrPromptReply response;
+	gboolean response;
 
-	g_return_val_if_fail (self->pv->last_response != NULL,
-	                      GCR_PROMPT_REPLY_CANCEL);
+	g_return_val_if_fail (self->pv->last_response != NULL, FALSE);
 
 	if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_YES)) {
-		response = GCR_PROMPT_REPLY_CONTINUE;
+		response = TRUE;
 
 	} else if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NO) ||
 	           g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NONE)) {
-		response = GCR_PROMPT_REPLY_CANCEL;
+		response = FALSE;
 
 	} else {
 		g_warning ("unknown response from prompter: %s", self->pv->last_response);
-		response = GCR_PROMPT_REPLY_CANCEL;
+		response = FALSE;
 	}
 
 	return response;
@@ -1284,7 +1283,7 @@ gcr_system_prompt_password_finish (GcrPrompt *prompt,
 	if (g_simple_async_result_propagate_error (res, error))
 		return FALSE;
 
-	if (handle_last_response (self) == GCR_PROMPT_REPLY_CONTINUE)
+	if (handle_last_response (self))
 		return gcr_secret_exchange_get_secret (self->pv->exchange, NULL);
 
 	return NULL;
@@ -1302,7 +1301,7 @@ gcr_system_prompt_confirm_async (GcrPrompt *prompt,
 	                      cancellable, callback, user_data);
 }
 
-static GcrPromptReply
+static gboolean
 gcr_system_prompt_confirm_finish (GcrPrompt *prompt,
                                   GAsyncResult *result,
                                   GError **error)

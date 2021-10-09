@@ -28,7 +28,7 @@
 
 #include <glib.h>
 
-#include <gcr/gcr-base.h>
+#include <gcr/gcr.h>
 
 #define __GCR_INSIDE_HEADER__
 

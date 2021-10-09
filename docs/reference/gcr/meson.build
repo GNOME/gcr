@@ -68,7 +68,7 @@ gnome.gtkdoc('gcr',
     include_directories('../../../ui'),
   ],
   ignore_headers: gcr_docs_ignore_headers,
-  dependencies: [ gcr_base_dep, gcr_ui_dep ],
+  dependencies: [ gcr_dep, gcr_ui_dep ],
   gobject_typesfile: 'gcr.types',
   html_assets: gcr_docs_images,
   scan_args: [

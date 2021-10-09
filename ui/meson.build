@@ -82,7 +82,7 @@ gcr_ui_deps = [
   p11kit_dep,
   libegg_dep,
   gck_dep,
-  gcr_base_dep,
+  gcr_dep,
   gtk_dep,
 ]
 
@@ -119,7 +119,7 @@ gcr_ui_pkgconf_deps = [
   gio_dep,
   gobject_dep,
   'gck-@0@'.format(gck_major_version),
-  'gcr-base-@0@'.format(gcr_major_version),
+  'gcr-@0@'.format(gcr_major_version),
   gtk_dep,
 ]
 pkgconfig.generate(gcr_ui_lib,

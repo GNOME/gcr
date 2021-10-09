@@ -1,6 +1,6 @@
-gcr_base_headers_install_dir = 'gcr-@0@'.format(gcr_major_version) / 'gcr'
+gcr_headers_install_dir = 'gcr-@0@'.format(gcr_major_version) / 'gcr'
 
-gcr_base_public_sources = files(
+gcr_public_sources = files(
   'gcr-certificate.c',
   'gcr-certificate-chain.c',
   'gcr-certificate-request.c',
@@ -27,7 +27,7 @@ gcr_base_public_sources = files(
   'gcr-union-collection.c',
 )
 
-gcr_base_private_sources = files(
+gcr_private_sources = files(
   'gcr-callback-output-stream.c',
   'gcr-certificate-extensions.c',
   'gcr-column.c',
@@ -48,8 +48,8 @@ gcr_base_private_sources = files(
   'gcr-util.c',
 )
 
-gcr_base_headers = files(
-  'gcr-base.h',
+gcr_headers = files(
+  'gcr.h',
   'gcr-certificate.h',
   'gcr-certificate-chain.h',
   'gcr-certificate-request.h',
@@ -90,12 +90,12 @@ gcr_version_h = configure_file(input: 'gcr-version.h.in',
   configuration: gcr_version_conf,
 )
 
-gcr_base_headers += gcr_version_h
+gcr_headers += gcr_version_h
 
 gcr_enums_gen = gnome.mkenums_simple('gcr-enum-types-base',
-  sources: gcr_base_headers,
+  sources: gcr_headers,
   install_header: true,
-  install_dir: get_option('includedir') / gcr_base_headers_install_dir,
+  install_dir: get_option('includedir') / gcr_headers_install_dir,
 )
 
 gcr_marshal_gen = gnome.genmarshal('gcr-marshal',
@@ -123,23 +123,23 @@ gcr_oids = custom_target('gcr-oids',
   ]
 )
 
-gcr_base_sources = [
-  gcr_base_private_sources,
-  gcr_base_public_sources,
+gcr_sources = [
+  gcr_private_sources,
+  gcr_public_sources,
   gcr_enums_gen,
   gcr_marshal_gen,
   gcr_dbus_gen,
   gcr_oids,
 ]
 
-gcr_base_deps = [
+gcr_deps = [
   glib_deps,
   p11kit_dep,
   libegg_dep,
   gck_dep,
 ]
 
-gcr_base_cflags = [
+gcr_cflags = [
   '-DG_LOG_DOMAIN="Gcr"',
   '-DGCR_COMPILATION',
   '-DGCR_API_SUBJECT_TO_CHANGE',
@@ -148,34 +148,28 @@ gcr_base_cflags = [
   '-D_XOPEN_SOURCE',   # Needed for strptime()
 ]
 
-gcr_base_symbolmap = meson.current_source_dir() / 'libgcr-base.map'
-gcr_base_linkflags = cc.get_supported_link_arguments(
-  '-Wl,--version-script,@0@'.format(gcr_base_symbolmap),
+gcr_symbolmap = meson.current_source_dir() / 'libgcr.map'
+gcr_linkflags = cc.get_supported_link_arguments(
+  '-Wl,--version-script,@0@'.format(gcr_symbolmap),
 )
 
-gcr_base_lib = shared_library('gcr-base-@0@'.format(gcr_major_version),
-  gcr_base_sources,
-  dependencies: gcr_base_deps,
-  c_args: gcr_base_cflags,
-  link_args: gcr_base_linkflags,
-  link_depends: gcr_base_symbolmap,
+gcr_lib = shared_library('gcr-@0@'.format(gcr_major_version),
+  gcr_sources,
+  dependencies: gcr_deps,
+  c_args: gcr_cflags,
+  link_args: gcr_linkflags,
+  link_depends: gcr_symbolmap,
   include_directories: config_h_dir,
   version: gcr_soversion,
   install: true,
 )
 
-install_headers(gcr_base_headers,
-  subdir: gcr_base_headers_install_dir,
+install_headers(gcr_headers,
+  subdir: gcr_headers_install_dir,
 )
 
-if get_option('gtk')
-  install_headers('gcr.h',
-    subdir: gcr_base_headers_install_dir,
-  )
-endif
-
-gcr_base_dep = declare_dependency(
-  link_with: gcr_base_lib,
+gcr_dep = declare_dependency(
+  link_with: gcr_lib,
   include_directories: include_directories('..'),
   sources: [
     gcr_enums_gen[1],
@@ -185,18 +179,18 @@ gcr_base_dep = declare_dependency(
 )
 
 if get_option('introspection')
-  gcr_gir = gnome.generate_gir(gcr_base_lib,
-    sources: [ gcr_base_public_sources, gcr_base_headers ],
+  gcr_gir = gnome.generate_gir(gcr_lib,
+    sources: [ gcr_public_sources, gcr_headers ],
     namespace: 'Gcr',
     nsversion: '@0@'.format(gcr_major_version),
-    packages: gcr_base_deps,
-    export_packages: 'gcr-base-@0@'.format(gcr_major_version),
+    packages: gcr_deps,
+    export_packages: 'gcr-@0@'.format(gcr_major_version),
     includes: [
       'GObject-2.0',
       'Gio-2.0',
       gck_gir[0],
     ],
-    header: 'gcr/gcr-base.h',
+    header: 'gcr/gcr.h',
     extra_args: [
       '-DGCR_COMPILATION',
       '-DGCR_API_SUBJECT_TO_CHANGE',
@@ -219,7 +213,7 @@ if get_option('introspection')
 endif
 
 # pkg-config file
-pkgconfig.generate(gcr_base_lib,
+pkgconfig.generate(gcr_lib,
   subdirs: 'gcr-@0@'.format(gcr_major_version),
   requires: [ glib_dep, gio_dep, gobject_dep, p11kit_dep, 'gck-@0@'.format(gck_major_version) ],
   description: 'GObject and GUI library for high level crypto parsing and display',
@@ -250,7 +244,7 @@ if get_option('ssh_agent')
 
   gcr_ssh_agent = executable('gcr-ssh-agent',
     gcr_ssh_agent_lib_sources + [ 'gcr-ssh-agent.c' ],
-    dependencies: [ gcr_base_deps, gcr_base_dep, libsecret_dep, libsystemd_deps ],
+    dependencies: [ gcr_deps, gcr_dep, libsecret_dep, libsystemd_deps ],
     c_args: [
       '-DGCR_COMPILATION',
       '-DGCR_API_SUBJECT_TO_CHANGE',
@@ -280,7 +274,7 @@ if get_option('ssh_agent')
 
   gcr_ssh_agent_test_lib = static_library('gcr-ssh-agent-test',
     sources: gcr_ssh_agent_lib_sources + [ 'gcr-ssh-agent-test.c' ],
-    dependencies: [ gcr_base_deps, gcr_base_dep, libsecret_dep, libsystemd_deps ],
+    dependencies: [ gcr_deps, gcr_dep, libsecret_dep, libsystemd_deps ],
     c_args: [
       '-DGCR_COMPILATION',
       '-DGCR_API_SUBJECT_TO_CHANGE',
@@ -298,9 +292,9 @@ if get_option('ssh_agent')
   foreach _test : gcr_ssh_agent_test_names
     test_bin = executable('test-ssh-agent-'+_test,
       'test-ssh-agent-@0@.c'.format(_test),
-      dependencies: [ gcr_base_deps, gcr_base_dep ],
+      dependencies: [ gcr_deps, gcr_dep ],
       link_with: [ gcr_ssh_agent_test_lib, egg_test_lib ],
-      c_args: [ gcr_base_cflags, gcr_ssh_agent_test_cflags ],
+      c_args: [ gcr_cflags, gcr_ssh_agent_test_cflags ],
       include_directories: config_h_dir,
     )
 
@@ -361,14 +355,14 @@ gcr_test_cflags = [
 foreach _test : gcr_test_names
   test_bin = executable('test-'+_test,
     'test-@0@.c'.format(_test),
-    dependencies: [ gcr_base_deps, gcr_base_dep ],
+    dependencies: [ gcr_deps, gcr_dep ],
     link_with: [ gck_test_lib, egg_test_lib ],
-    c_args: [ gcr_base_cflags, gcr_test_cflags ],
+    c_args: [ gcr_cflags, gcr_test_cflags ],
     include_directories: config_h_dir,
   )
 
   test(_test, test_bin,
-    suite: 'gcr-base',
+    suite: 'gcr',
     depends: gcr_ssh_askpass,
   )
 endforeach
@@ -376,18 +370,18 @@ endforeach
 # Example frob programs
 frob_certificate_request = executable('frob-certificate-request',
   files('frob-certificate-request.c', 'console-interaction.c'),
-  dependencies: [ gcr_base_dep, gcr_base_deps ],
-  c_args: gcr_base_cflags,
+  dependencies: [ gcr_dep, gcr_deps ],
+  c_args: gcr_cflags,
 )
 
 frob_openpgp = executable('frob-openpgp',
   files('frob-openpgp.c'),
-  dependencies: [ gcr_base_dep, gcr_base_deps ],
-  c_args: gcr_base_cflags,
+  dependencies: [ gcr_dep, gcr_deps ],
+  c_args: gcr_cflags,
 )
 
 frob_parser = executable('frob-parser',
   files('frob-parser.c'),
-  dependencies: [ gcr_base_dep, gcr_base_deps ],
-  c_args: gcr_base_cflags,
+  dependencies: [ gcr_dep, gcr_deps ],
+  c_args: gcr_cflags,
 )

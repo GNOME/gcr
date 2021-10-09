@@ -23,6 +23,7 @@
 #include "config.h"
 
 #include "gcr/gcr.h"
+#include "ui/gcr-ui.h"
 #include "gcr/gcr-dbus-constants.h"
 
 #include <glib/gi18n.h>

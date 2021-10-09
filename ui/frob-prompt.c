@@ -21,8 +21,8 @@
 
 #include "config.h"
 
-#include "gcr/gcr.h"
-#include "gcr/gcr-base.h"
+#include <gcr/gcr.h>
+#include <ui/gcr-ui.h>
 
 #include <gtk/gtk.h>
 #ifdef GDK_WINDOWING_X11

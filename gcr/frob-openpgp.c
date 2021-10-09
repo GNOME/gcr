@@ -21,7 +21,7 @@
 
 #include "config.h"
 
-#include "gcr/gcr-base.h"
+#include "gcr/gcr.h"
 #include "gcr/gcr-openpgp.h"
 #include "gcr/gcr-record.h"
 

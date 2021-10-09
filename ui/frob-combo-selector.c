@@ -1,7 +1,8 @@
 
 #include "config.h"
 
-#include "gcr/gcr.h"
+#include <gcr/gcr.h>
+#include <ui/gcr-ui.h>
 
 #include <gtk/gtk.h>
 

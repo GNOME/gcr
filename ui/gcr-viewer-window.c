@@ -24,6 +24,10 @@
 
 #include "gcr-viewer-window.h"
 
+#include <ui/gcr-viewer-widget.h>
+#include <ui/gcr-import-button.h>
+
+
 #include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
 

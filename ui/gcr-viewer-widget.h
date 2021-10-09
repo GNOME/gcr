@@ -25,6 +25,9 @@
 
 #include <gtk/gtk.h>
 
+#include <ui/gcr-viewer.h>
+#include <gcr/gcr-parser.h>
+
 #define GCR_TYPE_VIEWER_WIDGET (gcr_viewer_widget_get_type ())
 G_DECLARE_FINAL_TYPE (GcrViewerWidget, gcr_viewer_widget,
                       GCR, VIEWER_WIDGET,

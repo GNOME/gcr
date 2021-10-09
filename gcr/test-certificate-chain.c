@@ -21,7 +21,7 @@
 
 #include "config.h"
 
-#include "gcr/gcr-base.h"
+#include "gcr/gcr.h"
 #include "gcr/gcr-internal.h"
 
 #include "egg/egg-asn1x.h"

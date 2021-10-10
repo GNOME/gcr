@@ -27,7 +27,6 @@
 #include "gcr-certificate-exporter.h"
 #include "gcr-certificate-renderer.h"
 #include "gcr-certificate-renderer-private.h"
-#include "gcr-deprecated.h"
 #include "gcr-display-view.h"
 #include "gcr-renderer.h"
 

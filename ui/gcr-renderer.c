@@ -19,7 +19,6 @@
 
 #include "config.h"
 
-#include "gcr-deprecated.h"
 #include "gcr-renderer.h"
 
 #include "gcr-certificate-renderer.h"

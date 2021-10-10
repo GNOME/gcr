@@ -23,8 +23,6 @@ gcr_ui_public_sources = files(
 
 gcr_ui_private_sources = files(
   'eggimagemenuitem.c',
-  'gcr-certificate-basics-widget.c',
-  'gcr-certificate-details-widget.c',
   'gcr-certificate-exporter.c',
   'gcr-certificate-request-renderer.c',
   'gcr-dialog-util.c',
@@ -44,7 +42,6 @@ gcr_ui_headers = files(
   'gcr-certificate-widget.h',
   'gcr-collection-model.h',
   'gcr-combo-selector.h',
-  'gcr-deprecated.h',
   'gcr-failure-renderer.h',
   'gcr-key-renderer.h',
   'gcr-key-widget.h',
@@ -57,11 +54,6 @@ gcr_ui_headers = files(
   'gcr-unlock-options-widget.h',
   'gcr-viewer.h',
   'gcr-viewer-widget.h',
-)
-
-gcr_ui_deprecated_headers = files(
-  'gcr-certificate-basics-widget.h',
-  'gcr-certificate-details-widget.h',
 )
 
 # Generated sources
@@ -135,7 +127,7 @@ pkgconfig.generate(gcr_ui_lib,
   description: 'GObject and GUI library for high level crypto parsing and display',
 )
 
-install_headers([gcr_ui_headers, gcr_ui_deprecated_headers ],
+install_headers([gcr_ui_headers ],
   subdir: gcr_ui_headers_install_dir,
 )
 

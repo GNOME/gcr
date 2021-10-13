@@ -52,17 +52,17 @@
  * The class for #GcrSimpleCertificate.
  */
 
-struct _GcrSimpleCertificatePrivate {
-	const guchar *data;
-	gsize n_data;
-	guchar *owned;
+struct _GcrSimpleCertificate
+{
+	GObject parent_instance;
+
+	GBytes *bytes;
 };
 
 /* Forward declarations */
 static void gcr_simple_certificate_iface_init (GcrCertificateIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrSimpleCertificate, gcr_simple_certificate, G_TYPE_OBJECT,
-	G_ADD_PRIVATE (GcrSimpleCertificate);
 	GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE ();
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_CERTIFICATE, gcr_simple_certificate_iface_init);
 );
@@ -74,7 +74,6 @@ G_DEFINE_TYPE_WITH_CODE (GcrSimpleCertificate, gcr_simple_certificate, G_TYPE_OB
 static void
 gcr_simple_certificate_init (GcrSimpleCertificate *self)
 {
-	self->pv = gcr_simple_certificate_get_instance_private (self);
 }
 
 static void
@@ -82,10 +81,7 @@ gcr_simple_certificate_real_finalize (GObject *obj)
 {
 	GcrSimpleCertificate *self = GCR_SIMPLE_CERTIFICATE (obj);
 
-	g_free (self->pv->owned);
-	self->pv->owned = NULL;
-	self->pv->data = NULL;
-	self->pv->n_data = 0;
+	g_clear_pointer (&self->bytes, g_bytes_unref);
 
 	G_OBJECT_CLASS (gcr_simple_certificate_parent_class)->finalize (obj);
 }
@@ -110,11 +106,10 @@ gcr_simple_certificate_get_der_data (GcrCertificate *cert,
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 	g_return_val_if_fail (n_data, NULL);
-	g_return_val_if_fail (self->pv->data, NULL);
+	g_return_val_if_fail (self->bytes, NULL);
 
 	/* This is called when we're not a base class */
-	*n_data = self->pv->n_data;
-	return self->pv->data;
+	return g_bytes_get_data (self->bytes, n_data);
 }
 
 static void
@@ -148,8 +143,7 @@ gcr_simple_certificate_new (const guchar *data,
 
 	cert = g_object_new (GCR_TYPE_SIMPLE_CERTIFICATE, NULL);
 
-	cert->pv->data = cert->pv->owned = g_memdup (data, n_data);
-	cert->pv->n_data = n_data;
+	cert->bytes = g_bytes_new (data, n_data);
 	return GCR_CERTIFICATE (cert);
 }
 
@@ -175,8 +169,6 @@ gcr_simple_certificate_new_static (const guchar *data,
 
 	cert = g_object_new (GCR_TYPE_SIMPLE_CERTIFICATE, NULL);
 
-	cert->pv->owned = NULL;
-	cert->pv->data = data;
-	cert->pv->n_data = n_data;
+	cert->bytes = g_bytes_new_static (data, n_data);
 	return GCR_CERTIFICATE (cert);
 }

@@ -23,6 +23,7 @@
 #include "gcr-comparable.h"
 #include "gcr-internal.h"
 #include "gcr-simple-certificate.h"
+#include "gcr-parser.h"
 
 #include <string.h>
 
@@ -124,51 +125,86 @@ gcr_simple_certificate_iface_init (GcrCertificateIface *iface)
 
 /**
  * gcr_simple_certificate_new:
- * @data: (array length=n_data): the raw DER certificate data
- * @n_data: The length of @data
+ * @bytes: (transfer full): a #GBytes containing the raw DER certificate data
  *
- * Create a new #GcrSimpleCertificate for the raw DER data. The @data memory is
- * copied so you can dispose of it after this function returns.
+ * Create a new #GcrSimpleCertificate for the raw DER data. The @bytes memory is
+ * then owned by the returned object, use g_bytes_ref() before calling this
+ * function if you need to keep the #GBytes.
  *
  * Returns: (transfer full) (type Gcr.SimpleCertificate): a new #GcrSimpleCertificate
  */
 GcrCertificate *
-gcr_simple_certificate_new (const guchar *data,
-                            gsize n_data)
+gcr_simple_certificate_new (GBytes *bytes)
 {
 	GcrSimpleCertificate *cert;
 
-	g_return_val_if_fail (data, NULL);
-	g_return_val_if_fail (n_data, NULL);
+	g_return_val_if_fail (bytes != NULL, NULL);
 
 	cert = g_object_new (GCR_TYPE_SIMPLE_CERTIFICATE, NULL);
+	cert->bytes = bytes;
 
-	cert->bytes = g_bytes_new (data, n_data);
+	return GCR_CERTIFICATE (cert);
+
+}
+
+static void
+on_parser_parsed (GcrParser *parser,
+                  gpointer user_data)
+{
+	GcrSimpleCertificate *self = user_data;
+	GckAttributes *attributes;
+	const GckAttribute *attr;
+
+	attributes = gcr_parser_get_parsed_attributes (parser);
+	attr = gck_attributes_find (attributes, CKA_VALUE);
+	self->bytes = g_bytes_new (attr->value, attr->length);
+}
+
+GcrCertificate *
+gcr_simple_certificate_new_from_file (GFile         *file,
+                                      GCancellable  *cancellable,
+                                      GError       **error)
+{
+	GcrSimpleCertificate *cert;
+	GcrParser *parser;
+	GBytes *bytes;
+
+	g_return_val_if_fail (G_IS_FILE (file), NULL);
+	g_return_val_if_fail (!error || !*error, NULL);
+
+
+	bytes = g_file_load_bytes (file, cancellable, NULL, error);
+	if (!bytes) {
+		return NULL;
+	}
+
+	parser = gcr_parser_new ();
+	cert = g_object_new (GCR_TYPE_SIMPLE_CERTIFICATE, NULL);
+	g_signal_connect (parser, "parsed", G_CALLBACK (on_parser_parsed), cert);
+	if (!gcr_parser_parse_bytes (parser, bytes, error)) {
+		g_bytes_unref (bytes);
+		g_object_unref (parser);
+		g_object_unref (cert);
+		return NULL;
+	}
+
+	g_bytes_unref (bytes);
+	g_object_unref (parser);
 	return GCR_CERTIFICATE (cert);
 }
 
-/**
- * gcr_simple_certificate_new_static: (skip)
- * @data: (array length=n_data): The raw DER certificate data
- * @n_data: The length of @data
- *
- * Create a new #GcrSimpleCertificate for the raw DER data. The @data memory is
- * not copied and must persist until the #GcrSimpleCertificate object is
- * destroyed.
- *
- * Returns: (transfer full) (type Gcr.SimpleCertificate): a new #GcrSimpleCertificate
- */
-GcrCertificate *
-gcr_simple_certificate_new_static (const guchar *data,
-                                   gsize n_data)
+void
+gcr_simple_certificate_new_from_file_async (GFile               *file,
+                                            GCancellable        *cancellable,
+                                            GAsyncReadyCallback  callback,
+                                            gpointer             user_data)
 {
-	GcrSimpleCertificate *cert;
 
-	g_return_val_if_fail (data, NULL);
-	g_return_val_if_fail (n_data, NULL);
+}
 
-	cert = g_object_new (GCR_TYPE_SIMPLE_CERTIFICATE, NULL);
-
-	cert->bytes = g_bytes_new_static (data, n_data);
-	return GCR_CERTIFICATE (cert);
+GcrCertificate *
+gcr_simple_certificate_new_from_file_finish (GAsyncResult  *res,
+                                             GError       **error)
+{
+	return NULL;
 }

@@ -70,6 +70,10 @@ if get_option('gtk')
   gtk_dep = dependency('gtk+-3.0', version: '>=' + gtk_min_version)
 endif
 
+if get_option('gtk4')
+  gtk4_dep = dependency('gtk4')
+endif
+
 # configuration
 conf = configuration_data()
 conf.set_quoted('VERSION', meson.project_version())
@@ -99,6 +103,9 @@ subdir('gcr')
 subdir('schema')
 if get_option('gtk')
   subdir('ui')
+endif
+if get_option('gtk4')
+  subdir('gcr-gtk4')
 endif
 if get_option('gtk_doc')
   subdir('docs')

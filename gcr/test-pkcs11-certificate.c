@@ -125,7 +125,7 @@ test_lookup_certificate_issuer (Test *test, gconstpointer unused)
 	gconstpointer der;
 	gsize n_der;
 
-	cert = gcr_simple_certificate_new_static (test->cert_data, test->n_cert_data);
+	cert = gcr_simple_certificate_new (g_bytes_new_static (test->cert_data, test->n_cert_data));
 	g_assert (cert);
 
 	/* Should be self-signed, so should find itself (added in setup) */
@@ -166,7 +166,7 @@ test_lookup_certificate_issuer_not_found (Test *test, gconstpointer unused)
 	GcrCertificate *cert, *issuer;
 	GError *error = NULL;
 
-	cert = gcr_simple_certificate_new_static (test->cert2_data, test->n_cert2_data);
+	cert = gcr_simple_certificate_new (g_bytes_new_static (test->cert2_data, test->n_cert2_data));
 	g_assert (cert);
 
 	/* Issuer shouldn't be found */
@@ -194,7 +194,7 @@ test_lookup_certificate_issuer_async (Test *test, gconstpointer unused)
 	gconstpointer der;
 	gsize n_der;
 
-	cert = gcr_simple_certificate_new_static (test->cert_data, test->n_cert_data);
+	cert = gcr_simple_certificate_new (g_bytes_new_static (test->cert_data, test->n_cert_data));
 	g_assert (cert);
 
 	/* Should be self-signed, so should find itself (added in setup) */
@@ -222,7 +222,7 @@ test_lookup_certificate_issuer_failure (Test *test, gconstpointer unused)
 	GcrCertificate *cert, *issuer;
 	GError *error = NULL;
 
-	cert = gcr_simple_certificate_new_static (test->cert_data, test->n_cert_data);
+	cert = gcr_simple_certificate_new (g_bytes_new_static (test->cert_data, test->n_cert_data));
 	g_assert (cert);
 
 	/* Make the lookup fail */
@@ -244,7 +244,7 @@ test_lookup_certificate_issuer_fail_async (Test *test, gconstpointer unused)
 	GcrCertificate *cert, *issuer;
 	GError *error = NULL;
 
-	cert = gcr_simple_certificate_new_static (test->cert_data, test->n_cert_data);
+	cert = gcr_simple_certificate_new (g_bytes_new_static (test->cert_data, test->n_cert_data));
 	g_assert (cert);
 
 	/* Make the lookup fail */

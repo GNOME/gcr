@@ -339,9 +339,7 @@ gcr_certificate_renderer_dispose (GObject *obj)
 {
 	GcrCertificateRenderer *self = GCR_CERTIFICATE_RENDERER (obj);
 
-	if (self->pv->opt_cert)
-		g_object_unref (self->pv->opt_cert);
-	self->pv->opt_cert = NULL;
+	g_clear_object (&self->pv->opt_cert);
 
 	G_OBJECT_CLASS (gcr_certificate_renderer_parent_class)->dispose (obj);
 }
@@ -351,14 +349,8 @@ gcr_certificate_renderer_finalize (GObject *obj)
 {
 	GcrCertificateRenderer *self = GCR_CERTIFICATE_RENDERER (obj);
 
-	g_assert (!self->pv->opt_cert);
-
-	if (self->pv->opt_attrs)
-		gck_attributes_unref (self->pv->opt_attrs);
-	self->pv->opt_attrs = NULL;
-
-	g_free (self->pv->label);
-	self->pv->label = NULL;
+	g_clear_pointer (&self->pv->opt_attrs, gck_attributes_unref);
+	g_clear_pointer (&self->pv->label, g_free);
 
 	G_OBJECT_CLASS (gcr_certificate_renderer_parent_class)->finalize (obj);
 }

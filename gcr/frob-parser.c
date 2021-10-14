@@ -43,7 +43,7 @@ dump_certificate (GckAttributes *attrs, const gchar *filename)
 	if (!attr)
 		return FALSE;
 
-	cert = gcr_simple_certificate_new_static (attr->value, attr->length);
+	cert = gcr_simple_certificate_new (g_bytes_new_static (attr->value, attr->length));
 	subject = gcr_certificate_get_subject_dn (cert);
 	g_print ("%s: parsed certificate: %s\n", filename, subject);
 	g_free (subject);

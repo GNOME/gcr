@@ -173,9 +173,11 @@ prep_chain_private_thread_safe (GcrCertificateChainPrivate *orig, const gchar *p
 
 		/* Otherwise copy the certificate data */
 		} else {
+			GBytes *bytes;
 			der = gcr_certificate_get_der_data (certificate, &n_der);
 			g_return_val_if_fail (der, NULL);
-			safe = gcr_simple_certificate_new (der, n_der);
+			bytes = g_bytes_new (der, n_der);
+			safe = gcr_simple_certificate_new (bytes);
 
 			g_debug ("copying certificate so it's thread safe");
 

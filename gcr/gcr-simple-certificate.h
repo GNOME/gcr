@@ -25,6 +25,7 @@
 #define __GCR_SIMPLE_CERTIFICATE_H__
 
 #include <glib-object.h>
+#include <gio/gio.h>
 
 #include "gcr-certificate.h"
 
@@ -34,11 +35,16 @@ G_BEGIN_DECLS
 #define GCR_TYPE_SIMPLE_CERTIFICATE gcr_simple_certificate_get_type ()
 G_DECLARE_FINAL_TYPE (GcrSimpleCertificate, gcr_simple_certificate, GCR, SIMPLE_CERTIFICATE, GObject)
 
-GcrCertificate *gcr_simple_certificate_new        (const guchar *data,
-                                                   gsize n_data);
-
-GcrCertificate *gcr_simple_certificate_new_static (const guchar *data,
-                                                   gsize n_data);
+GcrCertificate *gcr_simple_certificate_new                 (GBytes  *bytes);
+GcrCertificate *gcr_simple_certificate_new_from_file       (GFile         *file,
+                                                            GCancellable  *cancellable,
+                                                            GError       **error);
+void            gcr_simple_certificate_new_from_file_async (GFile               *file,
+                                                            GCancellable        *cancellable,
+                                                            GAsyncReadyCallback  callback,
+                                                            gpointer             user_data);
+GcrCertificate *gcr_simple_certificate_new_from_file_finish (GAsyncResult  *res,
+                                                             GError       **error);
 
 G_END_DECLS
 

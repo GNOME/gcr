@@ -8,6 +8,11 @@ option('gtk',
   value: true,
   description: 'Build code that uses GTK+',
 )
+option('gtk4',
+  type: 'boolean',
+  value: true,
+  description: 'Build the Gtk4 library',
+)
 option('gtk_doc',
   type: 'boolean',
   value: true,

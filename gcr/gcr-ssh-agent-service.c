@@ -39,7 +39,7 @@
 #include <glib/gstdio.h>
 #include <gcr/gcr-base.h>
 
-#ifdef WITH_SYSTEMD
+#if WITH_SYSTEMD
 #include <systemd/sd-daemon.h>
 #endif
 

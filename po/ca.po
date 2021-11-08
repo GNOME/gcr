@@ -721,7 +721,7 @@ msgstr "Elgamal"
 
 #: ui/gcr-gnupg-renderer.c:216
 msgid "Encrypt"
-msgstr "Encripta"
+msgstr "Xifra"
 
 #: ui/gcr-gnupg-renderer.c:218
 msgid "Sign"
@@ -883,7 +883,7 @@ msgstr "Certificació personal de la clau"
 
 #: ui/gcr-gnupg-renderer.c:518
 msgid "Casual certification of key"
-msgstr "Certificació casual de la clau"
+msgstr "Certificació informal de la clau"
 
 #: ui/gcr-gnupg-renderer.c:520
 msgid "Positive certification of key"

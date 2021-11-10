@@ -3,7 +3,7 @@ stages:
   - deploy
 
 variables:
-  DEPENDENCIES: dbus-daemon diffutils gcc libsecret-devel meson ninja-build openssh openssh-clients python redhat-rpm-config systemd-devel
+  DEPENDENCIES: dbus-daemon diffutils gcc gi-docgen libsecret-devel meson ninja-build openssh openssh-clients python redhat-rpm-config systemd-devel
 
 fedora:Werror:
   image: fedora:latest
@@ -74,6 +74,10 @@ fedora:coverage:
     - ninja coverage-html -C _build
   coverage: '/^\s+lines.+:\s+([\d.]+\%)\s+/'
   artifacts:
+    name: "gcr-docs-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
+    paths:
+      - _build/docs/
+  artifacts:
     name: "gcr-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     paths:
       - _build/meson-logs/coveragereport/
@@ -90,7 +94,8 @@ pages:
     - master
   needs: ['fedora:coverage']
   script:
-    - mv _build/meson-logs/coveragereport/ public/
+    - mv _build/meson-logs/coveragereport public/coverage
+    - mv _build/meson-logs/coveragereport public/
   artifacts:
     when: on_success
     paths:

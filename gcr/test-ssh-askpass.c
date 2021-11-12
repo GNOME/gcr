@@ -81,7 +81,7 @@ test_ssh_keygen (Test *test,
 		g_assert_not_reached ();
 
 	g_spawn_async (SRCDIR "/gcr/fixtures", argv, NULL,
-	               G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+	               G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_CLOEXEC_PIPES,
 	               gcr_ssh_askpass_child_setup, test->askpass, &pid, &error);
 
 	g_free (filename);
@@ -122,7 +122,7 @@ test_cancelled (Test *test,
 		g_assert_not_reached ();
 
 	g_spawn_async (SRCDIR "/gcr/fixtures", argv, NULL,
-	               G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+	               G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_CLOEXEC_PIPES,
 	               gcr_ssh_askpass_child_setup, test->askpass, &pid, &error);
 
 	g_free (filename);

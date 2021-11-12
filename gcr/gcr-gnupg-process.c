@@ -1042,7 +1042,7 @@ _gcr_gnupg_process_run_async (GcrGnupgProcess *self, const gchar **argv, const g
 	g_free (environ);
 
 	g_spawn_async_with_pipes (self->pv->directory, (gchar**)args->pdata,
-	                          (gchar**)envs->pdata, G_SPAWN_DO_NOT_REAP_CHILD,
+	                          (gchar**)envs->pdata, G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_CLOEXEC_PIPES,
 	                          on_gnupg_process_child_setup, child_fds,
 	                          &pid, &input_fd, &output_fd, &error_fd, &error);
 

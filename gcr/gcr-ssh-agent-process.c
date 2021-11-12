@@ -181,7 +181,7 @@ agent_start_inlock (GcrSshAgentProcess *self,
 	const gchar *argv[] = { SSH_AGENT_EXECUTABLE, "-D", "-a", self->path, NULL };
 	GPid pid;
 
-	if (!g_spawn_async_with_pipes ("/", (gchar **)argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD,
+	if (!g_spawn_async_with_pipes ("/", (gchar **)argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_CLOEXEC_PIPES,
 	                               NULL, NULL, &pid, NULL, &self->output, NULL, error))
 		return FALSE;
 

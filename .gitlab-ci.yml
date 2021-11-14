@@ -89,6 +89,7 @@ pages:
     - master
   needs: ['fedora:coverage']
   script:
+    - mkdir public
     - mv _build/meson-logs/coveragereport public/coverage
     - mv _build/docs/gck/gck-1 public/gck-1
     - mv _build/docs/gcr/gcr-3 public/gcr-3

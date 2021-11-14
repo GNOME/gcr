@@ -28,7 +28,7 @@
  * An abstract interface that represents a widget that can hold
  * various renderers and display their contents.
  *
- * The interaction between [class@Renderer] and [class@Viewer] is not stable
+ * The interaction between [iface@Renderer] and [iface@Viewer] is not stable
  * yet, and so viewers cannot be implemented outside the Gcr library at this
  * time.
  *

@@ -92,7 +92,7 @@ EGG_SECURE_DEFINE_GLIB_GLOBALS ();
  * Various error codes. All the `CKR_XXX` error codes from PKCS#11 are also
  * relevant error codes.
  *
- * Note that errors are returned as [class@GLib.Error] structures. The `code`
+ * Note that errors are returned as [struct@GLib.Error] structures. The `code`
  * member of the error then contains the raw PKCS#11 `CK_RV` result value.
  */
 

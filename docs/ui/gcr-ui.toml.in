@@ -28,10 +28,12 @@ search_index = true
   [dependencies."Gck-@GCK_VERSION@"]
   name = "Gck"
   description = "GObject bindings for PKCS#11"
+  docs_url = "https://gnome.pages.gitlab.gnome.org/gcr/gck-@GCK_VERSION@"
 
   [dependencies."Gcr-@GCR_VERSION@"]
   name = "Gcr"
   description = "GObject library for high level crypto parsing"
+  docs_url = "https://gnome.pages.gitlab.gnome.org/gcr/gcr-@GCR_VERSION@"
 
 [theme]
 name = "basic"

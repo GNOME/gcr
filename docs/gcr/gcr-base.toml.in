@@ -23,6 +23,7 @@ search_index = true
   [dependencies."Gck-@GCK_VERSION@"]
   name = "Gck"
   description = "GObject bindings for PKCS#11"
+  docs_url = "https://gnome.pages.gitlab.gnome.org/gcr/gck-@GCK_VERSION@"
 
 [theme]
 name = "basic"

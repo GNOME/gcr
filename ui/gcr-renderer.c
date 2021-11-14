@@ -35,9 +35,9 @@
  * GcrRenderer:
  *
  * An interface that's implemented by renderers which wish to render data to a
- * [class@Viewer].
+ * [iface@Viewer].
  *
- * The interaction between [class@Renderer] and [class@Viewer] is not stable
+ * The interaction between [iface@Renderer] and [iface@Viewer] is not stable
  * yet, and so new renderers cannot be implemented outside the Gcr library at
  * this time.
  *

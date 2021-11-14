@@ -34,8 +34,8 @@
 /**
  * GcrCollectionModel:
  *
- * Ain implementation of a [class@Gtk.TreeModel] which contains a row for each
- * object in a [class@Gcr.Collection].
+ * Ain implementation of a [iface@Gtk.TreeModel] which contains a row for each
+ * object in a [iface@Gcr.Collection].
  *
  * As objects are added or removed from the collection, rows are added and
  * removed from this model.
@@ -70,7 +70,7 @@
  *
  * If a [class@CollectionModel] is created with a mode of
  * %GCR_COLLECTION_MODEL_TREE, then any included objects that are themselves a
- * [class@Gcr.Collection], will have all child
+ * [iface@Gcr.Collection], will have all child
  * objects include as child rows in a tree form.
  */
 

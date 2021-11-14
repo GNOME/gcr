@@ -33,43 +33,30 @@
 EGG_SECURE_DECLARE (secret_exchange);
 
 /**
- * SECTION:gcr-secret-exchange
- * @title: GcrSecretExchange
- * @short_description: Exchange secrets between processes in an unexposed way.
+ * GcrSecretExchange:
  *
  * Allows exchange of secrets between two processes on the same system without
  * exposing those secrets to things like loggers, non-pageable memory etc.
  *
  * This does not protect against active attacks like MITM attacks.
  *
- * Each side creates a #GcrSecretExchange object, and one of the sides calls
- * gcr_secret_exchange_begin(). This creates a string, which should be passed
+ * Each side creates a secret exchange object, and one of the sides calls
+ * [method@SecretExchange.begin]. This creates a string, which should be passed
  * to the other side. Each side passes the strings it receives into
- * gcr_secret_exchange_receive().
+ * [method@SecretExchange.receive].
  *
  * In order to send a reply (either with or without a secret) use
- * gcr_secret_exchange_send(). A side must have had gcr_secret_exchange_receive()
- * successfully called before it can use gcr_secret_exchange_send().
+ * [method@SecretExchange.send]. A side must have successfully called
+ * [method@SecretExchange.receive] before it can use
+ * [method@SecretExchange.send].
  *
- * The #GcrSecretExchange objects can be used for multiple iterations of the
+ * The secret exchange objects can be used for multiple iterations of the
  * conversation, or for just one request/reply. The only limitation being that
  * the initial request cannot contain a secret.
  *
  * Caveat: Information about the approximate length (rounded up to the nearest
  * 16 bytes) may be leaked. If this is considered inacceptable, do not use
- * #GcrSecretExchange.
- */
-
-/**
- * GcrSecretExchange:
- *
- * An object representing one side of a secret exchange.
- */
-
-/**
- * GcrSecretExchangeClass:
- *
- * The class for #GcrSecretExchange
+ * [class@SecretExchange].
  */
 
 /**
@@ -224,7 +211,7 @@ gcr_secret_exchange_finalize (GObject *obj)
  *
  * Specify a protocol of %NULL to allow any protocol. This is especially
  * relevant on the side of the exchange that does not call
- * gcr_secret_exchange_begin(), that is the originator. Currently the only
+ * [method@SecretExchange.begin], that is the originator. Currently the only
  * protocol supported is %GCR_SECRET_EXCHANGE_PROTOCOL_1.
  *
  * Returns: (transfer full): A new #GcrSecretExchange object
@@ -243,8 +230,8 @@ gcr_secret_exchange_new (const gchar *protocol)
  * Get the secret exchange protocol.
  *
  * Will return %NULL if no protocol was specified, and either
- * gcr_secret_exchange_begin() or gcr_secret_exchange_receive() have not been
- * called successfully.
+ * [method@SecretExchange.begin] or [method@SecretExchange.receive] have not
+ * been called successfully.
  *
  * Returns: the protocol or %NULL
  */
@@ -262,7 +249,7 @@ gcr_secret_exchange_get_protocol (GcrSecretExchange *self)
  * @self: a #GcrSecretExchange object
  *
  * Begin the secret exchange. The resulting string should be sent to the other
- * side of the exchange. The other side should use gcr_secret_exchange_receive()
+ * side of the exchange. The other side should use [method@SecretExchange.receive]
  * to process the string.
  *
  * Returns: (transfer full): A newly allocated string to be sent to the other
@@ -387,7 +374,8 @@ perform_decrypt (GcrSecretExchange *self,
  * @exchange: the string received
  *
  * Receive a string from the other side of secret exchange. This string will
- * have been created by gcr_secret_exchange_begin() or gcr_secret_exchange_send().
+ * have been created by [method@SecretExchange.begin] or
+ * [method@SecretExchange.send].
  *
  * After this call completes successfully the value returned from
  * gcr_secret_exchange_get_secret() will have changed.
@@ -514,7 +502,7 @@ perform_encrypt (GcrSecretExchange *self,
  * Send a reply to the other side of the secret exchange, optionally sending a
  * secret.
  *
- * gcr_secret_exchange_receive() must have been successfully called at least
+ * [method@SecretExchange.receive] must have been successfully called at least
  * once on this object. In other words this object must have received data
  * from the other side of the secret exchange, before we can send a secret.
  *
@@ -864,7 +852,7 @@ gcr_secret_exchange_class_init (GcrSecretExchangeClass *klass)
 	 * The protocol being used for the exchange.
 	 *
 	 * Will be %NULL if no protocol was specified when creating this object,
-	 * and either gcr_secret_exchange_begin() or gcr_secret_exchange_receive()
+	 * and either [method@SecretExchange.begin] or [method@SecretExchange.receive]
 	 * have not been called successfully.
 	 */
 	g_object_class_install_property (gobject_class, PROP_PROTOCOL,

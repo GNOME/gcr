@@ -32,30 +32,16 @@
 #include <string.h>
 
 /**
- * SECTION:gcr-pkcs11-certificate
- * @title: GcrPkcs11Certificate
- * @short_description: A certificate loaded from PKCS\#11 storage
- *
- * A #GcrPkcs11Certificate is a certificate loaded from a PKCS\#11 storage.
- * It is also a valid #GckObject and can be used as such.
- *
- * Use gcr_pkcs11_certificate_lookup_issuer() to lookup the issuer of a given
- * certificate in the PKCS\#11 store.
- *
- * Various common PKCS\#11 certificate attributes are automatically loaded and
- * are available via gcr_pkcs11_certificate_get_attributes().
- */
-
-/**
  * GcrPkcs11Certificate:
  *
- * A certificate loaded from PKCS\#11 storage.
- */
-
-/**
- * GcrPkcs11CertificateClass:
+ * A certificate loaded from a PKCS#11 storage.
+ * It is also a valid [class@Gck.Object] and can be used as such.
  *
- * The class for #GcrPkcs11Certificate.
+ * Use gcr_pkcs11_certificate_lookup_issuer() to lookup the issuer of a given
+ * certificate in the PKCS#11 store.
+ *
+ * Various common PKCS#11 certificate attributes are automatically loaded and
+ * are available via gcr_pkcs11_certificate_get_attributes().
  */
 
 enum {
@@ -330,7 +316,7 @@ gcr_pkcs11_certificate_get_attributes (GcrPkcs11Certificate *self)
  * @cancellable: a #GCancellable
  * @error: a #GError, or %NULL
  *
- * Lookup a the issuer of a @certificate in the PKCS\#11 storage. The
+ * Lookup a the issuer of a @certificate in the PKCS#11 storage. The
  * lookup is done using the issuer DN of the certificate. No certificate chain
  * verification is done. Use a crypto library to make trust decisions.
  *
@@ -370,7 +356,7 @@ gcr_pkcs11_certificate_lookup_issuer (GcrCertificate *certificate, GCancellable 
  * @callback: a #GAsyncReadyCallback to call when the operation completes
  * @user_data: the data to pass to callback function
  *
- * Lookup a the issuer of a @certificate in the PKCS\#11 storage. The
+ * Lookup a the issuer of a @certificate in the PKCS#11 storage. The
  * lookup is done using the issuer DN of the certificate. No certificate chain
  * verification is done. Use a crypto library to make trust decisions.
  *

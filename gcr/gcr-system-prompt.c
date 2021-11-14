@@ -35,35 +35,19 @@
 #include <glib/gi18n.h>
 
 /**
- * SECTION:gcr-system-prompt
- * @title: GcrSystemPrompt
- * @short_description: a system modal prompt
+ * GcrSystemPrompt:
  *
- * A #GcrPrompt implementation which calls to the system prompter to
+ * A [iface@Prompt] implementation which calls to the system prompter to
  * display prompts in a system modal fashion.
  *
  * Since the system prompter usually only displays one prompt at a time, you
- * may have to wait for the prompt to be displayed. Use gcr_system_prompt_open()
+ * may have to wait for the prompt to be displayed. Use [func@SystemPrompt.open]
  * or a related function to open a prompt. Since this can take a long time, you
  * should always check that the prompt is still needed after it is opened. A
  * previous prompt may have already provided the information needed and you
  * may no longer need to prompt.
  *
- * Use gcr_system_prompt_close() to close the prompt when you're done with it.
- */
-
-/**
- * GcrSystemPrompt:
- *
- * A #GcrPrompt which shows a system prompt. This is usually a system modal
- * dialog.
- */
-
-/**
- * GcrSystemPromptClass:
- * @parent_class: parent class
- *
- * The class for #GcrSystemPrompt.
+ * Use [method@SystemPrompt.close] to close the prompt when you're done with it.
  */
 
 /**
@@ -603,7 +587,7 @@ gcr_system_prompt_class_init (GcrSystemPromptClass *klass)
  * gcr_system_prompt_get_secret_exchange:
  * @self: a prompter
  *
- * Get the current #GcrSecretExchange used to transfer secrets in this prompt.
+ * Get the current [class@SecretExchange] used to transfer secrets in this prompt.
  *
  * Returns: (transfer none): the secret exchange
  */
@@ -1379,9 +1363,9 @@ gcr_system_prompt_open_async (gint timeout_seconds,
 
 /**
  * gcr_system_prompt_open_for_prompter_async:
- * @prompter_name: (nullable): the prompter dbus name
+ * @prompter_name: (nullable): the prompter D-Bus name
  * @timeout_seconds: the number of seconds to wait to access the prompt, or -1
- * @cancellable: optional cancellation object
+ * @cancellable: (nullable): optional cancellation object
  * @callback: called when the operation completes
  * @user_data: data to pass the callback
  *
@@ -1456,7 +1440,7 @@ gcr_system_prompt_open_finish (GAsyncResult *result,
 /**
  * gcr_system_prompt_open:
  * @timeout_seconds: the number of seconds to wait to access the prompt, or -1
- * @cancellable: optional cancellation object
+ * @cancellable: (nullable): optional cancellation object
  * @error: location to place error on failure
  *
  * Opens a system prompt with the default prompter.

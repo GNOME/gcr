@@ -1,0 +1,40 @@
+[library]
+namespace = "Gcr"
+version = "@GCR_VERSION@"
+browse_url = "https://gitlab.gnome.org/GNOME/gcr/"
+repository_url = "https://gitlab.gnome.org/GNOME/gcr.git"
+authors = "GCR contributors"
+license = "LGPL-2.0-or-later"
+description = "GObject and GUI library for high level crypto handling"
+dependencies = [ "GObject-2.0", "Gio-2.0", "Gck-@GCK_VERSION@" ]
+devhelp = true
+search_index = true
+
+  [dependencies."GObject-2.0"]
+  name = "GObject"
+  description = "The base type system library"
+  docs_url = "https://developer.gnome.org/gobject/stable"
+
+  [dependencies."Gio-2.0"]
+  name = "Gio"
+  description = "GObject interfaces and objects"
+  docs_url = "https://developer.gnome.org/gio/stable"
+
+  [dependencies."Gck-@GCK_VERSION@"]
+  name = "Gck"
+  description = "GObject bindings for PKCS#11"
+
+[theme]
+name = "basic"
+show_index_summary = true
+show_class_hierarchy = true
+
+[source-location]
+base_url = "https://gitlab.gnome.org/GNOME/gcr/-/blob/master/"
+
+[extra]
+content_files = [
+  'non-pageable-memory.md',
+  'pkcs11-configuration.md',
+  'trust-store.md',
+]

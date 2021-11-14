@@ -24,18 +24,9 @@
 #include <string.h>
 
 /**
- * SECTION:gcr-comparable
- * @title: GcrComparable
- * @short_description: Interface for comparing objects
- *
- * The #GcrComparable interface is implemented by objects when they should be
- * comparable against one another.
- */
-
-/**
  * GcrComparable:
  *
- * The #GcrComparable interface is implemented by comparable objects.
+ * An interface for comparing objects
  */
 
 /**
@@ -43,7 +34,7 @@
  * @parent: type interface
  * @compare: Compare whether tow objects represent the same thing.
  *
- * The interface to implement for #GcrComparable
+ * The interface to implement for [iface@Comparable]
  */
 
 typedef GcrComparableIface GcrComparableInterface;

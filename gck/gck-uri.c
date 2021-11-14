@@ -35,38 +35,16 @@
 #include <stdlib.h>
 
 /**
- * SECTION:gck-uri
- * @title: PKCS11 URIs
- * @short_description: Parsing and building PKCS\#11 URIs.
- *
- * <ulink href='http://tools.ietf.org/html/draft-pechanec-pkcs11uri-03'>PKCS\#11 URIs</ulink>
- * are a standard for referring to PKCS\#11 modules, tokens, or objects. What the
- * PKCS\#11 URI refers to depends on the context in which it is used.
- *
- * A PKCS\#11 URI can always resolve to more than one object, token or module. A
- * PKCS\#11 URI that refers to a token, would (when used in a context that expects
- * objects) refer to all the token on that module.
- *
- * In most cases the parsing or building of URIs is handled elsewhere in the GCK
- * library. For example to enumerate objects that match a PKCS\#11 URI use the
- * gck_modules_enumerate_uri() function.
- *
- * To parse a PKCS\#11 URI use the gck_uri_parse() function passing in the type of
- * context in which you're using the URI. To build a URI use the gck_uri_build()
- * function.
- **/
-
-/**
  * GckUriData:
- * @any_unrecognized: whether any parts of the PKCS\#11 URI were unsupported or unrecognized.
- * @module_info: information about the PKCS\#11 modules matching the URI.
- * @token_info: information about the PKCS\#11 tokens matching the URI.
- * @attributes: information about the PKCS\#11 objects matching the URI.
+ * @any_unrecognized: whether any parts of the PKCS#11 URI were unsupported or unrecognized.
+ * @module_info: information about the PKCS#11 modules matching the URI.
+ * @token_info: information about the PKCS#11 tokens matching the URI.
+ * @attributes: information about the PKCS#11 objects matching the URI.
  *
- * Information about the contents of a PKCS\#11 URI. Various fields may be %NULL
+ * Information about the contents of a PKCS#11 URI. Various fields may be %NULL
  * depending on the context that the URI was parsed for.
  *
- * Since PKCS\#11 URIs represent a set which results from the intersections of
+ * Since PKCS#11 URIs represent a set which results from the intersections of
  * all of the URI parts, if @any_recognized is set to %TRUE then usually the URI
  * should be treated as not matching anything.
  */
@@ -79,7 +57,7 @@
  * @GCK_URI_WITH_VERSION: the URI has specific version numbers for module and/or token
  * @GCK_URI_FOR_ANY: parse all recognized components of the URI.
  *
- * Which parts of the PKCS\#11 URI will be parsed or formatted. These can be
+ * Which parts of the PKCS#11 URI will be parsed or formatted. These can be
  * combined.
  */
 
@@ -109,7 +87,7 @@
  * @GCK_URI_BAD_VERSION: bad URI version component
  * @GCK_URI_NOT_FOUND: piece of the URI was not found
  *
- * Various error codes used with PKCS\#11 URIs
+ * Various error codes used with PKCS#11 URIs
  */
 
 /**
@@ -186,7 +164,7 @@ gck_uri_data_new (void)
  * @flags: the context in which the URI will be used.
  * @error: a #GError, or %NULL.
  *
- * Parse a PKCS\#11 URI for use in a given context.
+ * Parse a PKCS#11 URI for use in a given context.
  *
  * The result will contain the fields that are relevant for
  * the given context. See #GckUriData  for more info.
@@ -266,10 +244,10 @@ gck_uri_parse (const gchar *string, GckUriFlags flags, GError **error)
  * @uri_data: the info to build the URI from.
  * @flags: The context that the URI is for
  *
- * Build a PKCS\#11 URI. The various parts relevant to the flags
+ * Build a PKCS#11 URI. The various parts relevant to the flags
  * specified will be used to build the URI.
  *
- * Return value: a newly allocated string containing a PKCS\#11 URI.
+ * Return value: a newly allocated string containing a PKCS#11 URI.
  */
 gchar*
 gck_uri_build (GckUriData *uri_data, GckUriFlags flags)

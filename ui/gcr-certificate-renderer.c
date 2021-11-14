@@ -748,7 +748,7 @@ gcr_certificate_renderer_set_certificate (GcrCertificateRenderer *self, GcrCerti
  * gcr_certificate_renderer_get_attributes:
  * @self: The renderer
  *
- * Get the PKCS\#11 attributes, if any, set for this renderer to display.
+ * Get the PKCS#11 attributes, if any, set for this renderer to display.
  *
  * Returns: (nullable) (transfer none): the attributes, owned by the renderer
  *
@@ -766,8 +766,8 @@ gcr_certificate_renderer_get_attributes (GcrCertificateRenderer *self)
  * @self: The renderer
  * @attrs: (nullable): attributes to set
  *
- * Set the PKCS\#11 attributes for this renderer to display. One of the attributes
- * should be a CKA_VALUE type attribute containing a DER encoded certificate.
+ * Set the PKCS#11 attributes for this renderer to display. One of the attributes
+ * should be a `CKA_VALUE` type attribute containing a DER encoded certificate.
  *
  * Deprecated: 3.6: Use gcr_renderer_set_attributes() instead
  */

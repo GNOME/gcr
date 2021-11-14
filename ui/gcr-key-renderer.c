@@ -448,7 +448,7 @@ gcr_key_renderer_new (const gchar *label, GckAttributes *attrs)
  * @attrs: (nullable): the attributes to display
  *
  * Get the attributes displayed in the renderer. The attributes should represent
- * either an RSA, DSA, or EC key in PKCS\#11 style.
+ * either an RSA, DSA, or EC key in PKCS#11 style.
  */
 void
 gcr_key_renderer_set_attributes (GcrKeyRenderer *self, GckAttributes *attrs)

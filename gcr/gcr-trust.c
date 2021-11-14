@@ -34,40 +34,6 @@
 #include <glib/gi18n-lib.h>
 
 /**
- * SECTION:gcr-trust
- * @title: Trust Storage and Lookups
- * @short_description: Store and lookup bits of information used for
- * verifying certificates.
- *
- * These functions provide access to stored information about which
- * certificates the system and user trusts as certificate authority trust
- * anchors, or overrides to the normal verification of certificates.
- *
- * Trust anchors are used to verify the certificate authority in a certificate
- * chain. Trust anchors are always valid for a given purpose. The most common
- * purpose is the #GCR_PURPOSE_SERVER_AUTH and is used for a client application
- * to verify that the certificate at the server side of a TLS connection is
- * authorized to act as such. To check if a certificate is a trust anchor use
- * gcr_trust_is_certificate_anchored().
- *
- * Pinned certificates are used when a user overrides the default trust
- * decision for a given certificate. They're often used with self-signed
- * certificates. Pinned certificates are always only valid for a single peer
- * such as the remote host with which TLS is being performed. To lookup
- * pinned certificates use gcr_trust_is_certificate_pinned().
- *
- * After the user has requested to override the trust decision
- * about a given certificate then a pinned certificates can be added by using
- * the gcr_trust_add_pinned_certificate() function.
- *
- * These functions do not constitute a viable method for verifying certificates
- * used in TLS or other locations. Instead they support such verification
- * by providing some of the needed data for a trust decision.
- *
- * The storage is provided by pluggable PKCS\#11 modules.
- */
-
-/**
  * GCR_PURPOSE_SERVER_AUTH:
  *
  * The purpose used to verify the server certificate in a TLS connection. This
@@ -225,7 +191,7 @@ thread_is_certificate_pinned (GTask *task, gpointer object,
  * pinned certificate overrides all other certificate verification.
  *
  * When the operation is finished, callback will be called. You can then call
- * gcr_trust_is_certificate_pinned_finish() to get the result of the
+ * [func@Gcr.trust_is_certificate_pinned_finish] to get the result of the
  * operation.
  */
 void
@@ -435,7 +401,7 @@ thread_add_pinned_certificate (GTask *task, gpointer object,
  * does not add another, and succeeds without error.
  *
  * When the operation is finished, callback will be called. You can then call
- * gcr_trust_add_pinned_certificate_finish() to get the result of the
+ * [func@Gcr.trust_add_pinned_certificate_finish] to get the result of the
  * operation.
  */
 void
@@ -714,8 +680,8 @@ perform_is_certificate_anchored (GckAttributes *attrs,
  * anchor is used to verify the signatures on other certificates when verifying
  * a certificate chain. Also known as a trusted certificate authority.
  *
- * This call may block, see gcr_trust_is_certificate_anchored_async() for the
- * non-blocking version.
+ * This call may block, see [func@Gcr.trust_is_certificate_anchored_async] for
+ * the non-blocking version.
  *
  * In the case of an error, %FALSE is also returned. Check @error to detect
  * if an error occurred.

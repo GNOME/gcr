@@ -28,31 +28,24 @@
 #include <string.h>
 
 /**
- * SECTION:gck-object
- * @title: GckObject
- * @short_description: Represents a PKCS11 object such as a key or certificate.
- *
- * A GckObject holds a handle to a PKCS11 object such as a key or certificate. Token objects
- * are stored on the token persistently. Others are transient and are called session objects.
- */
-
-/**
  * GckObject:
  *
- * Represents a PKCS11 object handle such as a key or certifiacte.
+ * Holds a handle to a PKCS11 object such as a key or certificate. Token
+ * objects are stored on the token persistently. Others are transient and are
+ * called session objects.
  */
 
 /**
  * GckObjectClass:
  * @parent: derived from this
  *
- * The class for a #GckObject.
+ * The class for a [class@Object].
  *
  * If the @attribute_types field is set by a derived class, then the a
- * #GckEnumerator which has been setup using gck_enumerator_set_object_type()
+ * #GckEnumerator which has been setup using [method@Enumerator.set_object_type]
  * with this derived type will retrieve these attributes when enumerating. In
  * this case the class must implement an 'attributes' property of boxed type
- * GCK_TYPE_ATTRIBUTES.
+ * `GCK_TYPE_ATTRIBUTES`.
  */
 
 /*
@@ -202,15 +195,15 @@ gck_object_class_init (GckObjectClass *klass)
  */
 
 /**
- * gck_object_from_handle:
+ * gck_object_from_handle: (constructor)
  * @session: The session through which this object is accessed or created.
- * @object_handle: The raw CK_OBJECT_HANDLE of the object.
+ * @object_handle: The raw `CK_OBJECT_HANDLE` of the object.
  *
- * Initialize a GckObject from a raw PKCS\#11 handle. Normally you would use
- * gck_session_create_object() or gck_session_find_objects() to access objects.
+ * Initialize a GckObject from a raw PKCS#11 handle. Normally you would use
+ * [method@Session.create_object] or [method@Session.find_objects] to access
+ * objects.
  *
- * Return value: (transfer full): The new GckObject. You should use
- *               g_object_unref() when done with this object.
+ * Return value: (transfer full): The new object
  **/
 GckObject *
 gck_object_from_handle (GckSession *session,
@@ -238,7 +231,7 @@ gck_object_from_handle (GckSession *session,
  * @object_handles: (array length=n_object_handles): The raw object handles.
  * @n_object_handles: The number of raw object handles.
  *
- * Initialize a list of GckObject from raw PKCS\#11 handles. The handles argument must contain
+ * Initialize a list of GckObject from raw PKCS#11 handles. The handles argument must contain
  * contiguous CK_OBJECT_HANDLE handles in an array.
  *
  * Returns: (transfer full) (element-type Gck.Object): The list of #GckObject
@@ -267,7 +260,7 @@ gck_objects_from_handle_array (GckSession *session,
  * @object2: (type Gck.Object): a pointer to the second #GckObject
  *
  * Checks equality of two objects. Two GckObject objects can point to the same
- * underlying PKCS\#11 object.
+ * underlying PKCS#11 object.
  *
  * Return value: %TRUE if object1 and object2 are equal.
  *               %FALSE if either is not a GckObject.
@@ -335,7 +328,7 @@ gck_object_hash (gconstpointer object)
  * gck_object_get_handle:
  * @self: The object.
  *
- * Get the raw PKCS\#11 handle of a GckObject.
+ * Get the raw PKCS#11 handle of a GckObject.
  *
  * Return value: the raw CK_OBJECT_HANDLE object handle
  **/
@@ -350,7 +343,7 @@ gck_object_get_handle (GckObject *self)
  * gck_object_get_module:
  * @self: The object.
  *
- * Get the PKCS\#11 module to which this object belongs.
+ * Get the PKCS#11 module to which this object belongs.
  *
  * Returns: (transfer full): the module, which should be unreffed after use
  **/
@@ -367,7 +360,7 @@ gck_object_get_module (GckObject *self)
  * gck_object_get_session:
  * @self: The object
  *
- * Get the PKCS\#11 session assigned to make calls on when operating
+ * Get the PKCS#11 session assigned to make calls on when operating
  * on this object.
  *
  * This will only return a session if it was set explitly on this
@@ -406,7 +399,7 @@ perform_destroy (Destroy *args)
  * @cancellable: Optional cancellable object, or %NULL to ignore.
  * @error: A location to return an error.
  *
- * Destroy a PKCS\#11 object, deleting it from storage or the session.
+ * Destroy a PKCS#11 object, deleting it from storage or the session.
  * This call may block for an indefinite period.
  *
  * Return value: Whether the call was successful or not.
@@ -431,7 +424,7 @@ gck_object_destroy (GckObject *self, GCancellable *cancellable, GError **error)
  * @callback: Callback which is called when operation completes.
  * @user_data: Data to pass to the callback.
  *
- * Destroy a PKCS\#11 object, deleting it from storage or the session.
+ * Destroy a PKCS#11 object, deleting it from storage or the session.
  * This call will return immediately and complete asynchronously.
  **/
 void
@@ -457,7 +450,7 @@ gck_object_destroy_async (GckObject *self, GCancellable *cancellable,
  * @result: The result of the destory operation passed to the callback.
  * @error: A location to store an error.
  *
- * Get the status of the operation to destroy a PKCS\#11 object, begun with
+ * Get the status of the operation to destroy a PKCS#11 object, begun with
  * gck_object_destroy_async().
  *
  * Return value: Whether the object was destroyed successfully or not.
@@ -508,7 +501,7 @@ free_set_attributes (SetAttributes *args)
  * @cancellable: Optional cancellable object, or %NULL to ignore.
  * @error: A location to return an error.
  *
- * Set PKCS\#11 attributes on an object. This call may block for an indefinite period.
+ * Set PKCS#11 attributes on an object. This call may block for an indefinite period.
  *
  * If the @attrs #GckAttributes is floating, it is consumed.
  *
@@ -546,7 +539,7 @@ gck_object_set (GckObject *self, GckAttributes *attrs,
  * @callback: Callback which is called when operation completes.
  * @user_data: Data to pass to the callback.
  *
- * Set PKCS\#11 attributes on an object. This call will return
+ * Set PKCS#11 attributes on an object. This call will return
  * immediately and completes asynchronously.
  *
  * If the @attrs #GckAttributes is floating, it is consumed.
@@ -577,7 +570,7 @@ gck_object_set_async (GckObject *self, GckAttributes *attrs, GCancellable *cance
  * @result: The result of the destory operation passed to the callback.
  * @error: A location to store an error.
  *
- * Get the status of the operation to set attributes on a PKCS\#11 object,
+ * Get the status of the operation to set attributes on a PKCS#11 object,
  * begun with gck_object_set_async().
  *
  * Return value: Whether the attributes were successfully set on the object or not.
@@ -658,7 +651,7 @@ free_get_attributes (GetAttributes *args)
  * Get the specified attributes from the object. This call may
  * block for an indefinite period.
  *
- * Returns: (transfer full): the resulting PKCS\#11 attributes, or %NULL if an
+ * Returns: (transfer full): the resulting PKCS#11 attributes, or %NULL if an
  *          error occurred; the result must be unreffed when you're finished
  *          with it
  **/
@@ -882,7 +875,7 @@ free_get_attribute_data (GetAttributeData *args)
  *
  * This call may block for an indefinite period.
  *
- * Returns: (transfer full) (array length=n_data): the resulting PKCS\#11
+ * Returns: (transfer full) (array length=n_data): the resulting PKCS#11
  *          attribute data, or %NULL if an error occurred
  **/
 guchar *
@@ -913,7 +906,7 @@ gck_object_get_data (GckObject *self,
  *
  * This call may block for an indefinite period.
  *
- * Returns: (transfer full) (array length=n_data): The resulting PKCS\#11
+ * Returns: (transfer full) (array length=n_data): The resulting PKCS#11
  *          attribute data, or %NULL if an error occurred.
  **/
 guchar *
@@ -996,7 +989,7 @@ gck_object_get_data_async (GckObject *self, gulong attr_type, GckAllocator alloc
  * an object. For convenience the returned data has an extra null terminator,
  * not included in the returned length.
  *
- * Returns: (transfer full) (array length=n_data): The PKCS\#11 attribute data
+ * Returns: (transfer full) (array length=n_data): The PKCS#11 attribute data
  *          or %NULL if an error occurred.
  **/
 guchar *
@@ -1236,7 +1229,7 @@ free_get_template (get_template_args *args)
  *
  * This call may block for an indefinite period.
  *
- * Returns: (transfer full): the resulting PKCS\#11 attribute template, or %NULL
+ * Returns: (transfer full): the resulting PKCS#11 attribute template, or %NULL
  *          if an error occurred
  **/
 GckAttributes *
@@ -1268,19 +1261,19 @@ gck_object_get_template (GckObject *self, gulong attr_type,
  * gck_object_get_template_async:
  * @self: The object to get an attribute template from.
  * @attr_type: The template attribute type.
- * @cancellable: Optional cancellation object, or %NULL.
+ * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to be passed to the callback.
  *
- * Get an attribute template from the object. The attr_type must be for
+ * Get an attribute template from the object. The @attr_type must be for
  * an attribute which returns a template.
  *
  * This call will return immediately and complete asynchronously.
  **/
 void
 gck_object_get_template_async (GckObject *self, gulong attr_type,
-                                GCancellable *cancellable, GAsyncReadyCallback callback,
-                                gpointer user_data)
+                               GCancellable *cancellable, GAsyncReadyCallback callback,
+                               gpointer user_data)
 {
 	GckCall *call;
 	get_template_args *args;
@@ -1306,7 +1299,7 @@ gck_object_get_template_async (GckObject *self, gulong attr_type,
  * Get the result of an operation to get attribute template from
  * an object.
  *
- * Returns: (transfer full): the resulting PKCS\#11 attribute template, or %NULL
+ * Returns: (transfer full): the resulting PKCS#11 attribute template, or %NULL
  *          if an error occurred
  **/
 GckAttributes *

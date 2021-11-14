@@ -34,31 +34,22 @@
 #include <glib/gi18n-lib.h>
 
 /**
- * SECTION:gcr-certificate-request
- * @title: GcrCertificateRequest
- * @short_description: Represents a certificate request
- *
- * This is an object that allows creation of certificate requests. A
- * certificate request is sent to a certificate authority to request an
- * X.509 certificate.
- *
- * Use gcr_certificate_request_prepare() to create a blank certificate
- * request for a given private key. Set the common name on the certificate
- * request with gcr_certificate_request_set_cn(), and then sign the request
- * with gcr_certificate_request_complete_async().
- */
-
-/**
  * GcrCertificateRequest:
  *
- * Represents a certificate request.
+ * An object that allows creation of certificate requests. A certificate
+ * request is sent to a certificate authority to request an X.509 certificate.
+ *
+ * Use [ctor@CertificateRequest.prepare] to create a blank certificate
+ * request for a given private key. Set the common name on the certificate
+ * request with [method@CertificateRequest.set_cn], and then sign the request
+ * with [method@CertificateRequest.complete_async].
  */
 
 /**
  * GcrCertificateRequestFormat:
- * @GCR_CERTIFICATE_REQUEST_PKCS10: certificate request is in PKCS\#10 format
+ * @GCR_CERTIFICATE_REQUEST_PKCS10: certificate request is in PKCS#10 format
  *
- * The format of a certificate request. Currently only PKCS\#10 is supported.
+ * The format of a certificate request. Currently only PKCS#10 is supported.
  */
 
 struct _GcrCertificateRequest {
@@ -211,7 +202,7 @@ gcr_certificate_request_class_init (GcrCertificateRequestClass *klass)
 }
 
 /**
- * gcr_certificate_request_prepare:
+ * gcr_certificate_request_prepare: (constructor)
  * @format: the format for the certificate request
  * @private_key: the private key the the certificate is being requested for
  *
@@ -693,12 +684,13 @@ gcr_certificate_request_complete_finish (GcrCertificateRequest *self,
  * @length: location to place length of returned data
  *
  * Encode the certificate request. It must have been completed with
- * gcr_certificate_request_complete() or gcr_certificate_request_complete_async()
+ * [method@CertificateRequest.complete] or
+ * [method@CertificateRequest.complete_async].
  *
  * If @textual is %FALSE, the output is a DER encoded certificate request.
  *
- * If @textual is %TRUE, the output is encoded as text. For PKCS\#10 requests this
- * is done using the OpenSSL style PEM encoding.
+ * If @textual is %TRUE, the output is encoded as text. For PKCS#10 requests
+ * this is done using the OpenSSL style PEM encoding.
  *
  * Returns: (transfer full) (array length=length): the encoded certificate request
  */
@@ -742,10 +734,10 @@ gcr_certificate_request_encode (GcrCertificateRequest *self,
 /**
  * gcr_certificate_request_capable:
  * @private_key: a private key
- * @cancellable: cancellation object
+ * @cancellable: (nullable): cancellation object
  * @error: location to place an error
  *
- * Check whether #GcrCertificateRequest is capable of creating a request
+ * Check whether [class@CertificateRequest] is capable of creating a request
  * for the given @private_key.
  *
  * Returns: whether a request can be created
@@ -767,12 +759,12 @@ gcr_certificate_request_capable (GckObject *private_key,
 /**
  * gcr_certificate_request_capable_async:
  * @private_key: a private key
- * @cancellable: cancellation object
+ * @cancellable: (nullable): cancellation object
  * @callback: will be called when the operation completes
  * @user_data: data to be passed to callback
  *
- * Asynchronously check whether #GcrCertificateRequest is capable of creating
- * a request for the given @private_key.
+ * Asynchronously check whether [class@CertificateRequest] is capable of
+ * creating a request for the given @private_key.
  */
 void
 gcr_certificate_request_capable_async (GckObject *private_key,
@@ -794,7 +786,7 @@ gcr_certificate_request_capable_async (GckObject *private_key,
  * @result: asynchronous result
  * @error: location to place an error
  *
- * Get the result for asynchronously check whether #GcrCertificateRequest is
+ * Get the result for asynchronously check whether [class@CertificateRequest] is
  * capable of creating a request for the given @private_key.
  *
  * Returns: whether a request can be created

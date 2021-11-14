@@ -28,16 +28,14 @@
 #include <string.h>
 
 /**
- * SECTION:gck-enumerator
- * @title: GckEnumerator
- * @short_description: Enumerates through PKCS\#11 objects.
+ * GckEnumerator:
  *
- * A GckEnumerator can be used to enumerate through PKCS\#11 objects. It will
- * automatically create sessions as necessary.
+ * Can be used to enumerate through PKCS#11 objects. It will automatically
+ * create sessions as necessary.
  *
- * Use gck_modules_enumerate_objects() or gck_modules_enumerate_uri() to create
- * an enumerator. To get the objects use gck_enumerator_next() or
- * gck_enumerator_next_async() functions.
+ * Use [func@modules_enumerate_objects] or [func@modules_enumerate_uri] to
+ * create an enumerator. To get the objects, use [method@Enumerator.next] or
+ * [method@Enumerator.next_async] functions.
  */
 
 enum {
@@ -46,12 +44,6 @@ enum {
 	PROP_OBJECT_TYPE,
 	PROP_CHAINED
 };
-
-/**
- * GckEnumerator:
- *
- * An object that allows enumerating of objects across modules, tokens.
- */
 
 typedef struct _GckEnumeratorResult {
 	gulong handle;

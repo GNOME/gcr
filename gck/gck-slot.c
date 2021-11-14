@@ -31,18 +31,13 @@
 #include <time.h>
 
 /**
- * SECTION:gck-slot
- * @title: GckSlot
- * @short_description: Represents a PKCS\#11 slot that can contain a token.
- *
- * A PKCS11 slot can contain a token. As an example, a slot might be a card reader, and the token
- * the card. If the PKCS\#11 module is not a hardware driver, often the slot and token are equivalent.
- */
-
-/**
  * GckSlot:
  *
- * Represents a PKCS11 slot.
+ * Represents a PKCS#11 slot that can contain a token.
+ *
+ * A PKCS#11 slot can contain a token. As an example, a slot might be a card
+ * reader, and the token the card. If the PKCS#11 module is not a hardware
+ * driver, often the slot and token are equivalent.
  */
 
 enum {
@@ -421,7 +416,7 @@ gck_mechanisms_check (GArray *mechanisms, ...)
  * @slot2: (type Gck.Slot): a pointer to the second #GckSlot
  *
  * Checks equality of two slots. Two GckSlot objects can point to the same
- * underlying PKCS\#11 slot.
+ * underlying PKCS#11 slot.
  *
  * Return value: %TRUE if slot1 and slot2 are equal.
  *               %FALSE if either is not a GckSlot.
@@ -470,9 +465,9 @@ gck_slot_hash (gconstpointer slot)
 /**
  * gck_slot_from_handle:
  * @module: The module that this slot is on.
- * @slot_id: The raw PKCS\#11 handle or slot id of this slot.
+ * @slot_id: The raw PKCS#11 handle or slot id of this slot.
  *
- * Create a new GckSlot object for a raw PKCS\#11 handle.
+ * Create a new GckSlot object for a raw PKCS#11 handle.
  *
  * Returns: (transfer full): The new GckSlot object.
  **/
@@ -490,7 +485,7 @@ gck_slot_from_handle (GckModule *module,
  * gck_slot_get_handle:
  * @self: The slot to get the handle of.
  *
- * Get the raw PKCS\#11 handle of a slot.
+ * Get the raw PKCS#11 handle of a slot.
  *
  * Return value: the raw CK_SLOT_ID handle
  **/
@@ -979,9 +974,9 @@ gck_slot_open_session (GckSlot *self,
  * gck_slot_open_session_full: (skip)
  * @self: The slot to open a session on.
  * @options: The options to open the new session with.
- * @pkcs11_flags: Additional raw PKCS\#11 flags.
+ * @pkcs11_flags: Additional raw PKCS#11 flags.
  * @app_data: Application data for notification callback.
- * @notify: PKCS\#11 notification callback.
+ * @notify: PKCS#11 notification callback.
  * @cancellable: Optional cancellation object, or %NULL.
  * @error: A location to return an error, or %NULL.
  *
@@ -1054,9 +1049,9 @@ on_open_session_complete (GObject *source,
  * gck_slot_open_session_full_async: (skip)
  * @self: The slot to open a session on.
  * @options: Options to open the new session with.
- * @pkcs11_flags: Additional raw PKCS\#11 flags.
+ * @pkcs11_flags: Additional raw PKCS#11 flags.
  * @app_data: Application data for notification callback.
- * @notify: PKCS\#11 notification callback.
+ * @notify: PKCS#11 notification callback.
  * @cancellable: (nullable): Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
@@ -1122,7 +1117,7 @@ gck_slot_open_session_finish (GckSlot *self, GAsyncResult *result, GError **erro
  * @self: the slot to match
  * @uri: the uri to match against the slot
  *
- * Check whether the PKCS\#11 URI matches the slot
+ * Check whether the PKCS#11 URI matches the slot
  *
  * Returns: whether the URI matches or not
  */

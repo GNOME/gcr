@@ -27,6 +27,12 @@
 #include <gdk/gdk.h>
 #include <glib/gi18n-lib.h>
 
+/**
+ * GcrFailureRenderer:
+ *
+ * A renderer that can be used for unsupported data.
+ */
+
 enum {
 	PROP_0,
 	PROP_LABEL,

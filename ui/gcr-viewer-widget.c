@@ -1,4 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
 /* gcr-viewer-widget: Widget for viewer
 
    Copyright (C) 2011 Collabora Ltd.
@@ -40,9 +39,7 @@
 #include <string.h>
 
 /**
- * SECTION:gcr-viewer-widget
- * @title: GcrViewerWidget
- * @short_description: A widget which shows certificates or keys
+ * GcrViewerWidget:
  *
  * A viewer widget which can display certificates and keys that are
  * located in files.
@@ -53,18 +50,6 @@ enum {
 	PROP_PARSER,
 	PROP_DISPLAY_NAME
 };
-
-/**
- * GcrViewerWidget:
- *
- * A viewer widget object.
- */
-
-/**
- * GcrViewerWidgetClass:
- *
- * Class for #GcrViewerWidget
- */
 
 /*
  * Not yet figured out how to expose these without locking down our
@@ -557,7 +542,7 @@ gcr_viewer_widget_load_bytes (GcrViewerWidget *self,
  * may contain multiple parseable items if the format can contain multiple
  * items.
  *
- * This function will copy the data. Use gcr_viewer_widget_load_bytes() to avoid
+ * This function will copy the data. Use [method@ViewerWidget.load_bytes] to avoid
  * copying the data.
  */
 void

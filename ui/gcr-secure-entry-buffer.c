@@ -1,4 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
 /* gcr-secure-buffer.c - secure memory gtkentry buffer
 
    Copyright (C) 2009 Stefan Walter
@@ -29,33 +28,21 @@
 #include <string.h>
 
 /**
- * SECTION:gcr-secure-entry-buffer
- * @title: GcrSecureEntryBuffer
- * @short_description: a GtkEntryBuffer that uses non-pageable memory
+ * GcrSecureEntryBuffer:
+ *
+ * A [class@Gtk.EntryBuffer] that uses non-pageable memory.
  *
  * It's good practice to try to keep passwords or sensitive secrets out of
  * pageable memory whenever possible, so that they don't get written to disk.
  *
- * This is a #GtkEntryBuffer to be used with #GtkEntry which uses non-pageable
- * memory to store a password placed in the entry. In order to make any sense
- * at all, the entry must have it's visibility turned off, and just be displaying
- * place holder characters for the text. That is, a password style entry.
+ * A [class@SecureEntryBuffer] is a [class@Gtk.EntryBuffer] to be used with
+ * [class@Gtk.Entry] which uses non-pageable memory to store a password placed
+ * in the entry. In order to make any sense at all, the entry must have it's
+ * visibility turned off, and just be displaying place holder characters for
+ * the text. That is, a password style entry.
  *
- * Use gtk_entry_new_with_buffer() or gtk_entry_set_buffer() to set this buffer
+ * Use [ctor@Gtk.Entry.new_with_buffer] or [method@Gtk.Entry.set_buffer] to set this buffer
  * on an entry.
- */
-
-/**
- * GcrSecureEntryBuffer:
- *
- * A #GtkEntryBuffer which uses non-pageable memory for passwords or secrets.
- */
-
-/**
- * GcrSecureEntryBufferClass:
- * @parent_class: parent class
- *
- * The class for #GcrSecureEntryBuffer.
  */
 
 EGG_SECURE_DECLARE (secure_entry_buffer);
@@ -217,8 +204,7 @@ gcr_secure_entry_buffer_class_init (GcrSecureEntryBufferClass *klass)
 /**
  * gcr_secure_entry_buffer_new:
  *
- * Create a new #GcrSecureEntryBuffer, a #GtkEntryBuffer which uses
- * non-pageable memory for the text.
+ * Create a new secure entry buffer.
  *
  * Returns: (transfer full): the new entry buffer
  */

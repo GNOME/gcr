@@ -29,24 +29,10 @@
 #include <string.h>
 
 /**
- * SECTION:gcr-tree-selector
- * @title: GcrTreeSelector
- * @short_description: A selector widget to select certificates or keys.
- *
- * The #GcrTreeSelector can be used to select certificates or keys. It allows
- * the user to select multiple objects from a tree.
- */
-
-/**
  * GcrTreeSelector:
  *
- * A tree selector widget.
- */
-
-/**
- * GcrTreeSelectorClass:
- *
- * The class for #GcrTreeSelector.
+ * A tree selector can be used to select certificates or keys. It allows
+ * the user to select multiple objects from a tree.
  */
 
 enum {

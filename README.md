@@ -27,6 +27,16 @@ https://gitlab.gnome.org/GNOME/gcr.
 If you would like to get involved with GNOME projects, please also visit our
 [Newcomers page] on the Wiki.
 
+Documentation
+-------------
+The documentation for GCR and GCK is built using [gi-docgen].
+
+You can find the nightly documentation at:
+
+* Gck: https://gnome.pages.gitlab.gnome.org/gcr/gck-1/
+* Gcr: https://gnome.pages.gitlab.gnome.org/gcr/gcr-3/
+* GcrUI: https://gnome.pages.gitlab.gnome.org/gcr/gcr-ui-3/
+
 Debug tracing
 -------------
 The Gcr and Gck libraries contain statements which help debug flow
@@ -56,5 +66,6 @@ To discuss issues with developers and other users, you can post to the
 
 
 
+[gi-docgen]: https://gnome.pages.gitlab.gnome.org/gi-docgen/
 [Meson]: https://mesonbuild.com
 [Newcomers page]: https://wiki.gnome.org/TranslationProject/JoiningTranslation

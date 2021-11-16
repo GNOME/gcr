@@ -39,7 +39,7 @@
  * An object that allows creation of certificate requests. A certificate
  * request is sent to a certificate authority to request an X.509 certificate.
  *
- * Use [ctor@CertificateRequest.prepare] to create a blank certificate
+ * Use [func@CertificateRequest.prepare] to create a blank certificate
  * request for a given private key. Set the common name on the certificate
  * request with [method@CertificateRequest.set_cn], and then sign the request
  * with [method@CertificateRequest.complete_async].
@@ -202,7 +202,7 @@ gcr_certificate_request_class_init (GcrCertificateRequestClass *klass)
 }
 
 /**
- * gcr_certificate_request_prepare: (constructor)
+ * gcr_certificate_request_prepare:
  * @format: the format for the certificate request
  * @private_key: the private key the the certificate is being requested for
  *

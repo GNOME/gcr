@@ -86,14 +86,22 @@ fedora:coverage:
 pages:
   stage: deploy
   only:
-    - master
+    - main
   needs: ['fedora:coverage']
+  before_script:
+    - dnf upgrade -y
+    - dnf install -y curl unzip
   script:
     - mkdir public
+    - 'curl --location --output gcr-3.zip "https://gitlab.gnome.org/api/v4/projects/${CI_PROJECT_ID}/jobs/artifacts/gcr-3-41/download?job=fedora:coverage&job_token=${CI_JOB_TOKEN}"'
+    - unzip -q gcr-3.zip -d gcr-3
+    - mv gcr-3/_build/docs/gck/gck-1 public/gck-1
+    - mv gcr-3/_build/docs/gcr/gcr-3 public/gcr-3
+    - mv gcr-3/_build/docs/ui/gcr-ui-3 public/gcr-ui-3
     - mv _build/meson-logs/coveragereport public/coverage
-    - mv _build/docs/gck/gck-1 public/gck-1
-    - mv _build/docs/gcr/gcr-3 public/gcr-3
-    - mv _build/docs/ui/gcr-ui-3 public/gcr-ui-3
+    - mv _build/docs/gck/gck-1 public/gck-4
+    - mv _build/docs/gcr/gcr-3 public/gcr-4
+    - mv _build/docs/ui/gcr-ui-3 public/gcr-gtk-4
   artifacts:
     when: on_success
     paths:

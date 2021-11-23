@@ -28,8 +28,35 @@
 
 #include <glib.h>
 
-#include "gcr/gcr-base.h"
-#include "ui/gcr-ui.h"
+#define __GCR_INSIDE_HEADER__
+
+#include <gcr/gcr-types.h>
+
+#include <gcr/gcr-certificate.h>
+#include <gcr/gcr-certificate-chain.h>
+#include <gcr/gcr-certificate-request.h>
+#include <gcr/gcr-column.h>
+#include <gcr/gcr-deprecated-base.h>
+#include <gcr/gcr-enum-types.h>
+#include <gcr/gcr-filter-collection.h>
+#include <gcr/gcr-icons.h>
+#include <gcr/gcr-importer.h>
+#include <gcr/gcr-library.h>
+#include <gcr/gcr-mock-prompter.h>
+#include <gcr/gcr-parser.h>
+#include <gcr/gcr-pkcs11-certificate.h>
+#include <gcr/gcr-prompt.h>
+#include <gcr/gcr-secret-exchange.h>
+#include <gcr/gcr-secure-memory.h>
+#include <gcr/gcr-simple-certificate.h>
+#include <gcr/gcr-simple-collection.h>
+#include <gcr/gcr-ssh-askpass.h>
+#include <gcr/gcr-system-prompt.h>
+#include <gcr/gcr-system-prompter.h>
+#include <gcr/gcr-trust.h>
+#include <gcr/gcr-union-collection.h>
+#include <gcr/gcr-unlock-options.h>
+#include <gcr/gcr-version.h>
 
 #undef __GCR_INSIDE_HEADER__
 

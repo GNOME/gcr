@@ -24,6 +24,7 @@
 
 #include "gcr/gcr.h"
 #include "gcr/gcr-dbus-constants.h"
+#include "ui/gcr-ui.h"
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>

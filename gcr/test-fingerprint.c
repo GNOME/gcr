@@ -22,7 +22,7 @@
 #include "config.h"
 #define GCR_COMPILATION 1
 
-#include "gcr/gcr-base.h"
+#include "gcr/gcr.h"
 #include "gcr/gcr-internal.h"
 #include "gcr/gcr-fingerprint.h"
 

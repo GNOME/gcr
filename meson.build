@@ -118,7 +118,4 @@ endif
 # Post-install scripts
 meson.add_install_script('meson_post_install.py',
   get_option('datadir'),
-  get_option('libdir'),
-  gcr_major_version.to_string(),
-  gcr_soversion,
 )

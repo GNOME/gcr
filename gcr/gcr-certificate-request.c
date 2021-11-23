@@ -23,7 +23,7 @@
 #include "gcr-key-mechanisms.h"
 #include "gcr-subject-public-key.h"
 
-#include "gcr/gcr-enum-types-base.h"
+#include "gcr/gcr-enum-types.h"
 #include "gcr/gcr-oids.h"
 
 #include <egg/egg-armor.h>

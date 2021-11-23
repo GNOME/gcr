@@ -21,7 +21,7 @@
 
 #include "config.h"
 
-#include "gcr/gcr-base.h"
+#include "gcr/gcr.h"
 
 #include "egg/egg-testing.h"
 #include "egg/mock-interaction.h"

@@ -28,7 +28,7 @@
 #include "gcr-simple-certificate.h"
 #include "gcr-trust.h"
 
-#include "gcr/gcr-enum-types-base.h"
+#include "gcr/gcr-enum-types.h"
 
 #include "egg/egg-error.h"
 

@@ -1,6 +1,6 @@
 subdir('icons')
 
-gcr_ui_headers_install_dir = gcr_base_headers_subdir / 'ui'
+gcr_ui_headers_install_dir = gcr_headers_subdir / 'ui'
 
 gcr_ui_public_sources = files(
   'gcr-certificate-renderer.c',
@@ -82,7 +82,7 @@ gcr_ui_deps = [
   p11kit_dep,
   libegg_dep,
   gck_dep,
-  gcr_base_dep,
+  gcr_dep,
   gtk_dep,
 ]
 
@@ -116,18 +116,11 @@ gcr_ui_pkgconf_deps = [
   gio_dep,
   gobject_dep,
   gck_lib,
-  gcr_base_lib,
+  gcr_lib,
   gtk_dep,
 ]
 pkgconfig.generate(gcr_ui_lib,
-  subdirs: gcr_base_headers_subdir,
-  requires: gcr_ui_pkgconf_deps,
-  description: 'GObject and GUI library for high level crypto parsing and display',
-)
-pkgconfig.generate(gcr_ui_lib,
-  filebase: gcr_basename,
-  name: gcr_basename,
-  subdirs: gcr_base_headers_subdir,
+  subdirs: gcr_headers_subdir,
   requires: gcr_ui_pkgconf_deps,
   description: 'GObject and GUI library for high level crypto parsing and display',
 )

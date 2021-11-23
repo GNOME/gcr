@@ -21,7 +21,7 @@
 
 #include "config.h"
 
-#include "gcr/gcr-base.h"
+#include "gcr/gcr.h"
 
 #include <unistd.h>
 #include <string.h>

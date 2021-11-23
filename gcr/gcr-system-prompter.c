@@ -30,7 +30,7 @@
 #include "gcr-system-prompt.h"
 
 #include "gcr/gcr-dbus-generated.h"
-#include "gcr/gcr-enum-types-base.h"
+#include "gcr/gcr-enum-types.h"
 #include "gcr/gcr-marshal.h"
 
 #include "egg/egg-error.h"

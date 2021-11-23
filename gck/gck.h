@@ -1595,8 +1595,6 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckUriData, gck_uri_data_free);
 
 G_END_DECLS
 
-#include "gck-deprecated.h"
-
 #undef __GCK_INSIDE_HEADER__
 
 #endif /* GCK_H */

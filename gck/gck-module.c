@@ -321,9 +321,9 @@ perform_initialize (Initialize *args)
 
 	funcs = p11_kit_module_load (args->path, P11_KIT_MODULE_CRITICAL);
 	if (funcs == NULL) {
-		g_set_error (&args->error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM,
+		g_set_error (&args->error, GCK_ERROR, (int)GCK_ERROR_MODULE_PROBLEM,
 		             _("Error loading PKCS#11 module: %s"), p11_kit_message ());
-		return CKR_GCK_MODULE_PROBLEM;
+		return GCK_ERROR_MODULE_PROBLEM;
 	}
 
 	result = g_object_new (GCK_TYPE_MODULE,

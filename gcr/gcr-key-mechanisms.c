@@ -70,7 +70,7 @@ find_first_usable_mechanism (GckObject *key,
 			break;
 	}
 
-	gck_mechanisms_free (mechs);
+	g_array_unref (mechs);
 
 	if (i < n_mechanisms)
 		return mechanisms[i];

@@ -22,7 +22,7 @@
 #include "config.h"
 
 #include "gcr/gcr.h"
-#include "ui/gcr-ui.h"
+#include "gcr-gtk3/gcr-gtk3.h"
 
 #include <gtk/gtk.h>
 

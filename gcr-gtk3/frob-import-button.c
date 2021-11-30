@@ -19,7 +19,7 @@
 
 #include "config.h"
 
-#include "ui/gcr-ui.h"
+#include "gcr-gtk3/gcr-gtk3.h"
 
 #include "gcr/gcr-importer.h"
 
@@ -234,7 +234,7 @@ main (int argc, char *argv[])
 	g_signal_connect (parser, "parsed", G_CALLBACK (on_parser_parsed), button);
 
 	if (argc == 1) {
-		parse_file (parser, SRCDIR "/ui/fixtures/ca-certificates.crt");
+		parse_file (parser, SRCDIR "/gcr-gtk3/fixtures/ca-certificates.crt");
 	} else {
 		for (i = 1; i < argc; ++i)
 			parse_file (parser, argv[i]);

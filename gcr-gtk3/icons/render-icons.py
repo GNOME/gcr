@@ -12,8 +12,8 @@ import subprocess
 
 INKSCAPE = '/usr/bin/inkscape'
 OPTIPNG = '/usr/bin/optipng'
-SRC = 'ui/icons/src'
-OUT = 'ui/icons'
+SRC = 'gcr-gtk3/icons/src'
+OUT = 'gcr-gtk3/icons'
 
 inkscape_process = None
 

@@ -1,8 +1,8 @@
 subdir('icons')
 
-gcr_ui_headers_install_dir = gcr_headers_subdir / 'ui'
+gcr_gtk3_headers_install_dir = gcr_headers_subdir / 'gcr-gtk3'
 
-gcr_ui_public_sources = files(
+gcr_gtk3_public_sources = files(
   'gcr-certificate-renderer.c',
   'gcr-certificate-widget.c',
   'gcr-collection-model.c',
@@ -21,7 +21,7 @@ gcr_ui_public_sources = files(
   'gcr-viewer-widget.c',
 )
 
-gcr_ui_private_sources = files(
+gcr_gtk3_private_sources = files(
   'eggimagemenuitem.c',
   'gcr-certificate-basics-widget.c',
   'gcr-certificate-details-widget.c',
@@ -38,8 +38,8 @@ gcr_ui_private_sources = files(
   'gcr-viewer-window.c',
 )
 
-gcr_ui_headers = files(
-  'gcr-ui.h',
+gcr_gtk3_headers = files(
+  'gcr-gtk3.h',
   'gcr-certificate-renderer.h',
   'gcr-certificate-widget.h',
   'gcr-collection-model.h',
@@ -59,25 +59,25 @@ gcr_ui_headers = files(
   'gcr-viewer-widget.h',
 )
 
-gcr_ui_deprecated_headers = files(
+gcr_gtk3_deprecated_headers = files(
   'gcr-certificate-basics-widget.h',
   'gcr-certificate-details-widget.h',
 )
 
 # Generated sources
-gcr_ui_enums_gen = gnome.mkenums_simple('gcr-enum-types',
-  sources: gcr_ui_headers,
+gcr_gtk3_enums_gen = gnome.mkenums_simple('gcr-enum-types',
+  sources: gcr_gtk3_headers,
   install_header: true,
-  install_dir: get_option('includedir') / gcr_ui_headers_install_dir,
+  install_dir: get_option('includedir') / gcr_gtk3_headers_install_dir,
 )
 
-gcr_ui_sources = [
-  gcr_ui_private_sources,
-  gcr_ui_public_sources,
-  gcr_ui_enums_gen,
+gcr_gtk3_sources = [
+  gcr_gtk3_private_sources,
+  gcr_gtk3_public_sources,
+  gcr_gtk3_enums_gen,
 ]
 
-gcr_ui_deps = [
+gcr_gtk3_deps = [
   glib_deps,
   p11kit_dep,
   libegg_dep,
@@ -86,7 +86,7 @@ gcr_ui_deps = [
   gtk_dep,
 ]
 
-gcr_ui_cflags = [
+gcr_gtk3_cflags = [
  '-DG_LOG_DOMAIN="Gcr"',
  '-DGCR_COMPILATION',
  '-DGCR_API_SUBJECT_TO_CHANGE',
@@ -94,24 +94,23 @@ gcr_ui_cflags = [
  '-DP11_KIT_API_SUBJECT_TO_CHANGE',
 ]
 
-gcr_ui_symbolmap = meson.current_source_dir() / 'libgcr-ui.map'
-gcr_ui_linkflags = cc.get_supported_link_arguments(
-  '-Wl,--version-script,@0@'.format(gcr_ui_symbolmap),
+gcr_gtk3_symbolmap = meson.current_source_dir() / 'libgcr-gtk3.map'
+gcr_gtk3_linkflags = cc.get_supported_link_arguments(
+  '-Wl,--version-script,@0@'.format(gcr_gtk3_symbolmap),
 )
 
-# gcr-XX is just the same as gcr-ui-XX
-gcr_ui_lib = shared_library(gcr_ui_basename,
-  gcr_ui_sources,
-  dependencies: gcr_ui_deps,
-  c_args: gcr_ui_cflags,
-  link_args: gcr_ui_linkflags,
-  link_depends: gcr_ui_symbolmap,
+gcr_gtk3_lib = shared_library(gcr_gtk3_basename,
+  gcr_gtk3_sources,
+  dependencies: gcr_gtk3_deps,
+  c_args: gcr_gtk3_cflags,
+  link_args: gcr_gtk3_linkflags,
+  link_depends: gcr_gtk3_symbolmap,
   include_directories: config_h_dir,
   version: gcr_soversion,
   install: true,
 )
 
-gcr_ui_pkgconf_deps = [
+gcr_gtk3_pkgconf_deps = [
   glib_dep,
   gio_dep,
   gobject_dep,
@@ -119,27 +118,28 @@ gcr_ui_pkgconf_deps = [
   gcr_lib,
   gtk_dep,
 ]
-pkgconfig.generate(gcr_ui_lib,
+
+pkgconfig.generate(gcr_gtk3_lib,
   subdirs: gcr_headers_subdir,
-  requires: gcr_ui_pkgconf_deps,
+  requires: gcr_gtk3_pkgconf_deps,
   description: 'GObject and GUI library for high level crypto parsing and display',
 )
 
-install_headers([gcr_ui_headers, gcr_ui_deprecated_headers ],
-  subdir: gcr_ui_headers_install_dir,
+install_headers([gcr_gtk3_headers, gcr_gtk3_deprecated_headers ],
+  subdir: gcr_gtk3_headers_install_dir,
 )
 
-gcr_ui_dep = declare_dependency(
-  link_with: gcr_ui_lib,
-  sources: gcr_ui_enums_gen[1], # Make sure gcr-enum-types.h can be included
+gcr_gtk3_dep = declare_dependency(
+  link_with: gcr_gtk3_lib,
+  sources: gcr_gtk3_enums_gen[1], # Make sure gcr-enum-types.h can be included
 )
 
 if get_option('introspection')
-  gcr_ui_gir = gnome.generate_gir(gcr_ui_lib,
-    sources: [ gcr_ui_headers, gcr_ui_public_sources ],
-    namespace: 'GcrUi',
+  gcr_gtk3_gir = gnome.generate_gir(gcr_gtk3_lib,
+    sources: [ gcr_gtk3_headers, gcr_gtk3_public_sources ],
+    namespace: 'GcrGtk3',
     nsversion: gcr_api_version,
-    export_packages: gcr_ui_basename,
+    export_packages: gcr_gtk3_basename,
     identifier_prefix: 'Gcr',
     symbol_prefix: 'gcr',
     includes: [
@@ -149,7 +149,7 @@ if get_option('introspection')
       gck_gir[0],
       gcr_gir[0],
     ],
-    header: 'ui/gcr-ui.h',
+    header: 'gcr-gtk3/gcr-gtk3.h',
     extra_args: [
       '-DGCR_COMPILATION',
       '-DGCR_API_SUBJECT_TO_CHANGE',
@@ -157,8 +157,8 @@ if get_option('introspection')
     install: true,
   )
 
-  gcr_ui_vapi = gnome.generate_vapi(gcr_ui_basename,
-    sources: gcr_ui_gir[0],
+  gcr_gtk3_vapi = gnome.generate_vapi(gcr_gtk3_basename,
+    sources: gcr_gtk3_gir[0],
     packages: [
       'glib-2.0',
       'gio-2.0',
@@ -182,8 +182,8 @@ endif
 # gcr-viewer
 gcr_viewer = executable('gcr-viewer',
   'gcr-viewer-tool.c',
-  dependencies: [ gcr_ui_dep, gcr_ui_deps ],
-  c_args: gcr_ui_cflags,
+  dependencies: [ gcr_gtk3_dep, gcr_gtk3_deps ],
+  c_args: gcr_gtk3_cflags,
   include_directories: config_h_dir,
   install: true,
 )
@@ -204,8 +204,8 @@ i18n.merge_file(
 # gcr-prompter
 gcr_prompter = executable('gcr-prompter',
   'gcr-prompter-tool.c',
-  dependencies: [ gcr_ui_dep, gcr_ui_deps ],
-  c_args: gcr_ui_cflags,
+  dependencies: [ gcr_gtk3_dep, gcr_gtk3_deps ],
+  c_args: gcr_gtk3_cflags,
   include_directories: config_h_dir,
   install: true,
   install_dir: get_option('libexecdir'),
@@ -230,7 +230,7 @@ install_data('gcr-crypto-types.xml',
 )
 
 # Manual UI testing programs
-gcr_ui_manual_tests = [
+gcr_gtk3_manual_tests = [
   'frob-certificate',
   'frob-combo-selector',
   'frob-gnupg-selector',
@@ -244,15 +244,15 @@ gcr_ui_manual_tests = [
   'frob-unlock-options',
 ]
 
-gcr_ui_test_cflags = [
+gcr_gtk3_test_cflags = [
   '-DSRCDIR="@0@"'.format(source_root),
 ]
 
-foreach _test : gcr_ui_manual_tests
+foreach _test : gcr_gtk3_manual_tests
   test_bin = executable('test-'+_test,
     '@0@.c'.format(_test),
-    dependencies: [ gcr_ui_deps, gcr_ui_dep ],
-    c_args: [ gcr_ui_cflags, gcr_ui_test_cflags ],
+    dependencies: [ gcr_gtk3_deps, gcr_gtk3_dep ],
+    c_args: [ gcr_gtk3_cflags, gcr_gtk3_test_cflags ],
     include_directories: config_h_dir,
   )
 endforeach

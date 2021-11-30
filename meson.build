@@ -37,7 +37,7 @@ podir = source_root / 'po'
 gck_basename = 'gck-@0@'.format(gck_api_version)
 gcr_base_basename = 'gcr-base-@0@'.format(gcr_api_version)
 gcr_basename = 'gcr-@0@'.format(gcr_api_version)
-gcr_ui_basename = 'gcr-ui-@0@'.format(gcr_api_version)
+gcr_gtk3_basename = 'gcr-@0@-gtk3'.format(gcr_api_version)
 
 # Dependencies
 min_glib_version = '2.44'
@@ -105,7 +105,7 @@ subdir('gck')
 subdir('gcr')
 subdir('schema')
 if get_option('gtk')
-  subdir('ui')
+  subdir('gcr-gtk3')
 endif
 if get_option('gtk_doc')
   if not get_option('introspection')

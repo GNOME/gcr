@@ -24,7 +24,7 @@
 
 #include "gcr-collection-model.h"
 
-#include "ui/gcr-enum-types.h"
+#include "gcr-gtk3/gcr-enum-types.h"
 
 #include <gtk/gtk.h>
 

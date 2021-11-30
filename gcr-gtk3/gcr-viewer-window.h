@@ -28,7 +28,7 @@
 #ifndef GCR_DISABLE_DEPRECATED
 
 #include "gcr/gcr.h"
-#include "ui/gcr-ui.h"
+#include "gcr-gtk3/gcr-gtk3.h"
 
 #define GCR_TYPE_VIEWER_WINDOW               (gcr_viewer_window_get_type ())
 #define GCR_VIEWER_WINDOW(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_VIEWER_WINDOW, GcrViewerWindow))

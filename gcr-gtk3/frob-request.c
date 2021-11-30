@@ -23,7 +23,7 @@
 
 #include "gcr/gcr.h"
 
-#include "ui/gcr-certificate-request-renderer.h"
+#include "gcr-gtk3/gcr-certificate-request-renderer.h"
 
 #include <gtk/gtk.h>
 
@@ -91,7 +91,7 @@ main(int argc, char *argv[])
 	if (argc > 1)
 		test_request (argv[1]);
 	else
-		test_request (SRCDIR "/ui/fixtures/der-rsa-2048.p10");
+		test_request (SRCDIR "/gcr-gtk3/fixtures/der-rsa-2048.p10");
 
 	return 0;
 }

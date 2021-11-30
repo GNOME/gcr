@@ -25,8 +25,8 @@
 #include "gcr/gcr-gnupg-collection.h"
 #include "gcr/gcr-gnupg-key.h"
 
-#include "ui/gcr-live-search.h"
-#include "ui/gcr-list-selector-private.h"
+#include "gcr-gtk3/gcr-live-search.h"
+#include "gcr-gtk3/gcr-list-selector-private.h"
 
 #include <gtk/gtk.h>
 

@@ -23,8 +23,8 @@
 #error "This API has not yet reached stability."
 #endif
 
-#ifndef __GCR_UI_H__
-#define __GCR_UI_H__
+#ifndef __GCR_GTK3_H__
+#define __GCR_GTK3_H__
 
 #include <glib.h>
 
@@ -32,27 +32,27 @@
 
 #define __GCR_INSIDE_HEADER__
 
-#include <ui/gcr-certificate-renderer.h>
-#include <ui/gcr-certificate-widget.h>
-#include <ui/gcr-collection-model.h>
-#include <ui/gcr-combo-selector.h>
-#include <ui/gcr-deprecated.h>
-#include <ui/gcr-enum-types.h>
-#include <ui/gcr-key-renderer.h>
-#include <ui/gcr-key-widget.h>
-#include <ui/gcr-failure-renderer.h>
-#include <ui/gcr-key-renderer.h>
-#include <ui/gcr-key-widget.h>
-#include <ui/gcr-import-button.h>
-#include <ui/gcr-list-selector.h>
-#include <ui/gcr-prompt-dialog.h>
-#include <ui/gcr-renderer.h>
-#include <ui/gcr-secure-entry-buffer.h>
-#include <ui/gcr-tree-selector.h>
-#include <ui/gcr-unlock-options-widget.h>
-#include <ui/gcr-viewer.h>
-#include <ui/gcr-viewer-widget.h>
+#include <gcr-gtk3/gcr-certificate-renderer.h>
+#include <gcr-gtk3/gcr-certificate-widget.h>
+#include <gcr-gtk3/gcr-collection-model.h>
+#include <gcr-gtk3/gcr-combo-selector.h>
+#include <gcr-gtk3/gcr-deprecated.h>
+#include <gcr-gtk3/gcr-enum-types.h>
+#include <gcr-gtk3/gcr-key-renderer.h>
+#include <gcr-gtk3/gcr-key-widget.h>
+#include <gcr-gtk3/gcr-failure-renderer.h>
+#include <gcr-gtk3/gcr-key-renderer.h>
+#include <gcr-gtk3/gcr-key-widget.h>
+#include <gcr-gtk3/gcr-import-button.h>
+#include <gcr-gtk3/gcr-list-selector.h>
+#include <gcr-gtk3/gcr-prompt-dialog.h>
+#include <gcr-gtk3/gcr-renderer.h>
+#include <gcr-gtk3/gcr-secure-entry-buffer.h>
+#include <gcr-gtk3/gcr-tree-selector.h>
+#include <gcr-gtk3/gcr-unlock-options-widget.h>
+#include <gcr-gtk3/gcr-viewer.h>
+#include <gcr-gtk3/gcr-viewer-widget.h>
 
 #undef __GCR_INSIDE_HEADER__
 
-#endif /* __GCR_UI_H__ */
+#endif /* __GCR_GTK3_H__ */

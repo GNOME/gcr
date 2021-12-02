@@ -27,7 +27,6 @@
 #include "gcr-certificate-exporter.h"
 #include "gcr-certificate-renderer.h"
 #include "gcr-certificate-renderer-private.h"
-#include "gcr-deprecated.h"
 #include "gcr-display-view.h"
 #include "gcr-renderer.h"
 
@@ -742,40 +741,6 @@ gcr_certificate_renderer_set_certificate (GcrCertificateRenderer *self, GcrCerti
 
 	gcr_renderer_emit_data_changed (GCR_RENDERER (self));
 	g_object_notify (G_OBJECT (self), "certificate");
-}
-
-/**
- * gcr_certificate_renderer_get_attributes:
- * @self: The renderer
- *
- * Get the PKCS#11 attributes, if any, set for this renderer to display.
- *
- * Returns: (nullable) (transfer none): the attributes, owned by the renderer
- *
- * Deprecated: 3.6: Use gcr_renderer_get_attributes() instead
- */
-GckAttributes *
-gcr_certificate_renderer_get_attributes (GcrCertificateRenderer *self)
-{
-	g_return_val_if_fail (GCR_IS_CERTIFICATE_RENDERER (self), NULL);
-	return gcr_renderer_get_attributes (GCR_RENDERER (self));
-}
-
-/**
- * gcr_certificate_renderer_set_attributes:
- * @self: The renderer
- * @attrs: (nullable): attributes to set
- *
- * Set the PKCS#11 attributes for this renderer to display. One of the attributes
- * should be a `CKA_VALUE` type attribute containing a DER encoded certificate.
- *
- * Deprecated: 3.6: Use gcr_renderer_set_attributes() instead
- */
-void
-gcr_certificate_renderer_set_attributes (GcrCertificateRenderer *self, GckAttributes *attrs)
-{
-	g_return_if_fail (GCR_IS_CERTIFICATE_RENDERER (self));
-	gcr_renderer_set_attributes (GCR_RENDERER (self), attrs);
 }
 
 typedef struct {

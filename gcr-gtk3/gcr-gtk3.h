@@ -36,7 +36,6 @@
 #include <gcr-gtk3/gcr-certificate-widget.h>
 #include <gcr-gtk3/gcr-collection-model.h>
 #include <gcr-gtk3/gcr-combo-selector.h>
-#include <gcr-gtk3/gcr-deprecated.h>
 #include <gcr-gtk3/gcr-enum-types.h>
 #include <gcr-gtk3/gcr-key-renderer.h>
 #include <gcr-gtk3/gcr-key-widget.h>

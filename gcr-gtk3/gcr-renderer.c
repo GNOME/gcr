@@ -19,7 +19,6 @@
 
 #include "config.h"
 
-#include "gcr-deprecated.h"
 #include "gcr-renderer.h"
 
 #include "gcr-certificate-renderer.h"
@@ -129,22 +128,6 @@ gcr_renderer_render_view (GcrRenderer *self, GcrViewer *viewer)
 	g_return_if_fail (GCR_IS_RENDERER (self));
 	g_return_if_fail (GCR_RENDERER_GET_INTERFACE (self)->render_view);
 	GCR_RENDERER_GET_INTERFACE (self)->render_view (self, viewer);
-}
-
-/**
- * gcr_renderer_render:
- * @self: the renderer
- * @viewer: the viewer to render to
- *
- * Render a renderer to the viewer.
- *
- * Deprecated: 3.2: Use gcr_renderer_render_view() instead
- */
-void
-gcr_renderer_render (GcrRenderer *self,
-                     GcrViewer *viewer)
-{
-	gcr_renderer_render_view (self, viewer);
 }
 
 /**

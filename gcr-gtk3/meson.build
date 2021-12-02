@@ -35,7 +35,6 @@ gcr_gtk3_private_sources = files(
   'gcr-pkcs11-import-dialog.c',
   'gcr-pkcs11-import-interaction.c',
   'gcr-unlock-renderer.c',
-  'gcr-viewer-window.c',
 )
 
 gcr_gtk3_headers = files(
@@ -179,51 +178,6 @@ if get_option('introspection')
   )
 endif
 
-# gcr-viewer
-gcr_viewer = executable('gcr-viewer',
-  'gcr-viewer-tool.c',
-  dependencies: [ gcr_gtk3_dep, gcr_gtk3_deps ],
-  c_args: gcr_gtk3_cflags,
-  include_directories: config_h_dir,
-  install: true,
-)
-
-i18n.merge_file(
-  input: configure_file(
-    input: 'gcr-viewer.desktop.in.in',
-    output: '@BASENAME@',
-    configuration: { 'bindir': gcr_prefix / get_option('bindir') },
-  ),
-  output: '@BASENAME@',
-  type: 'desktop',
-  po_dir: podir,
-  install: true,
-  install_dir: get_option('datadir') / 'applications',
-)
-
-# gcr-prompter
-gcr_prompter = executable('gcr-prompter',
-  'gcr-prompter-tool.c',
-  dependencies: [ gcr_gtk3_dep, gcr_gtk3_deps ],
-  c_args: gcr_gtk3_cflags,
-  include_directories: config_h_dir,
-  install: true,
-  install_dir: get_option('libexecdir'),
-)
-
-i18n.merge_file(
-  input: configure_file(
-    input: 'gcr-prompter.desktop.in.in',
-    output: '@BASENAME@',
-    configuration: { 'libexecdir': gcr_prefix / get_option('libexecdir') },
-  ),
-  output: '@BASENAME@',
-  type: 'desktop',
-  po_dir: podir,
-  install: true,
-  install_dir: get_option('datadir') / 'applications',
-)
-
 # Register new mime types
 install_data('gcr-crypto-types.xml',
   install_dir: get_option('datadir') / 'mime' / 'packages',
@@ -240,7 +194,6 @@ gcr_gtk3_manual_tests = [
   'frob-prompt',
   'frob-request',
   'frob-system-prompt',
-  'frob-unlock',
   'frob-unlock-options',
 ]
 

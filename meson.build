@@ -107,6 +107,7 @@ subdir('schema')
 if get_option('gtk')
   subdir('gcr-gtk3')
 endif
+subdir('tools')
 if get_option('gtk_doc')
   if not get_option('introspection')
     error('Can\'t generate docs without introspection enabled!')

@@ -24,7 +24,7 @@
 #include "gcr/gcr.h"
 
 #include "gcr-gtk3/gcr-unlock-renderer.h"
-#include "gcr-gtk3/gcr-viewer-window.h"
+#include "tools/gcr-viewer-window.h"
 
 #include <gtk/gtk.h>
 

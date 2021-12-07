@@ -3,7 +3,7 @@ stages:
   - deploy
 
 variables:
-  DEPENDENCIES: dbus-daemon diffutils gcc gi-docgen libsecret-devel meson ninja-build openssh openssh-clients python redhat-rpm-config systemd-devel
+  DEPENDENCIES: dbus-daemon diffutils gcc gi-docgen libsecret-devel meson ninja-build openssh openssh-clients python redhat-rpm-config systemd-devel gtk4-devel
 
 fedora:Werror:
   image: fedora:latest
@@ -102,6 +102,7 @@ pages:
     - mv _build/docs/gck/gck-1 public/gck-2
     - mv _build/docs/gcr/gcr-3 public/gcr-4
     - mv _build/docs/gcr-gtk3/gcr-3-gtk3 public/gcr-4-gtk3
+    - mv _build/docs/gcr-gtk4/gcr-3-gtk4 public/gcr-4-gtk4
   artifacts:
     when: on_success
     paths:

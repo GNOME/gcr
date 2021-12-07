@@ -74,7 +74,7 @@ gcr_gtk3_deps = [
   libegg_dep,
   gck_dep,
   gcr_dep,
-  gtk_dep,
+  gtk3_dep,
 ]
 
 gcr_gtk3_cflags = [
@@ -107,7 +107,7 @@ gcr_gtk3_pkgconf_deps = [
   gobject_dep,
   gck_lib,
   gcr_lib,
-  gtk_dep,
+  gtk3_dep,
 ]
 
 pkgconfig.generate(gcr_gtk3_lib,

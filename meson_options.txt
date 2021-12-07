@@ -3,15 +3,20 @@ option('introspection',
   value: true,
   description: 'Build GObject Introspection (GIR) files',
 )
-option('gtk',
+option('gtk3',
   type: 'boolean',
   value: true,
-  description: 'Build code that uses GTK+',
+  description: 'Enable the GTK3 library and utilities',
+)
+option('gtk4',
+  type: 'boolean',
+  value: true,
+  description: 'Enable the GTK4 library and utilities',
 )
 option('gtk_doc',
   type: 'boolean',
   value: true,
-  description: 'Build the reference documentation (requires gtk-doc)',
+  description: 'Build the reference documentation (requires gi-docgen)',
 )
 option('gpg_path',
   type: 'string',

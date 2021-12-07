@@ -20,7 +20,7 @@ print_version_and_exit (const gchar  *option_name,
                         gpointer      data,
                         GError      **error)
 {
-	g_print("%s -- %s\n", _("GCR Certificate and Key Viewer"), VERSION);
+	g_print("%s -- %s\n", _("GCR Certificate Viewer"), VERSION);
 	exit (0);
 	return TRUE;
 }

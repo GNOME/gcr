@@ -3,56 +3,18 @@ subdir('icons')
 gcr_gtk3_headers_install_dir = gcr_headers_subdir / 'gcr-gtk3'
 
 gcr_gtk3_public_sources = files(
-  'gcr-certificate-renderer.c',
   'gcr-certificate-widget.c',
-  'gcr-collection-model.c',
-  'gcr-combo-selector.c',
-  'gcr-failure-renderer.c',
-  'gcr-key-renderer.c',
-  'gcr-key-widget.c',
-  'gcr-import-button.c',
-  'gcr-list-selector.c',
-  'gcr-prompt-dialog.c',
-  'gcr-renderer.c',
   'gcr-secure-entry-buffer.c',
-  'gcr-tree-selector.c',
-  'gcr-unlock-options-widget.c',
-  'gcr-viewer.c',
-  'gcr-viewer-widget.c',
 )
 
 gcr_gtk3_private_sources = files(
-  'eggimagemenuitem.c',
-  'gcr-certificate-exporter.c',
-  'gcr-certificate-request-renderer.c',
-  'gcr-dialog-util.c',
-  'gcr-display-scrolled.c',
-  'gcr-display-view.c',
-  'gcr-gnupg-renderer.c',
-  'gcr-live-search.c',
-  'gcr-pkcs11-import-dialog.c',
-  'gcr-pkcs11-import-interaction.c',
-  'gcr-unlock-renderer.c',
+  'gcr-section.c',
 )
 
 gcr_gtk3_headers = files(
   'gcr-gtk3.h',
-  'gcr-certificate-renderer.h',
   'gcr-certificate-widget.h',
-  'gcr-collection-model.h',
-  'gcr-combo-selector.h',
-  'gcr-failure-renderer.h',
-  'gcr-key-renderer.h',
-  'gcr-key-widget.h',
-  'gcr-import-button.h',
-  'gcr-list-selector.h',
-  'gcr-prompt-dialog.h',
-  'gcr-renderer.h',
   'gcr-secure-entry-buffer.h',
-  'gcr-tree-selector.h',
-  'gcr-unlock-options-widget.h',
-  'gcr-viewer.h',
-  'gcr-viewer-widget.h',
 )
 
 # Generated sources
@@ -157,7 +119,6 @@ if get_option('introspection')
       gcr_vapi,
       'gtk+-3.0'
     ],
-    metadata_dirs: meson.current_source_dir(),
     vapi_dirs: [
       build_root / 'gck',
       build_root / 'gcr',
@@ -178,15 +139,6 @@ install_data('gcr-crypto-types.xml',
 # Manual UI testing programs
 gcr_gtk3_manual_tests = [
   'frob-certificate',
-  'frob-combo-selector',
-  'frob-gnupg-selector',
-  'frob-import-button',
-  'frob-key',
-  'frob-tree-selector',
-  'frob-prompt',
-  'frob-request',
-  'frob-system-prompt',
-  'frob-unlock-options',
 ]
 
 gcr_gtk3_test_cflags = [

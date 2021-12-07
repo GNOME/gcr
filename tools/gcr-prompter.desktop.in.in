@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Access Prompt
-Comment=Unlock access to passwords and other secrets
-# Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-Icon=security-medium
-Exec=@libexecdir@/gcr-prompter
-Terminal=false
-Type=Application
-NoDisplay=true

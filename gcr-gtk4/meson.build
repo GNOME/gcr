@@ -125,6 +125,3 @@ if get_option('introspection')
     install: true,
   )
 endif
-
-# gcr-viewer-gtk4
-subdir('viewer')

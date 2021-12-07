@@ -37,9 +37,7 @@
  */
 
 struct _GcrSimpleCertificatePrivate {
-	const guchar *data;
-	gsize n_data;
-	guchar *owned;
+	GBytes *bytes;
 };
 
 /* Forward declarations */
@@ -66,10 +64,7 @@ gcr_simple_certificate_real_finalize (GObject *obj)
 {
 	GcrSimpleCertificate *self = GCR_SIMPLE_CERTIFICATE (obj);
 
-	g_free (self->pv->owned);
-	self->pv->owned = NULL;
-	self->pv->data = NULL;
-	self->pv->n_data = 0;
+	g_clear_pointer (&self->pv->bytes, g_bytes_unref);
 
 	G_OBJECT_CLASS (gcr_simple_certificate_parent_class)->finalize (obj);
 }
@@ -94,11 +89,10 @@ gcr_simple_certificate_get_der_data (GcrCertificate *cert,
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 	g_return_val_if_fail (n_data, NULL);
-	g_return_val_if_fail (self->pv->data, NULL);
+	g_return_val_if_fail (self->pv->bytes, NULL);
 
 	/* This is called when we're not a base class */
-	*n_data = self->pv->n_data;
-	return self->pv->data;
+	return g_bytes_get_data (self->pv->bytes, n_data);
 }
 
 static void
@@ -131,9 +125,7 @@ gcr_simple_certificate_new (const guchar *data,
 	g_return_val_if_fail (n_data, NULL);
 
 	cert = g_object_new (GCR_TYPE_SIMPLE_CERTIFICATE, NULL);
-
-	cert->pv->data = cert->pv->owned = g_memdup (data, n_data);
-	cert->pv->n_data = n_data;
+	cert->pv->bytes = g_bytes_new (data, n_data);
 	return GCR_CERTIFICATE (cert);
 }
 
@@ -158,9 +150,6 @@ gcr_simple_certificate_new_static (const guchar *data,
 	g_return_val_if_fail (n_data, NULL);
 
 	cert = g_object_new (GCR_TYPE_SIMPLE_CERTIFICATE, NULL);
-
-	cert->pv->owned = NULL;
-	cert->pv->data = data;
-	cert->pv->n_data = n_data;
+	cert->pv->bytes = g_bytes_new_static (data, n_data);
 	return GCR_CERTIFICATE (cert);
 }

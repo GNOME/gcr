@@ -50,7 +50,6 @@ gcr_headers = files(
   'gcr-certificate-request.h',
   'gcr-column.h',
   'gcr-comparable.h',
-  'gcr-deprecated-base.h',
   'gcr-fingerprint.h',
   'gcr-icons.h',
   'gcr-importer.h',

@@ -137,7 +137,7 @@ gboolean            gcr_certificate_get_basic_constraints  (GcrCertificate *self
 
 void                gcr_certificate_mixin_emit_notify      (GcrCertificate *self);
 
-void                gcr_certificate_mixin_comparable_init  (GcrComparableIface *iface);
+void                gcr_certificate_mixin_comparable_init  (GcrComparableInterface *iface);
 
 void                gcr_certificate_mixin_class_init       (GObjectClass *object_class);
 

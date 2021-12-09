@@ -30,18 +30,17 @@
  */
 
 /**
- * GcrComparableIface:
+ * GcrComparableInterface:
  * @parent: type interface
  * @compare: Compare whether tow objects represent the same thing.
  *
  * The interface to implement for [iface@Comparable]
  */
 
-typedef GcrComparableIface GcrComparableInterface;
 G_DEFINE_INTERFACE (GcrComparable, gcr_comparable, G_TYPE_OBJECT);
 
 static void
-gcr_comparable_default_init (GcrComparableIface *iface)
+gcr_comparable_default_init (GcrComparableInterface *iface)
 {
 
 }
@@ -61,9 +60,9 @@ gint
 gcr_comparable_compare (GcrComparable *self, GcrComparable *other)
 {
 	g_return_val_if_fail (GCR_IS_COMPARABLE (self), -1);
-	g_return_val_if_fail (GCR_COMPARABLE_GET_INTERFACE (self)->compare, -1);
+	g_return_val_if_fail (GCR_COMPARABLE_GET_IFACE (self)->compare, -1);
 	g_return_val_if_fail (G_IS_OBJECT (self), -1);
-	return GCR_COMPARABLE_GET_INTERFACE (self)->compare (self, other);
+	return GCR_COMPARABLE_GET_IFACE (self)->compare (self, other);
 }
 
 /**

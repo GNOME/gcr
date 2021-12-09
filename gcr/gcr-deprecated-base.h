@@ -32,7 +32,6 @@
 
 #include "gcr-importer.h"
 #include "gcr-parser.h"
-#include "gcr-simple-collection.h"
 
 G_BEGIN_DECLS
 
@@ -40,10 +39,6 @@ G_BEGIN_DECLS
 
 G_DEPRECATED
 GQuark            gcr_error_get_domain                        (void) G_GNUC_CONST;
-
-G_DEPRECATED_FOR(gcr_collection_contains)
-gboolean          gcr_simple_collection_contains              (GcrSimpleCollection *self,
-                                                               GObject *object);
 
 G_DEPRECATED_FOR(gcr_importer_listen)
 GcrParser *       gcr_importer_get_parser                     (GcrImporter *self);

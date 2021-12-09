@@ -22,9 +22,8 @@
 #ifndef GCR_CALLBACK_OUTPUT_STREAM_H
 #define GCR_CALLBACK_OUTPUT_STREAM_H
 
-#include "gcr-collection.h"
-
 #include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 

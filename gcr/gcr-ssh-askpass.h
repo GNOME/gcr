@@ -17,12 +17,12 @@
  * Author: Stef Walter <stefw@gnome.org>
  */
 
-#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
-#error "Only <gcr/gcr.h> or <gcr/gcr-base.h> can be included directly."
-#endif
-
 #ifndef __GCR_SSH_ASKPASS_H__
 #define __GCR_SSH_ASKPASS_H__
+
+#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
+#error "Only <gcr/gcr.h> can be included directly."
+#endif
 
 #include <glib-object.h>
 

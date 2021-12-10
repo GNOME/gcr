@@ -19,12 +19,12 @@
  * Author: Stef Walter <stefw@collabora.co.uk>
  */
 
-#if !defined (__GCR_H_INSIDE__) && !defined (GCR_COMPILATION)
-#error "Only <gcr/gcr.h> can be included directly."
-#endif
-
 #ifndef __GCR_GNUPG_IMPORTER_H__
 #define __GCR_GNUPG_IMPORTER_H__
+
+#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
+#error "Only <gcr/gcr.h> can be included directly."
+#endif
 
 #include "gcr-importer.h"
 

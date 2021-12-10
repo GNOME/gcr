@@ -8,6 +8,9 @@ Attribute
 	.length skip=true
 	.value skip=true
 
+Attributes
+	.new_empty skip=false sentinel="GCK_INVALID"
+
 Enumerator
 	.set_object_type_full name="set_object_type"
 

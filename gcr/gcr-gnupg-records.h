@@ -17,10 +17,6 @@
  * Author: Stef Walter <stefw@collabora.co.uk>
  */
 
-#if !defined (__GCR_H_INSIDE__) && !defined (GCR_COMPILATION)
-#error "Only <gcr/gcr.h> can be included directly."
-#endif
-
 #ifndef GCR_GNUPG_RECORDS_H
 #define GCR_GNUPG_RECORDS_H
 

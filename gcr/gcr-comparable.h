@@ -20,6 +20,10 @@
 #ifndef __GCR_COMPARABLE_H__
 #define __GCR_COMPARABLE_H__
 
+#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
+#error "Only <gcr/gcr.h> can be included directly."
+#endif
+
 #include <glib-object.h>
 
 G_BEGIN_DECLS

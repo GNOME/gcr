@@ -20,6 +20,10 @@
 #ifndef __GCR_COLUMN_H__
 #define __GCR_COLUMN_H__
 
+#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
+#error "Only <gcr/gcr.h> can be included directly."
+#endif
+
 #include "gcr-types.h"
 
 #include <glib-object.h>

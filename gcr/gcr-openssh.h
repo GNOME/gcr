@@ -19,10 +19,6 @@
  * Author: Stef Walter <stefw@collabora.co.uk>
  */
 
-#if !defined (__GCR_H_INSIDE__) && !defined (GCR_COMPILATION)
-#error "Only <gcr/gcr.h> can be included directly."
-#endif
-
 #ifndef __GCR_OPENSSH_H__
 #define __GCR_OPENSSH_H__
 

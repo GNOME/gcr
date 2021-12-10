@@ -408,7 +408,7 @@ typedef struct {
 } MockObjectClass;
 
 GType mock_object_get_type (void) G_GNUC_CONST;
-static void mock_object_cache_init (GckObjectCacheIface *iface);
+static void mock_object_cache_init (GckObjectCacheInterface *iface);
 
 #define MOCK_TYPE_OBJECT     (mock_object_get_type())
 #define MOCK_OBJECT(obj)     (G_TYPE_CHECK_INSTANCE_CAST((obj), MOCK_TYPE_OBJECT, MockObject))
@@ -498,7 +498,7 @@ mock_object_fill (GckObjectCache *object,
 }
 
 static void
-mock_object_cache_init (GckObjectCacheIface *iface)
+mock_object_cache_init (GckObjectCacheInterface *iface)
 {
 	iface->default_types = mock_attribute_types;
 	iface->n_default_types = G_N_ELEMENTS (mock_attribute_types);

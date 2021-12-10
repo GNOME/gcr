@@ -1027,7 +1027,7 @@ check_out_enumerator_state (GckEnumerator *self)
 	GTlsInteraction *old_interaction = NULL;
 	gpointer old_object_class = NULL;
 	GckEnumeratorState *chained_state = NULL;
-	GckObjectCacheIface *object_iface;
+	GckObjectCacheInterface *object_iface;
 	GckEnumerator *chained;
 
 	chained = gck_enumerator_get_chained (self);

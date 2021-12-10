@@ -37,7 +37,7 @@
  */
 
 /**
- * GckObjectCacheIface:
+ * GckObjectCacheInterface:
  * @interface: parent interface
  * @default_types: (array length=n_default_types): attribute types that an
  *                   enumerator should retrieve
@@ -53,26 +53,19 @@
  * cache. It must be thread safe.
  */
 
-typedef GckObjectCacheIface GckObjectCacheInterface;
 G_DEFINE_INTERFACE (GckObjectCache, gck_object_cache, GCK_TYPE_OBJECT);
 
 static void
-gck_object_cache_default_init (GckObjectCacheIface *iface)
+gck_object_cache_default_init (GckObjectCacheInterface *iface)
 {
-	static size_t initialized = 0;
-	if (g_once_init_enter (&initialized)) {
-
-		/**
-		 * GckObjectCache:attributes:
-		 *
-		 * The attributes cached on this object.
-		 */
-		g_object_interface_install_property (iface,
-		         g_param_spec_boxed ("attributes", "Attributes", "PKCS#11 Attributes",
-		                             GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
-
-		g_once_init_leave (&initialized, 1);
-	}
+	/**
+	 * GckObjectCache:attributes:
+	 *
+	 * The attributes cached on this object.
+	 */
+	g_object_interface_install_property (iface,
+	         g_param_spec_boxed ("attributes", "Attributes", "PKCS#11 Attributes",
+	                             GCK_TYPE_ATTRIBUTES, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 /**
@@ -129,12 +122,12 @@ void
 gck_object_cache_fill (GckObjectCache *object,
                        GckAttributes *attrs)
 {
-	GckObjectCacheIface *iface;
+	GckObjectCacheInterface *iface;
 
 	g_return_if_fail (GCK_IS_OBJECT_CACHE (object));
 	g_return_if_fail (attrs != NULL);
 
-	iface = GCK_OBJECT_CACHE_GET_INTERFACE (object);
+	iface = GCK_OBJECT_CACHE_GET_IFACE (object);
 	g_return_if_fail (iface->fill != NULL);
 
 	gck_attributes_ref_sink (attrs);
@@ -164,7 +157,7 @@ gck_object_cache_update (GckObjectCache *object,
                          GCancellable *cancellable,
                          GError **error)
 {
-	GckObjectCacheIface *iface;
+	GckObjectCacheInterface *iface;
 	GckAttributes *attrs;
 
 	g_return_val_if_fail (GCK_IS_OBJECT_CACHE (object), FALSE);
@@ -172,7 +165,7 @@ gck_object_cache_update (GckObjectCache *object,
 	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	iface = GCK_OBJECT_CACHE_GET_INTERFACE (object);
+	iface = GCK_OBJECT_CACHE_GET_IFACE (object);
 
 	if (attr_types == NULL) {
 		attr_types = iface->default_types;
@@ -240,14 +233,14 @@ gck_object_cache_update_async (GckObjectCache *object,
                                GAsyncReadyCallback callback,
                                gpointer user_data)
 {
-	GckObjectCacheIface *iface;
+	GckObjectCacheInterface *iface;
 	GTask *task;
 
 	g_return_if_fail (GCK_IS_OBJECT_CACHE (object));
 	g_return_if_fail (attr_types != NULL || n_attr_types == 0);
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	iface = GCK_OBJECT_CACHE_GET_INTERFACE (object);
+	iface = GCK_OBJECT_CACHE_GET_IFACE (object);
 
 	if (attr_types == NULL) {
 		attr_types = iface->default_types;

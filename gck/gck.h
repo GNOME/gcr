@@ -1427,14 +1427,10 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckObject, g_object_unref);
  * OBJECT ATTRIBUTES
  */
 
-#define GCK_TYPE_OBJECT_CACHE                    (gck_object_cache_get_type ())
-#define GCK_OBJECT_CACHE(obj)                    (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCK_TYPE_OBJECT_CACHE, GckObjectCache))
-#define GCK_IS_OBJECT_CACHE(obj)                 (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCK_TYPE_OBJECT_CACHE))
-#define GCK_OBJECT_CACHE_GET_INTERFACE(inst)     (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GCK_TYPE_OBJECT_CACHE, GckObjectCacheIface))
+#define GCK_TYPE_OBJECT_CACHE gck_object_cache_get_type ()
+G_DECLARE_INTERFACE (GckObjectCache, gck_object_cache, GCK, OBJECT_CACHE, GckObject)
 
-typedef struct _GckObjectCacheIface GckObjectCacheIface;
-
-struct _GckObjectCacheIface {
+struct _GckObjectCacheInterface {
 	GTypeInterface interface;
 
 	const gulong *  default_types;
@@ -1446,8 +1442,6 @@ struct _GckObjectCacheIface {
 	/*< private >*/
 	gpointer reserved[6];
 };
-
-GType               gck_object_cache_get_type              (void) G_GNUC_CONST;
 
 GckAttributes *     gck_object_cache_get_attributes        (GckObjectCache *object);
 
@@ -1490,8 +1484,6 @@ void                gck_object_cache_lookup_async          (GckObject *object,
 GckAttributes *     gck_object_cache_lookup_finish         (GckObject *object,
                                                             GAsyncResult *result,
                                                             GError **error);
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckObjectCache, g_object_unref);
 
 /* ------------------------------------------------------------------------
  * PASSWORD

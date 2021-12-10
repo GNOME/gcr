@@ -34,15 +34,10 @@
 
 G_BEGIN_DECLS
 
-#define GCR_TYPE_IMPORTER                 (gcr_importer_get_type ())
-#define GCR_IMPORTER(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_IMPORTER, GcrImporter))
-#define GCR_IS_IMPORTER(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_IMPORTER))
-#define GCR_IMPORTER_GET_INTERFACE(inst)  (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GCR_TYPE_IMPORTER, GcrImporterIface))
+#define GCR_TYPE_IMPORTER gcr_importer_get_type ()
+G_DECLARE_INTERFACE (GcrImporter, gcr_importer, GCR, IMPORTER, GObject)
 
-typedef struct _GcrImporter GcrImporter;
-typedef struct _GcrImporterIface GcrImporterIface;
-
-struct _GcrImporterIface {
+struct _GcrImporterInterface {
 	GTypeInterface parent;
 
 	GList *     (*create_for_parsed)      (GcrParsed *parsed);
@@ -66,8 +61,6 @@ struct _GcrImporterIface {
 	/*< private >*/
 	gpointer reserved[14];
 };
-
-GType              gcr_importer_get_type                     (void);
 
 GList *            gcr_importer_create_for_parsed            (GcrParsed *parsed);
 

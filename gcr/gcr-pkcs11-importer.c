@@ -72,7 +72,7 @@ static void   state_cancelled                  (GTask *task,
                                                 gboolean async);
 static void   state_create_object              (GTask *task,
                                                 gboolean async);
-static void   _gcr_pkcs11_importer_init_iface  (GcrImporterIface *iface);
+static void   _gcr_pkcs11_importer_init_iface  (GcrImporterInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrPkcs11Importer, _gcr_pkcs11_importer, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (GCR_TYPE_IMPORTER, _gcr_pkcs11_importer_init_iface);
@@ -851,7 +851,7 @@ _gcr_pkcs11_importer_import_finish (GcrImporter *importer,
 }
 
 static void
-_gcr_pkcs11_importer_init_iface (GcrImporterIface *iface)
+_gcr_pkcs11_importer_init_iface (GcrImporterInterface *iface)
 {
 	iface->create_for_parsed = _gcr_pkcs11_importer_create_for_parsed;
 	iface->queue_for_parsed = _gcr_pkcs11_importer_queue_for_parsed;

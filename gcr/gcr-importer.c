@@ -52,7 +52,7 @@
  */
 
 /**
- * GcrImporterIface:
+ * GcrImporterInterface:
  * @parent: parent interface
  * @create_for_parsed: implementation of gcr_importer_create_for_parsed(), required
  * @queue_for_parsed: implementation of gcr_importer_queue_for_parsed(), required
@@ -62,8 +62,6 @@
  *
  * Interface implemented for a #GcrImporter.
  */
-
-typedef GcrImporterIface GcrImporterInterface;
 
 G_DEFINE_INTERFACE (GcrImporter, gcr_importer, G_TYPE_OBJECT);
 
@@ -76,7 +74,7 @@ static GArray *registered_importers = NULL;
 static gboolean registered_sorted = FALSE;
 
 static void
-gcr_importer_default_init (GcrImporterIface *iface)
+gcr_importer_default_init (GcrImporterInterface *iface)
 {
 	static size_t initialized = 0;
 
@@ -196,7 +194,7 @@ GList *
 gcr_importer_create_for_parsed (GcrParsed *parsed)
 {
 	GcrRegistered *registered;
-	GcrImporterIface *iface;
+	GcrImporterInterface *iface;
 	gpointer instance_class;
 	GckAttributes *attrs;
 	gboolean matched;
@@ -285,12 +283,12 @@ gboolean
 gcr_importer_queue_for_parsed (GcrImporter *importer,
                                GcrParsed *parsed)
 {
-	GcrImporterIface *iface;
+	GcrImporterInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_IMPORTER (importer), FALSE);
 	g_return_val_if_fail (parsed != NULL, FALSE);
 
-	iface = GCR_IMPORTER_GET_INTERFACE (importer);
+	iface = GCR_IMPORTER_GET_IFACE (importer);
 	g_return_val_if_fail (iface != NULL, FALSE);
 	g_return_val_if_fail (iface->queue_for_parsed != NULL, FALSE);
 
@@ -377,13 +375,13 @@ gcr_importer_import (GcrImporter *importer,
 {
 	gboolean result;
 	ImportClosure *closure;
-	GcrImporterIface *iface;
+	GcrImporterInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_IMPORTER (importer), FALSE);
 	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	iface = GCR_IMPORTER_GET_INTERFACE (importer);
+	iface = GCR_IMPORTER_GET_IFACE (importer);
 	if (iface->import_sync)
 		return (iface->import_sync) (importer, cancellable, error);
 
@@ -454,12 +452,12 @@ gcr_importer_import_async (GcrImporter *importer,
                            GAsyncReadyCallback callback,
                            gpointer user_data)
 {
-	GcrImporterIface *iface;
+	GcrImporterInterface *iface;
 
 	g_return_if_fail (GCR_IS_IMPORTER (importer));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	iface = GCR_IMPORTER_GET_INTERFACE (importer);
+	iface = GCR_IMPORTER_GET_IFACE (importer);
 	g_return_if_fail (iface != NULL);
 	g_return_if_fail (iface->import_async != NULL);
 
@@ -481,13 +479,13 @@ gcr_importer_import_finish (GcrImporter *importer,
                             GAsyncResult *result,
                             GError **error)
 {
-	GcrImporterIface *iface;
+	GcrImporterInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_IMPORTER (importer), FALSE);
 	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	iface = GCR_IMPORTER_GET_INTERFACE (importer);
+	iface = GCR_IMPORTER_GET_IFACE (importer);
 	g_return_val_if_fail (iface != NULL, FALSE);
 	g_return_val_if_fail (iface->import_finish != NULL, FALSE);
 

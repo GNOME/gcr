@@ -33,7 +33,7 @@
  */
 
 /**
- * GcrImportInteractionIface:
+ * GcrImportInteractionInterface:
  * @parent: parent interface
  * @supplement_prep: method which prepares for supplementing the given attributes before import
  * @supplement: method which synchronously supplements attributes before import
@@ -43,18 +43,11 @@
  * Interface implemented by implementations of [iface@ImportInteraction].
  */
 
-typedef GcrImportInteractionIface GcrImportInteractionInterface;
-
 G_DEFINE_INTERFACE (GcrImportInteraction, gcr_import_interaction, G_TYPE_TLS_INTERACTION);
 
 static void
-gcr_import_interaction_default_init (GcrImportInteractionIface *iface)
+gcr_import_interaction_default_init (GcrImportInteractionInterface *iface)
 {
-	static size_t initialized = 0;
-
-	if (g_once_init_enter (&initialized)) {
-		g_once_init_leave (&initialized, 1);
-	}
 }
 
 /**
@@ -74,12 +67,12 @@ void
 gcr_import_interaction_supplement_prep (GcrImportInteraction *interaction,
                                         GckBuilder *builder)
 {
-	GcrImportInteractionIface *iface;
+	GcrImportInteractionInterface *iface;
 
 	g_return_if_fail (GCR_IS_IMPORT_INTERACTION (interaction));
 	g_return_if_fail (builder != NULL);
 
-	iface = GCR_IMPORT_INTERACTION_GET_INTERFACE (interaction);
+	iface = GCR_IMPORT_INTERACTION_GET_IFACE (interaction);
 	if (iface->supplement != NULL)
 		(iface->supplement_prep) (interaction, builder);
 }
@@ -106,14 +99,14 @@ gcr_import_interaction_supplement (GcrImportInteraction *interaction,
                                    GCancellable *cancellable,
                                    GError **error)
 {
-	GcrImportInteractionIface *iface;
+	GcrImportInteractionInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_IMPORT_INTERACTION (interaction), G_TLS_INTERACTION_UNHANDLED);
 	g_return_val_if_fail (builder != NULL, G_TLS_INTERACTION_UNHANDLED);
 	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), G_TLS_INTERACTION_UNHANDLED);
 	g_return_val_if_fail (error == NULL || *error == NULL, G_TLS_INTERACTION_UNHANDLED);
 
-	iface = GCR_IMPORT_INTERACTION_GET_INTERFACE (interaction);
+	iface = GCR_IMPORT_INTERACTION_GET_IFACE (interaction);
 	g_return_val_if_fail (iface->supplement != NULL, G_TLS_INTERACTION_UNHANDLED);
 
 	return (iface->supplement) (interaction, builder, cancellable, error);
@@ -141,13 +134,13 @@ gcr_import_interaction_supplement_async (GcrImportInteraction *interaction,
                                          GAsyncReadyCallback callback,
                                          gpointer user_data)
 {
-	GcrImportInteractionIface *iface;
+	GcrImportInteractionInterface *iface;
 
 	g_return_if_fail (GCR_IS_IMPORT_INTERACTION (interaction));
 	g_return_if_fail (builder != NULL);
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	iface = GCR_IMPORT_INTERACTION_GET_INTERFACE (interaction);
+	iface = GCR_IMPORT_INTERACTION_GET_IFACE (interaction);
 	g_return_if_fail (iface->supplement != NULL);
 
 	(iface->supplement_async) (interaction, builder, cancellable, callback, user_data);
@@ -171,13 +164,13 @@ gcr_import_interaction_supplement_finish (GcrImportInteraction *interaction,
                                           GAsyncResult *result,
                                           GError **error)
 {
-	GcrImportInteractionIface *iface;
+	GcrImportInteractionInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_IMPORT_INTERACTION (interaction), G_TLS_INTERACTION_UNHANDLED);
 	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), G_TLS_INTERACTION_UNHANDLED);
 	g_return_val_if_fail (error == NULL || *error == NULL, G_TLS_INTERACTION_UNHANDLED);
 
-	iface = GCR_IMPORT_INTERACTION_GET_INTERFACE (interaction);
+	iface = GCR_IMPORT_INTERACTION_GET_IFACE (interaction);
 	g_return_val_if_fail (iface->supplement != NULL, G_TLS_INTERACTION_UNHANDLED);
 
 	return (iface->supplement_finish) (interaction, result, error);

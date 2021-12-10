@@ -34,15 +34,10 @@
 
 G_BEGIN_DECLS
 
-#define GCR_TYPE_IMPORT_INTERACTION                 (gcr_import_interaction_get_type ())
-#define GCR_IMPORT_INTERACTION(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_IMPORT_INTERACTION, GcrImportInteraction))
-#define GCR_IS_IMPORT_INTERACTION(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_IMPORT_INTERACTION))
-#define GCR_IMPORT_INTERACTION_GET_INTERFACE(inst)  (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GCR_TYPE_IMPORT_INTERACTION, GcrImportInteractionIface))
+#define GCR_TYPE_IMPORT_INTERACTION gcr_import_interaction_get_type ()
+G_DECLARE_INTERFACE(GcrImportInteraction, gcr_import_interaction, GCR, IMPORT_INTERACTION, GTlsInteraction)
 
-typedef struct _GcrImportInteraction GcrImportInteraction;
-typedef struct _GcrImportInteractionIface GcrImportInteractionIface;
-
-struct _GcrImportInteractionIface {
+struct _GcrImportInteractionInterface {
 	GTypeInterface parent;
 
 	void                    (*supplement_prep)   (GcrImportInteraction *interaction,
@@ -66,8 +61,6 @@ struct _GcrImportInteractionIface {
 	/*< private >*/
 	gpointer reserved[6];
 };
-
-GType                  gcr_import_interaction_get_type             (void);
 
 void                   gcr_import_interaction_supplement_prep      (GcrImportInteraction *interaction,
                                                                     GckBuilder *builder);

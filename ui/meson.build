@@ -152,7 +152,6 @@ if get_option('introspection')
     export_packages: 'gcr-ui-@0@'.format(gcr_major_version),
     identifier_prefix: 'Gcr',
     symbol_prefix: 'gcr',
-    packages: gcr_ui_deps,
     includes: [
       'GObject-2.0',
       'Gio-2.0',

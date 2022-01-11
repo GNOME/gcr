@@ -131,7 +131,6 @@ if get_option('introspection')
     sources: gck_gir_sources,
     namespace: 'Gck',
     nsversion: '@0@'.format(gck_major_version),
-    packages: gck_deps,
     export_packages: 'gck-@0@'.format(gck_major_version),
     includes: [ 'GObject-2.0', 'Gio-2.0' ],
     header: 'gck/gck.h',

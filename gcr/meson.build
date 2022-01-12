@@ -190,7 +190,6 @@ if get_option('introspection')
     sources: [ gcr_base_public_sources, gcr_base_headers ],
     namespace: 'Gcr',
     nsversion: '@0@'.format(gcr_major_version),
-    packages: gcr_base_deps,
     export_packages: 'gcr-base-@0@'.format(gcr_major_version),
     includes: [
       'GObject-2.0',

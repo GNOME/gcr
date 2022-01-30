@@ -1,19 +1,19 @@
 # gnome-keyring ja.po.
-# Copyright (C) 2003-2013, 2020 Free Software Foundation, Inc.
+# Copyright (C) 2003-2013, 2020, 2022 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-keyring package.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2003-2009.
 # Satoru SATOH <ss@gnome.gr.jp>, 2006.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2009-2010, 2012.
 # Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2010.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2013.
-# sicklylife <translation@sicklylife.jp>, 2020.
+# sicklylife <translation@sicklylife.jp>, 2020, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring gnome-3-6\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
 "POT-Creation-Date: 2021-09-30 14:31+0000\n"
-"PO-Revision-Date: 2020-08-22 16:56+0900\n"
+"PO-Revision-Date: 2022-01-30 21:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -404,7 +404,7 @@ msgstr "データが不正または壊れているため解析できませんで
 
 #: gcr/gcr-parser.c:2607
 msgid "The data is locked"
-msgstr "データにはロックがかかっています"
+msgstr "データはロックされています"
 
 #: gcr/gcr-prompt.c:229
 msgid "Continue"
@@ -415,32 +415,28 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 #: gcr/gcr-ssh-agent-interaction.c:116
-#, fuzzy, c-format
-#| msgid "Unlock: %s"
+#, c-format
 msgid "Unlock password for: %s"
-msgstr "ロック解除: %s"
+msgstr "ロック解除パスワード: %s"
 
 #: gcr/gcr-ssh-agent-interaction.c:152
-#, fuzzy
-#| msgid "Private Key"
 msgid "Unlock private key"
-msgstr "秘密鍵"
+msgstr "秘密鍵のロック解除"
 
 #: gcr/gcr-ssh-agent-interaction.c:153
 msgid "Enter password to unlock the private key"
-msgstr ""
+msgstr "秘密鍵のロックを解除するパスワードを入力してください"
 
 #. TRANSLATORS: The private key is locked
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
 msgstr ""
+"アプリケーションが秘密鍵“%s”にアクセスしようとしましたがロックされています"
 
 #: gcr/gcr-ssh-agent-interaction.c:161
-#, fuzzy
-#| msgid "Automatically unlock this keyring whenever I’m logged in"
 msgid "Automatically unlock this key whenever I’m logged in"
-msgstr "ログイン中は常に、このキーリングのロックを自動的に解除する"
+msgstr "ログイン中は常に、この鍵のロックを自動的に解除する"
 
 #: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
 #: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
@@ -448,14 +444,12 @@ msgid "Unlock"
 msgstr "ロック解除"
 
 #: gcr/gcr-ssh-agent-interaction.c:166
-#, fuzzy
-#| msgid "The password was incorrect"
 msgid "The unlock password was incorrect"
-msgstr "パスワードが間違っています"
+msgstr "ロック解除パスワードが間違っています"
 
 #: gcr/gcr-ssh-agent-service.c:259
 msgid "Unnamed"
-msgstr ""
+msgstr "名前なし"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"

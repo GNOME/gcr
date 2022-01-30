@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring gnome-3-6\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-08-21 14:08+0000\n"
+"POT-Creation-Date: 2021-09-30 14:31+0000\n"
 "PO-Revision-Date: 2020-08-22 16:56+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -249,6 +249,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "登録された PKCS#11 モジュールを初期化できませんでした: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "URI が不正な文字コードです。"
 
@@ -265,6 +266,7 @@ msgid "The URI has a bad version number."
 msgstr "URI のバージョン番号が正しくありません。"
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "ストリームがクローズされました"
 
@@ -337,10 +339,12 @@ msgid "Registered ID"
 msgstr "登録済 ID"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "証明書署名要求に使用できないタイプの鍵です"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "この鍵は要求を署名するのに使用できません"
 
@@ -402,13 +406,56 @@ msgstr "データが不正または壊れているため解析できませんで
 msgid "The data is locked"
 msgstr "データにはロックがかかっています"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "続行"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "キャンセル"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, fuzzy, c-format
+#| msgid "Unlock: %s"
+msgid "Unlock password for: %s"
+msgstr "ロック解除: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+#, fuzzy
+#| msgid "Private Key"
+msgid "Unlock private key"
+msgstr "秘密鍵"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr ""
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr ""
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+#, fuzzy
+#| msgid "Automatically unlock this keyring whenever I’m logged in"
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "ログイン中は常に、このキーリングのロックを自動的に解除する"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "ロック解除"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+#, fuzzy
+#| msgid "The password was incorrect"
+msgid "The unlock password was incorrect"
+msgstr "パスワードが間違っています"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr ""
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -418,7 +465,7 @@ msgstr "OpenSSH パスフレーズを入力してください"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "認識できないか利用できない鍵の属性"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "公開鍵を生成できませんでした"
 
@@ -429,7 +476,8 @@ msgstr "別の入力待ちがすでに進行中です"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "例外として受け入れた証明書の保存場所を見つけられませんでした"
 
@@ -669,6 +717,7 @@ msgid "Reason"
 msgstr "理由"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "このタイプのファイルは表示できません。"
 
@@ -912,29 +961,29 @@ msgstr "秘密鍵"
 msgid "Secret Subkey"
 msgstr "秘密副鍵"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "初期化中…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "インポートが進行中…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "インポート先: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "インポート先: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr "インポート処理できる仕組みがないのでインポートできません"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "インポートするデータがありません"
 
@@ -986,12 +1035,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "OK(_O)"
 
@@ -1000,7 +1049,8 @@ msgid "Automatically chosen"
 msgstr "自動選択"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "ユーザーが処理をキャンセルしました"
 
@@ -1009,18 +1059,13 @@ msgid "In order to import, please enter the password."
 msgstr "インポートする場合は、パスワードを入力してください。"
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "パスワード:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "トークン:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "ロック解除"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1031,15 +1076,15 @@ msgid "Import settings"
 msgstr "インポート設定"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "確認:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "パスワードが一致しません。"
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "空のパスワードは認められません"
 
@@ -1064,6 +1109,7 @@ msgid "_Replace"
 msgstr "置換(_R)"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "処理をキャンセルしました。"
 

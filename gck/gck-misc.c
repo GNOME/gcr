@@ -101,20 +101,7 @@ EGG_SECURE_DEFINE_GLIB_GLOBALS ();
  *
  * The error domain for gck library errors.
  */
-
-GQuark
-gck_error_get_quark (void)
-{
-	static GQuark domain = 0;
-	static size_t quark_inited = 0;
-
-	if (g_once_init_enter (&quark_inited)) {
-		domain = g_quark_from_static_string ("gck-error");
-		g_once_init_leave (&quark_inited, 1);
-	}
-
-	return domain;
-}
+G_DEFINE_QUARK(GckError, gck_error)
 
 /**
  * gck_message_from_rv:

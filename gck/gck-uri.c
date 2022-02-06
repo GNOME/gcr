@@ -106,19 +106,7 @@ struct _GckUri {
 	GckAttributes *attributes;
 };
 
-GQuark
-gck_uri_error_get_quark (void)
-{
-	static GQuark domain = 0;
-	static size_t quark_inited = 0;
-
-	if (g_once_init_enter (&quark_inited)) {
-		domain = g_quark_from_static_string ("gck-uri-error");
-		g_once_init_leave (&quark_inited, 1);
-	}
-
-	return domain;
-}
+G_DEFINE_QUARK(GckUriError, gck_uri_error)
 
 /**
  * gck_uri_data_new:

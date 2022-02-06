@@ -54,9 +54,9 @@ typedef enum {
 	GCK_ERROR_MODULE_PROBLEM = (CKR_VENDOR_DEFINED | (GCK_VENDOR_CODE + 1)),
 } GckError;
 
-#define             GCK_ERROR                               (gck_error_get_quark ())
+#define             GCK_ERROR                               (gck_error_quark ())
 
-GQuark              gck_error_get_quark                     (void) G_GNUC_CONST;
+GQuark              gck_error_quark                         (void) G_GNUC_CONST;
 
 #define             GCK_TYPE_LIST                           (gck_list_get_boxed_type ())
 
@@ -1566,9 +1566,9 @@ struct _GckUriData {
 	gpointer dummy[4];
 };
 
-#define             GCK_URI_ERROR                           (gck_uri_error_get_quark ())
+#define             GCK_URI_ERROR                           (gck_uri_error_quark ())
 
-GQuark              gck_uri_error_get_quark                 (void) G_GNUC_CONST;
+GQuark              gck_uri_error_quark                     (void) G_GNUC_CONST;
 
 GckUriData*         gck_uri_data_new                        (void);
 

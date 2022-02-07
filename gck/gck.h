@@ -740,22 +740,7 @@ void                gck_session_info_free                  (GckSessionInfo *sess
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckSessionInfo, gck_session_info_free);
 
 #define GCK_TYPE_SESSION             (gck_session_get_type())
-#define GCK_SESSION(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_SESSION, GckSession))
-#define GCK_SESSION_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_SESSION, GckSession))
-#define GCK_IS_SESSION(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_SESSION))
-#define GCK_IS_SESSION_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_SESSION))
-#define GCK_SESSION_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_SESSION, GckSessionClass))
-
-typedef struct _GckSessionClass GckSessionClass;
-typedef struct _GckSessionPrivate GckSessionPrivate;
-
-struct _GckSession {
-	GObject parent;
-
-	/*< private >*/
-	GckSessionPrivate *pv;
-	gpointer reserved[4];
-};
+G_DECLARE_DERIVABLE_TYPE (GckSession, gck_session, GCK, SESSION, GObject)
 
 struct _GckSessionClass {
 	GObjectClass parent;
@@ -765,8 +750,6 @@ struct _GckSessionClass {
 	/*< private >*/
 	gpointer reserved[8];
 };
-
-GType               gck_session_get_type                    (void) G_GNUC_CONST;
 
 GckSession *        gck_session_from_handle                 (GckSlot *slot,
                                                              gulong session_handle,
@@ -1191,8 +1174,6 @@ void                gck_session_derive_key_async             (GckSession *self,
 GckObject*          gck_session_derive_key_finish            (GckSession *self,
                                                               GAsyncResult *result,
                                                               GError **error);
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckSession, g_object_unref);
 
 /* ------------------------------------------------------------------------
  * OBJECT

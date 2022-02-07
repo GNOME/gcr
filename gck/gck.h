@@ -515,31 +515,7 @@ GckEnumerator*        gck_modules_enumerate_uri               (GList *modules,
  */
 
 #define GCK_TYPE_ENUMERATOR             (gck_enumerator_get_type())
-#define GCK_ENUMERATOR(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_ENUMERATOR, GckEnumerator))
-#define GCK_ENUMERATOR_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_ENUMERATOR, GckEnumerator))
-#define GCK_IS_ENUMERATOR(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_ENUMERATOR))
-#define GCK_IS_ENUMERATOR_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_ENUMERATOR))
-#define GCK_ENUMERATOR_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_ENUMERATOR, GckEnumeratorClass))
-
-typedef struct _GckEnumeratorClass GckEnumeratorClass;
-typedef struct _GckEnumeratorPrivate GckEnumeratorPrivate;
-
-struct _GckEnumerator {
-	GObject parent;
-
-	/*< private >*/
-	GckEnumeratorPrivate *pv;
-	gpointer reserved[2];
-};
-
-struct _GckEnumeratorClass {
-	GObjectClass parent;
-
-	/*< private >*/
-	gpointer reserved[2];
-};
-
-GType                 gck_enumerator_get_type                 (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (GckEnumerator, gck_enumerator, GCK, ENUMERATOR, GObject)
 
 GTlsInteraction *     gck_enumerator_get_interaction          (GckEnumerator *self);
 
@@ -579,8 +555,6 @@ void                  gck_enumerator_next_async               (GckEnumerator *se
 GList*                gck_enumerator_next_finish              (GckEnumerator *self,
                                                                GAsyncResult *result,
                                                                GError **error);
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckEnumerator, g_object_unref);
 
 /* ------------------------------------------------------------------------
  * SLOT

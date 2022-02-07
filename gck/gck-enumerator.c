@@ -96,8 +96,10 @@ struct _GckEnumeratorState {
 	GQueue *results;
 };
 
-struct _GckEnumeratorPrivate {
-	GMutex *mutex;
+struct _GckEnumerator {
+	GObject parent;
+
+	GMutex mutex;
 	GckEnumeratorState *the_state;
 	GTlsInteraction *interaction;
 	GType object_type;
@@ -107,7 +109,7 @@ struct _GckEnumeratorPrivate {
 	GckEnumerator *chained;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (GckEnumerator, gck_enumerator, G_TYPE_OBJECT);
+G_DEFINE_TYPE (GckEnumerator, gck_enumerator, G_TYPE_OBJECT);
 
 static gpointer state_modules        (GckEnumeratorState *args,
                                       gboolean forward);
@@ -542,13 +544,11 @@ state_results (GckEnumeratorState *args,
 static void
 gck_enumerator_init (GckEnumerator *self)
 {
-	self->pv = gck_enumerator_get_instance_private (self);
-	self->pv->mutex = g_new0 (GMutex, 1);
-	g_mutex_init (self->pv->mutex);
-	self->pv->the_state = g_new0 (GckEnumeratorState, 1);
-	self->pv->object_type = GCK_TYPE_OBJECT;
-	self->pv->object_class = g_type_class_ref (self->pv->object_type);
-	g_assert (self->pv->object_class);
+	g_mutex_init (&self->mutex);
+	self->the_state = g_new0 (GckEnumeratorState, 1);
+	self->object_type = GCK_TYPE_OBJECT;
+	self->object_class = g_type_class_ref (self->object_type);
+	g_assert (self->object_class);
 }
 
 static void
@@ -615,16 +615,15 @@ gck_enumerator_finalize (GObject *obj)
 {
 	GckEnumerator *self = GCK_ENUMERATOR (obj);
 
-	g_assert (self->pv->interaction == NULL);
+	g_assert (self->interaction == NULL);
 
-	g_assert (self->pv->the_state != NULL);
-	cleanup_state (self->pv->the_state);
-	g_free (self->pv->the_state);
+	g_assert (self->the_state != NULL);
+	cleanup_state (self->the_state);
+	g_free (self->the_state);
 
-	g_mutex_clear (self->pv->mutex);
-	g_free (self->pv->mutex);
-	g_type_class_unref (self->pv->object_class);
-	g_free (self->pv->attr_types);
+	g_mutex_clear (&self->mutex);
+	g_type_class_unref (self->object_class);
+	g_free (self->attr_types);
 
 	G_OBJECT_CLASS (gck_enumerator_parent_class)->finalize (obj);
 }
@@ -695,7 +694,7 @@ _gck_enumerator_new_for_modules (GList *modules,
 	GckEnumeratorState *state;
 
 	self = g_object_new (GCK_TYPE_ENUMERATOR, NULL);
-	state = self->pv->the_state;
+	state = self->the_state;
 
 	state->session_options = session_options;
 
@@ -717,7 +716,7 @@ _gck_enumerator_new_for_slots (GList *slots,
 	GckEnumeratorState *state;
 
 	self = g_object_new (GCK_TYPE_ENUMERATOR, NULL);
-	state = self->pv->the_state;
+	state = self->the_state;
 
 	state->session_options = session_options;
 
@@ -739,7 +738,7 @@ _gck_enumerator_new_for_session (GckSession *session,
 	GckModule *module;
 
 	self = g_object_new (GCK_TYPE_ENUMERATOR, NULL);
-	state = self->pv->the_state;
+	state = self->the_state;
 
 	state->session = g_object_ref (session);
 	state->modules = NULL;
@@ -817,11 +816,11 @@ gck_enumerator_get_object_type (GckEnumerator *self)
 
 	g_return_val_if_fail (GCK_IS_ENUMERATOR (self), 0);
 
-	g_mutex_lock (self->pv->mutex);
+	g_mutex_lock (&self->mutex);
 
-		result = self->pv->object_type;
+		result = self->object_type;
 
-	g_mutex_unlock (self->pv->mutex);
+	g_mutex_unlock (&self->mutex);
 
 	return result;
 }
@@ -877,23 +876,23 @@ gck_enumerator_set_object_type_full (GckEnumerator *self,
 
 	klass = g_type_class_ref (object_type);
 
-	g_mutex_lock (self->pv->mutex);
+	g_mutex_lock (&self->mutex);
 
-		if (self->pv->object_type)
-			g_type_class_unref (self->pv->object_class);
-		self->pv->object_type = object_type;
-		self->pv->object_class = klass;
+		if (self->object_type)
+			g_type_class_unref (self->object_class);
+		self->object_type = object_type;
+		self->object_class = klass;
 
-		g_free (self->pv->attr_types);
-		self->pv->attr_types = NULL;
-		self->pv->attr_count = 0;
+		g_free (self->attr_types);
+		self->attr_types = NULL;
+		self->attr_count = 0;
 
 		if (attr_types) {
-			self->pv->attr_types = g_memdup (attr_types, sizeof (gulong) * attr_count);
-			self->pv->attr_count = attr_count;
+			self->attr_types = g_memdup (attr_types, sizeof (gulong) * attr_count);
+			self->attr_count = attr_count;
 		}
 
-	g_mutex_unlock (self->pv->mutex);
+	g_mutex_unlock (&self->mutex);
 }
 
 /**
@@ -912,12 +911,12 @@ gck_enumerator_get_chained (GckEnumerator *self)
 
 	g_return_val_if_fail (GCK_IS_ENUMERATOR (self), NULL);
 
-	g_mutex_lock (self->pv->mutex);
+	g_mutex_lock (&self->mutex);
 
-		if (self->pv->chained)
-			chained = g_object_ref (self->pv->chained);
+		if (self->chained)
+			chained = g_object_ref (self->chained);
 
-	g_mutex_unlock (self->pv->mutex);
+	g_mutex_unlock (&self->mutex);
 
 	return chained;
 }
@@ -939,14 +938,14 @@ gck_enumerator_set_chained (GckEnumerator *self,
 	g_return_if_fail (GCK_IS_ENUMERATOR (self));
 	g_return_if_fail (chained == NULL || GCK_IS_ENUMERATOR (chained));
 
-	g_mutex_lock (self->pv->mutex);
+	g_mutex_lock (&self->mutex);
 
-		old_chained = self->pv->chained;
+		old_chained = self->chained;
 		if (chained)
 			g_object_ref (chained);
-		self->pv->chained = chained;
+		self->chained = chained;
 
-	g_mutex_unlock (self->pv->mutex);
+	g_mutex_unlock (&self->mutex);
 
 	if (old_chained)
 		g_object_unref (old_chained);
@@ -969,12 +968,12 @@ gck_enumerator_get_interaction (GckEnumerator *self)
 
 	g_return_val_if_fail (GCK_IS_ENUMERATOR (self), NULL);
 
-	g_mutex_lock (self->pv->mutex);
+	g_mutex_lock (&self->mutex);
 
-		if (self->pv->interaction)
-			result = g_object_ref (self->pv->interaction);
+		if (self->interaction)
+			result = g_object_ref (self->interaction);
 
-	g_mutex_unlock (self->pv->mutex);
+	g_mutex_unlock (&self->mutex);
 
 	return result;
 }
@@ -995,16 +994,16 @@ gck_enumerator_set_interaction (GckEnumerator *self,
 	g_return_if_fail (GCK_IS_ENUMERATOR (self));
 	g_return_if_fail (interaction == NULL || G_IS_TLS_INTERACTION (interaction));
 
-	g_mutex_lock (self->pv->mutex);
+	g_mutex_lock (&self->mutex);
 
-		if (interaction != self->pv->interaction) {
-			previous = self->pv->interaction;
-			self->pv->interaction = interaction;
+		if (interaction != self->interaction) {
+			previous = self->interaction;
+			self->interaction = interaction;
 			if (interaction)
 				g_object_ref (interaction);
 		}
 
-	g_mutex_unlock (self->pv->mutex);
+	g_mutex_unlock (&self->mutex);
 
 	g_clear_object (&previous);
 	g_object_notify (G_OBJECT (self), "interaction");
@@ -1026,35 +1025,35 @@ check_out_enumerator_state (GckEnumerator *self)
 		g_object_unref (chained);
 	}
 
-	g_mutex_lock (self->pv->mutex);
+	g_mutex_lock (&self->mutex);
 
-		if (self->pv->the_state) {
-			state = self->pv->the_state;
-			self->pv->the_state = NULL;
+		if (self->the_state) {
+			state = self->the_state;
+			self->the_state = NULL;
 
 			state->enumerator = g_object_ref (self);
 			g_assert (state->chained == NULL);
 			state->chained = chained_state;
 
 			old_interaction = state->interaction;
-			if (self->pv->interaction)
-				state->interaction = g_object_ref (self->pv->interaction);
+			if (self->interaction)
+				state->interaction = g_object_ref (self->interaction);
 			else
 				state->interaction = NULL;
 
 			old_object_class = state->object_class;
 
 			/* Must already be holding a reference, state also holds a ref */
-			state->object_type = self->pv->object_type;
+			state->object_type = self->object_type;
 			state->object_class = g_type_class_peek (state->object_type);
-			g_assert (state->object_class == self->pv->object_class);
+			g_assert (state->object_class == self->object_class);
 
 			object_iface = g_type_interface_peek (state->object_class,
 			                                      GCK_TYPE_OBJECT_CACHE);
 
-			if (self->pv->attr_types) {
-				state->attr_types = self->pv->attr_types;
-				state->attr_count = self->pv->attr_count;
+			if (self->attr_types) {
+				state->attr_types = self->attr_types;
+				state->attr_count = self->attr_count;
 			} else if (object_iface && object_iface->default_types) {
 				state->attr_types = object_iface->default_types;
 				state->attr_count = object_iface->n_default_types;
@@ -1063,7 +1062,7 @@ check_out_enumerator_state (GckEnumerator *self)
 			g_type_class_ref (state->object_type);
 		}
 
-	g_mutex_unlock (self->pv->mutex);
+	g_mutex_unlock (&self->mutex);
 
 	if (state == NULL)
 		g_warning ("this enumerator is already running a next operation");
@@ -1086,15 +1085,15 @@ check_in_enumerator_state (GckEnumeratorState *state)
 	g_assert (GCK_IS_ENUMERATOR (state->enumerator));
 	self = state->enumerator;
 
-	g_mutex_lock (self->pv->mutex);
+	g_mutex_lock (&self->mutex);
 
 		state->enumerator = NULL;
-		g_assert (self->pv->the_state == NULL);
-		self->pv->the_state = state;
+		g_assert (self->the_state == NULL);
+		self->the_state = state;
 		chained = state->chained;
 		state->chained = NULL;
 
-	g_mutex_unlock (self->pv->mutex);
+	g_mutex_unlock (&self->mutex);
 
 	/* matches ref in check_in */
 	g_object_unref (self);

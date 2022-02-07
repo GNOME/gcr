@@ -643,36 +643,12 @@ gboolean            gck_mechanisms_check                    (GArray *mechanisms,
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckMechanismInfo, gck_mechanism_info_free);
 
 #define GCK_TYPE_SLOT             (gck_slot_get_type())
-#define GCK_SLOT(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_SLOT, GckSlot))
-#define GCK_SLOT_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_SLOT, GckSlot))
-#define GCK_IS_SLOT(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_SLOT))
-#define GCK_IS_SLOT_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_SLOT))
-#define GCK_SLOT_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_SLOT, GckSlotClass))
+G_DECLARE_FINAL_TYPE (GckSlot, gck_slot, GCK, SLOT, GObject)
 
-typedef struct _GckSlotClass GckSlotClass;
-typedef struct _GckSlotPrivate GckSlotPrivate;
+gboolean            gck_slot_equal                          (GckSlot *slot1,
+                                                             GckSlot *slot2);
 
-struct _GckSlot {
-	GObject parent;
-
-	/*< private >*/
-	GckSlotPrivate *pv;
-	gpointer reserved[4];
-};
-
-struct _GckSlotClass {
-	GObjectClass parent;
-
-	/*< private >*/
-	gpointer reserved[9];
-};
-
-GType               gck_slot_get_type                       (void) G_GNUC_CONST;
-
-gboolean            gck_slot_equal                          (gconstpointer slot1,
-                                                             gconstpointer slot2);
-
-guint               gck_slot_hash                           (gconstpointer slot);
+guint               gck_slot_hash                           (GckSlot *slot);
 
 gboolean            gck_slot_match                          (GckSlot *self,
                                                              GckUriData *uri);
@@ -739,8 +715,6 @@ GckEnumerator *     gck_slot_enumerate_objects              (GckSlot *self,
 GckEnumerator*      gck_slots_enumerate_objects             (GList *slots,
                                                              GckAttributes *match,
                                                              GckSessionOptions options);
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckSlot, g_object_unref);
 
 /* ------------------------------------------------------------------------
  * SESSION

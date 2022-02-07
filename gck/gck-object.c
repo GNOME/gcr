@@ -61,11 +61,11 @@ enum {
 	PROP_HANDLE
 };
 
-struct _GckObjectPrivate {
+typedef struct {
 	GckModule *module;
 	GckSession *session;
 	CK_OBJECT_HANDLE handle;
-};
+} GckObjectPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GckObject, gck_object, G_TYPE_OBJECT);
 
@@ -76,7 +76,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (GckObject, gck_object, G_TYPE_OBJECT);
 static void
 gck_object_init (GckObject *self)
 {
-	self->pv = gck_object_get_instance_private (self);
 }
 
 static void
@@ -103,25 +102,24 @@ gck_object_set_property (GObject *obj, guint prop_id, const GValue *value,
                          GParamSpec *pspec)
 {
 	GckObject *self = GCK_OBJECT (obj);
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 
 	/* The sets to data below are only allowed during construction */
 
 	switch (prop_id) {
 	case PROP_MODULE:
-		g_return_if_fail (!self->pv->module);
-		self->pv->module = g_value_get_object (value);
-		g_return_if_fail (self->pv->module);
-		g_object_ref (self->pv->module);
+		g_return_if_fail (!priv->module);
+		priv->module = g_value_dup_object (value);
+		g_return_if_fail (priv->module);
 		break;
 	case PROP_SESSION:
-		g_return_if_fail (!self->pv->session);
-		self->pv->session = g_value_get_object (value);
-		g_return_if_fail (self->pv->session);
-		g_object_ref (self->pv->session);
+		g_return_if_fail (!priv->session);
+		priv->session = g_value_dup_object (value);
+		g_return_if_fail (priv->session);
 		break;
 	case PROP_HANDLE:
-		g_return_if_fail (!self->pv->handle);
-		self->pv->handle = g_value_get_ulong (value);
+		g_return_if_fail (!priv->handle);
+		priv->handle = g_value_get_ulong (value);
 		break;
 	}
 }
@@ -130,16 +128,11 @@ static void
 gck_object_finalize (GObject *obj)
 {
 	GckObject *self = GCK_OBJECT (obj);
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 
-	if (self->pv->session)
-		g_object_unref (self->pv->session);
-	self->pv->session = NULL;
-
-	if (self->pv->module)
-		g_object_unref (self->pv->module);
-	self->pv->module = NULL;
-
-	self->pv->handle = 0;
+	g_clear_object (&priv->session);
+	g_clear_object (&priv->module);
+	priv->handle = 0;
 
 	G_OBJECT_CLASS (gck_object_parent_class)->finalize (obj);
 }
@@ -256,8 +249,8 @@ gck_objects_from_handle_array (GckSession *session,
 
 /**
  * gck_object_equal:
- * @object1: (type Gck.Object): a pointer to the first #GckObject
- * @object2: (type Gck.Object): a pointer to the second #GckObject
+ * @object1: a pointer to the first #GckObject
+ * @object2: a pointer to the second #GckObject
  *
  * Checks equality of two objects. Two GckObject objects can point to the same
  * underlying PKCS#11 object.
@@ -266,9 +259,10 @@ gck_objects_from_handle_array (GckSession *session,
  *               %FALSE if either is not a GckObject.
  **/
 gboolean
-gck_object_equal (gconstpointer object1, gconstpointer object2)
+gck_object_equal (GckObject *object1, GckObject *object2)
 {
-	GckObject *obj1, *obj2;
+	GckObjectPrivate *priv1 = gck_object_get_instance_private (object1);
+	GckObjectPrivate *priv2 = gck_object_get_instance_private (object2);
 	GckSlot *slot1, *slot2;
 	gboolean ret;
 
@@ -277,13 +271,10 @@ gck_object_equal (gconstpointer object1, gconstpointer object2)
 	if (!GCK_IS_OBJECT (object1) || !GCK_IS_OBJECT (object2))
 		return FALSE;
 
-	obj1 = GCK_OBJECT (object1);
-	obj2 = GCK_OBJECT (object2);
+	slot1 = gck_session_get_slot (priv1->session);
+	slot2 = gck_session_get_slot (priv2->session);
 
-	slot1 = gck_session_get_slot (obj1->pv->session);
-	slot2 = gck_session_get_slot (obj2->pv->session);
-
-	ret = obj1->pv->handle == obj2->pv->handle &&
+	ret = priv1->handle == priv2->handle &&
 	      gck_slot_equal (slot1, slot2);
 
 	g_object_unref (slot1);
@@ -304,18 +295,17 @@ gck_object_equal (gconstpointer object1, gconstpointer object2)
  * Return value: An integer that can be used as a hash value, or 0 if invalid.
  **/
 guint
-gck_object_hash (gconstpointer object)
+gck_object_hash (GckObject *object)
 {
-	GckObject *self;
+	GckObjectPrivate *priv = gck_object_get_instance_private (object);
 	GckSlot *slot;
 	guint hash;
 
 	g_return_val_if_fail (GCK_IS_OBJECT (object), 0);
 
-	self = GCK_OBJECT (object);
-	slot = gck_session_get_slot (self->pv->session);
+	slot = gck_session_get_slot (priv->session);
 
-	hash = _gck_ulong_hash (&self->pv->handle) ^
+	hash = _gck_ulong_hash (&priv->handle) ^
 	       gck_slot_hash (slot);
 
 	g_object_unref (slot);
@@ -335,8 +325,11 @@ gck_object_hash (gconstpointer object)
 gulong
 gck_object_get_handle (GckObject *self)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
+
 	g_return_val_if_fail (GCK_IS_OBJECT (self), (CK_OBJECT_HANDLE)-1);
-	return self->pv->handle;
+
+	return priv->handle;
 }
 
 /**
@@ -350,9 +343,12 @@ gck_object_get_handle (GckObject *self)
 GckModule *
 gck_object_get_module (GckObject *self)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
+
 	g_return_val_if_fail (GCK_IS_OBJECT (self), NULL);
-	g_return_val_if_fail (GCK_IS_MODULE (self->pv->module), NULL);
-	return g_object_ref (self->pv->module);
+	g_return_val_if_fail (GCK_IS_MODULE (priv->module), NULL);
+
+	return g_object_ref (priv->module);
 }
 
 
@@ -372,9 +368,12 @@ gck_object_get_module (GckObject *self)
 GckSession *
 gck_object_get_session (GckObject *self)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
+
 	g_return_val_if_fail (GCK_IS_OBJECT (self), NULL);
-	g_return_val_if_fail (GCK_IS_SESSION (self->pv->session), NULL);
-	return g_object_ref (self->pv->session);
+	g_return_val_if_fail (GCK_IS_SESSION (priv->session), NULL);
+
+	return g_object_ref (priv->session);
 }
 
 /* --------------------------------------------------------------------------------------
@@ -407,14 +406,15 @@ perform_destroy (Destroy *args)
 gboolean
 gck_object_destroy (GckObject *self, GCancellable *cancellable, GError **error)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	Destroy args = { GCK_ARGUMENTS_INIT, 0 };
 
 	g_return_val_if_fail (GCK_IS_OBJECT (self), FALSE);
-	g_return_val_if_fail (GCK_IS_SESSION (self->pv->session), FALSE);
+	g_return_val_if_fail (GCK_IS_SESSION (priv->session), FALSE);
 	g_return_val_if_fail (!error || !*error, FALSE);
 
-	args.object = self->pv->handle;
-	return _gck_call_sync (self->pv->session, perform_destroy, NULL, &args, cancellable, error);
+	args.object = priv->handle;
+	return _gck_call_sync (priv->session, perform_destroy, NULL, &args, cancellable, error);
 }
 
 /**
@@ -431,15 +431,16 @@ void
 gck_object_destroy_async (GckObject *self, GCancellable *cancellable,
                            GAsyncReadyCallback callback, gpointer user_data)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	GckCall *call;
 	Destroy* args;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
-	g_return_if_fail (GCK_IS_SESSION (self->pv->session));
+	g_return_if_fail (GCK_IS_SESSION (priv->session));
 
-	call = _gck_call_async_prep (self->pv->session, perform_destroy, NULL, sizeof (*args), NULL);
+	call = _gck_call_async_prep (priv->session, perform_destroy, NULL, sizeof (*args), NULL);
 	args = _gck_call_get_arguments (call);
-	args->object = self->pv->handle;
+	args->object = priv->handle;
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
@@ -509,6 +510,7 @@ gboolean
 gck_object_set (GckObject *self, GckAttributes *attrs,
                 GCancellable *cancellable, GError **error)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	SetAttributes args;
 	gboolean ret = FALSE;
 
@@ -518,9 +520,9 @@ gck_object_set (GckObject *self, GckAttributes *attrs,
 
 	memset (&args, 0, sizeof (args));
 	args.attrs = attrs;
-	args.object = self->pv->handle;
+	args.object = priv->handle;
 
-	ret = _gck_call_sync (self->pv->session, perform_set_attributes, NULL, &args, cancellable, error);
+	ret = _gck_call_sync (priv->session, perform_set_attributes, NULL, &args, cancellable, error);
 
 	return ret;
 }
@@ -540,18 +542,19 @@ void
 gck_object_set_async (GckObject *self, GckAttributes *attrs, GCancellable *cancellable,
                        GAsyncReadyCallback callback, gpointer user_data)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	GckCall *call;
 	SetAttributes *args;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
 	g_return_if_fail (attrs != NULL);
 
-	call = _gck_call_async_prep (self->pv->session, perform_set_attributes,
+	call = _gck_call_async_prep (priv->session, perform_set_attributes,
 	                             NULL, sizeof (*args), free_set_attributes);
 
 	args = _gck_call_get_arguments (call);
 	args->attrs = gck_attributes_ref (attrs);
-	args->object = self->pv->handle;
+	args->object = priv->handle;
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
@@ -698,6 +701,7 @@ gck_object_get_full (GckObject *self,
                      GCancellable *cancellable,
                      GError **error)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	GetAttributes args;
 	gboolean ret;
 	guint i;
@@ -711,9 +715,9 @@ gck_object_get_full (GckObject *self,
 	for (i = 0; i < n_attr_types; ++i)
 		gck_builder_add_empty (&args.builder, attr_types[i]);
 
-	args.object = self->pv->handle;
+	args.object = priv->handle;
 
-	ret = _gck_call_sync (self->pv->session, perform_get_attributes, NULL, &args, cancellable, error);
+	ret = _gck_call_sync (priv->session, perform_get_attributes, NULL, &args, cancellable, error);
 
 	if (ret) {
 		return gck_builder_end (&args.builder);
@@ -747,13 +751,14 @@ gck_object_get_async (GckObject *self,
                       GAsyncReadyCallback callback,
                       gpointer user_data)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	GckCall *call;
 	GetAttributes *args;
 	guint i;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
 
-	call = _gck_call_async_prep (self->pv->session, perform_get_attributes,
+	call = _gck_call_async_prep (priv->session, perform_get_attributes,
 	                             NULL, sizeof (*args), free_get_attributes);
 
 	args = _gck_call_get_arguments (call);
@@ -761,7 +766,7 @@ gck_object_get_async (GckObject *self,
 	for (i = 0; i < n_attr_types; ++i)
 		gck_builder_add_empty (&args->builder, attr_types[i]);
 
-	args->object = self->pv->handle;
+	args->object = priv->handle;
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
@@ -905,6 +910,7 @@ guchar *
 gck_object_get_data_full (GckObject *self, gulong attr_type, GckAllocator allocator,
                            GCancellable *cancellable, gsize *n_data, GError **error)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	GetAttributeData args;
 	gboolean ret;
 
@@ -917,10 +923,10 @@ gck_object_get_data_full (GckObject *self, gulong attr_type, GckAllocator alloca
 
 	memset (&args, 0, sizeof (args));
 	args.allocator = allocator;
-	args.object = self->pv->handle;
+	args.object = priv->handle;
 	args.type = attr_type;
 
-	ret = _gck_call_sync (self->pv->session, perform_get_attribute_data, NULL, &args, cancellable, error);
+	ret = _gck_call_sync (priv->session, perform_get_attribute_data, NULL, &args, cancellable, error);
 
 	/* Free any value if failed */
 	if (!ret) {
@@ -951,6 +957,7 @@ gck_object_get_data_async (GckObject *self, gulong attr_type, GckAllocator alloc
                             GCancellable *cancellable, GAsyncReadyCallback callback,
                             gpointer user_data)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	GckCall *call;
 	GetAttributeData *args;
 
@@ -959,12 +966,12 @@ gck_object_get_data_async (GckObject *self, gulong attr_type, GckAllocator alloc
 	if (!allocator)
 		allocator = g_realloc;
 
-	call = _gck_call_async_prep (self->pv->session, perform_get_attribute_data,
+	call = _gck_call_async_prep (priv->session, perform_get_attribute_data,
 	                             NULL, sizeof (*args), free_get_attribute_data);
 
 	args = _gck_call_get_arguments (call);
 	args->allocator = allocator;
-	args->object = self->pv->handle;
+	args->object = priv->handle;
 	args->type = attr_type;
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
@@ -1065,6 +1072,7 @@ gboolean
 gck_object_set_template (GckObject *self, gulong attr_type, GckAttributes *attrs,
                          GCancellable *cancellable, GError **error)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	set_template_args args;
 	gboolean ret = FALSE;
 
@@ -1075,9 +1083,9 @@ gck_object_set_template (GckObject *self, gulong attr_type, GckAttributes *attrs
 	memset (&args, 0, sizeof (args));
 	args.attrs = attrs;
 	args.type = attr_type;
-	args.object = self->pv->handle;
+	args.object = priv->handle;
 
-	ret = _gck_call_sync (self->pv->session, perform_set_template, NULL, &args, cancellable, error);
+	ret = _gck_call_sync (priv->session, perform_set_template, NULL, &args, cancellable, error);
 
 	return ret;
 }
@@ -1103,19 +1111,20 @@ gck_object_set_template_async (GckObject *self, gulong attr_type, GckAttributes 
                                 GCancellable *cancellable, GAsyncReadyCallback callback,
                                 gpointer user_data)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	GckCall *call;
 	set_template_args *args;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
 	g_return_if_fail (attrs);
 
-	call = _gck_call_async_prep (self->pv->session, perform_set_template,
+	call = _gck_call_async_prep (priv->session, perform_set_template,
 	                             NULL, sizeof (*args), free_set_template);
 
 	args = _gck_call_get_arguments (call);
 	args->attrs = gck_attributes_ref (attrs);
 	args->type = attr_type;
-	args->object = self->pv->handle;
+	args->object = priv->handle;
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
@@ -1224,6 +1233,7 @@ GckAttributes *
 gck_object_get_template (GckObject *self, gulong attr_type,
                          GCancellable *cancellable, GError **error)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	get_template_args args;
 	gboolean ret;
 
@@ -1231,10 +1241,10 @@ gck_object_get_template (GckObject *self, gulong attr_type,
 	g_return_val_if_fail (!error || !*error, NULL);
 
 	memset (&args, 0, sizeof (args));
-	args.object = self->pv->handle;
+	args.object = priv->handle;
 	args.type = attr_type;
 
-	ret = _gck_call_sync (self->pv->session, perform_get_template, NULL, &args, cancellable, error);
+	ret = _gck_call_sync (priv->session, perform_get_template, NULL, &args, cancellable, error);
 
 	/* Free any value if failed */
 	if (!ret) {
@@ -1263,16 +1273,17 @@ gck_object_get_template_async (GckObject *self, gulong attr_type,
                                GCancellable *cancellable, GAsyncReadyCallback callback,
                                gpointer user_data)
 {
+	GckObjectPrivate *priv = gck_object_get_instance_private (self);
 	GckCall *call;
 	get_template_args *args;
 
 	g_return_if_fail (GCK_IS_OBJECT (self));
 
-	call = _gck_call_async_prep (self->pv->session, perform_get_template,
+	call = _gck_call_async_prep (priv->session, perform_get_template,
 	                             NULL, sizeof (*args), free_get_template);
 
 	args = _gck_call_get_arguments (call);
-	args->object = self->pv->handle;
+	args->object = priv->handle;
 	args->type = attr_type;
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);

@@ -1180,22 +1180,7 @@ GckObject*          gck_session_derive_key_finish            (GckSession *self,
  */
 
 #define GCK_TYPE_OBJECT             (gck_object_get_type())
-#define GCK_OBJECT(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_OBJECT, GckObject))
-#define GCK_OBJECT_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_OBJECT, GckObjectClass))
-#define GCK_IS_OBJECT(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_OBJECT))
-#define GCK_IS_OBJECT_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_OBJECT))
-#define GCK_OBJECT_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_OBJECT, GckObjectClass))
-
-typedef struct _GckObjectClass GckObjectClass;
-typedef struct _GckObjectPrivate GckObjectPrivate;
-
-struct _GckObject {
-	GObject parent;
-
-	/*< private >*/
-	GckObjectPrivate *pv;
-	gpointer reserved[4];
-};
+G_DECLARE_DERIVABLE_TYPE (GckObject, gck_object, GCK, OBJECT, GObject)
 
 struct _GckObjectClass {
 	GObjectClass parent;
@@ -1204,8 +1189,6 @@ struct _GckObjectClass {
 	gpointer reserved[8];
 };
 
-GType               gck_object_get_type                     (void) G_GNUC_CONST;
-
 GckObject *         gck_object_from_handle                  (GckSession *session,
                                                              gulong object_handle);
 
@@ -1213,10 +1196,10 @@ GList*              gck_objects_from_handle_array           (GckSession *session
                                                              gulong *object_handles,
                                                              gulong n_object_handles);
 
-gboolean            gck_object_equal                        (gconstpointer object1,
-                                                             gconstpointer object2);
+gboolean            gck_object_equal                        (GckObject *object1,
+                                                             GckObject *object2);
 
-guint               gck_object_hash                         (gconstpointer object);
+guint               gck_object_hash                         (GckObject *object);
 
 GckModule*          gck_object_get_module                   (GckObject *self);
 
@@ -1330,8 +1313,6 @@ void                gck_object_get_template_async           (GckObject *self,
 GckAttributes*      gck_object_get_template_finish          (GckObject *self,
                                                              GAsyncResult *result,
                                                              GError **error);
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckObject, g_object_unref);
 
 /* ------------------------------------------------------------------------
  * OBJECT ATTRIBUTES

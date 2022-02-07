@@ -118,7 +118,7 @@ test_object_equals_hash (Test *test, gconstpointer unused)
 	g_object_unref (other_object);
 
 	obj = g_object_new (G_TYPE_OBJECT, NULL);
-	g_assert_false (gck_object_equal (test->object, obj));
+	g_assert_false (gck_object_equal (test->object, (GckObject *) obj));
 	g_object_unref (obj);
 
 	other_object = gck_object_from_handle (test->session, 383838);

@@ -53,17 +53,18 @@ enum {
 	PROP_KEY
 };
 
-struct _GckPasswordPrivate {
+struct _GckPassword {
+	GTlsPassword parent_instance;
+
 	gboolean for_token;
 	gpointer token_or_key;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (GckPassword, gck_password, G_TYPE_TLS_PASSWORD);
+G_DEFINE_TYPE (GckPassword, gck_password, G_TYPE_TLS_PASSWORD);
 
 static void
 gck_password_init (GckPassword *self)
 {
-	self->pv = gck_password_get_instance_private (self);
 }
 
 static void
@@ -73,8 +74,8 @@ gck_password_constructed (GObject *obj)
 
 	G_OBJECT_CLASS (gck_password_parent_class)->constructed (obj);
 
-	g_return_if_fail (GCK_IS_SLOT (self->pv->token_or_key) ||
-	                  GCK_IS_OBJECT (self->pv->token_or_key));
+	g_return_if_fail (GCK_IS_SLOT (self->token_or_key) ||
+	                  GCK_IS_OBJECT (self->token_or_key));
 }
 
 static void
@@ -116,17 +117,17 @@ gck_password_set_property (GObject *obj,
 	case PROP_TOKEN:
 		object = g_value_dup_object (value);
 		if (object != NULL) {
-			g_assert (self->pv->token_or_key == NULL);
-			self->pv->token_or_key = object;
-			self->pv->for_token = TRUE;
+			g_assert (self->token_or_key == NULL);
+			self->token_or_key = object;
+			self->for_token = TRUE;
 		}
 		break;
 	case PROP_KEY:
 		object = g_value_dup_object (value);
 		if (object != NULL) {
-			g_assert (self->pv->token_or_key == NULL);
-			self->pv->token_or_key = object;
-			self->pv->for_token = FALSE;
+			g_assert (self->token_or_key == NULL);
+			self->token_or_key = object;
+			self->for_token = FALSE;
 		}
 		break;
 	default:
@@ -140,7 +141,7 @@ gck_password_finalize (GObject *obj)
 {
 	GckPassword *self = GCK_PASSWORD (obj);
 
-	g_clear_object (&self->pv->token_or_key);
+	g_clear_object (&self->token_or_key);
 
 	G_OBJECT_CLASS (gck_password_parent_class)->finalize (obj);
 }
@@ -198,10 +199,10 @@ GckModule *
 gck_password_get_module (GckPassword *self)
 {
 	g_return_val_if_fail (GCK_IS_PASSWORD (self), NULL);
-	if (self->pv->for_token)
-		return gck_slot_get_module (self->pv->token_or_key);
+	if (self->for_token)
+		return gck_slot_get_module (self->token_or_key);
 	else
-		return gck_object_get_module (self->pv->token_or_key);
+		return gck_object_get_module (self->token_or_key);
 }
 
 /**
@@ -218,10 +219,10 @@ GckSlot *
 gck_password_get_token (GckPassword *self)
 {
 	g_return_val_if_fail (GCK_IS_PASSWORD (self), NULL);
-	if (!self->pv->for_token)
+	if (!self->for_token)
 		return NULL;
-	g_return_val_if_fail (GCK_IS_SLOT (self->pv->token_or_key), NULL);
-	return g_object_ref (self->pv->token_or_key);
+	g_return_val_if_fail (GCK_IS_SLOT (self->token_or_key), NULL);
+	return g_object_ref (self->token_or_key);
 }
 
 /**
@@ -238,8 +239,8 @@ GckObject *
 gck_password_get_key (GckPassword *self)
 {
 	g_return_val_if_fail (GCK_IS_PASSWORD (self), NULL);
-	if (self->pv->for_token)
+	if (self->for_token)
 		return NULL;
-	g_return_val_if_fail (GCK_IS_OBJECT (self->pv->token_or_key), NULL);
-	return g_object_ref (self->pv->token_or_key);
+	g_return_val_if_fail (GCK_IS_OBJECT (self->token_or_key), NULL);
+	return g_object_ref (self->token_or_key);
 }

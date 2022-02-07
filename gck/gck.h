@@ -425,22 +425,7 @@ void                gck_module_info_free                   (GckModuleInfo *modul
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckModuleInfo, gck_module_info_free);
 
 #define GCK_TYPE_MODULE             (gck_module_get_type())
-#define GCK_MODULE(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_MODULE, GckModule))
-#define GCK_MODULE_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_MODULE, GckModule))
-#define GCK_IS_MODULE(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_MODULE))
-#define GCK_IS_MODULE_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_MODULE))
-#define GCK_MODULE_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_MODULE, GckModuleClass))
-
-typedef struct _GckModuleClass GckModuleClass;
-typedef struct _GckModulePrivate GckModulePrivate;
-
-struct _GckModule {
-	GObject parent;
-
-	/*< private >*/
-	GckModulePrivate *pv;
-	gpointer reserved[4];
-};
+G_DECLARE_DERIVABLE_TYPE (GckModule, gck_module, GCK, MODULE, GObject)
 
 struct _GckModuleClass {
 	GObjectClass parent;
@@ -452,8 +437,6 @@ struct _GckModuleClass {
 	/*< private >*/
 	gpointer reserved[8];
 };
-
-GType                 gck_module_get_type                     (void) G_GNUC_CONST;
 
 GckModule*            gck_module_new                          (CK_FUNCTION_LIST_PTR funcs);
 
@@ -469,10 +452,10 @@ void                  gck_module_initialize_async             (const gchar *path
 GckModule *           gck_module_initialize_finish            (GAsyncResult *result,
                                                                GError **error);
 
-gboolean              gck_module_equal                        (gconstpointer module1,
-                                                               gconstpointer module2);
+gboolean              gck_module_equal                        (GckModule *module1,
+                                                               GckModule *module2);
 
-guint                 gck_module_hash                         (gconstpointer module);
+guint                 gck_module_hash                         (GckModule *module);
 
 gboolean              gck_module_match                        (GckModule *self,
                                                                GckUriData *uri);
@@ -525,8 +508,6 @@ GckEnumerator*        gck_modules_enumerate_uri               (GList *modules,
                                                                const gchar *uri,
                                                                GckSessionOptions session_options,
                                                                GError **error);
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckModule, g_object_unref);
 
 
 /* ------------------------------------------------------------------------

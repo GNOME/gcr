@@ -77,7 +77,7 @@ enum {
 	PROP_FUNCTIONS
 };
 
-struct _GckModulePrivate {
+typedef struct {
 	gchar *path;
 	gboolean initialized;
 	CK_FUNCTION_LIST_PTR funcs;
@@ -85,7 +85,7 @@ struct _GckModulePrivate {
 
 	/* Modified atomically */
 	gint finalized;
-};
+} GckModulePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GckModule, gck_module, G_TYPE_OBJECT);
 
@@ -96,7 +96,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (GckModule, gck_module, G_TYPE_OBJECT);
 static void
 gck_module_init (GckModule *self)
 {
-	self->pv = gck_module_get_instance_private (self);
 }
 
 static void
@@ -120,16 +119,17 @@ gck_module_set_property (GObject *obj, guint prop_id, const GValue *value,
                           GParamSpec *pspec)
 {
 	GckModule *self = GCK_MODULE (obj);
+	GckModulePrivate *priv = gck_module_get_instance_private (self);
 
 	/* Only allowed during initialization */
 	switch (prop_id) {
 	case PROP_PATH:
-		g_return_if_fail (!self->pv->path);
-		self->pv->path = g_value_dup_string (value);
+		g_return_if_fail (!priv->path);
+		priv->path = g_value_dup_string (value);
 		break;
 	case PROP_FUNCTIONS:
-		g_return_if_fail (!self->pv->funcs);
-		self->pv->funcs = g_value_get_pointer (value);
+		g_return_if_fail (!priv->funcs);
+		priv->funcs = g_value_get_pointer (value);
 		break;
 	}
 }
@@ -138,20 +138,21 @@ static void
 gck_module_dispose (GObject *obj)
 {
 	GckModule *self = GCK_MODULE (obj);
+	GckModulePrivate *priv = gck_module_get_instance_private (self);
 	gboolean finalize = FALSE;
 	CK_RV rv;
 
-	if (self->pv->initialized && self->pv->funcs) {
-		if (g_atomic_int_compare_and_exchange (&self->pv->finalized, 0, 1))
+	if (priv->initialized && priv->funcs) {
+		if (g_atomic_int_compare_and_exchange (&priv->finalized, 0, 1))
 			finalize = TRUE;
 	}
 
 	/* Must be careful when accessing funcs */
 	if (finalize) {
-		rv = p11_kit_module_finalize (self->pv->funcs);
+		rv = p11_kit_module_finalize (priv->funcs);
 		if (rv != CKR_OK) {
 			g_warning ("C_Finalize on module '%s' failed: %s",
-			           self->pv->path, gck_message_from_rv (rv));
+			           priv->path, gck_message_from_rv (rv));
 		}
 	}
 
@@ -162,13 +163,12 @@ static void
 gck_module_finalize (GObject *obj)
 {
 	GckModule *self = GCK_MODULE (obj);
+	GckModulePrivate *priv = gck_module_get_instance_private (self);
 
-	if (self->pv->initialized && self->pv->funcs)
-		p11_kit_module_release (self->pv->funcs);
-	self->pv->funcs = NULL;
+	if (priv->initialized && priv->funcs)
+		g_clear_pointer (&priv->funcs, p11_kit_module_release);
 
-	g_free (self->pv->path);
-	self->pv->path = NULL;
+	g_clear_pointer (&priv->path, g_free);
 
 	G_OBJECT_CLASS (gck_module_parent_class)->finalize (obj);
 }
@@ -245,9 +245,9 @@ gck_module_info_free (GckModuleInfo *module_info)
 {
 	if (!module_info)
 		return;
-	g_free (module_info->library_description);
-	g_free (module_info->manufacturer_id);
-	g_free (module_info);
+	g_clear_pointer (&module_info->library_description, g_free);
+	g_clear_pointer (&module_info->manufacturer_id, g_free);
+	g_clear_pointer (&module_info, g_free);
 }
 
 typedef struct {
@@ -262,6 +262,7 @@ perform_initialize (Initialize *args)
 {
 	CK_FUNCTION_LIST_PTR funcs;
 	GckModule *result;
+	GckModulePrivate *priv;
 	CK_RV rv;
 
 	funcs = p11_kit_module_load (args->path, P11_KIT_MODULE_CRITICAL);
@@ -275,6 +276,7 @@ perform_initialize (Initialize *args)
 	                       "functions", funcs,
 	                       "path", args->path,
 	                       NULL);
+	priv = gck_module_get_instance_private (result);
 
 	/* Now initialize the module */
 	rv = p11_kit_module_initialize (funcs);
@@ -287,7 +289,7 @@ perform_initialize (Initialize *args)
 		return rv;
 	}
 
-	result->pv->initialized = TRUE;
+	priv->initialized = TRUE;
 	args->result = result;
 	return CKR_OK;
 }
@@ -421,14 +423,15 @@ GckModule*
 _gck_module_new_initialized (CK_FUNCTION_LIST_PTR funcs)
 {
 	GckModule *module = gck_module_new (funcs);
-	module->pv->initialized = TRUE; /* As if we initialized it */
+	GckModulePrivate *priv = gck_module_get_instance_private (module);
+	priv->initialized = TRUE; /* As if we initialized it */
 	return module;
 }
 
 /**
  * gck_module_equal:
- * @module1: (type Gck.Module): a pointer to the first #GckModule
- * @module2: (type Gck.Module): a pointer to the second #GckModule
+ * @module1: a first #GckModule
+ * @module2: a second #GckModule
  *
  * Checks equality of two modules. Two GckModule objects can point to the same
  * underlying PKCS#11 module.
@@ -437,19 +440,18 @@ _gck_module_new_initialized (CK_FUNCTION_LIST_PTR funcs)
  *               %FALSE if either is not a GckModule.
  **/
 gboolean
-gck_module_equal (gconstpointer module1, gconstpointer module2)
+gck_module_equal (GckModule *module1, GckModule *module2)
 {
-	GckModule *mod1, *mod2;
+	GckModulePrivate *priv1 = gck_module_get_instance_private (module1);
+	GckModulePrivate *priv2 = gck_module_get_instance_private (module2);
 
 	if (module1 == module2)
 		return TRUE;
+
 	if (!GCK_IS_MODULE (module1) || !GCK_IS_MODULE (module2))
 		return FALSE;
 
-	mod1 = GCK_MODULE (module1);
-	mod2 = GCK_MODULE (module2);
-
-	return mod1->pv->funcs == mod2->pv->funcs;
+	return priv1->funcs == priv2->funcs;
 }
 
 /**
@@ -464,13 +466,13 @@ gck_module_equal (gconstpointer module1, gconstpointer module2)
  * Return value: An integer that can be used as a hash value, or 0 if invalid.
  **/
 guint
-gck_module_hash (gconstpointer module)
+gck_module_hash (GckModule *module)
 {
-	GckModule *self;
+	GckModulePrivate *priv = gck_module_get_instance_private (module);
 
 	g_return_val_if_fail (GCK_IS_MODULE (module), 0);
-	self = GCK_MODULE (module);
-	return g_direct_hash (self->pv->funcs);
+
+	return g_direct_hash (priv->funcs);
 }
 
 GckModuleInfo*
@@ -522,14 +524,15 @@ _gck_module_info_to_pkcs11 (GckModuleInfo* module_info, CK_INFO_PTR info)
 GckModuleInfo*
 gck_module_get_info (GckModule *self)
 {
+	GckModulePrivate *priv = gck_module_get_instance_private (self);
 	CK_INFO info;
 	CK_RV rv;
 
 	g_return_val_if_fail (GCK_IS_MODULE (self), NULL);
-	g_return_val_if_fail (self->pv->funcs, NULL);
+	g_return_val_if_fail (priv->funcs, NULL);
 
 	memset (&info, 0, sizeof (info));
-	rv = (self->pv->funcs->C_GetInfo (&info));
+	rv = (priv->funcs->C_GetInfo (&info));
 	if (rv != CKR_OK) {
 		g_warning ("couldn't get module info: %s", gck_message_from_rv (rv));
 		return NULL;
@@ -551,15 +554,16 @@ gck_module_get_info (GckModule *self)
 GList*
 gck_module_get_slots (GckModule *self, gboolean token_present)
 {
+	GckModulePrivate *priv = gck_module_get_instance_private (self);
 	CK_SLOT_ID_PTR slot_list;
 	CK_ULONG count, i;
 	GList *result;
 	CK_RV rv;
 
 	g_return_val_if_fail (GCK_IS_MODULE (self), NULL);
-	g_return_val_if_fail (self->pv->funcs, NULL);
+	g_return_val_if_fail (priv->funcs, NULL);
 
-	rv = (self->pv->funcs->C_GetSlotList) (token_present ? CK_TRUE : CK_FALSE, NULL, &count);
+	rv = (priv->funcs->C_GetSlotList) (token_present ? CK_TRUE : CK_FALSE, NULL, &count);
 	if (rv != CKR_OK) {
 		g_warning ("couldn't get slot count: %s", gck_message_from_rv (rv));
 		return NULL;
@@ -569,7 +573,7 @@ gck_module_get_slots (GckModule *self, gboolean token_present)
 		return NULL;
 
 	slot_list = g_new (CK_SLOT_ID, count);
-	rv = (self->pv->funcs->C_GetSlotList) (token_present ? CK_TRUE : CK_FALSE, slot_list, &count);
+	rv = (priv->funcs->C_GetSlotList) (token_present ? CK_TRUE : CK_FALSE, slot_list, &count);
 	if (rv != CKR_OK) {
 		g_warning ("couldn't get slot list: %s", gck_message_from_rv (rv));
 		g_free (slot_list);
@@ -599,8 +603,11 @@ gck_module_get_slots (GckModule *self, gboolean token_present)
 const gchar*
 gck_module_get_path (GckModule *self)
 {
+	GckModulePrivate *priv = gck_module_get_instance_private (self);
+
 	g_return_val_if_fail (GCK_IS_MODULE (self), NULL);
-	return self->pv->path;
+
+	return priv->path;
 }
 
 /**
@@ -614,8 +621,11 @@ gck_module_get_path (GckModule *self)
 CK_FUNCTION_LIST_PTR
 gck_module_get_functions (GckModule *self)
 {
+	GckModulePrivate *priv = gck_module_get_instance_private (self);
+
 	g_return_val_if_fail (GCK_IS_MODULE (self), NULL);
-	return self->pv->funcs;
+
+	return priv->funcs;
 }
 
 /**

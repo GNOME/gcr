@@ -196,7 +196,7 @@ gck_uri_data_parse (const gchar *string, GckUriFlags flags, GError **error)
 		gck_builder_init (&builder);
 		for (i = 0; i < n_attrs; ++i)
 			gck_builder_add_data (&builder, attrs[i].type, attrs[i].pValue, attrs[i].ulValueLen);
-		uri_data->attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+		uri_data->attributes = gck_builder_end (&builder);
 	}
 	uri_data->any_unrecognized = p11_kit_uri_any_unrecognized (p11_uri);
 

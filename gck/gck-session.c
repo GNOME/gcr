@@ -1391,8 +1391,6 @@ perform_create_object (CreateObject *args)
  * Create a new PKCS#11 object. This call may block for an
  * indefinite period.
  *
- * If the @attrs #GckAttributes is floating, it is consumed.
- *
  * Returns: (transfer full): the newly created object or %NULL if an error occurred
  **/
 GckObject *
@@ -1405,9 +1403,7 @@ gck_session_create_object (GckSession *self, GckAttributes *attrs,
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
 	g_return_val_if_fail (attrs != NULL, NULL);
 
-	gck_attributes_ref_sink (attrs);
 	ret = _gck_call_sync (self, perform_create_object, NULL, &args, cancellable, error);
-	gck_attributes_unref (attrs);
 
 	if (!ret)
 		return NULL;
@@ -1442,7 +1438,7 @@ gck_session_create_object_async (GckSession *self, GckAttributes *attrs,
 
 	g_return_if_fail (attrs);
 
-	args->attrs = gck_attributes_ref_sink (attrs);
+	args->attrs = gck_attributes_ref (attrs);
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
@@ -1559,8 +1555,6 @@ perform_find_objects (FindObjects *args)
  * Find the objects matching the passed attributes. This call may
  * block for an indefinite period.
  *
- * If @match is a floating reference, it is consumed.
- *
  * Returns: (transfer full) (array length=n_handles) (nullable): a list of
  *          the matching objects, which may be empty
  **/
@@ -1580,13 +1574,11 @@ gck_session_find_handles (GckSession *self,
 	g_return_val_if_fail (n_handles != NULL, NULL);
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-	gck_attributes_ref_sink (match);
 	if (_gck_call_sync (self, perform_find_objects, NULL, &args, cancellable, error)) {
 		results = args.objects;
 		*n_handles = args.n_objects;
 		args.objects = NULL;
 	}
-	gck_attributes_unref (match);
 
 	g_free (args.objects);
 	return results;
@@ -1622,7 +1614,7 @@ gck_session_find_handles_async (GckSession *self,
 	call = _gck_call_async_prep (self, perform_find_objects,
 	                             NULL, sizeof (*args), free_find_objects);
 	args = _gck_call_get_arguments (call);
-	args->attrs = gck_attributes_ref_sink (match);
+	args->attrs = gck_attributes_ref (match);
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
 
@@ -1767,8 +1759,6 @@ gck_session_find_objects_finish (GckSession *self,
  *
  * Setup an enumerator for listing matching objects available via this session.
  *
- * If @match is a floating reference, it is consumed.
- *
  * This call will not block but will return an enumerator immediately.
  *
  * Returns: (transfer full): a new enumerator
@@ -1782,7 +1772,7 @@ gck_session_enumerate_objects (GckSession *session,
 	g_return_val_if_fail (match != NULL, NULL);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_ref_sink (match);
+	uri_data->attributes = gck_attributes_ref (match);
 
 	return _gck_enumerator_new_for_session (session, uri_data);
 }
@@ -1870,9 +1860,6 @@ gck_session_generate_key_pair (GckSession *self, gulong mech_type,
  * Generate a new key pair of public and private keys. This call may block for an
  * indefinite period.
  *
- * If @public_attrs and/or @private_attrs is a floating reference, it is
- * consumed.
- *
  * Return value: %TRUE if the operation succeeded.
  **/
 gboolean
@@ -1896,13 +1883,7 @@ gck_session_generate_key_pair_full (GckSession *self,
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args.mechanism, mechanism, sizeof (args.mechanism));
 
-	gck_attributes_ref_sink (public_attrs);
-	gck_attributes_ref_sink (private_attrs);
-
 	ret = _gck_call_sync (self, perform_generate_key_pair, NULL, &args, cancellable, error);
-
-	gck_attributes_unref (private_attrs);
-	gck_attributes_unref (public_attrs);
 
 	if (!ret)
 		return FALSE;
@@ -1951,8 +1932,8 @@ gck_session_generate_key_pair_async (GckSession *self, GckMechanism *mechanism,
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
-	args->public_attrs = gck_attributes_ref_sink (public_attrs);
-	args->private_attrs = gck_attributes_ref_sink (private_attrs);
+	args->public_attrs = gck_attributes_ref (public_attrs);
+	args->private_attrs = gck_attributes_ref (private_attrs);
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
@@ -2236,8 +2217,6 @@ perform_unwrap_key (UnwrapKey *args)
  * Unwrap a key from a byte stream. This call may block for an
  * indefinite period.
  *
- * If @attrs is a floating reference, it is consumed.
- *
  * Returns: (transfer full): the new unwrapped key or %NULL if the
  *          operation failed
  **/
@@ -2269,8 +2248,6 @@ gck_session_unwrap_key (GckSession *self,
  * Unwrap a key from a byte stream. This call may block for an
  * indefinite period.
  *
- * If @attrs is a floating reference, it is consumed.
- *
  * Returns: (transfer full): the new unwrapped key or %NULL if the operation
  *          failed
  **/
@@ -2298,11 +2275,7 @@ gck_session_unwrap_key_full (GckSession *self,
 	g_object_get (wrapper, "handle", &args.wrapper, NULL);
 	g_return_val_if_fail (args.wrapper != 0, NULL);
 
-	gck_attributes_ref_sink (attrs);
-
 	ret = _gck_call_sync (self, perform_unwrap_key, NULL, &args, cancellable, error);
-
-	gck_attributes_unref (attrs);
 
 	if (!ret)
 		return NULL;
@@ -2324,8 +2297,6 @@ gck_session_unwrap_key_full (GckSession *self,
  *
  * Unwrap a key from a byte stream. This call will
  * return immediately and complete asynchronously.
- *
- * If @attrs is a floating reference, it is consumed.
  **/
 void
 gck_session_unwrap_key_async (GckSession *self,
@@ -2355,7 +2326,7 @@ gck_session_unwrap_key_async (GckSession *self,
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
-	args->attrs = gck_attributes_ref_sink (attrs);
+	args->attrs = gck_attributes_ref (attrs);
 	args->input = input;
 	args->n_input = n_input;
 
@@ -2459,8 +2430,6 @@ gck_session_derive_key (GckSession *self, GckObject *base, gulong mech_type,
  * Derive a key from another key. This call may block for an
  * indefinite period.
  *
- * If the @attrs #GckAttributes is floating, it is consumed.
- *
  * Returns: (transfer full): the new derived key or %NULL if the operation
  *          failed
  **/
@@ -2482,11 +2451,7 @@ gck_session_derive_key_full (GckSession *self, GckObject *base, GckMechanism *me
 	g_object_get (base, "handle", &args.key, NULL);
 	g_return_val_if_fail (args.key != 0, NULL);
 
-	gck_attributes_ref_sink (attrs);
-
 	ret = _gck_call_sync (self, perform_derive_key, NULL, &args, cancellable, error);
-
-	gck_attributes_unref (attrs);
 
 	if (!ret)
 		return NULL;
@@ -2506,8 +2471,6 @@ gck_session_derive_key_full (GckSession *self, GckObject *base, GckMechanism *me
  *
  * Derive a key from another key. This call will
  * return immediately and complete asynchronously.
- *
- * If the @attrs #GckAttributes is floating, it is consumed.
  **/
 void
 gck_session_derive_key_async (GckSession *self, GckObject *base, GckMechanism *mechanism,
@@ -2531,7 +2494,7 @@ gck_session_derive_key_async (GckSession *self, GckObject *base, GckMechanism *m
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
-	args->attrs = gck_attributes_ref_sink (attrs);
+	args->attrs = gck_attributes_ref (attrs);
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }

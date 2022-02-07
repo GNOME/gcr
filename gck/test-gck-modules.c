@@ -67,10 +67,13 @@ test_enumerate_objects (Test *test, gconstpointer unused)
 	GckBuilder builder = GCK_BUILDER_INIT;
 	GError *error = NULL;
 	GckEnumerator *en;
+	GckAttributes *attributes;
 	GList *objects;
 
 	gck_builder_add_string (&builder, CKA_LABEL, "Private Capitalize Key");
-	en = gck_modules_enumerate_objects (test->modules, gck_builder_end (&builder), 0);
+	attributes = gck_builder_end (&builder);
+	en = gck_modules_enumerate_objects (test->modules, attributes, 0);
+	gck_attributes_unref (attributes);
 	g_assert_true (GCK_IS_ENUMERATOR (en));
 
 	objects = gck_enumerator_next_n (en, -1, NULL, &error);

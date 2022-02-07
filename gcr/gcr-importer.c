@@ -128,11 +128,9 @@ gcr_importer_default_init (GcrImporterInterface *iface)
 /**
  * gcr_importer_register:
  * @importer_type: the GType of the importer being registered
- * @attrs: the attributes that this importer is compatible with
+ * @attrs: (transfer full): the attributes that this importer is compatible with
  *
  * Register an importer to handle parsed items that match the given attributes.
- *
- * If @attrs are a floating reference, then it is consumed.
  */
 void
 gcr_importer_register (GType importer_type,
@@ -144,7 +142,7 @@ gcr_importer_register (GType importer_type,
 		registered_importers = g_array_new (FALSE, FALSE, sizeof (GcrRegistered));
 
 	registered.importer_type = importer_type;
-	registered.attrs = gck_attributes_ref_sink (attrs);
+	registered.attrs = attrs;
 	g_array_append_val (registered_importers, registered);
 	registered_sorted = FALSE;
 }

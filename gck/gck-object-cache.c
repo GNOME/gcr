@@ -91,9 +91,6 @@ gck_object_cache_get_attributes (GckObjectCache *object)
  * @attrs: (nullable): the attributes to set
  *
  * Sets the attributes cached on this object.
- *
- * If the @attrs #GckAttributes is floating, it is consumed.
- *
  */
 void
 gck_object_cache_set_attributes (GckObjectCache *object,
@@ -101,9 +98,7 @@ gck_object_cache_set_attributes (GckObjectCache *object,
 {
 	g_return_if_fail (GCK_IS_OBJECT_CACHE (object));
 
-	gck_attributes_ref_sink (attrs);
 	g_object_set (object, "attributes", attrs, NULL);
-	gck_attributes_unref (attrs);
 }
 
 /**
@@ -115,8 +110,6 @@ gck_object_cache_set_attributes (GckObjectCache *object,
  * already present in the cache it will be overridden by this value.
  *
  * This will be done in a thread-safe manner.
- *
- * If the @attrs #GckAttributes is floating, it is consumed.
  */
 void
 gck_object_cache_fill (GckObjectCache *object,
@@ -130,9 +123,7 @@ gck_object_cache_fill (GckObjectCache *object,
 	iface = GCK_OBJECT_CACHE_GET_IFACE (object);
 	g_return_if_fail (iface->fill != NULL);
 
-	gck_attributes_ref_sink (attrs);
 	(iface->fill) (object, attrs);
-	gck_attributes_unref (attrs);
 }
 
 /**

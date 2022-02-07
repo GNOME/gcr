@@ -206,7 +206,9 @@ lookup_public_key (GckObject *object,
 	gck_attributes_unref (attrs);
 
 	session = gck_object_get_session (object);
-	objects = gck_session_find_objects (session, gck_builder_end (&builder), cancellable, &error);
+	attrs = gck_builder_end (&builder);
+	objects = gck_session_find_objects (session, attrs, cancellable, &error);
+	gck_attributes_unref (attrs);
 	g_object_unref (session);
 
 	if (error != NULL) {
@@ -567,7 +569,7 @@ _gcr_subject_public_key_load_finish (GAsyncResult *result,
 		return NULL;
 
 	closure = g_task_get_task_data (G_TASK (result));
-	attributes = gck_attributes_ref_sink (gck_builder_end (&closure->builder));
+	attributes = gck_builder_end (&closure->builder);
 	asn = _gcr_subject_public_key_for_attributes (attributes);
 	if (asn == NULL) {
 		g_set_error_literal (error, GCK_ERROR, CKR_TEMPLATE_INCONSISTENT,

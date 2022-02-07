@@ -306,7 +306,7 @@ supplement_attributes (GcrPkcs11Importer *self,
 		}
 
 		gck_attributes_unref (attrs);
-		l->data = attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+		l->data = attrs = gck_builder_end (&builder);
 
 		switch (klass) {
 		case CKO_CERTIFICATE:
@@ -340,14 +340,14 @@ supplement_attributes (GcrPkcs11Importer *self,
 			supplement_with_attributes (&builder, supplements);
 			supplement_id_for_data (&builder, nonce, sizeof (nonce),
 			                        fingerprint, strlen (fingerprint));
-			g_queue_push_tail (queue, gck_attributes_ref_sink (gck_builder_end (&builder)));
+			g_queue_push_tail (queue, gck_builder_end (&builder));
 			g_hash_table_insert (paired, pair->private_key, "present");
 
 			gck_builder_add_all (&builder, pair->certificate);
 			supplement_with_attributes (&builder, supplements);
 			supplement_id_for_data (&builder, nonce, sizeof (nonce),
 			                        fingerprint, strlen (fingerprint));
-			g_queue_push_tail (queue, gck_attributes_ref_sink (gck_builder_end (&builder)));
+			g_queue_push_tail (queue, gck_builder_end (&builder));
 			g_hash_table_insert (paired, pair->certificate, "present");
 
 			/* Used the suplements for the pairs, don't use for unpaired stuff */
@@ -371,7 +371,7 @@ supplement_attributes (GcrPkcs11Importer *self,
 			supplement_id_for_data (&builder, nonce, sizeof (nonce),
 			                        &attrs, sizeof (gpointer));
 
-			g_queue_push_tail (queue, gck_attributes_ref_sink (gck_builder_end (&builder)));
+			g_queue_push_tail (queue, gck_builder_end (&builder));
 		}
 	}
 
@@ -392,7 +392,7 @@ complete_supplement (GTask *task,
 	GckAttributes *attributes;
 
 	if (error == NULL) {
-		attributes = gck_attributes_ref_sink (gck_builder_end (data->supplement));
+		attributes = gck_builder_end (data->supplement);
 		supplement_attributes (data->importer, attributes);
 		gck_attributes_unref (attributes);
 
@@ -911,7 +911,9 @@ _gcr_pkcs11_importer_queue (GcrPkcs11Importer *self,
 		gck_builder_add_all (&builder, attrs);
 		gck_builder_add_string (&builder, CKA_LABEL, label);
 		attrs = gck_builder_end (&builder);
+	} else {
+		gck_attributes_ref (attrs);
 	}
 
-	g_queue_push_tail (self->queue, gck_attributes_ref_sink (attrs));
+	g_queue_push_tail (self->queue, attrs);
 }

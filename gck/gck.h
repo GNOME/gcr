@@ -331,8 +331,6 @@ gboolean             gck_builder_find_date                  (GckBuilder *builder
                                                              gulong attr_type,
                                                              GDate *value);
 
-GckAttributes *      gck_builder_steal                      (GckBuilder *builder);
-
 GckAttributes *      gck_builder_end                        (GckBuilder *builder);
 
 GckBuilder *         gck_builder_copy                       (GckBuilder *builder);
@@ -345,7 +343,7 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckBuilder, gck_builder_unref);
 
 GType                gck_attributes_get_type                (void) G_GNUC_CONST;
 
-GckAttributes *      gck_attributes_new                     (gulong reserved);
+GckAttributes *      gck_attributes_new                     (void);
 
 GckAttributes *      gck_attributes_new_empty               (gulong first_type,
                                                              ...);
@@ -375,8 +373,6 @@ gboolean             gck_attributes_find_date               (GckAttributes *attr
 gulong               gck_attributes_count                   (GckAttributes *attrs);
 
 GckAttributes *      gck_attributes_ref                     (GckAttributes *attrs);
-
-GckAttributes *      gck_attributes_ref_sink                (GckAttributes *attrs);
 
 void                 gck_attributes_unref                   (gpointer attrs);
 

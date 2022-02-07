@@ -55,7 +55,6 @@ gck_attributes_new
 gck_attributes_new_empty
 gck_attributes_new_full
 gck_attributes_ref
-gck_attributes_ref_sink
 gck_attributes_set
 gck_attributes_set_all
 gck_attributes_set_boolean
@@ -99,7 +98,6 @@ gck_builder_set_empty
 gck_builder_set_invalid
 gck_builder_set_string
 gck_builder_set_ulong
-gck_builder_steal
 gck_builder_take_data
 gck_builder_unref
 gck_enumerator_get_chained

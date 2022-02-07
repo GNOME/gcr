@@ -195,8 +195,6 @@ gck_modules_get_slots (GList *modules, gboolean token_present)
  *
  * This call will not block but will return an enumerator immediately.
  *
- * If the @attrs [struct@Attributes] is floating, it is consumed.
- *
  * Return value: (transfer full): A new enumerator, which should be released
  * with g_object_unref().
  **/
@@ -210,7 +208,7 @@ gck_modules_enumerate_objects (GList *modules,
 	g_return_val_if_fail (attrs, NULL);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_ref_sink (attrs);
+	uri_data->attributes = gck_attributes_ref (attrs);
 
 	return _gck_enumerator_new_for_modules (modules, session_options, uri_data);
 }

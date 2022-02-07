@@ -491,7 +491,7 @@ mock_object_fill (GckObjectCache *object,
 	gck_builder_set_all (&builder, attrs);
 
 	gck_attributes_unref (self->attrs);
-	self->attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	self->attrs = gck_builder_end (&builder);
 }
 
 static void
@@ -568,7 +568,7 @@ perform_load_partial (TestLoading *test,
 
 	for (i = 0; i < gck_attributes_count (attributes); i += 2)
 		gck_builder_add_attribute (&builder, gck_attributes_at (attributes, i));
-	partial = gck_attributes_ref_sink (gck_builder_end (&builder));
+	partial = gck_builder_end (&builder);
 
 	object = g_object_new (mock_object_get_type (),
 	                       "module", test->mo.module,
@@ -649,7 +649,7 @@ test_load_failure_build (TestModule *test,
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
 	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
 	gck_builder_add_string (&builder, CKA_VALUE, "invalid value");
-	attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attributes = gck_builder_end (&builder);
 
 	object = g_object_new (mock_object_get_type (),
 	                       "module", test->module,

@@ -514,7 +514,7 @@ state_results (GckEnumeratorState *args,
 			rv = (args->funcs->C_GetAttributeValue) (session, result->handle, template, n_template);
 		}
 
-		attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+		attrs = gck_builder_end (&builder);
 
 		if (GCK_IS_GET_ATTRIBUTE_RV_OK (rv)) {
 			gchar *string = gck_attributes_to_string (attrs);

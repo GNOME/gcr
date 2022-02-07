@@ -74,7 +74,7 @@ prepare_lookup_certificate_issuer (GcrCertificate *cert)
 	gck_builder_add_data (&builder, CKA_SUBJECT, data, n_data);
 	g_free (data);
 
-	return gck_attributes_ref_sink (gck_builder_end (&builder));
+	return gck_builder_end (&builder);
 }
 
 static GcrCertificate*

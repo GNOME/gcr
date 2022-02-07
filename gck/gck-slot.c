@@ -925,8 +925,6 @@ gck_slot_enumerate_objects (GckSlot *self,
  *
  * Setup an enumerator for listing matching objects on the slots.
  *
- * If the @match #GckAttributes is floating, it is consumed.
- *
  * This call will not block but will return an enumerator immediately.
  *
  * Returns: (transfer full): a new enumerator
@@ -941,7 +939,7 @@ gck_slots_enumerate_objects (GList *slots,
 	g_return_val_if_fail (match != NULL, NULL);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_ref_sink (match);
+	uri_data->attributes = gck_attributes_ref (match);
 
 	return _gck_enumerator_new_for_slots (slots, options, uri_data);
 }

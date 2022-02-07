@@ -230,7 +230,7 @@ parse_v1_public_line (const gchar *line,
 	if (word_options)
 		options = g_strndup (word_options, len_options);
 
-	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attrs = gck_builder_end (&builder);
 
 	if (callback != NULL) {
 		bytes = g_bytes_new_with_free_func (outer, n_outer,
@@ -542,7 +542,7 @@ parse_v2_public_line (const gchar *line,
 		gck_builder_add_string (&builder, CKA_LABEL, label);
 	}
 
-	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attrs = gck_builder_end (&builder);
 
 	if (callback != NULL) {
 		bytes = g_bytes_new_with_free_func (outer, n_outer,

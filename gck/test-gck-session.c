@@ -433,7 +433,7 @@ test_auto_login (Test *test, gconstpointer unused)
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
 	gck_builder_add_string (&builder, CKA_LABEL, "TEST OBJECT");
 	gck_builder_add_boolean (&builder, CKA_PRIVATE, CK_TRUE);
-	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attrs = gck_builder_end (&builder);
 
 	/* Try to do something that requires a login */
 	object = gck_session_create_object (test->session, attrs, NULL, &err);

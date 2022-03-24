@@ -66,6 +66,7 @@ gcr_gtk4_pkgconf_deps = [
   gcr_lib,
   gtk4_dep,
 ]
+
 pkgconfig.generate(gcr_gtk4_lib,
   subdirs: gcr_headers_subdir,
   requires: gcr_gtk4_pkgconf_deps,

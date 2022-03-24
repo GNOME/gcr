@@ -54,7 +54,8 @@ gcr_gtk4_lib = shared_library(gcr_gtk4_basename,
   link_args: gcr_gtk4_linkflags,
   link_depends: gcr_gtk4_symbolmap,
   include_directories: config_h_dir,
-  version: gcr_soversion,
+  version: gcr_version,
+  soversion: gcr_soversion,
   install: true,
 )
 

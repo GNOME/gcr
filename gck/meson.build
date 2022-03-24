@@ -92,7 +92,8 @@ gck_lib = shared_library(gck_basename,
   link_args: gck_linkflags,
   link_depends: gck_symbolmap,
   include_directories: config_h_dir,
-  version: gck_soversion,
+  version: gck_version,
+  soversion: gck_soversion,
   install: true,
 )
 

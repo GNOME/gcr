@@ -59,7 +59,8 @@ gcr_gtk3_lib = shared_library(gcr_gtk3_basename,
   link_args: gcr_gtk3_linkflags,
   link_depends: gcr_gtk3_symbolmap,
   include_directories: config_h_dir,
-  version: gcr_soversion,
+  version: gcr_version,
+  soversion: gcr_soversion,
   install: true,
 )
 

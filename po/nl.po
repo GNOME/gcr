@@ -8,7 +8,7 @@
 # Redmar <redmar@ubuntu.com>, 2012, 2013.
 # Rachid BM <rachidbm@ubuntu.com>, 2013.
 # Justin van Steijn <jvs@fsfe.org>, 2016.
-# Nathan Follens <nthn@unseen.is>, 2017, 2019-2020.
+# Nathan Follens <nfollens@gnome.org>, 2017, 2019-2020, 2022.
 #
 # Keyring vertalen we als sleutelbos (Wouter Bolsterlee, Tino Meinen)
 # ‘Secret service’ laat ik voorlopig even onvertaald (Wouter Bolsterlee)
@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2020-06-18 07:02+0000\n"
-"PO-Revision-Date: 2020-08-25 15:19+0200\n"
-"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
+"POT-Creation-Date: 2021-09-30 14:30+0000\n"
+"PO-Revision-Date: 2022-03-25 15:29+0100\n"
+"Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Launchpad-Export-Date: 2013-02-02 09:32+0000\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -257,6 +257,7 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "Kan geregistreerde PKCS#11-modules niet initialiseren: %s"
 
 #: gck/gck-uri.c:224
+#, c-format
 msgid "The URI has invalid encoding."
 msgstr "De URI heeft ongeldige codering."
 
@@ -273,6 +274,7 @@ msgid "The URI has a bad version number."
 msgstr "De URI heeft een ongeldig versienummer."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
 msgid "The stream was closed"
 msgstr "De stream werd gesloten"
 
@@ -345,10 +347,12 @@ msgid "Registered ID"
 msgstr "Geregistreerd ID"
 
 #: gcr/gcr-certificate-request.c:406
+#, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "Niet-ondersteund sleuteltype voor certificaatverzoek"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:578
+#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "De sleutel kan niet gebruikt worden om het verzoek te ondertekenen"
 
@@ -387,7 +391,7 @@ msgstr "De bewerking werd geannuleerd"
 
 #: gcr/gcr-parser.c:343 ui/gcr-key-renderer.c:361
 msgid "Private Key"
-msgstr "Privé-sleutel"
+msgstr "Privésleutel"
 
 #: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:887
 #: ui/gcr-gnupg-renderer.c:738 ui/gcr-key-renderer.c:370
@@ -410,13 +414,50 @@ msgstr "Kon ongeldige of kapotte gegevens niet verwerken."
 msgid "The data is locked"
 msgstr "De gegevens zijn vergrendeld"
 
-#: gcr/gcr-prompt.c:225
+#: gcr/gcr-prompt.c:229
 msgid "Continue"
 msgstr "Doorgaan"
 
-#: gcr/gcr-prompt.c:234
+#: gcr/gcr-prompt.c:238
 msgid "Cancel"
 msgstr "Annuleren"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "Wachtwoord voor ontgrendelen van ‘%s’"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "Privésleutel ontgrendelen"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "Voer het wachtwoord in om de privésleutel te ontgrendelen"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr ""
+"Een toepassing wil toegang tot de privésleutel ‘%s’, maar deze is vergrendeld"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "Deze sleutel automatisch ontgrendelen wanneer ik ben aangemeld"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "Ontgrendelen"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "Het ontgrendelingswachtwoord was verkeerd"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "Naamloos"
 
 #: gcr/gcr-ssh-askpass.c:194
 msgid "Enter your OpenSSH passphrase"
@@ -426,7 +467,7 @@ msgstr "Voer uw OpenSSH-wachtwoord in"
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Onherkende of onbeschikbare eigenschappen voor sleutel"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:577
+#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
 msgid "Couldn’t build public key"
 msgstr "Kon publieke sleutel niet bouwen"
 
@@ -437,7 +478,8 @@ msgstr "Er is al een andere prompt actief"
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:364
+#: gcr/gcr-trust.c:341
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Kon geen locatie vinden om het ‘pinned’ certificaat op te slaan"
 
@@ -678,6 +720,7 @@ msgid "Reason"
 msgstr "Reden"
 
 #: ui/gcr-failure-renderer.c:216
+#, c-format
 msgid "Cannot display a file of this type."
 msgstr "Kan dit type bestanden niet weergeven."
 
@@ -920,30 +963,30 @@ msgstr "Geheime sleutel"
 msgid "Secret Subkey"
 msgstr "Geheime subsleutel"
 
-#: ui/gcr-import-button.c:116
+#: ui/gcr-import-button.c:118
 msgid "Initializing…"
 msgstr "Initialiseren…"
 
-#: ui/gcr-import-button.c:124
+#: ui/gcr-import-button.c:126
 msgid "Import is in progress…"
 msgstr "Aan het importeren…"
 
-#: ui/gcr-import-button.c:131
+#: ui/gcr-import-button.c:133
 #, c-format
 msgid "Imported to: %s"
 msgstr "Geïmporteerd naar: %s"
 
-#: ui/gcr-import-button.c:151
+#: ui/gcr-import-button.c:153
 #, c-format
 msgid "Import to: %s"
 msgstr "Importeren naar: %s"
 
-#: ui/gcr-import-button.c:164
+#: ui/gcr-import-button.c:166
 msgid "Cannot import because there are no compatible importers"
 msgstr ""
 "Kan niet importeren, omdat er geen geschikte importeermethode beschikbaar is"
 
-#: ui/gcr-import-button.c:173
+#: ui/gcr-import-button.c:175
 msgid "No data to import"
 msgstr "Geen data om te importeren"
 
@@ -953,11 +996,11 @@ msgstr "Sleutel"
 
 #: ui/gcr-key-renderer.c:355
 msgid "Private RSA Key"
-msgstr "Privé-sleutel (RSA)"
+msgstr "Privésleutel (RSA)"
 
 #: ui/gcr-key-renderer.c:357
 msgid "Private DSA Key"
-msgstr "Privé-sleutel (DSA)"
+msgstr "Privésleutel (DSA)"
 
 #: ui/gcr-key-renderer.c:359
 msgid "Private Elliptic Curve Key"
@@ -996,12 +1039,12 @@ msgid "SHA256"
 msgstr "SHA256"
 
 #. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:556
+#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
 #: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:559
+#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
 msgid "_OK"
 msgstr "_Oké"
 
@@ -1010,7 +1053,8 @@ msgid "Automatically chosen"
 msgstr "Automatisch gekozen"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:160
+#: ui/gcr-pkcs11-import-interaction.c:161
+#, c-format
 msgid "The user cancelled the operation"
 msgstr "De gebruiker heeft de bewerking afgebroken"
 
@@ -1019,18 +1063,13 @@ msgid "In order to import, please enter the password."
 msgstr "Voer het wachtwoord in om te importeren."
 
 #. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:617
+#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
 msgid "Password:"
 msgstr "Wachtwoord:"
 
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "Token:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "Ontgrendelen"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1041,15 +1080,15 @@ msgid "Import settings"
 msgstr "Import-instellingen"
 
 #. The confirm label
-#: ui/gcr-prompt-dialog.c:634
+#: ui/gcr-prompt-dialog.c:683
 msgid "Confirm:"
 msgstr "Bevestigen:"
 
-#: ui/gcr-prompt-dialog.c:702
+#: ui/gcr-prompt-dialog.c:751
 msgid "Passwords do not match."
 msgstr "De wachtwoorden komen niet overeen."
 
-#: ui/gcr-prompt-dialog.c:709
+#: ui/gcr-prompt-dialog.c:758
 msgid "Password cannot be blank"
 msgstr "Een leeg wachtwoord is niet toegestaan"
 
@@ -1074,6 +1113,7 @@ msgid "_Replace"
 msgstr "_Vervangen"
 
 #: ui/gcr-certificate-exporter.c:260
+#, c-format
 msgid "The operation was cancelled."
 msgstr "De bewerking is geannuleerd."
 

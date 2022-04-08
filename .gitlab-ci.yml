@@ -99,10 +99,10 @@ pages:
     - mv gcr-3/_build/docs/gcr/gcr-3 public/gcr-3
     - mv gcr-3/_build/docs/ui/gcr-ui-3 public/gcr-ui-3
     - mv _build/meson-logs/coveragereport public/coverage
-    - mv _build/docs/gck/gck-1 public/gck-2
-    - mv _build/docs/gcr/gcr-3 public/gcr-4
-    - mv _build/docs/gcr-gtk3/gcr-3-gtk3 public/gcr-4-gtk3
-    - mv _build/docs/gcr-gtk4/gcr-3-gtk4 public/gcr-4-gtk4
+    - mv _build/docs/gck/gck-2 public/gck-2
+    - mv _build/docs/gcr/gcr-4 public/gcr-4
+    - mv _build/docs/gcr-gtk3/gcr-4-gtk3 public/gcr-4-gtk3
+    - mv _build/docs/gcr-gtk4/gcr-4-gtk4 public/gcr-4-gtk4
   artifacts:
     when: on_success
     paths:

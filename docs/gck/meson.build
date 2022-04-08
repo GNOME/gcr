@@ -6,13 +6,13 @@ gck_toml = configure_file(
   input: 'gck.toml.in',
   output: 'gck.toml',
   configuration: {
-    'GCK_VERSION': gck_major_version,
+    'GCK_VERSION': gck_api_version,
   },
 )
 
 gck_docs = custom_target('gck-docs',
   input: gck_gir[0],
-  output: 'gck-@0@'.format(gck_major_version),
+  output: gck_basename,
   command: [
     gi_docgen,
     'generate',

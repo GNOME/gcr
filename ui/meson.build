@@ -1,6 +1,6 @@
 subdir('icons')
 
-gcr_ui_headers_install_dir = 'gcr-@0@'.format(gcr_major_version) / 'ui'
+gcr_ui_headers_install_dir = gcr_base_headers_subdir / 'ui'
 
 gcr_ui_public_sources = files(
   'gcr-certificate-renderer.c',
@@ -100,9 +100,6 @@ gcr_ui_linkflags = cc.get_supported_link_arguments(
 )
 
 # gcr-XX is just the same as gcr-ui-XX
-gcr_ui_basename = 'gcr-ui-@0@'.format(gcr_major_version)
-gcr_basename = 'gcr-@0@'.format(gcr_major_version)
-
 gcr_ui_lib = shared_library(gcr_ui_basename,
   gcr_ui_sources,
   dependencies: gcr_ui_deps,
@@ -123,14 +120,14 @@ gcr_ui_pkgconf_deps = [
   gtk_dep,
 ]
 pkgconfig.generate(gcr_ui_lib,
-  subdirs: 'gcr-@0@'.format(gcr_major_version),
+  subdirs: gcr_base_headers_subdir,
   requires: gcr_ui_pkgconf_deps,
   description: 'GObject and GUI library for high level crypto parsing and display',
 )
 pkgconfig.generate(gcr_ui_lib,
   filebase: gcr_basename,
   name: gcr_basename,
-  subdirs: 'gcr-@0@'.format(gcr_major_version),
+  subdirs: gcr_base_headers_subdir,
   requires: gcr_ui_pkgconf_deps,
   description: 'GObject and GUI library for high level crypto parsing and display',
 )
@@ -148,8 +145,8 @@ if get_option('introspection')
   gcr_ui_gir = gnome.generate_gir(gcr_ui_lib,
     sources: [ gcr_ui_headers, gcr_ui_public_sources ],
     namespace: 'GcrUi',
-    nsversion: '@0@'.format(gcr_major_version),
-    export_packages: 'gcr-ui-@0@'.format(gcr_major_version),
+    nsversion: gcr_api_version,
+    export_packages: gcr_ui_basename,
     identifier_prefix: 'Gcr',
     symbol_prefix: 'gcr',
     includes: [
@@ -167,7 +164,7 @@ if get_option('introspection')
     install: true,
   )
 
-  gcr_ui_vapi = gnome.generate_vapi('gcr-ui-@0@'.format(gcr_major_version),
+  gcr_ui_vapi = gnome.generate_vapi(gcr_ui_basename,
     sources: gcr_ui_gir[0],
     packages: [
       'glib-2.0',

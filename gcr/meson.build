@@ -221,7 +221,7 @@ endif
 # pkg-config file
 pkgconfig.generate(gcr_base_lib,
   subdirs: 'gcr-@0@'.format(gcr_major_version),
-  requires: [ glib_dep, gio_dep, gobject_dep, p11kit_dep, 'gck-@0@'.format(gck_major_version) ],
+  requires: [ glib_dep, gio_dep, gobject_dep, p11kit_dep, gck_lib ],
   description: 'GObject and GUI library for high level crypto parsing and display',
 )
 

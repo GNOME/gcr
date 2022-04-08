@@ -6,14 +6,14 @@ gcr_ui_toml = configure_file(
   input: 'gcr-ui.toml.in',
   output: '@BASENAME@',
   configuration: {
-    'GCR_VERSION': gcr_major_version,
-    'GCK_VERSION': gck_major_version,
+    'GCR_VERSION': gcr_api_version,
+    'GCK_VERSION': gck_api_version,
   },
 )
 
 gcr_ui_docs = custom_target('gcr-ui-docs',
   input: gcr_ui_gir[0],
-  output: 'gcr-ui-@0@'.format(gcr_major_version),
+  output: gcr_ui_basename,
   command: [
     gi_docgen,
     'generate',

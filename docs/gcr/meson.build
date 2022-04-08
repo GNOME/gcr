@@ -8,14 +8,14 @@ gcr_base_toml = configure_file(
   input: 'gcr-base.toml.in',
   output: '@BASENAME@',
   configuration: {
-    'GCR_VERSION': gcr_major_version,
-    'GCK_VERSION': gck_major_version,
+    'GCR_VERSION': gcr_api_version,
+    'GCK_VERSION': gck_api_version,
   },
 )
 
 gcr_base_docs = custom_target('gcr-docs',
   input: gcr_gir[0],
-  output: 'gcr-@0@'.format(gcr_major_version),
+  output: gcr_basename,
   command: [
     gi_docgen,
     'generate',

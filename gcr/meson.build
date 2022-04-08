@@ -1,4 +1,5 @@
-gcr_base_headers_install_dir = 'gcr-@0@'.format(gcr_major_version) / 'gcr'
+gcr_base_headers_subdir = 'gcr-@0@'.format(gcr_api_version)
+gcr_base_headers_install_dir = gcr_base_headers_subdir / 'gcr'
 
 gcr_base_public_sources = files(
   'gcr-certificate.c',
@@ -154,7 +155,7 @@ gcr_base_linkflags = cc.get_supported_link_arguments(
   '-Wl,--version-script,@0@'.format(gcr_base_symbolmap),
 )
 
-gcr_base_lib = shared_library('gcr-base-@0@'.format(gcr_major_version),
+gcr_base_lib = shared_library(gcr_base_basename,
   gcr_base_sources,
   dependencies: gcr_base_deps,
   c_args: gcr_base_cflags,
@@ -189,8 +190,8 @@ if get_option('introspection')
   gcr_gir = gnome.generate_gir(gcr_base_lib,
     sources: [ gcr_base_public_sources, gcr_base_headers ],
     namespace: 'Gcr',
-    nsversion: '@0@'.format(gcr_major_version),
-    export_packages: 'gcr-base-@0@'.format(gcr_major_version),
+    nsversion: gcr_api_version,
+    export_packages: gcr_base_basename,
     includes: [
       'GObject-2.0',
       'Gio-2.0',
@@ -204,7 +205,7 @@ if get_option('introspection')
     install: true,
   )
 
-  gcr_vapi = gnome.generate_vapi('gcr-@0@'.format(gcr_major_version),
+  gcr_vapi = gnome.generate_vapi(gcr_basename,
     sources: gcr_gir[0],
     packages: [ 'glib-2.0', 'gio-2.0', gck_vapi ],
     metadata_dirs: meson.current_source_dir(),
@@ -220,8 +221,8 @@ endif
 
 # pkg-config file
 pkgconfig.generate(gcr_base_lib,
-  subdirs: 'gcr-@0@'.format(gcr_major_version),
-  requires: [ glib_dep, gio_dep, gobject_dep, p11kit_dep, 'gck-@0@'.format(gck_major_version) ],
+  subdirs: gcr_base_headers_subdir,
+  requires: [ glib_dep, gio_dep, gobject_dep, p11kit_dep, gck_lib ],
   description: 'GObject and GUI library for high level crypto parsing and display',
 )
 

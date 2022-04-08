@@ -1,4 +1,5 @@
-gck_headers_install_dir = 'gck-@0@'.format(gck_major_version) / 'gck'
+gck_header_subdir = 'gck-@0@'.format(gck_api_version)
+gck_headers_install_dir = gck_header_subdir / 'gck'
 
 gck_sources_public = files(
   'gck-attributes.c',
@@ -86,7 +87,7 @@ gck_linkflags = cc.get_supported_link_arguments(
   '-Wl,--version-script,@0@'.format(gck_symbolmap),
 )
 
-gck_lib = shared_library('gck-@0@'.format(gck_major_version),
+gck_lib = shared_library(gck_basename,
   gck_sources,
   dependencies: gck_deps,
   c_args: gck_cflags,
@@ -130,8 +131,8 @@ if get_option('introspection')
   gck_gir = gnome.generate_gir(gck_lib,
     sources: gck_gir_sources,
     namespace: 'Gck',
-    nsversion: '@0@'.format(gck_major_version),
-    export_packages: 'gck-@0@'.format(gck_major_version),
+    nsversion: gck_api_version,
+    export_packages: gck_basename,
     includes: [ 'GObject-2.0', 'Gio-2.0' ],
     header: 'gck/gck.h',
     extra_args: [
@@ -141,7 +142,7 @@ if get_option('introspection')
     install: true,
   )
 
-  gck_vapi = gnome.generate_vapi('gck-@0@'.format(gck_major_version),
+  gck_vapi = gnome.generate_vapi(gck_basename,
     sources: gck_gir[0],
     metadata_dirs: meson.current_source_dir(),
     packages: [ 'glib-2.0', 'gio-2.0' ],
@@ -157,7 +158,7 @@ endif
 pkgconfig.generate(gck_lib,
   description: 'GObject bindings for PKCS#11',
   requires: [ glib_dep, gio_dep, gobject_dep, p11kit_dep ],
-  subdirs: 'gck-@0@'.format(gck_major_version),
+  subdirs: gck_header_subdir,
 )
 
 # tests

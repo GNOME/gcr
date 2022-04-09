@@ -45,7 +45,7 @@ struct _GcrGnupgImporterPrivate {
 	GArray *imported;
 };
 
-static void gcr_gnupg_importer_iface (GcrImporterIface *iface);
+static void gcr_gnupg_importer_iface (GcrImporterInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrGnupgImporter, _gcr_gnupg_importer, G_TYPE_OBJECT,
                          G_ADD_PRIVATE (GcrGnupgImporter);
@@ -348,7 +348,7 @@ _gcr_gnupg_importer_import_finish (GcrImporter *importer,
 }
 
 static void
-gcr_gnupg_importer_iface (GcrImporterIface *iface)
+gcr_gnupg_importer_iface (GcrImporterInterface *iface)
 {
 	iface->create_for_parsed = _gcr_gnupg_importer_create_for_parsed;
 	iface->queue_for_parsed = _gcr_gnupg_importer_queue_for_parsed;

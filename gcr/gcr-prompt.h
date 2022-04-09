@@ -19,12 +19,12 @@
  * Author: Stef Walter <stef@thewalter.net>
  */
 
-#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
-#error "Only <gcr/gcr.h> or <gcr/gcr-base.h> can be included directly."
-#endif
-
 #ifndef __GCR_PROMPT_H__
 #define __GCR_PROMPT_H__
+
+#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
+#error "Only <gcr/gcr.h> can be included directly."
+#endif
 
 #include "gcr-types.h"
 
@@ -37,15 +37,10 @@ typedef enum {
 	GCR_PROMPT_REPLY_CONTINUE = 1,
 } GcrPromptReply;
 
-#define GCR_TYPE_PROMPT                 (gcr_prompt_get_type ())
-#define GCR_PROMPT(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_PROMPT, GcrPrompt))
-#define GCR_IS_PROMPT(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_PROMPT))
-#define GCR_PROMPT_GET_INTERFACE(inst)  (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GCR_TYPE_PROMPT, GcrPromptIface))
+#define GCR_TYPE_PROMPT gcr_prompt_get_type ()
+G_DECLARE_INTERFACE (GcrPrompt, gcr_prompt, GCR, PROMPT, GObject)
 
-typedef struct _GcrPrompt GcrPrompt;
-typedef struct _GcrPromptIface GcrPromptIface;
-
-struct _GcrPromptIface {
+struct _GcrPromptInterface {
 	GTypeInterface parent_iface;
 
 	void               (* prompt_password_async)    (GcrPrompt *prompt,
@@ -68,8 +63,6 @@ struct _GcrPromptIface {
 
 	void               (* prompt_close)             (GcrPrompt *prompt);
 };
-
-GType                gcr_prompt_get_type                  (void);
 
 void                 gcr_prompt_reset                     (GcrPrompt *prompt);
 

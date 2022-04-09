@@ -21,7 +21,7 @@
 
 #include "config.h"
 
-#include "gcr/gcr-base.h"
+#include "gcr/gcr.h"
 #include "gcr/gcr-subject-public-key.h"
 
 #include "gck/gck-mock.h"
@@ -429,7 +429,7 @@ typedef struct { GckObject parent; GckAttributes *attrs; } MockObject;
 typedef struct { GckObjectClass parent; } MockObjectClass;
 
 GType mock_object_get_type (void) G_GNUC_CONST;
-static void mock_object_cache_init (GckObjectCacheIface *iface);
+static void mock_object_cache_init (GckObjectCacheInterface *iface);
 G_DEFINE_TYPE_WITH_CODE (MockObject, mock_object, GCK_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (GCK_TYPE_OBJECT_CACHE, mock_object_cache_init)
 );
@@ -491,11 +491,11 @@ mock_object_fill (GckObjectCache *object,
 	gck_builder_set_all (&builder, attrs);
 
 	gck_attributes_unref (self->attrs);
-	self->attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	self->attrs = gck_builder_end (&builder);
 }
 
 static void
-mock_object_cache_init (GckObjectCacheIface *iface)
+mock_object_cache_init (GckObjectCacheInterface *iface)
 {
 	iface->default_types = NULL;
 	iface->n_default_types = 0;
@@ -568,7 +568,7 @@ perform_load_partial (TestLoading *test,
 
 	for (i = 0; i < gck_attributes_count (attributes); i += 2)
 		gck_builder_add_attribute (&builder, gck_attributes_at (attributes, i));
-	partial = gck_attributes_ref_sink (gck_builder_end (&builder));
+	partial = gck_builder_end (&builder);
 
 	object = g_object_new (mock_object_get_type (),
 	                       "module", test->mo.module,
@@ -649,7 +649,7 @@ test_load_failure_build (TestModule *test,
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
 	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
 	gck_builder_add_string (&builder, CKA_VALUE, "invalid value");
-	attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attributes = gck_builder_end (&builder);
 
 	object = g_object_new (mock_object_get_type (),
 	                       "module", test->module,

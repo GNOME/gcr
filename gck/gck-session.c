@@ -74,7 +74,7 @@ enum {
 	PROP_APP_DATA
 };
 
-struct _GckSessionPrivate {
+typedef struct {
 	/* Not modified after construct/init */
 	GckSlot *slot;
 	CK_SESSION_HANDLE handle;
@@ -83,10 +83,10 @@ struct _GckSessionPrivate {
 	gpointer app_data;
 
 	/* Changable data locked by mutex */
-	GMutex *mutex;
+	GMutex mutex;
 	GTlsInteraction *interaction;
 	gboolean discarded;
-};
+} GckSessionPrivate;
 
 static void    gck_session_initable_iface        (GInitableIface *iface);
 
@@ -132,9 +132,8 @@ gck_session_real_discard_handle (GckSession *self, CK_OBJECT_HANDLE handle)
 static void
 gck_session_init (GckSession *self)
 {
-	self->pv = gck_session_get_instance_private (self);
-	self->pv->mutex = g_new0 (GMutex, 1);
-	g_mutex_init (self->pv->mutex);
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
+	g_mutex_init (&priv->mutex);
 }
 
 static void
@@ -170,31 +169,32 @@ gck_session_set_property (GObject *obj, guint prop_id, const GValue *value,
                            GParamSpec *pspec)
 {
 	GckSession *self = GCK_SESSION (obj);
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
 
 	/* Only valid calls are from constructor */
 
 	switch (prop_id) {
 	case PROP_HANDLE:
-		g_return_if_fail (!self->pv->handle);
-		self->pv->handle = g_value_get_ulong (value);
+		g_return_if_fail (!priv->handle);
+		priv->handle = g_value_get_ulong (value);
 		break;
 	case PROP_INTERACTION:
 		gck_session_set_interaction (self, g_value_get_object (value));
 		break;
 	case PROP_SLOT:
-		g_return_if_fail (!self->pv->slot);
-		self->pv->slot = g_value_dup_object (value);
-		g_return_if_fail (self->pv->slot);
+		g_return_if_fail (!priv->slot);
+		priv->slot = g_value_dup_object (value);
+		g_return_if_fail (priv->slot);
 		break;
 	case PROP_OPTIONS:
-		g_return_if_fail (!self->pv->options);
-		self->pv->options = g_value_get_flags (value);
+		g_return_if_fail (!priv->options);
+		priv->options = g_value_get_flags (value);
 		break;
 	case PROP_OPENING_FLAGS:
-		self->pv->opening_flags = g_value_get_ulong (value);
+		priv->opening_flags = g_value_get_ulong (value);
 		break;
 	case PROP_APP_DATA:
-		self->pv->app_data = g_value_get_pointer (value);
+		priv->app_data = g_value_get_pointer (value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -206,28 +206,30 @@ static void
 gck_session_constructed (GObject *obj)
 {
 	GckSession *self = GCK_SESSION (obj);
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
 
 	G_OBJECT_CLASS (gck_session_parent_class)->constructed (obj);
 
-	self->pv->opening_flags |= CKF_SERIAL_SESSION;
-	if (self->pv->options & GCK_SESSION_READ_WRITE)
-		self->pv->opening_flags |= CKF_RW_SESSION;
+	priv->opening_flags |= CKF_SERIAL_SESSION;
+	if (priv->options & GCK_SESSION_READ_WRITE)
+		priv->opening_flags |= CKF_RW_SESSION;
 }
 
 static void
 gck_session_dispose (GObject *obj)
 {
 	GckSession *self = GCK_SESSION (obj);
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
 	gboolean discard = FALSE;
 	gboolean handled;
 
 	g_return_if_fail (GCK_IS_SESSION (self));
 
-	if (self->pv->handle != 0) {
-		g_mutex_lock (self->pv->mutex);
-			discard = !self->pv->discarded;
-			self->pv->discarded = TRUE;
-		g_mutex_unlock (self->pv->mutex);
+	if (priv->handle != 0) {
+		g_mutex_lock (&priv->mutex);
+			discard = !priv->discarded;
+			priv->discarded = TRUE;
+		g_mutex_unlock (&priv->mutex);
 	}
 
 	if (discard) {
@@ -236,7 +238,7 @@ gck_session_dispose (GObject *obj)
 		 * handle. This allows any necessary session reuse to work.
 		 */
 
-		g_signal_emit_by_name (self, "discard-handle", self->pv->handle, &handled);
+		g_signal_emit_by_name (self, "discard-handle", priv->handle, &handled);
 		g_return_if_fail (handled);
 	}
 
@@ -247,14 +249,14 @@ static void
 gck_session_finalize (GObject *obj)
 {
 	GckSession *self = GCK_SESSION (obj);
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
 
-	g_assert (self->pv->handle == 0 || self->pv->discarded);
+	g_assert (priv->handle == 0 || priv->discarded);
 
-	g_clear_object (&self->pv->interaction);
-	g_clear_object (&self->pv->slot);
+	g_clear_object (&priv->interaction);
+	g_clear_object (&priv->slot);
 
-	g_mutex_clear (self->pv->mutex);
-	g_free (self->pv->mutex);
+	g_mutex_clear (&priv->mutex);
 
 	G_OBJECT_CLASS (gck_session_parent_class)->finalize (obj);
 }
@@ -384,7 +386,6 @@ free_open_session (OpenSession *args)
 static CK_RV
 perform_open_session (OpenSession *args)
 {
-	GTlsInteraction *interaction;
 	CK_RV rv = CKR_OK;
 
 	/* First step, open session */
@@ -396,16 +397,8 @@ perform_open_session (OpenSession *args)
 	if (rv != CKR_OK || !args->auto_login)
 		return rv;
 
-	/* Compatibility, hook into GckModule signals if no interaction set */
-	if (args->interaction)
-		interaction = g_object_ref (args->interaction);
-	else
-		interaction = _gck_interaction_new (args->slot);
-
 	rv = _gck_session_authenticate_token (args->base.pkcs11, args->session,
-	                                      args->slot, interaction, NULL);
-
-	g_object_unref (interaction);
+	                                      args->slot, args->interaction, NULL);
 
 	return rv;
 }
@@ -416,31 +409,32 @@ gck_session_initable_init (GInitable *initable,
                            GError **error)
 {
 	GckSession *self = GCK_SESSION (initable);
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
 	OpenSession args = { GCK_ARGUMENTS_INIT, 0,  };
 	GckModule *module = NULL;
 	gboolean ret = FALSE;
 	gboolean want_login;
 
-	want_login = (self->pv->options & GCK_SESSION_LOGIN_USER) == GCK_SESSION_LOGIN_USER;
+	want_login = (priv->options & GCK_SESSION_LOGIN_USER) == GCK_SESSION_LOGIN_USER;
 
 	/* Already have a session setup? */
-	if (self->pv->handle && !want_login)
+	if (priv->handle && !want_login)
 		return TRUE;
 
 	g_object_ref (self);
 	module = gck_session_get_module (self);
 
 	/* Open a new session */
-	args.slot = self->pv->slot;
-	args.app_data = self->pv->app_data;
+	args.slot = priv->slot;
+	args.app_data = priv->app_data;
 	args.notify = NULL;
-	args.session = self->pv->handle;
-	args.flags = self->pv->opening_flags;
-	args.interaction = self->pv->interaction ? g_object_ref (self->pv->interaction) : NULL;
+	args.session = priv->handle;
+	args.flags = priv->opening_flags;
+	args.interaction = priv->interaction ? g_object_ref (priv->interaction) : NULL;
 	args.auto_login = want_login;
 
-	if (_gck_call_sync (self->pv->slot, perform_open_session, NULL, &args, cancellable, error)) {
-		self->pv->handle = args.session;
+	if (_gck_call_sync (priv->slot, perform_open_session, NULL, &args, cancellable, error)) {
+		priv->handle = args.session;
 		ret = TRUE;
 	}
 
@@ -465,34 +459,35 @@ gck_session_initable_init_async (GAsyncInitable *initable,
                                  gpointer user_data)
 {
 	GckSession *self = GCK_SESSION (initable);
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
 	OpenSession *args;
 	gboolean want_login;
 	GckCall *call;
 
 	g_object_ref (self);
 
-	call =  _gck_call_async_prep (self->pv->slot, perform_open_session, NULL,
+	call =  _gck_call_async_prep (priv->slot, perform_open_session, NULL,
 	                              sizeof (*args), free_open_session);
 
 	args = _gck_call_get_arguments (call);
-	want_login = (self->pv->options & GCK_SESSION_LOGIN_USER) == GCK_SESSION_LOGIN_USER;
-	args->session = self->pv->handle;
+	want_login = (priv->options & GCK_SESSION_LOGIN_USER) == GCK_SESSION_LOGIN_USER;
+	args->session = priv->handle;
 
 	_gck_call_async_ready (call, self, cancellable, callback, user_data);
 
 	/* Already have a session setup? */
-	if (self->pv->handle && !want_login) {
+	if (priv->handle && !want_login) {
 		_gck_call_async_short (call, CKR_OK);
 		g_object_unref (self);
 		return;
 	}
 
-	args->app_data = self->pv->app_data;
+	args->app_data = priv->app_data;
 	args->notify = NULL;
-	args->slot = g_object_ref (self->pv->slot);
-	args->interaction = self->pv->interaction ? g_object_ref (self->pv->interaction) : NULL;
+	args->slot = g_object_ref (priv->slot);
+	args->interaction = priv->interaction ? g_object_ref (priv->interaction) : NULL;
 	args->auto_login = want_login;
-	args->flags = self->pv->opening_flags;
+	args->flags = priv->opening_flags;
 
 	_gck_call_async_go (call);
 	g_object_unref (self);
@@ -504,6 +499,7 @@ gck_session_initable_init_finish (GAsyncInitable *initable,
                                   GError **error)
 {
 	GckSession *self = GCK_SESSION (initable);
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
 	gboolean ret = FALSE;
 
 	g_object_ref (self);
@@ -513,7 +509,7 @@ gck_session_initable_init_finish (GAsyncInitable *initable,
 
 		if (_gck_call_basic_finish (result, error)) {
 			args = _gck_call_async_result_arguments (result, OpenSession);
-			self->pv->handle = args->session;
+			priv->handle = args->session;
 			ret = TRUE;
 		}
 	}
@@ -618,8 +614,11 @@ gck_session_from_handle (GckSlot *slot,
 gulong
 gck_session_get_handle (GckSession *self)
 {
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
+
 	g_return_val_if_fail (GCK_IS_SESSION (self), (CK_SESSION_HANDLE)-1);
-	return self->pv->handle;
+
+	return priv->handle;
 }
 
 /**
@@ -633,8 +632,11 @@ gck_session_get_handle (GckSession *self)
 GckModule *
 gck_session_get_module (GckSession *self)
 {
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
+
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
-	return gck_slot_get_module (self->pv->slot);
+
+	return gck_slot_get_module (priv->slot);
 }
 
 /**
@@ -648,9 +650,12 @@ gck_session_get_module (GckSession *self)
 GckSlot *
 gck_session_get_slot (GckSession *self)
 {
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
+
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
-	g_return_val_if_fail (GCK_IS_SLOT (self->pv->slot), NULL);
-	return g_object_ref (self->pv->slot);
+	g_return_val_if_fail (GCK_IS_SLOT (priv->slot), NULL);
+
+	return g_object_ref (priv->slot);
 }
 
 /**
@@ -665,6 +670,7 @@ gck_session_get_slot (GckSession *self)
 GckSessionInfo*
 gck_session_get_info (GckSession *self)
 {
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
 	GckSessionInfo *sessioninfo;
 	CK_FUNCTION_LIST_PTR funcs;
 	CK_SESSION_INFO info;
@@ -680,7 +686,7 @@ gck_session_get_info (GckSession *self)
 	g_return_val_if_fail (funcs, NULL);
 
 	memset (&info, 0, sizeof (info));
-	rv = (funcs->C_GetSessionInfo) (self->pv->handle, &info);
+	rv = (funcs->C_GetSessionInfo) (priv->handle, &info);
 
 	g_object_unref (module);
 
@@ -709,6 +715,7 @@ gck_session_get_info (GckSession *self)
 gulong
 gck_session_get_state (GckSession *self)
 {
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
 	CK_FUNCTION_LIST_PTR funcs;
 	CK_SESSION_INFO info;
 	GckModule *module;
@@ -723,7 +730,7 @@ gck_session_get_state (GckSession *self)
 	g_return_val_if_fail (funcs, 0);
 
 	memset (&info, 0, sizeof (info));
-	rv = (funcs->C_GetSessionInfo) (self->pv->handle, &info);
+	rv = (funcs->C_GetSessionInfo) (priv->handle, &info);
 
 	g_object_unref (module);
 
@@ -746,8 +753,11 @@ gck_session_get_state (GckSession *self)
 GckSessionOptions
 gck_session_get_options (GckSession *self)
 {
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
+
 	g_return_val_if_fail (GCK_IS_SESSION (self), 0);
-	return self->pv->options;
+
+	return priv->options;
 }
 
 /**
@@ -762,10 +772,12 @@ gck_session_get_options (GckSession *self)
 GTlsInteraction *
 gck_session_get_interaction (GckSession *self)
 {
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
+
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
 
-	if (self->pv->interaction)
-		return g_object_ref (self->pv->interaction);
+	if (priv->interaction)
+		return g_object_ref (priv->interaction);
 
 	return NULL;
 }
@@ -782,22 +794,14 @@ void
 gck_session_set_interaction (GckSession *self,
                              GTlsInteraction *interaction)
 {
-	GTlsInteraction *previous;
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
+
 	g_return_if_fail (GCK_IS_SESSION (self));
 	g_return_if_fail (interaction == NULL || G_IS_TLS_INTERACTION (interaction));
 
-	if (interaction)
-		g_object_ref (interaction);
-
-	g_mutex_lock (self->pv->mutex);
-
-		previous = self->pv->interaction;
-		self->pv->interaction = interaction;
-
-	g_mutex_unlock (self->pv->mutex);
-
-	if (previous)
-		g_object_unref (previous);
+	g_mutex_lock (&priv->mutex);
+	g_set_object (&priv->interaction, interaction);
+	g_mutex_unlock (&priv->mutex);
 }
 
 /**
@@ -1224,6 +1228,7 @@ gck_session_login_interactive (GckSession *self,
                                GCancellable *cancellable,
                                GError **error)
 {
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
 	Interactive args = { GCK_ARGUMENTS_INIT, interaction, cancellable, NULL, };
 
 	g_return_val_if_fail (GCK_IS_SESSION (self), FALSE);
@@ -1234,7 +1239,7 @@ gck_session_login_interactive (GckSession *self,
 	/* TODO: For now this is all we support */
 	g_return_val_if_fail (user_type == CKU_USER, FALSE);
 
-	args.token = self->pv->slot;
+	args.token = priv->slot;
 
 	return _gck_call_sync (self, perform_interactive, NULL, &args, cancellable, error);
 }
@@ -1259,6 +1264,7 @@ gck_session_login_interactive_async (GckSession *self,
                                      GAsyncReadyCallback callback,
                                      gpointer user_data)
 {
+	GckSessionPrivate *priv = gck_session_get_instance_private (self);
 	Interactive* args;
 	GckCall *call;
 
@@ -1274,7 +1280,7 @@ gck_session_login_interactive_async (GckSession *self,
 
 	args->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
 	args->interaction = interaction ? g_object_ref (interaction) : NULL;
-	args->token = g_object_ref (self->pv->slot);
+	args->token = g_object_ref (priv->slot);
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
@@ -1410,8 +1416,6 @@ perform_create_object (CreateObject *args)
  * Create a new PKCS#11 object. This call may block for an
  * indefinite period.
  *
- * If the @attrs #GckAttributes is floating, it is consumed.
- *
  * Returns: (transfer full): the newly created object or %NULL if an error occurred
  **/
 GckObject *
@@ -1424,9 +1428,7 @@ gck_session_create_object (GckSession *self, GckAttributes *attrs,
 	g_return_val_if_fail (GCK_IS_SESSION (self), NULL);
 	g_return_val_if_fail (attrs != NULL, NULL);
 
-	gck_attributes_ref_sink (attrs);
 	ret = _gck_call_sync (self, perform_create_object, NULL, &args, cancellable, error);
-	gck_attributes_unref (attrs);
 
 	if (!ret)
 		return NULL;
@@ -1461,7 +1463,7 @@ gck_session_create_object_async (GckSession *self, GckAttributes *attrs,
 
 	g_return_if_fail (attrs);
 
-	args->attrs = gck_attributes_ref_sink (attrs);
+	args->attrs = gck_attributes_ref (attrs);
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
@@ -1578,8 +1580,6 @@ perform_find_objects (FindObjects *args)
  * Find the objects matching the passed attributes. This call may
  * block for an indefinite period.
  *
- * If @match is a floating reference, it is consumed.
- *
  * Returns: (transfer full) (array length=n_handles) (nullable): a list of
  *          the matching objects, which may be empty
  **/
@@ -1599,13 +1599,11 @@ gck_session_find_handles (GckSession *self,
 	g_return_val_if_fail (n_handles != NULL, NULL);
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-	gck_attributes_ref_sink (match);
 	if (_gck_call_sync (self, perform_find_objects, NULL, &args, cancellable, error)) {
 		results = args.objects;
 		*n_handles = args.n_objects;
 		args.objects = NULL;
 	}
-	gck_attributes_unref (match);
 
 	g_free (args.objects);
 	return results;
@@ -1641,7 +1639,7 @@ gck_session_find_handles_async (GckSession *self,
 	call = _gck_call_async_prep (self, perform_find_objects,
 	                             NULL, sizeof (*args), free_find_objects);
 	args = _gck_call_get_arguments (call);
-	args->attrs = gck_attributes_ref_sink (match);
+	args->attrs = gck_attributes_ref (match);
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
 
@@ -1786,8 +1784,6 @@ gck_session_find_objects_finish (GckSession *self,
  *
  * Setup an enumerator for listing matching objects available via this session.
  *
- * If @match is a floating reference, it is consumed.
- *
  * This call will not block but will return an enumerator immediately.
  *
  * Returns: (transfer full): a new enumerator
@@ -1801,7 +1797,7 @@ gck_session_enumerate_objects (GckSession *session,
 	g_return_val_if_fail (match != NULL, NULL);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_ref_sink (match);
+	uri_data->attributes = gck_attributes_ref (match);
 
 	return _gck_enumerator_new_for_session (session, uri_data);
 }
@@ -1822,8 +1818,8 @@ typedef struct _GenerateKeyPair {
 static void
 free_generate_key_pair (GenerateKeyPair *args)
 {
-	gck_attributes_unref (args->public_attrs);
-	gck_attributes_unref (args->private_attrs);
+	g_clear_pointer (&args->public_attrs, gck_attributes_unref);
+	g_clear_pointer (&args->private_attrs, gck_attributes_unref);
 	g_free (args);
 }
 
@@ -1889,9 +1885,6 @@ gck_session_generate_key_pair (GckSession *self, gulong mech_type,
  * Generate a new key pair of public and private keys. This call may block for an
  * indefinite period.
  *
- * If @public_attrs and/or @private_attrs is a floating reference, it is
- * consumed.
- *
  * Return value: %TRUE if the operation succeeded.
  **/
 gboolean
@@ -1915,13 +1908,7 @@ gck_session_generate_key_pair_full (GckSession *self,
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args.mechanism, mechanism, sizeof (args.mechanism));
 
-	gck_attributes_ref_sink (public_attrs);
-	gck_attributes_ref_sink (private_attrs);
-
 	ret = _gck_call_sync (self, perform_generate_key_pair, NULL, &args, cancellable, error);
-
-	gck_attributes_unref (private_attrs);
-	gck_attributes_unref (public_attrs);
 
 	if (!ret)
 		return FALSE;
@@ -1970,8 +1957,8 @@ gck_session_generate_key_pair_async (GckSession *self, GckMechanism *mechanism,
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
-	args->public_attrs = gck_attributes_ref_sink (public_attrs);
-	args->private_attrs = gck_attributes_ref_sink (private_attrs);
+	args->public_attrs = gck_attributes_ref (public_attrs);
+	args->private_attrs = gck_attributes_ref (private_attrs);
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
@@ -2029,7 +2016,7 @@ typedef struct _WrapKey {
 static void
 free_wrap_key (WrapKey *args)
 {
-	g_free (args->result);
+	g_clear_pointer (&args->result, g_free);
 	g_free (args);
 }
 
@@ -2220,7 +2207,7 @@ typedef struct _UnwrapKey {
 static void
 free_unwrap_key (UnwrapKey *args)
 {
-	gck_attributes_unref (args->attrs);
+	g_clear_pointer (&args->attrs, gck_attributes_unref);
 	g_free (args);
 }
 
@@ -2255,8 +2242,6 @@ perform_unwrap_key (UnwrapKey *args)
  * Unwrap a key from a byte stream. This call may block for an
  * indefinite period.
  *
- * If @attrs is a floating reference, it is consumed.
- *
  * Returns: (transfer full): the new unwrapped key or %NULL if the
  *          operation failed
  **/
@@ -2288,8 +2273,6 @@ gck_session_unwrap_key (GckSession *self,
  * Unwrap a key from a byte stream. This call may block for an
  * indefinite period.
  *
- * If @attrs is a floating reference, it is consumed.
- *
  * Returns: (transfer full): the new unwrapped key or %NULL if the operation
  *          failed
  **/
@@ -2317,11 +2300,7 @@ gck_session_unwrap_key_full (GckSession *self,
 	g_object_get (wrapper, "handle", &args.wrapper, NULL);
 	g_return_val_if_fail (args.wrapper != 0, NULL);
 
-	gck_attributes_ref_sink (attrs);
-
 	ret = _gck_call_sync (self, perform_unwrap_key, NULL, &args, cancellable, error);
-
-	gck_attributes_unref (attrs);
 
 	if (!ret)
 		return NULL;
@@ -2343,8 +2322,6 @@ gck_session_unwrap_key_full (GckSession *self,
  *
  * Unwrap a key from a byte stream. This call will
  * return immediately and complete asynchronously.
- *
- * If @attrs is a floating reference, it is consumed.
  **/
 void
 gck_session_unwrap_key_async (GckSession *self,
@@ -2374,7 +2351,7 @@ gck_session_unwrap_key_async (GckSession *self,
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
-	args->attrs = gck_attributes_ref_sink (attrs);
+	args->attrs = gck_attributes_ref (attrs);
 	args->input = input;
 	args->n_input = n_input;
 
@@ -2421,7 +2398,7 @@ typedef struct _DeriveKey {
 static void
 free_derive_key (DeriveKey *args)
 {
-	gck_attributes_unref (args->attrs);
+	g_clear_pointer (&args->attrs, gck_attributes_unref);
 	g_free (args);
 }
 
@@ -2478,8 +2455,6 @@ gck_session_derive_key (GckSession *self, GckObject *base, gulong mech_type,
  * Derive a key from another key. This call may block for an
  * indefinite period.
  *
- * If the @attrs #GckAttributes is floating, it is consumed.
- *
  * Returns: (transfer full): the new derived key or %NULL if the operation
  *          failed
  **/
@@ -2501,11 +2476,7 @@ gck_session_derive_key_full (GckSession *self, GckObject *base, GckMechanism *me
 	g_object_get (base, "handle", &args.key, NULL);
 	g_return_val_if_fail (args.key != 0, NULL);
 
-	gck_attributes_ref_sink (attrs);
-
 	ret = _gck_call_sync (self, perform_derive_key, NULL, &args, cancellable, error);
-
-	gck_attributes_unref (attrs);
 
 	if (!ret)
 		return NULL;
@@ -2525,8 +2496,6 @@ gck_session_derive_key_full (GckSession *self, GckObject *base, GckMechanism *me
  *
  * Derive a key from another key. This call will
  * return immediately and complete asynchronously.
- *
- * If the @attrs #GckAttributes is floating, it is consumed.
  **/
 void
 gck_session_derive_key_async (GckSession *self, GckObject *base, GckMechanism *mechanism,
@@ -2550,7 +2519,7 @@ gck_session_derive_key_async (GckSession *self, GckObject *base, GckMechanism *m
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
-	args->attrs = gck_attributes_ref_sink (attrs);
+	args->attrs = gck_attributes_ref (attrs);
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
 }
@@ -2611,7 +2580,6 @@ typedef struct _Crypt {
 static CK_RV
 perform_crypt (Crypt *args)
 {
-	GTlsInteraction *interaction;
 	CK_RV rv;
 
 	g_assert (args);
@@ -2625,16 +2593,8 @@ perform_crypt (Crypt *args)
 	if (rv != CKR_OK)
 		return rv;
 
-	/* Compatibility, hook into GckModule signals if no interaction set */
-	if (args->interaction)
-		interaction = g_object_ref (args->interaction);
-	else
-		interaction = _gck_interaction_new (args->key_object);
-
 	rv = _gck_session_authenticate_key (args->base.pkcs11, args->base.handle,
-	                                    args->key_object, interaction, NULL);
-
-	g_object_unref (interaction);
+	                                    args->key_object, args->interaction, NULL);
 
 	if (rv != CKR_OK)
 		return rv;
@@ -2655,8 +2615,8 @@ free_crypt (Crypt *args)
 	g_clear_object (&args->interaction);
 	g_clear_object (&args->key_object);
 
-	g_free (args->input);
-	g_free (args->result);
+	g_clear_pointer (&args->input, g_free);
+	g_clear_pointer (&args->result, g_free);
 	g_free (args);
 }
 
@@ -3135,7 +3095,6 @@ typedef struct _Verify {
 static CK_RV
 perform_verify (Verify *args)
 {
-	GTlsInteraction *interaction;
 	CK_RV rv;
 
 	/* Initialize the crypt operation */
@@ -3143,17 +3102,8 @@ perform_verify (Verify *args)
 	if (rv != CKR_OK)
 		return rv;
 
-	/* Compatibility, hook into GckModule signals if no interaction set */
-	if (args->interaction)
-		interaction = g_object_ref (args->interaction);
-	else
-		interaction = _gck_interaction_new (args->key_object);
-
-
 	rv = _gck_session_authenticate_key (args->base.pkcs11, args->base.handle,
-	                                    args->key_object, interaction, NULL);
-
-	g_object_unref (interaction);
+	                                    args->key_object, args->interaction, NULL);
 
 	if (rv != CKR_OK)
 		return rv;
@@ -3169,8 +3119,8 @@ free_verify (Verify *args)
 	g_clear_object (&args->interaction);
 	g_clear_object (&args->key_object);
 
-	g_free (args->input);
-	g_free (args->signature);
+	g_clear_pointer (&args->input, g_free);
+	g_clear_pointer (&args->signature, g_free);
 	g_free (args);
 }
 

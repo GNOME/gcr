@@ -95,14 +95,14 @@ test_invalid_modules (Test *test, gconstpointer unused)
 
 	/* Shouldn't be able to load modules */
 	invalid = gck_module_initialize ("blah-blah-non-existant", NULL, &error);
-	g_assert_error (error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM);
+	g_assert_error (error, GCK_ERROR, (int)GCK_ERROR_MODULE_PROBLEM);
 	g_assert_null (invalid);
 
 	g_clear_error (&error);
 
 	/* Shouldn't be able to load any file successfully */
 	invalid = gck_module_initialize ("/usr/lib/libm.so", NULL, &error);
-	g_assert_error (error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM);
+	g_assert_error (error, GCK_ERROR, (int)GCK_ERROR_MODULE_PROBLEM);
 	g_assert_null (invalid);
 
 	g_clear_error (&error);
@@ -126,7 +126,7 @@ test_module_equals_hash (Test *test, gconstpointer unused)
 	g_assert_true (gck_module_equal (test->module, other));
 
 	/* TODO: Could do with another test for inequality */
-	g_assert_false (gck_module_equal (test->module, obj));
+	g_assert_false (gck_module_equal (test->module, (GckModule *) obj));
 
 	g_object_unref (other);
 	g_object_unref (obj);

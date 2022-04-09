@@ -150,6 +150,14 @@ insert_template (guint handle, GckAttributes *template)
 	the_objects_list = g_slist_append (the_objects_list, data);
 }
 
+/**
+ * gck_mock_module_add_object:
+ * @attrs: (transfer full):
+ *
+ * Insert the @attrsin the mock module
+ *
+ * Returns: a #CK_OBJECT_HANDLE
+ */
 CK_OBJECT_HANDLE
 gck_mock_module_add_object (GckAttributes *attrs)
 {
@@ -163,13 +171,12 @@ gck_mock_module_add_object (GckAttributes *attrs)
 	handle = ++unique_identifier;
 	if (gck_attributes_find_boolean (attrs, CKA_TOKEN, &token)) {
 		g_return_val_if_fail (token == TRUE, 0);
-		gck_attributes_ref_sink (attrs);
 	} else {
 		gck_builder_init (&builder);
 		gck_builder_add_except (&builder, attrs, CKA_TOKEN, GCK_INVALID);
 		gck_builder_add_boolean (&builder, CKA_TOKEN, TRUE);
 		gck_attributes_unref (attrs);
-		attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+		attrs = gck_builder_end (&builder);
 	}
 	insert_template (handle, attrs);
 
@@ -279,9 +286,6 @@ replace_attributes (GckAttributes *atts,
 	CK_ATTRIBUTE_PTR set;
 	gulong *types;
 
-	if (!n_attrs)
-		return gck_attributes_ref_sink (atts);
-
 	gck_builder_init (&builder);
 	types = g_new0 (gulong, n_attrs);
 	for (i = 0; i < n_attrs; ++i) {
@@ -291,7 +295,7 @@ replace_attributes (GckAttributes *atts,
 	}
 	gck_builder_add_exceptv (&builder, atts, types, n_attrs);
 	g_free (types);
-	return gck_attributes_ref_sink (gck_builder_end (&builder));
+	return gck_builder_end (&builder);
 }
 
 void
@@ -354,8 +358,7 @@ gck_mock_C_Initialize (CK_VOID_PTR pInitArgs)
 	gck_builder_init (&builder);
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
 	gck_builder_add_string (&builder, CKA_LABEL, "TEST LABEL");
-	insert_template (2,
-	                 gck_attributes_ref_sink (gck_builder_end (&builder)));
+	insert_template (2, gck_builder_end (&builder));
 
 	/* Private capitalize key */
 	value = CKM_MOCK_CAPITALIZE;
@@ -369,8 +372,7 @@ gck_mock_C_Initialize (CK_VOID_PTR pInitArgs)
 	gck_builder_add_boolean (&builder, CKA_DERIVE, CK_TRUE);
 	gck_builder_add_string (&builder, CKA_VALUE, "value");
 	gck_builder_add_string (&builder, CKA_GNOME_UNIQUE, "unique1");
-	insert_template (PRIVATE_KEY_CAPITALIZE,
-	                 gck_attributes_ref_sink (gck_builder_end (&builder)));
+	insert_template (PRIVATE_KEY_CAPITALIZE, gck_builder_end (&builder));
 
 	/* Public capitalize key */
 	value = CKM_MOCK_CAPITALIZE;
@@ -393,8 +395,7 @@ gck_mock_C_Initialize (CK_VOID_PTR pInitArgs)
 	gck_builder_add_boolean (&builder, CKA_ALWAYS_AUTHENTICATE, CK_TRUE);
 	gck_builder_add_string (&builder, CKA_VALUE, "value");
 	gck_builder_add_string (&builder, CKA_GNOME_UNIQUE, "unique3");
-	insert_template (PRIVATE_KEY_PREFIX,
-	                 gck_attributes_ref_sink (gck_builder_end (&builder)));
+	insert_template (PRIVATE_KEY_PREFIX, gck_builder_end (&builder));
 
 	/* Private prefix key */
 	value = CKM_MOCK_PREFIX;
@@ -405,8 +406,7 @@ gck_mock_C_Initialize (CK_VOID_PTR pInitArgs)
 	gck_builder_add_boolean (&builder, CKA_PRIVATE, CK_FALSE);
 	gck_builder_add_string (&builder, CKA_VALUE, "value");
 	gck_builder_add_string (&builder, CKA_GNOME_UNIQUE, "unique4");
-	insert_template (PUBLIC_KEY_PREFIX,
-	                 gck_attributes_ref_sink (gck_builder_end (&builder)));
+	insert_template (PUBLIC_KEY_PREFIX, gck_builder_end (&builder));
 
 	logged_in = FALSE;
 	initialized = TRUE;
@@ -905,7 +905,7 @@ gck_mock_C_CreateObject (CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate,
 	for (i = 0; i < ulCount; ++i)
 		gck_builder_add_data (&builder, pTemplate[i].type, pTemplate[i].pValue, pTemplate[i].ulValueLen);
 
-	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attrs = gck_builder_end (&builder);
 	if (gck_attributes_find_boolean (attrs, CKA_PRIVATE, &priv) && priv) {
 		if (!logged_in) {
 			gck_attributes_unref (attrs);
@@ -1639,7 +1639,7 @@ gck_mock_unsupported_C_GenerateKeyPair (CK_SESSION_HANDLE hSession, CK_MECHANISM
 		                         pPublicKeyTemplate[i].pValue,
 		                         pPublicKeyTemplate[i].ulValueLen);
 	*phPublicKey = ++unique_identifier;
-	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attrs = gck_builder_end (&builder);
 	if (gck_attributes_find_boolean (attrs, CKA_TOKEN, &token) && token)
 		g_hash_table_insert (the_objects, GUINT_TO_POINTER (*phPublicKey), attrs);
 	else
@@ -1652,7 +1652,7 @@ gck_mock_unsupported_C_GenerateKeyPair (CK_SESSION_HANDLE hSession, CK_MECHANISM
 		                         pPrivateKeyTemplate[i].pValue,
 		                         pPrivateKeyTemplate[i].ulValueLen);
 	*phPrivateKey = ++unique_identifier;
-	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attrs = gck_builder_end (&builder);
 	if (gck_attributes_find_boolean (attrs, CKA_TOKEN, &token) && token)
 		g_hash_table_insert (the_objects, GUINT_TO_POINTER (*phPrivateKey), attrs);
 	else
@@ -1754,7 +1754,7 @@ gck_mock_unsupported_C_UnwrapKey (CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR p
 		                         pTemplate[i].pValue,
 		                         pTemplate[i].ulValueLen);
 	*phKey = ++unique_identifier;
-	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attrs = gck_builder_end (&builder);
 	if (gck_attributes_find_boolean (attrs, CKA_TOKEN, &token) && token)
 		g_hash_table_insert (the_objects, GUINT_TO_POINTER (*phKey), attrs);
 	else
@@ -1802,7 +1802,7 @@ gck_mock_unsupported_C_DeriveKey (CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR p
 		                      pTemplate[i].ulValueLen);
 	gck_builder_add_all (&builder, attrs);
 	*phKey = ++unique_identifier;
-	copy = gck_attributes_ref_sink (gck_builder_end (&builder));
+	copy = gck_builder_end (&builder);
 	if (gck_attributes_find_boolean (copy, CKA_TOKEN, &token) && token)
 		g_hash_table_insert (the_objects, GUINT_TO_POINTER (*phKey), copy);
 	else

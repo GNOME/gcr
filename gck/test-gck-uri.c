@@ -37,7 +37,7 @@ test_parse (void)
 	GError *error = NULL;
 	GckUriData *uri_data;
 
-	uri_data = gck_uri_parse ("pkcs11:", GCK_URI_FOR_MODULE, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:", GCK_URI_FOR_MODULE, &error);
 	g_assert_nonnull (uri_data);
 	g_assert_no_error (error);
 
@@ -57,9 +57,9 @@ test_parse_bad_scheme (void)
 	GError *error = NULL;
 	GckUriData *uri_data;
 
-	uri_data = gck_uri_parse ("http:\\example.com\test", GCK_URI_FOR_ANY, &error);
+	uri_data = gck_uri_data_parse ("http:\\example.com\test", GCK_URI_FOR_ANY, &error);
 	g_assert_null (uri_data);
-	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_PREFIX);
+	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_SCHEME);
 	g_error_free (error);
 }
 
@@ -70,7 +70,7 @@ test_parse_with_label (void)
 	GckUriData *uri_data;
 	gchar *value;
 
-	uri_data = gck_uri_parse ("pkcs11:object=Test%20Label", GCK_URI_FOR_ANY, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:object=Test%20Label", GCK_URI_FOR_ANY, &error);
 	g_assert_nonnull (uri_data);
 	g_assert_nonnull (uri_data->attributes);
 
@@ -91,7 +91,7 @@ test_parse_with_label_and_klass (void)
 	gchar *value;
 	gulong klass;
 
-	uri_data = gck_uri_parse ("pkcs11:object=Test%20Label;objecttype=cert", GCK_URI_FOR_ANY, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:object=Test%20Label;objecttype=cert", GCK_URI_FOR_ANY, &error);
 	g_assert_nonnull (uri_data);
 	g_assert_nonnull (uri_data->attributes);
 
@@ -115,7 +115,7 @@ test_parse_with_id (void)
 	const GckAttribute *attr;
 	GckUriData *uri_data;
 
-	uri_data = gck_uri_parse ("pkcs11:id=%54%45%53%54%00", GCK_URI_FOR_OBJECT, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:id=%54%45%53%54%00", GCK_URI_FOR_OBJECT, &error);
 	g_assert_nonnull (uri_data);
 	g_assert_nonnull (uri_data->attributes);
 
@@ -133,7 +133,7 @@ test_parse_with_bad_string_encoding (void)
 	GError *error = NULL;
 	GckUriData *uri_data;
 
-	uri_data = gck_uri_parse ("pkcs11:object=Test%", GCK_URI_FOR_OBJECT, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:object=Test%", GCK_URI_FOR_OBJECT, &error);
 	g_assert_null (uri_data);
 	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_ENCODING);
 	g_error_free (error);
@@ -144,7 +144,7 @@ test_parse_with_bad_binary_encoding (void)
 {
 	GError *error = NULL;
 	GckUriData *uri_data;
-	uri_data = gck_uri_parse ("pkcs11:id=%%", GCK_URI_FOR_ANY, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:id=%%", GCK_URI_FOR_ANY, &error);
 	g_assert_null (uri_data);
 	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_ENCODING);
 	g_error_free (error);
@@ -156,7 +156,7 @@ test_parse_with_token (void)
 	GError *error = NULL;
 	GckUriData *uri_data = NULL;
 
-	uri_data = gck_uri_parse ("pkcs11:token=Token%20Label;serial=3333;model=Deluxe;manufacturer=Me",
+	uri_data = gck_uri_data_parse ("pkcs11:token=Token%20Label;serial=3333;model=Deluxe;manufacturer=Me",
 	                          GCK_URI_FOR_TOKEN, &error);
 
 	g_assert_nonnull (uri_data);
@@ -174,7 +174,7 @@ test_parse_with_token_bad_encoding (void)
 	GError *error = NULL;
 	GckUriData *uri_data;
 
-	uri_data = gck_uri_parse ("pkcs11:token=Token%", GCK_URI_FOR_TOKEN, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:token=Token%", GCK_URI_FOR_TOKEN, &error);
 	g_assert_null (uri_data);
 	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_ENCODING);
 	g_error_free (error);
@@ -186,7 +186,7 @@ test_parse_with_bad_syntax (void)
 	GError *error = NULL;
 	GckUriData *uri_data;
 
-	uri_data = gck_uri_parse ("pkcs11:token", GCK_URI_FOR_ANY, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:token", GCK_URI_FOR_ANY, &error);
 	g_assert_null (uri_data);
 	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_SYNTAX);
 	g_error_free (error);
@@ -198,7 +198,7 @@ test_parse_with_library (void)
 	GError *error = NULL;
 	GckUriData *uri_data = NULL;
 
-	uri_data = gck_uri_parse ("pkcs11:library-description=The%20Library;library-manufacturer=Me",
+	uri_data = gck_uri_data_parse ("pkcs11:library-description=The%20Library;library-manufacturer=Me",
 	                          GCK_URI_FOR_MODULE, &error);
 
 	g_assert_nonnull (uri_data);
@@ -214,7 +214,7 @@ test_parse_with_library_bad_encoding (void)
 	GError *error = NULL;
 	GckUriData *uri_data;
 
-	uri_data = gck_uri_parse ("pkcs11:library-description=Library%", GCK_URI_FOR_MODULE, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:library-description=Library%", GCK_URI_FOR_MODULE, &error);
 	g_assert_null (uri_data);
 	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_ENCODING);
 	g_error_free (error);
@@ -227,7 +227,7 @@ test_build_empty (void)
 	gchar *uri;
 
 	memset (&uri_data, 0, sizeof (uri_data));
-	uri = gck_uri_build (&uri_data, 0);
+	uri = gck_uri_data_build (&uri_data, 0);
 	g_assert_cmpstr (uri, ==, "pkcs11:");
 	g_free (uri);
 }
@@ -246,10 +246,10 @@ test_build_with_token_info (void)
 	uri_data.token_info->manufacturer_id = g_strdup ("Me");
 	uri_data.token_info->model = g_strdup ("Deluxe");
 
-	uri = gck_uri_build (&uri_data, GCK_URI_FOR_TOKEN);
+	uri = gck_uri_data_build (&uri_data, GCK_URI_FOR_TOKEN);
 	g_assert_nonnull (uri);
 
-	check = gck_uri_parse (uri, GCK_URI_FOR_TOKEN, NULL);
+	check = gck_uri_data_parse (uri, GCK_URI_FOR_TOKEN, NULL);
 	g_assert_nonnull (check);
 	g_assert_nonnull (check->token_info);
 
@@ -277,7 +277,7 @@ test_build_with_token_null_info (void)
 	uri_data.token_info = g_new0 (GckTokenInfo, 1);
 	uri_data.token_info->label = g_strdup ("The Label");
 
-	uri = gck_uri_build (&uri_data, GCK_URI_FOR_TOKEN);
+	uri = gck_uri_data_build (&uri_data, GCK_URI_FOR_TOKEN);
 	g_assert_nonnull (uri);
 
 	g_assert_true (g_str_has_prefix (uri, "pkcs11:"));
@@ -299,7 +299,7 @@ test_build_with_token_empty_info (void)
 	uri_data.token_info->label = g_strdup ("The Label");
 	uri_data.token_info->serial_number = g_strdup ("");
 
-	uri = gck_uri_build (&uri_data, GCK_URI_FOR_TOKEN);
+	uri = gck_uri_data_build (&uri_data, GCK_URI_FOR_TOKEN);
 	g_assert_nonnull (uri);
 
 	g_assert_true (g_str_has_prefix (uri, "pkcs11:"));
@@ -325,14 +325,14 @@ test_build_with_attributes (void)
 	gck_builder_add_string (&builder, CKA_LABEL, "The Label");
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
 	gck_builder_add_data (&builder, CKA_ID, (const guchar *)"TEST", 5);
-	uri_data.attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+	uri_data.attributes = gck_builder_end (&builder);
 
-	uri = gck_uri_build (&uri_data, GCK_URI_FOR_OBJECT);
+	uri = gck_uri_data_build (&uri_data, GCK_URI_FOR_OBJECT);
 	g_assert_nonnull (uri);
 
 	gck_attributes_unref (uri_data.attributes);
 
-	check = gck_uri_parse (uri, GCK_URI_FOR_ANY, NULL);
+	check = gck_uri_data_parse (uri, GCK_URI_FOR_ANY, NULL);
 	g_assert_nonnull (check);
 	g_assert_nonnull (check->attributes);
 
@@ -366,7 +366,7 @@ test_parse_private_key (void)
 	GError *error = NULL;
 	gulong klass;
 
-	uri_data = gck_uri_parse ("pkcs11:objecttype=private", GCK_URI_FOR_OBJECT, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:objecttype=private", GCK_URI_FOR_OBJECT, &error);
 	g_assert_nonnull (uri_data);
 	g_assert_no_error (error);
 
@@ -385,7 +385,7 @@ test_parse_secret_key (void)
 	GError *error = NULL;
 	gulong klass;
 
-	uri_data = gck_uri_parse ("pkcs11:objecttype=secretkey", GCK_URI_FOR_OBJECT, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:objecttype=secretkey", GCK_URI_FOR_OBJECT, &error);
 	g_assert_nonnull (uri_data);
 	g_assert_no_error (error);
 
@@ -405,7 +405,7 @@ test_parse_unknown_objecttype (void)
 	GError *error = NULL;
 	gulong klass;
 
-	uri_data = gck_uri_parse ("pkcs11:objecttype=unknown", GCK_URI_FOR_OBJECT, &error);
+	uri_data = gck_uri_data_parse ("pkcs11:objecttype=unknown", GCK_URI_FOR_OBJECT, &error);
 	g_assert_nonnull (uri_data);
 	g_assert_no_error (error);
 
@@ -426,9 +426,9 @@ test_build_objecttype_cert (void)
 
 	uri_data = gck_uri_data_new ();
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
-	uri_data->attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+	uri_data->attributes = gck_builder_end (&builder);
 
-	uri = gck_uri_build (uri_data, GCK_URI_FOR_OBJECT);
+	uri = gck_uri_data_build (uri_data, GCK_URI_FOR_OBJECT);
 	g_assert_nonnull (uri);
 	g_assert_true (strstr (uri, "object-type=cert") || strstr (uri, "type=cert"));
 
@@ -445,9 +445,9 @@ test_build_objecttype_private (void)
 
 	uri_data = gck_uri_data_new ();
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);
-	uri_data->attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+	uri_data->attributes = gck_builder_end (&builder);
 
-	uri = gck_uri_build (uri_data, GCK_URI_FOR_OBJECT);
+	uri = gck_uri_data_build (uri_data, GCK_URI_FOR_OBJECT);
 	g_assert_nonnull (uri);
 	g_assert_true (strstr (uri, "object-type=private") || strstr (uri, "type=private"));
 
@@ -464,9 +464,9 @@ test_build_objecttype_public (void)
 
 	uri_data = gck_uri_data_new ();
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
-	uri_data->attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+	uri_data->attributes = gck_builder_end (&builder);
 
-	uri = gck_uri_build (uri_data, GCK_URI_FOR_OBJECT);
+	uri = gck_uri_data_build (uri_data, GCK_URI_FOR_OBJECT);
 	g_assert_nonnull (uri);
 	g_assert_true (strstr (uri, "object-type=public") ||
 	               strstr (uri, "type=public"));
@@ -484,9 +484,9 @@ test_build_objecttype_secret (void)
 
 	uri_data = gck_uri_data_new ();
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_SECRET_KEY);
-	uri_data->attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+	uri_data->attributes = gck_builder_end (&builder);
 
-	uri = gck_uri_build (uri_data, GCK_URI_FOR_OBJECT);
+	uri = gck_uri_data_build (uri_data, GCK_URI_FOR_OBJECT);
 	g_assert_nonnull (uri);
 	g_assert_true (strstr (uri, "object-type=secret-key") ||
 	               strstr (uri, "type=secret-key"));
@@ -505,7 +505,7 @@ test_build_with_library (void)
 	uri_data->module_info = g_new0 (GckModuleInfo, 1);
 	uri_data->module_info->library_description = g_strdup ("The Description");
 
-	uri = gck_uri_build (uri_data, GCK_URI_FOR_MODULE);
+	uri = gck_uri_data_build (uri_data, GCK_URI_FOR_MODULE);
 	g_assert_nonnull (uri);
 	g_assert_true (strstr (uri, "library-description=The%20Description"));
 

@@ -21,7 +21,7 @@
 
 #include "config.h"
 
-#include "gcr/gcr-base.h"
+#include "gcr/gcr.h"
 #include "gcr/gcr-callback-output-stream.h"
 #include "gcr/gcr-gnupg-process.h"
 

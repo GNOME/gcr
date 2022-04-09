@@ -96,22 +96,6 @@
  * Error domain for URI errors.
  */
 
-/**
- * GCK_URI_BAD_PREFIX:
- *
- * Use %GCK_URI_BAD_SCHEME instead.
- *
- * Deprecated: Since 3.2
- */
-
-/**
- * CKR_GCK_MODULE_PROBLEM:
- *
- * Use %GCK_ERROR_MODULE_PROBLEM instead.
- *
- * Deprecated: Since 3.4
- */
-
 #define URI_PREFIX "pkcs11:"
 #define N_URI_PREFIX 7
 
@@ -122,26 +106,7 @@ struct _GckUri {
 	GckAttributes *attributes;
 };
 
-GQuark
-gck_uri_get_error_quark (void)
-{
-	/* This is deprecated version */
-	return gck_uri_error_get_quark ();
-}
-
-GQuark
-gck_uri_error_get_quark (void)
-{
-	static GQuark domain = 0;
-	static size_t quark_inited = 0;
-
-	if (g_once_init_enter (&quark_inited)) {
-		domain = g_quark_from_static_string ("gck-uri-error");
-		g_once_init_leave (&quark_inited, 1);
-	}
-
-	return domain;
-}
+G_DEFINE_QUARK(GckUriError, gck_uri_error)
 
 /**
  * gck_uri_data_new:
@@ -155,11 +120,11 @@ gck_uri_error_get_quark (void)
 GckUriData *
 gck_uri_data_new (void)
 {
-	return g_slice_new0 (GckUriData);
+	return g_new0 (GckUriData, 1);
 }
 
 /**
- * gck_uri_parse:
+ * gck_uri_data_parse:
  * @string: the URI to parse.
  * @flags: the context in which the URI will be used.
  * @error: a #GError, or %NULL.
@@ -174,7 +139,7 @@ gck_uri_data_new (void)
  *          freed with gck_uri_data_free()
  */
 GckUriData*
-gck_uri_parse (const gchar *string, GckUriFlags flags, GError **error)
+gck_uri_data_parse (const gchar *string, GckUriFlags flags, GError **error)
 {
 	GckUriData *uri_data = NULL;
 	GckBuilder builder;
@@ -231,7 +196,7 @@ gck_uri_parse (const gchar *string, GckUriFlags flags, GError **error)
 		gck_builder_init (&builder);
 		for (i = 0; i < n_attrs; ++i)
 			gck_builder_add_data (&builder, attrs[i].type, attrs[i].pValue, attrs[i].ulValueLen);
-		uri_data->attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+		uri_data->attributes = gck_builder_end (&builder);
 	}
 	uri_data->any_unrecognized = p11_kit_uri_any_unrecognized (p11_uri);
 
@@ -240,7 +205,7 @@ gck_uri_parse (const gchar *string, GckUriFlags flags, GError **error)
 }
 
 /**
- * gck_uri_build:
+ * gck_uri_data_build:
  * @uri_data: the info to build the URI from.
  * @flags: The context that the URI is for
  *
@@ -250,7 +215,7 @@ gck_uri_parse (const gchar *string, GckUriFlags flags, GError **error)
  * Return value: a newly allocated string containing a PKCS#11 URI.
  */
 gchar*
-gck_uri_build (GckUriData *uri_data, GckUriFlags flags)
+gck_uri_data_build (GckUriData *uri_data, GckUriFlags flags)
 {
 	const GckAttribute *attr;
 	P11KitUri *p11_uri = 0;
@@ -321,13 +286,11 @@ gck_uri_data_copy (GckUriData *uri_data)
 void
 gck_uri_data_free (GckUriData *uri_data)
 {
-	if (uri_data) {
-		if (uri_data->attributes)
-			gck_attributes_unref (uri_data->attributes);
-		if (uri_data->module_info)
-			gck_module_info_free (uri_data->module_info);
-		if (uri_data->token_info)
-			gck_token_info_free (uri_data->token_info);
-		g_slice_free (GckUriData, uri_data);
-	}
+	if (!uri_data)
+		return;
+
+	g_clear_pointer (&uri_data->attributes, gck_attributes_unref);
+	g_clear_pointer (&uri_data->module_info, gck_module_info_free);
+	g_clear_pointer (&uri_data->token_info, gck_token_info_free);
+	g_free (uri_data);
 }

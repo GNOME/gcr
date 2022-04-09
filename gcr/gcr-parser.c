@@ -482,7 +482,7 @@ parsed_fire (GcrParser *self,
 	g_assert (parsed == self->pv->parsed);
 	g_assert (parsed->attrs == NULL);
 
-	parsed->attrs = gck_attributes_ref_sink (gck_builder_end (&parsed->builder));
+	parsed->attrs = gck_builder_end (&parsed->builder);
 
 	g_object_notify (G_OBJECT (self), "parsed-description");
 	g_object_notify (G_OBJECT (self), "parsed-attributes");

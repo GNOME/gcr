@@ -18,7 +18,6 @@ gck_sources_public = files(
 
 gck_sources_private = files(
   'gck-call.c',
-  'gck-interaction.c',
 )
 
 gck_headers = files(
@@ -57,7 +56,6 @@ gck_sources = [
 gck_exported_headers = [
   gck_headers,
   gck_version_h,
-  'gck-deprecated.h',
   'pkcs11.h',
   'pkcs11n.h',
   'pkcs11x.h',
@@ -94,7 +92,8 @@ gck_lib = shared_library(gck_basename,
   link_args: gck_linkflags,
   link_depends: gck_symbolmap,
   include_directories: config_h_dir,
-  version: gck_soversion,
+  version: gck_version,
+  soversion: gck_soversion,
   install: true,
 )
 

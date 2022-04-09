@@ -22,7 +22,7 @@
 #include "config.h"
 #define GCR_COMPILATION 1
 
-#include "gcr/gcr-base.h"
+#include "gcr/gcr.h"
 #include "gcr/gcr-internal.h"
 #include "gcr/gcr-fingerprint.h"
 
@@ -115,7 +115,7 @@ build_attributes_for_cert (GBytes *data)
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_CERTIFICATE);
 	gck_builder_add_ulong (&builder, CKA_CERTIFICATE_TYPE, CKC_X_509);
 
-	return gck_attributes_ref_sink (gck_builder_end (&builder));
+	return gck_builder_end (&builder);
 }
 
 static GBytes *

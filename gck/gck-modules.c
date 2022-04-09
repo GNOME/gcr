@@ -56,9 +56,9 @@ perform_initialize_registered (InitializeRegistered *args)
 
 	modules = p11_kit_modules_load_and_initialize (0);
 	if (modules == NULL) {
-		g_set_error (&args->error, GCK_ERROR, (int)CKR_GCK_MODULE_PROBLEM,
+		g_set_error (&args->error, GCK_ERROR, (int)GCK_ERROR_MODULE_PROBLEM,
 		             _("Couldn’t initialize registered PKCS#11 modules: %s"), p11_kit_message ());
-		return CKR_GCK_MODULE_PROBLEM;
+		return GCK_ERROR_MODULE_PROBLEM;
 	}
 
 	for (funcs = modules; *funcs; ++funcs) {
@@ -195,8 +195,6 @@ gck_modules_get_slots (GList *modules, gboolean token_present)
  *
  * This call will not block but will return an enumerator immediately.
  *
- * If the @attrs [struct@Attributes] is floating, it is consumed.
- *
  * Return value: (transfer full): A new enumerator, which should be released
  * with g_object_unref().
  **/
@@ -210,7 +208,7 @@ gck_modules_enumerate_objects (GList *modules,
 	g_return_val_if_fail (attrs, NULL);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_ref_sink (attrs);
+	uri_data->attributes = gck_attributes_ref (attrs);
 
 	return _gck_enumerator_new_for_modules (modules, session_options, uri_data);
 }
@@ -231,7 +229,7 @@ tokens_for_uri (GList *modules,
 	GckUriFlags flags;
 
 	flags = GCK_URI_FOR_OBJECT_ON_TOKEN_AND_MODULE | GCK_URI_FOR_MODULE_WITH_VERSION;
-	uri_data = gck_uri_parse (uri, flags, error);
+	uri_data = gck_uri_data_parse (uri, flags, error);
 	if (uri_data == NULL)
 		return NULL;
 
@@ -418,7 +416,7 @@ gck_modules_enumerate_uri (GList *modules,
 
 	g_return_val_if_fail (uri != NULL, NULL);
 
-	uri_data = gck_uri_parse (uri, GCK_URI_FOR_ANY, error);
+	uri_data = gck_uri_data_parse (uri, GCK_URI_FOR_ANY, error);
 	if (uri_data == NULL)
 		return NULL;
 

@@ -37,7 +37,7 @@
 
 #include <gio/gunixsocketaddress.h>
 #include <glib/gstdio.h>
-#include <gcr/gcr-base.h>
+#include <gcr/gcr.h>
 
 #if WITH_SYSTEMD
 #include <systemd/sd-daemon.h>

@@ -48,14 +48,10 @@
 
 G_STATIC_ASSERT (sizeof (GckAttribute) == sizeof (CK_ATTRIBUTE));
 
-#define STATE_LOCKED     1
-#define STATE_FLOATING   8
-
 struct _GckAttributes {
 	GckAttribute *data;
 	gulong count;
 	gint refs;
-	gint state;
 };
 
 typedef struct {
@@ -238,7 +234,7 @@ gck_builder_ref (GckBuilder *builder)
 
 /**
  * gck_builder_unref:
- * @builder: the builder
+ * @builder: (transfer full): the builder
  *
  * Unreferences a builder. If this was the last reference then the builder
  * is freed.
@@ -247,7 +243,7 @@ gck_builder_ref (GckBuilder *builder)
  * stack.
  */
 void
-gck_builder_unref (gpointer builder)
+gck_builder_unref (GckBuilder *builder)
 {
 	GckRealBuilder *real = (GckRealBuilder *)builder;
 
@@ -1266,19 +1262,17 @@ gck_builder_find_date (GckBuilder *builder,
 }
 
 /**
- * gck_builder_steal:
+ * gck_builder_end:
  * @builder: the builder
  *
  * Take the attributes that have been built in the #GckBuilder. The builder
  * will no longer contain any attributes after this function call.
  *
- * The returned set of attributes is a full reference, not floating.
- *
- * Returns: (transfer full): the stolen attributes, which should be freed with
+ * Returns: (transfer full): the attributes, which should be freed with
  *          gck_attributes_unref()
  */
 GckAttributes *
-gck_builder_steal (GckBuilder *builder)
+gck_builder_end (GckBuilder *builder)
 {
 	GckRealBuilder *real = (GckRealBuilder *)builder;
 	GckAttributes *attrs;
@@ -1301,39 +1295,6 @@ gck_builder_steal (GckBuilder *builder)
 	attrs->data = data;
 	attrs->refs = 1;
 
-	return attrs;
-}
-
-/**
- * gck_builder_end:
- * @builder: the builder
- *
- * Complete the #GckBuilder, and return the attributes contained in the builder.
- * The #GckBuilder will be cleared after this function call, and it is no
- * longer necessary to use [method@Builder.clear] on it, although it is also
- * permitted. The builder may be used again to build another set of attributes
- * after this function call.
- *
- * The returned set of attributes is floating, and should either be passed to
- * another gck library function which consumes this floating reference, or if
- * you wish to keep these attributes around you should ref them with
- * gck_attributes_ref_sink() and unref them later with gck_attributes_unref().
- *
- * Returns: (transfer none): a floating reference to the attributes created
- *          in the builder
- */
-GckAttributes *
-gck_builder_end (GckBuilder *builder)
-{
-	GckRealBuilder *real = (GckRealBuilder *)builder;
-	GckAttributes *attrs;
-
-	g_return_val_if_fail (builder != NULL, NULL);
-
-	attrs = gck_builder_steal (builder);
-	attrs->state |= STATE_FLOATING;
-
-	g_assert (real->array == NULL);
 	return attrs;
 }
 
@@ -2032,13 +1993,6 @@ gck_attribute_hash (gconstpointer attr)
 G_DEFINE_BOXED_TYPE (GckAttributes, gck_attributes,
                      gck_attributes_ref, gck_attributes_unref)
 
-GType
-gck_attributes_get_boxed_type (void)
-{
-	/* Deprecated version */
-	return gck_attributes_get_type ();
-}
-
 /**
  * gck_attributes_new_empty:
  * @first_type: the first empty attribute type
@@ -2048,12 +2002,7 @@ gck_attributes_get_boxed_type (void)
  *
  * Terminate the argument list with [const@INVALID].
  *
- * The returned set of attributes is floating, and should either be passed to
- * another gck library function which consumes this floating reference, or if
- * you wish to keep these attributes around you should ref them with
- * gck_attributes_ref_sink() and unref them later with gck_attributes_unref().
- *
- * Returns: (transfer none): a floating reference to an empty set of attributes
+ * Returns: (transfer full): a reference to an empty set of attributes
  **/
 GckAttributes *
 gck_attributes_new_empty (gulong first_type,
@@ -2233,45 +2182,6 @@ gck_attributes_ref (GckAttributes *attrs)
 {
 	g_return_val_if_fail (attrs, NULL);
 	g_atomic_int_inc (&attrs->refs);
-	return attrs;
-}
-
-/**
- * gck_attributes_ref_sink:
- * @attrs: an attribute array
- *
- * #GckAttributes uses a floating reference count system. [method@Builder.end]
- * and [ctor@Attributes.new_empty] both return floating references.
- *
- * Calling this function on a `GckAttributes` with a floating
- * reference will convert the floating reference into a full reference.
- * Calling this function on a non-floating `GckAttributes` results
- * in an additional normal reference being added.
- *
- * In other words, if the @attrs is floating, then this call "assumes
- * ownership" of the floating reference, converting it to a normal
- * reference.  If the @attrs is not floating, then this call adds a
- * new normal reference increasing the reference count by one.
- *
- * All Gck library functions that assume ownership of floating references
- * are documented as such. Essentially any Gck function that performs
- * an operation using a #GckAttributes argument rather than operating on the
- * attributes themselves, will accept a floating reference.
- *
- * Returns: (transfer full): the referenced attributes
- */
-GckAttributes *
-gck_attributes_ref_sink (GckAttributes *attrs)
-{
-	g_return_val_if_fail (attrs, NULL);
-	g_bit_lock (&attrs->state, STATE_LOCKED);
-
-	if (~attrs->state & STATE_FLOATING)
-		gck_attributes_ref (attrs);
-	else
-		attrs->state &= ~STATE_FLOATING;
-
-	g_bit_unlock (&attrs->state, STATE_LOCKED);
 	return attrs;
 }
 
@@ -2810,345 +2720,15 @@ gck_attributes_to_string (GckAttributes *attrs)
 
 /**
  * gck_attributes_new:
- * @reserved: Should be set to always be [const@INVALID]
  *
  * Create a new empty `GckAttributes` array.
  *
- * The returned set of attributes is floating, and should either be passed to
- * another gck library function which consumes this floating reference, or if
- * you wish to keep these attributes around you should ref them with
- * gck_attributes_ref_sink() and unref them later with gck_attributes_unref().
- *
- * Returns: (transfer none): a floating reference to the new attributes array;
+ * Returns: (transfer full): a reference to the new attributes array;
  *          when done with the array release it with gck_attributes_unref().
  **/
 GckAttributes *
-gck_attributes_new (gulong reserved)
+gck_attributes_new (void)
 {
 	GckBuilder builder = GCK_BUILDER_INIT;
-	return gck_builder_end (&builder);
-}
-
-/**
- * gck_attributes_new_full: (skip)
- * @allocator: memory allocator for attribute data, or %NULL for default
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.set_all] instead.
- *
- * Returns: returns %NULL
- **/
-GckAttributes *
-gck_attributes_new_full (GckAllocator allocator)
-{
-	g_warning ("gck_attributes_new_full() is no no longer supported");
-	return NULL;
-}
-
-/**
- * gck_attributes_add:
- * @attrs: the attributes array to add to
- * @attr: the attribute to add
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.set_all] instead.
- *
- * Returns: (transfer none): returns %NULL
- **/
-GckAttribute *
-gck_attributes_add (GckAttributes *attrs,
-                    GckAttribute *attr)
-{
-	g_warning ("gck_attributes_add() is no no longer supported");
-	return NULL;
-}
-
-/**
- * gck_attributes_set:
- * @attrs: attributes array to add to
- * @attr: attribute to set
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.set_data] instead.
- **/
-void
-gck_attributes_set (GckAttributes *attrs,
-                    GckAttribute *attr)
-{
-	g_warning ("gck_attributes_set() is no no longer supported");
-}
-
-/**
- * gck_attributes_add_data:
- * @attrs: The attributes array to add to.
- * @attr_type: The type of attribute to add.
- * @value: (array length=length): the raw memory of the attribute value
- * @length: The length of the attribute value.
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.add_data] instead.
- *
- * Returns: (transfer none): returns %NULL
- **/
-GckAttribute *
-gck_attributes_add_data (GckAttributes *attrs,
-                         gulong attr_type,
-                         const guchar *value,
-                         gsize length)
-{
-	g_warning ("gck_attributes_add_data() is no no longer supported");
-	return NULL;
-}
-
-/**
- * gck_attributes_add_invalid:
- * @attrs: The attributes array to add to.
- * @attr_type: The type of attribute to add.
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.add_invalid] instead
- *
- * Returns: (transfer none): returns %NULL
- **/
-GckAttribute *
-gck_attributes_add_invalid (GckAttributes *attrs,
-                            gulong attr_type)
-{
-	g_warning ("gck_attributes_add_invalid() is no no longer supported");
-	return NULL;
-}
-
-/**
- * gck_attributes_add_empty:
- * @attrs: The attributes array to add.
- * @attr_type: The type of attribute to add.
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.add_empty] instead.
- *
- * Returns: (transfer none): returns %NULL
- **/
-GckAttribute *
-gck_attributes_add_empty (GckAttributes *attrs,
-                          gulong attr_type)
-{
-	g_warning ("gck_attributes_add_empty() is no no longer supported");
-	return NULL;
-}
-
-/**
- * gck_attributes_add_boolean:
- * @attrs: the attributes array to add to
- * @attr_type: the type of attribute to add
- * @value: the boolean value to add
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.add_boolean] instead.
- *
- * Returns: (transfer none): returns %NULL
- **/
-GckAttribute *
-gck_attributes_add_boolean (GckAttributes *attrs,
-                            gulong attr_type,
-                            gboolean value)
-{
-	g_warning ("gck_attributes_add_boolean() is no no longer supported");
-	return NULL;
-}
-
-/**
- * gck_attributes_set_boolean:
- * @attrs: the attributes
- * @attr_type: the type of attribute to set
- * @value: boolean value to set
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.set_boolean] instead.
- */
-void
-gck_attributes_set_boolean (GckAttributes *attrs,
-                            gulong attr_type,
-                            gboolean value)
-{
-	g_warning ("gck_attributes_set_boolean() is no no longer supported");
-
-}
-
-/**
- * gck_attributes_add_string:
- * @attrs: the attributes array to add to
- * @attr_type: the type of attribute to add
- * @value: the null terminated string value to add
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.add_string] instead.
- *
- * Returns: (transfer none): returns %NULL
- **/
-GckAttribute *
-gck_attributes_add_string (GckAttributes *attrs,
-                           gulong attr_type,
-                           const gchar *value)
-{
-	g_warning ("gck_attributes_add_string() is no no longer supported");
-	return NULL;
-}
-
-/**
- * gck_attributes_set_string:
- * @attrs: the attributes
- * @attr_type: the type of attribute to set
- * @value: null terminated string value to set
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.set_string] instead.
- */
-void
-gck_attributes_set_string (GckAttributes *attrs,
-                           gulong attr_type,
-                           const gchar *value)
-{
-	g_warning ("gck_attributes_set_string() is no no longer supported");
-}
-
-/**
- * gck_attributes_add_date:
- * @attrs: the attributes array to add to
- * @attr_type: the type of attribute to add
- * @value: the GDate value to add
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.add_date] instead.
- *
- * Returns: (transfer none): returns %NULL
- **/
-GckAttribute *
-gck_attributes_add_date (GckAttributes *attrs,
-                         gulong attr_type,
-                         const GDate *value)
-{
-	g_warning ("gck_attributes_add_date() is no no longer supported");
-	return NULL;
-}
-
-/**
- * gck_attributes_set_date:
- * @attrs: the attributes
- * @attr_type: the type of attribute to set
- * @value: date value to set
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.set_date] instead.
- */
-void
-gck_attributes_set_date (GckAttributes *attrs,
-                         gulong attr_type,
-                         const GDate *value)
-{
-	g_warning ("gck_attributes_set_date() is no no longer supported");
-}
-
-/**
- * gck_attributes_add_ulong:
- * @attrs: the attributes array to add to
- * @attr_type: the type of attribute to add
- * @value: the gulong value to add
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.add_ulong] instead.
- *
- * Returns: (transfer none): returns %NULL
- **/
-GckAttribute *
-gck_attributes_add_ulong (GckAttributes *attrs,
-                          gulong attr_type,
-                          gulong value)
-{
-	g_warning ("gck_attributes_add_ulong() is no no longer supported");
-	return NULL;
-}
-
-/**
- * gck_attributes_set_ulong:
- * @attrs: the attributes
- * @attr_type: the type of attribute to set
- * @value: gulong value to set
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.set_ulong] instead.
- */
-void
-gck_attributes_set_ulong (GckAttributes *attrs,
-                          gulong attr_type,
-                          gulong value)
-{
-	g_warning ("gck_attributes_set_ulong() is no no longer supported");
-}
-
-/**
- * gck_attributes_add_all:
- * @attrs: a set of attributes
- * @from: attributes to add
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.add_all] instead.
- */
-void
-gck_attributes_add_all (GckAttributes *attrs,
-                        GckAttributes *from)
-{
-	g_warning ("gck_attributes_add_all() is no no longer supported");
-}
-
-/**
- * gck_attributes_set_all:
- * @attrs: set of attributes
- * @from: attributes to add
- *
- * #GckAttributes are now immutable. This method no longer does anything.
- *
- * Deprecated: 3.4: Use [method@Builder.set_all] instead.
- */
-void
-gck_attributes_set_all (GckAttributes *attrs,
-                        GckAttributes *from)
-{
-	g_warning ("gck_attributes_set_all() is no no longer supported");
-}
-
-/**
- * gck_attributes_dup:
- * @attrs: set of attributes to copy
- *
- * #GckAttributes are now immutable, and can be used in mulitple places.
- *
- * Deprecated: 3.4: Use gck_attributes_ref() or [method@Builder.add_all] instead.
- *
- * Returns: (transfer none): a new floating #GckAttributes
- */
-GckAttributes *
-gck_attributes_dup (GckAttributes *attrs)
-{
-	GckBuilder builder = GCK_BUILDER_INIT;
-
-	if (attrs == NULL)
-		return NULL;
-
-	gck_builder_add_all (&builder, attrs);
 	return gck_builder_end (&builder);
 }

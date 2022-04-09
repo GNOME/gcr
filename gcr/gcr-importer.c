@@ -21,7 +21,6 @@
 
 #include "config.h"
 
-#include "gcr-deprecated-base.h"
 #include "gcr-importer.h"
 #include "gcr-internal.h"
 #include "gcr-gnupg-importer.h"
@@ -53,7 +52,7 @@
  */
 
 /**
- * GcrImporterIface:
+ * GcrImporterInterface:
  * @parent: parent interface
  * @create_for_parsed: implementation of gcr_importer_create_for_parsed(), required
  * @queue_for_parsed: implementation of gcr_importer_queue_for_parsed(), required
@@ -63,8 +62,6 @@
  *
  * Interface implemented for a #GcrImporter.
  */
-
-typedef GcrImporterIface GcrImporterInterface;
 
 G_DEFINE_INTERFACE (GcrImporter, gcr_importer, G_TYPE_OBJECT);
 
@@ -77,7 +74,7 @@ static GArray *registered_importers = NULL;
 static gboolean registered_sorted = FALSE;
 
 static void
-gcr_importer_default_init (GcrImporterIface *iface)
+gcr_importer_default_init (GcrImporterInterface *iface)
 {
 	static size_t initialized = 0;
 
@@ -131,11 +128,9 @@ gcr_importer_default_init (GcrImporterIface *iface)
 /**
  * gcr_importer_register:
  * @importer_type: the GType of the importer being registered
- * @attrs: the attributes that this importer is compatible with
+ * @attrs: (transfer full): the attributes that this importer is compatible with
  *
  * Register an importer to handle parsed items that match the given attributes.
- *
- * If @attrs are a floating reference, then it is consumed.
  */
 void
 gcr_importer_register (GType importer_type,
@@ -147,7 +142,7 @@ gcr_importer_register (GType importer_type,
 		registered_importers = g_array_new (FALSE, FALSE, sizeof (GcrRegistered));
 
 	registered.importer_type = importer_type;
-	registered.attrs = gck_attributes_ref_sink (attrs);
+	registered.attrs = attrs;
 	g_array_append_val (registered_importers, registered);
 	registered_sorted = FALSE;
 }
@@ -197,7 +192,7 @@ GList *
 gcr_importer_create_for_parsed (GcrParsed *parsed)
 {
 	GcrRegistered *registered;
-	GcrImporterIface *iface;
+	GcrImporterInterface *iface;
 	gpointer instance_class;
 	GckAttributes *attrs;
 	gboolean matched;
@@ -286,12 +281,12 @@ gboolean
 gcr_importer_queue_for_parsed (GcrImporter *importer,
                                GcrParsed *parsed)
 {
-	GcrImporterIface *iface;
+	GcrImporterInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_IMPORTER (importer), FALSE);
 	g_return_val_if_fail (parsed != NULL, FALSE);
 
-	iface = GCR_IMPORTER_GET_INTERFACE (importer);
+	iface = GCR_IMPORTER_GET_IFACE (importer);
 	g_return_val_if_fail (iface != NULL, FALSE);
 	g_return_val_if_fail (iface->queue_for_parsed != NULL, FALSE);
 
@@ -378,13 +373,13 @@ gcr_importer_import (GcrImporter *importer,
 {
 	gboolean result;
 	ImportClosure *closure;
-	GcrImporterIface *iface;
+	GcrImporterInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_IMPORTER (importer), FALSE);
 	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	iface = GCR_IMPORTER_GET_INTERFACE (importer);
+	iface = GCR_IMPORTER_GET_IFACE (importer);
 	if (iface->import_sync)
 		return (iface->import_sync) (importer, cancellable, error);
 
@@ -455,12 +450,12 @@ gcr_importer_import_async (GcrImporter *importer,
                            GAsyncReadyCallback callback,
                            gpointer user_data)
 {
-	GcrImporterIface *iface;
+	GcrImporterInterface *iface;
 
 	g_return_if_fail (GCR_IS_IMPORTER (importer));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	iface = GCR_IMPORTER_GET_INTERFACE (importer);
+	iface = GCR_IMPORTER_GET_IFACE (importer);
 	g_return_if_fail (iface != NULL);
 	g_return_if_fail (iface->import_async != NULL);
 
@@ -482,13 +477,13 @@ gcr_importer_import_finish (GcrImporter *importer,
                             GAsyncResult *result,
                             GError **error)
 {
-	GcrImporterIface *iface;
+	GcrImporterInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_IMPORTER (importer), FALSE);
 	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	iface = GCR_IMPORTER_GET_INTERFACE (importer);
+	iface = GCR_IMPORTER_GET_IFACE (importer);
 	g_return_val_if_fail (iface != NULL, FALSE);
 	g_return_val_if_fail (iface->import_finish != NULL, FALSE);
 
@@ -546,105 +541,3 @@ gcr_importer_register_well_known (void)
 	g_type_class_unref (g_type_class_ref (GCR_TYPE_PKCS11_IMPORTER));
 	g_type_class_unref (g_type_class_ref (GCR_TYPE_GNUPG_IMPORTER));
 }
-
-#ifndef GCR_DISABLE_DEPRECATED
-
-/**
- * gcr_importer_get_parser:
- * @self: An importer
- *
- * Has no effect. Use gcr_importer_listen() instead.
- *
- * Returns: %NULL is always returned.
- * Deprecated: Since 3.0.0
- */
-GcrParser*
-gcr_importer_get_parser (GcrImporter *self)
-{
-        g_warning ("gcr_importer_get_parser() is no longer supported "
-                   "Use gcr_importer_listen() instead.");
-        return NULL;
-}
-
-/**
- * gcr_importer_set_parser:
- * @self: An importer
- * @parser: A parser
- *
- * Has no effect. Use gcr_importer_listen() instead.
- *
- * Deprecated: Since 3.0.0
- */
-void
-gcr_importer_set_parser (GcrImporter *self,
-                         GcrParser *parser)
-{
-        g_warning ("gcr_importer_set_parser() is no longer supported "
-                   "Use gcr_importer_listen() instead.");
-}
-
-/*
- * gcr_importer_get_slot:
- * @self: The importer
- *
- * Returns %NULL.
- *
- * Deprecated: since 3.4.0
- */
-GckSlot *
-gcr_importer_get_slot (GcrImporter *self)
-{
-        g_warning ("gcr_importer_get_slot() is no longer supported.");
-        return NULL;
-}
-
-/**
- * gcr_importer_set_slot:
- * @self: The importer
- * @slot: The slot to import to
- *
- * Has no effect.
- *
- * Deprecated: since 3.4.0
- */
-void
-gcr_importer_set_slot (GcrImporter *self,
-                       GckSlot *slot)
-{
-        g_warning ("gcr_importer_set_slot() is no longer supported.");
-}
-
-/**
- * gcr_importer_get_prompt_behavior:
- * @self: The importer
- *
- * Does nothing.
- *
- * Returns: zero
- *
- * Deprecated: since 3.4.0
- */
-GcrImporterPromptBehavior
-gcr_importer_get_prompt_behavior (GcrImporter *self)
-{
-	g_warning ("gcr_importer_get_prompt_behavior() is no longer supported.");
-	return 0;
-}
-
-/**
- * gcr_importer_set_prompt_behavior:
- * @self: The importer
- * @behavior: The prompt behavior flag
- *
- * Has no effect.
- *
- * Deprecated: since 3.4.0
- */
-void
-gcr_importer_set_prompt_behavior (GcrImporter *self,
-                                  GcrImporterPromptBehavior behavior)
-{
-	g_warning ("gcr_importer_set_prompt_behavior() is no longer supported.");
-}
-
-#endif /* GCR_DISABLE_DEPRECATED */

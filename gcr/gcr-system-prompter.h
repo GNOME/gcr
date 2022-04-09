@@ -19,12 +19,12 @@
  * Author: Stef Walter <stef@thewalter.net>
  */
 
-#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
-#error "Only <gcr/gcr.h> or <gcr/gcr-base.h> can be included directly."
-#endif
-
 #ifndef __GCR_SYSTEM_PROMPTER_H__
 #define __GCR_SYSTEM_PROMPTER_H__
+
+#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
+#error "Only <gcr/gcr.h> can be included directly."
+#endif
 
 #include "gcr-prompt.h"
 #include "gcr-secret-exchange.h"

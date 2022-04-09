@@ -49,7 +49,7 @@
  */
 
 /**
- * GcrPromptIface:
+ * GcrPromptInterface:
  * @parent_iface: parent interface
  * @prompt_password_async: begin a password prompt
  * @prompt_password_finish: complete a password prompt
@@ -81,14 +81,12 @@ typedef struct {
 	GMainContext *context;
 } RunClosure;
 
-typedef GcrPromptIface GcrPromptInterface;
-
-static void   gcr_prompt_default_init    (GcrPromptIface *iface);
+static void   gcr_prompt_default_init    (GcrPromptInterface *iface);
 
 G_DEFINE_INTERFACE (GcrPrompt, gcr_prompt, G_TYPE_OBJECT);
 
 static void
-gcr_prompt_default_init (GcrPromptIface *iface)
+gcr_prompt_default_init (GcrPromptInterface *iface)
 {
 	static gsize initialized = 0;
 
@@ -240,7 +238,7 @@ gcr_prompt_default_init (GcrPromptIface *iface)
 		 * You can use the [method@Prompt.close] method to emit this signal.
 		 */
 		signals[PROMPT_CLOSE] = g_signal_new ("prompt-close", GCR_TYPE_PROMPT, G_SIGNAL_RUN_FIRST,
-		                                      G_STRUCT_OFFSET (GcrPromptIface, prompt_close),
+		                                      G_STRUCT_OFFSET (GcrPromptInterface, prompt_close),
 		                                      NULL, NULL, NULL,
 		                                      G_TYPE_NONE, 0);
 
@@ -297,12 +295,12 @@ void
 gcr_prompt_reset (GcrPrompt *prompt)
 {
 	GParamSpec **params;
-	GcrPromptIface *iface;
+	GcrPromptInterface *iface;
 	guint i, n_params;
 
 	g_return_if_fail (GCR_IS_PROMPT (prompt));
 
-	iface = GCR_PROMPT_GET_INTERFACE (prompt);
+	iface = GCR_PROMPT_GET_IFACE (prompt);
 	params = g_object_interface_list_properties (iface, &n_params);
 
 	g_object_freeze_notify (G_OBJECT (prompt));
@@ -770,12 +768,12 @@ gcr_prompt_password_async (GcrPrompt *prompt,
                            GAsyncReadyCallback callback,
                            gpointer user_data)
 {
-	GcrPromptIface *iface;
+	GcrPromptInterface *iface;
 
 	g_return_if_fail (GCR_IS_PROMPT (prompt));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	iface = GCR_PROMPT_GET_INTERFACE (prompt);
+	iface = GCR_PROMPT_GET_IFACE (prompt);
 	g_return_if_fail (iface->prompt_password_async);
 
 	(iface->prompt_password_async) (prompt, cancellable, callback, user_data);
@@ -803,13 +801,13 @@ gcr_prompt_password_finish (GcrPrompt *prompt,
                             GAsyncResult *result,
                             GError **error)
 {
-	GcrPromptIface *iface;
+	GcrPromptInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_PROMPT (prompt), NULL);
 	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), NULL);
 	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-	iface = GCR_PROMPT_GET_INTERFACE (prompt);
+	iface = GCR_PROMPT_GET_IFACE (prompt);
 	g_return_val_if_fail (iface->prompt_password_async, NULL);
 
 	return (iface->prompt_password_finish) (prompt, result, error);
@@ -924,12 +922,12 @@ gcr_prompt_confirm_async (GcrPrompt *prompt,
                           GAsyncReadyCallback callback,
                           gpointer user_data)
 {
-	GcrPromptIface *iface;
+	GcrPromptInterface *iface;
 
 	g_return_if_fail (GCR_IS_PROMPT (prompt));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	iface = GCR_PROMPT_GET_INTERFACE (prompt);
+	iface = GCR_PROMPT_GET_IFACE (prompt);
 	g_return_if_fail (iface->prompt_confirm_async);
 
 	(iface->prompt_confirm_async) (prompt, cancellable, callback, user_data);
@@ -954,13 +952,13 @@ gcr_prompt_confirm_finish (GcrPrompt *prompt,
                            GAsyncResult *result,
                            GError **error)
 {
-	GcrPromptIface *iface;
+	GcrPromptInterface *iface;
 
 	g_return_val_if_fail (GCR_IS_PROMPT (prompt), GCR_PROMPT_REPLY_CANCEL);
 	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), GCR_PROMPT_REPLY_CANCEL);
 	g_return_val_if_fail (error == NULL || *error == NULL, GCR_PROMPT_REPLY_CANCEL);
 
-	iface = GCR_PROMPT_GET_INTERFACE (prompt);
+	iface = GCR_PROMPT_GET_IFACE (prompt);
 	g_return_val_if_fail (iface->prompt_confirm_async, GCR_PROMPT_REPLY_CANCEL);
 
 	return (iface->prompt_confirm_finish) (prompt, result, error);

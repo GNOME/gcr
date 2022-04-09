@@ -230,6 +230,7 @@ test_enumerate_session (Test *test,
                         gconstpointer unused)
 {
 	GckBuilder builder = GCK_BUILDER_INIT;
+	GckAttributes *attributes;
 	GckEnumerator *en;
 	GError *error = NULL;
 	GckSession *session;
@@ -243,7 +244,9 @@ test_enumerate_session (Test *test,
 	session = gck_session_open (slots->data, 0, NULL, NULL, &error);
 	g_assert_no_error (error);
 
-	en = gck_session_enumerate_objects (session, gck_builder_end (&builder));
+	attributes = gck_builder_end (&builder);
+	en = gck_session_enumerate_objects (session, attributes);
+	gck_attributes_unref (attributes);
 	g_assert_true (GCK_IS_ENUMERATOR (en));
 
 	obj = gck_enumerator_next (en, NULL, &error);
@@ -266,7 +269,7 @@ test_attribute_match (Test *test, gconstpointer unused)
 
 	uri_data = gck_uri_data_new ();
 	gck_builder_add_string (&builder, CKA_LABEL, "Private Capitalize Key");
-	uri_data->attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+	uri_data->attributes = gck_builder_end (&builder);
 	en = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	g_assert_true (GCK_IS_ENUMERATOR (en));
 
@@ -280,8 +283,8 @@ test_attribute_match (Test *test, gconstpointer unused)
 }
 
 static void
-test_authenticate_interaction (Test *test,
-                               gconstpointer unused)
+test_authenticate (Test *test,
+                   gconstpointer unused)
 {
 	GTlsInteraction *interaction;
 	GTlsInteraction *check;
@@ -315,54 +318,6 @@ test_authenticate_interaction (Test *test,
 	g_assert_null (en);
 	g_assert_null (obj);
 	g_assert_null (interaction);
-}
-
-static gboolean
-on_authenticate_token (GckModule *module,
-                       GckSlot *slot,
-                       gchar *label,
-                       gchar **password,
-                       gpointer unused)
-{
-	g_assert_true (unused == GUINT_TO_POINTER (35));
-	g_assert_nonnull (password);
-	g_assert_null (*password);
-	g_assert_true (GCK_IS_MODULE (module));
-	g_assert_true (GCK_IS_SLOT (slot));
-
-	*password = g_strdup ("booo");
-	return TRUE;
-}
-
-static void
-test_authenticate_compat (Test *test,
-                          gconstpointer unused)
-{
-	GckUriData *uri_data;
-	GError *error = NULL;
-	GckEnumerator *en;
-	GckObject *obj;
-	gulong sig;
-
-	sig = g_signal_connect (test->modules->data, "authenticate-slot",
-	                        G_CALLBACK (on_authenticate_token), GUINT_TO_POINTER (35));
-
-	uri_data = gck_uri_data_new ();
-	en = _gck_enumerator_new_for_modules (test->modules, GCK_SESSION_LOGIN_USER, uri_data);
-	g_assert_true (GCK_IS_ENUMERATOR (en));
-	g_object_add_weak_pointer (G_OBJECT (en), (gpointer *)&en);
-
-	obj = gck_enumerator_next (en, NULL, &error);
-	g_assert_true (GCK_IS_OBJECT (obj));
-	g_object_add_weak_pointer (G_OBJECT (obj), (gpointer *)&obj);
-
-	g_object_unref (obj);
-	g_object_unref (en);
-
-	g_signal_handler_disconnect (test->modules->data, sig);
-
-	g_assert_null (obj);
-	g_assert_null (en);
 }
 
 static void
@@ -408,7 +363,7 @@ typedef struct {
 } MockObjectClass;
 
 GType mock_object_get_type (void) G_GNUC_CONST;
-static void mock_object_cache_init (GckObjectCacheIface *iface);
+static void mock_object_cache_init (GckObjectCacheInterface *iface);
 
 #define MOCK_TYPE_OBJECT     (mock_object_get_type())
 #define MOCK_OBJECT(obj)     (G_TYPE_CHECK_INSTANCE_CAST((obj), MOCK_TYPE_OBJECT, MockObject))
@@ -494,11 +449,11 @@ mock_object_fill (GckObjectCache *object,
 	gck_builder_set_all (&builder, attrs);
 
 	gck_attributes_unref (self->attrs);
-	self->attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	self->attrs = gck_builder_end (&builder);
 }
 
 static void
-mock_object_cache_init (GckObjectCacheIface *iface)
+mock_object_cache_init (GckObjectCacheInterface *iface)
 {
 	iface->default_types = mock_attribute_types;
 	iface->n_default_types = G_N_ELEMENTS (mock_attribute_types);
@@ -576,18 +531,18 @@ test_chained (Test *test,
 
 	uri_data = gck_uri_data_new ();
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
-	uri_data->attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+	uri_data->attributes = gck_builder_end (&builder);
 	one = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 
 	uri_data = gck_uri_data_new ();
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);
-	uri_data->attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+	uri_data->attributes = gck_builder_end (&builder);
 	two = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	gck_enumerator_set_chained (one, two);
 
 	uri_data = gck_uri_data_new ();
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
-	uri_data->attributes = gck_attributes_ref_sink (gck_builder_end (&builder));
+	uri_data->attributes = gck_builder_end (&builder);
 	three = _gck_enumerator_new_for_modules (test->modules, 0, uri_data);
 	gck_enumerator_set_chained (two, three);
 
@@ -617,8 +572,7 @@ main (int argc, char **argv)
 	g_test_add ("/gck/enumerator/next_n", Test, NULL, setup, test_next_n, teardown);
 	g_test_add ("/gck/enumerator/next_async", Test, NULL, setup, test_next_async, teardown);
 	g_test_add ("/gck/enumerator/session", Test, NULL, setup, test_enumerate_session, teardown);
-	g_test_add ("/gck/enumerator/authenticate-interaction", Test, NULL, setup, test_authenticate_interaction, teardown);
-	g_test_add ("/gck/enumerator/authenticate-compat", Test, NULL, setup, test_authenticate_compat, teardown);
+	g_test_add ("/gck/enumerator/authenticate", Test, NULL, setup, test_authenticate, teardown);
 	g_test_add ("/gck/enumerator/attribute_match", Test, NULL, setup, test_attribute_match, teardown);
 	g_test_add ("/gck/enumerator/token_match", Test, NULL, setup, test_token_match, teardown);
 	g_test_add ("/gck/enumerator/attribute_get", Test, NULL, setup, test_attribute_get, teardown);

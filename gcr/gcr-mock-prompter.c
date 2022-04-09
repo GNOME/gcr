@@ -101,7 +101,7 @@ typedef struct {
 static gint prompts_a_prompting = 0;
 static ThreadData *running = NULL;
 
-static void    gcr_mock_prompt_iface     (GcrPromptIface *iface);
+static void    gcr_mock_prompt_iface     (GcrPromptInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrMockPrompt, _gcr_mock_prompt, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (GCR_TYPE_PROMPT, gcr_mock_prompt_iface);
@@ -558,7 +558,7 @@ gcr_mock_prompt_password_finish (GcrPrompt *prompt,
 }
 
 static void
-gcr_mock_prompt_iface (GcrPromptIface *iface)
+gcr_mock_prompt_iface (GcrPromptInterface *iface)
 {
 	iface->prompt_confirm_async = gcr_mock_prompt_confirm_async;
 	iface->prompt_confirm_finish = gcr_mock_prompt_confirm_finish;

@@ -54,9 +54,9 @@ typedef enum {
 	GCK_ERROR_MODULE_PROBLEM = (CKR_VENDOR_DEFINED | (GCK_VENDOR_CODE + 1)),
 } GckError;
 
-#define             GCK_ERROR                               (gck_error_get_quark ())
+#define             GCK_ERROR                               (gck_error_quark ())
 
-GQuark              gck_error_get_quark                     (void) G_GNUC_CONST;
+GQuark              gck_error_quark                         (void) G_GNUC_CONST;
 
 #define             GCK_TYPE_LIST                           (gck_list_get_boxed_type ())
 
@@ -213,7 +213,7 @@ GckBuilder *         gck_builder_new                        (GckBuilderFlags fla
 
 GckBuilder *         gck_builder_ref                        (GckBuilder *builder);
 
-void                 gck_builder_unref                      (gpointer builder);
+void                 gck_builder_unref                      (GckBuilder *builder);
 
 void                 gck_builder_init                       (GckBuilder *builder);
 
@@ -331,8 +331,6 @@ gboolean             gck_builder_find_date                  (GckBuilder *builder
                                                              gulong attr_type,
                                                              GDate *value);
 
-GckAttributes *      gck_builder_steal                      (GckBuilder *builder);
-
 GckAttributes *      gck_builder_end                        (GckBuilder *builder);
 
 GckBuilder *         gck_builder_copy                       (GckBuilder *builder);
@@ -345,7 +343,7 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckBuilder, gck_builder_unref);
 
 GType                gck_attributes_get_type                (void) G_GNUC_CONST;
 
-GckAttributes *      gck_attributes_new                     (gulong reserved);
+GckAttributes *      gck_attributes_new                     (void);
 
 GckAttributes *      gck_attributes_new_empty               (gulong first_type,
                                                              ...);
@@ -375,8 +373,6 @@ gboolean             gck_attributes_find_date               (GckAttributes *attr
 gulong               gck_attributes_count                   (GckAttributes *attrs);
 
 GckAttributes *      gck_attributes_ref                     (GckAttributes *attrs);
-
-GckAttributes *      gck_attributes_ref_sink                (GckAttributes *attrs);
 
 void                 gck_attributes_unref                   (gpointer attrs);
 
@@ -429,22 +425,7 @@ void                gck_module_info_free                   (GckModuleInfo *modul
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckModuleInfo, gck_module_info_free);
 
 #define GCK_TYPE_MODULE             (gck_module_get_type())
-#define GCK_MODULE(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_MODULE, GckModule))
-#define GCK_MODULE_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_MODULE, GckModule))
-#define GCK_IS_MODULE(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_MODULE))
-#define GCK_IS_MODULE_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_MODULE))
-#define GCK_MODULE_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_MODULE, GckModuleClass))
-
-typedef struct _GckModuleClass GckModuleClass;
-typedef struct _GckModulePrivate GckModulePrivate;
-
-struct _GckModule {
-	GObject parent;
-
-	/*< private >*/
-	GckModulePrivate *pv;
-	gpointer reserved[4];
-};
+G_DECLARE_DERIVABLE_TYPE (GckModule, gck_module, GCK, MODULE, GObject)
 
 struct _GckModuleClass {
 	GObjectClass parent;
@@ -456,8 +437,6 @@ struct _GckModuleClass {
 	/*< private >*/
 	gpointer reserved[8];
 };
-
-GType                 gck_module_get_type                     (void) G_GNUC_CONST;
 
 GckModule*            gck_module_new                          (CK_FUNCTION_LIST_PTR funcs);
 
@@ -473,10 +452,10 @@ void                  gck_module_initialize_async             (const gchar *path
 GckModule *           gck_module_initialize_finish            (GAsyncResult *result,
                                                                GError **error);
 
-gboolean              gck_module_equal                        (gconstpointer module1,
-                                                               gconstpointer module2);
+gboolean              gck_module_equal                        (GckModule *module1,
+                                                               GckModule *module2);
 
-guint                 gck_module_hash                         (gconstpointer module);
+guint                 gck_module_hash                         (GckModule *module);
 
 gboolean              gck_module_match                        (GckModule *self,
                                                                GckUriData *uri);
@@ -530,39 +509,13 @@ GckEnumerator*        gck_modules_enumerate_uri               (GList *modules,
                                                                GckSessionOptions session_options,
                                                                GError **error);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckModule, g_object_unref);
-
 
 /* ------------------------------------------------------------------------
  * ENUMERATOR
  */
 
 #define GCK_TYPE_ENUMERATOR             (gck_enumerator_get_type())
-#define GCK_ENUMERATOR(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_ENUMERATOR, GckEnumerator))
-#define GCK_ENUMERATOR_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_ENUMERATOR, GckEnumerator))
-#define GCK_IS_ENUMERATOR(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_ENUMERATOR))
-#define GCK_IS_ENUMERATOR_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_ENUMERATOR))
-#define GCK_ENUMERATOR_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_ENUMERATOR, GckEnumeratorClass))
-
-typedef struct _GckEnumeratorClass GckEnumeratorClass;
-typedef struct _GckEnumeratorPrivate GckEnumeratorPrivate;
-
-struct _GckEnumerator {
-	GObject parent;
-
-	/*< private >*/
-	GckEnumeratorPrivate *pv;
-	gpointer reserved[2];
-};
-
-struct _GckEnumeratorClass {
-	GObjectClass parent;
-
-	/*< private >*/
-	gpointer reserved[2];
-};
-
-GType                 gck_enumerator_get_type                 (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (GckEnumerator, gck_enumerator, GCK, ENUMERATOR, GObject)
 
 GTlsInteraction *     gck_enumerator_get_interaction          (GckEnumerator *self);
 
@@ -602,8 +555,6 @@ void                  gck_enumerator_next_async               (GckEnumerator *se
 GList*                gck_enumerator_next_finish              (GckEnumerator *self,
                                                                GAsyncResult *result,
                                                                GError **error);
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckEnumerator, g_object_unref);
 
 /* ------------------------------------------------------------------------
  * SLOT
@@ -692,36 +643,12 @@ gboolean            gck_mechanisms_check                    (GArray *mechanisms,
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckMechanismInfo, gck_mechanism_info_free);
 
 #define GCK_TYPE_SLOT             (gck_slot_get_type())
-#define GCK_SLOT(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_SLOT, GckSlot))
-#define GCK_SLOT_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_SLOT, GckSlot))
-#define GCK_IS_SLOT(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_SLOT))
-#define GCK_IS_SLOT_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_SLOT))
-#define GCK_SLOT_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_SLOT, GckSlotClass))
+G_DECLARE_FINAL_TYPE (GckSlot, gck_slot, GCK, SLOT, GObject)
 
-typedef struct _GckSlotClass GckSlotClass;
-typedef struct _GckSlotPrivate GckSlotPrivate;
+gboolean            gck_slot_equal                          (GckSlot *slot1,
+                                                             GckSlot *slot2);
 
-struct _GckSlot {
-	GObject parent;
-
-	/*< private >*/
-	GckSlotPrivate *pv;
-	gpointer reserved[4];
-};
-
-struct _GckSlotClass {
-	GObjectClass parent;
-
-	/*< private >*/
-	gpointer reserved[9];
-};
-
-GType               gck_slot_get_type                       (void) G_GNUC_CONST;
-
-gboolean            gck_slot_equal                          (gconstpointer slot1,
-                                                             gconstpointer slot2);
-
-guint               gck_slot_hash                           (gconstpointer slot);
+guint               gck_slot_hash                           (GckSlot *slot);
 
 gboolean            gck_slot_match                          (GckSlot *self,
                                                              GckUriData *uri);
@@ -747,11 +674,13 @@ gboolean            gck_slot_has_flags                      (GckSlot *self,
 
 GckSession*         gck_slot_open_session                   (GckSlot *self,
                                                              GckSessionOptions options,
+                                                             GTlsInteraction *interaction,
                                                              GCancellable *cancellable,
                                                              GError **error);
 
 GckSession*         gck_slot_open_session_full              (GckSlot *self,
                                                              GckSessionOptions options,
+                                                             GTlsInteraction *interaction,
                                                              gulong pkcs11_flags,
                                                              gpointer app_data,
                                                              CK_NOTIFY notify,
@@ -760,12 +689,14 @@ GckSession*         gck_slot_open_session_full              (GckSlot *self,
 
 void                gck_slot_open_session_async             (GckSlot *self,
                                                              GckSessionOptions options,
+                                                             GTlsInteraction *interaction,
                                                              GCancellable *cancellable,
                                                              GAsyncReadyCallback callback,
                                                              gpointer user_data);
 
 void                gck_slot_open_session_full_async        (GckSlot *self,
                                                              GckSessionOptions options,
+                                                             GTlsInteraction *interaction,
                                                              gulong pkcs11_flags,
                                                              gpointer app_data,
                                                              CK_NOTIFY notify,
@@ -784,8 +715,6 @@ GckEnumerator *     gck_slot_enumerate_objects              (GckSlot *self,
 GckEnumerator*      gck_slots_enumerate_objects             (GList *slots,
                                                              GckAttributes *match,
                                                              GckSessionOptions options);
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckSlot, g_object_unref);
 
 /* ------------------------------------------------------------------------
  * SESSION
@@ -811,22 +740,7 @@ void                gck_session_info_free                  (GckSessionInfo *sess
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckSessionInfo, gck_session_info_free);
 
 #define GCK_TYPE_SESSION             (gck_session_get_type())
-#define GCK_SESSION(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_SESSION, GckSession))
-#define GCK_SESSION_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_SESSION, GckSession))
-#define GCK_IS_SESSION(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_SESSION))
-#define GCK_IS_SESSION_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_SESSION))
-#define GCK_SESSION_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_SESSION, GckSessionClass))
-
-typedef struct _GckSessionClass GckSessionClass;
-typedef struct _GckSessionPrivate GckSessionPrivate;
-
-struct _GckSession {
-	GObject parent;
-
-	/*< private >*/
-	GckSessionPrivate *pv;
-	gpointer reserved[4];
-};
+G_DECLARE_DERIVABLE_TYPE (GckSession, gck_session, GCK, SESSION, GObject)
 
 struct _GckSessionClass {
 	GObjectClass parent;
@@ -836,8 +750,6 @@ struct _GckSessionClass {
 	/*< private >*/
 	gpointer reserved[8];
 };
-
-GType               gck_session_get_type                    (void) G_GNUC_CONST;
 
 GckSession *        gck_session_from_handle                 (GckSlot *slot,
                                                              gulong session_handle,
@@ -1263,29 +1175,12 @@ GckObject*          gck_session_derive_key_finish            (GckSession *self,
                                                               GAsyncResult *result,
                                                               GError **error);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckSession, g_object_unref);
-
 /* ------------------------------------------------------------------------
  * OBJECT
  */
 
 #define GCK_TYPE_OBJECT             (gck_object_get_type())
-#define GCK_OBJECT(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GCK_TYPE_OBJECT, GckObject))
-#define GCK_OBJECT_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass), GCK_TYPE_OBJECT, GckObjectClass))
-#define GCK_IS_OBJECT(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), GCK_TYPE_OBJECT))
-#define GCK_IS_OBJECT_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass), GCK_TYPE_OBJECT))
-#define GCK_OBJECT_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), GCK_TYPE_OBJECT, GckObjectClass))
-
-typedef struct _GckObjectClass GckObjectClass;
-typedef struct _GckObjectPrivate GckObjectPrivate;
-
-struct _GckObject {
-	GObject parent;
-
-	/*< private >*/
-	GckObjectPrivate *pv;
-	gpointer reserved[4];
-};
+G_DECLARE_DERIVABLE_TYPE (GckObject, gck_object, GCK, OBJECT, GObject)
 
 struct _GckObjectClass {
 	GObjectClass parent;
@@ -1294,8 +1189,6 @@ struct _GckObjectClass {
 	gpointer reserved[8];
 };
 
-GType               gck_object_get_type                     (void) G_GNUC_CONST;
-
 GckObject *         gck_object_from_handle                  (GckSession *session,
                                                              gulong object_handle);
 
@@ -1303,10 +1196,10 @@ GList*              gck_objects_from_handle_array           (GckSession *session
                                                              gulong *object_handles,
                                                              gulong n_object_handles);
 
-gboolean            gck_object_equal                        (gconstpointer object1,
-                                                             gconstpointer object2);
+gboolean            gck_object_equal                        (GckObject *object1,
+                                                             GckObject *object2);
 
-guint               gck_object_hash                         (gconstpointer object);
+guint               gck_object_hash                         (GckObject *object);
 
 GckModule*          gck_object_get_module                   (GckObject *self);
 
@@ -1421,20 +1314,14 @@ GckAttributes*      gck_object_get_template_finish          (GckObject *self,
                                                              GAsyncResult *result,
                                                              GError **error);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckObject, g_object_unref);
-
 /* ------------------------------------------------------------------------
  * OBJECT ATTRIBUTES
  */
 
-#define GCK_TYPE_OBJECT_CACHE                    (gck_object_cache_get_type ())
-#define GCK_OBJECT_CACHE(obj)                    (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCK_TYPE_OBJECT_CACHE, GckObjectCache))
-#define GCK_IS_OBJECT_CACHE(obj)                 (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCK_TYPE_OBJECT_CACHE))
-#define GCK_OBJECT_CACHE_GET_INTERFACE(inst)     (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GCK_TYPE_OBJECT_CACHE, GckObjectCacheIface))
+#define GCK_TYPE_OBJECT_CACHE gck_object_cache_get_type ()
+G_DECLARE_INTERFACE (GckObjectCache, gck_object_cache, GCK, OBJECT_CACHE, GckObject)
 
-typedef struct _GckObjectCacheIface GckObjectCacheIface;
-
-struct _GckObjectCacheIface {
+struct _GckObjectCacheInterface {
 	GTypeInterface interface;
 
 	const gulong *  default_types;
@@ -1446,8 +1333,6 @@ struct _GckObjectCacheIface {
 	/*< private >*/
 	gpointer reserved[6];
 };
-
-GType               gck_object_cache_get_type              (void) G_GNUC_CONST;
 
 GckAttributes *     gck_object_cache_get_attributes        (GckObjectCache *object);
 
@@ -1491,47 +1376,18 @@ GckAttributes *     gck_object_cache_lookup_finish         (GckObject *object,
                                                             GAsyncResult *result,
                                                             GError **error);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckObjectCache, g_object_unref);
-
 /* ------------------------------------------------------------------------
  * PASSWORD
  */
 
 #define GCK_TYPE_PASSWORD             (gck_password_get_type ())
-#define GCK_PASSWORD(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCK_TYPE_PASSWORD, GckPassword))
-#define GCK_PASSWORD_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), GCK_TYPE_PASSWORD, GckPassword))
-#define GCK_IS_PASSWORD(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCK_TYPE_PASSWORD))
-#define GCK_IS_PASSWORD_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), GCK_TYPE_PASSWORD))
-#define GCK_PASSWORD_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GCK_TYPE_PASSWORD, GckPasswordClass))
-
-typedef struct _GckPassword GckPassword;
-typedef struct _GckPasswordClass GckPasswordClass;
-typedef struct _GckPasswordPrivate GckPasswordPrivate;
-
-struct _GckPassword {
-	GTlsPassword parent;
-
-	/*< private >*/
-	GckPasswordPrivate *pv;
-	gpointer reserved[4];
-};
-
-struct _GckPasswordClass {
-	GTlsPasswordClass parent;
-
-	/*< private >*/
-	gpointer reserved[4];
-};
-
-GType               gck_password_get_type                   (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (GckPassword, gck_password, GCK, PASSWORD, GTlsPassword)
 
 GckModule *         gck_password_get_module                 (GckPassword *self);
 
 GckSlot *           gck_password_get_token                  (GckPassword *self);
 
 GckObject *         gck_password_get_key                    (GckPassword *self);
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckPassword, g_object_unref);
 
 /* ----------------------------------------------------------------------------
  * URI
@@ -1570,16 +1426,16 @@ struct _GckUriData {
 	gpointer dummy[4];
 };
 
-#define             GCK_URI_ERROR                           (gck_uri_error_get_quark ())
+#define             GCK_URI_ERROR                           (gck_uri_error_quark ())
 
-GQuark              gck_uri_error_get_quark                 (void) G_GNUC_CONST;
+GQuark              gck_uri_error_quark                     (void) G_GNUC_CONST;
 
 GckUriData*         gck_uri_data_new                        (void);
 
-gchar*              gck_uri_build                           (GckUriData *uri_data,
+gchar*              gck_uri_data_build                      (GckUriData *uri_data,
                                                              GckUriFlags flags);
 
-GckUriData*         gck_uri_parse                           (const gchar *string,
+GckUriData*         gck_uri_data_parse                      (const gchar *string,
                                                              GckUriFlags flags,
                                                              GError **error);
 
@@ -1594,8 +1450,6 @@ void                gck_uri_data_free                       (GckUriData *uri_dat
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GckUriData, gck_uri_data_free);
 
 G_END_DECLS
-
-#include "gck-deprecated.h"
 
 #undef __GCK_INSIDE_HEADER__
 

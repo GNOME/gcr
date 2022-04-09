@@ -1,5 +1,5 @@
 project('gcr', 'c',
-  version: '3.41.0',
+  version: '3.90.0',
   meson_version: '>= 0.52',
   license: 'GPL2+',
 )
@@ -9,16 +9,16 @@ i18n = import('i18n')
 pkgconfig = import('pkgconfig')
 
 # Versioning
-gcr_api_version = '3'
+gcr_api_version = '4'
 gcr_version = meson.project_version()
-gcr_soversion = '1.0.0'
+gcr_soversion = '0.0.0'
 gcr_version_array = gcr_version.split('.')
 gcr_major_version = gcr_version_array[0].to_int()
 gcr_minor_version = gcr_version_array[1].to_int()
 gcr_micro_version = gcr_version_array[2].to_int()
 
-gck_api_version = '1'
-gck_version = '1.0.0'
+gck_api_version = '2'
+gck_version = '1.90.0'
 gck_soversion = '0.0.0'
 gck_version_array = gck_version.split('.')
 gck_major_version = gck_version_array[0].to_int()
@@ -37,7 +37,8 @@ podir = source_root / 'po'
 gck_basename = 'gck-@0@'.format(gck_api_version)
 gcr_base_basename = 'gcr-base-@0@'.format(gcr_api_version)
 gcr_basename = 'gcr-@0@'.format(gcr_api_version)
-gcr_ui_basename = 'gcr-ui-@0@'.format(gcr_api_version)
+gcr_gtk3_basename = 'gcr-@0@-gtk3'.format(gcr_api_version)
+gcr_gtk4_basename = 'gcr-@0@-gtk4'.format(gcr_api_version)
 
 # Dependencies
 min_glib_version = '2.44'
@@ -72,9 +73,13 @@ if libsystemd.found() and systemd.found()
   with_systemd = true
 endif
 
-if get_option('gtk')
-  gtk_min_version = '3.22'
-  gtk_dep = dependency('gtk+-3.0', version: '>=' + gtk_min_version)
+if get_option('gtk3')
+  gtk3_min_version = '3.22'
+  gtk3_dep = dependency('gtk+-3.0', version: '>=' + gtk3_min_version)
+endif
+
+if get_option('gtk4')
+  gtk4_dep = dependency('gtk4')
 endif
 
 # configuration
@@ -104,9 +109,13 @@ subdir('egg')
 subdir('gck')
 subdir('gcr')
 subdir('schema')
-if get_option('gtk')
-  subdir('ui')
+if get_option('gtk3')
+  subdir('gcr-gtk3')
 endif
+if get_option('gtk4')
+  subdir('gcr-gtk4')
+endif
+subdir('tools')
 if get_option('gtk_doc')
   if not get_option('introspection')
     error('Can\'t generate docs without introspection enabled!')
@@ -118,7 +127,4 @@ endif
 # Post-install scripts
 meson.add_install_script('meson_post_install.py',
   get_option('datadir'),
-  get_option('libdir'),
-  gcr_major_version.to_string(),
-  gcr_soversion,
 )

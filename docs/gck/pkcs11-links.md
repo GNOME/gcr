@@ -17,8 +17,8 @@ A PKCS#11 URI can always resolve to more than one object, token or module. A
 PKCS#11 URI that refers to a token, would (when used in a context that expects
 objects) refer to all the token on that module.
 
-To parse a PKCS#11 URI, use the [func@uri_parse] function passing in the type of
-context in which you're using the URI. To build a URI, use the [func@uri_build]
+To parse a PKCS#11 URI, use the [func@Gck.UriData.parse] function passing in the type of
+context in which you're using the URI. To build a URI, use the [method@Gck.UriData.build]
 function.
 
 In most cases, the parsing or building of URIs is already handled for you in the

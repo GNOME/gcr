@@ -27,6 +27,7 @@
 #include "gck/gck-test.h"
 
 #include "egg/egg-testing.h"
+#include "egg/mock-interaction.h"
 
 #include <glib.h>
 
@@ -54,6 +55,7 @@ setup (Test *test, gconstpointer unused)
 	GError *err = NULL;
 	GList *slots;
 	GckSlot *slot;
+	GTlsInteraction *interaction;
 
 	/* Successful load */
 	test->module = gck_module_initialize (_GCK_TEST_MODULE_PATH, NULL, &err);
@@ -64,7 +66,7 @@ setup (Test *test, gconstpointer unused)
 	slots = gck_module_get_slots (test->module, TRUE);
 	g_assert_nonnull (slots);
 
-	test->session = gck_slot_open_session (slots->data, 0, NULL, &err);
+	test->session = gck_slot_open_session (slots->data, 0, NULL, NULL, &err);
 	g_assert_no_error (err);
 	g_assert_true (GCK_IS_SESSION (test->session));
 	g_object_add_weak_pointer (G_OBJECT (test->session), (gpointer *)&test->session);
@@ -74,6 +76,10 @@ setup (Test *test, gconstpointer unused)
 
 	test->session_with_auth = gck_session_from_handle (slot, gck_session_get_handle (test->session), GCK_SESSION_AUTHENTICATE);
 	g_signal_connect (test->session_with_auth, "discard-handle", G_CALLBACK (on_discard_handle_ignore), NULL);
+	interaction = mock_interaction_new ("booo");
+	gck_session_set_interaction (test->session_with_auth, interaction);
+	g_object_unref (interaction);
+
 	g_assert_nonnull (test->session_with_auth);
 	g_object_add_weak_pointer (G_OBJECT (test->session_with_auth), (gpointer *)&test->session_with_auth);
 
@@ -109,12 +115,15 @@ find_key (GckSession *session, CK_ATTRIBUTE_TYPE method, CK_MECHANISM_TYPE mech)
 	GckBuilder builder = GCK_BUILDER_INIT;
 	GList *objects, *l;
 	GckObject *object = NULL;
+	GckAttributes *attributes;
 	CK_MECHANISM_TYPE_PTR mechs;
 	gboolean match;
 	gsize n_mechs;
 
 	gck_builder_add_boolean (&builder, method, TRUE);
-	objects = gck_session_find_objects (session, gck_builder_end (&builder), NULL, NULL);
+	attributes = gck_builder_end (&builder);
+	objects = gck_session_find_objects (session, attributes, NULL, NULL);
+	gck_attributes_unref (attributes);
 	g_assert_nonnull (objects);
 
 	for (l = objects; l; l = g_list_next (l)) {
@@ -144,11 +153,14 @@ static GckObject*
 find_key_with_value (GckSession *session, const gchar *value)
 {
 	GckBuilder builder = GCK_BUILDER_INIT;
+	GckAttributes *attributes;
 	GList *objects;
 	GckObject *object;
 
 	gck_builder_add_string (&builder, CKA_VALUE, value);
-	objects = gck_session_find_objects (session, gck_builder_end (&builder), NULL, NULL);
+	attributes = gck_builder_end (&builder);
+	objects = gck_session_find_objects (session, attributes, NULL, NULL);
+	gck_attributes_unref (attributes);
 	g_assert_nonnull (objects);
 
 	object = g_object_ref (objects->data);
@@ -176,18 +188,6 @@ check_key_with_value (GckSession *session, GckObject *key, CK_OBJECT_CLASS klass
 	g_assert_cmpmem (attr->value, attr->length, value, strlen (value));
 
 	gck_attributes_unref (attrs);
-}
-
-static gboolean
-authenticate_object (GckSlot *module, GckObject *object, gchar *label, gchar **password)
-{
-	g_assert_true (GCK_IS_MODULE (module));
-	g_assert_true (GCK_IS_OBJECT (object));
-	g_assert_nonnull (password);
-	g_assert_null (*password);
-
-	*password = g_strdup ("booo");
-	return TRUE;
 }
 
 static void
@@ -306,9 +306,6 @@ test_sign (Test *test, gconstpointer unused)
 	guchar *output;
 	gsize n_output;
 
-	/* Enable auto-login on this test->session, see previous test */
-	g_signal_connect (test->module, "authenticate-object", G_CALLBACK (authenticate_object), NULL);
-
 	/* Find the right key */
 	key = find_key (test->session_with_auth, CKA_SIGN, CKM_MOCK_PREFIX);
 	g_assert_nonnull (key);
@@ -345,11 +342,14 @@ test_verify (Test *test, gconstpointer unused)
 	GckMechanism mech = { CKM_MOCK_PREFIX, (guchar *)"my-prefix:", 10 };
 	GError *error = NULL;
 	GAsyncResult *result = NULL;
+	GTlsInteraction *interaction;
 	GckObject *key;
 	gboolean ret;
 
 	/* Enable auto-login on this session, shouldn't be needed */
-	g_signal_connect (test->module, "authenticate-object", G_CALLBACK (authenticate_object), NULL);
+	interaction = mock_interaction_new ("booo");
+	gck_session_set_interaction (test->session, interaction);
+	g_object_unref (interaction);
 
 	/* Find the right key */
 	key = find_key (test->session, CKA_VERIFY, CKM_MOCK_PREFIX);
@@ -408,9 +408,9 @@ test_generate_key_pair (Test *test, gconstpointer unused)
 	gboolean ret;
 
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PUBLIC_KEY);
-	pub_attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	pub_attrs = gck_builder_end (&builder);
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_PRIVATE_KEY);
-	prv_attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	prv_attrs = gck_builder_end (&builder);
 
 	/* Full One*/
 	ret = gck_session_generate_key_pair_full (test->session, &mech, pub_attrs, prv_attrs,
@@ -540,7 +540,7 @@ test_unwrap_key (Test *test, gconstpointer unused)
 
 	wrapper = find_key (test->session, CKA_UNWRAP, 0);
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_SECRET_KEY);
-	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attrs = gck_builder_end (&builder);
 
 	/* Full One*/
 	unwrapped = gck_session_unwrap_key_full (test->session, wrapper, &mech, (const guchar *)"special", 7, attrs, NULL, &error);
@@ -596,7 +596,7 @@ test_derive_key (Test *test, gconstpointer unused)
 
 	wrapper = find_key (test->session, CKA_DERIVE, 0);
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_SECRET_KEY);
-	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attrs = gck_builder_end (&builder);
 
 	/* Full One*/
 	derived = gck_session_derive_key_full (test->session, wrapper, &mech, attrs, NULL, &error);

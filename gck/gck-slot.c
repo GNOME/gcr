@@ -46,12 +46,14 @@ enum {
 	PROP_HANDLE
 };
 
-struct _GckSlotPrivate {
+struct _GckSlot {
+	GObject parent_instance;
+
 	GckModule *module;
 	CK_SLOT_ID handle;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (GckSlot, gck_slot, G_TYPE_OBJECT);
+G_DEFINE_TYPE (GckSlot, gck_slot, G_TYPE_OBJECT);
 
 /* ----------------------------------------------------------------------------
  * OBJECT
@@ -60,7 +62,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (GckSlot, gck_slot, G_TYPE_OBJECT);
 static void
 gck_slot_init (GckSlot *self)
 {
-	self->pv = gck_slot_get_instance_private (self);
 }
 
 static void
@@ -92,14 +93,13 @@ gck_slot_set_property (GObject *obj, guint prop_id, const GValue *value,
 
 	switch (prop_id) {
 	case PROP_MODULE:
-		g_assert (!self->pv->module);
-		self->pv->module = g_value_get_object (value);
-		g_assert (self->pv->module);
-		g_object_ref (self->pv->module);
+		g_assert (!self->module);
+		self->module = g_value_dup_object (value);
+		g_assert (self->module);
 		break;
 	case PROP_HANDLE:
-		g_assert (!self->pv->handle);
-		self->pv->handle = g_value_get_ulong (value);
+		g_assert (!self->handle);
+		self->handle = g_value_get_ulong (value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -112,7 +112,7 @@ gck_slot_finalize (GObject *obj)
 {
 	GckSlot *self = GCK_SLOT (obj);
 
-	g_clear_object (&self->pv->module);
+	g_clear_object (&self->module);
 
 	G_OBJECT_CLASS (gck_slot_parent_class)->finalize (obj);
 }
@@ -207,9 +207,9 @@ gck_slot_info_free (GckSlotInfo *slot_info)
 {
 	if (!slot_info)
 		return;
-	g_free (slot_info->slot_description);
-	g_free (slot_info->manufacturer_id);
-	g_free (slot_info);
+	g_clear_pointer (&slot_info->slot_description, g_free);
+	g_clear_pointer (&slot_info->manufacturer_id, g_free);
+	g_clear_pointer (&slot_info, g_free);
 }
 
 /**
@@ -422,20 +422,15 @@ gck_mechanisms_check (GArray *mechanisms, ...)
  *               %FALSE if either is not a GckSlot.
  **/
 gboolean
-gck_slot_equal (gconstpointer slot1, gconstpointer slot2)
+gck_slot_equal (GckSlot *slot1, GckSlot *slot2)
 {
-	GckSlot *s1, *s2;
-
 	if (slot1 == slot2)
 		return TRUE;
 	if (!GCK_IS_SLOT (slot1) || !GCK_IS_SLOT (slot2))
 		return FALSE;
 
-	s1 = GCK_SLOT (slot1);
-	s2 = GCK_SLOT (slot2);
-
-	return s1->pv->handle == s2->pv->handle &&
-	       gck_module_equal (s1->pv->module, s2->pv->module);
+	return slot1->handle == slot2->handle &&
+	       gck_module_equal (slot1->module, slot2->module);
 }
 
 /**
@@ -450,16 +445,12 @@ gck_slot_equal (gconstpointer slot1, gconstpointer slot2)
  * Return value: An integer that can be used as a hash value, or 0 if invalid.
  **/
 guint
-gck_slot_hash (gconstpointer slot)
+gck_slot_hash (GckSlot *slot)
 {
-	GckSlot *self;
-
 	g_return_val_if_fail (GCK_IS_SLOT (slot), 0);
 
-	self = GCK_SLOT (slot);
-
-	return _gck_ulong_hash (&self->pv->handle) ^
-	       gck_module_hash (self->pv->module);
+	return _gck_ulong_hash (&slot->handle) ^
+	       gck_module_hash (slot->module);
 }
 
 /**
@@ -493,7 +484,7 @@ gulong
 gck_slot_get_handle (GckSlot *self)
 {
 	g_return_val_if_fail (GCK_IS_SLOT (self), (CK_SLOT_ID)-1);
-	return self->pv->handle;
+	return self->handle;
 }
 
 /**
@@ -509,8 +500,8 @@ GckModule *
 gck_slot_get_module (GckSlot *self)
 {
 	g_return_val_if_fail (GCK_IS_SLOT (self), NULL);
-	g_return_val_if_fail (GCK_IS_MODULE (self->pv->module), NULL);
-	return g_object_ref (self->pv->module);
+	g_return_val_if_fail (GCK_IS_MODULE (self->module), NULL);
+	return g_object_ref (self->module);
 }
 
 /**
@@ -925,8 +916,6 @@ gck_slot_enumerate_objects (GckSlot *self,
  *
  * Setup an enumerator for listing matching objects on the slots.
  *
- * If the @match #GckAttributes is floating, it is consumed.
- *
  * This call will not block but will return an enumerator immediately.
  *
  * Returns: (transfer full): a new enumerator
@@ -941,7 +930,7 @@ gck_slots_enumerate_objects (GList *slots,
 	g_return_val_if_fail (match != NULL, NULL);
 
 	uri_data = gck_uri_data_new ();
-	uri_data->attributes = gck_attributes_ref_sink (match);
+	uri_data->attributes = gck_attributes_ref (match);
 
 	return _gck_enumerator_new_for_slots (slots, options, uri_data);
 }
@@ -951,6 +940,7 @@ gck_slots_enumerate_objects (GList *slots,
  * gck_slot_open_session:
  * @self: The slot ot open a session on.
  * @options: The #GckSessionOptions to open a session with.
+ * @interaction: (nullable): The #GTlsInteraction to use, or %NULL.
  * @cancellable: An optional cancellation object, or %NULL.
  * @error: A location to return an error, or %NULL.
  *
@@ -964,16 +954,18 @@ gck_slots_enumerate_objects (GList *slots,
 GckSession *
 gck_slot_open_session (GckSlot *self,
                        GckSessionOptions options,
+                       GTlsInteraction *interaction,
                        GCancellable *cancellable,
                        GError **error)
 {
-	return gck_slot_open_session_full (self, options, 0, NULL, NULL, cancellable, error);
+	return gck_slot_open_session_full (self, options, interaction, 0, NULL, NULL, cancellable, error);
 }
 
 /**
  * gck_slot_open_session_full: (skip)
  * @self: The slot to open a session on.
  * @options: The options to open the new session with.
+ * @interaction: (nullable): The #GTlsInteraction to use, or %NULL.
  * @pkcs11_flags: Additional raw PKCS#11 flags.
  * @app_data: Application data for notification callback.
  * @notify: PKCS#11 notification callback.
@@ -990,6 +982,7 @@ gck_slot_open_session (GckSlot *self,
 GckSession *
 gck_slot_open_session_full (GckSlot *self,
                             GckSessionOptions options,
+                            GTlsInteraction *interaction,
                             gulong pkcs11_flags,
                             gpointer app_data,
                             CK_NOTIFY notify,
@@ -998,6 +991,7 @@ gck_slot_open_session_full (GckSlot *self,
 {
 	return g_initable_new (GCK_TYPE_SESSION, cancellable, error,
 	                       "options", options,
+	                       "interaction", interaction,
 	                       "slot", self,
 	                       "opening-flags", pkcs11_flags,
 	                       "app-data", app_data,
@@ -1008,6 +1002,7 @@ gck_slot_open_session_full (GckSlot *self,
  * gck_slot_open_session_async:
  * @self: The slot to open a session on.
  * @options: The options to open the new session with.
+ * @interaction: (nullable): The #GTlsInteraction to use, or %NULL.
  * @cancellable: Optional cancellation object, or %NULL.
  * @callback: Called when the operation completes.
  * @user_data: Data to pass to the callback.
@@ -1020,11 +1015,12 @@ gck_slot_open_session_full (GckSlot *self,
 void
 gck_slot_open_session_async (GckSlot *self,
                              GckSessionOptions options,
+                             GTlsInteraction *interaction,
                              GCancellable *cancellable,
                              GAsyncReadyCallback callback,
                              gpointer user_data)
 {
-	gck_slot_open_session_full_async (self, options, 0UL, NULL, NULL, cancellable, callback, user_data);
+	gck_slot_open_session_full_async (self, options, interaction, 0UL, NULL, NULL, cancellable, callback, user_data);
 }
 
 static void
@@ -1049,6 +1045,7 @@ on_open_session_complete (GObject *source,
  * gck_slot_open_session_full_async: (skip)
  * @self: The slot to open a session on.
  * @options: Options to open the new session with.
+ * @interaction: (nullable): The #GTlsInteraction to use, or %NULL.
  * @pkcs11_flags: Additional raw PKCS#11 flags.
  * @app_data: Application data for notification callback.
  * @notify: PKCS#11 notification callback.
@@ -1064,6 +1061,7 @@ on_open_session_complete (GObject *source,
 void
 gck_slot_open_session_full_async (GckSlot *self,
                                   GckSessionOptions options,
+                                  GTlsInteraction *interaction,
                                   gulong pkcs11_flags,
                                   gpointer app_data,
                                   CK_NOTIFY notify,
@@ -1083,6 +1081,7 @@ gck_slot_open_session_full_async (GckSlot *self,
 	                            cancellable, on_open_session_complete,
 	                            g_steal_pointer (&task),
 	                            "options", options,
+	                            "interaction", interaction,
 	                            "slot", self,
 	                            "opening-flags", pkcs11_flags,
 	                            "app-data", app_data,

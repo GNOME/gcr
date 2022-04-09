@@ -17,12 +17,12 @@
  * License along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
-#error "Only <gcr/gcr.h> or <gcr/gcr-base.h> can be included directly."
-#endif
-
 #ifndef __GCR_CERTIFICATE_H__
 #define __GCR_CERTIFICATE_H__
+
+#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
+#error "Only <gcr/gcr.h> can be included directly."
+#endif
 
 #include "gcr-types.h"
 #include "gcr-column.h"
@@ -137,7 +137,7 @@ gboolean            gcr_certificate_get_basic_constraints  (GcrCertificate *self
 
 void                gcr_certificate_mixin_emit_notify      (GcrCertificate *self);
 
-void                gcr_certificate_mixin_comparable_init  (GcrComparableIface *iface);
+void                gcr_certificate_mixin_comparable_init  (GcrComparableInterface *iface);
 
 void                gcr_certificate_mixin_class_init       (GObjectClass *object_class);
 

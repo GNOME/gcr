@@ -20,24 +20,21 @@
 #ifndef __GCR_COMPARABLE_H__
 #define __GCR_COMPARABLE_H__
 
+#if !defined (__GCR_INSIDE_HEADER__) && !defined (GCR_COMPILATION)
+#error "Only <gcr/gcr.h> can be included directly."
+#endif
+
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GCR_TYPE_COMPARABLE                 (gcr_comparable_get_type())
-#define GCR_COMPARABLE(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_COMPARABLE, GcrComparable))
-#define GCR_IS_COMPARABLE(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_COMPARABLE))
-#define GCR_COMPARABLE_GET_INTERFACE(inst)  (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GCR_TYPE_COMPARABLE, GcrComparableIface))
+#define GCR_TYPE_COMPARABLE gcr_comparable_get_type ()
+G_DECLARE_INTERFACE (GcrComparable, gcr_comparable, GCR, COMPARABLE, GObject)
 
-typedef struct _GcrComparable      GcrComparable;
-typedef struct _GcrComparableIface GcrComparableIface;
-
-struct _GcrComparableIface {
+struct _GcrComparableInterface {
 	GTypeInterface parent;
 	gint (*compare) (GcrComparable *self, GcrComparable *other);
 };
-
-GType               gcr_comparable_get_type               (void);
 
 gint                gcr_comparable_compare                (GcrComparable *self,
                                                            GcrComparable *other);

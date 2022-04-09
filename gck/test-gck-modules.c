@@ -67,10 +67,13 @@ test_enumerate_objects (Test *test, gconstpointer unused)
 	GckBuilder builder = GCK_BUILDER_INIT;
 	GError *error = NULL;
 	GckEnumerator *en;
+	GckAttributes *attributes;
 	GList *objects;
 
 	gck_builder_add_string (&builder, CKA_LABEL, "Private Capitalize Key");
-	en = gck_modules_enumerate_objects (test->modules, gck_builder_end (&builder), 0);
+	attributes = gck_builder_end (&builder);
+	en = gck_modules_enumerate_objects (test->modules, attributes, 0);
+	gck_attributes_unref (attributes);
 	g_assert_true (GCK_IS_ENUMERATOR (en));
 
 	objects = gck_enumerator_next_n (en, -1, NULL, &error);
@@ -114,7 +117,7 @@ test_token_for_uri_error (Test *test, gconstpointer unused)
 
 	slot = gck_modules_token_for_uri (test->modules, "http://invalid.uri", &error);
 	g_assert_null (slot);
-	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_PREFIX);
+	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_SCHEME);
 	g_error_free (error);
 }
 
@@ -148,7 +151,7 @@ test_object_for_uri_error (Test *test, gconstpointer unused)
 
 	object = gck_modules_object_for_uri (test->modules, "http://invalid.uri", 0, &error);
 	g_assert_null (object);
-	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_PREFIX);
+	g_assert_error (error, GCK_URI_ERROR, GCK_URI_BAD_SCHEME);
 	g_error_free (error);
 }
 

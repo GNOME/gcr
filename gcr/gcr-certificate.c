@@ -1081,7 +1081,7 @@ gcr_certificate_mixin_emit_notify (GcrCertificate *self)
  * macro instead of this function.
  */
 void
-gcr_certificate_mixin_comparable_init (GcrComparableIface *iface)
+gcr_certificate_mixin_comparable_init (GcrComparableInterface *iface)
 {
 	iface->compare = gcr_certificate_compare;
 }

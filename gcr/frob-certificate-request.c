@@ -23,7 +23,7 @@
 
 #include "console-interaction.h"
 
-#include "gcr/gcr-base.h"
+#include "gcr/gcr.h"
 
 #include "egg/egg-armor.h"
 

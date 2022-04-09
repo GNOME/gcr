@@ -61,7 +61,7 @@ setup (Test *test, gconstpointer unused)
 	gck_list_unref_free (slots);
 	g_object_add_weak_pointer (G_OBJECT (test->slot), (gpointer *)&test->slot);
 
-	test->session = gck_slot_open_session (test->slot, 0, NULL, &err);
+	test->session = gck_slot_open_session (test->slot, 0, NULL, NULL, &err);
 	g_assert_no_error (err);
 	g_assert_true (GCK_IS_SESSION (test->session));
 	g_object_add_weak_pointer (G_OBJECT (test->session), (gpointer *)&test->session);
@@ -127,14 +127,14 @@ test_open_close_session (Test *test, gconstpointer unused)
 	GAsyncResult *result = NULL;
 	GError *err = NULL;
 
-	sess = gck_slot_open_session (test->slot, 0, NULL, &err);
+	sess = gck_slot_open_session (test->slot, 0, NULL, NULL, &err);
 	g_assert_no_error (err);
 	g_assert_true (GCK_IS_SESSION (sess));
 
 	g_object_unref (sess);
 
 	/* Test opening async */
-	gck_slot_open_session_async (test->slot, 0, NULL, fetch_async_result, &result);
+	gck_slot_open_session_async (test->slot, 0, NULL, NULL, fetch_async_result, &result);
 
 	egg_test_wait_until (500);
 	g_assert_nonnull (result);
@@ -418,19 +418,6 @@ test_login_interactive (Test *test,
 	g_object_unref (interaction);
 }
 
-static gboolean
-authenticate_token (GckModule *module, GckSlot *slot, gchar *label, gchar **password, gpointer unused)
-{
-	g_assert_true (unused == GUINT_TO_POINTER (35));
-	g_assert_nonnull (password);
-	g_assert_null (*password);
-	g_assert_true (GCK_IS_MODULE (module));
-	g_assert_true (GCK_IS_SLOT (slot));
-
-	*password = g_strdup ("booo");
-	return TRUE;
-}
-
 static void
 test_auto_login (Test *test, gconstpointer unused)
 {
@@ -440,12 +427,13 @@ test_auto_login (Test *test, gconstpointer unused)
 	GAsyncResult *result = NULL;
 	GError *err = NULL;
 	GckAttributes *attrs;
+	GTlsInteraction *test_interaction;
 	gboolean ret;
 
 	gck_builder_add_ulong (&builder, CKA_CLASS, CKO_DATA);
 	gck_builder_add_string (&builder, CKA_LABEL, "TEST OBJECT");
 	gck_builder_add_boolean (&builder, CKA_PRIVATE, CK_TRUE);
-	attrs = gck_attributes_ref_sink (gck_builder_end (&builder));
+	attrs = gck_builder_end (&builder);
 
 	/* Try to do something that requires a login */
 	object = gck_session_create_object (test->session, attrs, NULL, &err);
@@ -454,8 +442,9 @@ test_auto_login (Test *test, gconstpointer unused)
 	g_clear_error (&err);
 
 	/* Setup for auto login */
-	g_signal_connect (test->module, "authenticate-slot", G_CALLBACK (authenticate_token), GUINT_TO_POINTER (35));
-	new_session = gck_slot_open_session (test->slot, GCK_SESSION_READ_WRITE | GCK_SESSION_LOGIN_USER, NULL, &err);
+	test_interaction = mock_interaction_new ("booo");
+	new_session = gck_slot_open_session (test->slot, GCK_SESSION_READ_WRITE | GCK_SESSION_LOGIN_USER, test_interaction, NULL, &err);
+	g_object_unref (test_interaction);
 	g_assert_no_error (err);
 	g_assert_true (GCK_IS_SESSION (new_session));
 
@@ -473,10 +462,12 @@ test_auto_login (Test *test, gconstpointer unused)
 	g_object_unref (new_session);
 
 	/* Now try the same thing, but asyncronously */
-	gck_slot_open_session_async (test->slot, GCK_SESSION_READ_WRITE | GCK_SESSION_LOGIN_USER, NULL, fetch_async_result, &result);
+	test_interaction = mock_interaction_new ("booo");
+	gck_slot_open_session_async (test->slot, GCK_SESSION_READ_WRITE | GCK_SESSION_LOGIN_USER, test_interaction, NULL, fetch_async_result, &result);
 	egg_test_wait_until (500);
 	g_assert_nonnull (result);
 	new_session = gck_slot_open_session_finish (test->slot, result, &err);
+	g_object_unref (test_interaction);
 	g_assert_no_error (err);
 	g_assert_true (GCK_IS_SESSION (new_session));
 	g_object_unref (result);

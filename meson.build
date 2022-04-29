@@ -82,6 +82,12 @@ if get_option('gtk4')
   gtk4_dep = dependency('gtk4')
 endif
 
+enable_gir = get_option('introspection')
+enable_vapi = get_option('vapi')
+if enable_vapi
+  assert(enable_gir, 'vapi support was requested, but introspection support is mandatory.')
+endif
+
 # configuration
 conf = configuration_data()
 conf.set_quoted('VERSION', meson.project_version())

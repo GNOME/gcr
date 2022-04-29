@@ -3,6 +3,11 @@ option('introspection',
   value: true,
   description: 'Build GObject Introspection (GIR) files',
 )
+option('vapi',
+  type: 'boolean',
+  value: true,
+  description: 'Generate vapi data (requires vapigen and introspection option)',
+)
 option('gtk3',
   type: 'boolean',
   value: true,

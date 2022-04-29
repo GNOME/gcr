@@ -189,18 +189,20 @@ if get_option('introspection')
     install: true,
   )
 
-  gcr_vapi = gnome.generate_vapi(gcr_basename,
-    sources: gcr_gir[0],
-    packages: [ 'glib-2.0', 'gio-2.0', gck_vapi ],
-    metadata_dirs: meson.current_source_dir(),
-    vapi_dirs: [
-      build_root / 'gck',
-    ],
-    gir_dirs: [
-      build_root / 'gck',
-    ],
-    install: true,
-  )
+  if enable_vapi
+    gcr_vapi = gnome.generate_vapi(gcr_basename,
+      sources: gcr_gir[0],
+      packages: [ 'glib-2.0', 'gio-2.0', gck_vapi ],
+      metadata_dirs: meson.current_source_dir(),
+      vapi_dirs: [
+        build_root / 'gck',
+      ],
+      gir_dirs: [
+        build_root / 'gck',
+      ],
+      install: true,
+    )
+  endif
 endif
 
 # pkg-config file

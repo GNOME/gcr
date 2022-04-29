@@ -141,16 +141,18 @@ if get_option('introspection')
     install: true,
   )
 
-  gck_vapi = gnome.generate_vapi(gck_basename,
-    sources: gck_gir[0],
-    metadata_dirs: meson.current_source_dir(),
-    packages: [ 'glib-2.0', 'gio-2.0' ],
-    install: true,
-  )
+  if enable_vapi
+    gck_vapi = gnome.generate_vapi(gck_basename,
+      sources: gck_gir[0],
+      metadata_dirs: meson.current_source_dir(),
+      packages: [ 'glib-2.0', 'gio-2.0' ],
+      install: true,
+    )
 
-  install_data('pkcs11.vapi',
-    install_dir: get_option('datadir') / 'vala' / 'vapi',
-  )
+    install_data('pkcs11.vapi',
+      install_dir: get_option('datadir') / 'vala' / 'vapi',
+    )
+  endif
 endif
 
 # pkg-config file

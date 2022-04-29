@@ -111,25 +111,27 @@ if get_option('introspection')
     install: true,
   )
 
-  gcr_gtk3_vapi = gnome.generate_vapi(gcr_gtk3_basename,
-    sources: gcr_gtk3_gir[0],
-    packages: [
-      'glib-2.0',
-      'gio-2.0',
-      gck_vapi,
-      gcr_vapi,
-      'gtk+-3.0'
-    ],
-    vapi_dirs: [
-      build_root / 'gck',
-      build_root / 'gcr',
-    ],
-    gir_dirs: [
-      build_root / 'gck',
-      build_root / 'gcr',
-    ],
-    install: true,
-  )
+  if enable_vapi
+    gcr_gtk3_vapi = gnome.generate_vapi(gcr_gtk3_basename,
+      sources: gcr_gtk3_gir[0],
+      packages: [
+        'glib-2.0',
+        'gio-2.0',
+        gck_vapi,
+        gcr_vapi,
+        'gtk+-3.0'
+      ],
+      vapi_dirs: [
+        build_root / 'gck',
+        build_root / 'gcr',
+      ],
+      gir_dirs: [
+        build_root / 'gck',
+        build_root / 'gcr',
+      ],
+      install: true,
+    )
+  endif
 endif
 
 # Register new mime types

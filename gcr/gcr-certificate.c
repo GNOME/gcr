@@ -421,7 +421,7 @@ gcr_certificate_get_der_data (GcrCertificate *self,
  * This will try to lookup the common name, orianizational unit,
  * organization in that order.
  *
- * Returns: the allocated issuer name, or %NULL if no issuer name
+ * Returns: (nullable): the allocated issuer name, or %NULL if no issuer name
  */
 gchar *
 gcr_certificate_get_issuer_name (GcrCertificate *self)
@@ -446,7 +446,7 @@ gcr_certificate_get_issuer_name (GcrCertificate *self)
  * The string returned should be freed by the caller when no longer
  * required.
  *
- * Returns: The allocated issuer CN, or %NULL if no issuer CN present.
+ * Returns: (nullable): The allocated issuer CN, or %NULL if no issuer CN present.
  */
 gchar*
 gcr_certificate_get_issuer_cn (GcrCertificate *self)
@@ -503,14 +503,14 @@ _gcr_certificate_get_issuer_const (GcrCertificate *self)
 /**
  * gcr_certificate_get_issuer_raw:
  * @self: a #GcrCertificate
- * @n_data: The length of the returned data.
+ * @n_data: (out): The length of the returned data.
  *
  * Get the raw DER data for the issuer DN of the certificate.
  *
  * The data should be freed by using g_free() when no longer required.
  *
- * Returns: (transfer full) (array length=n_data): allocated memory containing
- *          the raw issuer
+ * Returns: (transfer full) (array length=n_data) (nullable): allocated memory
+ *          containing the raw issuer
  */
 guchar *
 gcr_certificate_get_issuer_raw (GcrCertificate *self,
@@ -523,8 +523,10 @@ gcr_certificate_get_issuer_raw (GcrCertificate *self,
 	g_return_val_if_fail (n_data != NULL, NULL);
 
 	bytes = _gcr_certificate_get_issuer_const (self);
-	if (bytes == NULL)
+	if (bytes == NULL) {
+		*n_data = 0;
 		return NULL;
+	}
 
 	*n_data = g_bytes_get_size (bytes);
 	result = g_memdup (g_bytes_get_data (bytes, NULL), *n_data);
@@ -581,7 +583,7 @@ gcr_certificate_is_issuer (GcrCertificate *self, GcrCertificate *issuer)
  * The string returned should be freed by the caller when no longer
  * required.
  *
- * Returns: The allocated issuer DN of the certificate.
+ * Returns: (nullable): The allocated issuer DN of the certificate.
  */
 gchar*
 gcr_certificate_get_issuer_dn (GcrCertificate *self)
@@ -606,7 +608,7 @@ gcr_certificate_get_issuer_dn (GcrCertificate *self)
  * The string returned should be freed by the caller when no longer
  * required.
  *
- * Returns: The allocated subject CN, or %NULL if no subject CN present.
+ * Returns: (nullable): The allocated subject CN, or %NULL if no subject CN present.
  */
 gchar*
 gcr_certificate_get_subject_cn (GcrCertificate *self)
@@ -623,7 +625,7 @@ gcr_certificate_get_subject_cn (GcrCertificate *self)
  * This will try to lookup the common name, orianizational unit,
  * organization in that order.
  *
- * Returns: the allocated subject name, or %NULL if no subject name
+ * Returns: (nullable): the allocated subject name, or %NULL if no subject name
  */
 gchar *
 gcr_certificate_get_subject_name (GcrCertificate *self)
@@ -681,7 +683,7 @@ gcr_certificate_get_subject_part (GcrCertificate *self, const char *part)
  * The string returned should be freed by the caller when no longer
  * required.
  *
- * Returns: The allocated subject DN of the certificate.
+ * Returns: (nullable): The allocated subject DN of the certificate.
  */
 gchar*
 gcr_certificate_get_subject_dn (GcrCertificate *self)
@@ -714,14 +716,14 @@ _gcr_certificate_get_subject_const (GcrCertificate *self)
 /**
  * gcr_certificate_get_subject_raw:
  * @self: a #GcrCertificate
- * @n_data: The length of the returned data.
+ * @n_data: (out): The length of the returned data.
  *
  * Get the raw DER data for the subject DN of the certificate.
  *
  * The data should be freed by using g_free() when no longer required.
  *
- * Returns: (transfer full) (array length=n_data): allocated memory containing
- *          the raw subject
+ * Returns: (transfer full) (array length=n_data) (nullable): allocated memory
+ *          containing the raw subject
  */
 guchar *
 gcr_certificate_get_subject_raw (GcrCertificate *self, gsize *n_data)
@@ -733,8 +735,10 @@ gcr_certificate_get_subject_raw (GcrCertificate *self, gsize *n_data)
 	g_return_val_if_fail (n_data != NULL, NULL);
 
 	bytes = _gcr_certificate_get_subject_const (self);
-	if (bytes == NULL)
+	if (bytes == NULL) {
+		*n_data = 0;
 		return NULL;
+	}
 
 	*n_data = g_bytes_get_size (bytes);
 	result = g_memdup (g_bytes_get_data (bytes, NULL), *n_data);
@@ -753,7 +757,7 @@ gcr_certificate_get_subject_raw (GcrCertificate *self, gsize *n_data)
  * The #GDate returned should be freed by the caller using
  * g_date_free() when no longer required.
  *
- * Returns: An allocated issued date of this certificate.
+ * Returns: (nullable): An allocated issued date of this certificate.
  */
 GDate*
 gcr_certificate_get_issued_date (GcrCertificate *self)
@@ -785,7 +789,7 @@ gcr_certificate_get_issued_date (GcrCertificate *self)
  * The #GDate returned should be freed by the caller using
  * g_date_free() when no longer required.
  *
- * Returns: An allocated expiry date of this certificate.
+ * Returns: (nullable): An allocated expiry date of this certificate.
  */
 GDate*
 gcr_certificate_get_expiry_date (GcrCertificate *self)
@@ -842,14 +846,14 @@ gcr_certificate_get_key_size (GcrCertificate *self)
  * gcr_certificate_get_fingerprint:
  * @self: a #GcrCertificate
  * @type: the type of algorithm for the fingerprint.
- * @n_length: The length of the resulting fingerprint.
+ * @n_length: (out): The length of the resulting fingerprint.
  *
  * Calculate the fingerprint for this certificate.
  *
  * The caller should free the returned data using g_free() when
  * it is no longer required.
  *
- * Returns: (array length=n_length): the raw binary fingerprint
+ * Returns: (array length=n_length) (nullable): the raw binary fingerprint
  **/
 guchar *
 gcr_certificate_get_fingerprint (GcrCertificate *self, GChecksumType type, gsize *n_length)
@@ -862,8 +866,10 @@ gcr_certificate_get_fingerprint (GcrCertificate *self, GChecksumType type, gsize
 	g_return_val_if_fail (n_length != NULL, NULL);
 
 	sum = digest_certificate (self, type);
-	if (sum == NULL)
+	if (sum == NULL) {
+		*n_length = 0;
 		return NULL;
+	}
 
 	length = g_checksum_type_get_length (type);
 	g_return_val_if_fail (length > 0, NULL);
@@ -886,7 +892,7 @@ gcr_certificate_get_fingerprint (GcrCertificate *self, GChecksumType type, gsize
  * The caller should free the returned data using g_free() when
  * it is no longer required.
  *
- * Returns: an allocated hex string which contains the fingerprint.
+ * Returns: (nullable): an allocated hex string which contains the fingerprint.
  */
 gchar*
 gcr_certificate_get_fingerprint_hex (GcrCertificate *self, GChecksumType type)
@@ -917,14 +923,14 @@ gcr_certificate_get_fingerprint_hex (GcrCertificate *self, GChecksumType type)
 /**
  * gcr_certificate_get_serial_number:
  * @self: a #GcrCertificate
- * @n_length: the length of the returned data.
+ * @n_length: (out): the length of the returned data.
  *
  * Get the raw binary serial number of the certificate.
  *
  * The caller should free the returned data using g_free() when
  * it is no longer required.
  *
- * Returns: (array length=n_length): the raw binary serial number.
+ * Returns: (array length=n_length) (nullable): the raw binary serial number.
  */
 guchar *
 gcr_certificate_get_serial_number (GcrCertificate *self, gsize *n_length)
@@ -937,8 +943,10 @@ gcr_certificate_get_serial_number (GcrCertificate *self, gsize *n_length)
 	g_return_val_if_fail (n_length != NULL, NULL);
 
 	info = certificate_info_load (self);
-	if (info == NULL)
+	if (info == NULL) {
+		*n_length = 0;
 		return NULL;
+	}
 
 	bytes = egg_asn1x_get_integer_as_raw (egg_asn1x_node (info->asn1, "tbsCertificate", "serialNumber", NULL));
 	g_return_val_if_fail (bytes != NULL, NULL);
@@ -959,7 +967,7 @@ gcr_certificate_get_serial_number (GcrCertificate *self, gsize *n_length)
  * The caller should free the returned data using g_free() when
  * it is no longer required.
  *
- * Returns: an allocated string containing the serial number as hex.
+ * Returns: (nullable): an allocated string containing the serial number as hex.
  */
 gchar*
 gcr_certificate_get_serial_number_hex (GcrCertificate *self)

@@ -681,7 +681,7 @@ gcr_certificate_request_complete_finish (GcrCertificateRequest *self,
  * gcr_certificate_request_encode:
  * @self: a certificate request
  * @textual: whether to encode output as text
- * @length: location to place length of returned data
+ * @length: (out): location to place length of returned data
  *
  * Encode the certificate request. It must have been completed with
  * [method@CertificateRequest.complete] or
@@ -714,9 +714,7 @@ gcr_certificate_request_encode (GcrCertificateRequest *self,
 		return NULL;
 	}
 
-	size = g_bytes_get_size (bytes);
-	encoded = g_byte_array_free (g_bytes_unref_to_array (bytes), FALSE);
-
+	encoded = g_bytes_unref_to_data (bytes, &size);
 	if (textual) {
 		data = egg_armor_write (encoded, size,
 		                        g_quark_from_static_string ("CERTIFICATE REQUEST"),

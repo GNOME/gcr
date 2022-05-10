@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Nepali Translation Project\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2021-03-27 11:22+0000\n"
-"PO-Revision-Date: 2021-04-21 21:05+0545\n"
+"POT-Creation-Date: 2021-09-30 14:31+0000\n"
+"PO-Revision-Date: 2022-05-10 14:59+0545\n"
 "Last-Translator: Pawan Chitrakar <chautari@gmail.com>\n"
 "Language-Team: Nepali Translation Team <chautari@gmail.com>\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -105,21 +105,19 @@ msgstr "दिइएको नाम"
 
 #: egg/egg-oid.c:88
 msgid "Initials"
-msgstr ""
+msgstr "थालनी गर्नुहोस्"
 
 #: egg/egg-oid.c:90
-#, fuzzy
 msgid "Generation Qualifier"
-msgstr "अनियमित सङ्ख्या पुस्ता"
+msgstr "योग्यता सिर्जना "
 
 #: egg/egg-oid.c:92
-#, fuzzy
 msgid "DN Qualifier"
-msgstr "प्रयोगकर्ता नाम (बाइन्ड DN)"
+msgstr "DN योग्य"
 
 #: egg/egg-oid.c:94
 msgid "Pseudonym"
-msgstr ""
+msgstr "स्युडोनिम"
 
 #. Translators: Russian: Main state registration number
 #: egg/egg-oid.c:98
@@ -166,9 +164,8 @@ msgid "SHA1 with DSA"
 msgstr "DSA सँग SHA1"
 
 #: egg/egg-oid.c:118 ui/gcr-key-renderer.c:389
-#, fuzzy
 msgid "Elliptic Curve"
-msgstr "वक्र दुरी"
+msgstr "दीर्घाकारको वक्र कुञ्जी"
 
 #: egg/egg-oid.c:119
 msgid "SHA1 with ECDSA"
@@ -192,28 +189,27 @@ msgstr "ECDSA संग SHA512"
 
 #: egg/egg-oid.c:125
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
-msgstr ""
+msgstr "GOST R 34.11-94 सँग GOST R 34.10-2001"
 
 #: egg/egg-oid.c:126
-#, fuzzy
 msgid "GOST R 34.10-2001"
-msgstr "पाठ (rw-r--r--)"
+msgstr "GOST R 34.10-2001"
 
 #: egg/egg-oid.c:127
 msgid "GOST R 34.10-2012 256-bit curve"
-msgstr ""
+msgstr "GOST R 34.10-2012 256-bit curve"
 
 #: egg/egg-oid.c:128
 msgid "GOST R 34.10-2012 512-bit curve"
-msgstr ""
+msgstr "GOST R 34.10-2012 512-bit curve"
 
 #: egg/egg-oid.c:129
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
-msgstr ""
+msgstr "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 
 #: egg/egg-oid.c:130
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
-msgstr ""
+msgstr "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 
 #. Extended Key Usages
 #: egg/egg-oid.c:133
@@ -229,14 +225,12 @@ msgid "Code Signing"
 msgstr "कोड साइन"
 
 #: egg/egg-oid.c:136
-#, fuzzy
 msgid "Email Protection"
-msgstr "सुरक्षा"
+msgstr "इमेल सुरक्षा"
 
 #: egg/egg-oid.c:137
-#, fuzzy
 msgid "Time Stamping"
-msgstr "हालको समयसँग सम्बन्धित एक समय"
+msgstr "समय  स्ट्याम्पिङ"
 
 #: gck/gck-module.c:332
 #, c-format
@@ -254,22 +248,21 @@ msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "दर्ता भएको PKCS#11 मोड्युलहरू सुरुआत गर्न सकेन: %s"
 
 #: gck/gck-uri.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "The URI has invalid encoding."
-msgstr "अवैध URI।"
+msgstr "URI सँग अवैध सङ्केतन छ ।"
 
 #: gck/gck-uri.c:228
 msgid "The URI does not have the “pkcs11” scheme."
-msgstr ""
+msgstr "URI सँग \"pkcs11\" योजना छैन ।"
 
 #: gck/gck-uri.c:232
-#, fuzzy
 msgid "The URI has bad syntax."
-msgstr "नराम्रो URI %s"
+msgstr "URI सँग खराब वाक्य संरचना छ ।"
 
 #: gck/gck-uri.c:236
 msgid "The URI has a bad version number."
-msgstr ""
+msgstr "URI सँग खराब संस्करण नम्बर छ ।"
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
 #, c-format
@@ -281,7 +274,7 @@ msgstr "स्ट्रीम बन्द गरियो"
 #: gcr/gcr-certificate.c:350 gcr/gcr-gnupg-key.c:429
 msgctxt "column"
 msgid "Name"
-msgstr "नाम: "
+msgstr "नाम"
 
 #: gcr/gcr-certificate.c:352
 msgctxt "column"
@@ -294,8 +287,8 @@ msgctxt "column"
 msgid "Expires"
 msgstr "म्याद समाप्त हुन्छ"
 
-#: gcr/gcr-certificate.c:1186 gcr/gcr-parser.c:346 ui/gcr-certificate-renderer.c:103
-#: ui/gcr-certificate-exporter.c:464
+#: gcr/gcr-certificate.c:1186 gcr/gcr-parser.c:346
+#: ui/gcr-certificate-renderer.c:103 ui/gcr-certificate-exporter.c:464
 msgid "Certificate"
 msgstr "प्रमाणपत्र"
 
@@ -305,7 +298,7 @@ msgstr "अन्य नाम"
 
 #: gcr/gcr-certificate-extensions.c:200
 msgid "XMPP Addr"
-msgstr ""
+msgstr "XMPP ठेगाना"
 
 #: gcr/gcr-certificate-extensions.c:204
 msgid "DNS SRV"
@@ -329,9 +322,8 @@ msgid "Directory Name"
 msgstr "डाइरेक्टरी नाम"
 
 #: gcr/gcr-certificate-extensions.c:247
-#, fuzzy
 msgid "EDI Party Name"
-msgstr "भोज"
+msgstr "EDI पार्टीको नाम"
 
 #: gcr/gcr-certificate-extensions.c:254
 msgid "URI"
@@ -348,12 +340,12 @@ msgstr "दर्ता आईडि"
 #: gcr/gcr-certificate-request.c:406
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr ""
+msgstr "प्रमाणपत्र अनुरोधका लागि समर्थन नगरिएको कुञ्जी प्रकार ।"
 
 #: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
 #, c-format
 msgid "The key cannot be used to sign the request"
-msgstr ""
+msgstr "कुञ्जी अनुरोध साइन गर्न प्रयोग गर्न सकिँदैन"
 
 #: gcr/gcr-gnupg-importer.c:95
 msgid "GnuPG Keyring"
@@ -379,9 +371,9 @@ msgid "Gnupg process exited with code: %d"
 msgstr "गुप्तिकृत प्रक्रिया सङ्केतसँग बाहिरियो: %d"
 
 #: gcr/gcr-gnupg-process.c:874
-#, fuzzy, c-format
+#, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr "प्रक्रियामा सङ्केत %s पठाउँदै: %d"
+msgstr "गुप्तिकृत प्रक्रिया सङ्केतद्वारा हटाइएको थियो: %d"
 
 #: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3192
 #: gcr/gcr-system-prompt.c:932
@@ -392,8 +384,8 @@ msgstr "अनुरोध रद्द गरिएको थियो ।."
 msgid "Private Key"
 msgstr "निजी कुञ्जी"
 
-#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:887 ui/gcr-gnupg-renderer.c:738
-#: ui/gcr-key-renderer.c:370
+#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:887
+#: ui/gcr-gnupg-renderer.c:738 ui/gcr-key-renderer.c:370
 msgid "Public Key"
 msgstr "सार्वजनिक कुञ्जीs"
 
@@ -406,9 +398,8 @@ msgid "Unrecognized or unsupported data."
 msgstr "अज्ञात वा असमर्थित डाटा ।."
 
 #: gcr/gcr-parser.c:2604
-#, fuzzy
 msgid "Could not parse invalid or corrupted data."
-msgstr "SVG डेटा पद वर्णन गर्न सकेन"
+msgstr "अवैध वा बिग्रिएको डेटा पद वर्णन गर्न सकेन ।"
 
 #: gcr/gcr-parser.c:2607
 msgid "The data is locked"
@@ -422,24 +413,59 @@ msgstr "जारी राख्नुहोस्"
 msgid "Cancel"
 msgstr "_रद्द"
 
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "यसका लागि पासवर्ड ताल्चा खोल्नुहोस्: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "निजी कुञ्जीताल्चा खोल्नुहोस्"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "निजी कुञ्जीको ताल्चा खोल्नका लागि पासवर्ड प्रविष्ट गर्नुहोस्"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr ""
+"एउटा अनुप्रयोगले निजी कुञ्जी \"%s\" मा पहुँच प्राप्त गर्न चाहेको छ, तर यसलाई ताल्चा "
+"लगाइएको छ"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "मैले लगइन गर्दा यस कुञ्जीको स्वचालित रूपले ताल्चा खोल्नुहोस्"
+
+#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
+#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+msgid "Unlock"
+msgstr "ताल्चा खोल्नुहोस्"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "ताल्चा खोल्ने पासवर्ड गलत थियो"
+
+#: gcr/gcr-ssh-agent-service.c:259
+msgid "Unnamed"
+msgstr "नामकरण नगरिएको"
+
 #: gcr/gcr-ssh-askpass.c:194
-#, fuzzy
 msgid "Enter your OpenSSH passphrase"
-msgstr "तपाईँको सुरक्षित शेल पासफ्रेज प्रविष्ट गर्नुहोस्:"
+msgstr "तपाईँको OpenSSH पासफ्रेज प्रविष्ट गर्नुहोस्"
 
 #: gcr/gcr-subject-public-key.c:405
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "कुञ्जीका लागि अपरिचित वा अनुपलब्ध विशेषता"
 
 #: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
-#, fuzzy
 msgid "Couldn’t build public key"
-msgstr "कुञ्जि पुन नामकरण गर्न सकिएन"
+msgstr "सार्वजनिक कुञ्जी निर्माण गर्न सकेन"
 
 #: gcr/gcr-system-prompt.c:912
-#, fuzzy
 msgid "Another prompt is already in progress"
-msgstr "अन्य खोजी प्रगतिमा छ"
+msgstr "अर्को सङ्केत पहिल्यै प्रगतिमा छ"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
@@ -454,9 +480,8 @@ msgid "Basic Constraints"
 msgstr "आधारभूत अवरोधहरू"
 
 #: ui/gcr-certificate-renderer.c:120
-#, fuzzy
 msgid "Certificate Authority"
-msgstr "प्रमाणपत्र अधिकार विश्वास"
+msgstr "प्रमाणपत्र अधिकार"
 
 #: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
 msgid "Yes"
@@ -467,51 +492,44 @@ msgid "No"
 msgstr "होइन"
 
 #: ui/gcr-certificate-renderer.c:124
-#, fuzzy
 msgid "Max Path Length"
-msgstr "अधिकतम लम्बाई"
+msgstr "अधिकतम मार्ग लम्बाइ"
 
 #: ui/gcr-certificate-renderer.c:125
 msgid "Unlimited"
 msgstr "असिमित"
 
 #: ui/gcr-certificate-renderer.c:144
-#, fuzzy
 msgid "Extended Key Usage"
-msgstr "कुञ्जि उपयोग"
+msgstr "विस्तारित कुञ्जी उपयोग"
 
 #: ui/gcr-certificate-renderer.c:155
 msgid "Allowed Purposes"
 msgstr "अनुमति प्राप्त उद्देश्य"
 
 #: ui/gcr-certificate-renderer.c:175
-#, fuzzy
 msgid "Subject Key Identifier"
-msgstr "(विषय नभएको)"
+msgstr "विषय कुञ्जी पहिचायक"
 
 #: ui/gcr-certificate-renderer.c:176
-#, fuzzy
 msgid "Key Identifier"
-msgstr "पहिचायक:"
+msgstr "कुञ्जी पहिचायक"
 
 #: ui/gcr-certificate-renderer.c:187
 msgid "Digital signature"
 msgstr "डिजिटल हस्ताक्षर"
 
 #: ui/gcr-certificate-renderer.c:188
-#, fuzzy
 msgid "Non repudiation"
 msgstr "सहभागी नभएको"
 
 #: ui/gcr-certificate-renderer.c:189
-#, fuzzy
 msgid "Key encipherment"
-msgstr "  KEY       स्किमा भित्रको कुञ्जी\n"
+msgstr "कुञ्जी कूटलेखन"
 
 #: ui/gcr-certificate-renderer.c:190
-#, fuzzy
 msgid "Data encipherment"
-msgstr "डेटा"
+msgstr "डेटा कूटलेखन"
 
 #: ui/gcr-certificate-renderer.c:191
 msgid "Key agreement"
@@ -522,19 +540,16 @@ msgid "Certificate signature"
 msgstr "प्रमाणपत्र हस्ताक्षर"
 
 #: ui/gcr-certificate-renderer.c:193
-#, fuzzy
 msgid "Revocation list signature"
-msgstr "हस्ताक्षर"
+msgstr "खारेजी हस्ताक्षर सूची"
 
 #: ui/gcr-certificate-renderer.c:194
-#, fuzzy
 msgid "Encipher only"
-msgstr "मात्र"
+msgstr "गुप्तलेखन गर्ने मात्र"
 
 #: ui/gcr-certificate-renderer.c:195
-#, fuzzy
 msgid "Decipher only"
-msgstr "मात्र"
+msgstr "गुप्तलेखन हताउने मात्र"
 
 #: ui/gcr-certificate-renderer.c:220
 msgid "Key Usage"
@@ -545,9 +560,8 @@ msgid "Usages"
 msgstr "प्रयोग"
 
 #: ui/gcr-certificate-renderer.c:241
-#, fuzzy
 msgid "Subject Alternative Names"
-msgstr "वैकल्पिक भागहरू"
+msgstr "वैकल्पिक विषय नामहरू "
 
 #: ui/gcr-certificate-renderer.c:268
 msgid "Extension"
@@ -563,9 +577,8 @@ msgid "Value"
 msgstr "मान"
 
 #: ui/gcr-certificate-renderer.c:291
-#, fuzzy
 msgid "Couldn’t export the certificate."
-msgstr "कुञ्जि निर्यात सकेन"
+msgstr "प्रमाणपत्र निर्यात गर्न सकेन।"
 
 #: ui/gcr-certificate-renderer.c:527 ui/gcr-certificate-request-renderer.c:309
 msgid "Identity"
@@ -608,9 +621,8 @@ msgstr "पछि वैध हुदैन"
 
 #. Fingerprints
 #: ui/gcr-certificate-renderer.c:584
-#, fuzzy
 msgid "Certificate Fingerprints"
-msgstr "अंगुठाछाप मेट्नुहोस्"
+msgstr "प्रमाणपत्र औठाछापहरू"
 
 #. Public Key Info
 #: ui/gcr-certificate-renderer.c:590 ui/gcr-certificate-request-renderer.c:329
@@ -620,8 +632,8 @@ msgstr "सार्वजनिक कुञ्जी जानकारि"
 
 #. Signature
 #: ui/gcr-certificate-renderer.c:605 ui/gcr-certificate-renderer.c:915
-#: ui/gcr-certificate-request-renderer.c:345 ui/gcr-certificate-request-renderer.c:382
-#: ui/gcr-gnupg-renderer.c:560
+#: ui/gcr-certificate-request-renderer.c:345
+#: ui/gcr-certificate-request-renderer.c:382 ui/gcr-gnupg-renderer.c:560
 msgid "Signature"
 msgstr "हस्ताक्षर"
 
@@ -634,36 +646,34 @@ msgid "Key Algorithm"
 msgstr "मुख्य एलोगारिदम"
 
 #: ui/gcr-certificate-renderer.c:866
-#, fuzzy
 msgid "Key Parameters"
-msgstr "परामितिहरू:"
+msgstr "कुञ्जी परिमिति"
 
 #: ui/gcr-certificate-renderer.c:874 ui/gcr-gnupg-renderer.c:353
 msgid "Key Size"
 msgstr "कुञ्जि आकार"
 
 #: ui/gcr-certificate-renderer.c:882
-#, fuzzy
 msgid "Key SHA1 Fingerprint"
-msgstr "SHA1 औँठाछाप"
+msgstr "कुञ्जी SHA1 औठाछाप"
 
 #: ui/gcr-certificate-renderer.c:904
-#, fuzzy
 msgid "Signature Algorithm"
-msgstr "हस्ताक्षर अल्गोरिदम अज्ञात"
+msgstr "हस्ताक्षर अल्गोरिदम"
 
 #: ui/gcr-certificate-renderer.c:908
-#, fuzzy
 msgid "Signature Parameters"
-msgstr "परामितिहरू:"
+msgstr "हस्ताक्षर परामितिहरू"
 
 #: ui/gcr-certificate-renderer.c:957
 msgid "Critical"
 msgstr "नाजुक"
 
 #. The certificate request type
-#: ui/gcr-certificate-request-renderer.c:95 ui/gcr-certificate-request-renderer.c:304
-#: ui/gcr-certificate-request-renderer.c:319 ui/gcr-certificate-request-renderer.c:362
+#: ui/gcr-certificate-request-renderer.c:95
+#: ui/gcr-certificate-request-renderer.c:304
+#: ui/gcr-certificate-request-renderer.c:319
+#: ui/gcr-certificate-request-renderer.c:362
 #: ui/gcr-certificate-request-renderer.c:367
 msgid "Certificate request"
 msgstr "प्रमाणपत्र अनुरोध"
@@ -672,7 +682,8 @@ msgstr "प्रमाणपत्र अनुरोध"
 msgid "Attribute"
 msgstr "विशेषता"
 
-#: ui/gcr-certificate-request-renderer.c:261 ui/gcr-certificate-request-renderer.c:320
+#: ui/gcr-certificate-request-renderer.c:261
+#: ui/gcr-certificate-request-renderer.c:320
 #: ui/gcr-certificate-request-renderer.c:368 ui/gcr-gnupg-renderer.c:591
 #: ui/gcr-gnupg-renderer.c:593
 msgid "Type"
@@ -692,21 +703,19 @@ msgid "Could not display “%s”"
 msgstr "प्रदर्शन गर्न सकेन \"%s\""
 
 #: ui/gcr-failure-renderer.c:161
-#, fuzzy
 msgid "Could not display file"
-msgstr "मद्दत प्रदर्शन गर्न सकेन"
+msgstr "फाइल प्रदर्शन गर्न सकेन"
 
 #: ui/gcr-failure-renderer.c:166
 msgid "Reason"
 msgstr "कारण"
 
 #: ui/gcr-failure-renderer.c:216
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot display a file of this type."
-msgstr "जडान भएका प्रदर्शनपर्दा चयन गर्नुहोस् ।"
+msgstr "यस प्रकारको फाइल प्रदर्शन गर्न सकिँदैन ।"
 
 #: ui/gcr-gnupg-renderer.c:203
-#, fuzzy
 msgid "Elgamal"
 msgstr "एलगामल"
 
@@ -731,8 +740,8 @@ msgctxt "capability"
 msgid "Disabled"
 msgstr "असक्षम"
 
-#: ui/gcr-gnupg-renderer.c:255 ui/gcr-gnupg-renderer.c:414 ui/gcr-key-renderer.c:391
-#: ui/gcr-key-renderer.c:395
+#: ui/gcr-gnupg-renderer.c:255 ui/gcr-gnupg-renderer.c:414
+#: ui/gcr-key-renderer.c:391 ui/gcr-key-renderer.c:395
 msgid "Unknown"
 msgstr "अज्ञात"
 
@@ -762,9 +771,8 @@ msgid "Distrusted"
 msgstr "अविश्वासिलो"
 
 #: ui/gcr-gnupg-renderer.c:269
-#, fuzzy
 msgid "Marginally trusted"
-msgstr "सीमान्त"
+msgstr "सीमान्त रूपमा विश्वासिलो"
 
 #: ui/gcr-gnupg-renderer.c:271
 msgid "Fully trusted"
@@ -776,7 +784,7 @@ msgstr "अन्त्यमा विश्वासिलो"
 
 #: ui/gcr-gnupg-renderer.c:287
 msgid "The information in this key has not yet been verified"
-msgstr ""
+msgstr "यस कुञ्जीमा भएको सूचना अहिलेसम्म रुजू गरिएको छैन ।"
 
 #: ui/gcr-gnupg-renderer.c:290
 msgid "This key is invalid"
@@ -799,40 +807,39 @@ msgid "This key is distrusted"
 msgstr "अविश्वासिलो कुञ्जि"
 
 #: ui/gcr-gnupg-renderer.c:307
-#, fuzzy
 msgid "This key is marginally trusted"
-msgstr "सीमान्त"
+msgstr "यो कुञ्जी सीमान्त रूपमा विश्वासिलो छ"
 
 #: ui/gcr-gnupg-renderer.c:310
 msgid "This key is fully trusted"
 msgstr "विश्वास गरिएका कुञ्जि"
 
 #: ui/gcr-gnupg-renderer.c:313
-#, fuzzy
 msgid "This key is ultimately trusted"
-msgstr "आखिरी"
+msgstr "यो कुञ्जी विश्वासिलो छ ।"
 
 #: ui/gcr-gnupg-renderer.c:338 ui/gcr-gnupg-renderer.c:564
 msgid "Key ID"
 msgstr "कुञ्जी आईडी"
 
-#: ui/gcr-gnupg-renderer.c:346 ui/gcr-gnupg-renderer.c:572 ui/gcr-gnupg-renderer.c:619
-#: ui/gcr-key-renderer.c:392
+#: ui/gcr-gnupg-renderer.c:346 ui/gcr-gnupg-renderer.c:572
+#: ui/gcr-gnupg-renderer.c:619 ui/gcr-key-renderer.c:392
 msgid "Algorithm"
 msgstr "एल्गोरिदम"
 
-#: ui/gcr-gnupg-renderer.c:361 ui/gcr-gnupg-renderer.c:438 ui/gcr-gnupg-renderer.c:481
+#: ui/gcr-gnupg-renderer.c:361 ui/gcr-gnupg-renderer.c:438
+#: ui/gcr-gnupg-renderer.c:481
 msgid "Created"
 msgstr "सिर्जना गरियो"
 
-#: ui/gcr-gnupg-renderer.c:370 ui/gcr-gnupg-renderer.c:447 ui/gcr-gnupg-renderer.c:490
+#: ui/gcr-gnupg-renderer.c:370 ui/gcr-gnupg-renderer.c:447
+#: ui/gcr-gnupg-renderer.c:490
 msgid "Expiry"
 msgstr "म्याद समाप्त"
 
 #: ui/gcr-gnupg-renderer.c:379
-#, fuzzy
 msgid "Capabilities"
-msgstr "ठेगाना पुस्तिका क्षमताहरू प्राप्त गर्न सकेन:%s"
+msgstr "क्षमता"
 
 #: ui/gcr-gnupg-renderer.c:392
 msgid "Owner trust"
@@ -840,7 +847,7 @@ msgstr "स्वामित्व विश्वास"
 
 #: ui/gcr-gnupg-renderer.c:420
 msgid "Name"
-msgstr "नाम: "
+msgstr "नाम"
 
 #: ui/gcr-gnupg-renderer.c:426 ui/gcr-gnupg-renderer.c:708
 msgid "Comment"
@@ -855,77 +862,64 @@ msgid "Size"
 msgstr "साइज"
 
 #: ui/gcr-gnupg-renderer.c:508
-#, fuzzy
 msgid "Signature of a binary document"
-msgstr "हस्ताक्षर"
+msgstr "बाईनरी कागजातको हस्ताक्षर"
 
 #: ui/gcr-gnupg-renderer.c:510
-#, fuzzy
 msgid "Signature of a canonical text document"
-msgstr "कागजात वा चयन गरिएको पाठ क्रमबद्ध गर्दछ ।."
+msgstr "क्यानोनिकल पाठ कागजातको हस्ताक्षर"
 
 #: ui/gcr-gnupg-renderer.c:512
-#, fuzzy
 msgid "Standalone signature"
-msgstr "हस्ताक्षर"
+msgstr "एक्लो हस्ताक्षर"
 
 #: ui/gcr-gnupg-renderer.c:514
-#, fuzzy
 msgid "Generic certification of key"
-msgstr "कुञ्जीको आकस्मिक प्रमाणीकरण"
+msgstr "कुञ्जीको सामान्य प्रमाणीकरण"
 
 #: ui/gcr-gnupg-renderer.c:516
-#, fuzzy
 msgid "Persona certification of key"
-msgstr "कुञ्जीको आकस्मिक प्रमाणीकरण"
+msgstr "कुञ्जीको ब्यक्तिगत प्रमाणीकरण"
 
 #: ui/gcr-gnupg-renderer.c:518
 msgid "Casual certification of key"
 msgstr "कुञ्जीको आकस्मिक प्रमाणीकरण"
 
 #: ui/gcr-gnupg-renderer.c:520
-#, fuzzy
 msgid "Positive certification of key"
-msgstr "कुञ्जीको आकस्मिक प्रमाणीकरण"
+msgstr "कुञ्जीको सकारात्मक प्रमाणीकरण"
 
 #: ui/gcr-gnupg-renderer.c:522
-#, fuzzy
 msgid "Subkey binding signature"
-msgstr "बाइन्डिङ:"
+msgstr "उपकुञ्जी बाइन्डिङ हस्ताक्षर"
 
 #: ui/gcr-gnupg-renderer.c:524
-#, fuzzy
 msgid "Primary key binding signature"
-msgstr "प्राथमिक कुञ्जी"
+msgstr "प्राथमिक कुञ्जी बाइन्डिङ हस्ताक्षर"
 
 #: ui/gcr-gnupg-renderer.c:526
-#, fuzzy
 msgid "Signature directly on key"
-msgstr "हस्ताक्षर"
+msgstr "कुञ्जीमा सिधै हस्ताक्षर गर्नुहोस्"
 
 #: ui/gcr-gnupg-renderer.c:528
-#, fuzzy
 msgid "Key revocation signature"
-msgstr "खण्डनको वैकल्पिक वर्णन"
+msgstr "कुञ्जी खारेजी हस्ताक्षर"
 
 #: ui/gcr-gnupg-renderer.c:530
-#, fuzzy
 msgid "Subkey revocation signature"
-msgstr "हस्ताक्षर"
+msgstr "उपकुञ्जी खारेजी हस्ताक्षर"
 
 #: ui/gcr-gnupg-renderer.c:532
-#, fuzzy
 msgid "Certification revocation signature"
-msgstr "खण्डनको वैकल्पिक वर्णन"
+msgstr "प्रमाणीकरण खारेजी हस्ताक्षर "
 
 #: ui/gcr-gnupg-renderer.c:534
 msgid "Timestamp signature"
 msgstr "टाइमस्टाम्प हस्ताक्षर"
 
 #: ui/gcr-gnupg-renderer.c:536
-#, fuzzy
 msgid "Third-party confirmation signature"
-msgstr "थप / तेस्रो पक्षका आदेशहरू निम्न छन्:"
+msgstr "तेस्रो-पक्ष पुष्टि हस्ताक्षर"
 
 #: ui/gcr-gnupg-renderer.c:589 ui/gcr-gnupg-renderer.c:597
 msgid "Class"
@@ -940,27 +934,25 @@ msgid "Exportable"
 msgstr "निर्यात गर्न लायक"
 
 #: ui/gcr-gnupg-renderer.c:611
-#, fuzzy
 msgid "Revocation Key"
-msgstr "खण्डनको वैकल्पिक वर्णन"
+msgstr "खारेजी कुञ्जी"
 
-#: ui/gcr-gnupg-renderer.c:625 ui/gcr-gnupg-renderer.c:649 ui/gcr-gnupg-renderer.c:651
+#: ui/gcr-gnupg-renderer.c:625 ui/gcr-gnupg-renderer.c:649
+#: ui/gcr-gnupg-renderer.c:651
 msgid "Fingerprint"
 msgstr "औठाछाप"
 
 #: ui/gcr-gnupg-renderer.c:740
-#, fuzzy
 msgid "Public Subkey"
-msgstr "%s मा सबकी थप्नुहोस्"
+msgstr "सार्वजनिक उपकुञ्जी"
 
 #: ui/gcr-gnupg-renderer.c:742
 msgid "Secret Key"
 msgstr "गोप्य कुञ्जि"
 
 #: ui/gcr-gnupg-renderer.c:744
-#, fuzzy
 msgid "Secret Subkey"
-msgstr "गोप्य"
+msgstr "गोप्य उपकुञ्जी"
 
 #: ui/gcr-import-button.c:118
 msgid "Initializing…"
@@ -1001,18 +993,16 @@ msgid "Private DSA Key"
 msgstr "निजी DSA कुञ्जी"
 
 #: ui/gcr-key-renderer.c:359
-#, fuzzy
 msgid "Private Elliptic Curve Key"
-msgstr "प्रमाणपत्रमा निजी कुञ्जी छैन"
+msgstr "निजी दीर्घाकारको वक्र कुञ्जी"
 
 #: ui/gcr-key-renderer.c:364 ui/gcr-key-renderer.c:366
 msgid "Public DSA Key"
 msgstr "सार्वजनिक DSA कुञ्जी"
 
 #: ui/gcr-key-renderer.c:368
-#, fuzzy
 msgid "Public Elliptic Curve Key"
-msgstr "सार्वजनिक कुञ्जीताल्चा खोल्नुहोस्"
+msgstr "सार्वजनिक दीर्घाकारको वक्र कुञ्जी"
 
 #: ui/gcr-key-renderer.c:377
 #, c-format
@@ -1054,14 +1044,13 @@ msgstr "स्वचालित छनौट"
 
 #: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
 #: ui/gcr-pkcs11-import-interaction.c:161
-#, fuzzy, c-format
+#, c-format
 msgid "The user cancelled the operation"
-msgstr "अनुरोध रद्द गरिएको थियो ।."
+msgstr "प्रयोगकर्ताले सञ्चालन रद्द गर्यो"
 
 #: ui/gcr-pkcs11-import-dialog.ui:31
-#, fuzzy
 msgid "In order to import, please enter the password."
-msgstr "कृपया यो प्रयोगकर्ताका लागि पासवर्ड प्रविष्ट गर्नुहोस् ।"
+msgstr "आयात गर्नका लागि, कृपया पासवर्ड प्रविष्ट गर्नुहोस् ।"
 
 #. The password label
 #: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
@@ -1071,11 +1060,6 @@ msgstr "पासवर्ड:"
 #: ui/gcr-pkcs11-import-dialog.ui:80
 msgid "Token:"
 msgstr "टोकन:"
-
-#: ui/gcr-pkcs11-import-dialog.ui:143 ui/gcr-unlock-renderer.c:70
-#: ui/gcr-unlock-renderer.c:124
-msgid "Unlock"
-msgstr "ताल्चा खोल्नुहोस्"
 
 #: ui/gcr-pkcs11-import-dialog.ui:178
 msgid "Label:"
@@ -1099,25 +1083,20 @@ msgid "Password cannot be blank"
 msgstr "पासवर्ड खालि हुन सक्दैन"
 
 #: ui/gcr-prompter.desktop.in.in:3
-#, fuzzy
 msgid "Access Prompt"
-msgstr "ढाँचाका लागि प्रवर्धन गर्नुहोस्"
+msgstr "पहुँच प्रोम्प्ट"
 
 #: ui/gcr-prompter.desktop.in.in:4
 msgid "Unlock access to passwords and other secrets"
-msgstr ""
+msgstr "पासवर्ड र अन्य गोप्य मा पहुँच अनलक गर्नुहोस्"
 
 #: ui/gcr-certificate-exporter.c:226
 msgid "A file already exists with this name."
 msgstr "यो नामको फाइल पहिल्यै अवस्थित छ ।."
 
 #: ui/gcr-certificate-exporter.c:227
-#, fuzzy
 msgid "Do you want to replace it with a new file?"
-msgstr ""
-"<b>यो नामको फाइल पहिल्यै अवस्थित छ ।</b>\n"
-"\n"
-"के तपाईं यसलाइ एउटा नयाँ फाइलसँग बदल्न चाहनुहुन्छ?"
+msgstr "तपाईँ यसलाई नयाँ फाइलसँग बदल्न चाहनुहुन्छ?"
 
 #: ui/gcr-certificate-exporter.c:230
 msgid "_Replace"
@@ -1134,7 +1113,7 @@ msgstr "प्रमाणपत्र निर्यात"
 
 #: ui/gcr-certificate-exporter.c:307
 msgid "_Save"
-msgstr " बचत गर्नुहोस्..."
+msgstr " बचत गर्नुहोस्"
 
 #: ui/gcr-certificate-exporter.c:316
 msgid "Certificate files"
@@ -1145,24 +1124,20 @@ msgid "PEM files"
 msgstr "PEM फाइल"
 
 #: ui/gcr-unlock-options-widget.ui:16
-#, fuzzy
 msgid "Automatically unlock this keyring whenever I’m logged in"
-msgstr "मैले लगइन गर्दा यस किरिङको स्वचालित रूपले ताल्चा खोल्नुहोस् ।"
+msgstr "मैले लगइन गर्दा यस किरिङको स्वचालित रूपले ताल्चा खोल्नुहोस्"
 
 #: ui/gcr-unlock-options-widget.ui:31
-#, fuzzy
 msgid "Lock this keyring when I log out"
-msgstr "मैले लगइन गर्दा यस किरिङको स्वचालित रूपले ताल्चा खोल्नुहोस् ।"
+msgstr "मैले लगआउट गर्दा यस किरिङमा ताल्चा लगाउनुहोस्"
 
 #: ui/gcr-unlock-options-widget.ui:53
-#, fuzzy
 msgid "Lock this keyring after"
-msgstr "ताल्चा लगाउनुहोस्"
+msgstr "यसपछि यो किरिङमा ताल्चा लगाउनुहोस्"
 
 #: ui/gcr-unlock-options-widget.ui:67
-#, fuzzy
 msgid "Lock this keyring if idle for"
-msgstr "निश्क्रिय"
+msgstr "यदि निस्क्रिय छ भने यो किरिङमा ताल्चा लगाउनुहोस्"
 
 #. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
 #: ui/gcr-unlock-options-widget.ui:103
@@ -1176,27 +1151,31 @@ msgstr "ताल्चा हटाउ: %s"
 
 #: ui/gcr-unlock-renderer.c:122
 msgid "Password"
-msgstr "पासवर्ड :"
+msgstr "पासवर्ड"
 
 #: ui/gcr-unlock-renderer.c:274
 #, c-format
 msgid ""
-"The contents of “%s” are locked. In order to view the contents, enter the correct "
-"password."
+"The contents of “%s” are locked. In order to view the contents, enter the "
+"correct password."
 msgstr ""
+"\"%s\" का सामग्रीहरू ताल्चा लगाइएको छ । सामग्रीहरू हेर्नका लागि, सही पासवर्ड प्रविष्ट "
+"गर्नुहोस् ।"
 
 #: ui/gcr-unlock-renderer.c:277
-msgid "The contents are locked. In order to view the contents, enter the correct password."
+msgid ""
+"The contents are locked. In order to view the contents, enter the correct "
+"password."
 msgstr ""
+"सामग्रीहरू ताल्चा लगाइएको छ । सामग्रीहरू हेर्नका लागि, सही पासवर्ड प्रविष्ट गर्नुहोस् ।"
 
 #: ui/gcr-viewer.desktop.in.in:3
 msgid "View file"
 msgstr "फाइल दृश्य"
 
 #: ui/gcr-viewer-tool.c:40
-#, fuzzy
 msgid "GCR Certificate and Key Viewer"
-msgstr "प्रमाणपत्र/कुञ्जी भण्डारणमा ताल्चा खोल्नुहोस्"
+msgstr "GCR प्रमाणपत्र र कुञ्जी दर्शक"
 
 #: ui/gcr-viewer-tool.c:47
 msgid "Show the application's version"
@@ -1207,9 +1186,8 @@ msgid "[file...]"
 msgstr "[file...]"
 
 #: ui/gcr-viewer-tool.c:100
-#, fuzzy
 msgid "- View certificate and key files"
-msgstr "प्रमाणपत्र/कुञ्जी भण्डारणमा ताल्चा खोल्नुहोस्"
+msgstr "- प्रमाणपत्र र कुञ्जी फाइलहरू हेर्नुहोस्"
 
 #: ui/gcr-viewer-tool.c:114 ui/gcr-viewer-widget.c:669
 msgid "Certificate Viewer"

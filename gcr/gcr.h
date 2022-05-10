@@ -34,7 +34,9 @@
 
 #include <gcr/gcr-certificate.h>
 #include <gcr/gcr-certificate-chain.h>
+#include <gcr/gcr-certificate-field.h>
 #include <gcr/gcr-certificate-request.h>
+#include <gcr/gcr-certificate-section.h>
 #include <gcr/gcr-enum-types.h>
 #include <gcr/gcr-fingerprint.h>
 #include <gcr/gcr-importer.h>

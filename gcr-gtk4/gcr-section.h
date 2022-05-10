@@ -10,6 +10,7 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#include <gcr/gcr.h>
 
 G_BEGIN_DECLS
 
@@ -17,11 +18,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (GcrSection, gcr_section, GCR, SECTION, GtkWidget)
 
-GtkWidget *gcr_section_new (const gchar *title);
-
-void gcr_section_add_child (GcrSection  *self,
-                            const gchar *description,
-                            GtkWidget   *child);
+GtkWidget *gcr_section_new (GcrCertificateSection *section);
 
 G_END_DECLS
 

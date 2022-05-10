@@ -120,6 +120,8 @@ gboolean            gcr_certificate_get_basic_constraints  (GcrCertificate *self
                                                             gboolean *is_ca,
                                                             gint *path_len);
 
+GList*              gcr_certificate_get_interface_elements (GcrCertificate *self);
+
 void                gcr_certificate_mixin_emit_notify      (GcrCertificate *self);
 
 void                gcr_certificate_mixin_class_init       (GObjectClass *object_class);

@@ -266,6 +266,38 @@ test_basic_constraints (Test *test,
 	g_assert (path_len == -1);
 }
 
+
+static void
+test_interface_elements (Test *test,
+                         gconstpointer unused)
+{
+	GList* sections = gcr_certificate_get_interface_elements (test->dsa_cert);
+	for (GList *l = sections; l != NULL; l = l->next) {
+		GcrCertificateSection *section = l->data;
+		GListModel *fields;
+
+		gcr_certificate_section_get_flags (section);
+		g_assert (gcr_certificate_section_get_label (section) != NULL);
+		fields = gcr_certificate_section_get_fields (section);
+		g_assert (fields != NULL);
+		g_assert (g_list_model_get_item_type (fields) == GCR_TYPE_CERTIFICATE_FIELD);
+		for (guint i = 0; i < g_list_model_get_n_items (fields); i++) {
+			GValue val = G_VALUE_INIT;
+			GType value_type;
+			GcrCertificateField *field = g_list_model_get_item (fields, i);
+			g_assert (gcr_certificate_field_get_label (field) != NULL);
+			value_type = gcr_certificate_field_get_value_type (field);
+			g_value_init (&val, value_type);
+			g_assert (gcr_certificate_field_get_value (field, &val));
+			g_value_unset (&val);
+			g_assert (gcr_certificate_field_get_section (field) == section);
+			g_object_unref (field);
+		}
+	}
+
+	g_list_free_full (sections, (GDestroyNotify) g_object_unref);
+}
+
 static void
 test_subject_alt_name (void)
 {
@@ -346,6 +378,7 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/certificate/key_size", Test, NULL, setup, test_certificate_key_size, teardown);
 	g_test_add ("/gcr/certificate/is_issuer", Test, NULL, setup, test_certificate_is_issuer, teardown);
 	g_test_add ("/gcr/certificate/basic_constraints", Test, NULL, setup, test_basic_constraints, teardown);
+	g_test_add ("/gcr/certificate/interface_elements", Test, NULL, setup, test_interface_elements, teardown);
 	g_test_add_func ("/gcr/certificate/subject_alt_name", test_subject_alt_name);
 	g_test_add_func ("/gcr/certificate/key_usage", test_key_usage);
 

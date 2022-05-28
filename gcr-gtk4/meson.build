@@ -9,6 +9,7 @@ gcr_gtk4_private_sources = files(
 )
 
 gcr_gtk4_headers = files(
+  'gcr-gtk4.h',
   'gcr-certificate-widget.h',
 )
 

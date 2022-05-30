@@ -24,6 +24,7 @@
 #include "config.h"
 
 #include "gcr/gcr-secure-memory.h"
+#include "egg/egg-secure-memory-private.h"
 
 #include <glib.h>
 
@@ -49,8 +50,6 @@ find_non_zero (gpointer mem, gsize len)
 
 	return -1;
 }
-
-extern int egg_secure_warnings;
 
 static gsize
 get_rlimit_memlock (void)
@@ -141,12 +140,12 @@ test_alloc_oversized (void)
 		return;
 
 	/* Try the allocation. */
-	egg_secure_warnings = 0;
+	egg_set_secure_warnings (0);
 
 	mem = gcr_secure_memory_try_alloc (limit + 1);
 	g_assert_null (mem);
 
-	egg_secure_warnings = 1;
+	egg_set_secure_warnings (1);
 }
 
 static void
@@ -209,12 +208,12 @@ test_realloc_oversized (void)
 	mem = gcr_secure_memory_alloc (64);
 	g_assert_nonnull (mem);
 
-	egg_secure_warnings = 0;
+	egg_set_secure_warnings (0);
 
 	new_mem = gcr_secure_memory_try_realloc (mem, limit + 1);
 	g_assert_null (new_mem);
 
-	egg_secure_warnings = 1;
+	egg_set_secure_warnings (1);
 
 	gcr_secure_memory_free (mem);
 }

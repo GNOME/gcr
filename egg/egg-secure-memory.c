@@ -71,7 +71,7 @@
 	EGG_SECURE_GLOBALS.unlock ();
 
 static int show_warning = 1;
-int egg_secure_warnings = 1;
+static int egg_secure_warnings = 1;
 
 /*
  * We allocate all memory in units of sizeof(void*). This
@@ -1383,3 +1383,10 @@ egg_secure_strfree (char *str)
 	egg_secure_strclear (str);
 	egg_secure_free_full (str, EGG_SECURE_USE_FALLBACK);
 }
+
+void
+egg_set_secure_warnings (int val)
+{
+	egg_secure_warnings = val;
+}
+

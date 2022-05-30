@@ -23,6 +23,7 @@
 #include "config.h"
 
 #include "egg/egg-secure-memory.h"
+#include "egg/egg-secure-memory-private.h"
 
 #include <glib.h>
 
@@ -32,9 +33,6 @@
 
 
 EGG_SECURE_DEFINE_GLIB_GLOBALS ();
-
-/* Declared in egg-secure-memory.c */
-extern int egg_secure_warnings;
 
 EGG_SECURE_DECLARE (tests);
 
@@ -163,7 +161,7 @@ test_multialloc (void)
 	memory = g_ptr_array_new ();
 
 	/* Don't print "can't allocate" warnings */
-	egg_secure_warnings = 0;
+	egg_set_secure_warnings (0);
 
 	for (i = 0; TRUE; ++i) {
 
@@ -216,7 +214,7 @@ test_multialloc (void)
 		egg_secure_free (memory->pdata[i]);
 	g_ptr_array_free (memory, TRUE);
 
-	egg_secure_warnings = 1;
+	egg_set_secure_warnings (1);
 }
 
 static void

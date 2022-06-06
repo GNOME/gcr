@@ -56,3 +56,4 @@ content_images = [
   'images/tree-selector.png',
   'images/viewer-widget.png',
 ]
+urlmap_file = "urlmap.js"

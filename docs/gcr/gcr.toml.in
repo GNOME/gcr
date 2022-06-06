@@ -39,3 +39,4 @@ content_files = [
   'pkcs11-configuration.md',
   'trust-store.md',
 ]
+urlmap_file = "urlmap.js"

@@ -32,3 +32,4 @@ base_url = "https://gitlab.gnome.org/GNOME/gcr/-/blob/master/"
 content_files = [
   'pkcs11-links.md',
 ]
+urlmap_file = "urlmap.js"

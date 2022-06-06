@@ -42,3 +42,4 @@ show_class_hierarchy = true
 
 [source-location]
 base_url = "https://gitlab.gnome.org/GNOME/gcr/-/blob/master/"
+urlmap_file = "urlmap.js"

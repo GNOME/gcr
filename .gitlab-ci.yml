@@ -87,7 +87,7 @@ fedora:coverage:
 pages:
   stage: deploy
   only:
-    - main
+    - master
   needs: ['fedora:coverage']
   before_script:
     - dnf upgrade -y

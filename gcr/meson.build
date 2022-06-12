@@ -311,7 +311,7 @@ foreach service_file : gcr_service_files
     configuration: {
       'libexecdir': gcr_prefix / get_option('libexecdir'),
     },
-    install_dir: get_option('datadir') / 'dbus-1' / 'services',
+    install_dir: dbus_services_dir,
   )
 endforeach
 

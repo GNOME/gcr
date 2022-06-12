@@ -68,7 +68,10 @@ libsystemd_deps = []
 libsystemd = dependency('libsystemd', required: get_option('systemd'))
 systemd = dependency('systemd', required: get_option('systemd'))
 if libsystemd.found() and systemd.found()
-  systemduserunitdir = systemd.get_pkgconfig_variable('systemduserunitdir')
+  systemduserunitdir = systemd.get_variable('systemduserunitdir',
+    pkgconfig_define: [ 'prefix', get_option('prefix') ],
+    default_value: 'lib' / 'systemd' / 'user',
+  )
   libsystemd_deps += libsystemd
   with_systemd = true
 endif

@@ -1,6 +1,6 @@
 project('gcr', 'c',
   version: '3.90.0',
-  meson_version: '>= 0.52',
+  meson_version: '>= 0.59',
   license: 'GPL2+',
 )
 

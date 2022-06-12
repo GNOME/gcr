@@ -55,7 +55,7 @@ if gpg_path == ''
 endif
 libgcrypt_dep = dependency('libgcrypt', version: '>= 1')
 p11kit_dep = dependency('p11-kit-1', version: '>= 0.19.0')
-p11_system_config_modules = p11kit_dep.get_pkgconfig_variable('p11_system_config_modules')
+p11_system_config_modules = p11kit_dep.get_variable('p11_system_config_modules')
 if p11_system_config_modules == ''
   error('Couldn\'t find location for pkcs11 module config')
 endif

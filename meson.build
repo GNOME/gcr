@@ -131,6 +131,8 @@ if get_option('gtk_doc')
 endif
 
 # Post-install scripts
-meson.add_install_script('meson_post_install.py',
-  get_option('datadir'),
+gnome.post_install(
+  gtk_update_icon_cache: true,
+  glib_compile_schemas: true,
+  update_desktop_database: true,
 )

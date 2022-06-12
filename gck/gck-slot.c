@@ -188,7 +188,7 @@ gck_slot_info_copy (GckSlotInfo *slot_info)
 	if (slot_info == NULL)
 		return NULL;
 
-	slot_info = g_memdup (slot_info, sizeof (GckSlotInfo));
+	slot_info = g_memdup2 (slot_info, sizeof (GckSlotInfo));
 	slot_info->manufacturer_id = g_strdup (slot_info->manufacturer_id);
 	slot_info->slot_description = g_strdup (slot_info->slot_description);
 
@@ -261,7 +261,7 @@ gck_token_info_copy (GckTokenInfo *token_info)
 	if (token_info == NULL)
 		return NULL;
 
-	token_info = g_memdup (token_info, sizeof (GckTokenInfo));
+	token_info = g_memdup2 (token_info, sizeof (GckTokenInfo));
 	token_info->label = g_strdup (token_info->label);
 	token_info->manufacturer_id = g_strdup (token_info->manufacturer_id);
 	token_info->model = g_strdup (token_info->model);
@@ -315,7 +315,7 @@ G_DEFINE_BOXED_TYPE (GckMechanismInfo, gck_mechanism_info,
 GckMechanismInfo *
 gck_mechanism_info_copy (GckMechanismInfo *mech_info)
 {
-	return g_memdup (mech_info, sizeof (GckMechanismInfo));
+	return g_memdup2 (mech_info, sizeof (GckMechanismInfo));
 }
 
 /**

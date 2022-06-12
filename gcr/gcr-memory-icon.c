@@ -184,7 +184,7 @@ _gcr_memory_icon_new (const gchar *image_type, gconstpointer data, gsize n_data)
 	g_return_val_if_fail (data != NULL, NULL);
 	g_return_val_if_fail (n_data != 0, NULL);
 
-	return _gcr_memory_icon_new_full (image_type, g_memdup (data, n_data),
+	return _gcr_memory_icon_new_full (image_type, g_memdup2 (data, n_data),
 	                                  n_data, 0, g_free);
 }
 

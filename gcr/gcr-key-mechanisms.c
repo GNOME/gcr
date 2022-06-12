@@ -165,7 +165,7 @@ _gcr_key_mechanisms_check_async (GckObject *key,
 	task = g_task_new (key, cancellable, callback, user_data);
 	g_task_set_source_tag (task, _gcr_key_mechanisms_check_async);
 	closure = g_new0 (CheckClosure, 1);
-	closure->mechanisms = g_memdup (mechanisms, n_mechanisms * sizeof (gulong));
+	closure->mechanisms = g_memdup2 (mechanisms, n_mechanisms * sizeof (gulong));
 	closure->n_mechanisms = n_mechanisms;
 	closure->action_attr_type = action_attr_type;
 	g_task_set_task_data (task, closure, check_closure_free);

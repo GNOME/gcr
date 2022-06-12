@@ -109,7 +109,7 @@ static GcrCertificate*
 mock_certificate_new (gconstpointer data, gsize n_data)
 {
 	MockCertificate *self = g_object_new (mock_certificate_get_type (), NULL);
-	self->data = g_memdup (data, n_data);
+	self->data = g_memdup2 (data, n_data);
 	self->n_data = n_data;
 	g_assert (self->created_on == g_thread_self ());
 	return GCR_CERTIFICATE (self);

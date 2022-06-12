@@ -888,7 +888,7 @@ gck_enumerator_set_object_type_full (GckEnumerator *self,
 		self->attr_count = 0;
 
 		if (attr_types) {
-			self->attr_types = g_memdup (attr_types, sizeof (gulong) * attr_count);
+			self->attr_types = g_memdup2 (attr_types, sizeof (gulong) * attr_count);
 			self->attr_count = attr_count;
 		}
 

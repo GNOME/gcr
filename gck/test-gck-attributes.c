@@ -421,7 +421,7 @@ test_build_take (void)
 	const GckAttribute *attr;
 	guchar *memory;
 
-	memory = g_memdup (ATTR_DATA, N_ATTR_DATA);
+	memory = g_memdup2 (ATTR_DATA, N_ATTR_DATA);
 	gck_builder_take_data (&builder, ATTR_TYPE, memory, N_ATTR_DATA);
 	attrs = gck_builder_end (&builder);
 

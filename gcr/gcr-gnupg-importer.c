@@ -285,7 +285,7 @@ _gcr_gnupg_importer_queue_for_parsed (GcrImporter *importer,
 	block = gcr_parsed_get_data (parsed, &n_block);
 	g_return_val_if_fail (block, FALSE);
 
-	g_memory_input_stream_add_data (self->pv->packets, g_memdup (block, n_block),
+	g_memory_input_stream_add_data (self->pv->packets, g_memdup2 (block, n_block),
 	                                n_block, g_free);
 	return TRUE;
 }

@@ -529,7 +529,7 @@ gcr_certificate_get_issuer_raw (GcrCertificate *self,
 	}
 
 	*n_data = g_bytes_get_size (bytes);
-	result = g_memdup (g_bytes_get_data (bytes, NULL), *n_data);
+	result = g_memdup2 (g_bytes_get_data (bytes, NULL), *n_data);
 	g_bytes_unref (bytes);
 
 	return result;
@@ -741,7 +741,7 @@ gcr_certificate_get_subject_raw (GcrCertificate *self, gsize *n_data)
 	}
 
 	*n_data = g_bytes_get_size (bytes);
-	result = g_memdup (g_bytes_get_data (bytes, NULL), *n_data);
+	result = g_memdup2 (g_bytes_get_data (bytes, NULL), *n_data);
 
 	g_bytes_unref (bytes);
 
@@ -952,7 +952,7 @@ gcr_certificate_get_serial_number (GcrCertificate *self, gsize *n_length)
 	g_return_val_if_fail (bytes != NULL, NULL);
 
 	*n_length = g_bytes_get_size (bytes);
-	result = g_memdup (g_bytes_get_data (bytes, NULL), *n_length);
+	result = g_memdup2 (g_bytes_get_data (bytes, NULL), *n_length);
 
 	g_bytes_unref (bytes);
 	return result;

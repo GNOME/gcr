@@ -556,7 +556,7 @@ G_DEFINE_BOXED_TYPE (GckSessionInfo, gck_session_info,
 GckSessionInfo *
 gck_session_info_copy (GckSessionInfo *session_info)
 {
-	return g_memdup (session_info, sizeof (GckSessionInfo));
+	return g_memdup2 (session_info, sizeof (GckSessionInfo));
 }
 
 /**
@@ -958,7 +958,7 @@ gck_session_init_pin_async (GckSession *self, const guchar *pin, gsize n_pin,
 	call = _gck_call_async_prep (self, perform_init_pin, NULL, sizeof (*args), free_init_pin);
 	args = _gck_call_get_arguments (call);
 
-	args->pin = pin && n_pin ? g_memdup (pin, n_pin) : NULL;
+	args->pin = pin && n_pin ? g_memdup2 (pin, n_pin) : NULL;
 	args->n_pin = n_pin;
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
@@ -1063,9 +1063,9 @@ gck_session_set_pin_async (GckSession *self, const guchar *old_pin, gsize n_old_
 	call = _gck_call_async_prep (self, perform_set_pin, NULL, sizeof (*args), free_set_pin);
 	args = _gck_call_get_arguments (call);
 
-	args->old_pin = old_pin && n_old_pin ? g_memdup (old_pin, n_old_pin) : NULL;
+	args->old_pin = old_pin && n_old_pin ? g_memdup2 (old_pin, n_old_pin) : NULL;
 	args->n_old_pin = n_old_pin;
-	args->new_pin = new_pin && n_new_pin ? g_memdup (new_pin, n_new_pin) : NULL;
+	args->new_pin = new_pin && n_new_pin ? g_memdup2 (new_pin, n_new_pin) : NULL;
 	args->n_new_pin = n_new_pin;
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
@@ -1163,7 +1163,7 @@ gck_session_login_async (GckSession *self, gulong user_type, const guchar *pin,
 	args = _gck_call_get_arguments (call);
 
 	args->user_type = user_type;
-	args->pin = pin && n_pin ? g_memdup (pin, n_pin) : NULL;
+	args->pin = pin && n_pin ? g_memdup2 (pin, n_pin) : NULL;
 	args->n_pin = n_pin;
 
 	_gck_call_async_ready_go (call, self, cancellable, callback, user_data);
@@ -2682,7 +2682,7 @@ crypt_async (GckSession *self, GckObject *key, GckMechanism *mechanism, const gu
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
-	args->input = input && n_input ? g_memdup (input, n_input) : NULL;
+	args->input = input && n_input ? g_memdup2 (input, n_input) : NULL;
 	args->n_input = n_input;
 
 	args->init_func = init_func;
@@ -3238,9 +3238,9 @@ gck_session_verify_async (GckSession *self, GckObject *key, GckMechanism *mechan
 	/* Shallow copy of the mechanism structure */
 	memcpy (&args->mechanism, mechanism, sizeof (args->mechanism));
 
-	args->input = input && n_input ? g_memdup (input, n_input) : NULL;
+	args->input = input && n_input ? g_memdup2 (input, n_input) : NULL;
 	args->n_input = n_input;
-	args->signature = signature && n_signature ? g_memdup (signature, n_signature) : NULL;
+	args->signature = signature && n_signature ? g_memdup2 (signature, n_signature) : NULL;
 	args->n_signature = n_signature;
 
 	args->key_object = g_object_ref (key);

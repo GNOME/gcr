@@ -270,7 +270,7 @@ gck_uri_data_copy (GckUriData *uri_data)
 {
 	GckUriData *copy;
 
-	copy = g_memdup (uri_data, sizeof (GckUriData));
+	copy = g_memdup2 (uri_data, sizeof (GckUriData));
 	copy->attributes = gck_attributes_ref (uri_data->attributes);
 	copy->module_info = gck_module_info_copy (copy->module_info);
 	copy->token_info = gck_token_info_copy (copy->token_info);

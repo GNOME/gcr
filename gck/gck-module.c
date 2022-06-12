@@ -227,7 +227,7 @@ gck_module_info_copy (GckModuleInfo *module_info)
 	if (module_info == NULL)
 		return NULL;
 
-	module_info = g_memdup (module_info, sizeof (GckModuleInfo));
+	module_info = g_memdup2 (module_info, sizeof (GckModuleInfo));
 	module_info->manufacturer_id = g_strdup (module_info->manufacturer_id);
 	module_info->library_description = g_strdup (module_info->library_description);
 	return module_info;

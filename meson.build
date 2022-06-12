@@ -51,7 +51,7 @@ gio_unix_dep = dependency('gio-unix-2.0',version: '>=' + min_glib_version)
 glib_deps = [ glib_dep, gmodule_dep, gthread_dep, gobject_dep, gio_dep, gio_unix_dep, ]
 gpg_path = get_option('gpg_path')
 if gpg_path == ''
-  gpg_path = find_program('gpg2', 'gpg').path()
+  gpg_path = find_program('gpg2', 'gpg').full_path()
 endif
 libgcrypt_dep = dependency('libgcrypt', version: '>= 1')
 p11kit_dep = dependency('p11-kit-1', version: '>= 0.19.0')
@@ -60,8 +60,8 @@ if p11_system_config_modules == ''
   error('Couldn\'t find location for pkcs11 module config')
 endif
 libsecret_dep = dependency('libsecret-1', version: '>= 0.20', required: get_option('ssh_agent'))
-ssh_add_path = find_program('ssh-add', required: get_option('ssh_agent')).path()
-ssh_agent_path = find_program('ssh-agent', required: get_option('ssh_agent')).path()
+ssh_add_path = find_program('ssh-add', required: get_option('ssh_agent')).full_path()
+ssh_agent_path = find_program('ssh-agent', required: get_option('ssh_agent')).full_path()
 
 with_systemd = false
 libsystemd_deps = []

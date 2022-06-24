@@ -147,10 +147,6 @@ if get_option('introspection')
       packages: [ 'glib-2.0', 'gio-2.0' ],
       install: true,
     )
-
-    install_data('pkcs11.vapi',
-      install_dir: get_option('datadir') / 'vala' / 'vapi',
-    )
   endif
 endif
 

@@ -126,8 +126,6 @@ gchar*              gcr_certificate_get_fingerprint_hex    (GcrCertificate *self
 
 gchar *             gcr_certificate_get_markup_text        (GcrCertificate *self);
 
-GIcon*              gcr_certificate_get_icon               (GcrCertificate *self);
-
 gboolean            gcr_certificate_get_basic_constraints  (GcrCertificate *self,
                                                             gboolean *is_ca,
                                                             gint *path_len);

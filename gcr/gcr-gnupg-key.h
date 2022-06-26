@@ -72,8 +72,6 @@ GPtrArray*          _gcr_gnupg_key_get_secret_records            (GcrGnupgKey *s
 void                _gcr_gnupg_key_set_secret_records            (GcrGnupgKey *self,
                                                                   GPtrArray *records);
 
-GIcon*              _gcr_gnupg_key_get_icon                      (GcrGnupgKey *self);
-
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrGnupgKey, g_object_unref)
 
 G_END_DECLS

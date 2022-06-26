@@ -91,16 +91,6 @@ gcr_importer_default_init (GcrImporterInterface *iface)
 			                     G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
-		 * GcrImporter:icon:
-		 *
-		 * The icon for the importer.
-		 */
-		g_object_interface_install_property (iface,
-			g_param_spec_object ("icon", "Icon", "The icon for the importer",
-			                     G_TYPE_ICON,
-			                     G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
-
-		/**
 		 * GcrImporter:interaction:
 		 *
 		 * The interaction for the importer.

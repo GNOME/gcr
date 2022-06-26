@@ -21,7 +21,6 @@ G_DEFINE_TYPE (GcrSection, gcr_section, GTK_TYPE_GRID)
 
 enum {
 	PROP_TITLE = 1,
-	PROP_ICON,
 	N_PROPERTIES
 };
 
@@ -53,13 +52,6 @@ gcr_section_get_property (GObject    *object,
 	case PROP_TITLE:
 		g_value_set_string (value, gtk_label_get_label (GTK_LABEL (self->label)));
 		break;
-	case PROP_ICON:
-		{
-			GIcon *icon;
-			gtk_image_get_gicon (GTK_IMAGE (self->image), &icon, NULL);
-			g_value_set_object (value, icon);
-		}
-		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 	}
@@ -77,16 +69,6 @@ gcr_section_set_property (GObject      *object,
 	{
 	case PROP_TITLE:
 		gtk_label_set_label (GTK_LABEL (self->label), g_value_get_string (value));
-		break;
-	case PROP_ICON:
-		if (!self->image)
-		{
-			self->image = gtk_image_new ();
-			gtk_grid_attach (GTK_GRID (self), self->image, 1, 0, 1, 1);
-			gtk_container_child_set (GTK_CONTAINER (self), self->frame, "width", 2, NULL);
-		}
-
-		gtk_image_set_from_gicon (GTK_IMAGE (self->image), g_value_get_object (value), GTK_ICON_SIZE_BUTTON);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -106,13 +88,6 @@ gcr_section_class_init (GcrSectionClass *klass)
 		                     "Title",
 		                     "The title of the section",
 		                     NULL,
-		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
-
-	obj_properties[PROP_ICON] =
-		g_param_spec_object ("icon",
-		                     "Icon",
-		                     "The Icon to use",
-		                     G_TYPE_ICON,
 		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	g_object_class_install_properties (object_class,
@@ -159,13 +134,6 @@ GtkWidget *
 gcr_section_new (const gchar *title)
 {
 	return g_object_new (GCR_TYPE_SECTION, "title", title, NULL);
-}
-
-GtkWidget *
-gcr_section_new_with_icon (const gchar *title,
-                           GIcon       *icon)
-{
-	return g_object_new (GCR_TYPE_SECTION, "title", title, "icon", icon, NULL);
 }
 
 void

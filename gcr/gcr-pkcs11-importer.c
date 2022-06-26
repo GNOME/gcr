@@ -23,7 +23,6 @@
 #include "config.h"
 
 #include "gcr-fingerprint.h"
-#include "gcr-icons.h"
 #include "gcr-internal.h"
 #include "gcr-library.h"
 #include "gcr-import-interaction.h"
@@ -42,7 +41,6 @@
 enum {
 	PROP_0,
 	PROP_LABEL,
-	PROP_ICON,
 	PROP_INTERACTION,
 	PROP_SLOT,
 	PROP_IMPORTED,
@@ -605,21 +603,6 @@ calculate_label (GcrPkcs11Importer *self)
 	return result;
 }
 
-static GIcon *
-calculate_icon (GcrPkcs11Importer *self,
-                GckTokenInfo *token_info)
-{
-	GckTokenInfo *info = NULL;
-	GIcon *result;
-
-	if (token_info == NULL)
-		info = token_info = gck_slot_get_token_info (self->slot);
-	result = gcr_icon_for_token (token_info);
-	gck_token_info_free (info);
-
-	return result;
-}
-
 static gchar *
 calculate_uri (GcrPkcs11Importer *self)
 {
@@ -646,9 +629,6 @@ _gcr_pkcs11_importer_get_property (GObject *obj,
 	switch (prop_id) {
 	case PROP_LABEL:
 		g_value_take_string (value, calculate_label (self));
-		break;
-	case PROP_ICON:
-		g_value_take_object (value, calculate_icon (self, NULL));
 		break;
 	case PROP_SLOT:
 		g_value_set_object (value, _gcr_pkcs11_importer_get_slot (self));
@@ -683,7 +663,6 @@ _gcr_pkcs11_importer_class_init (GcrPkcs11ImporterClass *klass)
 	gobject_class->get_property = _gcr_pkcs11_importer_get_property;
 
 	g_object_class_override_property (gobject_class, PROP_LABEL, "label");
-	g_object_class_override_property (gobject_class, PROP_ICON, "icon");
 	g_object_class_override_property (gobject_class, PROP_INTERACTION, "interaction");
 	g_object_class_override_property (gobject_class, PROP_URI, "uri");
 

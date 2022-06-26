@@ -38,7 +38,6 @@
 #include <gcr/gcr-column.h>
 #include <gcr/gcr-enum-types.h>
 #include <gcr/gcr-fingerprint.h>
-#include <gcr/gcr-icons.h>
 #include <gcr/gcr-importer.h>
 #include <gcr/gcr-library.h>
 #include <gcr/gcr-mock-prompter.h>

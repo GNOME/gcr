@@ -1,5 +1,3 @@
-subdir('icons')
-
 gcr_gtk3_headers_install_dir = gcr_headers_subdir / 'gcr-gtk3'
 
 gcr_gtk3_public_sources = files(

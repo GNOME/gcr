@@ -18,8 +18,6 @@ G_BEGIN_DECLS
 G_DECLARE_FINAL_TYPE (GcrSection, gcr_section, GCR, SECTION, GtkWidget)
 
 GtkWidget *gcr_section_new (const gchar *title);
-GtkWidget *gcr_section_new_with_icon (const gchar *title,
-                                      GIcon       *icon);
 
 void gcr_section_add_child (GcrSection  *self,
                             const gchar *description,

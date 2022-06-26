@@ -21,7 +21,6 @@ G_DEFINE_TYPE (GcrSection, gcr_section, GTK_TYPE_WIDGET)
 
 enum {
 	PROP_TITLE = 1,
-	PROP_ICON,
 	N_PROPERTIES
 };
 
@@ -53,9 +52,6 @@ gcr_section_get_property (GObject    *object,
 	case PROP_TITLE:
 		g_value_set_string (value, gtk_label_get_label (GTK_LABEL (self->label)));
 		break;
-	case PROP_ICON:
-		g_value_set_object (value, gtk_image_get_gicon (GTK_IMAGE (self->image)));
-		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 	}
@@ -73,29 +69,6 @@ gcr_section_set_property (GObject      *object,
 	{
 	case PROP_TITLE:
 		gtk_label_set_label (GTK_LABEL (self->label), g_value_get_string (value));
-		break;
-	case PROP_ICON:
-		if (!self->image)
-		{
-			GtkLayoutManager *layout_manager;
-			GtkLayoutChild *child;
-
-			self->image = gtk_image_new ();
-			gtk_widget_insert_after (self->image, GTK_WIDGET (self), self->label);
-			layout_manager = gtk_widget_get_layout_manager (GTK_WIDGET (self));
-
-			child = gtk_layout_manager_get_layout_child (layout_manager, self->image);
-			g_object_set (G_OBJECT (child),
-				      "column", 1,
-				      NULL);
-
-			child = gtk_layout_manager_get_layout_child (layout_manager, self->frame);
-			g_object_set (G_OBJECT (child),
-				      "column-span", 2,
-				      NULL);
-		}
-
-		gtk_image_set_from_gicon (GTK_IMAGE (self->image), g_value_get_object (value));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -116,13 +89,6 @@ gcr_section_class_init (GcrSectionClass *klass)
 		                     "Title",
 		                     "The title of the section",
 		                     NULL,
-		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
-
-	obj_properties[PROP_ICON] =
-		g_param_spec_object ("icon",
-		                     "Icon",
-		                     "The Icon to use",
-		                     G_TYPE_ICON,
 		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	g_object_class_install_properties (object_class,
@@ -177,13 +143,6 @@ GtkWidget *
 gcr_section_new (const gchar *title)
 {
 	return g_object_new (GCR_TYPE_SECTION, "title", title, NULL);
-}
-
-GtkWidget *
-gcr_section_new_with_icon (const gchar *title,
-                           GIcon       *icon)
-{
-	return g_object_new (GCR_TYPE_SECTION, "title", title, "icon", icon, NULL);
 }
 
 void

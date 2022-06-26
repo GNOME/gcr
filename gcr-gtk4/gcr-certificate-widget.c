@@ -145,17 +145,13 @@ gcr_certificate_widget_init (GcrCertificateWidget *self)
 static GtkWidget*
 _gcr_certificate_widget_add_section (GcrCertificateWidget *self,
 			             const gchar          *title,
-			             GIcon                *icon,
 				     gboolean              important)
 {
 	GtkWidget *widget;
 
 	g_assert (GCR_IS_CERTIFICATE_WIDGET (self));
 
-	if (icon)
-		widget = gcr_section_new_with_icon (title, icon);
-	else
-		widget = gcr_section_new (title);
+	widget = gcr_section_new (title);
 
 	gtk_size_group_add_widget (self->size_group, widget);
 	if (important)
@@ -305,7 +301,7 @@ append_extension_basic_constraints (GcrCertificateWidget *self,
 	if (!_gcr_certificate_extension_basic_constraints (data, &is_ca, &path_len))
 		return NULL;
 
-	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Basic Constraints"), NULL, FALSE));
+	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Basic Constraints"), FALSE));
 	gcr_section_add_child (section, _("Certificate Authority"), create_value_label (is_ca ? _("Yes") : _("No")));
 
 	number = g_strdup_printf ("%d", path_len);
@@ -337,7 +333,7 @@ append_extension_extended_key_usage (GcrCertificateWidget *self,
 
 	g_free (oids);
 
-	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Extended Key Usage"), NULL, FALSE));
+	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Extended Key Usage"), FALSE));
 	gcr_section_add_child (section, _("Allowed Purposes"), create_value_label (text->str));
 
 	g_string_free (text, TRUE);
@@ -357,7 +353,7 @@ append_extension_subject_key_identifier (GcrCertificateWidget *self,
 	if (keyid == NULL)
 		return NULL;
 
-	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Subject Key Identifier"), NULL, FALSE));
+	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Subject Key Identifier"), FALSE));
 	gchar *display = egg_hex_encode_full (keyid, n_keyid, TRUE, " ", 1);
 	g_free (keyid);
 	gcr_section_add_child (section, _("Key Identifier"), create_value_label (display));
@@ -403,7 +399,7 @@ append_extension_key_usage (GcrCertificateWidget *self,
 		}
 	}
 
-	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Key Usage"), NULL, FALSE));
+	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Key Usage"), FALSE));
 	gcr_section_add_child (section, _("Usages"), create_value_label (text->str));
 
 	g_string_free (text, TRUE);
@@ -424,7 +420,7 @@ append_extension_subject_alt_name (GcrCertificateWidget *self,
 	if (general_names == NULL)
 		return FALSE;
 
-	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Subject Alternative Names"), NULL, FALSE));
+	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Subject Alternative Names"), FALSE));
 
 	for (i = 0; i < general_names->len; i++) {
 		general = &g_array_index (general_names, GcrGeneralName, i);
@@ -450,7 +446,7 @@ append_extension_hex (GcrCertificateWidget *self,
 	const gchar *text;
 	gchar *display;
 
-	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Extension"), NULL, FALSE));
+	section = GCR_SECTION (_gcr_certificate_widget_add_section (self, _("Extension"), FALSE));
 
 	/* Extension type */
 	text = egg_oid_get_description (oid);
@@ -546,7 +542,6 @@ gcr_certificate_widget_set_certificate (GcrCertificateWidget *self, GcrCertifica
 	GtkWidget *section, *label;
 	PangoAttrList *attributes;
 	gchar *display;
-	GIcon *icon;
 	GBytes *bytes, *number;
 	GNode *asn, *subject_public_key;
 	GQuark oid;
@@ -565,11 +560,9 @@ gcr_certificate_widget_set_certificate (GcrCertificateWidget *self, GcrCertifica
 		g_set_object (&self->certificate, NULL);
 	}
 
-	icon = gcr_certificate_get_icon (self->certificate);
 	display = calculate_label (self);
-	section = _gcr_certificate_widget_add_section (self, display, icon, TRUE);
+	section = _gcr_certificate_widget_add_section (self, display, TRUE);
 	g_clear_pointer (&display, g_free);
-	g_object_unref (icon);
 
 	bytes = g_bytes_new_static (data, n_data);
 	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "Certificate", bytes);
@@ -592,15 +585,15 @@ gcr_certificate_widget_set_certificate (GcrCertificateWidget *self, GcrCertifica
 	}
 
 	/* The subject */
-	section = _gcr_certificate_widget_add_section (self, _("Subject Name"), NULL, FALSE);
+	section = _gcr_certificate_widget_add_section (self, _("Subject Name"), FALSE);
 	egg_dn_parse (egg_asn1x_node (asn, "tbsCertificate", "subject", "rdnSequence", NULL), on_parsed_dn_part, section);
 
 	/* The Issuer */
-	section = _gcr_certificate_widget_add_section (self, _("Issuer Name"), NULL, FALSE);
+	section = _gcr_certificate_widget_add_section (self, _("Issuer Name"), FALSE);
 	egg_dn_parse (egg_asn1x_node (asn, "tbsCertificate", "issuer", "rdnSequence", NULL), on_parsed_dn_part, section);
 
 	/* The Issued Parameters */
-	section = _gcr_certificate_widget_add_section (self, _("Issued Certificate"), NULL, FALSE);
+	section = _gcr_certificate_widget_add_section (self, _("Issued Certificate"), FALSE);
 
 	if (!egg_asn1x_get_integer_as_ulong (egg_asn1x_node (asn, "tbsCertificate", "version", NULL), &version)) {
 		g_critical ("Unable to parse certificate version");
@@ -634,7 +627,7 @@ gcr_certificate_widget_set_certificate (GcrCertificateWidget *self, GcrCertifica
 	g_clear_pointer (&display, g_free);
 
 	/* Fingerprints */
-	section = _gcr_certificate_widget_add_section (self, _("Certificate Fingerprints"), NULL, FALSE);
+	section = _gcr_certificate_widget_add_section (self, _("Certificate Fingerprints"), FALSE);
 	display = g_compute_checksum_for_bytes (G_CHECKSUM_SHA1, bytes);
 	gcr_section_add_child (GCR_SECTION (section), "SHA1", create_value_label (display));
 	g_clear_pointer (&display, g_free);
@@ -643,7 +636,7 @@ gcr_certificate_widget_set_certificate (GcrCertificateWidget *self, GcrCertifica
 	g_clear_pointer (&display, g_free);
 
 	/* Public Key Info */
-	section = _gcr_certificate_widget_add_section (self, _("Public Key Info"), NULL, FALSE);
+	section = _gcr_certificate_widget_add_section (self, _("Public Key Info"), FALSE);
 	subject_public_key = egg_asn1x_node (asn, "tbsCertificate", "subjectPublicKeyInfo", NULL);
 	append_subject_public_key (self, GCR_SECTION (section), subject_public_key);
 
@@ -656,7 +649,7 @@ gcr_certificate_widget_set_certificate (GcrCertificateWidget *self, GcrCertifica
 	}
 
 	/* Signature */
-	section = _gcr_certificate_widget_add_section (self, _("Signature"), NULL, FALSE);
+	section = _gcr_certificate_widget_add_section (self, _("Signature"), FALSE);
 
 	oid = egg_asn1x_get_oid_as_quark (egg_asn1x_node (asn, "signatureAlgorithm", "algorithm", NULL));
 	gcr_section_add_child (GCR_SECTION (section), _("Signature Algorithm"), create_value_label (egg_oid_get_description (oid)));

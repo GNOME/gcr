@@ -39,8 +39,6 @@ gboolean            _gcr_gnupg_records_parse_user_id         (const gchar *user_
                                                               gchar **email,
                                                               gchar **comment);
 
-GIcon *             _gcr_gnupg_records_get_icon              (GPtrArray *records);
-
 G_END_DECLS
 
 #endif /* __GCR_GNUPG_RECORD_H__ */

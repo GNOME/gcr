@@ -22,7 +22,6 @@
 #include "gcr-certificate.h"
 #include "gcr-certificate-extensions.h"
 #include "gcr-comparable.h"
-#include "gcr-icons.h"
 #include "gcr-internal.h"
 #include "gcr-subject-public-key.h"
 
@@ -106,7 +105,6 @@ enum {
 	PROP_LABEL,
 	PROP_MARKUP,
 	PROP_DESCRIPTION,
-	PROP_ICON,
 	PROP_SUBJECT,
 	PROP_ISSUER,
 	PROP_EXPIRY
@@ -281,15 +279,6 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
-		 * GcrCertificate:icon:
-		 *
-		 * An icon representing the certificate
-		 */
-		g_object_interface_install_property (iface,
-		         g_param_spec_object ("icon", "Icon", "Icon for the object being rendered",
-		                              G_TYPE_ICON, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
-
-		/**
 		 * GcrCertificate:subject:
 		 *
 		 * Common name part of the certificate subject
@@ -339,7 +328,6 @@ const GcrColumn*
 gcr_certificate_get_columns (void)
 {
 	static GcrColumn columns[] = {
-		{ "icon", /* later */ 0, /* later */ 0, NULL, 0 },
 		{ "label", G_TYPE_STRING, G_TYPE_STRING, NC_("column", "Name"),
 		  GCR_COLUMN_SORTABLE },
 		{ "issuer", G_TYPE_STRING, G_TYPE_STRING, NC_("column", "Issued By"),
@@ -349,7 +337,6 @@ gcr_certificate_get_columns (void)
 		{ NULL }
 	};
 
-	columns[0].property_type = columns[0].column_type = G_TYPE_ICON;
 	columns[3].property_type = G_TYPE_DATE;
 	return columns;
 }
@@ -988,22 +975,6 @@ gcr_certificate_get_serial_number_hex (GcrCertificate *self)
 }
 
 /**
- * gcr_certificate_get_icon: (skip)
- * @self: The certificate
- *
- * Get the icon for a certificate.
- *
- * Returns: (transfer full): the icon for this certificate, which should be
- *          released with g_object_unref()
- */
-GIcon *
-gcr_certificate_get_icon (GcrCertificate *self)
-{
-	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), FALSE);
-	return g_themed_icon_new (GCR_ICON_CERTIFICATE);
-}
-
-/**
  * gcr_certificate_get_basic_constraints:
  * @self: the certificate
  * @is_ca: (out) (optional): location to place a %TRUE if is an authority
@@ -1113,8 +1084,6 @@ gcr_certificate_mixin_class_init (GObjectClass *object_class)
 		g_object_class_override_property (object_class, PROP_MARKUP, "markup");
 	if (!g_object_class_find_property (object_class, "label"))
 		g_object_class_override_property (object_class, PROP_LABEL, "label");
-	if (!g_object_class_find_property (object_class, "icon"))
-		g_object_class_override_property (object_class, PROP_ICON, "icon");
 	if (!g_object_class_find_property (object_class, "subject"))
 		g_object_class_override_property (object_class, PROP_SUBJECT, "subject");
 	if (!g_object_class_find_property (object_class, "issuer"))
@@ -1179,9 +1148,6 @@ gcr_certificate_mixin_get_property (GObject *obj, guint prop_id,
 		break;
 	case PROP_SUBJECT:
 		g_value_take_string (value, gcr_certificate_get_subject_name (cert));
-		break;
-	case PROP_ICON:
-		g_value_set_object (value, gcr_certificate_get_icon (cert));
 		break;
 	case PROP_DESCRIPTION:
 		g_value_set_string (value, _("Certificate"));

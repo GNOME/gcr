@@ -22,7 +22,6 @@
 #include "gcr-gnupg-key.h"
 #include "gcr-gnupg-records.h"
 #include "gcr-record.h"
-#include "gcr-memory-icon.h"
 
 #include "gck/gck.h"
 
@@ -37,13 +36,12 @@ enum {
 	PROP_MARKUP,
 	PROP_DESCRIPTION,
 	PROP_SHORT_KEYID,
-	PROP_ICON
+	N_PROPS
 };
 
 struct _GcrGnupgKeyPrivate {
 	GPtrArray *public_records;
 	GPtrArray *secret_records;
-	GIcon *icon;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (GcrGnupgKey, _gcr_gnupg_key, G_TYPE_OBJECT);
@@ -148,9 +146,6 @@ _gcr_gnupg_key_get_property (GObject *obj, guint prop_id, GValue *value,
 	case PROP_SHORT_KEYID:
 		g_value_set_string (value, _gcr_gnupg_records_get_short_keyid (self->pv->public_records));
 		break;
-	case PROP_ICON:
-		g_value_set_object (value, _gcr_gnupg_key_get_icon (self));
-		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
 		break;
@@ -231,15 +226,6 @@ _gcr_gnupg_key_class_init (GcrGnupgKeyClass *klass)
 	g_object_class_install_property (gobject_class, PROP_SHORT_KEYID,
 	         g_param_spec_string ("short-keyid", "Short Key ID", "Display key identifier",
 	                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
-
-	/**
-	 * GcrGnupgKey:icon:
-	 *
-	 * Icon for this key.
-	 */
-	g_object_class_install_property (gobject_class, PROP_ICON,
-	         g_param_spec_object ("icon", "Icon", "Icon for this key",
-	                              G_TYPE_ICON, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 }
 
 /**
@@ -389,32 +375,6 @@ _gcr_gnupg_key_get_keyid (GcrGnupgKey *self)
 }
 
 /**
- * _gcr_gnupg_key_get_icon:
- * @self: A gnupg key.
- *
- * Get the display icon for this key.
- *
- * Return value: (transfer none): The icon, owned by the key.
- */
-GIcon*
-_gcr_gnupg_key_get_icon (GcrGnupgKey *self)
-{
-	g_return_val_if_fail (GCR_IS_GNUPG_KEY (self), NULL);
-
-	if (self->pv->icon == NULL) {
-		self->pv->icon = _gcr_gnupg_records_get_icon (self->pv->public_records);
-		if (self->pv->icon == NULL) {
-			if (self->pv->secret_records)
-				self->pv->icon = g_themed_icon_new ("gcr-key-pair");
-			else
-				self->pv->icon = g_themed_icon_new ("gcr-key");
-		}
-	}
-
-	return self->pv->icon;
-}
-
-/**
  * _gcr_gnupg_key_get_columns:
  *
  * Get the columns that we should display for gnupg keys.
@@ -425,7 +385,6 @@ const GcrColumn*
 _gcr_gnupg_key_get_columns (void)
 {
 	static GcrColumn columns[] = {
-		{ "icon", /* later */ 0, /* later */ 0, NULL, 0, NULL, 0 },
 		{ "label", G_TYPE_STRING, G_TYPE_STRING, NC_("column", "Name"),
 		  GCR_COLUMN_SORTABLE, NULL, 0 },
 		{ "short-keyid", G_TYPE_STRING, G_TYPE_STRING, NC_("column", "Key ID"),
@@ -433,6 +392,5 @@ _gcr_gnupg_key_get_columns (void)
 		{ NULL }
 	};
 
-	columns[0].property_type = columns[0].column_type = G_TYPE_ICON;
 	return columns;
 }

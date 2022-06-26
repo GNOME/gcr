@@ -131,8 +131,3 @@ if get_option('gtk_doc')
 
   subdir('docs')
 endif
-
-# Post-install scripts
-gnome.post_install(
-  gtk_update_icon_cache: get_option('gtk3'),
-)

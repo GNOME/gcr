@@ -30,7 +30,6 @@
 enum {
 	PROP_0,
 	PROP_LABEL,
-	PROP_ICON,
 	PROP_IMPORTED,
 	PROP_DIRECTORY,
 	PROP_INTERACTION,
@@ -95,18 +94,6 @@ calculate_label (GcrGnupgImporter *self)
 		return g_strdup (_("GnuPG Keyring"));
 	else
 		return g_strdup_printf (_("GnuPG Keyring: %s"), directory);
-}
-
-static GIcon *
-calculate_icon (GcrGnupgImporter *self)
-{
-	const gchar *directory;
-
-	directory = _gcr_gnupg_process_get_directory (self->pv->process);
-	if (directory == NULL)
-		return g_themed_icon_new ("user-home");
-	else
-		return g_themed_icon_new ("folder");
 }
 
 static gchar *
@@ -203,9 +190,6 @@ _gcr_gnupg_importer_get_property (GObject *obj,
 	case PROP_LABEL:
 		g_value_take_string (value, calculate_label (self));
 		break;
-	case PROP_ICON:
-		g_value_take_object (value, calculate_icon (self));
-		break;
 	case PROP_IMPORTED:
 		g_value_set_boxed (value, _gcr_gnupg_importer_get_imported (self));
 		break;
@@ -236,7 +220,6 @@ _gcr_gnupg_importer_class_init (GcrGnupgImporterClass *klass)
 	gobject_class->get_property = _gcr_gnupg_importer_get_property;
 
 	g_object_class_override_property (gobject_class, PROP_LABEL, "label");
-	g_object_class_override_property (gobject_class, PROP_ICON, "icon");
 	g_object_class_override_property (gobject_class, PROP_INTERACTION, "interaction");
 	g_object_class_override_property (gobject_class, PROP_URI, "uri");
 

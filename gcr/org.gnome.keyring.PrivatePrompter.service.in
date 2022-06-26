@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=org.gnome.keyring.PrivatePrompter
-Exec=@libexecdir@/gcr-prompter

@@ -298,23 +298,6 @@ if get_option('ssh_agent')
   endforeach
 endif
 
-# Services
-gcr_service_files = [
-  'org.gnome.keyring.SystemPrompter.service',
-  'org.gnome.keyring.PrivatePrompter.service',
-]
-
-foreach service_file : gcr_service_files
-  configure_file(
-    output: service_file,
-    input: service_file + '.in',
-    configuration: {
-      'libexecdir': gcr_prefix / get_option('libexecdir'),
-    },
-    install_dir: dbus_services_dir,
-  )
-endforeach
-
 # Tests
 gcr_test_names = [
   'util',

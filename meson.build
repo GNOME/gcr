@@ -76,15 +76,6 @@ if libsystemd.found() and systemd.found()
   with_systemd = true
 endif
 
-dbus_dep = dependency('dbus-1', required: false)
-if dbus_dep.found()
-  dbus_services_dir = dbus_dep.get_variable('session_bus_services_dir',
-    pkgconfig_define: [ 'datadir', get_option('datadir') ],
-  )
-else
-  dbus_services_dir = get_option('datadir') / 'dbus-1' / 'services'
-endif
-
 if get_option('gtk3')
   gtk3_min_version = '3.22'
   gtk3_dep = dependency('gtk+-3.0', version: '>=' + gtk3_min_version)

@@ -117,7 +117,6 @@ subdir('po')
 subdir('egg')
 subdir('gck')
 subdir('gcr')
-subdir('schema')
 if get_option('gtk3')
   subdir('gcr-gtk3')
 endif
@@ -136,5 +135,4 @@ endif
 # Post-install scripts
 gnome.post_install(
   gtk_update_icon_cache: get_option('gtk3'),
-  glib_compile_schemas: true,
 )

@@ -24,6 +24,5 @@ gcr/gcr-system-prompt.c
 gcr/gcr-trust.c
 gcr-gtk3/gcr-certificate-widget.c
 gcr-gtk4/gcr-certificate-widget.c
-schema/org.gnome.crypto.pgp.gschema.xml
 tools/gtk3/viewer.c
 tools/gtk4/viewer.c

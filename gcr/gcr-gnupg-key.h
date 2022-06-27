@@ -26,12 +26,10 @@
 
 #include <glib-object.h>
 
-#include "gcr-column.h"
 #include "gcr-types.h"
 
 G_BEGIN_DECLS
 
-#define GCR_GNUPG_KEY_COLUMNS            (_gcr_gnupg_key_get_columns ())
 #define GCR_TYPE_GNUPG_KEY               (_gcr_gnupg_key_get_type ())
 #define GCR_GNUPG_KEY(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_GNUPG_KEY, GcrGnupgKey))
 #define GCR_GNUPG_KEY_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GCR_TYPE_GNUPG_KEY, GcrGnupgKeyClass))
@@ -54,8 +52,6 @@ struct _GcrGnupgKeyClass {
 };
 
 GType               _gcr_gnupg_key_get_type                      (void);
-
-const GcrColumn*    _gcr_gnupg_key_get_columns                   (void);
 
 GcrGnupgKey*        _gcr_gnupg_key_new                           (GPtrArray *pubset,
                                                                   GPtrArray *secset);

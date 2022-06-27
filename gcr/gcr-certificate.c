@@ -68,15 +68,6 @@
  * The interface that implementors of #GcrCertificate must implement.
  */
 
-/**
- * GCR_CERTIFICATE_COLUMNS:
- *
- * The columns that are valid for a certificate. This is to be used with
- * the [class@TreeSelector] or [class@CollectionModel].
- *
- * This is an array of #GcrColumn, owned by the gcr library.
- */
-
 /*
  * The DER data in this structure is owned by the derived class.
  * It is only valid for the duration of the current call stack
@@ -218,27 +209,6 @@ gcr_certificate_get_markup_text (GcrCertificate *self)
 	return markup;
 }
 
-static void
-on_transform_date_to_string (const GValue *src, GValue *dest)
-{
-	static const gsize len = 256;
-	GDate *date;
-	gchar *result;
-
-	g_return_if_fail (G_VALUE_TYPE (src) == G_TYPE_DATE);
-
-	date = g_value_get_boxed (src);
-	g_return_if_fail (date);
-
-	result = g_malloc0 (len);
-	if (!g_date_strftime (result, len, "%x", date)) {
-		g_free (result);
-		result = NULL;
-	}
-
-	g_value_take_string (dest, result);
-}
-
 /* ---------------------------------------------------------------------------------
  * INTERFACE
  */
@@ -316,30 +286,6 @@ G_DEFINE_INTERFACE (GcrCertificate, gcr_certificate, GCR_TYPE_COMPARABLE);
 /* -----------------------------------------------------------------------------
  * PUBLIC
  */
-
-/**
- * gcr_certificate_get_columns: (skip)
- *
- * Get the columns appropriate for a certificate
- *
- * Returns: (transfer none): the columns
- */
-const GcrColumn*
-gcr_certificate_get_columns (void)
-{
-	static GcrColumn columns[] = {
-		{ "label", G_TYPE_STRING, G_TYPE_STRING, NC_("column", "Name"),
-		  GCR_COLUMN_SORTABLE },
-		{ "issuer", G_TYPE_STRING, G_TYPE_STRING, NC_("column", "Issued By"),
-		  GCR_COLUMN_SORTABLE },
-		{ "expiry", /* later */ 0, G_TYPE_STRING, NC_("column", "Expires"),
-		  GCR_COLUMN_SORTABLE, on_transform_date_to_string },
-		{ NULL }
-	};
-
-	columns[3].property_type = G_TYPE_DATE;
-	return columns;
-}
 
 /**
  * gcr_certificate_compare:

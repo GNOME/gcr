@@ -26,7 +26,6 @@ gcr_public_sources = files(
 gcr_private_sources = files(
   'gcr-callback-output-stream.c',
   'gcr-certificate-extensions.c',
-  'gcr-column.c',
   'gcr-gnupg-importer.c',
   'gcr-gnupg-key.c',
   'gcr-gnupg-process.c',
@@ -46,7 +45,6 @@ gcr_headers = files(
   'gcr-certificate.h',
   'gcr-certificate-chain.h',
   'gcr-certificate-request.h',
-  'gcr-column.h',
   'gcr-comparable.h',
   'gcr-fingerprint.h',
   'gcr-importer.h',

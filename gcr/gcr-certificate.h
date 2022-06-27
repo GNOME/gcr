@@ -25,7 +25,6 @@
 #endif
 
 #include "gcr-types.h"
-#include "gcr-column.h"
 #include "gcr-comparable.h"
 
 #include <glib-object.h>
@@ -33,7 +32,6 @@
 
 G_BEGIN_DECLS
 
-#define GCR_CERTIFICATE_COLUMNS                 (gcr_certificate_get_columns ())
 #define GCR_TYPE_CERTIFICATE                    (gcr_certificate_get_type ())
 #define GCR_CERTIFICATE(obj)                    (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCR_TYPE_CERTIFICATE, GcrCertificate))
 #define GCR_IS_CERTIFICATE(obj)                 (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GCR_TYPE_CERTIFICATE))
@@ -73,8 +71,6 @@ GType               gcr_certificate_get_type               (void);
 
 const guint8 *      gcr_certificate_get_der_data           (GcrCertificate *self,
                                                             gsize *n_data);
-
-const GcrColumn*    gcr_certificate_get_columns            (void);
 
 gint                gcr_certificate_compare                (GcrComparable *first,
                                                             GcrComparable *other);

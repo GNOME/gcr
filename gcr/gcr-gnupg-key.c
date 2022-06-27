@@ -373,24 +373,3 @@ _gcr_gnupg_key_get_keyid (GcrGnupgKey *self)
 	g_return_val_if_fail (GCR_IS_GNUPG_KEY (self), NULL);
 	return _gcr_gnupg_records_get_keyid (self->pv->public_records);
 }
-
-/**
- * _gcr_gnupg_key_get_columns:
- *
- * Get the columns that we should display for gnupg keys.
- *
- * Returns: (transfer none): The columns, %NULL terminated, should not be freed.
- */
-const GcrColumn*
-_gcr_gnupg_key_get_columns (void)
-{
-	static GcrColumn columns[] = {
-		{ "label", G_TYPE_STRING, G_TYPE_STRING, NC_("column", "Name"),
-		  GCR_COLUMN_SORTABLE, NULL, 0 },
-		{ "short-keyid", G_TYPE_STRING, G_TYPE_STRING, NC_("column", "Key ID"),
-		  GCR_COLUMN_SORTABLE, NULL, 0 },
-		{ NULL }
-	};
-
-	return columns;
-}

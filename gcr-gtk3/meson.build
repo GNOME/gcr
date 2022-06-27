@@ -133,9 +133,10 @@ if get_option('introspection')
 endif
 
 # Register new mime types
-install_data('gcr-crypto-types.xml',
-  install_dir: get_option('datadir') / 'mime' / 'packages',
-)
+# FIXME: we had to temporarily disable this for parallel installability with gcr3
+# install_data('gcr-crypto-types.xml',
+#   install_dir: get_option('datadir') / 'mime' / 'packages',
+# )
 
 # Manual UI testing programs
 gcr_gtk3_manual_tests = [

@@ -163,11 +163,7 @@ main (int argc, char **argv)
 	g_test_init (&argc, &argv, NULL);
 	g_set_prgname ("test-ssh-askpass");
 
-#ifdef _GCR_TEST_SSH_ASKPASS_PATH
 	gcr_ssh_askpass_executable = _GCR_TEST_SSH_ASKPASS_PATH;
-#else
-	gcr_ssh_askpass_executable = BUILDDIR "/gcr-ssh-askpass";
-#endif
 
 	g_test_add ("/gcr/ssh-askpass/ssh-keygen", Test, "booo", setup, test_ssh_keygen, teardown);
 	g_test_add ("/gcr/ssh-askpass/cancelled", Test, NULL, setup, test_cancelled, teardown);

@@ -31,8 +31,10 @@
 #include <errno.h>
 #include <unistd.h>
 
+#define GCR_SSH_ASKPASS_BIN "gcr4-ssh-askpass"
+
 /* Used from tests to override location */
-const char *gcr_ssh_askpass_executable = LIBEXECDIR "/gcr-ssh-askpass";
+const char *gcr_ssh_askpass_executable = LIBEXECDIR "/" GCR_SSH_ASKPASS_BIN;
 
 /**
  * GcrSshAskpass:
@@ -141,7 +143,7 @@ read_all_into_string (gint fd)
 		ret = read (fd, input->str + len, 256);
 		if (ret < 0) {
 			if (errno != EINTR && errno != EAGAIN) {
-				g_critical ("couldn't read from gcr-ssh-askpass: %s", g_strerror (errno));
+				g_critical ("couldn't read from " GCR_SSH_ASKPASS_BIN ": %s", g_strerror (errno));
 				g_string_free (input, TRUE);
 				return NULL;
 			}
@@ -190,9 +192,9 @@ askpass_thread (gpointer data)
 	if (res == G_TLS_INTERACTION_HANDLED) {
 		value = g_tls_password_get_value (password, &length);
 		if (write_all (ctx->fd, (const guchar *)value, length))
-			g_debug ("password written to gcr-ssh-askpass");
+			g_debug ("password written to " GCR_SSH_ASKPASS_BIN);
 		else
-			g_message ("failed to write password to gcr-ssh-askpass");
+			g_message ("failed to write password to " GCR_SSH_ASKPASS_BIN);
 		success = TRUE;
 	} else if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
 		g_warning ("couldn't prompt for password: %s", error->message);
@@ -202,7 +204,7 @@ askpass_thread (gpointer data)
 
 out:
 	if (!success) {
-		g_debug ("writing failure to gcr-ssh-askpass");
+		g_debug ("writing failure to " GCR_SSH_ASKPASS_BIN);
 		write_all (ctx->fd, (const guchar *)"\xff", 1);
 	}
 	if (password)
@@ -239,7 +241,7 @@ askpass_accept (gint fd,
 		return TRUE;
 	}
 
-	g_debug ("accepted new connection from gcr-ssh-askpass");
+	g_debug ("accepted new connection from " GCR_SSH_ASKPASS_BIN);
 
 	ctx = g_new0 (AskpassContext, 1);
 	ctx->fd = new_fd;
@@ -290,7 +292,7 @@ gcr_ssh_askpass_constructed (GObject *obj)
 		return;
 	}
 
-	g_debug ("listening for gcr-ssh-askpass at: %s", self->socket);
+	g_debug ("listening for " GCR_SSH_ASKPASS_BIN " at: %s", self->socket);
 
 	self->source = g_unix_fd_add (self->fd, G_IO_IN, askpass_accept, self);
 }
@@ -449,7 +451,7 @@ main (int argc,
 
 	path = g_getenv ("GCR_SSH_ASKPASS_SOCKET");
 	if (path == NULL) {
-		g_printerr ("gcr-ssh-askpass: this program is not meant to be run directly");
+		g_printerr (GCR_SSH_ASKPASS_BIN ": this program is not meant to be run directly");
 		return 2;
 	}
 

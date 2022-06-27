@@ -209,8 +209,8 @@ pkgconfig.generate(gcr_lib,
   description: 'GObject and GUI library for high level crypto parsing and display',
 )
 
-# gcr-ssh-askpass binary
-gcr_ssh_askpass = executable('gcr-ssh-askpass',
+# gcr4-ssh-askpass binary
+gcr_ssh_askpass = executable('gcr4-ssh-askpass',
   'gcr-ssh-askpass.c',
   dependencies: [ glib_deps, libegg_dep ],
   c_args: [

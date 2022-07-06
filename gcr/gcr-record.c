@@ -588,10 +588,11 @@ GDateTime *
 _gcr_record_get_date (GcrRecord *record,
                       guint column)
 {
-	const gchar *raw;
-	gulong result;
-	gchar *end = NULL;
-	struct tm tm;
+	const char *raw;
+	guint64 result;
+	char *end = NULL;
+	GTimeZone *tz;
+	GDateTime *ret;
 
 	g_return_val_if_fail (record, NULL);
 
@@ -600,7 +601,7 @@ _gcr_record_get_date (GcrRecord *record,
 		return NULL;
 
 	/* Try to parse as a number */
-	result = strtoul (raw, &end, 10);
+	result = g_ascii_strtoull (raw, &end, 10);
 	if (end != NULL && end[0] == '\0') {
 		if (result == 0)
 			return NULL;
@@ -609,14 +610,11 @@ _gcr_record_get_date (GcrRecord *record,
 	}
 
 	/* Try to parse as a date */
-	memset (&tm, 0, sizeof (tm));
-	end = strptime (raw, "%Y-%m-%d", &tm);
-	if (!end || end[0]) {
-		g_debug ("invalid date value: %s", raw);
-		return NULL;
-	}
+	tz = g_time_zone_new_utc ();
+	ret = g_date_time_new_from_iso8601 (raw, tz);
+	g_time_zone_unref (tz);
 
-	return g_date_time_new_utc (tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, 0, 0, 0);
+	return ret;
 }
 
 /**

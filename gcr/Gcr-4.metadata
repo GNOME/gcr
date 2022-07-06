@@ -3,7 +3,8 @@
 
 Certificate
 	.label nullable=true
-	.subject nullable=true
-	.issuer nullable=true
+	.subject_name nullable=true
+	.issuer_name nullable=true
+	.expiry_date nullable=true
 Comparable
 	.memcmp skip=false

@@ -94,7 +94,6 @@ static GBytes * _gcr_certificate_get_issuer_const (GcrCertificate *self);
 enum {
 	PROP_FIRST = 0x0007000,
 	PROP_LABEL,
-	PROP_MARKUP_TEXT,
 	PROP_DESCRIPTION,
 	PROP_SUBJECT_NAME,
 	PROP_ISSUER_NAME,
@@ -181,34 +180,6 @@ digest_certificate (GcrCertificate *self, GChecksumType type)
 	return digest;
 }
 
-/**
- * gcr_certificate_get_markup_text:
- * @self: a certificate
- *
- * Calculate a GMarkup string for displaying this certificate.
- *
- * Returns: (transfer full): the markup string
- */
-gchar *
-gcr_certificate_get_markup_text (GcrCertificate *self)
-{
-	gchar *label = NULL;
-	gchar *issuer;
-	gchar *markup;
-
-	g_object_get (self, "label", &label, NULL);
-	issuer = gcr_certificate_get_issuer_name (self);
-
-	if (issuer)
-		markup = g_markup_printf_escaped ("%s\n<small>Issued by: %s</small>", label, issuer);
-	else
-		markup = g_markup_printf_escaped ("%s\n<small>Issued by: <i>No name</i></small>", label);
-
-	g_free (label);
-	g_free (issuer);
-	return markup;
-}
-
 /* ---------------------------------------------------------------------------------
  * INTERFACE
  */
@@ -240,16 +211,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
-		 * GcrCertificate:markup-text:
-		 *
-		 * GLib markup to describe the certificate
-		 */
-		g_object_interface_install_property (iface,
-		         g_param_spec_string ("markup-text", "Markup text", "Markup which describes object being rendered",
-		                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
-
-		/**
-		 * GcrCertificate:subject-name:
+		 * GcrCertificate:subject:
 		 *
 		 * Common name part of the certificate subject
 		 */
@@ -971,7 +933,6 @@ gcr_certificate_mixin_emit_notify (GcrCertificate *self)
 
 	obj = G_OBJECT (self);
 	g_object_notify (obj, "label");
-	g_object_notify (obj, "markup-text");
 	g_object_notify (obj, "subject-name");
 	g_object_notify (obj, "issuer-name");
 	g_object_notify (obj, "expiry-date");
@@ -1006,8 +967,6 @@ gcr_certificate_mixin_class_init (GObjectClass *object_class)
 {
 	if (!g_object_class_find_property (object_class, "description"))
 		g_object_class_override_property (object_class, PROP_DESCRIPTION, "description");
-	if (!g_object_class_find_property (object_class, "markup-text"))
-		g_object_class_override_property (object_class, PROP_MARKUP_TEXT, "markup-text");
 	if (!g_object_class_find_property (object_class, "label"))
 		g_object_class_override_property (object_class, PROP_LABEL, "label");
 	if (!g_object_class_find_property (object_class, "subject-name"))
@@ -1077,9 +1036,6 @@ gcr_certificate_mixin_get_property (GObject *obj, guint prop_id,
 		break;
 	case PROP_DESCRIPTION:
 		g_value_set_string (value, _("Certificate"));
-		break;
-	case PROP_MARKUP_TEXT:
-		g_value_take_string (value, gcr_certificate_get_markup_text (cert));
 		break;
 	case PROP_ISSUER_NAME:
 		g_value_take_string (value, gcr_certificate_get_issuer_name (cert));

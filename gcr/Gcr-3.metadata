@@ -3,7 +3,6 @@
 
 Certificate
 	.label nullable=true
-	.markup nullable=true
 	.subject nullable=true
 	.issuer nullable=true
 Comparable

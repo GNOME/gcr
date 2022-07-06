@@ -94,11 +94,11 @@ static GBytes * _gcr_certificate_get_issuer_const (GcrCertificate *self);
 enum {
 	PROP_FIRST = 0x0007000,
 	PROP_LABEL,
-	PROP_MARKUP,
+	PROP_MARKUP_TEXT,
 	PROP_DESCRIPTION,
-	PROP_SUBJECT,
-	PROP_ISSUER,
-	PROP_EXPIRY
+	PROP_SUBJECT_NAME,
+	PROP_ISSUER_NAME,
+	PROP_EXPIRY_DATE
 };
 
 /* -----------------------------------------------------------------------------
@@ -240,39 +240,39 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
-		 * GcrCertificate:markup:
+		 * GcrCertificate:markup-text:
 		 *
 		 * GLib markup to describe the certificate
 		 */
 		g_object_interface_install_property (iface,
-		         g_param_spec_string ("markup", "Markup", "Markup which describes object being rendered",
+		         g_param_spec_string ("markup-text", "Markup text", "Markup which describes object being rendered",
 		                              "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
-		 * GcrCertificate:subject:
+		 * GcrCertificate:subject-name:
 		 *
 		 * Common name part of the certificate subject
 		 */
 		g_object_interface_install_property (iface,
-		           g_param_spec_string ("subject", "Subject", "Common name of subject",
+		           g_param_spec_string ("subject-name", "Subject name", "Common name of subject",
 		                                "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
-		 * GcrCertificate:issuer:
+		 * GcrCertificate:issuer-name:
 		 *
 		 * Common name part of the certificate issuer
 		 */
 		g_object_interface_install_property (iface,
-		           g_param_spec_string ("issuer", "Issuer", "Common name of issuer",
+		           g_param_spec_string ("issuer-name", "Issuer name", "Common name of issuer",
 		                                "", G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		/**
-		 * GcrCertificate:expiry:
+		 * GcrCertificate:expiry-date:
 		 *
 		 * The expiry date of the certificate
 		 */
 		g_object_interface_install_property (iface,
-		           g_param_spec_boxed ("expiry", "Expiry", "Certificate expiry",
+		           g_param_spec_boxed ("expiry-date", "Expiry date", "Certificate expiry date",
 		                               G_TYPE_DATE, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		g_once_init_leave (&initialized, 1);
@@ -991,10 +991,10 @@ gcr_certificate_mixin_emit_notify (GcrCertificate *self)
 
 	obj = G_OBJECT (self);
 	g_object_notify (obj, "label");
-	g_object_notify (obj, "markup");
-	g_object_notify (obj, "subject");
-	g_object_notify (obj, "issuer");
-	g_object_notify (obj, "expiry");
+	g_object_notify (obj, "markup-text");
+	g_object_notify (obj, "subject-name");
+	g_object_notify (obj, "issuer-name");
+	g_object_notify (obj, "expiry-date");
 }
 
 /**
@@ -1026,16 +1026,16 @@ gcr_certificate_mixin_class_init (GObjectClass *object_class)
 {
 	if (!g_object_class_find_property (object_class, "description"))
 		g_object_class_override_property (object_class, PROP_DESCRIPTION, "description");
-	if (!g_object_class_find_property (object_class, "markup"))
-		g_object_class_override_property (object_class, PROP_MARKUP, "markup");
+	if (!g_object_class_find_property (object_class, "markup-text"))
+		g_object_class_override_property (object_class, PROP_MARKUP_TEXT, "markup-text");
 	if (!g_object_class_find_property (object_class, "label"))
 		g_object_class_override_property (object_class, PROP_LABEL, "label");
-	if (!g_object_class_find_property (object_class, "subject"))
-		g_object_class_override_property (object_class, PROP_SUBJECT, "subject");
-	if (!g_object_class_find_property (object_class, "issuer"))
-		g_object_class_override_property (object_class, PROP_ISSUER, "issuer");
-	if (!g_object_class_find_property (object_class, "expiry"))
-		g_object_class_override_property (object_class, PROP_EXPIRY, "expiry");
+	if (!g_object_class_find_property (object_class, "subject-name"))
+		g_object_class_override_property (object_class, PROP_SUBJECT_NAME, "subject-name");
+	if (!g_object_class_find_property (object_class, "issuer-name"))
+		g_object_class_override_property (object_class, PROP_ISSUER_NAME, "issuer-name");
+	if (!g_object_class_find_property (object_class, "expiry-date"))
+		g_object_class_override_property (object_class, PROP_EXPIRY_DATE, "expiry-date");
 
 	_gcr_initialize_library ();
 }
@@ -1092,19 +1092,19 @@ gcr_certificate_mixin_get_property (GObject *obj, guint prop_id,
 	case PROP_LABEL:
 		g_value_take_string (value, gcr_certificate_get_subject_name (cert));
 		break;
-	case PROP_SUBJECT:
+	case PROP_SUBJECT_NAME:
 		g_value_take_string (value, gcr_certificate_get_subject_name (cert));
 		break;
 	case PROP_DESCRIPTION:
 		g_value_set_string (value, _("Certificate"));
 		break;
-	case PROP_MARKUP:
+	case PROP_MARKUP_TEXT:
 		g_value_take_string (value, gcr_certificate_get_markup_text (cert));
 		break;
-	case PROP_ISSUER:
+	case PROP_ISSUER_NAME:
 		g_value_take_string (value, gcr_certificate_get_issuer_name (cert));
 		break;
-	case PROP_EXPIRY:
+	case PROP_EXPIRY_DATE:
 		g_value_take_boxed (value, gcr_certificate_get_expiry_date (cert));
 		break;
 	default:

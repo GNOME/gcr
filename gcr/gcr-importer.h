@@ -45,10 +45,6 @@ struct _GcrImporterInterface {
 	gboolean    (*queue_for_parsed)       (GcrImporter *importer,
 	                                       GcrParsed *parsed);
 
-	gboolean    (*import_sync)            (GcrImporter *importer,
-	                                       GCancellable *cancellable,
-	                                       GError **error);
-
 	void        (*import_async)           (GcrImporter *importer,
 	                                       GCancellable *cancellable,
 	                                       GAsyncReadyCallback callback,
@@ -69,10 +65,6 @@ gboolean           gcr_importer_queue_for_parsed             (GcrImporter *impor
 
 GList *            gcr_importer_queue_and_filter_for_parsed  (GList *importers,
                                                               GcrParsed *parsed);
-
-gboolean           gcr_importer_import                       (GcrImporter *importer,
-                                                              GCancellable *cancellable,
-                                                              GError **error);
 
 void               gcr_importer_import_async                 (GcrImporter *importer,
                                                               GCancellable *cancellable,

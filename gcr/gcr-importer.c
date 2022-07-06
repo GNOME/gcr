@@ -48,7 +48,7 @@
  * additional item with a set of importers using the
  * [func@Importer.queue_and_filter_for_parsed].
  *
- * To start the import, use [method@Importer.import] or its async variants.
+ * To start the import, use [method@Importer.import_async].
  */
 
 /**
@@ -56,7 +56,6 @@
  * @parent: parent interface
  * @create_for_parsed: implementation of gcr_importer_create_for_parsed(), required
  * @queue_for_parsed: implementation of gcr_importer_queue_for_parsed(), required
- * @import_sync: optional implementation of [method@Importer.import]
  * @import_async: implementation of [method@Importer.import_async], required
  * @import_finish: implementation of [method@Importer.import_finish]
  *
@@ -311,117 +310,6 @@ gcr_importer_queue_and_filter_for_parsed (GList *importers,
 	}
 
 	return g_list_reverse (results);
-}
-
-typedef struct {
-	gboolean complete;
-	GCond *cond;
-	GMutex *mutex;
-	GError *error;
-	GMainContext *context;
-} ImportClosure;
-
-static void
-on_import_async_complete (GObject *source,
-                          GAsyncResult *result,
-                          gpointer user_data)
-{
-	ImportClosure *closure = user_data;
-	GError *error = NULL;
-
-	if (!gcr_importer_import_finish (GCR_IMPORTER (source), result, &error)) {
-		if (error == NULL) {
-			g_warning ("%s::import_finished returned false, but did not set error",
-			           G_OBJECT_TYPE_NAME (source));
-		}
-	}
-
-	g_mutex_lock (closure->mutex);
-
-	closure->complete = TRUE;
-	closure->error = error;
-	g_cond_signal (closure->cond);
-
-	g_mutex_unlock (closure->mutex);
-}
-
-/**
- * gcr_importer_import:
- * @importer: the importer
- * @cancellable: a #GCancellable, or %NULL
- * @error: the location to place an error on failure, or %NULL
- *
- * Import the queued items in the importer. This call will block
- * until the operation completes.
- *
- * Returns: whether the items were imported successfully or not
- */
-gboolean
-gcr_importer_import (GcrImporter *importer,
-                     GCancellable *cancellable,
-                     GError **error)
-{
-	gboolean result;
-	ImportClosure *closure;
-	GcrImporterInterface *iface;
-
-	g_return_val_if_fail (GCR_IS_IMPORTER (importer), FALSE);
-	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
-	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-	iface = GCR_IMPORTER_GET_IFACE (importer);
-	if (iface->import_sync)
-		return (iface->import_sync) (importer, cancellable, error);
-
-	g_return_val_if_fail (iface->import_async != NULL, FALSE);
-	g_return_val_if_fail (iface->import_finish != NULL, FALSE);
-
-	closure = g_new0 (ImportClosure, 1);
-	closure->cond = g_new (GCond, 1);
-	g_cond_init (closure->cond);
-	closure->mutex = g_new (GMutex, 1);
-	g_mutex_init (closure->mutex);
-	closure->context = g_main_context_get_thread_default ();
-	g_mutex_lock (closure->mutex);
-
-	(iface->import_async) (importer, cancellable, on_import_async_complete, closure);
-
-	/*
-	 * Handle the case where we've been called from within the main context
-	 * or in the case where the main context is not running. This approximates
-	 * the behavior of a modal dialog.
-	 */
-	if (g_main_context_acquire (closure->context)) {
-		while (!closure->complete) {
-			g_mutex_unlock (closure->mutex);
-			g_main_context_iteration (closure->context, TRUE);
-			g_mutex_lock (closure->mutex);
-		}
-
-		g_main_context_release (closure->context);
-
-	/*
-	 * Handle the case where we're in a different thread than the main
-	 * context and a main loop is running.
-	 */
-	} else {
-		while (!closure->complete)
-			g_cond_wait (closure->cond, closure->mutex);
-	}
-
-	g_mutex_unlock (closure->mutex);
-
-	result = (closure->error == NULL);
-	if (closure->error)
-		g_propagate_error (error, closure->error);
-
-	g_cond_clear (closure->cond);
-	g_free (closure->cond);
-	g_mutex_clear (closure->mutex);
-	g_free (closure->mutex);
-	g_free (closure);
-
-	return result;
 }
 
 /**

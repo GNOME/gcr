@@ -540,7 +540,7 @@ gcr_certificate_widget_set_certificate (GcrCertificateWidget *self, GcrCertifica
 	GQuark oid;
 	gconstpointer data;
 	gsize n_data;
-	GDate date;
+	GDateTime *datetime;
 	gulong version;
 	guint bits, index;
 
@@ -569,12 +569,13 @@ gcr_certificate_widget_set_certificate (GcrCertificateWidget *self, GcrCertifica
 	gcr_section_add_child (GCR_SECTION (section), _("Verified by"), create_value_label (display));
 	g_clear_pointer (&display, g_free);
 
-	if (egg_asn1x_get_time_as_date (egg_asn1x_node (asn, "tbsCertificate", "validity", "notAfter", NULL), &date)) {
-		display = g_malloc0 (128);
-		if (!g_date_strftime (display, 128, "%x", &date))
-			g_return_if_reached ();
+	datetime = egg_asn1x_get_time_as_date_time (egg_asn1x_node (asn, "tbsCertificate", "validity", "notAfter", NULL));
+	if (datetime) {
+		display = g_date_time_format (datetime, "%x");
+		g_return_if_fail (display != NULL);
 		gcr_section_add_child (GCR_SECTION (section), _("Expires"), create_value_label (display));
 		g_clear_pointer (&display, g_free);
+		g_clear_pointer (&datetime, g_date_time_unref);
 	}
 
 	/* The subject */
@@ -606,18 +607,22 @@ gcr_certificate_widget_set_certificate (GcrCertificateWidget *self, GcrCertifica
 		g_bytes_unref (number);
 	}
 
-	display = g_malloc0 (128);
-	if (egg_asn1x_get_time_as_date (egg_asn1x_node (asn, "tbsCertificate", "validity", "notBefore", NULL), &date)) {
-		if (!g_date_strftime (display, 128, "%x", &date))
-			g_return_if_reached ();
+	datetime = egg_asn1x_get_time_as_date_time (egg_asn1x_node (asn, "tbsCertificate", "validity", "notBefore", NULL));
+	if (datetime) {
+		display = g_date_time_format (datetime, "%x");
+		g_return_if_fail (display != NULL);
 		gcr_section_add_child (GCR_SECTION (section), _("Not Valid Before"), create_value_label (display));
+		g_clear_pointer (&display, g_free);
+		g_clear_pointer (&datetime, g_date_time_unref);
 	}
-	if (egg_asn1x_get_time_as_date (egg_asn1x_node (asn, "tbsCertificate", "validity", "notAfter", NULL), &date)) {
-		if (!g_date_strftime (display, 128, "%x", &date))
-			g_return_if_reached ();
+	datetime = egg_asn1x_get_time_as_date_time (egg_asn1x_node (asn, "tbsCertificate", "validity", "notAfter", NULL));
+	if (datetime) {
+		display = g_date_time_format (datetime, "%x");
+		g_return_if_fail (display != NULL);
 		gcr_section_add_child (GCR_SECTION (section), _("Not Valid After"), create_value_label (display));
+		g_clear_pointer (&display, g_free);
+		g_clear_pointer (&datetime, g_date_time_unref);
 	}
-	g_clear_pointer (&display, g_free);
 
 	/* Fingerprints */
 	section = _gcr_certificate_widget_add_section (self, _("Certificate Fingerprints"), FALSE);

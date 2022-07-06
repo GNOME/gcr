@@ -102,9 +102,9 @@ gchar*              gcr_certificate_get_subject_part       (GcrCertificate *self
 guchar *            gcr_certificate_get_subject_raw        (GcrCertificate *self,
                                                             gsize *n_data);
 
-GDate*              gcr_certificate_get_issued_date        (GcrCertificate *self);
+GDateTime *         gcr_certificate_get_issued_date        (GcrCertificate *self);
 
-GDate*              gcr_certificate_get_expiry_date        (GcrCertificate *self);
+GDateTime *         gcr_certificate_get_expiry_date        (GcrCertificate *self);
 
 guchar*             gcr_certificate_get_serial_number      (GcrCertificate *self,
                                                             gsize *n_length);

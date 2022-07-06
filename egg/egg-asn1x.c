@@ -1968,7 +1968,7 @@ two_to_four_digit_year (int year)
 
 static gboolean
 parse_utc_time (const gchar *time, gsize n_time,
-                struct tm* when, gint *offset)
+                struct tm* when, gint32 *offset)
 {
 	const char *p, *e;
 	int year;
@@ -2077,7 +2077,7 @@ parse_utc_time (const gchar *time, gsize n_time,
 
 static gboolean
 parse_general_time (const gchar *time, gsize n_time,
-                    struct tm* when, gint *offset)
+                    struct tm* when, gint32 *offset)
 {
 	const char *p, *e;
 
@@ -2181,47 +2181,35 @@ static gboolean
 anode_read_time (GNode *node,
                  GBytes *data,
                  struct tm *when,
-                 glong *value)
+                 gint32 *offset)
 {
-	const gchar *buf;
+	const char *buf;
 	gboolean ret;
-	gint offset = 0;
-	gint flags;
-	gint type;
+	int flags;
+	int type;
 	gsize len;
 
 	g_assert (data != NULL);
 	g_assert (when != NULL);
-	g_assert (value != NULL);
+	g_assert (offset != NULL);
 
 	flags = anode_def_flags (node);
 	type = anode_def_type (node);
 	buf = g_bytes_get_data (data, &len);
 
 	if (type == EGG_ASN1X_GENERALIZED_TIME)
-		ret = parse_general_time (buf, len, when, &offset);
+		ret = parse_general_time (buf, len, when, offset);
 	else if (type == EGG_ASN1X_UTC_TIME)
-		ret = parse_utc_time (buf, len, when, &offset);
+		ret = parse_utc_time (buf, len, when, offset);
 	else if (flags & FLAG_GENERALIZED)
-		ret = parse_general_time (buf, len, when, &offset);
+		ret = parse_general_time (buf, len, when, offset);
 	else if (flags & FLAG_UTC)
-		ret = parse_utc_time (buf, len, when, &offset);
+		ret = parse_utc_time (buf, len, when, offset);
 	else
 		g_return_val_if_reached (FALSE);
 
 	if (!ret)
 		return anode_failure (node, "invalid time content");
-
-	/* In order to work with 32 bit time_t. */
-	if (sizeof (time_t) <= 4 && when->tm_year >= 138) {
-		*value = (time_t)2145914603;  /* 2037-12-31 23:23:23 */
-
-	/* Convert to seconds since epoch */
-	} else {
-		*value = timegm (when);
-		g_return_val_if_fail (*value >= 0, FALSE);
-		*value += offset;
-	}
 
 	return TRUE;
 }
@@ -3619,77 +3607,51 @@ egg_asn1x_set_bits_as_ulong (GNode *node,
 	anode_take_value (node, g_bytes_new_take (data, len));
 }
 
-glong
-egg_asn1x_get_time_as_long (GNode *node)
+GDateTime *
+egg_asn1x_get_time_as_date_time (GNode *node)
 {
 	struct tm when;
 	GBytes *data;
-	glong time;
-	gint type;
+	int type;
+	gint32 offset;
+	GTimeZone *timezone;
+	GDateTime *ret;
 
-	g_return_val_if_fail (node, -1);
+	g_return_val_if_fail (node, NULL);
 	type = anode_def_type (node);
 
 	/* Time is often represented as a choice, so work than in here */
 	if (type == EGG_ASN1X_CHOICE) {
 		node = egg_asn1x_get_choice (node);
 		if (node == NULL)
-			return -1;
+			return NULL;
 		g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_TIME ||
 		                      anode_def_type (node) == EGG_ASN1X_UTC_TIME ||
-		                      anode_def_type (node) == EGG_ASN1X_GENERALIZED_TIME, -1);
-		return egg_asn1x_get_time_as_long (node);
+		                      anode_def_type (node) == EGG_ASN1X_GENERALIZED_TIME, NULL);
+		return egg_asn1x_get_time_as_date_time (node);
 	}
 
 	g_return_val_if_fail (type == EGG_ASN1X_TIME ||
 	                      type == EGG_ASN1X_UTC_TIME ||
-	                      type == EGG_ASN1X_GENERALIZED_TIME, -1);
+	                      type == EGG_ASN1X_GENERALIZED_TIME, NULL);
 
 	data = anode_get_value (node);
 	if (data == NULL)
-		return -1;
+		return NULL;
 
-	if (!anode_read_time (node, data, &when, &time))
-		g_return_val_if_reached (-1); /* already validated */
-	return time;
-}
+	if (!anode_read_time (node, data, &when, &offset))
+		g_return_val_if_reached (NULL); /* already validated */
 
-gboolean
-egg_asn1x_get_time_as_date (GNode *node,
-                            GDate *date)
-{
-	struct tm when;
-	GBytes *data;
-	glong time;
-	gint type;
-
-	g_return_val_if_fail (node, FALSE);
-	type = anode_def_type (node);
-
-	/* Time is often represented as a choice, so work than in here */
-	if (type == EGG_ASN1X_CHOICE) {
-		node = egg_asn1x_get_choice (node);
-		if (node == NULL)
-			return FALSE;
-		g_return_val_if_fail (anode_def_type (node) == EGG_ASN1X_TIME ||
-		                      anode_def_type (node) == EGG_ASN1X_UTC_TIME ||
-		                      anode_def_type (node) == EGG_ASN1X_GENERALIZED_TIME, FALSE);
-		return egg_asn1x_get_time_as_date (node, date);
-	}
-
-	g_return_val_if_fail (type == EGG_ASN1X_TIME ||
-	                      type == EGG_ASN1X_UTC_TIME ||
-	                      type == EGG_ASN1X_GENERALIZED_TIME, FALSE);
-
-	data = anode_get_value (node);
-	if (data == NULL)
-		return FALSE;
-
-	if (!anode_read_time (node, data, &when, &time))
-		g_return_val_if_reached (FALSE); /* already validated */
-
-	g_date_set_dmy (date, when.tm_mday, when.tm_mon + 1, when.tm_year + 1900);
-	return TRUE;
+	timezone = g_time_zone_new_offset (offset);
+	ret = g_date_time_new (timezone,
+	                       when.tm_year + 1900,
+	                       when.tm_mon + 1,
+	                       when.tm_mday,
+	                       when.tm_hour,
+	                       when.tm_min,
+	                       when.tm_sec);
+	g_time_zone_unref (timezone);
+	return ret;
 }
 
 gchar*
@@ -3985,9 +3947,9 @@ static gboolean
 anode_validate_time (GNode *node,
                      GBytes *value)
 {
-	glong time;
 	struct tm when;
-	return anode_read_time (node, value, &when, &time);
+	gint32 offset;
+	return anode_read_time (node, value, &when, &offset);
 }
 
 static gboolean
@@ -4716,72 +4678,6 @@ egg_asn1x_destroy (gpointer data)
 		g_return_if_fail (G_NODE_IS_ROOT (node));
 		anode_destroy (node);
 	}
-}
-
-/* --------------------------------------------------------------------------------
- * TIME PARSING
- */
-
-glong
-egg_asn1x_parse_time_general (const gchar *time, gssize n_time)
-{
-	gboolean ret;
-	glong value;
-	struct tm when;
-	gint offset = 0;
-
-	g_return_val_if_fail (time, -1);
-
-	if (n_time < 0)
-		n_time = strlen (time);
-
-	ret = parse_general_time (time, n_time, &when, &offset);
-	if (!ret)
-		return -1;
-
-	/* In order to work with 32 bit time_t. */
-	if (sizeof (time_t) <= 4 && when.tm_year >= 138) {
-		value = (time_t)2145914603;  /* 2037-12-31 23:23:23 */
-
-	/* Convert to seconds since epoch */
-	} else {
-		value = timegm (&when);
-		g_return_val_if_fail (*time >= 0, FALSE);
-		value += offset;
-	}
-
-	return value;
-}
-
-glong
-egg_asn1x_parse_time_utc (const gchar *time, gssize n_time)
-{
-	gboolean ret;
-	glong value;
-	struct tm when;
-	gint offset = 0;
-
-	g_return_val_if_fail (time, -1);
-
-	if (n_time < 0)
-		n_time = strlen (time);
-
-	ret = parse_utc_time (time, n_time, &when, &offset);
-	if (!ret)
-		return -1;
-
-	/* In order to work with 32 bit time_t. */
-	if (sizeof (time_t) <= 4 && when.tm_year >= 138) {
-		value = (time_t)2145914603;  /* 2037-12-31 23:23:23 */
-
-	/* Convert to seconds since epoch */
-	} else {
-		value = timegm (&when);
-		g_return_val_if_fail (*time >= 0, FALSE);
-		value += offset;
-	}
-
-	return value;
 }
 
 /* --------------------------------------------------------------------------------

@@ -239,16 +239,7 @@ gboolean            egg_asn1x_set_string_as_utf8     (GNode *node,
 
 gchar *             egg_asn1x_get_bmpstring_as_utf8  (GNode *node);
 
-glong               egg_asn1x_get_time_as_long       (GNode *node);
-
-gboolean            egg_asn1x_set_time_as_long       (GNode *node,
-                                                      glong time);
-
-gboolean            egg_asn1x_get_time_as_date       (GNode *node,
-                                                      GDate *date);
-
-gboolean            egg_asn1x_set_time_as_date       (GNode *node,
-                                                      GDate *date);
+GDateTime *         egg_asn1x_get_time_as_date_time  (GNode *node);
 
 GQuark              egg_asn1x_get_oid_as_quark       (GNode *node);
 
@@ -261,12 +252,6 @@ gboolean            egg_asn1x_set_oid_as_string      (GNode *node,
                                                       const gchar *oid);
 
 void                egg_asn1x_destroy                (gpointer asn);
-
-glong               egg_asn1x_parse_time_general     (const gchar *time,
-                                                      gssize n_time);
-
-glong               egg_asn1x_parse_time_utc         (const gchar *time,
-                                                      gssize n_time);
 
 gssize              egg_asn1x_element_length         (const guchar *data,
                                                       gsize n_data);

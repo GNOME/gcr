@@ -174,23 +174,23 @@ test_subject_raw (Test *test, gconstpointer unused)
 static void
 test_issued_date (Test *test, gconstpointer unused)
 {
-	GDate *date = gcr_certificate_get_issued_date (test->certificate);
-	g_assert (date);
-	g_assert_cmpuint (g_date_get_year (date), ==, 1999);
-	g_assert_cmpuint (g_date_get_month (date), ==, 6);
-	g_assert_cmpuint (g_date_get_day (date), ==, 26);
-	g_date_free (date);
+	GDateTime *date = gcr_certificate_get_issued_date (test->certificate);
+	g_assert_nonnull (date);
+	g_assert_cmpuint (g_date_time_get_year (date), ==, 1999);
+	g_assert_cmpuint (g_date_time_get_month (date), ==, 6);
+	g_assert_cmpuint (g_date_time_get_day_of_month (date), ==, 26);
+	g_date_time_unref (date);
 }
 
 static void
 test_expiry_date (Test *test, gconstpointer unused)
 {
-	GDate *date = gcr_certificate_get_expiry_date (test->certificate);
+	GDateTime *date = gcr_certificate_get_expiry_date (test->certificate);
 	g_assert (date);
-	g_assert_cmpuint (g_date_get_year (date), ==, 2019);
-	g_assert_cmpuint (g_date_get_month (date), ==, 6);
-	g_assert_cmpuint (g_date_get_day (date), ==, 26);
-	g_date_free (date);
+	g_assert_cmpuint (g_date_time_get_year (date), ==, 2019);
+	g_assert_cmpuint (g_date_time_get_month (date), ==, 6);
+	g_assert_cmpuint (g_date_time_get_day_of_month (date), ==, 26);
+	g_date_time_unref (date);
 }
 
 static void

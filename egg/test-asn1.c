@@ -569,7 +569,7 @@ test_generalized_time (void)
 {
 	GBytes *bytes;
 	GNode *asn;
-	glong value;
+	GDateTime *value;
 
 	asn = egg_asn1x_create (test_asn1_tab, "TestGeneralized");
 	g_assert (asn);
@@ -578,22 +578,26 @@ test_generalized_time (void)
 		g_assert_cmpint (EGG_ASN1X_GENERALIZED_TIME, ==, egg_asn1x_type (asn));
 
 	/* Shouldn't succeed */
-	value = egg_asn1x_get_time_as_long (asn);
-	g_assert (value == -1);
+	value = egg_asn1x_get_time_as_date_time (asn);
+	g_assert_null (value);
 
 	/* Should work */
 	bytes = g_bytes_new_static (TGENERALIZED, XL (TGENERALIZED));
 	if (!egg_asn1x_decode (asn, bytes))
 		g_assert_not_reached ();
 	g_bytes_unref (bytes);
-	value = egg_asn1x_get_time_as_long (asn);
-	g_assert (value == 1185368728);
+	value = egg_asn1x_get_time_as_date_time (asn);
+	g_assert_nonnull (value);
+	g_assert_cmpint (g_date_time_get_day_of_month (value), ==, 25);
+	g_assert_cmpint (g_date_time_get_month (value), ==, 7);
+	g_assert_cmpint (g_date_time_get_year (value), ==, 2007);
+	g_clear_pointer (&value, g_date_time_unref);
 
 	egg_asn1x_clear (asn);
 
 	/* Shouldn't succeed */
-	value = egg_asn1x_get_time_as_long (asn);
-	g_assert (value == -1);
+	value = egg_asn1x_get_time_as_date_time (asn);
+	g_assert_null (value);
 
 	egg_asn1x_destroy (asn);
 }
@@ -601,13 +605,10 @@ test_generalized_time (void)
 static void
 test_time_get_missing (void)
 {
-	GDate date;
 	GNode *asn;
 
 	asn = egg_asn1x_create (test_asn1_tab, "TestGeneralized");
-	if (egg_asn1x_get_time_as_date (asn, &date))
-		g_assert_not_reached ();
-	g_assert (egg_asn1x_get_time_as_long (asn) == -1);
+	g_assert_null (egg_asn1x_get_time_as_date_time (asn));
 	egg_asn1x_destroy (asn);
 }
 
@@ -2058,103 +2059,30 @@ test_oid_get_no_value (void)
 	egg_asn1x_destroy (asn);
 }
 
-typedef struct _TimeTestData {
-	gchar *value;
-	time_t ref;
-} TimeTestData;
-
-static const TimeTestData generalized_time_test_data[] = {
-	{ "20070725130528Z", 1185368728 },
-	{ "20070725130528.2134Z", 1185368728 },
-	{ "20070725140528-0100", 1185368728 },
-	{ "20070725040528+0900", 1185368728 },
-	{ "20070725013528+1130", 1185368728 },
-	{ "20070725Z", 1185321600 },
-	{ "20070725+0000", 1185321600 },
-
-	/* Bad ones */
-	{ "200707", -1 },
-
-	{ NULL, 0 }
-};
-
-static const TimeTestData utc_time_test_data[] = {
-	/* Test the Y2K style wrap arounds */
-	{ "070725130528Z", 1185368728 },  /* The year 2007 */
-	{ "020725130528Z", 1027602328 },  /* The year 2002 */
-	{ "970725130528Z", 869835928 },	  /* The year 1997 */
-	{ "370725130528Z", 2132139928 },  /* The year 2037 */
-
-	/* Test the time zones and other formats */
-	{ "070725130528.2134Z", 1185368728 },
-	{ "070725140528-0100", 1185368728 },
-	{ "070725040528+0900", 1185368728 },
-	{ "070725013528+1130", 1185368728 },
-	{ "070725Z", 1185321600 },
-	{ "070725+0000", 1185321600 },
-
-	/* Bad ones */
-	{ "0707", -1 },
-
-	{ NULL, 0 }
-};
-
-static void
-test_general_time (Test* test, gconstpointer unused)
-{
-	time_t when;
-	const TimeTestData *data;
-
-	for (data = generalized_time_test_data; data->value; ++data) {
-		when = egg_asn1x_parse_time_general (data->value, -1);
-		if (data->ref != when) {
-			printf ("%s", data->value);
-			printf ("%s != ", ctime (&when));
-			printf ("%s\n", ctime (&data->ref));
-			fflush (stdout);
-		}
-
-		g_assert ("decoded time doesn't match reference" && data->ref == when);
-	}
-}
-
-static void
-test_utc_time (Test* test, gconstpointer unused)
-{
-	time_t when;
-	const TimeTestData *data;
-
-	for (data = utc_time_test_data; data->value; ++data) {
-		when = egg_asn1x_parse_time_utc (data->value, -1);
-		if (data->ref != when) {
-			printf ("%s", data->value);
-			printf ("%s != ", ctime (&when));
-			printf ("%s\n", ctime (&data->ref));
-			fflush (stdout);
-		}
-
-		g_assert ("decoded time doesn't match reference" && data->ref == when);
-	}
-}
-
 static void
 test_read_time (Test* test, gconstpointer unused)
 {
-	glong time;
+	GDateTime *val;
 
-	time = egg_asn1x_get_time_as_long (egg_asn1x_node (test->asn1, "tbsCertificate", "validity", "notBefore", NULL));
-	g_assert_cmpint (time, ==, 820454400);
+	val = egg_asn1x_get_time_as_date_time (egg_asn1x_node (test->asn1, "tbsCertificate", "validity", "notBefore", NULL));
+	g_assert_nonnull (val);
+	g_assert_cmpint (g_date_time_to_unix (val), ==, 820454400);
+	g_clear_pointer (&val, g_date_time_unref);
 }
 
 static void
 test_read_date (Test* test, gconstpointer unused)
 {
-	GDate date;
-	if (!egg_asn1x_get_time_as_date (egg_asn1x_node (test->asn1, "tbsCertificate", "validity", "notAfter", NULL), &date))
-		g_assert_not_reached ();
-	g_assert_cmpint (date.day, ==, 31);
-	g_assert_cmpint (date.month, ==, 12);
-	g_assert_cmpint (date.year, ==, 2020);
+	GDateTime *datetime;
+
+	datetime = egg_asn1x_get_time_as_date_time (egg_asn1x_node (test->asn1, "tbsCertificate", "validity", "notAfter", NULL));
+	g_assert_nonnull (datetime);
+	g_assert_cmpint (g_date_time_get_day_of_month (datetime), ==, 31);
+	g_assert_cmpint (g_date_time_get_month (datetime), ==, 12);
+	g_assert_cmpint (g_date_time_get_year (datetime), ==, 2020);
+	g_assert_cmpint (g_date_time_get_utc_offset (datetime), ==, 0);
+
+	g_clear_pointer (&datetime, g_date_time_unref);
 }
 
 static void
@@ -2545,8 +2473,6 @@ main (int argc, char **argv)
 	g_test_add ("/asn1/write_value", Test, NULL, setup, test_write_value, teardown);
 	g_test_add ("/asn1/element_length_content", Test, NULL, setup, test_element_length_content, teardown);
 	g_test_add ("/asn1/read_element", Test, NULL, setup, test_read_element, teardown);
-	g_test_add ("/asn1/general_time", Test, NULL, setup, test_general_time, teardown);
-	g_test_add ("/asn1/utc_time", Test, NULL, setup, test_utc_time, teardown);
 	g_test_add ("/asn1/read_time", Test, NULL, setup, test_read_time, teardown);
 	g_test_add ("/asn1/read_date", Test, NULL, setup, test_read_date, teardown);
 	g_test_add ("/asn1/create_by_oid", Test, NULL, setup, test_create_by_oid, teardown);

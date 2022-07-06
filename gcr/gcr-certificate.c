@@ -273,7 +273,7 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 		 */
 		g_object_interface_install_property (iface,
 		           g_param_spec_boxed ("expiry-date", "Expiry date", "Certificate expiry date",
-		                               G_TYPE_DATE, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
+		                               G_TYPE_DATE_TIME, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 		g_once_init_leave (&initialized, 1);
 	}
@@ -687,16 +687,12 @@ gcr_certificate_get_subject_raw (GcrCertificate *self, gsize *n_data)
  *
  * Get the issued date of this certificate.
  *
- * The #GDate returned should be freed by the caller using
- * g_date_free() when no longer required.
- *
- * Returns: (nullable): An allocated issued date of this certificate.
+ * Returns: (nullable): A issued date of this certificate.
  */
-GDate*
+GDateTime *
 gcr_certificate_get_issued_date (GcrCertificate *self)
 {
 	GcrCertificateInfo *info;
-	GDate *date;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 
@@ -704,13 +700,7 @@ gcr_certificate_get_issued_date (GcrCertificate *self)
 	if (info == NULL)
 		return NULL;
 
-	date = g_date_new ();
-	if (!egg_asn1x_get_time_as_date (egg_asn1x_node (info->asn1, "tbsCertificate", "validity", "notBefore", NULL), date)) {
-		g_date_free (date);
-		return NULL;
-	}
-
-	return date;
+	return egg_asn1x_get_time_as_date_time (egg_asn1x_node (info->asn1, "tbsCertificate", "validity", "notBefore", NULL));
 }
 
 /**
@@ -719,16 +709,12 @@ gcr_certificate_get_issued_date (GcrCertificate *self)
  *
  * Get the expiry date of this certificate.
  *
- * The #GDate returned should be freed by the caller using
- * g_date_free() when no longer required.
- *
- * Returns: (nullable): An allocated expiry date of this certificate.
+ * Returns: (nullable): An expiry date of this certificate.
  */
-GDate*
+GDateTime *
 gcr_certificate_get_expiry_date (GcrCertificate *self)
 {
 	GcrCertificateInfo *info;
-	GDate *date;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
 
@@ -736,13 +722,7 @@ gcr_certificate_get_expiry_date (GcrCertificate *self)
 	if (info == NULL)
 		return NULL;
 
-	date = g_date_new ();
-	if (!egg_asn1x_get_time_as_date (egg_asn1x_node (info->asn1, "tbsCertificate", "validity", "notAfter", NULL), date)) {
-		g_date_free (date);
-		return NULL;
-	}
-
-	return date;
+	return egg_asn1x_get_time_as_date_time (egg_asn1x_node (info->asn1, "tbsCertificate", "validity", "notAfter", NULL));
 }
 
 /**

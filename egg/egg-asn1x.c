@@ -48,7 +48,6 @@
 
 #include "egg-asn1x.h"
 #include "egg-asn1-defs.h"
-#include "egg-timegm.h"
 
 #include <stdlib.h>
 #include <string.h>

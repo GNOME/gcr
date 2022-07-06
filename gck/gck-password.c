@@ -25,8 +25,6 @@
 #include "gck.h"
 #include "gck-private.h"
 
-#include "egg/egg-timegm.h"
-
 #include <string.h>
 
 /**

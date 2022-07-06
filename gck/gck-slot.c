@@ -25,8 +25,6 @@
 #include "gck.h"
 #include "gck-private.h"
 
-#include "egg/egg-timegm.h"
-
 #include <string.h>
 #include <time.h>
 
@@ -233,12 +231,12 @@ gck_slot_info_free (GckSlotInfo *slot_info)
  * @hardware_version_minor: The minor version of the hardware.
  * @firmware_version_major: The major version of the firmware.
  * @firmware_version_minor: The minor version of the firmware.
- * @utc_time: If the token has a hardware clock, this is set to the number of seconds since the epoch.
+ * @utc_time: If the token has a hardware clock, this is the UTC #GDateTime
  *
- * Represents information about a PKCS11 token.
+ * Represents information about a PKCS#11 token.
  *
- * This is analogous to a CK_TOKEN_INFO structure, but the
- * strings are far more usable.
+ * This is analogous to a `CK_TOKEN_INFO` structure, but the fields are far
+ * more usable.
  *
  * When you're done with this structure it should be released with
  * gck_token_info_free().
@@ -266,6 +264,8 @@ gck_token_info_copy (GckTokenInfo *token_info)
 	token_info->manufacturer_id = g_strdup (token_info->manufacturer_id);
 	token_info->model = g_strdup (token_info->model);
 	token_info->serial_number = g_strdup (token_info->serial_number);
+	if (token_info->utc_time != NULL)
+		token_info->utc_time = g_date_time_add (token_info->utc_time, 0);
 	return token_info;
 }
 
@@ -280,6 +280,7 @@ gck_token_info_free (GckTokenInfo *token_info)
 {
 	if (!token_info)
 		return;
+	g_clear_pointer (&token_info->utc_time, g_date_time_unref);
 	g_free (token_info->label);
 	g_free (token_info->manufacturer_id);
 	g_free (token_info->model);
@@ -559,10 +560,6 @@ GckTokenInfo*
 _gck_token_info_from_pkcs11 (CK_TOKEN_INFO_PTR info)
 {
 	GckTokenInfo *token_info;
-	gchar *string;
-	/* Must be zero-filled, because strptime will leave tm_isdst
-	 * unchanged */
-	struct tm tm = { 0 };
 
 	token_info = g_new0 (GckTokenInfo, 1);
 	token_info->label = gck_string_from_chars (info->label, sizeof (info->label));
@@ -589,14 +586,23 @@ _gck_token_info_from_pkcs11 (CK_TOKEN_INFO_PTR info)
 
 	/* Parse the time into seconds since epoch */
 	if (info->flags & CKF_CLOCK_ON_TOKEN) {
-		string = g_strndup ((gchar*)info->utcTime, MIN (14, sizeof (info->utcTime)));
-		if (!strptime (string, "%Y%m%d%H%M%S", &tm))
-			token_info->utc_time = -1;
-		else
-			token_info->utc_time = timegm (&tm);
+		char *string;
+		GTimeZone *tz;
+
+		/* The original string has format "%Y%m%d%H%M%S", which just
+		 * needs a separator still to be iso8601 confirmant */
+		if (sizeof (info->utcTime) != 14)
+			token_info->utc_time = NULL;
+		string = g_strdup_printf ("%.8s %.6s",
+		                          (char *) info->utcTime,
+		                          ((char *) info->utcTime) + 8);
+		tz = g_time_zone_new_utc ();
+		token_info->utc_time = g_date_time_new_from_iso8601 (string, tz);
+		g_time_zone_unref (tz);
+
 		g_free (string);
 	} else {
-		token_info->utc_time = -1;
+		token_info->utc_time = NULL;
 	}
 
 	return token_info;
@@ -605,11 +611,6 @@ _gck_token_info_from_pkcs11 (CK_TOKEN_INFO_PTR info)
 void
 _gck_token_info_to_pkcs11 (GckTokenInfo *token_info, CK_TOKEN_INFO_PTR info)
 {
-	gchar buffer[64];
-	struct tm tm;
-	time_t tim;
-	gsize len;
-
 	if (!gck_string_to_chars (info->label,
 	                          sizeof (info->label),
 	                          token_info->label))
@@ -645,12 +646,13 @@ _gck_token_info_to_pkcs11 (GckTokenInfo *token_info, CK_TOKEN_INFO_PTR info)
 
 	/* Parse the time into seconds since epoch */
 	if (token_info->flags & CKF_CLOCK_ON_TOKEN) {
-		tim = token_info->utc_time;
-		if (!gmtime_r (&tim, &tm))
-			g_return_if_reached ();
-		len = strftime (buffer, sizeof (buffer), "%Y%m%d%H%M%S", &tm);
-		g_return_if_fail (len == sizeof (info->utcTime));
+		char *buffer;
+
+		buffer = g_date_time_format (token_info->utc_time,
+		                             "%Y%m%d%H%M%S");
+		g_return_if_fail (strlen (buffer) == sizeof (info->utcTime));
 		memcpy (info->utcTime, buffer, sizeof (info->utcTime));
+		g_free (buffer);
 	} else {
 		memset (info->utcTime, 0, sizeof (info->utcTime));
 	}
@@ -769,7 +771,6 @@ gck_slot_get_mechanism_info (GckSlot *self, gulong mech_type)
 	GckMechanismInfo *mechinfo;
 	GckModule *module = NULL;
 	CK_MECHANISM_INFO info;
-	struct tm;
 	CK_RV rv;
 
 	g_return_val_if_fail (GCK_IS_SLOT (self), NULL);

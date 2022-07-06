@@ -604,7 +604,7 @@ struct _GckTokenInfo {
 	guint8 hardware_version_minor;
 	guint8 firmware_version_major;
 	guint8 firmware_version_minor;
-	gint64 utc_time;
+	GDateTime *utc_time;
 };
 
 #define             GCK_TYPE_TOKEN_INFO                     (gck_token_info_get_type ())

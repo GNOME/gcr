@@ -23,8 +23,6 @@
 
 #include "gcr-record.h"
 
-#include "egg/egg-timegm.h"
-
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>

@@ -112,7 +112,8 @@ test_slot_info (Test *test, gconstpointer unused)
 			g_assert_cmpint (175, ==, token->hardware_version_minor);
 			g_assert_cmpint (85, ==, token->firmware_version_major);
 			g_assert_cmpint (185, ==, token->firmware_version_minor);
-			g_assert_cmpint (927623999, ==, token->utc_time);
+			g_assert_nonnull (token->utc_time);
+			g_assert_cmpint (927623999, ==, g_date_time_to_unix (token->utc_time));
 
 			gck_token_info_free (token);
 		}

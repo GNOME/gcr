@@ -76,7 +76,6 @@ gck_cflags = [
   '-DP11_KIT_API_SUBJECT_TO_CHANGE',
   '-DPKCS11_REGISTRY_DIR="@0@"'.format(get_option('prefix') / get_option('libdir') / 'pkcs11'),
   '-D_XOPEN_SOURCE',   # Needed for strptime()
-  '-D_DEFAULT_SOURCE', # Needed for timegm
 ]
 
 gck_symbolmap = meson.current_source_dir() / 'libgck.map'

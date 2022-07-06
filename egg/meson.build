@@ -16,7 +16,6 @@ libegg_sources = [
   'egg-secure-memory.c',
   'egg-symkey.c',
   'egg-testing.c',
-  'egg-timegm.c',
 ]
 
 libegg_deps = [

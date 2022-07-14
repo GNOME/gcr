@@ -1,3 +1,11 @@
+gcr 3.41.1:
+- meson: Fix unknown kw argument in gnome.generate_gir [GNOME/gcr!68]
+- gcr: Add G_SPAWN_CLOEXEC_PIPES flag to all the g_spawn commands
+- docs: Port from gtk-doc to gi-docgen [GNOME/gcr!76]
+- Unbreak build without systemd [GNOME/gcr!75]
+- Several CI fixes
+- Updated translations
+
 gcr 3.41.0:
 - Port ssh-agent from gnome-keyring [GNOME/gcr!67]
 - build: Fix parallel build failure due to missing marshal dependency [GNOME/gcr!68]

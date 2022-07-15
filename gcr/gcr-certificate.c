@@ -21,7 +21,6 @@
 
 #include "gcr-certificate.h"
 #include "gcr-certificate-extensions.h"
-#include "gcr-comparable.h"
 #include "gcr-internal.h"
 #include "gcr-subject-public-key.h"
 
@@ -54,10 +53,6 @@
  * You can use a mixin to implement these properties if desired. See the
  * gcr_certificate_mixin_class_init() and gcr_certificate_mixin_get_property()
  * functions.
- *
- * All certificates are comparable. If implementing a #GcrCertificate, you can
- * use GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE() to implement the #GcrComparable
- * interface.
  */
 
 /**
@@ -243,49 +238,11 @@ gcr_certificate_default_init (GcrCertificateIface *iface)
 
 typedef GcrCertificateIface GcrCertificateInterface;
 
-G_DEFINE_INTERFACE (GcrCertificate, gcr_certificate, GCR_TYPE_COMPARABLE);
+G_DEFINE_INTERFACE (GcrCertificate, gcr_certificate, G_TYPE_OBJECT);
 
 /* -----------------------------------------------------------------------------
  * PUBLIC
  */
-
-/**
- * gcr_certificate_compare:
- * @first: (nullable): the certificate to compare
- * @other: (nullable): the certificate to compare against
- *
- * Compare one certificate against another. If the certificates are equal
- * then zero is returned. If one certificate is %NULL or not a certificate,
- * then a non-zero value is returned.
- *
- * The return value is useful in a stable sort, but has no user logical
- * meaning.
- *
- * Returns: zero if the certificates match, non-zero otherwise.
- */
-gint
-gcr_certificate_compare (GcrComparable *first, GcrComparable *other)
-{
-	gconstpointer data1, data2;
-	gsize size1, size2;
-
-	if (!GCR_IS_CERTIFICATE (first))
-		first = NULL;
-	if (!GCR_IS_CERTIFICATE (other))
-		other = NULL;
-
-	if (first == other)
-		return TRUE;
-	if (!first)
-		return 1;
-	if (!other)
-		return -1;
-
-	data1 = gcr_certificate_get_der_data (GCR_CERTIFICATE (first), &size1);
-	data2 = gcr_certificate_get_der_data (GCR_CERTIFICATE (other), &size2);
-
-	return gcr_comparable_memcmp (data1, size1, data2, size2);
-}
 
 
 /**
@@ -904,19 +861,6 @@ gcr_certificate_get_basic_constraints (GcrCertificate *self,
  */
 
 /**
- * GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE:
- *
- * Implement the GcrComparable interface. Use this macro like this:
- *
- * <informalexample><programlisting>
- * G_DEFINE_TYPE_WITH_CODE (MyCertificate, my_certificate, G_TYPE_OBJECT,
- *	GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE ();
- *	G_IMPLEMENT_INTERFACE (GCR_TYPE_CERTIFICATE, my_certificate_iface_init);
- * );
- * </programlisting></informalexample>
- */
-
-/**
  * gcr_certificate_mixin_emit_notify:
  * @self: the #GcrCertificate
  *
@@ -936,20 +880,6 @@ gcr_certificate_mixin_emit_notify (GcrCertificate *self)
 	g_object_notify (obj, "subject-name");
 	g_object_notify (obj, "issuer-name");
 	g_object_notify (obj, "expiry-date");
-}
-
-/**
- * gcr_certificate_mixin_comparable_init: (skip)
- * @iface: The interface
- *
- * Initialize a #GcrComparableIface to compare the current certificate.
- * In general it's easier to use the GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE()
- * macro instead of this function.
- */
-void
-gcr_certificate_mixin_comparable_init (GcrComparableInterface *iface)
-{
-	iface->compare = gcr_certificate_compare;
 }
 
 /**

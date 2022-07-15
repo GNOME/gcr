@@ -20,7 +20,6 @@
 #include "config.h"
 
 #include "gcr-certificate.h"
-#include "gcr-comparable.h"
 #include "gcr-internal.h"
 #include "gcr-simple-certificate.h"
 
@@ -45,7 +44,6 @@ static void gcr_simple_certificate_iface_init (GcrCertificateIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (GcrSimpleCertificate, gcr_simple_certificate, G_TYPE_OBJECT,
 	G_ADD_PRIVATE (GcrSimpleCertificate);
-	GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE ();
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_CERTIFICATE, gcr_simple_certificate_iface_init);
 );
 

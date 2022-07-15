@@ -56,7 +56,6 @@ struct _GcrPkcs11CertificatePrivate {
 static void gcr_certificate_iface (GcrCertificateIface *iface);
 G_DEFINE_TYPE_WITH_CODE (GcrPkcs11Certificate, gcr_pkcs11_certificate, GCK_TYPE_OBJECT,
 	G_ADD_PRIVATE (GcrPkcs11Certificate);
-	GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE ();
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_CERTIFICATE, gcr_certificate_iface);
 );
 

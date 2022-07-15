@@ -62,7 +62,6 @@ typedef struct _MockCertificateClass {
 
 static void mock_certificate_iface (GcrCertificateIface *iface);
 G_DEFINE_TYPE_WITH_CODE (MockCertificate, mock_certificate, G_TYPE_OBJECT,
-	GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE ();
 	G_IMPLEMENT_INTERFACE (GCR_TYPE_CERTIFICATE, mock_certificate_iface);
 );
 

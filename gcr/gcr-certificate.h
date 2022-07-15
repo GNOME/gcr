@@ -25,7 +25,6 @@
 #endif
 
 #include "gcr-types.h"
-#include "gcr-comparable.h"
 
 #include <glib-object.h>
 #include <gio/gio.h>
@@ -71,9 +70,6 @@ GType               gcr_certificate_get_type               (void);
 
 const guint8 *      gcr_certificate_get_der_data           (GcrCertificate *self,
                                                             gsize *n_data);
-
-gint                gcr_certificate_compare                (GcrComparable *first,
-                                                            GcrComparable *other);
 
 gchar *             gcr_certificate_get_issuer_name        (GcrCertificate *self);
 
@@ -124,12 +120,7 @@ gboolean            gcr_certificate_get_basic_constraints  (GcrCertificate *self
                                                             gboolean *is_ca,
                                                             gint *path_len);
 
-#define GCR_CERTIFICATE_MIXIN_IMPLEMENT_COMPARABLE() \
-	G_IMPLEMENT_INTERFACE (GCR_TYPE_COMPARABLE, gcr_certificate_mixin_comparable_init)
-
 void                gcr_certificate_mixin_emit_notify      (GcrCertificate *self);
-
-void                gcr_certificate_mixin_comparable_init  (GcrComparableInterface *iface);
 
 void                gcr_certificate_mixin_class_init       (GObjectClass *object_class);
 

@@ -57,8 +57,7 @@ setup (Test *test, gconstpointer unused)
 static void
 teardown (Test *test, gconstpointer unused)
 {
-	gck_list_unref_free (test->modules);
-	test->modules = NULL;
+	g_clear_list (&test->modules, g_object_unref);
 }
 
 static void
@@ -81,7 +80,7 @@ test_enumerate_objects (Test *test, gconstpointer unused)
 	g_assert_cmpint (g_list_length (objects), ==, 1);
 	g_assert_true (GCK_IS_OBJECT (objects->data));
 
-	gck_list_unref_free (objects);
+	g_clear_list (&objects, g_object_unref);
 	g_object_unref (en);
 }
 
@@ -166,7 +165,7 @@ test_objects_for_uri (Test *test, gconstpointer unused)
 	g_assert_no_error (error);
 	g_assert_cmpint (g_list_length (objects), ==, 5);
 
-	gck_list_unref_free (objects);
+	g_clear_list (&objects, g_object_unref);
 }
 
 static void
@@ -184,8 +183,8 @@ test_enumerate_uri (Test *test, gconstpointer unused)
 	g_assert_cmpint (g_list_length (objects), ==, 5);
 	g_assert_no_error (error);
 
-	g_object_unref (en);
-	gck_list_unref_free (objects);
+	g_clear_object (&en);
+	g_clear_list (&objects, g_object_unref);
 }
 
 int

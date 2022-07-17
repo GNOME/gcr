@@ -41,7 +41,7 @@ gcr_gtk3_basename = 'gcr-@0@-gtk3'.format(gcr_api_version)
 gcr_gtk4_basename = 'gcr-@0@-gtk4'.format(gcr_api_version)
 
 # Dependencies
-min_glib_version = '2.44'
+min_glib_version = '2.64'
 glib_dep = dependency('glib-2.0', version: '>=' + min_glib_version)
 gmodule_dep = dependency('gmodule-no-export-2.0', version: '>=' + min_glib_version)
 gthread_dep = dependency('gthread-2.0', version: '>=' + min_glib_version)

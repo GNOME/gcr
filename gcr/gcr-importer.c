@@ -295,7 +295,7 @@ gcr_importer_queue_for_parsed (GcrImporter *importer,
  * will not be queued on that importer.
  *
  * Returns: (transfer full) (element-type Gcr.Importer): a new set of importers
- *          that queued the item, which should be freed with gck_list_unref_free()
+ *          that queued the item.
  */
 GList *
 gcr_importer_queue_and_filter_for_parsed (GList *importers,

@@ -74,7 +74,7 @@ static void
 free_initialize_registered (InitializeRegistered *args)
 {
 	g_clear_error (&args->error);
-	gck_list_unref_free (args->results);
+	g_clear_list (&args->results, g_object_unref);
 	g_free (args);
 }
 
@@ -86,7 +86,7 @@ free_initialize_registered (InitializeRegistered *args)
  * Load and initialize all the registered modules.
  *
  * Returns: (transfer full) (element-type Gck.Module): A newly allocated list
- * of #GckModule objects, which should be released with gck_list_unref_free().
+ * of #GckModule objects.
  */
 GList*
 gck_modules_initialize_registered (GCancellable *cancellable,
@@ -170,7 +170,7 @@ gck_modules_initialize_registered_finish (GAsyncResult *result,
  * Get a list of slots for across all of the modules.
  *
  * Returns: (transfer full) (element-type Gck.Slot): A list of #GckSlot
- * objects, which should be freed with gck_list_unref_free().
+ * objects.
  */
 GList*
 gck_modules_get_slots (GList *modules, gboolean token_present)
@@ -258,7 +258,7 @@ tokens_for_uri (GList *modules,
 					gck_token_info_free (token_info);
 				}
 			}
-			gck_list_unref_free (slots);
+			g_clear_list (&slots, g_object_unref);
 		}
 	}
 
@@ -290,7 +290,7 @@ gck_modules_token_for_uri (GList *modules,
 	results = tokens_for_uri (modules, uri, TRUE, error);
 	if (results)
 		slot = g_object_ref (results->data);
-	gck_list_unref_free (results);
+	g_clear_list (&results, g_object_unref);
 
 	return slot;
 }
@@ -304,8 +304,7 @@ gck_modules_token_for_uri (GList *modules,
  * Lookup a token that matches the URI.
  *
  * Returns: (transfer full) (element-type Gck.Slot): A list of newly allocated
- * #GckSlot objects. Use gck_list_unref_free() to release the list once you're
- * done with it.
+ * #GckSlot objects.
  */
 GList *
 gck_modules_tokens_for_uri (GList *modules,
@@ -366,9 +365,8 @@ gck_modules_object_for_uri (GList *modules,
  * This call can block. Use [func@modules_enumerate_uri] for a non-blocking
  * version.
  *
- * Returns: (transfer full) (element-type Gck.Object): A list of #GckObject which
- * should be released with gck_list_unref_free(), or %NULL if no matching object
- * was found.
+ * Returns: (transfer full) (element-type Gck.Object): A (possibly empty) list
+ * of `Gck.Object`s.
  */
 GList*
 gck_modules_objects_for_uri (GList *modules,

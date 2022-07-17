@@ -103,8 +103,7 @@ _gcr_uninitialize_library (void)
 {
 	G_LOCK (modules);
 
-	gck_list_unref_free (all_modules);
-	all_modules = NULL;
+	g_clear_list (&all_modules, g_object_unref);
 	initialized_modules = FALSE;
 
 	G_UNLOCK (modules);
@@ -209,7 +208,7 @@ on_initialize_registered (GObject *object,
 	}
 	G_UNLOCK (modules);
 
-	gck_list_unref_free (results);
+	g_clear_list (&results, g_object_unref);
 
 	g_debug ("completed initialize of registered modules");
 	g_task_return_boolean (task, TRUE);
@@ -308,7 +307,7 @@ gcr_pkcs11_initialize (GCancellable *cancellable,
 		g_propagate_error (error, err);
 	}
 
-	gck_list_unref_free (results);
+	g_clear_list (&results, g_object_unref);
 	return (err == NULL);
 }
 
@@ -321,8 +320,6 @@ gcr_pkcs11_initialize (GCancellable *cancellable,
  * An empty list of modules will be returned if [func@pkcs11_set_modules],
  * or [func@pkcs11_initialize] has not yet run.
  *
- * When done with the list, free it with gck_list_unref_free().
- *
  * Returns: (transfer full) (element-type Gck.Module): a newly allocated list
  *          of #GckModule objects
  */
@@ -333,7 +330,7 @@ gcr_pkcs11_get_modules (void)
 		g_debug ("pkcs11 not yet initialized");
 	else if (!all_modules)
 		g_debug ("no modules loaded");
-	return gck_list_ref_copy (all_modules);
+	return g_list_copy_deep (all_modules, (GCopyFunc) g_object_ref, NULL);
 }
 
 /**
@@ -350,13 +347,11 @@ gcr_pkcs11_get_modules (void)
 void
 gcr_pkcs11_set_modules (GList *modules)
 {
-	GList *l;
-
-	for (l = modules; l; l = g_list_next (l))
+	for (GList *l = modules; l; l = g_list_next (l))
 		g_return_if_fail (GCK_IS_MODULE (l->data));
 
-	modules = gck_list_ref_copy (modules);
-	gck_list_unref_free (all_modules);
+	modules = g_list_copy_deep (modules, (GCopyFunc) g_object_ref, NULL);
+	g_clear_list (&all_modules, g_object_unref);
 	all_modules = modules;
 	initialized_modules = TRUE;
 }

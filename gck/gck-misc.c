@@ -241,58 +241,6 @@ _gck_rv_from_error (GError *error,
 	return catch_all_code;
 }
 
-GType
-gck_list_get_boxed_type (void)
-{
-	static GType type = 0;
-	if (!type)
-		type = g_boxed_type_register_static ("GckList",
-		                                     (GBoxedCopyFunc)gck_list_ref_copy,
-		                                     (GBoxedFreeFunc)gck_list_unref_free);
-	return type;
-
-}
-
-/**
- * gck_list_unref_free: (skip)
- * @reflist: (element-type GObject.Object): list of Gobject reference counted pointers
- *
- * Free a list of GObject based pointers. All objects in the list
- * will be unreffed and then the list itself will be freed.
- **/
-void
-gck_list_unref_free (GList *reflist)
-{
-	GList *l;
-	for (l = reflist; l; l = g_list_next (l)) {
-		g_return_if_fail (G_IS_OBJECT (l->data));
-		g_object_unref (l->data);
-	}
-	g_list_free (reflist);
-}
-
-/**
- * gck_list_ref_copy: (skip)
- * @reflist: (element-type GObject.Object): list of GObject reference counted
- *           objects
- *
- * Copy a list of GObject based pointers. All objects
- * in the list will be reffed and the list will be copied.
- *
- * Return value: (transfer full) (element-type GObject.Object): the copied and
- *               reffed list, when done, free it with gck_list_unref_free ()
- **/
-GList *
-gck_list_ref_copy (GList *reflist)
-{
-	GList *l, *copy = g_list_copy (reflist);
-	for (l = copy; l; l = g_list_next (l)) {
-		g_return_val_if_fail (G_IS_OBJECT (l->data), NULL);
-		g_object_ref (l->data);
-	}
-	return copy;
-}
-
 /**
  * gck_string_from_chars: (skip)
  * @data: The character data to turn into a null terminated string.

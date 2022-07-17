@@ -94,7 +94,7 @@ perform_lookup_certificate (GckAttributes *search,
 
 	modules = gcr_pkcs11_get_modules ();
 	en = gck_modules_enumerate_objects (modules, search, 0);
-	gck_list_unref_free (modules);
+	g_clear_list (&modules, g_object_unref);
 
 	object = gck_enumerator_next (en, cancellable, error);
 	g_object_unref (en);

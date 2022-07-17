@@ -58,7 +58,7 @@ setup (Test *test, gconstpointer unused)
 
 	test->slot = GCK_SLOT (slots->data);
 	g_object_ref (test->slot);
-	gck_list_unref_free (slots);
+	g_clear_list (&slots, g_object_unref);
 	g_object_add_weak_pointer (G_OBJECT (test->slot), (gpointer *)&test->slot);
 
 	test->session = gck_slot_open_session (test->slot, 0, NULL, NULL, &err);

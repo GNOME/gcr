@@ -53,7 +53,7 @@ setup (Test *test, gconstpointer unused)
 
 	test->slot = GCK_SLOT (slots->data);
 	g_object_ref (test->slot);
-	gck_list_unref_free (slots);
+	g_clear_list (&slots, g_object_unref);
 
 }
 
@@ -69,7 +69,7 @@ test_slot_info (Test *test, gconstpointer unused)
 {
 	GckSlotInfo *info;
 	GckTokenInfo *token;
-	GList *slots, *l;
+	GList *slots;
 
 	slots = gck_module_get_slots (test->module, FALSE);
 	g_assert_cmpint (2, ==, g_list_length (slots));
@@ -79,7 +79,7 @@ test_slot_info (Test *test, gconstpointer unused)
 	g_assert_true (GCK_IS_SLOT (slots->next->data));
 	g_assert_null (slots->next->next);
 
-	for (l = slots; l; l = g_list_next (l)) {
+	for (GList *l = slots; l; l = g_list_next (l)) {
 		info = gck_slot_get_info (GCK_SLOT (l->data));
 		g_assert_nonnull (info);
 
@@ -121,7 +121,7 @@ test_slot_info (Test *test, gconstpointer unused)
 		gck_slot_info_free (info);
 	}
 
-	gck_list_unref_free (slots);
+	g_clear_list (&slots, g_object_unref);
 }
 
 static void

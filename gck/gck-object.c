@@ -228,8 +228,7 @@ gck_object_from_handle (GckSession *session,
  * contiguous CK_OBJECT_HANDLE handles in an array.
  *
  * Returns: (transfer full) (element-type Gck.Object): The list of #GckObject
- *          objects. You should use gck_list_unref_free() when done with this
- *          list.
+ *          objects.
  **/
 GList *
 gck_objects_from_handle_array (GckSession *session,

@@ -58,14 +58,6 @@ typedef enum {
 
 GQuark              gck_error_quark                         (void) G_GNUC_CONST;
 
-#define             GCK_TYPE_LIST                           (gck_list_get_boxed_type ())
-
-GType               gck_list_get_boxed_type                 (void) G_GNUC_CONST;
-
-GList*              gck_list_ref_copy                       (GList *reflist);
-
-void                gck_list_unref_free                     (GList *reflist);
-
 const gchar*        gck_message_from_rv                     (gulong rv);
 
 gboolean            gck_string_to_chars                     (guchar *data,

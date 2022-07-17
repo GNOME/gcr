@@ -549,7 +549,7 @@ gck_module_get_info (GckModule *self)
  * Get the GckSlot objects for a given module.
  *
  * Return value: (element-type Gck.Slot) (transfer full): The possibly empty
- *               list of slots. Release this with gck_list_unref_free().
+ *               list of slots.
  */
 GList*
 gck_module_get_slots (GckModule *self, gboolean token_present)

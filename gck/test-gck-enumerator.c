@@ -59,7 +59,7 @@ setup (Test *test, gconstpointer unused)
 static void
 teardown (Test *test, gconstpointer unused)
 {
-	gck_list_unref_free (test->modules);
+	g_clear_list (&test->modules, g_object_unref);
 
 	g_object_unref (test->module);
 	egg_test_wait_for_gtask_thread (test->module);
@@ -95,7 +95,7 @@ test_create_slots (Test *test, gconstpointer unused)
 	en = _gck_enumerator_new_for_slots (slots, 0, uri_data);
 	g_assert_true (GCK_IS_ENUMERATOR (en));
 	g_object_unref (en);
-	gck_list_unref_free (slots);
+	g_clear_list (&slots, g_object_unref);
 }
 
 static void
@@ -136,7 +136,7 @@ test_next_slots (Test *test, gconstpointer unused)
 
 	g_object_unref (obj);
 	g_object_unref (en);
-	gck_list_unref_free (slots);
+	g_clear_list (&slots, g_object_unref);
 }
 
 static void
@@ -184,7 +184,7 @@ test_next_n (Test *test, gconstpointer unused)
 	for (l = objects; l; l = g_list_next (l))
 		g_assert_true (GCK_IS_OBJECT (l->data));
 
-	gck_list_unref_free (objects);
+	g_clear_list (&objects, g_object_unref);
 	g_object_unref (en);
 }
 
@@ -220,7 +220,7 @@ test_next_async (Test *test, gconstpointer unused)
 		g_assert_true (GCK_IS_OBJECT (l->data));
 
 	g_object_unref (result);
-	gck_list_unref_free (objects);
+	g_clear_list (&objects, g_object_unref);
 	g_object_unref (en);
 }
 
@@ -255,7 +255,7 @@ test_enumerate_session (Test *test,
 	g_object_unref (obj);
 	g_object_unref (en);
 	g_object_unref (session);
-	gck_list_unref_free (slots);
+	g_clear_list (&slots, g_object_unref);
 }
 
 static void
@@ -278,7 +278,7 @@ test_attribute_match (Test *test, gconstpointer unused)
 	g_assert_cmpint (g_list_length (objects), ==, 1);
 	g_assert_true (GCK_IS_OBJECT (objects->data));
 
-	gck_list_unref_free (objects);
+	g_clear_list (&objects, g_object_unref);
 	g_object_unref (en);
 }
 
@@ -338,7 +338,7 @@ test_token_match (Test *test, gconstpointer unused)
 	g_assert_cmpint (g_list_length (objects), ==, 0);
 	g_assert_no_error (error);
 
-	gck_list_unref_free (objects);
+	g_clear_list (&objects, g_object_unref);
 	g_object_unref (en);
 }
 
@@ -484,7 +484,7 @@ test_attribute_get (Test *test,
 		g_assert_nonnull (mock->attrs);
 	}
 
-	gck_list_unref_free (objects);
+	g_clear_list (&objects, g_object_unref);
 	g_object_unref (en);
 }
 
@@ -553,7 +553,7 @@ test_chained (Test *test,
 	g_assert_no_error (error);
 	g_assert_cmpint (g_list_length (objects), ==, 5);
 
-	gck_list_unref_free (objects);
+	g_clear_list (&objects, g_object_unref);
 	g_object_unref (one);
 }
 

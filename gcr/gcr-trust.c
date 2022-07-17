@@ -112,7 +112,7 @@ perform_is_certificate_pinned (GckAttributes *search,
 	g_debug ("searching for pinned certificate in %d slots",
 	         g_list_length (slots));
 	en = gck_slots_enumerate_objects (slots, search, 0);
-	gck_list_unref_free (slots);
+	g_clear_list (&slots, g_object_unref);
 
 	object = gck_enumerator_next (en, cancellable, error);
 	g_object_unref (en);
@@ -277,7 +277,7 @@ perform_add_pinned_certificate (GckAttributes *search,
 
 	slots = gcr_pkcs11_get_trust_lookup_slots ();
 	en = gck_slots_enumerate_objects (slots, search, CKF_RW_SESSION);
-	gck_list_unref_free (slots);
+	g_clear_list (&slots, g_object_unref);
 
 	object = gck_enumerator_next (en, cancellable, &lerr);
 	g_object_unref (en);
@@ -481,7 +481,7 @@ perform_remove_pinned_certificate (GckAttributes *attrs,
 
 	slots = gcr_pkcs11_get_trust_lookup_slots ();
 	en = gck_slots_enumerate_objects (slots, attrs, CKF_RW_SESSION);
-	gck_list_unref_free (slots);
+	g_clear_list (&slots, g_object_unref);
 
 	/* We need an error below */
 	if (error && !*error)
@@ -502,12 +502,12 @@ perform_remove_pinned_certificate (GckAttributes *attrs,
 				continue;
 			}
 
-			gck_list_unref_free (objects);
+			g_clear_list (&objects, g_object_unref);
 			return FALSE;
 		}
 	}
 
-	gck_list_unref_free (objects);
+	g_clear_list (&objects, g_object_unref);
 	return TRUE;
 }
 
@@ -659,7 +659,7 @@ perform_is_certificate_anchored (GckAttributes *attrs,
 	g_debug ("searching for certificate anchor in %d slots",
 	         g_list_length (slots));
 	en = gck_slots_enumerate_objects (slots, attrs, 0);
-	gck_list_unref_free (slots);
+	g_clear_list (&slots, g_object_unref);
 
 	object = gck_enumerator_next (en, cancellable, error);
 	g_object_unref (en);
@@ -820,7 +820,7 @@ perform_is_certificate_distrusted (GckAttributes *attrs,
     g_debug ("searching for certificate distrust assertion in %d slots",
              g_list_length (slots));
     en = gck_slots_enumerate_objects (slots, attrs, 0);
-    gck_list_unref_free (slots);
+    g_clear_list (&slots, g_object_unref);
 
     object = gck_enumerator_next (en, cancellable, error);
     g_object_unref (en);

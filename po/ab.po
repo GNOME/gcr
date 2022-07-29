@@ -1,20 +1,14 @@
-# Copyright (C) 2022 The Abkhazian language development fund named after Bagrat Shinkuba
-# This file is distributed under the same license as the gcr package.
-# Нанба Наала <naala-nanba@rambler.ru>, 2022.
-#
-
 msgid ""
 msgstr ""
-"Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
 "POT-Creation-Date: 2022-07-17 19:28+0000\n"
-"PO-Revision-Date: 2022-07-22 16:00+0000\n"
 "Last-Translator: Нанба Наала <naala-nanba@rambler.ru>\n"
-"Language-Team: Abkhazian <LL@li.org>\n"
+"Language-Team: Abkhazian <ab@li.org>\n"
 "Language: ab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -306,7 +300,7 @@ msgstr "URI"
 
 #: gcr/gcr-certificate-extensions.c:262
 msgid "IP Address"
-msgstr "IP- Аҭыӡҭыԥ"
+msgstr "IP-Аҭыӡҭыԥ"
 
 #: gcr/gcr-certificate-extensions.c:270
 msgid "Registered ID"
@@ -416,7 +410,7 @@ msgstr ""
 
 #: gcr/gcr-ssh-agent-service.c:259
 msgid "Unnamed"
-msgstr ""
+msgstr "Ихьӡыдоу"
 
 #: gcr/gcr-ssh-askpass.c:182
 msgid "Enter your OpenSSH passphrase"
@@ -442,7 +436,7 @@ msgstr ""
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr ""
 
-#: gcr-gtk3/gcr-certificate-widget.c:251+gcr-gtk4/gcr-certificate-widget.c:258
+#: gcr-gtk3/gcr-certificate-widget.c:251 gcr-gtk4/gcr-certificate-widget.c:258
 msgid "Key Algorithm"
 msgstr "Ацаԥха алгоритм"
 
@@ -466,7 +460,8 @@ msgstr ""
 msgid "Certificate Authority"
 msgstr ""
 
-#: gcr-gtk3/gcr-certificate-widget.c:298+gcr-gtk3/gcr-certificate-widget.c:489+gcr-gtk4/gcr-certificate-widget.c:305+gcr-gtk4/gcr-certificate-widget.c:496
+#: gcr-gtk3/gcr-certificate-widget.c:298 gcr-gtk3/gcr-certificate-widget.c:489
+#: gcr-gtk4/gcr-certificate-widget.c:305 gcr-gtk4/gcr-certificate-widget.c:496
 msgid "Yes"
 msgstr "Ааи"
 
@@ -543,7 +538,7 @@ msgstr ""
 msgid "Usages"
 msgstr ""
 
-#: gcr-gtk3/gcr-certificate-widget.c:416+gcr-gtk4/gcr-certificate-widget.c:423
+#: gcr-gtk3/gcr-certificate-widget.c:416 gcr-gtk4/gcr-certificate-widget.c:423
 msgid "Subject Alternative Names"
 msgstr "Альтернативтә ахархәаҩ ихьӡқәа "
 
@@ -618,7 +613,7 @@ msgstr ""
 msgid "Signature"
 msgstr ""
 
-#: gcr-gtk3/gcr-certificate-widget.c:648+gcr-gtk4/gcr-certificate-widget.c:655
+#: gcr-gtk3/gcr-certificate-widget.c:653 gcr-gtk4/gcr-certificate-widget.c:660
 msgid "Signature Algorithm"
 msgstr "Анапаҵыҩра алгоритм"
 

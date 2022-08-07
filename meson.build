@@ -37,8 +37,6 @@ podir = source_root / 'po'
 gck_basename = 'gck-@0@'.format(gck_api_version)
 gcr_base_basename = 'gcr-base-@0@'.format(gcr_api_version)
 gcr_basename = 'gcr-@0@'.format(gcr_api_version)
-gcr_gtk3_basename = 'gcr-@0@-gtk3'.format(gcr_api_version)
-gcr_gtk4_basename = 'gcr-@0@-gtk4'.format(gcr_api_version)
 
 # Dependencies
 min_glib_version = '2.68'
@@ -74,11 +72,6 @@ if libsystemd.found() and systemd.found()
   )
   libsystemd_deps += libsystemd
   with_systemd = true
-endif
-
-if get_option('gtk3')
-  gtk3_min_version = '3.22'
-  gtk3_dep = dependency('gtk+-3.0', version: '>=' + gtk3_min_version)
 endif
 
 if get_option('gtk4')
@@ -117,12 +110,6 @@ subdir('po')
 subdir('egg')
 subdir('gck')
 subdir('gcr')
-if get_option('gtk3')
-  subdir('gcr-gtk3')
-endif
-if get_option('gtk4')
-  subdir('gcr-gtk4')
-endif
 subdir('tools')
 if get_option('gtk_doc')
   if not get_option('introspection')

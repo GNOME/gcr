@@ -8,9 +8,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <gcr-gtk4/gcr-gtk4.h>
 
 #include "config.h"
+#include "gcr-certificate-widget.h"
 
 static gchar **remaining_args = NULL;
 

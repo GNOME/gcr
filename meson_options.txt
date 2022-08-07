@@ -8,11 +8,6 @@ option('vapi',
   value: true,
   description: 'Generate vapi data (requires vapigen and introspection option)',
 )
-option('gtk3',
-  type: 'boolean',
-  value: true,
-  description: 'Enable the GTK3 library and utilities',
-)
 option('gtk4',
   type: 'boolean',
   value: true,

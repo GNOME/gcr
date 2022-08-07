@@ -1,8 +1,0 @@
-{
-global:
-  gcr_*;
-  _gcr_*;
-  SECMEM_*;
-local:
-  *;
-};

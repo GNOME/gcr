@@ -26,9 +26,9 @@ gck_headers = files(
 
 # Generated sources
 gck_version_conf = {
-  'GCR_MAJOR': gck_major_version,
-  'GCR_MINOR': gck_minor_version,
-  'GCR_MICRO': gck_micro_version,
+  'GCR_MAJOR': gcr_major_version,
+  'GCR_MINOR': gcr_minor_version,
+  'GCR_MICRO': gcr_micro_version,
 }
 gck_version_h = configure_file(input: 'gck-version.h.in',
   output: 'gck-version.h',

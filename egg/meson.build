@@ -6,7 +6,6 @@ libegg_sources = [
   'egg-dh.c',
   'egg-dn.c',
   'egg-decimal.c',
-  'egg-file-tracker.c',
   'egg-hex.c',
   'egg-hkdf.c',
   'egg-libgcrypt.c',

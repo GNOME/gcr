@@ -32,8 +32,10 @@ typedef struct {
 	gchar *comment;
 } GcrSshAgentKeyInfo;
 
-void                gcr_ssh_agent_key_info_free    (gpointer boxed);
-gpointer            gcr_ssh_agent_key_info_copy    (gpointer boxed);
+#define GCR_TYPE_SSH_AGENT_KEY_INFO gcr_ssh_agent_key_info_get_type ()
+GType               gcr_ssh_agent_key_info_get_type (void) G_GNUC_CONST;
+void                gcr_ssh_agent_key_info_free     (gpointer boxed);
+gpointer            gcr_ssh_agent_key_info_copy     (gpointer boxed);
 
 #define GCR_TYPE_SSH_AGENT_PRELOAD gcr_ssh_agent_preload_get_type ()
 G_DECLARE_FINAL_TYPE (GcrSshAgentPreload, gcr_ssh_agent_preload, GCR, SSH_AGENT_PRELOAD, GObject)

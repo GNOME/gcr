@@ -26,7 +26,6 @@
 #include "gcr-ssh-agent-preload.h"
 
 #include "gcr-ssh-agent-util.h"
-#include "egg/egg-file-tracker.h"
 #include <string.h>
 
 enum {
@@ -41,11 +40,12 @@ struct _GcrSshAgentPreload
 	gchar *path;
 	GHashTable *keys_by_public_filename;
 	GHashTable *keys_by_public_key;
-	EggFileTracker *file_tracker;
+	GFileMonitor *file_monitor;
 	GMutex lock;
 };
 
 G_DEFINE_TYPE (GcrSshAgentPreload, gcr_ssh_agent_preload, G_TYPE_OBJECT);
+G_DEFINE_BOXED_TYPE(GcrSshAgentKeyInfo, gcr_ssh_agent_key_info, gcr_ssh_agent_key_info_copy, gcr_ssh_agent_key_info_free)
 
 void
 gcr_ssh_agent_key_info_free (gpointer boxed)
@@ -53,9 +53,9 @@ gcr_ssh_agent_key_info_free (gpointer boxed)
 	GcrSshAgentKeyInfo *info = boxed;
 	if (!info)
 		return;
-	g_bytes_unref (info->public_key);
-	g_free (info->comment);
-	g_free (info->filename);
+	g_clear_pointer (&info->public_key, g_bytes_unref);
+	g_clear_pointer (&info->comment, g_free);
+	g_clear_pointer (&info->filename, g_free);
 	g_free (info);
 }
 
@@ -70,12 +70,11 @@ gcr_ssh_agent_key_info_copy (gpointer boxed)
 	return copy;
 }
 
-static void file_load_inlock   (EggFileTracker *tracker,
-                                const gchar *path,
-                                gpointer user_data);
-static void file_remove_inlock (EggFileTracker *tracker,
-                                const gchar *path,
-                                gpointer user_data);
+static void changed_inlock (GFileMonitor *monitor,
+                            GFile *file,
+                            GFile *other_file,
+                            GFileMonitorEvent event_type,
+                            gpointer user_data);
 
 static void
 gcr_ssh_agent_preload_init (GcrSshAgentPreload *self)
@@ -88,11 +87,17 @@ static void
 gcr_ssh_agent_preload_constructed (GObject *object)
 {
 	GcrSshAgentPreload *self = GCR_SSH_AGENT_PRELOAD (object);
+	GError *error = NULL;
+	GFile *file;
 
-	self->file_tracker = egg_file_tracker_new (self->path, "*.pub", NULL);
-	g_signal_connect (self->file_tracker, "file-added", G_CALLBACK (file_load_inlock), self);
-	g_signal_connect (self->file_tracker, "file-removed", G_CALLBACK (file_remove_inlock), self);
-	g_signal_connect (self->file_tracker, "file-changed", G_CALLBACK (file_load_inlock), self);
+	file = g_file_new_for_path (self->path);
+	self->file_monitor = g_file_monitor_directory (file, G_FILE_MONITOR_NONE, NULL, &error);
+	if (!self->file_monitor) {
+		g_critical ("Unable to listen to directory %s: %s", self->path, error->message);
+		g_clear_error (&error);
+	} else
+		g_signal_connect (self->file_monitor, "changed", G_CALLBACK (changed_inlock), self);
+	g_object_unref (file);
 
 	G_OBJECT_CLASS (gcr_ssh_agent_preload_parent_class)->constructed (object);
 }
@@ -120,10 +125,11 @@ gcr_ssh_agent_preload_finalize (GObject *object)
 {
 	GcrSshAgentPreload *self = GCR_SSH_AGENT_PRELOAD (object);
 
-	g_free (self->path);
+	g_clear_pointer (&self->path, g_free);
 	g_clear_pointer (&self->keys_by_public_key, g_hash_table_unref);
 	g_clear_pointer (&self->keys_by_public_filename, g_hash_table_unref);
-	g_clear_object (&self->file_tracker);
+	g_signal_handlers_disconnect_by_func (self->file_monitor, changed_inlock, self);
+	g_clear_object (&self->file_monitor);
 
 	g_mutex_clear (&self->lock);
 
@@ -141,15 +147,6 @@ gcr_ssh_agent_preload_class_init (GcrSshAgentPreloadClass *klass)
 		 g_param_spec_string ("path", "Path", "Path",
 				      "",
 				      G_PARAM_CONSTRUCT_ONLY | G_PARAM_WRITABLE));
-}
-
-static gchar *
-private_path_for_public (const gchar *public_path)
-{
-	if (g_str_has_suffix (public_path, ".pub"))
-		return g_strndup (public_path, strlen (public_path) - 4);
-
-	return NULL;
 }
 
 static GBytes *
@@ -171,11 +168,8 @@ file_get_contents (const gchar *path,
 }
 
 static void
-file_remove_inlock (EggFileTracker *tracker,
-                    const gchar *path,
-                    gpointer user_data)
+file_remove_inlock (GcrSshAgentPreload *self, const gchar *path)
 {
-	GcrSshAgentPreload *self = GCR_SSH_AGENT_PRELOAD (user_data);
 	GcrSshAgentKeyInfo *info;
 
 	info = g_hash_table_lookup (self->keys_by_public_filename, path);
@@ -186,38 +180,40 @@ file_remove_inlock (EggFileTracker *tracker,
 }
 
 static void
-file_load_inlock (EggFileTracker *tracker,
-                  const gchar *path,
-                  gpointer user_data)
+file_load_inlock (GcrSshAgentPreload *self, const gchar *path)
 {
-	GcrSshAgentPreload *self = GCR_SSH_AGENT_PRELOAD (user_data);
-	gchar *private_path;
-	GBytes *private_bytes;
+	gchar *private_path = NULL;
 	GBytes *public_bytes;
-	GBytes *public_key;
-	GcrSshAgentKeyInfo *info;
-	gchar *comment;
 
-	file_remove_inlock (tracker, path, user_data);
+	file_remove_inlock (self, path);
 
-	private_path = private_path_for_public (path);
+	if (g_str_has_suffix (path, ".pub")) {
+		GBytes *private_bytes;
 
-	private_bytes = file_get_contents (private_path, FALSE);
-	if (!private_bytes) {
-		g_debug ("no private key present for public key: %s", path);
-		g_free (private_path);
-		return;
+		private_path = g_strndup (path, strlen (path) - 4);
+		private_bytes = file_get_contents (private_path, FALSE);
+		if (!private_bytes) {
+			g_debug ("no private key present for public key: %s", path);
+			g_free (private_path);
+			return;
+		}
+
+		g_bytes_unref (private_bytes);
 	}
 
 	public_bytes = file_get_contents (path, TRUE);
 	if (public_bytes) {
+		gchar *comment = NULL;
+		GBytes *public_key;
+
 		public_key = _gcr_ssh_agent_parse_public_key (public_bytes, &comment);
 		if (public_key) {
+			GcrSshAgentKeyInfo *info;
+
 			info = g_new0 (GcrSshAgentKeyInfo, 1);
-			info->filename = private_path;
-			private_path = NULL;
-			info->public_key = public_key;
-			info->comment = comment;
+			info->filename = g_steal_pointer (&private_path);
+			info->public_key = g_steal_pointer (&public_key);
+			info->comment = g_steal_pointer (&comment);
 			g_hash_table_replace (self->keys_by_public_filename, g_strdup (path), info);
 			g_hash_table_replace (self->keys_by_public_key, info->public_key, info);
 		} else {
@@ -227,8 +223,78 @@ file_load_inlock (EggFileTracker *tracker,
 		g_bytes_unref (public_bytes);
 	}
 
-	g_bytes_unref (private_bytes);
 	g_free (private_path);
+}
+
+static void
+changed_inlock (GFileMonitor *monitor,
+                GFile *file,
+                GFile *other_file,
+                GFileMonitorEvent event_type,
+                gpointer user_data)
+{
+	GcrSshAgentPreload *self = GCR_SSH_AGENT_PRELOAD (user_data);
+	char *path;
+
+	switch (event_type) {
+	case G_FILE_MONITOR_EVENT_CHANGED:
+	case G_FILE_MONITOR_EVENT_CREATED:
+		path = g_file_get_path (file);
+		if (g_str_has_suffix (path, ".pub"))
+			file_load_inlock (self, path);
+		g_free (path);
+		break;
+	case G_FILE_MONITOR_EVENT_DELETED:
+		path = g_file_get_path (file);
+		if (g_str_has_suffix (path, ".pub"))
+			file_remove_inlock (self, path);
+		g_free (path);
+		break;
+	default:
+		break;
+	}
+}
+
+static void
+refresh_listened_directory (GcrSshAgentPreload *self)
+{
+	GFile *file;
+	GFileEnumerator *direnum;
+	GError *error = NULL;
+
+	file = g_file_new_for_path (self->path);
+	direnum = g_file_enumerate_children (file,
+	                                     G_FILE_ATTRIBUTE_STANDARD_TYPE G_FILE_ATTRIBUTE_STANDARD_NAME G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
+	                                     G_FILE_QUERY_INFO_NONE,
+	                                     NULL,
+	                                     &error);
+	g_object_unref (file);
+
+	while (TRUE) {
+		GFileInfo *info;
+		const char *name;
+		if (!g_file_enumerator_iterate (direnum, &info, NULL, NULL, &error)) {
+			g_critical ("Error while iterating files in %s: %s", self->path, error->message);
+			g_clear_error (&error);
+			break;
+		}
+
+		if (!info)
+			break;
+
+		if (g_file_info_get_is_hidden (info) ||
+		    g_file_info_get_file_type (info) == G_FILE_TYPE_DIRECTORY)
+			continue;
+
+		name = g_file_info_get_name (info);
+		if (g_str_has_suffix (name, ".pub")) {
+			char *path = g_build_filename (self->path, name, NULL);
+			file_load_inlock (self, path);
+			g_free (path);
+		}
+	}
+
+	g_object_unref (direnum);
 }
 
 GcrSshAgentPreload *
@@ -248,7 +314,7 @@ gcr_ssh_agent_preload_get_keys (GcrSshAgentPreload *self)
 
 	g_mutex_lock (&self->lock);
 
-	egg_file_tracker_refresh (self->file_tracker, FALSE);
+	refresh_listened_directory (self);
 
 	g_hash_table_iter_init (&iter, self->keys_by_public_key);
 	while (g_hash_table_iter_next (&iter, NULL, (gpointer *)&info))
@@ -267,7 +333,7 @@ gcr_ssh_agent_preload_lookup_by_public_key (GcrSshAgentPreload *self,
 
 	g_mutex_lock (&self->lock);
 
-	egg_file_tracker_refresh (self->file_tracker, FALSE);
+	refresh_listened_directory (self);
 
 	info = g_hash_table_lookup (self->keys_by_public_key, public_key);
 	if (info)

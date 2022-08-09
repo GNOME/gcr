@@ -1179,9 +1179,13 @@ gcr_certificate_get_interface_elements (GcrCertificate *self)
 	g_clear_pointer (&display, g_free);
 
 	display = gcr_certificate_get_subject_cn (self);
+	if (display == NULL)
+		display = g_strdup (_("Unknown"));
 	_gcr_certificate_section_new_field_take_value (section, _("Identity"), g_steal_pointer (&display));
 
 	display = gcr_certificate_get_issuer_cn (self);
+	if (display == NULL)
+		display = g_strdup (_("Unknown"));
 	_gcr_certificate_section_new_field_take_value (section, _("Verified by"), g_steal_pointer (&display));
 
 	datetime = gcr_certificate_get_expiry_date (self);

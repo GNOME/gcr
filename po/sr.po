@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-07-09 17:54+0000\n"
-"PO-Revision-Date: 2022-08-06 16:30+0200\n"
+"POT-Creation-Date: 2022-08-15 13:25+0000\n"
+"PO-Revision-Date: 2022-08-17 06:49+0200\n"
 "Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: Serbian <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
@@ -65,8 +65,7 @@ msgstr "Средње име"
 msgid "Surname"
 msgstr "Презиме"
 
-#: egg/egg-oid.c:68 gcr-gtk3/gcr-certificate-widget.c:605
-#: gcr-gtk4/gcr-certificate-widget.c:612
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
 msgid "Serial Number"
 msgstr "Серијски број"
 
@@ -272,10 +271,198 @@ msgstr "Путања има лош број издања."
 msgid "The stream was closed"
 msgstr "Ток је затворен"
 
-#: gcr/gcr-certificate.c:1038 gcr/gcr-parser.c:340
-#: gcr-gtk3/gcr-certificate-widget.c:180 gcr-gtk4/gcr-certificate-widget.c:187
+#: gcr/gcr-certificate.c:882
+msgid "Key Algorithm"
+msgstr "Алгоритам кључа"
+
+#: gcr/gcr-certificate.c:888
+msgid "Key Parameters"
+msgstr "Параметри кључа"
+
+#: gcr/gcr-certificate.c:895
+msgid "Key Size"
+msgstr "Величина кључа"
+
+#: gcr/gcr-certificate.c:905
+msgid "Key SHA1 Fingerprint"
+msgstr "СХА1 отисак кључа"
+
+#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+msgid "Public Key"
+msgstr "Јавни кључ"
+
+#: gcr/gcr-certificate.c:923
+msgid "Basic Constraints"
+msgstr "Основна ограничења"
+
+#: gcr/gcr-certificate.c:924
+msgid "Certificate Authority"
+msgstr "Издавач уверења"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "Yes"
+msgstr "Да"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "No"
+msgstr "Не"
+
+#: gcr/gcr-certificate.c:927
+msgid "Unlimited"
+msgstr "Неограничено"
+
+#: gcr/gcr-certificate.c:931
+msgid "Max Path Length"
+msgstr "Највећа дужина путање"
+
+#: gcr/gcr-certificate.c:955
+msgid "Extended Key Usage"
+msgstr "Проширено коришћење кључа"
+
+#: gcr/gcr-certificate.c:956
+msgid "Allowed Purposes"
+msgstr "Дозвољене сврхе"
+
+#: gcr/gcr-certificate.c:973
+msgid "Subject Key Identifier"
+msgstr "Идентификатор кључа субјекта"
+
+#: gcr/gcr-certificate.c:976
+msgid "Key Identifier"
+msgstr "Идентификатор кључа"
+
+#: gcr/gcr-certificate.c:985
+msgid "Digital signature"
+msgstr "Дигитални потпис"
+
+#: gcr/gcr-certificate.c:986
+msgid "Non repudiation"
+msgstr "Не-одбацивање"
+
+#: gcr/gcr-certificate.c:987
+msgid "Key encipherment"
+msgstr "Замућивање кључа"
+
+#: gcr/gcr-certificate.c:988
+msgid "Data encipherment"
+msgstr "Замућивање података"
+
+#: gcr/gcr-certificate.c:989
+msgid "Key agreement"
+msgstr "Сагласност кључа"
+
+#: gcr/gcr-certificate.c:990
+msgid "Certificate signature"
+msgstr "Потпис уверења"
+
+#: gcr/gcr-certificate.c:991
+msgid "Revocation list signature"
+msgstr "Списак опозива потписа"
+
+#: gcr/gcr-certificate.c:992
+msgid "Encipher only"
+msgstr "Само шифруј"
+
+#: gcr/gcr-certificate.c:993
+msgid "Decipher only"
+msgstr "Само дешифруј"
+
+#: gcr/gcr-certificate.c:1014
+msgid "Key Usage"
+msgstr "Коришћење кључа"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Usages"
+msgstr "Употребе"
+
+#: gcr/gcr-certificate.c:1033
+msgid "Subject Alternative Names"
+msgstr "Други називи субјекта"
+
+#: gcr/gcr-certificate.c:1055
+msgid "Extension"
+msgstr "Проширење"
+
+#: gcr/gcr-certificate.c:1059
+msgid "Identifier"
+msgstr "Идентификатор"
+
+#: gcr/gcr-certificate.c:1060
+msgid "Value"
+msgstr "Вредност"
+
+#: gcr/gcr-certificate.c:1100
+msgid "Critical"
+msgstr "Критично"
+
+#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
 msgid "Certificate"
 msgstr "Уверење"
+
+#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+msgid "Unknown"
+msgstr "Непознат"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Identity"
+msgstr "Идентитет"
+
+#: gcr/gcr-certificate.c:1189
+msgid "Verified by"
+msgstr "Оверен"
+
+#: gcr/gcr-certificate.c:1195
+msgid "Expires"
+msgstr "Истиче"
+
+#. The subject
+#: gcr/gcr-certificate.c:1203
+msgid "Subject Name"
+msgstr "Назив предмета"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1209
+msgid "Issuer Name"
+msgstr "Име издаваоца"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1215
+msgid "Issued Certificate"
+msgstr "Издато уверење"
+
+#: gcr/gcr-certificate.c:1221
+msgid "Version"
+msgstr "Издање"
+
+#: gcr/gcr-certificate.c:1235
+msgid "Not Valid Before"
+msgstr "Не важи пре"
+
+#: gcr/gcr-certificate.c:1244
+msgid "Not Valid After"
+msgstr "Не важи после"
+
+#: gcr/gcr-certificate.c:1253
+msgid "Certificate Fingerprints"
+msgstr "Отисци уверења"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1263
+msgid "Public Key Info"
+msgstr "Подаци о јавном кључу"
+
+#. Signature
+#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+msgid "Signature"
+msgstr "Потпис"
+
+#: gcr/gcr-certificate.c:1283
+msgid "Signature Algorithm"
+msgstr "Алгоритам потписа"
+
+#: gcr/gcr-certificate.c:1287
+msgid "Signature Parameters"
+msgstr "Параметри потписа"
 
 #: gcr/gcr-certificate-extensions.c:190
 msgid "Other Name"
@@ -363,11 +550,6 @@ msgstr "Радња је отказана"
 msgid "Private Key"
 msgstr "Приватни кључ"
 
-#: gcr/gcr-parser.c:343 gcr-gtk3/gcr-certificate-widget.c:280
-#: gcr-gtk4/gcr-certificate-widget.c:287
-msgid "Public Key"
-msgstr "Јавни кључ"
-
 #: gcr/gcr-parser.c:349
 msgid "Certificate Request"
 msgstr "Захтев уверења"
@@ -451,191 +633,6 @@ msgstr "Други упит је већ у току"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Не могу да пронађем место да ускладиштим прикачено уверење"
 
-#: gcr-gtk3/gcr-certificate-widget.c:251 gcr-gtk4/gcr-certificate-widget.c:258
-msgid "Key Algorithm"
-msgstr "Алгоритам кључа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:257 gcr-gtk4/gcr-certificate-widget.c:264
-msgid "Key Parameters"
-msgstr "Параметри кључа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:264 gcr-gtk4/gcr-certificate-widget.c:271
-msgid "Key Size"
-msgstr "Величина кључа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:275 gcr-gtk4/gcr-certificate-widget.c:282
-msgid "Key SHA1 Fingerprint"
-msgstr "СХА1 отисак кључа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:297 gcr-gtk4/gcr-certificate-widget.c:304
-msgid "Basic Constraints"
-msgstr "Основна ограничења"
-
-#: gcr-gtk3/gcr-certificate-widget.c:298 gcr-gtk4/gcr-certificate-widget.c:305
-msgid "Certificate Authority"
-msgstr "Издавач уверења"
-
-#: gcr-gtk3/gcr-certificate-widget.c:298 gcr-gtk3/gcr-certificate-widget.c:489
-#: gcr-gtk4/gcr-certificate-widget.c:305 gcr-gtk4/gcr-certificate-widget.c:496
-msgid "Yes"
-msgstr "Да"
-
-#: gcr-gtk3/gcr-certificate-widget.c:298 gcr-gtk3/gcr-certificate-widget.c:489
-#: gcr-gtk4/gcr-certificate-widget.c:305 gcr-gtk4/gcr-certificate-widget.c:496
-msgid "No"
-msgstr "Не"
-
-#: gcr-gtk3/gcr-certificate-widget.c:301 gcr-gtk4/gcr-certificate-widget.c:308
-msgid "Max Path Length"
-msgstr "Највећа дужина путање"
-
-#: gcr-gtk3/gcr-certificate-widget.c:301 gcr-gtk4/gcr-certificate-widget.c:308
-msgid "Unlimited"
-msgstr "Неограничено"
-
-#: gcr-gtk3/gcr-certificate-widget.c:329 gcr-gtk4/gcr-certificate-widget.c:336
-msgid "Extended Key Usage"
-msgstr "Проширено коришћење кључа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:330 gcr-gtk4/gcr-certificate-widget.c:337
-msgid "Allowed Purposes"
-msgstr "Дозвољене сврхе"
-
-#: gcr-gtk3/gcr-certificate-widget.c:349 gcr-gtk4/gcr-certificate-widget.c:356
-msgid "Subject Key Identifier"
-msgstr "Идентификатор кључа субјекта"
-
-#: gcr-gtk3/gcr-certificate-widget.c:352 gcr-gtk4/gcr-certificate-widget.c:359
-msgid "Key Identifier"
-msgstr "Идентификатор кључа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:362 gcr-gtk4/gcr-certificate-widget.c:369
-msgid "Digital signature"
-msgstr "Дигитални потпис"
-
-#: gcr-gtk3/gcr-certificate-widget.c:363 gcr-gtk4/gcr-certificate-widget.c:370
-msgid "Non repudiation"
-msgstr "Не-одбацивање"
-
-#: gcr-gtk3/gcr-certificate-widget.c:364 gcr-gtk4/gcr-certificate-widget.c:371
-msgid "Key encipherment"
-msgstr "Замућивање кључа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:365 gcr-gtk4/gcr-certificate-widget.c:372
-msgid "Data encipherment"
-msgstr "Замућивање података"
-
-#: gcr-gtk3/gcr-certificate-widget.c:366 gcr-gtk4/gcr-certificate-widget.c:373
-msgid "Key agreement"
-msgstr "Сагласност кључа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:367 gcr-gtk4/gcr-certificate-widget.c:374
-msgid "Certificate signature"
-msgstr "Потпис уверења"
-
-#: gcr-gtk3/gcr-certificate-widget.c:368 gcr-gtk4/gcr-certificate-widget.c:375
-msgid "Revocation list signature"
-msgstr "Списак опозива потписа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:369 gcr-gtk4/gcr-certificate-widget.c:376
-msgid "Encipher only"
-msgstr "Само шифруј"
-
-#: gcr-gtk3/gcr-certificate-widget.c:370 gcr-gtk4/gcr-certificate-widget.c:377
-msgid "Decipher only"
-msgstr "Само дешифруј"
-
-#: gcr-gtk3/gcr-certificate-widget.c:395 gcr-gtk4/gcr-certificate-widget.c:402
-msgid "Key Usage"
-msgstr "Коришћење кључа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:396 gcr-gtk4/gcr-certificate-widget.c:403
-msgid "Usages"
-msgstr "Употребе"
-
-#: gcr-gtk3/gcr-certificate-widget.c:416 gcr-gtk4/gcr-certificate-widget.c:423
-msgid "Subject Alternative Names"
-msgstr "Други називи субјекта"
-
-#: gcr-gtk3/gcr-certificate-widget.c:442 gcr-gtk4/gcr-certificate-widget.c:449
-msgid "Extension"
-msgstr "Проширење"
-
-#: gcr-gtk3/gcr-certificate-widget.c:446 gcr-gtk4/gcr-certificate-widget.c:453
-msgid "Identifier"
-msgstr "Идентификатор"
-
-#: gcr-gtk3/gcr-certificate-widget.c:448 gcr-gtk4/gcr-certificate-widget.c:455
-msgid "Value"
-msgstr "Вредност"
-
-#: gcr-gtk3/gcr-certificate-widget.c:489 gcr-gtk4/gcr-certificate-widget.c:496
-msgid "Critical"
-msgstr "Критично"
-
-#: gcr-gtk3/gcr-certificate-widget.c:565 gcr-gtk4/gcr-certificate-widget.c:572
-msgid "Identity"
-msgstr "Идентитет"
-
-#: gcr-gtk3/gcr-certificate-widget.c:569 gcr-gtk4/gcr-certificate-widget.c:576
-msgid "Verified by"
-msgstr "Оверен"
-
-#: gcr-gtk3/gcr-certificate-widget.c:576 gcr-gtk4/gcr-certificate-widget.c:583
-msgid "Expires"
-msgstr "Истиче"
-
-#. The subject
-#: gcr-gtk3/gcr-certificate-widget.c:582 gcr-gtk4/gcr-certificate-widget.c:589
-msgid "Subject Name"
-msgstr "Назив предмета"
-
-#. The Issuer
-#: gcr-gtk3/gcr-certificate-widget.c:586 gcr-gtk4/gcr-certificate-widget.c:593
-msgid "Issuer Name"
-msgstr "Име издаваоца"
-
-#. The Issued Parameters
-#: gcr-gtk3/gcr-certificate-widget.c:590 gcr-gtk4/gcr-certificate-widget.c:597
-msgid "Issued Certificate"
-msgstr "Издато уверење"
-
-#: gcr-gtk3/gcr-certificate-widget.c:596 gcr-gtk4/gcr-certificate-widget.c:603
-msgid "Version"
-msgstr "Издање"
-
-#: gcr-gtk3/gcr-certificate-widget.c:614 gcr-gtk4/gcr-certificate-widget.c:621
-msgid "Not Valid Before"
-msgstr "Не важи пре"
-
-#: gcr-gtk3/gcr-certificate-widget.c:622 gcr-gtk4/gcr-certificate-widget.c:629
-msgid "Not Valid After"
-msgstr "Не важи после"
-
-#. Fingerprints
-#: gcr-gtk3/gcr-certificate-widget.c:628 gcr-gtk4/gcr-certificate-widget.c:635
-msgid "Certificate Fingerprints"
-msgstr "Отисци уверења"
-
-#. Public Key Info
-#: gcr-gtk3/gcr-certificate-widget.c:637 gcr-gtk4/gcr-certificate-widget.c:644
-msgid "Public Key Info"
-msgstr "Подаци о јавном кључу"
-
-#. Signature
-#: gcr-gtk3/gcr-certificate-widget.c:650 gcr-gtk3/gcr-certificate-widget.c:671
-#: gcr-gtk4/gcr-certificate-widget.c:657 gcr-gtk4/gcr-certificate-widget.c:678
-msgid "Signature"
-msgstr "Потпис"
-
-#: gcr-gtk3/gcr-certificate-widget.c:653 gcr-gtk4/gcr-certificate-widget.c:660
-msgid "Signature Algorithm"
-msgstr "Алгоритам потписа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:658 gcr-gtk4/gcr-certificate-widget.c:665
-msgid "Signature Parameters"
-msgstr "Параметри потписа"
-
 #: tools/gtk3/viewer.c:23 tools/gtk4/viewer.c:23
 msgid "GCR Certificate Viewer"
 msgstr "Прегледач ГЦР уверења"
@@ -717,9 +714,6 @@ msgstr "[датотека...]"
 #~ msgctxt "capability"
 #~ msgid "Disabled"
 #~ msgstr "Искључен"
-
-#~ msgid "Unknown"
-#~ msgstr "Непознат"
 
 #~ msgid "Invalid"
 #~ msgstr "Неисправан"

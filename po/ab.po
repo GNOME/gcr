@@ -3,7 +3,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
 "POT-Creation-Date: 2022-07-17 19:28+0000\n"
 "Last-Translator: Нанба Наала <naala-nanba@rambler.ru>\n"
-"Language-Team: Abkhazian <ab@li.org>\n"
+"Language-Team: Abkhazian <daniel.abzakh@gmail.com>\n"
 "Language: ab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -202,11 +202,11 @@ msgstr ""
 #. Extended Key Usages
 #: egg/egg-oid.c:133
 msgid "Server Authentication"
-msgstr ""
+msgstr "Асервер ахаҭареилкаара"
 
 #: egg/egg-oid.c:134
 msgid "Client Authentication"
-msgstr ""
+msgstr "Аҭааҩ ихаҭареилкаара"
 
 #: egg/egg-oid.c:135
 msgid "Code Signing"
@@ -410,7 +410,7 @@ msgstr ""
 
 #: gcr/gcr-ssh-agent-service.c:259
 msgid "Unnamed"
-msgstr "Ихьӡыдоу"
+msgstr "Хьӡыда"
 
 #: gcr/gcr-ssh-askpass.c:182
 msgid "Enter your OpenSSH passphrase"
@@ -520,7 +520,7 @@ msgstr ""
 
 #: gcr-gtk3/gcr-certificate-widget.c:368 gcr-gtk4/gcr-certificate-widget.c:375
 msgid "Revocation list signature"
-msgstr ""
+msgstr "Анапаҵыҩрақәа рыхьӡынҵа аԥыхра"
 
 #: gcr-gtk3/gcr-certificate-widget.c:369 gcr-gtk4/gcr-certificate-widget.c:376
 msgid "Encipher only"
@@ -587,7 +587,7 @@ msgstr ""
 
 #: gcr-gtk3/gcr-certificate-widget.c:596 gcr-gtk4/gcr-certificate-widget.c:603
 msgid "Version"
-msgstr ""
+msgstr "Аверсиа"
 
 #: gcr-gtk3/gcr-certificate-widget.c:614 gcr-gtk4/gcr-certificate-widget.c:621
 msgid "Not Valid Before"

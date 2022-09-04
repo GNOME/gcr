@@ -22,7 +22,4 @@ gcr/gcr-ssh-askpass.c
 gcr/gcr-subject-public-key.c
 gcr/gcr-system-prompt.c
 gcr/gcr-trust.c
-gcr-gtk3/gcr-certificate-widget.c
-gcr-gtk4/gcr-certificate-widget.c
-tools/gtk3/viewer.c
-tools/gtk4/viewer.c
+tools/viewer/viewer.c

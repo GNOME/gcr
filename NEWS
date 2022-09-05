@@ -1,3 +1,11 @@
+gcr 3.92.0:
+- This is the beta release of gcr4, which is a major version bump after gcr3
+  with several API and ABI breaks.
+- `GcrCertificateSection` and `GcrCertificateField` have been added, which now
+  allow consumers to more easily create their own GcrCertificate-based UIs.
+- gcr4 will no longer ship UI libraries, i.e. gcr-gtk3 or gcr-gtk4.
+- `GcrComparable` and `GckList` have been removed
+
 gcr 3.90.0:
 - WARNING: this is the alpha release of gcr4, which is a major version bump
   with several API and ABI breaks.

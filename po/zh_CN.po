@@ -16,27 +16,28 @@
 # Cheng Lu <chenglu1990@gmail.com>, 2012.
 # YunQiang Su <wzssyqa@gmail.com>, 2011, 2012.
 # Mingcong Bai <jeffbai@aosc.xyz>, 2018.
+# lumingzh <lumingzh@qq.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2021-04-26 17:11+0000\n"
-"PO-Revision-Date: 2021-09-05 16:38-0400\n"
-"Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
-"Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
+"POT-Creation-Date: 2022-09-04 18:07+0000\n"
+"PO-Revision-Date: 2022-09-11 07:59+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 42.0\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
 msgstr "域组件"
 
-#: egg/egg-oid.c:42 ui/gcr-gnupg-renderer.c:410 ui/gcr-gnupg-renderer.c:579
+#: egg/egg-oid.c:42
 msgid "User ID"
 msgstr "用户 ID"
 
@@ -72,7 +73,7 @@ msgstr "常用名"
 msgid "Surname"
 msgstr "姓"
 
-#: egg/egg-oid.c:68 ui/gcr-certificate-renderer.c:565
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
 msgid "Serial Number"
 msgstr "序列号"
 
@@ -148,7 +149,7 @@ msgstr "OGRNIP"
 msgid "INN"
 msgstr "INN"
 
-#: egg/egg-oid.c:110 ui/gcr-gnupg-renderer.c:201 ui/gcr-key-renderer.c:385
+#: egg/egg-oid.c:110
 msgid "RSA"
 msgstr "RSA"
 
@@ -164,7 +165,7 @@ msgstr "使用 MD5 算法的 RSA 密钥对"
 msgid "SHA1 with RSA"
 msgstr "使用 SHA1 算法的 RSA 密钥对"
 
-#: egg/egg-oid.c:115 ui/gcr-gnupg-renderer.c:205 ui/gcr-key-renderer.c:387
+#: egg/egg-oid.c:115
 msgid "DSA"
 msgstr "DSA"
 
@@ -172,7 +173,7 @@ msgstr "DSA"
 msgid "SHA1 with DSA"
 msgstr "使用 SHA1 算法的 DSA 密钥对"
 
-#: egg/egg-oid.c:118 ui/gcr-key-renderer.c:389
+#: egg/egg-oid.c:118
 msgid "Elliptic Curve"
 msgstr "椭圆曲线"
 
@@ -241,35 +242,35 @@ msgstr "邮件防护"
 msgid "Time Stamping"
 msgstr "时间戳"
 
-#: gck/gck-module.c:332
+#: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
 msgstr "加载 PKCS#11 模块失败：%s"
 
-#: gck/gck-module.c:346
+#: gck/gck-module.c:286
 #, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
 msgstr "无法初始化 PKCS#11 模块：%s"
 
-#: gck/gck-modules.c:62
+#: gck/gck-modules.c:60
 #, c-format
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
 msgstr "无法初始化注册的 PKCS#11 模块：%s"
 
-#: gck/gck-uri.c:224
+#: gck/gck-uri.c:167
 #, c-format
 msgid "The URI has invalid encoding."
 msgstr "该 URI 的编码无效。"
 
-#: gck/gck-uri.c:228
+#: gck/gck-uri.c:171
 msgid "The URI does not have the “pkcs11” scheme."
 msgstr "该 URI 没有“pkcs11”规范。"
 
-#: gck/gck-uri.c:232
+#: gck/gck-uri.c:175
 msgid "The URI has bad syntax."
 msgstr "URI 语法错误。"
 
-#: gck/gck-uri.c:236
+#: gck/gck-uri.c:179
 msgid "The URI has a bad version number."
 msgstr "URI 版本号错误。"
 
@@ -278,28 +279,198 @@ msgstr "URI 版本号错误。"
 msgid "The stream was closed"
 msgstr "会话已关闭"
 
-#. later
-#. later
-#: gcr/gcr-certificate.c:350 gcr/gcr-gnupg-key.c:429
-msgctxt "column"
-msgid "Name"
-msgstr "名称"
+#: gcr/gcr-certificate.c:882
+msgid "Key Algorithm"
+msgstr "密钥算法"
 
-#: gcr/gcr-certificate.c:352
-msgctxt "column"
-msgid "Issued By"
-msgstr "颁发者"
+#: gcr/gcr-certificate.c:888
+msgid "Key Parameters"
+msgstr "密钥参数"
 
-#. later
-#: gcr/gcr-certificate.c:354
-msgctxt "column"
+#: gcr/gcr-certificate.c:895
+msgid "Key Size"
+msgstr "密钥大小"
+
+#: gcr/gcr-certificate.c:905
+msgid "Key SHA1 Fingerprint"
+msgstr "密钥 SHA1 指纹"
+
+#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+msgid "Public Key"
+msgstr "公钥"
+
+#: gcr/gcr-certificate.c:923
+msgid "Basic Constraints"
+msgstr "基本约束"
+
+#: gcr/gcr-certificate.c:924
+msgid "Certificate Authority"
+msgstr "证书授权"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "Yes"
+msgstr "是"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "No"
+msgstr "否"
+
+#: gcr/gcr-certificate.c:927
+msgid "Unlimited"
+msgstr "无限制"
+
+#: gcr/gcr-certificate.c:931
+msgid "Max Path Length"
+msgstr "最大路径长度"
+
+#: gcr/gcr-certificate.c:955
+msgid "Extended Key Usage"
+msgstr "延长密钥使用"
+
+#: gcr/gcr-certificate.c:956
+msgid "Allowed Purposes"
+msgstr "允许的用途"
+
+#: gcr/gcr-certificate.c:973
+msgid "Subject Key Identifier"
+msgstr "主体密钥标识"
+
+#: gcr/gcr-certificate.c:976
+msgid "Key Identifier"
+msgstr "密钥标识"
+
+#: gcr/gcr-certificate.c:985
+msgid "Digital signature"
+msgstr "数字签名"
+
+#: gcr/gcr-certificate.c:986
+msgid "Non repudiation"
+msgstr "不可否认性"
+
+#: gcr/gcr-certificate.c:987
+msgid "Key encipherment"
+msgstr "密钥加密"
+
+#: gcr/gcr-certificate.c:988
+msgid "Data encipherment"
+msgstr "数据加密"
+
+#: gcr/gcr-certificate.c:989
+msgid "Key agreement"
+msgstr "密钥协议"
+
+#: gcr/gcr-certificate.c:990
+msgid "Certificate signature"
+msgstr "证书签名"
+
+#: gcr/gcr-certificate.c:991
+msgid "Revocation list signature"
+msgstr "吊销列表签名"
+
+#: gcr/gcr-certificate.c:992
+msgid "Encipher only"
+msgstr "仅加密"
+
+#: gcr/gcr-certificate.c:993
+msgid "Decipher only"
+msgstr "仅解密"
+
+#: gcr/gcr-certificate.c:1014
+msgid "Key Usage"
+msgstr "密钥用途"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Usages"
+msgstr "使用"
+
+#: gcr/gcr-certificate.c:1033
+msgid "Subject Alternative Names"
+msgstr "主体备用名称"
+
+#: gcr/gcr-certificate.c:1055
+msgid "Extension"
+msgstr "扩展"
+
+#: gcr/gcr-certificate.c:1059
+msgid "Identifier"
+msgstr "识别标志"
+
+#: gcr/gcr-certificate.c:1060
+msgid "Value"
+msgstr "值"
+
+#: gcr/gcr-certificate.c:1100
+msgid "Critical"
+msgstr "关键"
+
+#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+msgid "Certificate"
+msgstr "证书"
+
+#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+msgid "Unknown"
+msgstr "未知"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Identity"
+msgstr "身份"
+
+#: gcr/gcr-certificate.c:1189
+msgid "Verified by"
+msgstr "认证机构"
+
+#: gcr/gcr-certificate.c:1195
 msgid "Expires"
 msgstr "过期"
 
-#: gcr/gcr-certificate.c:1186 gcr/gcr-parser.c:346
-#: ui/gcr-certificate-renderer.c:103 ui/gcr-certificate-exporter.c:464
-msgid "Certificate"
-msgstr "证书"
+#. The subject
+#: gcr/gcr-certificate.c:1203
+msgid "Subject Name"
+msgstr "主体名"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1209
+msgid "Issuer Name"
+msgstr "颁发者名称"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1215
+msgid "Issued Certificate"
+msgstr "颁发的证书"
+
+#: gcr/gcr-certificate.c:1221
+msgid "Version"
+msgstr "版本"
+
+#: gcr/gcr-certificate.c:1235
+msgid "Not Valid Before"
+msgstr "在此之前无效"
+
+#: gcr/gcr-certificate.c:1244
+msgid "Not Valid After"
+msgstr "在此之后无效"
+
+#: gcr/gcr-certificate.c:1253
+msgid "Certificate Fingerprints"
+msgstr "证书指纹"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1263
+msgid "Public Key Info"
+msgstr "公开密钥信息"
+
+#. Signature
+#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+msgid "Signature"
+msgstr "签名"
+
+#: gcr/gcr-certificate.c:1283
+msgid "Signature Algorithm"
+msgstr "签名算法"
+
+#: gcr/gcr-certificate.c:1287
+msgid "Signature Parameters"
+msgstr "签名参数"
 
 #: gcr/gcr-certificate-extensions.c:190
 msgid "Other Name"
@@ -313,8 +484,7 @@ msgstr "XMPP 地址"
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: gcr/gcr-certificate-extensions.c:216 ui/gcr-gnupg-renderer.c:423
-#: ui/gcr-gnupg-renderer.c:705
+#: gcr/gcr-certificate-extensions.c:216
 msgid "Email"
 msgstr "电子邮件"
 
@@ -346,33 +516,28 @@ msgstr "IP 地址"
 msgid "Registered ID"
 msgstr "注册的 ID"
 
-#: gcr/gcr-certificate-request.c:406
+#: gcr/gcr-certificate-request.c:397
 #, c-format
 msgid "Unsupported key type for certificate request"
 msgstr "不支持证书请求的密钥类型"
 
-#: gcr/gcr-certificate-request.c:493 gcr/gcr-certificate-request.c:577
+#: gcr/gcr-certificate-request.c:484 gcr/gcr-certificate-request.c:568
 #, c-format
 msgid "The key cannot be used to sign the request"
 msgstr "该密钥无法用于签署请求"
 
-#: gcr/gcr-gnupg-importer.c:95
+#: gcr/gcr-gnupg-importer.c:94
 msgid "GnuPG Keyring"
 msgstr "GnuPG 密钥环"
 
-#: gcr/gcr-gnupg-importer.c:97
+#: gcr/gcr-gnupg-importer.c:96
 #, c-format
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG 密钥环：%s"
 
-#: gcr/gcr-gnupg-key.c:143 gcr/gcr-parser.c:352 ui/gcr-gnupg-renderer.c:88
+#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
 msgid "PGP Key"
 msgstr "PGP 密钥"
-
-#: gcr/gcr-gnupg-key.c:431
-msgctxt "column"
-msgid "Key ID"
-msgstr "密钥 ID"
 
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
@@ -384,41 +549,36 @@ msgstr "Gnupg 进程退出，退出代码为：%d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg 进程由 %d 信号中止"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2598 gcr/gcr-parser.c:3192
-#: gcr/gcr-system-prompt.c:932
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "操作已取消"
 
-#: gcr/gcr-parser.c:343 ui/gcr-key-renderer.c:361
+#: gcr/gcr-parser.c:337
 msgid "Private Key"
 msgstr "私钥"
 
-#: gcr/gcr-parser.c:349 ui/gcr-certificate-renderer.c:887
-#: ui/gcr-gnupg-renderer.c:738 ui/gcr-key-renderer.c:370
-msgid "Public Key"
-msgstr "公钥"
-
-#: gcr/gcr-parser.c:355
+#: gcr/gcr-parser.c:349
 msgid "Certificate Request"
 msgstr "证书请求"
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:2595
 msgid "Unrecognized or unsupported data."
 msgstr "无法识别或不支持的数据。"
 
-#: gcr/gcr-parser.c:2604
+#: gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
 msgstr "无法解析非法的或已损坏的数据。"
 
-#: gcr/gcr-parser.c:2607
+#: gcr/gcr-parser.c:2601
 msgid "The data is locked"
 msgstr "数据已被锁定"
 
-#: gcr/gcr-prompt.c:229
+#: gcr/gcr-prompt.c:220
 msgid "Continue"
 msgstr "继续"
 
-#: gcr/gcr-prompt.c:238
+#: gcr/gcr-prompt.c:229
 msgid "Cancel"
 msgstr "取消"
 
@@ -445,8 +605,7 @@ msgstr "有应用程序想要访问私钥“%s”，但它已锁定"
 msgid "Automatically unlock this key whenever I’m logged in"
 msgstr "当我登录时自动解锁此密钥"
 
-#: gcr/gcr-ssh-agent-interaction.c:163 ui/gcr-pkcs11-import-dialog.ui:143
-#: ui/gcr-unlock-renderer.c:70 ui/gcr-unlock-renderer.c:124
+#: gcr/gcr-ssh-agent-interaction.c:163
 msgid "Unlock"
 msgstr "解锁"
 
@@ -458,764 +617,446 @@ msgstr "解锁密码不正确"
 msgid "Unnamed"
 msgstr "未命名"
 
-#: gcr/gcr-ssh-askpass.c:194
+#: gcr/gcr-ssh-askpass.c:182
 msgid "Enter your OpenSSH passphrase"
 msgstr "输入你的 OpenSSH 密码"
 
-#: gcr/gcr-subject-public-key.c:405
+#: gcr/gcr-subject-public-key.c:407
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "无法识别或不可用的密钥属性"
 
-#: gcr/gcr-subject-public-key.c:491 gcr/gcr-subject-public-key.c:574
+#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
 msgid "Couldn’t build public key"
 msgstr "无法创建公开密钥"
 
-#: gcr/gcr-system-prompt.c:912
+#: gcr/gcr-system-prompt.c:896
 msgid "Another prompt is already in progress"
 msgstr "另一个提示正在进行中"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
-#: gcr/gcr-trust.c:341
+#: gcr/gcr-trust.c:307
 #, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "找不到可以用来保存固定证书的位置"
 
-#: ui/gcr-certificate-renderer.c:118
-msgid "Basic Constraints"
-msgstr "基本约束"
-
-#: ui/gcr-certificate-renderer.c:120
-msgid "Certificate Authority"
-msgstr "证书授权"
-
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
-msgid "Yes"
-msgstr "是"
-
-#: ui/gcr-certificate-renderer.c:121 ui/gcr-certificate-renderer.c:958
-msgid "No"
-msgstr "否"
-
-#: ui/gcr-certificate-renderer.c:124
-msgid "Max Path Length"
-msgstr "最大路径长度"
-
-#: ui/gcr-certificate-renderer.c:125
-msgid "Unlimited"
-msgstr "无限制"
-
-#: ui/gcr-certificate-renderer.c:144
-msgid "Extended Key Usage"
-msgstr "延长密钥使用"
-
-#: ui/gcr-certificate-renderer.c:155
-msgid "Allowed Purposes"
-msgstr "允许的用途"
-
-#: ui/gcr-certificate-renderer.c:175
-msgid "Subject Key Identifier"
-msgstr "主体密钥标识"
-
-#: ui/gcr-certificate-renderer.c:176
-msgid "Key Identifier"
-msgstr "密钥标识"
-
-#: ui/gcr-certificate-renderer.c:187
-msgid "Digital signature"
-msgstr "数字签名"
-
-#: ui/gcr-certificate-renderer.c:188
-msgid "Non repudiation"
-msgstr "不可否认性"
-
-#: ui/gcr-certificate-renderer.c:189
-msgid "Key encipherment"
-msgstr "密钥加密"
-
-#: ui/gcr-certificate-renderer.c:190
-msgid "Data encipherment"
-msgstr "数据加密"
-
-#: ui/gcr-certificate-renderer.c:191
-msgid "Key agreement"
-msgstr "密钥协议"
-
-#: ui/gcr-certificate-renderer.c:192
-msgid "Certificate signature"
-msgstr "证书签名"
-
-#: ui/gcr-certificate-renderer.c:193
-msgid "Revocation list signature"
-msgstr "吊销列表签名"
-
-#: ui/gcr-certificate-renderer.c:194
-msgid "Encipher only"
-msgstr "仅加密"
-
-#: ui/gcr-certificate-renderer.c:195
-msgid "Decipher only"
-msgstr "仅解密"
-
-#: ui/gcr-certificate-renderer.c:220
-msgid "Key Usage"
-msgstr "密钥用途"
-
-#: ui/gcr-certificate-renderer.c:221
-msgid "Usages"
-msgstr "使用"
-
-#: ui/gcr-certificate-renderer.c:241
-msgid "Subject Alternative Names"
-msgstr "主体备用名称"
-
-#: ui/gcr-certificate-renderer.c:268
-msgid "Extension"
-msgstr "扩展"
-
-#: ui/gcr-certificate-renderer.c:272
-msgid "Identifier"
-msgstr "识别标志"
-
-#: ui/gcr-certificate-renderer.c:273 ui/gcr-certificate-request-renderer.c:268
-#: ui/gcr-gnupg-renderer.c:414 ui/gcr-gnupg-renderer.c:431
-msgid "Value"
-msgstr "值"
-
-#: ui/gcr-certificate-renderer.c:291
-msgid "Couldn’t export the certificate."
-msgstr "无法导出此证书。"
-
-#: ui/gcr-certificate-renderer.c:527 ui/gcr-certificate-request-renderer.c:309
-msgid "Identity"
-msgstr "身份"
-
-#: ui/gcr-certificate-renderer.c:531
-msgid "Verified by"
-msgstr "认证机构"
-
-#: ui/gcr-certificate-renderer.c:538 ui/gcr-gnupg-renderer.c:719
-msgid "Expires"
-msgstr "过期"
-
-#. The subject
-#: ui/gcr-certificate-renderer.c:545 ui/gcr-certificate-request-renderer.c:315
-msgid "Subject Name"
-msgstr "主体名"
-
-#. The Issuer
-#: ui/gcr-certificate-renderer.c:550
-msgid "Issuer Name"
-msgstr "颁发者名称"
-
-#. The Issued Parameters
-#: ui/gcr-certificate-renderer.c:555
-msgid "Issued Certificate"
-msgstr "颁发的证书"
-
-#: ui/gcr-certificate-renderer.c:560 ui/gcr-certificate-request-renderer.c:326
-msgid "Version"
-msgstr "版本"
-
-#: ui/gcr-certificate-renderer.c:574
-msgid "Not Valid Before"
-msgstr "在此之前无效"
-
-#: ui/gcr-certificate-renderer.c:579
-msgid "Not Valid After"
-msgstr "在此之后无效"
-
-#. Fingerprints
-#: ui/gcr-certificate-renderer.c:584
-msgid "Certificate Fingerprints"
-msgstr "证书指纹"
-
-#. Public Key Info
-#: ui/gcr-certificate-renderer.c:590 ui/gcr-certificate-request-renderer.c:329
-#: ui/gcr-certificate-request-renderer.c:375
-msgid "Public Key Info"
-msgstr "公开密钥信息"
-
-#. Signature
-#: ui/gcr-certificate-renderer.c:605 ui/gcr-certificate-renderer.c:915
-#: ui/gcr-certificate-request-renderer.c:345
-#: ui/gcr-certificate-request-renderer.c:382 ui/gcr-gnupg-renderer.c:560
-msgid "Signature"
-msgstr "签名"
-
-#: ui/gcr-certificate-renderer.c:622
-msgid "Export Certificate…"
-msgstr "导出证书…"
-
-#: ui/gcr-certificate-renderer.c:861
-msgid "Key Algorithm"
-msgstr "密钥算法"
-
-#: ui/gcr-certificate-renderer.c:866
-msgid "Key Parameters"
-msgstr "密钥参数"
-
-#: ui/gcr-certificate-renderer.c:874 ui/gcr-gnupg-renderer.c:353
-msgid "Key Size"
-msgstr "密钥大小"
-
-#: ui/gcr-certificate-renderer.c:882
-msgid "Key SHA1 Fingerprint"
-msgstr "密钥 SHA1 指纹"
-
-#: ui/gcr-certificate-renderer.c:904
-msgid "Signature Algorithm"
-msgstr "签名算法"
-
-#: ui/gcr-certificate-renderer.c:908
-msgid "Signature Parameters"
-msgstr "签名参数"
-
-#: ui/gcr-certificate-renderer.c:957
-msgid "Critical"
-msgstr "关键"
-
-#. The certificate request type
-#: ui/gcr-certificate-request-renderer.c:95
-#: ui/gcr-certificate-request-renderer.c:304
-#: ui/gcr-certificate-request-renderer.c:319
-#: ui/gcr-certificate-request-renderer.c:362
-#: ui/gcr-certificate-request-renderer.c:367
-msgid "Certificate request"
-msgstr "证书请求"
-
-#: ui/gcr-certificate-request-renderer.c:257
-msgid "Attribute"
-msgstr "属性"
-
-#: ui/gcr-certificate-request-renderer.c:261
-#: ui/gcr-certificate-request-renderer.c:320
-#: ui/gcr-certificate-request-renderer.c:368 ui/gcr-gnupg-renderer.c:591
-#: ui/gcr-gnupg-renderer.c:593
-msgid "Type"
-msgstr "类型"
-
-# Challenge/Response认证
-#: ui/gcr-certificate-request-renderer.c:372
-msgid "Challenge"
-msgstr "挑战"
-
-#: ui/gcr-display-view.c:298
-msgid "_Details"
-msgstr "详细信息(_D)"
-
-#: ui/gcr-failure-renderer.c:159
-#, c-format
-msgid "Could not display “%s”"
-msgstr "无法显示“%s”"
-
-#: ui/gcr-failure-renderer.c:161
-msgid "Could not display file"
-msgstr "无法显示文件"
-
-#: ui/gcr-failure-renderer.c:166
-msgid "Reason"
-msgstr "原因"
-
-#: ui/gcr-failure-renderer.c:216
-#, c-format
-msgid "Cannot display a file of this type."
-msgstr "无法显示此类型的文件。"
-
-#: ui/gcr-gnupg-renderer.c:203
-msgid "Elgamal"
-msgstr "Elgamal"
-
-#: ui/gcr-gnupg-renderer.c:216
-msgid "Encrypt"
-msgstr "加密"
-
-#: ui/gcr-gnupg-renderer.c:218
-msgid "Sign"
-msgstr "签名"
-
-#: ui/gcr-gnupg-renderer.c:220
-msgid "Certify"
-msgstr "证书"
-
-#: ui/gcr-gnupg-renderer.c:222
-msgid "Authenticate"
-msgstr "认证"
-
-#: ui/gcr-gnupg-renderer.c:224
-msgctxt "capability"
-msgid "Disabled"
-msgstr "已禁用"
-
-#: ui/gcr-gnupg-renderer.c:255 ui/gcr-gnupg-renderer.c:414
-#: ui/gcr-key-renderer.c:391 ui/gcr-key-renderer.c:395
-msgid "Unknown"
-msgstr "未知"
-
-#: ui/gcr-gnupg-renderer.c:257
-msgid "Invalid"
-msgstr "无效"
-
-#: ui/gcr-gnupg-renderer.c:259
-msgctxt "ownertrust"
-msgid "Disabled"
-msgstr "已禁用"
-
-#: ui/gcr-gnupg-renderer.c:261
-msgid "Revoked"
-msgstr "已废除"
-
-#: ui/gcr-gnupg-renderer.c:263
-msgid "Expired"
-msgstr "已过期"
-
-#: ui/gcr-gnupg-renderer.c:265
-msgid "Undefined trust"
-msgstr "未定义的信任"
-
-#: ui/gcr-gnupg-renderer.c:267
-msgid "Distrusted"
-msgstr "不信任"
-
-#: ui/gcr-gnupg-renderer.c:269
-msgid "Marginally trusted"
-msgstr "最低程度信任"
-
-#: ui/gcr-gnupg-renderer.c:271
-msgid "Fully trusted"
-msgstr "完全信任"
-
-#: ui/gcr-gnupg-renderer.c:273
-msgid "Ultimately trusted"
-msgstr "最高程度信任"
-
-#: ui/gcr-gnupg-renderer.c:287
-msgid "The information in this key has not yet been verified"
-msgstr "此密钥中的信息尚未核实"
-
-#: ui/gcr-gnupg-renderer.c:290
-msgid "This key is invalid"
-msgstr "此密钥无效"
-
-#: ui/gcr-gnupg-renderer.c:293
-msgid "This key has been disabled"
-msgstr "此密钥已禁用"
-
-#: ui/gcr-gnupg-renderer.c:296
-msgid "This key has been revoked"
-msgstr "此密钥已作废"
-
-#: ui/gcr-gnupg-renderer.c:299
-msgid "This key has expired"
-msgstr "此密钥已经过期"
-
-#: ui/gcr-gnupg-renderer.c:304
-msgid "This key is distrusted"
-msgstr "此密钥不受信任"
-
-#: ui/gcr-gnupg-renderer.c:307
-msgid "This key is marginally trusted"
-msgstr "此密钥受最低程度信任"
-
-#: ui/gcr-gnupg-renderer.c:310
-msgid "This key is fully trusted"
-msgstr "此密钥受完全信任"
-
-#: ui/gcr-gnupg-renderer.c:313
-msgid "This key is ultimately trusted"
-msgstr "此密钥受最高程度信任"
-
-#: ui/gcr-gnupg-renderer.c:338 ui/gcr-gnupg-renderer.c:564
-msgid "Key ID"
-msgstr "密钥 ID"
-
-#: ui/gcr-gnupg-renderer.c:346 ui/gcr-gnupg-renderer.c:572
-#: ui/gcr-gnupg-renderer.c:619 ui/gcr-key-renderer.c:392
-msgid "Algorithm"
-msgstr "算法"
-
-#: ui/gcr-gnupg-renderer.c:361 ui/gcr-gnupg-renderer.c:438
-#: ui/gcr-gnupg-renderer.c:481
-msgid "Created"
-msgstr "创建"
-
-#: ui/gcr-gnupg-renderer.c:370 ui/gcr-gnupg-renderer.c:447
-#: ui/gcr-gnupg-renderer.c:490
-msgid "Expiry"
-msgstr "过期"
-
-#: ui/gcr-gnupg-renderer.c:379
-msgid "Capabilities"
-msgstr "权限"
-
-#: ui/gcr-gnupg-renderer.c:392
-msgid "Owner trust"
-msgstr "所有者信任"
-
-#: ui/gcr-gnupg-renderer.c:420
-msgid "Name"
-msgstr "名称"
-
-#: ui/gcr-gnupg-renderer.c:426 ui/gcr-gnupg-renderer.c:708
-msgid "Comment"
-msgstr "评论"
-
-#: ui/gcr-gnupg-renderer.c:466
-msgid "User Attribute"
-msgstr "用户属性"
-
-#: ui/gcr-gnupg-renderer.c:473 ui/gcr-key-renderer.c:398
-msgid "Size"
-msgstr "长度"
-
-#: ui/gcr-gnupg-renderer.c:508
-msgid "Signature of a binary document"
-msgstr "二进制文档的签名"
-
-#: ui/gcr-gnupg-renderer.c:510
-msgid "Signature of a canonical text document"
-msgstr "标准文本文档的签名"
-
-#: ui/gcr-gnupg-renderer.c:512
-msgid "Standalone signature"
-msgstr "独立签名"
-
-#: ui/gcr-gnupg-renderer.c:514
-msgid "Generic certification of key"
-msgstr "密钥通用认证"
-
-#: ui/gcr-gnupg-renderer.c:516
-msgid "Persona certification of key"
-msgstr "密钥角色认证"
-
-#: ui/gcr-gnupg-renderer.c:518
-msgid "Casual certification of key"
-msgstr "密钥临时认证"
-
-#: ui/gcr-gnupg-renderer.c:520
-msgid "Positive certification of key"
-msgstr "密钥可靠认证"
-
-#: ui/gcr-gnupg-renderer.c:522
-msgid "Subkey binding signature"
-msgstr "子密钥绑定签名"
-
-#: ui/gcr-gnupg-renderer.c:524
-msgid "Primary key binding signature"
-msgstr "主密钥绑定签名"
-
-#: ui/gcr-gnupg-renderer.c:526
-msgid "Signature directly on key"
-msgstr "直接在密钥上签名"
-
-#: ui/gcr-gnupg-renderer.c:528
-msgid "Key revocation signature"
-msgstr "密钥作废签名"
-
-#: ui/gcr-gnupg-renderer.c:530
-msgid "Subkey revocation signature"
-msgstr "子密钥作废签名"
-
-#: ui/gcr-gnupg-renderer.c:532
-msgid "Certification revocation signature"
-msgstr "证书作废签名"
-
-#: ui/gcr-gnupg-renderer.c:534
-msgid "Timestamp signature"
-msgstr "时间戳签名"
-
-#: ui/gcr-gnupg-renderer.c:536
-msgid "Third-party confirmation signature"
-msgstr "第三方确认签名"
-
-#: ui/gcr-gnupg-renderer.c:589 ui/gcr-gnupg-renderer.c:597
-msgid "Class"
-msgstr "类别"
-
-#: ui/gcr-gnupg-renderer.c:591
-msgid "Local only"
-msgstr "仅本地"
-
-#: ui/gcr-gnupg-renderer.c:593
-msgid "Exportable"
-msgstr "可导出的"
-
-#: ui/gcr-gnupg-renderer.c:611
-msgid "Revocation Key"
-msgstr "作废密钥"
-
-#: ui/gcr-gnupg-renderer.c:625 ui/gcr-gnupg-renderer.c:649
-#: ui/gcr-gnupg-renderer.c:651
-msgid "Fingerprint"
-msgstr "指纹"
-
-#: ui/gcr-gnupg-renderer.c:740
-msgid "Public Subkey"
-msgstr "公开子密钥"
-
-#: ui/gcr-gnupg-renderer.c:742
-msgid "Secret Key"
-msgstr "私有密钥"
-
-#: ui/gcr-gnupg-renderer.c:744
-msgid "Secret Subkey"
-msgstr "私有子密钥"
-
-#: ui/gcr-import-button.c:118
-msgid "Initializing…"
-msgstr "初始化…"
-
-#: ui/gcr-import-button.c:126
-msgid "Import is in progress…"
-msgstr "正在进行导入…"
-
-#: ui/gcr-import-button.c:133
-#, c-format
-msgid "Imported to: %s"
-msgstr "导入到： %s"
-
-#: ui/gcr-import-button.c:153
-#, c-format
-msgid "Import to: %s"
-msgstr "导入： %s"
-
-#: ui/gcr-import-button.c:166
-msgid "Cannot import because there are no compatible importers"
-msgstr "无法导入，因为没有兼容的导入方"
-
-#: ui/gcr-import-button.c:175
-msgid "No data to import"
-msgstr "无可导入数据"
-
-#: ui/gcr-key-renderer.c:89
-msgid "Key"
-msgstr "密钥"
-
-#: ui/gcr-key-renderer.c:355
-msgid "Private RSA Key"
-msgstr "RSA 私钥"
-
-#: ui/gcr-key-renderer.c:357
-msgid "Private DSA Key"
-msgstr "DSA 私钥"
-
-#: ui/gcr-key-renderer.c:359
-msgid "Private Elliptic Curve Key"
-msgstr "椭圆曲线私钥"
-
-#: ui/gcr-key-renderer.c:364 ui/gcr-key-renderer.c:366
-msgid "Public DSA Key"
-msgstr "DSA 公钥"
-
-#: ui/gcr-key-renderer.c:368
-msgid "Public Elliptic Curve Key"
-msgstr "椭圆曲线公钥"
-
-#: ui/gcr-key-renderer.c:377
-#, c-format
-msgid "%u bit"
-msgid_plural "%u bits"
-msgstr[0] "%u 位"
-
-#: ui/gcr-key-renderer.c:378
-msgid "Strength"
-msgstr "强度"
-
-#. Fingerprints
-#: ui/gcr-key-renderer.c:402
-msgid "Fingerprints"
-msgstr "指纹"
-
-#: ui/gcr-key-renderer.c:406
-msgid "SHA1"
-msgstr "SHA1"
-
-#: ui/gcr-key-renderer.c:411
-msgid "SHA256"
-msgstr "SHA256"
-
-#. Add our various buttons
-#: ui/gcr-pkcs11-import-dialog.c:104 ui/gcr-prompt-dialog.c:605
-#: ui/gcr-certificate-exporter.c:229 ui/gcr-certificate-exporter.c:306
-msgid "_Cancel"
-msgstr "取消(_C)"
-
-#: ui/gcr-pkcs11-import-dialog.c:106 ui/gcr-prompt-dialog.c:608
-msgid "_OK"
-msgstr "确定(_O)"
-
-#: ui/gcr-pkcs11-import-dialog.c:179
-msgid "Automatically chosen"
-msgstr "自动选择"
-
-#: ui/gcr-pkcs11-import-dialog.c:263 ui/gcr-pkcs11-import-interaction.c:142
-#: ui/gcr-pkcs11-import-interaction.c:161
-#, c-format
-msgid "The user cancelled the operation"
-msgstr "用户已取消操作"
-
-#: ui/gcr-pkcs11-import-dialog.ui:31
-msgid "In order to import, please enter the password."
-msgstr "要导入，请输入密码。"
-
-#. The password label
-#: ui/gcr-pkcs11-import-dialog.ui:66 ui/gcr-prompt-dialog.c:666
-msgid "Password:"
-msgstr "密码："
-
-#: ui/gcr-pkcs11-import-dialog.ui:80
-msgid "Token:"
-msgstr "令牌："
-
-#: ui/gcr-pkcs11-import-dialog.ui:178
-msgid "Label:"
-msgstr "标签："
-
-#: ui/gcr-pkcs11-import-dialog.ui:233
-msgid "Import settings"
-msgstr "导入设置"
-
-#. The confirm label
-#: ui/gcr-prompt-dialog.c:683
-msgid "Confirm:"
-msgstr "确认："
-
-#: ui/gcr-prompt-dialog.c:751
-msgid "Passwords do not match."
-msgstr "密码不匹配。"
-
-#: ui/gcr-prompt-dialog.c:758
-msgid "Password cannot be blank"
-msgstr "密码不能为空"
-
-#: ui/gcr-prompter.desktop.in.in:3
-msgid "Access Prompt"
-msgstr "访问提示"
-
-#: ui/gcr-prompter.desktop.in.in:4
-msgid "Unlock access to passwords and other secrets"
-msgstr "解锁密码和其他私密内容的访问权限"
-
-#: ui/gcr-certificate-exporter.c:226
-msgid "A file already exists with this name."
-msgstr "同名的文件已经存在。"
-
-#: ui/gcr-certificate-exporter.c:227
-msgid "Do you want to replace it with a new file?"
-msgstr "您想用新文件替换它吗？"
-
-#: ui/gcr-certificate-exporter.c:230
-msgid "_Replace"
-msgstr "替换(_R)"
-
-#: ui/gcr-certificate-exporter.c:260
-#, c-format
-msgid "The operation was cancelled."
-msgstr "操作已取消。"
-
-#: ui/gcr-certificate-exporter.c:304
-msgid "Export certificate"
-msgstr "导出证书"
-
-#: ui/gcr-certificate-exporter.c:307
-msgid "_Save"
-msgstr "保存(_S)"
-
-#: ui/gcr-certificate-exporter.c:316
-msgid "Certificate files"
-msgstr "证书文件"
-
-#: ui/gcr-certificate-exporter.c:327
-msgid "PEM files"
-msgstr "PEM 文件"
-
-#: ui/gcr-unlock-options-widget.ui:16
-msgid "Automatically unlock this keyring whenever I’m logged in"
-msgstr "当我登录时自动解锁此密钥环"
-
-#: ui/gcr-unlock-options-widget.ui:31
-msgid "Lock this keyring when I log out"
-msgstr "在我注销时锁住此密钥环"
-
-#: ui/gcr-unlock-options-widget.ui:53
-msgid "Lock this keyring after"
-msgstr "之后锁住此密钥环"
-
-#: ui/gcr-unlock-options-widget.ui:67
-msgid "Lock this keyring if idle for"
-msgstr "锁定该密钥环于空闲"
-
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
-#: ui/gcr-unlock-options-widget.ui:103
-msgid "minutes"
-msgstr "分钟"
-
-#: ui/gcr-unlock-renderer.c:68
-#, c-format
-msgid "Unlock: %s"
-msgstr "解锁：%s"
-
-#: ui/gcr-unlock-renderer.c:122
-msgid "Password"
-msgstr "密码"
-
-#: ui/gcr-unlock-renderer.c:274
-#, c-format
-msgid ""
-"The contents of “%s” are locked. In order to view the contents, enter the "
-"correct password."
-msgstr "“%s”的内容已锁定。要查看其内容，请输入正确的密码。"
-
-#: ui/gcr-unlock-renderer.c:277
-msgid ""
-"The contents are locked. In order to view the contents, enter the correct "
-"password."
-msgstr "内容已锁定。要查看内容，请输入正确的密码。"
-
-#: ui/gcr-viewer.desktop.in.in:3
-msgid "View file"
-msgstr "查看文件"
-
-#: ui/gcr-viewer-tool.c:40
-msgid "GCR Certificate and Key Viewer"
-msgstr "GCR 证书和密钥查看器"
-
-#: ui/gcr-viewer-tool.c:47
+#: tools/viewer/viewer.c:23
+msgid "GCR Certificate Viewer"
+msgstr "GCR 证书查看器"
+
+#: tools/viewer/viewer.c:30
 msgid "Show the application's version"
 msgstr "显示应用程序版本"
 
-#: ui/gcr-viewer-tool.c:49
+#: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr "[文件…]"
 
-#: ui/gcr-viewer-tool.c:100
-msgid "- View certificate and key files"
-msgstr "- 查看证书和密钥文件"
+#~ msgctxt "column"
+#~ msgid "Name"
+#~ msgstr "名称"
 
-#: ui/gcr-viewer-tool.c:114 ui/gcr-viewer-widget.c:669
-msgid "Certificate Viewer"
-msgstr "证书查看器"
+#~ msgctxt "column"
+#~ msgid "Issued By"
+#~ msgstr "颁发者"
 
-#: ui/gcr-viewer-widget.c:189
-msgid "The password was incorrect"
-msgstr "密码错误"
+#~ msgctxt "column"
+#~ msgid "Expires"
+#~ msgstr "过期"
 
-#: ui/gcr-viewer-window.c:74
-msgid "Imported"
-msgstr "已导入"
+#~ msgctxt "column"
+#~ msgid "Key ID"
+#~ msgstr "密钥 ID"
 
-#: ui/gcr-viewer-window.c:78
-msgid "Import failed"
-msgstr "导入失败"
+#~ msgid "Couldn’t export the certificate."
+#~ msgstr "无法导出此证书。"
 
-#: ui/gcr-viewer-window.c:105
-msgid "Import"
-msgstr "导入"
+#~ msgid "Export Certificate…"
+#~ msgstr "导出证书…"
 
-#: ui/gcr-viewer-window.c:114
-msgid "_Close"
-msgstr "关闭(_C)"
+#~ msgid "Certificate request"
+#~ msgstr "证书请求"
+
+#~ msgid "Attribute"
+#~ msgstr "属性"
+
+#~ msgid "Type"
+#~ msgstr "类型"
+
+# Challenge/Response认证
+#~ msgid "Challenge"
+#~ msgstr "挑战"
+
+#~ msgid "_Details"
+#~ msgstr "详细信息(_D)"
+
+#, c-format
+#~ msgid "Could not display “%s”"
+#~ msgstr "无法显示“%s”"
+
+#~ msgid "Could not display file"
+#~ msgstr "无法显示文件"
+
+#~ msgid "Reason"
+#~ msgstr "原因"
+
+#, c-format
+#~ msgid "Cannot display a file of this type."
+#~ msgstr "无法显示此类型的文件。"
+
+#~ msgid "Elgamal"
+#~ msgstr "Elgamal"
+
+#~ msgid "Encrypt"
+#~ msgstr "加密"
+
+#~ msgid "Sign"
+#~ msgstr "签名"
+
+#~ msgid "Certify"
+#~ msgstr "证书"
+
+#~ msgid "Authenticate"
+#~ msgstr "认证"
+
+#~ msgctxt "capability"
+#~ msgid "Disabled"
+#~ msgstr "已禁用"
+
+#~ msgid "Invalid"
+#~ msgstr "无效"
+
+#~ msgctxt "ownertrust"
+#~ msgid "Disabled"
+#~ msgstr "已禁用"
+
+#~ msgid "Revoked"
+#~ msgstr "已废除"
+
+#~ msgid "Expired"
+#~ msgstr "已过期"
+
+#~ msgid "Undefined trust"
+#~ msgstr "未定义的信任"
+
+#~ msgid "Distrusted"
+#~ msgstr "不信任"
+
+#~ msgid "Marginally trusted"
+#~ msgstr "最低程度信任"
+
+#~ msgid "Fully trusted"
+#~ msgstr "完全信任"
+
+#~ msgid "Ultimately trusted"
+#~ msgstr "最高程度信任"
+
+#~ msgid "The information in this key has not yet been verified"
+#~ msgstr "此密钥中的信息尚未核实"
+
+#~ msgid "This key is invalid"
+#~ msgstr "此密钥无效"
+
+#~ msgid "This key has been disabled"
+#~ msgstr "此密钥已禁用"
+
+#~ msgid "This key has been revoked"
+#~ msgstr "此密钥已作废"
+
+#~ msgid "This key has expired"
+#~ msgstr "此密钥已经过期"
+
+#~ msgid "This key is distrusted"
+#~ msgstr "此密钥不受信任"
+
+#~ msgid "This key is marginally trusted"
+#~ msgstr "此密钥受最低程度信任"
+
+#~ msgid "This key is fully trusted"
+#~ msgstr "此密钥受完全信任"
+
+#~ msgid "This key is ultimately trusted"
+#~ msgstr "此密钥受最高程度信任"
+
+#~ msgid "Key ID"
+#~ msgstr "密钥 ID"
+
+#~ msgid "Algorithm"
+#~ msgstr "算法"
+
+#~ msgid "Created"
+#~ msgstr "创建"
+
+#~ msgid "Expiry"
+#~ msgstr "过期"
+
+#~ msgid "Capabilities"
+#~ msgstr "权限"
+
+#~ msgid "Owner trust"
+#~ msgstr "所有者信任"
+
+#~ msgid "Name"
+#~ msgstr "名称"
+
+#~ msgid "Comment"
+#~ msgstr "评论"
+
+#~ msgid "User Attribute"
+#~ msgstr "用户属性"
+
+#~ msgid "Size"
+#~ msgstr "长度"
+
+#~ msgid "Signature of a binary document"
+#~ msgstr "二进制文档的签名"
+
+#~ msgid "Signature of a canonical text document"
+#~ msgstr "标准文本文档的签名"
+
+#~ msgid "Standalone signature"
+#~ msgstr "独立签名"
+
+#~ msgid "Generic certification of key"
+#~ msgstr "密钥通用认证"
+
+#~ msgid "Persona certification of key"
+#~ msgstr "密钥角色认证"
+
+#~ msgid "Casual certification of key"
+#~ msgstr "密钥临时认证"
+
+#~ msgid "Positive certification of key"
+#~ msgstr "密钥可靠认证"
+
+#~ msgid "Subkey binding signature"
+#~ msgstr "子密钥绑定签名"
+
+#~ msgid "Primary key binding signature"
+#~ msgstr "主密钥绑定签名"
+
+#~ msgid "Signature directly on key"
+#~ msgstr "直接在密钥上签名"
+
+#~ msgid "Key revocation signature"
+#~ msgstr "密钥作废签名"
+
+#~ msgid "Subkey revocation signature"
+#~ msgstr "子密钥作废签名"
+
+#~ msgid "Certification revocation signature"
+#~ msgstr "证书作废签名"
+
+#~ msgid "Timestamp signature"
+#~ msgstr "时间戳签名"
+
+#~ msgid "Third-party confirmation signature"
+#~ msgstr "第三方确认签名"
+
+#~ msgid "Class"
+#~ msgstr "类别"
+
+#~ msgid "Local only"
+#~ msgstr "仅本地"
+
+#~ msgid "Exportable"
+#~ msgstr "可导出的"
+
+#~ msgid "Revocation Key"
+#~ msgstr "作废密钥"
+
+#~ msgid "Fingerprint"
+#~ msgstr "指纹"
+
+#~ msgid "Public Subkey"
+#~ msgstr "公开子密钥"
+
+#~ msgid "Secret Key"
+#~ msgstr "私有密钥"
+
+#~ msgid "Secret Subkey"
+#~ msgstr "私有子密钥"
+
+#~ msgid "Initializing…"
+#~ msgstr "初始化…"
+
+#~ msgid "Import is in progress…"
+#~ msgstr "正在进行导入…"
+
+#, c-format
+#~ msgid "Imported to: %s"
+#~ msgstr "导入到： %s"
+
+#, c-format
+#~ msgid "Import to: %s"
+#~ msgstr "导入： %s"
+
+#~ msgid "Cannot import because there are no compatible importers"
+#~ msgstr "无法导入，因为没有兼容的导入方"
+
+#~ msgid "No data to import"
+#~ msgstr "无可导入数据"
+
+#~ msgid "Key"
+#~ msgstr "密钥"
+
+#~ msgid "Private RSA Key"
+#~ msgstr "RSA 私钥"
+
+#~ msgid "Private DSA Key"
+#~ msgstr "DSA 私钥"
+
+#~ msgid "Private Elliptic Curve Key"
+#~ msgstr "椭圆曲线私钥"
+
+#~ msgid "Public DSA Key"
+#~ msgstr "DSA 公钥"
+
+#~ msgid "Public Elliptic Curve Key"
+#~ msgstr "椭圆曲线公钥"
+
+#, c-format
+#~ msgid "%u bit"
+#~ msgid_plural "%u bits"
+#~ msgstr[0] "%u 位"
+
+#~ msgid "Strength"
+#~ msgstr "强度"
+
+#~ msgid "Fingerprints"
+#~ msgstr "指纹"
+
+#~ msgid "SHA1"
+#~ msgstr "SHA1"
+
+#~ msgid "SHA256"
+#~ msgstr "SHA256"
+
+#~ msgid "_Cancel"
+#~ msgstr "取消(_C)"
+
+#~ msgid "_OK"
+#~ msgstr "确定(_O)"
+
+#~ msgid "Automatically chosen"
+#~ msgstr "自动选择"
+
+#, c-format
+#~ msgid "The user cancelled the operation"
+#~ msgstr "用户已取消操作"
+
+#~ msgid "In order to import, please enter the password."
+#~ msgstr "要导入，请输入密码。"
+
+#~ msgid "Password:"
+#~ msgstr "密码："
+
+#~ msgid "Token:"
+#~ msgstr "令牌："
+
+#~ msgid "Label:"
+#~ msgstr "标签："
+
+#~ msgid "Import settings"
+#~ msgstr "导入设置"
+
+#~ msgid "Confirm:"
+#~ msgstr "确认："
+
+#~ msgid "Passwords do not match."
+#~ msgstr "密码不匹配。"
+
+#~ msgid "Password cannot be blank"
+#~ msgstr "密码不能为空"
+
+#~ msgid "Access Prompt"
+#~ msgstr "访问提示"
+
+#~ msgid "Unlock access to passwords and other secrets"
+#~ msgstr "解锁密码和其他私密内容的访问权限"
+
+#~ msgid "A file already exists with this name."
+#~ msgstr "同名的文件已经存在。"
+
+#~ msgid "Do you want to replace it with a new file?"
+#~ msgstr "您想用新文件替换它吗？"
+
+#~ msgid "_Replace"
+#~ msgstr "替换(_R)"
+
+#, c-format
+#~ msgid "The operation was cancelled."
+#~ msgstr "操作已取消。"
+
+#~ msgid "Export certificate"
+#~ msgstr "导出证书"
+
+#~ msgid "_Save"
+#~ msgstr "保存(_S)"
+
+#~ msgid "Certificate files"
+#~ msgstr "证书文件"
+
+#~ msgid "PEM files"
+#~ msgstr "PEM 文件"
+
+#~ msgid "Automatically unlock this keyring whenever I’m logged in"
+#~ msgstr "当我登录时自动解锁此密钥环"
+
+#~ msgid "Lock this keyring when I log out"
+#~ msgstr "在我注销时锁住此密钥环"
+
+#~ msgid "Lock this keyring after"
+#~ msgstr "之后锁住此密钥环"
+
+#~ msgid "Lock this keyring if idle for"
+#~ msgstr "锁定该密钥环于空闲"
+
+#~ msgid "minutes"
+#~ msgstr "分钟"
+
+#, c-format
+#~ msgid "Unlock: %s"
+#~ msgstr "解锁：%s"
+
+#~ msgid "Password"
+#~ msgstr "密码"
+
+#, c-format
+#~ msgid ""
+#~ "The contents of “%s” are locked. In order to view the contents, enter the "
+#~ "correct password."
+#~ msgstr "“%s”的内容已锁定。要查看其内容，请输入正确的密码。"
+
+#~ msgid ""
+#~ "The contents are locked. In order to view the contents, enter the correct "
+#~ "password."
+#~ msgstr "内容已锁定。要查看内容，请输入正确的密码。"
+
+#~ msgid "View file"
+#~ msgstr "查看文件"
+
+#~ msgid "GCR Certificate and Key Viewer"
+#~ msgstr "GCR 证书和密钥查看器"
+
+#~ msgid "- View certificate and key files"
+#~ msgstr "- 查看证书和密钥文件"
+
+#~ msgid "The password was incorrect"
+#~ msgstr "密码错误"
+
+#~ msgid "Imported"
+#~ msgstr "已导入"
+
+#~ msgid "Import failed"
+#~ msgstr "导入失败"
+
+#~ msgid "Import"
+#~ msgstr "导入"
+
+#~ msgid "_Close"
+#~ msgstr "关闭(_C)"
 
 #~ msgid "Invalid PKCS#11 module: %s"
 #~ msgstr "无效的 PKCS#11 模块：%s"

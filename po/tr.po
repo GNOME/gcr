@@ -1,7 +1,6 @@
-# Turkish translation of gnome-keyring.
-# Copyright (C) 2004 THE gnome-keyring'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the gnome-keyring package.
-#
+# Turkish translation of gcr.
+# Copyright (C) 2004-2022 gcr's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gcr package.
 #
 # Gorkem Cetin <gorkem@bahcesehir.edu.tr>, 2004.
 # Görkem Çetin <gorkem@gorkemcetin.com>, 2004.
@@ -15,9 +14,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-keyring\n"
+"Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-07-09 17:54+0000\n"
+"POT-Creation-Date: 2022-09-04 18:07+0000\n"
 "PO-Revision-Date: 2022-07-22 17:35+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
@@ -69,8 +68,7 @@ msgstr "Ortak Ad"
 msgid "Surname"
 msgstr "Soyadı"
 
-#: egg/egg-oid.c:68 gcr-gtk3/gcr-certificate-widget.c:605
-#: gcr-gtk4/gcr-certificate-widget.c:612
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
 msgid "Serial Number"
 msgstr "Seri Numarası"
 
@@ -276,10 +274,198 @@ msgstr "URI kötü bir sürüm numarasına sahip."
 msgid "The stream was closed"
 msgstr "Akış kapatıldı"
 
-#: gcr/gcr-certificate.c:1038 gcr/gcr-parser.c:340
-#: gcr-gtk3/gcr-certificate-widget.c:180 gcr-gtk4/gcr-certificate-widget.c:187
+#: gcr/gcr-certificate.c:882
+msgid "Key Algorithm"
+msgstr "Anahtar Algoritması"
+
+#: gcr/gcr-certificate.c:888
+msgid "Key Parameters"
+msgstr "Anahtar Parametreleri"
+
+#: gcr/gcr-certificate.c:895
+msgid "Key Size"
+msgstr "Anahtar Boyutu"
+
+#: gcr/gcr-certificate.c:905
+msgid "Key SHA1 Fingerprint"
+msgstr "Anahtar SHA1 Parmak İzi"
+
+#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+msgid "Public Key"
+msgstr "Genel Anahtar"
+
+#: gcr/gcr-certificate.c:923
+msgid "Basic Constraints"
+msgstr "Temel Kısıtlar"
+
+#: gcr/gcr-certificate.c:924
+msgid "Certificate Authority"
+msgstr "Sertifika Yetkilisi"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "Yes"
+msgstr "Evet"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "No"
+msgstr "Hayır"
+
+#: gcr/gcr-certificate.c:927
+msgid "Unlimited"
+msgstr "Sınırsız"
+
+#: gcr/gcr-certificate.c:931
+msgid "Max Path Length"
+msgstr "Azami Yol Uzunluğu"
+
+#: gcr/gcr-certificate.c:955
+msgid "Extended Key Usage"
+msgstr "Uzatılmış Anahtar Kullanımı"
+
+#: gcr/gcr-certificate.c:956
+msgid "Allowed Purposes"
+msgstr "İzin Verilen Amaçlar"
+
+#: gcr/gcr-certificate.c:973
+msgid "Subject Key Identifier"
+msgstr "Konu Anahtar Tanımlayıcısı"
+
+#: gcr/gcr-certificate.c:976
+msgid "Key Identifier"
+msgstr "Anahtar Tanımlayıcı"
+
+#: gcr/gcr-certificate.c:985
+msgid "Digital signature"
+msgstr "Sayısal imza"
+
+#: gcr/gcr-certificate.c:986
+msgid "Non repudiation"
+msgstr "Red olmayan"
+
+#: gcr/gcr-certificate.c:987
+msgid "Key encipherment"
+msgstr "Anahtar şifreleme"
+
+#: gcr/gcr-certificate.c:988
+msgid "Data encipherment"
+msgstr "Veri şifreleme"
+
+#: gcr/gcr-certificate.c:989
+msgid "Key agreement"
+msgstr "Anahtar anlaşması"
+
+#: gcr/gcr-certificate.c:990
+msgid "Certificate signature"
+msgstr "Sertifika imzası"
+
+#: gcr/gcr-certificate.c:991
+msgid "Revocation list signature"
+msgstr "İptal Listesi İmzası"
+
+#: gcr/gcr-certificate.c:992
+msgid "Encipher only"
+msgstr "Yalnızca şifreleme"
+
+#: gcr/gcr-certificate.c:993
+msgid "Decipher only"
+msgstr "Yalnızca şifre çözme"
+
+#: gcr/gcr-certificate.c:1014
+msgid "Key Usage"
+msgstr "Anahtar Kullanımı"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Usages"
+msgstr "Kullanımlar"
+
+#: gcr/gcr-certificate.c:1033
+msgid "Subject Alternative Names"
+msgstr "Konu Diğer Adları"
+
+#: gcr/gcr-certificate.c:1055
+msgid "Extension"
+msgstr "Uzantı"
+
+#: gcr/gcr-certificate.c:1059
+msgid "Identifier"
+msgstr "Tanımlayıcı"
+
+#: gcr/gcr-certificate.c:1060
+msgid "Value"
+msgstr "Değer"
+
+#: gcr/gcr-certificate.c:1100
+msgid "Critical"
+msgstr "Kritik"
+
+#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
 msgid "Certificate"
 msgstr "Sertifika"
+
+#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Identity"
+msgstr "Kimlik"
+
+#: gcr/gcr-certificate.c:1189
+msgid "Verified by"
+msgstr "Doğrulayan"
+
+#: gcr/gcr-certificate.c:1195
+msgid "Expires"
+msgstr "Bitiş Tarihi"
+
+#. The subject
+#: gcr/gcr-certificate.c:1203
+msgid "Subject Name"
+msgstr "Konu Adı"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1209
+msgid "Issuer Name"
+msgstr "Veren Adı"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1215
+msgid "Issued Certificate"
+msgstr "Verilen Sertifika"
+
+#: gcr/gcr-certificate.c:1221
+msgid "Version"
+msgstr "Sürüm"
+
+#: gcr/gcr-certificate.c:1235
+msgid "Not Valid Before"
+msgstr "Öncesi Geçerli Değil"
+
+#: gcr/gcr-certificate.c:1244
+msgid "Not Valid After"
+msgstr "Sonrası Geçerli Değil"
+
+#: gcr/gcr-certificate.c:1253
+msgid "Certificate Fingerprints"
+msgstr "Sertifika Parmak İzleri"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1263
+msgid "Public Key Info"
+msgstr "Genel Anahtar Bilgisi"
+
+#. Signature
+#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+msgid "Signature"
+msgstr "İmza"
+
+#: gcr/gcr-certificate.c:1283
+msgid "Signature Algorithm"
+msgstr "İmza Algoritması"
+
+#: gcr/gcr-certificate.c:1287
+msgid "Signature Parameters"
+msgstr "İmza Parametreleri"
 
 #: gcr/gcr-certificate-extensions.c:190
 msgid "Other Name"
@@ -367,11 +553,6 @@ msgstr "İşlem iptal edildi"
 msgid "Private Key"
 msgstr "Özel Anahtar"
 
-#: gcr/gcr-parser.c:343 gcr-gtk3/gcr-certificate-widget.c:280
-#: gcr-gtk4/gcr-certificate-widget.c:287
-msgid "Public Key"
-msgstr "Genel Anahtar"
-
 #: gcr/gcr-parser.c:349
 msgid "Certificate Request"
 msgstr "Sertifika İsteği"
@@ -456,616 +637,14 @@ msgstr "Başka istek zaten sürüyor"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Tutturulmuş sertifikayı saklayacak konum bulunamadı"
 
-#: gcr-gtk3/gcr-certificate-widget.c:251 gcr-gtk4/gcr-certificate-widget.c:258
-msgid "Key Algorithm"
-msgstr "Anahtar Algoritması"
-
-#: gcr-gtk3/gcr-certificate-widget.c:257 gcr-gtk4/gcr-certificate-widget.c:264
-msgid "Key Parameters"
-msgstr "Anahtar Parametreleri"
-
-#: gcr-gtk3/gcr-certificate-widget.c:264 gcr-gtk4/gcr-certificate-widget.c:271
-msgid "Key Size"
-msgstr "Anahtar Boyutu"
-
-#: gcr-gtk3/gcr-certificate-widget.c:275 gcr-gtk4/gcr-certificate-widget.c:282
-msgid "Key SHA1 Fingerprint"
-msgstr "Anahtar SHA1 Parmak İzi"
-
-#: gcr-gtk3/gcr-certificate-widget.c:297 gcr-gtk4/gcr-certificate-widget.c:304
-msgid "Basic Constraints"
-msgstr "Temel Kısıtlar"
-
-#: gcr-gtk3/gcr-certificate-widget.c:298 gcr-gtk4/gcr-certificate-widget.c:305
-msgid "Certificate Authority"
-msgstr "Sertifika Yetkilisi"
-
-#: gcr-gtk3/gcr-certificate-widget.c:298 gcr-gtk3/gcr-certificate-widget.c:489
-#: gcr-gtk4/gcr-certificate-widget.c:305 gcr-gtk4/gcr-certificate-widget.c:496
-msgid "Yes"
-msgstr "Evet"
-
-#: gcr-gtk3/gcr-certificate-widget.c:298 gcr-gtk3/gcr-certificate-widget.c:489
-#: gcr-gtk4/gcr-certificate-widget.c:305 gcr-gtk4/gcr-certificate-widget.c:496
-msgid "No"
-msgstr "Hayır"
-
-#: gcr-gtk3/gcr-certificate-widget.c:301 gcr-gtk4/gcr-certificate-widget.c:308
-msgid "Max Path Length"
-msgstr "Azami Yol Uzunluğu"
-
-#: gcr-gtk3/gcr-certificate-widget.c:301 gcr-gtk4/gcr-certificate-widget.c:308
-msgid "Unlimited"
-msgstr "Sınırsız"
-
-#: gcr-gtk3/gcr-certificate-widget.c:329 gcr-gtk4/gcr-certificate-widget.c:336
-msgid "Extended Key Usage"
-msgstr "Uzatılmış Anahtar Kullanımı"
-
-#: gcr-gtk3/gcr-certificate-widget.c:330 gcr-gtk4/gcr-certificate-widget.c:337
-msgid "Allowed Purposes"
-msgstr "İzin Verilen Amaçlar"
-
-#: gcr-gtk3/gcr-certificate-widget.c:349 gcr-gtk4/gcr-certificate-widget.c:356
-msgid "Subject Key Identifier"
-msgstr "Konu Anahtar Tanımlayıcısı"
-
-#: gcr-gtk3/gcr-certificate-widget.c:352 gcr-gtk4/gcr-certificate-widget.c:359
-msgid "Key Identifier"
-msgstr "Anahtar Tanımlayıcı"
-
-#: gcr-gtk3/gcr-certificate-widget.c:362 gcr-gtk4/gcr-certificate-widget.c:369
-msgid "Digital signature"
-msgstr "Sayısal imza"
-
-#: gcr-gtk3/gcr-certificate-widget.c:363 gcr-gtk4/gcr-certificate-widget.c:370
-msgid "Non repudiation"
-msgstr "Red olmayan"
-
-#: gcr-gtk3/gcr-certificate-widget.c:364 gcr-gtk4/gcr-certificate-widget.c:371
-msgid "Key encipherment"
-msgstr "Anahtar şifreleme"
-
-#: gcr-gtk3/gcr-certificate-widget.c:365 gcr-gtk4/gcr-certificate-widget.c:372
-msgid "Data encipherment"
-msgstr "Veri şifreleme"
-
-#: gcr-gtk3/gcr-certificate-widget.c:366 gcr-gtk4/gcr-certificate-widget.c:373
-msgid "Key agreement"
-msgstr "Anahtar anlaşması"
-
-#: gcr-gtk3/gcr-certificate-widget.c:367 gcr-gtk4/gcr-certificate-widget.c:374
-msgid "Certificate signature"
-msgstr "Sertifika imzası"
-
-#: gcr-gtk3/gcr-certificate-widget.c:368 gcr-gtk4/gcr-certificate-widget.c:375
-msgid "Revocation list signature"
-msgstr "İptal Listesi İmzası"
-
-#: gcr-gtk3/gcr-certificate-widget.c:369 gcr-gtk4/gcr-certificate-widget.c:376
-msgid "Encipher only"
-msgstr "Yalnızca şifreleme"
-
-#: gcr-gtk3/gcr-certificate-widget.c:370 gcr-gtk4/gcr-certificate-widget.c:377
-msgid "Decipher only"
-msgstr "Yalnızca şifre çözme"
-
-#: gcr-gtk3/gcr-certificate-widget.c:395 gcr-gtk4/gcr-certificate-widget.c:402
-msgid "Key Usage"
-msgstr "Anahtar Kullanımı"
-
-#: gcr-gtk3/gcr-certificate-widget.c:396 gcr-gtk4/gcr-certificate-widget.c:403
-msgid "Usages"
-msgstr "Kullanımlar"
-
-#: gcr-gtk3/gcr-certificate-widget.c:416 gcr-gtk4/gcr-certificate-widget.c:423
-msgid "Subject Alternative Names"
-msgstr "Konu Diğer Adları"
-
-#: gcr-gtk3/gcr-certificate-widget.c:442 gcr-gtk4/gcr-certificate-widget.c:449
-msgid "Extension"
-msgstr "Uzantı"
-
-#: gcr-gtk3/gcr-certificate-widget.c:446 gcr-gtk4/gcr-certificate-widget.c:453
-msgid "Identifier"
-msgstr "Tanımlayıcı"
-
-#: gcr-gtk3/gcr-certificate-widget.c:448 gcr-gtk4/gcr-certificate-widget.c:455
-msgid "Value"
-msgstr "Değer"
-
-#: gcr-gtk3/gcr-certificate-widget.c:489 gcr-gtk4/gcr-certificate-widget.c:496
-msgid "Critical"
-msgstr "Kritik"
-
-#: gcr-gtk3/gcr-certificate-widget.c:565 gcr-gtk4/gcr-certificate-widget.c:572
-msgid "Identity"
-msgstr "Kimlik"
-
-#: gcr-gtk3/gcr-certificate-widget.c:569 gcr-gtk4/gcr-certificate-widget.c:576
-msgid "Verified by"
-msgstr "Doğrulayan"
-
-#: gcr-gtk3/gcr-certificate-widget.c:576 gcr-gtk4/gcr-certificate-widget.c:583
-msgid "Expires"
-msgstr "Bitiş Tarihi"
-
-#. The subject
-#: gcr-gtk3/gcr-certificate-widget.c:582 gcr-gtk4/gcr-certificate-widget.c:589
-msgid "Subject Name"
-msgstr "Konu Adı"
-
-#. The Issuer
-#: gcr-gtk3/gcr-certificate-widget.c:586 gcr-gtk4/gcr-certificate-widget.c:593
-msgid "Issuer Name"
-msgstr "Veren Adı"
-
-#. The Issued Parameters
-#: gcr-gtk3/gcr-certificate-widget.c:590 gcr-gtk4/gcr-certificate-widget.c:597
-msgid "Issued Certificate"
-msgstr "Verilen Sertifika"
-
-#: gcr-gtk3/gcr-certificate-widget.c:596 gcr-gtk4/gcr-certificate-widget.c:603
-msgid "Version"
-msgstr "Sürüm"
-
-#: gcr-gtk3/gcr-certificate-widget.c:614 gcr-gtk4/gcr-certificate-widget.c:621
-msgid "Not Valid Before"
-msgstr "Öncesi Geçerli Değil"
-
-#: gcr-gtk3/gcr-certificate-widget.c:622 gcr-gtk4/gcr-certificate-widget.c:629
-msgid "Not Valid After"
-msgstr "Sonrası Geçerli Değil"
-
-#. Fingerprints
-#: gcr-gtk3/gcr-certificate-widget.c:628 gcr-gtk4/gcr-certificate-widget.c:635
-msgid "Certificate Fingerprints"
-msgstr "Sertifika Parmak İzleri"
-
-#. Public Key Info
-#: gcr-gtk3/gcr-certificate-widget.c:637 gcr-gtk4/gcr-certificate-widget.c:644
-msgid "Public Key Info"
-msgstr "Genel Anahtar Bilgisi"
-
-#. Signature
-#: gcr-gtk3/gcr-certificate-widget.c:650 gcr-gtk3/gcr-certificate-widget.c:671
-#: gcr-gtk4/gcr-certificate-widget.c:657 gcr-gtk4/gcr-certificate-widget.c:678
-msgid "Signature"
-msgstr "İmza"
-
-#: gcr-gtk3/gcr-certificate-widget.c:653 gcr-gtk4/gcr-certificate-widget.c:660
-msgid "Signature Algorithm"
-msgstr "İmza Algoritması"
-
-#: gcr-gtk3/gcr-certificate-widget.c:658 gcr-gtk4/gcr-certificate-widget.c:665
-msgid "Signature Parameters"
-msgstr "İmza Parametreleri"
-
-#: tools/gtk3/viewer.c:23 tools/gtk4/viewer.c:23
+#: tools/viewer/viewer.c:23
 msgid "GCR Certificate Viewer"
 msgstr "GCR Sertifika Görüntüleyici"
 
-#: tools/gtk3/viewer.c:30 tools/gtk4/viewer.c:30
+#: tools/viewer/viewer.c:30
 msgid "Show the application's version"
 msgstr "Uygulamanın sürümünü göster"
 
-#: tools/gtk3/viewer.c:32 tools/gtk4/viewer.c:32
+#: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr "[dosya...]"
-
-#~ msgctxt "column"
-#~ msgid "Name"
-#~ msgstr "Ad"
-
-#~ msgctxt "column"
-#~ msgid "Issued By"
-#~ msgstr "Sertifika Veren"
-
-#~ msgctxt "column"
-#~ msgid "Expires"
-#~ msgstr "Bitiş Tarihi"
-
-#~ msgctxt "column"
-#~ msgid "Key ID"
-#~ msgstr "Anahtar Kimliği"
-
-#~ msgid "Couldn’t export the certificate."
-#~ msgstr "Sertifika dışa aktarılamadı."
-
-#~ msgid "Export Certificate…"
-#~ msgstr "Sertifikayı Dışa Aktar…"
-
-#~ msgid "Certificate request"
-#~ msgstr "Sertifika istemi"
-
-#~ msgid "Attribute"
-#~ msgstr "Öznitelik"
-
-#~ msgid "Type"
-#~ msgstr "Tür"
-
-#~ msgid "Challenge"
-#~ msgstr "Kimlik Sorma"
-
-#~ msgid "_Details"
-#~ msgstr "_Ayrıntılar"
-
-#, c-format
-#~ msgid "Could not display “%s”"
-#~ msgstr "“%s” gösterilemedi"
-
-#~ msgid "Could not display file"
-#~ msgstr "Dosya gösterilemedi"
-
-#~ msgid "Reason"
-#~ msgstr "Neden"
-
-#, c-format
-#~ msgid "Cannot display a file of this type."
-#~ msgstr "Bu türde dosya gösterilemiyor."
-
-#~ msgid "Elgamal"
-#~ msgstr "Elgamal"
-
-#~ msgid "Encrypt"
-#~ msgstr "Şifrele"
-
-#~ msgid "Sign"
-#~ msgstr "İmzala"
-
-#~ msgid "Certify"
-#~ msgstr "Onayla"
-
-#~ msgid "Authenticate"
-#~ msgstr "Kimlik Doğrula"
-
-#~ msgctxt "capability"
-#~ msgid "Disabled"
-#~ msgstr "Devre Dışı"
-
-#~ msgid "Unknown"
-#~ msgstr "Bilinmeyen"
-
-#~ msgid "Invalid"
-#~ msgstr "Geçersiz"
-
-#~ msgctxt "ownertrust"
-#~ msgid "Disabled"
-#~ msgstr "Devre Dışı"
-
-#~ msgid "Revoked"
-#~ msgstr "Feshedilmiş"
-
-#~ msgid "Expired"
-#~ msgstr "Süresi Dolmuş"
-
-#~ msgid "Undefined trust"
-#~ msgstr "Tanımsız güven"
-
-#~ msgid "Distrusted"
-#~ msgstr "Güvenilmez"
-
-#~ msgid "Marginally trusted"
-#~ msgstr "Kısmi güvenilir"
-
-#~ msgid "Fully trusted"
-#~ msgstr "Tümüyle güvenilir"
-
-#~ msgid "Ultimately trusted"
-#~ msgstr "Sınırsız güvenilir"
-
-#~ msgid "The information in this key has not yet been verified"
-#~ msgstr "Bu anahtardaki bilgi henüz doğrulanmamıştır"
-
-#~ msgid "This key is invalid"
-#~ msgstr "Anahtar geçersiz"
-
-#~ msgid "This key has been disabled"
-#~ msgstr "Anahtar devre dışı bırakıldı"
-
-#~ msgid "This key has been revoked"
-#~ msgstr "Anahtar iptal edildi"
-
-#~ msgid "This key has expired"
-#~ msgstr "Bu anahtarın süresi doldu"
-
-#~ msgid "This key is distrusted"
-#~ msgstr "Bu anahtar güvenilir anahtar değildir"
-
-#~ msgid "This key is marginally trusted"
-#~ msgstr "Bu anahtar kısmi güvenilir anahtardır"
-
-#~ msgid "This key is fully trusted"
-#~ msgstr "Bu anahtar tam güvenilir anahtardır"
-
-#~ msgid "This key is ultimately trusted"
-#~ msgstr "Bu anahtar sınırsız güvenilir anahtardır"
-
-#~ msgid "Key ID"
-#~ msgstr "Anahtar Kimliği"
-
-#~ msgid "Algorithm"
-#~ msgstr "Algoritma"
-
-#~ msgid "Created"
-#~ msgstr "Oluşturulma"
-
-#~ msgid "Expiry"
-#~ msgstr "Bitiş"
-
-#~ msgid "Capabilities"
-#~ msgstr "Yetenekler"
-
-#~ msgid "Owner trust"
-#~ msgstr "Sahip güvenilirliği"
-
-#~ msgid "Name"
-#~ msgstr "Ad"
-
-#~ msgid "Comment"
-#~ msgstr "Yorum"
-
-#~ msgid "User Attribute"
-#~ msgstr "Kullanıcı Özniteliği"
-
-#~ msgid "Size"
-#~ msgstr "Boyut"
-
-#~ msgid "Signature of a binary document"
-#~ msgstr "İkili belgenin imzası"
-
-#~ msgid "Signature of a canonical text document"
-#~ msgstr "Standart metin belgesi imzası"
-
-#~ msgid "Standalone signature"
-#~ msgstr "Bağımsız imza"
-
-#~ msgid "Generic certification of key"
-#~ msgstr "Genel anahtar sertifikası"
-
-#~ msgid "Persona certification of key"
-#~ msgstr "Kişisel anahtar sertifikası"
-
-#~ msgid "Casual certification of key"
-#~ msgstr "Anahtar için rastgele sertifika"
-
-#~ msgid "Positive certification of key"
-#~ msgstr "Olumlu anahtar belgelendirme"
-
-#~ msgid "Subkey binding signature"
-#~ msgstr "Alt anahtar bağlama imzası"
-
-#~ msgid "Primary key binding signature"
-#~ msgstr "Birincil anahtar bağlama imzası"
-
-#~ msgid "Signature directly on key"
-#~ msgstr "Anahtar üzerindeki doğrudan imza"
-
-#~ msgid "Key revocation signature"
-#~ msgstr "Anahtar iptal imzası"
-
-#~ msgid "Subkey revocation signature"
-#~ msgstr "Alt Anahtar iptal imzası"
-
-#~ msgid "Certification revocation signature"
-#~ msgstr "Sertifika iptal imzası"
-
-#~ msgid "Timestamp signature"
-#~ msgstr "Zaman damgası imzası"
-
-#~ msgid "Third-party confirmation signature"
-#~ msgstr "Üçüncü parti onaylama imzası"
-
-#~ msgid "Class"
-#~ msgstr "Sınıf"
-
-#~ msgid "Local only"
-#~ msgstr "Yalnızca yerel"
-
-#~ msgid "Exportable"
-#~ msgstr "Dışa aktarılabilir"
-
-#~ msgid "Revocation Key"
-#~ msgstr "İptal Anahtarı"
-
-#~ msgid "Fingerprint"
-#~ msgstr "Parmak izi"
-
-#~ msgid "Public Subkey"
-#~ msgstr "Açık Alt Anahtar"
-
-#~ msgid "Secret Key"
-#~ msgstr "Gizli Anahtar"
-
-#~ msgid "Secret Subkey"
-#~ msgstr "Gizli Alt Anahtar"
-
-#~ msgid "Initializing…"
-#~ msgstr "Başlatılıyor…"
-
-#~ msgid "Import is in progress…"
-#~ msgstr "İçe aktarma işlemi devam ediyor…"
-
-#, c-format
-#~ msgid "Imported to: %s"
-#~ msgstr "İçe aktarıldı: %s"
-
-#, c-format
-#~ msgid "Import to: %s"
-#~ msgstr "İçe aktar: %s"
-
-#~ msgid "Cannot import because there are no compatible importers"
-#~ msgstr "İçe aktarma işlemi uyumlu içe aktarıcı olmadığından yapılamıyor"
-
-#~ msgid "No data to import"
-#~ msgstr "İçe aktarılacak veri yok"
-
-#~ msgid "Key"
-#~ msgstr "Anahtar"
-
-#~ msgid "Private RSA Key"
-#~ msgstr "RSA Gizli Anahtarı"
-
-#~ msgid "Private DSA Key"
-#~ msgstr "DSA Gizli Anahtarı"
-
-#~ msgid "Private Elliptic Curve Key"
-#~ msgstr "Özel Eliptik Eğri Anahtarı"
-
-#~ msgid "Public DSA Key"
-#~ msgstr "DSA Genel Anahtarı"
-
-#~ msgid "Public Elliptic Curve Key"
-#~ msgstr "Genel Eliptik Eğri Anahtarı"
-
-#, c-format
-#~ msgid "%u bit"
-#~ msgid_plural "%u bits"
-#~ msgstr[0] "%u bit"
-
-#~ msgid "Strength"
-#~ msgstr "Güç"
-
-#~ msgid "Fingerprints"
-#~ msgstr "Parmak izleri"
-
-#~ msgid "SHA1"
-#~ msgstr "SHA1"
-
-#~ msgid "SHA256"
-#~ msgstr "SHA256"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Vazgeç"
-
-#~ msgid "_OK"
-#~ msgstr "_Tamam"
-
-#~ msgid "Automatically chosen"
-#~ msgstr "Kendiliğinden seçilmiş"
-
-#, c-format
-#~ msgid "The user cancelled the operation"
-#~ msgstr "Kullanıcı işlemi iptal etti"
-
-#~ msgid "In order to import, please enter the password."
-#~ msgstr "Lütfen içe aktarmak için parola girin."
-
-#~ msgid "Password:"
-#~ msgstr "Parola:"
-
-#~ msgid "Token:"
-#~ msgstr "Jeton:"
-
-#~ msgid "Label:"
-#~ msgstr "Etiket:"
-
-#~ msgid "Import settings"
-#~ msgstr "İçe Aktarma ayarları"
-
-#~ msgid "Confirm:"
-#~ msgstr "Onayla:"
-
-#~ msgid "Passwords do not match."
-#~ msgstr "Parolalar eşleşmiyor."
-
-#~ msgid "Password cannot be blank"
-#~ msgstr "Parola boş bırakılamaz"
-
-#~ msgid "Access Prompt"
-#~ msgstr "Erişim Ekranı"
-
-#~ msgid "Unlock access to passwords and other secrets"
-#~ msgstr "Parolalar ve diğer gizli bilgiler için erişim kilidini aç"
-
-#~ msgid "A file already exists with this name."
-#~ msgstr "Bu adda dosya zaten var."
-
-#~ msgid "Do you want to replace it with a new file?"
-#~ msgstr "Yeni dosya ile değiştirmek istiyor musunuz?"
-
-#~ msgid "_Replace"
-#~ msgstr "_Değiştir"
-
-#, c-format
-#~ msgid "The operation was cancelled."
-#~ msgstr "İşlem iptal edildi."
-
-#~ msgid "Export certificate"
-#~ msgstr "Sertifikayı Dışa Aktar"
-
-#~ msgid "_Save"
-#~ msgstr "_Kaydet"
-
-#~ msgid "Certificate files"
-#~ msgstr "Sertifika dosyaları"
-
-#~ msgid "PEM files"
-#~ msgstr "PEM dosyaları"
-
-#~ msgid "Automatically unlock this keyring whenever I’m logged in"
-#~ msgstr "Her oturum açtığımda, bu anahtarlığın kilidini kendiliğinden aç"
-
-#~ msgid "Lock this keyring when I log out"
-#~ msgstr "Oturumu kapattığımda bu anahtarlığı kilitle"
-
-#~ msgid "Lock this keyring after"
-#~ msgstr "Bu anahtarlığı şu kadar sonra kilitle"
-
-#~ msgid "Lock this keyring if idle for"
-#~ msgstr "Bu anahtarlığı şu kadar süre boştaysa kilitle"
-
-#~ msgid "minutes"
-#~ msgstr "dakika"
-
-#, c-format
-#~ msgid "Unlock: %s"
-#~ msgstr "Kilidi aç: %s"
-
-#~ msgid "Password"
-#~ msgstr "Parola"
-
-#, c-format
-#~ msgid ""
-#~ "The contents of “%s” are locked. In order to view the contents, enter the "
-#~ "correct password."
-#~ msgstr ""
-#~ "“%s” içeriği kilitlendi. İçeriği görüntülemek için doğru parolayı girin."
-
-#~ msgid ""
-#~ "The contents are locked. In order to view the contents, enter the correct "
-#~ "password."
-#~ msgstr ""
-#~ "İçerikler kilitlendi. İçeriği görüntülemek için doğru parolayı girin."
-
-#~ msgid "View file"
-#~ msgstr "Dosyayı görüntüle"
-
-#~ msgid "GCR Certificate and Key Viewer"
-#~ msgstr "GCR Sertifika ve Anahtar Görüntüleyici"
-
-#~ msgid "- View certificate and key files"
-#~ msgstr "- Sertifika ve anahtar dosyaların görüntüle"
-
-#~ msgid "The password was incorrect"
-#~ msgstr "Parola hatalı"
-
-#~ msgid "Imported"
-#~ msgstr "İçe aktarıldı"
-
-#~ msgid "Import failed"
-#~ msgstr "İçe aktarma başarısız oldu"
-
-#~ msgid "Import"
-#~ msgstr "İçe Aktar"
-
-#~ msgid "_Close"
-#~ msgstr "_Kapat"
-
-#, fuzzy
-#~ msgid "Couldn't setup PKCS#11 module: %s"
-#~ msgstr "Dosya silinemedi: %s"
-
-#, fuzzy
-#~ msgid "<b>Unlock</b>"
-#~ msgstr "Kilidini kaldır"

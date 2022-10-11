@@ -1,3 +1,7 @@
+gcr 4.0.0:
+- This the first stable release of gcr4 and gck2
+- Updated translations
+
 gcr 3.92.0:
 - This is the beta release of gcr4, which is a major version bump after gcr3
   with several API and ABI breaks.

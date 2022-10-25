@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
 "POT-Creation-Date: 2022-10-12 16:34+0000\n"
-"PO-Revision-Date: 2022-10-25 18:03+0000\n"
+"PO-Revision-Date: 2022-10-25 18:13+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -103,11 +103,11 @@ msgstr "Upphafsstafir"
 
 #: egg/egg-oid.c:90
 msgid "Generation Qualifier"
-msgstr "Kynslóðareiginleiki"
+msgstr "Sérgreinir framleiðslu"
 
 #: egg/egg-oid.c:92
 msgid "DN Qualifier"
-msgstr "DN-eiginleiki"
+msgstr "DN-sérgreinir"
 
 #: egg/egg-oid.c:94
 msgid "Pseudonym"
@@ -229,34 +229,34 @@ msgstr "Tímamerking"
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr ""
+msgstr "Villa við að hlaða inn PKCS#11-einingu: %s"
 
 #: gck/gck-module.c:286
 #, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
-msgstr ""
+msgstr "Tókst ekki að frumstilla PKCS#11-einingu: %s"
 
 #: gck/gck-modules.c:60
 #, c-format
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
-msgstr ""
+msgstr "Tókst ekki að frumstilla skráðar PKCS#11-einingar: %s"
 
 #: gck/gck-uri.c:167
 #, c-format
 msgid "The URI has invalid encoding."
-msgstr ""
+msgstr "Slóðin er með ógilda stafatöflu."
 
 #: gck/gck-uri.c:171
 msgid "The URI does not have the “pkcs11” scheme."
-msgstr ""
+msgstr "Slóðin er ekki með “pkcs11” skema."
 
 #: gck/gck-uri.c:175
 msgid "The URI has bad syntax."
-msgstr ""
+msgstr "Slóðin er með ógilda málskipun."
 
 #: gck/gck-uri.c:179
 msgid "The URI has a bad version number."
-msgstr ""
+msgstr "Slóðin er með ógilt útgáfunúmer."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
 #, c-format
@@ -269,7 +269,7 @@ msgstr "Algrím lykils"
 
 #: gcr/gcr-certificate.c:888
 msgid "Key Parameters"
-msgstr ""
+msgstr "Viðföng dulritunarlykils"
 
 #: gcr/gcr-certificate.c:895
 msgid "Key Size"
@@ -317,7 +317,7 @@ msgstr "Leyfður tilgangur"
 
 #: gcr/gcr-certificate.c:973
 msgid "Subject Key Identifier"
-msgstr ""
+msgstr "Auðkenni viðfangslykils"
 
 #: gcr/gcr-certificate.c:976
 msgid "Key Identifier"
@@ -368,9 +368,8 @@ msgid "Usages"
 msgstr "Notkunarsvið"
 
 #: gcr/gcr-certificate.c:1033
-#, fuzzy
 msgid "Subject Alternative Names"
-msgstr "Varanöfn:"
+msgstr "Varanöfn viðfangs"
 
 #: gcr/gcr-certificate.c:1055
 msgid "Extension"
@@ -411,7 +410,7 @@ msgstr "Rennur út"
 #. The subject
 #: gcr/gcr-certificate.c:1203
 msgid "Subject Name"
-msgstr ""
+msgstr "Nafn viðfangs"
 
 #. The Issuer
 #: gcr/gcr-certificate.c:1209
@@ -487,7 +486,7 @@ msgstr "Nafn á möppu"
 
 #: gcr/gcr-certificate-extensions.c:247
 msgid "EDI Party Name"
-msgstr ""
+msgstr "Nafn EDI-hluta"
 
 #: gcr/gcr-certificate-extensions.c:254
 msgid "URI"
@@ -553,7 +552,7 @@ msgstr "Óþekkt eða óstudd gögn."
 
 #: gcr/gcr-parser.c:2598
 msgid "Could not parse invalid or corrupted data."
-msgstr ""
+msgstr "Gat ekki þáttað ógild eða skemmd gögn."
 
 #: gcr/gcr-parser.c:2601
 msgid "The data is locked"
@@ -584,7 +583,7 @@ msgstr "Settu inn lykilorð til að aflæsa einkalyklinum"
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
-msgstr ""
+msgstr "Forrit vill fá aðgang að einkalyklinum “%s”, en hann er læstur"
 
 #: gcr/gcr-ssh-agent-interaction.c:161
 msgid "Automatically unlock this key whenever I’m logged in"
@@ -608,7 +607,7 @@ msgstr "Settu inn OpenSSH-lykilsetninguna þína"
 
 #: gcr/gcr-subject-public-key.c:407
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "Óþekkjanleg eða ótiltæk eigindi fyrir lykil"
 
 #: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
 msgid "Couldn’t build public key"
@@ -624,7 +623,7 @@ msgstr "Önnur kvaðning er þegar í gangi"
 #: gcr/gcr-trust.c:307
 #, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
-msgstr ""
+msgstr "Tókst ekki að finna stað fyrir festa skilríkið"
 
 #: tools/viewer/viewer.c:23
 msgid "GCR Certificate Viewer"

@@ -61,6 +61,7 @@ gcr_section_create_row (GObject *item,
 	GcrCertificateField *field = (GcrCertificateField *) item;
 	GtkSizeGroup *size_group = user_data;
 	GtkWidget *row, *box, *label, *value;
+	char *value_a11y_desc;
 	GValue val = G_VALUE_INIT;
 	GType value_type;
 
@@ -118,6 +119,15 @@ gcr_section_create_row (GObject *item,
 	              "margin-bottom", 8,
 	              "halign", GTK_ALIGN_END,
 	              NULL);
+
+	value_a11y_desc = g_strdup_printf ("%s: %s",
+	                                   gtk_label_get_text (GTK_LABEL (label)),
+	                                   gtk_label_get_text (GTK_LABEL (value)));
+	gtk_accessible_update_property (GTK_ACCESSIBLE (value),
+	                                GTK_ACCESSIBLE_PROPERTY_LABEL,value_a11y_desc,
+	                                -1);
+	g_free (value_a11y_desc);
+
 	gtk_size_group_add_widget (size_group, label);
 	gtk_box_append (GTK_BOX (box), label);
 	gtk_box_append (GTK_BOX (box), value);

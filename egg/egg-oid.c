@@ -111,6 +111,13 @@ static OidInfo oid_info[] = {
 	{ 0, "1.2.840.113549.1.1.2", "md2WithRSAEncryption", N_("MD2 with RSA"), 0 },
 	{ 0, "1.2.840.113549.1.1.4", "md5WithRSAEncryption", N_("MD5 with RSA"), 0 },
 	{ 0, "1.2.840.113549.1.1.5", "sha1WithRSAEncryption", N_("SHA1 with RSA"), 0 },
+	{ 0, "1.2.840.113549.1.1.7", "id-RSAES-OAEP", N_("RSA with OAEP padding"), 0 },
+	{ 0, "1.2.840.113549.1.1.8", "id-mgf1", N_("RSA with MGF1"), 0 },
+	{ 0, "1.2.840.113549.1.1.10", "rsassa-pss", N_("RSA signature with RSA-PSS"), 0 },
+	{ 0, "1.2.840.113549.1.1.11", "sha256WithRSAEncryption", N_("SHA256 with RSA encryption"), 0 },
+	{ 0, "1.2.840.113549.1.1.12", "sha384WithRSAEncryption", N_("SHA384 with RSA encryption"), 0 },
+	{ 0, "1.2.840.113549.1.1.13", "sha512WithRSAEncryption", N_("SHA512 with RSA encryption"), 0 },
+	{ 0, "1.2.840.113549.1.1.14", "sha224WithRSAEncryption", N_("SHA224 with RSA encryption"), 0 },
 
 	{ 0, "1.2.840.10040.4.1", "dsa", N_("DSA"), 0 },
 	{ 0, "1.2.840.10040.4.3", "sha1WithDSA", N_("SHA1 with DSA"), 0 },
@@ -135,6 +142,29 @@ static OidInfo oid_info[] = {
 	{ 0, "1.3.6.1.5.5.7.3.3", NULL, N_("Code Signing"), 0 },
 	{ 0, "1.3.6.1.5.5.7.3.4", NULL, N_("Email Protection"), 0 },
 	{ 0, "1.3.6.1.5.5.7.3.8", NULL, N_("Time Stamping"), 0 },
+
+	/* Extended certificate attributes */
+	{ 0, "1.3.6.1.5.5.7.1.1", "authorityInfoAccess", N_("Certificate Authority Information Access"), 0 },
+	{ 0, "2.5.29.9", "subjectDirectoryAttributes", N_("Subject directory attributes certificate extension"), 0 },
+	{ 0, "2.5.29.14", "subjectKeyIdentifier", N_("Subject key identifier"), 0 },
+	{ 0, "2.5.29.15", "keyUsage", N_("Key usage"), 0 },
+	{ 0, "2.5.29.16", "privateKeyUsagePeriod", N_("Private key usage period"), 0 },
+	{ 0, "2.5.29.17", "subjectAltName", N_("Subject alternative name"), 0 },
+	{ 0, "2.5.29.18", "issuerAltName", N_("Issuer alternative name"), 0 },
+	{ 0, "2.5.29.19", "basicConstraints", N_("Basic constraints"), 0 },
+	{ 0, "2.5.29.20", "cRLNumber", N_("CRL number"), 0 },
+	{ 0, "2.5.29.21", "reasonCode", N_("Reason code"), 0 },
+	{ 0, "2.5.29.23", "instructionCode", N_("Hold instruction code"), 0 },
+	{ 0, "2.5.29.24", "invalidityDate", N_("Invalidity date"), 0 },
+	{ 0, "2.5.29.27", "deltaCRLIndicator", N_("Certificate Revocation List indicator"), 0 },
+	{ 0, "2.5.29.28", "issuingDistributionPoint", N_("Issuing distribution point"), 0 },
+	{ 0, "2.5.29.29", "certificateIssuer", N_("Certificate issuer"), 0 },
+	{ 0, "2.5.29.30", "nameConstraints", N_("Name constraints"), 0 },
+	{ 0, "2.5.29.31", "cRLDistributionPoints", N_("Certificate Revocation List distribution points"), 0 },
+	{ 0, "2.5.29.32", "certificatePolicies", N_("Certificate policies"), 0 },
+	{ 0, "2.5.29.33", "policyMappings", N_("Policy mappings"), 0 },
+	{ 0, "2.5.29.34", "policyConstraints", N_("Policy constraints"), 0 },
+	{ 0, "2.5.29.35", "authorityKeyIdentifier", N_("Authority key identifier"), 0 },
 
 	{ 0, NULL, NULL, NULL, FALSE }
 };

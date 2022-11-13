@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-05-10 09:16+0000\n"
-"PO-Revision-Date: 2022-05-16 10:33+0300\n"
+"POT-Creation-Date: 2022-11-13 14:29+0000\n"
+"PO-Revision-Date: 2022-11-14 00:56+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
-"=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 20.12.0\n"
 "X-Project-Style: gnome\n"
 
@@ -61,8 +61,7 @@ msgstr "Звичайне ім'я"
 msgid "Surname"
 msgstr "Прізвище"
 
-#: egg/egg-oid.c:68 gcr-gtk3/gcr-certificate-widget.c:611
-#: gcr-gtk4/gcr-certificate-widget.c:618
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
 msgid "Serial Number"
 msgstr "Серійний номер"
 
@@ -154,82 +153,215 @@ msgstr "MD5 з ключем RSA"
 msgid "SHA1 with RSA"
 msgstr "SHA1 з ключем RSA"
 
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "RSA зі доповненням OAEP"
+
 #: egg/egg-oid.c:115
+#| msgid "SHA1 with RSA"
+msgid "RSA with MGF1"
+msgstr "RSA з MGF1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "Підпис RSA з RSA-PSS"
+
+#: egg/egg-oid.c:117
+#| msgid "SHA256 with ECDSA"
+msgid "SHA256 with RSA encryption"
+msgstr "SHA256 з шифруванням RSA"
+
+#: egg/egg-oid.c:118
+#| msgid "SHA384 with ECDSA"
+msgid "SHA384 with RSA encryption"
+msgstr "SHA384 з шифруванням RSA"
+
+#: egg/egg-oid.c:119
+#| msgid "SHA1 with RSA"
+msgid "SHA512 with RSA encryption"
+msgstr "SHA512 з шифруванням RSA"
+
+#: egg/egg-oid.c:120
+#| msgid "SHA224 with ECDSA"
+msgid "SHA224 with RSA encryption"
+msgstr "SHA224 з шифруванням RSA"
+
+#: egg/egg-oid.c:122
 msgid "DSA"
 msgstr "DSA"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:123
 msgid "SHA1 with DSA"
 msgstr "SHA1 з ключем DSA"
 
-#: egg/egg-oid.c:118
+#: egg/egg-oid.c:125
 msgid "Elliptic Curve"
 msgstr "Еліптична крива"
 
-#: egg/egg-oid.c:119
+#: egg/egg-oid.c:126
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 з ECDSA"
 
-#: egg/egg-oid.c:120
+#: egg/egg-oid.c:127
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 з ECDSA"
 
-#: egg/egg-oid.c:121
+#: egg/egg-oid.c:128
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 з ECDSA"
 
-#: egg/egg-oid.c:122
+#: egg/egg-oid.c:129
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 з ECDSA"
 
-#: egg/egg-oid.c:123
+#: egg/egg-oid.c:130
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 з ECDSA"
 
-#: egg/egg-oid.c:125
+#: egg/egg-oid.c:132
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "ГОСТ Р 34.11-94 з ГОСТ Р 34.10-2001"
 
-#: egg/egg-oid.c:126
+#: egg/egg-oid.c:133
 msgid "GOST R 34.10-2001"
 msgstr "ГОСТ Р 34.10-2001"
 
-#: egg/egg-oid.c:127
+#: egg/egg-oid.c:134
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "ГОСТ Р 34.10-2012 256-бітова крива"
 
-#: egg/egg-oid.c:128
+#: egg/egg-oid.c:135
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "ГОСТ Р 34.10-2012 512-бітова крива"
 
-#: egg/egg-oid.c:129
+#: egg/egg-oid.c:136
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "ГОСТ Р 34.11-2012/256 з ГОСТ Р 34.10-2012 256-бітова крива"
 
-#: egg/egg-oid.c:130
+#: egg/egg-oid.c:137
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "ГОСТ Р 34.11-2012/512 з ГОСТ Р 34.10-2012 512-бітова крива"
 
 #. Extended Key Usages
-#: egg/egg-oid.c:133
+#: egg/egg-oid.c:140
 msgid "Server Authentication"
 msgstr "Автентифікація сервера"
 
-#: egg/egg-oid.c:134
+#: egg/egg-oid.c:141
 msgid "Client Authentication"
 msgstr "Автентифікація клієнта"
 
-#: egg/egg-oid.c:135
+#: egg/egg-oid.c:142
 msgid "Code Signing"
 msgstr "Підписування коду"
 
-#: egg/egg-oid.c:136
+#: egg/egg-oid.c:143
 msgid "Email Protection"
 msgstr "Захист пошти"
 
-#: egg/egg-oid.c:137
+#: egg/egg-oid.c:144
 msgid "Time Stamping"
 msgstr "Часове штампування"
+
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+#| msgid "Certificate Authority"
+msgid "Certificate Authority Information Access"
+msgstr "Доступ до відомостей щодо видавця сертифіката"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "Розширення сертифіката на атрибути каталогу призначення"
+
+#: egg/egg-oid.c:149
+#| msgid "Subject Key Identifier"
+msgid "Subject key identifier"
+msgstr "Ідентифікатор ключа призначення"
+
+#: egg/egg-oid.c:150
+#| msgid "Key Usage"
+msgid "Key usage"
+msgstr "Використання ключа"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "Період використання закритого ключа"
+
+#: egg/egg-oid.c:152
+#| msgid "Subject Alternative Names"
+msgid "Subject alternative name"
+msgstr "Альтернативна назва призначення"
+
+#: egg/egg-oid.c:153
+#| msgid "Subject Alternative Names"
+msgid "Issuer alternative name"
+msgstr "Альтернативна назва видавця"
+
+#: egg/egg-oid.c:154
+#| msgid "Basic Constraints"
+msgid "Basic constraints"
+msgstr "Основні обмеження"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "Число CRL"
+
+#: egg/egg-oid.c:156
+#| msgid "Reason"
+msgid "Reason code"
+msgstr "Код причини"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr "Код інструкції затримки"
+
+#: egg/egg-oid.c:158
+#| msgid "Invalid"
+msgid "Invalidity date"
+msgstr "Дата втрати чинності"
+
+#: egg/egg-oid.c:159
+#| msgid "Certification revocation signature"
+msgid "Certificate Revocation List indicator"
+msgstr "Індикатор списку відкликання сертифіката"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr "Точка поширення видання"
+
+#: egg/egg-oid.c:161
+#| msgid "Certificate files"
+msgid "Certificate issuer"
+msgstr "Видавець сертифіката"
+
+#: egg/egg-oid.c:162
+#| msgid "Basic Constraints"
+msgid "Name constraints"
+msgstr "Обмеження на назву"
+
+#: egg/egg-oid.c:163
+#| msgid "Certification revocation signature"
+msgid "Certificate Revocation List distribution points"
+msgstr "Точки поширення списку відкликання сертифіката"
+
+#: egg/egg-oid.c:164
+#| msgid "Certificate files"
+msgid "Certificate policies"
+msgstr "Правила сертифікації"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "Прив'язки правил"
+
+#: egg/egg-oid.c:166
+#| msgid "Basic Constraints"
+msgid "Policy constraints"
+msgstr "Обмеження правил"
+
+#: egg/egg-oid.c:167
+#| msgid "Subject Key Identifier"
+msgid "Authority key identifier"
+msgstr "Ідентифікатор ключа служби сертифікації"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -268,28 +400,198 @@ msgstr "URI має поганий номер версії."
 msgid "The stream was closed"
 msgstr "Потік закрито"
 
-#. later
-#. later
-#: gcr/gcr-certificate.c:343 gcr/gcr-gnupg-key.c:429
-msgctxt "column"
-msgid "Name"
-msgstr "Назва"
+#: gcr/gcr-certificate.c:882
+msgid "Key Algorithm"
+msgstr "Алгоритм ключа"
 
-#: gcr/gcr-certificate.c:345
-msgctxt "column"
-msgid "Issued By"
-msgstr "Виданий"
+#: gcr/gcr-certificate.c:888
+msgid "Key Parameters"
+msgstr "Параметри ключа"
 
-#. later
-#: gcr/gcr-certificate.c:347
-msgctxt "column"
-msgid "Expires"
-msgstr "Строк"
+#: gcr/gcr-certificate.c:895
+msgid "Key Size"
+msgstr "Розмір ключа"
 
-#: gcr/gcr-certificate.c:1187 gcr/gcr-parser.c:340
-#: gcr-gtk3/gcr-certificate-widget.c:184 gcr-gtk4/gcr-certificate-widget.c:191
+#: gcr/gcr-certificate.c:905
+msgid "Key SHA1 Fingerprint"
+msgstr "Відбиток ключа SHA1"
+
+#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+msgid "Public Key"
+msgstr "Публічний ключ"
+
+#: gcr/gcr-certificate.c:923
+msgid "Basic Constraints"
+msgstr "Основні обмеження"
+
+#: gcr/gcr-certificate.c:924
+msgid "Certificate Authority"
+msgstr "Видавець сертифіката"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "Yes"
+msgstr "Так"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "No"
+msgstr "Ні"
+
+#: gcr/gcr-certificate.c:927
+msgid "Unlimited"
+msgstr "Необмежено"
+
+#: gcr/gcr-certificate.c:931
+msgid "Max Path Length"
+msgstr "Максимальна довжина шляху"
+
+#: gcr/gcr-certificate.c:955
+msgid "Extended Key Usage"
+msgstr "Розширене використання ключа"
+
+#: gcr/gcr-certificate.c:956
+msgid "Allowed Purposes"
+msgstr "Дозволені цілі"
+
+#: gcr/gcr-certificate.c:973
+msgid "Subject Key Identifier"
+msgstr "Ідентифікатор ключа теми"
+
+#: gcr/gcr-certificate.c:976
+msgid "Key Identifier"
+msgstr "Ідентифікатор ключа"
+
+#: gcr/gcr-certificate.c:985
+msgid "Digital signature"
+msgstr "Цифровий підпис"
+
+#: gcr/gcr-certificate.c:986
+msgid "Non repudiation"
+msgstr "Строге виконання зобов'язань"
+
+#: gcr/gcr-certificate.c:987
+msgid "Key encipherment"
+msgstr "Шифрування ключа"
+
+#: gcr/gcr-certificate.c:988
+msgid "Data encipherment"
+msgstr "Шифрування даних"
+
+#: gcr/gcr-certificate.c:989
+msgid "Key agreement"
+msgstr "Узгодження ключа"
+
+#: gcr/gcr-certificate.c:990
+msgid "Certificate signature"
+msgstr "Підпис сертифіката"
+
+#: gcr/gcr-certificate.c:991
+msgid "Revocation list signature"
+msgstr "Анулювання підпису списку"
+
+#: gcr/gcr-certificate.c:992
+msgid "Encipher only"
+msgstr "Лише шифрування"
+
+#: gcr/gcr-certificate.c:993
+msgid "Decipher only"
+msgstr "Лише розшифровування"
+
+#: gcr/gcr-certificate.c:1014
+msgid "Key Usage"
+msgstr "Використання ключа"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Usages"
+msgstr "Використання"
+
+#: gcr/gcr-certificate.c:1033
+msgid "Subject Alternative Names"
+msgstr "Альтернативні назви тем"
+
+#: gcr/gcr-certificate.c:1055
+msgid "Extension"
+msgstr "Розширення"
+
+#: gcr/gcr-certificate.c:1059
+msgid "Identifier"
+msgstr "Ідентифікатор"
+
+#: gcr/gcr-certificate.c:1060
+msgid "Value"
+msgstr "Значення"
+
+#: gcr/gcr-certificate.c:1100
+msgid "Critical"
+msgstr "Критичний"
+
+#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
 msgid "Certificate"
 msgstr "Сертифікат"
+
+#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+msgid "Unknown"
+msgstr "Невідомо"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Identity"
+msgstr "Профіль"
+
+#: gcr/gcr-certificate.c:1189
+msgid "Verified by"
+msgstr "Перевірено"
+
+#: gcr/gcr-certificate.c:1195
+msgid "Expires"
+msgstr "Строк дії"
+
+#. The subject
+#: gcr/gcr-certificate.c:1203
+msgid "Subject Name"
+msgstr "Ім'я отримувача"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1209
+msgid "Issuer Name"
+msgstr "Ім'я видавця"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1215
+msgid "Issued Certificate"
+msgstr "Виданий сертифікат"
+
+#: gcr/gcr-certificate.c:1221
+msgid "Version"
+msgstr "Версія"
+
+#: gcr/gcr-certificate.c:1235
+msgid "Not Valid Before"
+msgstr "Не дійсний до"
+
+#: gcr/gcr-certificate.c:1244
+msgid "Not Valid After"
+msgstr "Не дійсний після"
+
+#: gcr/gcr-certificate.c:1253
+msgid "Certificate Fingerprints"
+msgstr "Відбитки сертифікатів"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1263
+msgid "Public Key Info"
+msgstr "Інформація про відкритий ключ"
+
+#. Signature
+#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+msgid "Signature"
+msgstr "Підпис"
+
+#: gcr/gcr-certificate.c:1283
+msgid "Signature Algorithm"
+msgstr "Алгоритм підпису"
+
+#: gcr/gcr-certificate.c:1287
+msgid "Signature Parameters"
+msgstr "Параметри підпису"
 
 #: gcr/gcr-certificate-extensions.c:190
 msgid "Other Name"
@@ -345,23 +647,18 @@ msgstr "Непідтримуваний тип ключа для запиту с�
 msgid "The key cannot be used to sign the request"
 msgstr "Ключ неможливо використати для підписання запиту"
 
-#: gcr/gcr-gnupg-importer.c:95
+#: gcr/gcr-gnupg-importer.c:94
 msgid "GnuPG Keyring"
 msgstr "Сховище ключів GnuPG"
 
-#: gcr/gcr-gnupg-importer.c:97
+#: gcr/gcr-gnupg-importer.c:96
 #, c-format
 msgid "GnuPG Keyring: %s"
 msgstr "Сховище ключів GnuPG: %s"
 
-#: gcr/gcr-gnupg-key.c:143 gcr/gcr-parser.c:346
+#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
 msgid "PGP Key"
 msgstr "Ключ PGP"
-
-#: gcr/gcr-gnupg-key.c:431
-msgctxt "column"
-msgid "Key ID"
-msgstr "Ідентифікатор ключа"
 
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
@@ -373,7 +670,7 @@ msgstr "Процес Gnupg покинуто з кодом: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Процес Gnupg завершено зі сигналом: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3186
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "Операцію скасовано"
@@ -381,11 +678,6 @@ msgstr "Операцію скасовано"
 #: gcr/gcr-parser.c:337
 msgid "Private Key"
 msgstr "Закритий ключ"
-
-#: gcr/gcr-parser.c:343 gcr-gtk3/gcr-certificate-widget.c:284
-#: gcr-gtk4/gcr-certificate-widget.c:291
-msgid "Public Key"
-msgstr "Публічний ключ"
 
 #: gcr/gcr-parser.c:349
 msgid "Certificate Request"
@@ -447,7 +739,7 @@ msgstr "Неправильний пароль для розблоковуван�
 msgid "Unnamed"
 msgstr "Без назви"
 
-#: gcr/gcr-ssh-askpass.c:180
+#: gcr/gcr-ssh-askpass.c:182
 msgid "Enter your OpenSSH passphrase"
 msgstr "Введіть ваш пароль OpenSSH"
 
@@ -471,274 +763,93 @@ msgstr "Уже триває інакша спроба "
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Не вдалося знайти місце для збереження утриманих сертифікатів"
 
-#: gcr-gtk3/gcr-certificate-widget.c:255 gcr-gtk4/gcr-certificate-widget.c:262
-msgid "Key Algorithm"
-msgstr "Алгоритм ключа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:261 gcr-gtk4/gcr-certificate-widget.c:268
-msgid "Key Parameters"
-msgstr "Параметри ключа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:268 gcr-gtk4/gcr-certificate-widget.c:275
-msgid "Key Size"
-msgstr "Розмір ключа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:279 gcr-gtk4/gcr-certificate-widget.c:286
-msgid "Key SHA1 Fingerprint"
-msgstr "Відбиток ключа SHA1"
-
-#: gcr-gtk3/gcr-certificate-widget.c:301 gcr-gtk4/gcr-certificate-widget.c:308
-msgid "Basic Constraints"
-msgstr "Основні обмеження"
-
-#: gcr-gtk3/gcr-certificate-widget.c:302 gcr-gtk4/gcr-certificate-widget.c:309
-msgid "Certificate Authority"
-msgstr "Видавець сертифіката"
-
-#: gcr-gtk3/gcr-certificate-widget.c:302 gcr-gtk3/gcr-certificate-widget.c:493
-#: gcr-gtk4/gcr-certificate-widget.c:309 gcr-gtk4/gcr-certificate-widget.c:500
-msgid "Yes"
-msgstr "Так"
-
-#: gcr-gtk3/gcr-certificate-widget.c:302 gcr-gtk3/gcr-certificate-widget.c:493
-#: gcr-gtk4/gcr-certificate-widget.c:309 gcr-gtk4/gcr-certificate-widget.c:500
-msgid "No"
-msgstr "Ні"
-
-#: gcr-gtk3/gcr-certificate-widget.c:305 gcr-gtk4/gcr-certificate-widget.c:312
-msgid "Max Path Length"
-msgstr "Максимальна довжина шляху"
-
-#: gcr-gtk3/gcr-certificate-widget.c:305 gcr-gtk4/gcr-certificate-widget.c:312
-msgid "Unlimited"
-msgstr "Необмежено"
-
-#: gcr-gtk3/gcr-certificate-widget.c:333 gcr-gtk4/gcr-certificate-widget.c:340
-msgid "Extended Key Usage"
-msgstr "Розширене використання ключа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:334 gcr-gtk4/gcr-certificate-widget.c:341
-msgid "Allowed Purposes"
-msgstr "Дозволені цілі"
-
-#: gcr-gtk3/gcr-certificate-widget.c:353 gcr-gtk4/gcr-certificate-widget.c:360
-msgid "Subject Key Identifier"
-msgstr "Ідентифікатор ключа теми"
-
-#: gcr-gtk3/gcr-certificate-widget.c:356 gcr-gtk4/gcr-certificate-widget.c:363
-msgid "Key Identifier"
-msgstr "Ідентифікатор ключа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:366 gcr-gtk4/gcr-certificate-widget.c:373
-msgid "Digital signature"
-msgstr "Цифровий підпис"
-
-#: gcr-gtk3/gcr-certificate-widget.c:367 gcr-gtk4/gcr-certificate-widget.c:374
-msgid "Non repudiation"
-msgstr "Строге виконання зобов'язань"
-
-#: gcr-gtk3/gcr-certificate-widget.c:368 gcr-gtk4/gcr-certificate-widget.c:375
-msgid "Key encipherment"
-msgstr "Шифрування ключа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:369 gcr-gtk4/gcr-certificate-widget.c:376
-msgid "Data encipherment"
-msgstr "Шифрування даних"
-
-#: gcr-gtk3/gcr-certificate-widget.c:370 gcr-gtk4/gcr-certificate-widget.c:377
-msgid "Key agreement"
-msgstr "Узгодження ключа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:371 gcr-gtk4/gcr-certificate-widget.c:378
-msgid "Certificate signature"
-msgstr "Підпис сертифіката"
-
-#: gcr-gtk3/gcr-certificate-widget.c:372 gcr-gtk4/gcr-certificate-widget.c:379
-msgid "Revocation list signature"
-msgstr "Анулювання підпису списку"
-
-#: gcr-gtk3/gcr-certificate-widget.c:373 gcr-gtk4/gcr-certificate-widget.c:380
-msgid "Encipher only"
-msgstr "Лише шифрування"
-
-#: gcr-gtk3/gcr-certificate-widget.c:374 gcr-gtk4/gcr-certificate-widget.c:381
-msgid "Decipher only"
-msgstr "Лише розшифровування"
-
-#: gcr-gtk3/gcr-certificate-widget.c:399 gcr-gtk4/gcr-certificate-widget.c:406
-msgid "Key Usage"
-msgstr "Використання ключа"
-
-#: gcr-gtk3/gcr-certificate-widget.c:400 gcr-gtk4/gcr-certificate-widget.c:407
-msgid "Usages"
-msgstr "Використання"
-
-#: gcr-gtk3/gcr-certificate-widget.c:420 gcr-gtk4/gcr-certificate-widget.c:427
-msgid "Subject Alternative Names"
-msgstr "Альтернативні назви тем"
-
-#: gcr-gtk3/gcr-certificate-widget.c:446 gcr-gtk4/gcr-certificate-widget.c:453
-msgid "Extension"
-msgstr "Розширення"
-
-#: gcr-gtk3/gcr-certificate-widget.c:450 gcr-gtk4/gcr-certificate-widget.c:457
-msgid "Identifier"
-msgstr "Ідентифікатор"
-
-#: gcr-gtk3/gcr-certificate-widget.c:452 gcr-gtk4/gcr-certificate-widget.c:459
-msgid "Value"
-msgstr "Значення"
-
-#: gcr-gtk3/gcr-certificate-widget.c:493 gcr-gtk4/gcr-certificate-widget.c:500
-msgid "Critical"
-msgstr "Критичний"
-
-#: gcr-gtk3/gcr-certificate-widget.c:572 gcr-gtk4/gcr-certificate-widget.c:579
-msgid "Identity"
-msgstr "Профіль"
-
-#: gcr-gtk3/gcr-certificate-widget.c:576 gcr-gtk4/gcr-certificate-widget.c:583
-msgid "Verified by"
-msgstr "Перевірено"
-
-#: gcr-gtk3/gcr-certificate-widget.c:583 gcr-gtk4/gcr-certificate-widget.c:590
-msgid "Expires"
-msgstr "Строк дії"
-
-#. The subject
-#: gcr-gtk3/gcr-certificate-widget.c:588 gcr-gtk4/gcr-certificate-widget.c:595
-msgid "Subject Name"
-msgstr "Ім'я отримувача"
-
-#. The Issuer
-#: gcr-gtk3/gcr-certificate-widget.c:592 gcr-gtk4/gcr-certificate-widget.c:599
-msgid "Issuer Name"
-msgstr "Ім'я видавця"
-
-#. The Issued Parameters
-#: gcr-gtk3/gcr-certificate-widget.c:596 gcr-gtk4/gcr-certificate-widget.c:603
-msgid "Issued Certificate"
-msgstr "Виданий сертифікат"
-
-#: gcr-gtk3/gcr-certificate-widget.c:602 gcr-gtk4/gcr-certificate-widget.c:609
-msgid "Version"
-msgstr "Версія"
-
-#: gcr-gtk3/gcr-certificate-widget.c:620 gcr-gtk4/gcr-certificate-widget.c:627
-msgid "Not Valid Before"
-msgstr "Не дійсний до"
-
-#: gcr-gtk3/gcr-certificate-widget.c:625 gcr-gtk4/gcr-certificate-widget.c:632
-msgid "Not Valid After"
-msgstr "Не дійсний після"
-
-#. Fingerprints
-#: gcr-gtk3/gcr-certificate-widget.c:630 gcr-gtk4/gcr-certificate-widget.c:637
-msgid "Certificate Fingerprints"
-msgstr "Відбитки сертифікатів"
-
-#. Public Key Info
-#: gcr-gtk3/gcr-certificate-widget.c:639 gcr-gtk4/gcr-certificate-widget.c:646
-msgid "Public Key Info"
-msgstr "Інформація про відкритий ключ"
-
-#. Signature
-#: gcr-gtk3/gcr-certificate-widget.c:652 gcr-gtk3/gcr-certificate-widget.c:673
-#: gcr-gtk4/gcr-certificate-widget.c:659 gcr-gtk4/gcr-certificate-widget.c:680
-msgid "Signature"
-msgstr "Підпис"
-
-#: gcr-gtk3/gcr-certificate-widget.c:655 gcr-gtk4/gcr-certificate-widget.c:662
-msgid "Signature Algorithm"
-msgstr "Алгоритм підпису"
-
-#: gcr-gtk3/gcr-certificate-widget.c:660 gcr-gtk4/gcr-certificate-widget.c:667
-msgid "Signature Parameters"
-msgstr "Параметри підпису"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:5
-#| msgid "PGP Key"
-msgid "Default PGP Key"
-msgstr "Типовий ключ PGP"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:6
-msgid ""
-"This specifies the ID of the default PGP key to use for certain operations, "
-"mainly signing."
-msgstr ""
-"Вказує ідентифікатор типового ключа PGP, яким слід користуватися для певних"
-" дій, в основному, підписування."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:10
-msgid "ASCII Armor"
-msgstr "ASCII Armor"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:11
-msgid ""
-"When encrypting or signing PGP files whether to use ASCII armor encoding."
-msgstr ""
-"Чи слід використовувати кодування ASCII armor при шифруванні або підписуванні"
-" файлів PGP."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:15
-msgid "The column to sort the recipients"
-msgstr "Стовпчик, за яким слід упорядковувати список отримувачів"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:16
-msgid ""
-"Specify the column to sort the recipients window by. Columns are: 'name' and "
-"'id'. Put a '-' in front of the column name to sort in descending order."
-msgstr ""
-"Задати ідентифікатор стовпчика, за яким слід упорядкувати таблицю"
-" отримувачів. Стовпчиками є такі: «name» та «id». Якщо значення починається з"
-" «-», ключі впорядковуються у зворотному порядку."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:20
-msgid "Whether to always encrypt to default key"
-msgstr "Чи слід завжди шифрувати типовим ключем"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:21
-msgid ""
-"If set to true, then the default key will always be added to an encryption "
-"recipients list."
-msgstr ""
-"Якщо встановлено значення «true», типовий ключ завжди буде додано до списку"
-" отримувачів шифрування."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:25
-msgid "Last key used to sign a message."
-msgstr "Останній ключ, який використано для підписування повідомлення."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:26
-msgid "The ID of the last secret key used to sign a message."
-msgstr ""
-"Ідентифікатор останнього ключа шифрування, який використано для підписування"
-" повідомлення."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:30
-msgid "PGP key servers"
-msgstr "Сервери ключів PGP"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:31
-msgid ""
-"A list of key server URIs to search for remote PGP keys. A display name can "
-"be included, by appending a space and then the name."
-msgstr ""
-"Список адрес серверів ключів, на яких слід шукати віддалені ключі PGP. Можна"
-" включити показану назву після пробілу."
-
-#: tools/gtk3/viewer.c:23 tools/gtk4/viewer.c:23
-#| msgid "Certificate Viewer"
+#: tools/viewer/viewer.c:23
 msgid "GCR Certificate Viewer"
 msgstr "Переглядач сертифікатів GCR"
 
-#: tools/gtk3/viewer.c:30 tools/gtk4/viewer.c:30
+#: tools/viewer/viewer.c:30
 msgid "Show the application's version"
 msgstr "Показати версію програми"
 
-#: tools/gtk3/viewer.c:32 tools/gtk4/viewer.c:32
+#: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr "[файл…]"
+
+#~ msgctxt "column"
+#~ msgid "Name"
+#~ msgstr "Назва"
+
+#~ msgctxt "column"
+#~ msgid "Issued By"
+#~ msgstr "Виданий"
+
+#~ msgctxt "column"
+#~ msgid "Expires"
+#~ msgstr "Строк"
+
+#~ msgctxt "column"
+#~ msgid "Key ID"
+#~ msgstr "Ідентифікатор ключа"
+
+#~| msgid "PGP Key"
+#~ msgid "Default PGP Key"
+#~ msgstr "Типовий ключ PGP"
+
+#~ msgid ""
+#~ "This specifies the ID of the default PGP key to use for certain "
+#~ "operations, mainly signing."
+#~ msgstr ""
+#~ "Вказує ідентифікатор типового ключа PGP, яким слід користуватися для "
+#~ "певних дій, в основному, підписування."
+
+#~ msgid "ASCII Armor"
+#~ msgstr "ASCII Armor"
+
+#~ msgid ""
+#~ "When encrypting or signing PGP files whether to use ASCII armor encoding."
+#~ msgstr ""
+#~ "Чи слід використовувати кодування ASCII armor при шифруванні або "
+#~ "підписуванні файлів PGP."
+
+#~ msgid "The column to sort the recipients"
+#~ msgstr "Стовпчик, за яким слід упорядковувати список отримувачів"
+
+#~ msgid ""
+#~ "Specify the column to sort the recipients window by. Columns are: 'name' "
+#~ "and 'id'. Put a '-' in front of the column name to sort in descending "
+#~ "order."
+#~ msgstr ""
+#~ "Задати ідентифікатор стовпчика, за яким слід упорядкувати таблицю "
+#~ "отримувачів. Стовпчиками є такі: «name» та «id». Якщо значення "
+#~ "починається з «-», ключі впорядковуються у зворотному порядку."
+
+#~ msgid "Whether to always encrypt to default key"
+#~ msgstr "Чи слід завжди шифрувати типовим ключем"
+
+#~ msgid ""
+#~ "If set to true, then the default key will always be added to an "
+#~ "encryption recipients list."
+#~ msgstr ""
+#~ "Якщо встановлено значення «true», типовий ключ завжди буде додано до "
+#~ "списку отримувачів шифрування."
+
+#~ msgid "Last key used to sign a message."
+#~ msgstr "Останній ключ, який використано для підписування повідомлення."
+
+#~ msgid "The ID of the last secret key used to sign a message."
+#~ msgstr ""
+#~ "Ідентифікатор останнього ключа шифрування, який використано для "
+#~ "підписування повідомлення."
+
+#~ msgid "PGP key servers"
+#~ msgstr "Сервери ключів PGP"
+
+#~ msgid ""
+#~ "A list of key server URIs to search for remote PGP keys. A display name "
+#~ "can be included, by appending a space and then the name."
+#~ msgstr ""
+#~ "Список адрес серверів ключів, на яких слід шукати віддалені ключі PGP. "
+#~ "Можна включити показану назву після пробілу."
 
 #~ msgid "Couldn’t export the certificate."
 #~ msgstr "Не вдалося експортувати сертифікат."
@@ -768,9 +879,6 @@ msgstr "[файл…]"
 #~ msgid "Could not display file"
 #~ msgstr "Неможливо показати файл"
 
-#~ msgid "Reason"
-#~ msgstr "Причина"
-
 #, c-format
 #~ msgid "Cannot display a file of this type."
 #~ msgstr "Неможливо показати файл цього типу."
@@ -793,12 +901,6 @@ msgstr "[файл…]"
 #~ msgctxt "capability"
 #~ msgid "Disabled"
 #~ msgstr "Вимкнено"
-
-#~ msgid "Unknown"
-#~ msgstr "Невідомо"
-
-#~ msgid "Invalid"
-#~ msgstr "Неправильно"
 
 #~ msgctxt "ownertrust"
 #~ msgid "Disabled"
@@ -917,9 +1019,6 @@ msgstr "[файл…]"
 
 #~ msgid "Subkey revocation signature"
 #~ msgstr "Анулювальний підпис підключа"
-
-#~ msgid "Certification revocation signature"
-#~ msgstr "Анулювальний підпис сертифіката"
 
 #~ msgid "Timestamp signature"
 #~ msgstr "Підпис часового штампу"
@@ -1069,9 +1168,6 @@ msgstr "[файл…]"
 
 #~ msgid "_Save"
 #~ msgstr "З_берегти"
-
-#~ msgid "Certificate files"
-#~ msgstr "Файли сертифікатів"
 
 #~ msgid "PEM files"
 #~ msgstr "Файли PEM"

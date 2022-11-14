@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-11-13 14:29+0000\n"
-"PO-Revision-Date: 2022-11-13 23:32+0100\n"
+"POT-Creation-Date: 2022-11-13 22:33+0000\n"
+"PO-Revision-Date: 2022-11-14 06:30+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <(nothing>)\n"
 "Language: ka\n"
@@ -152,7 +152,7 @@ msgstr "SHA1 RSA-ით"
 
 #: egg/egg-oid.c:114
 msgid "RSA with OAEP padding"
-msgstr ""
+msgstr "RSA OAEP padding- ით"
 
 #: egg/egg-oid.c:115
 msgid "RSA with MGF1"
@@ -310,7 +310,7 @@ msgstr "სერტიფიკატის გაუქმების სი�
 
 #: egg/egg-oid.c:160
 msgid "Issuing distribution point"
-msgstr ""
+msgstr "განაწილების წერტილის გაცემა"
 
 #: egg/egg-oid.c:161
 msgid "Certificate issuer"
@@ -322,7 +322,7 @@ msgstr "სახელის შეზღუდვები"
 
 #: egg/egg-oid.c:163
 msgid "Certificate Revocation List distribution points"
-msgstr ""
+msgstr "სერტიფიკატის გაუქმების სიის განაწილების პუნქტები"
 
 #: egg/egg-oid.c:164
 msgid "Certificate policies"
@@ -330,7 +330,7 @@ msgstr "სერტიფიკატის პოლიტიკა"
 
 #: egg/egg-oid.c:165
 msgid "Policy mappings"
-msgstr ""
+msgstr "პოლიტიკის მიბმები"
 
 #: egg/egg-oid.c:166
 msgid "Policy constraints"

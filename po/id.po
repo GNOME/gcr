@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-07-09 17:54+0000\n"
-"PO-Revision-Date: 2022-07-10 16:34+0700\n"
+"POT-Creation-Date: 2022-11-13 14:29+0000\n"
+"PO-Revision-Date: 2022-11-15 11:21+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.1\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -60,8 +60,7 @@ msgstr "Nama Umum"
 msgid "Surname"
 msgstr "Nama Keluarga"
 
-#: egg/egg-oid.c:68 gcr-gtk3/gcr-certificate-widget.c:605
-#: gcr-gtk4/gcr-certificate-widget.c:612
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
 msgid "Serial Number"
 msgstr "Nomor Seri"
 
@@ -153,82 +152,195 @@ msgstr "MD5 dengan RSA"
 msgid "SHA1 with RSA"
 msgstr "SHA1 dengan RSA"
 
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "RSA dengan padding OAEP"
+
 #: egg/egg-oid.c:115
+msgid "RSA with MGF1"
+msgstr "RSA dengan MGF1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "Tanda tangan RSA dengan RSA-PSS"
+
+#: egg/egg-oid.c:117
+msgid "SHA256 with RSA encryption"
+msgstr "SHA256 dengan enkripsi RSA"
+
+#: egg/egg-oid.c:118
+msgid "SHA384 with RSA encryption"
+msgstr "SHA384 dengan enkripsi RSA"
+
+#: egg/egg-oid.c:119
+msgid "SHA512 with RSA encryption"
+msgstr "SHA512 dengan enkripsi RSA"
+
+#: egg/egg-oid.c:120
+msgid "SHA224 with RSA encryption"
+msgstr "SHA224 dengan enkripsi RSA"
+
+#: egg/egg-oid.c:122
 msgid "DSA"
 msgstr "DSA"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:123
 msgid "SHA1 with DSA"
 msgstr "SHA1 dengan DSA"
 
-#: egg/egg-oid.c:118
+#: egg/egg-oid.c:125
 msgid "Elliptic Curve"
 msgstr "Elliptic Curve"
 
-#: egg/egg-oid.c:119
+#: egg/egg-oid.c:126
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 dengan ECDSA"
 
-#: egg/egg-oid.c:120
+#: egg/egg-oid.c:127
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 dengan ECDSA"
 
-#: egg/egg-oid.c:121
+#: egg/egg-oid.c:128
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 dengan ECDSA"
 
-#: egg/egg-oid.c:122
+#: egg/egg-oid.c:129
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 dengan ECDSA"
 
-#: egg/egg-oid.c:123
+#: egg/egg-oid.c:130
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 dengan ECDSA"
 
-#: egg/egg-oid.c:125
+#: egg/egg-oid.c:132
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "GOST R 34.11-94 dengan GOST R 34.10-2001"
 
-#: egg/egg-oid.c:126
+#: egg/egg-oid.c:133
 msgid "GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001"
 
-#: egg/egg-oid.c:127
+#: egg/egg-oid.c:134
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.10-2012 kurva 256-bit"
 
-#: egg/egg-oid.c:128
+#: egg/egg-oid.c:135
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.10-2012 kurva 512-bit"
 
-#: egg/egg-oid.c:129
+#: egg/egg-oid.c:136
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.11-2012/256 dengan GOST R 34.10-2012 kurva 256-bit"
 
-#: egg/egg-oid.c:130
+#: egg/egg-oid.c:137
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.11-2012/512 dengan GOST R 34.10-2012 kurva 512-bit"
 
 #. Extended Key Usages
-#: egg/egg-oid.c:133
+#: egg/egg-oid.c:140
 msgid "Server Authentication"
 msgstr "Autentikasi Server"
 
-#: egg/egg-oid.c:134
+#: egg/egg-oid.c:141
 msgid "Client Authentication"
 msgstr "Autentikasi Klien"
 
-#: egg/egg-oid.c:135
+#: egg/egg-oid.c:142
 msgid "Code Signing"
 msgstr "Penandatanganan Kode Program"
 
-#: egg/egg-oid.c:136
+#: egg/egg-oid.c:143
 msgid "Email Protection"
 msgstr "Proteksi Surel"
 
-#: egg/egg-oid.c:137
+#: egg/egg-oid.c:144
 msgid "Time Stamping"
 msgstr "Penandaan Waktu"
+
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+msgid "Certificate Authority Information Access"
+msgstr "Akses Informasi Otoritas Sertifikat"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "Ekstensi sertifikat atribut direktori subjek"
+
+#: egg/egg-oid.c:149
+msgid "Subject key identifier"
+msgstr "Pengidentifikasi kunci subjek"
+
+#: egg/egg-oid.c:150
+msgid "Key usage"
+msgstr "Penggunaan kunci"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "Periode penggunaan kunci privat"
+
+#: egg/egg-oid.c:152
+msgid "Subject alternative name"
+msgstr "Nama alternatif subjek"
+
+#: egg/egg-oid.c:153
+msgid "Issuer alternative name"
+msgstr "Nama alternatif penerbit"
+
+#: egg/egg-oid.c:154
+msgid "Basic constraints"
+msgstr "Kendala dasar"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "Nomor CRL"
+
+#: egg/egg-oid.c:156
+msgid "Reason code"
+msgstr "Kode alasan"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr "Tahan kode instruksi"
+
+#: egg/egg-oid.c:158
+msgid "Invalidity date"
+msgstr "Tanggal ketidakabsahan"
+
+#: egg/egg-oid.c:159
+msgid "Certificate Revocation List indicator"
+msgstr "Indikator Daftar Pencabutan Sertifikat"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr "Menerbitkan titik distribusi"
+
+#: egg/egg-oid.c:161
+msgid "Certificate issuer"
+msgstr "Penerbit sertifikat"
+
+#: egg/egg-oid.c:162
+msgid "Name constraints"
+msgstr "Batasan nama"
+
+#: egg/egg-oid.c:163
+msgid "Certificate Revocation List distribution points"
+msgstr "Titik distribusi Daftar Pencabutan Sertifikat"
+
+#: egg/egg-oid.c:164
+msgid "Certificate policies"
+msgstr "Kebijakan sertifikat"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "Pemetaan kebijakan"
+
+#: egg/egg-oid.c:166
+msgid "Policy constraints"
+msgstr "Batasan kebijakan"
+
+#: egg/egg-oid.c:167
+msgid "Authority key identifier"
+msgstr "Pengidentifikasi kunci otoritas"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -267,10 +379,198 @@ msgstr "URI memiliki nomor versi yang salah."
 msgid "The stream was closed"
 msgstr "Stream ditutup"
 
-#: gcr/gcr-certificate.c:1038 gcr/gcr-parser.c:340
-#: gcr-gtk3/gcr-certificate-widget.c:180 gcr-gtk4/gcr-certificate-widget.c:187
+#: gcr/gcr-certificate.c:882
+msgid "Key Algorithm"
+msgstr "Algoritma Kunci"
+
+#: gcr/gcr-certificate.c:888
+msgid "Key Parameters"
+msgstr "Parameter Kunci"
+
+#: gcr/gcr-certificate.c:895
+msgid "Key Size"
+msgstr "Ukuran Kunci"
+
+#: gcr/gcr-certificate.c:905
+msgid "Key SHA1 Fingerprint"
+msgstr "Sidik Jari SHA1 Kunci"
+
+#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+msgid "Public Key"
+msgstr "Kunci Publik"
+
+#: gcr/gcr-certificate.c:923
+msgid "Basic Constraints"
+msgstr "Kendala Dasar"
+
+#: gcr/gcr-certificate.c:924
+msgid "Certificate Authority"
+msgstr "Otoritas Pengelola Sertifikat"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "Yes"
+msgstr "Ya"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "No"
+msgstr "Tidak"
+
+#: gcr/gcr-certificate.c:927
+msgid "Unlimited"
+msgstr "Tanpa batas"
+
+#: gcr/gcr-certificate.c:931
+msgid "Max Path Length"
+msgstr "Panjang Path Maks"
+
+#: gcr/gcr-certificate.c:955
+msgid "Extended Key Usage"
+msgstr "Penggunaan Kunci yang Diperluas"
+
+#: gcr/gcr-certificate.c:956
+msgid "Allowed Purposes"
+msgstr "Penggunaan yang Dibolehkan"
+
+#: gcr/gcr-certificate.c:973
+msgid "Subject Key Identifier"
+msgstr "Pengenal Kunci Subjek"
+
+#: gcr/gcr-certificate.c:976
+msgid "Key Identifier"
+msgstr "Pengenal Kunci"
+
+#: gcr/gcr-certificate.c:985
+msgid "Digital signature"
+msgstr "Tanda tangan digital"
+
+#: gcr/gcr-certificate.c:986
+msgid "Non repudiation"
+msgstr "Nirsangkal"
+
+#: gcr/gcr-certificate.c:987
+msgid "Key encipherment"
+msgstr "Enkripsi kunci"
+
+#: gcr/gcr-certificate.c:988
+msgid "Data encipherment"
+msgstr "Enkripsi data"
+
+#: gcr/gcr-certificate.c:989
+msgid "Key agreement"
+msgstr "Perjanjian kunci"
+
+#: gcr/gcr-certificate.c:990
+msgid "Certificate signature"
+msgstr "Tanda tangan sertifikat"
+
+#: gcr/gcr-certificate.c:991
+msgid "Revocation list signature"
+msgstr "Tanda tangan daftar pencabutan"
+
+#: gcr/gcr-certificate.c:992
+msgid "Encipher only"
+msgstr "Enkripsi saja"
+
+#: gcr/gcr-certificate.c:993
+msgid "Decipher only"
+msgstr "Dekripsi saja"
+
+#: gcr/gcr-certificate.c:1014
+msgid "Key Usage"
+msgstr "Penggunaan Kunci"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Usages"
+msgstr "Penggunaan"
+
+#: gcr/gcr-certificate.c:1033
+msgid "Subject Alternative Names"
+msgstr "Nama Alternatif Subjek"
+
+#: gcr/gcr-certificate.c:1055
+msgid "Extension"
+msgstr "Ekstensi"
+
+#: gcr/gcr-certificate.c:1059
+msgid "Identifier"
+msgstr "Identifair"
+
+#: gcr/gcr-certificate.c:1060
+msgid "Value"
+msgstr "Nilai"
+
+#: gcr/gcr-certificate.c:1100
+msgid "Critical"
+msgstr "Kritis"
+
+#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
 msgid "Certificate"
 msgstr "Sertifikat"
+
+#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+msgid "Unknown"
+msgstr "Tak dikenal"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Identity"
+msgstr "Identitas"
+
+#: gcr/gcr-certificate.c:1189
+msgid "Verified by"
+msgstr "Diverfikasi oleh"
+
+#: gcr/gcr-certificate.c:1195
+msgid "Expires"
+msgstr "Kadaluwarsa"
+
+#. The subject
+#: gcr/gcr-certificate.c:1203
+msgid "Subject Name"
+msgstr "Nama Subjek"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1209
+msgid "Issuer Name"
+msgstr "Nama Penerbit"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1215
+msgid "Issued Certificate"
+msgstr "Sertifikat Yang Diterbitkan"
+
+#: gcr/gcr-certificate.c:1221
+msgid "Version"
+msgstr "Versi"
+
+#: gcr/gcr-certificate.c:1235
+msgid "Not Valid Before"
+msgstr "Tak Valid Sebelum"
+
+#: gcr/gcr-certificate.c:1244
+msgid "Not Valid After"
+msgstr "Tak Valid Setelah"
+
+#: gcr/gcr-certificate.c:1253
+msgid "Certificate Fingerprints"
+msgstr "Sidik Jari Sertifikat"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1263
+msgid "Public Key Info"
+msgstr "Info Kunci Publik"
+
+#. Signature
+#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+msgid "Signature"
+msgstr "Tanda Tangan"
+
+#: gcr/gcr-certificate.c:1283
+msgid "Signature Algorithm"
+msgstr "Algoritma Tanda Tangan"
+
+#: gcr/gcr-certificate.c:1287
+msgid "Signature Parameters"
+msgstr "Parameter Tanda Tangan"
 
 #: gcr/gcr-certificate-extensions.c:190
 msgid "Other Name"
@@ -358,11 +658,6 @@ msgstr "Operasi dibatalkan"
 msgid "Private Key"
 msgstr "Kunci Pribadi"
 
-#: gcr/gcr-parser.c:343 gcr-gtk3/gcr-certificate-widget.c:280
-#: gcr-gtk4/gcr-certificate-widget.c:287
-msgid "Public Key"
-msgstr "Kunci Publik"
-
 #: gcr/gcr-parser.c:349
 msgid "Certificate Request"
 msgstr "Permintaan Sertifikat"
@@ -446,200 +741,15 @@ msgstr "Sapaan lain tengah berlangsung"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Tak bisa menemukan tempat untuk menyimpan sertifikat yang dipin"
 
-#: gcr-gtk3/gcr-certificate-widget.c:251 gcr-gtk4/gcr-certificate-widget.c:258
-msgid "Key Algorithm"
-msgstr "Algoritma Kunci"
-
-#: gcr-gtk3/gcr-certificate-widget.c:257 gcr-gtk4/gcr-certificate-widget.c:264
-msgid "Key Parameters"
-msgstr "Parameter Kunci"
-
-#: gcr-gtk3/gcr-certificate-widget.c:264 gcr-gtk4/gcr-certificate-widget.c:271
-msgid "Key Size"
-msgstr "Ukuran Kunci"
-
-#: gcr-gtk3/gcr-certificate-widget.c:275 gcr-gtk4/gcr-certificate-widget.c:282
-msgid "Key SHA1 Fingerprint"
-msgstr "Sidik Jari SHA1 Kunci"
-
-#: gcr-gtk3/gcr-certificate-widget.c:297 gcr-gtk4/gcr-certificate-widget.c:304
-msgid "Basic Constraints"
-msgstr "Kendala Dasar"
-
-#: gcr-gtk3/gcr-certificate-widget.c:298 gcr-gtk4/gcr-certificate-widget.c:305
-msgid "Certificate Authority"
-msgstr "Otoritas Pengelola Sertifikat"
-
-#: gcr-gtk3/gcr-certificate-widget.c:298 gcr-gtk3/gcr-certificate-widget.c:489
-#: gcr-gtk4/gcr-certificate-widget.c:305 gcr-gtk4/gcr-certificate-widget.c:496
-msgid "Yes"
-msgstr "Ya"
-
-#: gcr-gtk3/gcr-certificate-widget.c:298 gcr-gtk3/gcr-certificate-widget.c:489
-#: gcr-gtk4/gcr-certificate-widget.c:305 gcr-gtk4/gcr-certificate-widget.c:496
-msgid "No"
-msgstr "Tidak"
-
-#: gcr-gtk3/gcr-certificate-widget.c:301 gcr-gtk4/gcr-certificate-widget.c:308
-msgid "Max Path Length"
-msgstr "Panjang Path Maks"
-
-#: gcr-gtk3/gcr-certificate-widget.c:301 gcr-gtk4/gcr-certificate-widget.c:308
-msgid "Unlimited"
-msgstr "Tanpa batas"
-
-#: gcr-gtk3/gcr-certificate-widget.c:329 gcr-gtk4/gcr-certificate-widget.c:336
-msgid "Extended Key Usage"
-msgstr "Penggunaan Kunci yang Diperluas"
-
-#: gcr-gtk3/gcr-certificate-widget.c:330 gcr-gtk4/gcr-certificate-widget.c:337
-msgid "Allowed Purposes"
-msgstr "Penggunaan yang Dibolehkan"
-
-#: gcr-gtk3/gcr-certificate-widget.c:349 gcr-gtk4/gcr-certificate-widget.c:356
-msgid "Subject Key Identifier"
-msgstr "Pengenal Kunci Subjek"
-
-#: gcr-gtk3/gcr-certificate-widget.c:352 gcr-gtk4/gcr-certificate-widget.c:359
-msgid "Key Identifier"
-msgstr "Pengenal Kunci"
-
-#: gcr-gtk3/gcr-certificate-widget.c:362 gcr-gtk4/gcr-certificate-widget.c:369
-msgid "Digital signature"
-msgstr "Tanda tangan digital"
-
-#: gcr-gtk3/gcr-certificate-widget.c:363 gcr-gtk4/gcr-certificate-widget.c:370
-msgid "Non repudiation"
-msgstr "Nirsangkal"
-
-#: gcr-gtk3/gcr-certificate-widget.c:364 gcr-gtk4/gcr-certificate-widget.c:371
-msgid "Key encipherment"
-msgstr "Enkripsi kunci"
-
-#: gcr-gtk3/gcr-certificate-widget.c:365 gcr-gtk4/gcr-certificate-widget.c:372
-msgid "Data encipherment"
-msgstr "Enkripsi data"
-
-#: gcr-gtk3/gcr-certificate-widget.c:366 gcr-gtk4/gcr-certificate-widget.c:373
-msgid "Key agreement"
-msgstr "Perjanjian kunci"
-
-#: gcr-gtk3/gcr-certificate-widget.c:367 gcr-gtk4/gcr-certificate-widget.c:374
-msgid "Certificate signature"
-msgstr "Tanda tangan sertifikat"
-
-#: gcr-gtk3/gcr-certificate-widget.c:368 gcr-gtk4/gcr-certificate-widget.c:375
-msgid "Revocation list signature"
-msgstr "Tanda tangan daftar pencabutan"
-
-#: gcr-gtk3/gcr-certificate-widget.c:369 gcr-gtk4/gcr-certificate-widget.c:376
-msgid "Encipher only"
-msgstr "Enkripsi saja"
-
-#: gcr-gtk3/gcr-certificate-widget.c:370 gcr-gtk4/gcr-certificate-widget.c:377
-msgid "Decipher only"
-msgstr "Dekripsi saja"
-
-#: gcr-gtk3/gcr-certificate-widget.c:395 gcr-gtk4/gcr-certificate-widget.c:402
-msgid "Key Usage"
-msgstr "Penggunaan Kunci"
-
-#: gcr-gtk3/gcr-certificate-widget.c:396 gcr-gtk4/gcr-certificate-widget.c:403
-msgid "Usages"
-msgstr "Penggunaan"
-
-#: gcr-gtk3/gcr-certificate-widget.c:416 gcr-gtk4/gcr-certificate-widget.c:423
-msgid "Subject Alternative Names"
-msgstr "Nama Alternatif Subjek"
-
-#: gcr-gtk3/gcr-certificate-widget.c:442 gcr-gtk4/gcr-certificate-widget.c:449
-msgid "Extension"
-msgstr "Ekstensi"
-
-#: gcr-gtk3/gcr-certificate-widget.c:446 gcr-gtk4/gcr-certificate-widget.c:453
-msgid "Identifier"
-msgstr "Identifair"
-
-#: gcr-gtk3/gcr-certificate-widget.c:448 gcr-gtk4/gcr-certificate-widget.c:455
-msgid "Value"
-msgstr "Nilai"
-
-#: gcr-gtk3/gcr-certificate-widget.c:489 gcr-gtk4/gcr-certificate-widget.c:496
-msgid "Critical"
-msgstr "Kritis"
-
-#: gcr-gtk3/gcr-certificate-widget.c:565 gcr-gtk4/gcr-certificate-widget.c:572
-msgid "Identity"
-msgstr "Identitas"
-
-#: gcr-gtk3/gcr-certificate-widget.c:569 gcr-gtk4/gcr-certificate-widget.c:576
-msgid "Verified by"
-msgstr "Diverfikasi oleh"
-
-#: gcr-gtk3/gcr-certificate-widget.c:576 gcr-gtk4/gcr-certificate-widget.c:583
-msgid "Expires"
-msgstr "Kadaluwarsa"
-
-#. The subject
-#: gcr-gtk3/gcr-certificate-widget.c:582 gcr-gtk4/gcr-certificate-widget.c:589
-msgid "Subject Name"
-msgstr "Nama Subjek"
-
-#. The Issuer
-#: gcr-gtk3/gcr-certificate-widget.c:586 gcr-gtk4/gcr-certificate-widget.c:593
-msgid "Issuer Name"
-msgstr "Nama Penerbit"
-
-#. The Issued Parameters
-#: gcr-gtk3/gcr-certificate-widget.c:590 gcr-gtk4/gcr-certificate-widget.c:597
-msgid "Issued Certificate"
-msgstr "Sertifikat Yang Diterbitkan"
-
-#: gcr-gtk3/gcr-certificate-widget.c:596 gcr-gtk4/gcr-certificate-widget.c:603
-msgid "Version"
-msgstr "Versi"
-
-#: gcr-gtk3/gcr-certificate-widget.c:614 gcr-gtk4/gcr-certificate-widget.c:621
-msgid "Not Valid Before"
-msgstr "Tak Valid Sebelum"
-
-#: gcr-gtk3/gcr-certificate-widget.c:622 gcr-gtk4/gcr-certificate-widget.c:629
-msgid "Not Valid After"
-msgstr "Tak Valid Setelah"
-
-#. Fingerprints
-#: gcr-gtk3/gcr-certificate-widget.c:628 gcr-gtk4/gcr-certificate-widget.c:635
-msgid "Certificate Fingerprints"
-msgstr "Sidik Jari Sertifikat"
-
-#. Public Key Info
-#: gcr-gtk3/gcr-certificate-widget.c:637 gcr-gtk4/gcr-certificate-widget.c:644
-msgid "Public Key Info"
-msgstr "Info Kunci Publik"
-
-#. Signature
-#: gcr-gtk3/gcr-certificate-widget.c:650 gcr-gtk3/gcr-certificate-widget.c:671
-#: gcr-gtk4/gcr-certificate-widget.c:657 gcr-gtk4/gcr-certificate-widget.c:678
-msgid "Signature"
-msgstr "Tanda Tangan"
-
-#: gcr-gtk3/gcr-certificate-widget.c:653 gcr-gtk4/gcr-certificate-widget.c:660
-msgid "Signature Algorithm"
-msgstr "Algoritma Tanda Tangan"
-
-#: gcr-gtk3/gcr-certificate-widget.c:658 gcr-gtk4/gcr-certificate-widget.c:665
-msgid "Signature Parameters"
-msgstr "Parameter Tanda Tangan"
-
-#: tools/gtk3/viewer.c:23 tools/gtk4/viewer.c:23
+#: tools/viewer/viewer.c:23
 msgid "GCR Certificate Viewer"
 msgstr "Penampil Sertifikat GCR"
 
-#: tools/gtk3/viewer.c:30 tools/gtk4/viewer.c:30
+#: tools/viewer/viewer.c:30
 msgid "Show the application's version"
 msgstr "Tampilkan versi aplikasi"
 
-#: tools/gtk3/viewer.c:32 tools/gtk4/viewer.c:32
+#: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr "[berkas...]"
 
@@ -686,9 +796,6 @@ msgstr "[berkas...]"
 #~ msgid "Could not display file"
 #~ msgstr "Tak bisa menampilkan berkas"
 
-#~ msgid "Reason"
-#~ msgstr "Alasan"
-
 #~ msgid "Cannot display a file of this type."
 #~ msgstr "Tak bisa menampilkan berkas jenis ini."
 
@@ -710,12 +817,6 @@ msgstr "[berkas...]"
 #~ msgctxt "capability"
 #~ msgid "Disabled"
 #~ msgstr "Dimatikan"
-
-#~ msgid "Unknown"
-#~ msgstr "Tak dikenal"
-
-#~ msgid "Invalid"
-#~ msgstr "Tak valid"
 
 #~ msgctxt "ownertrust"
 #~ msgid "Disabled"
@@ -834,9 +935,6 @@ msgstr "[berkas...]"
 
 #~ msgid "Subkey revocation signature"
 #~ msgstr "Tanda tangan pencabutan sub kunci"
-
-#~ msgid "Certification revocation signature"
-#~ msgstr "Tanda tangan pencabutan sertifikat"
 
 #~ msgid "Timestamp signature"
 #~ msgstr "Tanda tangan stempel waktu"
@@ -979,9 +1077,6 @@ msgstr "[berkas...]"
 
 #~ msgid "_Save"
 #~ msgstr "_Simpan"
-
-#~ msgid "Certificate files"
-#~ msgstr "Berkas sertifikat"
 
 #~ msgid "PEM files"
 #~ msgstr "Berkas PEM"

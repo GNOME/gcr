@@ -58,8 +58,10 @@ if p11_system_config_modules == ''
   error('Couldn\'t find location for pkcs11 module config')
 endif
 libsecret_dep = dependency('libsecret-1', version: '>= 0.20', required: get_option('ssh_agent'))
-ssh_add_path = find_program('ssh-add', required: get_option('ssh_agent')).full_path()
-ssh_agent_path = find_program('ssh-agent', required: get_option('ssh_agent')).full_path()
+if get_option('ssh_agent')
+  ssh_add_path = find_program('ssh-add').full_path()
+  ssh_agent_path = find_program('ssh-agent').full_path()
+endif
 
 with_systemd = false
 libsystemd_deps = []
@@ -96,8 +98,10 @@ conf.set('HAVE_TIMEGM', cc.has_function('timegm'))
 conf.set('HAVE_MLOCK', cc.has_function('mlock'))
 conf.set_quoted('GPG_EXECUTABLE', gpg_path)
 conf.set_quoted('LIBGCRYPT_VERSION', libgcrypt_dep.version())
-conf.set_quoted('SSH_ADD_EXECUTABLE', ssh_add_path)
-conf.set_quoted('SSH_AGENT_EXECUTABLE', ssh_agent_path)
+if get_option('ssh_agent')
+  conf.set_quoted('SSH_ADD_EXECUTABLE', ssh_add_path)
+  conf.set_quoted('SSH_AGENT_EXECUTABLE', ssh_agent_path)
+endif
 conf.set10('WITH_SYSTEMD', with_systemd)
 config_file = configure_file(
   output: 'config.h',

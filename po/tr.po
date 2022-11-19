@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-09-04 18:07+0000\n"
-"PO-Revision-Date: 2022-07-22 17:35+0300\n"
+"POT-Creation-Date: 2022-11-13 14:29+0000\n"
+"PO-Revision-Date: 2022-11-19 19:44+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-POOTLE-MTIME: 1420669651.000000\n"
 
 #: egg/egg-oid.c:40
@@ -160,82 +160,195 @@ msgstr "RSA ile MD5"
 msgid "SHA1 with RSA"
 msgstr "RSA ile SHA1"
 
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "OAEP doldurmalı RSA"
+
 #: egg/egg-oid.c:115
+msgid "RSA with MGF1"
+msgstr "RSA ile MGF1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "RSA-PSS ile RSA imzası"
+
+#: egg/egg-oid.c:117
+msgid "SHA256 with RSA encryption"
+msgstr "RSA şifreleme ile SHA256"
+
+#: egg/egg-oid.c:118
+msgid "SHA384 with RSA encryption"
+msgstr "RSA şifreleme ile SHA384"
+
+#: egg/egg-oid.c:119
+msgid "SHA512 with RSA encryption"
+msgstr "RSA şifreleme ile SHA512"
+
+#: egg/egg-oid.c:120
+msgid "SHA224 with RSA encryption"
+msgstr "RSA şifreleme ile SHA224"
+
+#: egg/egg-oid.c:122
 msgid "DSA"
 msgstr "DSA"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:123
 msgid "SHA1 with DSA"
 msgstr "DSA ile SHA1"
 
-#: egg/egg-oid.c:118
+#: egg/egg-oid.c:125
 msgid "Elliptic Curve"
 msgstr "Eliptik Eğri"
 
-#: egg/egg-oid.c:119
+#: egg/egg-oid.c:126
 msgid "SHA1 with ECDSA"
 msgstr "ECDSA ile SHA1"
 
-#: egg/egg-oid.c:120
+#: egg/egg-oid.c:127
 msgid "SHA224 with ECDSA"
 msgstr "ECDSA ile SHA224"
 
-#: egg/egg-oid.c:121
+#: egg/egg-oid.c:128
 msgid "SHA256 with ECDSA"
 msgstr "ECDSA ile SHA256"
 
-#: egg/egg-oid.c:122
+#: egg/egg-oid.c:129
 msgid "SHA384 with ECDSA"
 msgstr "ECDSA ile SHA384"
 
-#: egg/egg-oid.c:123
+#: egg/egg-oid.c:130
 msgid "SHA512 with ECDSA"
 msgstr "ECDSA ile SHA512"
 
-#: egg/egg-oid.c:125
+#: egg/egg-oid.c:132
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001 ile GOST R 34.11-94"
 
-#: egg/egg-oid.c:126
+#: egg/egg-oid.c:133
 msgid "GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001"
 
-#: egg/egg-oid.c:127
+#: egg/egg-oid.c:134
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.10-2012 256-bit eğri"
 
-#: egg/egg-oid.c:128
+#: egg/egg-oid.c:135
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.10-2012 512-bit eğri"
 
-#: egg/egg-oid.c:129
+#: egg/egg-oid.c:136
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.10-2012 256-bit eğri ile GOST R 34.11-2012/256"
 
-#: egg/egg-oid.c:130
+#: egg/egg-oid.c:137
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.10-2012 512-bit eğri ile GOST R 34.11-2012/512"
 
 #. Extended Key Usages
-#: egg/egg-oid.c:133
+#: egg/egg-oid.c:140
 msgid "Server Authentication"
 msgstr "Sunucu Kimlik Denetimi"
 
-#: egg/egg-oid.c:134
+#: egg/egg-oid.c:141
 msgid "Client Authentication"
 msgstr "İstemci Kimlik Denetimi"
 
-#: egg/egg-oid.c:135
+#: egg/egg-oid.c:142
 msgid "Code Signing"
 msgstr "Kod İmzalama"
 
-#: egg/egg-oid.c:136
+#: egg/egg-oid.c:143
 msgid "Email Protection"
 msgstr "E-posta Koruma"
 
-#: egg/egg-oid.c:137
+#: egg/egg-oid.c:144
 msgid "Time Stamping"
 msgstr "Zaman Damgalama"
+
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+msgid "Certificate Authority Information Access"
+msgstr "Sertifika Yetkilisi Bilgi Erişimi"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "Konu dizin öznitelikleri sertifika eklentisi"
+
+#: egg/egg-oid.c:149
+msgid "Subject key identifier"
+msgstr "Konu anahtar tanımlayıcısı"
+
+#: egg/egg-oid.c:150
+msgid "Key usage"
+msgstr "Anahtar kullanımı"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "Özel anahtar kullanım dönemi"
+
+#: egg/egg-oid.c:152
+msgid "Subject alternative name"
+msgstr "Konu diğer adı"
+
+#: egg/egg-oid.c:153
+msgid "Issuer alternative name"
+msgstr "Veren diğer adı"
+
+#: egg/egg-oid.c:154
+msgid "Basic constraints"
+msgstr "Temel kısıtlar"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "CRL sayısı"
+
+#: egg/egg-oid.c:156
+msgid "Reason code"
+msgstr "Neden kodu"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr "Yönerge kodunu tut"
+
+#: egg/egg-oid.c:158
+msgid "Invalidity date"
+msgstr "Geçersizlik tarihi"
+
+#: egg/egg-oid.c:159
+msgid "Certificate Revocation List indicator"
+msgstr "Sertifika İptal Listesi belirteci"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr "Veriş dağıtım noktası"
+
+#: egg/egg-oid.c:161
+msgid "Certificate issuer"
+msgstr "Sertifika veren"
+
+#: egg/egg-oid.c:162
+msgid "Name constraints"
+msgstr "Ad kısıtları"
+
+#: egg/egg-oid.c:163
+msgid "Certificate Revocation List distribution points"
+msgstr "Sertifika İptal Listesi dağıtım noktaları"
+
+#: egg/egg-oid.c:164
+msgid "Certificate policies"
+msgstr "Sertifika ilkeleri"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "İlke eşleştirmeleri"
+
+#: egg/egg-oid.c:166
+msgid "Policy constraints"
+msgstr "İlke kısıtları"
+
+#: egg/egg-oid.c:167
+msgid "Authority key identifier"
+msgstr "Yetkili anahtar tanımlayıcısı"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -594,8 +707,7 @@ msgstr "Özel anahtar kilidini açmak için parolayı gir"
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
-msgstr ""
-"Bir uygulama “%s” özel anahtarına erişmek istiyor ancak anahtar kilitli"
+msgstr "Bir uygulama “%s” özel anahtarına erişmek istiyor ancak anahtar kilitli"
 
 #: gcr/gcr-ssh-agent-interaction.c:161
 msgid "Automatically unlock this key whenever I’m logged in"

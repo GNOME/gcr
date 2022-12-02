@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-10-03 08:27+0000\n"
+"POT-Creation-Date: 2022-11-20 14:13+0000\n"
 "Last-Translator: Нанба Наала <naala-nanba@rambler.ru>\n"
 "Language-Team: Abkhazian <daniel.abzakh@gmail.com>\n"
 "Language: ab\n"
@@ -267,23 +267,23 @@ msgstr "Ацаҧха  ахышәарақәа "
 
 #: gcr/gcr-certificate.c:895
 msgid "Key Size"
-msgstr ""
+msgstr "Ацаҧха ашәагаа"
 
 #: gcr/gcr-certificate.c:905
 msgid "Key SHA1 Fingerprint"
-msgstr ""
+msgstr "SHA1 ашьаҭа ацаҧха азы"
 
 #: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
 msgid "Public Key"
-msgstr ""
+msgstr "Иаарту ацаҧха"
 
 #: gcr/gcr-certificate.c:923
 msgid "Basic Constraints"
-msgstr ""
+msgstr "Ихадоу аҧкрақәа"
 
 #: gcr/gcr-certificate.c:924
 msgid "Certificate Authority"
-msgstr ""
+msgstr "Арҵабыргра ацентр"
 
 #: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
 msgid "Yes"
@@ -291,55 +291,55 @@ msgstr "Ааи"
 
 #: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
 msgid "No"
-msgstr ""
+msgstr "Мап"
 
 #: gcr/gcr-certificate.c:927
 msgid "Unlimited"
-msgstr ""
+msgstr "Иҳәаақәҵам"
 
 #: gcr/gcr-certificate.c:931
 msgid "Max Path Length"
-msgstr ""
+msgstr "Амҩа иреиҳаӡоу ашәагаа"
 
 #: gcr/gcr-certificate.c:955
 msgid "Extended Key Usage"
-msgstr ""
+msgstr "Ацаҧха ирҭбааны ахархәара аҭара"
 
 #: gcr/gcr-certificate.c:956
 msgid "Allowed Purposes"
-msgstr ""
+msgstr "Ззин ыҟоу ахықәкқәа"
 
 #: gcr/gcr-certificate.c:973
 msgid "Subject Key Identifier"
-msgstr ""
+msgstr "Аиуҩы ицаҧха аиԥшрагәаҭага"
 
 #: gcr/gcr-certificate.c:976
 msgid "Key Identifier"
-msgstr ""
+msgstr "Ацаҧха аиԥшрагәаҭага"
 
 #: gcr/gcr-certificate.c:985
 msgid "Digital signature"
-msgstr ""
+msgstr "Аԥхьаӡацтә напаҵыҩра"
 
 #: gcr/gcr-certificate.c:986
 msgid "Non repudiation"
-msgstr ""
+msgstr "Ишьақәырӷәӷәам"
 
 #: gcr/gcr-certificate.c:987
 msgid "Key encipherment"
-msgstr ""
+msgstr "Ацаҧха ашифрркра"
 
 #: gcr/gcr-certificate.c:988
 msgid "Data encipherment"
-msgstr ""
+msgstr "Ашифрркра адыррақәа"
 
 #: gcr/gcr-certificate.c:989
 msgid "Key agreement"
-msgstr ""
+msgstr "Ацаҧха аиқәыршаҳаҭра"
 
 #: gcr/gcr-certificate.c:990
 msgid "Certificate signature"
-msgstr ""
+msgstr "Асертефикат анапаҵыҩра"
 
 #: gcr/gcr-certificate.c:991
 msgid "Revocation list signature"
@@ -375,7 +375,7 @@ msgstr ""
 
 #: gcr/gcr-certificate.c:1060
 msgid "Value"
-msgstr ""
+msgstr "Аҵакы"
 
 #: gcr/gcr-certificate.c:1100
 msgid "Critical"
@@ -404,7 +404,7 @@ msgstr ""
 #. The subject
 #: gcr/gcr-certificate.c:1203
 msgid "Subject Name"
-msgstr ""
+msgstr "Аиуҩ ихьӡ"
 
 #. The Issuer
 #: gcr/gcr-certificate.c:1209
@@ -430,17 +430,17 @@ msgstr ""
 
 #: gcr/gcr-certificate.c:1253
 msgid "Certificate Fingerprints"
-msgstr ""
+msgstr "Асертефикат ашьҭақәа"
 
 #. Public Key Info
 #: gcr/gcr-certificate.c:1263
 msgid "Public Key Info"
-msgstr ""
+msgstr "Иаарту ацаҧха иазку аинформациа"
 
 #. Signature
 #: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
 msgid "Signature"
-msgstr ""
+msgstr "Анапынҵамҭа"
 
 #: gcr/gcr-certificate.c:1283
 msgid "Signature Algorithm"
@@ -630,869 +630,3 @@ msgstr ""
 #: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr ""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy

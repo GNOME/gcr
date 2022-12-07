@@ -3,7 +3,7 @@ stages:
   - deploy
 
 variables:
-  DEPENDENCIES: dbus-daemon diffutils gcc gi-docgen libsecret-devel meson ninja-build openssh openssh-clients python redhat-rpm-config systemd-devel
+  DEPENDENCIES: dbus-daemon diffutils gcc gi-docgen libsecret-devel meson ninja-build openssh openssh-clients python redhat-rpm-config systemd-devel gtk3-devel glib-devel gnupg2 libgcrypt-devel p11-kit-devel libsecret-devel
 
 fedora:Werror:
   image: fedora:latest
@@ -11,7 +11,6 @@ fedora:Werror:
   before_script:
     - dnf upgrade -y
     - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES
-    - dnf builddep -y gcr
   script:
     - meson _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations -Dgtk_doc=false
     - meson compile -C _build

@@ -35,8 +35,6 @@ You can find the nightly documentation at:
 
 * Gck: https://gnome.pages.gitlab.gnome.org/gcr/gck-2/
 * Gcr: https://gnome.pages.gitlab.gnome.org/gcr/gcr-4/
-* GcrGtk4: https://gnome.pages.gitlab.gnome.org/gcr/gcr-4-gtk4/
-* GcrGtk3: https://gnome.pages.gitlab.gnome.org/gcr/gcr-4-gtk3/
 
 You can find the older GCR documentation at:
 

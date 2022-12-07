@@ -87,15 +87,14 @@ fedora:coverage:
 pages:
   image: fedora:latest
   stage: deploy
-  only:
-    - master
   needs: ['fedora:coverage']
   before_script:
     - dnf upgrade -y
     - dnf install -y curl unzip
   script:
     - mkdir public
-    - 'curl --location --output gcr-3.zip "https://gitlab.gnome.org/api/v4/projects/${CI_PROJECT_ID}/jobs/artifacts/gnome-41-ci/download?job=fedora:coverage&job_token=${CI_JOB_TOKEN}"'
+    - 'curl --location --output gcr-3.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://gitlab.gnome.org/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/gnome-41-ci/download?job=fedora:coverage"'
+    - ls -ll gcr-3.zip
     - unzip -q gcr-3.zip -d gcr-3
     - mv gcr-3/_build/docs/gck/gck-1 public/gck-1
     - mv gcr-3/_build/docs/gcr/gcr-3 public/gcr-3

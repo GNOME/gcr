@@ -46,7 +46,7 @@ on_parser_parsed (GcrParser *parser,
 	*cert = gcr_simple_certificate_new (attr->value, attr->length);
 }
 
-GcrCertificate *
+static GcrCertificate *
 simple_certificate_new_from_file (GFile         *file,
                                   GCancellable  *cancellable,
                                   GError       **error)
@@ -78,6 +78,26 @@ simple_certificate_new_from_file (GFile         *file,
 	return cert;
 }
 
+static GcrCertificate *
+simple_certificate_new_from_commandline_arg (const gchar   *arg,
+                                             GCancellable  *cancellable,
+                                             GError       **error)
+{
+	GcrCertificate *cert;
+
+	if (g_str_has_prefix (arg, "pkcs11:")) {
+		cert = gcr_pkcs11_certificate_new_from_uri (arg, cancellable, error);
+	} else {
+		GFile *file;
+
+		file = g_file_new_for_commandline_arg (arg);
+		cert = simple_certificate_new_from_file (file, cancellable, error);
+		g_object_unref (file);
+	}
+
+	return cert;
+}
+
 
 static void
 activate (GtkApplication* app,
@@ -100,14 +120,11 @@ activate (GtkApplication* app,
 
 	if (remaining_args) {
 		for (int i = 0; remaining_args[i] != NULL; ++i) {
-			GFile *file;
 			GError *error = NULL;
 			GcrCertificate *certificate;
 			GtkWidget *widget;
 
-			file = g_file_new_for_commandline_arg (remaining_args[i]);
-			certificate = simple_certificate_new_from_file (file, cancellable, &error);
-			g_object_unref (file);
+			certificate = simple_certificate_new_from_commandline_arg (remaining_args[i], cancellable, &error);
 			widget = gcr_certificate_widget_new (GCR_CERTIFICATE (certificate));
 			g_object_unref (certificate);
 			gtk_widget_set_halign (widget, GTK_ALIGN_CENTER);

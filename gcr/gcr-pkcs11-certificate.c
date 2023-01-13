@@ -409,3 +409,110 @@ gcr_pkcs11_certificate_lookup_issuer_finish (GAsyncResult *result, GError **erro
 
 	return g_task_propagate_pointer (G_TASK (result), error);
 }
+
+/**
+ * gcr_pkcs11_certificate_new_from_uri:
+ * @pkcs11_uri: a A PKCS \#11 URI
+ * @cancellable: (nullable): a #GCancellable
+ * @error: a #GError, or %NULL
+ *
+ * Lookup a certificate in the PKCS#11 storage by the given URI.
+ *
+ * This call may block, see gcr_pkcs11_certificate_new_from_uri_async() for the
+ * non-blocking version.
+ *
+ * Will return %NULL if no certificate is found. Use @error to determine
+ * if an error occurred.
+ *
+ * Returns: (transfer full) (nullable): a new #GcrCertificate, or %NULL
+ */
+GcrCertificate *
+gcr_pkcs11_certificate_new_from_uri (const gchar *pkcs11_uri,
+				     GCancellable *cancellable,
+				     GError **error)
+{
+	GckUriData *data;
+	GcrCertificate *cert;
+
+	g_return_val_if_fail (pkcs11_uri != NULL, NULL);
+	g_return_val_if_fail (cancellable == NULL || G_CANCELLABLE (cancellable), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+	data = gck_uri_data_parse (pkcs11_uri,  GCK_URI_FOR_OBJECT, error);
+	g_return_val_if_fail (data != NULL, NULL);
+
+	cert = perform_lookup_certificate (data->attributes, cancellable, error);
+	gck_uri_data_free (data);
+
+	return cert;
+}
+
+/**
+ * gcr_pkcs11_certificate_new_from_uri_async:
+ * @pkcs11_uri: a A PKCS \#11 URI
+ * @cancellable: (nullable): a #GCancellable
+ * @callback: a #GAsyncReadyCallback to call when the operation completes
+ * @user_data: the data to pass to callback function
+ *
+ * Lookup a certificate in the PKCS#11 storage by the given URI.
+ *
+ * When the operation is finished, callback will be called. You can then call
+ * gcr_pkcs11_certificate_new_from_uri_finish() to get the result of the
+ * operation.
+ */
+void
+gcr_pkcs11_certificate_new_from_uri_async (const gchar *pkcs11_uri,
+					   GCancellable *cancellable,
+					   GAsyncReadyCallback callback,
+					   gpointer user_data)
+{
+	GTask *task;
+	GckUriData *data;
+	GError *error = NULL;
+
+	g_return_if_fail (pkcs11_uri != NULL);
+	g_return_if_fail (cancellable == NULL || G_CANCELLABLE (cancellable));
+
+	task = g_task_new (NULL, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gcr_pkcs11_certificate_new_from_uri_async);
+
+	data = gck_uri_data_parse (pkcs11_uri,  GCK_URI_FOR_OBJECT, &error);
+	if (data == NULL) {
+		g_task_return_error (task, error);
+		return;
+	}
+
+	g_task_set_task_data (task, g_steal_pointer (&data->attributes), gck_attributes_unref);
+	gck_uri_data_free (data);
+
+	g_task_run_in_thread (task, thread_lookup_certificate);
+
+	g_object_unref (task);
+}
+
+/**
+ * gcr_pkcs11_certificate_new_from_uri_finish:
+ * @result: the #GAsyncResult passed to the callback
+ * @error: a #GError, or %NULL
+ *
+ * Finishes an asynchronous operation started by
+ * gcr_pkcs11_certificate_new_from_uri_async().
+ *
+ * Will return %NULL if no certificate is found. Use @error to determine
+ * if an error occurred.
+ *
+ * Returns: (transfer full) (nullable): a new #GcrCertificate, or %NULL
+ */
+GcrCertificate *
+gcr_pkcs11_certificate_new_from_uri_finish (GAsyncResult *result,
+					    GError **error)
+{
+	GObject *source;
+
+	g_return_val_if_fail (G_IS_TASK (result), NULL);
+
+	source = g_task_get_source_object (G_TASK (result));
+	g_return_val_if_fail (g_task_is_valid (result, source), NULL);
+
+	return g_task_propagate_pointer (G_TASK (result), error);
+}

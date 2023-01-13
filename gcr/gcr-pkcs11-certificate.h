@@ -72,6 +72,18 @@ void                    gcr_pkcs11_certificate_lookup_issuer_async    (GcrCertif
 GcrCertificate*         gcr_pkcs11_certificate_lookup_issuer_finish   (GAsyncResult *result,
                                                                        GError **error);
 
+GcrCertificate*         gcr_pkcs11_certificate_new_from_uri           (const gchar *pkcs11_uri,
+								       GCancellable *cancellable,
+								       GError **error);
+
+void                    gcr_pkcs11_certificate_new_from_uri_async     (const gchar *pkcs11_uri,
+								       GCancellable *cancellable,
+								       GAsyncReadyCallback callback,
+								       gpointer user_data);
+
+GcrCertificate*         gcr_pkcs11_certificate_new_from_uri_finish    (GAsyncResult *result,
+								       GError **error);
+
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GcrPkcs11Certificate, g_object_unref)
 
 G_END_DECLS

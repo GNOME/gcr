@@ -94,6 +94,7 @@ setup (Test *test, gconstpointer unused)
 	gck_builder_add_data (&builder, CKA_SUBJECT,
 	                      g_bytes_get_data (subject, NULL),
 	                      g_bytes_get_size (subject));
+	gck_builder_add_string (&builder, CKA_ID, "test-issuer");
 	gck_mock_module_add_object (gck_builder_end (&builder));
 
 	g_bytes_unref (bytes);
@@ -116,14 +117,42 @@ teardown (Test *test, gconstpointer unused)
 }
 
 static void
-test_lookup_certificate_issuer (Test *test, gconstpointer unused)
+assert_pkcs11_certificates_matches (Test *test, GcrCertificate *cert)
 {
-	GcrCertificate *cert, *issuer;
-	GError *error = NULL;
 	GckAttributes *attrs;
 	const GckAttribute *attr;
 	gconstpointer der;
 	gsize n_der;
+
+	/* Should be the same certificate */
+	der = gcr_certificate_get_der_data (cert, &n_der);
+	egg_assert_cmpsize (n_der, ==, test->n_cert_data);
+	g_assert (memcmp (der, test->cert_data, test->n_cert_data) == 0);
+
+	/* Should return the same certificate here too */
+	attrs = gcr_pkcs11_certificate_get_attributes (GCR_PKCS11_CERTIFICATE (cert));
+	g_assert (attrs);
+	attr = gck_attributes_find (attrs, CKA_VALUE);
+	g_assert (attr);
+	egg_assert_cmpsize (attr->length, ==, test->n_cert_data);
+	g_assert (memcmp (attr->value, test->cert_data, test->n_cert_data) == 0);
+
+	/* Should return the same certificate here too */
+	attrs = NULL;
+	g_object_get (cert, "attributes", &attrs, NULL);
+	g_assert (attrs);
+	attr = gck_attributes_find (attrs, CKA_VALUE);
+	g_assert (attr);
+	egg_assert_cmpsize (attr->length, ==, test->n_cert_data);
+	g_assert (memcmp (attr->value, test->cert_data, test->n_cert_data) == 0);
+	gck_attributes_unref (attrs);
+}
+
+static void
+test_lookup_certificate_issuer (Test *test, gconstpointer unused)
+{
+	GcrCertificate *cert, *issuer;
+	GError *error = NULL;
 
 	cert = gcr_simple_certificate_new_static (test->cert_data, test->n_cert_data);
 	g_assert (cert);
@@ -133,28 +162,7 @@ test_lookup_certificate_issuer (Test *test, gconstpointer unused)
 	g_assert (GCR_IS_PKCS11_CERTIFICATE (issuer));
 	g_assert (error == NULL);
 
-	/* Should be the same certificate */
-	der = gcr_certificate_get_der_data (issuer, &n_der);
-	egg_assert_cmpsize (n_der, ==, test->n_cert_data);
-	g_assert (memcmp (der, test->cert_data, test->n_cert_data) == 0);
-
-	/* Should return the same certificate here too */
-	attrs = gcr_pkcs11_certificate_get_attributes (GCR_PKCS11_CERTIFICATE (issuer));
-	g_assert (attrs);
-	attr = gck_attributes_find (attrs, CKA_VALUE);
-	g_assert (attr);
-	egg_assert_cmpsize (attr->length, ==, test->n_cert_data);
-	g_assert (memcmp (attr->value, test->cert_data, test->n_cert_data) == 0);
-
-	/* Should return the same certificate here too */
-	attrs = NULL;
-	g_object_get (issuer, "attributes", &attrs, NULL);
-	g_assert (attrs);
-	attr = gck_attributes_find (attrs, CKA_VALUE);
-	g_assert (attr);
-	egg_assert_cmpsize (attr->length, ==, test->n_cert_data);
-	g_assert (memcmp (attr->value, test->cert_data, test->n_cert_data) == 0);
-	gck_attributes_unref (attrs);
+	assert_pkcs11_certificates_matches (test, issuer);
 
 	g_object_unref (cert);
 	g_object_unref (issuer);
@@ -191,8 +199,6 @@ test_lookup_certificate_issuer_async (Test *test, gconstpointer unused)
 	GAsyncResult *result = NULL;
 	GcrCertificate *cert, *issuer;
 	GError *error = NULL;
-	gconstpointer der;
-	gsize n_der;
 
 	cert = gcr_simple_certificate_new_static (test->cert_data, test->n_cert_data);
 	g_assert (cert);
@@ -207,10 +213,7 @@ test_lookup_certificate_issuer_async (Test *test, gconstpointer unused)
 	g_object_unref (result);
 	result = NULL;
 
-	/* Should be the same certificate */
-	der = gcr_certificate_get_der_data (issuer, &n_der);
-	egg_assert_cmpsize (n_der, ==, test->n_cert_data);
-	g_assert (memcmp (der, test->cert_data, test->n_cert_data) == 0);
+	assert_pkcs11_certificates_matches (test, issuer);
 
 	g_object_unref (cert);
 	g_object_unref (issuer);
@@ -265,6 +268,50 @@ test_lookup_certificate_issuer_fail_async (Test *test, gconstpointer unused)
 	g_object_unref (cert);
 }
 
+static void
+test_new_from_uri (Test *test, gconstpointer unused)
+{
+	GcrCertificate *cert, *issuer;
+	GError *error = NULL;
+
+	cert = gcr_simple_certificate_new_static (test->cert_data, test->n_cert_data);
+	g_assert (cert);
+
+	issuer = gcr_pkcs11_certificate_new_from_uri ("pkcs11:id=test-issuer", NULL, &error);
+	g_assert (GCR_IS_PKCS11_CERTIFICATE (issuer));
+	g_assert (error == NULL);
+
+	assert_pkcs11_certificates_matches (test, issuer);
+
+	g_object_unref (cert);
+	g_object_unref (issuer);
+}
+
+static void
+test_new_from_uri_async (Test *test, gconstpointer unused)
+{
+	GAsyncResult *result = NULL;
+	GcrCertificate *cert, *issuer;
+	GError *error = NULL;
+
+	cert = gcr_simple_certificate_new_static (test->cert_data, test->n_cert_data);
+	g_assert (cert);
+
+	gcr_pkcs11_certificate_new_from_uri_async ("pkcs11:id=test-issuer", NULL, fetch_async_result, &result);
+	egg_test_wait_until (500);
+	g_assert (result);
+	issuer = gcr_pkcs11_certificate_new_from_uri_finish (result, &error);
+	g_assert (GCR_IS_PKCS11_CERTIFICATE (issuer));
+	g_assert (error == NULL);
+	g_object_unref (result);
+	result = NULL;
+
+	assert_pkcs11_certificates_matches (test, issuer);
+
+	g_object_unref (cert);
+	g_object_unref (issuer);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -276,6 +323,8 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/pkcs11-certificate/lookup_certificate_issuer_async", Test, NULL, setup, test_lookup_certificate_issuer_async, teardown);
 	g_test_add ("/gcr/pkcs11-certificate/lookup_certificate_issuer_failure", Test, NULL, setup, test_lookup_certificate_issuer_failure, teardown);
 	g_test_add ("/gcr/pkcs11-certificate/lookup_certificate_issuer_fail_async", Test, NULL, setup, test_lookup_certificate_issuer_fail_async, teardown);
+	g_test_add ("/gcr/pkcs11-certificate/new_from_uri", Test, NULL, setup, test_new_from_uri, teardown);
+	g_test_add ("/gcr/pkcs11-certificate/new_from_uri_async", Test, NULL, setup, test_new_from_uri_async, teardown);
 
 	return egg_tests_run_with_loop ();
 }

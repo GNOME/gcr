@@ -41,6 +41,8 @@ fedora:asan:
   artifacts:
     name: "gcr-asan-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     when: always
+    reports:
+      junit: "_build/meson-logs/testlog.junit.xml"
     paths:
       - "_build/config.h"
       - "_build/meson-logs"
@@ -58,6 +60,8 @@ fedora:ubsan:
   artifacts:
     name: "gcr-ubsan-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     when: always
+    reports:
+      junit: "_build/meson-logs/testlog.junit.xml"
     paths:
       - "_build/config.h"
       - "_build/meson-logs"
@@ -78,6 +82,8 @@ fedora:coverage:
   artifacts:
     name: "gcr-coverage-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     when: always
+    reports:
+      junit: "_build/meson-logs/testlog.junit.xml"
     paths:
       - "_build/config.h"
       - "_build/meson-logs"

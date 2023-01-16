@@ -267,22 +267,22 @@ ensure_key (GcrSshAgentService *self,
 	g_object_unref (interaction);
 
 	if (!g_spawn_sync (NULL, argv, NULL,
-			   G_SPAWN_STDOUT_TO_DEV_NULL,
+	                   G_SPAWN_STDOUT_TO_DEV_NULL,
 	                   gcr_ssh_askpass_child_setup, askpass,
 	                   NULL, &standard_error, &status, &error)) {
 		g_warning ("couldn't run %s: %s", argv[0], error->message);
-		g_error_free (error);
 	} else if (!g_spawn_check_exit_status (status, &error)) {
 		g_message ("the %s command failed: %s", argv[0], error->message);
 		g_printerr ("%s", _gcr_ssh_agent_canon_error (standard_error));
-		g_free (standard_error);
 	} else {
 		add_key (self, key);
 	}
 
+	g_free (standard_error);
 	g_hash_table_unref (fields);
 	g_free (unique);
 	gcr_ssh_agent_key_info_free (info);
+	g_clear_error (&error);
 	g_object_unref (askpass);
 }
 

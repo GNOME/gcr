@@ -72,9 +72,9 @@ teardown (Test *test, gconstpointer unused)
 static void
 connect_to_process (Test *test)
 {
-	GError *error;
+	GError *error = NULL;
 
-	error = NULL;
+	g_assert_null (test->connection);
 	test->connection = gcr_ssh_agent_process_connect (test->process, NULL, &error);
 	g_assert_nonnull (test->connection);
 	g_assert_no_error (error);
@@ -196,6 +196,7 @@ test_restart (Test *test, gconstpointer unused)
 	pid = gcr_ssh_agent_process_get_pid (test->process);
 	g_assert_cmpint (0, ==, pid);
 
+	g_clear_object (&test->connection);
 	connect_to_process (test);
 
 	pid = gcr_ssh_agent_process_get_pid (test->process);

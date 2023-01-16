@@ -1056,7 +1056,7 @@ append_extension_hex (GQuark oid,
 
 	/* Extension type */
 	text = egg_oid_get_description (oid);
-	_gcr_certificate_section_new_field (section, _("Identifier"), g_strdup (text));
+	_gcr_certificate_section_new_field (section, _("Identifier"), text);
 	_gcr_certificate_section_new_field_take_bytes (section, _("Value"), g_steal_pointer (&value));
 
 	return section;

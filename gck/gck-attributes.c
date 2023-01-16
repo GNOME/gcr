@@ -196,7 +196,7 @@ gck_builder_new (GckBuilderFlags flags)
 {
 	GckBuilder *builder;
 	GckRealBuilder *real;
-	builder = g_slice_new (GckBuilder);
+	builder = g_new0 (GckBuilder, 1);
 	gck_builder_init_full (builder, flags);
 	real = (GckRealBuilder *)builder;
 	real->refs = 1;
@@ -252,7 +252,7 @@ gck_builder_unref (GckBuilder *builder)
 
 	if (g_atomic_int_dec_and_test (&real->refs)) {
 		gck_builder_clear (builder);
-		g_slice_free (GckBuilder, builder);
+		g_free (builder);
 	}
 }
 
@@ -1290,7 +1290,7 @@ gck_builder_end (GckBuilder *builder)
 		data = NULL;
 	}
 
-	attrs = g_slice_new0 (GckAttributes);
+	attrs = g_new0 (GckAttributes, 1);
 	attrs->count = length;
 	attrs->data = data;
 	attrs->refs = 1;
@@ -1688,7 +1688,7 @@ gck_attribute_new (gulong attr_type,
                    const guchar *value,
                    gsize length)
 {
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	GckAttribute *attr = g_new0 (GckAttribute, 1);
 	gck_attribute_init (attr, attr_type, value, length);
 	return attr;
 }
@@ -1707,7 +1707,7 @@ gck_attribute_new (gulong attr_type,
 GckAttribute *
 gck_attribute_new_invalid (gulong attr_type)
 {
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	GckAttribute *attr = g_new0 (GckAttribute, 1);
 	gck_attribute_init_invalid (attr, attr_type);
 	return attr;
 }
@@ -1724,7 +1724,7 @@ gck_attribute_new_invalid (gulong attr_type)
 GckAttribute *
 gck_attribute_new_empty (gulong attr_type)
 {
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	GckAttribute *attr = g_new0 (GckAttribute, 1);
 	gck_attribute_init_empty (attr, attr_type);
 	return attr;
 }
@@ -1744,7 +1744,7 @@ GckAttribute *
 gck_attribute_new_boolean (gulong attr_type,
                            gboolean value)
 {
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	GckAttribute *attr = g_new0 (GckAttribute, 1);
 	gck_attribute_init_boolean (attr, attr_type, value);
 	return attr;
 }
@@ -1764,7 +1764,7 @@ GckAttribute *
 gck_attribute_new_date (gulong attr_type,
                         const GDate *value)
 {
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	GckAttribute *attr = g_new0 (GckAttribute, 1);
 	gck_attribute_init_date (attr, attr_type, value);
 	return attr;
 }
@@ -1784,7 +1784,7 @@ GckAttribute *
 gck_attribute_new_ulong (gulong attr_type,
                          gulong value)
 {
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	GckAttribute *attr = g_new0 (GckAttribute, 1);
 	gck_attribute_init_ulong (attr, attr_type, value);
 	return attr;
 }
@@ -1806,7 +1806,7 @@ GckAttribute *
 gck_attribute_new_string (gulong attr_type,
                           const gchar *value)
 {
-	GckAttribute *attr = g_slice_new0 (GckAttribute);
+	GckAttribute *attr = g_new0 (GckAttribute, 1);
 	gck_attribute_init_string (attr, attr_type, value);
 	return attr;
 }
@@ -1832,7 +1832,7 @@ gck_attribute_dup (const GckAttribute *attr)
 	if (!attr)
 		return NULL;
 
-	copy = g_slice_new0 (GckAttribute);
+	copy = g_new0 (GckAttribute, 1);
 	gck_attribute_init_copy (copy, attr);
 	return copy;
 }
@@ -1904,7 +1904,7 @@ gck_attribute_free (gpointer attr)
 	GckAttribute *a = attr;
 	if (attr) {
 		gck_attribute_clear (a);
-		g_slice_free (GckAttribute, a);
+		g_free (a);
 	}
 }
 
@@ -2210,7 +2210,7 @@ gck_attributes_unref (gpointer attrs)
 				value_unref (attr->value);
 		}
 		g_free (attrs_->data);
-		g_slice_free (GckAttributes, attrs_);
+		g_free (attrs_);
 	}
 }
 

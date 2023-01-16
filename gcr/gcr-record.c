@@ -99,7 +99,7 @@ record_flatten (GcrRecord *record)
 		total += strlen (record->columns[i]) + 1;
 
 	/* Allocate a new GcrRecordData which will hold all that */
-	result = g_slice_new0 (GcrRecord);
+	result = g_new0 (GcrRecord, 1);
 	result->block = block = record_block_new (NULL, total);
 
 	at = 0;
@@ -149,7 +149,7 @@ _gcr_record_new (GQuark schema,
 	GcrRecord *result;
 	guint i;
 
-	result = g_slice_new0 (GcrRecord);
+	result = g_new0 (GcrRecord, 1);
 	result->block = NULL;
 	result->delimiter = delimiter;
 
@@ -177,7 +177,7 @@ take_and_parse_internal (GcrRecordBlock *block,
 
 	g_assert (block);
 
-	result = g_slice_new0 (GcrRecord);
+	result = g_new0 (GcrRecord, 1);
 	result->block = block;
 	result->delimiter = delimiter;
 
@@ -725,7 +725,7 @@ _gcr_record_free (gpointer record)
 		g_free (block);
 	}
 
-	g_slice_free (GcrRecord, record);
+	g_free (record);
 }
 
 GQuark

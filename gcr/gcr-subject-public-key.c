@@ -508,7 +508,7 @@ load_closure_free (gpointer data)
 	LoadClosure *closure = data;
 	g_object_unref (closure->object);
 	gck_builder_clear (&closure->builder);
-	g_slice_free (LoadClosure, closure);
+	g_free (closure);
 }
 
 static void
@@ -539,7 +539,7 @@ _gcr_subject_public_key_load_async (GckObject *key,
 	task = g_task_new (NULL, cancellable, callback, user_data);
 	g_task_set_source_tag (task, _gcr_subject_public_key_load_async);
 
-	closure = g_slice_new0 (LoadClosure);
+	closure = g_new0 (LoadClosure, 1);
 	closure->object = g_object_ref (key);
 	lookup_attributes (key, &closure->builder);
 	g_task_set_task_data (task, closure, load_closure_free);

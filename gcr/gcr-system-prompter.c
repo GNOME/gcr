@@ -156,7 +156,7 @@ on_prompt_close (GcrPrompt *prompt,
 static Callback *
 callback_dup (Callback *original)
 {
-	Callback *callback = g_slice_new0 (Callback);
+	Callback *callback = g_new0 (Callback, 1);
 	g_assert (original != NULL);
 	g_assert (original->path != NULL);
 	g_assert (original->name != NULL);
@@ -171,7 +171,7 @@ callback_free (gpointer data)
 	Callback *callback = data;
 	g_free ((gchar *)callback->path);
 	g_free ((gchar *)callback->name);
-	g_slice_free (Callback, callback);
+	g_free (callback);
 }
 
 static guint
@@ -208,7 +208,7 @@ active_prompt_unref (gpointer data)
 		g_hash_table_destroy (active->changed);
 		if (active->exchange)
 			g_object_unref (active->exchange);
-		g_slice_free (ActivePrompt, active);
+		g_free (active);
 	}
 }
 
@@ -226,7 +226,7 @@ active_prompt_create (GcrSystemPrompter *self,
 {
 	ActivePrompt *active;
 
-	active = g_slice_new0 (ActivePrompt);
+	active = g_new0 (ActivePrompt, 1);
 	active->refs = 1;
 	active->callback = callback_dup (lookup);
 	active->prompter = g_object_ref (self);

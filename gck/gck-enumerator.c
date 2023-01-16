@@ -137,7 +137,7 @@ _gck_enumerator_result_free (gpointer data)
 	g_object_unref (result->session);
 	if (result->attrs)
 		gck_attributes_unref (result->attrs);
-	g_slice_free (GckEnumeratorResult, result);
+	g_free (result);
 }
 
 static gpointer
@@ -437,7 +437,7 @@ state_find (GckEnumeratorState *args,
 			g_debug ("matched %lu objects", count);
 
 			for (i = 0; i < count; i++) {
-				result = g_slice_new0 (GckEnumeratorResult);
+				result = g_new0 (GckEnumeratorResult, 1);
 				result->handle = objects[i];
 				result->session = g_object_ref (args->session);
 				g_queue_push_tail (args->found, result);

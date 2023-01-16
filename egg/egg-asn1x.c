@@ -208,7 +208,7 @@ allocator_closure_free (gpointer data)
 	AllocatorClosure *closure = data;
 	g_assert (closure->allocator);
 	(closure->allocator) (closure->allocated, 0);
-	g_slice_free (AllocatorClosure, closure);
+	g_free (closure);
 }
 
 static GBytes *
@@ -224,7 +224,7 @@ bytes_new_with_allocator (EggAllocator allocator,
 	if (allocator) {
 		*data = (allocator) (NULL, length + 1);
 		g_return_val_if_fail (*data != NULL, NULL);
-		closure = g_slice_new (AllocatorClosure);
+		closure = g_new0 (AllocatorClosure, 1);
 		closure->allocated = *data;
 		closure->allocator = allocator;
 		return g_bytes_new_with_free_func (*data, length,
@@ -239,7 +239,7 @@ bytes_new_with_allocator (EggAllocator allocator,
 static GNode*
 anode_new (const EggAsn1xDef *def)
 {
-	Anode *an = g_slice_new0 (Anode);
+	Anode *an = g_new0 (Anode, 1);
 	an->def = def;
 	return g_node_new (an);
 }
@@ -248,7 +248,7 @@ static gpointer
 anode_copy_func (gconstpointer src, gpointer unused)
 {
 	const Anode *san = src;
-	Anode *an = g_slice_new0 (Anode);
+	Anode *an = g_new0 (Anode, 1);
 	an->def = san->def;
 	an->join = san->join;
 	an->opts = g_list_copy (san->opts);
@@ -431,7 +431,7 @@ anode_opts_lookup (GNode *node, gint type, const gchar *name)
 static Atlv *
 atlv_new (void)
 {
-	return g_slice_new0 (Atlv);
+	return g_new0 (Atlv, 1);
 }
 
 static void
@@ -450,7 +450,7 @@ atlv_free (Atlv *tlv)
 	if (tlv->value)
 		g_bytes_unref (tlv->value);
 
-	g_slice_free (Atlv, tlv);
+	g_free (tlv);
 }
 
 static Atlv *
@@ -462,7 +462,7 @@ atlv_dup (Atlv *tlv,
 	if (!tlv)
 		return NULL;
 
-	copy = g_slice_new0 (Atlv);
+	copy = g_new0 (Atlv, 1);
 	memcpy (copy, tlv, sizeof (Atlv));
 
 	if (tlv->value != NULL)
@@ -563,7 +563,7 @@ anode_free_func (GNode *node, gpointer unused)
 	Anode *an = node->data;
 	anode_clear (node);
 	g_list_free (an->opts);
-	g_slice_free (Anode, an);
+	g_free (an);
 	return FALSE;
 }
 
@@ -1542,7 +1542,7 @@ atlv_sort_perform (Atlv *tlv,
 		bytes = atlv_unparse_to_bytes (ctlv, allocator);
 		g_return_if_fail (bytes != NULL);
 
-		pair = g_slice_new0 (SortPair);
+		pair = g_new0 (SortPair, 1);
 		pair->bytes = bytes;
 		pair->tlv = ctlv;
 		pairs = g_list_prepend (pairs, pair);
@@ -1566,7 +1566,7 @@ atlv_sort_perform (Atlv *tlv,
 		}
 
 		g_bytes_unref (pair->bytes);
-		g_slice_free (SortPair, pair);
+		g_free (pair);
 	}
 
 	g_list_free (pairs);

@@ -105,13 +105,13 @@ free_chain_private (gpointer data)
 	g_ptr_array_unref (pv->certificates);
 	g_free (pv->purpose);
 	g_free (pv->peer);
-	g_slice_free (GcrCertificateChainPrivate, pv);
+	g_free (pv);
 }
 
 static GcrCertificateChainPrivate*
 new_chain_private (void)
 {
-	GcrCertificateChainPrivate *pv = g_slice_new0 (GcrCertificateChainPrivate);
+	GcrCertificateChainPrivate *pv = g_new0 (GcrCertificateChainPrivate, 1);
 	pv->certificates = g_ptr_array_new_with_free_func (g_object_unref);
 	return pv;
 }

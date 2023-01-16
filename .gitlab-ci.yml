@@ -36,6 +36,7 @@ fedora:asan:
     - dnf builddep -y gcr
   script:
     - meson _build -Db_sanitize=address -Dgtk_doc=false
+    - export G_SLICE=always-malloc G_DEBUG=gc-friendly ASAN_OPTIONS=abort_on_error=1:fast_unwind_on_malloc=0
     - dbus-run-session -- meson test -C _build
   allow_failure: true
   artifacts:

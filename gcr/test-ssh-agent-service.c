@@ -310,6 +310,7 @@ call_empty (Test *test)
 	ret = _gcr_ssh_agent_read_packet (test->connection, &test->resp, NULL, &error);
 	g_assert_false (ret);
 	g_assert_error (error, G_IO_ERROR, G_IO_ERROR_CONNECTION_CLOSED);
+	g_clear_error (&error);
 }
 
 static void

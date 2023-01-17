@@ -1,17 +1,11 @@
+image: registry.gitlab.gnome.org/gnome/gcr/master:v1
+
 stages:
   - build
   - deploy
 
-variables:
-  DEPENDENCIES: dbus-daemon diffutils gcc gi-docgen libsecret-devel meson ninja-build openssh openssh-clients python redhat-rpm-config systemd-devel gtk4-devel
-
 fedora:Werror:
-  image: fedora:latest
   stage: build
-  before_script:
-    - dnf upgrade -y
-    - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES
-    - dnf builddep -y gcr
   script:
     - meson _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations -Dgtk_doc=false
     - meson compile -C _build
@@ -26,14 +20,9 @@ fedora:Werror:
       - "_build/meson-logs"
 
 fedora:asan:
-  image: fedora:latest
   stage: build
   tags:
     - asan # LSAN needs CAP_SYS_PTRACE
-  before_script:
-    - dnf upgrade -y
-    - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES libasan
-    - dnf builddep -y gcr
   script:
     - meson _build -Db_sanitize=address -Dgtk_doc=false
     - export G_SLICE=always-malloc G_DEBUG=gc-friendly ASAN_OPTIONS=abort_on_error=1:fast_unwind_on_malloc=0
@@ -49,12 +38,7 @@ fedora:asan:
       - "_build/meson-logs"
 
 fedora:ubsan:
-  image: fedora:latest
   stage: build
-  before_script:
-    - dnf upgrade -y
-    - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES libubsan
-    - dnf builddep -y gcr
   script:
     - meson _build -Db_sanitize=undefined -Dgtk_doc=false
     - dbus-run-session -- meson test -C _build
@@ -68,12 +52,7 @@ fedora:ubsan:
       - "_build/meson-logs"
 
 fedora:coverage:
-  image: fedora:latest
   stage: build
-  before_script:
-    - dnf upgrade -y
-    - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES lcov git gi-docgen gcovr
-    - dnf builddep -y gcr
   script:
     - meson _build -Db_coverage=true
     - dbus-run-session -- meson test -C _build
@@ -96,14 +75,10 @@ fedora:coverage:
       - "_build/meson-logs/coveragereport"
 
 pages:
-  image: fedora:latest
   stage: deploy
   only:
     - master
   needs: ['fedora:coverage']
-  before_script:
-    - dnf upgrade -y
-    - dnf install -y curl unzip
   script:
     - mkdir public
     - 'curl --location --output gcr-3.zip "https://gitlab.gnome.org/api/v4/projects/${CI_PROJECT_ID}/jobs/artifacts/gnome-41-ci/download?job=fedora:coverage&job_token=${CI_JOB_TOKEN}"'

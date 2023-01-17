@@ -1190,7 +1190,7 @@ gcr_certificate_get_interface_elements (GcrCertificate *self)
 
 	datetime = gcr_certificate_get_expiry_date (self);
 	if (datetime) {
-		display = g_date_time_format (datetime, "%x");
+		display = g_date_time_format (datetime, "%F");
 		if (display)
 			_gcr_certificate_section_new_field_take_value (section, _("Expires"), g_steal_pointer (&display));
 
@@ -1230,7 +1230,7 @@ gcr_certificate_get_interface_elements (GcrCertificate *self)
 
 	datetime = gcr_certificate_get_issued_date (self);
 	if (datetime) {
-		display = g_date_time_format (datetime, "%x");
+		display = g_date_time_format (datetime, "%F");
 		if (display)
 			_gcr_certificate_section_new_field_take_value (section, _("Not Valid Before"), g_steal_pointer (&display));
 
@@ -1239,7 +1239,7 @@ gcr_certificate_get_interface_elements (GcrCertificate *self)
 
 	datetime = gcr_certificate_get_expiry_date (self);
 	if (datetime) {
-		display = g_date_time_format (datetime, "%x");
+		display = g_date_time_format (datetime, "%F");
 		if (display)
 			_gcr_certificate_section_new_field_take_value (section, _("Not Valid After"), g_steal_pointer (&display));
 

@@ -54,7 +54,7 @@ mock_interaction_finalize (GObject *obj)
 
 	g_free (self->password);
 
-	G_OBJECT_CLASS (mock_interaction_parent_class)->dispose (obj);
+	G_OBJECT_CLASS (mock_interaction_parent_class)->finalize (obj);
 }
 
 static GTlsInteractionResult

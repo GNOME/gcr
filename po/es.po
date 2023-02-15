@@ -7,14 +7,14 @@
 #
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009-2011.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011-2021.
-# Daniel Mustieles García <daniel.mustieles@gmail.com>, 2022.
+# Daniel Mustieles García <daniel.mustieles@gmail.com>, 2022-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-05-10 09:16+0000\n"
-"PO-Revision-Date: 2022-06-22 10:38+0200\n"
+"POT-Creation-Date: 2023-01-25 17:22+0000\n"
+"PO-Revision-Date: 2023-02-15 10:50+0100\n"
 "Last-Translator: Daniel Mustieles García <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -64,8 +64,7 @@ msgstr "Nombre común"
 msgid "Surname"
 msgstr "Apellido"
 
-#: egg/egg-oid.c:68 gcr-gtk3/gcr-certificate-widget.c:611
-#: gcr-gtk4/gcr-certificate-widget.c:618
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
 msgid "Serial Number"
 msgstr "Número de serie"
 
@@ -157,82 +156,195 @@ msgstr "MD5 con RSA"
 msgid "SHA1 with RSA"
 msgstr "SHA1 con RSA"
 
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "RSA con relleno OAEP"
+
 #: egg/egg-oid.c:115
+msgid "RSA with MGF1"
+msgstr "RSA con MGF1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "Firma rsa con RSA-PSS"
+
+#: egg/egg-oid.c:117
+msgid "SHA256 with RSA encryption"
+msgstr "SHA256 con cifrado RSA"
+
+#: egg/egg-oid.c:118
+msgid "SHA384 with RSA encryption"
+msgstr "SHA384 con cifrado RSA"
+
+#: egg/egg-oid.c:119
+msgid "SHA512 with RSA encryption"
+msgstr "SHA512 con cifrado RSA"
+
+#: egg/egg-oid.c:120
+msgid "SHA224 with RSA encryption"
+msgstr "SHA224 con cifrado RSA"
+
+#: egg/egg-oid.c:122
 msgid "DSA"
 msgstr "DSA"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:123
 msgid "SHA1 with DSA"
 msgstr "SHA1 con DSA"
 
-#: egg/egg-oid.c:118
+#: egg/egg-oid.c:125
 msgid "Elliptic Curve"
 msgstr "Curva elíptica"
 
-#: egg/egg-oid.c:119
+#: egg/egg-oid.c:126
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 con ECDSA"
 
-#: egg/egg-oid.c:120
+#: egg/egg-oid.c:127
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 con ECDSA"
 
-#: egg/egg-oid.c:121
+#: egg/egg-oid.c:128
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 con ECDSA"
 
-#: egg/egg-oid.c:122
+#: egg/egg-oid.c:129
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 con ECDSA"
 
-#: egg/egg-oid.c:123
+#: egg/egg-oid.c:130
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 con ECDSA"
 
-#: egg/egg-oid.c:125
+#: egg/egg-oid.c:132
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "GOST R 34.11-94 con GOST R 34.10-2001"
 
-#: egg/egg-oid.c:126
+#: egg/egg-oid.c:133
 msgid "GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001"
 
-#: egg/egg-oid.c:127
+#: egg/egg-oid.c:134
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "curva GOST R 34.10-2012 256-bit"
 
-#: egg/egg-oid.c:128
+#: egg/egg-oid.c:135
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "curva GOST R 34.10-2012 512-bit"
 
-#: egg/egg-oid.c:129
+#: egg/egg-oid.c:136
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.11-2012/256 con curva GOST R 34.10-2012 256-bit"
 
-#: egg/egg-oid.c:130
+#: egg/egg-oid.c:137
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.11-2012/512 con curva GOST R 34.10-2012 512-bit"
 
 #. Extended Key Usages
-#: egg/egg-oid.c:133
+#: egg/egg-oid.c:140
 msgid "Server Authentication"
 msgstr "Autenticación del servidor"
 
-#: egg/egg-oid.c:134
+#: egg/egg-oid.c:141
 msgid "Client Authentication"
 msgstr "Autenticación del clente"
 
-#: egg/egg-oid.c:135
+#: egg/egg-oid.c:142
 msgid "Code Signing"
 msgstr "Firmado de código"
 
-#: egg/egg-oid.c:136
+#: egg/egg-oid.c:143
 msgid "Email Protection"
 msgstr "Protección de correo-e"
 
-#: egg/egg-oid.c:137
+#: egg/egg-oid.c:144
 msgid "Time Stamping"
 msgstr "Marca de tiempo"
+
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+msgid "Certificate Authority Information Access"
+msgstr "Información de acceso a la autoridad de certificación"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "Extensión del certificado de atributos del asunto de la carpeta"
+
+#: egg/egg-oid.c:149
+msgid "Subject key identifier"
+msgstr "%d clave cargada"
+
+#: egg/egg-oid.c:150
+msgid "Key usage"
+msgstr "Acuerdo de la clave"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "Periodo de uso de la clave privada"
+
+#: egg/egg-oid.c:152
+msgid "Subject alternative name"
+msgstr "Nombre alternativo del asunto"
+
+#: egg/egg-oid.c:153
+msgid "Issuer alternative name"
+msgstr "Nombre alternativo del emisor"
+
+#: egg/egg-oid.c:154
+msgid "Basic constraints"
+msgstr "Ajustes básicos"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "Número CLR"
+
+#: egg/egg-oid.c:156
+msgid "Reason code"
+msgstr "Código de la razón"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr ""
+
+#: egg/egg-oid.c:158
+msgid "Invalidity date"
+msgstr "Fecha de invalidez"
+
+#: egg/egg-oid.c:159
+msgid "Certificate Revocation List indicator"
+msgstr "Indicador de lista de revocación del certificado"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr ""
+
+#: egg/egg-oid.c:161
+msgid "Certificate issuer"
+msgstr "Emisor del certificado"
+
+#: egg/egg-oid.c:162
+msgid "Name constraints"
+msgstr "Restricciones del nombre"
+
+#: egg/egg-oid.c:163
+msgid "Certificate Revocation List distribution points"
+msgstr "Puntos de distribución de lista de revocación del certificado"
+
+#: egg/egg-oid.c:164
+msgid "Certificate policies"
+msgstr "Politicas de certificados"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "Mapeado de políticas"
+
+#: egg/egg-oid.c:166
+msgid "Policy constraints"
+msgstr "Restricciones de las políticas"
+
+#: egg/egg-oid.c:167
+msgid "Authority key identifier"
+msgstr "Identificador de la clave de autoridad"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -271,28 +383,198 @@ msgstr "El URI tiene un número de versión incorrecto."
 msgid "The stream was closed"
 msgstr "Se cerró el flujo"
 
-#. later
-#. later
-#: gcr/gcr-certificate.c:343 gcr/gcr-gnupg-key.c:429
-msgctxt "column"
-msgid "Name"
-msgstr "Nombre"
+#: gcr/gcr-certificate.c:882
+msgid "Key Algorithm"
+msgstr "Clave del algoritmo"
 
-#: gcr/gcr-certificate.c:345
-msgctxt "column"
-msgid "Issued By"
-msgstr "Emitido por"
+#: gcr/gcr-certificate.c:888
+msgid "Key Parameters"
+msgstr "Parámetros de la clave"
 
-#. later
-#: gcr/gcr-certificate.c:347
-msgctxt "column"
+#: gcr/gcr-certificate.c:895
+msgid "Key Size"
+msgstr "Tamaño de la clave"
+
+#: gcr/gcr-certificate.c:905
+msgid "Key SHA1 Fingerprint"
+msgstr "Huella de la clave SHA1"
+
+#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+msgid "Public Key"
+msgstr "Clave pública"
+
+#: gcr/gcr-certificate.c:923
+msgid "Basic Constraints"
+msgstr "Restricciones básicas"
+
+#: gcr/gcr-certificate.c:924
+msgid "Certificate Authority"
+msgstr "Autoridad de certificación"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "Yes"
+msgstr "Sí"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "No"
+msgstr "No"
+
+#: gcr/gcr-certificate.c:927
+msgid "Unlimited"
+msgstr "Sin límite"
+
+#: gcr/gcr-certificate.c:931
+msgid "Max Path Length"
+msgstr "Longitud máxima de la ruta"
+
+#: gcr/gcr-certificate.c:955
+msgid "Extended Key Usage"
+msgstr "Uso extendido de la clave"
+
+#: gcr/gcr-certificate.c:956
+msgid "Allowed Purposes"
+msgstr "Propósitos permitidos"
+
+#: gcr/gcr-certificate.c:973
+msgid "Subject Key Identifier"
+msgstr "Identificador del asunto de la clave"
+
+#: gcr/gcr-certificate.c:976
+msgid "Key Identifier"
+msgstr "Identificador de clave"
+
+#: gcr/gcr-certificate.c:985
+msgid "Digital signature"
+msgstr "Firma digital"
+
+#: gcr/gcr-certificate.c:986
+msgid "Non repudiation"
+msgstr "No repudio"
+
+#: gcr/gcr-certificate.c:987
+msgid "Key encipherment"
+msgstr "Cifrado de la clave"
+
+#: gcr/gcr-certificate.c:988
+msgid "Data encipherment"
+msgstr "Cifrado de los datos"
+
+#: gcr/gcr-certificate.c:989
+msgid "Key agreement"
+msgstr "Acuerdo de la clave"
+
+#: gcr/gcr-certificate.c:990
+msgid "Certificate signature"
+msgstr "Firma del certificado"
+
+#: gcr/gcr-certificate.c:991
+msgid "Revocation list signature"
+msgstr "Firma de la lista de revocación"
+
+#: gcr/gcr-certificate.c:992
+msgid "Encipher only"
+msgstr "Sólo cifrado"
+
+#: gcr/gcr-certificate.c:993
+msgid "Decipher only"
+msgstr "Sólo descifrado"
+
+#: gcr/gcr-certificate.c:1014
+msgid "Key Usage"
+msgstr "Uso de la clave"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Usages"
+msgstr "Usos"
+
+#: gcr/gcr-certificate.c:1033
+msgid "Subject Alternative Names"
+msgstr "Nombres alternativos del asunto"
+
+#: gcr/gcr-certificate.c:1055
+msgid "Extension"
+msgstr "Extensión"
+
+#: gcr/gcr-certificate.c:1059
+msgid "Identifier"
+msgstr "Identificador"
+
+#: gcr/gcr-certificate.c:1060
+msgid "Value"
+msgstr "Valor"
+
+#: gcr/gcr-certificate.c:1100
+msgid "Critical"
+msgstr "Crítico"
+
+#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+msgid "Certificate"
+msgstr "Certificado"
+
+#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+msgid "Unknown"
+msgstr "Desconocida"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Identity"
+msgstr "Identidad"
+
+#: gcr/gcr-certificate.c:1189
+msgid "Verified by"
+msgstr "Verificado por"
+
+#: gcr/gcr-certificate.c:1195
 msgid "Expires"
 msgstr "Caduca"
 
-#: gcr/gcr-certificate.c:1187 gcr/gcr-parser.c:340
-#: gcr-gtk3/gcr-certificate-widget.c:184 gcr-gtk4/gcr-certificate-widget.c:191
-msgid "Certificate"
-msgstr "Certificado"
+#. The subject
+#: gcr/gcr-certificate.c:1203
+msgid "Subject Name"
+msgstr "Nombre del asunto"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1209
+msgid "Issuer Name"
+msgstr "Nombre del emisor"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1215
+msgid "Issued Certificate"
+msgstr "Certificado emitido"
+
+#: gcr/gcr-certificate.c:1221
+msgid "Version"
+msgstr "Versión"
+
+#: gcr/gcr-certificate.c:1235
+msgid "Not Valid Before"
+msgstr "No es válido antes de"
+
+#: gcr/gcr-certificate.c:1244
+msgid "Not Valid After"
+msgstr "No es válido después de"
+
+#: gcr/gcr-certificate.c:1253
+msgid "Certificate Fingerprints"
+msgstr "Huellas de certificados"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1263
+msgid "Public Key Info"
+msgstr "Información de la clave pública"
+
+#. Signature
+#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+msgid "Signature"
+msgstr "Firma"
+
+#: gcr/gcr-certificate.c:1283
+msgid "Signature Algorithm"
+msgstr "Algoritmo de firma"
+
+#: gcr/gcr-certificate.c:1287
+msgid "Signature Parameters"
+msgstr "Parámetros de la firma"
 
 #: gcr/gcr-certificate-extensions.c:190
 msgid "Other Name"
@@ -348,23 +630,18 @@ msgstr "Tipo de clave no soportada para la solicitud del certificado"
 msgid "The key cannot be used to sign the request"
 msgstr "No se puede usar la clave para firmar la solicitud"
 
-#: gcr/gcr-gnupg-importer.c:95
+#: gcr/gcr-gnupg-importer.c:94
 msgid "GnuPG Keyring"
 msgstr "Depósito GnuPG"
 
-#: gcr/gcr-gnupg-importer.c:97
+#: gcr/gcr-gnupg-importer.c:96
 #, c-format
 msgid "GnuPG Keyring: %s"
 msgstr "Depósito GnuPG: %s"
 
-#: gcr/gcr-gnupg-key.c:143 gcr/gcr-parser.c:346
+#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
 msgid "PGP Key"
 msgstr "Clave GPG"
-
-#: gcr/gcr-gnupg-key.c:431
-msgctxt "column"
-msgid "Key ID"
-msgstr "ID de la clave"
 
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
@@ -376,7 +653,7 @@ msgstr "El proceso Gnupg finalizó con el código: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "El proceso Gnupg terminó con la señal: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3186
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "Se canceló la operación"
@@ -384,11 +661,6 @@ msgstr "Se canceló la operación"
 #: gcr/gcr-parser.c:337
 msgid "Private Key"
 msgstr "Clave privada"
-
-#: gcr/gcr-parser.c:343 gcr-gtk3/gcr-certificate-widget.c:284
-#: gcr-gtk4/gcr-certificate-widget.c:291
-msgid "Public Key"
-msgstr "Clave pública"
 
 #: gcr/gcr-parser.c:349
 msgid "Certificate Request"
@@ -452,7 +724,7 @@ msgstr "La contraseña de desbloqueo era incorrecta"
 msgid "Unnamed"
 msgstr "Sin nombre"
 
-#: gcr/gcr-ssh-askpass.c:180
+#: gcr/gcr-ssh-askpass.c:182
 msgid "Enter your OpenSSH passphrase"
 msgstr "Introduzca su frase de paso de OpenSSH"
 
@@ -476,270 +748,90 @@ msgstr "Ya hay otra petición en progreso"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "No se pudo encontrar un lugar para almacenar el certificado firmado"
 
-#: gcr-gtk3/gcr-certificate-widget.c:255 gcr-gtk4/gcr-certificate-widget.c:262
-msgid "Key Algorithm"
-msgstr "Clave del algoritmo"
-
-#: gcr-gtk3/gcr-certificate-widget.c:261 gcr-gtk4/gcr-certificate-widget.c:268
-msgid "Key Parameters"
-msgstr "Parámetros de la clave"
-
-#: gcr-gtk3/gcr-certificate-widget.c:268 gcr-gtk4/gcr-certificate-widget.c:275
-msgid "Key Size"
-msgstr "Tamaño de la clave"
-
-#: gcr-gtk3/gcr-certificate-widget.c:279 gcr-gtk4/gcr-certificate-widget.c:286
-msgid "Key SHA1 Fingerprint"
-msgstr "Huella de la clave SHA1"
-
-#: gcr-gtk3/gcr-certificate-widget.c:301 gcr-gtk4/gcr-certificate-widget.c:308
-msgid "Basic Constraints"
-msgstr "Restricciones básicas"
-
-#: gcr-gtk3/gcr-certificate-widget.c:302 gcr-gtk4/gcr-certificate-widget.c:309
-msgid "Certificate Authority"
-msgstr "Autoridad de certificación"
-
-#: gcr-gtk3/gcr-certificate-widget.c:302 gcr-gtk3/gcr-certificate-widget.c:493
-#: gcr-gtk4/gcr-certificate-widget.c:309 gcr-gtk4/gcr-certificate-widget.c:500
-msgid "Yes"
-msgstr "Sí"
-
-#: gcr-gtk3/gcr-certificate-widget.c:302 gcr-gtk3/gcr-certificate-widget.c:493
-#: gcr-gtk4/gcr-certificate-widget.c:309 gcr-gtk4/gcr-certificate-widget.c:500
-msgid "No"
-msgstr "No"
-
-#: gcr-gtk3/gcr-certificate-widget.c:305 gcr-gtk4/gcr-certificate-widget.c:312
-msgid "Max Path Length"
-msgstr "Longitud máxima de la ruta"
-
-#: gcr-gtk3/gcr-certificate-widget.c:305 gcr-gtk4/gcr-certificate-widget.c:312
-msgid "Unlimited"
-msgstr "Sin límite"
-
-#: gcr-gtk3/gcr-certificate-widget.c:333 gcr-gtk4/gcr-certificate-widget.c:340
-msgid "Extended Key Usage"
-msgstr "Uso extendido de la clave"
-
-#: gcr-gtk3/gcr-certificate-widget.c:334 gcr-gtk4/gcr-certificate-widget.c:341
-msgid "Allowed Purposes"
-msgstr "Propósitos permitidos"
-
-#: gcr-gtk3/gcr-certificate-widget.c:353 gcr-gtk4/gcr-certificate-widget.c:360
-msgid "Subject Key Identifier"
-msgstr "Identificador del asunto de la clave"
-
-#: gcr-gtk3/gcr-certificate-widget.c:356 gcr-gtk4/gcr-certificate-widget.c:363
-msgid "Key Identifier"
-msgstr "Identificador de clave"
-
-#: gcr-gtk3/gcr-certificate-widget.c:366 gcr-gtk4/gcr-certificate-widget.c:373
-msgid "Digital signature"
-msgstr "Firma digital"
-
-#: gcr-gtk3/gcr-certificate-widget.c:367 gcr-gtk4/gcr-certificate-widget.c:374
-msgid "Non repudiation"
-msgstr "No repudio"
-
-#: gcr-gtk3/gcr-certificate-widget.c:368 gcr-gtk4/gcr-certificate-widget.c:375
-msgid "Key encipherment"
-msgstr "Cifrado de la clave"
-
-#: gcr-gtk3/gcr-certificate-widget.c:369 gcr-gtk4/gcr-certificate-widget.c:376
-msgid "Data encipherment"
-msgstr "Cifrado de los datos"
-
-#: gcr-gtk3/gcr-certificate-widget.c:370 gcr-gtk4/gcr-certificate-widget.c:377
-msgid "Key agreement"
-msgstr "Acuerdo de la clave"
-
-#: gcr-gtk3/gcr-certificate-widget.c:371 gcr-gtk4/gcr-certificate-widget.c:378
-msgid "Certificate signature"
-msgstr "Firma del certificado"
-
-#: gcr-gtk3/gcr-certificate-widget.c:372 gcr-gtk4/gcr-certificate-widget.c:379
-msgid "Revocation list signature"
-msgstr "Firma de la lista de revocación"
-
-#: gcr-gtk3/gcr-certificate-widget.c:373 gcr-gtk4/gcr-certificate-widget.c:380
-msgid "Encipher only"
-msgstr "Sólo cifrado"
-
-#: gcr-gtk3/gcr-certificate-widget.c:374 gcr-gtk4/gcr-certificate-widget.c:381
-msgid "Decipher only"
-msgstr "Sólo descifrado"
-
-#: gcr-gtk3/gcr-certificate-widget.c:399 gcr-gtk4/gcr-certificate-widget.c:406
-msgid "Key Usage"
-msgstr "Uso de la clave"
-
-#: gcr-gtk3/gcr-certificate-widget.c:400 gcr-gtk4/gcr-certificate-widget.c:407
-msgid "Usages"
-msgstr "Usos"
-
-#: gcr-gtk3/gcr-certificate-widget.c:420 gcr-gtk4/gcr-certificate-widget.c:427
-msgid "Subject Alternative Names"
-msgstr "Nombres alternativos del asunto"
-
-#: gcr-gtk3/gcr-certificate-widget.c:446 gcr-gtk4/gcr-certificate-widget.c:453
-msgid "Extension"
-msgstr "Extensión"
-
-#: gcr-gtk3/gcr-certificate-widget.c:450 gcr-gtk4/gcr-certificate-widget.c:457
-msgid "Identifier"
-msgstr "Identificador"
-
-#: gcr-gtk3/gcr-certificate-widget.c:452 gcr-gtk4/gcr-certificate-widget.c:459
-msgid "Value"
-msgstr "Valor"
-
-#: gcr-gtk3/gcr-certificate-widget.c:493 gcr-gtk4/gcr-certificate-widget.c:500
-msgid "Critical"
-msgstr "Crítico"
-
-#: gcr-gtk3/gcr-certificate-widget.c:572 gcr-gtk4/gcr-certificate-widget.c:579
-msgid "Identity"
-msgstr "Identidad"
-
-#: gcr-gtk3/gcr-certificate-widget.c:576 gcr-gtk4/gcr-certificate-widget.c:583
-msgid "Verified by"
-msgstr "Verificado por"
-
-#: gcr-gtk3/gcr-certificate-widget.c:583 gcr-gtk4/gcr-certificate-widget.c:590
-msgid "Expires"
-msgstr "Caduca"
-
-#. The subject
-#: gcr-gtk3/gcr-certificate-widget.c:588 gcr-gtk4/gcr-certificate-widget.c:595
-msgid "Subject Name"
-msgstr "Nombre del asunto"
-
-#. The Issuer
-#: gcr-gtk3/gcr-certificate-widget.c:592 gcr-gtk4/gcr-certificate-widget.c:599
-msgid "Issuer Name"
-msgstr "Nombre del emisor"
-
-#. The Issued Parameters
-#: gcr-gtk3/gcr-certificate-widget.c:596 gcr-gtk4/gcr-certificate-widget.c:603
-msgid "Issued Certificate"
-msgstr "Certificado emitido"
-
-#: gcr-gtk3/gcr-certificate-widget.c:602 gcr-gtk4/gcr-certificate-widget.c:609
-msgid "Version"
-msgstr "Versión"
-
-#: gcr-gtk3/gcr-certificate-widget.c:620 gcr-gtk4/gcr-certificate-widget.c:627
-msgid "Not Valid Before"
-msgstr "No es válido antes de"
-
-#: gcr-gtk3/gcr-certificate-widget.c:625 gcr-gtk4/gcr-certificate-widget.c:632
-msgid "Not Valid After"
-msgstr "No es válido después de"
-
-#. Fingerprints
-#: gcr-gtk3/gcr-certificate-widget.c:630 gcr-gtk4/gcr-certificate-widget.c:637
-msgid "Certificate Fingerprints"
-msgstr "Huellas de certificados"
-
-#. Public Key Info
-#: gcr-gtk3/gcr-certificate-widget.c:639 gcr-gtk4/gcr-certificate-widget.c:646
-msgid "Public Key Info"
-msgstr "Información de la clave pública"
-
-#. Signature
-#: gcr-gtk3/gcr-certificate-widget.c:652 gcr-gtk3/gcr-certificate-widget.c:673
-#: gcr-gtk4/gcr-certificate-widget.c:659 gcr-gtk4/gcr-certificate-widget.c:680
-msgid "Signature"
-msgstr "Firma"
-
-#: gcr-gtk3/gcr-certificate-widget.c:655 gcr-gtk4/gcr-certificate-widget.c:662
-msgid "Signature Algorithm"
-msgstr "Algoritmo de firma"
-
-#: gcr-gtk3/gcr-certificate-widget.c:660 gcr-gtk4/gcr-certificate-widget.c:667
-msgid "Signature Parameters"
-msgstr "Parámetros de la firma"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:5
-msgid "Default PGP Key"
-msgstr "Clave PGP predeterminada"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:6
-msgid ""
-"This specifies the ID of the default PGP key to use for certain operations, "
-"mainly signing."
-msgstr ""
-"Esto especifica el ID de la clave PGP predeterminada que usar para ciertas "
-"operaciones, principalmente la firma."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:10
-msgid "ASCII Armor"
-msgstr "Armadura ASCII"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:11
-msgid ""
-"When encrypting or signing PGP files whether to use ASCII armor encoding."
-msgstr ""
-"Indica si se utiliza la codificación armadura ASCII al cifrar o firmar "
-"archivos PGP."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:15
-msgid "The column to sort the recipients"
-msgstr "La columna por la que ordenar los destinatarios"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:16
-msgid ""
-"Specify the column to sort the recipients window by. Columns are: 'name' and "
-"'id'. Put a '-' in front of the column name to sort in descending order."
-msgstr ""
-"Especificar la columna por la que ordenar la ventana de destinatarios. Las "
-"columnas son: 'name' and 'id'. Ponga un «-» al principio de la columna para "
-"ordenar en modo descendente."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:20
-msgid "Whether to always encrypt to default key"
-msgstr "Indica si se cifra siempre con la clave predeterminada"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:21
-msgid ""
-"If set to true, then the default key will always be added to an encryption "
-"recipients list."
-msgstr ""
-"Si es cierto, la clave predeterminada se añadirá siempre a la lista de "
-"cifrado de destinatarios."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:25
-msgid "Last key used to sign a message."
-msgstr "Última clave usada para firmar un mensaje."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:26
-msgid "The ID of the last secret key used to sign a message."
-msgstr "El ID de la última clave utilizada para firmar un mensaje."
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:30
-msgid "PGP key servers"
-msgstr "Servidores de claves PGP"
-
-#: schema/org.gnome.crypto.pgp.gschema.xml:31
-msgid ""
-"A list of key server URIs to search for remote PGP keys. A display name can "
-"be included, by appending a space and then the name."
-msgstr ""
-"Una lista de URI de servidores de claves para claves PGP remotas. Se puede "
-"mostrar un nombre añadiendo un espacio y luego el nombre"
-
-#: tools/gtk3/viewer.c:23 tools/gtk4/viewer.c:23
+#: tools/viewer/viewer.c:23
 msgid "GCR Certificate Viewer"
 msgstr "Visor de certificados GCR"
 
-#: tools/gtk3/viewer.c:30 tools/gtk4/viewer.c:30
+#: tools/viewer/viewer.c:30
 msgid "Show the application's version"
 msgstr "Mostrar la versión de la aplicación"
 
-#: tools/gtk3/viewer.c:32 tools/gtk4/viewer.c:32
+#: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr "[archivo…]"
+
+#~ msgctxt "column"
+#~ msgid "Name"
+#~ msgstr "Nombre"
+
+#~ msgctxt "column"
+#~ msgid "Issued By"
+#~ msgstr "Emitido por"
+
+#~ msgctxt "column"
+#~ msgid "Expires"
+#~ msgstr "Caduca"
+
+#~ msgctxt "column"
+#~ msgid "Key ID"
+#~ msgstr "ID de la clave"
+
+#~ msgid "Default PGP Key"
+#~ msgstr "Clave PGP predeterminada"
+
+#~ msgid ""
+#~ "This specifies the ID of the default PGP key to use for certain "
+#~ "operations, mainly signing."
+#~ msgstr ""
+#~ "Esto especifica el ID de la clave PGP predeterminada que usar para "
+#~ "ciertas operaciones, principalmente la firma."
+
+#~ msgid "ASCII Armor"
+#~ msgstr "Armadura ASCII"
+
+#~ msgid ""
+#~ "When encrypting or signing PGP files whether to use ASCII armor encoding."
+#~ msgstr ""
+#~ "Indica si se utiliza la codificación armadura ASCII al cifrar o firmar "
+#~ "archivos PGP."
+
+#~ msgid "The column to sort the recipients"
+#~ msgstr "La columna por la que ordenar los destinatarios"
+
+#~ msgid ""
+#~ "Specify the column to sort the recipients window by. Columns are: 'name' "
+#~ "and 'id'. Put a '-' in front of the column name to sort in descending "
+#~ "order."
+#~ msgstr ""
+#~ "Especificar la columna por la que ordenar la ventana de destinatarios. "
+#~ "Las columnas son: 'name' and 'id'. Ponga un «-» al principio de la "
+#~ "columna para ordenar en modo descendente."
+
+#~ msgid "Whether to always encrypt to default key"
+#~ msgstr "Indica si se cifra siempre con la clave predeterminada"
+
+#~ msgid ""
+#~ "If set to true, then the default key will always be added to an "
+#~ "encryption recipients list."
+#~ msgstr ""
+#~ "Si es cierto, la clave predeterminada se añadirá siempre a la lista de "
+#~ "cifrado de destinatarios."
+
+#~ msgid "Last key used to sign a message."
+#~ msgstr "Última clave usada para firmar un mensaje."
+
+#~ msgid "The ID of the last secret key used to sign a message."
+#~ msgstr "El ID de la última clave utilizada para firmar un mensaje."
+
+#~ msgid "PGP key servers"
+#~ msgstr "Servidores de claves PGP"
+
+#~ msgid ""
+#~ "A list of key server URIs to search for remote PGP keys. A display name "
+#~ "can be included, by appending a space and then the name."
+#~ msgstr ""
+#~ "Una lista de URI de servidores de claves para claves PGP remotas. Se "
+#~ "puede mostrar un nombre añadiendo un espacio y luego el nombre"
 
 #~ msgid "Couldn’t export the certificate."
 #~ msgstr "No se pudo exportar el certificado."
@@ -769,9 +861,6 @@ msgstr "[archivo…]"
 #~ msgid "Could not display file"
 #~ msgstr "No se pudo mostrar el archivo"
 
-#~ msgid "Reason"
-#~ msgstr "Razón"
-
 #, c-format
 #~ msgid "Cannot display a file of this type."
 #~ msgstr "No se pueden mostrar los archivos de este tipo."
@@ -794,12 +883,6 @@ msgstr "[archivo…]"
 #~ msgctxt "capability"
 #~ msgid "Disabled"
 #~ msgstr "Desactivada"
-
-#~ msgid "Unknown"
-#~ msgstr "Desconocida"
-
-#~ msgid "Invalid"
-#~ msgstr "No válida"
 
 #~ msgctxt "ownertrust"
 #~ msgid "Disabled"
@@ -918,9 +1001,6 @@ msgstr "[archivo…]"
 
 #~ msgid "Subkey revocation signature"
 #~ msgstr "Firma de la subclave de revocación"
-
-#~ msgid "Certification revocation signature"
-#~ msgstr "Firma del certificado de revocación"
 
 #~ msgid "Timestamp signature"
 #~ msgstr "Marca de tiempo de la firma"
@@ -1069,9 +1149,6 @@ msgstr "[archivo…]"
 
 #~ msgid "_Save"
 #~ msgstr "_Guardar"
-
-#~ msgid "Certificate files"
-#~ msgstr "Archivos de certificados"
 
 #~ msgid "PEM files"
 #~ msgstr "Archivos PEM"

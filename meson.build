@@ -11,7 +11,7 @@ pkgconfig = import('pkgconfig')
 # Versioning
 gcr_api_version = '4'
 gcr_version = meson.project_version()
-gcr_soversion = '0.0.0'
+gcr_soversion = '4'
 gcr_version_array = gcr_version.split('.')
 gcr_major_version = gcr_version_array[0].to_int()
 gcr_minor_version = gcr_version_array[1].to_int()
@@ -19,7 +19,7 @@ gcr_micro_version = gcr_version_array[2].to_int()
 
 gck_api_version = '2'
 gck_version = '2.0.0'
-gck_soversion = '0.0.0'
+gck_soversion = '2'
 gck_version_array = gck_version.split('.')
 gck_major_version = gck_version_array[0].to_int()
 gck_minor_version = gck_version_array[1].to_int()

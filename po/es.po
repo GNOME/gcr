@@ -6,16 +6,15 @@
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2004, 2006.
 #
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009-2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011-2021.
-# Daniel Mustieles García <daniel.mustieles@gmail.com>, 2022-2023.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2022-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-01-25 17:22+0000\n"
-"PO-Revision-Date: 2023-02-15 10:50+0100\n"
-"Last-Translator: Daniel Mustieles García <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2023-02-15 09:51+0000\n"
+"PO-Revision-Date: 2023-02-28 12:17+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -304,7 +303,7 @@ msgstr "Código de la razón"
 
 #: egg/egg-oid.c:157
 msgid "Hold instruction code"
-msgstr ""
+msgstr "Mantener código de instrucción"
 
 #: egg/egg-oid.c:158
 msgid "Invalidity date"
@@ -316,7 +315,7 @@ msgstr "Indicador de lista de revocación del certificado"
 
 #: egg/egg-oid.c:160
 msgid "Issuing distribution point"
-msgstr ""
+msgstr "Punto de distribución emisor"
 
 #: egg/egg-oid.c:161
 msgid "Certificate issuer"

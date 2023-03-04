@@ -1,10 +1,10 @@
 # Bulgarian translation of gcr po-file.
 # Copyright (C) 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
 # Copyright (C) 2009, 2010, 2011, 2012 Free Software Foundation, Inc.
-# Copyright (C) 2022 Alexander Shopov.
+# Copyright (C) 2022, 2023 Alexander Shopov.
 # This file is distributed under the same license as the gcr package.
 # Rostislav "zbrox" Raykov <zbrox@i-space.org>, 2004, 2005, 2006.
-# Alexander Shopov <ash@kambanaria.org>, 2007, 2008, 2009, 2011, 2012, 2022.
+# Alexander Shopov <ash@kambanaria.org>, 2007, 2008, 2009, 2011, 2012, 2022, 2023.
 # Yavor Doganov <yavor@gnu.org>, 2008, 2009.
 # Damyan Ivanov <dmn@debian.org>, 2010.
 #
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-09-11 19:01+0000\n"
-"PO-Revision-Date: 2022-09-12 22:50+0200\n"
+"POT-Creation-Date: 2023-03-04 08:56+0000\n"
+"PO-Revision-Date: 2023-03-04 19:59+0200\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -154,82 +154,195 @@ msgstr "MD5 с RSA"
 msgid "SHA1 with RSA"
 msgstr "SHA1 с RSA"
 
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "RSA с допълване OAEP"
+
 #: egg/egg-oid.c:115
+msgid "RSA with MGF1"
+msgstr "RSA с MGF1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "Подпис RSA с RSA-PSS"
+
+#: egg/egg-oid.c:117
+msgid "SHA256 with RSA encryption"
+msgstr "SHA256 с шифриране RSA"
+
+#: egg/egg-oid.c:118
+msgid "SHA384 with RSA encryption"
+msgstr "SHA384 с шифриране RSA"
+
+#: egg/egg-oid.c:119
+msgid "SHA512 with RSA encryption"
+msgstr "SHA512 с шифриране RSA"
+
+#: egg/egg-oid.c:120
+msgid "SHA224 with RSA encryption"
+msgstr "SHA224 с шифриране RSA"
+
+#: egg/egg-oid.c:122
 msgid "DSA"
 msgstr "DSA"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:123
 msgid "SHA1 with DSA"
 msgstr "SHA1 с DSA"
 
-#: egg/egg-oid.c:118
+#: egg/egg-oid.c:125
 msgid "Elliptic Curve"
 msgstr "Елиптична крива"
 
-#: egg/egg-oid.c:119
+#: egg/egg-oid.c:126
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 с ECDSA"
 
-#: egg/egg-oid.c:120
+#: egg/egg-oid.c:127
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 с ECDSA"
 
-#: egg/egg-oid.c:121
+#: egg/egg-oid.c:128
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 с ECDSA"
 
-#: egg/egg-oid.c:122
+#: egg/egg-oid.c:129
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 с ECDSA"
 
-#: egg/egg-oid.c:123
+#: egg/egg-oid.c:130
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 с ECDSA"
 
-#: egg/egg-oid.c:125
+#: egg/egg-oid.c:132
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "GOST R 34.11-94 с GOST R 34.10-2001"
 
-#: egg/egg-oid.c:126
+#: egg/egg-oid.c:133
 msgid "GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001"
 
-#: egg/egg-oid.c:127
+#: egg/egg-oid.c:134
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.10-2012 256-битова крива"
 
-#: egg/egg-oid.c:128
+#: egg/egg-oid.c:135
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.10-2012 512-битова крива"
 
-#: egg/egg-oid.c:129
+#: egg/egg-oid.c:136
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.11-2012/256 с GOST R 34.10-2012 256-битова крива"
 
-#: egg/egg-oid.c:130
+#: egg/egg-oid.c:137
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.11-2012/512 с GOST R 34.10-2012 512-битова крива"
 
 #. Extended Key Usages
-#: egg/egg-oid.c:133
+#: egg/egg-oid.c:140
 msgid "Server Authentication"
 msgstr "Идентификация на сървър"
 
-#: egg/egg-oid.c:134
+#: egg/egg-oid.c:141
 msgid "Client Authentication"
 msgstr "Идентификация на клиент"
 
-#: egg/egg-oid.c:135
+#: egg/egg-oid.c:142
 msgid "Code Signing"
 msgstr "Подписване на код"
 
-#: egg/egg-oid.c:136
+#: egg/egg-oid.c:143
 msgid "Email Protection"
 msgstr "Защита на е-поща"
 
-#: egg/egg-oid.c:137
+#: egg/egg-oid.c:144
 msgid "Time Stamping"
 msgstr "Удостоверяване на време"
+
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+msgid "Certificate Authority Information Access"
+msgstr "Достъп на информация на удостоверител"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "Разширение на сертификата за директория с атрибути на собственика"
+
+#: egg/egg-oid.c:149
+msgid "Subject key identifier"
+msgstr "Идентификатор на собственика на ключа"
+
+#: egg/egg-oid.c:150
+msgid "Key usage"
+msgstr "Употреба на ключа"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "Период на употреба на частен ключ"
+
+#: egg/egg-oid.c:152
+msgid "Subject alternative name"
+msgstr "Алтернативни имена на притежателя"
+
+#: egg/egg-oid.c:153
+msgid "Issuer alternative name"
+msgstr "Алтернативни имена на притежателя"
+
+#: egg/egg-oid.c:154
+msgid "Basic constraints"
+msgstr "Основни ограничения"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "Номер CRL"
+
+#: egg/egg-oid.c:156
+msgid "Reason code"
+msgstr "Код на причина"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr "Код за инструкция за задържане"
+
+#: egg/egg-oid.c:158
+msgid "Invalidity date"
+msgstr "Неправилна дата"
+
+#: egg/egg-oid.c:159
+msgid "Certificate Revocation List indicator"
+msgstr "Индикатор за списък за отмяна на сертификати"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr "Места за разпространение на издателя"
+
+#: egg/egg-oid.c:161
+msgid "Certificate issuer"
+msgstr "Издател на сертификата"
+
+#: egg/egg-oid.c:162
+msgid "Name constraints"
+msgstr "Ограничения на името"
+
+#: egg/egg-oid.c:163
+msgid "Certificate Revocation List distribution points"
+msgstr "Места за разпространение на списъците за отмяна на сертификати"
+
+#: egg/egg-oid.c:164
+msgid "Certificate policies"
+msgstr "Политики на сертификата"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "Съответствия на политики"
+
+#: egg/egg-oid.c:166
+msgid "Policy constraints"
+msgstr "Ограничения на политиките"
+
+#: egg/egg-oid.c:167
+msgid "Authority key identifier"
+msgstr "Идентификатор на издателя на ключа"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -686,9 +799,6 @@ msgstr "[файл…]"
 #~ msgid "Could not display file"
 #~ msgstr "Файлът не може да се покаже"
 
-#~ msgid "Reason"
-#~ msgstr "Причина"
-
 #, c-format
 #~ msgid "Cannot display a file of this type."
 #~ msgstr "Този вид файл не може да се покаже."
@@ -711,9 +821,6 @@ msgstr "[файл…]"
 #~ msgctxt "capability"
 #~ msgid "Disabled"
 #~ msgstr "Изключен"
-
-#~ msgid "Invalid"
-#~ msgstr "Неправилен"
 
 #~ msgctxt "ownertrust"
 #~ msgid "Disabled"
@@ -832,9 +939,6 @@ msgstr "[файл…]"
 
 #~ msgid "Subkey revocation signature"
 #~ msgstr "Подпис за отмяна на подключа"
-
-#~ msgid "Certification revocation signature"
-#~ msgstr "Подпис за отмяна на сертификат"
 
 #~ msgid "Timestamp signature"
 #~ msgstr "Подпис за време"
@@ -983,9 +1087,6 @@ msgstr "[файл…]"
 
 #~ msgid "_Save"
 #~ msgstr "_Запазване"
-
-#~ msgid "Certificate files"
-#~ msgstr "Файлове на сертификата"
 
 #~ msgid "PEM files"
 #~ msgstr "Файлове на PEM"

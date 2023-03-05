@@ -1,5 +1,5 @@
 project('gcr', 'c',
-  version: '4.0.0',
+  version: '4.1.0',
   meson_version: '>= 0.59',
   license: 'GPL2+',
 )
@@ -18,7 +18,7 @@ gcr_minor_version = gcr_version_array[1].to_int()
 gcr_micro_version = gcr_version_array[2].to_int()
 
 gck_api_version = '2'
-gck_version = '2.0.0'
+gck_version = '2.1.0'
 gck_soversion = '2'
 gck_version_array = gck_version.split('.')
 gck_major_version = gck_version_array[0].to_int()

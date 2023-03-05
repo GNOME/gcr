@@ -1,3 +1,13 @@
+gcr 4.1.0:
+- The soversion is now properly set to 4.
+- certificate: Print dates in ISO8601 format [GNOME/gcr!125]
+- viewer: Support certificates read from PKCS#11 store [GNOME/gcr!116]
+- gcr: Add means to construct GcrCertificate from PKCS#11 URI [GNOME/gcr!117]
+- Several smaller fixes found with ASAN
+- Stop using GSlice [GNOME/gcr!118]
+- a11y: Improve reading of certificate info by screen readers [GNOME/gcr!112]
+- Updated translations
+
 gcr 4.0.0:
 - This the first stable release of gcr4 and gck2
 - Updated translations

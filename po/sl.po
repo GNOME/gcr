@@ -4,14 +4,15 @@
 #
 # Matic Žgur <mr.zgur@gmail.com>, 2006.
 # Matej Urbančič <mateju@svn.gnome.org>, 2005–2023.
+# Martin Srebotnjak <miles@filmsi.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-03-05 22:10+0000\n"
-"PO-Revision-Date: 2023-03-08 23:10+0100\n"
-"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"POT-Creation-Date: 2023-03-08 22:14+0000\n"
+"PO-Revision-Date: 2023-03-14 16:38+0100\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -265,8 +266,9 @@ msgid "Certificate Authority Information Access"
 msgstr "Dostop do podatkov pooblastitelja potrdila"
 
 #: egg/egg-oid.c:148
+#, fuzzy
 msgid "Subject directory attributes certificate extension"
-msgstr ""
+msgstr "Atributi imenika predmeta razširitve potrdila"
 
 #: egg/egg-oid.c:149
 msgid "Subject key identifier"
@@ -310,13 +312,13 @@ msgstr "Datum neveljavnosti"
 
 #: egg/egg-oid.c:159
 #, fuzzy
-#| msgid "Certification revocation signature"
 msgid "Certificate Revocation List indicator"
-msgstr "Podpis preklica potrdila"
+msgstr "Pokazatelj seznama preklicev potrdil"
 
 #: egg/egg-oid.c:160
+#, fuzzy
 msgid "Issuing distribution point"
-msgstr ""
+msgstr "Distribucijska točka izdajatelja"
 
 #: egg/egg-oid.c:161
 msgid "Certificate issuer"
@@ -757,421 +759,3 @@ msgstr "Pokaži različico programa"
 #: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr "[datoteka ...]"
-
-#~ msgctxt "column"
-#~ msgid "Name"
-#~ msgstr "Ime"
-
-#~ msgctxt "column"
-#~ msgid "Issued By"
-#~ msgstr "Izdalno prek"
-
-#~ msgctxt "column"
-#~ msgid "Expires"
-#~ msgstr "Preteče"
-
-#~ msgctxt "column"
-#~ msgid "Key ID"
-#~ msgstr "ID ključa"
-
-#~ msgid "Couldn’t export the certificate."
-#~ msgstr "Ni mogoče izvoziti potrdila."
-
-#~ msgid "Export Certificate…"
-#~ msgstr "Izvozi potrdilo …"
-
-#~ msgid "Certificate request"
-#~ msgstr "Zahteva potrdila"
-
-#~ msgid "Attribute"
-#~ msgstr "Atribut"
-
-#~ msgid "Type"
-#~ msgstr "Vrsta"
-
-#~ msgid "Challenge"
-#~ msgstr "Izzovi"
-
-#~ msgid "_Details"
-#~ msgstr "_Podrobnosti"
-
-#, c-format
-#~ msgid "Could not display “%s”"
-#~ msgstr "Ni mogoče prikazati »%s«"
-
-#~ msgid "Could not display file"
-#~ msgstr "Ni mogoče prikazati datoteke"
-
-#, c-format
-#~ msgid "Cannot display a file of this type."
-#~ msgstr "Ni mogoče prikazati datoteke te vrste."
-
-#~ msgid "Elgamal"
-#~ msgstr "ElGamal"
-
-#~ msgid "Encrypt"
-#~ msgstr "Šifriraj"
-
-#~ msgid "Sign"
-#~ msgstr "Podpiši"
-
-#~ msgid "Certify"
-#~ msgstr "Potrdi"
-
-#~ msgid "Authenticate"
-#~ msgstr "Overi"
-
-#~ msgctxt "capability"
-#~ msgid "Disabled"
-#~ msgstr "Onemogočeno"
-
-#~ msgctxt "ownertrust"
-#~ msgid "Disabled"
-#~ msgstr "Onemogočeno"
-
-#~ msgid "Revoked"
-#~ msgstr "Preklicano"
-
-#~ msgid "Expired"
-#~ msgstr "Pretečeno"
-
-#~ msgid "Undefined trust"
-#~ msgstr "Nedoločeno zaupanje"
-
-#~ msgid "Distrusted"
-#~ msgstr "Nevredni zaupanja"
-
-#~ msgid "Marginally trusted"
-#~ msgstr "Pogojno vredni zaupanja"
-
-#~ msgid "Fully trusted"
-#~ msgstr "Vredni zaupanja"
-
-#~ msgid "Ultimately trusted"
-#~ msgstr "Popolnoma vredni zaupanja"
-
-#~ msgid "The information in this key has not yet been verified"
-#~ msgstr "Podrobnosti ključa še niso overjene"
-
-#~ msgid "This key is invalid"
-#~ msgstr "Ključ ni veljaven"
-
-#~ msgid "This key has been disabled"
-#~ msgstr "Ključ je onemogočen"
-
-#~ msgid "This key has been revoked"
-#~ msgstr "Ključ je bil preklican"
-
-#~ msgid "This key has expired"
-#~ msgstr "Ključ je pretekel"
-
-#~ msgid "This key is distrusted"
-#~ msgstr "Ključ ni vreden zaupanja"
-
-#~ msgid "This key is marginally trusted"
-#~ msgstr "Ta ključ je le pogojno vreden zaupanja"
-
-#~ msgid "This key is fully trusted"
-#~ msgstr "Ta ključ je vreden zaupanja"
-
-#~ msgid "This key is ultimately trusted"
-#~ msgstr "Ta ključ je vreden popolnega zaupanja"
-
-#~ msgid "Key ID"
-#~ msgstr "ID Ključa"
-
-#~ msgid "Algorithm"
-#~ msgstr "Algoritem"
-
-#~ msgid "Created"
-#~ msgstr "Ustvarjeno"
-
-#~ msgid "Expiry"
-#~ msgstr "Poteče"
-
-#~ msgid "Capabilities"
-#~ msgstr "Zmožnosti"
-
-#~ msgid "Owner trust"
-#~ msgstr "Zaupanje lastniku"
-
-#~ msgid "Name"
-#~ msgstr "Ime"
-
-#~ msgid "Comment"
-#~ msgstr "Opomba"
-
-#~ msgid "User Attribute"
-#~ msgstr "Atributi uporabnika"
-
-#~ msgid "Size"
-#~ msgstr "Velikost"
-
-#~ msgid "Signature of a binary document"
-#~ msgstr "Podpis dvojiškega dokumenta"
-
-#~ msgid "Signature of a canonical text document"
-#~ msgstr "Podpis kanoničnega besedilnega dokumenta"
-
-#~ msgid "Standalone signature"
-#~ msgstr "Samostojni podpis"
-
-#~ msgid "Generic certification of key"
-#~ msgstr "Splošno potrjevanje ključa"
-
-#~ msgid "Persona certification of key"
-#~ msgstr "Osebno preverjanje ključa"
-
-#~ msgid "Casual certification of key"
-#~ msgstr "Neobvezno preverjanje ključa"
-
-#~ msgid "Positive certification of key"
-#~ msgstr "Pozitivno preverjanje ključa"
-
-#~ msgid "Subkey binding signature"
-#~ msgstr "Podpis vezave podključa"
-
-#~ msgid "Primary key binding signature"
-#~ msgstr "Podpis vezave osnovnega ključa"
-
-#~ msgid "Signature directly on key"
-#~ msgstr "Podpis neposredno na ključu"
-
-#~ msgid "Key revocation signature"
-#~ msgstr "Podpis preklica ključa"
-
-#~ msgid "Subkey revocation signature"
-#~ msgstr "Podpis preklica podključa"
-
-#~ msgid "Timestamp signature"
-#~ msgstr "Podpis časovnega žiga"
-
-#~ msgid "Third-party confirmation signature"
-#~ msgstr "Podpis potrditve tretje strani"
-
-#~ msgid "Class"
-#~ msgstr "Razred"
-
-#~ msgid "Local only"
-#~ msgstr "Samo krajevno"
-
-#~ msgid "Exportable"
-#~ msgstr "Izvozljivo"
-
-#~ msgid "Revocation Key"
-#~ msgstr "Preklicni ključ"
-
-#~ msgid "Fingerprint"
-#~ msgstr "Prstni odtis"
-
-#~ msgid "Public Subkey"
-#~ msgstr "Javni podključ"
-
-#~ msgid "Secret Key"
-#~ msgstr "Skriti ključ"
-
-#~ msgid "Secret Subkey"
-#~ msgstr "Skriti podključ"
-
-#~ msgid "Initializing…"
-#~ msgstr "Začenjanje …"
-
-#~ msgid "Import is in progress…"
-#~ msgstr "Poteka uvažanje …"
-
-#, c-format
-#~ msgid "Imported to: %s"
-#~ msgstr "Uvoženo v: %s"
-
-#, c-format
-#~ msgid "Import to: %s"
-#~ msgstr "Uvozi v: %s"
-
-#~ msgid "Cannot import because there are no compatible importers"
-#~ msgstr "Uvoz ni mogoč, ker ni ustreznih uvoznikov"
-
-#~ msgid "No data to import"
-#~ msgstr "Ni podatkov za uvoz"
-
-#~ msgid "Key"
-#~ msgstr "Ključ"
-
-#~ msgid "Private RSA Key"
-#~ msgstr "Osebni ključ RSA"
-
-#~ msgid "Private DSA Key"
-#~ msgstr "Osebni ključ DSA"
-
-#~ msgid "Private Elliptic Curve Key"
-#~ msgstr "Zasebni ključ eliptične krožnice"
-
-#~ msgid "Public DSA Key"
-#~ msgstr "Javni ključ DSA"
-
-#~ msgid "Public Elliptic Curve Key"
-#~ msgstr "Javni ključ eliptične krožnice"
-
-#, c-format
-#~ msgid "%u bit"
-#~ msgid_plural "%u bits"
-#~ msgstr[0] "%u bitov"
-#~ msgstr[1] "%u bit"
-#~ msgstr[2] "%u bita"
-#~ msgstr[3] "%u biti"
-
-#~ msgid "Strength"
-#~ msgstr "Jakost"
-
-#~ msgid "Fingerprints"
-#~ msgstr "Prstni odtisi"
-
-#~ msgid "SHA1"
-#~ msgstr "SHA1"
-
-#~ msgid "SHA256"
-#~ msgstr "SHA256"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Prekliči"
-
-#~ msgid "_OK"
-#~ msgstr "_V redu"
-
-#~ msgid "Automatically chosen"
-#~ msgstr "Samodejno izbrano"
-
-#, c-format
-#~ msgid "The user cancelled the operation"
-#~ msgstr "Uporabnik je preklical opravilo"
-
-#~ msgid "In order to import, please enter the password."
-#~ msgstr "Za uvoz predmeta je treba vpisati geslo."
-
-#~ msgid "Password:"
-#~ msgstr "Geslo:"
-
-#~ msgid "Token:"
-#~ msgstr "Žeton:"
-
-#~ msgid "Label:"
-#~ msgstr "Oznaka:"
-
-#~ msgid "Import settings"
-#~ msgstr "Nastavitve uvoza"
-
-#~ msgid "Confirm:"
-#~ msgstr "Potrditev:"
-
-#~ msgid "Passwords do not match."
-#~ msgstr "Gesli se ne skladata."
-
-#~ msgid "Password cannot be blank"
-#~ msgstr "Geslo ne more biti prazno"
-
-#~ msgid "Access Prompt"
-#~ msgstr "Vnos za dostop"
-
-#~ msgid "Unlock access to passwords and other secrets"
-#~ msgstr "Odklepanje dostopa do gesel in drugih skrivnih podatkov"
-
-#~ msgid "A file already exists with this name."
-#~ msgstr "Datoteka s tem imenom že obstaja."
-
-#~ msgid "Do you want to replace it with a new file?"
-#~ msgstr "Ali jo želite zamenjati z novo datoteko?"
-
-#~ msgid "_Replace"
-#~ msgstr "_Zamenjaj"
-
-#, c-format
-#~ msgid "The operation was cancelled."
-#~ msgstr "Dejanje je preklicano."
-
-#~ msgid "Export certificate"
-#~ msgstr "Izvozi potrdilo"
-
-#~ msgid "_Save"
-#~ msgstr "_Shrani"
-
-#~ msgid "PEM files"
-#~ msgstr "Datoteke PEM"
-
-#~ msgid "Automatically unlock this keyring whenever I’m logged in"
-#~ msgstr "Ob prijavi samodejno odkleni zbirko ključev"
-
-#~ msgid "Lock this keyring when I log out"
-#~ msgstr "Samodejno zakleni zbirko ključev ob odjavi."
-
-#~ msgid "Lock this keyring after"
-#~ msgstr "Zakleni zbirko ključev po"
-
-#~ msgid "Lock this keyring if idle for"
-#~ msgstr "Zakleni zbirko ključev ob nedejavnosti"
-
-#~ msgid "minutes"
-#~ msgstr "minut"
-
-#, c-format
-#~ msgid "Unlock: %s"
-#~ msgstr "Odkleni: %s"
-
-#~ msgid "Password"
-#~ msgstr "Geslo"
-
-#, c-format
-#~ msgid ""
-#~ "The contents of “%s” are locked. In order to view the contents, enter the "
-#~ "correct password."
-#~ msgstr ""
-#~ "Vsebina »%s« je zaklenjena. Za ogled vsebine je treba vnesti pravilno "
-#~ "geslo."
-
-#~ msgid ""
-#~ "The contents are locked. In order to view the contents, enter the correct "
-#~ "password."
-#~ msgstr ""
-#~ "Vsebina je zaklenjena. Za ogled vsebine je treba vnesti pravilno geslo."
-
-#~ msgid "View file"
-#~ msgstr "Pogled datoteke"
-
-#~ msgid "GCR Certificate and Key Viewer"
-#~ msgstr "Potrdilo GCR in pregledovalnik datotek ključev"
-
-#~ msgid "- View certificate and key files"
-#~ msgstr "- Pregeld potrdila in datotek ključev"
-
-#~ msgid "The password was incorrect"
-#~ msgstr "Geslo je napačno."
-
-#~ msgid "Imported"
-#~ msgstr "Uvoženo"
-
-#~ msgid "Import failed"
-#~ msgstr "Uvoz je spodletel"
-
-#~ msgid "Import"
-#~ msgstr "Uvozi"
-
-#~ msgid "_Close"
-#~ msgstr "_Zapri"
-
-#~ msgctxt "Disabled"
-#~ msgid "capability"
-#~ msgstr "Zmožnosti"
-
-#~ msgctxt "Disabled"
-#~ msgid "ownertrust"
-#~ msgstr "Zaupanje lastniku"
-
-#~ msgid "Export Certificate..."
-#~ msgstr "Izvoz potrdila ..."
-
-#~ msgid "Invalid PKCS#11 module: %s"
-#~ msgstr "Neveljavni odkodirnik PKCS#11: %s"
-
-#~ msgid "Couldn't setup PKCS#11 module: %s"
-#~ msgstr "Odkodirnika PKCS#11 ni mogoče nastaviti: %s"
-
-#~ msgid "Label"
-#~ msgstr "Oznaka"

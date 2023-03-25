@@ -15,7 +15,7 @@
 # Cédric Felizard <cedric@felizard.fr>, 2011.
 # Josselin TILLAY-DOLEDEC <josselin.td@gmail.com>, 2012.
 # Alexandre Franke <alexandre.franke@gmail.com>, 2012.
-# Guillaume Bernard <associations@guillaume-bernard.fr>, 2018
+# Guillaume Bernard <associations@guillaume-bernard.fr>, 2018-2023
 # Charles Monzat <charles.monzat@numericable.fr>, 2018.
 # vanadiae <vanadiae35@gmail.com>, 2020.
 #
@@ -23,15 +23,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-09-04 18:07+0000\n"
-"PO-Revision-Date: 2022-09-10 12:30+0200\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"POT-Creation-Date: 2023-01-25 17:22+0000\n"
+"PO-Revision-Date: 2023-03-05 18:33+0100\n"
+"Last-Translator: Guillaume Bernard <associations@guillaume-bernard.fr>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -165,82 +166,195 @@ msgstr "MD5 avec RSA"
 msgid "SHA1 with RSA"
 msgstr "SHA1 avec RSA"
 
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "RSA avec remplissage OAEP"
+
 #: egg/egg-oid.c:115
+msgid "RSA with MGF1"
+msgstr "RSA avec MGF1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "Signature RSA avec RSA-PSS"
+
+#: egg/egg-oid.c:117
+msgid "SHA256 with RSA encryption"
+msgstr "SHA256 avec chiffrement RSA"
+
+#: egg/egg-oid.c:118
+msgid "SHA384 with RSA encryption"
+msgstr "SHA384 avec chiffrement RSA"
+
+#: egg/egg-oid.c:119
+msgid "SHA512 with RSA encryption"
+msgstr "SHA512 avec chiffrement RSA"
+
+#: egg/egg-oid.c:120
+msgid "SHA224 with RSA encryption"
+msgstr "SHA224 avec chiffrement RSA"
+
+#: egg/egg-oid.c:122
 msgid "DSA"
 msgstr "DSA"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:123
 msgid "SHA1 with DSA"
 msgstr "SHA1 avec DSA"
 
-#: egg/egg-oid.c:118
+#: egg/egg-oid.c:125
 msgid "Elliptic Curve"
 msgstr "Courbe elliptique"
 
-#: egg/egg-oid.c:119
+#: egg/egg-oid.c:126
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 avec ECDSA"
 
-#: egg/egg-oid.c:120
+#: egg/egg-oid.c:127
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 avec ECDSA"
 
-#: egg/egg-oid.c:121
+#: egg/egg-oid.c:128
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 avec ECDSA"
 
-#: egg/egg-oid.c:122
+#: egg/egg-oid.c:129
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 avec ECDSA"
 
-#: egg/egg-oid.c:123
+#: egg/egg-oid.c:130
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 avec ECDSA"
 
-#: egg/egg-oid.c:125
+#: egg/egg-oid.c:132
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "GOST R 34.11-94 avec GOST R 34.10-2001"
 
-#: egg/egg-oid.c:126
+#: egg/egg-oid.c:133
 msgid "GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001"
 
-#: egg/egg-oid.c:127
+#: egg/egg-oid.c:134
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "Courbe GOST R 34.10-2012 256-bit"
 
-#: egg/egg-oid.c:128
+#: egg/egg-oid.c:135
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "Courbe GOST R 34.10-2012 512-bit"
 
-#: egg/egg-oid.c:129
+#: egg/egg-oid.c:136
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.11-2012/256 avec courbe GOST R 34.10-2012 256-bit"
 
-#: egg/egg-oid.c:130
+#: egg/egg-oid.c:137
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.11-2012/512 avec courbe GOST R 34.10-2012 512-bit"
 
 #. Extended Key Usages
-#: egg/egg-oid.c:133
+#: egg/egg-oid.c:140
 msgid "Server Authentication"
 msgstr "Authentification de serveur"
 
-#: egg/egg-oid.c:134
+#: egg/egg-oid.c:141
 msgid "Client Authentication"
 msgstr "Authentification de client"
 
-#: egg/egg-oid.c:135
+#: egg/egg-oid.c:142
 msgid "Code Signing"
 msgstr "Signature de code"
 
-#: egg/egg-oid.c:136
+#: egg/egg-oid.c:143
 msgid "Email Protection"
 msgstr "Protection de courriel"
 
-#: egg/egg-oid.c:137
+#: egg/egg-oid.c:144
 msgid "Time Stamping"
 msgstr "Horodatage"
+
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+msgid "Certificate Authority Information Access"
+msgstr "Accès aux informations de l’autorité de certification"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "Extension de certificat d’attributs d’annuaires du sujet"
+
+#: egg/egg-oid.c:149
+msgid "Subject key identifier"
+msgstr "Identificateur de clé du sujet"
+
+#: egg/egg-oid.c:150
+msgid "Key usage"
+msgstr "Utilisation de clé"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "Période d’utilisation de la clé privée"
+
+#: egg/egg-oid.c:152
+msgid "Subject alternative name"
+msgstr "Nom alternatif du sujet"
+
+#: egg/egg-oid.c:153
+msgid "Issuer alternative name"
+msgstr "Nom alternatif de l’émetteur"
+
+#: egg/egg-oid.c:154
+msgid "Basic constraints"
+msgstr "Contraintes de base"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "Numéro de liste de révocation de certificat"
+
+#: egg/egg-oid.c:156
+msgid "Reason code"
+msgstr "Code du motif"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr "Code d’instruction de maintien"
+
+#: egg/egg-oid.c:158
+msgid "Invalidity date"
+msgstr "Date de nullité"
+
+#: egg/egg-oid.c:159
+msgid "Certificate Revocation List indicator"
+msgstr "Indicateur de liste de révocation de certificats"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr "Point de distribution de l’émission"
+
+#: egg/egg-oid.c:161
+msgid "Certificate issuer"
+msgstr "Émetteur du certificat"
+
+#: egg/egg-oid.c:162
+msgid "Name constraints"
+msgstr "Contraintes de nom"
+
+#: egg/egg-oid.c:163
+msgid "Certificate Revocation List distribution points"
+msgstr "Points de distribution de listes de révocation de certificats"
+
+#: egg/egg-oid.c:164
+msgid "Certificate policies"
+msgstr "Politiques du certificat"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "Correspondance des politiques"
+
+#: egg/egg-oid.c:166
+msgid "Policy constraints"
+msgstr "Contraintes de politique"
+
+#: egg/egg-oid.c:167
+msgid "Authority key identifier"
+msgstr "Identificateur de clé de l’autorité"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -696,9 +810,6 @@ msgstr "[fichier…]"
 #~ msgid "Could not display file"
 #~ msgstr "Impossible d’afficher le fichier"
 
-#~ msgid "Reason"
-#~ msgstr "Motif"
-
 #, c-format
 #~ msgid "Cannot display a file of this type."
 #~ msgstr "Impossible d’afficher un fichier de ce type."
@@ -721,9 +832,6 @@ msgstr "[fichier…]"
 #~ msgctxt "capability"
 #~ msgid "Disabled"
 #~ msgstr "Désactivée"
-
-#~ msgid "Invalid"
-#~ msgstr "Non valide"
 
 #~ msgctxt "ownertrust"
 #~ msgid "Disabled"
@@ -842,9 +950,6 @@ msgstr "[fichier…]"
 
 #~ msgid "Subkey revocation signature"
 #~ msgstr "Signature de révocation de sous-clé"
-
-#~ msgid "Certification revocation signature"
-#~ msgstr "Signature de révocation de certificat"
 
 #~ msgid "Timestamp signature"
 #~ msgstr "Signature avec date"
@@ -965,9 +1070,6 @@ msgstr "[fichier…]"
 
 #~ msgid "Export certificate"
 #~ msgstr "Exporter le certificat"
-
-#~ msgid "Certificate files"
-#~ msgstr "Fichiers de certificat"
 
 #~ msgid "Automatically unlock this keyring whenever I’m logged in"
 #~ msgstr ""

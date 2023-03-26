@@ -8,7 +8,7 @@
 # Redmar <redmar@ubuntu.com>, 2012, 2013.
 # Rachid BM <rachidbm@ubuntu.com>, 2013.
 # Justin van Steijn <jvs@fsfe.org>, 2016.
-# Nathan Follens <nfollens@gnome.org>, 2017, 2019-2020, 2022.
+# Nathan Follens <nfollens@gnome.org>, 2017, 2019-2020, 2022-2023.
 #
 # Keyring vertalen we als sleutelbos (Wouter Bolsterlee, Tino Meinen)
 # ‘Secret service’ laat ik voorlopig even onvertaald (Wouter Bolsterlee)
@@ -18,17 +18,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-09-04 18:07+0000\n"
-"PO-Revision-Date: 2022-11-01 23:28+0100\n"
+"POT-Creation-Date: 2023-01-25 17:22+0000\n"
+"PO-Revision-Date: 2023-03-26 18:04+0200\n"
 "Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
-"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
+"Language-Team: Dutch <https://matrix.to/#/#nl:gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Launchpad-Export-Date: 2013-02-02 09:32+0000\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -164,82 +164,196 @@ msgstr "MD5 met RSA"
 msgid "SHA1 with RSA"
 msgstr "SHA1 met RSA"
 
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "RSA met OAEP-padding"
+
 #: egg/egg-oid.c:115
+#| msgid "SHA1 with RSA"
+msgid "RSA with MGF1"
+msgstr "RSA met MGF1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "RSA-ondertekening met RSA-PSS"
+
+#: egg/egg-oid.c:117
+msgid "SHA256 with RSA encryption"
+msgstr "SHA256 met RSA-versleuteling"
+
+#: egg/egg-oid.c:118
+msgid "SHA384 with RSA encryption"
+msgstr "SHA384 met RSA-versleuteling"
+
+#: egg/egg-oid.c:119
+msgid "SHA512 with RSA encryption"
+msgstr "SHA512 met RSA-versleuteling"
+
+#: egg/egg-oid.c:120
+msgid "SHA224 with RSA encryption"
+msgstr "SHA224 met RSA-versleuteling"
+
+#: egg/egg-oid.c:122
 msgid "DSA"
 msgstr "DSA"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:123
 msgid "SHA1 with DSA"
 msgstr "SHA1 met DSA"
 
-#: egg/egg-oid.c:118
+#: egg/egg-oid.c:125
 msgid "Elliptic Curve"
 msgstr "Elliptische kromme"
 
-#: egg/egg-oid.c:119
+#: egg/egg-oid.c:126
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 met ECDSA"
 
-#: egg/egg-oid.c:120
+#: egg/egg-oid.c:127
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 met ECDSA"
 
-#: egg/egg-oid.c:121
+#: egg/egg-oid.c:128
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 met ECDSA"
 
-#: egg/egg-oid.c:122
+#: egg/egg-oid.c:129
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 met ECDSA"
 
-#: egg/egg-oid.c:123
+#: egg/egg-oid.c:130
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 met ECDSA"
 
-#: egg/egg-oid.c:125
+#: egg/egg-oid.c:132
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "GOST R 34.11-94 met GOST R 34.10-2001"
 
-#: egg/egg-oid.c:126
+#: egg/egg-oid.c:133
 msgid "GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001"
 
-#: egg/egg-oid.c:127
+#: egg/egg-oid.c:134
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.10-2012 256-bits curve"
 
-#: egg/egg-oid.c:128
+#: egg/egg-oid.c:135
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.10-2012 512-bits curve"
 
-#: egg/egg-oid.c:129
+#: egg/egg-oid.c:136
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.11-2012/256 met GOST R 34.10-2012 256-bits curve"
 
-#: egg/egg-oid.c:130
+#: egg/egg-oid.c:137
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.11-2012/512 met GOST R 34.10-2012 512-bits curve"
 
 #. Extended Key Usages
-#: egg/egg-oid.c:133
+#: egg/egg-oid.c:140
 msgid "Server Authentication"
 msgstr "Server-authenticatie"
 
-#: egg/egg-oid.c:134
+#: egg/egg-oid.c:141
 msgid "Client Authentication"
 msgstr "Client-authenticatie"
 
-#: egg/egg-oid.c:135
+#: egg/egg-oid.c:142
 msgid "Code Signing"
 msgstr "Ondertekenen van code"
 
-#: egg/egg-oid.c:136
+#: egg/egg-oid.c:143
 msgid "Email Protection"
 msgstr "E-mailbeveiliging"
 
-#: egg/egg-oid.c:137
+#: egg/egg-oid.c:144
 msgid "Time Stamping"
 msgstr "Toevoegen van tijdstempel"
+
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+msgid "Certificate Authority Information Access"
+msgstr "Informatietoegang van certificaatautoriteit"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "Certificaatextensie van subjectmapattributen"
+
+#: egg/egg-oid.c:149
+msgid "Subject key identifier"
+msgstr "Subjectsleutelidentificatie"
+
+#: egg/egg-oid.c:150
+msgid "Key usage"
+msgstr "Sleutelgebruik"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "Gebruiksperiode voor privésleutel"
+
+#: egg/egg-oid.c:152
+msgid "Subject alternative name"
+msgstr "Alternatieve namen van subject"
+
+#: egg/egg-oid.c:153
+msgid "Issuer alternative name"
+msgstr "Alternatieve naam van uitgever"
+
+#: egg/egg-oid.c:154
+msgid "Basic constraints"
+msgstr "Basisbeperkingen"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "CRL-getal"
+
+#: egg/egg-oid.c:156
+msgid "Reason code"
+msgstr "Redencode"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr "Hold-instructiecode"
+
+#: egg/egg-oid.c:158
+msgid "Invalidity date"
+msgstr "Ongeldigheidsdatum"
+
+#: egg/egg-oid.c:159
+msgid "Certificate Revocation List indicator"
+msgstr "Indicator voor certificaatintrekkingslijst"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr "Uitgevend distributiepunt"
+
+#: egg/egg-oid.c:161
+msgid "Certificate issuer"
+msgstr "Uitgever van certificaat"
+
+#: egg/egg-oid.c:162
+msgid "Name constraints"
+msgstr "Naambeperkingen"
+
+#: egg/egg-oid.c:163
+msgid "Certificate Revocation List distribution points"
+msgstr "Distributiepunten voor certificaatintrekkingslijst"
+
+#: egg/egg-oid.c:164
+msgid "Certificate policies"
+msgstr "Certificaatbeleiden"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "Beleidsmappingen"
+
+#: egg/egg-oid.c:166
+msgid "Policy constraints"
+msgstr "Beleidsbeperkingen"
+
+#: egg/egg-oid.c:167
+msgid "Authority key identifier"
+msgstr "Autoriteitssleutelidentificatie"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -304,7 +418,7 @@ msgstr "Basisbeperkingen"
 
 #: gcr/gcr-certificate.c:924
 msgid "Certificate Authority"
-msgstr "Certificaatauthoriteit"
+msgstr "Certificaatautoriteit"
 
 #: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
 msgid "Yes"
@@ -330,14 +444,13 @@ msgstr "Uitgebreid sleutelgebruik"
 msgid "Allowed Purposes"
 msgstr "Toegestane doeleinden"
 
-# Subject Key Identifier is jargon en dus niet iets als "onderwerpsleutel" (Wouter Bolsterlee)
 #: gcr/gcr-certificate.c:973
 msgid "Subject Key Identifier"
-msgstr "Subject Key Identifier"
+msgstr "Subjectsleutelidentificatie"
 
 #: gcr/gcr-certificate.c:976
 msgid "Key Identifier"
-msgstr "Sleutel-identificatie"
+msgstr "Sleutelidentificatie"
 
 #: gcr/gcr-certificate.c:985
 msgid "Digital signature"
@@ -385,7 +498,7 @@ msgstr "Gebruik"
 
 #: gcr/gcr-certificate.c:1033
 msgid "Subject Alternative Names"
-msgstr "Subject Alternative Names"
+msgstr "Alternatieve namen van subject"
 
 #: gcr/gcr-certificate.c:1055
 msgid "Extension"
@@ -514,7 +627,7 @@ msgstr "IP-adres"
 
 #: gcr/gcr-certificate-extensions.c:270
 msgid "Registered ID"
-msgstr "Geregistreerd ID"
+msgstr "Geregistreerde ID"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -697,9 +810,6 @@ msgstr "[bestand...]"
 #~ msgid "Could not display file"
 #~ msgstr "Kan bestand niet weergeven"
 
-#~ msgid "Reason"
-#~ msgstr "Reden"
-
 #, c-format
 #~ msgid "Cannot display a file of this type."
 #~ msgstr "Kan dit type bestanden niet weergeven."
@@ -722,9 +832,6 @@ msgstr "[bestand...]"
 #~ msgctxt "capability"
 #~ msgid "Disabled"
 #~ msgstr "Uitgeschakeld"
-
-#~ msgid "Invalid"
-#~ msgstr "Ongeldig"
 
 #~ msgctxt "ownertrust"
 #~ msgid "Disabled"
@@ -843,9 +950,6 @@ msgstr "[bestand...]"
 
 #~ msgid "Subkey revocation signature"
 #~ msgstr "Handtekening voor intrekking subsleutel"
-
-#~ msgid "Certification revocation signature"
-#~ msgstr "Handtekening voor intrekking certificaat"
 
 #~ msgid "Timestamp signature"
 #~ msgstr "Digitale handtekening"
@@ -994,9 +1098,6 @@ msgstr "[bestand...]"
 
 #~ msgid "_Save"
 #~ msgstr "_Opslaan"
-
-#~ msgid "Certificate files"
-#~ msgstr "Certificaatbestanden"
 
 #~ msgid "PEM files"
 #~ msgstr "PEM-bestanden"

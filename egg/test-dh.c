@@ -31,7 +31,6 @@
 #include <string.h>
 
 #include <glib.h>
-#include <gcrypt.h>
 
 EGG_SECURE_DEFINE_GLIB_GLOBALS ();
 

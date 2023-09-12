@@ -29,7 +29,6 @@
 #include "egg/egg-testing.h"
 
 #include <glib.h>
-#include <gcrypt.h>
 
 #include <stdlib.h>
 #include <stdio.h>

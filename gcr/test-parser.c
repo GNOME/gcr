@@ -32,7 +32,6 @@
 #include "gck/gck.h"
 
 #include <glib.h>
-#include <gcrypt.h>
 
 #include <errno.h>
 #include <stdlib.h>

@@ -26,8 +26,6 @@
 #include "egg-armor.h"
 #include "egg-secure-memory.h"
 
-#include <gcrypt.h>
-
 #include <glib.h>
 
 #include <ctype.h>

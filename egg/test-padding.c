@@ -25,8 +25,6 @@
 #include "egg/egg-padding.h"
 #include "egg/egg-testing.h"
 
-#include <gcrypt.h>
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

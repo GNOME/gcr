@@ -200,7 +200,7 @@ handle_request (GcrSshAgentService *self,
 
 	/* Decode the operation; on failure, just pass through */
 	if (egg_buffer_get_byte (req, 4, NULL, &op) &&
-	    op <= GCR_SSH_OP_MAX && operations[op] != NULL)
+	    op < GCR_SSH_OP_MAX && operations[op] != NULL)
 		func = operations[op];
 	else
 		func = relay_request;

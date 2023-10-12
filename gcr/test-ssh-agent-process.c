@@ -43,6 +43,7 @@ static void
 setup (Test *test, gconstpointer unused)
 {
 	gchar *path;
+        gchar **ssh_agent_args = NULL;
 
 	test->directory = egg_tests_create_scratch_directory (NULL, NULL);
 
@@ -50,7 +51,7 @@ setup (Test *test, gconstpointer unused)
 	egg_buffer_init_full (&test->resp, 128, (EggBufferAllocator)g_realloc);
 
 	path = g_strdup_printf ("%s/.ssh.sock", test->directory);
-	test->process = gcr_ssh_agent_process_new (path);
+	test->process = gcr_ssh_agent_process_new (path, ssh_agent_args);
 	g_free (path);
 	g_assert_nonnull (test->process);
 	test->connection = NULL;

@@ -101,6 +101,7 @@ setup (Test *test, gconstpointer unused)
 	GTlsInteraction *interaction;
 	GcrSshAgentPreload *preload;
 	gchar *sockets_path;
+        gchar **ssh_agent_args = NULL;
 	gchar *preload_path;
 	gchar *path;
 
@@ -125,7 +126,7 @@ setup (Test *test, gconstpointer unused)
 	preload = gcr_ssh_agent_preload_new (preload_path);
 	g_free (preload_path);
 
-	test->service = gcr_ssh_agent_service_new (sockets_path, preload);
+	test->service = gcr_ssh_agent_service_new (sockets_path, ssh_agent_args, preload);
 	g_free (sockets_path);
 
 	interaction = mock_interaction_new ("password");

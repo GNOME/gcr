@@ -33,6 +33,7 @@
 G_DECLARE_FINAL_TYPE (GcrSshAgentService, gcr_ssh_agent_service, GCR, SSH_AGENT_SERVICE, GObject);
 
 GcrSshAgentService *gcr_ssh_agent_service_new  (const gchar        *path,
+                                                GStrv              ssh_agent_args,
                                                 GcrSshAgentPreload *preload);
 
 gboolean            gcr_ssh_agent_service_start

@@ -53,6 +53,7 @@ static const GcrSshAgentOperation operations[GCR_SSH_OP_MAX];
 enum {
 	PROP_0,
 	PROP_PATH,
+        PROP_SSH_AGENT_ARGS,
 	PROP_PRELOAD,
 	PROP_INTERACTION
 };
@@ -61,6 +62,7 @@ struct _GcrSshAgentService
 {
 	GObject object;
 	gchar *path;
+        GStrv ssh_agent_args;
 	GcrSshAgentPreload *preload;
 	GcrSshAgentProcess *process;
 	/* for mocking */
@@ -89,7 +91,7 @@ gcr_ssh_agent_service_constructed (GObject *object)
 	gchar *path;
 
 	path = g_strdup_printf ("%s/.ssh", self->path);
-	self->process = gcr_ssh_agent_process_new (path);
+	self->process = gcr_ssh_agent_process_new (path, self->ssh_agent_args);
 	g_free (path);
 
 	self->listener = G_SOCKET_LISTENER (g_threaded_socket_service_new (-1));
@@ -110,6 +112,9 @@ gcr_ssh_agent_service_set_property (GObject *object,
 	case PROP_PATH:
 		self->path = g_value_dup_string (value);
 		break;
+        case PROP_SSH_AGENT_ARGS:
+                self->ssh_agent_args = g_value_dup_boxed (value);
+                break;
 	case PROP_PRELOAD:
 		self->preload = g_value_dup_object (value);
 		break;
@@ -128,6 +133,7 @@ gcr_ssh_agent_service_finalize (GObject *object)
 	GcrSshAgentService *self = GCR_SSH_AGENT_SERVICE (object);
 
 	g_free (self->path);
+        g_strfreev (self->ssh_agent_args);
 	g_object_unref (self->preload);
 	g_clear_object (&self->interaction);
 
@@ -152,6 +158,11 @@ gcr_ssh_agent_service_class_init (GcrSshAgentServiceClass *klass)
 		 g_param_spec_string ("path", "Path", "Path",
 				      "",
 				      G_PARAM_CONSTRUCT_ONLY | G_PARAM_WRITABLE));
+        g_object_class_install_property (gobject_class, PROP_SSH_AGENT_ARGS,
+                 g_param_spec_boxed ("ssh-agent-args", NULL, NULL,
+                                      G_TYPE_STRV,
+                                      G_PARAM_CONSTRUCT_ONLY | G_PARAM_WRITABLE |
+                                      G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (gobject_class, PROP_PRELOAD,
 		 g_param_spec_object ("preload", "Preload", "Preload",
 				      GCR_TYPE_SSH_AGENT_PRELOAD,
@@ -450,6 +461,7 @@ gcr_ssh_agent_service_stop (GcrSshAgentService *self)
 
 GcrSshAgentService *
 gcr_ssh_agent_service_new (const gchar *path,
+                           GStrv ssh_agent_args,
 			   GcrSshAgentPreload *preload)
 {
 	g_return_val_if_fail (path, NULL);
@@ -457,6 +469,7 @@ gcr_ssh_agent_service_new (const gchar *path,
 
 	return g_object_new (GCR_TYPE_SSH_AGENT_SERVICE,
 			     "path", path,
+                             "ssh-agent-args", ssh_agent_args,
 			     "preload", preload,
 			     NULL);
 }

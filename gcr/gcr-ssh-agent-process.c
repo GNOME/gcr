@@ -33,7 +33,8 @@
 
 enum {
 	PROP_0,
-	PROP_PATH
+	PROP_PATH,
+        PROP_SSH_AGENT_ARGS
 };
 
 enum {
@@ -47,6 +48,7 @@ struct _GcrSshAgentProcess
 {
 	GObject object;
 	gchar *path;
+        GStrv ssh_agent_args;
 	gint output;
 	GMutex lock;
 	GPid pid;
@@ -79,6 +81,7 @@ gcr_ssh_agent_process_finalize (GObject *object)
 		kill (self->pid, SIGTERM);
 	g_unlink (self->path);
 	g_free (self->path);
+        g_strfreev (self->ssh_agent_args);
 	g_mutex_clear (&self->lock);
 
 	G_OBJECT_CLASS (gcr_ssh_agent_process_parent_class)->finalize (object);
@@ -96,6 +99,9 @@ gcr_ssh_agent_process_set_property (GObject *object,
 	case PROP_PATH:
 		self->path = g_value_dup_string (value);
 		break;
+        case PROP_SSH_AGENT_ARGS:
+                self->ssh_agent_args = g_value_dup_boxed (value);
+                break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -112,6 +118,11 @@ gcr_ssh_agent_process_class_init (GcrSshAgentProcessClass *klass)
 		 g_param_spec_string ("path", "Path", "Path",
 				      "",
 				      G_PARAM_CONSTRUCT_ONLY | G_PARAM_WRITABLE));
+        g_object_class_install_property (gobject_class, PROP_SSH_AGENT_ARGS,
+                 g_param_spec_boxed ("ssh-agent-args", NULL, NULL,
+                                      G_TYPE_STRV,
+                                      G_PARAM_CONSTRUCT_ONLY | G_PARAM_WRITABLE |
+                                      G_PARAM_STATIC_STRINGS));
 	signals[CLOSED] = g_signal_new_class_handler ("closed",
 						      G_TYPE_FROM_CLASS (klass),
 						      G_SIGNAL_RUN_LAST,
@@ -178,11 +189,30 @@ static gboolean
 agent_start_inlock (GcrSshAgentProcess *self,
 		    GError **error)
 {
-	const gchar *argv[] = { SSH_AGENT_EXECUTABLE, "-D", "-a", self->path, NULL };
+        GPtrArray *items;
+        gchar **argv;
 	GPid pid;
 
-	if (!g_spawn_async_with_pipes ("/", (gchar **)argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_CLOEXEC_PIPES,
-	                               NULL, NULL, &pid, NULL, &self->output, NULL, error))
+        items = g_ptr_array_new ();
+
+        g_ptr_array_add (items, SSH_AGENT_EXECUTABLE);
+        g_ptr_array_add (items, "-D");
+        g_ptr_array_add (items, "-a");
+        g_ptr_array_add (items, self->path);
+
+        if (self->ssh_agent_args)
+                for (gchar **arg = self->ssh_agent_args; *arg; ++arg)
+                        g_ptr_array_add (items, *arg);
+
+        g_ptr_array_add (items, NULL);
+
+        argv = (gchar **) g_ptr_array_free (items, FALSE);
+
+	if (!g_spawn_async_with_pipes ("/", argv, NULL,
+                                       G_SPAWN_DO_NOT_REAP_CHILD |
+                                       G_SPAWN_CLOEXEC_PIPES, NULL,
+                                       NULL, &pid, NULL,
+                                       &self->output, NULL, error))
 		return FALSE;
 
 	self->ready = FALSE;
@@ -256,11 +286,15 @@ gcr_ssh_agent_process_connect (GcrSshAgentProcess *self,
 }
 
 GcrSshAgentProcess *
-gcr_ssh_agent_process_new (const gchar *path)
+gcr_ssh_agent_process_new (const gchar *path,
+                           GStrv ssh_agent_args)
 {
 	g_return_val_if_fail (path, NULL);
 
-	return g_object_new (GCR_TYPE_SSH_AGENT_PROCESS, "path", path, NULL);
+	return g_object_new (GCR_TYPE_SSH_AGENT_PROCESS,
+                             "path", path,
+                             "ssh-agent-args", ssh_agent_args,
+                             NULL);
 }
 
 GPid

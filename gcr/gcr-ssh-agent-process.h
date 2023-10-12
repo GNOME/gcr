@@ -31,7 +31,8 @@
 #define GCR_TYPE_SSH_AGENT_PROCESS gcr_ssh_agent_process_get_type ()
 G_DECLARE_FINAL_TYPE(GcrSshAgentProcess, gcr_ssh_agent_process, GCR, SSH_AGENT_PROCESS, GObject)
 
-GcrSshAgentProcess *gcr_ssh_agent_process_new         (const gchar *path);
+GcrSshAgentProcess *gcr_ssh_agent_process_new         (const gchar *path,
+                                                       GStrv ssh_agent_args);
 GSocketConnection  *gcr_ssh_agent_process_connect     (GcrSshAgentProcess *self,
                                                        GCancellable *cancellable,
                                                        GError **error);

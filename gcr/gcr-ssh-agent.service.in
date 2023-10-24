@@ -7,7 +7,7 @@ Requires=gcr-ssh-agent.socket
 Type=simple
 StandardError=journal
 Environment=SSH_AUTH_SOCK=%t/gcr/ssh
-ExecStart=@libexecdir@/gcr-ssh-agent %t/gcr
+ExecStart=@libexecdir@/gcr-ssh-agent --base-dir %t/gcr
 Restart=on-failure
 
 [Install]

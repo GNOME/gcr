@@ -192,6 +192,7 @@ agent_start_inlock (GcrSshAgentProcess *self,
         GPtrArray *items;
         gchar **argv;
 	GPid pid;
+	gboolean ok;
 
         items = g_ptr_array_new ();
 
@@ -208,11 +209,13 @@ agent_start_inlock (GcrSshAgentProcess *self,
 
         argv = (gchar **) g_ptr_array_free (items, FALSE);
 
-	if (!g_spawn_async_with_pipes ("/", argv, NULL,
+	ok = g_spawn_async_with_pipes ("/", argv, NULL,
                                        G_SPAWN_DO_NOT_REAP_CHILD |
                                        G_SPAWN_CLOEXEC_PIPES, NULL,
                                        NULL, &pid, NULL,
-                                       &self->output, NULL, error))
+                                       &self->output, NULL, error);
+	g_free (argv);
+	if (!ok)
 		return FALSE;
 
 	self->ready = FALSE;

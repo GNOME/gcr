@@ -10,7 +10,6 @@ gcr/gcr-certificate.c
 gcr/gcr-certificate-extensions.c
 gcr/gcr-certificate-request.c
 gcr/gcr-gnupg-importer.c
-gcr/gcr-gnupg-key.c
 gcr/gcr-gnupg-process.c
 gcr/gcr-importer.c
 gcr/gcr-library.c

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-10-05 12:39+0000\n"
-"PO-Revision-Date: 2023-10-30 19:20+0100\n"
+"POT-Creation-Date: 2023-11-04 11:23+0000\n"
+"PO-Revision-Date: 2023-11-12 23:06+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -300,9 +300,10 @@ msgstr "Nombre CRL"
 msgid "Reason code"
 msgstr "Codi del motiu"
 
+# https://www.ietf.org/rfc/rfc3280.txt -> 5.3.2
 #: egg/egg-oid.c:157
 msgid "Hold instruction code"
-msgstr ""
+msgstr "Codi d'instrucció en pausa"
 
 #: egg/egg-oid.c:158
 msgid "Invalidity date"
@@ -637,10 +638,6 @@ msgstr "Anell de claus GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Anell de claus GnuPG: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "Clau PGP"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -659,6 +656,10 @@ msgstr "S'ha cancel·lat l'operació"
 #: gcr/gcr-parser.c:337
 msgid "Private Key"
 msgstr "Clau privada"
+
+#: gcr/gcr-parser.c:346
+msgid "PGP Key"
+msgstr "Clau PGP"
 
 #: gcr/gcr-parser.c:349
 msgid "Certificate Request"
@@ -715,7 +716,7 @@ msgstr "Desbloca"
 msgid "The unlock password was incorrect"
 msgstr "La contrasenya de desbloqueig era incorrecta"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Sense nom"
 

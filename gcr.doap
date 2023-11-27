@@ -14,8 +14,9 @@ GCK is a library for accessing PKCS#11 modules like smart cards, in a
 (G)object oriented way.</description>
 
 	<homepage rdf:resource="https://wiki.gnome.org/Projects/GnomeKeyring" />
-	<mailing-list rdf:resource="http://mail.gnome.org/mailman/listinfo/gnome-keyring-list" />
-	<download-page rdf:resource="http://download.gnome.org/sources/gcr/"/>
+	<developer-forum rdf:resource="https://discourse.gnome.org/tag/keyring" />
+	<support-forum rdf:resource="https://discourse.gnome.org/tag/keyring" />
+	<download-page rdf:resource="https://download.gnome.org/sources/gcr/"/>
 	<bug-database rdf:resource="https://gitlab.gnome.org/GNOME/gcr/issues/" />
 	<category rdf:resource="http://api.gnome.org/doap-extensions#core" />
 	<programming-language>C</programming-language>
@@ -24,7 +25,7 @@ GCK is a library for accessing PKCS#11 modules like smart cards, in a
 		<foaf:Person>
 			<foaf:name>Stef Walter</foaf:name>
 			<foaf:mbox rdf:resource="mailto:stefw@gnome.org" />
-			<gnome:userid>stefw</gnome:userid>
+<!--			<gnome:userid>stefw</gnome:userid> -->
 		</foaf:Person>
 	</maintainer>
 

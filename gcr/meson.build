@@ -39,6 +39,16 @@ gcr_private_sources = files(
   'gcr-util.c',
 )
 
+if with_gcrypt
+  gcr_private_sources += files(
+    'gcr-parser-libgcrypt.c',
+  )
+elif with_gnutls
+  gcr_private_sources += files(
+    'gcr-parser-gnutls.c',
+  )
+endif
+
 gcr_headers = files(
   'gcr.h',
   'gcr-certificate.h',

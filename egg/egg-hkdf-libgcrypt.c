@@ -22,10 +22,8 @@
 #include "config.h"
 
 #include "egg-hkdf.h"
-#include "egg-secure-memory.h"
 
 #include <gcrypt.h>
-
 #include <string.h>
 
 gboolean

@@ -23,8 +23,6 @@
 #include "config.h"
 
 #include "egg/egg-armor.h"
-#include "egg/egg-symkey.h"
-#include "egg/egg-openssl.h"
 #include "egg/egg-secure-memory.h"
 #include "egg/egg-testing.h"
 

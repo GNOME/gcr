@@ -21,9 +21,10 @@
 
 #include "egg-padding.h"
 
-#include <gcrypt.h>
-
+#include "egg/egg-crypto.h"
 #include "egg/egg-secure-memory.h"
+
+EGG_SECURE_DECLARE (padding);
 
 /* ----------------------------------------------------------------------------
  * INTERNAL
@@ -35,7 +36,7 @@ fill_random_nonzero (guchar *data, gsize n_data)
 	guchar *rnd;
 	guint n_zero, i, j;
 
-	gcry_randomize (data, n_data, GCRY_STRONG_RANDOM);
+	egg_random (EGG_RANDOM_KEY, data, n_data);
 
 	/* Find any zeros in random data */
 	n_zero = 0;
@@ -45,7 +46,11 @@ fill_random_nonzero (guchar *data, gsize n_data)
 	}
 
 	while (n_zero > 0) {
-		rnd = gcry_random_bytes (n_zero, GCRY_STRONG_RANDOM);
+		rnd = egg_secure_alloc (n_zero);
+		g_return_if_fail (rnd);
+
+		egg_random (EGG_RANDOM_KEY, rnd, n_zero);
+
 		n_zero = 0;
 		for (i = 0, j = 0; i < n_data; ++i) {
 			if (data[i] != 0x00)
@@ -60,7 +65,7 @@ fill_random_nonzero (guchar *data, gsize n_data)
 				n_zero++;
 		}
 
-		gcry_free (rnd);
+		egg_secure_free (rnd);
 	}
 }
 

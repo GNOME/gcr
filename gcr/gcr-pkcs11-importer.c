@@ -30,11 +30,10 @@
 #include "gcr-parser.h"
 #include "gcr-pkcs11-importer.h"
 
+#include "egg/egg-crypto.h"
 #include "egg/egg-hex.h"
 
 #include <gck/gck.h>
-
-#include <gcrypt.h>
 
 #include <glib/gi18n-lib.h>
 
@@ -219,23 +218,23 @@ supplement_id_for_data (GckBuilder *builder,
                         gpointer data,
                         gsize n_data)
 {
-	gcry_md_hd_t mdh;
-	gcry_error_t gcry;
+	EggHasher *mdh;
+	GBytes *bytes;
 
 	if (gck_builder_find (builder, CKA_ID) != NULL)
 		return;
 
-	gcry = gcry_md_open (&mdh, GCRY_MD_SHA1, 0);
-	g_return_if_fail (gcry == 0);
+	mdh = egg_hasher_new (EGG_HASH_SHA1);
+	g_return_if_fail (mdh);
 
-	gcry_md_write (mdh, nonce, n_once);
-	gcry_md_write (mdh, data, n_data);
+	egg_hasher_hash (mdh, nonce, n_once);
+	egg_hasher_hash (mdh, data, n_data);
+
+	bytes = egg_hasher_free_to_bytes (mdh);
 
 	gck_builder_add_data (builder, CKA_ID,
-	                      gcry_md_read (mdh, 0),
-	                      gcry_md_get_algo_dlen (GCRY_MD_SHA1));
-
-	gcry_md_close (mdh);
+	                      g_bytes_get_data (bytes, NULL),
+	                      g_bytes_get_size (bytes));
 }
 
 static void
@@ -318,7 +317,7 @@ supplement_attributes (GcrPkcs11Importer *self,
 	}
 
 	/* For generation of CKA_ID's */
-	gcry_create_nonce (nonce, sizeof (nonce));
+	egg_random (EGG_RANDOM_NONCE, nonce, sizeof (nonce));
 
 	/* A table for marking which attributes are in the pairs table */
 	paired = g_hash_table_new (g_direct_hash, g_direct_equal);

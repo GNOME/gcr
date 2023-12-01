@@ -21,14 +21,14 @@
 
 #include "gcr-secret-exchange.h"
 
+#include "egg/egg-crypto.h"
 #include "egg/egg-dh.h"
 #include "egg/egg-hkdf.h"
-#include "egg/egg-libgcrypt.h"
+
 #include "egg/egg-padding.h"
 #include "egg/egg-secure-memory.h"
 
 #include <string.h>
-#include <gcrypt.h>
 
 EGG_SECURE_DECLARE (secret_exchange);
 
@@ -566,56 +566,22 @@ gcr_secret_exchange_send (GcrSecretExchange *self,
 #define EXCHANGE_1_KEY_LENGTH   16
 #define EXCHANGE_1_IV_LENGTH    16
 #define EXCHANGE_1_HASH_ALGO    "sha256"
-#define EXCHANGE_1_CIPHER_ALGO  GCRY_CIPHER_AES128
-#define EXCHANGE_1_CIPHER_MODE  GCRY_CIPHER_MODE_CBC
+#define EXCHANGE_1_CIPHER_ALGO  EGG_CIPHER_AES_128_CBC
 
 struct _GcrSecretExchangeDefault {
-	gcry_mpi_t prime;
-	gcry_mpi_t base;
-	gcry_mpi_t pub;
-	gcry_mpi_t priv;
+	egg_dh_params *params;
+	egg_dh_pubkey *pub;
+	egg_dh_privkey *priv;
 	gpointer key;
 };
-
-static guchar *
-mpi_to_data (gcry_mpi_t mpi,
-             gsize *n_data)
-{
-	gcry_error_t gcry;
-	guchar *data;
-
-	/* Get the size */
-	gcry = gcry_mpi_print (GCRYMPI_FMT_USG, NULL, 0, n_data, mpi);
-	g_return_val_if_fail (gcry == 0, NULL);
-
-	data = g_malloc0 (*n_data);
-
-	/* Write into buffer */
-	gcry = gcry_mpi_print (GCRYMPI_FMT_USG, data, *n_data, n_data, mpi);
-	g_return_val_if_fail (gcry == 0, NULL);
-
-	return data;
-}
-
-static gcry_mpi_t
-mpi_from_data (const guchar *data,
-               gsize n_data)
-{
-	gcry_mpi_t mpi;
-	gcry_error_t gcry;
-
-	gcry = gcry_mpi_scan (&mpi, GCRYMPI_FMT_USG, data, n_data, NULL);
-	return (gcry == 0) ? mpi : NULL;
-}
 
 static void
 gcr_secret_exchange_default_free (gpointer to_free)
 {
 	GcrSecretExchangeDefault *data = to_free;
-	gcry_mpi_release (data->prime);
-	gcry_mpi_release (data->base);
-	gcry_mpi_release (data->pub);
-	gcry_mpi_release (data->priv);
+	egg_dh_pubkey_free (data->pub);
+	egg_dh_privkey_free (data->priv);
+	egg_dh_params_free (data->params);
 	if (data->key) {
 		egg_secure_clear (data->key, EXCHANGE_1_KEY_LENGTH);
 		egg_secure_free (data->key);
@@ -630,30 +596,32 @@ gcr_secret_exchange_default_generate_exchange_key (GcrSecretExchange *exchange,
                                                    gsize *n_public_key)
 {
 	GcrSecretExchangeDefault *data = exchange->pv->default_exchange;
+	GBytes *buffer;
 
 	g_debug ("generating public key");
 
 	if (data == NULL) {
 		data = g_new0 (GcrSecretExchangeDefault, 1);
-		if (!egg_dh_default_params (EXCHANGE_1_IKE_NAME, &data->prime, &data->base))
+		data->params = egg_dh_default_params (EXCHANGE_1_IKE_NAME);
+		if (!data->params)
 			g_return_val_if_reached (FALSE);
 
 		exchange->pv->default_exchange = data;
 		exchange->pv->destroy_exchange = gcr_secret_exchange_default_free;
 	}
 
-	gcry_mpi_release (data->priv);
-	data->priv = NULL;
-	gcry_mpi_release (data->pub);
+	egg_dh_pubkey_free (data->pub);
 	data->pub = NULL;
-	egg_secure_free (data->key);
-	data->key = NULL;
+	egg_dh_privkey_free (data->priv);
+	data->priv = NULL;
 
-	if (!egg_dh_gen_pair (data->prime, data->base, 0,
+	if (!egg_dh_gen_pair (data->params, 0,
 	                      &data->pub, &data->priv))
 		g_return_val_if_reached (FALSE);
 
-	*public_key = mpi_to_data (data->pub, n_public_key);
+	buffer = egg_dh_pubkey_export (data->pub);
+	g_return_val_if_fail (buffer != NULL, FALSE);
+	*public_key = g_bytes_unref_to_data (buffer, n_public_key);
 	return *public_key != NULL;
 }
 
@@ -663,34 +631,34 @@ gcr_secret_exchange_default_derive_transport_key (GcrSecretExchange *exchange,
                                                   gsize n_peer)
 {
 	GcrSecretExchangeDefault *data = exchange->pv->default_exchange;
-	gpointer ikm;
-	gsize n_ikm;
-	gcry_mpi_t mpi;
+	GBytes *buffer;
+	egg_dh_pubkey *peer_pubkey;
+	GBytes *ikm;
 
 	g_debug ("deriving transport key");
 
-	g_return_val_if_fail (data != NULL, FALSE);
-	g_return_val_if_fail (data->priv != NULL, FALSE);
+	buffer = g_bytes_new_static (peer, n_peer);
+	g_return_val_if_fail (buffer != NULL, FALSE);
 
-	mpi = mpi_from_data (peer, n_peer);
-	if (mpi == NULL) {
-		g_debug ("invalid peer mpi");
-		return FALSE;
-	}
+	peer_pubkey = egg_dh_pubkey_new_from_bytes (data->params, buffer);
+	g_bytes_unref (buffer);
 
 	/* Build up a key we can use */
-	ikm = egg_dh_gen_secret (mpi, data->priv, data->prime, &n_ikm);
+	ikm = egg_dh_gen_secret (peer_pubkey, data->priv, data->params);
 	g_return_val_if_fail (ikm != NULL, FALSE);
+	egg_dh_pubkey_free (peer_pubkey);
 
 	if (data->key == NULL)
 		data->key = egg_secure_alloc (EXCHANGE_1_KEY_LENGTH);
 
-	if (!egg_hkdf_perform (EXCHANGE_1_HASH_ALGO, ikm, n_ikm, NULL, 0,
-	                       NULL, 0, data->key, EXCHANGE_1_KEY_LENGTH))
+	if (!egg_hkdf_perform (EXCHANGE_1_HASH_ALGO,
+			       g_bytes_get_data (ikm, NULL),
+			       g_bytes_get_size (ikm),
+			       NULL, 0, NULL, 0,
+			       data->key, EXCHANGE_1_KEY_LENGTH))
 		g_return_val_if_reached (FALSE);
 
-	egg_secure_free (ikm);
-	gcry_mpi_release (mpi);
+	g_bytes_unref (ikm);
 
 	return TRUE;
 }
@@ -706,8 +674,7 @@ gcr_secret_exchange_default_encrypt_transport_data (GcrSecretExchange *exchange,
                                                     gsize *n_cipher_text)
 {
 	GcrSecretExchangeDefault *data = exchange->pv->default_exchange;
-	gcry_cipher_hd_t cih;
-	gcry_error_t gcry;
+	EggCipher *cih;
 	guchar *padded;
 	gsize n_result;
 	guchar *result;
@@ -718,25 +685,21 @@ gcr_secret_exchange_default_encrypt_transport_data (GcrSecretExchange *exchange,
 
 	g_debug ("encrypting data");
 
-	gcry = gcry_cipher_open (&cih, EXCHANGE_1_CIPHER_ALGO, EXCHANGE_1_CIPHER_MODE, 0);
-	if (gcry != 0) {
-		g_warning ("couldn't create aes cipher context: %s", gcry_strerror (gcry));
-		g_free (iv);
-		return FALSE;
-	}
-
 	*iv = (allocator) (NULL, EXCHANGE_1_IV_LENGTH);
 	g_return_val_if_fail (*iv != NULL, FALSE);
-	gcry_create_nonce (*iv, EXCHANGE_1_IV_LENGTH);
+	egg_random (EGG_RANDOM_NONCE, *iv, EXCHANGE_1_IV_LENGTH);
 	*n_iv = EXCHANGE_1_IV_LENGTH;
 
-	/* 16 = 128 bits */
-	gcry = gcry_cipher_setkey (cih, data->key, EXCHANGE_1_KEY_LENGTH);
-	g_return_val_if_fail (gcry == 0, FALSE);
-
-	/* 16 = 128 bits */
-	gcry = gcry_cipher_setiv (cih, *iv, EXCHANGE_1_IV_LENGTH);
-	g_return_val_if_fail (gcry == 0, FALSE);
+	cih = egg_cipher_new (EXCHANGE_1_CIPHER_ALGO,
+			      data->key,
+			      EXCHANGE_1_KEY_LENGTH,
+			      *iv,
+			      EXCHANGE_1_IV_LENGTH);
+	if (!cih) {
+		g_warning ("couldn't create aes cipher context");
+		(allocator) (*iv, 0);
+		return FALSE;
+	}
 
 	/* Pad the text properly */
 	if (!egg_padding_pkcs7_pad (egg_secure_realloc, 16, plain_text, n_plain_text,
@@ -746,11 +709,13 @@ gcr_secret_exchange_default_encrypt_transport_data (GcrSecretExchange *exchange,
 	g_return_val_if_fail (result != NULL, FALSE);
 
 	for (pos = 0; pos < n_result; pos += 16) {
-		gcry = gcry_cipher_encrypt (cih, result + pos, 16, padded + pos, 16);
-		g_return_val_if_fail (gcry == 0, FALSE);
+		if (!egg_cipher_encrypt (cih, padded + pos, 16, result + pos, 16)) {
+			(allocator) (result, 0);
+			g_return_val_if_reached (FALSE);
+		}
 	}
 
-	gcry_cipher_close (cih);
+	egg_cipher_free (cih);
 
 	egg_secure_clear (padded, n_result);
 	egg_secure_free (padded);
@@ -775,8 +740,7 @@ gcr_secret_exchange_default_decrypt_transport_data (GcrSecretExchange *exchange,
 	guchar* result;
 	gsize n_result;
 	gsize pos;
-	gcry_cipher_hd_t cih;
-	gcry_error_t gcry;
+	EggCipher *cih;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 	g_return_val_if_fail (data->key != NULL, FALSE);
@@ -793,30 +757,28 @@ gcr_secret_exchange_default_decrypt_transport_data (GcrSecretExchange *exchange,
 		return FALSE;
 	}
 
-	gcry = gcry_cipher_open (&cih, EXCHANGE_1_CIPHER_ALGO, EXCHANGE_1_CIPHER_MODE, 0);
-	if (gcry != 0) {
-		g_warning ("couldn't create aes cipher context: %s", gcry_strerror (gcry));
+	cih = egg_cipher_new (EXCHANGE_1_CIPHER_ALGO,
+			      data->key,
+			      EXCHANGE_1_KEY_LENGTH,
+			      iv,
+			      n_iv);
+	if (!cih) {
+		g_warning ("couldn't create aes cipher context");
 		return FALSE;
 	}
-
-	/* 16 = 128 bits */
-	gcry = gcry_cipher_setkey (cih, data->key, EXCHANGE_1_KEY_LENGTH);
-	g_return_val_if_fail (gcry == 0, FALSE);
-
-	/* 16 = 128 bits */
-	gcry = gcry_cipher_setiv (cih, iv, n_iv);
-	g_return_val_if_fail (gcry == 0, FALSE);
 
 	/* Allocate memory for the result */
 	padded = (allocator) (NULL, n_cipher_text);
 	g_return_val_if_fail (padded != NULL, FALSE);
 
 	for (pos = 0; pos < n_cipher_text; pos += 16) {
-		gcry = gcry_cipher_decrypt (cih, padded + pos, 16, (guchar *)cipher_text + pos, 16);
-		g_return_val_if_fail (gcry == 0, FALSE);
+		if (!egg_cipher_decrypt (cih, (guchar *)cipher_text + pos, 16, padded + pos, 16)) {
+			(allocator) (padded, 0);
+			g_return_val_if_reached (FALSE);
+		}
 	}
 
-	gcry_cipher_close (cih);
+	egg_cipher_free (cih);
 
 	if (!egg_padding_pkcs7_unpad (allocator, 16, padded, n_cipher_text,
 	                              (gpointer*)&result, &n_result))
@@ -843,8 +805,6 @@ gcr_secret_exchange_class_init (GcrSecretExchangeClass *klass)
 	klass->derive_transport_key = gcr_secret_exchange_default_derive_transport_key;
 	klass->decrypt_transport_data = gcr_secret_exchange_default_decrypt_transport_data;
 	klass->encrypt_transport_data = gcr_secret_exchange_default_encrypt_transport_data;
-
-	egg_libgcrypt_initialize ();
 
 	/**
 	 * GcrSecretExchange:protocol:

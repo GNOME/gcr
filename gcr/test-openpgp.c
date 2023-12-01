@@ -294,6 +294,13 @@ test_openpgp_armor (Test *test,
 	gsize length;
 	guint parts;
 
+#ifdef WITH_GNUTLS
+#if GNUTLS_VERSION_NUMBER < 0x030805
+	g_test_skip ("GnuTLS 3.8.5 is required");
+	return;
+#endif
+#endif
+
 	g_file_get_contents (test->fixture->filename, &armor, &length, &error);
 	g_assert_no_error (error);
 
@@ -313,6 +320,13 @@ test_openpgp_binary (Test *test,
 	gchar *binary;
 	gsize length;
 	guint seen;
+
+#ifdef WITH_GNUTLS
+#if GNUTLS_VERSION_NUMBER < 0x030805
+	g_test_skip ("GnuTLS 3.8.5 is required");
+	return;
+#endif
+#endif
 
 	g_file_get_contents (test->fixture->filename, &binary, &length, &error);
 	g_assert_no_error (error);

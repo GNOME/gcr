@@ -23,6 +23,12 @@ option('gpg_path',
   value: '',
   description: 'Path to gpg, autodetected if not set',
 )
+option('crypto',
+  type: 'combo',
+  choices: ['libgcrypt', 'gnutls'],
+  value: 'libgcrypt',
+  description: 'Backend library to implement transport encryption',
+)
 option('ssh_agent',
   type: 'boolean',
   value: true,

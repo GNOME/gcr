@@ -22,6 +22,8 @@
 
 #include "config.h"
 
+#undef G_DISABLE_ASSERT
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -30,19 +32,9 @@
 #include "egg/egg-secure-memory.h"
 #include "egg/egg-testing.h"
 
-#include <gcrypt.h>
-
-/*
-	static GStaticMutex memory_mutex = G_STATIC_MUTEX_INIT;
-	static void egg_memory_lock (void)
-		{ g_static_mutex_lock (&memory_mutex); }
-	static void egg_memory_unlock (void)
-		{ g_static_mutex_unlock (&memory_mutex); }
-	EGG_SECURE_DEFINE_GLOBALS (egg_memory_lock, egg_memory_unlock, g_realloc);
-*/
+#undef G_DISABLE_ASSERT
 
 EGG_SECURE_DEFINE_GLIB_GLOBALS ();
-
 
 static void
 test_hkdf_test_case_1 (void)
@@ -75,7 +67,7 @@ test_hkdf_test_case_1 (void)
 	                        salt, sizeof (salt),
 	                        info, sizeof (info),
 	                        buffer, sizeof (buffer));
-	g_assert (ret);
+	g_assert_true (ret);
 	egg_assert_cmpmem (buffer, sizeof (buffer), ==, okm, sizeof (okm));
 }
 
@@ -138,7 +130,7 @@ test_hkdf_test_case_2 (void)
 	                        salt, sizeof (salt),
 	                        info, sizeof (info),
 	                        buffer, sizeof (buffer));
-	g_assert (ret);
+	g_assert_true (ret);
 	egg_assert_cmpmem (buffer, sizeof (buffer), ==, okm, sizeof (okm));
 }
 
@@ -171,7 +163,7 @@ test_hkdf_test_case_3 (void)
 	                        salt, sizeof (salt),
 	                        info, sizeof (info),
 	                        buffer, sizeof (buffer));
-	g_assert (ret);
+	g_assert_true (ret);
 	egg_assert_cmpmem (buffer, sizeof (buffer), ==, okm, sizeof (okm));
 }
 
@@ -205,7 +197,7 @@ test_hkdf_test_case_4 (void)
 	                        salt, sizeof (salt),
 	                        info, sizeof (info),
 	                        buffer, sizeof (buffer));
-	g_assert (ret);
+	g_assert_true (ret);
 	egg_assert_cmpmem (buffer, sizeof (buffer), ==, okm, sizeof (okm));
 }
 
@@ -268,7 +260,7 @@ test_hkdf_test_case_5 (void)
 	                        salt, sizeof (salt),
 	                        info, sizeof (info),
 	                        buffer, sizeof (buffer));
-	g_assert (ret);
+	g_assert_true (ret);
 	egg_assert_cmpmem (buffer, sizeof (buffer), ==, okm, sizeof (okm));
 }
 
@@ -301,7 +293,7 @@ test_hkdf_test_case_6 (void)
 	                        salt, sizeof (salt),
 	                        info, sizeof (info),
 	                        buffer, sizeof (buffer));
-	g_assert (ret);
+	g_assert_true (ret);
 	egg_assert_cmpmem (buffer, sizeof (buffer), ==, okm, sizeof (okm));
 }
 
@@ -333,7 +325,7 @@ test_hkdf_test_case_7 (void)
 	                        salt, sizeof (salt),
 	                        info, sizeof (info),
 	                        buffer, sizeof (buffer));
-	g_assert (ret);
+	g_assert_true (ret);
 	egg_assert_cmpmem (buffer, sizeof (buffer), ==, okm, sizeof (okm));
 }
 

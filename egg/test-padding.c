@@ -22,12 +22,17 @@
 
 #include "config.h"
 
+#include "egg/egg-secure-memory.h"
+#include "egg/egg-secure-memory-private.h"
+
 #include "egg/egg-padding.h"
 #include "egg/egg-testing.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+EGG_SECURE_DEFINE_GLIB_GLOBALS ();
 
 static void
 check_padding (EggPadding padding, gsize block, gconstpointer input,

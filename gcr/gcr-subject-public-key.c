@@ -31,7 +31,13 @@
 
 #include <glib/gi18n-lib.h>
 
+#ifdef WITH_GCRYPT
 #include <gcrypt.h>
+#endif
+
+#ifdef WITH_GNUTLS
+#include <gnutls/abstract.h>
+#endif
 
 static gboolean
 check_object_basics (GckBuilder *builder,
@@ -631,6 +637,8 @@ rsa_subject_public_key_from_attributes (GckAttributes *attrs,
 	return TRUE;
 }
 
+#ifdef WITH_GCRYPT
+
 static gboolean
 dsa_subject_public_key_from_private (GNode *key_asn,
                                      const GckAttribute *ap,
@@ -673,6 +681,65 @@ dsa_subject_public_key_from_private (GNode *key_asn,
 
 	return TRUE;
 }
+
+#endif /* WITH_GCRYPT */
+
+#ifdef WITH_GNUTLS
+
+static gboolean
+dsa_subject_public_key_from_private (GNode *key_asn,
+                                     const GckAttribute *ap,
+                                     const GckAttribute *aq,
+                                     const GckAttribute *ag,
+                                     const GckAttribute *ax)
+{
+	int ret;
+	gnutls_datum_t dp, dq, dg, dx, dy = { NULL, 0 };
+	gnutls_privkey_t privkey = NULL;
+	gboolean retval = FALSE;
+	GBytes *bytes;
+
+	ret = gnutls_privkey_init (&privkey);
+	if (ret < 0)
+		goto out;
+
+	dp.data = ap->value;
+	dp.size = ap->length;
+
+	dq.data = aq->value;
+	dq.size = aq->length;
+
+	dg.data = ag->value;
+	dg.size = ag->length;
+
+	dx.data = ax->value;
+	dx.size = ax->length;
+
+	ret = gnutls_privkey_import_dsa_raw (privkey, &dp, &dq, &dg, NULL, &dx);
+	if (ret < 0)
+		goto out;
+
+	/* Calculate the public part from the private */
+	ret = gnutls_privkey_export_dsa_raw (privkey, NULL, NULL, NULL, &dy, NULL);
+	if (ret < 0)
+		goto out;
+
+	bytes = g_bytes_new_with_free_func (dy.data, dy.size,
+					    gnutls_free, dy.data);
+	if (!bytes)
+		goto out;
+	dy.data = NULL;
+	egg_asn1x_take_integer_as_raw (key_asn, bytes);
+
+	retval = TRUE;
+ out:
+	gnutls_privkey_deinit (privkey);
+	gnutls_free (dy.data);
+
+	return retval;
+}
+
+#endif /* WITH_GNUTLS */
 
 static gboolean
 dsa_subject_public_key_from_attributes (GckAttributes *attrs,

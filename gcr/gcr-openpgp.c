@@ -26,9 +26,8 @@
 #include "gcr-record.h"
 #include "gcr-types.h"
 
+#include "egg/egg-crypto.h"
 #include "egg/egg-hex.h"
-
-#include <gcrypt.h>
 
 #include <string.h>
 
@@ -274,7 +273,8 @@ hash_user_id_or_attribute (const guchar *beg,
 	g_assert (beg != NULL);
 	g_assert (end > beg);
 
-	gcry_md_hash_buffer (GCRY_MD_RMD160, digest, beg, end - beg);
+	egg_hash (EGG_HASH_RIPEMD160, beg, end - beg, digest);
+
 	return egg_hex_encode_full (digest, sizeof (digest), TRUE, NULL, 0);
 }
 
@@ -310,12 +310,11 @@ hash_v4_keyid (const guchar *data,
                const guchar *end,
                gchar **fingerprint)
 {
-	gcry_md_hd_t mdh;
-	gcry_error_t gcry;
+	EggHasher *mdh;
 	guchar header[3];
-	guint8 *digest;
 	gchar *keyid;
 	gsize len;
+	GBytes *bytes;
 
 	/*
 	 * Both primary and subkeys use the public key tag byte
@@ -332,17 +331,18 @@ hash_v4_keyid (const guchar *data,
 	header[1] = len >> 8 & 0xff;
 	header[2] = len & 0xff;
 
-	gcry = gcry_md_open (&mdh, GCRY_MD_SHA1, 0);
-	g_return_val_if_fail (gcry == 0, NULL);
+	mdh  = egg_hasher_new (EGG_HASH_SHA1);
+	g_return_val_if_fail (mdh, NULL);
+	egg_hasher_hash (mdh, header, 3);
+	egg_hasher_hash (mdh, data, len);
+	bytes = egg_hasher_free_to_bytes (mdh);
+	g_return_val_if_fail (bytes, NULL);
 
-	gcry_md_write (mdh, header, 3);
-	gcry_md_write (mdh, data, len);
-
-	digest = gcry_md_read (mdh, 0);
-	keyid = egg_hex_encode_full (digest + 12, 8, TRUE, NULL, 0);
+	keyid = egg_hex_encode_full (g_bytes_get_data (bytes, NULL) + 12, 8, TRUE, NULL, 0);
 	if (fingerprint)
-		*fingerprint = egg_hex_encode_full (digest, 20, TRUE, NULL, 0);
-	gcry_md_close (mdh);
+		*fingerprint = egg_hex_encode_full (g_bytes_get_data (bytes, NULL), 20, TRUE, NULL, 0);
+
+	g_bytes_unref (bytes);
 
 	return keyid;
 }

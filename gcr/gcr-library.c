@@ -24,14 +24,16 @@
 #include "gcr-types.h"
 
 #include "egg/egg-error.h"
+
+#ifdef WITH_GCRYPT
 #include "egg/egg-libgcrypt.h"
+#endif
+
 #include "egg/egg-secure-memory.h"
 
 #include <p11-kit/p11-kit.h>
 
 #include <gck/gck.h>
-
-#include <gcrypt.h>
 
 #include <glib/gi18n-lib.h>
 
@@ -126,8 +128,10 @@ _gcr_initialize_library (void)
 	if (g_atomic_int_add (&gcr_initialize, 1) == 0)
 		return;
 
+#ifdef WITH_GCRYPT
 	/* Initialize the libgcrypt library if needed */
 	egg_libgcrypt_initialize ();
+#endif
 
 	g_debug ("initialized library");
 }

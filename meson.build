@@ -51,7 +51,30 @@ gpg_path = get_option('gpg_path')
 if gpg_path == ''
   gpg_path = find_program('gpg2', 'gpg').full_path()
 endif
-libgcrypt_dep = dependency('libgcrypt', version: '>= 1')
+
+with_gcrypt = false
+with_gnutls = false
+
+crypto_deps = []
+
+if get_option('crypto') == 'libgcrypt'
+  min_libgcrypt_version = '1.2.2'
+  libgcrypt_dep = dependency(
+    'libgcrypt',
+    version: '>=' + min_libgcrypt_version,
+  )
+  with_gcrypt = true
+  crypto_deps += libgcrypt_dep
+elif get_option('crypto') == 'gnutls'
+  min_gnutls_version = '3.8.2'
+  gnutls_dep = dependency(
+    'gnutls',
+    version: '>=' + min_gnutls_version,
+  )
+  with_gnutls = true
+  crypto_deps += gnutls_dep
+endif
+
 p11kit_dep = dependency('p11-kit-1', version: '>= 0.19.0')
 p11_system_config_modules = p11kit_dep.get_variable('p11_system_config_modules')
 if p11_system_config_modules == ''
@@ -97,7 +120,11 @@ conf.set('HAVE_LOCALE_H', cc.has_header('locale.h'))
 conf.set('HAVE_TIMEGM', cc.has_function('timegm'))
 conf.set('HAVE_MLOCK', cc.has_function('mlock'))
 conf.set_quoted('GPG_EXECUTABLE', gpg_path)
-conf.set_quoted('LIBGCRYPT_VERSION', libgcrypt_dep.version())
+if with_gcrypt
+  conf.set_quoted('LIBGCRYPT_VERSION', libgcrypt_dep.version())
+endif
+conf.set('WITH_GCRYPT', with_gcrypt)
+conf.set('WITH_GNUTLS', with_gnutls)
 if get_option('ssh_agent')
   conf.set_quoted('SSH_ADD_EXECUTABLE', ssh_add_path)
   conf.set_quoted('SSH_AGENT_EXECUTABLE', ssh_agent_path)

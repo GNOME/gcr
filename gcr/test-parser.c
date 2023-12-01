@@ -349,6 +349,13 @@ main (int argc, char **argv)
 		if (filename[0] == '.')
 			continue;
 
+#ifdef WITH_GNUTLS
+#if GNUTLS_VERSION_NUMBER < 0x030805
+		/* Not yet supported in GnuTLS */
+		if (g_str_equal (filename, "der-key-PBE-SHA1-DES.p8"))
+			continue;
+#endif
+#endif
 		path = g_build_filename (SRCDIR "/gcr/fixtures", filename, NULL);
 
 		if (g_file_test (path, G_FILE_TEST_IS_DIR)) {

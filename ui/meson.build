@@ -71,10 +71,15 @@ gcr_ui_enums_gen = gnome.mkenums_simple('gcr-enum-types',
   install_dir: get_option('includedir') / gcr_ui_headers_install_dir,
 )
 
+gcr_ui_resources_gen = gnome.compile_resources('gcr-resources',
+  'gcr.gresource.xml'
+)
+
 gcr_ui_sources = [
   gcr_ui_private_sources,
   gcr_ui_public_sources,
   gcr_ui_enums_gen,
+  gcr_ui_resources_gen,
 ]
 
 gcr_ui_deps = [

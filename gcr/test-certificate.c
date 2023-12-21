@@ -194,6 +194,13 @@ test_expiry_date (Test *test, gconstpointer unused)
 }
 
 static void
+test_version (Test *test, gconstpointer unused)
+{
+	gulong version = gcr_certificate_get_version (test->certificate);
+	g_assert_cmpuint (version, ==, 1);
+}
+
+static void
 test_serial_number (Test *test, gconstpointer unused)
 {
 	gsize n_serial;
@@ -372,6 +379,7 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/certificate/subject_raw", Test, NULL, setup, test_subject_raw, teardown);
 	g_test_add ("/gcr/certificate/issued_date", Test, NULL, setup, test_issued_date, teardown);
 	g_test_add ("/gcr/certificate/expiry_date", Test, NULL, setup, test_expiry_date, teardown);
+	g_test_add ("/gcr/certificate/version", Test, NULL, setup, test_version, teardown);
 	g_test_add ("/gcr/certificate/serial_number", Test, NULL, setup, test_serial_number, teardown);
 	g_test_add ("/gcr/certificate/fingerprint", Test, NULL, setup, test_fingerprint, teardown);
 	g_test_add ("/gcr/certificate/fingerprint_hex", Test, NULL, setup, test_fingerprint_hex, teardown);

@@ -102,6 +102,8 @@ GDateTime *         gcr_certificate_get_issued_date        (GcrCertificate *self
 
 GDateTime *         gcr_certificate_get_expiry_date        (GcrCertificate *self);
 
+gulong              gcr_certificate_get_version            (GcrCertificate *self);
+
 guchar*             gcr_certificate_get_serial_number      (GcrCertificate *self,
                                                             gsize *n_length);
 

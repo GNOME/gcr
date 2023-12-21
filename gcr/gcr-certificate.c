@@ -757,6 +757,37 @@ gcr_certificate_get_fingerprint_hex (GcrCertificate *self, GChecksumType type)
 }
 
 /**
+ * gcr_certificate_get_version:
+ * @self: a #GcrCertificate
+ *
+ * Get the version of the X.509 certificate.
+ *
+ * Returns: the version of the certificate
+ */
+gulong
+gcr_certificate_get_version (GcrCertificate *self)
+{
+	GcrCertificateInfo *info;
+	GNode *version_node;
+	gulong version;
+
+	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), 0);
+
+	info = certificate_info_load (self);
+	if (info == NULL)
+		return 0;
+
+	version_node = egg_asn1x_node (info->asn1, "tbsCertificate", "version", NULL);
+	if (!egg_asn1x_get_integer_as_ulong (version_node, &version)) {
+		/* By default, version is 0 if missing */
+		version = 0;
+	}
+
+	/* v1 is denoted by value 0, v2 by value 1, etc */
+	return version + 1;
+}
+
+/**
  * gcr_certificate_get_serial_number:
  * @self: a #GcrCertificate
  * @n_length: (out): the length of the returned data.
@@ -1214,10 +1245,11 @@ gcr_certificate_get_interface_elements (GcrCertificate *self)
 	/* The Issued Parameters */
 	section = _gcr_certificate_section_new (_("Issued Certificate"), FALSE);
 
-	if (!egg_asn1x_get_integer_as_ulong (egg_asn1x_node (info->asn1, "tbsCertificate", "version", NULL), &version)) {
+	version = gcr_certificate_get_version (self);
+	if (version == 0) {
 		g_critical ("Unable to parse certificate version");
 	} else {
-		display = g_strdup_printf ("%lu", version + 1);
+		display = g_strdup_printf ("%lu", version);
 		_gcr_certificate_section_new_field_take_value (section, _("Version"), g_steal_pointer (&display));
 	}
 

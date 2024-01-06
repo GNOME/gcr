@@ -1,3 +1,9 @@
+gcr 4.2.0:
+- gcr-ssh-agent: add command line options to gcr-ssh-agent [GNOME/gcr!129]
+- gcr-ssh-agent: Fix memory leak spotted by ASan [GNOME/gcr!133]
+- gcr-ssh-agent: Port memory safety fixes from gnome-keyring ssh-agent [GNOME/gcr!128]
+- Updated translations
+
 gcr 4.1.0:
 - The soversion is now properly set to 4.
 - certificate: Print dates in ISO8601 format [GNOME/gcr!125]

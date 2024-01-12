@@ -57,7 +57,7 @@
  * @prompt_confirm_finish: complete a confirm prompt
  * @prompt_close: close a prompt
  *
- * The interface for implementing [class@Prompt].
+ * The interface for implementing [iface@Prompt].
  */
 
 /**

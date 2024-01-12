@@ -14,7 +14,7 @@ You can build GCR using [Meson] with the following build commands (replace
 `$BUILDDIR` with your chosed build directory).
 
 ```
-$ meson $BUILDDIR
+$ meson setup $BUILDDIR
 $ meson compile -C $BUILDDIR
 $ meson install -C $BUILDDIR
 ```

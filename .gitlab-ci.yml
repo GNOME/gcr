@@ -37,7 +37,6 @@ fedora:asan:
   script:
     - meson setup _build -Db_sanitize=address -Dgtk_doc=false
     - dbus-run-session -- meson test -C _build
-  allow_failure: true
   artifacts:
     name: "gcr-asan-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     when: always

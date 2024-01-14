@@ -1,3 +1,9 @@
+gcr 3.41.2:
+- ui: Add gcr.gresource.xml back into the build
+- misc: Several memory leaks were fixed
+- ci: Several CI fixes
+- Updated translations
+
 gcr 3.41.1:
 - meson: Fix unknown kw argument in gnome.generate_gir [GNOME/gcr!68]
 - gcr: Add G_SPAWN_CLOEXEC_PIPES flag to all the g_spawn commands

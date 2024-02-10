@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-04-07 16:14+0000\n"
-"PO-Revision-Date: 2023-03-06 20:06+0300\n"
+"POT-Creation-Date: 2023-11-04 11:23+0000\n"
+"PO-Revision-Date: 2024-02-08 01:29+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-POOTLE-MTIME: 1420669651.000000\n"
 
 #: egg/egg-oid.c:40
@@ -375,7 +375,7 @@ msgstr "URI, “pkcs11” şemasına sahip değil."
 
 #: gck/gck-uri.c:175
 msgid "The URI has bad syntax."
-msgstr "URI kötü sözdizimine sahip."
+msgstr "URI kötü söz dizimine sahip."
 
 #: gck/gck-uri.c:179
 msgid "The URI has a bad version number."
@@ -642,10 +642,6 @@ msgstr "GnuPG Anahtarlığı"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG Anahtarlığı: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "PGP Anahtarı"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -664,6 +660,10 @@ msgstr "İşlem iptal edildi"
 #: gcr/gcr-parser.c:337
 msgid "Private Key"
 msgstr "Özel Anahtar"
+
+#: gcr/gcr-parser.c:346
+msgid "PGP Key"
+msgstr "PGP Anahtarı"
 
 #: gcr/gcr-parser.c:349
 msgid "Certificate Request"
@@ -706,8 +706,7 @@ msgstr "Özel anahtar kilidini açmak için parolayı gir"
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
-msgstr ""
-"Bir uygulama “%s” özel anahtarına erişmek istiyor ancak anahtar kilitli"
+msgstr "Bir uygulama “%s” özel anahtarına erişmek istiyor ancak anahtar kilitli"
 
 #: gcr/gcr-ssh-agent-interaction.c:161
 msgid "Automatically unlock this key whenever I’m logged in"
@@ -721,7 +720,7 @@ msgstr "Kilidi aç"
 msgid "The unlock password was incorrect"
 msgstr "Kilit açma parolası yanlıştı"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Adsız"
 

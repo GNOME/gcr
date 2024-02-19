@@ -250,8 +250,20 @@ if get_option('ssh_agent')
       },
       install_dir: systemduserunitdir,
     )
-    install_data('gcr-ssh-agent.socket',
-		 install_dir: systemduserunitdir)
+    systemctl = find_program('systemctl', required: false)
+    if systemctl.found()
+        systemctl = systemctl.full_path()
+    else
+        systemctl = '/usr/bin/systemctl'
+    endif
+    configure_file(
+      input: 'gcr-ssh-agent.socket.in',
+      output: '@BASENAME@',
+      configuration: {
+        'systemctl': systemctl,
+      },
+      install_dir: systemduserunitdir,
+    )
   endif
 
   gcr_ssh_agent_test_cflags = [

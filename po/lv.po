@@ -5,14 +5,14 @@
 # Linux Centrs <info@linux.edu.lv>, 2006.
 # Raivis Dejus <orvils@gmail.com>, 2006.
 # Peteris Krisjanis <pecisk@gmail.com>, 2010.
-# Rudolfs <rudolfs.mazurs@gmail.com>, 2011.
+# SPDX-FileCopyrightText: 2011, 2024 Rudolfs <rudolfs.mazurs@gmail.com>
 # Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012, 2013, 2014, 2017, 2018, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-08-09 21:46+0000\n"
-"PO-Revision-Date: 2022-09-03 20:26+0300\n"
+"POT-Creation-Date: 2024-02-10 11:02+0000\n"
+"PO-Revision-Date: 2024-02-25 01:24+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2009-01-04 12:36+0000\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.08.1\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
 " 2);\n"
 
@@ -156,82 +156,215 @@ msgstr "MD5 ar RSA"
 msgid "SHA1 with RSA"
 msgstr "SHA1 ar RSA"
 
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "RSA ar OAEP papildinājumu"
+
 #: egg/egg-oid.c:115
+#| msgid "SHA1 with RSA"
+msgid "RSA with MGF1"
+msgstr "RSA ar MGF1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "RSA paraksts ar RSA-PSS"
+
+#: egg/egg-oid.c:117
+#| msgid "SHA256 with ECDSA"
+msgid "SHA256 with RSA encryption"
+msgstr "SHA256 ar RSA šifrēšanu"
+
+#: egg/egg-oid.c:118
+#| msgid "SHA384 with ECDSA"
+msgid "SHA384 with RSA encryption"
+msgstr "SHA384 ar RSA šifrēšanu"
+
+#: egg/egg-oid.c:119
+#| msgid "SHA1 with RSA"
+msgid "SHA512 with RSA encryption"
+msgstr "SHA512 ar RSA šifrēšanu"
+
+#: egg/egg-oid.c:120
+#| msgid "SHA224 with ECDSA"
+msgid "SHA224 with RSA encryption"
+msgstr "SHA224 ar RSA šifrēšanu"
+
+#: egg/egg-oid.c:122
 msgid "DSA"
 msgstr "DSA"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:123
 msgid "SHA1 with DSA"
 msgstr "SHA1 ar DSA"
 
-#: egg/egg-oid.c:118
+#: egg/egg-oid.c:125
 msgid "Elliptic Curve"
 msgstr "Eliptisko līkņu"
 
-#: egg/egg-oid.c:119
+#: egg/egg-oid.c:126
 msgid "SHA1 with ECDSA"
 msgstr "SHA1 ar ECDSA"
 
-#: egg/egg-oid.c:120
+#: egg/egg-oid.c:127
 msgid "SHA224 with ECDSA"
 msgstr "SHA224 ar ECDSA"
 
-#: egg/egg-oid.c:121
+#: egg/egg-oid.c:128
 msgid "SHA256 with ECDSA"
 msgstr "SHA256 ar ECDSA"
 
-#: egg/egg-oid.c:122
+#: egg/egg-oid.c:129
 msgid "SHA384 with ECDSA"
 msgstr "SHA384 ar ECDSA"
 
-#: egg/egg-oid.c:123
+#: egg/egg-oid.c:130
 msgid "SHA512 with ECDSA"
 msgstr "SHA512 ar ECDSA"
 
-#: egg/egg-oid.c:125
+#: egg/egg-oid.c:132
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "GOST R 34.11-94 ar GOST R 34.10-2001"
 
-#: egg/egg-oid.c:126
+#: egg/egg-oid.c:133
 msgid "GOST R 34.10-2001"
 msgstr "GOST R 34.10-2001"
 
-#: egg/egg-oid.c:127
+#: egg/egg-oid.c:134
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.10-2012 256 bitu līkne"
 
-#: egg/egg-oid.c:128
+#: egg/egg-oid.c:135
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.10-2012 512 bitu līkne"
 
-#: egg/egg-oid.c:129
+#: egg/egg-oid.c:136
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "GOST R 34.11-2012/256 ar GOST R 34.10-2012 256 bitu līkni"
 
-#: egg/egg-oid.c:130
+#: egg/egg-oid.c:137
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "GOST R 34.11-2012/512 ar GOST R 34.10-2012 512 bitu līkni"
 
 #. Extended Key Usages
-#: egg/egg-oid.c:133
+#: egg/egg-oid.c:140
 msgid "Server Authentication"
 msgstr "Servera autentificēšana"
 
-#: egg/egg-oid.c:134
+#: egg/egg-oid.c:141
 msgid "Client Authentication"
 msgstr "Klienta autentificēšana"
 
-#: egg/egg-oid.c:135
+#: egg/egg-oid.c:142
 msgid "Code Signing"
 msgstr "Koda parakstīšana"
 
-#: egg/egg-oid.c:136
+#: egg/egg-oid.c:143
 msgid "Email Protection"
 msgstr "E-pasta aizsardzība"
 
-#: egg/egg-oid.c:137
+#: egg/egg-oid.c:144
 msgid "Time Stamping"
 msgstr "Laika apzīmogošana"
+
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+#| msgid "Certificate Authority"
+msgid "Certificate Authority Information Access"
+msgstr "Sertifikāta institūcijas informācijas piekļuve"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "Subjekta direktorijas atribūtu sertifikāta paplašinājums"
+
+#: egg/egg-oid.c:149
+#| msgid "Subject Key Identifier"
+msgid "Subject key identifier"
+msgstr "Subjekta atslēgas identifikators"
+
+#: egg/egg-oid.c:150
+#| msgid "Key Usage"
+msgid "Key usage"
+msgstr "Atslēgas lietojums"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "Privātās atslēgas izmantošanas periods"
+
+#: egg/egg-oid.c:152
+#| msgid "Subject Alternative Names"
+msgid "Subject alternative name"
+msgstr "Subjekta alternatīvais nosaukums"
+
+#: egg/egg-oid.c:153
+#| msgid "Subject Alternative Names"
+msgid "Issuer alternative name"
+msgstr "Izdevēja alternatīvais nosaukums"
+
+#: egg/egg-oid.c:154
+#| msgid "Basic Constraints"
+msgid "Basic constraints"
+msgstr "Pamata ierobežojumi"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "CRL numurs"
+
+#: egg/egg-oid.c:156
+#| msgid "Reason"
+msgid "Reason code"
+msgstr "Iemesla kods"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr "Turēšanas instrukcijas kods"
+
+#: egg/egg-oid.c:158
+#| msgid "Invalid"
+msgid "Invalidity date"
+msgstr "Nederīguma datums"
+
+#: egg/egg-oid.c:159
+#| msgid "Certification revocation signature"
+msgid "Certificate Revocation List indicator"
+msgstr "Sertifikāta atsaukšanas saraksta indikators"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr "Izdošanas izplatīšanas punkts"
+
+#: egg/egg-oid.c:161
+#| msgid "Certificate files"
+msgid "Certificate issuer"
+msgstr "Sertifikāta izdevējs"
+
+#: egg/egg-oid.c:162
+#| msgid "Basic Constraints"
+msgid "Name constraints"
+msgstr "Nosaukuma ierobežojumi"
+
+#: egg/egg-oid.c:163
+#| msgid "Certification revocation signature"
+msgid "Certificate Revocation List distribution points"
+msgstr "Sertifikāta atsaukšanas saraksta izplatīšanas punkts"
+
+#: egg/egg-oid.c:164
+#| msgid "Certificate files"
+msgid "Certificate policies"
+msgstr "Sertifikātu politikas"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "Politiku attēlojumi"
+
+#: egg/egg-oid.c:166
+#| msgid "Basic Constraints"
+msgid "Policy constraints"
+msgstr "Politiku ierobežojumi"
+
+#: egg/egg-oid.c:167
+#| msgid "Subject Key Identifier"
+msgid "Authority key identifier"
+msgstr "Institūcijas atslēgas identifikators"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -526,10 +659,6 @@ msgstr "GnuPG atslēgu saišķis"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG atslēgu saišķis — %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "PGP atslēga"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -548,6 +677,10 @@ msgstr "Darbība tika atcelta"
 #: gcr/gcr-parser.c:337
 msgid "Private Key"
 msgstr "Privātā atslēga"
+
+#: gcr/gcr-parser.c:346
+msgid "PGP Key"
+msgstr "PGP atslēga"
 
 #: gcr/gcr-parser.c:349
 msgid "Certificate Request"
@@ -604,7 +737,7 @@ msgstr "Atslēgt"
 msgid "The unlock password was incorrect"
 msgstr "Atbloķēšanas parole nebija pareiza"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Nenosaukts"
 
@@ -632,16 +765,15 @@ msgstr "Jau darbojas cita uzvedne"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Nevarēja atrast vietu, kur glabāt sertifikātu"
 
-#: tools/gtk3/viewer.c:23 tools/gtk4/viewer.c:23
-#| msgid "Certificate Viewer"
+#: tools/viewer/viewer.c:23
 msgid "GCR Certificate Viewer"
 msgstr "GCR sertifikātu skatītājs"
 
-#: tools/gtk3/viewer.c:30 tools/gtk4/viewer.c:30
+#: tools/viewer/viewer.c:30
 msgid "Show the application's version"
 msgstr "Rādīt lietotnes versiju"
 
-#: tools/gtk3/viewer.c:32 tools/gtk4/viewer.c:32
+#: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr "[datne...]"
 
@@ -689,9 +821,6 @@ msgstr "[datne...]"
 #~ msgid "Could not display file"
 #~ msgstr "Neizdevās attēlot datni"
 
-#~ msgid "Reason"
-#~ msgstr "Iemesls"
-
 #, c-format
 #~ msgid "Cannot display a file of this type."
 #~ msgstr "Nevar parādīt šāda tipa datni."
@@ -714,9 +843,6 @@ msgstr "[datne...]"
 #~ msgctxt "capability"
 #~ msgid "Disabled"
 #~ msgstr "Deaktivēts"
-
-#~ msgid "Invalid"
-#~ msgstr "Nederīga"
 
 #~ msgctxt "ownertrust"
 #~ msgid "Disabled"
@@ -835,9 +961,6 @@ msgstr "[datne...]"
 
 #~ msgid "Subkey revocation signature"
 #~ msgstr "Apakšatslēgas atsaukšanas paraksts"
-
-#~ msgid "Certification revocation signature"
-#~ msgstr "Sertifikāta atsaukšanas paraksts"
 
 #~ msgid "Timestamp signature"
 #~ msgstr "Laika spiedoga paraksts"
@@ -988,9 +1111,6 @@ msgstr "[datne...]"
 #~ msgid "_Save"
 #~ msgstr "_Saglabāt"
 
-#~ msgid "Certificate files"
-#~ msgstr "Sertifikāta datnes"
-
 #~ msgid "PEM files"
 #~ msgstr "PEM datnes"
 
@@ -1051,3 +1171,4 @@ msgstr "[datne...]"
 
 #~ msgid "_Close"
 #~ msgstr "_Aizvērt"
+

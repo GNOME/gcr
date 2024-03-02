@@ -1,3 +1,8 @@
+gcr 4.2.1:
+- gcr-ssh-agent: set `SSH_AUTH_SOCK` [GNOME/gcr!137]
+- gcr-ssh-agent: port avoid deadlock fix [GNOME/gcr!136]
+- Updated translations
+
 gcr 4.2.0:
 - gcr-ssh-agent: add command line options to gcr-ssh-agent [GNOME/gcr!129]
 - gcr-ssh-agent: Fix memory leak spotted by ASan [GNOME/gcr!133]

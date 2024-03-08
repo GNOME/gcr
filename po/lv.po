@@ -10,9 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2024-02-10 11:02+0000\n"
-"PO-Revision-Date: 2024-02-25 01:24+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2024-02-24 23:25+0000\n"
+"PO-Revision-Date: 2024-03-08 21:20+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -161,7 +161,6 @@ msgid "RSA with OAEP padding"
 msgstr "RSA ar OAEP papildinājumu"
 
 #: egg/egg-oid.c:115
-#| msgid "SHA1 with RSA"
 msgid "RSA with MGF1"
 msgstr "RSA ar MGF1"
 
@@ -170,22 +169,18 @@ msgid "RSA signature with RSA-PSS"
 msgstr "RSA paraksts ar RSA-PSS"
 
 #: egg/egg-oid.c:117
-#| msgid "SHA256 with ECDSA"
 msgid "SHA256 with RSA encryption"
 msgstr "SHA256 ar RSA šifrēšanu"
 
 #: egg/egg-oid.c:118
-#| msgid "SHA384 with ECDSA"
 msgid "SHA384 with RSA encryption"
 msgstr "SHA384 ar RSA šifrēšanu"
 
 #: egg/egg-oid.c:119
-#| msgid "SHA1 with RSA"
 msgid "SHA512 with RSA encryption"
 msgstr "SHA512 ar RSA šifrēšanu"
 
 #: egg/egg-oid.c:120
-#| msgid "SHA224 with ECDSA"
 msgid "SHA224 with RSA encryption"
 msgstr "SHA224 ar RSA šifrēšanu"
 
@@ -268,21 +263,18 @@ msgstr "Laika apzīmogošana"
 
 #. Extended certificate attributes
 #: egg/egg-oid.c:147
-#| msgid "Certificate Authority"
 msgid "Certificate Authority Information Access"
 msgstr "Sertifikāta institūcijas informācijas piekļuve"
 
 #: egg/egg-oid.c:148
 msgid "Subject directory attributes certificate extension"
-msgstr "Subjekta direktorijas atribūtu sertifikāta paplašinājums"
+msgstr "Subjekta direktorija atribūtu sertifikāta paplašinājums"
 
 #: egg/egg-oid.c:149
-#| msgid "Subject Key Identifier"
 msgid "Subject key identifier"
 msgstr "Subjekta atslēgas identifikators"
 
 #: egg/egg-oid.c:150
-#| msgid "Key Usage"
 msgid "Key usage"
 msgstr "Atslēgas lietojums"
 
@@ -291,17 +283,14 @@ msgid "Private key usage period"
 msgstr "Privātās atslēgas izmantošanas periods"
 
 #: egg/egg-oid.c:152
-#| msgid "Subject Alternative Names"
 msgid "Subject alternative name"
 msgstr "Subjekta alternatīvais nosaukums"
 
 #: egg/egg-oid.c:153
-#| msgid "Subject Alternative Names"
 msgid "Issuer alternative name"
 msgstr "Izdevēja alternatīvais nosaukums"
 
 #: egg/egg-oid.c:154
-#| msgid "Basic Constraints"
 msgid "Basic constraints"
 msgstr "Pamata ierobežojumi"
 
@@ -310,7 +299,6 @@ msgid "CRL number"
 msgstr "CRL numurs"
 
 #: egg/egg-oid.c:156
-#| msgid "Reason"
 msgid "Reason code"
 msgstr "Iemesla kods"
 
@@ -319,12 +307,10 @@ msgid "Hold instruction code"
 msgstr "Turēšanas instrukcijas kods"
 
 #: egg/egg-oid.c:158
-#| msgid "Invalid"
 msgid "Invalidity date"
 msgstr "Nederīguma datums"
 
 #: egg/egg-oid.c:159
-#| msgid "Certification revocation signature"
 msgid "Certificate Revocation List indicator"
 msgstr "Sertifikāta atsaukšanas saraksta indikators"
 
@@ -333,22 +319,18 @@ msgid "Issuing distribution point"
 msgstr "Izdošanas izplatīšanas punkts"
 
 #: egg/egg-oid.c:161
-#| msgid "Certificate files"
 msgid "Certificate issuer"
 msgstr "Sertifikāta izdevējs"
 
 #: egg/egg-oid.c:162
-#| msgid "Basic Constraints"
 msgid "Name constraints"
 msgstr "Nosaukuma ierobežojumi"
 
 #: egg/egg-oid.c:163
-#| msgid "Certification revocation signature"
 msgid "Certificate Revocation List distribution points"
 msgstr "Sertifikāta atsaukšanas saraksta izplatīšanas punkts"
 
 #: egg/egg-oid.c:164
-#| msgid "Certificate files"
 msgid "Certificate policies"
 msgstr "Sertifikātu politikas"
 
@@ -357,12 +339,10 @@ msgid "Policy mappings"
 msgstr "Politiku attēlojumi"
 
 #: egg/egg-oid.c:166
-#| msgid "Basic Constraints"
 msgid "Policy constraints"
 msgstr "Politiku ierobežojumi"
 
 #: egg/egg-oid.c:167
-#| msgid "Subject Key Identifier"
 msgid "Authority key identifier"
 msgstr "Institūcijas atslēgas identifikators"
 
@@ -622,7 +602,7 @@ msgstr "X400 adrese"
 
 #: gcr/gcr-certificate-extensions.c:239
 msgid "Directory Name"
-msgstr "Direktorijas nosaukums"
+msgstr "Direktorija nosaukums"
 
 #: gcr/gcr-certificate-extensions.c:247
 msgid "EDI Party Name"

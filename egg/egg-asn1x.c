@@ -701,8 +701,8 @@ atlv_parse_cls_tag (const guchar *at,
                     gulong *tag,
                     gint *off)
 {
-	gint punt, ris, last;
-	gint n_data;
+	guint punt, ris, last;
+	guint n_data;
 	guchar val;
 
 	g_assert (end >= at);
@@ -762,9 +762,9 @@ atlv_parse_length (const guchar *at,
                    const guchar *end,
                    gint *off)
 {
-	gint ans, last;
-	gint k, punt;
-	gint n_data;
+	guint ans, last;
+	guint k, punt;
+	guint n_data;
 
 	g_assert (at != NULL);
 	g_assert (end != NULL);
@@ -809,7 +809,7 @@ atlv_parse_length (const guchar *at,
 		}
 
 		*off = punt;
-		return ans;
+		return (gint) ans;
 	}
 }
 

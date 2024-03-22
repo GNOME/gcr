@@ -3,11 +3,19 @@ stages:
   - deploy
 
 variables:
-  DEPENDENCIES: dbus-daemon diffutils gcc gi-docgen libsecret-devel meson ninja-build openssh openssh-clients python redhat-rpm-config systemd-devel gtk4-devel
+  DEPENDENCIES: dbus-daemon diffutils gcc gi-docgen gnutls-devel libsecret-devel meson ninja-build openssh openssh-clients python redhat-rpm-config systemd-devel gtk4-devel
+
+.build:
+  parallel:
+    matrix:
+      - CRYPTO: libgcrypt
+      - CRYPTO: gnutls
 
 fedora:Werror:
   image: fedora:latest
   stage: build
+  extends:
+    - .build
   before_script:
     - dnf upgrade -y
     - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES
@@ -28,6 +36,8 @@ fedora:Werror:
 fedora:asan:
   image: fedora:latest
   stage: build
+  extends:
+    - .build
   tags:
     - asan # LSAN needs CAP_SYS_PTRACE
   before_script:
@@ -51,6 +61,8 @@ fedora:asan:
 fedora:ubsan:
   image: fedora:latest
   stage: build
+  extends:
+    - .build
   before_script:
     - dnf upgrade -y
     - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES libubsan
@@ -70,6 +82,8 @@ fedora:ubsan:
 fedora:coverage:
   image: fedora:latest
   stage: build
+  extends:
+    - .build
   before_script:
     - dnf upgrade -y
     - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES lcov git gi-docgen gcovr

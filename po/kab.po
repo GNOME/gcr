@@ -1,0 +1,758 @@
+# Kabyle translation for gcr.
+# Copyright (C) 2024 gcr's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gcr package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# ButterflyOfFire <ButterflyOfFire@protonmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gcr master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2024-03-22 08:28+0000\n"
+"PO-Revision-Date: 2024-03-26 14:51+0100\n"
+"Last-Translator: ButterflyOfFire <ButterflyOfFire@protonmail.com>\n"
+"Language-Team: Kabyle <>\n"
+"Language: kab\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-DL-Team: kab\n"
+"X-DL-Module: gcr\n"
+"X-DL-Branch: master\n"
+"X-DL-Domain: po\n"
+"X-DL-State: Translating\n"
+"Plural-Forms: nplurals=2; plural=n>1\n"
+"X-Generator: Gtranslator 41.0\n"
+
+#: egg/egg-oid.c:40
+msgid "Domain Component"
+msgstr ""
+
+#: egg/egg-oid.c:42
+msgid "User ID"
+msgstr ""
+
+#: egg/egg-oid.c:45
+msgid "Email Address"
+msgstr "Tansa imayl"
+
+#: egg/egg-oid.c:53
+msgid "Date of Birth"
+msgstr "Azemz n tlalit"
+
+#: egg/egg-oid.c:55
+msgid "Place of Birth"
+msgstr "Adig n tlalit"
+
+#: egg/egg-oid.c:57
+msgid "Gender"
+msgstr "Taswit"
+
+#: egg/egg-oid.c:59
+msgid "Country of Citizenship"
+msgstr ""
+
+#: egg/egg-oid.c:61
+msgid "Country of Residence"
+msgstr "Tamurt n tmezduɣt"
+
+#: egg/egg-oid.c:64
+msgid "Common Name"
+msgstr "Isem amagnu"
+
+#: egg/egg-oid.c:66
+msgid "Surname"
+msgstr ""
+
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+msgid "Serial Number"
+msgstr "Uḍḍun n umazrar"
+
+#: egg/egg-oid.c:70
+msgid "Country"
+msgstr "Tamurt"
+
+#: egg/egg-oid.c:72
+msgid "Locality"
+msgstr "Tamnaḍt"
+
+#: egg/egg-oid.c:74
+msgid "State"
+msgstr ""
+
+#: egg/egg-oid.c:76
+msgid "Street"
+msgstr "Abrid"
+
+#: egg/egg-oid.c:78
+msgid "Organization"
+msgstr "Tuddsa"
+
+#: egg/egg-oid.c:80
+msgid "Organizational Unit"
+msgstr ""
+
+#: egg/egg-oid.c:82
+msgid "Title"
+msgstr "Azwel"
+
+#: egg/egg-oid.c:84
+msgid "Telephone Number"
+msgstr "Uḍḍun n tiliɣri"
+
+#: egg/egg-oid.c:86
+msgid "Given Name"
+msgstr ""
+
+#: egg/egg-oid.c:88
+msgid "Initials"
+msgstr "Isekkilen imezwura"
+
+#: egg/egg-oid.c:90
+msgid "Generation Qualifier"
+msgstr ""
+
+#: egg/egg-oid.c:92
+msgid "DN Qualifier"
+msgstr ""
+
+#: egg/egg-oid.c:94
+msgid "Pseudonym"
+msgstr "Meffer isem"
+
+#. Translators: Russian: Main state registration number
+#: egg/egg-oid.c:98
+msgid "OGRN"
+msgstr ""
+
+#. Translators: Russian: Individual insurance account number
+#: egg/egg-oid.c:101
+msgid "SNILS"
+msgstr ""
+
+#. Translators: Russian: Main state registration number for individual enterpreneurs
+#: egg/egg-oid.c:104
+msgid "OGRNIP"
+msgstr ""
+
+#. Translators: Russian: Individual taxpayer number
+#: egg/egg-oid.c:107
+msgid "INN"
+msgstr ""
+
+#: egg/egg-oid.c:110
+msgid "RSA"
+msgstr ""
+
+#: egg/egg-oid.c:111
+msgid "MD2 with RSA"
+msgstr "MD2 s RSA"
+
+#: egg/egg-oid.c:112
+msgid "MD5 with RSA"
+msgstr "MD5 s RSA"
+
+#: egg/egg-oid.c:113
+msgid "SHA1 with RSA"
+msgstr "SHA1 s RSA"
+
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr ""
+
+#: egg/egg-oid.c:115
+msgid "RSA with MGF1"
+msgstr "RSA s MGF1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr ""
+
+#: egg/egg-oid.c:117
+msgid "SHA256 with RSA encryption"
+msgstr ""
+
+#: egg/egg-oid.c:118
+msgid "SHA384 with RSA encryption"
+msgstr ""
+
+#: egg/egg-oid.c:119
+msgid "SHA512 with RSA encryption"
+msgstr ""
+
+#: egg/egg-oid.c:120
+msgid "SHA224 with RSA encryption"
+msgstr ""
+
+#: egg/egg-oid.c:122
+msgid "DSA"
+msgstr "DSA"
+
+#: egg/egg-oid.c:123
+msgid "SHA1 with DSA"
+msgstr "SHA1 s DSA"
+
+#: egg/egg-oid.c:125
+msgid "Elliptic Curve"
+msgstr ""
+
+#: egg/egg-oid.c:126
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 s ECDSA"
+
+#: egg/egg-oid.c:127
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 s ECDSA"
+
+#: egg/egg-oid.c:128
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 s ECDSA"
+
+#: egg/egg-oid.c:129
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 s ECDSA"
+
+#: egg/egg-oid.c:130
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 s ECDSA"
+
+#: egg/egg-oid.c:132
+msgid "GOST R 34.11-94 with GOST R 34.10-2001"
+msgstr ""
+
+#: egg/egg-oid.c:133
+msgid "GOST R 34.10-2001"
+msgstr "GOST R 34.10-2001"
+
+#: egg/egg-oid.c:134
+msgid "GOST R 34.10-2012 256-bit curve"
+msgstr ""
+
+#: egg/egg-oid.c:135
+msgid "GOST R 34.10-2012 512-bit curve"
+msgstr ""
+
+#: egg/egg-oid.c:136
+msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
+msgstr ""
+
+#: egg/egg-oid.c:137
+msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
+msgstr ""
+
+#. Extended Key Usages
+#: egg/egg-oid.c:140
+msgid "Server Authentication"
+msgstr "Asesteb n uqeddac"
+
+#: egg/egg-oid.c:141
+msgid "Client Authentication"
+msgstr ""
+
+#: egg/egg-oid.c:142
+msgid "Code Signing"
+msgstr ""
+
+#: egg/egg-oid.c:143
+msgid "Email Protection"
+msgstr ""
+
+#: egg/egg-oid.c:144
+msgid "Time Stamping"
+msgstr ""
+
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+msgid "Certificate Authority Information Access"
+msgstr ""
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr ""
+
+#: egg/egg-oid.c:149
+msgid "Subject key identifier"
+msgstr ""
+
+#: egg/egg-oid.c:150
+msgid "Key usage"
+msgstr ""
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr ""
+
+#: egg/egg-oid.c:152
+msgid "Subject alternative name"
+msgstr ""
+
+#: egg/egg-oid.c:153
+msgid "Issuer alternative name"
+msgstr ""
+
+#: egg/egg-oid.c:154
+msgid "Basic constraints"
+msgstr ""
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr ""
+
+#: egg/egg-oid.c:156
+msgid "Reason code"
+msgstr ""
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr ""
+
+#: egg/egg-oid.c:158
+msgid "Invalidity date"
+msgstr ""
+
+#: egg/egg-oid.c:159
+msgid "Certificate Revocation List indicator"
+msgstr ""
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr ""
+
+#: egg/egg-oid.c:161
+msgid "Certificate issuer"
+msgstr ""
+
+#: egg/egg-oid.c:162
+msgid "Name constraints"
+msgstr ""
+
+#: egg/egg-oid.c:163
+msgid "Certificate Revocation List distribution points"
+msgstr ""
+
+#: egg/egg-oid.c:164
+msgid "Certificate policies"
+msgstr ""
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr ""
+
+#: egg/egg-oid.c:166
+msgid "Policy constraints"
+msgstr ""
+
+#: egg/egg-oid.c:167
+msgid "Authority key identifier"
+msgstr ""
+
+#: gck/gck-module.c:271
+#, c-format
+msgid "Error loading PKCS#11 module: %s"
+msgstr ""
+
+#: gck/gck-module.c:286
+#, c-format
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr ""
+
+#: gck/gck-modules.c:60
+#, c-format
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr ""
+
+#: gck/gck-uri.c:167
+#, c-format
+msgid "The URI has invalid encoding."
+msgstr ""
+
+#: gck/gck-uri.c:171
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr ""
+
+#: gck/gck-uri.c:175
+msgid "The URI has bad syntax."
+msgstr ""
+
+#: gck/gck-uri.c:179
+msgid "The URI has a bad version number."
+msgstr ""
+
+#: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
+msgid "The stream was closed"
+msgstr ""
+
+#: gcr/gcr-certificate.c:882
+msgid "Key Algorithm"
+msgstr ""
+
+#: gcr/gcr-certificate.c:888
+msgid "Key Parameters"
+msgstr ""
+
+#: gcr/gcr-certificate.c:895
+msgid "Key Size"
+msgstr "Teɣzi n tsarutt"
+
+#: gcr/gcr-certificate.c:905
+msgid "Key SHA1 Fingerprint"
+msgstr ""
+
+#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+msgid "Public Key"
+msgstr "Tasarut tazayezt"
+
+#: gcr/gcr-certificate.c:923
+msgid "Basic Constraints"
+msgstr ""
+
+#: gcr/gcr-certificate.c:924
+msgid "Certificate Authority"
+msgstr ""
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "Yes"
+msgstr "Ih"
+
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+msgid "No"
+msgstr "Uhu"
+
+#: gcr/gcr-certificate.c:927
+msgid "Unlimited"
+msgstr "War talast"
+
+#: gcr/gcr-certificate.c:931
+msgid "Max Path Length"
+msgstr ""
+
+#: gcr/gcr-certificate.c:955
+msgid "Extended Key Usage"
+msgstr ""
+
+#: gcr/gcr-certificate.c:956
+msgid "Allowed Purposes"
+msgstr ""
+
+#: gcr/gcr-certificate.c:973
+msgid "Subject Key Identifier"
+msgstr ""
+
+#: gcr/gcr-certificate.c:976
+msgid "Key Identifier"
+msgstr ""
+
+#: gcr/gcr-certificate.c:985
+msgid "Digital signature"
+msgstr "Azmal umḍin"
+
+#: gcr/gcr-certificate.c:986
+msgid "Non repudiation"
+msgstr ""
+
+#: gcr/gcr-certificate.c:987
+msgid "Key encipherment"
+msgstr ""
+
+#: gcr/gcr-certificate.c:988
+msgid "Data encipherment"
+msgstr ""
+
+#: gcr/gcr-certificate.c:989
+msgid "Key agreement"
+msgstr ""
+
+#: gcr/gcr-certificate.c:990
+msgid "Certificate signature"
+msgstr ""
+
+#: gcr/gcr-certificate.c:991
+msgid "Revocation list signature"
+msgstr ""
+
+#: gcr/gcr-certificate.c:992
+msgid "Encipher only"
+msgstr ""
+
+#: gcr/gcr-certificate.c:993
+msgid "Decipher only"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1014
+msgid "Key Usage"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1015
+msgid "Usages"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1033
+msgid "Subject Alternative Names"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1055
+msgid "Extension"
+msgstr "Asiɣzef"
+
+#: gcr/gcr-certificate.c:1059
+msgid "Identifier"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1060
+msgid "Value"
+msgstr "Azal"
+
+#: gcr/gcr-certificate.c:1100
+msgid "Critical"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+msgid "Certificate"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+msgid "Unknown"
+msgstr "Arussin"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Identity"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1189
+msgid "Verified by"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1195
+msgid "Expires"
+msgstr "Ad ifat di"
+
+#. The subject
+#: gcr/gcr-certificate.c:1203
+msgid "Subject Name"
+msgstr ""
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1209
+msgid "Issuer Name"
+msgstr ""
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1215
+msgid "Issued Certificate"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1221
+msgid "Version"
+msgstr "Lqem"
+
+#: gcr/gcr-certificate.c:1235
+msgid "Not Valid Before"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1244
+msgid "Not Valid After"
+msgstr ""
+
+#: gcr/gcr-certificate.c:1253
+msgid "Certificate Fingerprints"
+msgstr ""
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1263
+msgid "Public Key Info"
+msgstr ""
+
+#. Signature
+#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+msgid "Signature"
+msgstr "Azmul"
+
+#: gcr/gcr-certificate.c:1283
+msgid "Signature Algorithm"
+msgstr "Alguritm n wezmul"
+
+#: gcr/gcr-certificate.c:1287
+msgid "Signature Parameters"
+msgstr ""
+
+#: gcr/gcr-certificate-extensions.c:190
+msgid "Other Name"
+msgstr "Isem-nniḍen"
+
+#: gcr/gcr-certificate-extensions.c:200
+msgid "XMPP Addr"
+msgstr ""
+
+#: gcr/gcr-certificate-extensions.c:204
+msgid "DNS SRV"
+msgstr ""
+
+#: gcr/gcr-certificate-extensions.c:216
+msgid "Email"
+msgstr "Imayl"
+
+#: gcr/gcr-certificate-extensions.c:224
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions.c:232
+msgid "X400 Address"
+msgstr ""
+
+#: gcr/gcr-certificate-extensions.c:239
+msgid "Directory Name"
+msgstr ""
+
+#: gcr/gcr-certificate-extensions.c:247
+msgid "EDI Party Name"
+msgstr ""
+
+#: gcr/gcr-certificate-extensions.c:254
+msgid "URI"
+msgstr ""
+
+#: gcr/gcr-certificate-extensions.c:262
+msgid "IP Address"
+msgstr "Tansa  IP"
+
+#: gcr/gcr-certificate-extensions.c:270
+msgid "Registered ID"
+msgstr ""
+
+#: gcr/gcr-certificate-request.c:397
+#, c-format
+msgid "Unsupported key type for certificate request"
+msgstr ""
+
+#: gcr/gcr-certificate-request.c:484 gcr/gcr-certificate-request.c:568
+#, c-format
+msgid "The key cannot be used to sign the request"
+msgstr ""
+
+#: gcr/gcr-gnupg-importer.c:94
+msgid "GnuPG Keyring"
+msgstr ""
+
+#: gcr/gcr-gnupg-importer.c:96
+#, c-format
+msgid "GnuPG Keyring: %s"
+msgstr ""
+
+#: gcr/gcr-gnupg-process.c:867
+#, c-format
+msgid "Gnupg process exited with code: %d"
+msgstr ""
+
+#: gcr/gcr-gnupg-process.c:874
+#, c-format
+msgid "Gnupg process was terminated with signal: %d"
+msgstr ""
+
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-system-prompt.c:916
+msgid "The operation was cancelled"
+msgstr ""
+
+#: gcr/gcr-parser.c:337
+msgid "Private Key"
+msgstr ""
+
+#: gcr/gcr-parser.c:346
+msgid "PGP Key"
+msgstr ""
+
+#: gcr/gcr-parser.c:349
+msgid "Certificate Request"
+msgstr ""
+
+#: gcr/gcr-parser.c:2595
+msgid "Unrecognized or unsupported data."
+msgstr ""
+
+#: gcr/gcr-parser.c:2598
+msgid "Could not parse invalid or corrupted data."
+msgstr ""
+
+#: gcr/gcr-parser.c:2601
+msgid "The data is locked"
+msgstr ""
+
+#: gcr/gcr-prompt.c:220
+msgid "Continue"
+msgstr "Kemmel"
+
+#: gcr/gcr-prompt.c:229
+msgid "Cancel"
+msgstr "Semmet"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr ""
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr ""
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr ""
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr ""
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr ""
+
+#: gcr/gcr-ssh-agent-interaction.c:163
+msgid "Unlock"
+msgstr ""
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr ""
+
+#: gcr/gcr-ssh-agent-service.c:270
+msgid "Unnamed"
+msgstr ""
+
+#: gcr/gcr-ssh-askpass.c:182
+msgid "Enter your OpenSSH passphrase"
+msgstr ""
+
+#: gcr/gcr-subject-public-key.c:407
+msgid "Unrecognized or unavailable attributes for key"
+msgstr ""
+
+#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+msgid "Couldn’t build public key"
+msgstr ""
+
+#: gcr/gcr-system-prompt.c:896
+msgid "Another prompt is already in progress"
+msgstr ""
+
+#. Translators: A pinned certificate is an exception which
+#. trusts a given certificate explicitly for a purpose and
+#. communication with a certain peer.
+#: gcr/gcr-trust.c:307
+#, c-format
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr ""
+
+#: tools/viewer/viewer.c:23
+msgid "GCR Certificate Viewer"
+msgstr ""
+
+#: tools/viewer/viewer.c:30
+msgid "Show the application's version"
+msgstr ""
+
+#: tools/viewer/viewer.c:32
+msgid "[file...]"
+msgstr ""

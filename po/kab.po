@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2024-03-22 08:28+0000\n"
-"PO-Revision-Date: 2024-03-26 14:51+0100\n"
+"POT-Creation-Date: 2024-03-26 13:52+0000\n"
+"PO-Revision-Date: 2024-03-29 19:00+0100\n"
 "Last-Translator: ButterflyOfFire <ButterflyOfFire@protonmail.com>\n"
 "Language-Team: Kabyle <>\n"
 "Language: kab\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
-msgstr ""
+msgstr "Asuddes n taɣult"
 
 #: egg/egg-oid.c:42
 msgid "User ID"
@@ -78,7 +78,7 @@ msgstr "Tamnaḍt"
 
 #: egg/egg-oid.c:74
 msgid "State"
-msgstr ""
+msgstr "Aɣrem"
 
 #: egg/egg-oid.c:76
 msgid "Street"
@@ -102,7 +102,7 @@ msgstr "Uḍḍun n tiliɣri"
 
 #: egg/egg-oid.c:86
 msgid "Given Name"
-msgstr ""
+msgstr "Isem i d-yettunefken"
 
 #: egg/egg-oid.c:88
 msgid "Initials"
@@ -110,11 +110,11 @@ msgstr "Isekkilen imezwura"
 
 #: egg/egg-oid.c:90
 msgid "Generation Qualifier"
-msgstr ""
+msgstr "Amgaɣara n tsuta"
 
 #: egg/egg-oid.c:92
 msgid "DN Qualifier"
-msgstr ""
+msgstr "Amgaɣara DN"
 
 #: egg/egg-oid.c:94
 msgid "Pseudonym"
@@ -123,26 +123,26 @@ msgstr "Meffer isem"
 #. Translators: Russian: Main state registration number
 #: egg/egg-oid.c:98
 msgid "OGRN"
-msgstr ""
+msgstr "OGRN"
 
 #. Translators: Russian: Individual insurance account number
 #: egg/egg-oid.c:101
 msgid "SNILS"
-msgstr ""
+msgstr "SNILS"
 
 #. Translators: Russian: Main state registration number for individual enterpreneurs
 #: egg/egg-oid.c:104
 msgid "OGRNIP"
-msgstr ""
+msgstr "OGRNIP"
 
 #. Translators: Russian: Individual taxpayer number
 #: egg/egg-oid.c:107
 msgid "INN"
-msgstr ""
+msgstr "INN"
 
 #: egg/egg-oid.c:110
 msgid "RSA"
-msgstr ""
+msgstr "RSA"
 
 #: egg/egg-oid.c:111
 msgid "MD2 with RSA"
@@ -255,7 +255,7 @@ msgstr ""
 
 #: egg/egg-oid.c:143
 msgid "Email Protection"
-msgstr ""
+msgstr "Ammesten n imayl"
 
 #: egg/egg-oid.c:144
 msgid "Time Stamping"
@@ -453,11 +453,11 @@ msgstr ""
 
 #: gcr/gcr-certificate.c:987
 msgid "Key encipherment"
-msgstr ""
+msgstr "Awgelhen n tsarut"
 
 #: gcr/gcr-certificate.c:988
 msgid "Data encipherment"
-msgstr ""
+msgstr "Awgelhen n yisefka"
 
 #: gcr/gcr-certificate.c:989
 msgid "Key agreement"
@@ -497,7 +497,7 @@ msgstr "Asiɣzef"
 
 #: gcr/gcr-certificate.c:1059
 msgid "Identifier"
-msgstr ""
+msgstr "Asulay"
 
 #: gcr/gcr-certificate.c:1060
 msgid "Value"
@@ -517,7 +517,7 @@ msgstr "Arussin"
 
 #: gcr/gcr-certificate.c:1184
 msgid "Identity"
-msgstr ""
+msgstr "Tamagit"
 
 #: gcr/gcr-certificate.c:1189
 msgid "Verified by"
@@ -598,7 +598,7 @@ msgstr "DNS"
 
 #: gcr/gcr-certificate-extensions.c:232
 msgid "X400 Address"
-msgstr ""
+msgstr "Tansa X400"
 
 #: gcr/gcr-certificate-extensions.c:239
 msgid "Directory Name"
@@ -610,7 +610,7 @@ msgstr ""
 
 #: gcr/gcr-certificate-extensions.c:254
 msgid "URI"
-msgstr ""
+msgstr "URI"
 
 #: gcr/gcr-certificate-extensions.c:262
 msgid "IP Address"
@@ -656,11 +656,11 @@ msgstr ""
 
 #: gcr/gcr-parser.c:337
 msgid "Private Key"
-msgstr ""
+msgstr "Tasarut tusligt"
 
 #: gcr/gcr-parser.c:346
 msgid "PGP Key"
-msgstr ""
+msgstr "Tasarut PGP"
 
 #: gcr/gcr-parser.c:349
 msgid "Certificate Request"
@@ -693,33 +693,33 @@ msgstr ""
 
 #: gcr/gcr-ssh-agent-interaction.c:152
 msgid "Unlock private key"
-msgstr ""
+msgstr "Kkes aseḍru i tsarut tusligt"
 
 #: gcr/gcr-ssh-agent-interaction.c:153
 msgid "Enter password to unlock the private key"
-msgstr ""
+msgstr "Sekcem awal n uεeddi i ulday n tsarut tusligt"
 
 #. TRANSLATORS: The private key is locked
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
-msgstr ""
+msgstr "Asnas yesra anekcum ɣer tsarut tusligt \"%s\", maca tsekkeṛ"
 
 #: gcr/gcr-ssh-agent-interaction.c:161
 msgid "Automatically unlock this key whenever I’m logged in"
-msgstr ""
+msgstr "Kkes asekkeṛ s wudem awurman i tsarut-a mi ara qqneɣ"
 
 #: gcr/gcr-ssh-agent-interaction.c:163
 msgid "Unlock"
-msgstr ""
+msgstr "Kkes aseḍru"
 
 #: gcr/gcr-ssh-agent-interaction.c:166
 msgid "The unlock password was incorrect"
-msgstr ""
+msgstr "Awal n uεeddi i tukksa n usekkeṛ d arameɣtu"
 
 #: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
-msgstr ""
+msgstr "War isem"
 
 #: gcr/gcr-ssh-askpass.c:182
 msgid "Enter your OpenSSH passphrase"
@@ -751,8 +751,8 @@ msgstr ""
 
 #: tools/viewer/viewer.c:30
 msgid "Show the application's version"
-msgstr ""
+msgstr "Sken-d lqem n usnas"
 
 #: tools/viewer/viewer.c:32
 msgid "[file...]"
-msgstr ""
+msgstr "[afaylu...]"

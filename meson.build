@@ -66,7 +66,7 @@ if get_option('crypto') == 'libgcrypt'
   with_gcrypt = true
   crypto_deps += libgcrypt_dep
 elif get_option('crypto') == 'gnutls'
-  min_gnutls_version = '3.8.2'
+  min_gnutls_version = '3.8.5'
   gnutls_dep = dependency(
     'gnutls',
     version: '>=' + min_gnutls_version,

@@ -8,21 +8,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2024-03-26 13:52+0000\n"
-"PO-Revision-Date: 2024-03-29 19:00+0100\n"
-"Last-Translator: ButterflyOfFire <ButterflyOfFire@protonmail.com>\n"
+"POT-Creation-Date: 2024-03-29 18:01+0000\n"
+"PO-Revision-Date: 2024-04-12 20:36+0200\n"
+"Last-Translator: sa\n"
 "Language-Team: Kabyle <>\n"
 "Language: kab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
 "X-DL-Team: kab\n"
 "X-DL-Module: gcr\n"
 "X-DL-Branch: master\n"
 "X-DL-Domain: po\n"
 "X-DL-State: Translating\n"
-"Plural-Forms: nplurals=2; plural=n>1\n"
-"X-Generator: Gtranslator 41.0\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -30,7 +30,7 @@ msgstr "Asuddes n taɣult"
 
 #: egg/egg-oid.c:42
 msgid "User ID"
-msgstr ""
+msgstr "Asulay n useqdac"
 
 #: egg/egg-oid.c:45
 msgid "Email Address"
@@ -50,7 +50,7 @@ msgstr "Taswit"
 
 #: egg/egg-oid.c:59
 msgid "Country of Citizenship"
-msgstr ""
+msgstr "Tamurt n tiɣermi"
 
 #: egg/egg-oid.c:61
 msgid "Country of Residence"
@@ -62,7 +62,7 @@ msgstr "Isem amagnu"
 
 #: egg/egg-oid.c:66
 msgid "Surname"
-msgstr ""
+msgstr "Isem n useqdac"
 
 #: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
 msgid "Serial Number"
@@ -90,7 +90,7 @@ msgstr "Tuddsa"
 
 #: egg/egg-oid.c:80
 msgid "Organizational Unit"
-msgstr ""
+msgstr "Aferdis n tkebbanit"
 
 #: egg/egg-oid.c:82
 msgid "Title"
@@ -166,23 +166,23 @@ msgstr "RSA s MGF1"
 
 #: egg/egg-oid.c:116
 msgid "RSA signature with RSA-PSS"
-msgstr ""
+msgstr "Azmul n RSA s RSA-PSS"
 
 #: egg/egg-oid.c:117
 msgid "SHA256 with RSA encryption"
-msgstr ""
+msgstr "SHA256 s uwgelhen n RSA"
 
 #: egg/egg-oid.c:118
 msgid "SHA384 with RSA encryption"
-msgstr ""
+msgstr "SHA384 s uwgelhen n RSA"
 
 #: egg/egg-oid.c:119
 msgid "SHA512 with RSA encryption"
-msgstr ""
+msgstr "SHA512 s uwgelhen n RSA"
 
 #: egg/egg-oid.c:120
 msgid "SHA224 with RSA encryption"
-msgstr ""
+msgstr "SHA224 s uwgelhen RSA"
 
 #: egg/egg-oid.c:122
 msgid "DSA"
@@ -218,7 +218,7 @@ msgstr "SHA512 s ECDSA"
 
 #: egg/egg-oid.c:132
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
-msgstr ""
+msgstr "GOST R 34.11-94 s GOST R 34.10-2001"
 
 #: egg/egg-oid.c:133
 msgid "GOST R 34.10-2001"
@@ -226,19 +226,19 @@ msgstr "GOST R 34.10-2001"
 
 #: egg/egg-oid.c:134
 msgid "GOST R 34.10-2012 256-bit curve"
-msgstr ""
+msgstr "Azlig n GOST R 34.10-2012 256-bit"
 
 #: egg/egg-oid.c:135
 msgid "GOST R 34.10-2012 512-bit curve"
-msgstr ""
+msgstr "Azlig n GOST R 34.10-2012 512-bit"
 
 #: egg/egg-oid.c:136
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
-msgstr ""
+msgstr "Azlig n GOST R 34.11-2012/256 akked GOST R 34.10-2012 256-bit"
 
 #: egg/egg-oid.c:137
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
-msgstr ""
+msgstr "Azlig n GOST R 34.11-2012/512 akked GOST R 34.10-2012 512-bit"
 
 #. Extended Key Usages
 #: egg/egg-oid.c:140
@@ -247,11 +247,11 @@ msgstr "Asesteb n uqeddac"
 
 #: egg/egg-oid.c:141
 msgid "Client Authentication"
-msgstr ""
+msgstr "Tawila n umsaɣ"
 
 #: egg/egg-oid.c:142
 msgid "Code Signing"
-msgstr ""
+msgstr "Azmul n tengalt"
 
 #: egg/egg-oid.c:143
 msgid "Email Protection"
@@ -259,7 +259,7 @@ msgstr "Ammesten n imayl"
 
 #: egg/egg-oid.c:144
 msgid "Time Stamping"
-msgstr ""
+msgstr "Azwil n wakud"
 
 #. Extended certificate attributes
 #: egg/egg-oid.c:147
@@ -276,11 +276,11 @@ msgstr ""
 
 #: egg/egg-oid.c:150
 msgid "Key usage"
-msgstr ""
+msgstr "Aseqdec n tsarut"
 
 #: egg/egg-oid.c:151
 msgid "Private key usage period"
-msgstr ""
+msgstr "Tawala n useqdec n tsarut tusligt"
 
 #: egg/egg-oid.c:152
 msgid "Subject alternative name"
@@ -296,7 +296,7 @@ msgstr ""
 
 #: egg/egg-oid.c:155
 msgid "CRL number"
-msgstr ""
+msgstr "Uṭṭun n CRL"
 
 #: egg/egg-oid.c:156
 msgid "Reason code"
@@ -349,12 +349,12 @@ msgstr ""
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr ""
+msgstr "Tuccḍa deg usali n uzegrir PKCS#11: %s"
 
 #: gck/gck-module.c:286
 #, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
-msgstr ""
+msgstr "Yegguma ad iwennez azegrir PKCS#11: %s"
 
 #: gck/gck-modules.c:60
 #, c-format
@@ -381,7 +381,7 @@ msgstr ""
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
 #, c-format
 msgid "The stream was closed"
-msgstr ""
+msgstr "Asuddem yemdel"
 
 #: gcr/gcr-certificate.c:882
 msgid "Key Algorithm"
@@ -389,7 +389,7 @@ msgstr ""
 
 #: gcr/gcr-certificate.c:888
 msgid "Key Parameters"
-msgstr ""
+msgstr "Iɣewwaren n tsarut"
 
 #: gcr/gcr-certificate.c:895
 msgid "Key Size"
@@ -397,9 +397,9 @@ msgstr "Teɣzi n tsarutt"
 
 #: gcr/gcr-certificate.c:905
 msgid "Key SHA1 Fingerprint"
-msgstr ""
+msgstr "Adsil umḍin n tsarut SHA1"
 
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:334
 msgid "Public Key"
 msgstr "Tasarut tazayezt"
 
@@ -465,7 +465,7 @@ msgstr ""
 
 #: gcr/gcr-certificate.c:990
 msgid "Certificate signature"
-msgstr ""
+msgstr "Azmul n uselkin"
 
 #: gcr/gcr-certificate.c:991
 msgid "Revocation list signature"
@@ -481,11 +481,11 @@ msgstr ""
 
 #: gcr/gcr-certificate.c:1014
 msgid "Key Usage"
-msgstr ""
+msgstr "Aseqdec n tsarut"
 
 #: gcr/gcr-certificate.c:1015
 msgid "Usages"
-msgstr ""
+msgstr "Aseqdec"
 
 #: gcr/gcr-certificate.c:1033
 msgid "Subject Alternative Names"
@@ -505,11 +505,11 @@ msgstr "Azal"
 
 #: gcr/gcr-certificate.c:1100
 msgid "Critical"
-msgstr ""
+msgstr "Uzɣin"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:331
 msgid "Certificate"
-msgstr ""
+msgstr "Aselkin"
 
 #: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
 msgid "Unknown"
@@ -582,11 +582,11 @@ msgstr "Isem-nniḍen"
 
 #: gcr/gcr-certificate-extensions.c:200
 msgid "XMPP Addr"
-msgstr ""
+msgstr "XMPP Addr"
 
 #: gcr/gcr-certificate-extensions.c:204
 msgid "DNS SRV"
-msgstr ""
+msgstr "DNS SRV"
 
 #: gcr/gcr-certificate-extensions.c:216
 msgid "Email"
@@ -649,32 +649,32 @@ msgstr ""
 msgid "Gnupg process was terminated with signal: %d"
 msgstr ""
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr ""
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Tasarut tusligt"
 
-#: gcr/gcr-parser.c:346
+#: gcr/gcr-parser.c:337
 msgid "PGP Key"
 msgstr "Tasarut PGP"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr ""
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr ""
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr ""
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr ""
 
@@ -689,7 +689,7 @@ msgstr "Semmet"
 #: gcr/gcr-ssh-agent-interaction.c:116
 #, c-format
 msgid "Unlock password for: %s"
-msgstr ""
+msgstr "Awal uffir n twaledyawt i: %s"
 
 #: gcr/gcr-ssh-agent-interaction.c:152
 msgid "Unlock private key"
@@ -725,11 +725,11 @@ msgstr "War isem"
 msgid "Enter your OpenSSH passphrase"
 msgstr ""
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr ""
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr ""
 

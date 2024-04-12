@@ -1,3 +1,10 @@
+gcr 4.3.0:
+- certificate: Add API to retrieve version [GNOME/gcr!135]
+- Bump required GnuTLS version to 3.8.5 [GNOME/gcr!142]
+- Avoid potential integer overflow spotted by UBSan [GNOME/gcr!141]
+- Support GnuTLS as an alternative crypto backend [GNOME/gcr!140]
+- Updated translations
+
 gcr 4.2.1:
 - gcr-ssh-agent: set `SSH_AUTH_SOCK` [GNOME/gcr!137]
 - gcr-ssh-agent: port avoid deadlock fix [GNOME/gcr!136]

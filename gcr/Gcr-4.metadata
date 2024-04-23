@@ -6,3 +6,4 @@ Certificate
 	.subject_name nullable=true
 	.issuer_name nullable=true
 	.expiry_date nullable=true
+CertificateField.get_value.value ref

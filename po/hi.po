@@ -6,21 +6,22 @@
 # Rajesh Ranjan <rajesh672@gmail.com>, 2009.
 # rajesh <rajeshkajha@yahoo.com>, 2012.
 # chandankumar <chandankumar.093047@gmail.com>, 2013.
+# Scrambled777 <weblate.scrambled777@simplelogin.com>, 2024.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"keyring&keywords=I18N+L10N&component=gcr\n"
-"POT-Creation-Date: 2013-02-12 05:56+0000\n"
-"PO-Revision-Date: 2013-03-25 18:25+0000\n"
-"Last-Translator: chandankumar <chandankumar.093047@gmail.com>\n"
-"Language-Team: Hindi <kde-i18n-doc@kde.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
+"POT-Creation-Date: 2023-11-04 11:23+0000\n"
+"PO-Revision-Date: 2024-04-17 20:05+0530\n"
+"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
+"Language-Team: Hindi\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Gtranslator 46.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "\n"
 "\n"
 "\n"
@@ -29,1060 +30,1101 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../egg/egg-oid.c:41
+#: egg/egg-oid.c:40
 msgid "Domain Component"
 msgstr "डोमेन घटक"
 
-#: ../egg/egg-oid.c:43 ../ui/gcr-gnupg-renderer.c:410
-#: ../ui/gcr-gnupg-renderer.c:579
+#: egg/egg-oid.c:42
 msgid "User ID"
 msgstr "उपयोक्ता पहचान"
 
-#: ../egg/egg-oid.c:46
+#: egg/egg-oid.c:45
 msgid "Email Address"
 msgstr "ई-मेल पता"
 
-#: ../egg/egg-oid.c:54
+#: egg/egg-oid.c:53
 msgid "Date of Birth"
 msgstr "जन्म दिन"
 
-#: ../egg/egg-oid.c:56
+#: egg/egg-oid.c:55
 msgid "Place of Birth"
 msgstr "जन्म स्थान"
 
-#: ../egg/egg-oid.c:58
+#: egg/egg-oid.c:57
 msgid "Gender"
 msgstr "लिंग"
 
-#: ../egg/egg-oid.c:60
+#: egg/egg-oid.c:59
 msgid "Country of Citizenship"
 msgstr "नागरिकता देश"
 
-#: ../egg/egg-oid.c:62
+#: egg/egg-oid.c:61
 msgid "Country of Residence"
 msgstr "निवास देश"
 
-#: ../egg/egg-oid.c:65
+#: egg/egg-oid.c:64
 msgid "Common Name"
 msgstr "सामान्य नाम"
 
-#: ../egg/egg-oid.c:67
+#: egg/egg-oid.c:66
 msgid "Surname"
 msgstr "कुलनाम"
 
-#: ../egg/egg-oid.c:69 ../ui/gcr-certificate-renderer.c:558
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
 msgid "Serial Number"
 msgstr "क्रम संख्या"
 
-#: ../egg/egg-oid.c:71
+#: egg/egg-oid.c:70
 msgid "Country"
 msgstr "देश"
 
-#: ../egg/egg-oid.c:73
+#: egg/egg-oid.c:72
 msgid "Locality"
 msgstr "जगह"
 
-#: ../egg/egg-oid.c:75
+#: egg/egg-oid.c:74
 msgid "State"
 msgstr "स्थिति"
 
-#: ../egg/egg-oid.c:77
+#: egg/egg-oid.c:76
 msgid "Street"
 msgstr "सड़क"
 
-#: ../egg/egg-oid.c:79
+#: egg/egg-oid.c:78
 msgid "Organization"
 msgstr "संगठन "
 
-#: ../egg/egg-oid.c:81
+#: egg/egg-oid.c:80
 msgid "Organizational Unit"
 msgstr "संगठनात्मक इकाई"
 
-#: ../egg/egg-oid.c:83
+#: egg/egg-oid.c:82
 msgid "Title"
 msgstr "शीर्षक"
 
-#: ../egg/egg-oid.c:85
+#: egg/egg-oid.c:84
 msgid "Telephone Number"
 msgstr "टेलीफोन नंबर"
 
-#: ../egg/egg-oid.c:87
+#: egg/egg-oid.c:86
 msgid "Given Name"
 msgstr "दिया गया नाम"
 
-#: ../egg/egg-oid.c:89
+#: egg/egg-oid.c:88
 msgid "Initials"
 msgstr "प्रथमाक्षर"
 
-#: ../egg/egg-oid.c:91
+#: egg/egg-oid.c:90
 msgid "Generation Qualifier"
 msgstr "जनन उत्तीर्णकर्ता"
 
-#: ../egg/egg-oid.c:93
+#: egg/egg-oid.c:92
 msgid "DN Qualifier"
 msgstr "DN उत्तीर्णकर्ता"
 
-#: ../egg/egg-oid.c:95
+#: egg/egg-oid.c:94
 msgid "Pseudonym"
 msgstr "छद्मनाम"
 
-#: ../egg/egg-oid.c:98 ../ui/gcr-gnupg-renderer.c:201
-#: ../ui/gcr-key-renderer.c:430
+#. Translators: Russian: Main state registration number
+#: egg/egg-oid.c:98
+msgid "OGRN"
+msgstr "OGRN"
+
+#. Translators: Russian: Individual insurance account number
+#: egg/egg-oid.c:101
+msgid "SNILS"
+msgstr "SNILS"
+
+#. Translators: Russian: Main state registration number for individual enterpreneurs
+#: egg/egg-oid.c:104
+msgid "OGRNIP"
+msgstr "OGRNIP"
+
+#. Translators: Russian: Individual taxpayer number
+#: egg/egg-oid.c:107
+msgid "INN"
+msgstr "INN"
+
+#: egg/egg-oid.c:110
 msgid "RSA"
 msgstr "RSA"
 
-#: ../egg/egg-oid.c:99
+#: egg/egg-oid.c:111
 msgid "MD2 with RSA"
 msgstr "RSA के साथ MD2"
 
-#: ../egg/egg-oid.c:100
+#: egg/egg-oid.c:112
 msgid "MD5 with RSA"
 msgstr "RSA के साथ MD5"
 
-#: ../egg/egg-oid.c:101
+#: egg/egg-oid.c:113
 msgid "SHA1 with RSA"
 msgstr "RSA के साथ SHA1"
 
-#: ../egg/egg-oid.c:103 ../ui/gcr-gnupg-renderer.c:205
-#: ../ui/gcr-key-renderer.c:432
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "OAEP पैडिंग के साथ RSA"
+
+#: egg/egg-oid.c:115
+msgid "RSA with MGF1"
+msgstr "MGF1 के साथ RSA"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "RSA-PSS के साथ RSA हस्ताक्षर"
+
+#: egg/egg-oid.c:117
+msgid "SHA256 with RSA encryption"
+msgstr "RSA एन्क्रिप्शन के साथ SHA256"
+
+#: egg/egg-oid.c:118
+msgid "SHA384 with RSA encryption"
+msgstr "RSA एन्क्रिप्शन के साथ SHA384"
+
+#: egg/egg-oid.c:119
+msgid "SHA512 with RSA encryption"
+msgstr "RSA एन्क्रिप्शन के साथ SHA512"
+
+#: egg/egg-oid.c:120
+msgid "SHA224 with RSA encryption"
+msgstr "RSA एन्क्रिप्शन के साथ SHA224"
+
+#: egg/egg-oid.c:122
 msgid "DSA"
 msgstr "DSA"
 
-#: ../egg/egg-oid.c:104
+#: egg/egg-oid.c:123
 msgid "SHA1 with DSA"
 msgstr "DSA के साथ SHA1"
 
+#: egg/egg-oid.c:125
+msgid "Elliptic Curve"
+msgstr "अण्डाकार वक्र"
+
+#: egg/egg-oid.c:126
+msgid "SHA1 with ECDSA"
+msgstr "ECDSA के साथ SHA1"
+
+#: egg/egg-oid.c:127
+msgid "SHA224 with ECDSA"
+msgstr "ECDSA के साथ SHA224"
+
+#: egg/egg-oid.c:128
+msgid "SHA256 with ECDSA"
+msgstr "ECDSA के साथ SHA256"
+
+#: egg/egg-oid.c:129
+msgid "SHA384 with ECDSA"
+msgstr "ECDSA के साथ SHA384"
+
+#: egg/egg-oid.c:130
+msgid "SHA512 with ECDSA"
+msgstr "ECDSA के साथ SHA512"
+
+#: egg/egg-oid.c:132
+msgid "GOST R 34.11-94 with GOST R 34.10-2001"
+msgstr "GOST R 34.11-94 GOST R 34.10-2001 के साथ"
+
+#: egg/egg-oid.c:133
+msgid "GOST R 34.10-2001"
+msgstr "GOST R 34.10-2001"
+
+#: egg/egg-oid.c:134
+msgid "GOST R 34.10-2012 256-bit curve"
+msgstr "GOST R 34.10-2012 256-बिट वक्र"
+
+#: egg/egg-oid.c:135
+msgid "GOST R 34.10-2012 512-bit curve"
+msgstr "GOST R 34.10-2012 512-बिट वक्र"
+
+#: egg/egg-oid.c:136
+msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
+msgstr "GOST R 34.11-2012/256 GOST R 34.10-2012 256-बिट वक्र के साथ"
+
+#: egg/egg-oid.c:137
+msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
+msgstr "GOST R 34.11-2012/512 GOST R 34.10-2012 512-बिट वक्र के साथ"
+
 #. Extended Key Usages
-#: ../egg/egg-oid.c:107
+#: egg/egg-oid.c:140
 msgid "Server Authentication"
 msgstr "सर्वर प्रमाणपत्र"
 
-#: ../egg/egg-oid.c:108
+#: egg/egg-oid.c:141
 msgid "Client Authentication"
 msgstr "क्लाइंट प्रमाणपत्र"
 
-#: ../egg/egg-oid.c:109
+#: egg/egg-oid.c:142
 msgid "Code Signing"
 msgstr "कोड हस्ताक्षर"
 
-#: ../egg/egg-oid.c:110
+#: egg/egg-oid.c:143
 msgid "Email Protection"
 msgstr "ईमेल सुरक्षा"
 
-#: ../egg/egg-oid.c:111
+#: egg/egg-oid.c:144
 msgid "Time Stamping"
 msgstr "समय स्टैंपिंग"
 
-#: ../gck/gck-module.c:352
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+msgid "Certificate Authority Information Access"
+msgstr "प्रमाणपत्र प्राधिकारी सूचना पहुंच"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "विषय निर्देशिका विशेषताएँ प्रमाणपत्र विस्तार"
+
+#: egg/egg-oid.c:149
+msgid "Subject key identifier"
+msgstr "विषय कुंजी पहचानकर्ता"
+
+#: egg/egg-oid.c:150
+msgid "Key usage"
+msgstr "कुंजी का उपयोग"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "निजी कुंजी उपयोग अवधि"
+
+#: egg/egg-oid.c:152
+msgid "Subject alternative name"
+msgstr "विषय का वैकल्पिक नाम"
+
+#: egg/egg-oid.c:153
+msgid "Issuer alternative name"
+msgstr "जारीकर्ता का वैकल्पिक नाम"
+
+#: egg/egg-oid.c:154
+msgid "Basic constraints"
+msgstr "बुनियादी बाधाएँ"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "CRL नंबर"
+
+#: egg/egg-oid.c:156
+msgid "Reason code"
+msgstr "कारण कोड"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr "अनुदेश कोड रखें"
+
+#: egg/egg-oid.c:158
+msgid "Invalidity date"
+msgstr "अमान्यता तिथि"
+
+#: egg/egg-oid.c:159
+msgid "Certificate Revocation List indicator"
+msgstr "प्रमाणपत्र निरस्तीकरण सूची सूचक"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr "वितरण बिंदु जारी किये जा रहें है"
+
+#: egg/egg-oid.c:161
+msgid "Certificate issuer"
+msgstr "प्रमाणपत्र जारीकर्ता"
+
+#: egg/egg-oid.c:162
+msgid "Name constraints"
+msgstr "नाम की बाधाएं"
+
+#: egg/egg-oid.c:163
+msgid "Certificate Revocation List distribution points"
+msgstr "प्रमाणपत्र निरस्तीकरण सूची वितरण बिंदु"
+
+#: egg/egg-oid.c:164
+msgid "Certificate policies"
+msgstr "प्रमाणपत्र नीतियां"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "नीति मानचित्रण"
+
+#: egg/egg-oid.c:166
+msgid "Policy constraints"
+msgstr "नीतिगत बाधाएं"
+
+#: egg/egg-oid.c:167
+msgid "Authority key identifier"
+msgstr "प्राधिकरण कुंजी पहचानकर्ता"
+
+#: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr " PKCS#11 मॉड्यूल को लोड करने में त्रुटि: %s"
+msgstr "PKCS#11 मॉड्यूल लोड करने में त्रुटि: %s"
 
-#: ../gck/gck-module.c:359
+#: gck/gck-module.c:286
 #, c-format
-msgid "Invalid PKCS#11 module: %s"
-msgstr "अवैध PKCS#11 module: %s"
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr "PKCS#11 मॉड्यूल प्रारंभ नहीं किया जा सका: %s"
 
-#: ../gck/gck-module.c:368
+#: gck/gck-modules.c:60
 #, c-format
-msgid "Couldn't setup PKCS#11 module: %s"
-msgstr "PKCS#11मॉड्यूल सेट नहीं कर सका: %s"
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr "पंजीकृत PKCS#11 मॉड्यूल प्रारंभ नहीं किया जा सका: %s"
 
-#: ../gck/gck-module.c:384
-#, c-format
-msgid "Couldn't initialize PKCS#11 module: %s"
-msgstr " PKCS#11 मॉड्यूल प्रारंभ नहीं कर सका: %s"
-
-#: ../gck/gck-modules.c:67
-#, c-format
-msgid "Couldn't initialize registered PKCS#11 modules: %s"
-msgstr " PKCS#11 पंजीकृत मॉड्यूल प्रारंभ नहीं किया जा सका: %s"
-
-#: ../gck/gck-uri.c:224
+#: gck/gck-uri.c:167
 #, c-format
 msgid "The URI has invalid encoding."
-msgstr "यूआरआइ के पास अमान्य एन्कोडिंग है."
+msgstr "URI में अमान्य एन्कोडिंग है।"
 
-#: ../gck/gck-uri.c:228
-msgid "The URI does not have the 'pkcs11' scheme."
-msgstr "यूआरआइ 'pkcs11' योजना नहीं है."
+#: gck/gck-uri.c:171
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "URI में \"pkcs11\" योजना नहीं है।"
 
-#: ../gck/gck-uri.c:232
+#: gck/gck-uri.c:175
 msgid "The URI has bad syntax."
-msgstr "यूआरआइ के पास खराब वाक्यविन्यास है."
+msgstr "यूआरआइ के पास खराब वाक्यविन्यास है।"
 
-#: ../gck/gck-uri.c:236
+#: gck/gck-uri.c:179
 msgid "The URI has a bad version number."
-msgstr "यूआरआइ के पास संस्करण क्रमांक है."
+msgstr "यूआरआइ के पास संस्करण क्रमांक है।"
 
-#: ../gcr/gcr-callback-output-stream.c:64
-#: ../gcr/gcr-callback-output-stream.c:81
+#: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
 #, c-format
 msgid "The stream was closed"
 msgstr "स्ट्रीम बंद कर दिया गया था"
 
-#. later
-#. later
-#: ../gcr/gcr-certificate.c:308 ../gcr/gcr-gnupg-key.c:432
-msgctxt "column"
-msgid "Name"
-msgstr "नाम"
+#: gcr/gcr-certificate.c:882
+msgid "Key Algorithm"
+msgstr "कुंजी अलगोरिथम"
 
-#: ../gcr/gcr-certificate.c:310
-msgctxt "column"
-msgid "Issued By"
-msgstr "इसके द्वारा निर्गत"
+#: gcr/gcr-certificate.c:888
+msgid "Key Parameters"
+msgstr "कुंजी पैरामीटर"
 
-#. later
-#: ../gcr/gcr-certificate.c:312
-msgctxt "column"
-msgid "Expires"
-msgstr "समाप्त"
+#: gcr/gcr-certificate.c:895
+msgid "Key Size"
+msgstr "कुंजी आकार"
 
-#: ../gcr/gcr-certificate.c:1133 ../gcr/gcr-parser.c:322
-#: ../ui/gcr-certificate-renderer.c:103 ../ui/gcr-certificate-exporter.c:469
-msgid "Certificate"
-msgstr "प्रमाणपत्र"
+#: gcr/gcr-certificate.c:905
+msgid "Key SHA1 Fingerprint"
+msgstr "मुख्य SHA1 फिंगरप्रिंट"
 
-#: ../gcr/gcr-certificate-extensions.c:178
-msgid "Other Name"
-msgstr "अन्य नाम"
-
-#: ../gcr/gcr-certificate-extensions.c:188
-msgid "XMPP Addr"
-msgstr "XMPP Addr"
-
-#: ../gcr/gcr-certificate-extensions.c:192
-msgid "DNS SRV"
-msgstr "DNS SRV"
-
-#: ../gcr/gcr-certificate-extensions.c:204 ../ui/gcr-gnupg-renderer.c:423
-#: ../ui/gcr-gnupg-renderer.c:705
-msgid "Email"
-msgstr "ईमेल"
-
-#: ../gcr/gcr-certificate-extensions.c:212
-msgid "DNS"
-msgstr "DNS"
-
-#: ../gcr/gcr-certificate-extensions.c:220
-msgid "X400 Address"
-msgstr "X400 पता"
-
-#: ../gcr/gcr-certificate-extensions.c:227
-msgid "Directory Name"
-msgstr "निर्देशिका नाम"
-
-#: ../gcr/gcr-certificate-extensions.c:235
-msgid "EDI Party Name"
-msgstr "EDI पार्टी नाम"
-
-#: ../gcr/gcr-certificate-extensions.c:242
-msgid "URI"
-msgstr "URI"
-
-#: ../gcr/gcr-certificate-extensions.c:250
-msgid "IP Address"
-msgstr "IP पता"
-
-#: ../gcr/gcr-certificate-extensions.c:258
-msgid "Registered ID"
-msgstr "पंजीकृत ID"
-
-#: ../gcr/gcr-certificate-request.c:418
-#, c-format
-msgid "Unsupported key type for certificate request"
-msgstr "प्रमाणपत्र का अनुरोध करने के लिए असमर्थित कुंजी प्रकार"
-
-#: ../gcr/gcr-certificate-request.c:505 ../gcr/gcr-certificate-request.c:590
-#, c-format
-msgid "The key cannot be used to sign the request"
-msgstr "कुंजी के लिए अनुरोध पर हस्ताक्षर करने के लिए नहीं किया जा सकता"
-
-#: ../gcr/gcr-gnupg-importer.c:96
-msgid "GnuPG Keyring"
-msgstr "GnuPG कीरिंग"
-
-#: ../gcr/gcr-gnupg-importer.c:98
-#, c-format
-msgid "GnuPG Keyring: %s"
-msgstr "GnuPG कीरिंग: %s"
-
-#: ../gcr/gcr-gnupg-key.c:145 ../gcr/gcr-parser.c:328
-#: ../ui/gcr-gnupg-renderer.c:89
-msgid "PGP Key"
-msgstr "पीजीपी कुंजी"
-
-#: ../gcr/gcr-gnupg-key.c:434
-msgctxt "column"
-msgid "Key ID"
-msgstr "कुंजी आईडी"
-
-#: ../gcr/gcr-gnupg-process.c:867
-#, c-format
-msgid "Gnupg process exited with code: %d"
-msgstr "प्रक्रिया gnupg कोड के साथ बाहर निकलें: %d"
-
-#: ../gcr/gcr-gnupg-process.c:874
-#, c-format
-msgid "Gnupg process was terminated with signal: %d"
-msgstr "Gnupg प्रक्रिया संकेत के साथ समाप्त किया गया: %d"
-
-#: ../gcr/gcr-gnupg-process.c:928 ../gcr/gcr-parser.c:2424
-#: ../gcr/gcr-parser.c:2917 ../gcr/gcr-system-prompt.c:902
-msgid "The operation was cancelled"
-msgstr "यह ऑपरेशन रद्द कर दी गई थी"
-
-#: ../gcr/gcr-parser.c:319 ../ui/gcr-key-renderer.c:408
-msgid "Private Key"
-msgstr "निजी कुंजी"
-
-#: ../gcr/gcr-parser.c:325 ../ui/gcr-certificate-renderer.c:891
-#: ../ui/gcr-gnupg-renderer.c:738 ../ui/gcr-key-renderer.c:415
+#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
 msgid "Public Key"
 msgstr "सार्वजनिक कुंजी"
 
-#: ../gcr/gcr-parser.c:331
-msgid "Certificate Request"
-msgstr "प्रमाणपत्र निवेदन"
-
-#: ../gcr/gcr-parser.c:2427
-msgid "Unrecognized or unsupported data."
-msgstr "अपरिचित या असमर्थित आँकड़ा."
-
-#: ../gcr/gcr-parser.c:2430
-msgid "Could not parse invalid or corrupted data."
-msgstr "अवैध या खराब आँकड़ा विश्लेषित नहीं कर सका."
-
-#: ../gcr/gcr-parser.c:2433
-msgid "The data is locked"
-msgstr "यह आँकड़ा तालाकित है."
-
-#: ../gcr/gcr-prompt.c:227
-msgid "Continue"
-msgstr "जारी रखें"
-
-#: ../gcr/gcr-prompt.c:236
-msgid "Cancel"
-msgstr "रद्द करें"
-
-#: ../gcr/gcr-subject-public-key.c:345
-msgid "Unrecognized or unavailable attributes for key"
-msgstr "कुंजी के लिए अपरिचित या अनुपलब्ध गुण"
-
-#: ../gcr/gcr-subject-public-key.c:429 ../gcr/gcr-subject-public-key.c:515
-msgid "Couldn't build public key"
-msgstr "सार्वजनिक कुंजी का निर्माण नहीं किया जा सका"
-
-#: ../gcr/gcr-system-prompt.c:883
-msgid "Another prompt is already in progress"
-msgstr "एक और शीघ्र प्रगति में पहले से ही है"
-
-#. Translators: A pinned certificate is an exception which
-#. trusts a given certificate explicitly for a purpose and
-#. communication with a certain peer.
-#: ../gcr/gcr-trust.c:370
-#, c-format
-msgid "Couldn't find a place to store the pinned certificate"
-msgstr "टिकी प्रमाणपत्र की स्टोर करने के लिए करने के लिए एक जगह नहीं मिल सका"
-
-#: ../ui/gcr-certificate-renderer.c:118
+#: gcr/gcr-certificate.c:923
 msgid "Basic Constraints"
 msgstr "मौलिक निर्धारक"
 
-#: ../ui/gcr-certificate-renderer.c:120
+#: gcr/gcr-certificate.c:924
 msgid "Certificate Authority"
 msgstr "प्रमाणन प्राधिकार"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
 msgid "Yes"
 msgstr "हाँ"
 
-#: ../ui/gcr-certificate-renderer.c:121 ../ui/gcr-certificate-renderer.c:962
+#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
 msgid "No"
 msgstr "नहीं"
 
-#: ../ui/gcr-certificate-renderer.c:124
-msgid "Max Path Length"
-msgstr "अधिकतम कुंजी लंबाई"
-
-#: ../ui/gcr-certificate-renderer.c:125
+#: gcr/gcr-certificate.c:927
 msgid "Unlimited"
 msgstr "असीमित"
 
-#: ../ui/gcr-certificate-renderer.c:144
+#: gcr/gcr-certificate.c:931
+msgid "Max Path Length"
+msgstr "अधिकतम कुंजी लंबाई"
+
+#: gcr/gcr-certificate.c:955
 msgid "Extended Key Usage"
 msgstr "विस्तारित कुंजी प्रयोग"
 
-#: ../ui/gcr-certificate-renderer.c:155
+#: gcr/gcr-certificate.c:956
 msgid "Allowed Purposes"
 msgstr " प्रयोजनों संबंधी अनुमति दी"
 
-#: ../ui/gcr-certificate-renderer.c:175
+#: gcr/gcr-certificate.c:973
 msgid "Subject Key Identifier"
 msgstr "विषय कुंजी पहचानकर्ता"
 
-#: ../ui/gcr-certificate-renderer.c:176
+#: gcr/gcr-certificate.c:976
 msgid "Key Identifier"
 msgstr "बीज पहचानकर्ता"
 
-#: ../ui/gcr-certificate-renderer.c:187
+#: gcr/gcr-certificate.c:985
 msgid "Digital signature"
-msgstr "डिजिटल हस्ताक्षर..."
+msgstr "डिजिटल हस्ताक्षर"
 
-#: ../ui/gcr-certificate-renderer.c:188
+#: gcr/gcr-certificate.c:986
+msgid "Non repudiation"
+msgstr "गैर परित्याग"
+
+#: gcr/gcr-certificate.c:987
 msgid "Key encipherment"
 msgstr "कुंजी इनसिफरमेंट"
 
-#: ../ui/gcr-certificate-renderer.c:189
+#: gcr/gcr-certificate.c:988
 msgid "Data encipherment"
 msgstr "आंकड़ा इनसाइफरमेंट"
 
-#: ../ui/gcr-certificate-renderer.c:190
+#: gcr/gcr-certificate.c:989
 msgid "Key agreement"
 msgstr "कुंजी मसौदा"
 
-#: ../ui/gcr-certificate-renderer.c:191
+#: gcr/gcr-certificate.c:990
 msgid "Certificate signature"
 msgstr "प्रमाणपत्र हस्ताक्षर"
 
-#: ../ui/gcr-certificate-renderer.c:192
+#: gcr/gcr-certificate.c:991
 msgid "Revocation list signature"
 msgstr "निरसन सूची हस्ताक्षर"
 
-#: ../ui/gcr-certificate-renderer.c:217
+#: gcr/gcr-certificate.c:992
+msgid "Encipher only"
+msgstr "केवल कूटलेखन"
+
+#: gcr/gcr-certificate.c:993
+msgid "Decipher only"
+msgstr "केवल समझें"
+
+#: gcr/gcr-certificate.c:1014
 msgid "Key Usage"
 msgstr "कुँजी प्रयोग"
 
-#: ../ui/gcr-certificate-renderer.c:218
+#: gcr/gcr-certificate.c:1015
 msgid "Usages"
 msgstr "प्रयोग"
 
-#: ../ui/gcr-certificate-renderer.c:238
+#: gcr/gcr-certificate.c:1033
 msgid "Subject Alternative Names"
 msgstr "विषय वैकल्पिक नाम"
 
-#: ../ui/gcr-certificate-renderer.c:265
+#: gcr/gcr-certificate.c:1055
 msgid "Extension"
 msgstr "विस्तार"
 
-#: ../ui/gcr-certificate-renderer.c:269
+#: gcr/gcr-certificate.c:1059
 msgid "Identifier"
 msgstr "पहचानकर्ता"
 
-#: ../ui/gcr-certificate-renderer.c:270
-#: ../ui/gcr-certificate-request-renderer.c:273 ../ui/gcr-gnupg-renderer.c:414
-#: ../ui/gcr-gnupg-renderer.c:431
+#: gcr/gcr-certificate.c:1060
 msgid "Value"
 msgstr "मान"
 
-#: ../ui/gcr-certificate-renderer.c:295
-msgid "Couldn't export the certificate."
-msgstr "प्रमाणपत्र निर्यात नहीं किया जा सका."
+#: gcr/gcr-certificate.c:1100
+msgid "Critical"
+msgstr "नाजुक"
 
-#: ../ui/gcr-certificate-renderer.c:520
-#: ../ui/gcr-certificate-request-renderer.c:314
+#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+msgid "Certificate"
+msgstr "प्रमाणपत्र"
+
+#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+msgid "Unknown"
+msgstr "अज्ञात"
+
+#: gcr/gcr-certificate.c:1184
 msgid "Identity"
 msgstr "पहचान"
 
-#: ../ui/gcr-certificate-renderer.c:524
+#: gcr/gcr-certificate.c:1189
 msgid "Verified by"
 msgstr "इसके द्वारा सत्यापित"
 
-#: ../ui/gcr-certificate-renderer.c:531 ../ui/gcr-gnupg-renderer.c:719
+#: gcr/gcr-certificate.c:1195
 msgid "Expires"
 msgstr "समाप्त"
 
 #. The subject
-#: ../ui/gcr-certificate-renderer.c:538
-#: ../ui/gcr-certificate-request-renderer.c:320
+#: gcr/gcr-certificate.c:1203
 msgid "Subject Name"
 msgstr "विषय नाम"
 
 #. The Issuer
-#: ../ui/gcr-certificate-renderer.c:543
+#: gcr/gcr-certificate.c:1209
 msgid "Issuer Name"
 msgstr "निर्गतकर्ता नाम"
 
 #. The Issued Parameters
-#: ../ui/gcr-certificate-renderer.c:548
+#: gcr/gcr-certificate.c:1215
 msgid "Issued Certificate"
 msgstr "निर्गत प्रमाणपत्र"
 
-#: ../ui/gcr-certificate-renderer.c:553
-#: ../ui/gcr-certificate-request-renderer.c:331
+#: gcr/gcr-certificate.c:1221
 msgid "Version"
 msgstr "संस्करण"
 
-#: ../ui/gcr-certificate-renderer.c:567
+#: gcr/gcr-certificate.c:1235
 msgid "Not Valid Before"
 msgstr "इससे पहले वैध नहीं"
 
-#: ../ui/gcr-certificate-renderer.c:572
+#: gcr/gcr-certificate.c:1244
 msgid "Not Valid After"
 msgstr "इससे बाद वैध नहीं"
 
-#. Fingerprints
-#: ../ui/gcr-certificate-renderer.c:577
+#: gcr/gcr-certificate.c:1253
 msgid "Certificate Fingerprints"
 msgstr "प्रमाणपत्र फिंगरप्रिंट"
 
 #. Public Key Info
-#: ../ui/gcr-certificate-renderer.c:583
-#: ../ui/gcr-certificate-request-renderer.c:334
-#: ../ui/gcr-certificate-request-renderer.c:380
+#: gcr/gcr-certificate.c:1263
 msgid "Public Key Info"
 msgstr "सार्वजनिक कुंजी सूचना"
 
 #. Signature
-#: ../ui/gcr-certificate-renderer.c:598 ../ui/gcr-certificate-renderer.c:919
-#: ../ui/gcr-certificate-request-renderer.c:350
-#: ../ui/gcr-certificate-request-renderer.c:387 ../ui/gcr-gnupg-renderer.c:560
+#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
 msgid "Signature"
 msgstr "हस्ताक्षर"
 
-#: ../ui/gcr-certificate-renderer.c:865
-msgid "Key Algorithm"
-msgstr "कुंजी अलगोरिथम"
-
-#: ../ui/gcr-certificate-renderer.c:870
-msgid "Key Parameters"
-msgstr "कुंजी पैरामीटर"
-
-#: ../ui/gcr-certificate-renderer.c:878 ../ui/gcr-gnupg-renderer.c:353
-msgid "Key Size"
-msgstr "कुंजी आकार"
-
-#: ../ui/gcr-certificate-renderer.c:886
-msgid "Key SHA1 Fingerprint"
-msgstr "मुख्य SHA1 फिंगरप्रिंट"
-
-#: ../ui/gcr-certificate-renderer.c:908
+#: gcr/gcr-certificate.c:1283
 msgid "Signature Algorithm"
 msgstr "हस्ताक्षर अलगोरिथम"
 
-#: ../ui/gcr-certificate-renderer.c:912
+#: gcr/gcr-certificate.c:1287
 msgid "Signature Parameters"
 msgstr "हस्ताक्षर पैरामीटर"
 
-#: ../ui/gcr-certificate-renderer.c:961
-msgid "Critical"
-msgstr "नाजुक"
+#: gcr/gcr-certificate-extensions.c:190
+msgid "Other Name"
+msgstr "अन्य नाम"
 
-#. The certificate request type
-#: ../ui/gcr-certificate-request-renderer.c:96
-#: ../ui/gcr-certificate-request-renderer.c:309
-#: ../ui/gcr-certificate-request-renderer.c:324
-#: ../ui/gcr-certificate-request-renderer.c:367
-#: ../ui/gcr-certificate-request-renderer.c:372
-msgid "Certificate request"
+#: gcr/gcr-certificate-extensions.c:200
+msgid "XMPP Addr"
+msgstr "XMPP Addr"
+
+#: gcr/gcr-certificate-extensions.c:204
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: gcr/gcr-certificate-extensions.c:216
+msgid "Email"
+msgstr "ईमेल"
+
+#: gcr/gcr-certificate-extensions.c:224
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions.c:232
+msgid "X400 Address"
+msgstr "X400 पता"
+
+#: gcr/gcr-certificate-extensions.c:239
+msgid "Directory Name"
+msgstr "निर्देशिका नाम"
+
+#: gcr/gcr-certificate-extensions.c:247
+msgid "EDI Party Name"
+msgstr "EDI पार्टी नाम"
+
+#: gcr/gcr-certificate-extensions.c:254
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions.c:262
+msgid "IP Address"
+msgstr "IP पता"
+
+#: gcr/gcr-certificate-extensions.c:270
+msgid "Registered ID"
+msgstr "पंजीकृत ID"
+
+#: gcr/gcr-certificate-request.c:397
+#, c-format
+msgid "Unsupported key type for certificate request"
+msgstr "प्रमाणपत्र का अनुरोध करने के लिए असमर्थित कुंजी प्रकार"
+
+#: gcr/gcr-certificate-request.c:484 gcr/gcr-certificate-request.c:568
+#, c-format
+msgid "The key cannot be used to sign the request"
+msgstr "कुंजी के लिए अनुरोध पर हस्ताक्षर करने के लिए नहीं किया जा सकता"
+
+#: gcr/gcr-gnupg-importer.c:94
+msgid "GnuPG Keyring"
+msgstr "GnuPG कीरिंग"
+
+#: gcr/gcr-gnupg-importer.c:96
+#, c-format
+msgid "GnuPG Keyring: %s"
+msgstr "GnuPG कीरिंग: %s"
+
+#: gcr/gcr-gnupg-process.c:867
+#, c-format
+msgid "Gnupg process exited with code: %d"
+msgstr "प्रक्रिया gnupg कोड के साथ बाहर निकलें: %d"
+
+#: gcr/gcr-gnupg-process.c:874
+#, c-format
+msgid "Gnupg process was terminated with signal: %d"
+msgstr "Gnupg प्रक्रिया संकेत के साथ समाप्त किया गया: %d"
+
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-system-prompt.c:916
+msgid "The operation was cancelled"
+msgstr "यह ऑपरेशन रद्द कर दी गई थी"
+
+#: gcr/gcr-parser.c:337
+msgid "Private Key"
+msgstr "निजी कुंजी"
+
+#: gcr/gcr-parser.c:346
+msgid "PGP Key"
+msgstr "पीजीपी कुंजी"
+
+#: gcr/gcr-parser.c:349
+msgid "Certificate Request"
 msgstr "प्रमाणपत्र निवेदन"
 
-#: ../ui/gcr-certificate-request-renderer.c:262
-msgid "Attribute"
-msgstr "विशेषता"
+#: gcr/gcr-parser.c:2595
+msgid "Unrecognized or unsupported data."
+msgstr "अपरिचित या असमर्थित आँकड़ा."
 
-#: ../ui/gcr-certificate-request-renderer.c:266
-#: ../ui/gcr-certificate-request-renderer.c:325
-#: ../ui/gcr-certificate-request-renderer.c:373 ../ui/gcr-gnupg-renderer.c:591
-#: ../ui/gcr-gnupg-renderer.c:593
-msgid "Type"
-msgstr "प्रकार"
+#: gcr/gcr-parser.c:2598
+msgid "Could not parse invalid or corrupted data."
+msgstr "अवैध या खराब आँकड़ा विश्लेषित नहीं कर सका."
 
-#: ../ui/gcr-certificate-request-renderer.c:377
-msgid "Challenge"
-msgstr "चुनौती"
+#: gcr/gcr-parser.c:2601
+msgid "The data is locked"
+msgstr "यह आँकड़ा तालाकित है."
 
-#: ../ui/gcr-display-view.c:319
-msgid "_Details"
-msgstr "विवरण (_D)"
+#: gcr/gcr-prompt.c:220
+msgid "Continue"
+msgstr "जारी रखें"
 
-#: ../ui/gcr-failure-renderer.c:161
+#: gcr/gcr-prompt.c:229
+msgid "Cancel"
+msgstr "रद्द करें"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
 #, c-format
-msgid "Could not display '%s'"
-msgstr "'%s' को प्रदर्शित नहीं कर पाया"
+msgid "Unlock password for: %s"
+msgstr "इसके लिए पासवर्ड अनलॉक: %s"
 
-#: ../ui/gcr-failure-renderer.c:163
-msgid "Could not display file"
-msgstr "प्रदर्शित नहीं कर सका"
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "निजी कुंजी अनलॉक करें"
 
-#: ../ui/gcr-failure-renderer.c:168
-msgid "Reason"
-msgstr "कारण"
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "निजी कुंजी अनलॉक करने के लिए पासवर्ड दर्ज करें"
 
-#: ../ui/gcr-failure-renderer.c:218
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
-msgid "Cannot display a file of this type."
-msgstr "इस प्रकार की एक फ़ाइल प्रदर्शित नहीं हो सकता."
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr "एक एप्लिकेशन निजी कुंजी “%s” तक पहुंच चाहता है, लेकिन यह लॉक है"
 
-#: ../ui/gcr-gnupg-renderer.c:203
-msgid "Elgamal"
-msgstr "Elgamal"
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "जब भी मैं लॉग इन होता हूं तो इस कुंजी को स्वचालित रूप से अनलॉक करें"
 
-#: ../ui/gcr-gnupg-renderer.c:216
-msgid "Encrypt"
-msgstr "गोपन करें"
-
-#: ../ui/gcr-gnupg-renderer.c:218
-msgid "Sign"
-msgstr "हस्ताक्षर करें"
-
-#: ../ui/gcr-gnupg-renderer.c:220
-msgid "Certify"
-msgstr "प्रमाणपत्र"
-
-#: ../ui/gcr-gnupg-renderer.c:222
-msgid "Authenticate"
-msgstr "प्रमाणपत्र"
-
-#: ../ui/gcr-gnupg-renderer.c:224 ../ui/gcr-gnupg-renderer.c:259
-msgid "Disabled"
-msgstr "अक्षम"
-
-#: ../ui/gcr-gnupg-renderer.c:255 ../ui/gcr-gnupg-renderer.c:414
-#: ../ui/gcr-key-renderer.c:434 ../ui/gcr-key-renderer.c:439
-msgid "Unknown"
-msgstr "अज्ञात"
-
-#: ../ui/gcr-gnupg-renderer.c:257
-msgid "Invalid"
-msgstr "अमान्य"
-
-#: ../ui/gcr-gnupg-renderer.c:261
-msgid "Revoked"
-msgstr "रद्द"
-
-#: ../ui/gcr-gnupg-renderer.c:263
-msgid "Expired"
-msgstr "मियाद ख़त्म"
-
-#: ../ui/gcr-gnupg-renderer.c:265
-msgid "Undefined trust"
-msgstr "अपरिभाषित भरोसेमंद"
-
-#: ../ui/gcr-gnupg-renderer.c:267
-msgid "Distrusted"
-msgstr "नापसंद"
-
-#: ../ui/gcr-gnupg-renderer.c:269
-msgid "Marginally trusted"
-msgstr "गुंजाइश भर भरोसेमंद"
-
-#: ../ui/gcr-gnupg-renderer.c:271
-msgid "Fully trusted"
-msgstr "विश्वास योग्य"
-
-#: ../ui/gcr-gnupg-renderer.c:273
-msgid "Ultimately trusted"
-msgstr "पूर्ण भरोसेमंद"
-
-#: ../ui/gcr-gnupg-renderer.c:287
-msgid "The information in this key has not yet been verified"
-msgstr "इस चाबी में जानकारी अभी तक सत्यापित नहीं किया गया है"
-
-#: ../ui/gcr-gnupg-renderer.c:290
-msgid "This key is invalid"
-msgstr "यह कुंजी अवैध है"
-
-#: ../ui/gcr-gnupg-renderer.c:293
-msgid "This key has been disabled"
-msgstr "इस कुंजी को निष्क्रिय कर दिया गया है"
-
-#: ../ui/gcr-gnupg-renderer.c:296
-msgid "This key has been revoked"
-msgstr "यह कुंजी वापस नहीं लिया जा सका"
-
-#: ../ui/gcr-gnupg-renderer.c:299
-msgid "This key has expired"
-msgstr "इस कुंजी का समय समाप्त हो गया"
-
-#: ../ui/gcr-gnupg-renderer.c:304
-msgid "This key is distrusted"
-msgstr "यह कुंजी नापसंद है"
-
-#: ../ui/gcr-gnupg-renderer.c:307
-msgid "This key is marginally trusted"
-msgstr "यह कुंजी सीमांत पर भरोसा है"
-
-#: ../ui/gcr-gnupg-renderer.c:310
-msgid "This key is fully trusted"
-msgstr "इस कुंजी को पूरी तरह से विश्वसनीय है"
-
-#: ../ui/gcr-gnupg-renderer.c:313
-msgid "This key is ultimately trusted"
-msgstr "यह कुंजी अंततः विश्वसनीय है"
-
-#: ../ui/gcr-gnupg-renderer.c:338 ../ui/gcr-gnupg-renderer.c:564
-msgid "Key ID"
-msgstr "कुंजी आईडी"
-
-#: ../ui/gcr-gnupg-renderer.c:346 ../ui/gcr-gnupg-renderer.c:572
-#: ../ui/gcr-gnupg-renderer.c:619 ../ui/gcr-key-renderer.c:435
-msgid "Algorithm"
-msgstr "अलगोरिथम"
-
-#: ../ui/gcr-gnupg-renderer.c:361 ../ui/gcr-gnupg-renderer.c:438
-#: ../ui/gcr-gnupg-renderer.c:481
-msgid "Created"
-msgstr "उत्पन्न किया"
-
-#: ../ui/gcr-gnupg-renderer.c:370 ../ui/gcr-gnupg-renderer.c:447
-#: ../ui/gcr-gnupg-renderer.c:490
-msgid "Expiry"
-msgstr "यहाँ समय समाप्त"
-
-#: ../ui/gcr-gnupg-renderer.c:379
-msgid "Capabilities"
-msgstr "योग्यता"
-
-#: ../ui/gcr-gnupg-renderer.c:392
-msgid "Owner trust"
-msgstr "स्वामी पर भरोसा"
-
-#: ../ui/gcr-gnupg-renderer.c:420
-msgid "Name"
-msgstr "नाम"
-
-#: ../ui/gcr-gnupg-renderer.c:426 ../ui/gcr-gnupg-renderer.c:708
-msgid "Comment"
-msgstr "टिप्पणी"
-
-#: ../ui/gcr-gnupg-renderer.c:466
-msgid "User Attribute"
-msgstr "उपयोगकर्ता के गुण"
-
-#: ../ui/gcr-gnupg-renderer.c:473 ../ui/gcr-key-renderer.c:442
-msgid "Size"
-msgstr "आकार"
-
-#: ../ui/gcr-gnupg-renderer.c:508
-msgid "Signature of a binary document"
-msgstr "एक द्विआधारी दस्तावेज़ के हस्ताक्षर"
-
-#: ../ui/gcr-gnupg-renderer.c:510
-msgid "Signature of a canonical text document"
-msgstr "एक विहित पाठ दस्तावेज़ के हस्ताक्षर"
-
-#: ../ui/gcr-gnupg-renderer.c:512
-msgid "Standalone signature"
-msgstr "अकेला हस्ताक्षर"
-
-#: ../ui/gcr-gnupg-renderer.c:514
-msgid "Generic certification of key"
-msgstr "कुंजी का सामान्य प्रमाणपत्र"
-
-#: ../ui/gcr-gnupg-renderer.c:516
-msgid "Persona certification of key"
-msgstr "व्यक्तित्व प्रमाणीकरण की कुंजी"
-
-#: ../ui/gcr-gnupg-renderer.c:518
-msgid "Casual certification of key"
-msgstr "कुंजी के आरामदायक प्रमाणीकरण"
-
-#: ../ui/gcr-gnupg-renderer.c:520
-msgid "Positive certification of key"
-msgstr "कुंजी के सकारात्मक प्रमाणीकरण"
-
-#: ../ui/gcr-gnupg-renderer.c:522
-msgid "Subkey binding signature"
-msgstr "उपकुंजी को बाध्यकारी हस्ताक्षर"
-
-#: ../ui/gcr-gnupg-renderer.c:524
-msgid "Primary key binding signature"
-msgstr "प्राथमिक कुंजी बाध्यकारी हस्ताक्षर"
-
-#: ../ui/gcr-gnupg-renderer.c:526
-msgid "Signature directly on key"
-msgstr "सीधे कुंजी पर हस्ताक्षर"
-
-#: ../ui/gcr-gnupg-renderer.c:528
-msgid "Key revocation signature"
-msgstr "कुंजी निरसन हस्ताक्षर"
-
-#: ../ui/gcr-gnupg-renderer.c:530
-msgid "Subkey revocation signature"
-msgstr "उपकुंजी को निरसन हस्ताक्षर"
-
-#: ../ui/gcr-gnupg-renderer.c:532
-msgid "Certification revocation signature"
-msgstr "प्रमाणीकरण निरसन हस्ताक्षर"
-
-#: ../ui/gcr-gnupg-renderer.c:534
-msgid "Timestamp signature"
-msgstr "टाइमस्टैम्प हस्ताक्षर"
-
-#: ../ui/gcr-gnupg-renderer.c:536
-msgid "Third-party confirmation signature"
-msgstr "तृतीय - पक्ष पुष्टि हस्ताक्षर"
-
-#: ../ui/gcr-gnupg-renderer.c:589 ../ui/gcr-gnupg-renderer.c:597
-msgid "Class"
-msgstr "वर्ग"
-
-#: ../ui/gcr-gnupg-renderer.c:591
-msgid "Local only"
-msgstr "स्थानीय केवल"
-
-#: ../ui/gcr-gnupg-renderer.c:593
-msgid "Exportable"
-msgstr "निर्यात - योग्य"
-
-#: ../ui/gcr-gnupg-renderer.c:611
-msgid "Revocation Key"
-msgstr "निरसन कुंजी"
-
-#: ../ui/gcr-gnupg-renderer.c:625 ../ui/gcr-gnupg-renderer.c:649
-#: ../ui/gcr-gnupg-renderer.c:651
-msgid "Fingerprint"
-msgstr "फिंगरप्रिंट"
-
-#: ../ui/gcr-gnupg-renderer.c:740
-msgid "Public Subkey"
-msgstr "सार्वजनिक उपकुंजी"
-
-#: ../ui/gcr-gnupg-renderer.c:742
-msgid "Secret Key"
-msgstr "गुप्त कुंजीः"
-
-#: ../ui/gcr-gnupg-renderer.c:744
-msgid "Secret Subkey"
-msgstr "गुप्त उपकुंजीः"
-
-#: ../ui/gcr-import-button.c:112
-msgid "Initializing..."
-msgstr "आरंभ कर रहा है..."
-
-#: ../ui/gcr-import-button.c:120
-msgid "Import is in progress..."
-msgstr "आयात प्रगति में..."
-
-#: ../ui/gcr-import-button.c:127
-#, c-format
-msgid "Imported to: %s"
-msgstr "यहाँ आयात करें: %s"
-
-#: ../ui/gcr-import-button.c:147
-#, c-format
-msgid "Import to: %s"
-msgstr "यहाँ आयात करें: %s"
-
-#: ../ui/gcr-import-button.c:160
-msgid "Cannot import because there are no compatible importers"
-msgstr "आयात नहीं किया जा सकता क्योंकि वहाँ कोई संगत आयातकों हैं"
-
-#: ../ui/gcr-import-button.c:169
-msgid "No data to import"
-msgstr "आयात करने के लिए कोई डेटा नहीं"
-
-#: ../ui/gcr-key-renderer.c:90
-msgid "Key"
-msgstr "कुंजी"
-
-#: ../ui/gcr-key-renderer.c:404
-msgid "Private RSA Key"
-msgstr "निजी  RSA कुंजी"
-
-#: ../ui/gcr-key-renderer.c:406
-msgid "Private DSA Key"
-msgstr "निजी DSA कुंजी"
-
-#: ../ui/gcr-key-renderer.c:411 ../ui/gcr-key-renderer.c:413
-msgid "Public DSA Key"
-msgstr "सार्वजनिक DSA कुंजी"
-
-#: ../ui/gcr-key-renderer.c:422
-#, c-format
-msgid "%d bit"
-msgid_plural "%d bits"
-msgstr[0] "%d bit"
-msgstr[1] "%d bits"
-
-#: ../ui/gcr-key-renderer.c:423
-msgid "Strength"
-msgstr "ताकत"
-
-#. Fingerprints
-#: ../ui/gcr-key-renderer.c:446
-msgid "Fingerprints"
-msgstr "फिंगरप्रिंट"
-
-#: ../ui/gcr-key-renderer.c:450
-msgid "SHA1"
-msgstr "SHA1"
-
-#: ../ui/gcr-key-renderer.c:455
-msgid "SHA256"
-msgstr "SHA256"
-
-#: ../ui/gcr-pkcs11-import-dialog.c:188
-msgid "Automatically chosen"
-msgstr "स्वतः चुना गया"
-
-#: ../ui/gcr-pkcs11-import-dialog.c:272
-#: ../ui/gcr-pkcs11-import-interaction.c:154
-#: ../ui/gcr-pkcs11-import-interaction.c:172
-#, c-format
-msgid "The user cancelled the operation"
-msgstr "उपयोक्ता ने संक्रिया रद्द किया"
-
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:1
-msgid "In order to import, please enter the password."
-msgstr "आदेश में आयात करने के लिए पासवर्ड दर्ज करें."
-
-#. The password label
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:2 ../ui/gcr-prompt-dialog.c:564
-msgid "Password:"
-msgstr "कूटशब्द: "
-
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:3
-msgid "Token:"
-msgstr "टोकेन:"
-
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:4 ../ui/gcr-unlock-renderer.c:72
-#: ../ui/gcr-unlock-renderer.c:127
+#: gcr/gcr-ssh-agent-interaction.c:163
 msgid "Unlock"
 msgstr "खोलें"
 
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:5
-msgid "Label:"
-msgstr "लेबल:"
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "अनलॉक पासवर्ड गलत था"
 
-#: ../ui/gcr-pkcs11-import-dialog.ui.h:6
-msgid "Import settings"
-msgstr "सेटिंग आयात करें"
+#: gcr/gcr-ssh-agent-service.c:270
+msgid "Unnamed"
+msgstr "अनाम"
 
-#. The confirm label
-#: ../ui/gcr-prompt-dialog.c:581
-msgid "Confirm:"
-msgstr "निश्चित करें:"
+#: gcr/gcr-ssh-askpass.c:182
+msgid "Enter your OpenSSH passphrase"
+msgstr "अपना OpenSSH पासफ़्रेज़ दर्ज करें"
 
-#: ../ui/gcr-prompt-dialog.c:649
-msgid "Passwords do not match."
-msgstr "कूटशब्द मेल नहीं खाता है."
+#: gcr/gcr-subject-public-key.c:407
+msgid "Unrecognized or unavailable attributes for key"
+msgstr "कुंजी के लिए अपरिचित या अनुपलब्ध गुण"
 
-#: ../ui/gcr-prompt-dialog.c:656
-msgid "Password cannot be blank"
-msgstr "कूटशब्द खाली नहीं हो सकता है"
+#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+msgid "Couldn’t build public key"
+msgstr "सार्वजनिक कुंजी नहीं बनाई जा सकी"
 
-#: ../ui/gcr-prompter.desktop.in.in.h:1
-msgid "Access Prompt"
-msgstr "कहने के लिए प्रेरित पहुँच"
+#: gcr/gcr-system-prompt.c:896
+msgid "Another prompt is already in progress"
+msgstr "एक और प्रॉम्प्ट पहले से ही प्रगति पर है"
 
-#: ../ui/gcr-prompter.desktop.in.in.h:2
-msgid "Unlock access to passwords and other secrets"
-msgstr "पासवर्ड और अन्य रहस्य के लिए पहुच अनलॉक करें"
-
-#: ../ui/gcr-certificate-exporter.c:226
-msgid "A file already exists with this name."
-msgstr "फाइल पहले से इस नाम के साथ मौजूद है."
-
-#: ../ui/gcr-certificate-exporter.c:227
-msgid "Do you want to replace it with a new file?"
-msgstr "क्या आप इसे एक नई फ़ाइल के साथ बदलना चाहते हैं?"
-
-#: ../ui/gcr-certificate-exporter.c:233
-msgid "_Replace"
-msgstr "बदलें (_R)"
-
-#: ../ui/gcr-certificate-exporter.c:264
+#. Translators: A pinned certificate is an exception which
+#. trusts a given certificate explicitly for a purpose and
+#. communication with a certain peer.
+#: gcr/gcr-trust.c:307
 #, c-format
-msgid "The operation was cancelled."
-msgstr "संक्रिया रद्द की गई थी."
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr "पिन किए गए प्रमाणपत्र को संग्रहीत करने के लिए स्थान नहीं मिल सका"
 
-#: ../ui/gcr-certificate-exporter.c:308
-msgid "Export certificate"
-msgstr "प्रमाणपत्र निर्यात करें"
+#: tools/viewer/viewer.c:23
+msgid "GCR Certificate Viewer"
+msgstr "GCR प्रमाणपत्र दर्शक"
 
-#: ../ui/gcr-certificate-exporter.c:320
-msgid "Certificate files"
-msgstr "प्रमाणपत्र फाइल"
-
-#: ../ui/gcr-certificate-exporter.c:331
-msgid "PEM files"
-msgstr "PEM फ़ाइल"
-
-#: ../ui/gcr-unlock-options-widget.ui.h:1
-msgid "Automatically unlock this keyring whenever I'm logged in"
-msgstr "स्वतः अनलॉक करें इस कीरिंग को जब मैं लॉगिन होता हूँ"
-
-#: ../ui/gcr-unlock-options-widget.ui.h:2
-msgid "Lock this keyring when I log out"
-msgstr "इस कीरिंग लॉक जब मैं बाहर लॉग इन"
-
-#: ../ui/gcr-unlock-options-widget.ui.h:3
-msgid "Lock this keyring after"
-msgstr "के बाद इस कीरिंग लॉक करें"
-
-#: ../ui/gcr-unlock-options-widget.ui.h:4
-msgid "Lock this keyring if idle for"
-msgstr "इस कीरिंग लॉक करें के लिए निष्क्रिय अगर"
-
-#. Translators: The 'minutes' from 'Lock this keyring if idle for x minutes'.
-#: ../ui/gcr-unlock-options-widget.ui.h:6
-msgid "minutes"
-msgstr "मिनट"
-
-#: ../ui/gcr-unlock-renderer.c:70
-#, c-format
-msgid "Unlock: %s"
-msgstr "खोलें: %s"
-
-#: ../ui/gcr-unlock-renderer.c:125
-msgid "Password"
-msgstr "कूटशब्द"
-
-#: ../ui/gcr-unlock-renderer.c:277
-#, c-format
-msgid ""
-"The contents of '%s' are locked. In order to view the contents, enter the "
-"correct password."
-msgstr ""
-"'%s' की सामग्री को बंद कर रहे हैं.आदेश में सामग्री को देखने के लिए, सही "
-"पासवर्ड दर्ज करें."
-
-#: ../ui/gcr-unlock-renderer.c:280
-msgid ""
-"The contents are locked. In order to view the contents, enter the correct "
-"password."
-msgstr ""
-"सामग्री को बंद कर रहे हैं.आदेश में सामग्री को देखने के लिए, सही पासवर्ड दर्ज "
-"करें."
-
-#: ../ui/gcr-viewer-tool.c:41
-msgid "GCR Certificate and Key Viewer"
-msgstr "GCR प्रमाणपत्र और कुंजी दर्शक"
-
-#: ../ui/gcr-viewer-tool.c:48
+#: tools/viewer/viewer.c:30
 msgid "Show the application's version"
 msgstr "अनुप्रयोग संस्करण दिखाएँ"
 
-#: ../ui/gcr-viewer-tool.c:50
+#: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr "[file...]"
 
-#: ../ui/gcr-viewer-tool.c:105
-msgid "- View certificate and key files"
-msgstr "- प्रमाण पत्र और कुंजी फ़ाइलों देखें"
+#, c-format
+#~ msgid "Invalid PKCS#11 module: %s"
+#~ msgstr "अवैध PKCS#11 module: %s"
 
-#: ../ui/gcr-viewer-tool.c:119 ../ui/gcr-viewer-widget.c:638
-msgid "Certificate Viewer"
-msgstr "प्रमाणपत्र प्रदर्शक"
+#, c-format
+#~ msgid "Couldn't setup PKCS#11 module: %s"
+#~ msgstr "PKCS#11मॉड्यूल सेट नहीं कर सका: %s"
 
-#: ../ui/gcr-viewer-widget.c:204
-msgid "The password was incorrect"
-msgstr "कूटशब्द गलत था"
+#~ msgctxt "column"
+#~ msgid "Name"
+#~ msgstr "नाम"
 
-#: ../ui/gcr-viewer-window.c:76
-msgid "Imported"
-msgstr "आयातित"
+#~ msgctxt "column"
+#~ msgid "Issued By"
+#~ msgstr "इसके द्वारा निर्गत"
 
-#: ../ui/gcr-viewer-window.c:80
-msgid "Import failed"
-msgstr "आयात विफल"
+#~ msgctxt "column"
+#~ msgid "Expires"
+#~ msgstr "समाप्त"
 
-#: ../ui/gcr-viewer-window.c:108
-msgid "Import"
-msgstr "आयात"
+#~ msgctxt "column"
+#~ msgid "Key ID"
+#~ msgstr "कुंजी आईडी"
+
+#~ msgid "Couldn't export the certificate."
+#~ msgstr "प्रमाणपत्र निर्यात नहीं किया जा सका."
+
+#~ msgid "Certificate request"
+#~ msgstr "प्रमाणपत्र निवेदन"
+
+#~ msgid "Attribute"
+#~ msgstr "विशेषता"
+
+#~ msgid "Type"
+#~ msgstr "प्रकार"
+
+#~ msgid "Challenge"
+#~ msgstr "चुनौती"
+
+#~ msgid "_Details"
+#~ msgstr "विवरण (_D)"
+
+#, c-format
+#~ msgid "Could not display '%s'"
+#~ msgstr "'%s' को प्रदर्शित नहीं कर पाया"
+
+#~ msgid "Could not display file"
+#~ msgstr "प्रदर्शित नहीं कर सका"
+
+#, c-format
+#~ msgid "Cannot display a file of this type."
+#~ msgstr "इस प्रकार की एक फ़ाइल प्रदर्शित नहीं हो सकता."
+
+#~ msgid "Elgamal"
+#~ msgstr "Elgamal"
+
+#~ msgid "Encrypt"
+#~ msgstr "गोपन करें"
+
+#~ msgid "Sign"
+#~ msgstr "हस्ताक्षर करें"
+
+#~ msgid "Certify"
+#~ msgstr "प्रमाणपत्र"
+
+#~ msgid "Authenticate"
+#~ msgstr "प्रमाणपत्र"
+
+#~ msgid "Disabled"
+#~ msgstr "अक्षम"
+
+#~ msgid "Revoked"
+#~ msgstr "रद्द"
+
+#~ msgid "Expired"
+#~ msgstr "मियाद ख़त्म"
+
+#~ msgid "Undefined trust"
+#~ msgstr "अपरिभाषित भरोसेमंद"
+
+#~ msgid "Distrusted"
+#~ msgstr "नापसंद"
+
+#~ msgid "Marginally trusted"
+#~ msgstr "गुंजाइश भर भरोसेमंद"
+
+#~ msgid "Fully trusted"
+#~ msgstr "विश्वास योग्य"
+
+#~ msgid "Ultimately trusted"
+#~ msgstr "पूर्ण भरोसेमंद"
+
+#~ msgid "The information in this key has not yet been verified"
+#~ msgstr "इस चाबी में जानकारी अभी तक सत्यापित नहीं किया गया है"
+
+#~ msgid "This key is invalid"
+#~ msgstr "यह कुंजी अवैध है"
+
+#~ msgid "This key has been disabled"
+#~ msgstr "इस कुंजी को निष्क्रिय कर दिया गया है"
+
+#~ msgid "This key has been revoked"
+#~ msgstr "यह कुंजी वापस नहीं लिया जा सका"
+
+#~ msgid "This key has expired"
+#~ msgstr "इस कुंजी का समय समाप्त हो गया"
+
+#~ msgid "This key is distrusted"
+#~ msgstr "यह कुंजी नापसंद है"
+
+#~ msgid "This key is marginally trusted"
+#~ msgstr "यह कुंजी सीमांत पर भरोसा है"
+
+#~ msgid "This key is fully trusted"
+#~ msgstr "इस कुंजी को पूरी तरह से विश्वसनीय है"
+
+#~ msgid "This key is ultimately trusted"
+#~ msgstr "यह कुंजी अंततः विश्वसनीय है"
+
+#~ msgid "Key ID"
+#~ msgstr "कुंजी आईडी"
+
+#~ msgid "Algorithm"
+#~ msgstr "अलगोरिथम"
+
+#~ msgid "Created"
+#~ msgstr "उत्पन्न किया"
+
+#~ msgid "Expiry"
+#~ msgstr "यहाँ समय समाप्त"
+
+#~ msgid "Capabilities"
+#~ msgstr "योग्यता"
+
+#~ msgid "Owner trust"
+#~ msgstr "स्वामी पर भरोसा"
+
+#~ msgid "Name"
+#~ msgstr "नाम"
+
+#~ msgid "Comment"
+#~ msgstr "टिप्पणी"
+
+#~ msgid "User Attribute"
+#~ msgstr "उपयोगकर्ता के गुण"
+
+#~ msgid "Size"
+#~ msgstr "आकार"
+
+#~ msgid "Signature of a binary document"
+#~ msgstr "एक द्विआधारी दस्तावेज़ के हस्ताक्षर"
+
+#~ msgid "Signature of a canonical text document"
+#~ msgstr "एक विहित पाठ दस्तावेज़ के हस्ताक्षर"
+
+#~ msgid "Standalone signature"
+#~ msgstr "अकेला हस्ताक्षर"
+
+#~ msgid "Generic certification of key"
+#~ msgstr "कुंजी का सामान्य प्रमाणपत्र"
+
+#~ msgid "Persona certification of key"
+#~ msgstr "व्यक्तित्व प्रमाणीकरण की कुंजी"
+
+#~ msgid "Casual certification of key"
+#~ msgstr "कुंजी के आरामदायक प्रमाणीकरण"
+
+#~ msgid "Positive certification of key"
+#~ msgstr "कुंजी के सकारात्मक प्रमाणीकरण"
+
+#~ msgid "Subkey binding signature"
+#~ msgstr "उपकुंजी को बाध्यकारी हस्ताक्षर"
+
+#~ msgid "Primary key binding signature"
+#~ msgstr "प्राथमिक कुंजी बाध्यकारी हस्ताक्षर"
+
+#~ msgid "Signature directly on key"
+#~ msgstr "सीधे कुंजी पर हस्ताक्षर"
+
+#~ msgid "Key revocation signature"
+#~ msgstr "कुंजी निरसन हस्ताक्षर"
+
+#~ msgid "Subkey revocation signature"
+#~ msgstr "उपकुंजी को निरसन हस्ताक्षर"
+
+#~ msgid "Timestamp signature"
+#~ msgstr "टाइमस्टैम्प हस्ताक्षर"
+
+#~ msgid "Third-party confirmation signature"
+#~ msgstr "तृतीय - पक्ष पुष्टि हस्ताक्षर"
+
+#~ msgid "Class"
+#~ msgstr "वर्ग"
+
+#~ msgid "Local only"
+#~ msgstr "स्थानीय केवल"
+
+#~ msgid "Exportable"
+#~ msgstr "निर्यात - योग्य"
+
+#~ msgid "Revocation Key"
+#~ msgstr "निरसन कुंजी"
+
+#~ msgid "Fingerprint"
+#~ msgstr "फिंगरप्रिंट"
+
+#~ msgid "Public Subkey"
+#~ msgstr "सार्वजनिक उपकुंजी"
+
+#~ msgid "Secret Key"
+#~ msgstr "गुप्त कुंजीः"
+
+#~ msgid "Secret Subkey"
+#~ msgstr "गुप्त उपकुंजीः"
+
+#~ msgid "Initializing..."
+#~ msgstr "आरंभ कर रहा है..."
+
+#~ msgid "Import is in progress..."
+#~ msgstr "आयात प्रगति में..."
+
+#, c-format
+#~ msgid "Imported to: %s"
+#~ msgstr "यहाँ आयात करें: %s"
+
+#, c-format
+#~ msgid "Import to: %s"
+#~ msgstr "यहाँ आयात करें: %s"
+
+#~ msgid "Cannot import because there are no compatible importers"
+#~ msgstr "आयात नहीं किया जा सकता क्योंकि वहाँ कोई संगत आयातकों हैं"
+
+#~ msgid "No data to import"
+#~ msgstr "आयात करने के लिए कोई डेटा नहीं"
+
+#~ msgid "Key"
+#~ msgstr "कुंजी"
+
+#~ msgid "Private RSA Key"
+#~ msgstr "निजी  RSA कुंजी"
+
+#~ msgid "Private DSA Key"
+#~ msgstr "निजी DSA कुंजी"
+
+#~ msgid "Public DSA Key"
+#~ msgstr "सार्वजनिक DSA कुंजी"
+
+#, c-format
+#~ msgid "%d bit"
+#~ msgid_plural "%d bits"
+#~ msgstr[0] "%d bit"
+#~ msgstr[1] "%d bits"
+
+#~ msgid "Strength"
+#~ msgstr "ताकत"
+
+#~ msgid "Fingerprints"
+#~ msgstr "फिंगरप्रिंट"
+
+#~ msgid "SHA1"
+#~ msgstr "SHA1"
+
+#~ msgid "SHA256"
+#~ msgstr "SHA256"
+
+#~ msgid "Automatically chosen"
+#~ msgstr "स्वतः चुना गया"
+
+#, c-format
+#~ msgid "The user cancelled the operation"
+#~ msgstr "उपयोक्ता ने संक्रिया रद्द किया"
+
+#~ msgid "In order to import, please enter the password."
+#~ msgstr "आदेश में आयात करने के लिए पासवर्ड दर्ज करें."
+
+#~ msgid "Password:"
+#~ msgstr "कूटशब्द: "
+
+#~ msgid "Token:"
+#~ msgstr "टोकेन:"
+
+#~ msgid "Label:"
+#~ msgstr "लेबल:"
+
+#~ msgid "Import settings"
+#~ msgstr "सेटिंग आयात करें"
+
+#~ msgid "Confirm:"
+#~ msgstr "निश्चित करें:"
+
+#~ msgid "Passwords do not match."
+#~ msgstr "कूटशब्द मेल नहीं खाता है."
+
+#~ msgid "Password cannot be blank"
+#~ msgstr "कूटशब्द खाली नहीं हो सकता है"
+
+#~ msgid "Access Prompt"
+#~ msgstr "कहने के लिए प्रेरित पहुँच"
+
+#~ msgid "Unlock access to passwords and other secrets"
+#~ msgstr "पासवर्ड और अन्य रहस्य के लिए पहुच अनलॉक करें"
+
+#~ msgid "A file already exists with this name."
+#~ msgstr "फाइल पहले से इस नाम के साथ मौजूद है."
+
+#~ msgid "Do you want to replace it with a new file?"
+#~ msgstr "क्या आप इसे एक नई फ़ाइल के साथ बदलना चाहते हैं?"
+
+#~ msgid "_Replace"
+#~ msgstr "बदलें (_R)"
+
+#, c-format
+#~ msgid "The operation was cancelled."
+#~ msgstr "संक्रिया रद्द की गई थी."
+
+#~ msgid "Export certificate"
+#~ msgstr "प्रमाणपत्र निर्यात करें"
+
+#~ msgid "PEM files"
+#~ msgstr "PEM फ़ाइल"
+
+#~ msgid "Lock this keyring when I log out"
+#~ msgstr "इस कीरिंग लॉक जब मैं बाहर लॉग इन"
+
+#~ msgid "Lock this keyring after"
+#~ msgstr "के बाद इस कीरिंग लॉक करें"
+
+#~ msgid "Lock this keyring if idle for"
+#~ msgstr "इस कीरिंग लॉक करें के लिए निष्क्रिय अगर"
+
+#~ msgid "minutes"
+#~ msgstr "मिनट"
+
+#~ msgid "Password"
+#~ msgstr "कूटशब्द"
+
+#, c-format
+#~ msgid ""
+#~ "The contents of '%s' are locked. In order to view the contents, enter the "
+#~ "correct password."
+#~ msgstr ""
+#~ "'%s' की सामग्री को बंद कर रहे हैं.आदेश में सामग्री को देखने के लिए, सही पासवर्ड दर्ज करें."
+
+#~ msgid ""
+#~ "The contents are locked. In order to view the contents, enter the correct "
+#~ "password."
+#~ msgstr "सामग्री को बंद कर रहे हैं.आदेश में सामग्री को देखने के लिए, सही पासवर्ड दर्ज करें."
+
+#~ msgid "GCR Certificate and Key Viewer"
+#~ msgstr "GCR प्रमाणपत्र और कुंजी दर्शक"
+
+#~ msgid "- View certificate and key files"
+#~ msgstr "- प्रमाण पत्र और कुंजी फ़ाइलों देखें"
+
+#~ msgid "Imported"
+#~ msgstr "आयातित"
+
+#~ msgid "Import failed"
+#~ msgstr "आयात विफल"
+
+#~ msgid "Import"
+#~ msgstr "आयात"
 
 #~ msgid "Label"
 #~ msgstr "लेबल"

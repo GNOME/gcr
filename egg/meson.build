@@ -23,6 +23,7 @@ if with_gcrypt
   libegg_sources += [
     'egg-crypto-libgcrypt.c',
     'egg-dh-libgcrypt.c',
+    'egg-fips-libgcrypt.c',
     'egg-hkdf-libgcrypt.c',
     'egg-libgcrypt.c',
     'egg-openssl.c',
@@ -32,6 +33,7 @@ elif with_gnutls
   libegg_sources += [
     'egg-crypto-gnutls.c',
     'egg-dh-gnutls.c',
+    'egg-fips-gnutls.c',
     'egg-hkdf-gnutls.c',
   ]
 endif

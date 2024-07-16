@@ -23,6 +23,7 @@
 
 #include "egg/egg-crypto.h"
 #include "egg/egg-dh.h"
+#include "egg/egg-fips.h"
 #include "egg/egg-hkdf.h"
 
 #include "egg/egg-padding.h"
@@ -597,6 +598,7 @@ gcr_secret_exchange_default_generate_exchange_key (GcrSecretExchange *exchange,
 {
 	GcrSecretExchangeDefault *data = exchange->pv->default_exchange;
 	GBytes *buffer;
+	EggFipsMode fips_mode;
 
 	g_debug ("generating public key");
 
@@ -615,9 +617,14 @@ gcr_secret_exchange_default_generate_exchange_key (GcrSecretExchange *exchange,
 	egg_dh_privkey_free (data->priv);
 	data->priv = NULL;
 
+	fips_mode = egg_fips_get_mode ();
+	egg_fips_set_mode (EGG_FIPS_MODE_DISABLED);
 	if (!egg_dh_gen_pair (data->params, 0,
-	                      &data->pub, &data->priv))
+	                      &data->pub, &data->priv)) {
+		egg_fips_set_mode (fips_mode);
 		g_return_val_if_reached (FALSE);
+	}
+	egg_fips_set_mode (fips_mode);
 
 	buffer = egg_dh_pubkey_export (data->pub);
 	g_return_val_if_fail (buffer != NULL, FALSE);
@@ -634,6 +641,7 @@ gcr_secret_exchange_default_derive_transport_key (GcrSecretExchange *exchange,
 	GBytes *buffer;
 	egg_dh_pubkey *peer_pubkey;
 	GBytes *ikm;
+	EggFipsMode fips_mode;
 
 	g_debug ("deriving transport key");
 
@@ -644,7 +652,10 @@ gcr_secret_exchange_default_derive_transport_key (GcrSecretExchange *exchange,
 	g_bytes_unref (buffer);
 
 	/* Build up a key we can use */
+	fips_mode = egg_fips_get_mode ();
+	egg_fips_set_mode (EGG_FIPS_MODE_DISABLED);
 	ikm = egg_dh_gen_secret (peer_pubkey, data->priv, data->params);
+	egg_fips_set_mode (fips_mode);
 	g_return_val_if_fail (ikm != NULL, FALSE);
 	egg_dh_pubkey_free (peer_pubkey);
 

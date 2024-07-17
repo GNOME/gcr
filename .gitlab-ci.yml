@@ -10,6 +10,7 @@ variables:
     matrix:
       - CRYPTO: libgcrypt
       - CRYPTO: gnutls
+        GNUTLS_FORCE_FIPS_MODE: [0, 1]
 
 fedora:Werror:
   image: fedora:latest

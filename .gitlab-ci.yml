@@ -23,7 +23,7 @@ fedora:Werror:
     - dnf upgrade -y --enablerepo=updates-testing --refresh --advisory=FEDORA-2024-f69ecb0511
     - dnf builddep -y gcr
   script:
-    - meson setup _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations -Dgtk_doc=false
+    - meson setup _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations -Dgtk_doc=false -Dcrypto=$CRYPTO
     - meson compile -C _build
     - dbus-run-session -- meson test -C _build
   artifacts:
@@ -49,7 +49,7 @@ fedora:asan:
     - dnf upgrade -y --enablerepo=updates-testing --refresh --advisory=FEDORA-2024-f69ecb0511
     - dnf builddep -y gcr
   script:
-    - meson setup _build -Db_sanitize=address -Dgtk_doc=false
+    - meson setup _build -Db_sanitize=address -Dgtk_doc=false -Dcrypto=$CRYPTO
     - export G_SLICE=always-malloc G_DEBUG=gc-friendly ASAN_OPTIONS=abort_on_error=1:fast_unwind_on_malloc=0
     - dbus-run-session -- meson test -C _build
   allow_failure: true
@@ -74,7 +74,7 @@ fedora:ubsan:
     - dnf upgrade -y --enablerepo=updates-testing --refresh --advisory=FEDORA-2024-f69ecb0511
     - dnf builddep -y gcr
   script:
-    - meson setup _build -Db_sanitize=undefined -Dgtk_doc=false
+    - meson setup _build -Db_sanitize=undefined -Dgtk_doc=false -Dcrypto=$CRYPTO
     - dbus-run-session -- meson test -C _build
   artifacts:
     name: "gcr-ubsan-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"

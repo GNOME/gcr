@@ -25,6 +25,7 @@
 #endif
 
 #include "gcr-types.h"
+#include "gcr-subject-public-key-info.h"
 
 #include <glib-object.h>
 #include <gio/gio.h>
@@ -108,6 +109,9 @@ guchar*             gcr_certificate_get_serial_number      (GcrCertificate *self
                                                             gsize *n_length);
 
 gchar*              gcr_certificate_get_serial_number_hex  (GcrCertificate *self);
+
+GcrSubjectPublicKeyInfo *
+                    gcr_certificate_get_public_key_info    (GcrCertificate *self);
 
 guint               gcr_certificate_get_key_size           (GcrCertificate *self);
 

@@ -25,7 +25,7 @@
 #include "gcr-certificate-field-private.h"
 #include "gcr-fingerprint.h"
 #include "gcr-internal.h"
-#include "gcr-subject-public-key.h"
+#include "gcr-subject-public-key-info-private.h"
 
 #include "gcr/gcr-oids.h"
 
@@ -82,7 +82,7 @@ typedef struct _GcrCertificateInfo {
 	gconstpointer der;
 	gsize n_der;
 	GNode *asn1;
-	guint key_size;
+	GcrSubjectPublicKeyInfo *key_info;
 } GcrCertificateInfo;
 
 /* Forward declarations */
@@ -110,6 +110,8 @@ certificate_info_free (gpointer data)
 {
 	GcrCertificateInfo *info = data;
 	if (info) {
+		if (info->key_info)
+			gcr_subject_public_key_info_free (info->key_info);
 		g_assert (info->asn1);
 		egg_asn1x_destroy (info->asn1);
 		g_free (info);
@@ -649,6 +651,37 @@ gcr_certificate_get_expiry_date (GcrCertificate *self)
 }
 
 /**
+ * gcr_certificate_get_public_key_info:
+ * @self: a #GcrCertificate
+ *
+ * Get the key size in bits of the public key represented
+ * by this certificate.
+ *
+ * Returns: (transfer none): The key size of the certificate.
+ */
+GcrSubjectPublicKeyInfo *
+gcr_certificate_get_public_key_info (GcrCertificate *self)
+{
+	GcrCertificateInfo *info;
+
+	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
+
+	info = certificate_info_load (self);
+	if (info == NULL)
+		return 0;
+
+	if (info->key_info == NULL) {
+		GNode *node;
+
+		node = egg_asn1x_node (info->asn1, "tbsCertificate",
+	                               "subjectPublicKeyInfo", NULL);
+		info->key_info = _gcr_subject_public_key_info_new (node);
+	}
+
+	return info->key_info;
+}
+
+/**
  * gcr_certificate_get_key_size:
  * @self: a #GcrCertificate
  *
@@ -661,7 +694,6 @@ guint
 gcr_certificate_get_key_size (GcrCertificate *self)
 {
 	GcrCertificateInfo *info;
-	GNode *subject_public_key;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), 0);
 
@@ -669,13 +701,15 @@ gcr_certificate_get_key_size (GcrCertificate *self)
 	if (info == NULL)
 		return 0;
 
-	if (!info->key_size) {
-		subject_public_key = egg_asn1x_node (info->asn1, "tbsCertificate",
-		                                     "subjectPublicKeyInfo", NULL);
-		info->key_size = _gcr_subject_public_key_calculate_size (subject_public_key);
+	if (info->key_info == NULL) {
+		GNode *node;
+
+		node = egg_asn1x_node (info->asn1, "tbsCertificate",
+	                               "subjectPublicKeyInfo", NULL);
+		info->key_info = _gcr_subject_public_key_info_new (node);
 	}
 
-	return info->key_size;
+	return gcr_subject_public_key_info_get_key_size (info->key_info);
 }
 
 /**

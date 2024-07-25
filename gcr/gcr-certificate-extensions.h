@@ -1,5 +1,5 @@
 /*
- * gnome-keyring
+ * gcr
  *
  * Copyright (C) 2011 Collabora Ltd.
  *
@@ -27,60 +27,82 @@
 #define GCR_CERTIFICATE_EXTENSIONS_H
 
 #include <glib.h>
+#include "gcr-certificate-extension.h"
 
 G_BEGIN_DECLS
 
-GBytes *   _gcr_certificate_extension_find                    (GNode *cert,
-                                                               GQuark oid,
-                                                               gboolean *critical);
+/* Basic Constraints */
 
-gboolean   _gcr_certificate_extension_basic_constraints       (GBytes *data,
-                                                               gboolean *is_ca,
-                                                               gint *path_len);
+#define GCR_TYPE_CERTIFICATE_EXTENSION_BASIC_CONSTRAINTS (gcr_certificate_extension_basic_constraints_get_type ())
+G_DECLARE_FINAL_TYPE (GcrCertificateExtensionBasicConstraints,
+                      gcr_certificate_extension_basic_constraints,
+                      GCR, CERTIFICATE_EXTENSION_BASIC_CONSTRAINTS,
+                      GcrCertificateExtension)
 
-GQuark *   _gcr_certificate_extension_extended_key_usage      (GBytes *data);
+gboolean   gcr_certificate_extension_basic_constraints_is_ca                    (GcrCertificateExtensionBasicConstraints *self);
 
-gpointer   _gcr_certificate_extension_subject_key_identifier  (GBytes *data,
-                                                               gsize *n_keyid);
+int        gcr_certificate_extension_basic_constraints_get_path_len_constraint  (GcrCertificateExtensionBasicConstraints *self);
 
-typedef enum {
-	GCR_KEY_USAGE_DIGITAL_SIGNATURE = 1 << 0,
-	GCR_KEY_USAGE_NON_REPUDIATION = 1 << 1,
-	GCR_KEY_USAGE_KEY_ENCIPHERMENT = 1 << 2,
-	GCR_KEY_USAGE_DATA_ENCIPHERMENT = 1 << 3,
-	GCR_KEY_USAGE_KEY_AGREEMENT = 1 << 4,
-	GCR_KEY_USAGE_KEY_CERT_SIGN = 1 << 5,
-	GCR_KEY_USAGE_CRL_SIGN = 1 << 6,
-	GCR_KEY_USAGE_ENCIPHER_ONLY = 1 << 7,
-	GCR_KEY_USAGE_DECIPHER_ONLY = 1 << 8,
-} GcrCertificateExtensionKeyUsage;
 
-gboolean   _gcr_certificate_extension_key_usage               (GBytes *data,
-                                                               gulong *key_usage);
+/*  Key Usage */
 
-typedef enum {
-	GCR_GENERAL_NAME_OTHER,
-	GCR_GENERAL_NAME_RFC822,
-	GCR_GENERAL_NAME_DNS,
-	GCR_GENERAL_NAME_X400,
-	GCR_GENERAL_NAME_DN,
-	GCR_GENERAL_NAME_EDI,
-	GCR_GENERAL_NAME_URI,
-	GCR_GENERAL_NAME_IP,
-	GCR_GENERAL_NAME_REGISTERED_ID,
-} GcrGeneralNameType;
+#define GCR_TYPE_CERTIFICATE_EXTENSION_KEY_USAGE (gcr_certificate_extension_key_usage_get_type ())
+G_DECLARE_FINAL_TYPE (GcrCertificateExtensionKeyUsage,
+                      gcr_certificate_extension_key_usage,
+                      GCR, CERTIFICATE_EXTENSION_KEY_USAGE,
+                      GcrCertificateExtension)
 
-typedef struct {
-	GcrGeneralNameType type;
-	const gchar *description;
-	gchar *display;
-	GBytes *raw;
-} GcrGeneralName;
+unsigned long   gcr_certificate_extension_key_usage_get_usages           (GcrCertificateExtensionKeyUsage *self);
 
-GArray *   _gcr_certificate_extension_subject_alt_name        (GBytes *data);
+GStrv           gcr_certificate_extension_key_usage_get_descriptions     (GcrCertificateExtensionKeyUsage *self);
 
-void       _gcr_general_names_free                            (GArray *names);
+/* Extended Key Usage */
+
+#define GCR_TYPE_CERTIFICATE_EXTENSION_EXTENDED_KEY_USAGE (gcr_certificate_extension_extended_key_usage_get_type ())
+G_DECLARE_FINAL_TYPE (GcrCertificateExtensionExtendedKeyUsage,
+                      gcr_certificate_extension_extended_key_usage,
+                      GCR, CERTIFICATE_EXTENSION_EXTENDED_KEY_USAGE,
+                      GcrCertificateExtension)
+
+GStrv   gcr_certificate_extension_extended_key_usage_get_oids             (GcrCertificateExtensionExtendedKeyUsage *self);
+
+GStrv   gcr_certificate_extension_extended_key_usage_get_descriptions     (GcrCertificateExtensionExtendedKeyUsage *self);
+
+/* Subject Key Identifier */
+
+#define GCR_TYPE_CERTIFICATE_EXTENSION_SUBJECT_KEY_IDENTIFIER (gcr_certificate_extension_subject_key_identifier_get_type ())
+G_DECLARE_FINAL_TYPE (GcrCertificateExtensionSubjectKeyIdentifier,
+                      gcr_certificate_extension_subject_key_identifier,
+                      GCR, CERTIFICATE_EXTENSION_SUBJECT_KEY_IDENTIFIER,
+                      GcrCertificateExtension)
+
+GBytes *   gcr_certificate_extension_subject_key_identifier_get_key_id             (GcrCertificateExtensionSubjectKeyIdentifier *self);
+
+/* Subject Alt Name */
+
+#define GCR_TYPE_GENERAL_NAME (gcr_general_name_get_type ())
+G_DECLARE_FINAL_TYPE (GcrGeneralName,
+                      gcr_general_name,
+                      GCR, GENERAL_NAME,
+                      GObject)
+
+const char *   gcr_general_name_get_description   (GcrGeneralName  *self);
+
+const char *   gcr_general_name_get_value         (GcrGeneralName  *self);
+
+GBytes *       gcr_general_name_get_value_raw     (GcrGeneralName  *self);
+
+
+#define GCR_TYPE_CERTIFICATE_EXTENSION_SUBJECT_ALT_NAME (gcr_certificate_extension_subject_alt_name_get_type ())
+G_DECLARE_FINAL_TYPE (GcrCertificateExtensionSubjectAltName,
+                      gcr_certificate_extension_subject_alt_name,
+                      GCR, CERTIFICATE_EXTENSION_SUBJECT_ALT_NAME,
+                      GcrCertificateExtension)
+
+GcrGeneralName * gcr_certificate_extension_subject_alt_name_get_name          (GcrCertificateExtensionSubjectAltName  *self,
+                                                                               unsigned int                            position);
+
 
 G_END_DECLS
 
-#endif /* GCR_CERTIFICATE_H */
+#endif /* GCR_CERTIFICATE_EXTENSIONS_H */

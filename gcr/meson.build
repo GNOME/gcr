@@ -4,6 +4,13 @@ gcr_headers_install_dir = gcr_headers_subdir / 'gcr'
 gcr_public_sources = files(
   'gcr-certificate.c',
   'gcr-certificate-chain.c',
+  'gcr-certificate-extension.c',
+  'gcr-certificate-extension-basic-constraints.c',
+  'gcr-certificate-extension-extended-key-usage.c',
+  'gcr-certificate-extension-key-usage.c',
+  'gcr-certificate-extension-list.c',
+  'gcr-certificate-extension-subject-alt-name.c',
+  'gcr-certificate-extension-subject-key-identifier.c',
   'gcr-certificate-field.c',
   'gcr-certificate-request.c',
   'gcr-certificate-section.c',
@@ -27,7 +34,6 @@ gcr_public_sources = files(
 
 gcr_private_sources = files(
   'gcr-callback-output-stream.c',
-  'gcr-certificate-extensions.c',
   'gcr-gnupg-importer.c',
   'gcr-gnupg-process.c',
   'gcr-gnupg-records.c',
@@ -54,6 +60,9 @@ gcr_headers = files(
   'gcr.h',
   'gcr-certificate.h',
   'gcr-certificate-chain.h',
+  'gcr-certificate-extension.h',
+  'gcr-certificate-extensions.h',
+  'gcr-certificate-extension-list.h',
   'gcr-certificate-field.h',
   'gcr-certificate-request.h',
   'gcr-certificate-section.h',

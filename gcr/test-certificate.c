@@ -23,7 +23,8 @@
 
 #include "gcr/gcr.h"
 #include "gcr/gcr-internal.h"
-#include "gcr/gcr-certificate-extensions.h"
+#include "gcr/gcr-oids.h"
+#include "gcr/gcr-certificate-extensions-private.h"
 
 #include "egg/egg-testing.h"
 
@@ -286,7 +287,7 @@ test_interface_elements (Test *test,
 		gcr_certificate_section_get_flags (section);
 		g_assert (gcr_certificate_section_get_label (section) != NULL);
 		fields = gcr_certificate_section_get_fields (section);
-		g_assert (fields != NULL);
+		g_assert_nonnull (fields);
 		g_assert (g_list_model_get_item_type (fields) == GCR_TYPE_CERTIFICATE_FIELD);
 		for (guint i = 0; i < g_list_model_get_n_items (fields); i++) {
 			GValue val = G_VALUE_INIT;
@@ -295,7 +296,7 @@ test_interface_elements (Test *test,
 			g_assert (gcr_certificate_field_get_label (field) != NULL);
 			value_type = gcr_certificate_field_get_value_type (field);
 			g_value_init (&val, value_type);
-			g_assert (gcr_certificate_field_get_value (field, &val));
+			g_assert_true (gcr_certificate_field_get_value (field, &val));
 			g_value_unset (&val);
 			g_assert (gcr_certificate_field_get_section (field) == section);
 			g_object_unref (field);
@@ -316,24 +317,39 @@ test_subject_alt_name (void)
 		0xA0, 0x11, 0x06, 0x08, 0x2B, 0x06, 0x01, 0x05, 0x05, 0x07, 0x08, 0x07, 0xA0, 0x05, 0x16, 0x03, 0x61, 0x2E, 0x62
 	};
 	GBytes *bytes;
-	GArray *result;
-	GcrGeneralName *general_name;
+	GcrCertificateExtension *ext;
+	GcrCertificateExtensionSubjectAltName *san_ext;
+	unsigned int n_names;
+	GcrGeneralName *name;
+	GcrGeneralNameType type;
 
 	bytes = g_bytes_new_static (extension, sizeof(extension));
-	result = _gcr_certificate_extension_subject_alt_name (bytes);
+	ext = _gcr_certificate_extension_subject_alt_name_parse (GCR_OID_SUBJECT_ALT_NAME,
+	                                                         TRUE,
+	                                                         bytes,
+	                                                         NULL);
 	g_bytes_unref (bytes);
 
-	g_assert_nonnull (result);
-	g_assert_cmpint (result->len, ==, 4);
-	general_name = &g_array_index (result, GcrGeneralName, 0);
-	g_assert_cmpint (general_name->type, ==, GCR_GENERAL_NAME_IP);
-	general_name = &g_array_index (result, GcrGeneralName, 1);
-	g_assert_cmpint (general_name->type, ==, GCR_GENERAL_NAME_DNS);
-	general_name = &g_array_index (result, GcrGeneralName, 2);
-	g_assert_cmpint (general_name->type, ==, GCR_GENERAL_NAME_OTHER);
-	general_name = &g_array_index (result, GcrGeneralName, 3);
-	g_assert_cmpint (general_name->type, ==, GCR_GENERAL_NAME_OTHER);
-	_gcr_general_names_free (result);
+	g_assert_nonnull (ext);
+
+	san_ext = GCR_CERTIFICATE_EXTENSION_SUBJECT_ALT_NAME (ext);
+	n_names = g_list_model_get_n_items (G_LIST_MODEL (san_ext));
+	g_assert_cmpint (n_names, ==, 4);
+
+	name = gcr_certificate_extension_subject_alt_name_get_name (san_ext, 0);
+	type = _gcr_general_name_get_name_type (name);
+	g_assert_cmpint (type, ==, GCR_GENERAL_NAME_IP);
+	name = gcr_certificate_extension_subject_alt_name_get_name (san_ext, 1);
+	type = _gcr_general_name_get_name_type (name);
+	g_assert_cmpint (type, ==, GCR_GENERAL_NAME_DNS);
+	name = gcr_certificate_extension_subject_alt_name_get_name (san_ext, 2);
+	type = _gcr_general_name_get_name_type (name);
+	g_assert_cmpint (type, ==, GCR_GENERAL_NAME_OTHER);
+	name = gcr_certificate_extension_subject_alt_name_get_name (san_ext, 3);
+	type = _gcr_general_name_get_name_type (name);
+	g_assert_cmpint (type, ==, GCR_GENERAL_NAME_OTHER);
+
+	g_object_unref (ext);
 }
 
 static void
@@ -344,14 +360,20 @@ test_key_usage (void)
             0x03, 0x03, 0x00, 0x87, 0x80
     };
     GBytes *bytes;
-    gboolean ret;
+    GcrCertificateExtension *ext;
     gulong key_usage;
 
     bytes = g_bytes_new_static (usage, sizeof(usage));
-    ret = _gcr_certificate_extension_key_usage (bytes, &key_usage);
+    ext = _gcr_certificate_extension_key_usage_parse (GCR_OID_KEY_USAGE,
+                                                      TRUE,
+                                                      bytes,
+                                                      NULL);
     g_bytes_unref (bytes);
 
-    g_assert (ret == TRUE);
+    g_assert_nonnull (ext);
+    g_assert_true (GCR_IS_CERTIFICATE_EXTENSION_KEY_USAGE (ext));
+
+    key_usage = gcr_certificate_extension_key_usage_get_usages (GCR_CERTIFICATE_EXTENSION_KEY_USAGE (ext));
     g_assert_cmpint (key_usage & GCR_KEY_USAGE_DIGITAL_SIGNATURE, ==, GCR_KEY_USAGE_DIGITAL_SIGNATURE);
     g_assert_cmpint (key_usage & GCR_KEY_USAGE_NON_REPUDIATION, ==, 0);
     g_assert_cmpint (key_usage & GCR_KEY_USAGE_KEY_ENCIPHERMENT, ==, 0);
@@ -361,6 +383,8 @@ test_key_usage (void)
     g_assert_cmpint (key_usage & GCR_KEY_USAGE_CRL_SIGN, ==, GCR_KEY_USAGE_CRL_SIGN);
     g_assert_cmpint (key_usage & GCR_KEY_USAGE_ENCIPHER_ONLY, ==, GCR_KEY_USAGE_ENCIPHER_ONLY);
     g_assert_cmpint (key_usage & GCR_KEY_USAGE_DECIPHER_ONLY, ==, GCR_KEY_USAGE_DECIPHER_ONLY);
+
+    g_object_unref (ext);
 }
 
 int

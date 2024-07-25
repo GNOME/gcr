@@ -25,6 +25,8 @@
 #endif
 
 #include "gcr-types.h"
+#include "gcr-certificate-extension.h"
+#include "gcr-certificate-extension-list.h"
 #include "gcr-subject-public-key-info.h"
 
 #include <glib-object.h>
@@ -127,6 +129,9 @@ gboolean            gcr_certificate_get_basic_constraints  (GcrCertificate *self
                                                             gint *path_len);
 
 GList*              gcr_certificate_get_interface_elements (GcrCertificate *self);
+
+GcrCertificateExtensionList *
+                    gcr_certificate_list_extensions        (GcrCertificate *self);
 
 void                gcr_certificate_mixin_emit_notify      (GcrCertificate *self);
 

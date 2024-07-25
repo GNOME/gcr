@@ -4,6 +4,7 @@ gcr_headers_install_dir = gcr_headers_subdir / 'gcr'
 gcr_public_sources = files(
   'gcr-certificate.c',
   'gcr-certificate-chain.c',
+  'gcr-certificate-extension.c',
   'gcr-certificate-field.c',
   'gcr-certificate-request.c',
   'gcr-certificate-section.c',
@@ -54,6 +55,7 @@ gcr_headers = files(
   'gcr.h',
   'gcr-certificate.h',
   'gcr-certificate-chain.h',
+  'gcr-certificate-extension.h',
   'gcr-certificate-field.h',
   'gcr-certificate-request.h',
   'gcr-certificate-section.h',

@@ -20,6 +20,7 @@
 #include "config.h"
 
 #include "gcr-certificate.h"
+#include "gcr-certificate-extension-private.h"
 #include "gcr-certificate-extensions.h"
 #include "gcr-certificate-field.h"
 #include "gcr-certificate-field-private.h"
@@ -1359,6 +1360,50 @@ gcr_certificate_get_interface_elements (GcrCertificate *self)
 	list = g_list_prepend (list, g_steal_pointer (&section));
 
 	return g_list_reverse (list);
+}
+
+/**
+ * gcr_certificate_list_extensions:
+ *
+ * Creates a list of [struct@CertificateExtension]s that the
+ * certificate contains.
+ *
+ * Returns: (transfer full) (array length=n_extensions): The certificate's extensions
+ */
+GcrCertificateExtension **
+gcr_certificate_list_extensions (GcrCertificate *self,
+                                 guint          *n_extensions)
+{
+	GcrCertificateInfo *info;
+	GPtrArray *extensions;
+
+	g_return_val_if_fail (GCR_IS_CERTIFICATE (self), NULL);
+	g_return_val_if_fail (n_extensions, NULL);
+
+	info = certificate_info_load (self);
+	g_return_val_if_fail (info != NULL, NULL);
+
+	extensions = g_ptr_array_new_with_free_func ((GDestroyNotify) gcr_certificate_extension_free);
+
+	for (guint extension_num = 1; TRUE; ++extension_num) {
+		GNode *extension_node;
+		GcrCertificateExtension *extension;
+
+		extension_node = egg_asn1x_node (info->asn1, "tbsCertificate", "extensions", extension_num, NULL);
+		if (extension_node == NULL)
+			break;
+
+		extension = _gcr_certificate_extension_new (extension_node);
+		if (extension == NULL) {
+			g_critical("Unrecorgnized certificate extension");
+			continue;
+		}
+
+		g_ptr_array_add (extensions, extension);
+	}
+
+	*n_extensions = extensions->len;
+	return (GcrCertificateExtension **) g_ptr_array_free (extensions, FALSE);
 }
 
 /* -----------------------------------------------------------------------------

@@ -4,14 +4,14 @@
 # Gareth Owen <gowen72@yahoo.com>, 2004.
 # Philip Withnall <philip@tecnocode.co.uk>, 2009, 2010.
 # Zander Brown <zbrown@gnome.org>, 2019-2021.
-# Bruce Cowan <bruce@bcowan.me.uk>, 2010-2023.
+# Bruce Cowan <bruce@bcowan.me.uk>, 2010-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-01-25 17:22+0000\n"
-"PO-Revision-Date: 2023-03-11 15:13+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2024-05-07 10:20+0000\n"
+"PO-Revision-Date: 2024-09-01 12:36+0100\n"
 "Last-Translator: Bruce Cowan <bruce@bcowan.me.uk>\n"
 "Language-Team: English - United Kingdom <en@li.org>\n"
 "Language: en_GB\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 42.0\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Project-Style: gnome\n"
 
 #: egg/egg-oid.c:40
@@ -32,7 +32,7 @@ msgstr "User ID"
 
 #: egg/egg-oid.c:45
 msgid "Email Address"
-msgstr "E-mail Address"
+msgstr "Email Address"
 
 #: egg/egg-oid.c:53
 msgid "Date of Birth"
@@ -62,7 +62,7 @@ msgstr "Common Name"
 msgid "Surname"
 msgstr "Surname"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1260
 msgid "Serial Number"
 msgstr "Serial Number"
 
@@ -253,7 +253,7 @@ msgstr "Code Signing"
 
 #: egg/egg-oid.c:143
 msgid "Email Protection"
-msgstr "E-mail Protection"
+msgstr "Email Protection"
 
 #: egg/egg-oid.c:144
 msgid "Time Stamping"
@@ -381,196 +381,196 @@ msgstr "The URI has a bad version number."
 msgid "The stream was closed"
 msgstr "The stream was closed"
 
-#: gcr/gcr-certificate.c:882
+#: gcr/gcr-certificate.c:913
 msgid "Key Algorithm"
 msgstr "Key Algorithm"
 
-#: gcr/gcr-certificate.c:888
+#: gcr/gcr-certificate.c:919
 msgid "Key Parameters"
 msgstr "Key Parameters"
 
-#: gcr/gcr-certificate.c:895
+#: gcr/gcr-certificate.c:926
 msgid "Key Size"
 msgstr "Key Size"
 
-#: gcr/gcr-certificate.c:905
+#: gcr/gcr-certificate.c:936
 msgid "Key SHA1 Fingerprint"
 msgstr "Key SHA1 Fingerprint"
 
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+#: gcr/gcr-certificate.c:940 gcr/gcr-parser.c:334
 msgid "Public Key"
 msgstr "Public Key"
 
-#: gcr/gcr-certificate.c:923
+#: gcr/gcr-certificate.c:954
 msgid "Basic Constraints"
 msgstr "Basic Constraints"
 
-#: gcr/gcr-certificate.c:924
+#: gcr/gcr-certificate.c:955
 msgid "Certificate Authority"
 msgstr "Certificate Authority"
 
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:955 gcr/gcr-certificate.c:1131
 msgid "Yes"
 msgstr "Yes"
 
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:955 gcr/gcr-certificate.c:1131
 msgid "No"
 msgstr "No"
 
-#: gcr/gcr-certificate.c:927
+#: gcr/gcr-certificate.c:958
 msgid "Unlimited"
 msgstr "Unlimited"
 
-#: gcr/gcr-certificate.c:931
+#: gcr/gcr-certificate.c:962
 msgid "Max Path Length"
 msgstr "Max Path Length"
 
-#: gcr/gcr-certificate.c:955
+#: gcr/gcr-certificate.c:986
 msgid "Extended Key Usage"
 msgstr "Extended Key Usage"
 
-#: gcr/gcr-certificate.c:956
+#: gcr/gcr-certificate.c:987
 msgid "Allowed Purposes"
 msgstr "Allowed Purposes"
 
-#: gcr/gcr-certificate.c:973
+#: gcr/gcr-certificate.c:1004
 msgid "Subject Key Identifier"
 msgstr "Subject Key Identifier"
 
-#: gcr/gcr-certificate.c:976
+#: gcr/gcr-certificate.c:1007
 msgid "Key Identifier"
 msgstr "Key Identifier"
 
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate.c:1016
 msgid "Digital signature"
 msgstr "Digital signature"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate.c:1017
 msgid "Non repudiation"
 msgstr "Non repudiation"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate.c:1018
 msgid "Key encipherment"
 msgstr "Key encypherment"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate.c:1019
 msgid "Data encipherment"
 msgstr "Data encypherment"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate.c:1020
 msgid "Key agreement"
 msgstr "Key agreement"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate.c:1021
 msgid "Certificate signature"
 msgstr "Certificate signature"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate.c:1022
 msgid "Revocation list signature"
 msgstr "Revocation list signature"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate.c:1023
 msgid "Encipher only"
 msgstr "Encypher only"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate.c:1024
 msgid "Decipher only"
 msgstr "Decypher only"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate.c:1045
 msgid "Key Usage"
 msgstr "Key Usage"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1046
 msgid "Usages"
 msgstr "Usages"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1064
 msgid "Subject Alternative Names"
 msgstr "Subject Alternative Names"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1086
 msgid "Extension"
 msgstr "Extension"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1090
 msgid "Identifier"
 msgstr "Identifier"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1091
 msgid "Value"
 msgstr "Value"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1131
 msgid "Critical"
 msgstr "Critical"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1207 gcr/gcr-certificate.c:1439 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Certificate"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1214 gcr/gcr-certificate.c:1219
 msgid "Unknown"
 msgstr "Unknown"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1215
 msgid "Identity"
 msgstr "Identity"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1220
 msgid "Verified by"
 msgstr "Verified by"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1226
 msgid "Expires"
 msgstr "Expires"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1234
 msgid "Subject Name"
 msgstr "Subject Name"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1240
 msgid "Issuer Name"
 msgstr "Issuer Name"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1246
 msgid "Issued Certificate"
 msgstr "Issued Certificate"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1253
 msgid "Version"
 msgstr "Version"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1267
 msgid "Not Valid Before"
 msgstr "Not Valid Before"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1276
 msgid "Not Valid After"
 msgstr "Not Valid After"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1285
 msgid "Certificate Fingerprints"
 msgstr "Certificate Fingerprints"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1295
 msgid "Public Key Info"
 msgstr "Public Key Info"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1312 gcr/gcr-certificate.c:1323
 msgid "Signature"
 msgstr "Signature"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1315
 msgid "Signature Algorithm"
 msgstr "Signature Algorithm"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1319
 msgid "Signature Parameters"
 msgstr "Signature Parameters"
 
@@ -588,7 +588,7 @@ msgstr "DNS SRV"
 
 #: gcr/gcr-certificate-extensions.c:216
 msgid "Email"
-msgstr "E-mail"
+msgstr "Email"
 
 #: gcr/gcr-certificate-extensions.c:224
 msgid "DNS"
@@ -637,10 +637,6 @@ msgstr "GnuPG Keyring"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG Keyring: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "PGP Key"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -651,28 +647,32 @@ msgstr "Gnupg process exited with code: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg process was terminated with signal: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "The operation was cancelled"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Private Key"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "PGP Key"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Certificate Request"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Unrecognised or unsupported data."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Could not parse invalid or corrupted data."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "The data is locked"
 
@@ -715,7 +715,7 @@ msgstr "Unlock"
 msgid "The unlock password was incorrect"
 msgstr "The unlock password was incorrect"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Unnamed"
 
@@ -723,11 +723,11 @@ msgstr "Unnamed"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Enter your OpenSSH passphrase"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Unrecognised or unavailable attributes for key"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Couldn’t build public key"
 
@@ -1114,19 +1114,11 @@ msgstr "[file…]"
 #~ msgstr "Password"
 
 #, c-format
-#~ msgid ""
-#~ "The contents of “%s” are locked. In order to view the contents, enter the "
-#~ "correct password."
-#~ msgstr ""
-#~ "The contents of “%s” are locked. In order to view the contents, enter the "
-#~ "correct password."
+#~ msgid "The contents of “%s” are locked. In order to view the contents, enter the correct password."
+#~ msgstr "The contents of “%s” are locked. In order to view the contents, enter the correct password."
 
-#~ msgid ""
-#~ "The contents are locked. In order to view the contents, enter the correct "
-#~ "password."
-#~ msgstr ""
-#~ "The contents are locked. In order to view the contents, enter the correct "
-#~ "password."
+#~ msgid "The contents are locked. In order to view the contents, enter the correct password."
+#~ msgstr "The contents are locked. In order to view the contents, enter the correct password."
 
 #~ msgid "View file"
 #~ msgstr "View file"

@@ -102,7 +102,7 @@ struct _GcrSystemPromptPrivate {
 	gchar *prompt_path;
 	gchar *prompt_owner;
 
-	GSimpleAsyncResult *pending;
+	GTask *pending;
 	gchar *last_response;
 };
 
@@ -113,7 +113,7 @@ static void     gcr_system_prompt_initable_iface       (GInitableIface *iface);
 static void     gcr_system_prompt_async_initable_iface (GAsyncInitableIface *iface);
 
 static void     perform_init_async                     (GcrSystemPrompt *self,
-                                                        GSimpleAsyncResult *res);
+                                                        GTask *task);
 
 G_DEFINE_TYPE_WITH_CODE (GcrSystemPrompt, gcr_system_prompt, G_TYPE_OBJECT,
                          G_ADD_PRIVATE (GcrSystemPrompt);
@@ -128,7 +128,6 @@ typedef struct {
 	GSource *timeout;
 	GSource *waiting;
 	GMainContext *context;
-	GCancellable *cancellable;
 	guint watch_id;
 } CallClosure;
 
@@ -146,7 +145,6 @@ call_closure_free (gpointer data)
 	}
 	if (closure->watch_id)
 		g_bus_unwatch_name (closure->watch_id);
-	g_object_unref (closure->cancellable);
 	g_free (data);
 }
 
@@ -159,22 +157,37 @@ on_propagate_cancelled (GCancellable *cancellable,
 	g_cancellable_cancel (cancel);
 }
 
+
+/*
+ * We use our own cancellable object, since we cancel it it in
+ * situations other than when the caller cancels.
+ *
+ * Returns: (transfer none): a new GCancellable owned by the original one.
+ */
+static GCancellable *
+get_sub_cancellable (GCancellable *cancellable)
+{
+	GCancellable *closure_cancellable;
+
+	if (!cancellable)
+		return NULL;
+
+	closure_cancellable = g_cancellable_new ();
+	g_cancellable_connect (cancellable, G_CALLBACK (on_propagate_cancelled),
+	                       closure_cancellable, g_object_unref);
+	return closure_cancellable;
+}
+
 static CallClosure *
-call_closure_new (GCancellable *cancellable)
+call_closure_new (gboolean with_context)
 {
 	CallClosure *call;
 
-	/*
-	 * We use our own cancellable object, since we cancel it it in
-	 * situations other than when the caller cancels.
-	 */
-
 	call = g_new0 (CallClosure, 1);
-	call->cancellable = g_cancellable_new ();
-
-	if (cancellable) {
-		g_cancellable_connect (cancellable, G_CALLBACK (on_propagate_cancelled),
-		                       g_object_ref (call->cancellable), g_object_unref);
+	if (with_context) {
+		call->context = g_main_context_get_thread_default ();
+		if (call->context)
+			g_main_context_ref (call->context);
 	}
 
 	return call;
@@ -416,7 +429,6 @@ on_prompter_stop_prompting (GObject *source,
                             GAsyncResult *result,
                             gpointer user_data)
 {
-	GSimpleAsyncResult *async = NULL;
 	GError *error = NULL;
 	GVariant *retval;
 
@@ -430,20 +442,16 @@ on_prompter_stop_prompting (GObject *source,
 		g_variant_unref (retval);
 
 	if (user_data) {
-		async = G_SIMPLE_ASYNC_RESULT (user_data);
-		g_simple_async_result_complete (async);
-		g_object_unref (async);
+		GTask *task = G_TASK (user_data);
+		g_task_return_boolean (task, TRUE);
+		g_object_unref (task);
 	}
 }
 
 static void
 perform_close (GcrSystemPrompt *self,
-               GSimpleAsyncResult *async,
-               GCancellable *cancellable)
+               GTask *async)
 {
-	GSimpleAsyncResult *res;
-	CallClosure *closure;
-	gboolean called = FALSE;
 	gboolean closed;
 
 	closed = self->pv->closed;
@@ -453,12 +461,17 @@ perform_close (GcrSystemPrompt *self,
 		g_debug ("closing prompt");
 
 	if (self->pv->pending) {
-		res = g_object_ref (self->pv->pending);
-		g_clear_object (&self->pv->pending);
-		closure = g_simple_async_result_get_op_res_gpointer (res);
-		g_cancellable_cancel (closure->cancellable);
-		g_simple_async_result_complete_in_idle (res);
-		g_object_unref (res);
+		GTask *pending_task;
+		GCancellable *cancellable;
+
+		pending_task = g_steal_pointer (&self->pv->pending);
+		cancellable = g_task_get_cancellable (pending_task);
+		g_cancellable_cancel (cancellable);
+		if (!g_task_had_error (pending_task)) {
+			g_task_return_error_if_cancelled (pending_task);
+		}
+
+		g_object_unref (pending_task);
 	}
 
 	if (self->pv->prompt_registered) {
@@ -469,6 +482,7 @@ perform_close (GcrSystemPrompt *self,
 
 	if (self->pv->begun_prompting) {
 		if (self->pv->connection && self->pv->prompt_path && self->pv->prompt_owner) {
+			GCancellable *cancellable = async ? g_task_get_cancellable (async) : NULL;
 			g_debug ("Calling the prompter %s method", GCR_DBUS_PROMPTER_METHOD_STOP);
 			g_dbus_connection_call (self->pv->connection,
 			                        self->pv->prompter_bus_name,
@@ -480,8 +494,7 @@ perform_close (GcrSystemPrompt *self,
 			                        G_DBUS_CALL_FLAGS_NO_AUTO_START,
 			                        -1, cancellable,
 			                        on_prompter_stop_prompting,
-			                        async ? g_object_ref (async) : NULL);
-			called = TRUE;
+			                        g_steal_pointer (&async));
 		}
 		self->pv->begun_prompting = FALSE;
 	}
@@ -491,8 +504,10 @@ perform_close (GcrSystemPrompt *self,
 
 	g_clear_object (&self->pv->connection);
 
-	if (!called && async)
-		g_simple_async_result_complete_in_idle (async);
+	if (async) {
+		g_task_return_boolean (async, TRUE);
+		g_object_unref (async);
+	}
 
 	/* Emit the signal if necessary, after closed */
 	if (!closed)
@@ -505,7 +520,7 @@ gcr_system_prompt_dispose (GObject *obj)
 	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (obj);
 
 	g_clear_object (&self->pv->exchange);
-	perform_close (self, NULL, NULL);
+	perform_close (self, NULL);
 
 	g_hash_table_remove_all (self->pv->properties);
 	g_hash_table_remove_all (self->pv->dirty_properties);
@@ -629,17 +644,40 @@ update_properties_from_iter (GcrSystemPrompt *self,
 	g_object_thaw_notify (obj);
 }
 
+static GcrPromptReply
+handle_last_response (GcrSystemPrompt *self)
+{
+	GcrPromptReply response;
+
+	g_return_val_if_fail (self->pv->last_response != NULL,
+	                      GCR_PROMPT_REPLY_CANCEL);
+
+	if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_YES)) {
+		response = GCR_PROMPT_REPLY_CONTINUE;
+
+	} else if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NO) ||
+	           g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NONE)) {
+		response = GCR_PROMPT_REPLY_CANCEL;
+
+	} else {
+		g_warning ("unknown response from prompter: %s", self->pv->last_response);
+		response = GCR_PROMPT_REPLY_CANCEL;
+	}
+
+	return response;
+}
+
 static void
 prompt_method_ready (GcrSystemPrompt *self,
                      GDBusMethodInvocation *invocation,
                      GVariant *parameters)
 {
 	GcrSecretExchange *exchange;
-	GSimpleAsyncResult *res;
+	GTask *task;
 	GVariantIter *iter;
 	gchar *received;
 
-	g_return_if_fail (G_IS_SIMPLE_ASYNC_RESULT (self->pv->pending));
+	g_return_if_fail (G_TASK (self->pv->pending));
 
 	g_free (self->pv->last_response);
 	g_variant_get (parameters, "(sa{sv}s)",
@@ -658,10 +696,9 @@ prompt_method_ready (GcrSystemPrompt *self,
 		g_warning ("received invalid secret exchange string");
 	g_free (received);
 
-	res = g_object_ref (self->pv->pending);
-	g_clear_object (&self->pv->pending);
-	g_simple_async_result_complete (res);
-	g_object_unref (res);
+	task = g_steal_pointer (&self->pv->pending);
+	g_task_return_boolean (task, TRUE);
+	g_object_unref (task);
 }
 
 static void
@@ -677,7 +714,7 @@ prompt_method_done (GcrSystemPrompt *self,
 	 * called, or the prompter may have stopped on its own accord.
 	 */
 	self->pv->begun_prompting = FALSE;
-	perform_close (self, NULL, NULL);
+	perform_close (self, NULL);
 }
 
 static void
@@ -772,12 +809,11 @@ on_prompter_present (GDBusConnection *connection,
                      const gchar *name_owner,
                      gpointer user_data)
 {
-	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
+	GTask *task = G_TASK (user_data);
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_task_get_source_object (task));
 
 	g_free (self->pv->prompt_owner);
 	self->pv->prompt_owner = g_strdup (name_owner);
-
-	g_object_unref (self);
 }
 
 static void
@@ -785,17 +821,17 @@ on_prompter_vanished (GDBusConnection *connection,
                       const gchar *name,
                       gpointer user_data)
 {
-	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
-	CallClosure *call = g_simple_async_result_get_op_res_gpointer (user_data);
+	GTask *task = G_TASK (user_data);
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_task_get_source_object (task));
 
 	if (self->pv->prompt_owner) {
+		GCancellable *cancellable;
+		cancellable = g_task_get_cancellable (task);
 		g_free (self->pv->prompt_owner);
 		self->pv->prompt_owner = NULL;
 		g_debug ("prompter name owner has vanished: %s", name);
-		g_cancellable_cancel (call->cancellable);
+		g_cancellable_cancel (cancellable);
 	}
-
-	g_object_unref (self);
 }
 
 static void
@@ -803,9 +839,9 @@ on_bus_connected (GObject *source,
                   GAsyncResult *result,
                   gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
-	CallClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_task_get_source_object (task));
+	CallClosure *closure = g_task_get_task_data (task);
 	GError *error = NULL;
 
 	g_assert (self->pv->connection == NULL);
@@ -825,7 +861,7 @@ on_bus_connected (GObject *source,
 		                                                    G_BUS_NAME_WATCHER_FLAGS_NONE,
 		                                                    on_prompter_present,
 		                                                    on_prompter_vanished,
-		                                                    res, NULL);
+		                                                    task, NULL);
 
 		register_prompt_object (self, &error);
 
@@ -833,14 +869,11 @@ on_bus_connected (GObject *source,
 	}
 
 	if (error == NULL) {
-		perform_init_async (self, res);
+		perform_init_async (self, g_steal_pointer (&task));
 	} else {
-		g_simple_async_result_take_error (res, error);
-		g_simple_async_result_complete (res);
+		g_task_return_error (task, g_steal_pointer (&error));
+		g_object_unref (task);
 	}
-
-	g_object_unref (self);
-	g_object_unref (res);
 }
 
 static void
@@ -848,8 +881,8 @@ on_prompter_begin_prompting (GObject *source,
                              GAsyncResult *result,
                              gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
+	GTask *task = G_TASK (user_data);
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_task_get_source_object (task));
 	GError *error = NULL;
 	GVariant *ret;
 
@@ -863,78 +896,71 @@ on_prompter_begin_prompting (GObject *source,
 		         self->pv->prompter_bus_name, self->pv->prompt_path);
 
 		g_return_if_fail (self->pv->prompt_path != NULL);
-		perform_init_async (self, res);
+		perform_init_async (self, g_steal_pointer (&task));
 
 	} else {
 		g_debug ("failed to register prompt %s: %s",
 		         self->pv->prompter_bus_name, egg_error_message (error));
 
-		g_simple_async_result_take_error (res, error);
-		g_simple_async_result_complete (res);
+		g_task_return_error (task, g_steal_pointer (&error));
+		g_object_unref (task);
 	}
-
-	g_object_unref (self);
-	g_object_unref (res);
 }
 
 static gboolean
 on_call_timeout (gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	CallClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
-	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
+	GTask *task = G_TASK (user_data);
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_task_get_source_object (task));
+	CallClosure *closure = g_task_get_task_data (task);
 
 	g_source_destroy (closure->timeout);
-	g_source_unref (closure->timeout);
-	closure->timeout = NULL;
+	g_clear_pointer (&closure->timeout, g_source_unref);
 
 	/* Tell the prompter we're no longer interested */
-	gcr_system_prompt_close_async (self, NULL, NULL, NULL);
+	perform_close (self, NULL);
 
-	g_simple_async_result_set_error (res, GCR_SYSTEM_PROMPT_ERROR,
+	g_task_return_new_error_literal (task, GCR_SYSTEM_PROMPT_ERROR,
 	                                 GCR_SYSTEM_PROMPT_IN_PROGRESS,
 	                                 _("Another prompt is already in progress"));
-	g_simple_async_result_complete (res);
 
-	g_object_unref (self);
-	return FALSE; /* Don't call this function again */
+	return G_SOURCE_REMOVE; /* Don't call this function again */
 }
 
 static gboolean
 on_call_cancelled (GCancellable *cancellable,
                    gpointer user_data)
 {
-	GSimpleAsyncResult *async = G_SIMPLE_ASYNC_RESULT (user_data);
-	CallClosure *call = g_simple_async_result_get_op_res_gpointer (async);
-	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
+	GTask *task = G_TASK (user_data);
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_task_get_source_object (task));
+	CallClosure *call = g_task_get_task_data (task);
 
 	g_source_destroy (call->waiting);
-	g_source_unref (call->waiting);
-	call->waiting = NULL;
+	g_clear_pointer (&call->waiting, g_source_unref);
 
-	g_simple_async_result_set_error (async, G_IO_ERROR, G_IO_ERROR_CANCELLED,
+	g_task_return_new_error_literal (task, G_IO_ERROR, G_IO_ERROR_CANCELLED,
 	                                 _("The operation was cancelled"));
 
 	/* Tell the prompter we're no longer interested */
-	gcr_system_prompt_close_async (self, NULL, NULL, NULL);
+	perform_close (self, NULL);
 
-	g_object_unref (self);
-	return FALSE; /* Don't call this function again */
+	return G_SOURCE_REMOVE; /* Don't call this function again */
 }
 
 void
 perform_init_async (GcrSystemPrompt *self,
-                    GSimpleAsyncResult *res)
+                    GTask *task)
 {
-	CallClosure *closure = g_simple_async_result_get_op_res_gpointer (res);
+	CallClosure *closure = g_task_get_task_data (task);
+	GCancellable *cancellable = g_task_get_cancellable (task);
 
 	g_main_context_push_thread_default (closure->context);
 
 	/* 1. Connect to the session bus */
 	if (!self->pv->connection) {
 		g_debug ("connecting to bus");
-		g_bus_get (G_BUS_TYPE_SESSION, closure->cancellable,
-		           on_bus_connected, g_object_ref (res));
+		g_bus_get (G_BUS_TYPE_SESSION, cancellable,
+		           on_bus_connected, g_steal_pointer (&task));
 
 	/* 2. Export our object, BeginPrompting on prompter */
 	} else if (!self->pv->begun_prompting) {
@@ -949,24 +975,25 @@ perform_init_async (GcrSystemPrompt *self,
 		                        g_variant_new ("(o)", self->pv->prompt_path),
 		                        G_VARIANT_TYPE ("()"),
 		                        G_DBUS_CALL_FLAGS_NONE,
-		                        -1, closure->cancellable,
+		                        -1, cancellable,
 		                        on_prompter_begin_prompting,
-		                        g_object_ref (res));
+		                        g_steal_pointer (&task));
 
 	/* 3. Wait for iterate */
 	} else if (!self->pv->pending) {
-		self->pv->pending = g_object_ref (res);
+		self->pv->pending = g_object_ref (task);
 		if (self->pv->timeout_seconds > 0) {
 			g_assert (closure->timeout == NULL);
 			closure->timeout = g_timeout_source_new_seconds (self->pv->timeout_seconds);
-			g_source_set_callback (closure->timeout, on_call_timeout, res, NULL);
+			g_source_set_callback (closure->timeout, on_call_timeout, task, NULL);
 			g_source_attach (closure->timeout, closure->context);
 		}
 
 		g_assert (closure->waiting == NULL);
-		closure->waiting = g_cancellable_source_new (closure->cancellable);
-		g_source_set_callback (closure->waiting, (GSourceFunc)on_call_cancelled, res, NULL);
+		closure->waiting = g_cancellable_source_new (cancellable);
+		g_source_set_callback (closure->waiting, (GSourceFunc)on_call_cancelled, task, NULL);
 		g_source_attach (closure->waiting, closure->context);
+		g_object_unref (task);
 
 	/* 4. All done */
 	} else {
@@ -984,20 +1011,15 @@ gcr_system_prompt_real_init_async (GAsyncInitable *initable,
                                    gpointer user_data)
 {
 	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (initable);
-	GSimpleAsyncResult *res;
+	GTask *task;
 	CallClosure *closure;
 
-	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data,
-	                                 gcr_system_prompt_real_init_async);
-	closure = call_closure_new (cancellable);
-	closure->context = g_main_context_get_thread_default ();
-	if (closure->context)
-		g_main_context_ref (closure->context);
-	g_simple_async_result_set_op_res_gpointer (res, closure, call_closure_free);
+	closure = call_closure_new (TRUE);
+	task = g_task_new (self, get_sub_cancellable (cancellable), callback, user_data);
+	g_task_set_source_tag (task, gcr_system_prompt_real_init_async);
+	g_task_set_task_data (task, closure, call_closure_free);
 
-	perform_init_async (self, res);
-
-	g_object_unref (res);
+	perform_init_async (self, g_steal_pointer (&task));
 
 }
 
@@ -1006,15 +1028,12 @@ gcr_system_prompt_real_init_finish (GAsyncInitable *initable,
                                     GAsyncResult *result,
                                     GError **error)
 {
-	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (initable);
+	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPT (initable), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, initable), FALSE);
+	g_return_val_if_fail (g_async_result_is_tagged (result, gcr_system_prompt_real_init_async), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (self),
-	                      gcr_system_prompt_real_init_async), FALSE);
-
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	return TRUE;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 static void
@@ -1121,29 +1140,28 @@ on_perform_prompt_complete (GObject *source,
                             GAsyncResult *result,
                             gpointer user_data)
 {
-	GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT (user_data);
-	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_async_result_get_source_object (user_data));
-	CallClosure *call = g_simple_async_result_get_op_res_gpointer (res);
+	GTask *task = G_TASK (user_data);
+	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (g_task_get_source_object (task));
+	CallClosure *call = g_task_get_task_data (task);
 	GError *error = NULL;
 	GVariant *retval;
 
 	retval = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source), result, &error);
 	if (error != NULL) {
-		self->pv->pending = NULL;
-		g_simple_async_result_take_error (res, error);
-		g_simple_async_result_complete (res);
+		g_clear_object (&self->pv->pending);
+		g_task_return_error (task, g_steal_pointer (&error));
 	} else {
+
 		g_assert (call->waiting == NULL);
-		call->waiting = g_cancellable_source_new (call->cancellable);
-		g_source_set_callback (call->waiting, (GSourceFunc)on_call_cancelled, res, NULL);
+		call->waiting = g_cancellable_source_new (g_task_get_cancellable (task));
+		g_source_set_callback (call->waiting, (GSourceFunc)on_call_cancelled, task, NULL);
 		g_source_attach (call->waiting, call->context);
 	}
 
 	if (retval)
 		g_variant_unref (retval);
 
-	g_object_unref (self);
-	g_object_unref (res);
+	g_object_unref (task);
 }
 
 static void
@@ -1154,7 +1172,7 @@ perform_prompt_async (GcrSystemPrompt *self,
                       GAsyncReadyCallback callback,
                       gpointer user_data)
 {
-	GSimpleAsyncResult *res;
+	GTask *task;
 	GcrSecretExchange *exchange;
 	GVariantBuilder *builder;
 	CallClosure *closure;
@@ -1168,15 +1186,16 @@ perform_prompt_async (GcrSystemPrompt *self,
 		return;
 	}
 
-	res = g_simple_async_result_new (G_OBJECT (self), callback, user_data, source_tag);
-	closure = call_closure_new (cancellable);
-	g_simple_async_result_set_op_res_gpointer (res, closure, call_closure_free);
+	closure = call_closure_new (FALSE);
+	task = g_task_new (self, get_sub_cancellable (cancellable), callback, user_data);
+	g_task_set_source_tag (task, source_tag);
+	g_task_set_task_data (task, closure, call_closure_free);
 
 	if (self->pv->closed) {
 		g_free (self->pv->last_response);
 		self->pv->last_response = g_strdup (GCR_DBUS_PROMPT_REPLY_NONE);
-		g_simple_async_result_complete_in_idle (res);
-		g_object_unref (res);
+		g_task_return_int (task, handle_last_response (self));
+		g_object_unref (task);
 		return;
 	}
 
@@ -1193,13 +1212,14 @@ perform_prompt_async (GcrSystemPrompt *self,
 	                                                    G_BUS_NAME_WATCHER_FLAGS_NONE,
 	                                                    on_prompter_present,
 	                                                    on_prompter_vanished,
-	                                                    res, NULL);
+	                                                    task, NULL);
 
 	builder = build_dirty_properties (self);
 
 	/* Reregister the prompt object in the current GMainContext */
 	register_prompt_object (self, NULL);
 
+	self->pv->pending = g_object_ref (task);
 	g_dbus_connection_call (self->pv->connection,
 	                        self->pv->prompter_bus_name,
 	                        GCR_DBUS_PROMPTER_OBJECT_PATH,
@@ -1211,34 +1231,9 @@ perform_prompt_async (GcrSystemPrompt *self,
 	                        G_DBUS_CALL_FLAGS_NO_AUTO_START,
 	                        -1, cancellable,
 	                        on_perform_prompt_complete,
-	                        g_object_ref (res));
+	                        g_steal_pointer (&task));
 	g_variant_builder_unref(builder);
-
-	self->pv->pending = res;
 	g_free (sent);
-}
-
-static GcrPromptReply
-handle_last_response (GcrSystemPrompt *self)
-{
-	GcrPromptReply response;
-
-	g_return_val_if_fail (self->pv->last_response != NULL,
-	                      GCR_PROMPT_REPLY_CANCEL);
-
-	if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_YES)) {
-		response = GCR_PROMPT_REPLY_CONTINUE;
-
-	} else if (g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NO) ||
-	           g_str_equal (self->pv->last_response, GCR_DBUS_PROMPT_REPLY_NONE)) {
-		response = GCR_PROMPT_REPLY_CANCEL;
-
-	} else {
-		g_warning ("unknown response from prompter: %s", self->pv->last_response);
-		response = GCR_PROMPT_REPLY_CANCEL;
-	}
-
-	return response;
 }
 
 static void
@@ -1258,18 +1253,15 @@ gcr_system_prompt_password_finish (GcrPrompt *prompt,
                                    GAsyncResult *result,
                                    GError **error)
 {
-	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (prompt);
-	GSimpleAsyncResult *res;
+	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPT (prompt), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, prompt), FALSE);
+	g_return_val_if_fail (g_async_result_is_tagged (result, gcr_system_prompt_password_async), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (self),
-	                      gcr_system_prompt_password_async), FALSE);
-
-	res = G_SIMPLE_ASYNC_RESULT (result);
-	if (g_simple_async_result_propagate_error (res, error))
-		return FALSE;
-
-	if (handle_last_response (self) == GCR_PROMPT_REPLY_CONTINUE)
+	if (g_task_propagate_int (G_TASK (result), error) == GCR_PROMPT_REPLY_CONTINUE) {
+		GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (prompt);
 		return gcr_secret_exchange_get_secret (self->pv->exchange, NULL);
+	}
 
 	return NULL;
 }
@@ -1291,18 +1283,12 @@ gcr_system_prompt_confirm_finish (GcrPrompt *prompt,
                                   GAsyncResult *result,
                                   GError **error)
 {
-	GcrSystemPrompt *self = GCR_SYSTEM_PROMPT (prompt);
-	GSimpleAsyncResult *res;
+	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPT (prompt), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, prompt), FALSE);
+	g_return_val_if_fail (g_async_result_is_tagged (result, gcr_system_prompt_confirm_async), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPT (self), FALSE);
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (self),
-	                      gcr_system_prompt_confirm_async), FALSE);
-
-	res = G_SIMPLE_ASYNC_RESULT (result);
-	if (g_simple_async_result_propagate_error (res, error))
-		return FALSE;
-
-	return handle_last_response (self);
+	return g_task_propagate_int (G_TASK (result), error);
 }
 
 static void
@@ -1317,7 +1303,7 @@ gcr_system_prompt_real_close (GcrPrompt *prompt)
 
 	if (!self->pv->closed) {
 		self->pv->closed = TRUE;
-		perform_close (self, NULL, NULL);
+		perform_close (self, NULL);
 	}
 }
 
@@ -1570,23 +1556,18 @@ gcr_system_prompt_close_async (GcrSystemPrompt *self,
                                GAsyncReadyCallback callback,
                                gpointer user_data)
 {
-	GSimpleAsyncResult *res;
+	GTask *task;
 	CallClosure *closure;
 
 	g_return_if_fail (GCR_SYSTEM_PROMPT (self));
 	g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
 
-	res = g_simple_async_result_new (NULL, callback, user_data,
-	                                 gcr_system_prompt_close_async);
-	closure = call_closure_new (cancellable);
-	closure->context = g_main_context_get_thread_default ();
-	if (closure->context != NULL)
-		g_main_context_ref (closure->context);
-	g_simple_async_result_set_op_res_gpointer (res, closure, call_closure_free);
+	closure = call_closure_new (TRUE);
+	task = g_task_new (NULL, get_sub_cancellable (cancellable), callback, user_data);
+	g_task_set_source_tag (task, gcr_system_prompt_close_async);
+	g_task_set_task_data (task, closure, call_closure_free);
 
-	perform_close (self, res, closure->cancellable);
-
-	g_object_unref (res);
+	perform_close (self, g_steal_pointer (&task));
 }
 
 /**
@@ -1608,15 +1589,11 @@ gcr_system_prompt_close_finish (GcrSystemPrompt *self,
                                 GError **error)
 {
 	g_return_val_if_fail (GCR_IS_SYSTEM_PROMPT (self), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, NULL), FALSE);
+	g_return_val_if_fail (g_async_result_is_tagged (result, gcr_system_prompt_close_async), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, NULL,
-	                      gcr_system_prompt_close_async), FALSE);
-
-	if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (result), error))
-		return FALSE;
-
-	return TRUE;
+	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 static const GDBusErrorEntry SYSTEM_PROMPT_ERRORS[] = {

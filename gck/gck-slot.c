@@ -1043,7 +1043,7 @@ on_open_session_complete (GObject *source,
 }
 
 /**
- * gck_slot_open_session_full_async: (skip)
+ * gck_slot_open_session_full_async: (finish-func gck_slot_open_session_finish) (skip)
  * @self: The slot to open a session on.
  * @options: Options to open the new session with.
  * @interaction: (nullable): The #GTlsInteraction to use, or %NULL.

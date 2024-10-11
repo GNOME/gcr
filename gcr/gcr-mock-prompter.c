@@ -74,6 +74,7 @@ struct _GcrMockPrompt {
 	GObject parent;
 	GHashTable *properties;
 	gboolean disposed;
+	gchar *last_password;
 };
 
 typedef struct {
@@ -275,6 +276,7 @@ _gcr_mock_prompt_finalize (GObject *obj)
 	GcrMockPrompt *self = GCR_MOCK_PROMPT (obj);
 
 	g_hash_table_destroy(self->properties);
+	g_clear_pointer (&self->last_password, g_free);
 
 	G_OBJECT_CLASS (_gcr_mock_prompt_parent_class)->finalize (obj);
 }
@@ -383,20 +385,21 @@ _gcr_mock_prompt_class_init (GcrMockPromptClass *klass)
 static gboolean
 on_timeout_complete (gpointer data)
 {
-	GSimpleAsyncResult *res = data;
-	g_simple_async_result_complete (res);
-	return FALSE;
+	GTask *task = data;
+
+	g_task_return_pointer (task, g_task_get_task_data (task), NULL);
+	return G_SOURCE_REMOVE;
 }
 
 static gboolean
 on_timeout_complete_and_close (gpointer data)
 {
-	GSimpleAsyncResult *res = data;
-	GcrPrompt *prompt = GCR_PROMPT (g_async_result_get_source_object (data));
-	g_simple_async_result_complete (res);
+	GTask *task = data;
+	GcrPrompt *prompt = GCR_PROMPT (g_task_get_source_object (task));
+
+	g_task_return_pointer (task, g_task_get_task_data (task), NULL);
 	gcr_prompt_close (prompt);
-	g_object_unref (prompt);
-	return FALSE;
+	return G_SOURCE_REMOVE;
 }
 
 static void
@@ -415,7 +418,7 @@ gcr_mock_prompt_confirm_async (GcrPrompt *prompt,
 {
 	GcrMockPrompt *self = GCR_MOCK_PROMPT (prompt);
 	GSourceFunc complete_func = on_timeout_complete;
-	GSimpleAsyncResult *res;
+	GTask *task;
 	MockResponse *response;
 	GSource *source;
 	guint delay_msec;
@@ -425,24 +428,24 @@ gcr_mock_prompt_confirm_async (GcrPrompt *prompt,
 	response = g_queue_pop_head (&running->responses);
 	g_mutex_unlock (running->mutex);
 
-	res = g_simple_async_result_new (G_OBJECT (prompt), callback, user_data,
-	                                 gcr_mock_prompt_confirm_async);
+	task = g_task_new (prompt, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gcr_mock_prompt_confirm_async);
 
 	if (response == NULL) {
 		g_critical ("password prompt requested, but not expected");
-		g_simple_async_result_set_op_res_gboolean (res, FALSE);
+		g_task_set_task_data (task, GINT_TO_POINTER (FALSE), NULL);
 
 	} else if (response->close) {
 		complete_func = on_timeout_complete_and_close;
-		g_simple_async_result_set_op_res_gboolean (res, FALSE);
+		g_task_set_task_data (task, GINT_TO_POINTER (FALSE), NULL);
 
 	} else if (response->password) {
 		g_critical ("confirmation prompt requested, but password prompt expected");
-		g_simple_async_result_set_op_res_gboolean (res, FALSE);
+		g_task_set_task_data (task, GINT_TO_POINTER (FALSE), NULL);
 
 	} else {
 		prompt_set_or_check_properties (self, response->properties);
-		g_simple_async_result_set_op_res_gboolean (res, response->proceed);
+		g_task_set_task_data (task, GINT_TO_POINTER (response->proceed), NULL);
 	}
 
 	if (delay_msec > 0)
@@ -450,12 +453,11 @@ gcr_mock_prompt_confirm_async (GcrPrompt *prompt,
 	else
 		source = g_idle_source_new ();
 
-	g_source_set_callback (source, complete_func, g_object_ref (res), g_object_unref);
+	g_source_set_callback (source, complete_func, g_steal_pointer (&task), g_object_unref);
 	g_source_attach (source, g_main_context_get_thread_default ());
 	g_object_set_data_full (G_OBJECT (self), "delay-source", source, destroy_unref_source);
 
 	mock_response_free (response);
-	g_object_unref (res);
 }
 
 static GcrPromptReply
@@ -463,10 +465,12 @@ gcr_mock_prompt_confirm_finish (GcrPrompt *prompt,
                                 GAsyncResult *result,
                                 GError **error)
 {
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (prompt),
-	                      gcr_mock_prompt_confirm_async), GCR_PROMPT_REPLY_CANCEL);
+	g_return_val_if_fail (GCR_IS_MOCK_PROMPT (prompt), GCR_PROMPT_REPLY_CANCEL);
+	g_return_val_if_fail (g_task_is_valid (result, prompt), GCR_PROMPT_REPLY_CANCEL);
+	g_return_val_if_fail (g_async_result_is_tagged (result, gcr_mock_prompt_confirm_async), GCR_PROMPT_REPLY_CANCEL);
+	g_return_val_if_fail (error == NULL || *error == NULL, GCR_PROMPT_REPLY_CANCEL);
 
-	return g_simple_async_result_get_op_res_gboolean (G_SIMPLE_ASYNC_RESULT (result)) ?
+	return GPOINTER_TO_INT (g_task_propagate_pointer (G_TASK (result), error)) ?
 	               GCR_PROMPT_REPLY_CONTINUE : GCR_PROMPT_REPLY_CANCEL;
 }
 
@@ -494,7 +498,7 @@ gcr_mock_prompt_password_async (GcrPrompt *prompt,
 {
 	GcrMockPrompt *self = GCR_MOCK_PROMPT (prompt);
 	GSourceFunc complete_func = on_timeout_complete;
-	GSimpleAsyncResult *res;
+	GTask *task;
 	MockResponse *response;
 	GSource *source;
 	guint delay_msec;
@@ -504,30 +508,32 @@ gcr_mock_prompt_password_async (GcrPrompt *prompt,
 	response = g_queue_pop_head (&running->responses);
 	g_mutex_unlock (running->mutex);
 
-	res = g_simple_async_result_new (G_OBJECT (prompt), callback, user_data,
-	                                 gcr_mock_prompt_password_async);
+	g_clear_pointer (&self->last_password, g_free);
+
+	task = g_task_new (prompt, cancellable, callback, user_data);
+	g_task_set_source_tag (task, gcr_mock_prompt_password_async);
 
 	if (response == NULL) {
 		g_critical ("password prompt requested, but not expected");
-		g_simple_async_result_set_op_res_gpointer (res, NULL, NULL);
+		g_task_set_task_data (task, NULL, NULL);
 
 	} else if (response->close) {
-		g_simple_async_result_set_op_res_gpointer (res, NULL, NULL);
+		g_task_set_task_data (task, NULL, NULL);
 		complete_func = on_timeout_complete_and_close;
 
 	} else if (!response->password) {
 		g_critical ("password prompt requested, but confirmation prompt expected");
-		g_simple_async_result_set_op_res_gpointer (res, NULL, NULL);
+		g_task_set_task_data (task, NULL, NULL);
 
 	} else if (!response->proceed) {
 		prompt_set_or_check_properties (self, response->properties);
-		g_simple_async_result_set_op_res_gpointer (res, NULL, NULL);
+		g_task_set_task_data (task, NULL, NULL);
 
 	} else {
 		ensure_password_strength (self, response->password);
 		prompt_set_or_check_properties (self, response->properties);
-		g_simple_async_result_set_op_res_gpointer (res, response->password, g_free);
-		response->password = NULL;
+		self->last_password = g_steal_pointer (&response->password);
+		g_task_set_task_data (task, self->last_password, NULL);
 	}
 
 	mock_response_free (response);
@@ -537,11 +543,9 @@ gcr_mock_prompt_password_async (GcrPrompt *prompt,
 	else
 		source = g_idle_source_new ();
 
-	g_source_set_callback (source, complete_func, g_object_ref (res), g_object_unref);
+	g_source_set_callback (source, complete_func, g_steal_pointer (&task), g_object_unref);
 	g_source_attach (source, g_main_context_get_thread_default ());
 	g_object_set_data_full (G_OBJECT (self), "delay-source", source, destroy_unref_source);
-
-	g_object_unref (res);
 }
 
 
@@ -550,10 +554,12 @@ gcr_mock_prompt_password_finish (GcrPrompt *prompt,
                                  GAsyncResult *result,
                                  GError **error)
 {
-	g_return_val_if_fail (g_simple_async_result_is_valid (result, G_OBJECT (prompt),
-	                      gcr_mock_prompt_password_async), NULL);
+	g_return_val_if_fail (GCR_IS_MOCK_PROMPT (prompt), NULL);
+	g_return_val_if_fail (g_task_is_valid (result, prompt), NULL);
+	g_return_val_if_fail (g_async_result_is_tagged (result, gcr_mock_prompt_password_async), NULL);
+	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-	return g_simple_async_result_get_op_res_gpointer (G_SIMPLE_ASYNC_RESULT (result));
+	return g_task_propagate_pointer (G_TASK (result), error);
 
 }
 

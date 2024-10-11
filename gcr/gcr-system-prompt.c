@@ -1348,7 +1348,7 @@ gcr_system_prompt_open_async (gint timeout_seconds,
 }
 
 /**
- * gcr_system_prompt_open_for_prompter_async:
+ * gcr_system_prompt_open_for_prompter_async: (finish-func gcr_system_prompt_open_finish):
  * @prompter_name: (nullable): the prompter D-Bus name
  * @timeout_seconds: the number of seconds to wait to access the prompt, or -1
  * @cancellable: (nullable): optional cancellation object

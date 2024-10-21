@@ -29,6 +29,6 @@ if [ -z "$SFD" ]; then
 	exit 23
 fi
 
-echo -n "1lc923g4laoeurc23rc2" >&$AFD
+printf "1lc923g4laoeurc23rc2" >&$AFD
 echo "[GNUPG:] SCHEMA one two three four " >&$SFD
-echo -n "41lcg2r23c4gr3" >&$AFD
+printf "41lcg2r23c4gr3" >&$AFD

@@ -3,6 +3,6 @@
 # This script is used with test-gnupg-process
 set -euf
 
-echo -n "simple-"
-echo -n "outp"
+printf "simple-"
+printf "outp"
 echo "ut"

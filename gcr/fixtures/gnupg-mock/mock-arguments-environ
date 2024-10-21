@@ -18,5 +18,5 @@ while getopts '1:2:' arg; do
 	esac
 done
 
-echo -n $ENVIRON1 >&2
+printf $ENVIRON1 >&2
 echo $ENVIRON2 >&2

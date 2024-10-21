@@ -3,7 +3,7 @@
 # This script is used with test-gnupg-process
 set -euf
 
-echo -n "line 1: " >&2
+printf "line 1: " >&2
 echo "more line 1" >&2
 echo "line 2" >&2
 echo "line 3" >&2

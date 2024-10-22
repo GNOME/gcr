@@ -193,7 +193,7 @@ foreach _test : gck_test_names
   gck_test_bin = executable(_test_name,
     '@0@.c'.format(_test_name),
     link_with: [ gck_test_lib, egg_test_lib ],
-    dependencies: [ gck_deps, gck_testable_dep ],
+    dependencies: [ glib_deps, p11kit_dep, gck_testable_dep ],
     c_args: gck_cflags + gck_test_cflags,
     include_directories: config_h_dir,
   )

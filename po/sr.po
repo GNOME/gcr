@@ -4,26 +4,26 @@
 # Maintainer: Данило Шеган <danilo@gnome.org>
 # Reviewed on 2005-08-08 by: Игор Несторовић <igor@prevod.org>
 # Translated on 2009-05-09 by: Бранко Кокановић <branko.kokanovic@gmail.com>
-# Милош Поповић <gpopac@gmail.com>, 2010.
 # Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011—2017.
 # Марко М. Костић <marko.m.kostic@gmail.com>, 2020.
+# Милош Поповић <gpopac@gmail.com>, 2010-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-08-15 13:25+0000\n"
-"PO-Revision-Date: 2022-08-17 06:49+0200\n"
-"Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
-"Language-Team: Serbian <gnome-sr@googlegroups.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2024-09-03 21:06+0000\n"
+"PO-Revision-Date: 2024-11-12 09:39+0100\n"
+"Last-Translator: Милош Поповић <gpopac@gmail.com>\n"
+"Language-Team: Serbian <Serbian <gnome-sr@googlegroups.com>>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
 "X-Project-Style: gnome\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Gtranslator 46.1\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -65,7 +65,7 @@ msgstr "Средње име"
 msgid "Surname"
 msgstr "Презиме"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1260
 msgid "Serial Number"
 msgstr "Серијски број"
 
@@ -157,82 +157,195 @@ msgstr "МД5 са РСА"
 msgid "SHA1 with RSA"
 msgstr "СХА1 са РСА"
 
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "РСА са ОАЕП допуном"
+
 #: egg/egg-oid.c:115
+msgid "RSA with MGF1"
+msgstr "РСА са МГФ1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "РСА потпис са РСА-ПСС"
+
+#: egg/egg-oid.c:117
+msgid "SHA256 with RSA encryption"
+msgstr "СХА256 са РСА шифровањем"
+
+#: egg/egg-oid.c:118
+msgid "SHA384 with RSA encryption"
+msgstr "СХА384 са РСА шифровањем"
+
+#: egg/egg-oid.c:119
+msgid "SHA512 with RSA encryption"
+msgstr "СХА512 са РСА шифрвањем"
+
+#: egg/egg-oid.c:120
+msgid "SHA224 with RSA encryption"
+msgstr "СХА224 са РСА шифровањем"
+
+#: egg/egg-oid.c:122
 msgid "DSA"
 msgstr "ДСА"
 
-#: egg/egg-oid.c:116
+#: egg/egg-oid.c:123
 msgid "SHA1 with DSA"
 msgstr "СХА1 са ДСА"
 
-#: egg/egg-oid.c:118
+#: egg/egg-oid.c:125
 msgid "Elliptic Curve"
 msgstr "Крива елипсе"
 
-#: egg/egg-oid.c:119
+#: egg/egg-oid.c:126
 msgid "SHA1 with ECDSA"
 msgstr "СХА1 са ЕЦДСА"
 
-#: egg/egg-oid.c:120
+#: egg/egg-oid.c:127
 msgid "SHA224 with ECDSA"
 msgstr "СХА224 са ЕЦДСА"
 
-#: egg/egg-oid.c:121
+#: egg/egg-oid.c:128
 msgid "SHA256 with ECDSA"
 msgstr "СХА256 са ЕЦДСА"
 
-#: egg/egg-oid.c:122
+#: egg/egg-oid.c:129
 msgid "SHA384 with ECDSA"
 msgstr "СХА384 са ЕЦДСА"
 
-#: egg/egg-oid.c:123
+#: egg/egg-oid.c:130
 msgid "SHA512 with ECDSA"
 msgstr "СХА512 са ЕЦДСА"
 
-#: egg/egg-oid.c:125
+#: egg/egg-oid.c:132
 msgid "GOST R 34.11-94 with GOST R 34.10-2001"
 msgstr "ГОСТ Р 34.11-94 са ГОСТ Р 34.10-2001"
 
-#: egg/egg-oid.c:126
+#: egg/egg-oid.c:133
 msgid "GOST R 34.10-2001"
 msgstr "ГОСТ Р 34.10-2001"
 
-#: egg/egg-oid.c:127
+#: egg/egg-oid.c:134
 msgid "GOST R 34.10-2012 256-bit curve"
 msgstr "ГОСТ Р 34.10-2012 256-битна крива"
 
-#: egg/egg-oid.c:128
+#: egg/egg-oid.c:135
 msgid "GOST R 34.10-2012 512-bit curve"
 msgstr "ГОСТ Р 34.10-2012 512-битна крива"
 
-#: egg/egg-oid.c:129
+#: egg/egg-oid.c:136
 msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
 msgstr "ГОСТ Р 34.11-2012/256 са ГОСТ Р 34.10-2012 256-битна крива"
 
-#: egg/egg-oid.c:130
+#: egg/egg-oid.c:137
 msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
 msgstr "ГОСТ Р 34.11-2012/512 са ГОСТ Р 34.10-2012 512-битном кривом"
 
 #. Extended Key Usages
-#: egg/egg-oid.c:133
+#: egg/egg-oid.c:140
 msgid "Server Authentication"
 msgstr "Потврда идентитета сервера"
 
-#: egg/egg-oid.c:134
+#: egg/egg-oid.c:141
 msgid "Client Authentication"
 msgstr "Потврда идентитета клијента"
 
-#: egg/egg-oid.c:135
+#: egg/egg-oid.c:142
 msgid "Code Signing"
 msgstr "Потписивање кода"
 
-#: egg/egg-oid.c:136
+#: egg/egg-oid.c:143
 msgid "Email Protection"
 msgstr "Заштита ел. поште"
 
-#: egg/egg-oid.c:137
+#: egg/egg-oid.c:144
 msgid "Time Stamping"
 msgstr "Приказ датума и времена"
+
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+msgid "Certificate Authority Information Access"
+msgstr "Приступ подацима издавача уверења"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "Екстензије особина сертификата за директоријум субјекта"
+
+#: egg/egg-oid.c:149
+msgid "Subject key identifier"
+msgstr "Идентификатор кључа субјекта"
+
+#: egg/egg-oid.c:150
+msgid "Key usage"
+msgstr "Коришћење кључа"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "Период употребе приватног кључа"
+
+#: egg/egg-oid.c:152
+msgid "Subject alternative name"
+msgstr "Други називи субјекта"
+
+#: egg/egg-oid.c:153
+msgid "Issuer alternative name"
+msgstr "Други називи издавача"
+
+#: egg/egg-oid.c:154
+msgid "Basic constraints"
+msgstr "Основна ограничења"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "ЦРЛ број"
+
+#: egg/egg-oid.c:156
+msgid "Reason code"
+msgstr "Код разлога"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr "Код задржавања инструкције"
+
+#: egg/egg-oid.c:158
+msgid "Invalidity date"
+msgstr "Датум неисправности"
+
+#: egg/egg-oid.c:159
+msgid "Certificate Revocation List indicator"
+msgstr "Указивач на списак повлачења уверења"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr "Тачка за пренос издавања"
+
+#: egg/egg-oid.c:161
+msgid "Certificate issuer"
+msgstr "Издавач уверења"
+
+#: egg/egg-oid.c:162
+msgid "Name constraints"
+msgstr "Ограничења назива"
+
+#: egg/egg-oid.c:163
+msgid "Certificate Revocation List distribution points"
+msgstr "Тачке за пренос списка повлачења уверења"
+
+#: egg/egg-oid.c:164
+msgid "Certificate policies"
+msgstr "Политике сертификата"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "Мапирање политике"
+
+#: egg/egg-oid.c:166
+msgid "Policy constraints"
+msgstr "Ограничења политике"
+
+#: egg/egg-oid.c:167
+msgid "Authority key identifier"
+msgstr "Идентификатор кључа издавача"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -271,196 +384,196 @@ msgstr "Путања има лош број издања."
 msgid "The stream was closed"
 msgstr "Ток је затворен"
 
-#: gcr/gcr-certificate.c:882
+#: gcr/gcr-certificate.c:913
 msgid "Key Algorithm"
 msgstr "Алгоритам кључа"
 
-#: gcr/gcr-certificate.c:888
+#: gcr/gcr-certificate.c:919
 msgid "Key Parameters"
 msgstr "Параметри кључа"
 
-#: gcr/gcr-certificate.c:895
+#: gcr/gcr-certificate.c:926
 msgid "Key Size"
 msgstr "Величина кључа"
 
-#: gcr/gcr-certificate.c:905
+#: gcr/gcr-certificate.c:936
 msgid "Key SHA1 Fingerprint"
 msgstr "СХА1 отисак кључа"
 
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+#: gcr/gcr-certificate.c:940 gcr/gcr-parser.c:334
 msgid "Public Key"
 msgstr "Јавни кључ"
 
-#: gcr/gcr-certificate.c:923
+#: gcr/gcr-certificate.c:954
 msgid "Basic Constraints"
 msgstr "Основна ограничења"
 
-#: gcr/gcr-certificate.c:924
+#: gcr/gcr-certificate.c:955
 msgid "Certificate Authority"
 msgstr "Издавач уверења"
 
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:955 gcr/gcr-certificate.c:1131
 msgid "Yes"
 msgstr "Да"
 
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:955 gcr/gcr-certificate.c:1131
 msgid "No"
 msgstr "Не"
 
-#: gcr/gcr-certificate.c:927
+#: gcr/gcr-certificate.c:958
 msgid "Unlimited"
 msgstr "Неограничено"
 
-#: gcr/gcr-certificate.c:931
+#: gcr/gcr-certificate.c:962
 msgid "Max Path Length"
 msgstr "Највећа дужина путање"
 
-#: gcr/gcr-certificate.c:955
+#: gcr/gcr-certificate.c:986
 msgid "Extended Key Usage"
 msgstr "Проширено коришћење кључа"
 
-#: gcr/gcr-certificate.c:956
+#: gcr/gcr-certificate.c:987
 msgid "Allowed Purposes"
 msgstr "Дозвољене сврхе"
 
-#: gcr/gcr-certificate.c:973
+#: gcr/gcr-certificate.c:1004
 msgid "Subject Key Identifier"
 msgstr "Идентификатор кључа субјекта"
 
-#: gcr/gcr-certificate.c:976
+#: gcr/gcr-certificate.c:1007
 msgid "Key Identifier"
 msgstr "Идентификатор кључа"
 
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate.c:1016
 msgid "Digital signature"
 msgstr "Дигитални потпис"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate.c:1017
 msgid "Non repudiation"
 msgstr "Не-одбацивање"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate.c:1018
 msgid "Key encipherment"
 msgstr "Замућивање кључа"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate.c:1019
 msgid "Data encipherment"
 msgstr "Замућивање података"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate.c:1020
 msgid "Key agreement"
 msgstr "Сагласност кључа"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate.c:1021
 msgid "Certificate signature"
 msgstr "Потпис уверења"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate.c:1022
 msgid "Revocation list signature"
 msgstr "Списак опозива потписа"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate.c:1023
 msgid "Encipher only"
 msgstr "Само шифруј"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate.c:1024
 msgid "Decipher only"
 msgstr "Само дешифруј"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate.c:1045
 msgid "Key Usage"
 msgstr "Коришћење кључа"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1046
 msgid "Usages"
 msgstr "Употребе"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1064
 msgid "Subject Alternative Names"
 msgstr "Други називи субјекта"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1086
 msgid "Extension"
 msgstr "Проширење"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1090
 msgid "Identifier"
 msgstr "Идентификатор"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1091
 msgid "Value"
 msgstr "Вредност"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1131
 msgid "Critical"
 msgstr "Критично"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1207 gcr/gcr-certificate.c:1439 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Уверење"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1214 gcr/gcr-certificate.c:1219
 msgid "Unknown"
 msgstr "Непознат"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1215
 msgid "Identity"
 msgstr "Идентитет"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1220
 msgid "Verified by"
 msgstr "Оверен"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1226
 msgid "Expires"
 msgstr "Истиче"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1234
 msgid "Subject Name"
 msgstr "Назив предмета"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1240
 msgid "Issuer Name"
 msgstr "Име издаваоца"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1246
 msgid "Issued Certificate"
 msgstr "Издато уверење"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1253
 msgid "Version"
 msgstr "Издање"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1267
 msgid "Not Valid Before"
 msgstr "Не важи пре"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1276
 msgid "Not Valid After"
 msgstr "Не важи после"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1285
 msgid "Certificate Fingerprints"
 msgstr "Отисци уверења"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1295
 msgid "Public Key Info"
 msgstr "Подаци о јавном кључу"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1312 gcr/gcr-certificate.c:1323
 msgid "Signature"
 msgstr "Потпис"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1315
 msgid "Signature Algorithm"
 msgstr "Алгоритам потписа"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1319
 msgid "Signature Parameters"
 msgstr "Параметри потписа"
 
@@ -527,10 +640,6 @@ msgstr "ГнуПГ привезак кључева"
 msgid "GnuPG Keyring: %s"
 msgstr "ГнуПГ привезак кључева: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "ПГП кључ"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -541,28 +650,32 @@ msgstr "Гнупг процес је изашао са кодом: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Гнупг процес је окончан сигналом: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "Радња је отказана"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Приватни кључ"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "ПГП кључ"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Захтев уверења"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Неппознати или неподржани подаци."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Не могу да обрадим неисправне или оштећене податке."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "Подаци су закључани"
 
@@ -605,7 +718,7 @@ msgstr "Откључај"
 msgid "The unlock password was incorrect"
 msgstr "Лозинка за откључавање је нетачна"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Неименовано"
 
@@ -613,11 +726,11 @@ msgstr "Неименовано"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Унесите вашу фразу за безбедну OpenSSH шкољку"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Непознате или недоступне особине кључа"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Не могу да изградим јавни кључ"
 
@@ -633,15 +746,15 @@ msgstr "Други упит је већ у току"
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Не могу да пронађем место да ускладиштим прикачено уверење"
 
-#: tools/gtk3/viewer.c:23 tools/gtk4/viewer.c:23
+#: tools/viewer/viewer.c:23
 msgid "GCR Certificate Viewer"
 msgstr "Прегледач ГЦР уверења"
 
-#: tools/gtk3/viewer.c:30 tools/gtk4/viewer.c:30
+#: tools/viewer/viewer.c:30
 msgid "Show the application's version"
 msgstr "Приказује издање програма"
 
-#: tools/gtk3/viewer.c:32 tools/gtk4/viewer.c:32
+#: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr "[датотека...]"
 
@@ -689,9 +802,6 @@ msgstr "[датотека...]"
 #~ msgid "Could not display file"
 #~ msgstr "Не могу да прикажем датотеку"
 
-#~ msgid "Reason"
-#~ msgstr "Разлог"
-
 #, c-format
 #~ msgid "Cannot display a file of this type."
 #~ msgstr "Не могу да прикажем датотеку ове врсте."
@@ -714,9 +824,6 @@ msgstr "[датотека...]"
 #~ msgctxt "capability"
 #~ msgid "Disabled"
 #~ msgstr "Искључен"
-
-#~ msgid "Invalid"
-#~ msgstr "Неисправан"
 
 #~ msgctxt "ownertrust"
 #~ msgid "Disabled"
@@ -835,9 +942,6 @@ msgstr "[датотека...]"
 
 #~ msgid "Subkey revocation signature"
 #~ msgstr "Потпис за повлачење поткључа"
-
-#~ msgid "Certification revocation signature"
-#~ msgstr "Потпис повлачења уверења"
 
 #~ msgid "Timestamp signature"
 #~ msgstr "Потпис временске ознаке"
@@ -988,9 +1092,6 @@ msgstr "[датотека...]"
 
 #~ msgid "_Save"
 #~ msgstr "_Сачувај"
-
-#~ msgid "Certificate files"
-#~ msgstr "Датотеке уверења"
 
 #~ msgid "PEM files"
 #~ msgstr "ПЕМ датотеке"

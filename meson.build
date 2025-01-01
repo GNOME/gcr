@@ -39,7 +39,7 @@ gcr_base_basename = 'gcr-base-@0@'.format(gcr_api_version)
 gcr_basename = 'gcr-@0@'.format(gcr_api_version)
 
 # Dependencies
-min_glib_version = '2.68'
+min_glib_version = '2.74'
 glib_dep = dependency('glib-2.0', version: '>=' + min_glib_version)
 gmodule_dep = dependency('gmodule-no-export-2.0', version: '>=' + min_glib_version)
 gthread_dep = dependency('gthread-2.0', version: '>=' + min_glib_version)

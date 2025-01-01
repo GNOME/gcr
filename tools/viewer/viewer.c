@@ -146,7 +146,7 @@ main (int    argc,
 	GtkApplication *app;
 	int status;
 
-	app = gtk_application_new ("org.gnome.GcrViewerGtk4", G_APPLICATION_FLAGS_NONE);
+	app = gtk_application_new ("org.gnome.GcrViewerGtk4", G_APPLICATION_DEFAULT_FLAGS);
 	g_application_add_main_option_entries (G_APPLICATION (app), options);
 	g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
 	status = g_application_run (G_APPLICATION (app), argc, argv);

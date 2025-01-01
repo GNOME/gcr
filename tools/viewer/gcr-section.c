@@ -82,7 +82,7 @@ gcr_section_create_row (GObject *item,
 	              "xalign", 0.0,
 	              "halign", GTK_ALIGN_START,
 	              NULL);
-	gtk_style_context_add_class (gtk_widget_get_style_context (label), "caption");
+	gtk_widget_add_css_class (label, "caption");
 	value = g_object_new (GTK_TYPE_LABEL,
 	                      "xalign", 1.0,
 	                      "halign", GTK_ALIGN_END,
@@ -228,11 +228,11 @@ gcr_section_init (GcrSection *self)
 	              "halign", GTK_ALIGN_START,
 	              "hexpand", TRUE,
 	              NULL);
-	gtk_style_context_add_class (gtk_widget_get_style_context (self->label), "title");
-	gtk_style_context_add_class (gtk_widget_get_style_context (self->label), "caption-heading");
+	gtk_widget_add_css_class (self->label, "title");
+	gtk_widget_add_css_class (self->label, "caption-heading");
 	self->listbox = gtk_list_box_new ();
-	gtk_style_context_add_class (gtk_widget_get_style_context (self->listbox), "frame");
-	gtk_style_context_add_class (gtk_widget_get_style_context (self->listbox), "rich-list");
+	gtk_widget_add_css_class (self->listbox, "frame");
+	gtk_widget_add_css_class (self->listbox, "rich-list");
 	gtk_list_box_set_selection_mode (GTK_LIST_BOX (self->listbox), GTK_SELECTION_NONE);
 	self->size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 	gtk_widget_insert_after (self->label, GTK_WIDGET (self), NULL);

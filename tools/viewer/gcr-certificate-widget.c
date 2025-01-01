@@ -108,7 +108,7 @@ on_reveal_button_clicked (GtkWidget *button,
 			  GcrCertificateWidget *self)
 {
 	g_assert (GCR_IS_CERTIFICATE_WIDGET (self));
-	gtk_widget_hide (button);
+	gtk_widget_set_visible (button, FALSE);
 	gtk_revealer_set_reveal_child (GTK_REVEALER (self->revealer), TRUE);
 }
 

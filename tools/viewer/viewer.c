@@ -136,7 +136,7 @@ activate (GtkApplication* app,
 	}
 
 	gtk_window_set_child (GTK_WINDOW (window), scrolled);
-	gtk_widget_show (window);
+	gtk_widget_set_visible (window, TRUE);
 }
 
 int

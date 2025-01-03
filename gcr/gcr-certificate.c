@@ -1081,6 +1081,27 @@ append_extension_subject_alt_name (GcrCertificateExtensionSubjectAltName *extens
 }
 
 static GcrCertificateSection *
+append_extension_certificate_policies (GcrCertificateExtensionCertificatePolicies *extension)
+{
+	GcrCertificateSection *section;
+	unsigned int n_policies;
+
+	section = _gcr_certificate_section_new (_("Certificate Policies"), FALSE);
+
+	n_policies = g_list_model_get_n_items (G_LIST_MODEL (extension));
+	for (unsigned int i = 0; i < n_policies; i++) {
+		GcrCertificatePolicy *policy;
+		const char *name;
+
+		policy = gcr_certificate_extension_certificate_policies_get_policy (extension, i);
+		name = gcr_certificate_policy_get_name (policy);
+		_gcr_certificate_section_new_field (section, _("Policy"), name);
+	}
+
+	return section;
+}
+
+static GcrCertificateSection *
 append_extension_hex (GQuark oid,
                       GBytes *value)
 {
@@ -1121,6 +1142,8 @@ append_extension (GcrCertificate          *self,
 		section = append_extension_key_usage (GCR_CERTIFICATE_EXTENSION_KEY_USAGE (extension));
 	else if (oid == GCR_OID_SUBJECT_ALT_NAME)
 		section = append_extension_subject_alt_name (GCR_CERTIFICATE_EXTENSION_SUBJECT_ALT_NAME (extension));
+	else if (oid == GCR_OID_CERTIFICATE_POLICIES)
+		section = append_extension_certificate_policies (GCR_CERTIFICATE_EXTENSION_CERTIFICATE_POLICIES (extension));
 
 	/* Otherwise the default raw display */
 	if (!section) {

@@ -383,6 +383,66 @@ test_key_usage (void)
 	g_object_unref (ext);
 }
 
+static void
+test_certificate_policies (void)
+{
+	const guint8 policies[] = {
+		0x30, 0x41, /* Policies is a SEQUENCE of 65 bytes */
+		/* Policy 1: DigiCert ANSI Organizational Identifier (2.16.840.1.114412.2.1) */
+		0x30, 0x0b,
+		0x06, 0x09, 0x60, 0x86, 0x48, 0x01, 0x86, 0xfd, 0x6c, 0x02, 0x01,
+		/* Policy 2: Extended Validation (2.23.140.1.1) */
+		0x30, 0x32,
+		0x06, 0x05, 0x67, 0x81, 0x0c, 0x01, 0x01,
+		/* Policy 2 qualifier 1: Practices Statement (1.3.6.1.5.5.7.2.1) */
+		0x30, 0x29, 0x30, 0x27,
+		0x06, 0x08, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x02, 0x01,
+		/* http://www.digicert.com/CPS */
+		0x16, 0x1b, 0x68, 0x74, 0x74, 0x70, 0x3a, 0x2f, 0x2f, 0x77,
+		0x77, 0x77, 0x2e, 0x64, 0x69, 0x67, 0x69, 0x63, 0x65, 0x72,
+		0x74, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x43, 0x50, 0x53,
+	};
+	GBytes *bytes;
+	GcrCertificateExtension *ext;
+	GcrCertificateExtensionCertificatePolicies *ext_cp;
+	GcrCertificatePolicy *policy;
+	GcrCertificatePolicyQualifier *qualifier;
+
+	bytes = g_bytes_new_static (policies, sizeof(policies));
+	ext = _gcr_certificate_extension_certificate_policies_parse (GCR_OID_CERTIFICATE_POLICIES,
+	                                                             TRUE,
+	                                                             bytes,
+	                                                             NULL);
+	g_assert_nonnull (ext);
+	g_assert_true (GCR_IS_CERTIFICATE_EXTENSION_CERTIFICATE_POLICIES (ext));
+
+	ext_cp = GCR_CERTIFICATE_EXTENSION_CERTIFICATE_POLICIES (ext);
+
+	g_assert_cmpint (g_list_model_get_n_items (G_LIST_MODEL (ext_cp)), ==, 2);
+	g_assert_null (g_list_model_get_item (G_LIST_MODEL (ext_cp), 2));
+
+	policy = gcr_certificate_extension_certificate_policies_get_policy (ext_cp, 0);
+	g_assert_nonnull (policy);
+	g_assert_true (GCR_IS_CERTIFICATE_POLICY (policy));
+	g_assert_cmpstr (gcr_certificate_policy_get_oid (policy), ==, "2.16.840.1.114412.2.1");
+	g_assert_cmpint (g_list_model_get_n_items (G_LIST_MODEL (policy)), ==, 0);
+	g_assert_null (g_list_model_get_item (G_LIST_MODEL (policy), 0));
+
+	policy = gcr_certificate_extension_certificate_policies_get_policy (ext_cp, 1);
+	g_assert_nonnull (policy);
+	g_assert_true (GCR_IS_CERTIFICATE_POLICY (policy));
+	g_assert_cmpstr (gcr_certificate_policy_get_oid (policy), ==, "2.23.140.1.1");
+
+	g_assert_cmpint (g_list_model_get_n_items (G_LIST_MODEL (policy)), ==, 1);
+	qualifier = g_list_model_get_item (G_LIST_MODEL (policy), 0);
+	g_assert_true (GCR_IS_CERTIFICATE_POLICY_QUALIFIER (qualifier));
+	g_assert_cmpstr (gcr_certificate_policy_qualifier_get_oid (qualifier), ==, "1.3.6.1.5.5.7.2.1");
+	g_object_unref (qualifier);
+	g_assert_null (g_list_model_get_item (G_LIST_MODEL (policy), 1));
+
+	g_object_unref (ext);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -409,6 +469,7 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/certificate/interface_elements", Test, NULL, setup, test_interface_elements, teardown);
 	g_test_add_func ("/gcr/certificate/subject_alt_name", test_subject_alt_name);
 	g_test_add_func ("/gcr/certificate/key_usage", test_key_usage);
+	g_test_add_func ("/gcr/certificate/certificate_policies", test_certificate_policies);
 
 	return g_test_run ();
 }

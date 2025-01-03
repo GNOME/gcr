@@ -876,3 +876,215 @@ out:
 		egg_asn1x_destroy (asn);
 	return ret ? GCR_CERTIFICATE_EXTENSION (ret) : NULL;
 }
+
+/* Certificate Policies*/
+
+/**
+ * GcrCertificatePolicy:
+ *
+ * An object describing a certificate policy (part of the certificate policies
+ * extension).
+ */
+
+struct _GcrCertificatePolicy {
+	GObject parent_instace;
+
+	GQuark oid;
+	GQuark *qualifiers;
+};
+
+G_DEFINE_TYPE (GcrCertificatePolicy, gcr_certificate_policy, G_TYPE_OBJECT)
+
+static void
+gcr_certificate_policy_finalize (GObject *obj)
+{
+	GcrCertificatePolicy *self = GCR_CERTIFICATE_POLICY (obj);
+
+	G_OBJECT_CLASS (gcr_certificate_policy_parent_class)->finalize (obj);
+
+	g_free (self->qualifiers);
+}
+
+static void
+gcr_certificate_policy_class_init (GcrCertificatePolicyClass *klass)
+{
+	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+	gobject_class->finalize = gcr_certificate_policy_finalize;
+}
+
+static void
+gcr_certificate_policy_init (GcrCertificatePolicy *self)
+{
+}
+
+/**
+ * gcr_certificate_policy_get_oid:
+ *
+ * Returns the OID string that describes this certificate policy.
+ *
+ * Returns: The policy OID
+ */
+const char *
+gcr_certificate_policy_get_oid (GcrCertificatePolicy *self)
+{
+	g_return_val_if_fail (GCR_IS_CERTIFICATE_POLICY (self), NULL);
+	return g_quark_to_string (self->oid);
+}
+
+/**
+ * gcr_certificate_policy_get_description:
+ *
+ * Returns user-friendly name of this certificate policy, if known.
+ *
+ * Returns: The policy OID
+ */
+const char *
+gcr_certificate_policy_get_name (GcrCertificatePolicy *self)
+{
+	g_return_val_if_fail (GCR_IS_CERTIFICATE_POLICY (self), NULL);
+	return egg_oid_get_description (self->oid);
+}
+
+
+struct _GcrCertificateExtensionCertificatePolicies
+{
+	GcrCertificateExtension parent_instance;
+
+	GPtrArray *policies;
+};
+
+G_DEFINE_TYPE (GcrCertificateExtensionCertificatePolicies,
+               gcr_certificate_extension_certificate_policies,
+               GCR_TYPE_CERTIFICATE_EXTENSION)
+
+static void
+gcr_certificate_extension_certificate_policies_finalize (GObject *obj)
+{
+	GcrCertificateExtensionCertificatePolicies *self = GCR_CERTIFICATE_EXTENSION_CERTIFICATE_POLICIES (obj);
+
+	G_OBJECT_CLASS (gcr_certificate_extension_certificate_policies_parent_class)->finalize (obj);
+
+	g_ptr_array_unref (self->policies);
+}
+
+static void
+gcr_certificate_extension_certificate_policies_class_init (GcrCertificateExtensionCertificatePoliciesClass *klass)
+{
+	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+	gobject_class->finalize = gcr_certificate_extension_certificate_policies_finalize;
+}
+
+static void
+gcr_certificate_extension_certificate_policies_init (GcrCertificateExtensionCertificatePolicies *self)
+{
+	self->policies = g_ptr_array_new_with_free_func (g_object_unref);
+}
+
+/**
+ * gcr_certificate_extension_certificate_policies_get_n_policies:
+ *
+ * Returns the number of policies that are defined in the extension.
+ *
+ * Returns: The number of policies.
+ */
+unsigned int
+gcr_certificate_extension_certificate_policies_get_n_policies (GcrCertificateExtensionCertificatePolicies *self)
+{
+	g_return_val_if_fail (GCR_IS_CERTIFICATE_EXTENSION_CERTIFICATE_POLICIES (self), 0);
+	return self->policies->len;
+}
+
+/**
+ * gcr_certificate_extension_certificate_policies_get_policy:
+ *
+ * Returns the policy at a given position
+ *
+ * Returns: (transfer none): The policy at position @position
+ */
+GcrCertificatePolicy *
+gcr_certificate_extension_certificate_policies_get_policy (GcrCertificateExtensionCertificatePolicies *self,
+                                                           unsigned int                                position)
+{
+	g_return_val_if_fail (GCR_IS_CERTIFICATE_EXTENSION_CERTIFICATE_POLICIES (self), NULL);
+	g_return_val_if_fail (position < self->policies->len, NULL);
+
+	return g_ptr_array_index (self->policies, position);
+}
+
+GcrCertificateExtension *
+_gcr_certificate_extension_certificate_policies_parse (GQuark oid,
+                                                       gboolean critical,
+                                                       GBytes *value,
+                                                       GError **error)
+{
+	GcrCertificateExtensionCertificatePolicies *ret = NULL;
+	GNode *asn = NULL;
+	GPtrArray *policies;
+	unsigned int n_policies;
+
+	g_return_val_if_fail (value != NULL, NULL);
+
+	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "CertificatePolicies", value);
+	if (asn == NULL) {
+		set_general_parse_error (error,
+		                         "Couldn't decode CertificatePolicies");
+		goto out;
+	}
+
+	n_policies = egg_asn1x_count (asn);
+	policies = g_ptr_array_new_full (n_policies, g_object_unref);
+	for (unsigned int i = 0; i < n_policies; i++) {
+		GNode *node;
+		GQuark oid;
+		GcrCertificatePolicy *policy;
+
+		node = egg_asn1x_node (asn, i + 1, "policyIdentifier", NULL);
+		if (node == NULL)
+			break;
+
+		oid = egg_asn1x_get_oid_as_quark (node);
+		if (oid == 0) {
+			set_general_parse_error (error,
+						 "Invalid policyIdentifier for cert policy");
+			goto out;
+		}
+
+		policy = g_object_new (GCR_TYPE_CERTIFICATE_POLICY, NULL);
+		policy->oid = oid;
+		g_ptr_array_add (policies, policy);
+
+		node = egg_asn1x_node (asn, i + 1, "policyQualifiers", NULL);
+		if (node != NULL) {
+			unsigned int n_qualifiers;
+			GArray *qualifiers;
+
+			n_qualifiers = egg_asn1x_count (node);
+			qualifiers = g_array_new (TRUE, TRUE, sizeof (GQuark));
+			for (unsigned int j = 0; j < n_qualifiers; j++) {
+				GNode *q_node;
+				GQuark q_oid;
+
+				q_node = egg_asn1x_node (node, i + 1, "policyQualifierId", NULL);
+				if (q_node == NULL)
+					break;
+				q_oid = egg_asn1x_get_oid_as_quark (q_node);
+				g_array_append_val (qualifiers, q_oid);
+			}
+			policy->qualifiers = (GQuark*) g_array_free (qualifiers, FALSE);
+		}
+	}
+
+	ret = g_object_new (GCR_TYPE_CERTIFICATE_EXTENSION_CERTIFICATE_POLICIES,
+	                    "critical", critical,
+	                    "value", value,
+	                    NULL);
+	_gcr_certificate_extension_set_oid (GCR_CERTIFICATE_EXTENSION (ret), oid);
+	g_ptr_array_extend_and_steal (ret->policies, g_steal_pointer (&policies));
+
+out:
+	if (asn != NULL)
+		egg_asn1x_destroy (asn);
+	return ret ? GCR_CERTIFICATE_EXTENSION (ret) : NULL;
+}

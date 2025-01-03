@@ -166,6 +166,9 @@ static OidInfo oid_info[] = {
 	{ 0, "2.5.29.34", "policyConstraints", N_("Policy constraints"), 0 },
 	{ 0, "2.5.29.35", "authorityKeyIdentifier", N_("Authority key identifier"), 0 },
 
+	/* Certificate Policies */
+	{ 0, "2.23.140.1.1", "extended-validation", N_("Extended Validation"), 0 },
+
 	{ 0, NULL, NULL, NULL, FALSE }
 };
 

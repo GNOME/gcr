@@ -102,6 +102,29 @@ G_DECLARE_FINAL_TYPE (GcrCertificateExtensionSubjectAltName,
 GcrGeneralName * gcr_certificate_extension_subject_alt_name_get_name          (GcrCertificateExtensionSubjectAltName  *self,
                                                                                unsigned int                            i);
 
+/* Certificate Policies */
+
+#define GCR_TYPE_CERTIFICATE_POLICY (gcr_certificate_policy_get_type ())
+G_DECLARE_FINAL_TYPE (GcrCertificatePolicy,
+                      gcr_certificate_policy,
+                      GCR, CERTIFICATE_POLICY,
+                      GObject)
+
+const char *   gcr_certificate_policy_get_oid           (GcrCertificatePolicy *self);
+
+const char *   gcr_certificate_policy_get_name          (GcrCertificatePolicy *self);
+
+#define GCR_TYPE_CERTIFICATE_EXTENSION_CERTIFICATE_POLICIES (gcr_certificate_extension_certificate_policies_get_type ())
+G_DECLARE_FINAL_TYPE (GcrCertificateExtensionCertificatePolicies,
+                      gcr_certificate_extension_certificate_policies,
+                      GCR, CERTIFICATE_EXTENSION_CERTIFICATE_POLICIES,
+                      GcrCertificateExtension)
+
+unsigned int             gcr_certificate_extension_certificate_policies_get_n_policies (GcrCertificateExtensionCertificatePolicies *self);
+
+GcrCertificatePolicy *   gcr_certificate_extension_certificate_policies_get_policy     (GcrCertificateExtensionCertificatePolicies *self,
+                                                                                        unsigned int                                position);
+
 
 G_END_DECLS
 

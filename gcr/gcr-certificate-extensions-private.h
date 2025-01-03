@@ -56,6 +56,10 @@ GcrCertificateExtension * _gcr_certificate_extension_subject_alt_name_parse     
                                                                                    gboolean critical,
                                                                                    GBytes *value,
                                                                                    GError **error);
+GcrCertificateExtension * _gcr_certificate_extension_certificate_policies_parse   (GQuark oid,
+                                                                                   gboolean critical,
+                                                                                   GBytes *value,
+                                                                                   GError **error);
 
 typedef enum {
 	GCR_KEY_USAGE_DIGITAL_SIGNATURE = 1 << 0,

@@ -302,7 +302,7 @@ prepare_sign_request (EggBuffer *req)
 	ret = egg_buffer_add_string (req, "data");
 	g_assert_true (ret);
 
-	ret = egg_buffer_add_uint32 (req, 0);
+	ret = egg_buffer_add_uint32 (req, GCR_SSH_FLAG_RSA_SHA2_256);
 	g_assert_true (ret);
 
 	ret = egg_buffer_set_uint32 (req, 0, req->len - 4);

@@ -105,7 +105,8 @@ gcr_certificate_extension_set_property (GObject      *object,
 		priv->critical = g_value_get_boolean (value);
 		break;
 	case PROP_VALUE:
-		priv->value = g_value_dup_boxed (value);
+		/* Note that we take ownership here */
+		priv->value = g_value_get_boxed (value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -130,9 +131,9 @@ gcr_certificate_extension_finalize (GObject *obj)
 	GcrCertificateExtensionPrivate *priv =
 		gcr_certificate_extension_get_instance_private (self);
 
-	G_OBJECT_CLASS (gcr_certificate_extension_parent_class)->finalize (obj);
-
 	g_bytes_unref (priv->value);
+
+	G_OBJECT_CLASS (gcr_certificate_extension_parent_class)->finalize (obj);
 }
 
 static void

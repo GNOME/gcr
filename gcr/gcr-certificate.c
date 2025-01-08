@@ -1092,7 +1092,8 @@ append_extension_hex (GQuark oid,
 	/* Extension type */
 	text = egg_oid_get_description (oid);
 	_gcr_certificate_section_new_field (section, _("Identifier"), text);
-	_gcr_certificate_section_new_field_take_bytes (section, _("Value"), g_steal_pointer (&value));
+	_gcr_certificate_section_new_field_take_bytes (section, _("Value"),
+	                                               g_bytes_ref (value));
 
 	return section;
 }
@@ -1126,7 +1127,7 @@ append_extension (GcrCertificate          *self,
 		GBytes *value;
 
 		value = gcr_certificate_extension_get_value (extension);
-		section = append_extension_hex (oid, g_steal_pointer (&value));
+		section = append_extension_hex (oid, value);
 	}
 
 	/* Critical */

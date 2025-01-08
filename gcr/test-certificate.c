@@ -326,10 +326,8 @@ test_subject_alt_name (void)
 	bytes = g_bytes_new_static (extension, sizeof(extension));
 	ext = _gcr_certificate_extension_subject_alt_name_parse (GCR_OID_SUBJECT_ALT_NAME,
 	                                                         TRUE,
-	                                                         bytes,
+	                                                         g_steal_pointer (&bytes),
 	                                                         NULL);
-	g_bytes_unref (bytes);
-
 	g_assert_nonnull (ext);
 
 	san_ext = GCR_CERTIFICATE_EXTENSION_SUBJECT_ALT_NAME (ext);
@@ -355,36 +353,34 @@ test_subject_alt_name (void)
 static void
 test_key_usage (void)
 {
-    const guint8 usage[] = {
-            // ASN.1 encoded BIT STRING (16 bit) 1000011110000000
-            0x03, 0x03, 0x00, 0x87, 0x80
-    };
-    GBytes *bytes;
-    GcrCertificateExtension *ext;
-    gulong key_usage;
+	const guint8 usage[] = {
+	        // ASN.1 encoded BIT STRING (16 bit) 1000011110000000
+	        0x03, 0x03, 0x00, 0x87, 0x80
+	};
+	GBytes *bytes;
+	GcrCertificateExtension *ext;
+	gulong key_usage;
 
-    bytes = g_bytes_new_static (usage, sizeof(usage));
-    ext = _gcr_certificate_extension_key_usage_parse (GCR_OID_KEY_USAGE,
-                                                      TRUE,
-                                                      bytes,
-                                                      NULL);
-    g_bytes_unref (bytes);
+	bytes = g_bytes_new_static (usage, sizeof(usage));
+	ext = _gcr_certificate_extension_key_usage_parse (GCR_OID_KEY_USAGE,
+	                                                  TRUE,
+	                                                  g_steal_pointer (&bytes),
+	                                                  NULL);
+	g_assert_nonnull (ext);
+	g_assert_true (GCR_IS_CERTIFICATE_EXTENSION_KEY_USAGE (ext));
 
-    g_assert_nonnull (ext);
-    g_assert_true (GCR_IS_CERTIFICATE_EXTENSION_KEY_USAGE (ext));
+	key_usage = gcr_certificate_extension_key_usage_get_usages (GCR_CERTIFICATE_EXTENSION_KEY_USAGE (ext));
+	g_assert_cmpint (key_usage & GCR_KEY_USAGE_DIGITAL_SIGNATURE, ==, GCR_KEY_USAGE_DIGITAL_SIGNATURE);
+	g_assert_cmpint (key_usage & GCR_KEY_USAGE_NON_REPUDIATION, ==, 0);
+	g_assert_cmpint (key_usage & GCR_KEY_USAGE_KEY_ENCIPHERMENT, ==, 0);
+	g_assert_cmpint (key_usage & GCR_KEY_USAGE_DATA_ENCIPHERMENT, ==, 0);
+	g_assert_cmpint (key_usage & GCR_KEY_USAGE_KEY_AGREEMENT, ==, 0);
+	g_assert_cmpint (key_usage & GCR_KEY_USAGE_KEY_CERT_SIGN, ==, GCR_KEY_USAGE_KEY_CERT_SIGN);
+	g_assert_cmpint (key_usage & GCR_KEY_USAGE_CRL_SIGN, ==, GCR_KEY_USAGE_CRL_SIGN);
+	g_assert_cmpint (key_usage & GCR_KEY_USAGE_ENCIPHER_ONLY, ==, GCR_KEY_USAGE_ENCIPHER_ONLY);
+	g_assert_cmpint (key_usage & GCR_KEY_USAGE_DECIPHER_ONLY, ==, GCR_KEY_USAGE_DECIPHER_ONLY);
 
-    key_usage = gcr_certificate_extension_key_usage_get_usages (GCR_CERTIFICATE_EXTENSION_KEY_USAGE (ext));
-    g_assert_cmpint (key_usage & GCR_KEY_USAGE_DIGITAL_SIGNATURE, ==, GCR_KEY_USAGE_DIGITAL_SIGNATURE);
-    g_assert_cmpint (key_usage & GCR_KEY_USAGE_NON_REPUDIATION, ==, 0);
-    g_assert_cmpint (key_usage & GCR_KEY_USAGE_KEY_ENCIPHERMENT, ==, 0);
-    g_assert_cmpint (key_usage & GCR_KEY_USAGE_DATA_ENCIPHERMENT, ==, 0);
-    g_assert_cmpint (key_usage & GCR_KEY_USAGE_KEY_AGREEMENT, ==, 0);
-    g_assert_cmpint (key_usage & GCR_KEY_USAGE_KEY_CERT_SIGN, ==, GCR_KEY_USAGE_KEY_CERT_SIGN);
-    g_assert_cmpint (key_usage & GCR_KEY_USAGE_CRL_SIGN, ==, GCR_KEY_USAGE_CRL_SIGN);
-    g_assert_cmpint (key_usage & GCR_KEY_USAGE_ENCIPHER_ONLY, ==, GCR_KEY_USAGE_ENCIPHER_ONLY);
-    g_assert_cmpint (key_usage & GCR_KEY_USAGE_DECIPHER_ONLY, ==, GCR_KEY_USAGE_DECIPHER_ONLY);
-
-    g_object_unref (ext);
+	g_object_unref (ext);
 }
 
 int

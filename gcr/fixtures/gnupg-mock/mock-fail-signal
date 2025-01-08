@@ -3,6 +3,6 @@
 # This script is used with test-gnupg-process
 set -euf
 
-echo $1 > /tmp/xxx
+echo $1 > $(mktemp -t gcr-test-mock-fail-signal-XXXXXX)
 kill -s $1 $$
 sleep 5

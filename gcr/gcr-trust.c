@@ -135,8 +135,8 @@ perform_is_certificate_pinned (GckAttributes *search,
  * Check if @certificate is pinned for @purpose to communicate with @peer.
  * A pinned certificate overrides all other certificate verification.
  *
- * This call may block, see gcr_trust_is_certificate_pinned_async() for the
- * non-blocking version.
+ * This call may block, see [func@Gcr.trust_is_certificate_pinned_async] for
+ * the non-blocking version.
  *
  * In the case of an error, %FALSE is also returned. Check @error to detect
  * if an error occurred.
@@ -224,7 +224,7 @@ gcr_trust_is_certificate_pinned_async (GcrCertificate *certificate, const gchar 
  * @error: a #GError, or %NULL
  *
  * Finishes an asynchronous operation started by
- * gcr_trust_is_certificate_pinned_async().
+ * [func@Gcr.trust_is_certificate_pinned_async].
  *
  * In the case of an error, %FALSE is also returned. Check @error to detect
  * if an error occurred.
@@ -347,8 +347,8 @@ perform_add_pinned_certificate (GckAttributes *search,
  * If the same pinned certificate already exists, then this operation
  * does not add another, and succeeds without error.
  *
- * This call may block, see gcr_trust_add_pinned_certificate_async() for the
- * non-blocking version.
+ * This call may block, see [func@Gcr.trust_add_pinned_certificate_async] for
+ * the non-blocking version.
  *
  * Returns: %TRUE if the pinned certificate is recorded successfully
  */
@@ -436,7 +436,7 @@ gcr_trust_add_pinned_certificate_async (GcrCertificate *certificate, const gchar
  * @error: a #GError, or %NULL
  *
  * Finishes an asynchronous operation started by
- * gcr_trust_add_pinned_certificate_async().
+ * [func@Gcr.trust_add_pinned_certificate_async].
  *
  * Returns: %TRUE if the pinned certificate is recorded successfully
  */
@@ -524,8 +524,8 @@ perform_remove_pinned_certificate (GckAttributes *attrs,
  * If the same pinned certificate does not exist, or was already removed,
  * then this operation succeeds without error.
  *
- * This call may block, see gcr_trust_remove_pinned_certificate_async() for the
- * non-blocking version.
+ * This call may block, see [func@Gcr.trust_remove_pinned_certificate_async]
+ * for the non-blocking version.
  *
  * Returns: %TRUE if the pinned certificate no longer exists
  */
@@ -579,7 +579,7 @@ thread_remove_pinned_certificate (GTask *task, gpointer object,
  * then this operation succeeds without error.
  *
  * When the operation is finished, callback will be called. You can then call
- * gcr_trust_remove_pinned_certificate_finish() to get the result of the
+ * [func@Gcr.trust_remove_pinned_certificate_finish] to get the result of the
  * operation.
  */
 void
@@ -615,7 +615,7 @@ gcr_trust_remove_pinned_certificate_async (GcrCertificate *certificate,
  * @error: a #GError, or %NULL
  *
  * Finishes an asynchronous operation started by
- * gcr_trust_remove_pinned_certificate_async().
+ * [func@Gcr.trust_remove_pinned_certificate_async].
  *
  * Returns: %TRUE if the pinned certificate no longer exists
  */
@@ -737,7 +737,8 @@ thread_is_certificate_anchored (GTask *task, gpointer object,
  * a certificate chain. Also known as a trusted certificate authority.
  *
  * When the operation is finished, callback will be called. You can then call
- * gcr_trust_is_certificate_anchored_finish() to get the result of the operation.
+ * [func@Gcr.trust_is_certificate_anchored_finish] to get the result of the
+ * operation.
  */
 void
 gcr_trust_is_certificate_anchored_async (GcrCertificate *certificate, const gchar *purpose,
@@ -768,7 +769,7 @@ gcr_trust_is_certificate_anchored_async (GcrCertificate *certificate, const gcha
  * @error: a #GError, or %NULL
  *
  * Finishes an asynchronous operation started by
- * gcr_trust_is_certificate_anchored_async().
+ * [func@Gcr.trust_is_certificate_anchored_async].
  *
  * In the case of an error, %FALSE is also returned. Check @error to detect
  * if an error occurred.

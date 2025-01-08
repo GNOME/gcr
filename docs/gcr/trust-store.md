@@ -36,6 +36,9 @@ After the user has requested to override the trust decision about a given
 certificate then a pinned certificates can be added by using the
 [func@Gcr.trust_add_pinned_certificate] function, or
 [func@Gcr.trust_add_pinned_certificate_async] for the asynchronous version.
+If the user wants to revert that decision, the pinned certificate can be removed
+again using the [func@Gcr.trust_remove_pinned_certificate] function, or
+[func@Gcr.trust_remove_pinned_certificate_async] for the asynchronous version.
 
 Distrusted certificates
 ------------------------

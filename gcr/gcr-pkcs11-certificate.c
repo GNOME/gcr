@@ -37,11 +37,11 @@
  * A certificate loaded from a PKCS#11 storage.
  * It is also a valid [class@Gck.Object] and can be used as such.
  *
- * Use gcr_pkcs11_certificate_lookup_issuer() to lookup the issuer of a given
- * certificate in the PKCS#11 store.
+ * Use [func@Gcr.Pkcs11Certificate.lookup_issuer] to lookup the issuer of a
+ * given certificate in the PKCS#11 store.
  *
  * Various common PKCS#11 certificate attributes are automatically loaded and
- * are available via gcr_pkcs11_certificate_get_attributes().
+ * are available via [method@Gcr.Pkcs11Certificate.get_attributes].
  */
 
 enum {
@@ -312,20 +312,20 @@ gcr_pkcs11_certificate_get_attributes (GcrPkcs11Certificate *self)
 /**
  * gcr_pkcs11_certificate_lookup_issuer:
  * @certificate: a #GcrCertificate
- * @cancellable: a #GCancellable
+ * @cancellable: (nullable): a cancellable
  * @error: a #GError, or %NULL
  *
  * Lookup a the issuer of a @certificate in the PKCS#11 storage. The
  * lookup is done using the issuer DN of the certificate. No certificate chain
  * verification is done. Use a crypto library to make trust decisions.
  *
- * This call may block, see gcr_pkcs11_certificate_lookup_issuer() for the
+ * This call may block, see [func@Gcr.Pkcs11Certificate.lookup_issuer] for the
  * non-blocking version.
  *
  * Will return %NULL if no issuer certificate is found. Use @error to determine
  * if an error occurred.
  *
- * Returns: (transfer full): a new #GcrPkcs11Certificate, or %NULL
+ * Returns: (transfer full) (nullable): a new #GcrPkcs11Certificate, or %NULL
  */
 GcrCertificate *
 gcr_pkcs11_certificate_lookup_issuer (GcrCertificate *certificate, GCancellable *cancellable,
@@ -351,7 +351,7 @@ gcr_pkcs11_certificate_lookup_issuer (GcrCertificate *certificate, GCancellable 
 /**
  * gcr_pkcs11_certificate_lookup_issuer_async:
  * @certificate: a #GcrCertificate
- * @cancellable: a #GCancellable
+ * @cancellable: (nullable): a cancellable
  * @callback: a #GAsyncReadyCallback to call when the operation completes
  * @user_data: the data to pass to callback function
  *
@@ -360,7 +360,7 @@ gcr_pkcs11_certificate_lookup_issuer (GcrCertificate *certificate, GCancellable 
  * verification is done. Use a crypto library to make trust decisions.
  *
  * When the operation is finished, callback will be called. You can then call
- * gcr_pkcs11_certificate_lookup_issuer_finish() to get the result of the
+ * [func@Gcr.Pkcs11Certificate.lookup_issuer_finish] to get the result of the
  * operation.
  */
 void
@@ -390,12 +390,12 @@ gcr_pkcs11_certificate_lookup_issuer_async (GcrCertificate *certificate, GCancel
  * @error: a #GError, or %NULL
  *
  * Finishes an asynchronous operation started by
- * gcr_pkcs11_certificate_lookup_issuer_async().
+ * [func@Gcr.Pkcs11Certificate.lookup_issuer_async].
  *
  * Will return %NULL if no issuer certificate is found. Use @error to determine
  * if an error occurred.
  *
- * Returns: (transfer full): a new #GcrPkcs11Certificate, or %NULL
+ * Returns: (transfer full) (nullable): a new #GcrPkcs11Certificate, or %NULL
  */
 GcrCertificate *
 gcr_pkcs11_certificate_lookup_issuer_finish (GAsyncResult *result, GError **error)
@@ -418,8 +418,8 @@ gcr_pkcs11_certificate_lookup_issuer_finish (GAsyncResult *result, GError **erro
  *
  * Lookup a certificate in the PKCS#11 storage by the given URI.
  *
- * This call may block, see gcr_pkcs11_certificate_new_from_uri_async() for the
- * non-blocking version.
+ * This call may block, see gcr_pkcs11_certificate_new_from_uri_async() for
+ * the non-blocking version.
  *
  * Will return %NULL if no certificate is found. Use @error to determine
  * if an error occurred.

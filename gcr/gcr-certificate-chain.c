@@ -511,7 +511,7 @@ gcr_certificate_chain_class_init (GcrCertificateChainClass *klass)
  * will be neither anchored or pinned. Additionally no missing certificate
  * authorities are looked up in PKCS#11.
  *
- * Flags to be used with the gcr_certificate_chain_build() operation.
+ * Flags to be used with the [method@Gcr.CertificateChain.build] operation.
  */
 
 /**
@@ -544,7 +544,7 @@ gcr_certificate_chain_new (void)
  * certificate authority is present, it should come last.
  *
  * Adding a certificate an already built chain (see
- * gcr_certificate_chain_build()) resets the type of the certificate chain
+ * [method@Gcr.CertificateChain.build]) resets the type of the certificate chain
  * to %GCR_CERTIFICATE_CHAIN_UNKNOWN
  */
 void
@@ -692,7 +692,7 @@ gcr_certificate_chain_get_certificate (GcrCertificateChain *self, guint index)
  * will be neither anchored or pinned. Additionally no missing certificate
  * authorities are looked up in PKCS#11
  *
- * This call will block, see gcr_certificate_chain_build_async() for the
+ * This call will block, see [method@Gcr.CertificateChain.build_async] for the
  * asynchronous version.
  *
  * Returns: whether the operation completed successfully

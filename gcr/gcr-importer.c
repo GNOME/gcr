@@ -170,7 +170,8 @@ check_if_seen_or_add (GHashTable *seen,
  * @parsed: a parser with a parsed item to import
  *
  * Create a set of importers which can import this parsed item.
- * The parsed item is represented by the state of the GcrParser at the
+ *
+ * The parsed item is represented by the state of the [class@Gcr.Parser] at the
  * time of calling this method.
  *
  * Returns: (element-type Gcr.Importer) (transfer full): a list of importers

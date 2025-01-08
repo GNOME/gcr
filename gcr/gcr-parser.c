@@ -51,7 +51,7 @@
  * PEM files, DER encoded certifictes, PKCS#8 keys and so on. Each various
  * format is identified by a value in the [enum@DataFormat] enumeration.
  *
- * In order to parse data, a new parser is created with gcr_parser_new() and
+ * In order to parse data, a new parser is created with [ctor@Parser.new] and
  * then the [signal@Parser::authenticate] and [signal@Parser::parsed] signals
  * should be connected to. Data is then fed to the parser via
  * [method@Parser.parse_data] or [method@Parser.parse_stream].

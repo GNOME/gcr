@@ -55,7 +55,7 @@
  *
  * The #GcrCertificate interface has several properties that must be implemented.
  * You can use a mixin to implement these properties if desired. See the
- * gcr_certificate_mixin_class_init() and gcr_certificate_mixin_get_property()
+ * [func@Certificate.mixin_class_init] and [func@Certificate.mixin_get_property]
  * functions.
  */
 

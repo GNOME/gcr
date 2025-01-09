@@ -13,7 +13,7 @@ fedora:Werror:
     - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES
     - dnf builddep -y gcr3
   script:
-    - meson setup _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations -Dgtk_doc=false
+    - meson setup _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
     - meson compile -C _build
     - dbus-run-session -- meson test -C _build
     - ninja docs -C _build
@@ -72,7 +72,7 @@ fedora:coverage:
     - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES lcov git gi-docgen
     - dnf builddep -y gcr3
   script:
-    - meson setup _build -Db_coverage=true
+    - meson setup _build -Db_coverage=true -Dgtk_doc=false
     - dbus-run-session -- meson test -C _build
     - ninja coverage-html -C _build
   coverage: '/^\s+lines.+:\s+([\d.]+\%)\s+/'

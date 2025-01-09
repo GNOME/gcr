@@ -25,6 +25,7 @@ fedora:Werror:
     paths:
       - "_build/config.h"
       - "_build/meson-logs"
+      - "_build/docs"
 
 fedora:asan:
   image: fedora:latest
@@ -82,7 +83,6 @@ fedora:coverage:
     paths:
       - "_build/config.h"
       - "_build/meson-logs"
-      - "_build/docs"
       - "_build/meson-logs/coveragereport"
 
 pages:

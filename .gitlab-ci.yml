@@ -16,6 +16,7 @@ fedora:Werror:
     - meson setup _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations -Dgtk_doc=false
     - meson compile -C _build
     - dbus-run-session -- meson test -C _build
+    - ninja docs -C _build
   artifacts:
     reports:
       junit: "_build/meson-logs/testlog.junit.xml"
@@ -73,7 +74,6 @@ fedora:coverage:
     - meson setup _build -Db_coverage=true
     - dbus-run-session -- meson test -C _build
     - ninja coverage-html -C _build
-    - ninja docs -C _build
   coverage: '/^\s+lines.+:\s+([\d.]+\%)\s+/'
   allow_failure: true
   artifacts:
@@ -89,6 +89,7 @@ pages:
   stage: deploy
   only:
     - gnome-41
+  needs: ['fedora:Werror']
   script:
     - mkdir public
     - mv _build/docs/gck/gck-1 public/gck-1

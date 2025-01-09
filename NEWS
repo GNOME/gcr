@@ -1,3 +1,6 @@
+gcr 4.3.90.1:
+- ci: Tarball publish fix
+
 gcr 4.3.90:
 - gcr: Add new GcrCertificateExtension API [GNOME/gcr!150]
 - gcr: Vala override for CertificateField.get_value [GNOME/gcr!144]

@@ -155,7 +155,7 @@ gcr_lib = shared_library(gcr_basename,
   link_args: gcr_linkflags,
   link_depends: gcr_symbolmap,
   include_directories: config_h_dir,
-  version: gcr_version,
+  version: gcr_library_version,
   soversion: gcr_soversion,
   install: true,
 )

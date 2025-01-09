@@ -25,6 +25,9 @@ gck_major_version = gck_version_array[0].to_int()
 gck_minor_version = gck_version_array[1].to_int()
 gck_micro_version = gck_version_array[2].to_int()
 
+gcr_library_version = f'@gcr_soversion@.@gcr_minor_version@.@gcr_micro_version@'
+gck_library_version = f'@gck_soversion@.@gck_minor_version@.@gck_micro_version@'
+
 # Some variables
 source_root = meson.current_source_dir()
 build_root = meson.current_build_dir()

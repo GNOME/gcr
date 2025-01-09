@@ -85,17 +85,17 @@ fedora:coverage:
       - "_build/meson-logs"
       - "_build/meson-logs/coveragereport"
 
-pages:
-  stage: deploy
-  only:
-    - gnome-41
-  needs: ['fedora:Werror']
-  script:
-    - mkdir public
-    - mv _build/docs/gck/gck-1 public/gck-1
-    - mv _build/docs/gcr/gcr-3 public/gcr-3
-    - mv _build/docs/ui/gcr-ui-3 public/gcr-ui-3
-  artifacts:
-    when: on_success
-    paths:
-      - public
+# pages:
+#   stage: deploy
+#   only:
+#     - gnome-41
+#   needs: ['fedora:Werror']
+#   script:
+#     - mkdir public
+#     - mv _build/docs/gck/gck-1 public/gck-1
+#     - mv _build/docs/gcr/gcr-3 public/gcr-3
+#     - mv _build/docs/ui/gcr-ui-3 public/gcr-ui-3
+#   artifacts:
+#     when: on_success
+#     paths:
+#       - public

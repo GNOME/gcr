@@ -1,5 +1,5 @@
 include:
-  - component: gitlab.gnome.org/GNOME/citemplates/release-service@release-service-sandbox
+  - component: gitlab.gnome.org/GNOME/citemplates/release-service@master
     inputs:
       dist-job-name: "build-release-tarball"
       tarball-artifact-path: "${TARBALL_ARTIFACT_PATH}"

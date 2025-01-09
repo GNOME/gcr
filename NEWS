@@ -1,3 +1,6 @@
+gcr 4.3.90.3:
+- ci: Another tarball publish fix
+
 gcr 4.3.90.2:
 - meson: fix library version
 

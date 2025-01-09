@@ -113,7 +113,7 @@ pages:
   image: fedora:latest
   stage: deploy
   only:
-    - master
+    - main
   needs: ['fedora:coverage']
   before_script:
     - dnf upgrade -y

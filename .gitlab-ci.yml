@@ -1,8 +1,15 @@
+include:
+  - component: gitlab.gnome.org/GNOME/citemplates/release-service@release-service-sandbox
+    inputs:
+      dist-job-name: "build-release-tarball"
+      tarball-artifact-path: "${TARBALL_ARTIFACT_PATH}"
+
 stages:
   - build
   - deploy
 
 variables:
+  TARBALL_ARTIFACT_PATH: "${MESON_BUILD_DIR}/meson-dist/${CI_PROJECT_NAME}-${CI_COMMIT_TAG}.tar.xz"
   DEPENDENCIES: dbus-daemon diffutils gcc gi-docgen gnutls-devel libsecret-devel libgcrypt-devel meson ninja-build openssh openssh-clients python redhat-rpm-config systemd-devel gtk4-devel
 
 .build:
@@ -22,7 +29,7 @@ fedora:Werror:
     - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES
     - dnf builddep -y gcr
   script:
-    - meson setup _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations -Dgtk_doc=false -Dcrypto=$CRYPTO
+    - meson setup _build -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations -Dcrypto=$CRYPTO
     - meson compile -C _build
     - dbus-run-session -- meson test -C _build
   artifacts:
@@ -107,6 +114,22 @@ fedora:coverage:
       - "_build/config.h"
       - "_build/meson-logs"
       - "_build/docs"
+
+build-release-tarball:
+  image: fedora:latest
+  stage: deploy
+  before_script:
+    - dnf upgrade -y
+    - dnf install -y 'dnf-command(builddep)' $DEPENDENCIES git
+    - dnf builddep -y gcr
+  script:
+    - meson setup _build
+    - dbus-run-session -- meson dist -C _build
+  artifacts:
+    paths:
+      - $TARBALL_ARTIFACT_PATH
+  rules:
+    - if: $CI_COMMIT_REF_PROTECTED
 
 pages:
   image: fedora:latest

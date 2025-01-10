@@ -41,6 +41,8 @@
  * For known extensions, gcr tries to provide subclasses with the appropriate
  * API.
  *
+ * See also [method@Certificate.list_extensions].
+ *
  * Since: 4.3.90
  */
 
@@ -230,7 +232,7 @@ _gcr_certificate_extension_get_oid_as_quark (GcrCertificateExtension *self)
 }
 
 /**
- * gcr_certificate_extension_get_oid_description:
+ * gcr_certificate_extension_get_description:
  *
  * Returns a user-displayable description of the OID that identifies the
  * extension, if known.

@@ -99,6 +99,7 @@ gck_dep = declare_dependency(
   include_directories: include_directories('..'),
   sources: gck_enums_gen[1], # Make sure gck-enum-types.h can be included
 )
+meson.override_dependency(gck_basename, gck_dep)
 
 # We create an extra version of GCK which exposes internal functions
 # (for testing purposes)

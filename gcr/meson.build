@@ -184,6 +184,8 @@ gcr_dep = declare_dependency(
     gcr_marshal_gen[1],
   ],
 )
+meson.override_dependency(gcr_basename, gcr_dep)
+
 
 if get_option('introspection')
   gcr_gir = gnome.generate_gir(gcr_lib,

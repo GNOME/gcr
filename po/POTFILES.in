@@ -12,7 +12,6 @@ gcr/gcr-certificate-extension-extended-key-usage.c
 gcr/gcr-certificate-extension-key-usage.c
 gcr/gcr-certificate-extension-subject-alt-name.c
 gcr/gcr-certificate-extension-subject-key-identifier.c
-gcr/gcr-certificate-extensions.c
 gcr/gcr-certificate-request.c
 gcr/gcr-gnupg-importer.c
 gcr/gcr-gnupg-process.c

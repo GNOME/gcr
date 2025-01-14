@@ -77,8 +77,7 @@ test_ssh_keygen (Test *test,
 
 	g_assert_cmpstr (password, ==, "booo");
 
-	if (g_chmod (filename, 0600) < 0)
-		g_assert_not_reached ();
+	egg_tests_check_or_set_permission (filename, 0600);
 
 	g_spawn_async (SRCDIR "/gcr/fixtures", argv, NULL,
 	               G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_CLOEXEC_PIPES,
@@ -118,8 +117,7 @@ test_cancelled (Test *test,
 
 	g_assert_cmpstr (password, ==, NULL);
 
-	if (g_chmod (filename, 0600) < 0)
-		g_assert_not_reached ();
+	egg_tests_check_or_set_permission (filename, 0600);
 
 	g_spawn_async (SRCDIR "/gcr/fixtures", argv, NULL,
 	               G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_CLOEXEC_PIPES,

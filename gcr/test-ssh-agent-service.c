@@ -117,7 +117,7 @@ setup (Test *test, gconstpointer unused)
 	egg_tests_copy_scratch_file (preload_path, SRCDIR "/gcr/fixtures/ssh-agent/id_rsa_plain.pub");
 
 	path = g_build_filename (preload_path, "id_rsa_plain", NULL);
-	g_chmod (path, 0600);
+	egg_tests_check_or_set_permission (path, 0600);
 	g_free (path);
 
 	egg_buffer_init_full (&test->req, 128, (EggBufferAllocator)g_realloc);

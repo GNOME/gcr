@@ -82,4 +82,7 @@ gchar *    egg_tests_create_scratch_directory  (const gchar *file_to_copy,
 
 void       egg_tests_remove_scratch_directory  (const gchar *directory);
 
+void       egg_tests_check_or_set_permission   (const char *filename,
+                                                guint32 mode);
+
 #endif /* EGG_DH_H_ */

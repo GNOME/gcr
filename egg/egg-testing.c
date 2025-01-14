@@ -24,6 +24,8 @@
 #include "egg-testing.h"
 
 #include <glib-object.h>
+#include <glib.h>
+#include <glib/gstdio.h>
 
 #include <errno.h>
 #include <string.h>
@@ -399,4 +401,19 @@ egg_tests_remove_scratch_directory (const gchar *directory)
 	              NULL, NULL, NULL, &rm_status, &error);
 	g_assert_no_error (error);
 	g_assert_cmpint (rm_status, ==, 0);
+}
+
+void
+egg_tests_check_or_set_permission (const char *filename,
+                                   guint32 mode)
+{
+	GStatBuf sb;
+
+	if (g_stat (filename, &sb) < 0)
+		g_assert_not_reached ();
+
+	if ((sb.st_mode & 07777) != mode) {
+		if (g_chmod (filename, mode) < 0)
+			g_assert_not_reached ();
+	}
 }

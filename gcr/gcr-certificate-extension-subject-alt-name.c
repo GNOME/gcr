@@ -324,7 +324,7 @@ gcr_certificate_extension_subject_alt_name_get_item (GListModel   *model,
 	if (position >= self->names->len)
 		return NULL;
 
-	return g_ptr_array_index (self->names, position);
+	return g_object_ref (g_ptr_array_index (self->names, position));
 }
 
 static void

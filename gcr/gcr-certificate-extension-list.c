@@ -81,7 +81,7 @@ gcr_certificate_extension_list_get_item (GListModel *model,
 	if (position >= self->extensions->len)
 		return NULL;
 
-	return g_ptr_array_index (self->extensions, position);
+	return g_object_ref (g_ptr_array_index (self->extensions, position));
 }
 
 static void

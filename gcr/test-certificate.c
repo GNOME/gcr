@@ -321,6 +321,7 @@ test_subject_alt_name (void)
 	GcrCertificateExtensionSubjectAltName *san_ext;
 	unsigned int n_names;
 	GcrGeneralName *name;
+	GcrGeneralName *element;
 	GcrGeneralNameType type;
 
 	bytes = g_bytes_new_static (extension, sizeof(extension));
@@ -346,6 +347,12 @@ test_subject_alt_name (void)
 	name = gcr_certificate_extension_subject_alt_name_get_name (san_ext, 3);
 	type = _gcr_general_name_get_name_type (name);
 	g_assert_cmpint (type, ==, GCR_GENERAL_NAME_OTHER);
+
+	element = g_list_model_get_item (G_LIST_MODEL (san_ext), 3);
+	g_assert_nonnull (element);
+	g_assert_true (name == element);
+	g_assert_null (g_list_model_get_item (G_LIST_MODEL (san_ext), 4));
+	g_object_unref (element);
 
 	g_object_unref (ext);
 }

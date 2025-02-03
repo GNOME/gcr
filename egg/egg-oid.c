@@ -170,6 +170,10 @@ static OidInfo oid_info[] = {
 	{ 0, "2.23.140.1.1", NULL, N_("Extended Validation"), 0 },
 	{ 0, "1.3.6.1.5.5.7.2.1", NULL, N_("Certification Practices Statement"), 0 },
 
+	/* Authority Information Access (AIA) methods */
+	{ 0, "1.3.6.1.5.5.7.48.1", NULL, N_("Online Certificate Status Protocol (OCSP)"), 0 },
+	{ 0, "1.3.6.1.5.5.7.48.2", NULL, N_("Certification Authority Issuer"), 0 },
+
 	{ 0, NULL, NULL, NULL, FALSE }
 };
 

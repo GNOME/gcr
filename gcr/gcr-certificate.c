@@ -1102,6 +1102,35 @@ append_extension_certificate_policies (GcrCertificateExtensionCertificatePolicie
 }
 
 static GcrCertificateSection *
+append_extension_aia (GcrCertificateExtensionAuthorityInfoAccess *extension)
+{
+	GcrCertificateSection *section;
+	unsigned int n_descriptions;
+
+	section = _gcr_certificate_section_new (egg_oid_get_description (GCR_OID_AUTHORITY_INFO_ACCESS), FALSE);
+
+	n_descriptions = g_list_model_get_n_items (G_LIST_MODEL (extension));
+	for (unsigned int i = 0; i < n_descriptions; i++) {
+		GcrAccessDescription *description;
+		GcrGeneralName *location;
+		const char *location_val, *method;
+
+		description = g_list_model_get_item (G_LIST_MODEL (extension), i);
+
+		location = gcr_access_description_get_location (description);
+		location_val = gcr_general_name_get_value (location);
+		_gcr_certificate_section_new_field (section, _("Location"), location_val);
+
+		method = gcr_access_description_get_method_name (description);
+		_gcr_certificate_section_new_field (section, _("Access Method"), method);
+
+		g_object_unref (description);
+	}
+
+	return section;
+}
+
+static GcrCertificateSection *
 append_extension_hex (GQuark oid,
                       GBytes *value)
 {
@@ -1144,6 +1173,8 @@ append_extension (GcrCertificate          *self,
 		section = append_extension_subject_alt_name (GCR_CERTIFICATE_EXTENSION_SUBJECT_ALT_NAME (extension));
 	else if (oid == GCR_OID_CERTIFICATE_POLICIES)
 		section = append_extension_certificate_policies (GCR_CERTIFICATE_EXTENSION_CERTIFICATE_POLICIES (extension));
+	else if (oid == GCR_OID_AUTHORITY_INFO_ACCESS)
+		section = append_extension_aia (GCR_CERTIFICATE_EXTENSION_AUTHORITY_INFO_ACCESS (extension));
 
 	/* Otherwise the default raw display */
 	if (!section) {

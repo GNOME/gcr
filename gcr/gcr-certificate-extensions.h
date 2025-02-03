@@ -134,6 +134,29 @@ G_DECLARE_FINAL_TYPE (GcrCertificateExtensionCertificatePolicies,
 GcrCertificatePolicy *   gcr_certificate_extension_certificate_policies_get_policy     (GcrCertificateExtensionCertificatePolicies *self,
                                                                                         unsigned int                                position);
 
+/* Authority Information Access (AIA) */
+
+#define GCR_TYPE_ACCESS_DESCRIPTION (gcr_access_description_get_type ())
+G_DECLARE_FINAL_TYPE (GcrAccessDescription,
+                      gcr_access_description,
+                      GCR, ACCESS_DESCRIPTION,
+                      GObject)
+
+const char *       gcr_access_description_get_method_oid    (GcrAccessDescription *self);
+
+const char *       gcr_access_description_get_method_name   (GcrAccessDescription *self);
+
+GcrGeneralName *   gcr_access_description_get_location      (GcrAccessDescription *self);
+
+#define GCR_TYPE_CERTIFICATE_EXTENSION_AUTHORITY_INFO_ACCESS (gcr_certificate_extension_authority_info_access_get_type ())
+G_DECLARE_FINAL_TYPE (GcrCertificateExtensionAuthorityInfoAccess,
+                      gcr_certificate_extension_authority_info_access,
+                      GCR, CERTIFICATE_EXTENSION_AUTHORITY_INFO_ACCESS,
+                      GcrCertificateExtension)
+
+GcrAccessDescription *   gcr_certificate_extension_authority_info_access_get_description (GcrCertificateExtensionAuthorityInfoAccess *self,
+                                                                                          unsigned int                                position);
+
 
 G_END_DECLS
 

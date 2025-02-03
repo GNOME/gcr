@@ -450,6 +450,68 @@ test_certificate_policies (void)
 	g_object_unref (ext);
 }
 
+static void
+test_authority_info_address (void)
+{
+	const guint8 aia[] = {
+		0x30, 0x7a, /* AIA is SEQUENCE of 114 bytes */
+		/* 1: "http://ocsp.digicert.com" (method: OCSP) */
+		0x30, 0x24,
+		0x06, 0x08, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x30, 0x01, /* OCSP */
+		0x86, 0x18, 0x68, 0x74, 0x74, 0x70, 0x3a, 0x2f, 0x2f, 0x6f,
+		0x63, 0x73, 0x70, 0x2e, 0x64, 0x69, 0x67, 0x69, 0x63, 0x65,
+		0x72, 0x74, 0x2e, 0x63, 0x6f, 0x6d,
+		/* 2: "http://cacerts.digicert.com/DigiCertSHA2ExtendedValidationServerCA.crt" (method: CA Issuer) */
+		0x30, 0x52,
+		0x06, 0x08, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x30, 0x02, /* CA issuer */
+		0x86, 0x46, 0x68, 0x74, 0x74, 0x70, 0x3a, 0x2f, 0x2f, 0x63,
+		0x61, 0x63, 0x65, 0x72, 0x74, 0x73, 0x2e, 0x64, 0x69, 0x67,
+		0x69, 0x63, 0x65, 0x72, 0x74, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
+		0x44, 0x69, 0x67, 0x69, 0x43, 0x65, 0x72, 0x74, 0x53, 0x48,
+		0x41, 0x32, 0x45, 0x78, 0x74, 0x65, 0x6e, 0x64, 0x65, 0x64,
+		0x56, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+		0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x43, 0x41, 0x2e, 0x63,
+		0x72, 0x74,
+	};
+	GBytes *bytes;
+	GcrCertificateExtension *ext;
+	GcrCertificateExtensionAuthorityInfoAccess *ext_aia;
+	GcrAccessDescription *description;
+	GcrGeneralName *location;
+	const char *method_oid, *location_str;
+
+	bytes = g_bytes_new_static (aia, sizeof(aia));
+	ext = _gcr_certificate_extension_authority_info_access_parse (GCR_OID_AUTHORITY_INFO_ACCESS,
+	                                                              TRUE,
+	                                                              bytes,
+	                                                              NULL);
+	g_assert_nonnull (ext);
+	g_assert_true (GCR_IS_CERTIFICATE_EXTENSION_AUTHORITY_INFO_ACCESS (ext));
+
+	ext_aia = GCR_CERTIFICATE_EXTENSION_AUTHORITY_INFO_ACCESS (ext);
+
+	g_assert_cmpint (g_list_model_get_n_items (G_LIST_MODEL (ext_aia)), ==, 2);
+	g_assert_null (g_list_model_get_item (G_LIST_MODEL (ext_aia), 2));
+
+	description = gcr_certificate_extension_authority_info_access_get_description (ext_aia, 0);
+	g_assert_nonnull (description);
+	method_oid = gcr_access_description_get_method_oid (description);
+	g_assert_cmpstr (method_oid, ==, "1.3.6.1.5.5.7.48.1");
+	location = gcr_access_description_get_location (description);
+	location_str = gcr_general_name_get_value (location);
+	g_assert_cmpstr (location_str, ==, "http://ocsp.digicert.com");
+
+	description = gcr_certificate_extension_authority_info_access_get_description (ext_aia, 1);
+	g_assert_nonnull (description);
+	method_oid = gcr_access_description_get_method_oid (description);
+	g_assert_cmpstr (method_oid, ==, "1.3.6.1.5.5.7.48.2");
+	location = gcr_access_description_get_location (description);
+	location_str = gcr_general_name_get_value (location);
+	g_assert_cmpstr (location_str, ==, "http://cacerts.digicert.com/DigiCertSHA2ExtendedValidationServerCA.crt");
+
+	g_object_unref (ext);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -477,6 +539,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/gcr/certificate/subject_alt_name", test_subject_alt_name);
 	g_test_add_func ("/gcr/certificate/key_usage", test_key_usage);
 	g_test_add_func ("/gcr/certificate/certificate_policies", test_certificate_policies);
+	g_test_add_func ("/gcr/certificate/authority_info_adress", test_authority_info_address);
 
 	return g_test_run ();
 }

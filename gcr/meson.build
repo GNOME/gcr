@@ -12,6 +12,7 @@ gcr_public_sources = files(
   'gcr-certificate-extension-list.c',
   'gcr-certificate-extension-subject-alt-name.c',
   'gcr-certificate-extension-subject-key-identifier.c',
+  'gcr-certificate-extensions-common.c',
   'gcr-certificate-field.c',
   'gcr-certificate-request.c',
   'gcr-certificate-section.c',

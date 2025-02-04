@@ -16,23 +16,23 @@
 # Cheng Lu <chenglu1990@gmail.com>, 2012.
 # YunQiang Su <wzssyqa@gmail.com>, 2011, 2012.
 # Mingcong Bai <jeffbai@aosc.xyz>, 2018.
-# lumingzh <lumingzh@qq.com>, 2022.
 # Nanling <neithern@outlook.com>, 2023.
+# lumingzh <lumingzh@qq.com>, 2022-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-03-26 16:05+0000\n"
-"PO-Revision-Date: 2023-08-03 16:34-0400\n"
-"Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
-"Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-02-02 17:13+0000\n"
+"PO-Revision-Date: 2025-02-04 08:24+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Gtranslator 47.1\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -74,7 +74,7 @@ msgstr "常用名"
 msgid "Surname"
 msgstr "姓"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1288
 msgid "Serial Number"
 msgstr "序列号"
 
@@ -356,6 +356,15 @@ msgstr "政策限制"
 msgid "Authority key identifier"
 msgstr "机构密钥识别符"
 
+#. Certificate Policies
+#: egg/egg-oid.c:170
+msgid "Extended Validation"
+msgstr "扩展的验证"
+
+#: egg/egg-oid.c:171
+msgid "Certification Practices Statement"
+msgstr "认证实践声明"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -393,240 +402,248 @@ msgstr "URI 版本号错误。"
 msgid "The stream was closed"
 msgstr "会话已关闭"
 
-#: gcr/gcr-certificate.c:882
+#: gcr/gcr-certificate.c:956
 msgid "Key Algorithm"
 msgstr "密钥算法"
 
-#: gcr/gcr-certificate.c:888
+#: gcr/gcr-certificate.c:962
 msgid "Key Parameters"
 msgstr "密钥参数"
 
-#: gcr/gcr-certificate.c:895
+#: gcr/gcr-certificate.c:969
 msgid "Key Size"
 msgstr "密钥大小"
 
-#: gcr/gcr-certificate.c:905
+#: gcr/gcr-certificate.c:979
 msgid "Key SHA1 Fingerprint"
 msgstr "密钥 SHA1 指纹"
 
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
 msgid "Public Key"
 msgstr "公钥"
 
-#: gcr/gcr-certificate.c:923
+#: gcr/gcr-certificate.c:994
 msgid "Basic Constraints"
 msgstr "基本约束"
 
-#: gcr/gcr-certificate.c:924
+#: gcr/gcr-certificate.c:996
 msgid "Certificate Authority"
 msgstr "证书授权"
 
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
 msgid "Yes"
 msgstr "是"
 
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
 msgid "No"
 msgstr "否"
 
-#: gcr/gcr-certificate.c:927
+#: gcr/gcr-certificate.c:1000
 msgid "Unlimited"
 msgstr "无限制"
 
-#: gcr/gcr-certificate.c:931
+#: gcr/gcr-certificate.c:1004
 msgid "Max Path Length"
 msgstr "最大路径长度"
 
-#: gcr/gcr-certificate.c:955
+#: gcr/gcr-certificate.c:1015
 msgid "Extended Key Usage"
 msgstr "延长密钥使用"
 
-#: gcr/gcr-certificate.c:956
+#: gcr/gcr-certificate.c:1018
 msgid "Allowed Purposes"
 msgstr "允许的用途"
 
-#: gcr/gcr-certificate.c:973
+#: gcr/gcr-certificate.c:1032
 msgid "Subject Key Identifier"
 msgstr "主体密钥标识"
 
-#: gcr/gcr-certificate.c:976
+#: gcr/gcr-certificate.c:1036
 msgid "Key Identifier"
 msgstr "密钥标识"
 
-#: gcr/gcr-certificate.c:985
-msgid "Digital signature"
-msgstr "数字签名"
-
-#: gcr/gcr-certificate.c:986
-msgid "Non repudiation"
-msgstr "不可否认性"
-
-#: gcr/gcr-certificate.c:987
-msgid "Key encipherment"
-msgstr "密钥加密"
-
-#: gcr/gcr-certificate.c:988
-msgid "Data encipherment"
-msgstr "数据加密"
-
-#: gcr/gcr-certificate.c:989
-msgid "Key agreement"
-msgstr "密钥协议"
-
-#: gcr/gcr-certificate.c:990
-msgid "Certificate signature"
-msgstr "证书签名"
-
-#: gcr/gcr-certificate.c:991
-msgid "Revocation list signature"
-msgstr "吊销列表签名"
-
-#: gcr/gcr-certificate.c:992
-msgid "Encipher only"
-msgstr "仅加密"
-
-#: gcr/gcr-certificate.c:993
-msgid "Decipher only"
-msgstr "仅解密"
-
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate.c:1047
 msgid "Key Usage"
 msgstr "密钥用途"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1049
 msgid "Usages"
 msgstr "使用"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1060
 msgid "Subject Alternative Names"
 msgstr "主体备用名称"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1089
+msgid "Certificate Policies"
+msgstr "证书策略"
+
+#: gcr/gcr-certificate.c:1098
+msgid "Policy"
+msgstr "策略"
+
+#: gcr/gcr-certificate.c:1111
 msgid "Extension"
 msgstr "扩展"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1115
 msgid "Identifier"
 msgstr "识别标志"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1116
 msgid "Value"
 msgstr "值"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1159
 msgid "Critical"
 msgstr "关键"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1235 gcr/gcr-certificate.c:1516 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "证书"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1242 gcr/gcr-certificate.c:1247
 msgid "Unknown"
 msgstr "未知"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1243
 msgid "Identity"
 msgstr "身份"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1248
 msgid "Verified by"
 msgstr "认证机构"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1254
 msgid "Expires"
 msgstr "过期"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1262
 msgid "Subject Name"
 msgstr "主体名"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1268
 msgid "Issuer Name"
 msgstr "颁发者名称"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1274
 msgid "Issued Certificate"
 msgstr "颁发的证书"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1281
 msgid "Version"
 msgstr "版本"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1295
 msgid "Not Valid Before"
 msgstr "在此之前无效"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1304
 msgid "Not Valid After"
 msgstr "在此之后无效"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1313
 msgid "Certificate Fingerprints"
 msgstr "证书指纹"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1323
 msgid "Public Key Info"
 msgstr "公开密钥信息"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1342 gcr/gcr-certificate.c:1353
 msgid "Signature"
 msgstr "签名"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1345
 msgid "Signature Algorithm"
 msgstr "签名算法"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1349
 msgid "Signature Parameters"
 msgstr "签名参数"
 
-#: gcr/gcr-certificate-extensions.c:190
+#: gcr/gcr-certificate-extension-key-usage.c:64
+msgid "Digital signature"
+msgstr "数字签名"
+
+#: gcr/gcr-certificate-extension-key-usage.c:65
+msgid "Non repudiation"
+msgstr "不可否认性"
+
+#: gcr/gcr-certificate-extension-key-usage.c:66
+msgid "Key encipherment"
+msgstr "密钥加密"
+
+#: gcr/gcr-certificate-extension-key-usage.c:67
+msgid "Data encipherment"
+msgstr "数据加密"
+
+#: gcr/gcr-certificate-extension-key-usage.c:68
+msgid "Key agreement"
+msgstr "密钥协议"
+
+#: gcr/gcr-certificate-extension-key-usage.c:69
+msgid "Certificate signature"
+msgstr "证书签名"
+
+#: gcr/gcr-certificate-extension-key-usage.c:70
+msgid "Revocation list signature"
+msgstr "吊销列表签名"
+
+#: gcr/gcr-certificate-extension-key-usage.c:71
+msgid "Encipher only"
+msgstr "仅加密"
+
+#: gcr/gcr-certificate-extension-key-usage.c:72
+msgid "Decipher only"
+msgstr "仅解密"
+
+#: gcr/gcr-certificate-extension-subject-alt-name.c:136
 msgid "Other Name"
 msgstr "其他名称"
 
-#: gcr/gcr-certificate-extensions.c:200
+#: gcr/gcr-certificate-extension-subject-alt-name.c:152
 msgid "XMPP Addr"
 msgstr "XMPP 地址"
 
-#: gcr/gcr-certificate-extensions.c:204
+#: gcr/gcr-certificate-extension-subject-alt-name.c:156
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: gcr/gcr-certificate-extensions.c:216
+#: gcr/gcr-certificate-extension-subject-alt-name.c:173
 msgid "Email"
 msgstr "电子邮件"
 
-#: gcr/gcr-certificate-extensions.c:224
+#: gcr/gcr-certificate-extension-subject-alt-name.c:185
 msgid "DNS"
 msgstr "DNS"
 
-#: gcr/gcr-certificate-extensions.c:232
+#: gcr/gcr-certificate-extension-subject-alt-name.c:197
 msgid "X400 Address"
 msgstr "X400 地址"
 
-#: gcr/gcr-certificate-extensions.c:239
+#: gcr/gcr-certificate-extension-subject-alt-name.c:208
 msgid "Directory Name"
 msgstr "目录名"
 
-#: gcr/gcr-certificate-extensions.c:247
+#: gcr/gcr-certificate-extension-subject-alt-name.c:220
 msgid "EDI Party Name"
 msgstr "EDI 方的名称"
 
-#: gcr/gcr-certificate-extensions.c:254
+#: gcr/gcr-certificate-extension-subject-alt-name.c:231
 msgid "URI"
 msgstr "URI"
 
-#: gcr/gcr-certificate-extensions.c:262
+#: gcr/gcr-certificate-extension-subject-alt-name.c:243
 msgid "IP Address"
 msgstr "IP 地址"
 
-#: gcr/gcr-certificate-extensions.c:270
+#: gcr/gcr-certificate-extension-subject-alt-name.c:255
 msgid "Registered ID"
 msgstr "注册的 ID"
 
@@ -649,10 +666,6 @@ msgstr "GnuPG 密钥环"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG 密钥环：%s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "PGP 密钥"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -663,28 +676,32 @@ msgstr "Gnupg 进程退出，退出代码为：%d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg 进程由 %d 信号中止"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "操作已取消"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "私钥"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "PGP 密钥"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "证书请求"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "无法识别或不支持的数据。"
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "无法解析非法的或已损坏的数据。"
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "数据已被锁定"
 
@@ -727,7 +744,7 @@ msgstr "解锁"
 msgid "The unlock password was incorrect"
 msgstr "解锁密码不正确"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "未命名"
 
@@ -735,11 +752,11 @@ msgstr "未命名"
 msgid "Enter your OpenSSH passphrase"
 msgstr "输入你的 OpenSSH 密码"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "无法识别或不可用的密钥属性"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "无法创建公开密钥"
 
@@ -1126,10 +1143,14 @@ msgstr "[文件…]"
 #~ msgstr "密码"
 
 #, c-format
-#~ msgid "The contents of “%s” are locked. In order to view the contents, enter the correct password."
+#~ msgid ""
+#~ "The contents of “%s” are locked. In order to view the contents, enter the "
+#~ "correct password."
 #~ msgstr "“%s”的内容已锁定。要查看其内容，请输入正确的密码。"
 
-#~ msgid "The contents are locked. In order to view the contents, enter the correct password."
+#~ msgid ""
+#~ "The contents are locked. In order to view the contents, enter the correct "
+#~ "password."
 #~ msgstr "内容已锁定。要查看内容，请输入正确的密码。"
 
 #~ msgid "View file"

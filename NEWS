@@ -1,3 +1,15 @@
+gcr 4.3.1:
+- gcr: Vala override for CertificateField.get_value [GNOME/gcr!144]
+- Fix "meson test" failures in FIPS mode [GNOME/gcr!145]
+- doap: Remove invalid maintainer entry [GNOME/gcr!147]
+- tests: Replace echo -n by printf [GNOME/gcr!148]
+- build: Avoid redundant libegg linking into gck tests [GNOME/gcr!149]
+- build: Fix some GLib/GTK deprecation warnings [GNOME/gcr!151]
+- ssh-agent: Request rsa-sha2-256 signature in tests [GNOME/gcr!154]
+- docs: Fix up a bunch of gi-docgen annotations
+- ci: Use GNOME Release service
+- Updated translations
+
 gcr 4.3.0:
 - certificate: Add API to retrieve version [GNOME/gcr!135]
 - Bump required GnuTLS version to 3.8.5 [GNOME/gcr!142]

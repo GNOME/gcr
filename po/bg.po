@@ -1,19 +1,19 @@
 # Bulgarian translation of gcr po-file.
 # Copyright (C) 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
 # Copyright (C) 2009, 2010, 2011, 2012 Free Software Foundation, Inc.
-# Copyright (C) 2022, 2023 Alexander Shopov.
+# Copyright (C) 2022, 2023, 2025 Alexander Shopov.
 # This file is distributed under the same license as the gcr package.
 # Rostislav "zbrox" Raykov <zbrox@i-space.org>, 2004, 2005, 2006.
-# Alexander Shopov <ash@kambanaria.org>, 2007, 2008, 2009, 2011, 2012, 2022, 2023.
+# Alexander Shopov <ash@kambanaria.org>, 2007, 2008, 2009, 2011, 2012, 2022, 2023, 2025.
 # Yavor Doganov <yavor@gnu.org>, 2008, 2009.
 # Damyan Ivanov <dmn@debian.org>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gcr master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-03-04 08:56+0000\n"
-"PO-Revision-Date: 2023-03-04 19:59+0200\n"
+"Project-Id-Version: gcr main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-02-05 09:15+0000\n"
+"PO-Revision-Date: 2025-02-05 11:20+0100\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -62,7 +62,7 @@ msgstr "Лично име"
 msgid "Surname"
 msgstr "Фамилия"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1319
 msgid "Serial Number"
 msgstr "Сериен номер"
 
@@ -344,6 +344,24 @@ msgstr "Ограничения на политиките"
 msgid "Authority key identifier"
 msgstr "Идентификатор на издателя на ключа"
 
+#. Certificate Policies
+#: egg/egg-oid.c:170
+msgid "Extended Validation"
+msgstr "Разширена валидация"
+
+#: egg/egg-oid.c:171
+msgid "Certification Practices Statement"
+msgstr "Заявление за удостоверителските практики"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:174
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Протокол за състоянието на сертификата онлайн (OCSP)"
+
+#: egg/egg-oid.c:175
+msgid "Certification Authority Issuer"
+msgstr "Издател на сертификат"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -381,242 +399,214 @@ msgstr "Неправилен номер на версия на адреса."
 msgid "The stream was closed"
 msgstr "Потокът бе заключен"
 
-#: gcr/gcr-certificate.c:882
+#: gcr/gcr-certificate.c:956
 msgid "Key Algorithm"
 msgstr "Алгоритъм на ключа"
 
-#: gcr/gcr-certificate.c:888
+#: gcr/gcr-certificate.c:962
 msgid "Key Parameters"
 msgstr "Параметри на ключа"
 
-#: gcr/gcr-certificate.c:895
+#: gcr/gcr-certificate.c:969
 msgid "Key Size"
 msgstr "Размер на ключа"
 
-#: gcr/gcr-certificate.c:905
+#: gcr/gcr-certificate.c:979
 msgid "Key SHA1 Fingerprint"
 msgstr "Отпечатък на сертификата по SHA1"
 
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
 msgid "Public Key"
 msgstr "Публичен ключ"
 
-#: gcr/gcr-certificate.c:923
+#: gcr/gcr-certificate.c:994
 msgid "Basic Constraints"
 msgstr "Основни ограничения"
 
-#: gcr/gcr-certificate.c:924
+#: gcr/gcr-certificate.c:996
 msgid "Certificate Authority"
 msgstr "Удостоверител"
 
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1190
 msgid "Yes"
 msgstr "Да"
 
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1190
 msgid "No"
 msgstr "Не"
 
-#: gcr/gcr-certificate.c:927
+#: gcr/gcr-certificate.c:1000
 msgid "Unlimited"
 msgstr "Без ограничение"
 
-#: gcr/gcr-certificate.c:931
+#: gcr/gcr-certificate.c:1004
 msgid "Max Path Length"
 msgstr "Максимална дължина на веригата"
 
-#: gcr/gcr-certificate.c:955
+#: gcr/gcr-certificate.c:1015
 msgid "Extended Key Usage"
 msgstr "Разширена употреба на ключа"
 
-#: gcr/gcr-certificate.c:956
+#: gcr/gcr-certificate.c:1018
 msgid "Allowed Purposes"
 msgstr "Позволени употреби"
 
-#: gcr/gcr-certificate.c:973
+#: gcr/gcr-certificate.c:1032
 msgid "Subject Key Identifier"
 msgstr "Идентификатор на собственика на ключа"
 
-#: gcr/gcr-certificate.c:976
+#: gcr/gcr-certificate.c:1036
 msgid "Key Identifier"
 msgstr "Идентификатор на ключа"
 
-#: gcr/gcr-certificate.c:985
-msgid "Digital signature"
-msgstr "Цифров подпис"
-
-#: gcr/gcr-certificate.c:986
-msgid "Non repudiation"
-msgstr "Без отхвърляне"
-
-#: gcr/gcr-certificate.c:987
-msgid "Key encipherment"
-msgstr "Шифър на ключа"
-
-#: gcr/gcr-certificate.c:988
-msgid "Data encipherment"
-msgstr "Шифър на данните"
-
-#: gcr/gcr-certificate.c:989
-msgid "Key agreement"
-msgstr "Условия на ключа"
-
-#: gcr/gcr-certificate.c:990
-msgid "Certificate signature"
-msgstr "Подпис на сертификат"
-
-#: gcr/gcr-certificate.c:991
-msgid "Revocation list signature"
-msgstr "Подпис на списъка за отмяна"
-
-#: gcr/gcr-certificate.c:992
-msgid "Encipher only"
-msgstr "Само шифриране"
-
-#: gcr/gcr-certificate.c:993
-msgid "Decipher only"
-msgstr "Само дешифриране"
-
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate.c:1047
 msgid "Key Usage"
 msgstr "Употреба на ключа"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1049
 msgid "Usages"
 msgstr "Употреби"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1060
 msgid "Subject Alternative Names"
 msgstr "Алтернативни имена на притежателя"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1089
+msgid "Certificate Policies"
+msgstr "Политики на сертификата"
+
+#: gcr/gcr-certificate.c:1098
+msgid "Policy"
+msgstr "Политика"
+
+#: gcr/gcr-certificate.c:1122
+msgid "Location"
+msgstr "Местоположение"
+
+#: gcr/gcr-certificate.c:1125
+msgid "Access Method"
+msgstr "Метод за достъп"
+
+#: gcr/gcr-certificate.c:1140
 msgid "Extension"
 msgstr "Разширение"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1144
 msgid "Identifier"
 msgstr "Идентификатор"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1145
 msgid "Value"
 msgstr "Стойност"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1190
 msgid "Critical"
 msgstr "Критичен"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1266 gcr/gcr-certificate.c:1547 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Сертификат"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1273 gcr/gcr-certificate.c:1278
 msgid "Unknown"
 msgstr "Непознат"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1274
 msgid "Identity"
 msgstr "Идентичност"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1279
 msgid "Verified by"
 msgstr "Проверен от"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1285
 msgid "Expires"
 msgstr "Изтича на"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1293
 msgid "Subject Name"
 msgstr "Име на получателя"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1299
 msgid "Issuer Name"
 msgstr "Име на издателя"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1305
 msgid "Issued Certificate"
 msgstr "Издаден сертификат"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1312
 msgid "Version"
 msgstr "Версия"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1326
 msgid "Not Valid Before"
 msgstr "Не е валиден преди"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1335
 msgid "Not Valid After"
 msgstr "Не е валиден след"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1344
 msgid "Certificate Fingerprints"
 msgstr "Отпечатъци на сертификата"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1354
 msgid "Public Key Info"
 msgstr "Информация за публичен ключ"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1373 gcr/gcr-certificate.c:1384
 msgid "Signature"
 msgstr "Подпис"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1376
 msgid "Signature Algorithm"
 msgstr "Алгоритъм на подписа"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1380
 msgid "Signature Parameters"
 msgstr "Параметри на подписа"
 
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Друго име"
+#: gcr/gcr-certificate-extension-key-usage.c:64
+msgid "Digital signature"
+msgstr "Цифров подпис"
 
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "Адрес за XMPP"
+#: gcr/gcr-certificate-extension-key-usage.c:65
+msgid "Non repudiation"
+msgstr "Без отхвърляне"
 
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "Запис за услуга (SRV) в DNS"
+#: gcr/gcr-certificate-extension-key-usage.c:66
+msgid "Key encipherment"
+msgstr "Шифър на ключа"
 
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "Е-поща"
+#: gcr/gcr-certificate-extension-key-usage.c:67
+msgid "Data encipherment"
+msgstr "Шифър на данните"
 
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
+#: gcr/gcr-certificate-extension-key-usage.c:68
+msgid "Key agreement"
+msgstr "Условия на ключа"
 
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "Адрес по X400"
+#: gcr/gcr-certificate-extension-key-usage.c:69
+msgid "Certificate signature"
+msgstr "Подпис на сертификат"
 
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Име на директория"
+#: gcr/gcr-certificate-extension-key-usage.c:70
+msgid "Revocation list signature"
+msgstr "Подпис на списъка за отмяна"
 
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "Име на страна по EDI"
+#: gcr/gcr-certificate-extension-key-usage.c:71
+msgid "Encipher only"
+msgstr "Само шифриране"
 
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "Адрес"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "IP адрес"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "Регистриран идентификатор"
+#: gcr/gcr-certificate-extension-key-usage.c:72
+msgid "Decipher only"
+msgstr "Само дешифриране"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -637,10 +627,6 @@ msgstr "Ключодържател на GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Ключодържател на GnuPG: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "Ключ за PGP"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -651,28 +637,32 @@ msgstr "Процесът на GnuPG завърши работа с код: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Процесът на GnuPG бе спрян със сигнал: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "Отменено действие"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Частен ключ"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "Ключ за PGP"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Заявка за сертификат"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Непознати или неподдържани данни."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Неправилни или повредени данни не може да бъдат анализирани"
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "Данните са заключени"
 
@@ -715,7 +705,7 @@ msgstr "Отключване"
 msgid "The unlock password was incorrect"
 msgstr "Паролата за отключване е грешна"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Без име"
 
@@ -723,11 +713,11 @@ msgstr "Без име"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Въведете паролата си за OpenSSH"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Непознати или недостъпни атрибути на ключа"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Публичният ключ не може да бъде генериран"
 

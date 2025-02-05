@@ -6,12 +6,13 @@ gck/gck-module.c
 gck/gck-modules.c
 gck/gck-uri.c
 gcr/gcr-callback-output-stream.c
-gcr/gcr-certificate.c
 gcr/gcr-certificate-extension-basic-constraints.c
 gcr/gcr-certificate-extension-extended-key-usage.c
 gcr/gcr-certificate-extension-key-usage.c
 gcr/gcr-certificate-extension-subject-alt-name.c
 gcr/gcr-certificate-extension-subject-key-identifier.c
+gcr/gcr-certificate-extensions-common.c
+gcr/gcr-certificate.c
 gcr/gcr-certificate-request.c
 gcr/gcr-gnupg-importer.c
 gcr/gcr-gnupg-process.c

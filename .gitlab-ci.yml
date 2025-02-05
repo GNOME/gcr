@@ -19,7 +19,7 @@ variables:
     # When branching a stable release, change 'main' to the
     # release branch name to ensure that a new image will
     # be created, tailored for the stable branch.
-    BRANCH_NAME: 'main'
+    BRANCH_NAME: 'gcr-4-3'
     CONTAINER_TAG: '2024-10-15.0'
     FEDORA_VERSION: latest
     # Derive FDO variables from this automatically.

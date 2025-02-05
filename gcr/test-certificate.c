@@ -48,19 +48,19 @@ setup (Test *test, gconstpointer unused)
 	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/der-certificate.crt", &contents, &n_contents, NULL))
 		g_assert_not_reached ();
 	test->certificate = gcr_simple_certificate_new ((const guchar *)contents, n_contents);
-	g_assert (test->certificate);
+	g_assert_nonnull (test->certificate);
 	g_free (contents);
 
 	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/der-certificate-dsa.cer", &contents, &n_contents, NULL))
 		g_assert_not_reached ();
 	test->dsa_cert = gcr_simple_certificate_new ((const guchar *)contents, n_contents);
-	g_assert (test->dsa_cert);
+	g_assert_nonnull (test->dsa_cert);
 	g_free (contents);
 
 	if (!g_file_get_contents (SRCDIR "/gcr/fixtures/dhansak-collabora.cer", &contents, &n_contents, NULL))
 		g_assert_not_reached ();
 	test->dhansak_cert = gcr_simple_certificate_new ((const guchar *)contents, n_contents);
-	g_assert (test->dhansak_cert);
+	g_assert_nonnull (test->dhansak_cert);
 	g_free (contents);
 }
 
@@ -76,7 +76,7 @@ static void
 test_issuer_cn (Test *test, gconstpointer unused)
 {
 	gchar *cn = gcr_certificate_get_issuer_cn (test->certificate);
-	g_assert (cn);
+	g_assert_nonnull (cn);
 	g_assert_cmpstr (cn, ==, "http://www.valicert.com/");
 	g_free (cn);
 }
@@ -85,7 +85,7 @@ static void
 test_issuer_dn (Test *test, gconstpointer unused)
 {
 	gchar *dn = gcr_certificate_get_issuer_dn (test->certificate);
-	g_assert (dn);
+	g_assert_nonnull (dn);
 	g_assert_cmpstr (dn, ==, "L=ValiCert Validation Network, O=ValiCert, Inc., OU=ValiCert Class 3 Policy Validation Authority, CN=http://www.valicert.com/, EMAIL=info@valicert.com");
 	g_free (dn);
 }
@@ -94,7 +94,7 @@ static void
 test_issuer_part (Test *test, gconstpointer unused)
 {
 	gchar *part = gcr_certificate_get_issuer_part (test->certificate, "l");
-	g_assert (part);
+	g_assert_nonnull (part);
 	g_assert_cmpstr (part, ==, "ValiCert Validation Network");
 	g_free (part);
 }
@@ -106,7 +106,7 @@ test_issuer_raw (Test *test, gconstpointer unused)
 	gsize n_der;
 
 	der = gcr_certificate_get_issuer_raw (test->certificate, &n_der);
-	g_assert (der);
+	g_assert_nonnull (der);
 	egg_assert_cmpsize (n_der, ==, 190);
 	g_free (der);
 }
@@ -115,12 +115,12 @@ static void
 test_subject_cn (Test *test, gconstpointer unused)
 {
 	gchar *cn = gcr_certificate_get_subject_cn (test->certificate);
-	g_assert (cn);
+	g_assert_nonnull (cn);
 	g_assert_cmpstr (cn, ==, "http://www.valicert.com/");
 	g_free (cn);
 
 	cn = gcr_certificate_get_subject_cn (test->dhansak_cert);
-	g_assert (cn);
+	g_assert_nonnull (cn);
 	g_assert_cmpstr (cn, ==, "dhansak.collabora.co.uk");
 	g_free (cn);
 }
@@ -129,12 +129,12 @@ static void
 test_subject_dn (Test *test, gconstpointer unused)
 {
 	gchar *dn = gcr_certificate_get_subject_dn (test->certificate);
-	g_assert (dn);
+	g_assert_nonnull (dn);
 	g_assert_cmpstr (dn, ==, "L=ValiCert Validation Network, O=ValiCert, Inc., OU=ValiCert Class 3 Policy Validation Authority, CN=http://www.valicert.com/, EMAIL=info@valicert.com");
 	g_free (dn);
 
 	dn = gcr_certificate_get_subject_dn (test->dhansak_cert);
-	g_assert (dn);
+	g_assert_nonnull (dn);
 	g_assert_cmpstr (dn, ==, "CN=dhansak.collabora.co.uk, EMAIL=sysadmin@collabora.co.uk");
 	g_free (dn);
 
@@ -144,12 +144,12 @@ static void
 test_subject_part (Test *test, gconstpointer unused)
 {
 	gchar *part = gcr_certificate_get_subject_part (test->certificate, "OU");
-	g_assert (part);
+	g_assert_nonnull (part);
 	g_assert_cmpstr (part, ==, "ValiCert Class 3 Policy Validation Authority");
 	g_free (part);
 
 	part = gcr_certificate_get_subject_part (test->dhansak_cert, "EMAIL");
-	g_assert (part);
+	g_assert_nonnull (part);
 	g_assert_cmpstr (part, ==, "sysadmin@collabora.co.uk");
 	g_free (part);
 
@@ -162,12 +162,12 @@ test_subject_raw (Test *test, gconstpointer unused)
 	gsize n_der;
 
 	der = gcr_certificate_get_subject_raw (test->certificate, &n_der);
-	g_assert (der);
+	g_assert_nonnull (der);
 	egg_assert_cmpsize (n_der, ==, 190);
 	g_free (der);
 
 	der = gcr_certificate_get_subject_raw (test->dhansak_cert, &n_der);
-	g_assert (der);
+	g_assert_nonnull (der);
 	egg_assert_cmpsize (n_der, ==, 77);
 	g_free (der);
 }
@@ -187,7 +187,7 @@ static void
 test_expiry_date (Test *test, gconstpointer unused)
 {
 	GDateTime *date = gcr_certificate_get_expiry_date (test->certificate);
-	g_assert (date);
+	g_assert_nonnull (date);
 	g_assert_cmpuint (g_date_time_get_year (date), ==, 2019);
 	g_assert_cmpuint (g_date_time_get_month (date), ==, 6);
 	g_assert_cmpuint (g_date_time_get_day_of_month (date), ==, 26);
@@ -209,13 +209,13 @@ test_serial_number (Test *test, gconstpointer unused)
 	gchar *hex;
 
 	serial = gcr_certificate_get_serial_number (test->certificate, &n_serial);
-	g_assert (serial);
+	g_assert_nonnull (serial);
 	g_assert_cmpuint (n_serial, ==, 1);
-	g_assert (memcmp (serial, "\1", n_serial) == 0);
+	g_assert_true (memcmp (serial, "\1", n_serial) == 0);
 	g_free (serial);
 
 	hex = gcr_certificate_get_serial_number_hex (test->certificate);
-	g_assert (hex);
+	g_assert_nonnull (hex);
 	g_assert_cmpstr (hex, ==, "01");
 	g_free (hex);
 }
@@ -225,9 +225,9 @@ test_fingerprint (Test *test, gconstpointer unused)
 {
 	gsize n_print;
 	guchar *print = gcr_certificate_get_fingerprint (test->certificate, G_CHECKSUM_MD5, &n_print);
-	g_assert (print);
+	g_assert_nonnull (print);
 	g_assert_cmpuint (n_print, ==, g_checksum_type_get_length (G_CHECKSUM_MD5));
-	g_assert (memcmp (print, "\xa2\x6f\x53\xb7\xee\x40\xdb\x4a\x68\xe7\xfa\x18\xd9\x10\x4b\x72", n_print) == 0);
+	g_assert_true (memcmp (print, "\xa2\x6f\x53\xb7\xee\x40\xdb\x4a\x68\xe7\xfa\x18\xd9\x10\x4b\x72", n_print) == 0);
 	g_free (print);
 }
 
@@ -235,7 +235,7 @@ static void
 test_fingerprint_hex (Test *test, gconstpointer unused)
 {
 	gchar *print = gcr_certificate_get_fingerprint_hex (test->certificate, G_CHECKSUM_MD5);
-	g_assert (print);
+	g_assert_nonnull (print);
 	g_assert_cmpstr (print, ==, "A2 6F 53 B7 EE 40 DB 4A 68 E7 FA 18 D9 10 4B 72");
 	g_free (print);
 }
@@ -254,10 +254,10 @@ static void
 test_certificate_is_issuer (Test *test, gconstpointer unused)
 {
 	gboolean ret = gcr_certificate_is_issuer (test->certificate, test->certificate);
-	g_assert (ret == TRUE);
+	g_assert_true (ret);
 
 	ret = gcr_certificate_is_issuer (test->certificate, test->dsa_cert);
-	g_assert (ret == FALSE);
+	g_assert_false (ret);
 }
 
 static void
@@ -309,8 +309,8 @@ test_basic_constraints (Test *test,
 	if (!gcr_certificate_get_basic_constraints (test->dsa_cert, &is_ca, &path_len))
 		g_assert_not_reached ();
 
-	g_assert (is_ca == FALSE);
-	g_assert (path_len == -1);
+	g_assert_false (is_ca);
+	g_assert_cmpint (path_len, ==, -1);
 }
 
 
@@ -324,20 +324,20 @@ test_interface_elements (Test *test,
 		GListModel *fields;
 
 		gcr_certificate_section_get_flags (section);
-		g_assert (gcr_certificate_section_get_label (section) != NULL);
+		g_assert_nonnull (gcr_certificate_section_get_label (section));
 		fields = gcr_certificate_section_get_fields (section);
 		g_assert_nonnull (fields);
-		g_assert (g_list_model_get_item_type (fields) == GCR_TYPE_CERTIFICATE_FIELD);
+		g_assert_true (g_list_model_get_item_type (fields) == GCR_TYPE_CERTIFICATE_FIELD);
 		for (guint i = 0; i < g_list_model_get_n_items (fields); i++) {
 			GValue val = G_VALUE_INIT;
 			GType value_type;
 			GcrCertificateField *field = g_list_model_get_item (fields, i);
-			g_assert (gcr_certificate_field_get_label (field) != NULL);
+			g_assert_nonnull (gcr_certificate_field_get_label (field));
 			value_type = gcr_certificate_field_get_value_type (field);
 			g_value_init (&val, value_type);
 			g_assert_true (gcr_certificate_field_get_value (field, &val));
 			g_value_unset (&val);
-			g_assert (gcr_certificate_field_get_section (field) == section);
+			g_assert_true (gcr_certificate_field_get_section (field) == section);
 			g_object_unref (field);
 		}
 	}

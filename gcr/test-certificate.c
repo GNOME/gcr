@@ -261,6 +261,45 @@ test_certificate_is_issuer (Test *test, gconstpointer unused)
 }
 
 static void
+test_list_extensions (Test *test,
+                      gconstpointer unused)
+{
+	GcrCertificateExtensionList *extensions;
+	GListModel *ext_list;
+	unsigned int n_items;
+	GcrCertificateExtension *extension;
+
+	extensions = gcr_certificate_list_extensions (test->dsa_cert);
+	g_assert_nonnull (extensions);
+
+	/* Basic GListModel API */
+	ext_list = G_LIST_MODEL (extensions);
+	g_assert_true (g_list_model_get_item_type (ext_list) == GCR_TYPE_CERTIFICATE_EXTENSION);
+	g_assert_cmpint (g_list_model_get_n_items (ext_list), ==, 9);
+	g_object_get (extensions, "n-items", &n_items, NULL);
+	g_assert_cmpint (n_items, ==, 9);
+	g_assert_null (g_list_model_get_item (ext_list, 9));
+
+	/* check get_extension() for all elements */
+	for (unsigned int i = 0; i < n_items; i++) {
+		extension = gcr_certificate_extension_list_get_extension (extensions, i);
+		g_assert_nonnull (extension);
+		g_assert_true (GCR_IS_CERTIFICATE_EXTENSION (extension));
+	}
+
+	/* find_by_oid() */
+	extension = gcr_certificate_extension_list_find_by_oid (extensions,
+	                                                        g_quark_to_string (GCR_OID_BASIC_CONSTRAINTS));
+	g_assert_nonnull (extension);
+
+	extension = gcr_certificate_extension_list_find_by_oid (extensions,
+	                                                        g_quark_to_string (GCR_OID_SUBJECT_ALT_NAME));
+	g_assert_null (extension);
+
+	g_object_unref (extensions);
+}
+
+static void
 test_basic_constraints (Test *test,
                         gconstpointer unused)
 {
@@ -534,8 +573,10 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/certificate/fingerprint_hex", Test, NULL, setup, test_fingerprint_hex, teardown);
 	g_test_add ("/gcr/certificate/key_size", Test, NULL, setup, test_certificate_key_size, teardown);
 	g_test_add ("/gcr/certificate/is_issuer", Test, NULL, setup, test_certificate_is_issuer, teardown);
-	g_test_add ("/gcr/certificate/basic_constraints", Test, NULL, setup, test_basic_constraints, teardown);
 	g_test_add ("/gcr/certificate/interface_elements", Test, NULL, setup, test_interface_elements, teardown);
+	/* Extensions */
+	g_test_add ("/gcr/certificate/list_extensions", Test, NULL, setup, test_list_extensions, teardown);
+	g_test_add ("/gcr/certificate/basic_constraints", Test, NULL, setup, test_basic_constraints, teardown);
 	g_test_add_func ("/gcr/certificate/subject_alt_name", test_subject_alt_name);
 	g_test_add_func ("/gcr/certificate/key_usage", test_key_usage);
 	g_test_add_func ("/gcr/certificate/certificate_policies", test_certificate_policies);

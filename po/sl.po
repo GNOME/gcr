@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2025-02-02 17:13+0000\n"
-"PO-Revision-Date: 2025-02-02 20:57+0100\n"
+"POT-Creation-Date: 2025-02-05 22:21+0000\n"
+"PO-Revision-Date: 2025-02-06 12:02+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups."
 "com>\n"
@@ -64,7 +64,7 @@ msgstr "Splošno ime"
 msgid "Surname"
 msgstr "Priimek"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1288
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1319
 msgid "Serial Number"
 msgstr "Zaporedna številka"
 
@@ -355,6 +355,15 @@ msgstr "Razširjeno preverjanje veljavnosti"
 msgid "Certification Practices Statement"
 msgstr "Izjava o praksi certificiranja"
 
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:174
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Spletni protokol o stanju potrdila (OCSP)"
+
+#: egg/egg-oid.c:175
+msgid "Certification Authority Issuer"
+msgstr "Izdajatelj overitelja potrdil"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -392,6 +401,86 @@ msgstr "Naslov URI vsebuje nepravilno vrednost različice."
 msgid "The stream was closed"
 msgstr "Pretok je zaprt"
 
+#: gcr/gcr-certificate-extension-key-usage.c:64
+msgid "Digital signature"
+msgstr "Digitalni podpis"
+
+#: gcr/gcr-certificate-extension-key-usage.c:65
+msgid "Non repudiation"
+msgstr "Neprepoznano"
+
+#: gcr/gcr-certificate-extension-key-usage.c:66
+msgid "Key encipherment"
+msgstr "Šifriranje ključa"
+
+#: gcr/gcr-certificate-extension-key-usage.c:67
+msgid "Data encipherment"
+msgstr "Šifriranje podatkov"
+
+#: gcr/gcr-certificate-extension-key-usage.c:68
+msgid "Key agreement"
+msgstr "Dogovor o ključu"
+
+#: gcr/gcr-certificate-extension-key-usage.c:69
+msgid "Certificate signature"
+msgstr "Podpis potrdila"
+
+#: gcr/gcr-certificate-extension-key-usage.c:70
+msgid "Revocation list signature"
+msgstr "Podpis seznama preklica"
+
+#: gcr/gcr-certificate-extension-key-usage.c:71
+msgid "Encipher only"
+msgstr "Le šifriranje"
+
+#: gcr/gcr-certificate-extension-key-usage.c:72
+msgid "Decipher only"
+msgstr "Le odšifriranje"
+
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Drugo ime"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "XMPP Addr"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "Elektronski naslov"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "Naslov X400"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Ime mape"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "Ime stranke EDI"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "Naslov URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "Naslov IP"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Vpisan ID"
+
 #: gcr/gcr-certificate.c:956
 msgid "Key Algorithm"
 msgstr "Algoritem ključa"
@@ -420,11 +509,11 @@ msgstr "Splošne omejitve"
 msgid "Certificate Authority"
 msgstr "Pooblastitelj potrdila"
 
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1190
 msgid "Yes"
 msgstr "Da"
 
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1190
 msgid "No"
 msgstr "Ne"
 
@@ -472,170 +561,98 @@ msgstr "Pravilniki o potrdilih"
 msgid "Policy"
 msgstr "Pravilnik"
 
-#: gcr/gcr-certificate.c:1111
+#: gcr/gcr-certificate.c:1122
+msgid "Location"
+msgstr "Mesto"
+
+#: gcr/gcr-certificate.c:1125
+msgid "Access Method"
+msgstr "Način dostopa"
+
+#: gcr/gcr-certificate.c:1140
 msgid "Extension"
 msgstr "Pripona"
 
-#: gcr/gcr-certificate.c:1115
+#: gcr/gcr-certificate.c:1144
 msgid "Identifier"
 msgstr "Določilo"
 
-#: gcr/gcr-certificate.c:1116
+#: gcr/gcr-certificate.c:1145
 msgid "Value"
 msgstr "Vrednost"
 
-#: gcr/gcr-certificate.c:1159
+#: gcr/gcr-certificate.c:1190
 msgid "Critical"
 msgstr "Kritično"
 
-#: gcr/gcr-certificate.c:1235 gcr/gcr-certificate.c:1516 gcr/gcr-parser.c:331
+#: gcr/gcr-certificate.c:1266 gcr/gcr-certificate.c:1547 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Potrdilo"
 
-#: gcr/gcr-certificate.c:1242 gcr/gcr-certificate.c:1247
+#: gcr/gcr-certificate.c:1273 gcr/gcr-certificate.c:1278
 msgid "Unknown"
 msgstr "Neznano"
 
-#: gcr/gcr-certificate.c:1243
+#: gcr/gcr-certificate.c:1274
 msgid "Identity"
 msgstr "Istovetnost"
 
-#: gcr/gcr-certificate.c:1248
+#: gcr/gcr-certificate.c:1279
 msgid "Verified by"
 msgstr "Overjeno preko"
 
-#: gcr/gcr-certificate.c:1254
+#: gcr/gcr-certificate.c:1285
 msgid "Expires"
 msgstr "Preteče"
 
 #. The subject
-#: gcr/gcr-certificate.c:1262
+#: gcr/gcr-certificate.c:1293
 msgid "Subject Name"
 msgstr "Ime predmeta"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1268
+#: gcr/gcr-certificate.c:1299
 msgid "Issuer Name"
 msgstr "Ime izdajatelja"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1274
+#: gcr/gcr-certificate.c:1305
 msgid "Issued Certificate"
 msgstr "Izdano potrdilo"
 
-#: gcr/gcr-certificate.c:1281
+#: gcr/gcr-certificate.c:1312
 msgid "Version"
 msgstr "Različica"
 
-#: gcr/gcr-certificate.c:1295
+#: gcr/gcr-certificate.c:1326
 msgid "Not Valid Before"
 msgstr "Neveljaven pred"
 
-#: gcr/gcr-certificate.c:1304
+#: gcr/gcr-certificate.c:1335
 msgid "Not Valid After"
 msgstr "Neveljaven po"
 
-#: gcr/gcr-certificate.c:1313
+#: gcr/gcr-certificate.c:1344
 msgid "Certificate Fingerprints"
 msgstr "Prstni odtisi potrdila"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1323
+#: gcr/gcr-certificate.c:1354
 msgid "Public Key Info"
 msgstr "Podrobnosti javnega ključa"
 
 #. Signature
-#: gcr/gcr-certificate.c:1342 gcr/gcr-certificate.c:1353
+#: gcr/gcr-certificate.c:1373 gcr/gcr-certificate.c:1384
 msgid "Signature"
 msgstr "Podpis"
 
-#: gcr/gcr-certificate.c:1345
+#: gcr/gcr-certificate.c:1376
 msgid "Signature Algorithm"
 msgstr "Algoritem podpisa"
 
-#: gcr/gcr-certificate.c:1349
+#: gcr/gcr-certificate.c:1380
 msgid "Signature Parameters"
 msgstr "Določila podpisa"
-
-#: gcr/gcr-certificate-extension-key-usage.c:64
-msgid "Digital signature"
-msgstr "Digitalni podpis"
-
-#: gcr/gcr-certificate-extension-key-usage.c:65
-msgid "Non repudiation"
-msgstr "Neprepoznano"
-
-#: gcr/gcr-certificate-extension-key-usage.c:66
-msgid "Key encipherment"
-msgstr "Šifriranje ključa"
-
-#: gcr/gcr-certificate-extension-key-usage.c:67
-msgid "Data encipherment"
-msgstr "Šifriranje podatkov"
-
-#: gcr/gcr-certificate-extension-key-usage.c:68
-msgid "Key agreement"
-msgstr "Dogovor o ključu"
-
-#: gcr/gcr-certificate-extension-key-usage.c:69
-msgid "Certificate signature"
-msgstr "Podpis potrdila"
-
-#: gcr/gcr-certificate-extension-key-usage.c:70
-msgid "Revocation list signature"
-msgstr "Podpis seznama preklica"
-
-#: gcr/gcr-certificate-extension-key-usage.c:71
-msgid "Encipher only"
-msgstr "Le šifriranje"
-
-#: gcr/gcr-certificate-extension-key-usage.c:72
-msgid "Decipher only"
-msgstr "Le odšifriranje"
-
-#: gcr/gcr-certificate-extension-subject-alt-name.c:136
-msgid "Other Name"
-msgstr "Drugo ime"
-
-#: gcr/gcr-certificate-extension-subject-alt-name.c:152
-msgid "XMPP Addr"
-msgstr "XMPP Addr"
-
-#: gcr/gcr-certificate-extension-subject-alt-name.c:156
-msgid "DNS SRV"
-msgstr "DNS SRV"
-
-#: gcr/gcr-certificate-extension-subject-alt-name.c:173
-msgid "Email"
-msgstr "Elektronski naslov"
-
-#: gcr/gcr-certificate-extension-subject-alt-name.c:185
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extension-subject-alt-name.c:197
-msgid "X400 Address"
-msgstr "Naslov X400"
-
-#: gcr/gcr-certificate-extension-subject-alt-name.c:208
-msgid "Directory Name"
-msgstr "Ime mape"
-
-#: gcr/gcr-certificate-extension-subject-alt-name.c:220
-msgid "EDI Party Name"
-msgstr "Ime stranke EDI"
-
-#: gcr/gcr-certificate-extension-subject-alt-name.c:231
-msgid "URI"
-msgstr "Naslov URI"
-
-#: gcr/gcr-certificate-extension-subject-alt-name.c:243
-msgid "IP Address"
-msgstr "Naslov IP"
-
-#: gcr/gcr-certificate-extension-subject-alt-name.c:255
-msgid "Registered ID"
-msgstr "Vpisan ID"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -669,7 +686,7 @@ msgstr "Opravilo Gnupg je nepričakovano končano s signalom: %d"
 #: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
-msgstr "Dejanje je preklicano."
+msgstr "Dejanje je preklicano"
 
 #: gcr/gcr-parser.c:328
 msgid "Private Key"
@@ -721,7 +738,7 @@ msgstr "Vnesite geslo za odklepanje osebnega ključa"
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
 msgstr ""
-"Program zahteva dostop do osebnega ključa »%s«, vendar je ta zaklenjen."
+"Program zahteva dostop do osebnega ključa »%s«, vendar je ta zaklenjen"
 
 #: gcr/gcr-ssh-agent-interaction.c:161
 msgid "Automatically unlock this key whenever I’m logged in"
@@ -733,7 +750,7 @@ msgstr "Odkleni"
 
 #: gcr/gcr-ssh-agent-interaction.c:166
 msgid "The unlock password was incorrect"
-msgstr "Geslo za odklepanje je napačno."
+msgstr "Geslo za odklepanje je napačno"
 
 #: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"

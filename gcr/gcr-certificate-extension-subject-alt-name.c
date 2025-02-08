@@ -149,7 +149,6 @@ _gcr_certificate_extension_subject_alt_name_parse (GQuark oid,
 	GcrCertificateExtensionSubjectAltName *ret = NULL;
 	GNode *asn = NULL;
 	GPtrArray *names;
-	unsigned int count;
 
 	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "SubjectAltName", value);
 	if (asn == NULL) {
@@ -160,22 +159,9 @@ _gcr_certificate_extension_subject_alt_name_parse (GQuark oid,
 		goto out;
 	}
 
-	count = egg_asn1x_count (asn);
-	names = g_ptr_array_new_full (count, g_object_unref);
-
-	for (unsigned int i = 0; i < count; i++) {
-		GNode *node;
-		GcrGeneralName *name = NULL;
-
-		node = egg_asn1x_node (asn, i + 1, NULL);
-		g_return_val_if_fail (node, NULL);
-
-		name = _gcr_general_name_parse (node, error);
-		if (name == NULL)
-			goto out;
-
-		g_ptr_array_add (names, name);
-	}
+	names = _gcr_general_names_parse (asn, error);
+	if (names == NULL)
+		goto out;
 
 	ret = g_object_new (GCR_TYPE_CERTIFICATE_EXTENSION_SUBJECT_ALT_NAME,
 	                    "critical", critical,
@@ -185,8 +171,7 @@ _gcr_certificate_extension_subject_alt_name_parse (GQuark oid,
 	g_ptr_array_extend_and_steal (ret->names, g_steal_pointer (&names));
 
 out:
-	if (names != NULL)
-		g_ptr_array_unref (names);
+	g_clear_pointer (&names, g_ptr_array_unref);
 	if (asn != NULL)
 		egg_asn1x_destroy (asn);
 	return ret ? GCR_CERTIFICATE_EXTENSION (ret) : NULL;

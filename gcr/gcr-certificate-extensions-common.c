@@ -273,7 +273,7 @@ struct {
 };
 
 GcrGeneralName *
-_gcr_general_name_parse (GNode *node,
+_gcr_general_name_parse (GNode   *node,
                          GError **error)
 {
 	GNode *choice;
@@ -304,4 +304,31 @@ _gcr_general_name_parse (GNode *node,
 
 	name->raw = egg_asn1x_get_element_raw (choice);
 	return name;
+}
+
+GPtrArray *
+_gcr_general_names_parse (GNode   *node,
+                          GError **error)
+{
+	GPtrArray *names;
+	unsigned int count;
+
+	count = egg_asn1x_count (node);
+	names = g_ptr_array_new_full (count, g_object_unref);
+
+	for (unsigned int i = 0; i < count; i++) {
+		GNode *name_node;
+		GcrGeneralName *name = NULL;
+
+		name_node = egg_asn1x_node (node, i + 1, NULL);
+		g_return_val_if_fail (name_node, NULL);
+
+		name = _gcr_general_name_parse (name_node, error);
+		if (name == NULL)
+			break;
+
+		g_ptr_array_add (names, name);
+	}
+
+	return names;
 }

@@ -52,6 +52,11 @@ GcrCertificateExtension * _gcr_certificate_extension_subject_key_identifier_pars
                                                                                    gboolean critical,
                                                                                    GBytes *value,
                                                                                    GError **error);
+GcrCertificateExtension * _gcr_certificate_extension_authority_key_identifier_parse
+                                                                                  (GQuark oid,
+                                                                                   gboolean critical,
+                                                                                   GBytes *value,
+                                                                                   GError **error);
 GcrCertificateExtension * _gcr_certificate_extension_subject_alt_name_parse       (GQuark oid,
                                                                                    gboolean critical,
                                                                                    GBytes *value,

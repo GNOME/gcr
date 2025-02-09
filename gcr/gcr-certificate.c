@@ -1039,6 +1039,24 @@ append_extension_subject_key_identifier (GcrCertificateExtensionSubjectKeyIdenti
 }
 
 static GcrCertificateSection *
+append_extension_authority_key_identifier (GcrCertificateExtensionAuthorityKeyIdentifier *extension)
+{
+	GcrCertificateSection *section;
+	GBytes *keyid;
+	const void *keyid_data;
+	size_t keyid_len;
+	char *display;
+
+	section = _gcr_certificate_section_new (egg_oid_get_description (GCR_OID_AUTHORITY_KEY_IDENTIFIER), FALSE);
+	keyid = gcr_certificate_extension_authority_key_identifier_get_key_id (extension);
+	keyid_data = g_bytes_get_data (keyid, &keyid_len);
+	display = egg_hex_encode_full (keyid_data, keyid_len, TRUE, " ", 1);
+	_gcr_certificate_section_new_field_take_value (section, _("Key Identifier"), g_steal_pointer (&display));
+
+	return section;
+}
+
+static GcrCertificateSection *
 append_extension_key_usage (GcrCertificateExtensionKeyUsage *extension)
 {
 	GcrCertificateSection *section;
@@ -1213,6 +1231,8 @@ append_extension (GcrCertificate          *self,
 		section = append_extension_extended_key_usage (GCR_CERTIFICATE_EXTENSION_EXTENDED_KEY_USAGE (extension));
 	else if (oid == GCR_OID_SUBJECT_KEY_IDENTIFIER)
 		section = append_extension_subject_key_identifier (GCR_CERTIFICATE_EXTENSION_SUBJECT_KEY_IDENTIFIER (extension));
+	else if (oid == GCR_OID_AUTHORITY_KEY_IDENTIFIER)
+		section = append_extension_authority_key_identifier (GCR_CERTIFICATE_EXTENSION_AUTHORITY_KEY_IDENTIFIER (extension));
 	else if (oid == GCR_OID_KEY_USAGE)
 		section = append_extension_key_usage (GCR_CERTIFICATE_EXTENSION_KEY_USAGE (extension));
 	else if (oid == GCR_OID_SUBJECT_ALT_NAME)

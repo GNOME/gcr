@@ -103,6 +103,20 @@ G_DECLARE_FINAL_TYPE (GcrCertificateExtensionSubjectKeyIdentifier,
 
 GBytes *   gcr_certificate_extension_subject_key_identifier_get_key_id             (GcrCertificateExtensionSubjectKeyIdentifier *self);
 
+/* Authority Key Identifier */
+
+#define GCR_TYPE_CERTIFICATE_EXTENSION_AUTHORITY_KEY_IDENTIFIER (gcr_certificate_extension_authority_key_identifier_get_type ())
+G_DECLARE_FINAL_TYPE (GcrCertificateExtensionAuthorityKeyIdentifier,
+                      gcr_certificate_extension_authority_key_identifier,
+                      GCR, CERTIFICATE_EXTENSION_AUTHORITY_KEY_IDENTIFIER,
+                      GcrCertificateExtension)
+
+GBytes *          gcr_certificate_extension_authority_key_identifier_get_key_id                        (GcrCertificateExtensionAuthorityKeyIdentifier *self);
+
+GcrGeneralNames * gcr_certificate_extension_authority_key_identifier_get_authority_cert_issuer         (GcrCertificateExtensionAuthorityKeyIdentifier *self);
+
+GBytes *           gcr_certificate_extension_authority_key_identifier_get_authority_cert_serial_number (GcrCertificateExtensionAuthorityKeyIdentifier *self);
+
 /* Subject Alt Name */
 
 

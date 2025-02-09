@@ -346,6 +346,8 @@ _gcr_certificate_extension_parse (GNode *extension_node)
 		parse_func = _gcr_certificate_extension_extended_key_usage_parse;
 	} else if (oid == GCR_OID_SUBJECT_KEY_IDENTIFIER) {
 		parse_func = _gcr_certificate_extension_subject_key_identifier_parse;
+	} else if (oid == GCR_OID_AUTHORITY_KEY_IDENTIFIER) {
+		parse_func = _gcr_certificate_extension_authority_key_identifier_parse;
 	} else if (oid == GCR_OID_SUBJECT_ALT_NAME) {
 		parse_func = _gcr_certificate_extension_subject_alt_name_parse;
 	} else if (oid == GCR_OID_CERTIFICATE_POLICIES) {

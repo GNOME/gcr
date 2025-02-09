@@ -313,6 +313,33 @@ test_basic_constraints (Test *test,
 	g_assert_cmpint (path_len, ==, -1);
 }
 
+static void
+test_authority_key_identifier (Test       *test,
+                               const void *unused)
+{
+	GcrCertificateExtensionList *extensions;
+	GcrCertificateExtension *ext;
+	GcrCertificateExtensionAuthorityKeyIdentifier *ext_aki;
+	GBytes *keyid;
+	guint8 expected_keyid[] = {
+		0x67, 0xb0, 0xd5, 0x59, 0x84, 0xd2, 0x2a, 0xa1, 0xe8, 0x29,
+		0x2d, 0x4a, 0xd8, 0xc8, 0xd2, 0xb0, 0x0f, 0x72, 0xf7, 0x75
+	};
+
+	extensions = gcr_certificate_list_extensions (test->dsa_cert);
+	ext = gcr_certificate_extension_list_find_by_oid (extensions,
+	                                                  g_quark_to_string (GCR_OID_AUTHORITY_KEY_IDENTIFIER));
+	g_assert_nonnull (ext);
+	g_assert_true (GCR_IS_CERTIFICATE_EXTENSION_AUTHORITY_KEY_IDENTIFIER (ext));
+	ext_aki = GCR_CERTIFICATE_EXTENSION_AUTHORITY_KEY_IDENTIFIER (ext);
+
+	keyid = gcr_certificate_extension_authority_key_identifier_get_key_id (ext_aki);
+	g_assert_nonnull (keyid);
+	g_assert_cmpmem (g_bytes_get_data (keyid, NULL), g_bytes_get_size (keyid),
+	                 expected_keyid, G_N_ELEMENTS (expected_keyid));
+
+	g_object_unref (extensions);
+}
 
 static void
 test_interface_elements (Test *test,
@@ -630,6 +657,7 @@ main (int argc, char **argv)
 	/* Extensions */
 	g_test_add ("/gcr/certificate/list_extensions", Test, NULL, setup, test_list_extensions, teardown);
 	g_test_add ("/gcr/certificate/basic_constraints", Test, NULL, setup, test_basic_constraints, teardown);
+	g_test_add ("/gcr/certificate/authority_key_identifier", Test, NULL, setup, test_authority_key_identifier, teardown);
 	g_test_add_func ("/gcr/certificate/subject_alt_name", test_subject_alt_name);
 	g_test_add_func ("/gcr/certificate/key_usage", test_key_usage);
 	g_test_add_func ("/gcr/certificate/certificate_policies", test_certificate_policies);

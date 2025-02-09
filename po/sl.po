@@ -10,11 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2025-02-05 22:21+0000\n"
-"PO-Revision-Date: 2025-02-06 12:02+0100\n"
+"POT-Creation-Date: 2025-02-09 16:42+0000\n"
+"PO-Revision-Date: 2025-02-09 22:09+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
-"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups."
-"com>\n"
+"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,7 +63,7 @@ msgstr "Splošno ime"
 msgid "Surname"
 msgstr "Priimek"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1319
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1367
 msgid "Serial Number"
 msgstr "Zaporedna številka"
 
@@ -509,11 +508,11 @@ msgstr "Splošne omejitve"
 msgid "Certificate Authority"
 msgstr "Pooblastitelj potrdila"
 
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1190
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1238
 msgid "Yes"
 msgstr "Da"
 
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1190
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1238
 msgid "No"
 msgstr "Ne"
 
@@ -570,87 +569,107 @@ msgid "Access Method"
 msgstr "Način dostopa"
 
 #: gcr/gcr-certificate.c:1140
+msgid "CRL Distribution Points"
+msgstr "Distribucijske točke CRL"
+
+#: gcr/gcr-certificate.c:1156
+msgid "Distribution Point"
+msgstr "Distribucijska točka"
+
+#: gcr/gcr-certificate.c:1163
+msgid "Distribution Point CN"
+msgstr "Distribucijska točka CN"
+
+#: gcr/gcr-certificate.c:1166
+msgid "Distribution Point OU"
+msgstr "Distribucijska točka OU"
+
+#: gcr/gcr-certificate.c:1169
+msgid "Distribution Point U"
+msgstr "Distribucijska točka U"
+
+#: gcr/gcr-certificate.c:1186
 msgid "Extension"
 msgstr "Pripona"
 
-#: gcr/gcr-certificate.c:1144
+#: gcr/gcr-certificate.c:1190
 msgid "Identifier"
 msgstr "Določilo"
 
-#: gcr/gcr-certificate.c:1145
+#: gcr/gcr-certificate.c:1191
 msgid "Value"
 msgstr "Vrednost"
 
-#: gcr/gcr-certificate.c:1190
+#: gcr/gcr-certificate.c:1238
 msgid "Critical"
 msgstr "Kritično"
 
-#: gcr/gcr-certificate.c:1266 gcr/gcr-certificate.c:1547 gcr/gcr-parser.c:331
+#: gcr/gcr-certificate.c:1314 gcr/gcr-certificate.c:1595 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Potrdilo"
 
-#: gcr/gcr-certificate.c:1273 gcr/gcr-certificate.c:1278
+#: gcr/gcr-certificate.c:1321 gcr/gcr-certificate.c:1326
 msgid "Unknown"
 msgstr "Neznano"
 
-#: gcr/gcr-certificate.c:1274
+#: gcr/gcr-certificate.c:1322
 msgid "Identity"
 msgstr "Istovetnost"
 
-#: gcr/gcr-certificate.c:1279
+#: gcr/gcr-certificate.c:1327
 msgid "Verified by"
 msgstr "Overjeno preko"
 
-#: gcr/gcr-certificate.c:1285
+#: gcr/gcr-certificate.c:1333
 msgid "Expires"
 msgstr "Preteče"
 
 #. The subject
-#: gcr/gcr-certificate.c:1293
+#: gcr/gcr-certificate.c:1341
 msgid "Subject Name"
 msgstr "Ime predmeta"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1299
+#: gcr/gcr-certificate.c:1347
 msgid "Issuer Name"
 msgstr "Ime izdajatelja"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1305
+#: gcr/gcr-certificate.c:1353
 msgid "Issued Certificate"
 msgstr "Izdano potrdilo"
 
-#: gcr/gcr-certificate.c:1312
+#: gcr/gcr-certificate.c:1360
 msgid "Version"
 msgstr "Različica"
 
-#: gcr/gcr-certificate.c:1326
+#: gcr/gcr-certificate.c:1374
 msgid "Not Valid Before"
 msgstr "Neveljaven pred"
 
-#: gcr/gcr-certificate.c:1335
+#: gcr/gcr-certificate.c:1383
 msgid "Not Valid After"
 msgstr "Neveljaven po"
 
-#: gcr/gcr-certificate.c:1344
+#: gcr/gcr-certificate.c:1392
 msgid "Certificate Fingerprints"
 msgstr "Prstni odtisi potrdila"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1354
+#: gcr/gcr-certificate.c:1402
 msgid "Public Key Info"
 msgstr "Podrobnosti javnega ključa"
 
 #. Signature
-#: gcr/gcr-certificate.c:1373 gcr/gcr-certificate.c:1384
+#: gcr/gcr-certificate.c:1421 gcr/gcr-certificate.c:1432
 msgid "Signature"
 msgstr "Podpis"
 
-#: gcr/gcr-certificate.c:1376
+#: gcr/gcr-certificate.c:1424
 msgid "Signature Algorithm"
 msgstr "Algoritem podpisa"
 
-#: gcr/gcr-certificate.c:1380
+#: gcr/gcr-certificate.c:1428
 msgid "Signature Parameters"
 msgstr "Določila podpisa"
 
@@ -737,8 +756,7 @@ msgstr "Vnesite geslo za odklepanje osebnega ključa"
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
-msgstr ""
-"Program zahteva dostop do osebnega ključa »%s«, vendar je ta zaklenjen"
+msgstr "Program zahteva dostop do osebnega ključa »%s«, vendar je ta zaklenjen"
 
 #: gcr/gcr-ssh-agent-interaction.c:161
 msgid "Automatically unlock this key whenever I’m logged in"

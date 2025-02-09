@@ -306,16 +306,125 @@ _gcr_general_name_parse (GNode   *node,
 	return name;
 }
 
+
+/**
+ * GcrGeneralNames:
+ *
+ * A list of [class@Gcr.GeneralName]s.
+ *
+ * Since: 4.3.91
+ */
+
+struct _GcrGeneralNames {
+	GObject parent_instace;
+
+	GPtrArray *names;
+};
+
+static void g_list_model_interface_init (GListModelInterface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (GcrGeneralNames, gcr_general_names, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL,
+                                                g_list_model_interface_init))
+
+static GType
+gcr_general_names_get_item_type (GListModel *model)
+{
+	return GCR_TYPE_GENERAL_NAME;
+}
+
+static guint
+gcr_general_names_get_n_items (GListModel *model)
+{
+	GcrGeneralNames *self = GCR_GENERAL_NAMES (model);
+
+	return self->names->len;
+}
+
+static gpointer
+gcr_general_names_get_item (GListModel *model,
+                            guint       position)
+{
+	GcrGeneralNames *self = GCR_GENERAL_NAMES (model);
+
+	if (position >= self->names->len)
+		return NULL;
+
+	return g_object_ref (g_ptr_array_index (self->names, position));
+}
+
+static void
+g_list_model_interface_init (GListModelInterface *iface)
+{
+	iface->get_item_type = gcr_general_names_get_item_type;
+	iface->get_n_items = gcr_general_names_get_n_items;
+	iface->get_item = gcr_general_names_get_item;
+}
+
+
+static void
+gcr_general_names_finalize (GObject *obj)
+{
+	GcrGeneralNames *self = GCR_GENERAL_NAMES (obj);
+
+	g_clear_pointer (&self->names, g_ptr_array_unref);
+
+	G_OBJECT_CLASS (gcr_general_names_parent_class)->finalize (obj);
+}
+
+static void
+gcr_general_names_class_init (GcrGeneralNamesClass *klass)
+{
+	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+	gobject_class->finalize = gcr_general_names_finalize;
+}
+
+static void
+gcr_general_names_init (GcrGeneralNames *self)
+{
+	self->names = g_ptr_array_new_with_free_func (g_object_unref);
+}
+
 GPtrArray *
+_gcr_general_names_steal (GcrGeneralNames *self)
+{
+	g_return_val_if_fail (GCR_IS_GENERAL_NAMES (self), NULL);
+
+	return g_ptr_array_ref (self->names);
+}
+
+/**
+ * gcr_general_names_get_name:
+ * @position: The position in the list
+ *
+ * Returns the name at the given position.
+ *
+ * It is illegal to call this function with a position larger than the number
+ * of elements in this list.
+ *
+ * Returns: (transfer none): The name at the given position
+ */
+GcrGeneralName *
+gcr_general_names_get_name (GcrGeneralNames *self,
+                            unsigned int     position)
+{
+	g_return_val_if_fail (GCR_IS_GENERAL_NAMES (self), NULL);
+	g_return_val_if_fail (position < self->names->len, NULL);
+
+	return g_ptr_array_index (self->names, position);
+}
+
+GcrGeneralNames *
 _gcr_general_names_parse (GNode   *node,
                           GError **error)
 {
-	GPtrArray *names;
+	GcrGeneralNames *names = NULL;
 	unsigned int count;
 
-	count = egg_asn1x_count (node);
-	names = g_ptr_array_new_full (count, g_object_unref);
+	names = g_object_new (GCR_TYPE_GENERAL_NAMES, NULL);
 
+	count = egg_asn1x_count (node);
 	for (unsigned int i = 0; i < count; i++) {
 		GNode *name_node;
 		GcrGeneralName *name = NULL;
@@ -327,8 +436,10 @@ _gcr_general_names_parse (GNode   *node,
 		if (name == NULL)
 			break;
 
-		g_ptr_array_add (names, name);
+		g_ptr_array_add (names->names, name);
 	}
 
+	if (error && *error)
+		g_clear_object (&names);
 	return names;
 }

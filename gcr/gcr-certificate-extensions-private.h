@@ -89,8 +89,10 @@ typedef enum {
 	GCR_GENERAL_NAME_REGISTERED_ID,
 } GcrGeneralNameType;
 
-GPtrArray *           _gcr_general_names_parse          (GNode   *node,
+GcrGeneralNames *     _gcr_general_names_parse          (GNode   *node,
                                                          GError **error);
+
+GPtrArray *           _gcr_general_names_steal          (GcrGeneralNames *self);
 
 GcrGeneralName *      _gcr_general_name_parse           (GNode   *node,
                                                          GError **error);

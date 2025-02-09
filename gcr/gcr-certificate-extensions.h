@@ -31,6 +31,30 @@
 
 G_BEGIN_DECLS
 
+/* Helper objects */
+
+#define GCR_TYPE_GENERAL_NAME (gcr_general_name_get_type ())
+G_DECLARE_FINAL_TYPE (GcrGeneralName,
+                      gcr_general_name,
+                      GCR, GENERAL_NAME,
+                      GObject)
+
+const char *   gcr_general_name_get_description     (GcrGeneralName  *self);
+
+const char *   gcr_general_name_get_value           (GcrGeneralName  *self);
+
+GBytes *       gcr_general_name_get_value_raw       (GcrGeneralName  *self);
+
+
+#define GCR_TYPE_GENERAL_NAMES (gcr_general_names_get_type ())
+G_DECLARE_FINAL_TYPE (GcrGeneralNames,
+                      gcr_general_names,
+                      GCR, GENERAL_NAMES,
+                      GObject)
+
+GcrGeneralName *   gcr_general_names_get_name       (GcrGeneralNames *self,
+                                                     unsigned int     position);
+
 /* Basic Constraints */
 
 #define GCR_TYPE_CERTIFICATE_EXTENSION_BASIC_CONSTRAINTS (gcr_certificate_extension_basic_constraints_get_type ())
@@ -79,18 +103,6 @@ G_DECLARE_FINAL_TYPE (GcrCertificateExtensionSubjectKeyIdentifier,
 GBytes *   gcr_certificate_extension_subject_key_identifier_get_key_id             (GcrCertificateExtensionSubjectKeyIdentifier *self);
 
 /* Subject Alt Name */
-
-#define GCR_TYPE_GENERAL_NAME (gcr_general_name_get_type ())
-G_DECLARE_FINAL_TYPE (GcrGeneralName,
-                      gcr_general_name,
-                      GCR, GENERAL_NAME,
-                      GObject)
-
-const char *   gcr_general_name_get_description   (GcrGeneralName  *self);
-
-const char *   gcr_general_name_get_value         (GcrGeneralName  *self);
-
-GBytes *       gcr_general_name_get_value_raw     (GcrGeneralName  *self);
 
 
 #define GCR_TYPE_CERTIFICATE_EXTENSION_SUBJECT_ALT_NAME (gcr_certificate_extension_subject_alt_name_get_type ())

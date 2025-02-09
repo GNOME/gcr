@@ -148,7 +148,7 @@ _gcr_certificate_extension_subject_alt_name_parse (GQuark oid,
 {
 	GcrCertificateExtensionSubjectAltName *ret = NULL;
 	GNode *asn = NULL;
-	GPtrArray *names;
+	GcrGeneralNames *names;
 
 	asn = egg_asn1x_create_and_decode (pkix_asn1_tab, "SubjectAltName", value);
 	if (asn == NULL) {
@@ -168,10 +168,10 @@ _gcr_certificate_extension_subject_alt_name_parse (GQuark oid,
 	                    "value", value,
 	                    NULL);
 	_gcr_certificate_extension_set_oid (GCR_CERTIFICATE_EXTENSION (ret), oid);
-	g_ptr_array_extend_and_steal (ret->names, g_steal_pointer (&names));
+	g_ptr_array_extend_and_steal (ret->names, _gcr_general_names_steal (names));
 
 out:
-	g_clear_pointer (&names, g_ptr_array_unref);
+	g_clear_object (&names);
 	if (asn != NULL)
 		egg_asn1x_destroy (asn);
 	return ret ? GCR_CERTIFICATE_EXTENSION (ret) : NULL;

@@ -1,3 +1,14 @@
+gcr 4.3.91:
+- Several updates to the CI
+- gcr: Implement Certificate Policies extension [GNOME/gcr!153]
+- gcr: Implement Authority Information Access (AIA) extension [GNOME/gcr!159]
+- gcr: Implement Authority Key Identifier extension [GNOME/gcr!161]
+- gcr: Implement CRL Distribution Points extension [GNOME/gcr!163]
+- gcr: Add GcrGeneralNames helper object [GNOME/gcr!162]
+- gck: Add missing finish-func annotation to gck_slot_open_session_full_async
+- Migrate away from g_assert() in some unit tests
+- Updated translations
+
 gcr 4.3.90.3:
 - ci: Another tarball publish fix
 

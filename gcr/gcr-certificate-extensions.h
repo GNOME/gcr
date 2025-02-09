@@ -27,6 +27,7 @@
 #define GCR_CERTIFICATE_EXTENSIONS_H
 
 #include <glib.h>
+#include <gio/gio.h>
 #include "gcr-certificate-extension.h"
 
 G_BEGIN_DECLS
@@ -168,6 +169,31 @@ G_DECLARE_FINAL_TYPE (GcrCertificateExtensionAuthorityInfoAccess,
 
 GcrAccessDescription *   gcr_certificate_extension_authority_info_access_get_description (GcrCertificateExtensionAuthorityInfoAccess *self,
                                                                                           unsigned int                                position);
+
+
+/* CRL Distribution Points */
+
+#define GCR_TYPE_DISTRIBUTION_POINT (gcr_distribution_point_get_type ())
+G_DECLARE_FINAL_TYPE (GcrDistributionPoint,
+                      gcr_distribution_point,
+                      GCR, DISTRIBUTION_POINT,
+                      GObject)
+
+GcrGeneralNames *  gcr_distribution_point_get_full_name             (GcrDistributionPoint *self);
+
+char *             gcr_distribution_point_get_relative_name_part    (GcrDistributionPoint *self,
+                                                                     const char           *part);
+
+#define GCR_TYPE_CERTIFICATE_EXTENSION_CRL_DISTRIBUTION_POINTS (gcr_certificate_extension_crl_distribution_points_get_type ())
+G_DECLARE_FINAL_TYPE (GcrCertificateExtensionCrlDistributionPoints,
+                      gcr_certificate_extension_crl_distribution_points,
+                      GCR, CERTIFICATE_EXTENSION_CRL_DISTRIBUTION_POINTS,
+                      GcrCertificateExtension)
+
+GcrDistributionPoint *   gcr_certificate_extension_crl_distribution_points_get_distribution_point
+                                                        (GcrCertificateExtensionCrlDistributionPoints *self,
+                                                         unsigned int                                  position);
+
 
 
 G_END_DECLS

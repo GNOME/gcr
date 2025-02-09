@@ -1131,6 +1131,52 @@ append_extension_aia (GcrCertificateExtensionAuthorityInfoAccess *extension)
 }
 
 static GcrCertificateSection *
+append_extension_cdp (GcrCertificateExtensionCrlDistributionPoints *extension)
+{
+	GcrCertificateSection *section;
+	GcrDistributionPoint *item;
+	unsigned int i = 0;
+
+	section = _gcr_certificate_section_new (_("CRL Distribution Points"), FALSE);
+
+	while ((item = g_list_model_get_item (G_LIST_MODEL (extension), i)) != NULL) {
+		GcrGeneralNames *full_name;
+
+		full_name = gcr_distribution_point_get_full_name (item);
+		if (full_name != NULL) {
+			unsigned int n_names;
+
+			n_names = g_list_model_get_n_items (G_LIST_MODEL (full_name));
+			for (unsigned int j = 0; j < n_names; j++) {
+				GcrGeneralName *name;
+				const char *name_val;
+
+				name = gcr_general_names_get_name (full_name, j);
+				name_val = gcr_general_name_get_value (name);
+				_gcr_certificate_section_new_field (section, _("Distribution Point"), name_val);
+			}
+		} else {
+			const char *part;
+
+			part = gcr_distribution_point_get_relative_name_part (item, "cn");
+			if (part != NULL)
+				_gcr_certificate_section_new_field (section, _("Distribution Point CN"), part);
+			part = gcr_distribution_point_get_relative_name_part (item, "ou");
+			if (part != NULL)
+				_gcr_certificate_section_new_field (section, _("Distribution Point OU"), part);
+			part = gcr_distribution_point_get_relative_name_part (item, "u");
+			if (part != NULL)
+				_gcr_certificate_section_new_field (section, _("Distribution Point U"), part);
+		}
+
+		g_object_unref (item);
+		i++;
+	}
+
+	return section;
+}
+
+static GcrCertificateSection *
 append_extension_hex (GQuark oid,
                       GBytes *value)
 {
@@ -1175,6 +1221,8 @@ append_extension (GcrCertificate          *self,
 		section = append_extension_certificate_policies (GCR_CERTIFICATE_EXTENSION_CERTIFICATE_POLICIES (extension));
 	else if (oid == GCR_OID_AUTHORITY_INFO_ACCESS)
 		section = append_extension_aia (GCR_CERTIFICATE_EXTENSION_AUTHORITY_INFO_ACCESS (extension));
+	else if (oid == GCR_OID_CRL_DISTRIBUTION_POINTS)
+		section = append_extension_cdp (GCR_CERTIFICATE_EXTENSION_CRL_DISTRIBUTION_POINTS (extension));
 
 	/* Otherwise the default raw display */
 	if (!section) {

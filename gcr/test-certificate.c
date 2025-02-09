@@ -551,6 +551,59 @@ test_authority_info_address (void)
 	g_object_unref (ext);
 }
 
+static void
+test_crl_distribution_points (void)
+{
+	const guint8 cdp[] = {
+		0x30, 0x6c,
+		0x30, 0x34,
+		0xa0, 0x32, 0xa0, 0x30, 0x86, 0x2e, 0x68, 0x74, 0x74, 0x70,
+		0x3a, 0x2f, 0x2f, 0x63, 0x72, 0x6c, 0x33, 0x2e, 0x64, 0x69,
+		0x67, 0x69, 0x63, 0x65, 0x72, 0x74, 0x2e, 0x63, 0x6f, 0x6d,
+		0x2f, 0x73, 0x68, 0x61, 0x32, 0x2d, 0x65, 0x76, 0x2d, 0x73,
+		0x65, 0x72, 0x76, 0x65, 0x72, 0x2d, 0x67, 0x33, 0x2e, 0x63,
+		0x72, 0x6c, 0x30, 0x34, 0xa0, 0x32, 0xa0, 0x30, 0x86, 0x2e,
+		0x68, 0x74, 0x74, 0x70, 0x3a, 0x2f, 0x2f, 0x63, 0x72, 0x6c,
+		0x34, 0x2e, 0x64, 0x69, 0x67, 0x69, 0x63, 0x65, 0x72, 0x74,
+		0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x73, 0x68, 0x61, 0x32, 0x2d,
+		0x65, 0x76, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2d,
+		0x67, 0x33, 0x2e, 0x63, 0x72, 0x6c,
+	};
+	GBytes *bytes;
+	GcrCertificateExtension *ext;
+	GcrCertificateExtensionCrlDistributionPoints *ext_cdp;
+	GcrDistributionPoint *endpoint;
+	GcrGeneralNames *full_name;
+	GcrGeneralName *first_full_name;
+
+	bytes = g_bytes_new_static (cdp, sizeof(cdp));
+	ext = _gcr_certificate_extension_crl_distribution_points_parse (GCR_OID_CRL_DISTRIBUTION_POINTS,
+	                                                                TRUE,
+	                                                                bytes,
+	                                                                NULL);
+	g_assert_nonnull (ext);
+	g_assert_true (GCR_IS_CERTIFICATE_EXTENSION_CRL_DISTRIBUTION_POINTS (ext));
+
+	ext_cdp = GCR_CERTIFICATE_EXTENSION_CRL_DISTRIBUTION_POINTS (ext);
+
+	g_assert_cmpint (g_list_model_get_n_items (G_LIST_MODEL (ext_cdp)), ==, 2);
+	g_assert_null (g_list_model_get_item (G_LIST_MODEL (ext_cdp), 2));
+
+	endpoint = gcr_certificate_extension_crl_distribution_points_get_distribution_point (ext_cdp, 0);
+	g_assert_nonnull (endpoint);
+	g_assert_true (GCR_IS_DISTRIBUTION_POINT (endpoint));
+
+	full_name = gcr_distribution_point_get_full_name (endpoint);
+	g_assert_cmpint (g_list_model_get_n_items (G_LIST_MODEL (full_name)), ==, 1);
+	g_assert_null (g_list_model_get_item (G_LIST_MODEL (full_name), 2));
+
+	first_full_name = gcr_general_names_get_name (full_name, 0);
+	g_assert_nonnull (first_full_name);
+	g_assert_cmpstr (gcr_general_name_get_value (first_full_name), ==, "http://crl3.digicert.com/sha2-ev-server-g3.crl");
+
+	g_object_unref (ext);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -581,6 +634,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/gcr/certificate/key_usage", test_key_usage);
 	g_test_add_func ("/gcr/certificate/certificate_policies", test_certificate_policies);
 	g_test_add_func ("/gcr/certificate/authority_info_adress", test_authority_info_address);
+	g_test_add_func ("/gcr/certificate/crl_distribution_points", test_crl_distribution_points);
 
 	return g_test_run ();
 }

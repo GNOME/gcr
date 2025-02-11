@@ -71,6 +71,10 @@ typedef struct {
 	"BBBMKWn4nDF3IVAB2XKK8MdlMV0r1PkwHWemNuNkKnDSLy1CA17IEBXzEFX0yDEaC/8cFG" \
 	"Bc0VblrySYCYKvJc+is= ecdsa-key@example.com \n"
 
+#define OPENSSH_PUBLIC_ED25519 \
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMPDpn/CO3pdNKyCC/CxknoFs20tRE8QzV" \
+	"3z8usr8bNo ed25519-key@example.com"
+
 #define EXTRA_LINES_WITHOUT_KEY \
 	"\n# Comment\n\n" \
 	"20aa3\n" \
@@ -179,6 +183,23 @@ test_parse_v2_ecdsa (Test *test,
 }
 
 static void
+test_parse_v2_ed25519 (Test       *test,
+		       const void *unused)
+{
+	const char *data = OPENSSH_PUBLIC_ED25519 EXTRA_LINES_WITHOUT_KEY;
+	GBytes *bytes;
+	int keys;
+
+	test->expected_label = "ed25519-key@example.com";
+
+	bytes = g_bytes_new_static (data, strlen (data));
+	keys = _gcr_openssh_pub_parse (bytes, on_openssh_pub_parse, test);
+	g_assert_cmpint (keys, ==, 1);
+
+	g_bytes_unref (bytes);
+}
+
+static void
 test_parse_v1_options (Test *test,
                        gconstpointer unused)
 {
@@ -222,6 +243,7 @@ main (int argc, char **argv)
 	g_test_add ("/gcr/openssh/parse_v2_rsa", Test, NULL, setup, test_parse_v2_rsa, teardown);
 	g_test_add ("/gcr/openssh/parse_v2_dsa", Test, NULL, setup, test_parse_v2_dsa, teardown);
 	g_test_add ("/gcr/openssh/parse_v2_ecdsa", Test, NULL, setup, test_parse_v2_ecdsa, teardown);
+	g_test_add ("/gcr/openssh/parse_v2_edd2519", Test, NULL, setup, test_parse_v2_ed25519, teardown);
 	g_test_add ("/gcr/openssh/parse_v1_options", Test, NULL, setup, test_parse_v1_options, teardown);
 	g_test_add ("/gcr/openssh/parse_v2_options", Test, NULL, setup, test_parse_v2_options, teardown);
 

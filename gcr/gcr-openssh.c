@@ -120,6 +120,8 @@ keytype_to_algo (const gchar *algo,
 		return CKK_RSA;
 	else if (match_word (algo, length, "ssh-dss"))
 		return CKK_DSA;
+	else if (match_word (algo, length, "ssh-ed25519"))
+		return CKK_EC_EDWARDS;
 	else if (length >= 6 && strncmp (algo, "ecdsa-", 6) == 0)
 		return CKK_ECDSA;
 	return G_MAXULONG;
@@ -390,6 +392,20 @@ read_v2_public_ecdsa (EggBuffer *buffer,
 }
 
 static gboolean
+read_v2_public_ed25519 (EggBuffer *buffer,
+                        gsize *offset,
+                        GckBuilder *builder)
+{
+	if (!read_buffer_mpi (buffer, offset, builder, CKA_VALUE))
+		return FALSE;
+
+	gck_builder_add_ulong (builder, CKA_KEY_TYPE, CKK_EC_EDWARDS);
+	gck_builder_add_ulong (builder, CKA_CLASS, CKO_PUBLIC_KEY);
+
+	return TRUE;
+}
+
+static gboolean
 read_v2_public_key (gulong algo,
                     gconstpointer data,
                     gsize n_data,
@@ -424,6 +440,9 @@ read_v2_public_key (gulong algo,
 		break;
 	case CKK_DSA:
 		ret = read_v2_public_dsa (&buffer, &offset, builder);
+		break;
+	case CKK_EC_EDWARDS:
+		ret = read_v2_public_ed25519 (&buffer, &offset, builder);
 		break;
 	case CKK_ECDSA:
 		ret = read_v2_public_ecdsa (&buffer, &offset, builder);

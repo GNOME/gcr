@@ -202,5 +202,6 @@ foreach _test : gck_test_names
   test(_test, gck_test_bin,
     suite: 'gck',
     depends: gck_mock_test_lib,
+    is_parallel: false,
   )
 endforeach

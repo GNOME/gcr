@@ -43,13 +43,23 @@ gcr_basename = 'gcr-@0@'.format(gcr_api_version)
 
 # Dependencies
 min_glib_version = '2.74'
+glib_version_macro = 'GLIB_VERSION_@0@'.format(min_glib_version.replace('.', '_'))
 glib_dep = dependency('glib-2.0', version: '>=' + min_glib_version)
 gmodule_dep = dependency('gmodule-no-export-2.0', version: '>=' + min_glib_version)
 gthread_dep = dependency('gthread-2.0', version: '>=' + min_glib_version)
 gobject_dep = dependency('gobject-2.0', version: '>=' + min_glib_version)
 gio_dep = dependency('gio-2.0', version: '>=' + min_glib_version)
 gio_unix_dep = dependency('gio-unix-2.0',version: '>=' + min_glib_version)
-glib_deps = [ glib_dep, gmodule_dep, gthread_dep, gobject_dep, gio_dep, gio_unix_dep, ]
+glib_deps = declare_dependency(
+  dependencies: [
+    glib_dep, gmodule_dep, gthread_dep, gobject_dep, gio_dep, gio_unix_dep,
+  ],
+  compile_args: [
+    f'-DGLIB_VERSION_MIN_REQUIRED=@glib_version_macro@',
+    f'-DGLIB_VERSION_MAX_ALLOWED=@glib_version_macro@',
+  ],
+)
+
 gpg_path = get_option('gpg_path')
 if gpg_path == ''
   gpg_path = find_program('gpg2', 'gpg').full_path()

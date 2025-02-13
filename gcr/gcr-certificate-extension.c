@@ -356,6 +356,8 @@ _gcr_certificate_extension_parse (GNode *extension_node)
 		parse_func = _gcr_certificate_extension_authority_info_access_parse;
 	} else if (oid == GCR_OID_CRL_DISTRIBUTION_POINTS) {
 		parse_func = _gcr_certificate_extension_crl_distribution_points_parse;
+	} else if (oid == GCR_OID_SCT_LIST) {
+		parse_func = _gcr_certificate_extension_sct_list_parse;
 	} else {
 		parse_func = _gcr_certificate_extension_generic_parse;
 	}

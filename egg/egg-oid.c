@@ -166,6 +166,7 @@ static OidInfo oid_info[] = {
 	{ 0, "2.5.29.34", "policyConstraints", N_("Policy constraints"), 0 },
 	{ 0, "2.5.29.35", "authorityKeyIdentifier", N_("Authority key identifier"), 0 },
 	{ 0, "2.5.29.37", "extendedKeyUsage", N_("Extended Key Usage"), 0 },
+	{ 0, "1.3.6.1.4.1.11129.2.4.2", "signedCertificateTimestampList", N_("Signed Certificate Timestamps"), 0 },
 
 	/* Certificate Policies */
 	{ 0, "2.23.140.1.1", NULL, N_("Extended Validation"), 0 },

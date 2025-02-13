@@ -105,18 +105,21 @@ gcr_certificate_extension_key_usage_get_usages (GcrCertificateExtensionKeyUsage 
 GStrv
 gcr_certificate_extension_key_usage_get_descriptions (GcrCertificateExtensionKeyUsage *self)
 {
-	GStrvBuilder *values;
+	GPtrArray *values;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE_EXTENSION_KEY_USAGE (self), NULL);
 
-	values = g_strv_builder_new ();
+	values = g_ptr_array_new_with_free_func (g_free);
 	for (size_t i = 0; i < G_N_ELEMENTS (key_usage_descriptions); i++) {
 		if (self->usages & key_usage_descriptions[i].usage) {
-			g_strv_builder_add (values, _(key_usage_descriptions[i].description));
+			const char *value;
+			value = _(key_usage_descriptions[i].description);
+			g_ptr_array_add (values, g_strdup (value));
 		}
 	}
 
-	return g_strv_builder_unref_to_strv (values);
+	g_ptr_array_add (values, NULL); /* Add NULL terminator */
+	return (GStrv) g_ptr_array_free (values, FALSE);
 }
 
 static unsigned long

@@ -91,16 +91,19 @@ gcr_certificate_extension_extended_key_usage_init (GcrCertificateExtensionExtend
 GStrv
 gcr_certificate_extension_extended_key_usage_get_oids (GcrCertificateExtensionExtendedKeyUsage *self)
 {
-	GStrvBuilder *text;
+	GPtrArray *values;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE_EXTENSION_EXTENDED_KEY_USAGE (self), NULL);
 
-	text = g_strv_builder_new ();
+	values = g_ptr_array_new_with_free_func (g_free);
 	for (size_t i = 0; self->oids[i] != 0; i++) {
-		g_strv_builder_add (text, g_quark_to_string (self->oids[i]));
+		const char *value;
+		value = g_quark_to_string (self->oids[i]);
+		g_ptr_array_add (values, g_strdup (value));
 	}
 
-	return g_strv_builder_unref_to_strv (text);
+	g_ptr_array_add (values, NULL); /* Add NULL terminator */
+	return (GStrv) g_ptr_array_free (values, FALSE);
 }
 
 /**
@@ -113,16 +116,19 @@ gcr_certificate_extension_extended_key_usage_get_oids (GcrCertificateExtensionEx
 GStrv
 gcr_certificate_extension_extended_key_usage_get_descriptions (GcrCertificateExtensionExtendedKeyUsage *self)
 {
-	GStrvBuilder *text;
+	GPtrArray *values;
 
 	g_return_val_if_fail (GCR_IS_CERTIFICATE_EXTENSION_EXTENDED_KEY_USAGE (self), NULL);
 
-	text = g_strv_builder_new ();
+	values = g_ptr_array_new_with_free_func (g_free);
 	for (size_t i = 0; self->oids[i] != 0; i++) {
-		g_strv_builder_add (text, egg_oid_get_description (self->oids[i]));
+		const char *value;
+		value = egg_oid_get_description (self->oids[i]);
+		g_ptr_array_add (values, g_strdup (value));
 	}
 
-	return g_strv_builder_unref_to_strv (text);
+	g_ptr_array_add (values, NULL); /* Add NULL terminator */
+	return (GStrv) g_ptr_array_free (values, FALSE);
 }
 
 GcrCertificateExtension *

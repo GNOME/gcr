@@ -9,22 +9,23 @@
 # Simge Sezgin <simgesezgin88@gmail.com>, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2014, 2015, 2018.
 # Burhan Keleş <klsburhan@hotmail.com>, 2021.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2017, 2018, 2020, 2021, 2022.
+# Sabri Ünal <yakushabb@gmail.com>, 2025.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2017, 2018, 2020, 2021, 2022, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-11-04 11:23+0000\n"
-"PO-Revision-Date: 2024-02-08 01:29+0300\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-02-11 00:07+0000\n"
+"PO-Revision-Date: 2025-02-18 08:00+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-POOTLE-MTIME: 1420669651.000000\n"
 
 #: egg/egg-oid.c:40
@@ -67,7 +68,7 @@ msgstr "Ortak Ad"
 msgid "Surname"
 msgstr "Soyadı"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Seri Numarası"
 
@@ -349,6 +350,28 @@ msgstr "İlke kısıtları"
 msgid "Authority key identifier"
 msgstr "Yetkili anahtar tanımlayıcısı"
 
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Uzatılmış Anahtar Kullanımı"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "Uzatılmış Doğrulama"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "Sertifikalama Uygulamaları Bildirisi"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Çevrim İçi Sertifika Durum İletişim Kuralı (OCSP)"
+
+#: egg/egg-oid.c:176
+msgid "Certification Authority Issuer"
+msgstr "Sertifikalama Yetkilisi Veren"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -386,242 +409,274 @@ msgstr "URI kötü bir sürüm numarasına sahip."
 msgid "The stream was closed"
 msgstr "Akış kapatıldı"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "Anahtar Algoritması"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "Anahtar Parametreleri"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "Anahtar Boyutu"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "Anahtar SHA1 Parmak İzi"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "Genel Anahtar"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "Temel Kısıtlar"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "Sertifika Yetkilisi"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "Evet"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "Hayır"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "Sınırsız"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr "Azami Yol Uzunluğu"
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "Uzatılmış Anahtar Kullanımı"
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "İzin Verilen Amaçlar"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr "Konu Anahtar Tanımlayıcısı"
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "Anahtar Tanımlayıcı"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Sayısal imza"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
 msgstr "Red olmayan"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "Anahtar şifreleme"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "Veri şifreleme"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Anahtar anlaşması"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "Sertifika imzası"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
 msgstr "İptal Listesi İmzası"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
 msgstr "Yalnızca şifreleme"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "Yalnızca şifre çözme"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Diğer Ad"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "XMPP Adresi"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS Sunucu"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "E-posta"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "X400 Adresi"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Dizin Adı"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "EDI Birim Adı"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "IP Adresi"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Kayıtlı Kimlik"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Anahtar Algoritması"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Anahtar Parametreleri"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Anahtar Boyutu"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Anahtar SHA1 Parmak İzi"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Genel Anahtar"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Temel Kısıtlar"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Sertifika Yetkilisi"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Evet"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Hayır"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Sınırsız"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Azami Yol Uzunluğu"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "İzin Verilen Amaçlar"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Konu Anahtar Tanımlayıcısı"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Anahtar Tanımlayıcı"
+
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "Anahtar Kullanımı"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Kullanımlar"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "Konu Diğer Adları"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Sertifika İlkeleri"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "İlke"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Konum"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Erişim Yöntemi"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "CRL Dağıtım Noktaları"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Dağıtım Noktası"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "Dağıtım Noktası CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "Dağıtım Noktası OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "Dağıtım Noktası U"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Uzantı"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Tanımlayıcı"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Değer"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Kritik"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Sertifika"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Bilinmeyen"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Kimlik"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Doğrulayan"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Bitiş Tarihi"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "Konu Adı"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "Veren Adı"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Verilen Sertifika"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Sürüm"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "Öncesi Geçerli Değil"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "Sonrası Geçerli Değil"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "Sertifika Parmak İzleri"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Genel Anahtar Bilgisi"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "İmza"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "İmza Algoritması"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "İmza Parametreleri"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Diğer Ad"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "XMPP Adresi"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "DNS Sunucu"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "E-posta"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "X400 Adresi"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Dizin Adı"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "EDI Birim Adı"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "IP Adresi"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "Kayıtlı Kimlik"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -652,32 +707,32 @@ msgstr "Gnupg süreci şu kod ile sonuçlandı: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg süreci sinyal ile sonlandırıldı: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "İşlem iptal edildi"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Özel Anahtar"
 
-#: gcr/gcr-parser.c:346
+#: gcr/gcr-parser.c:337
 msgid "PGP Key"
 msgstr "PGP Anahtarı"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Sertifika İsteği"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Tanınmayan veya desteklenmeyen veri."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Geçersiz veya bozuk veri çözümlenemedi."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "Veri kilitli"
 
@@ -706,7 +761,8 @@ msgstr "Özel anahtar kilidini açmak için parolayı gir"
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
-msgstr "Bir uygulama “%s” özel anahtarına erişmek istiyor ancak anahtar kilitli"
+msgstr ""
+"Bir uygulama “%s” özel anahtarına erişmek istiyor ancak anahtar kilitli"
 
 #: gcr/gcr-ssh-agent-interaction.c:161
 msgid "Automatically unlock this key whenever I’m logged in"
@@ -728,11 +784,11 @@ msgstr "Adsız"
 msgid "Enter your OpenSSH passphrase"
 msgstr "OpenSSH parolanızı giriniz"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Anahtar için kullanılamaz ya da onaylanmamış öznitelikler"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Genel anahtar oluşturulamadı"
 

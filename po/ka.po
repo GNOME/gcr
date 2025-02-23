@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2025-02-02 17:13+0000\n"
-"PO-Revision-Date: 2025-02-04 04:16+0100\n"
+"POT-Creation-Date: 2025-02-10 22:37+0000\n"
+"PO-Revision-Date: 2025-02-23 07:41+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -58,7 +58,7 @@ msgstr "სახელი"
 msgid "Surname"
 msgstr "გვარი"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1288
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "სერიული ნომერი"
 
@@ -349,6 +349,15 @@ msgstr "გაფართოებული ვალიდაცია"
 msgid "Certification Practices Statement"
 msgstr "სერტიფიკაციის პრაქტიკის განცხადება"
 
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:174
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "ონლაინ-სერტიფიკატის სტატუსის პროტოკოლი (OCSP)"
+
+#: egg/egg-oid.c:175
+msgid "Certification Authority Issuer"
+msgstr "სერტიფიკატის ავტორიტეტის გამომცემელი"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -386,171 +395,6 @@ msgstr "URI-ის ვერსიის არასწორი ნომე�
 msgid "The stream was closed"
 msgstr "ნაკადი დაიხურა"
 
-#: gcr/gcr-certificate.c:956
-msgid "Key Algorithm"
-msgstr "გასაღების ალგორითმი"
-
-#: gcr/gcr-certificate.c:962
-msgid "Key Parameters"
-msgstr "გასაღების პარამეტრები"
-
-#: gcr/gcr-certificate.c:969
-msgid "Key Size"
-msgstr "გასაღების ზომა"
-
-#: gcr/gcr-certificate.c:979
-msgid "Key SHA1 Fingerprint"
-msgstr "გასაღების SHA1 ანაბეჭდი"
-
-#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
-msgid "Public Key"
-msgstr "საჯარო გასაღები"
-
-#: gcr/gcr-certificate.c:994
-msgid "Basic Constraints"
-msgstr "საბაზისო შეზღუდვები"
-
-#: gcr/gcr-certificate.c:996
-msgid "Certificate Authority"
-msgstr "სერტიფიკატების გამომცემელი"
-
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
-msgid "Yes"
-msgstr "დიახ"
-
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
-msgid "No"
-msgstr "არა"
-
-#: gcr/gcr-certificate.c:1000
-msgid "Unlimited"
-msgstr "შეუზღუდავი"
-
-#: gcr/gcr-certificate.c:1004
-msgid "Max Path Length"
-msgstr "ბილიკის მაქს. სიგრძე"
-
-#: gcr/gcr-certificate.c:1015
-msgid "Extended Key Usage"
-msgstr "გასაღების გაფართოებული გამოყენება"
-
-#: gcr/gcr-certificate.c:1018
-msgid "Allowed Purposes"
-msgstr "დაშვებული გამოყენებები"
-
-#: gcr/gcr-certificate.c:1032
-msgid "Subject Key Identifier"
-msgstr "სათაურის გასაღების იდენტიფიკატორი"
-
-#: gcr/gcr-certificate.c:1036
-msgid "Key Identifier"
-msgstr "გასაღების იდენტიფიკატორი"
-
-#: gcr/gcr-certificate.c:1047
-msgid "Key Usage"
-msgstr "გასაღების გამოყენება"
-
-#: gcr/gcr-certificate.c:1049
-msgid "Usages"
-msgstr "გამოყენებებ"
-
-#: gcr/gcr-certificate.c:1060
-msgid "Subject Alternative Names"
-msgstr "სათაურის სხვა სახელები (SAN)"
-
-#: gcr/gcr-certificate.c:1089
-msgid "Certificate Policies"
-msgstr "სერტიფიკატის პოლიტიკები"
-
-#: gcr/gcr-certificate.c:1098
-msgid "Policy"
-msgstr "პოლიტიკა"
-
-#: gcr/gcr-certificate.c:1111
-msgid "Extension"
-msgstr "გაფართოება"
-
-#: gcr/gcr-certificate.c:1115
-msgid "Identifier"
-msgstr "იდენტიფიკატორი"
-
-#: gcr/gcr-certificate.c:1116
-msgid "Value"
-msgstr "მნიშვნელობა"
-
-#: gcr/gcr-certificate.c:1159
-msgid "Critical"
-msgstr "კრიტიკული"
-
-#: gcr/gcr-certificate.c:1235 gcr/gcr-certificate.c:1516 gcr/gcr-parser.c:331
-msgid "Certificate"
-msgstr "სერტიფიკატი"
-
-#: gcr/gcr-certificate.c:1242 gcr/gcr-certificate.c:1247
-msgid "Unknown"
-msgstr "უცნობი"
-
-#: gcr/gcr-certificate.c:1243
-msgid "Identity"
-msgstr "იდენტიფიკაცია"
-
-#: gcr/gcr-certificate.c:1248
-msgid "Verified by"
-msgstr "დამოწმებულია"
-
-#: gcr/gcr-certificate.c:1254
-msgid "Expires"
-msgstr "იწურება"
-
-#. The subject
-#: gcr/gcr-certificate.c:1262
-msgid "Subject Name"
-msgstr "სათაურის სახელი"
-
-#. The Issuer
-#: gcr/gcr-certificate.c:1268
-msgid "Issuer Name"
-msgstr "გამომცემლის სახელი"
-
-#. The Issued Parameters
-#: gcr/gcr-certificate.c:1274
-msgid "Issued Certificate"
-msgstr "გამომცემლის სერტიფიკატი"
-
-#: gcr/gcr-certificate.c:1281
-msgid "Version"
-msgstr "ვერსია"
-
-#: gcr/gcr-certificate.c:1295
-msgid "Not Valid Before"
-msgstr "არასწორია თარიღამდე"
-
-#: gcr/gcr-certificate.c:1304
-msgid "Not Valid After"
-msgstr "არასწორია თარიღის შემდეგ"
-
-#: gcr/gcr-certificate.c:1313
-msgid "Certificate Fingerprints"
-msgstr "სერტიფიკატის ანაბეჭდები"
-
-#. Public Key Info
-#: gcr/gcr-certificate.c:1323
-msgid "Public Key Info"
-msgstr "საჯარო გასაღების შესახებ"
-
-#. Signature
-#: gcr/gcr-certificate.c:1342 gcr/gcr-certificate.c:1353
-msgid "Signature"
-msgstr "ხელმოწერა"
-
-#: gcr/gcr-certificate.c:1345
-msgid "Signature Algorithm"
-msgstr "ხელმოწერის ალგორითმი"
-
-#: gcr/gcr-certificate.c:1349
-msgid "Signature Parameters"
-msgstr "ხელმოწერის პარამეტრები"
-
 #: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "ციფრული ხელმოწერა"
@@ -587,49 +431,242 @@ msgstr "მხოლოდ დაშიფვრა"
 msgid "Decipher only"
 msgstr "მხოლოდ განშიფვრა"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:136
+#: gcr/gcr-certificate-extensions-common.c:136
 msgid "Other Name"
 msgstr "სხვა სახელი"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:152
+#: gcr/gcr-certificate-extensions-common.c:152
 msgid "XMPP Addr"
 msgstr "XMPP Addr"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:156
+#: gcr/gcr-certificate-extensions-common.c:156
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:173
+#: gcr/gcr-certificate-extensions-common.c:173
 msgid "Email"
 msgstr "ელ-ფოსტა"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:185
+#: gcr/gcr-certificate-extensions-common.c:185
 msgid "DNS"
 msgstr "DNS"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:197
+#: gcr/gcr-certificate-extensions-common.c:197
 msgid "X400 Address"
 msgstr "X400 მისამართი"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:208
+#: gcr/gcr-certificate-extensions-common.c:208
 msgid "Directory Name"
 msgstr "საქაღალდის სახელი"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:220
+#: gcr/gcr-certificate-extensions-common.c:220
 msgid "EDI Party Name"
 msgstr "EDI ნაწილის სახელი"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:231
+#: gcr/gcr-certificate-extensions-common.c:231
 msgid "URI"
 msgstr "URI"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:243
+#: gcr/gcr-certificate-extensions-common.c:243
 msgid "IP Address"
 msgstr "IP მისამართი"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:255
+#: gcr/gcr-certificate-extensions-common.c:255
 msgid "Registered ID"
 msgstr "რეგისტრაციის ID"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "გასაღების ალგორითმი"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "გასაღების პარამეტრები"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "გასაღების ზომა"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "გასაღების SHA1 ანაბეჭდი"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "საჯარო გასაღები"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "საბაზისო შეზღუდვები"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "სერტიფიკატების გამომცემელი"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "დიახ"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "არა"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "შეუზღუდავი"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "ბილიკის მაქს. სიგრძე"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "გასაღების გაფართოებული გამოყენება"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "დაშვებული გამოყენებები"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "სათაურის გასაღების იდენტიფიკატორი"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "გასაღების იდენტიფიკატორი"
+
+#: gcr/gcr-certificate.c:1065
+msgid "Key Usage"
+msgstr "გასაღების გამოყენება"
+
+#: gcr/gcr-certificate.c:1067
+msgid "Usages"
+msgstr "გამოყენებებ"
+
+#: gcr/gcr-certificate.c:1078
+msgid "Subject Alternative Names"
+msgstr "სათაურის სხვა სახელები (SAN)"
+
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "სერტიფიკატის პოლიტიკები"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "პოლიტიკა"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "მდებარეობა"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "წვდომის მეთოდი"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "CRL განაწილების წერტილები"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "განაწილების წერტილი"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "განაწილების წერტილის CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "განაწილების წერტილის OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "განაწილების წერტილის U"
+
+#: gcr/gcr-certificate.c:1204
+msgid "Extension"
+msgstr "გაფართოება"
+
+#: gcr/gcr-certificate.c:1208
+msgid "Identifier"
+msgstr "იდენტიფიკატორი"
+
+#: gcr/gcr-certificate.c:1209
+msgid "Value"
+msgstr "მნიშვნელობა"
+
+#: gcr/gcr-certificate.c:1258
+msgid "Critical"
+msgstr "კრიტიკული"
+
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
+msgid "Certificate"
+msgstr "სერტიფიკატი"
+
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
+msgid "Unknown"
+msgstr "უცნობი"
+
+#: gcr/gcr-certificate.c:1342
+msgid "Identity"
+msgstr "იდენტიფიკაცია"
+
+#: gcr/gcr-certificate.c:1347
+msgid "Verified by"
+msgstr "დამოწმებულია"
+
+#: gcr/gcr-certificate.c:1353
+msgid "Expires"
+msgstr "იწურება"
+
+#. The subject
+#: gcr/gcr-certificate.c:1361
+msgid "Subject Name"
+msgstr "სათაურის სახელი"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1367
+msgid "Issuer Name"
+msgstr "გამომცემლის სახელი"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1373
+msgid "Issued Certificate"
+msgstr "გამომცემლის სერტიფიკატი"
+
+#: gcr/gcr-certificate.c:1380
+msgid "Version"
+msgstr "ვერსია"
+
+#: gcr/gcr-certificate.c:1394
+msgid "Not Valid Before"
+msgstr "არასწორია თარიღამდე"
+
+#: gcr/gcr-certificate.c:1403
+msgid "Not Valid After"
+msgstr "არასწორია თარიღის შემდეგ"
+
+#: gcr/gcr-certificate.c:1412
+msgid "Certificate Fingerprints"
+msgstr "სერტიფიკატის ანაბეჭდები"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1422
+msgid "Public Key Info"
+msgstr "საჯარო გასაღების შესახებ"
+
+#. Signature
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
+msgid "Signature"
+msgstr "ხელმოწერა"
+
+#: gcr/gcr-certificate.c:1444
+msgid "Signature Algorithm"
+msgstr "ხელმოწერის ალგორითმი"
+
+#: gcr/gcr-certificate.c:1448
+msgid "Signature Parameters"
+msgstr "ხელმოწერის პარამეტრები"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format

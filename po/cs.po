@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2025-02-02 17:13+0000\n"
-"PO-Revision-Date: 2025-02-03 12:44+0100\n"
+"POT-Creation-Date: 2025-02-10 22:37+0000\n"
+"PO-Revision-Date: 2025-02-23 16:18+0100\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -65,7 +65,7 @@ msgstr "Běžný název"
 msgid "Surname"
 msgstr "Příjmení"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1288
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Sériové číslo"
 
@@ -317,7 +317,7 @@ msgstr "Indikátor seznamu odvolaných certifikátů"
 
 #: egg/egg-oid.c:160
 msgid "Issuing distribution point"
-msgstr "Vydávající distribuční místo"
+msgstr "Vydávající distribuční bod"
 
 #: egg/egg-oid.c:161
 msgid "Certificate issuer"
@@ -329,7 +329,7 @@ msgstr "Omezení názvu"
 
 #: egg/egg-oid.c:163
 msgid "Certificate Revocation List distribution points"
-msgstr "Distribuční místo seznamu odvolaných certifikátů"
+msgstr "Distribuční bod seznamu odvolaných certifikátů"
 
 #: egg/egg-oid.c:164
 msgid "Certificate policies"
@@ -355,6 +355,15 @@ msgstr "Rozšířené ověření"
 #: egg/egg-oid.c:171
 msgid "Certification Practices Statement"
 msgstr "Prohlášení o certifikační praxi"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:174
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Online Certificate Status Protocol (OCSP)"
+
+#: egg/egg-oid.c:175
+msgid "Certification Authority Issuer"
+msgstr "Vydavatel certifikační autority"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -393,171 +402,6 @@ msgstr "Adresa URI má špatné číslo verze."
 msgid "The stream was closed"
 msgstr "Proud byl uzavřen"
 
-#: gcr/gcr-certificate.c:956
-msgid "Key Algorithm"
-msgstr "Algoritmus klíče"
-
-#: gcr/gcr-certificate.c:962
-msgid "Key Parameters"
-msgstr "Parametry klíče"
-
-#: gcr/gcr-certificate.c:969
-msgid "Key Size"
-msgstr "Velikost klíče"
-
-#: gcr/gcr-certificate.c:979
-msgid "Key SHA1 Fingerprint"
-msgstr "Otisk SHA1 klíče"
-
-#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
-msgid "Public Key"
-msgstr "Veřejný klíč"
-
-#: gcr/gcr-certificate.c:994
-msgid "Basic Constraints"
-msgstr "Základní omezení"
-
-#: gcr/gcr-certificate.c:996
-msgid "Certificate Authority"
-msgstr "Certifikační autorita"
-
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
-msgid "Yes"
-msgstr "Ano"
-
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
-msgid "No"
-msgstr "Ne"
-
-#: gcr/gcr-certificate.c:1000
-msgid "Unlimited"
-msgstr "Bez omezení"
-
-#: gcr/gcr-certificate.c:1004
-msgid "Max Path Length"
-msgstr "Maximální délka cesty"
-
-#: gcr/gcr-certificate.c:1015
-msgid "Extended Key Usage"
-msgstr "Použití rozšířeného klíče"
-
-#: gcr/gcr-certificate.c:1018
-msgid "Allowed Purposes"
-msgstr "Povolené účely"
-
-#: gcr/gcr-certificate.c:1032
-msgid "Subject Key Identifier"
-msgstr "Identifikátor klíče subjektu"
-
-#: gcr/gcr-certificate.c:1036
-msgid "Key Identifier"
-msgstr "Identifikátor klíče"
-
-#: gcr/gcr-certificate.c:1047
-msgid "Key Usage"
-msgstr "Použití klíče"
-
-#: gcr/gcr-certificate.c:1049
-msgid "Usages"
-msgstr "Použití"
-
-#: gcr/gcr-certificate.c:1060
-msgid "Subject Alternative Names"
-msgstr "Alternativní názvy subjektu"
-
-#: gcr/gcr-certificate.c:1089
-msgid "Certificate Policies"
-msgstr "Zásady certifikátu"
-
-#: gcr/gcr-certificate.c:1098
-msgid "Policy"
-msgstr "Zásada"
-
-#: gcr/gcr-certificate.c:1111
-msgid "Extension"
-msgstr "Rozšíření"
-
-#: gcr/gcr-certificate.c:1115
-msgid "Identifier"
-msgstr "Identifikátor"
-
-#: gcr/gcr-certificate.c:1116
-msgid "Value"
-msgstr "Hodnota"
-
-#: gcr/gcr-certificate.c:1159
-msgid "Critical"
-msgstr "Kritické"
-
-#: gcr/gcr-certificate.c:1235 gcr/gcr-certificate.c:1516 gcr/gcr-parser.c:331
-msgid "Certificate"
-msgstr "Certifikát"
-
-#: gcr/gcr-certificate.c:1242 gcr/gcr-certificate.c:1247
-msgid "Unknown"
-msgstr "neznámý"
-
-#: gcr/gcr-certificate.c:1243
-msgid "Identity"
-msgstr "Identita"
-
-#: gcr/gcr-certificate.c:1248
-msgid "Verified by"
-msgstr "Ověřil"
-
-#: gcr/gcr-certificate.c:1254
-msgid "Expires"
-msgstr "Vyprší"
-
-#. The subject
-#: gcr/gcr-certificate.c:1262
-msgid "Subject Name"
-msgstr "Název subjektu"
-
-#. The Issuer
-#: gcr/gcr-certificate.c:1268
-msgid "Issuer Name"
-msgstr "Název vydavatele"
-
-#. The Issued Parameters
-#: gcr/gcr-certificate.c:1274
-msgid "Issued Certificate"
-msgstr "Vydaný certifikát"
-
-#: gcr/gcr-certificate.c:1281
-msgid "Version"
-msgstr "Verze"
-
-#: gcr/gcr-certificate.c:1295
-msgid "Not Valid Before"
-msgstr "Není platný před"
-
-#: gcr/gcr-certificate.c:1304
-msgid "Not Valid After"
-msgstr "Není platný po"
-
-#: gcr/gcr-certificate.c:1313
-msgid "Certificate Fingerprints"
-msgstr "Otisky certifikátů"
-
-#. Public Key Info
-#: gcr/gcr-certificate.c:1323
-msgid "Public Key Info"
-msgstr "Informace o veřejném klíči"
-
-#. Signature
-#: gcr/gcr-certificate.c:1342 gcr/gcr-certificate.c:1353
-msgid "Signature"
-msgstr "Podpis"
-
-#: gcr/gcr-certificate.c:1345
-msgid "Signature Algorithm"
-msgstr "Algoritmus podpisu"
-
-#: gcr/gcr-certificate.c:1349
-msgid "Signature Parameters"
-msgstr "Parametry podpisu"
-
 #: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Digitální podpis"
@@ -594,49 +438,245 @@ msgstr "Pouze šifrování"
 msgid "Decipher only"
 msgstr "Pouze dešifrování"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:136
+#: gcr/gcr-certificate-extensions-common.c:136
 msgid "Other Name"
 msgstr "Jiný název"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:152
+#: gcr/gcr-certificate-extensions-common.c:152
 msgid "XMPP Addr"
 msgstr "Adresa XMPP"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:156
+#: gcr/gcr-certificate-extensions-common.c:156
 msgid "DNS SRV"
 msgstr "Záznam DNS SRV"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:173
+#: gcr/gcr-certificate-extensions-common.c:173
 msgid "Email"
 msgstr "E-mail"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:185
+#: gcr/gcr-certificate-extensions-common.c:185
 msgid "DNS"
 msgstr "DNS"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:197
+#: gcr/gcr-certificate-extensions-common.c:197
 msgid "X400 Address"
 msgstr "Adresa X400"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:208
+#: gcr/gcr-certificate-extensions-common.c:208
 msgid "Directory Name"
 msgstr "Adresářový název"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:220
+#: gcr/gcr-certificate-extensions-common.c:220
 msgid "EDI Party Name"
 msgstr "Název EDI skupiny"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:231
+#: gcr/gcr-certificate-extensions-common.c:231
 msgid "URI"
 msgstr "Adresa URI"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:243
+#: gcr/gcr-certificate-extensions-common.c:243
 msgid "IP Address"
 msgstr "Adresa IP"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:255
+#: gcr/gcr-certificate-extensions-common.c:255
 msgid "Registered ID"
 msgstr "Registrované ID"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Algoritmus klíče"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Parametry klíče"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Velikost klíče"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Otisk SHA1 klíče"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Veřejný klíč"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Základní omezení"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Certifikační autorita"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Ano"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Ne"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Bez omezení"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Maximální délka cesty"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Použití rozšířeného klíče"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Povolené účely"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Identifikátor klíče subjektu"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Identifikátor klíče"
+
+#: gcr/gcr-certificate.c:1065
+msgid "Key Usage"
+msgstr "Použití klíče"
+
+#: gcr/gcr-certificate.c:1067
+msgid "Usages"
+msgstr "Použití"
+
+#: gcr/gcr-certificate.c:1078
+msgid "Subject Alternative Names"
+msgstr "Alternativní názvy subjektu"
+
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Zásady certifikátu"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Zásada"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Umístění"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Přístupová metoda"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "Distribuční body CRL"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Distribuční bod"
+
+#: gcr/gcr-certificate.c:1181
+#| msgid "Issuing distribution point"
+msgid "Distribution Point CN"
+msgstr "Distribuční bod CN"
+
+#: gcr/gcr-certificate.c:1184
+#| msgid "Issuing distribution point"
+msgid "Distribution Point OU"
+msgstr "Distribuční bod OU"
+
+#: gcr/gcr-certificate.c:1187
+#| msgid "Issuing distribution point"
+msgid "Distribution Point U"
+msgstr "Distribuční bod U"
+
+#: gcr/gcr-certificate.c:1204
+msgid "Extension"
+msgstr "Rozšíření"
+
+#: gcr/gcr-certificate.c:1208
+msgid "Identifier"
+msgstr "Identifikátor"
+
+#: gcr/gcr-certificate.c:1209
+msgid "Value"
+msgstr "Hodnota"
+
+#: gcr/gcr-certificate.c:1258
+msgid "Critical"
+msgstr "Kritické"
+
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
+msgid "Certificate"
+msgstr "Certifikát"
+
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
+msgid "Unknown"
+msgstr "neznámý"
+
+#: gcr/gcr-certificate.c:1342
+msgid "Identity"
+msgstr "Identita"
+
+#: gcr/gcr-certificate.c:1347
+msgid "Verified by"
+msgstr "Ověřil"
+
+#: gcr/gcr-certificate.c:1353
+msgid "Expires"
+msgstr "Vyprší"
+
+#. The subject
+#: gcr/gcr-certificate.c:1361
+msgid "Subject Name"
+msgstr "Název subjektu"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1367
+msgid "Issuer Name"
+msgstr "Název vydavatele"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1373
+msgid "Issued Certificate"
+msgstr "Vydaný certifikát"
+
+#: gcr/gcr-certificate.c:1380
+msgid "Version"
+msgstr "Verze"
+
+#: gcr/gcr-certificate.c:1394
+msgid "Not Valid Before"
+msgstr "Není platný před"
+
+#: gcr/gcr-certificate.c:1403
+msgid "Not Valid After"
+msgstr "Není platný po"
+
+#: gcr/gcr-certificate.c:1412
+msgid "Certificate Fingerprints"
+msgstr "Otisky certifikátů"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1422
+msgid "Public Key Info"
+msgstr "Informace o veřejném klíči"
+
+#. Signature
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
+msgid "Signature"
+msgstr "Podpis"
+
+#: gcr/gcr-certificate.c:1444
+msgid "Signature Algorithm"
+msgstr "Algoritmus podpisu"
+
+#: gcr/gcr-certificate.c:1448
+msgid "Signature Parameters"
+msgstr "Parametry podpisu"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format

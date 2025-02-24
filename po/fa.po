@@ -2,13 +2,13 @@
 # Copyright (C) 2011 Iranian Free Software Users Group (IFSUG.org)translation team.
 # This file is distributed under the same license as the gnome-keyring package.
 # Arash Mousavi <mousavi.arash@gmail.com>, 2011-2015.
-# Danial Behzadi <dani.behzi@ubuntu.com>, 2016-2022.
+# Danial Behzadi <dani.behzi@ubuntu.com>, 2016-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2025-02-02 17:13+0000\n"
+"POT-Creation-Date: 2025-02-10 22:37+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
-msgstr "مولّفه‌های دامنه"
+msgstr "مولّفهٔ دامنه"
 
 #: egg/egg-oid.c:42
 msgid "User ID"
@@ -61,7 +61,7 @@ msgstr "نام متعارف"
 msgid "Surname"
 msgstr "نام خانوادگی"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1288
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "شمارهٔ سریال"
 
@@ -352,6 +352,15 @@ msgstr "تأیید توسعه یافته"
 msgid "Certification Practices Statement"
 msgstr "وضعیت اقدامات گواهی"
 
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:174
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "شیوه‌نامهٔ وضعیت گواهی برخط (OCSP)"
+
+#: egg/egg-oid.c:175
+msgid "Certification Authority Issuer"
+msgstr "صادکنندهٔ گواهینامهٔ مجاز"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -389,171 +398,6 @@ msgstr "عدد نسخه آدرس مناسب نیست."
 msgid "The stream was closed"
 msgstr "جریان بسته شد"
 
-#: gcr/gcr-certificate.c:956
-msgid "Key Algorithm"
-msgstr "الگوریتم کلید"
-
-#: gcr/gcr-certificate.c:962
-msgid "Key Parameters"
-msgstr "پارامترهای کلید"
-
-#: gcr/gcr-certificate.c:969
-msgid "Key Size"
-msgstr "اندازه کلید"
-
-#: gcr/gcr-certificate.c:979
-msgid "Key SHA1 Fingerprint"
-msgstr "کلید اثرانگشت SHA1"
-
-#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
-msgid "Public Key"
-msgstr "کلید عمومی"
-
-#: gcr/gcr-certificate.c:994
-msgid "Basic Constraints"
-msgstr "محدودیت‌های پایه"
-
-#: gcr/gcr-certificate.c:996
-msgid "Certificate Authority"
-msgstr "گواهینامه مجاز"
-
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
-msgid "Yes"
-msgstr "بله"
-
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
-msgid "No"
-msgstr "خیر"
-
-#: gcr/gcr-certificate.c:1000
-msgid "Unlimited"
-msgstr "نامحدود"
-
-#: gcr/gcr-certificate.c:1004
-msgid "Max Path Length"
-msgstr "بیشینه اندازه مسیر"
-
-#: gcr/gcr-certificate.c:1015
-msgid "Extended Key Usage"
-msgstr "نحوه استفاده از کلید تعمیم یافته"
-
-#: gcr/gcr-certificate.c:1018
-msgid "Allowed Purposes"
-msgstr "اهداف مجاز"
-
-#: gcr/gcr-certificate.c:1032
-msgid "Subject Key Identifier"
-msgstr "شناساگر کلید موضوع"
-
-#: gcr/gcr-certificate.c:1036
-msgid "Key Identifier"
-msgstr "شناساگر کلید"
-
-#: gcr/gcr-certificate.c:1047
-msgid "Key Usage"
-msgstr "نحوه استفاده کلید"
-
-#: gcr/gcr-certificate.c:1049
-msgid "Usages"
-msgstr "نحوه استفاده"
-
-#: gcr/gcr-certificate.c:1060
-msgid "Subject Alternative Names"
-msgstr "نام‌های جایگزین موضوع"
-
-#: gcr/gcr-certificate.c:1089
-msgid "Certificate Policies"
-msgstr "سیاست‌های گواهی"
-
-#: gcr/gcr-certificate.c:1098
-msgid "Policy"
-msgstr "سیاست"
-
-#: gcr/gcr-certificate.c:1111
-msgid "Extension"
-msgstr "افزونه"
-
-#: gcr/gcr-certificate.c:1115
-msgid "Identifier"
-msgstr "شناساگر"
-
-#: gcr/gcr-certificate.c:1116
-msgid "Value"
-msgstr "مقدار"
-
-#: gcr/gcr-certificate.c:1159
-msgid "Critical"
-msgstr "حیاتی"
-
-#: gcr/gcr-certificate.c:1235 gcr/gcr-certificate.c:1516 gcr/gcr-parser.c:331
-msgid "Certificate"
-msgstr "گواهینامه"
-
-#: gcr/gcr-certificate.c:1242 gcr/gcr-certificate.c:1247
-msgid "Unknown"
-msgstr "ناشناس"
-
-#: gcr/gcr-certificate.c:1243
-msgid "Identity"
-msgstr "هویت"
-
-#: gcr/gcr-certificate.c:1248
-msgid "Verified by"
-msgstr "تایید شده توسط"
-
-#: gcr/gcr-certificate.c:1254
-msgid "Expires"
-msgstr "انقضا"
-
-#. The subject
-#: gcr/gcr-certificate.c:1262
-msgid "Subject Name"
-msgstr "نام موضوع"
-
-#. The Issuer
-#: gcr/gcr-certificate.c:1268
-msgid "Issuer Name"
-msgstr "نام صادر کننده"
-
-#. The Issued Parameters
-#: gcr/gcr-certificate.c:1274
-msgid "Issued Certificate"
-msgstr "گواهینامه صادر شده"
-
-#: gcr/gcr-certificate.c:1281
-msgid "Version"
-msgstr "نسخه"
-
-#: gcr/gcr-certificate.c:1295
-msgid "Not Valid Before"
-msgstr "معتبر نیست قبل از"
-
-#: gcr/gcr-certificate.c:1304
-msgid "Not Valid After"
-msgstr "معتبر نیست بعد از"
-
-#: gcr/gcr-certificate.c:1313
-msgid "Certificate Fingerprints"
-msgstr "اثرهای انگشت گواهینامه"
-
-#. Public Key Info
-#: gcr/gcr-certificate.c:1323
-msgid "Public Key Info"
-msgstr "اطلاعات کلید عمومی"
-
-#. Signature
-#: gcr/gcr-certificate.c:1342 gcr/gcr-certificate.c:1353
-msgid "Signature"
-msgstr "امضا"
-
-#: gcr/gcr-certificate.c:1345
-msgid "Signature Algorithm"
-msgstr "الگوریتم امضا"
-
-#: gcr/gcr-certificate.c:1349
-msgid "Signature Parameters"
-msgstr "پارامترهای امضا"
-
 #: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "امضا دیجیتالی"
@@ -590,49 +434,242 @@ msgstr "فقط تبدیل به رمز"
 msgid "Decipher only"
 msgstr "فقط از رمز درآوردن"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:136
+#: gcr/gcr-certificate-extensions-common.c:136
 msgid "Other Name"
 msgstr "نام دیگر"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:152
+#: gcr/gcr-certificate-extensions-common.c:152
 msgid "XMPP Addr"
 msgstr "آدرس XMPP"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:156
+#: gcr/gcr-certificate-extensions-common.c:156
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:173
+#: gcr/gcr-certificate-extensions-common.c:173
 msgid "Email"
 msgstr "رایانامه"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:185
+#: gcr/gcr-certificate-extensions-common.c:185
 msgid "DNS"
 msgstr "دی‌ان‌اس"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:197
+#: gcr/gcr-certificate-extensions-common.c:197
 msgid "X400 Address"
 msgstr "آدرس X400"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:208
+#: gcr/gcr-certificate-extensions-common.c:208
 msgid "Directory Name"
 msgstr "نام شاخه"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:220
+#: gcr/gcr-certificate-extensions-common.c:220
 msgid "EDI Party Name"
 msgstr "نام دسته EDI"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:231
+#: gcr/gcr-certificate-extensions-common.c:231
 msgid "URI"
 msgstr "آدرس اینترنتی"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:243
+#: gcr/gcr-certificate-extensions-common.c:243
 msgid "IP Address"
 msgstr "آدرس آی‌پی"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:255
+#: gcr/gcr-certificate-extensions-common.c:255
 msgid "Registered ID"
 msgstr "شناسه ثبت شده"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "الگوریتم کلید"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "پارامترهای کلید"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "اندازه کلید"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "کلید اثرانگشت SHA1"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "کلید عمومی"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "محدودیت‌های پایه"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "گواهینامه مجاز"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "بله"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "خیر"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "نامحدود"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "بیشینه اندازه مسیر"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "نحوه استفاده از کلید تعمیم یافته"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "اهداف مجاز"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "شناساگر کلید موضوع"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "شناساگر کلید"
+
+#: gcr/gcr-certificate.c:1065
+msgid "Key Usage"
+msgstr "نحوه استفاده کلید"
+
+#: gcr/gcr-certificate.c:1067
+msgid "Usages"
+msgstr "نحوه استفاده"
+
+#: gcr/gcr-certificate.c:1078
+msgid "Subject Alternative Names"
+msgstr "نام‌های جایگزین موضوع"
+
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "سیاست‌های گواهی"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "سیاست"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "مکان"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "روش دسترسی"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "نقاط توزیع CRL"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "نقطهٔ توزیع"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "نقطهٔ توزیع CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "نقطهٔ توزیع OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "نقطهٔ توزیع U"
+
+#: gcr/gcr-certificate.c:1204
+msgid "Extension"
+msgstr "افزونه"
+
+#: gcr/gcr-certificate.c:1208
+msgid "Identifier"
+msgstr "شناساگر"
+
+#: gcr/gcr-certificate.c:1209
+msgid "Value"
+msgstr "مقدار"
+
+#: gcr/gcr-certificate.c:1258
+msgid "Critical"
+msgstr "حیاتی"
+
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
+msgid "Certificate"
+msgstr "گواهینامه"
+
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
+msgid "Unknown"
+msgstr "ناشناس"
+
+#: gcr/gcr-certificate.c:1342
+msgid "Identity"
+msgstr "هویت"
+
+#: gcr/gcr-certificate.c:1347
+msgid "Verified by"
+msgstr "تایید شده توسط"
+
+#: gcr/gcr-certificate.c:1353
+msgid "Expires"
+msgstr "انقضا"
+
+#. The subject
+#: gcr/gcr-certificate.c:1361
+msgid "Subject Name"
+msgstr "نام موضوع"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1367
+msgid "Issuer Name"
+msgstr "نام صادر کننده"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1373
+msgid "Issued Certificate"
+msgstr "گواهینامه صادر شده"
+
+#: gcr/gcr-certificate.c:1380
+msgid "Version"
+msgstr "نسخه"
+
+#: gcr/gcr-certificate.c:1394
+msgid "Not Valid Before"
+msgstr "معتبر نیست قبل از"
+
+#: gcr/gcr-certificate.c:1403
+msgid "Not Valid After"
+msgstr "معتبر نیست بعد از"
+
+#: gcr/gcr-certificate.c:1412
+msgid "Certificate Fingerprints"
+msgstr "اثرهای انگشت گواهینامه"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1422
+msgid "Public Key Info"
+msgstr "اطلاعات کلید عمومی"
+
+#. Signature
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
+msgid "Signature"
+msgstr "امضا"
+
+#: gcr/gcr-certificate.c:1444
+msgid "Signature Algorithm"
+msgstr "الگوریتم امضا"
+
+#: gcr/gcr-certificate.c:1448
+msgid "Signature Parameters"
+msgstr "پارامترهای امضا"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -968,9 +1005,6 @@ msgstr "[file...]"
 #~ msgid "Class"
 #~ msgstr "کلاس"
 
-#~ msgid "Local only"
-#~ msgstr "تنها محلی"
-
 #~ msgid "Exportable"
 #~ msgstr "قابل خارج کردن"
 
@@ -1080,9 +1114,6 @@ msgstr "[file...]"
 
 #~ msgid "Password cannot be blank"
 #~ msgstr "گذرواژه نمی‌تواند خالی باشد"
-
-#~ msgid "Access Prompt"
-#~ msgstr "فرمان دسترسی"
 
 #~ msgid "Unlock access to passwords and other secrets"
 #~ msgstr "گشودن قفل دسترسی به گذرواژها و رازهای دیگر"

@@ -7,13 +7,13 @@
 # Julen Ruiz Aizpuru <julenx@gmail.com>, 2011.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2004, 2006, 2008, 2009, 2010, 2011.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2012, 2013, 2014, 2017, 2018.
-# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2020, 2021, 2022.
+# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2020, 2021, 2022, 2025.
 #
 msgid ""
 msgstr "Project-Id-Version: gcr master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2022-11-13 14:29+0000\n"
-"PO-Revision-Date: 2022-11-19 15:50+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-02-10 22:37+0000\n"
+"PO-Revision-Date: 2025-02-27 15:50+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -62,7 +62,7 @@ msgstr "Izen arrunta"
 msgid "Surname"
 msgstr "Abizena"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Serie-zenbakia"
 
@@ -344,6 +344,24 @@ msgstr "Politika-murriztapenak"
 msgid "Authority key identifier"
 msgstr "Ziurtagiri-emailearen gakoaren identifikatzailea"
 
+#. Certificate Policies
+#: egg/egg-oid.c:170
+msgid "Extended Validation"
+msgstr "Balioztatze hedatua"
+
+#: egg/egg-oid.c:171
+msgid "Certification Practices Statement"
+msgstr "Ziurtatze-praktiken instrukzioa"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:174
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Lineako ziurtatze-egoerarako protokoloa (OCSP)"
+
+#: egg/egg-oid.c:175
+msgid "Certification Authority Issuer"
+msgstr "Ziurtagiri-emaile jaulkitzailea"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -381,242 +399,278 @@ msgstr "URIak bertsio-zenbaki okerra dauka."
 msgid "The stream was closed"
 msgstr "Korrontea itxi da"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "Gakoaren algoritmoa"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "Gakoaren parametroak"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "Gakoaren tamaina"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "Gakoaren SHA1 hatz-marka"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "Gako publikoa"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "Oinarrizko murriztapenak"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "Ziurtagiri-emailea"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "Bai"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "Ez"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "Mugagabea"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr "Bide-izenaren gehieneko luzera"
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "Tekla gehigarriaren erabilera"
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "Onartutako xedeak"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr "Gai gakoaren identifikatzailea"
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "Gako identifikatzailea"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Sinadura digitala"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
 msgstr "Gaitzespenik ez"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "Gako-zifraketa"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "Datu-zifraketa"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Gako-hitzarmena"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "Ziurtagiriaren sinadura"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
 msgstr "Errebokatze-zerrendaren sinadura"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
 msgstr "Zifratu soilik"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "Deszifratu soilik"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Bestelako izena"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "XMPP helb"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "Posta elektronikoa"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNSa"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "X400 helbidea"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Direktorio-izena"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "EDI taldearen izena"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URIa"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "IP helbidea"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Erregistratutako IDa"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Gakoaren algoritmoa"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Gakoaren parametroak"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Gakoaren tamaina"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Gakoaren SHA1 hatz-marka"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Gako publikoa"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Oinarrizko murriztapenak"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Ziurtagiri-emailea"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Bai"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Ez"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Mugagabea"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Bide-izenaren gehieneko luzera"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Tekla gehigarriaren erabilera"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Onartutako xedeak"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Gai gakoaren identifikatzailea"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Gako identifikatzailea"
+
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "Gakoaren erabilera"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Erabilerak"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "Gaiaren bestelako izenak"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Ziurtagiri-politikak"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Politika"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Kokalekua"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Atzipen-metodoa"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "CRL banaketa-puntuak"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Banaketa-puntua"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "Banaketa-puntua CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "Banaketa-puntua OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "Banaketa-puntua U"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Luzapena"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Identifikatzailea"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Balioa"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Larria"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Ziurtagiria"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Identitatea"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Honek egiaztatuta"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Iraungitze-data"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "Gaiaren izena"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "Jaulkitzailearen izena"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Jaulkitako ziurtagiria"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Bertsioa"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "Ez da baliozkoa honen aurretik"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "Ez da baliozkoa honen ondoren"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "Ziurtagiriaren hatz-markak"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Gako publikoaren informazioa"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "Sinadura"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "Sinaduraren algoritmoa"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "Sinaduraren parametroak"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Bestelako izena"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "XMPP helb"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "DNS SRV"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "Posta elektronikoa"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNSa"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "X400 helbidea"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Direktorio-izena"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "EDI taldearen izena"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URIa"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "IP helbidea"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "Erregistratutako IDa"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -637,10 +691,6 @@ msgstr "GnuPG gako sorta"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG gako sorta: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "PGP gakoa"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -651,28 +701,32 @@ msgstr "Gnupg prozesua ondorengo kodearekin irten da: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg prozesua ondorengo seinalearekin amaitu da: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "Eragiketa bertan behera utzi da"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Gako pribatua"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "PGP gakoa"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Ziurtagiriaren eskaera"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Datu ezezaguna edo onartu gabea."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Ezin izan dira hondatutako edo baliogabeak diren datuak analizatu."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "Datuak blokeatuta daude"
 
@@ -715,7 +769,7 @@ msgstr "Desblokeatu"
 msgid "The unlock password was incorrect"
 msgstr "Desblokeatzeko pasahitza ez da zuzena"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Izengabea"
 
@@ -723,11 +777,11 @@ msgstr "Izengabea"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Sartu zure OpenSSH pasaesaldia"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Gakoaren atributu ezezagunak edo erabilkaitzak"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Ezin izan da gako publikoa eraiki"
 
@@ -949,9 +1003,6 @@ msgstr "[fitxategia…]"
 #~ msgid "Class"
 #~ msgstr "Klasea"
 
-#~ msgid "Local only"
-#~ msgstr "Lokalak bakarrik"
-
 #~ msgid "Exportable"
 #~ msgstr "Esportagarria"
 
@@ -1062,9 +1113,6 @@ msgstr "[fitxategia…]"
 
 #~ msgid "Password cannot be blank"
 #~ msgstr "Pasahitza ezin da hutsa izan"
-
-#~ msgid "Access Prompt"
-#~ msgstr "Sarbidetzaren gonbitea"
 
 #~ msgid "Unlock access to passwords and other secrets"
 #~ msgstr "Desblokeatu sarbidea pasahitzetara eta bestelako sekretuetara"

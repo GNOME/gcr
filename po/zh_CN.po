@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2025-02-02 17:13+0000\n"
-"PO-Revision-Date: 2025-02-04 08:24+0800\n"
+"POT-Creation-Date: 2025-02-10 22:37+0000\n"
+"PO-Revision-Date: 2025-02-28 08:42+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -74,7 +74,7 @@ msgstr "常用名"
 msgid "Surname"
 msgstr "姓"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1288
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "序列号"
 
@@ -365,6 +365,15 @@ msgstr "扩展的验证"
 msgid "Certification Practices Statement"
 msgstr "认证实践声明"
 
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:174
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "在线证书状态协议（OCSP）"
+
+#: egg/egg-oid.c:175
+msgid "Certification Authority Issuer"
+msgstr "认证机构颁发者"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -402,171 +411,6 @@ msgstr "URI 版本号错误。"
 msgid "The stream was closed"
 msgstr "会话已关闭"
 
-#: gcr/gcr-certificate.c:956
-msgid "Key Algorithm"
-msgstr "密钥算法"
-
-#: gcr/gcr-certificate.c:962
-msgid "Key Parameters"
-msgstr "密钥参数"
-
-#: gcr/gcr-certificate.c:969
-msgid "Key Size"
-msgstr "密钥大小"
-
-#: gcr/gcr-certificate.c:979
-msgid "Key SHA1 Fingerprint"
-msgstr "密钥 SHA1 指纹"
-
-#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
-msgid "Public Key"
-msgstr "公钥"
-
-#: gcr/gcr-certificate.c:994
-msgid "Basic Constraints"
-msgstr "基本约束"
-
-#: gcr/gcr-certificate.c:996
-msgid "Certificate Authority"
-msgstr "证书授权"
-
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
-msgid "Yes"
-msgstr "是"
-
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1159
-msgid "No"
-msgstr "否"
-
-#: gcr/gcr-certificate.c:1000
-msgid "Unlimited"
-msgstr "无限制"
-
-#: gcr/gcr-certificate.c:1004
-msgid "Max Path Length"
-msgstr "最大路径长度"
-
-#: gcr/gcr-certificate.c:1015
-msgid "Extended Key Usage"
-msgstr "延长密钥使用"
-
-#: gcr/gcr-certificate.c:1018
-msgid "Allowed Purposes"
-msgstr "允许的用途"
-
-#: gcr/gcr-certificate.c:1032
-msgid "Subject Key Identifier"
-msgstr "主体密钥标识"
-
-#: gcr/gcr-certificate.c:1036
-msgid "Key Identifier"
-msgstr "密钥标识"
-
-#: gcr/gcr-certificate.c:1047
-msgid "Key Usage"
-msgstr "密钥用途"
-
-#: gcr/gcr-certificate.c:1049
-msgid "Usages"
-msgstr "使用"
-
-#: gcr/gcr-certificate.c:1060
-msgid "Subject Alternative Names"
-msgstr "主体备用名称"
-
-#: gcr/gcr-certificate.c:1089
-msgid "Certificate Policies"
-msgstr "证书策略"
-
-#: gcr/gcr-certificate.c:1098
-msgid "Policy"
-msgstr "策略"
-
-#: gcr/gcr-certificate.c:1111
-msgid "Extension"
-msgstr "扩展"
-
-#: gcr/gcr-certificate.c:1115
-msgid "Identifier"
-msgstr "识别标志"
-
-#: gcr/gcr-certificate.c:1116
-msgid "Value"
-msgstr "值"
-
-#: gcr/gcr-certificate.c:1159
-msgid "Critical"
-msgstr "关键"
-
-#: gcr/gcr-certificate.c:1235 gcr/gcr-certificate.c:1516 gcr/gcr-parser.c:331
-msgid "Certificate"
-msgstr "证书"
-
-#: gcr/gcr-certificate.c:1242 gcr/gcr-certificate.c:1247
-msgid "Unknown"
-msgstr "未知"
-
-#: gcr/gcr-certificate.c:1243
-msgid "Identity"
-msgstr "身份"
-
-#: gcr/gcr-certificate.c:1248
-msgid "Verified by"
-msgstr "认证机构"
-
-#: gcr/gcr-certificate.c:1254
-msgid "Expires"
-msgstr "过期"
-
-#. The subject
-#: gcr/gcr-certificate.c:1262
-msgid "Subject Name"
-msgstr "主体名"
-
-#. The Issuer
-#: gcr/gcr-certificate.c:1268
-msgid "Issuer Name"
-msgstr "颁发者名称"
-
-#. The Issued Parameters
-#: gcr/gcr-certificate.c:1274
-msgid "Issued Certificate"
-msgstr "颁发的证书"
-
-#: gcr/gcr-certificate.c:1281
-msgid "Version"
-msgstr "版本"
-
-#: gcr/gcr-certificate.c:1295
-msgid "Not Valid Before"
-msgstr "在此之前无效"
-
-#: gcr/gcr-certificate.c:1304
-msgid "Not Valid After"
-msgstr "在此之后无效"
-
-#: gcr/gcr-certificate.c:1313
-msgid "Certificate Fingerprints"
-msgstr "证书指纹"
-
-#. Public Key Info
-#: gcr/gcr-certificate.c:1323
-msgid "Public Key Info"
-msgstr "公开密钥信息"
-
-#. Signature
-#: gcr/gcr-certificate.c:1342 gcr/gcr-certificate.c:1353
-msgid "Signature"
-msgstr "签名"
-
-#: gcr/gcr-certificate.c:1345
-msgid "Signature Algorithm"
-msgstr "签名算法"
-
-#: gcr/gcr-certificate.c:1349
-msgid "Signature Parameters"
-msgstr "签名参数"
-
 #: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "数字签名"
@@ -603,49 +447,242 @@ msgstr "仅加密"
 msgid "Decipher only"
 msgstr "仅解密"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:136
+#: gcr/gcr-certificate-extensions-common.c:136
 msgid "Other Name"
 msgstr "其他名称"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:152
+#: gcr/gcr-certificate-extensions-common.c:152
 msgid "XMPP Addr"
 msgstr "XMPP 地址"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:156
+#: gcr/gcr-certificate-extensions-common.c:156
 msgid "DNS SRV"
 msgstr "DNS SRV"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:173
+#: gcr/gcr-certificate-extensions-common.c:173
 msgid "Email"
 msgstr "电子邮件"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:185
+#: gcr/gcr-certificate-extensions-common.c:185
 msgid "DNS"
 msgstr "DNS"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:197
+#: gcr/gcr-certificate-extensions-common.c:197
 msgid "X400 Address"
 msgstr "X400 地址"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:208
+#: gcr/gcr-certificate-extensions-common.c:208
 msgid "Directory Name"
 msgstr "目录名"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:220
+#: gcr/gcr-certificate-extensions-common.c:220
 msgid "EDI Party Name"
 msgstr "EDI 方的名称"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:231
+#: gcr/gcr-certificate-extensions-common.c:231
 msgid "URI"
 msgstr "URI"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:243
+#: gcr/gcr-certificate-extensions-common.c:243
 msgid "IP Address"
 msgstr "IP 地址"
 
-#: gcr/gcr-certificate-extension-subject-alt-name.c:255
+#: gcr/gcr-certificate-extensions-common.c:255
 msgid "Registered ID"
 msgstr "注册的 ID"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "密钥算法"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "密钥参数"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "密钥大小"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "密钥 SHA1 指纹"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "公钥"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "基本约束"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "证书授权"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "是"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "否"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "无限制"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "最大路径长度"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "延长密钥使用"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "允许的用途"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "主体密钥标识"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "密钥标识"
+
+#: gcr/gcr-certificate.c:1065
+msgid "Key Usage"
+msgstr "密钥用途"
+
+#: gcr/gcr-certificate.c:1067
+msgid "Usages"
+msgstr "使用"
+
+#: gcr/gcr-certificate.c:1078
+msgid "Subject Alternative Names"
+msgstr "主体备用名称"
+
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "证书策略"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "策略"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "位置"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "访问方式"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "CRL 分发点"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "分发点"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "分发点 CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "分发点 OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "分发点 U"
+
+#: gcr/gcr-certificate.c:1204
+msgid "Extension"
+msgstr "扩展"
+
+#: gcr/gcr-certificate.c:1208
+msgid "Identifier"
+msgstr "识别标志"
+
+#: gcr/gcr-certificate.c:1209
+msgid "Value"
+msgstr "值"
+
+#: gcr/gcr-certificate.c:1258
+msgid "Critical"
+msgstr "关键"
+
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
+msgid "Certificate"
+msgstr "证书"
+
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
+msgid "Unknown"
+msgstr "未知"
+
+#: gcr/gcr-certificate.c:1342
+msgid "Identity"
+msgstr "身份"
+
+#: gcr/gcr-certificate.c:1347
+msgid "Verified by"
+msgstr "认证机构"
+
+#: gcr/gcr-certificate.c:1353
+msgid "Expires"
+msgstr "过期"
+
+#. The subject
+#: gcr/gcr-certificate.c:1361
+msgid "Subject Name"
+msgstr "主体名"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1367
+msgid "Issuer Name"
+msgstr "颁发者名称"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1373
+msgid "Issued Certificate"
+msgstr "颁发的证书"
+
+#: gcr/gcr-certificate.c:1380
+msgid "Version"
+msgstr "版本"
+
+#: gcr/gcr-certificate.c:1394
+msgid "Not Valid Before"
+msgstr "在此之前无效"
+
+#: gcr/gcr-certificate.c:1403
+msgid "Not Valid After"
+msgstr "在此之后无效"
+
+#: gcr/gcr-certificate.c:1412
+msgid "Certificate Fingerprints"
+msgstr "证书指纹"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1422
+msgid "Public Key Info"
+msgstr "公开密钥信息"
+
+#. Signature
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
+msgid "Signature"
+msgstr "签名"
+
+#: gcr/gcr-certificate.c:1444
+msgid "Signature Algorithm"
+msgstr "签名算法"
+
+#: gcr/gcr-certificate.c:1448
+msgid "Signature Parameters"
+msgstr "签名参数"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -979,9 +1016,6 @@ msgstr "[文件…]"
 #~ msgid "Class"
 #~ msgstr "类别"
 
-#~ msgid "Local only"
-#~ msgstr "仅本地"
-
 #~ msgid "Exportable"
 #~ msgstr "可导出的"
 
@@ -1091,9 +1125,6 @@ msgstr "[文件…]"
 
 #~ msgid "Password cannot be blank"
 #~ msgstr "密码不能为空"
-
-#~ msgid "Access Prompt"
-#~ msgstr "访问提示"
 
 #~ msgid "Unlock access to passwords and other secrets"
 #~ msgstr "解锁密码和其他私密内容的访问权限"

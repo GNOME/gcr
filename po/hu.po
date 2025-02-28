@@ -1,26 +1,26 @@
 # Hungarian translation for gcr.
-# Copyright (C) 2004, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2018, 2020, 2021, 2022, 2023 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2018, 2020, 2021, 2022, 2023, 2025 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gcr package.
 #
 # Gergely Nagy <greg at gnome dot hu>, 2004.
 # Laszlo Dvornik <dvornikl at mailbox dot hu>, 2004.
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016.
 # Mate ORY <orymate at gmail d0t com>, 2006.
-# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2018, 2020, 2021, 2022, 2023.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2018, 2020, 2021, 2022, 2023, 2025.
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-01-25 17:22+0000\n"
-"PO-Revision-Date: 2023-03-03 01:47+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-02-10 22:37+0000\n"
+"PO-Revision-Date: 2025-02-28 19:26+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
-"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
+"Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: egg/egg-oid.c:40
@@ -63,7 +63,7 @@ msgstr "Általános név"
 msgid "Surname"
 msgstr "Vezetéknév"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Sorozatszám"
 
@@ -160,7 +160,6 @@ msgid "RSA with OAEP padding"
 msgstr "RSA OAEP kitöltéssel"
 
 #: egg/egg-oid.c:115
-#| msgid "SHA1 with RSA"
 msgid "RSA with MGF1"
 msgstr "RSA MGF1-gyel"
 
@@ -169,22 +168,18 @@ msgid "RSA signature with RSA-PSS"
 msgstr "RSA-aláírás RSA-PSS-sel"
 
 #: egg/egg-oid.c:117
-#| msgid "SHA256 with ECDSA"
 msgid "SHA256 with RSA encryption"
 msgstr "SHA256 RSA-titkosítással"
 
 #: egg/egg-oid.c:118
-#| msgid "SHA384 with ECDSA"
 msgid "SHA384 with RSA encryption"
 msgstr "SHA384 RSA-titkosítással"
 
 #: egg/egg-oid.c:119
-#| msgid "SHA1 with RSA"
 msgid "SHA512 with RSA encryption"
 msgstr "SHA512 RSA-titkosítással"
 
 #: egg/egg-oid.c:120
-#| msgid "SHA224 with ECDSA"
 msgid "SHA224 with RSA encryption"
 msgstr "SHA224 RSA-titkosítással"
 
@@ -269,7 +264,6 @@ msgstr "Időbélyegzés"
 
 #. Extended certificate attributes
 #: egg/egg-oid.c:147
-#| msgid "Certificate Authority"
 msgid "Certificate Authority Information Access"
 msgstr "Hitelesítésszolgáltató információ-hozzáférés"
 
@@ -278,12 +272,10 @@ msgid "Subject directory attributes certificate extension"
 msgstr "Alany könyvtárattribútumainak tanúsítványkiterjesztése"
 
 #: egg/egg-oid.c:149
-#| msgid "Subject Key Identifier"
 msgid "Subject key identifier"
 msgstr "Alany kulcsazonosítója"
 
 #: egg/egg-oid.c:150
-#| msgid "Key Usage"
 msgid "Key usage"
 msgstr "Kulcshasználat"
 
@@ -292,17 +284,14 @@ msgid "Private key usage period"
 msgstr "Személyes kulcs használatának időszaka"
 
 #: egg/egg-oid.c:152
-#| msgid "Subject Alternative Names"
 msgid "Subject alternative name"
 msgstr "Alany alternatív neve"
 
 #: egg/egg-oid.c:153
-#| msgid "Subject Alternative Names"
 msgid "Issuer alternative name"
 msgstr "Kibocsátó alternatív neve"
 
 #: egg/egg-oid.c:154
-#| msgid "Basic Constraints"
 msgid "Basic constraints"
 msgstr "Alap megszorítások"
 
@@ -323,7 +312,6 @@ msgid "Invalidity date"
 msgstr "Érvénytelenség dátuma"
 
 #: egg/egg-oid.c:159
-#| msgid "Revocation list signature"
 msgid "Certificate Revocation List indicator"
 msgstr "Tanúsítvány-visszavonási lista jelzője"
 
@@ -332,12 +320,10 @@ msgid "Issuing distribution point"
 msgstr "Kibocsátó terjesztési pont"
 
 #: egg/egg-oid.c:161
-#| msgid "Certificate signature"
 msgid "Certificate issuer"
 msgstr "Tanúsítvány-kibocsátó"
 
 #: egg/egg-oid.c:162
-#| msgid "Basic Constraints"
 msgid "Name constraints"
 msgstr "Névmegszorítások"
 
@@ -346,7 +332,6 @@ msgid "Certificate Revocation List distribution points"
 msgstr "Tanúsítvány-visszavonási lista terjesztési pontok"
 
 #: egg/egg-oid.c:164
-#| msgid "Certificate Request"
 msgid "Certificate policies"
 msgstr "Tanúsítvány-irányelvek"
 
@@ -355,14 +340,31 @@ msgid "Policy mappings"
 msgstr "Irányelv-leképezések"
 
 #: egg/egg-oid.c:166
-#| msgid "Basic Constraints"
 msgid "Policy constraints"
 msgstr "Irányelv-megszorítások"
 
 #: egg/egg-oid.c:167
-#| msgid "Subject Key Identifier"
 msgid "Authority key identifier"
 msgstr "Szolgáltató kulcsazonosítója"
+
+#. Certificate Policies
+#: egg/egg-oid.c:170
+msgid "Extended Validation"
+msgstr "Kiterjesztett ellenőrzés"
+
+#: egg/egg-oid.c:171
+msgid "Certification Practices Statement"
+msgstr "Tanúsítási gyakorlatok nyilatkozat"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:174
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Internetes tanúsítványállapot-protokoll (OCSP)"
+
+#: egg/egg-oid.c:175
+#| msgid "Certificate Authority"
+msgid "Certification Authority Issuer"
+msgstr "Hitelesítésszolgáltató kibocsátója"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -401,242 +403,285 @@ msgstr "Az URI verziószáma hibás."
 msgid "The stream was closed"
 msgstr "Az adatfolyam lezárult"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "Kulcsalgoritmus"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "Kulcs paraméterei"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "Kulcsméret"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "Kulcs SHA1 ujjlenyomata"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "Nyilvános kulcs"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "Alap megszorítások"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "Hitelesítésszolgáltató"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "Igen"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "Nem"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "Korlátlan"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr "Legnagyobb útvonalhossz"
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "Kibővített kulcshasználat"
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "Engedélyezett célok"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr "Alany kulcsazonosítója"
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "Kulcsazonosító"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Digitális aláírás"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
 msgstr "Letagadhatatlanság"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "Kulcstitkosítás"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "Adattitkosítás"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Kulcsmegállapodás"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "Tanúsítvány-aláírás"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
 msgstr "Visszavonási lista aláírása"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
 msgstr "Csak titkosítás"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "Csak visszafejtés"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Egyéb név"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "XMPP-cím"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "E-mail"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "X400-cím"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Címtár neve"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "EDI fél neve"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "IP-cím"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Regisztrált azonosító"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Kulcsalgoritmus"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Kulcs paraméterei"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Kulcsméret"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Kulcs SHA1 ujjlenyomata"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Nyilvános kulcs"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Alap megszorítások"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Hitelesítésszolgáltató"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Igen"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Nem"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Korlátlan"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Legnagyobb útvonalhossz"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Kibővített kulcshasználat"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Engedélyezett célok"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Alany kulcsazonosítója"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Kulcsazonosító"
+
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "Kulcshasználat"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Használat"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "Alany alternatív nevei"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+#| msgid "Certificate policies"
+msgid "Certificate Policies"
+msgstr "Tanúsítvány-irányelvek"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Irányelv"
+
+#: gcr/gcr-certificate.c:1140
+#| msgid "Locality"
+msgid "Location"
+msgstr "Hely"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Hozzáférési módszer"
+
+#: gcr/gcr-certificate.c:1158
+#| msgid "Issuing distribution point"
+msgid "CRL Distribution Points"
+msgstr "CRL terjesztési pontok"
+
+#: gcr/gcr-certificate.c:1174
+#| msgid "Issuing distribution point"
+msgid "Distribution Point"
+msgstr "Terjesztési pont"
+
+#: gcr/gcr-certificate.c:1181
+#| msgid "Issuing distribution point"
+msgid "Distribution Point CN"
+msgstr "Terjesztési pont CN"
+
+#: gcr/gcr-certificate.c:1184
+#| msgid "Issuing distribution point"
+msgid "Distribution Point OU"
+msgstr "Terjesztési pont OU"
+
+#: gcr/gcr-certificate.c:1187
+#| msgid "Issuing distribution point"
+msgid "Distribution Point U"
+msgstr "Terjesztési pont U"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Kiterjesztés"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Azonosító"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Érték"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Kritikus"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Tanúsítvány"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Személyazonosság"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Ellenőrizte"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Lejárat"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "Alany neve"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "Kibocsátó neve"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Kibocsátott tanúsítvány"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Verzió"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "Nem érvényes eddig"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "Nem érvényes ezután"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "Tanúsítvány ujjlenyomatai"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Nyilvános kulcs információi"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "Aláírás"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "Aláírási algoritmus"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "Aláírás paraméterei"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Egyéb név"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "XMPP-cím"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "DNS SRV"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "E-mail"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "X400-cím"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Címtár neve"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "EDI fél neve"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "IP-cím"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "Regisztrált azonosító"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -657,10 +702,6 @@ msgstr "GnuPG kulcstartó"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG kulcstartó: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "PGP-kulcs"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -671,28 +712,32 @@ msgstr "A Gnupg a következő kóddal lépett ki: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "A Gnupg folyamat befejeztetve a következő szignállal: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "A művelet megszakítva"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Személyes kulcs"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "PGP-kulcs"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Tanúsítványkérés"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Ismeretlen vagy nem támogatott adatok."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Nem sikerült feldolgozni az érvénytelen vagy hibás adatokat."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "Az adatok zárolva vannak"
 
@@ -737,7 +782,7 @@ msgstr "Feloldás"
 msgid "The unlock password was incorrect"
 msgstr "A feloldási jelszó helytelen volt"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Névtelen"
 
@@ -745,11 +790,11 @@ msgstr "Névtelen"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Adja meg az OpenSSH jelszavát"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "A kulcs attribútumai azonosítatlanok vagy nem érhetők el"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Nem építhető fel a nyilvános kulcs"
 
@@ -776,3 +821,4 @@ msgstr "Az alkalmazás verziószámának megjelenítése"
 #: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr "[FÁJL…]"
+

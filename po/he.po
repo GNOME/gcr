@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-01-25 17:22+0000\n"
-"PO-Revision-Date: 2023-02-12 09:39+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-02-10 22:37+0000\n"
+"PO-Revision-Date: 2025-03-02 11:36+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <>\n"
 "Language: he\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
 "2 : 3);\n"
 "X-Launchpad-Export-Date: 2007-11-27 11:20+0000\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: egg/egg-oid.c:40
@@ -62,7 +62,7 @@ msgstr "שם נפוץ"
 msgid "Surname"
 msgstr "שם משפחה"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "מספר סידורי"
 
@@ -344,6 +344,24 @@ msgstr "מגבלות מדיניות"
 msgid "Authority key identifier"
 msgstr "מזהה מפתח רשות"
 
+#. Certificate Policies
+#: egg/egg-oid.c:170
+msgid "Extended Validation"
+msgstr "תוקף מוארך"
+
+#: egg/egg-oid.c:171
+msgid "Certification Practices Statement"
+msgstr "הצהרת שיטות הסמכה"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:174
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "פרוטוקול מצב אישורים מקוון (OCSP)"
+
+#: egg/egg-oid.c:175
+msgid "Certification Authority Issuer"
+msgstr "מנפיק רשות אישורים"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -381,242 +399,278 @@ msgstr "לכתובת יש מספר גרסה שגוי."
 msgid "The stream was closed"
 msgstr "התזרים נסגר"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "אלגוריתם המפתח"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "הפרמטרים של המפתח"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "גודל המפתח"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "טביעת אצבע של מפתח SHA1"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "מפתח ציבורי"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "הגבלות בסיסיות"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "רשות אישורים"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "כן"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "לא"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "מוגבל"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr "אורך הנתיב המרבי"
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "שימוש מורחב במפתח"
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "מטרות מורשות"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr "מזהה מפתח של מקבל האישור"
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "מזהה מפתח"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "חתימה דיגיטלית"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
 msgstr "אי־התכחשות"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "הצפנת מפתח"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "הצפנת נתונים"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "הסכם מפתח"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "חתימת האישור"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
 msgstr "חתימת רשימת השלילה"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
 msgstr "להצפין בלבד"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "לפענח בלבד"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "שם אחר"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "כתובת ה־XMPP"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "שרת DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "דוא״ל"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "כתובת X400"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "שם הספרייה"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "שם צד ה־EDI"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "כתובת ייחודית"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "כתובת ה־IP"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "מזהה רשום"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "אלגוריתם המפתח"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "הפרמטרים של המפתח"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "גודל המפתח"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "טביעת אצבע של מפתח SHA1"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "מפתח ציבורי"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "הגבלות בסיסיות"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "רשות אישורים"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "כן"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "לא"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "מוגבל"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "אורך הנתיב המרבי"
+
+#: gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "שימוש מורחב במפתח"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "מטרות מורשות"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "מזהה מפתח של מקבל האישור"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "מזהה מפתח"
+
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "שימוש במפתח"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "שימושים"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "שמות חלופיים למקבל האישור"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "מדיניויות אישורים"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "מדיניות"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "מיקום"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "שיטת גישה"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "נקודות חלוקת רשימות שלילת אישורים"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "נקודת חלוקה"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "שם נפוץ (CN) של נקודת חלוקה"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "יחידה ארגונית (OU) של נקודת חלוקה"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "יחידה (U) של נקודת חלוקה"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "הרחבה"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "מזהה"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "ערך"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "קריטי"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "אישור"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "לא ידוע"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "זהות"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "אומת על ידי"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "תפוגה"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "שם מקבל האישור"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "שם החותם"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "אישור שהונפק"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "גרסה"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "לא תקף לפני"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "לא תקף לאחר"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "טביעות אצבע של אישור"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "נתוני מפתח ציבואי"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "חתימה"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "אלגוריתם החתימה"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "הפרמטרים של החתימה"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "שם אחר"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "כתובת ה־XMPP"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "שרת DNS"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "דוא״ל"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "כתובת X400"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "שם הספרייה"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "שם צד ה־EDI"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "כתובת ייחודית"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "כתובת ה־IP"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "מזהה רשום"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -637,10 +691,6 @@ msgstr "קבוצת מפתחות GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "קבוצת מפתחות GnuPG‏: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "מפתח PGP"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -651,28 +701,32 @@ msgstr "התהליך Gnupg יצא עם הקוד: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "התהליך Gnupg חוסל עם האות: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "הפעולה בוטלה"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "מפתח פרטי"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "מפתח PGP"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "בקשת אישור"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "הנתונים אינם מוכרים או שאינם נתמכים."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "לא ניתן לנתח נתונים שגויים או פגומים."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "הנתונים נעולים"
 
@@ -715,7 +769,7 @@ msgstr "פתח"
 msgid "The unlock password was incorrect"
 msgstr "ססמת השחרור הייתה שגויה"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "ללא שם"
 
@@ -723,11 +777,11 @@ msgstr "ללא שם"
 msgid "Enter your OpenSSH passphrase"
 msgstr "נא למלא את מילת הצופן של ה־OpenSSH שלך"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "מאפיין בלתי מוכר או בלתי זמין של המפתח"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "לא ניתן לבנות מפתח ציבורי"
 
@@ -1006,9 +1060,6 @@ msgstr "[file...]"
 #~ msgid "Class"
 #~ msgstr "מחלקה"
 
-#~ msgid "Local only"
-#~ msgstr "מקומי בלבד"
-
 #~ msgid "Exportable"
 #~ msgstr "ניתן לייצוא"
 
@@ -1121,9 +1172,6 @@ msgstr "[file...]"
 
 #~ msgid "Password cannot be blank"
 #~ msgstr "הססמה לא יכולה להיות ריקה"
-
-#~ msgid "Access Prompt"
-#~ msgstr "אימות גישה"
 
 #~ msgid "Unlock access to passwords and other secrets"
 #~ msgstr "שחרור הגישה לססמאות ולסודות אחרים"

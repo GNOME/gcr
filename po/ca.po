@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
 "POT-Creation-Date: 2023-11-04 11:23+0000\n"
-"PO-Revision-Date: 2023-11-12 23:06+0100\n"
+"PO-Revision-Date: 2025-03-08 23:06+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -311,7 +311,7 @@ msgstr "Data d'invalidesa"
 
 #: egg/egg-oid.c:159
 msgid "Certificate Revocation List indicator"
-msgstr "Firma de la llista de revocació"
+msgstr "Indicador de la llista de revocació del certificat"
 
 #: egg/egg-oid.c:160
 msgid "Issuing distribution point"
@@ -706,7 +706,7 @@ msgstr "Una aplicació vol accedir a la clau privada «%s», però està bloquej
 
 #: gcr/gcr-ssh-agent-interaction.c:161
 msgid "Automatically unlock this key whenever I’m logged in"
-msgstr "Desbloca l'anell de claus automàticament quan estigui en la sessió"
+msgstr "Desbloqueja automàticament aquesta clau quan estigui en la sessió"
 
 #: gcr/gcr-ssh-agent-interaction.c:163
 msgid "Unlock"

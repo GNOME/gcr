@@ -10,9 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-11-04 11:23+0000\n"
-"PO-Revision-Date: 2025-03-08 23:06+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-03-08 19:33+0000\n"
+"PO-Revision-Date: 2025-03-08 22:40+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -62,7 +62,7 @@ msgstr "Nom comú"
 msgid "Surname"
 msgstr "Cognom"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Número de sèrie"
 
@@ -345,6 +345,28 @@ msgstr "Restriccions de política"
 msgid "Authority key identifier"
 msgstr "Identificador de la clau de l'autoritat"
 
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Utilització ampliada de la clau"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "Validació extesa"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "Declaració de pràctiques de certificació"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Protocol en xarxa d'estat de certificats (OCSP)"
+
+#: egg/egg-oid.c:176
+msgid "Certification Authority Issuer"
+msgstr "Emissor d'autoritat de certificació"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -382,242 +404,274 @@ msgstr "El número de versió de l'URI no és correcte."
 msgid "The stream was closed"
 msgstr "El flux està tancat"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "Clau de l'algorisme"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "Paràmetres de la clau"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "Mida de la clau"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "Empremta de la clau SHA1"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "Clau pública"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "Restriccions bàsiques"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "Autoritat de certificació"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "Sí"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "No"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "Sense límit"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr "Longitud màxima del camí"
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "Utilització ampliada de la clau"
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "Propòsits permesos"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr "Identificador de la clau del subjecte"
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "Identificador de la clau"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Signatura digital"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
 msgstr "No repudi"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "Xifrat de clau"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "Xifrat de dades"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Acord sobre la clau"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "Signatura del certificat"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
 msgstr "Firma de la llista de revocació"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
 msgstr "Només xifrat"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "Només desxifrat"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Un altre nom"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "Adreça XMPP"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "Servidor DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "Correu electrònic"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "Adreça X400"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Nom del directori"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "Nom del grup EDI"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "Adreça IP"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Identificador registrat"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Clau de l'algorisme"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Paràmetres de la clau"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Mida de la clau"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Empremta de la clau SHA1"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Clau pública"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Restriccions bàsiques"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Autoritat de certificació"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Sí"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "No"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Sense límit"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Longitud màxima del camí"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Propòsits permesos"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Identificador de la clau del subjecte"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Identificador de la clau"
+
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "Utilització de la clau"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Utilitzacions"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "Noms alternatius del subjecte"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Polítiques del certificat"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Política"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Ubicació"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Mètode d'accés"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "Punts de distribució CRL"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Punt de distribució"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "Punt de distribució CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "Punt de distribució OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "Punt de distribució U"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Extensió"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Identificador"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Valor"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Crític"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Certificat"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Desconegut"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Identitat"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Verificat per"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Venç"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "Nom del subjecte"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "Nom de l'emissor"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Certificat emès"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Versió"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "No és vàlid abans de"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "No és vàlid després de"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "Empremtes del certificat"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Informació de la clau pública"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "Signatura"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "Algorisme de la signatura"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "Paràmetres de la signatura"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Un altre nom"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "Adreça XMPP"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "Servidor DNS"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "Correu electrònic"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "Adreça X400"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Nom del directori"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "Nom del grup EDI"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "Adreça IP"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "Identificador registrat"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -648,32 +702,32 @@ msgstr "El procés GnuPG ha sortit amb el codi: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "S'ha finalitzat el procés GnuPG amb el senyal: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "S'ha cancel·lat l'operació"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Clau privada"
 
-#: gcr/gcr-parser.c:346
+#: gcr/gcr-parser.c:337
 msgid "PGP Key"
 msgstr "Clau PGP"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Sol·licitud de certificat"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Dades no reconegudes o no compatibles."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "No s'han pogut analitzar les dades. No són vàlides o estan malmeses."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "Les dades estan blocades"
 
@@ -724,11 +778,11 @@ msgstr "Sense nom"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Introduïu la contrasenya per OpenSSH"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Atributs de la clau no reconeguts o no disponibles"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "No s'ha pogut construir la clau pública"
 

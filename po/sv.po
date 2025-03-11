@@ -1,17 +1,17 @@
 # Swedish messages for gcr.
-# Copyright © 2003-2023 Free Software Foundation, Inc.
+# Copyright © 2003-2025 Free Software Foundation, Inc.
 # Christian Rose <menthos@menthos.com>, 2003, 2004.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009, 2010, 2011, 2012.
 # Sebastian Rasmussen <sebras@gmail.com>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2020, 2021, 2022, 2023.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2020, 2021, 2022, 2023, 2025.
 # Luna Jernberg <droidbittin@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-03-09 18:01+0000\n"
-"PO-Revision-Date: 2023-03-12 14:03+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-02-13 19:04+0000\n"
+"PO-Revision-Date: 2025-03-11 20:05+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -61,7 +61,7 @@ msgstr "Common Name"
 msgid "Surname"
 msgstr "Förnamn"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Serienummer"
 
@@ -343,6 +343,28 @@ msgstr "Policybegränsningar"
 msgid "Authority key identifier"
 msgstr "Nyckelidentifierare för utfärdare"
 
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Utökad nyckelanvändning"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "Utökad validering"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "Utfärdardeklaration (CPS)"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Online Certificate Status Protocol (OCSP)"
+
+#: egg/egg-oid.c:176
+msgid "Certification Authority Issuer"
+msgstr "CA-utfärdare"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -380,242 +402,274 @@ msgstr "URI:n har ett felaktigt versionsnummer."
 msgid "The stream was closed"
 msgstr "Strömmen stängdes"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "Nyckelalgoritm"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "Nyckelparametrar"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "Nyckelstorlek"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "Nyckelns SHA1-fingeravtryck"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "Publik nyckel"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "Användningsområde"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "Certifikatutfärdare"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "Ja"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "Nej"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "Obegränsad"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr "Maximal sökvägslängd"
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "Utökad nyckelanvändning"
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "Tillåtna syften"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr "Identifierare för ämnesnyckel"
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "Nyckelidentifierare"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Digital signatur"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
 msgstr "Oförnekbarhet"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "Nyckelkryptering"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "Datakryptering"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Nyckelanvändning"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "Certifikatsignatur"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
 msgstr "Signatur för spärrlista"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
 msgstr "Endast kryptering"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "Endast dekryptering"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Annat namn"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "XMPP Addr"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "E-post"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "X400-adress"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Katalognamn"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "EDI Party Name"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "IP-adress"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Registrerat ID"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Nyckelalgoritm"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Nyckelparametrar"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Nyckelstorlek"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Nyckelns SHA1-fingeravtryck"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Publik nyckel"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Användningsområde"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Certifikatutfärdare"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Ja"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Nej"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Obegränsad"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Maximal sökvägslängd"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Tillåtna syften"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Identifierare för ämnesnyckel"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Nyckelidentifierare"
+
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "Nyckelanvändning"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Användningsområden"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "Alternativa ämnesnamn"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Certifikatpolicyer"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Policy"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Plats"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Åtkomstmetod"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "CRL-distributionspunkter"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Distributionspunkt"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "CN för distributionspunkt"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "OU för distributionspunkt"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "U för distributionspunkt"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Utökning"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Identifierare"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Värde"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Kritiskt"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Certifikat"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Okänd"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Identitet"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Verifierat av"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Går ut"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "Ämnesnamn"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "Utgivarens namn"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Utgivet certifikat"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Version"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "Inte giltigt före"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "Inte giltigt efter"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "Certifikatets fingeravtryck"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Information om publik nyckel"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "Signatur"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "Signaturalgoritm"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "Signaturparametrar"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Annat namn"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "XMPP Addr"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "DNS SRV"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "E-post"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "X400-adress"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Katalognamn"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "EDI Party Name"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "IP-adress"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "Registrerat ID"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -636,10 +690,6 @@ msgstr "GnuPG-nyckelring"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG-nyckelring: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "PGP-nyckel"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -650,28 +700,32 @@ msgstr "Gnupg-processen avslutades med kod: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg-processen terminerades med signal: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "Åtgärden avbröts"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Privat nyckel"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "PGP-nyckel"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Certifikatbegäran"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Data är okänt eller stöds inte."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Kunde inte tolka ogiltigt eller skadat data."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "Data är låst"
 
@@ -714,7 +768,7 @@ msgstr "Lås upp"
 msgid "The unlock password was incorrect"
 msgstr "Upplåsningslösenordet var felaktigt"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Namnlös"
 
@@ -722,11 +776,11 @@ msgstr "Namnlös"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Ange din OpenSSH-lösenfras"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Okänt eller otillgängligt attribut för nyckel"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Kunde inte bygga publik nyckel"
 
@@ -948,9 +1002,6 @@ msgstr "[fil…]"
 #~ msgid "Class"
 #~ msgstr "Klass"
 
-#~ msgid "Local only"
-#~ msgstr "Endast lokal"
-
 #~ msgid "Exportable"
 #~ msgstr "Exporterbar"
 
@@ -1061,9 +1112,6 @@ msgstr "[fil…]"
 
 #~ msgid "Password cannot be blank"
 #~ msgstr "Lösenordet får inte vara blankt"
-
-#~ msgid "Access Prompt"
-#~ msgstr "Åtkomstbegäran"
 
 #~ msgid "Unlock access to passwords and other secrets"
 #~ msgstr "Lås upp tillgång till lösenord och andra hemligheter"

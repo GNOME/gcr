@@ -1,3 +1,6 @@
+gcr 4.4.0.1:
+- meson: Fix gck vesion
+
 gcr 4.4.0:
 - gcr: Add OID for Extended Key Usage
 - gcr: Avoid g_strv_builder_unref_to_strv() [GNOME/gcr!167]

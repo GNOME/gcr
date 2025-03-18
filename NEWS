@@ -1,3 +1,11 @@
+gcr 4.4.0:
+- gcr: Add OID for Extended Key Usage
+- gcr: Avoid g_strv_builder_unref_to_strv() [GNOME/gcr!167]
+- gck: Disable parallel tests using gck-mock module [GNOME/gcr!165]
+- meson: Do a stricter check on GLib version [GNOME/gcr!166]
+- gcr: Support parsing ed25519 SSH public keys [GNOME/gcr!164]
+- Updated translations
+
 gcr 4.3.91:
 - Several updates to the CI
 - gcr: Implement Certificate Policies extension [GNOME/gcr!153]

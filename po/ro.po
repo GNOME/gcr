@@ -5,26 +5,27 @@
 # Mugurel Tudor <mugurelu@gnome.ro>, 2006.
 # Adi Roiban https://launchpad.net/~adiroiban, 2008, 2009
 # Lucian Adrian Grijincu <lucian.grijincu@gmail.com>, 2010, 2011.
+# Antonio Marin <gnmer.6qxyg@slmail.me>, 2025.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring.HEAD.ro\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-01-25 17:22+0000\n"
-"PO-Revision-Date: 2023-07-29 15:13+0300\n"
-"Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
-"gmail [dot] com>\n"
-"Language-Team: Romanian Gnome Team <gnomero-list@lists.sourceforge.net>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-05-10 12:55+0000\n"
+"PO-Revision-Date: 2025-05-17 23:49+0200\n"
+"Last-Translator: Antonio Marin <gnmer.6qxyg@slmail.me>\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Gtranslator 48.0\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
-msgstr "Component domeniu"
+msgstr "Componentă de domeniu"
 
 #: egg/egg-oid.c:42
 msgid "User ID"
@@ -32,7 +33,7 @@ msgstr "ID utilizator"
 
 #: egg/egg-oid.c:45
 msgid "Email Address"
-msgstr "Adresă de email"
+msgstr "Adresa de e-mail"
 
 #: egg/egg-oid.c:53
 msgid "Date of Birth"
@@ -48,11 +49,11 @@ msgstr "Gen"
 
 #: egg/egg-oid.c:59
 msgid "Country of Citizenship"
-msgstr "Naționalitate"
+msgstr "Naționalitatea"
 
 #: egg/egg-oid.c:61
 msgid "Country of Residence"
-msgstr "Țară de rezidență"
+msgstr "Țara de rezidență"
 
 #: egg/egg-oid.c:64
 msgid "Common Name"
@@ -60,39 +61,39 @@ msgstr "Nume comun"
 
 #: egg/egg-oid.c:66
 msgid "Surname"
-msgstr "Nume familie"
+msgstr "Nume de familie"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
-msgstr "Număr serial"
+msgstr "Număr de serie"
 
 #: egg/egg-oid.c:70
 msgid "Country"
-msgstr "Țară"
+msgstr "Țara"
 
 #: egg/egg-oid.c:72
 msgid "Locality"
-msgstr "Localitate"
+msgstr "Localitatea"
 
 #: egg/egg-oid.c:74
 msgid "State"
-msgstr "Stat"
+msgstr "Statul"
 
 #: egg/egg-oid.c:76
 msgid "Street"
-msgstr "Stradă"
+msgstr "Strada"
 
 #: egg/egg-oid.c:78
 msgid "Organization"
-msgstr "Organizație"
+msgstr "Organizația"
 
 #: egg/egg-oid.c:80
 msgid "Organizational Unit"
-msgstr "Departament organizație"
+msgstr "Departamentul organizației"
 
 #: egg/egg-oid.c:82
 msgid "Title"
-msgstr "Titlu"
+msgstr "Titlul"
 
 #: egg/egg-oid.c:84
 msgid "Telephone Number"
@@ -112,7 +113,7 @@ msgstr "Caracteristică generare"
 
 #: egg/egg-oid.c:92
 msgid "DN Qualifier"
-msgstr "Caracteristică DN"
+msgstr "Caracteristica DN"
 
 #: egg/egg-oid.c:94
 msgid "Pseudonym"
@@ -164,23 +165,23 @@ msgstr "RSA cu MGF1"
 
 #: egg/egg-oid.c:116
 msgid "RSA signature with RSA-PSS"
-msgstr "Semnătură RSA cu RSA-PSS"
+msgstr "Semnătura RSA cu RSA-PSS"
 
 #: egg/egg-oid.c:117
 msgid "SHA256 with RSA encryption"
-msgstr "SHA256 cu criptare RSA"
+msgstr "SHA256 cu cifrare RSA"
 
 #: egg/egg-oid.c:118
 msgid "SHA384 with RSA encryption"
-msgstr "SHA384 cu criptare RSA"
+msgstr "SHA384 cu cifrare RSA"
 
 #: egg/egg-oid.c:119
 msgid "SHA512 with RSA encryption"
-msgstr "SHA512 cu criptare RSA"
+msgstr "SHA512 cu cifrare RSA"
 
 #: egg/egg-oid.c:120
 msgid "SHA224 with RSA encryption"
-msgstr "SHA224 cu criptare RSA"
+msgstr "SHA224 cu cifrare RSA"
 
 #: egg/egg-oid.c:122
 msgid "DSA"
@@ -253,24 +254,24 @@ msgstr "Semnare de cod"
 
 #: egg/egg-oid.c:143
 msgid "Email Protection"
-msgstr "Protecție email"
+msgstr "Protecție e-mail"
 
 #: egg/egg-oid.c:144
 msgid "Time Stamping"
-msgstr "Marcare de timp"
+msgstr "Datare"
 
 #. Extended certificate attributes
 #: egg/egg-oid.c:147
 msgid "Certificate Authority Information Access"
-msgstr "Acces la informații de autoritate de certificat"
+msgstr "Acces la informații despre autoritatea de certificare"
 
 #: egg/egg-oid.c:148
 msgid "Subject directory attributes certificate extension"
-msgstr "Extensie de certificat pentru atributele de director de subiect"
+msgstr "Extensie de certificat pentru atribute din dosarul subiectului"
 
 #: egg/egg-oid.c:149
 msgid "Subject key identifier"
-msgstr "Identificator de chei subiect"
+msgstr "Identificatorul cheii subiectului"
 
 #: egg/egg-oid.c:150
 msgid "Key usage"
@@ -278,7 +279,7 @@ msgstr "Mod de utilizare cheie"
 
 #: egg/egg-oid.c:151
 msgid "Private key usage period"
-msgstr "Perioadă de utilizare cheie privată"
+msgstr "Perioada de utilizare a cheii private"
 
 #: egg/egg-oid.c:152
 msgid "Subject alternative name"
@@ -298,7 +299,7 @@ msgstr "Număr CRL"
 
 #: egg/egg-oid.c:156
 msgid "Reason code"
-msgstr "Cod de motiv"
+msgstr "Codul motivului"
 
 #: egg/egg-oid.c:157
 msgid "Hold instruction code"
@@ -306,15 +307,15 @@ msgstr "Cod de instrucțiuni de păstrare"
 
 #: egg/egg-oid.c:158
 msgid "Invalidity date"
-msgstr "Dată de nevaliditate"
+msgstr "Data expirării"
 
 #: egg/egg-oid.c:159
 msgid "Certificate Revocation List indicator"
-msgstr "Indicator de listă de revocare certificat"
+msgstr "Indicatorul listei de revocare a certificatului"
 
 #: egg/egg-oid.c:160
 msgid "Issuing distribution point"
-msgstr "Punct de distribuție emitent"
+msgstr "Locul de publicare al emitentului"
 
 #: egg/egg-oid.c:161
 msgid "Certificate issuer"
@@ -326,23 +327,45 @@ msgstr "Restricții de nume"
 
 #: egg/egg-oid.c:163
 msgid "Certificate Revocation List distribution points"
-msgstr "Puncte de distribuție a listei de revocare certificat"
+msgstr "Locuri de publicare a listei de revocare a certificatelor"
 
 #: egg/egg-oid.c:164
 msgid "Certificate policies"
-msgstr "Politici de certificat"
+msgstr "Reguli de certificare"
 
 #: egg/egg-oid.c:165
 msgid "Policy mappings"
-msgstr "Mapări de politică"
+msgstr "Asocierea regulilor"
 
 #: egg/egg-oid.c:166
 msgid "Policy constraints"
-msgstr "Restricții de politică"
+msgstr "Restricții pentru reguli"
 
 #: egg/egg-oid.c:167
 msgid "Authority key identifier"
-msgstr "Identificator de chei autoritate"
+msgstr "Identificatorul cheii autorității"
+
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Utilizare extinsă a cheii"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "Validare extinsă"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "Declarația de practici de certificare"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Protocolul de stare a certificatului online (OCSP)"
+
+#: egg/egg-oid.c:176
+msgid "Certification Authority Issuer"
+msgstr "Emitentul autorității de certificare"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -362,7 +385,7 @@ msgstr "Nu s-au putut inițializa modulele PKCS#11 înregistrate: %s"
 #: gck/gck-uri.c:167
 #, c-format
 msgid "The URI has invalid encoding."
-msgstr "URI-ul are o codare nevalidă."
+msgstr "URI-ul are o codare greșită."
 
 #: gck/gck-uri.c:171
 msgid "The URI does not have the “pkcs11” scheme."
@@ -381,247 +404,279 @@ msgstr "URI-ul are un număr de versiune nepotrivit."
 msgid "The stream was closed"
 msgstr "Fluxul a fost închis"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "Algoritm cheie"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "Parametrii cheie"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "Dimensiune cheie"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "Amprentă SHA1 de cheie"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "Cheie publică"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "Restricții de bază"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "Autoritate de certificat"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "Da"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "Nu"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "Nelimitat"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr "Lungime cale maximă"
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "Mod extins de utilizare a cheii"
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "Scopuri permise"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr "Identificator de chei subiect"
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "Identificator de cheie"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Semnătură digitală"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
-msgstr "Non-repudiere"
+msgstr "Nerepudiere"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "Cifrare de cheie"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "Cifrare de date"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Acord cheie"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
-msgstr "Semnătură de certificat"
+msgstr "Semnătura certificatului"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
-msgstr "Semnătură de listă revocare"
+msgstr "Semnătura listei de revocare"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
-msgstr "Doar codificare"
+msgstr "Doar cifrare"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "Doar descifrare"
 
-#: gcr/gcr-certificate.c:1014
-msgid "Key Usage"
-msgstr "Mod de utilizare cheie"
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Alt nume"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "Adr XMPP"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "SRV DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "E-mail"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "Adresa X400"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Nume Dosar"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "Nume parte EDI"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "Adresa IP"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "ID înregistrat"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Algoritmul cheii"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Parametrii cheii"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Mărimea cheii"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Amprenta SHA1 a cheii"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Cheie publică"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Restricții de bază"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Autoritate de certificare"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Da"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Nu"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Nelimitat"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Lungime cale maximă"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Scopuri permise"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Identificatorul cheii subiectului"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Identificatorul cheii"
+
+#: gcr/gcr-certificate.c:1065
+msgid "Key Usage"
+msgstr "Utilizare cheie"
+
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Moduri de utilizare"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "Nume alternative subiect"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Reguli de certificare"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Reguli"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Locul"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Metoda de acces"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "Locuri de publicare CRL"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Loc de publicare"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "Loc de publicare CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "Loc de publicare OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "Loc de publicare U"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Extensie"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Identificator"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Valoare"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Critic"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Certificat"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Necunoscut"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Identitate"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Verificat de"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Expiră la"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "Nume subiect"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "Nume emitent"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Certificat emis"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Versiune"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
-msgstr "Nu este valid înainte"
+msgstr "Nu este valabil înainte"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
-msgstr "Nu este valid după"
+msgstr "Nu este valabil după"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
-msgstr "Amprente de certificat"
+msgstr "Amprentele certificatului"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Informații cheie publică"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
-msgstr "Semnătură"
+msgstr "Semnătura"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
-msgstr "Algoritm semnătură"
+msgstr "Algoritmul semnăturii"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
-msgstr "Parametrii semnătură"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Alt nume"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "Adr XMPP"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "SRV DNS"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "Email"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "Adresă X400"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Nume director"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "Nume parte EDI"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "Adresă IP"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "ID înregistrat"
+msgstr "Parametrii semnăturii"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr "Tip de cheie nesuportat pentru cererea de certificat"
+msgstr "Tip de cheie neacceptat pentru cererea de certificare"
 
 #: gcr/gcr-certificate-request.c:484 gcr/gcr-certificate-request.c:568
 #, c-format
@@ -637,10 +692,6 @@ msgstr "Inel de chei GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Inel de chei GnuPG: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "Cheie PGP"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -651,28 +702,32 @@ msgstr "Procesul Gnupg a ieșit cu codul: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Procesul Gnupg s-a terminat cu semnalul: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "Operația a fost anulată"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Cheie privată"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "Cheie PGP"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
-msgstr "Cerere de certificat"
+msgstr "Cerere de certificare"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
-msgstr "Date nerecunoscute sau nesuportate."
+msgstr "Date nerecunoscute sau neacceptate."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
-msgstr "Nu s-au putut analiza date nevalide sau nesuportate."
+msgstr "Nu s-au putut analiza date deteriorate sau greșite."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "Datele sunt blocate"
 
@@ -695,7 +750,7 @@ msgstr "Deblochează cheia privată"
 
 #: gcr/gcr-ssh-agent-interaction.c:153
 msgid "Enter password to unlock the private key"
-msgstr "Introduceți parola pentru a debloca cheia privată"
+msgstr "Introdu parola pentru a debloca cheia privată"
 
 #. TRANSLATORS: The private key is locked
 #: gcr/gcr-ssh-agent-interaction.c:156
@@ -715,25 +770,25 @@ msgstr "Deblochează"
 msgid "The unlock password was incorrect"
 msgstr "Parola de deblocare nu a fost corectă"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Fără nume"
 
 #: gcr/gcr-ssh-askpass.c:182
 msgid "Enter your OpenSSH passphrase"
-msgstr "Introduceți parola de tip frază OpenSSH"
+msgstr "Introdu parola de tip frază OpenSSH"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
-msgstr "Atribute nerecunoscute sau nedisponibile pentru cheia"
+msgstr "Atribute nerecunoscute sau indisponibile pentru cheia"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Nu s-a putut genera cheia publică"
 
 #: gcr/gcr-system-prompt.c:896
 msgid "Another prompt is already in progress"
-msgstr "O altă solicitare este deja în progres"
+msgstr "O altă solicitare este deja în curs"
 
 #. Translators: A pinned certificate is an exception which
 #. trusts a given certificate explicitly for a purpose and
@@ -741,12 +796,11 @@ msgstr "O altă solicitare este deja în progres"
 #: gcr/gcr-trust.c:307
 #, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
-msgstr ""
-"Nu s-a putut găsi o locație în care să se stocheze certificatele fixate"
+msgstr "Nu s-a putut găsi un loc în care să se stocheze certificatele fixate"
 
 #: tools/viewer/viewer.c:23
 msgid "GCR Certificate Viewer"
-msgstr "Vizualizator certificat GCR"
+msgstr "Cititor de certificate GCR"
 
 #: tools/viewer/viewer.c:30
 msgid "Show the application's version"
@@ -755,407 +809,3 @@ msgstr "Afișează versiunea aplicației"
 #: tools/viewer/viewer.c:32
 msgid "[file...]"
 msgstr "[fișier...]"
-
-#~ msgctxt "column"
-#~ msgid "Name"
-#~ msgstr "Nume"
-
-#~ msgctxt "column"
-#~ msgid "Issued By"
-#~ msgstr "Emis de"
-
-#~ msgctxt "column"
-#~ msgid "Expires"
-#~ msgstr "Expiră"
-
-#~ msgctxt "column"
-#~ msgid "Key ID"
-#~ msgstr "ID cheie"
-
-#~ msgid "Couldn’t export the certificate."
-#~ msgstr "Nu s-a putut exporta certificatul."
-
-#~ msgid "Export Certificate…"
-#~ msgstr "Exportă un certificat…"
-
-#~ msgid "Certificate request"
-#~ msgstr "Cerere de certificat"
-
-#~ msgid "Attribute"
-#~ msgstr "Atribut"
-
-#~ msgid "Type"
-#~ msgstr "Tip"
-
-#~ msgid "Challenge"
-#~ msgstr "Provocare"
-
-#~ msgid "_Details"
-#~ msgstr "_Detalii"
-
-#, c-format
-#~ msgid "Could not display “%s”"
-#~ msgstr "Nu s-a putut afișa „%s”"
-
-#~ msgid "Could not display file"
-#~ msgstr "Nu s-a putut afișa fișierul"
-
-#, c-format
-#~ msgid "Cannot display a file of this type."
-#~ msgstr "Nu se poate afișa un fișier de acest tip."
-
-#~ msgid "Elgamal"
-#~ msgstr "ElGamal"
-
-#~ msgid "Encrypt"
-#~ msgstr "Criptează"
-
-#~ msgid "Sign"
-#~ msgstr "Semnează"
-
-#~ msgid "Certify"
-#~ msgstr "Certifică"
-
-#~ msgid "Authenticate"
-#~ msgstr "Autentifică"
-
-#~ msgctxt "capability"
-#~ msgid "Disabled"
-#~ msgstr "Dezactivat"
-
-#~ msgctxt "ownertrust"
-#~ msgid "Disabled"
-#~ msgstr "Dezactivat"
-
-#~ msgid "Revoked"
-#~ msgstr "Revocat"
-
-#~ msgid "Expired"
-#~ msgstr "Expirat"
-
-#~ msgid "Undefined trust"
-#~ msgstr "Încredere nedefinită"
-
-#~ msgid "Distrusted"
-#~ msgstr "Nu este de încredere"
-
-#~ msgid "Marginally trusted"
-#~ msgstr "De încredere la limită"
-
-#~ msgid "Fully trusted"
-#~ msgstr "Pe deplin de încredere"
-
-#~ msgid "Ultimately trusted"
-#~ msgstr "De încredere în cele din urmă"
-
-#~ msgid "The information in this key has not yet been verified"
-#~ msgstr "Informațiile din această cheie nu au fost verificate încă"
-
-#~ msgid "This key is invalid"
-#~ msgstr "Această cheie nu este validă"
-
-#~ msgid "This key has been disabled"
-#~ msgstr "Această cheie a fost dezactivată"
-
-#~ msgid "This key has been revoked"
-#~ msgstr "Această cheie a fost revocată"
-
-#~ msgid "This key has expired"
-#~ msgstr "Această cheie a expirat"
-
-#~ msgid "This key is distrusted"
-#~ msgstr "Această cheie nu este de încredere"
-
-#~ msgid "This key is marginally trusted"
-#~ msgstr "Această cheie este de încredere la limită"
-
-#~ msgid "This key is fully trusted"
-#~ msgstr "Această cheie este pe deplin de încredere"
-
-#~ msgid "This key is ultimately trusted"
-#~ msgstr "Această cheie este de încredere în cele din urmă"
-
-#~ msgid "Key ID"
-#~ msgstr "ID cheie"
-
-#~ msgid "Algorithm"
-#~ msgstr "Algoritm"
-
-#~ msgid "Created"
-#~ msgstr "Creat"
-
-#~ msgid "Expiry"
-#~ msgstr "Expirare"
-
-#~ msgid "Capabilities"
-#~ msgstr "Capacități"
-
-#~ msgid "Owner trust"
-#~ msgstr "Încredere deținător"
-
-#~ msgid "Name"
-#~ msgstr "Nume"
-
-#~ msgid "Comment"
-#~ msgstr "Commentariu"
-
-#~ msgid "User Attribute"
-#~ msgstr "Atribut utilizator"
-
-#~ msgid "Size"
-#~ msgstr "Dimensiune"
-
-#~ msgid "Signature of a binary document"
-#~ msgstr "Semnătura unui document binar"
-
-#~ msgid "Signature of a canonical text document"
-#~ msgstr "Semnătura unui document text canonic"
-
-#~ msgid "Standalone signature"
-#~ msgstr "Semnătură autonomă"
-
-#~ msgid "Generic certification of key"
-#~ msgstr "Certificare generică pentru cheia"
-
-#~ msgid "Persona certification of key"
-#~ msgstr "Certificare persona de cheie"
-
-#~ msgid "Casual certification of key"
-#~ msgstr "Certificare ocazională de cheie"
-
-#~ msgid "Positive certification of key"
-#~ msgstr "Certificare pozitivă de cheie"
-
-#~ msgid "Subkey binding signature"
-#~ msgstr "Semnătură de asociere subcheie"
-
-#~ msgid "Primary key binding signature"
-#~ msgstr "Semnătură de asociere cheie primară"
-
-#~ msgid "Signature directly on key"
-#~ msgstr "Semnătură direct pe cheie"
-
-#~ msgid "Key revocation signature"
-#~ msgstr "Semnătură de revocare cheie"
-
-#~ msgid "Subkey revocation signature"
-#~ msgstr "Semnătură de revocare subcheie"
-
-#~ msgid "Timestamp signature"
-#~ msgstr "Semnătură de marcaj de timp"
-
-#~ msgid "Third-party confirmation signature"
-#~ msgstr "Semnătură de confirmare parte terță"
-
-#~ msgid "Class"
-#~ msgstr "Clasă"
-
-#~ msgid "Local only"
-#~ msgstr "Doar local"
-
-#~ msgid "Exportable"
-#~ msgstr "Exportabil"
-
-#~ msgid "Revocation Key"
-#~ msgstr "Cheire de revocare"
-
-#~ msgid "Fingerprint"
-#~ msgstr "Amprentă"
-
-#~ msgid "Public Subkey"
-#~ msgstr "Subcheie publică"
-
-#~ msgid "Secret Key"
-#~ msgstr "Cheie secretă"
-
-#~ msgid "Secret Subkey"
-#~ msgstr "Subcheie secretă"
-
-#~ msgid "Initializing…"
-#~ msgstr "Se inițializează…"
-
-#~ msgid "Import is in progress…"
-#~ msgstr "Importarea este în progres…"
-
-#, c-format
-#~ msgid "Imported to: %s"
-#~ msgstr "Importat la: %s"
-
-#, c-format
-#~ msgid "Import to: %s"
-#~ msgstr "Importă la: %s"
-
-#~ msgid "Cannot import because there are no compatible importers"
-#~ msgstr "Nu se poate importa pentru că nu există importatoare compatibile"
-
-#~ msgid "No data to import"
-#~ msgstr "Nu sunt date de importat"
-
-#~ msgid "Key"
-#~ msgstr "Cheie"
-
-#~ msgid "Private RSA Key"
-#~ msgstr "Cheie privată RSA"
-
-#~ msgid "Private DSA Key"
-#~ msgstr "Cheie privată DSA"
-
-#~ msgid "Private Elliptic Curve Key"
-#~ msgstr "Cheie curbă eliptică privată"
-
-#~ msgid "Public DSA Key"
-#~ msgstr "Cheie publică DSA"
-
-#~ msgid "Public Elliptic Curve Key"
-#~ msgstr "Cheie curbă eliptică publică"
-
-#, c-format
-#~ msgid "%u bit"
-#~ msgid_plural "%u bits"
-#~ msgstr[0] "%u bit"
-#~ msgstr[1] "%u biți"
-#~ msgstr[2] "%u de biți"
-
-#~ msgid "Strength"
-#~ msgstr "Putere"
-
-#~ msgid "Fingerprints"
-#~ msgstr "Amprente"
-
-#~ msgid "SHA1"
-#~ msgstr "SHA1"
-
-#~ msgid "SHA256"
-#~ msgstr "SHA256"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Anulează"
-
-#~ msgid "_OK"
-#~ msgstr "_OK"
-
-#~ msgid "Automatically chosen"
-#~ msgstr "Ales automat"
-
-#, c-format
-#~ msgid "The user cancelled the operation"
-#~ msgstr "Utilizatorul a anulat operația"
-
-#~ msgid "In order to import, please enter the password."
-#~ msgstr "Pentru a importa, introduceți parola."
-
-#~ msgid "Password:"
-#~ msgstr "Parolă:"
-
-#~ msgid "Token:"
-#~ msgstr "Jeton:"
-
-#~ msgid "Label:"
-#~ msgstr "Etichetă:"
-
-#~ msgid "Import settings"
-#~ msgstr "Configurări de importare"
-
-#~ msgid "Confirm:"
-#~ msgstr "Confirmă:"
-
-#~ msgid "Passwords do not match."
-#~ msgstr "Parolele nu se potrivesc."
-
-#~ msgid "Password cannot be blank"
-#~ msgstr "Parola nu poate fi vidă"
-
-#~ msgid "Access Prompt"
-#~ msgstr "Prompter de acces"
-
-#~ msgid "Unlock access to passwords and other secrets"
-#~ msgstr "Deblochează accesul la parole și alte secrete"
-
-#~ msgid "A file already exists with this name."
-#~ msgstr "Un fișier cu acest nume există deja."
-
-#~ msgid "Do you want to replace it with a new file?"
-#~ msgstr "Doriți să îl înlocuiți cu un fișier nou?"
-
-#~ msgid "_Replace"
-#~ msgstr "Înlocui_ește"
-
-#, c-format
-#~ msgid "The operation was cancelled."
-#~ msgstr "Operația a fost anulată."
-
-#~ msgid "Export certificate"
-#~ msgstr "Exportă certificatul"
-
-#~ msgid "_Save"
-#~ msgstr "_Salvează"
-
-#~ msgid "PEM files"
-#~ msgstr "Fișiere PEM"
-
-#~ msgid "Automatically unlock this keyring whenever I’m logged in"
-#~ msgstr ""
-#~ "Deblochează automat acest inel de chei de fiecare dată când sunt "
-#~ "autentificat"
-
-#~ msgid "Lock this keyring when I log out"
-#~ msgstr "Blochează acest inel de chei la ieșirea din sesiune"
-
-#~ msgid "Lock this keyring after"
-#~ msgstr "Blochează acest inel de chei după"
-
-#~ msgid "Lock this keyring if idle for"
-#~ msgstr "Blochează acest inel de chei după o lipsă de activitate de"
-
-#~ msgid "minutes"
-#~ msgstr "minute"
-
-#, c-format
-#~ msgid "Unlock: %s"
-#~ msgstr "Deblochează: %s"
-
-#~ msgid "Password"
-#~ msgstr "Parolă"
-
-#, c-format
-#~ msgid ""
-#~ "The contents of “%s” are locked. In order to view the contents, enter the "
-#~ "correct password."
-#~ msgstr ""
-#~ "Conținuturile de la „%s” sunt blocate. Pentru a le vizualiza, introduceți "
-#~ "parola corectă."
-
-#~ msgid ""
-#~ "The contents are locked. In order to view the contents, enter the correct "
-#~ "password."
-#~ msgstr ""
-#~ "Conținuturile sunt blocate. Pentru a le vizualiza, introduceți parola "
-#~ "corectă."
-
-#~ msgid "View file"
-#~ msgstr "Vizualizează fișierul"
-
-#~ msgid "GCR Certificate and Key Viewer"
-#~ msgstr "Vizualizator de cheie și certificat GCR"
-
-#~ msgid "- View certificate and key files"
-#~ msgstr "- Vizualizați fișierele de certificat și cheie"
-
-#~ msgid "The password was incorrect"
-#~ msgstr "Parola nu a fost corectă"
-
-#~ msgid "Imported"
-#~ msgstr "Importat"
-
-#~ msgid "Import failed"
-#~ msgstr "Importarea a eșuat"
-
-#~ msgid "Import"
-#~ msgstr "Importă"
-
-#~ msgid "_Close"
-#~ msgstr "În_chide"
-
-#, fuzzy
-#~ msgid "<b>Unlock</b>"
-#~ msgstr "Deblochează"

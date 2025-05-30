@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-01-25 17:22+0000\n"
-"PO-Revision-Date: 2023-02-07 11:44+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-05-10 12:55+0000\n"
+"PO-Revision-Date: 2025-05-30 09:09+0200\n"
 "Last-Translator: Fabio T. <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <f.t.public@gmail.com>\n"
 "Language: fur\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Editor: HaiPO 1.4 beta\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.6\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -59,7 +59,7 @@ msgstr "Non comun"
 msgid "Surname"
 msgstr "Cognon"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Numar seriâl"
 
@@ -125,8 +125,7 @@ msgstr "OGRN"
 msgid "SNILS"
 msgstr "SNILS"
 
-#. Translators: Russian: Main state registration number for individual
-#. enterpreneurs
+#. Translators: Russian: Main state registration number for individual enterpreneurs
 #: egg/egg-oid.c:104
 msgid "OGRNIP"
 msgstr "OGRNIP"
@@ -342,6 +341,28 @@ msgstr "Vincui de politiche"
 msgid "Authority key identifier"
 msgstr "Identificadôr clâf de autoritât"
 
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Ûs complet de clâf"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "Convalide slungjade"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "Declarazion su lis pratichis di certificazion"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Protocol di stât dal certificât in linie (OCSP)"
+
+#: egg/egg-oid.c:176
+msgid "Certification Authority Issuer"
+msgstr "Emitent de autoritât di certificazion"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -379,242 +400,274 @@ msgstr "Il URI al à un numar di version sbaliât."
 msgid "The stream was closed"
 msgstr "Il flùs al è stât sierât"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "Algoritmi de clâf"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "Parametris de clâf"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "Dimension de clâf"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "Impronte digjitâl de clâf SHA1"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "Clâf publiche"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "Vincui di base"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "Autoritât di certificazion"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "Sì"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "No"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "Cence limit"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr "Lungjece massime dal percors"
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "Ûs complet de clâf"
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "Proposits ametûts"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr "Identificadôr clâf sogjet"
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "Identificadôr clâf"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Firme digjitâl"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
 msgstr "No repudi"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "Cifradure clâf"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "Cifradure dâts"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Acuardi clâf"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "Firme certificât"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
 msgstr "Firme de liste di revoche"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
 msgstr "Dome cifrâ"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "Dome decifrâ"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Altri non"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "Direzion XMPP"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "SRV DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "E-mail"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "Direzion X400"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Non cartele"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "Non grup EDI"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "Direzion IP"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "ID regjistrât"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Algoritmi de clâf"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Parametris de clâf"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Dimension de clâf"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Impronte digjitâl de clâf SHA1"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Clâf publiche"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Vincui di base"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Autoritât di certificazion"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Sì"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "No"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Cence limit"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Lungjece massime dal percors"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Proposits ametûts"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Identificadôr clâf sogjet"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Identificadôr clâf"
+
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "Ûs de clâf"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Utilizazions"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "Nons alternatîfs sogjet"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Politichis dal certificât"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Politiche"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Posizion"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Metodi di acès"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "Ponts di distribuzion CRL"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Pont di distribuzion"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "CN dal pont di distribuzion"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "OU dal pont di distribuzion"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "U dal pont di distribuzion"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Estension"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Identificadôr"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Valôr"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Critic"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Certificât"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "No cognossude"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Identitât"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Verificât di"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Scjadence"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "Non sogjet"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "Non di cui che al à emetût"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Certificât dât fûr"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Version"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "No valit prime dal"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "No valit daspò il"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "Impronte digjitâl certificât"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Informazions clâf publiche"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "Firme"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "Algoritmi di firme"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "Parametris de firme"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Altri non"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "Direzion XMPP"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "SRV DNS"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "E-mail"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "Direzion X400"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Non cartele"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "Non grup EDI"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "Direzion IP"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "ID regjistrât"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -635,10 +688,6 @@ msgstr "Puarteclâfs GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Puarteclâfs GnuPG: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "Clâf PGP"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -649,28 +698,32 @@ msgstr "Procès Gnupg jessût cul codiç: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Procès Gnupg terminât cul segnâl: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "La operazion e je stade anulade"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Clâf privade"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "Clâf PGP"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Domande di certificât"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Dâts no ricognossûts o no supuartâts."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Impussibil analizâ i dâts no valits o ruvinâts."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "I dâts a son blocâts"
 
@@ -699,8 +752,7 @@ msgstr "Inserìs la password par sblocâ la clâf privade"
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
-msgstr ""
-"Une aplicazion e vûl acedi ae clâf privade “%s”, ma cheste e je blocade"
+msgstr "Une aplicazion e vûl acedi ae clâf privade “%s”, ma cheste e je blocade"
 
 #: gcr/gcr-ssh-agent-interaction.c:161
 msgid "Automatically unlock this key whenever I’m logged in"
@@ -714,7 +766,7 @@ msgstr "Sbloche"
 msgid "The unlock password was incorrect"
 msgstr "La password di sbloc no jere juste"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Cence non"
 
@@ -722,11 +774,11 @@ msgstr "Cence non"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Inserìs la tô passphrase par OpenSSH"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Atribûts pe clâf no ricognossûts o no disponibii"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Impussibil costruî la clâf publiche"
 
@@ -773,42 +825,26 @@ msgstr "[file...]"
 #~ msgid "Default PGP Key"
 #~ msgstr "Clâf PGP predefinide"
 
-#~ msgid ""
-#~ "This specifies the ID of the default PGP key to use for certain operations, "
-#~ "mainly signing."
-#~ msgstr ""
-#~ "Chest al specifiche l'ID de clâf PGP predefinide di doprâ par ciertis "
-#~ "operazions, soredut par firmâ."
+#~ msgid "This specifies the ID of the default PGP key to use for certain operations, mainly signing."
+#~ msgstr "Chest al specifiche l'ID de clâf PGP predefinide di doprâ par ciertis operazions, soredut par firmâ."
 
 #~ msgid "ASCII Armor"
 #~ msgstr "ASCII Armor"
 
-#~ msgid ""
-#~ "When encrypting or signing PGP files whether to use ASCII armor encoding."
-#~ msgstr ""
-#~ "Cuant che si cifre o si firme i files PGP, indiche se doprâ la codifiche "
-#~ "ASCII armor."
+#~ msgid "When encrypting or signing PGP files whether to use ASCII armor encoding."
+#~ msgstr "Cuant che si cifre o si firme i files PGP, indiche se doprâ la codifiche ASCII armor."
 
 #~ msgid "The column to sort the recipients"
 #~ msgstr "La colone di doprâ par ordenâ i destinataris"
 
-#~ msgid ""
-#~ "Specify the column to sort the recipients window by. Columns are: 'name' and"
-#~ " 'id'. Put a '-' in front of the column name to sort in descending order."
-#~ msgstr ""
-#~ "Specifiche la colone di doprâ par ordenâ i barcons dai destinataris. Lis "
-#~ "colonis a son: 'name' e 'id'. Met un '-' denant dal non de colone par meti "
-#~ "in ordin decressent."
+#~ msgid "Specify the column to sort the recipients window by. Columns are: 'name' and 'id'. Put a '-' in front of the column name to sort in descending order."
+#~ msgstr "Specifiche la colone di doprâ par ordenâ i barcons dai destinataris. Lis colonis a son: 'name' e 'id'. Met un '-' denant dal non de colone par meti in ordin decressent."
 
 #~ msgid "Whether to always encrypt to default key"
 #~ msgstr "Indiche se cifrâ simpri cu la clâf predefinide"
 
-#~ msgid ""
-#~ "If set to true, then the default key will always be added to an encryption "
-#~ "recipients list."
-#~ msgstr ""
-#~ "Se metût a vêr, alore la clâf predefinide e vignarà simpri zontade a une "
-#~ "liste di destinataris di critografie."
+#~ msgid "If set to true, then the default key will always be added to an encryption recipients list."
+#~ msgstr "Se metût a vêr, alore la clâf predefinide e vignarà simpri zontade a une liste di destinataris di critografie."
 
 #~ msgid "Last key used to sign a message."
 #~ msgstr "La ultime clâf doprade par firmâ un messaç."
@@ -819,13 +855,8 @@ msgstr "[file...]"
 #~ msgid "PGP key servers"
 #~ msgstr "Servidôrs di clâfs PGP"
 
-#~ msgid ""
-#~ "A list of key server URIs to search for remote PGP keys. A display name can "
-#~ "be included, by appending a space and then the name."
-#~ msgstr ""
-#~ "Une liste di URIs di servidôrs di clâfs pe ricercje di clâfs PGP esternis. "
-#~ "Al è pussibil includi un non di visualizazion, zontant un spazi e dopo il "
-#~ "non."
+#~ msgid "A list of key server URIs to search for remote PGP keys. A display name can be included, by appending a space and then the name."
+#~ msgstr "Une liste di URIs di servidôrs di clâfs pe ricercje di clâfs PGP esternis. Al è pussibil includi un non di visualizazion, zontant un spazi e dopo il non."
 
 #~ msgid "Couldn’t export the certificate."
 #~ msgstr "Impussibil espuartâ il certificât."
@@ -904,9 +935,7 @@ msgstr "[file...]"
 #~ msgstr "Fiducie complete"
 
 #~ msgid "The information in this key has not yet been verified"
-#~ msgstr ""
-#~ "Lis informazions contignudis in cheste clâf no son ancjemò stadis "
-#~ "verificadis"
+#~ msgstr "Lis informazions contignudis in cheste clâf no son ancjemò stadis verificadis"
 
 #~ msgid "This key is invalid"
 #~ msgstr "Cheste clâf no je valide"
@@ -1007,9 +1036,6 @@ msgstr "[file...]"
 #~ msgid "Class"
 #~ msgstr "Classe"
 
-#~ msgid "Local only"
-#~ msgstr "Dome locâl"
-
 #~ msgid "Exportable"
 #~ msgstr "Espuartabil"
 
@@ -1043,8 +1069,7 @@ msgstr "[file...]"
 #~ msgstr "Impuarte in: %s"
 
 #~ msgid "Cannot import because there are no compatible importers"
-#~ msgstr ""
-#~ "Impussibil eseguî la operazion pe mancjance di impuartadôrs compatibii"
+#~ msgstr "Impussibil eseguî la operazion pe mancjance di impuartadôrs compatibii"
 
 #~ msgid "No data to import"
 #~ msgstr "Nissun dât di impuartâ"
@@ -1122,9 +1147,6 @@ msgstr "[file...]"
 #~ msgid "Password cannot be blank"
 #~ msgstr "La password no pues jessi vueide"
 
-#~ msgid "Access Prompt"
-#~ msgstr "Pronte l'acès"
-
 #~ msgid "Unlock access to passwords and other secrets"
 #~ msgstr "Sbloche l'acès aes password e altris segrets"
 
@@ -1173,18 +1195,11 @@ msgstr "[file...]"
 #~ msgstr "Password"
 
 #, c-format
-#~ msgid ""
-#~ "The contents of “%s” are locked. In order to view the contents, enter the "
-#~ "correct password."
-#~ msgstr ""
-#~ "I contignûts di “%s” a son blocâts. Par podêju viodi, inserìs la password "
-#~ "juste."
+#~ msgid "The contents of “%s” are locked. In order to view the contents, enter the correct password."
+#~ msgstr "I contignûts di “%s” a son blocâts. Par podêju viodi, inserìs la password juste."
 
-#~ msgid ""
-#~ "The contents are locked. In order to view the contents, enter the correct "
-#~ "password."
-#~ msgstr ""
-#~ "I contignûts a son blocâts. Par podêju viodi, scrîf la password juste."
+#~ msgid "The contents are locked. In order to view the contents, enter the correct password."
+#~ msgstr "I contignûts a son blocâts. Par podêju viodi, scrîf la password juste."
 
 #~ msgid "View file"
 #~ msgstr "Viôt file"

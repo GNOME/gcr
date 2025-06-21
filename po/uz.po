@@ -1,0 +1,836 @@
+# Uzbek (Latin) translation for gcr.
+# Copyright (C) 2025 gcr's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gcr package.
+# Asadbek Rajabov <asadbekrajabov1337@gmail.com>,  2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gcr main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-04-10 20:07+0000\n"
+"PO-Revision-Date: 2025-06-21 17:21+0500\n"
+"Last-Translator: Baxrom Raxmatov\n"
+"Language-Team: Uzbek (Latin) <uz@li.org>\n"
+"Language: uz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+
+#: egg/egg-oid.c:40
+msgid "Domain Component"
+msgstr "Domen komponenti"
+
+# qayta ko'rish uchun
+#: egg/egg-oid.c:42
+msgid "User ID"
+msgstr "Foydalanuvchi IDʼsi"
+
+#: egg/egg-oid.c:45
+msgid "Email Address"
+msgstr "Elektron pochta manzili"
+
+# "Tug'ilgan sana" va h.k. shaklida kelishi mumki. Pastdagilar ham
+#: egg/egg-oid.c:53
+msgid "Date of Birth"
+msgstr "Tug'ilgan sanasi"
+
+#: egg/egg-oid.c:55
+msgid "Place of Birth"
+msgstr "Tug'ilgan joy"
+
+#: egg/egg-oid.c:57
+msgid "Gender"
+msgstr "Jinsi"
+
+#: egg/egg-oid.c:59
+msgid "Country of Citizenship"
+msgstr "Vatandoshligi"
+
+# Yashaydigan davlati
+#: egg/egg-oid.c:61
+msgid "Country of Residence"
+msgstr "Yashash davlati"
+
+# Ism-sharifi bo'lishi kerak
+#: egg/egg-oid.c:64
+msgid "Common Name"
+msgstr "Umumiy ism"
+
+#: egg/egg-oid.c:66
+msgid "Surname"
+msgstr "Familiya"
+
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
+msgid "Serial Number"
+msgstr "Seriya raqami"
+
+# "Mamlakat" maslahatlaniladi
+#: egg/egg-oid.c:70
+msgid "Country"
+msgstr "Davlat"
+
+#: egg/egg-oid.c:72
+msgid "Locality"
+msgstr "Hudud"
+
+#: egg/egg-oid.c:74
+msgid "State"
+msgstr "Holat"
+
+#: egg/egg-oid.c:76
+msgid "Street"
+msgstr "Ko'cha"
+
+#: egg/egg-oid.c:78
+msgid "Organization"
+msgstr "Tashkilot"
+
+#: egg/egg-oid.c:80
+msgid "Organizational Unit"
+msgstr "Tashkiliy birlik"
+
+#: egg/egg-oid.c:82
+msgid "Title"
+msgstr "Sarlavha"
+
+#: egg/egg-oid.c:84
+msgid "Telephone Number"
+msgstr "Telefon raqami"
+
+#: egg/egg-oid.c:86
+msgid "Given Name"
+msgstr "Ismi"
+
+# To'liq ismninggina bosh harfi. Faqatgina 1 dona harf
+#: egg/egg-oid.c:88
+msgid "Initials"
+msgstr "Ism-familiya bosh harflari"
+
+#: egg/egg-oid.c:90
+msgid "Generation Qualifier"
+msgstr "Avlod belgilovchisi"
+
+#: egg/egg-oid.c:92
+msgid "DN Qualifier"
+msgstr "DN kvalifikatsiyasi"
+
+#: egg/egg-oid.c:94
+msgid "Pseudonym"
+msgstr "Taxallus"
+
+# Ruscha abb.
+#. Translators: Russian: Main state registration number
+#: egg/egg-oid.c:98
+msgid "OGRN"
+msgstr "OGRN"
+
+# Ruscha abb.
+#. Translators: Russian: Individual insurance account number
+#: egg/egg-oid.c:101
+msgid "SNILS"
+msgstr "SNILS"
+
+# Ruscha abb.
+#. Translators: Russian: Main state registration number for individual enterpreneurs
+#: egg/egg-oid.c:104
+msgid "OGRNIP"
+msgstr "OGRNIP"
+
+# Ruscha abb.
+#. Translators: Russian: Individual taxpayer number
+#: egg/egg-oid.c:107
+msgid "INN"
+msgstr "INN"
+
+#: egg/egg-oid.c:110
+msgid "RSA"
+msgstr "RSA"
+
+#: egg/egg-oid.c:111
+msgid "MD2 with RSA"
+msgstr "RSA bilan MD2"
+
+#: egg/egg-oid.c:112
+msgid "MD5 with RSA"
+msgstr "RSA bilan MD5"
+
+#: egg/egg-oid.c:113
+msgid "SHA1 with RSA"
+msgstr "RSA bilan SHA1"
+
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "RSA + OAEP to‘ldirish"
+
+#: egg/egg-oid.c:115
+msgid "RSA with MGF1"
+msgstr "RSA bilan MGF1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "RSA imzosi bilan RSA-PSS"
+
+#: egg/egg-oid.c:117
+msgid "SHA256 with RSA encryption"
+msgstr "SHA256 bilan RSA shifrlash"
+
+#: egg/egg-oid.c:118
+msgid "SHA384 with RSA encryption"
+msgstr "SHA384 bilan RSA shifrlash"
+
+#: egg/egg-oid.c:119
+msgid "SHA512 with RSA encryption"
+msgstr "SHA512 bilan RSA shifrlash"
+
+#: egg/egg-oid.c:120
+msgid "SHA224 with RSA encryption"
+msgstr "SHA224 bilan RSA shifrlash"
+
+#: egg/egg-oid.c:122
+msgid "DSA"
+msgstr "DSA"
+
+#: egg/egg-oid.c:123
+msgid "SHA1 with DSA"
+msgstr "SHA1 bilan DSA"
+
+#: egg/egg-oid.c:125
+msgid "Elliptic Curve"
+msgstr "Elliptik egri chiziq"
+
+#: egg/egg-oid.c:126
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 bilan ECDSA"
+
+#: egg/egg-oid.c:127
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 bilan ECDSA"
+
+#: egg/egg-oid.c:128
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 bilan ECDSA"
+
+#: egg/egg-oid.c:129
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 bilan ECDSA"
+
+#: egg/egg-oid.c:130
+msgid "SHA512 with ECDSA"
+msgstr "SHA384 bilan ECDSA"
+
+#: egg/egg-oid.c:132
+msgid "GOST R 34.11-94 with GOST R 34.10-2001"
+msgstr "GOST R 34.11-94 bilan GOST R 34.10-2001"
+
+#: egg/egg-oid.c:133
+msgid "GOST R 34.10-2001"
+msgstr "GOST R 34.10-2001"
+
+#: egg/egg-oid.c:134
+msgid "GOST R 34.10-2012 256-bit curve"
+msgstr "GOST R 34.10-2012 256 bitli egri chiziq"
+
+#: egg/egg-oid.c:135
+msgid "GOST R 34.10-2012 512-bit curve"
+msgstr "GOST R 34.10-2012 512 bitli egri chiziq"
+
+#: egg/egg-oid.c:136
+msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
+msgstr "GOST R 34.11-2012/256 GOST R 34.10-2012 256 bitli egri chiziq bilan"
+
+#: egg/egg-oid.c:137
+msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
+msgstr "GOST R 34.11-2012/512 GOST R 34.10-2012 512-bitli egri chiziq bilan"
+
+# autentifikatsiya so'ziga o'zbekchada tarjima bor
+#. Extended Key Usages
+#: egg/egg-oid.c:140
+msgid "Server Authentication"
+msgstr "Server autentifikatsiyasi"
+
+#: egg/egg-oid.c:141
+msgid "Client Authentication"
+msgstr "Mijoz autentifikatsiyasi"
+
+#: egg/egg-oid.c:142
+msgid "Code Signing"
+msgstr "Kod imzolash"
+
+#: egg/egg-oid.c:143
+msgid "Email Protection"
+msgstr "Elektron pochta himoyasi"
+
+# ajarilgan/qilingan vaqt
+#: egg/egg-oid.c:144
+msgid "Time Stamping"
+msgstr "Vaqt tamg'asi"
+
+# Ma'lumotlarga kirish huquqi??
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+msgid "Certificate Authority Information Access"
+msgstr "Sertifikat organi ma'lumotlariga kirish"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "Mavzu katalogi atributlari sertifikati kengaytmasi"
+
+#: egg/egg-oid.c:149
+msgid "Subject key identifier"
+msgstr "Mavzu kaliti identifikatori"
+
+#: egg/egg-oid.c:150
+msgid "Key usage"
+msgstr "Kalitdan foydalanish"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "Shaxsiy kalitdan foydalanish davomiyligi"
+
+#: egg/egg-oid.c:152
+msgid "Subject alternative name"
+msgstr "Mavzuning muqobil nomi"
+
+#: egg/egg-oid.c:153
+msgid "Issuer alternative name"
+msgstr "Sertifikat beruvchining muqobil nomi"
+
+#: egg/egg-oid.c:154
+msgid "Basic constraints"
+msgstr "Asosiy cheklovlar"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "CRL raqami"
+
+#: egg/egg-oid.c:156
+msgid "Reason code"
+msgstr "Sabab kodi"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr "Sertifikat operatsiyalarini to‘xtatish ko‘rsatkichi kodi"
+
+# balki   "Yaroqlilik muddati"??
+#: egg/egg-oid.c:158
+msgid "Invalidity date"
+msgstr "Yaroqsizlik sanasi"
+
+#: egg/egg-oid.c:159
+msgid "Certificate Revocation List indicator"
+msgstr "Sertifikatni bekor qilish ro‘yxati ko‘rsatkichi"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr "Sertifikatlarni tarqatish nuqtasi"
+
+#: egg/egg-oid.c:161
+msgid "Certificate issuer"
+msgstr "Sertifikat beruvchi"
+
+# "nomlashdagi cheklovlar"
+#: egg/egg-oid.c:162
+msgid "Name constraints"
+msgstr "Nom cheklovlari"
+
+#: egg/egg-oid.c:163
+msgid "Certificate Revocation List distribution points"
+msgstr "Sertifikatni bekor qilish ro‘yxatini tarqatish nuqtalari"
+
+#: egg/egg-oid.c:164
+msgid "Certificate policies"
+msgstr "Sertifikat siyosati"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "Siyosat xaritalari"
+
+# "cheklovlar siyosati" tarzida bo'lishi mumkin
+#: egg/egg-oid.c:166
+msgid "Policy constraints"
+msgstr "Siyosat cheklovlari"
+
+# avtorizatsiya so'ziga alternativ bo'lishi kerak
+#: egg/egg-oid.c:167
+msgid "Authority key identifier"
+msgstr "Avtorizatsiya kalitining identifikatori"
+
+# Kalitning qo'shimcha imkoniyatlari
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Kengaytirilgan kalitdan foydalanish"
+
+# tekshiruv
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "Qo'shimcha tekshirish"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "Sertifikatlash amaliyotlari bayonoti"
+
+# protokol so'ziga o'zbekcha alternativ
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Onlayn sertifikat holati protokoli (OCSP)"
+
+#: egg/egg-oid.c:176
+msgid "Certification Authority Issuer"
+msgstr "Sertifikat chiqaruvchi organ"
+
+# bo'lim so'zini qo'llashni o'ylab ko'rish kerak
+#: gck/gck-module.c:271
+#, c-format
+msgid "Error loading PKCS#11 module: %s"
+msgstr "PKCS#11 modulini yuklashda xato: %s"
+
+#: gck/gck-module.c:286
+#, c-format
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr "PKCS#11 modulini ishga tushirib bo'lmadi: %s"
+
+#: gck/gck-modules.c:60
+#, c-format
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr "Ro‘yxatga olingan PKCS#11 modullarini ishga tushirib bo'lmadi: %s"
+
+#: gck/gck-uri.c:167
+#, c-format
+msgid "The URI has invalid encoding."
+msgstr "URI kodlashida xato mavjud."
+
+# sxema so'ziga alternativ
+#: gck/gck-uri.c:171
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "URI da “pkcs11” sxemasi mavjud emas."
+
+#: gck/gck-uri.c:175
+msgid "The URI has bad syntax."
+msgstr "URI sintaksisi noto‘g‘ri."
+
+# URI versiyasi eskirgan / mos kelmaydi
+#: gck/gck-uri.c:179
+msgid "The URI has a bad version number."
+msgstr "URI versiyasi noto‘g‘ri."
+
+# Ma'lumotlar haqida hech narsa yo'qku?
+#: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
+msgid "The stream was closed"
+msgstr "Ma'lumotlar oqimi yopildi"
+
+#: gcr/gcr-certificate-extension-key-usage.c:64
+msgid "Digital signature"
+msgstr "Raqamli imzo"
+
+#: gcr/gcr-certificate-extension-key-usage.c:65
+msgid "Non repudiation"
+msgstr "Inkor etmaslik"
+
+#: gcr/gcr-certificate-extension-key-usage.c:66
+msgid "Key encipherment"
+msgstr "Kalitni shifrlash"
+
+#: gcr/gcr-certificate-extension-key-usage.c:67
+msgid "Data encipherment"
+msgstr "Ma'lumotlarni shifrlash"
+
+#: gcr/gcr-certificate-extension-key-usage.c:68
+msgid "Key agreement"
+msgstr "Kalitni kelishish"
+
+#: gcr/gcr-certificate-extension-key-usage.c:69
+msgid "Certificate signature"
+msgstr "Sertifikat imzosi"
+
+#: gcr/gcr-certificate-extension-key-usage.c:70
+msgid "Revocation list signature"
+msgstr "Bekor qilish ro'yxati imzosi"
+
+#: gcr/gcr-certificate-extension-key-usage.c:71
+msgid "Encipher only"
+msgstr "Faqat shifrlash"
+
+#: gcr/gcr-certificate-extension-key-usage.c:72
+msgid "Decipher only"
+msgstr "Faqat deshifrlash"
+
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Boshqa Nom"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "XMPP manzili"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "Elektro pochta"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "X400 manzili"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Katalog nomi"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "EDI partiyasining nomi"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "IP manzil"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Ro‘yxatdan o‘tgan ID"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Asosiy algoritm"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Kalit parametrlari"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Kalit hajmi"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "SHA1 barmoq izi kaliti"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Ochiq kalit"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Asosiy cheklovlar"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Sertifikatlash organi"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Ha"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Yo'q"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Cheklanmagan"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Maksimal yo'l uzunligi"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Ruxsat etilgan maqsadlar"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Mavzu kaliti identifikatori"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Kalit identifikatori"
+
+#: gcr/gcr-certificate.c:1065
+msgid "Key Usage"
+msgstr "Kalitdan foydalanish"
+
+# sal g'alati, boshqa variant o'ylab ko'rish kerak. Lekin almashtirilmasa ham muammo emas.
+#: gcr/gcr-certificate.c:1067
+msgid "Usages"
+msgstr "Foydalanishlar"
+
+#: gcr/gcr-certificate.c:1078
+msgid "Subject Alternative Names"
+msgstr "Subyektning muqobil nomlari"
+
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Sertifikat siyosatlari"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Siyosat"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Joylashuv"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Kirish Usuli"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "Sertifikatni bekor qilish ro‘yxatini tarqatish nuqtalari"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Tarqatish nuqtasi"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "Xitoydagi tarqatish nuqtasi"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "Tarqatish nuqtasi OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "Tarqatish nuqtasi U"
+
+#: gcr/gcr-certificate.c:1204
+msgid "Extension"
+msgstr "Kengaytma"
+
+# o'zbekcha alternativ izlash kerak
+#: gcr/gcr-certificate.c:1208
+msgid "Identifier"
+msgstr "Identifikator"
+
+#: gcr/gcr-certificate.c:1209
+msgid "Value"
+msgstr "Qiymat"
+
+#: gcr/gcr-certificate.c:1258
+msgid "Critical"
+msgstr "Muhim"
+
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
+msgid "Certificate"
+msgstr "Sertifikat"
+
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
+msgid "Unknown"
+msgstr "Noma'lum"
+
+#: gcr/gcr-certificate.c:1342
+msgid "Identity"
+msgstr "Identifikatsiya"
+
+#: gcr/gcr-certificate.c:1347
+msgid "Verified by"
+msgstr "Tomonidan tasdiqlangan"
+
+#: gcr/gcr-certificate.c:1353
+msgid "Expires"
+msgstr "Tugaydigan muddati"
+
+#. The subject
+#: gcr/gcr-certificate.c:1361
+msgid "Subject Name"
+msgstr "Subyekt nomi"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1367
+msgid "Issuer Name"
+msgstr "Sertifikat beruvchining nomi"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1373
+msgid "Issued Certificate"
+msgstr "Sertifikat beruvchining sertifikati"
+
+#: gcr/gcr-certificate.c:1380
+msgid "Version"
+msgstr "Versiya"
+
+#: gcr/gcr-certificate.c:1394
+msgid "Not Valid Before"
+msgstr "Amal qilish boshlanish sanasi"
+
+#: gcr/gcr-certificate.c:1403
+msgid "Not Valid After"
+msgstr "Amal qilish tugash sanasi"
+
+#: gcr/gcr-certificate.c:1412
+msgid "Certificate Fingerprints"
+msgstr "Sertifikat barmoq izlari"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1422
+msgid "Public Key Info"
+msgstr "Ochiq kalit ma'lumotlari"
+
+#. Signature
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
+msgid "Signature"
+msgstr "Imzo"
+
+#: gcr/gcr-certificate.c:1444
+msgid "Signature Algorithm"
+msgstr "Imzo algoritmi"
+
+# parametr so'ziga alternativ qidirib ko'rish kerak
+#: gcr/gcr-certificate.c:1448
+msgid "Signature Parameters"
+msgstr "Imzo parametrlari"
+
+#: gcr/gcr-certificate-request.c:397
+#, c-format
+msgid "Unsupported key type for certificate request"
+msgstr "Sertifikat soʻrovi uchun kalit turi qoʻllab-quvvatlanmaydi"
+
+#: gcr/gcr-certificate-request.c:484 gcr/gcr-certificate-request.c:568
+#, c-format
+msgid "The key cannot be used to sign the request"
+msgstr "Kalit so'rovni imzolash uchun ishlatilmaydi"
+
+#: gcr/gcr-gnupg-importer.c:94
+msgid "GnuPG Keyring"
+msgstr "GnuPG kalitlar to‘plami"
+
+#: gcr/gcr-gnupg-importer.c:96
+#, c-format
+msgid "GnuPG Keyring: %s"
+msgstr "GnuPG kalitlar to‘plami: %s"
+
+#: gcr/gcr-gnupg-process.c:867
+#, c-format
+msgid "Gnupg process exited with code: %d"
+msgstr "GnuPG jarayoni %d kodi bilan yakunlandi"
+
+#: gcr/gcr-gnupg-process.c:874
+#, c-format
+msgid "Gnupg process was terminated with signal: %d"
+msgstr "GnuPG jarayon ushbu signal bilan to'xtatildi: %d"
+
+# Amal deb qo'yish mumkin menimcha
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
+#: gcr/gcr-system-prompt.c:916
+msgid "The operation was cancelled"
+msgstr "Operatsiya bekor qilindi"
+
+# Shaxsiy deyish ham mumkindir balki
+#: gcr/gcr-parser.c:328
+msgid "Private Key"
+msgstr "Maxfiy kalit"
+
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "PGP Kalit"
+
+# Sertifikat uchun so'rov?
+#: gcr/gcr-parser.c:340
+msgid "Certificate Request"
+msgstr "Sertifikat So'rovi"
+
+#: gcr/gcr-parser.c:1793
+msgid "Unrecognized or unsupported data."
+msgstr "Aniqlanmagan yoki qo‘llab-quvvatlanmagan ma'lumot."
+
+#: gcr/gcr-parser.c:1796
+msgid "Could not parse invalid or corrupted data."
+msgstr "Noto‘g‘ri yoki buzilgan ma'lumotlarni tahlil qilib bo‘lmadi."
+
+#: gcr/gcr-parser.c:1799
+msgid "The data is locked"
+msgstr "Ma'lumot qulflangan"
+
+#: gcr/gcr-prompt.c:220
+msgid "Continue"
+msgstr "Davom etish"
+
+#: gcr/gcr-prompt.c:229
+msgid "Cancel"
+msgstr "Bekor qilish"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "Qulfdan ochish paroli: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "Maxfiy kalitni qulfdan ochish"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "Maxfiy kalitni qulfdan ochish uchun parolni kiriting"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr "Ilova \"%s\" maxfiy kalitga kirmoqchi, lekin u qulflangan"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "Men tizimga kirganimda ushbu kalit avtomatik ravishda qulfdan chiqariladi"
+
+#: gcr/gcr-ssh-agent-interaction.c:163
+msgid "Unlock"
+msgstr "Qulfdan ochish"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "Qulfni ochish paroli noto'g'ri"
+
+#: gcr/gcr-ssh-agent-service.c:270
+msgid "Unnamed"
+msgstr "Nomlanmagan"
+
+#: gcr/gcr-ssh-askpass.c:182
+msgid "Enter your OpenSSH passphrase"
+msgstr "OpenSSH parolingizni kiriting"
+
+# Atribut so'ziga tarjima qidirish
+#: gcr/gcr-subject-public-key.c:413
+msgid "Unrecognized or unavailable attributes for key"
+msgstr "Kalit uchun aniqlanmagan yoki mavjud bo‘lmagan attributlar"
+
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
+msgid "Couldn’t build public key"
+msgstr "Ochiq kalitni yaratib bo‘lmadi"
+
+#: gcr/gcr-system-prompt.c:896
+msgid "Another prompt is already in progress"
+msgstr "Boshqa bir so'rov allaqachon bajarilmoqda"
+
+#. Translators: A pinned certificate is an exception which
+#. trusts a given certificate explicitly for a purpose and
+#. communication with a certain peer.
+#: gcr/gcr-trust.c:307
+#, c-format
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr "Belgilangan sertifikatni saqlash uchun joy topilmadi"
+
+#: tools/viewer/viewer.c:23
+msgid "GCR Certificate Viewer"
+msgstr "GCR sertifikatini ko'rish dasturi"
+
+#: tools/viewer/viewer.c:30
+msgid "Show the application's version"
+msgstr "Dastur versiyasini ko'rsatish"
+
+#: tools/viewer/viewer.c:32
+msgid "[file...]"
+msgstr "[fayl...]"

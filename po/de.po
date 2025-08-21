@@ -21,16 +21,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2025-03-10 14:18+0000\n"
-"PO-Revision-Date: 2025-03-23 19:34+0100\n"
-"Last-Translator: Philipp Kiemle <l10n@prly.mozmail.com>\n"
+"POT-Creation-Date: 2025-08-10 13:51+0000\n"
+"PO-Revision-Date: 2025-08-16 21:33+0200\n"
+"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -363,22 +363,20 @@ msgstr "Erweiterte Schlüsselverwendung"
 #. Certificate Policies
 #: egg/egg-oid.c:171
 msgid "Extended Validation"
-msgstr ""
+msgstr "Erweiterte Überprüfung"
 
 #: egg/egg-oid.c:172
 msgid "Certification Practices Statement"
-msgstr ""
+msgstr "Stellungnahme zu den Zertifizierungspraktiken"
 
 #. Authority Information Access (AIA) methods
 #: egg/egg-oid.c:175
 msgid "Online Certificate Status Protocol (OCSP)"
-msgstr ""
+msgstr "Online Certificate Status Protocol (OCSP)"
 
 #: egg/egg-oid.c:176
-#, fuzzy
-#| msgid "Certificate Authority"
 msgid "Certification Authority Issuer"
-msgstr "Zertifizierungsstelle"
+msgstr "Herausgeber der Zertifizierungsstelle"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -590,17 +588,14 @@ msgid "Distribution Point"
 msgstr "Verteilungspunkt"
 
 #: gcr/gcr-certificate.c:1181
-#, fuzzy
 msgid "Distribution Point CN"
 msgstr "Verteilungspunkt CN"
 
 #: gcr/gcr-certificate.c:1184
-#, fuzzy
 msgid "Distribution Point OU"
 msgstr "Verteilungspunkt OU"
 
 #: gcr/gcr-certificate.c:1187
-#, fuzzy
 msgid "Distribution Point U"
 msgstr "Verteilungspunkt U"
 

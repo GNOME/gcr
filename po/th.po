@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2025-02-09 16:42+0000\n"
-"PO-Revision-Date: 2025-04-04 21:35+0700\n"
+"POT-Creation-Date: 2025-08-21 12:25+0000\n"
+"PO-Revision-Date: 2025-08-27 19:48+0700\n"
 "Last-Translator: Akom Chotiphantawanon <knight2000@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "Language: th\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -60,7 +60,7 @@ msgstr "ชื่อสามัญ"
 msgid "Surname"
 msgstr "นามสกุล"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1367
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "หมายเลขลำดับ"
 
@@ -239,11 +239,11 @@ msgstr "GOST R 34.11-2012/512 โดยใช้ GOST R 34.10-2012 512-bit curve
 #. Extended Key Usages
 #: egg/egg-oid.c:140
 msgid "Server Authentication"
-msgstr "การยืนยันตัวบุคคลของเซิร์ฟเวอร์"
+msgstr "การยืนยันตัวตนของเซิร์ฟเวอร์"
 
 #: egg/egg-oid.c:141
 msgid "Client Authentication"
-msgstr "การยืนยันตัวบุคคลของไคลเอนต์"
+msgstr "การยืนยันตัวตนของไคลเอนต์"
 
 #: egg/egg-oid.c:142
 msgid "Code Signing"
@@ -372,23 +372,27 @@ msgstr "ข้อบังคับพื้นฐาน"
 msgid "Authority key identifier"
 msgstr "ตัวระบุกุญแจของผู้รับการรับรอง"
 
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "การใช้งานกุญแจเพิ่มเติม"
+
 #. Certificate Policies
-#: egg/egg-oid.c:170
+#: egg/egg-oid.c:171
 msgid "Extended Validation"
 msgstr ""
 
-#: egg/egg-oid.c:171
+#: egg/egg-oid.c:172
 #, fuzzy
 #| msgid "Certification revocation signature"
 msgid "Certification Practices Statement"
 msgstr "ลายเซ็นเพิกถอนใบรับรอง"
 
 #. Authority Information Access (AIA) methods
-#: egg/egg-oid.c:174
+#: egg/egg-oid.c:175
 msgid "Online Certificate Status Protocol (OCSP)"
 msgstr ""
 
-#: egg/egg-oid.c:175
+#: egg/egg-oid.c:176
 #, fuzzy
 #| msgid "Certificate Authority"
 msgid "Certification Authority Issuer"
@@ -397,19 +401,17 @@ msgstr "องค์กรออกใบรับรอง"
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr "เกิดข้อผิดพลาดขณะโหลดมอดูล PKCS#11: %s"
+msgstr "เกิดข้อผิดพลาดขณะโหลดโมดูล PKCS#11: %s"
 
 #: gck/gck-module.c:286
-#, fuzzy, c-format
-#| msgid "Couldn't initialize PKCS#11 module: %s"
+#, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
-msgstr "ไม่สามารถตั้งค่าเริ่มต้นมอดูล PKCS#11: %s"
+msgstr "ไม่สามารถตั้งค่าเริ่มต้นโมดูล PKCS#11: %s"
 
 #: gck/gck-modules.c:60
-#, fuzzy, c-format
-#| msgid "Couldn't initialize registered PKCS#11 modules: %s"
+#, c-format
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
-msgstr "ไม่สามารถตั้งค่าเริ่มต้นมอดูล PKCS#11 ที่ลงทะเบียนไว้: %s"
+msgstr "ไม่สามารถตั้งค่าเริ่มต้นโมดูล PKCS#11 ที่ลงทะเบียนไว้: %s"
 
 #: gck/gck-uri.c:167
 #, c-format
@@ -417,10 +419,8 @@ msgid "The URI has invalid encoding."
 msgstr "รหัสของ URI ไม่ถูกต้อง"
 
 #: gck/gck-uri.c:171
-#, fuzzy
-#| msgid "The URI does not have the 'pkcs11' scheme."
 msgid "The URI does not have the “pkcs11” scheme."
-msgstr "URI ไม่ได้เป็นชนิด 'pkcs11'"
+msgstr "URI ไม่ได้เป็นชนิด “pkcs11”"
 
 #: gck/gck-uri.c:175
 msgid "The URI has bad syntax."
@@ -441,7 +441,7 @@ msgstr "ลายเซ็นดิจิทัล"
 
 #: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
-msgstr ""
+msgstr "การห้ามปฏิเสธความรับผิด"
 
 #: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
@@ -465,13 +465,11 @@ msgstr "ลายเซ็นกำกับรายการเพิกถอ
 
 #: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
-msgstr ""
+msgstr "เข้ารหัสลับเท่านั้น"
 
 #: gcr/gcr-certificate-extension-key-usage.c:72
-#, fuzzy
-#| msgid "Data encipherment"
 msgid "Decipher only"
-msgstr "การเข้ารหัสลับข้อมูล"
+msgstr "ถอดรหัสลับเท่านั้น"
 
 #: gcr/gcr-certificate-extensions-common.c:136
 msgid "Other Name"
@@ -545,11 +543,11 @@ msgstr "ข้อบังคับพื้นฐาน"
 msgid "Certificate Authority"
 msgstr "องค์กรออกใบรับรอง"
 
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1238
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
 msgid "Yes"
 msgstr "ใช่"
 
-#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1238
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
 msgid "No"
 msgstr "ไม่"
 
@@ -561,10 +559,6 @@ msgstr "ไม่จำกัด"
 msgid "Max Path Length"
 msgstr "ความยาวพาธสูงสุด"
 
-#: gcr/gcr-certificate.c:1015
-msgid "Extended Key Usage"
-msgstr "การใช้งานกุญแจเพิ่มเติม"
-
 #: gcr/gcr-certificate.c:1018
 msgid "Allowed Purposes"
 msgstr "การใช้งานที่อนุญาต"
@@ -573,146 +567,146 @@ msgstr "การใช้งานที่อนุญาต"
 msgid "Subject Key Identifier"
 msgstr "ตัวระบุกุญแจของผู้รับการรับรอง"
 
-#: gcr/gcr-certificate.c:1036
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
 msgid "Key Identifier"
 msgstr "ตัวระบุกุญแจ"
 
-#: gcr/gcr-certificate.c:1047
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "การใช้งานกุญแจ"
 
-#: gcr/gcr-certificate.c:1049
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "การใช้งาน"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "ชื่ออื่นของผู้รับการรับรอง"
 
-#: gcr/gcr-certificate.c:1089
+#: gcr/gcr-certificate.c:1107
 #, fuzzy
 #| msgid "Certificate files"
 msgid "Certificate Policies"
 msgstr "แฟ้มใบรับรอง"
 
-#: gcr/gcr-certificate.c:1098
+#: gcr/gcr-certificate.c:1116
 msgid "Policy"
 msgstr ""
 
-#: gcr/gcr-certificate.c:1122
+#: gcr/gcr-certificate.c:1140
 #, fuzzy
 #| msgid "Local only"
 msgid "Location"
 msgstr "ใช้ในเครื่องเท่านั้น"
 
-#: gcr/gcr-certificate.c:1125
+#: gcr/gcr-certificate.c:1143
 #, fuzzy
 #| msgid "Access Prompt"
 msgid "Access Method"
 msgstr "คำถามก่อนเข้าถึง"
 
-#: gcr/gcr-certificate.c:1140
+#: gcr/gcr-certificate.c:1158
 msgid "CRL Distribution Points"
 msgstr ""
 
-#: gcr/gcr-certificate.c:1156
+#: gcr/gcr-certificate.c:1174
 msgid "Distribution Point"
 msgstr ""
 
-#: gcr/gcr-certificate.c:1163
+#: gcr/gcr-certificate.c:1181
 msgid "Distribution Point CN"
 msgstr ""
 
-#: gcr/gcr-certificate.c:1166
+#: gcr/gcr-certificate.c:1184
 msgid "Distribution Point OU"
 msgstr ""
 
-#: gcr/gcr-certificate.c:1169
+#: gcr/gcr-certificate.c:1187
 msgid "Distribution Point U"
 msgstr ""
 
-#: gcr/gcr-certificate.c:1186
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "ส่วนขยาย"
 
-#: gcr/gcr-certificate.c:1190
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "ตัวระบุ"
 
-#: gcr/gcr-certificate.c:1191
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "ค่า"
 
-#: gcr/gcr-certificate.c:1238
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "วิกฤติ"
 
-#: gcr/gcr-certificate.c:1314 gcr/gcr-certificate.c:1595 gcr/gcr-parser.c:331
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "ใบรับรอง"
 
-#: gcr/gcr-certificate.c:1321 gcr/gcr-certificate.c:1326
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "ไม่ทราบ"
 
-#: gcr/gcr-certificate.c:1322
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "ชื่อ"
 
-#: gcr/gcr-certificate.c:1327
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "ตรวจสอบโดย"
 
-#: gcr/gcr-certificate.c:1333
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "หมดอายุ"
 
 #. The subject
-#: gcr/gcr-certificate.c:1341
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "ชื่อผู้รับการรับรอง"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1347
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "ชื่อผู้ออกให้"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1353
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "ใบรับรองที่ออก"
 
-#: gcr/gcr-certificate.c:1360
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "รุ่น"
 
-#: gcr/gcr-certificate.c:1374
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "ห้ามใช้ก่อน"
 
-#: gcr/gcr-certificate.c:1383
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "ห้ามใช้หลัง"
 
-#: gcr/gcr-certificate.c:1392
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "ลายนิ้วมือของใบรับรอง"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1402
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "ข้อมูลกุญแจสาธารณะ"
 
 #. Signature
-#: gcr/gcr-certificate.c:1421 gcr/gcr-certificate.c:1432
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "ลายเซ็น"
 
-#: gcr/gcr-certificate.c:1424
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "อัลกอริทึมของลายเซ็น"
 
-#: gcr/gcr-certificate.c:1428
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "พารามิเตอร์สำหรับลายเซ็น"
 
@@ -738,12 +732,12 @@ msgstr "พวงกุญแจ GnuPG: %s"
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr "โพรเซส gnupg จบการทำงานด้วยรหัส: %d"
+msgstr "โปรเซส gnupg จบการทำงานด้วยรหัส: %d"
 
 #: gcr/gcr-gnupg-process.c:874
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr "โพรเซส gnupg จบการทำงานโดยสัญญาณ: %d"
+msgstr "โปรเซส gnupg จบการทำงานโดยสัญญาณ: %d"
 
 #: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
@@ -772,7 +766,7 @@ msgstr "ไม่สามารถแจงข้อมูลที่ผิด
 
 #: gcr/gcr-parser.c:1799
 msgid "The data is locked"
-msgstr "ข้อมูลถูกล็อคอยู่"
+msgstr "ข้อมูลถูกล็อกอยู่"
 
 #: gcr/gcr-prompt.c:220
 msgid "Continue"
@@ -783,16 +777,13 @@ msgid "Cancel"
 msgstr "ยกเลิก"
 
 #: gcr/gcr-ssh-agent-interaction.c:116
-#, fuzzy, c-format
-#| msgid "Unlock: %s"
+#, c-format
 msgid "Unlock password for: %s"
-msgstr "ปลดล็อค: %s"
+msgstr "ปลดล็อกรหัสผ่านสำหรับ: %s"
 
 #: gcr/gcr-ssh-agent-interaction.c:152
-#, fuzzy
-#| msgid "Private Key"
 msgid "Unlock private key"
-msgstr "กุญแจส่วนตัว"
+msgstr "ปลดล็อกกุญแจส่วนตัว"
 
 #: gcr/gcr-ssh-agent-interaction.c:153
 msgid "Enter password to unlock the private key"
@@ -812,7 +803,7 @@ msgstr "ปลดล็อคพวงกุญแจนี้โดยอัต
 
 #: gcr/gcr-ssh-agent-interaction.c:163
 msgid "Unlock"
-msgstr "ปลดล็อค"
+msgstr "ปลดล็อก"
 
 #: gcr/gcr-ssh-agent-interaction.c:166
 #, fuzzy
@@ -822,19 +813,17 @@ msgstr "รหัสผ่านไม่ถูกต้อง"
 
 #: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
-msgstr ""
+msgstr "ไม่ได้ตั้งชื่อ"
 
 #: gcr/gcr-ssh-askpass.c:182
 msgid "Enter your OpenSSH passphrase"
-msgstr ""
+msgstr "ป้อนวลีรหัสผ่าน OpenSSH ของคุณ"
 
 #: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "ไม่รู้จักหรือไม่มีแอตทริบิวต์สำหรับกุญแจ"
 
 #: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
-#, fuzzy
-#| msgid "Couldn't build public key"
 msgid "Couldn’t build public key"
 msgstr "ไม่สามารถสร้างกุญแจสาธารณะ"
 
@@ -846,16 +835,13 @@ msgstr "มีกล่องคำถามอื่นอยู่ระหว
 #. trusts a given certificate explicitly for a purpose and
 #. communication with a certain peer.
 #: gcr/gcr-trust.c:307
-#, fuzzy, c-format
-#| msgid "Couldn't find a place to store the pinned certificate"
+#, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "ไม่สามารถหาแหล่งที่จะเก็บใบรับรองที่ปักหมุดไว้"
 
 #: tools/viewer/viewer.c:23
-#, fuzzy
-#| msgid "Certificate Viewer"
 msgid "GCR Certificate Viewer"
-msgstr "เครื่องมือแสดงใบรับรอง"
+msgstr "เครื่องมือแสดงใบรับรอง GCR"
 
 #: tools/viewer/viewer.c:30
 msgid "Show the application's version"
@@ -863,7 +849,7 @@ msgstr "แสดงรุ่นของแอปพลิเคชัน"
 
 #: tools/viewer/viewer.c:32
 msgid "[file...]"
-msgstr "[แฟ้ม...]"
+msgstr "[ไฟล์...]"
 
 #~ msgctxt "column"
 #~ msgid "Name"

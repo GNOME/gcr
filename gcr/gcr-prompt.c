@@ -523,7 +523,7 @@ gcr_prompt_get_choice_label (GcrPrompt *prompt)
  * displayed by the prompt allowing the user to select or deselect it.
  *
  * The initial value of the choice can be set with the
- * gcr_prompt_set_choice_label() method.
+ * gcr_prompt_set_choice_chosen() method.
  *
  * If this is %NULL, then no additional choice is being displayed.
  */

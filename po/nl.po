@@ -8,7 +8,8 @@
 # Redmar <redmar@ubuntu.com>, 2012, 2013.
 # Rachid BM <rachidbm@ubuntu.com>, 2013.
 # Justin van Steijn <jvs@fsfe.org>, 2016.
-# Nathan Follens <nfollens@gnome.org>, 2017, 2019-2020, 2022-2023.
+# Nathan Follens <nfollens@gnome.org>, 2017, 2019-2020, 2022-2023, 2025.
+# Dick Groskamp <digro@yahoo.co.uk>, 2025.
 #
 # Keyring vertalen we als sleutelbos (Wouter Bolsterlee, Tino Meinen)
 # ‘Secret service’ laat ik voorlopig even onvertaald (Wouter Bolsterlee)
@@ -17,9 +18,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-01-25 17:22+0000\n"
-"PO-Revision-Date: 2023-03-26 18:04+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-09-09 06:21+0000\n"
+"PO-Revision-Date: 2025-09-09 20:47+0200\n"
 "Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
 "Language-Team: Dutch <https://matrix.to/#/#nl:gnome.org>\n"
 "Language: nl\n"
@@ -28,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Launchpad-Export-Date: 2013-02-02 09:32+0000\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.6\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -70,7 +71,7 @@ msgstr "Algemene naam"
 msgid "Surname"
 msgstr "Achternaam"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Serienummer"
 
@@ -96,11 +97,12 @@ msgstr "Organisatie"
 
 #: egg/egg-oid.c:80
 msgid "Organizational Unit"
-msgstr "Organisatieonderdeel"
+msgstr "Organisatie-afdeling"
 
+# Dit gaat over personen -> functie - Nathan
 #: egg/egg-oid.c:82
 msgid "Title"
-msgstr "Titel"
+msgstr "Functie"
 
 #: egg/egg-oid.c:84
 msgid "Telephone Number"
@@ -169,7 +171,6 @@ msgid "RSA with OAEP padding"
 msgstr "RSA met OAEP-padding"
 
 #: egg/egg-oid.c:115
-#| msgid "SHA1 with RSA"
 msgid "RSA with MGF1"
 msgstr "RSA met MGF1"
 
@@ -355,6 +356,28 @@ msgstr "Beleidsbeperkingen"
 msgid "Authority key identifier"
 msgstr "Autoriteitssleutelidentificatie"
 
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Uitgebreid sleutelgebruik"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "Uitgebreide validatie"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "Document certificaatswerkwijze"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Online Certificate Status Protocol (OCSP)"
+
+#: egg/egg-oid.c:176
+msgid "Certification Authority Issuer"
+msgstr "Uitgevende certificaatautoriteit"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -392,242 +415,274 @@ msgstr "De URI heeft een ongeldig versienummer."
 msgid "The stream was closed"
 msgstr "De stream werd gesloten"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "Sleutelalgoritme"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "Sleutelparameters"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "Sleutelgrootte"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "SHA1-vingerafdruk van sleutel"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "Publieke sleutel"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "Basisbeperkingen"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "Certificaatautoriteit"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "Ja"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "Nee"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "Onbeperkt"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr "Maximale padlengte"
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "Uitgebreid sleutelgebruik"
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "Toegestane doeleinden"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr "Subjectsleutelidentificatie"
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "Sleutelidentificatie"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Digitale handtekening"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
 msgstr "Onweerlegbaarheid"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "Sleutelcodering"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "Gegevenscodering"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Sleutelovereenkomst"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "Certificaatondertekening"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
 msgstr "Ondertekening van intrekkingslijst"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
 msgstr "Enkel coderen"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "Enkel decoderen"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Andere naam"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "XMPP-adres"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "E-mail"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "X400-adres"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Mapnaam"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "EDI-partijnaam"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "IP-adres"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Geregistreerde ID"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Sleutelalgoritme"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Sleutelparameters"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Sleutelgrootte"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "SHA1-vingerafdruk van sleutel"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Publieke sleutel"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Basisbeperkingen"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Certificaatautoriteit"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Ja"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Nee"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Onbeperkt"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Maximale padlengte"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Toegestane doeleinden"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Subjectsleutelidentificatie"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Sleutelidentificatie"
+
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "Sleutelgebruik"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Gebruik"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "Alternatieve namen van subject"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Certificaatbeleiden"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Beleid"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Locatie"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Toegangsmethode"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "CRL-distributiepunten"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Distributiepunt"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "Distributiepunt CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "Distributiepunt OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "Distributiepunt U"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Extensie"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Identificatie"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Waarde"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Kritiek"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Certificaat"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Identiteit"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Geverifieerd door"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Verloopt op"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "Naam van subject"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "Naam uitgever"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Uitgegeven certificaat"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Versie"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "Niet geldig voor"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "Niet geldig na"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "Vingerafdrukken van certificaat"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Publieke sleutelinformatie"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "Ondertekening"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "Algoritme voor ondertekening"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "Parameters voor ondertekening"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Andere naam"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "XMPP-adres"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "DNS SRV"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "E-mail"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "X400-adres"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Mapnaam"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "EDI-partijnaam"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "IP-adres"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "Geregistreerde ID"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -648,10 +703,6 @@ msgstr "GnuPG-sleutelbos"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG-sleutelbos: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "PGP-sleutel"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -662,28 +713,32 @@ msgstr "GnuPG-proces is beëindigd met code: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "GnuPG-proces is beëindigd met signaal:%d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "De bewerking werd geannuleerd"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Privésleutel"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "PGP-sleutel"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Certificaatverzoek"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Onherkenbare of niet ondersteunde gegevens."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Kon ongeldige of kapotte gegevens niet verwerken."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "De gegevens zijn vergrendeld"
 
@@ -726,7 +781,7 @@ msgstr "Ontgrendelen"
 msgid "The unlock password was incorrect"
 msgstr "Het ontgrendelingswachtwoord was verkeerd"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Naamloos"
 
@@ -734,11 +789,11 @@ msgstr "Naamloos"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Voer uw OpenSSH-wachtwoord in"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Onherkende of onbeschikbare eigenschappen voor sleutel"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Kon publieke sleutel niet bouwen"
 
@@ -764,7 +819,7 @@ msgstr "Versie van de applicatie weergeven"
 
 #: tools/viewer/viewer.c:32
 msgid "[file...]"
-msgstr "[bestand...]"
+msgstr "[bestand…]"
 
 #~ msgctxt "column"
 #~ msgid "Name"
@@ -960,9 +1015,6 @@ msgstr "[bestand...]"
 #~ msgid "Class"
 #~ msgstr "Klasse"
 
-#~ msgid "Local only"
-#~ msgstr "Alleen lokaal"
-
 #~ msgid "Exportable"
 #~ msgstr "Exporteerbaar"
 
@@ -1073,9 +1125,6 @@ msgstr "[bestand...]"
 
 #~ msgid "Password cannot be blank"
 #~ msgstr "Een leeg wachtwoord is niet toegestaan"
-
-#~ msgid "Access Prompt"
-#~ msgstr "Toegang verkrijgen"
 
 #~ msgid "Unlock access to passwords and other secrets"
 #~ msgstr "Toegang tot wachtwoorden en andere geheimen ontgrendelen"

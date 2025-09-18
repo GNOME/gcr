@@ -3,22 +3,22 @@
 # This file is distributed under the same license as the gcr package.
 # Michael MORONI, < >, 2011.
 # Carmen Bianca BAKKER <carmen@carmenbianca.eu>, 2018.
-# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011-2023.
+# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-01-25 17:22+0000\n"
-"PO-Revision-Date: 2023-09-23 18:52+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-09-10 13:39+0000\n"
+"PO-Revision-Date: 2025-09-18 21:09+0200\n"
 "Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
 "Language-Team: Esperanto <gnome-eo-list@gnome.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Gtranslator 48.0\n"
 "X-Project-Style: gnome\n"
 
 #: egg/egg-oid.c:40
@@ -61,7 +61,7 @@ msgstr "Voknomo"
 msgid "Surname"
 msgstr "Familinomo"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Seria numero"
 
@@ -264,9 +264,8 @@ msgid "Certificate Authority Information Access"
 msgstr "Atestila aŭtoritata informa aliro"
 
 #: egg/egg-oid.c:148
-#, fuzzy
 msgid "Subject directory attributes certificate extension"
-msgstr "La subjekta dosierujo atribuas atestilan etendon"
+msgstr "Etendaĵo de subjektdosierujaraj atributoj"
 
 #: egg/egg-oid.c:149
 msgid "Subject key identifier"
@@ -285,9 +284,8 @@ msgid "Subject alternative name"
 msgstr "Subjekta alternativa nomo"
 
 #: egg/egg-oid.c:153
-#, fuzzy
 msgid "Issuer alternative name"
-msgstr "Alternativa nomo de emisianto"
+msgstr "Alternativa nomo de la eldonanto"
 
 #: egg/egg-oid.c:154
 msgid "Basic constraints"
@@ -345,6 +343,29 @@ msgstr "Politikaj limoj"
 msgid "Authority key identifier"
 msgstr "Aŭtoritata ŝlosila identigilo"
 
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Etendita ŝlosila uzado"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "Etendita validigo"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "Deklaro pri atestaj praktikoj"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Reta protokolo pri atestila stato (OCSP)"
+
+#: egg/egg-oid.c:176
+#| msgid "Certificate Authority"
+msgid "Certification Authority Issuer"
+msgstr "Eldonanto de la atestila aŭtoritato"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -382,246 +403,274 @@ msgstr "La URI havas malbonan versionombron."
 msgid "The stream was closed"
 msgstr "La fluo estas fermita"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "Ŝlosila algoritmo"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "Ŝlosilaj parametroj"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "Ŝlosilgrando"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "Ŝlosila SHA1-fingropremo"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "Publika ŝlosilo"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "Bazaj limigoj"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "Atestilaŭtoritato"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "Jes"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "Ne"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "Nelimigite"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr "Maksimuma voja longo"
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "Etendita ŝlosila uzado"
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "Permesitaj celoj"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr "Subjekta ŝlosila identigilo"
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "Ŝlosil-identigilo"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Cifera subskribo"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
 msgstr "Ne malkonfeso"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "Ĉifrado de ŝlosilo"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "Ĉifrado de datumoj"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Ŝlosila akordo"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "Atestil-subskribo"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
 msgstr "Subskribo de senvalidiga listo"
 
-#: gcr/gcr-certificate.c:992
-#, fuzzy
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
-msgstr "Ĉifro nur"
+msgstr "Nur ĉifrado"
 
-#: gcr/gcr-certificate.c:993
-#, fuzzy
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
-msgstr "Deĉifro nur"
+msgstr "Nur deĉifrado"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Alia nomo"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "XMPP-adreso"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS-servilo"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "Retpoŝtadreso"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "X400-adreso"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Dosierujo-nomo"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "Nomo de EDI-parto"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "IP-adreso"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Registrita ID"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Ŝlosila algoritmo"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Ŝlosilaj parametroj"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Ŝlosilgrando"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Ŝlosila SHA1-fingropremo"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Publika ŝlosilo"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Bazaj limigoj"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Atestilaŭtoritato"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Jes"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Ne"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Nelimigite"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Maksimuma voja longo"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Permesitaj celoj"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Subjekta ŝlosila identigilo"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Ŝlosil-identigilo"
+
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "Ŝlosila uzado"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Uzadoj"
 
-#: gcr/gcr-certificate.c:1033
-#, fuzzy
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
-msgstr "Subjektaj alternativaj nomoj"
+msgstr "Alternativaj subjektnomoj"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Atestilaj politikoj"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Politiko"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Loko"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Alir-metodo"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "Distribuopunktoj de CRL"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Distribuopunkto"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "Distribuopunkto CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "Distribuopunkto OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "Distribuopunkto U"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Etendaĵo"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Identigilo"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Valoro"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Kritika"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Atestilo"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Nekonata"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Identeco"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Konfirmita de"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Senvalidiĝos"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "Nomo de la temo"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
-msgstr "Nomo de la eldoninto"
+msgstr "Nomo de la eldonanto"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
-msgstr "Atestilo de la eldoninto"
+msgstr "Atestilo de la eldonanto"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Versio"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "Ne valida antaŭe"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "Ne valida poste"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "Atestilaj fingropremoj"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Informoj de publika ŝlosilo"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "Subskribo"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "Subskriba algoritmo"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "Subskribaj parametroj"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Alia nomo"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "XMPP-adreso"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "DNS-servilo"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "Retpoŝtadreso"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "X400-adreso"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Dosierujo-nomo"
-
-#: gcr/gcr-certificate-extensions.c:247
-#, fuzzy
-msgid "EDI Party Name"
-msgstr "EDI-partinomo"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "IP-adreso"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "Registrita ID"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -642,10 +691,6 @@ msgstr "GnuPG-ŝlosilaro"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG-ŝlosilaro: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "PGP-ŝlosilo"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
@@ -656,28 +701,32 @@ msgstr "Gnupg-procezo ĉesis kun kodo: %d"
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Gnupg-procezo estis ĉesigita kun signalo: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "La ago estis nuligita"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Privata ŝlosilo"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "PGP-ŝlosilo"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Atestil-peto"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Nekonataj aŭ nesubtenataj datumoj."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Ne povus analizi nevalidan aŭ difektitan datumojn."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "La datumoj estas ŝlositaj"
 
@@ -720,7 +769,7 @@ msgstr "Malŝlosi"
 msgid "The unlock password was incorrect"
 msgstr "Malŝlospasvorto estas nekorekta"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Sennome"
 
@@ -728,11 +777,11 @@ msgstr "Sennome"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Enigu vian OpenSSH-pasfrazon"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Nekonataj aŭ nedisponeblaj atributoj por ŝlosilo"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Ne eblis krei publikan ŝlosilon"
 
@@ -945,9 +994,6 @@ msgstr "[dosiero...]"
 #~ msgid "Class"
 #~ msgstr "Klaso"
 
-#~ msgid "Local only"
-#~ msgstr "Nur loka"
-
 #~ msgid "Exportable"
 #~ msgstr "Elportebla"
 
@@ -1100,11 +1146,18 @@ msgstr "[dosiero...]"
 #~ msgstr "Pasvorto"
 
 #, c-format
-#~ msgid "The contents of “%s” are locked. In order to view the contents, enter the correct password."
-#~ msgstr "La enhavoj de “%s” estas ŝlosita. Por vidi la enhavojn, enigu la ĝustan pasvorton."
+#~ msgid ""
+#~ "The contents of “%s” are locked. In order to view the contents, enter the "
+#~ "correct password."
+#~ msgstr ""
+#~ "La enhavoj de “%s” estas ŝlosita. Por vidi la enhavojn, enigu la ĝustan "
+#~ "pasvorton."
 
-#~ msgid "The contents are locked. In order to view the contents, enter the correct password."
-#~ msgstr "La enhavoj estas ŝlosita. Por vidi la enhavojn, enigu la ĝustan pasvorton."
+#~ msgid ""
+#~ "The contents are locked. In order to view the contents, enter the correct "
+#~ "password."
+#~ msgstr ""
+#~ "La enhavoj estas ŝlosita. Por vidi la enhavojn, enigu la ĝustan pasvorton."
 
 #~ msgid "View file"
 #~ msgstr "Vidi dosieron"

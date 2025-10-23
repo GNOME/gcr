@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-11-04 11:23+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-10-15 15:04+0000\n"
 "PO-Revision-Date: 2024-05-07 13:19+0300\n"
 "Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
 "Language-Team: www.gnome.gr\n"
@@ -61,7 +61,7 @@ msgstr "Κοινό όνομα"
 msgid "Surname"
 msgstr "Επώνυμο"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Σειριακός αριθμός"
 
@@ -174,7 +174,6 @@ msgid "SHA384 with RSA encryption"
 msgstr "SHA384 με κρυπτογράφηση RSA"
 
 #: egg/egg-oid.c:119
-#| msgid "SHA1 with RSA"
 msgid "SHA512 with RSA encryption"
 msgstr "SHA512 με κρυπτογράφηση RSA"
 
@@ -344,6 +343,28 @@ msgstr "Πολιτικές περιορισμών"
 msgid "Authority key identifier"
 msgstr "Αναγνωριστικό κλειδί αρχής"
 
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Εκτεταμένη χρήση κλειδιού"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "Εκτεταμένη επικύρωση"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "Δήλωση πρακτικών πιστοποίησης"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Online Certificate Status Protocol (OCSP)"
+
+#: egg/egg-oid.c:176
+msgid "Certification Authority Issuer"
+msgstr "Εκδότης αρχής πιστοποίησης"
+
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
@@ -381,242 +402,274 @@ msgstr "Το URI έχει κακό αριθμό έκδοσης."
 msgid "The stream was closed"
 msgstr "Η ροή έκλεισε"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "Αλγόριθμος κλειδιού"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "Παράμετροι κλειδιού"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "Μέγεθος κλειδιού"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "Αποτύπωμα κλειδιού SHA1"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "Δημόσιο κλειδί"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "Βασικοί περιορισμοί"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "Αρχή πιστοποίησης"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "Ναι"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "Όχι"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "Απεριόριστο"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr "Μέγιστο μήκος διαδρομής"
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "Εκτεταμένη χρήση κλειδιού"
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "Επιτρεπόμενοι σκοποί"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr "Αναγνωριστικό κλειδί υποκειμένου"
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "Αναγνωριστικό κλειδί"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Ψηφιακή υπογραφή"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
 msgstr "Μη αποκήρυξη"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "Κρυπτογράφηση κλειδιού"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "Κρυπρογράφηση δεδομένων"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Άδεια κλειδιού"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "Πιστοποιητικό υπογραφής"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
 msgstr "Λίστα ανάκτησης υπογραφών"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
 msgstr "Κρυπτογράφηση μόνο"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "Αποκρυπτογράφηση μόνο"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Άλλο όνομα"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "XMPP Addr"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "Ηλ. αλληλογγραφία"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "Διεύθυνση X400"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Όνομα καταλόγου"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "EDI Party Name"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "Διεύθυνση IP"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Εγγεγραμμένη ταυτότητα"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Αλγόριθμος κλειδιού"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Παράμετροι κλειδιού"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Μέγεθος κλειδιού"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Αποτύπωμα κλειδιού SHA1"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Δημόσιο κλειδί"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Βασικοί περιορισμοί"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Αρχή πιστοποίησης"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Ναι"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Όχι"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Απεριόριστο"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Μέγιστο μήκος διαδρομής"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Επιτρεπόμενοι σκοποί"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Αναγνωριστικό κλειδί υποκειμένου"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Αναγνωριστικό κλειδί"
+
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "Χρήση κλειδιού"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Χρήσεις"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "Εναλλακτικά ονόματα υποκειμένου"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Πολιτικές Πιστοποιητικών"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Πολιτική"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Τοποθεσία"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Μέθοδος πρόσβασης"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "Σημεία διανομής CRL"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Σημείο Διανομής"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "Σημείο διανομής CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "Σημείο διανομής OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "Σημείο διανομής U "
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Επέκταση"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Αναγνωριστικό"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Τιμή"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Κρίσιμο"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Πιστοποιητικό"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Άγνωστο"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Ταυτότητα"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Επαληθεύτηκε από"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Λήγει"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "Όνομα θέματος"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "Όνομα εκδότη"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Εκδοθέν πιστοποιητικό"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Έκδοση"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "Έναρξη ισχύος"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "Λήξη ισχύος"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "Πιστοποιητικό αποτυπωμάτων"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Πληροφορίες δημοσίου κλειδιού"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "Υπογραφή"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "Αλγόριθμος υπογραφής"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "Παράμετροι υπογραφής"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Άλλο όνομα"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "XMPP Addr"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "DNS SRV"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "Ηλ. αλληλογγραφία"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "Διεύθυνση X400"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Όνομα καταλόγου"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "EDI Party Name"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "Διεύθυνση IP"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "Εγγεγραμμένη ταυτότητα"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -647,32 +700,32 @@ msgstr "Η διεργασία Gnupg τερματίστηκε με κωδικό: 
 msgid "Gnupg process was terminated with signal: %d"
 msgstr "Η διεργασία Gnupg τερματίστηκε με σήμα: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "Η διεργασία ακυρώθηκε"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Ιδιωτικό κλειδί"
 
-#: gcr/gcr-parser.c:346
+#: gcr/gcr-parser.c:337
 msgid "PGP Key"
 msgstr "Κλειδί PGP"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Αίτηση πιστοποιητικού"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Μη αναγνωρίσιμα ή μη υποστηριζόμενα δεδομένα."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Αδυναμία ανάλυσης άκυρων ή κατεστραμμένων δεδομένων."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "Τα δεδομένα είναι κλειδωμένα"
 
@@ -725,11 +778,11 @@ msgstr "Χωρίς όνομα"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Εισάγετε το συνθηματικό ασφαλούς κελύφους σας"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Άγνωστες ή μη διαθέσιμες ιδιότητες για το κλειδί"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Αδυναμία δημιουργίας δημόσιου κλειδιού"
 
@@ -952,9 +1005,6 @@ msgstr "[αρχείο...]"
 #~ msgid "Class"
 #~ msgstr "Κλάση"
 
-#~ msgid "Local only"
-#~ msgstr "Μόνο τοπικά"
-
 #~ msgid "Exportable"
 #~ msgstr "Εξαγωγίσιμο"
 
@@ -1064,9 +1114,6 @@ msgstr "[αρχείο...]"
 
 #~ msgid "Password cannot be blank"
 #~ msgstr "Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός"
-
-#~ msgid "Access Prompt"
-#~ msgstr "Τερματικό"
 
 #~ msgid "Unlock access to passwords and other secrets"
 #~ msgstr "Ξεκλειδώστε την πρόσβαση σε κωδικούς πρόσβασης και άλλα μυστικά"

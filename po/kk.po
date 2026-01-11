@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-01-25 17:22+0000\n"
-"PO-Revision-Date: 2023-08-19 13:48+0600\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-09-09 00:33+0000\n"
+"PO-Revision-Date: 2026-01-11 14:35+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.8\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -58,7 +58,7 @@ msgstr "Жалпы аты"
 msgid "Surname"
 msgstr "Фамилия"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Сериялық нөмірі"
 
@@ -68,11 +68,11 @@ msgstr "Ел"
 
 #: egg/egg-oid.c:72
 msgid "Locality"
-msgstr ""
+msgstr "Жергілікті мекен"
 
 #: egg/egg-oid.c:74
 msgid "State"
-msgstr ""
+msgstr "Штат/Облыс"
 
 #: egg/egg-oid.c:76
 msgid "Street"
@@ -104,7 +104,7 @@ msgstr "Инициалдар"
 
 #: egg/egg-oid.c:90
 msgid "Generation Qualifier"
-msgstr ""
+msgstr "Буын анықтауышы"
 
 #: egg/egg-oid.c:92
 msgid "DN Qualifier"
@@ -124,7 +124,8 @@ msgstr "ОГРН"
 msgid "SNILS"
 msgstr "СНИЛС"
 
-#. Translators: Russian: Main state registration number for individual enterpreneurs
+#. Translators: Russian: Main state registration number for individual
+#. enterpreneurs
 #: egg/egg-oid.c:104
 msgid "OGRNIP"
 msgstr "ОГРНИП"
@@ -152,36 +153,31 @@ msgstr "RSA бар SHA1"
 
 #: egg/egg-oid.c:114
 msgid "RSA with OAEP padding"
-msgstr ""
+msgstr "OAEP толтырғышы бар RSA"
 
 #: egg/egg-oid.c:115
-#| msgid "SHA1 with RSA"
 msgid "RSA with MGF1"
-msgstr ""
+msgstr "MGF1 бар RSA"
 
 #: egg/egg-oid.c:116
 msgid "RSA signature with RSA-PSS"
-msgstr ""
+msgstr "RSA-PSS қолданылған RSA қолтаңбасы"
 
 #: egg/egg-oid.c:117
-#| msgid "SHA256 with ECDSA"
 msgid "SHA256 with RSA encryption"
-msgstr ""
+msgstr "RSA шифрлеуімен SHA256"
 
 #: egg/egg-oid.c:118
-#| msgid "SHA384 with ECDSA"
 msgid "SHA384 with RSA encryption"
-msgstr ""
+msgstr "RSA шифрлеуімен SHA384"
 
 #: egg/egg-oid.c:119
-#| msgid "SHA1 with RSA"
 msgid "SHA512 with RSA encryption"
-msgstr ""
+msgstr "RSA шифрлеуімен SHA512"
 
 #: egg/egg-oid.c:120
-#| msgid "SHA224 with ECDSA"
 msgid "SHA224 with RSA encryption"
-msgstr ""
+msgstr "RSA шифрлеуімен SHA224"
 
 #: egg/egg-oid.c:122
 msgid "DSA"
@@ -262,384 +258,426 @@ msgstr "Уақытты штамптау"
 
 #. Extended certificate attributes
 #: egg/egg-oid.c:147
-#| msgid "Certificate Authority"
 msgid "Certificate Authority Information Access"
-msgstr ""
+msgstr "Сертификаттау орталығының ақпаратына қол жеткізу"
 
 #: egg/egg-oid.c:148
 msgid "Subject directory attributes certificate extension"
-msgstr ""
+msgstr "Субъектінің бума атрибуттары сертификатының кеңейтуі"
 
 #: egg/egg-oid.c:149
-#| msgid "Key Identifier"
 msgid "Subject key identifier"
-msgstr ""
+msgstr "Субъект кілтінің идентификаторы"
 
 #: egg/egg-oid.c:150
-#| msgid "Key Usage"
 msgid "Key usage"
-msgstr ""
+msgstr "Кілтті қолдану"
 
 #: egg/egg-oid.c:151
 msgid "Private key usage period"
-msgstr ""
+msgstr "Жеке кілтті қолдану кезеңі"
 
 #: egg/egg-oid.c:152
 msgid "Subject alternative name"
-msgstr ""
+msgstr "Субъектінің балама аты"
 
 #: egg/egg-oid.c:153
 msgid "Issuer alternative name"
-msgstr ""
+msgstr "Шығарушының балама аты"
 
 #: egg/egg-oid.c:154
-#| msgid "Basic Constraints"
 msgid "Basic constraints"
-msgstr ""
+msgstr "Негізгі шектеулер"
 
 #: egg/egg-oid.c:155
 msgid "CRL number"
-msgstr ""
+msgstr "CRL нөмірі"
 
 #: egg/egg-oid.c:156
-#| msgid "Reason"
 msgid "Reason code"
 msgstr "Себеп коды"
 
 #: egg/egg-oid.c:157
 msgid "Hold instruction code"
-msgstr ""
+msgstr "Ұстап тұру нұсқаулығының коды"
 
 #: egg/egg-oid.c:158
-#| msgid "Invalid"
 msgid "Invalidity date"
-msgstr ""
+msgstr "Жарамсыздық күні"
 
 #: egg/egg-oid.c:159
-#| msgid "Certificate signature"
 msgid "Certificate Revocation List indicator"
-msgstr ""
+msgstr "Сертификаттардың күшін жою тізімінің индикаторы"
 
 #: egg/egg-oid.c:160
 msgid "Issuing distribution point"
-msgstr ""
+msgstr "Шығарушы тарату нүктесі"
 
 #: egg/egg-oid.c:161
-#| msgid "Certificate files"
 msgid "Certificate issuer"
-msgstr ""
+msgstr "Сертификатты шығарушы"
 
 #: egg/egg-oid.c:162
-#| msgid "Basic Constraints"
 msgid "Name constraints"
-msgstr ""
+msgstr "Атау шектеулері"
 
 #: egg/egg-oid.c:163
 msgid "Certificate Revocation List distribution points"
-msgstr ""
+msgstr "Сертификаттарды кері қайтару тізімін тарату нүктелері"
 
 #: egg/egg-oid.c:164
-#| msgid "Certificate files"
 msgid "Certificate policies"
-msgstr ""
+msgstr "Сертификат саясаттары"
 
 #: egg/egg-oid.c:165
 msgid "Policy mappings"
-msgstr ""
+msgstr "Саясат сәйкестіктері"
 
 #: egg/egg-oid.c:166
-#| msgid "Basic Constraints"
 msgid "Policy constraints"
-msgstr ""
+msgstr "Саясат шектеулері"
 
 #: egg/egg-oid.c:167
-#| msgid "Key Identifier"
 msgid "Authority key identifier"
-msgstr ""
+msgstr "Куәландырушы орталық кілт идентификаторы"
+
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Кеңейтілген кілт қолданылуы"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "Кеңейтілген тексеру"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "Сертификаттау тәжірибесі туралы мәлімдеме"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Сертификаттар күйін онлайн тексеру хаттамасы (OCSP)"
+
+#: egg/egg-oid.c:176
+msgid "Certification Authority Issuer"
+msgstr "Сертификаттау орталығын шығарушы"
 
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr ""
+msgstr "PKCS#11 модулін жүктеу қатесі: %s"
 
 #: gck/gck-module.c:286
 #, c-format
 msgid "Couldn’t initialize PKCS#11 module: %s"
-msgstr ""
+msgstr "PKCS#11 модулін инициализациялау мүмкін емес: %s"
 
 #: gck/gck-modules.c:60
 #, c-format
 msgid "Couldn’t initialize registered PKCS#11 modules: %s"
-msgstr ""
+msgstr "Тіркелген PKCS#11 модульдерін инициализациялау мүмкін емес: %s"
 
 #: gck/gck-uri.c:167
 #, c-format
 msgid "The URI has invalid encoding."
-msgstr ""
+msgstr "URI кодталуы жарамсыз."
 
 #: gck/gck-uri.c:171
 msgid "The URI does not have the “pkcs11” scheme."
-msgstr ""
+msgstr "URI-да “pkcs11” схемасы жоқ."
 
 #: gck/gck-uri.c:175
 msgid "The URI has bad syntax."
-msgstr ""
+msgstr "URI синтаксисі қате."
 
 #: gck/gck-uri.c:179
 msgid "The URI has a bad version number."
-msgstr ""
+msgstr "URI нұсқа нөмірі қате."
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
 #, c-format
 msgid "The stream was closed"
-msgstr ""
+msgstr "Ағын жабылды"
 
-#: gcr/gcr-certificate.c:882
-msgid "Key Algorithm"
-msgstr "Кілт алгоритмі"
-
-#: gcr/gcr-certificate.c:888
-msgid "Key Parameters"
-msgstr "Кілт параметрлері"
-
-#: gcr/gcr-certificate.c:895
-msgid "Key Size"
-msgstr "Кілт өлшемі"
-
-#: gcr/gcr-certificate.c:905
-msgid "Key SHA1 Fingerprint"
-msgstr "Кілттің SHA1 баспасы"
-
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
-msgid "Public Key"
-msgstr "Публикалық кілт"
-
-#: gcr/gcr-certificate.c:923
-msgid "Basic Constraints"
-msgstr "Негізгі шектеулер"
-
-#: gcr/gcr-certificate.c:924
-msgid "Certificate Authority"
-msgstr "Сертификаттау орталығы"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "Yes"
-msgstr "Иә"
-
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
-msgid "No"
-msgstr "Жоқ"
-
-#: gcr/gcr-certificate.c:927
-msgid "Unlimited"
-msgstr "Шектелмеген"
-
-#: gcr/gcr-certificate.c:931
-msgid "Max Path Length"
-msgstr ""
-
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr ""
-
-#: gcr/gcr-certificate.c:956
-msgid "Allowed Purposes"
-msgstr "Рұқсат етілген мақсаттар"
-
-#: gcr/gcr-certificate.c:973
-msgid "Subject Key Identifier"
-msgstr ""
-
-#: gcr/gcr-certificate.c:976
-msgid "Key Identifier"
-msgstr "Кілт идентификаторы"
-
-#: gcr/gcr-certificate.c:985
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Цифрлық қолтаңба"
 
-#: gcr/gcr-certificate.c:986
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
-msgstr ""
+msgstr "Жауапкершіліктен бас тартуға жол бермеу"
 
-#: gcr/gcr-certificate.c:987
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
-msgstr ""
+msgstr "Кілтті шифрлеу"
 
-#: gcr/gcr-certificate.c:988
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
-msgstr ""
+msgstr "Деректерді шифрлеу"
 
-#: gcr/gcr-certificate.c:989
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Кілт келісімі"
 
-#: gcr/gcr-certificate.c:990
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "Сертификаттың қолтаңбасы"
 
-#: gcr/gcr-certificate.c:991
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
-msgstr ""
+msgstr "Қайтарып алу тізімінің қолтаңбасы"
 
-#: gcr/gcr-certificate.c:992
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
 msgstr "Тек шифрлеу үшін"
 
-#: gcr/gcr-certificate.c:993
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "Тек дешифрлеу үшін"
 
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Басқа аты"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "XMPP адресі"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS сервері"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "Эл. пошта"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "X400 адресі"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Бума атауы"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "EDI тарап атауы"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "IP адресі"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Тіркелген анықтағыш"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Кілт алгоритмі"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Кілт параметрлері"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Кілт өлшемі"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Кілттің SHA1 баспасы"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Публикалық кілт"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Негізгі шектеулер"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Сертификаттау орталығы"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Иә"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Жоқ"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Шектелмеген"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Жолдың максималды ұзындығы"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Рұқсат етілген мақсаттар"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Субъект кілтінің анықтағышы"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Кілт идентификаторы"
+
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "Кілтті пайдалану"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Пайдаланулар"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
-msgstr ""
+msgstr "Субъектінің балама аттары"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Сертификат саясаттары"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Саясат"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Орналасуы"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Қол жеткізу әдісі"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "CRL Тарату Нүктелері"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Тарату Нүктесі"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "Тарату Нүктесі CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "Тарату Нүктесі OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "Тарату Нүктесі U"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Кеңейту"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Анықтағыш"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Мәні"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Критикалық"
 
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Сертификат"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Белгісіз"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Идентификация"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Тексерілді"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Мерзімі аяқталады"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
-msgstr ""
+msgstr "Субъект аты"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "Шығарушы аты"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Шығарушы сертификаты"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Нұсқасы"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "Бұрын жарамды емес"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "Кейін жарамды емес"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "Сертификаттың баспалары"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Публикалық кілт ақпараты"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "Қолтаңба"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "Қолтаңба алгоритмі"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "Қолтаңба параметрлері"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Басқа аты"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "XMPP адресі"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "DNS сервері"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "Эл. пошта"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "X400 адресі"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Бума атауы"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr ""
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "IP адресі"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr ""
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr ""
+msgstr "Сертификат сұранымы үшін қолдау көрсетілмейтін кілт түрі"
 
 #: gcr/gcr-certificate-request.c:484 gcr/gcr-certificate-request.c:568
 #, c-format
 msgid "The key cannot be used to sign the request"
-msgstr ""
+msgstr "Кілтті сұранымға қолтаңба қою үшін пайдалану мүмкін емес"
 
 #: gcr/gcr-gnupg-importer.c:94
 msgid "GnuPG Keyring"
@@ -650,42 +688,42 @@ msgstr "GnuPG кілттер бауы"
 msgid "GnuPG Keyring: %s"
 msgstr "GnuPG кілттер бауы: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "PGP кілті"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr ""
+msgstr "Gnupg процесі келесі кодпен аяқталды: %d"
 
 #: gcr/gcr-gnupg-process.c:874
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr ""
+msgstr "Gnupg процесі келесі сигналмен тоқтатылды: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "Әрекеттен бас тартылды"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Жеке кілт"
 
-#: gcr/gcr-parser.c:349
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "PGP кілті"
+
+#: gcr/gcr-parser.c:340
 msgid "Certificate Request"
 msgstr "Сертификатқа сұраным"
 
-#: gcr/gcr-parser.c:2595
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Танылмаған немесе қолдау көрсетілмейтін деректер."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Жарамсыз немесе зақымдалған деректерді талдау мүмкін емес."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "Деректер құлыпталған"
 
@@ -728,7 +766,7 @@ msgstr "Босату"
 msgid "The unlock password was incorrect"
 msgstr "Босату паролі қате"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Атаусыз"
 
@@ -736,13 +774,13 @@ msgstr "Атаусыз"
 msgid "Enter your OpenSSH passphrase"
 msgstr "OpenSH кілттік фразасын енгізіңіз"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
-msgstr ""
+msgstr "Кілт үшін танылмаған немесе қолжетімсіз атрибуттар"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
-msgstr ""
+msgstr "Ашық кілтті құру мүмкін болмады"
 
 #: gcr/gcr-system-prompt.c:896
 msgid "Another prompt is already in progress"
@@ -754,7 +792,7 @@ msgstr "Басқа бір сұраным орындалып жатыр"
 #: gcr/gcr-trust.c:307
 #, c-format
 msgid "Couldn’t find a place to store the pinned certificate"
-msgstr ""
+msgstr "Бекітілген сертификатты сақтау орны табылмады"
 
 #: tools/viewer/viewer.c:23
 msgid "GCR Certificate Viewer"
@@ -926,9 +964,6 @@ msgstr "[файл...]"
 #~ msgid "Class"
 #~ msgstr "Класс"
 
-#~ msgid "Local only"
-#~ msgstr "Тек жергілікті"
-
 #~ msgid "Exportable"
 #~ msgstr "Экспорттауға келеді"
 
@@ -1021,9 +1056,6 @@ msgstr "[файл...]"
 
 #~ msgid "Password cannot be blank"
 #~ msgstr "Пароль бос болуы мүмкін емес"
-
-#~ msgid "Access Prompt"
-#~ msgstr "Қатынау сұрауы"
 
 #~ msgid "Unlock access to passwords and other secrets"
 #~ msgstr "Парольдер және басқа құпияларға қатынаудың құлпын ашу"

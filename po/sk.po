@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2024-09-03 21:06+0000\n"
-"PO-Revision-Date: 2024-09-13 23:06+0200\n"
+"POT-Creation-Date: 2025-09-09 00:33+0000\n"
+"PO-Revision-Date: 2026-03-31 00:39+0200\n"
 "Last-Translator: Jose Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -28,7 +28,7 @@ msgstr "Komponent domény"
 
 #: egg/egg-oid.c:42
 msgid "User ID"
-msgstr "Idetifikátor používateľa"
+msgstr "Identifikátor používateľa"
 
 #: egg/egg-oid.c:45
 msgid "Email Address"
@@ -64,7 +64,7 @@ msgstr "Bežný názov (CN)"
 msgid "Surname"
 msgstr "Priezvisko"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1260
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
 msgstr "Sériové číslo"
 
@@ -161,7 +161,6 @@ msgid "RSA with OAEP padding"
 msgstr "RSA s výplňou OAEP"
 
 #: egg/egg-oid.c:115
-#| msgid "SHA1 with RSA"
 msgid "RSA with MGF1"
 msgstr "RSA s MGF1"
 
@@ -170,24 +169,20 @@ msgid "RSA signature with RSA-PSS"
 msgstr "Podpis RSA s RSA-PSS"
 
 #: egg/egg-oid.c:117
-#| msgid "SHA256 with ECDSA"
 msgid "SHA256 with RSA encryption"
 msgstr "SHA256 so šifrovaním RSA"
 
 #: egg/egg-oid.c:118
-#| msgid "SHA384 with ECDSA"
 msgid "SHA384 with RSA encryption"
 msgstr "SHA384 so šifrovaním RSA"
 
 #: egg/egg-oid.c:119
-#| msgid "SHA1 with RSA"
 msgid "SHA512 with RSA encryption"
 msgstr "SHA512 so šifrovaním RSA"
 
 #: egg/egg-oid.c:120
-#| msgid "SHA224 with ECDSA"
 msgid "SHA224 with RSA encryption"
-msgstr "SHA224 so šifrovaním RSA" 
+msgstr "SHA224 so šifrovaním RSA"
 
 #: egg/egg-oid.c:122
 msgid "DSA"
@@ -268,7 +263,6 @@ msgstr "Označovanie časovou značkou"
 
 #. Extended certificate attributes
 #: egg/egg-oid.c:147
-#| msgid "Certificate Authority"
 msgid "Certificate Authority Information Access"
 msgstr "Prístup k údajom certifikačnej autority"
 
@@ -278,13 +272,11 @@ msgstr "Atribúty adresára subjektu s rozšírením certifikátu"
 
 # heading
 #: egg/egg-oid.c:149
-#| msgid "Subject Key Identifier"
 msgid "Subject key identifier"
 msgstr "Identifikátor kľúča subjektu"
 
 # heading
 #: egg/egg-oid.c:150
-#| msgid "Key Usage"
 msgid "Key usage"
 msgstr "Použitie kľúča"
 
@@ -294,19 +286,16 @@ msgstr "Obdobie použitia súkromného kľúča"
 
 # heading
 #: egg/egg-oid.c:152
-#| msgid "Subject Alternative Names"
 msgid "Subject alternative name"
 msgstr "Alternatívne názvy subjektu"
 
 # heading
 #: egg/egg-oid.c:153
-#| msgid "Subject Alternative Names"
 msgid "Issuer alternative name"
 msgstr "Alternatívne názvy vydavateľa"
 
 # heading
 #: egg/egg-oid.c:154
-#| msgid "Basic Constraints"
 msgid "Basic constraints"
 msgstr "Základné obmedzenia"
 
@@ -315,7 +304,6 @@ msgid "CRL number"
 msgstr "Číslo CRL"
 
 #: egg/egg-oid.c:156
-#| msgid "Reason"
 msgid "Reason code"
 msgstr "Kód dôvodu"
 
@@ -325,13 +313,11 @@ msgstr "Kód inštrukcie pre pozastavené"
 
 # Dôvera vlastníkovi
 #: egg/egg-oid.c:158
-#| msgid "Invalid"
 msgid "Invalidity date"
 msgstr "Dátum zneplatnenia"
 
 # Trieda
 #: egg/egg-oid.c:159
-#| msgid "Certification revocation signature"
 msgid "Certificate Revocation List indicator"
 msgstr "Indikátor zoznamu odvolaných certifikátov"
 
@@ -340,25 +326,21 @@ msgid "Issuing distribution point"
 msgstr "Vydávajúce distribučné miesto"
 
 #: egg/egg-oid.c:161
-#| msgid "Certificate Viewer"
 msgid "Certificate issuer"
 msgstr "Vydavateľ certifikátu"
 
 # heading
 #: egg/egg-oid.c:162
-#| msgid "Basic Constraints"
 msgid "Name constraints"
 msgstr "Obmedzenia názvu"
 
 # Trieda
 #: egg/egg-oid.c:163
-#| msgid "Certification revocation signature"
 msgid "Certificate Revocation List distribution points"
 msgstr "Distribučné miesto zoznamu odvolaných certifikátov"
 
 # file filter
 #: egg/egg-oid.c:164
-#| msgid "Certificate files"
 msgid "Certificate policies"
 msgstr "Zásady certifikátu"
 
@@ -368,15 +350,38 @@ msgstr "Zásady mapovania"
 
 # heading
 #: egg/egg-oid.c:166
-#| msgid "Basic Constraints"
 msgid "Policy constraints"
 msgstr "Obmedzenia zásad"
 
 # heading
 #: egg/egg-oid.c:167
-#| msgid "Subject Key Identifier"
 msgid "Authority key identifier"
 msgstr "Identifikátor kľúča autority"
+
+# heading
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Rozšírené využitie kľúča"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr ""
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr ""
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr ""
+
+#: egg/egg-oid.c:176
+#, fuzzy
+#| msgid "Certificate Authority"
+msgid "Certification Authority Issuer"
+msgstr "Autorita certifikátu"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -415,264 +420,314 @@ msgstr "Identifikátor URI obsahuje nesprávne číslo verzie."
 msgid "The stream was closed"
 msgstr "Tok údajov bol zatvorený"
 
-#: gcr/gcr-certificate.c:913
-msgid "Key Algorithm"
-msgstr "Algoritmus kľúča"
-
-#: gcr/gcr-certificate.c:919
-msgid "Key Parameters"
-msgstr "Parametre kľúča"
-
-#: gcr/gcr-certificate.c:926
-msgid "Key Size"
-msgstr "Veľkosť kľúča"
-
-#: gcr/gcr-certificate.c:936
-msgid "Key SHA1 Fingerprint"
-msgstr "Odtlačok kľúča SHA1"
-
-#: gcr/gcr-certificate.c:940 gcr/gcr-parser.c:334
-msgid "Public Key"
-msgstr "Verejný kľúč"
-
-# heading
-#: gcr/gcr-certificate.c:954
-msgid "Basic Constraints"
-msgstr "Základné obmedzenia"
-
-#: gcr/gcr-certificate.c:955
-msgid "Certificate Authority"
-msgstr "Autorita certifikátu"
-
-#: gcr/gcr-certificate.c:955 gcr/gcr-certificate.c:1131
-msgid "Yes"
-msgstr "Áno"
-
-#: gcr/gcr-certificate.c:955 gcr/gcr-certificate.c:1131
-msgid "No"
-msgstr "Nie"
-
-#: gcr/gcr-certificate.c:958
-msgid "Unlimited"
-msgstr "Neobmedzená"
-
-#: gcr/gcr-certificate.c:962
-msgid "Max Path Length"
-msgstr "Maximálna dĺžka cesty"
-
-# heading
-#: gcr/gcr-certificate.c:986
-msgid "Extended Key Usage"
-msgstr "Rozšírené využitie kľúča"
-
-#: gcr/gcr-certificate.c:987
-msgid "Allowed Purposes"
-msgstr "Povolené účely"
-
-# heading
-#: gcr/gcr-certificate.c:1004
-msgid "Subject Key Identifier"
-msgstr "Identifikátor kľúča subjektu"
-
-#: gcr/gcr-certificate.c:1007
-msgid "Key Identifier"
-msgstr "Identifikátor kľúča"
-
 # usage_descriptions
-#: gcr/gcr-certificate.c:1016
+#: gcr/gcr-certificate-extension-key-usage.c:64
 msgid "Digital signature"
 msgstr "Digitálny podpis"
 
-#: gcr/gcr-certificate.c:1017
+#: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
 msgstr "Nezavrhnutý"
 
 # usage_descriptions
-#: gcr/gcr-certificate.c:1018
+#: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
 msgstr "Zašifrovanie kľúča"
 
 # usage_descriptions
-#: gcr/gcr-certificate.c:1019
+#: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
 msgstr "Zašifrovanie údajov"
 
 # usage_descriptions
-#: gcr/gcr-certificate.c:1020
+#: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
 msgstr "Prijatie kľúča"
 
 # usage_descriptions
-#: gcr/gcr-certificate.c:1021
+#: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
 msgstr "Podpis certifikátu"
 
 # usage_descriptions
-#: gcr/gcr-certificate.c:1022
+#: gcr/gcr-certificate-extension-key-usage.c:70
 msgid "Revocation list signature"
 msgstr "Podpis zoznamu odvolaní"
 
-#: gcr/gcr-certificate.c:1023
+#: gcr/gcr-certificate-extension-key-usage.c:71
 msgid "Encipher only"
 msgstr "Iba zašifrovanie"
 
 # usage_descriptions
-#: gcr/gcr-certificate.c:1024
+#: gcr/gcr-certificate-extension-key-usage.c:72
 msgid "Decipher only"
 msgstr "Iba dešifrovanie"
 
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Iný názov"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "Adresa XMPP"
+
+# DK: SRV = service record (SRV record)
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "E-mail"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "Adresa X400"
+
+# MČ: tu som trochu mimo. Je to typu DNS, ale „dn“ evokuje LDAP.
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Názov adresára"
+
+# MČ: http://en.wikipedia.org/wiki/Electronic_data_interchange
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "Názov poskytovateľa EDI Party"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "Adresa IP"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "Registrovaný ID"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "Algoritmus kľúča"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "Parametre kľúča"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "Veľkosť kľúča"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "Odtlačok kľúča SHA1"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "Verejný kľúč"
+
 # heading
-#: gcr/gcr-certificate.c:1045
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "Základné obmedzenia"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "Autorita certifikátu"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "Áno"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "Nie"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "Neobmedzená"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "Maximálna dĺžka cesty"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "Povolené účely"
+
+# heading
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "Identifikátor kľúča subjektu"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "Identifikátor kľúča"
+
+# heading
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
 msgstr "Využitie kľúča"
 
 # MČ: množné číslo?
 # PM: aj ked hodnot moze byt viac myslím ze to takto moze zostat
-#: gcr/gcr-certificate.c:1046
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Využitie"
 
 # heading
-#: gcr/gcr-certificate.c:1064
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
 msgstr "Alternatívne názvy subjektu"
 
+# file filter
+#: gcr/gcr-certificate.c:1107
+#, fuzzy
+#| msgid "Certificate policies"
+msgid "Certificate Policies"
+msgstr "Zásady certifikátu"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr ""
+
+# Typ
+#: gcr/gcr-certificate.c:1140
+#, fuzzy
+#| msgid "Local only"
+msgid "Location"
+msgstr "Iba lokálny"
+
+# desktop entry name
+#: gcr/gcr-certificate.c:1143
+#, fuzzy
+#| msgid "Access Prompt"
+msgid "Access Method"
+msgstr "Výzva na prístup"
+
+#: gcr/gcr-certificate.c:1158
+#, fuzzy
+#| msgid "Issuing distribution point"
+msgid "CRL Distribution Points"
+msgstr "Vydávajúce distribučné miesto"
+
+#: gcr/gcr-certificate.c:1174
+#, fuzzy
+#| msgid "Issuing distribution point"
+msgid "Distribution Point"
+msgstr "Vydávajúce distribučné miesto"
+
+#: gcr/gcr-certificate.c:1181
+#, fuzzy
+#| msgid "Issuing distribution point"
+msgid "Distribution Point CN"
+msgstr "Vydávajúce distribučné miesto"
+
+#: gcr/gcr-certificate.c:1184
+#, fuzzy
+#| msgid "Issuing distribution point"
+msgid "Distribution Point OU"
+msgstr "Vydávajúce distribučné miesto"
+
+#: gcr/gcr-certificate.c:1187
+#, fuzzy
+#| msgid "Issuing distribution point"
+msgid "Distribution Point U"
+msgstr "Vydávajúce distribučné miesto"
+
 # heading
-#: gcr/gcr-certificate.c:1086
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Rozšírenie"
 
-#: gcr/gcr-certificate.c:1090
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Identifikátor"
 
-#: gcr/gcr-certificate.c:1091
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Hodnota"
 
 # rozšírenie (áno/nie)
-#: gcr/gcr-certificate.c:1131
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Kritické"
 
-#: gcr/gcr-certificate.c:1207 gcr/gcr-certificate.c:1439 gcr/gcr-parser.c:331
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Certifikát"
 
 # PM: Sedí rod vo všetkých prípadoch?
 # MČ: myslím, že nesedí, prvé je ku Capabilities, druhe ku OwnerTrust, ďalšie ku typu kľúča a posledné ku Algoritmu.
 # Dôvera vlastníka
-#: gcr/gcr-certificate.c:1214 gcr/gcr-certificate.c:1219
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Neznáme"
 
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Identita"
 
-#: gcr/gcr-certificate.c:1220
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Overil"
 
-#: gcr/gcr-certificate.c:1226
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Vyprší"
 
 #. The subject
-#: gcr/gcr-certificate.c:1234
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
 msgstr "Názov subjektu"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1240
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
 msgstr "Názov vydavateľa"
 
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1246
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Vydaný cerfikát"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Verzia"
 
-#: gcr/gcr-certificate.c:1267
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "Neplatný pred"
 
-#: gcr/gcr-certificate.c:1276
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "Neplatný po"
 
-#: gcr/gcr-certificate.c:1285
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
 msgstr "Odtlačky certifikátu"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1295
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
 msgstr "Informácie o verejnom kľúči"
 
 #. Signature
-#: gcr/gcr-certificate.c:1312 gcr/gcr-certificate.c:1323
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "Podpis"
 
-#: gcr/gcr-certificate.c:1315
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "Algoritmus podpisu"
 
-#: gcr/gcr-certificate.c:1319
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "Parametre podpisu"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Iný názov"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "Adresa XMPP"
-
-# DK: SRV = service record (SRV record)
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "DNS SRV"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "E-mail"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "Adresa X400"
-
-# MČ: tu som trochu mimo. Je to typu DNS, ale „dn“ evokuje LDAP.
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Názov adresára"
-
-# MČ: http://en.wikipedia.org/wiki/Electronic_data_interchange
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "Názov poskytovateľa EDI Party"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "Adresa IP"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "Registrovaný ID"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -803,7 +858,6 @@ msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Nepodarilo sa nájsť miesto na uloženie pripnutého certifikátu"
 
 #: tools/viewer/viewer.c:23
-#| msgid "Certificate Viewer"
 msgid "GCR Certificate Viewer"
 msgstr "Prehliadač certifikátov GCR"
 
@@ -1057,10 +1111,6 @@ msgstr "[súbor...]"
 #~ msgstr "Trieda"
 
 # Typ
-#~ msgid "Local only"
-#~ msgstr "Iba lokálny"
-
-# Typ
 #~ msgid "Exportable"
 #~ msgstr "Exportovateľný"
 
@@ -1188,10 +1238,6 @@ msgstr "[súbor...]"
 
 #~ msgid "Password cannot be blank"
 #~ msgstr "Heslo nemôže byť prázdne"
-
-# desktop entry name
-#~ msgid "Access Prompt"
-#~ msgstr "Výzva na prístup"
 
 # desktop entry comment
 #~ msgid "Unlock access to passwords and other secrets"

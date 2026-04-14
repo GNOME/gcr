@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
 "POT-Creation-Date: 2025-09-09 00:33+0000\n"
-"PO-Revision-Date: 2026-03-31 00:39+0200\n"
+"PO-Revision-Date: 2026-04-13 22:28+0200\n"
 "Last-Translator: Jose Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0\n"
-"X-Generator: Gtranslator 40.0\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -366,22 +366,20 @@ msgstr "Rozšírené využitie kľúča"
 #. Certificate Policies
 #: egg/egg-oid.c:171
 msgid "Extended Validation"
-msgstr ""
+msgstr "Rozšírené overenie"
 
 #: egg/egg-oid.c:172
 msgid "Certification Practices Statement"
-msgstr ""
+msgstr "Vyhlásenie o certifikačnej praxi"
 
 #. Authority Information Access (AIA) methods
 #: egg/egg-oid.c:175
 msgid "Online Certificate Status Protocol (OCSP)"
-msgstr ""
+msgstr "Online Certificate Status Protocol (OCSP)"
 
 #: egg/egg-oid.c:176
-#, fuzzy
-#| msgid "Certificate Authority"
 msgid "Certification Authority Issuer"
-msgstr "Autorita certifikátu"
+msgstr "Vydavateľ certifikačnej autority"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -593,51 +591,37 @@ msgstr "Zásady certifikátu"
 
 #: gcr/gcr-certificate.c:1116
 msgid "Policy"
-msgstr ""
+msgstr "Zásada"
 
 # Typ
 #: gcr/gcr-certificate.c:1140
-#, fuzzy
-#| msgid "Local only"
 msgid "Location"
-msgstr "Iba lokálny"
+msgstr "Umiestnenie"
 
 # desktop entry name
 #: gcr/gcr-certificate.c:1143
-#, fuzzy
-#| msgid "Access Prompt"
 msgid "Access Method"
-msgstr "Výzva na prístup"
+msgstr "Prístupová metóda"
 
 #: gcr/gcr-certificate.c:1158
-#, fuzzy
-#| msgid "Issuing distribution point"
 msgid "CRL Distribution Points"
-msgstr "Vydávajúce distribučné miesto"
+msgstr "Distribučné body CRL"
 
 #: gcr/gcr-certificate.c:1174
-#, fuzzy
-#| msgid "Issuing distribution point"
 msgid "Distribution Point"
-msgstr "Vydávajúce distribučné miesto"
+msgstr "Distribučný bod"
 
 #: gcr/gcr-certificate.c:1181
-#, fuzzy
-#| msgid "Issuing distribution point"
 msgid "Distribution Point CN"
-msgstr "Vydávajúce distribučné miesto"
+msgstr "Distribučný bod CN"
 
 #: gcr/gcr-certificate.c:1184
-#, fuzzy
-#| msgid "Issuing distribution point"
 msgid "Distribution Point OU"
-msgstr "Vydávajúce distribučné miesto"
+msgstr "Distribučný bod OU"
 
 #: gcr/gcr-certificate.c:1187
-#, fuzzy
-#| msgid "Issuing distribution point"
 msgid "Distribution Point U"
-msgstr "Vydávajúce distribučné miesto"
+msgstr "Distribučný bod U"
 
 # heading
 #: gcr/gcr-certificate.c:1204
@@ -812,8 +796,7 @@ msgstr "Zadajte heslo na odomknutie súkromného kľúča"
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
-msgstr ""
-"Aplikácia požaduje prístup k súkromnému kľúču „%s“, ten je ale uzamknutý"
+msgstr "Aplikácia požaduje prístup k súkromnému kľúču „%s“, ten je ale uzamknutý"
 
 # GtkRadioButton label
 #: gcr/gcr-ssh-agent-interaction.c:161
@@ -1152,9 +1135,7 @@ msgstr "[súbor...]"
 
 # spinner tooltip
 #~ msgid "Cannot import because there are no compatible importers"
-#~ msgstr ""
-#~ "Nedá sa importovať, pretože nie sú dostupné žiadne kompatibilné nástroje "
-#~ "na importovanie"
+#~ msgstr "Nedá sa importovať, pretože nie sú dostupné žiadne kompatibilné nástroje na importovanie"
 
 # spinner tooltip
 #~ msgid "No data to import"
@@ -1296,18 +1277,11 @@ msgstr "[súbor...]"
 #~ msgstr "Heslo"
 
 #, c-format
-#~ msgid ""
-#~ "The contents of “%s” are locked. In order to view the contents, enter the "
-#~ "correct password."
-#~ msgstr ""
-#~ "Obsah „%s“ je uzamknutý. Ak chcete tento obsah zobraziť, zadajte správne "
-#~ "heslo."
+#~ msgid "The contents of “%s” are locked. In order to view the contents, enter the correct password."
+#~ msgstr "Obsah „%s“ je uzamknutý. Ak chcete tento obsah zobraziť, zadajte správne heslo."
 
-#~ msgid ""
-#~ "The contents are locked. In order to view the contents, enter the correct "
-#~ "password."
-#~ msgstr ""
-#~ "Obsah je uzamknutý. Ak chcete tento obsah zobraziť, zadajte správne heslo."
+#~ msgid "The contents are locked. In order to view the contents, enter the correct password."
+#~ msgstr "Obsah je uzamknutý. Ak chcete tento obsah zobraziť, zadajte správne heslo."
 
 #~ msgid "View file"
 #~ msgstr "Zobraziť súbor"

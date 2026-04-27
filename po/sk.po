@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
 "POT-Creation-Date: 2025-09-09 00:33+0000\n"
-"PO-Revision-Date: 2026-04-13 22:28+0200\n"
+"PO-Revision-Date: 2026-04-27 02:19+0200\n"
 "Last-Translator: Jose Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -32,7 +32,7 @@ msgstr "Identifikátor používateľa"
 
 #: egg/egg-oid.c:45
 msgid "Email Address"
-msgstr "Emailová adresa"
+msgstr "E-mailová adresa"
 
 #: egg/egg-oid.c:53
 msgid "Date of Birth"
@@ -255,7 +255,7 @@ msgstr "Podpisovanie kódu"
 
 #: egg/egg-oid.c:143
 msgid "Email Protection"
-msgstr "Ochrana emailov"
+msgstr "Ochrana e-mailov"
 
 #: egg/egg-oid.c:144
 msgid "Time Stamping"
@@ -268,7 +268,7 @@ msgstr "Prístup k údajom certifikačnej autority"
 
 #: egg/egg-oid.c:148
 msgid "Subject directory attributes certificate extension"
-msgstr "Atribúty adresára subjektu s rozšírením certifikátu"
+msgstr "Rozšírenie certifikátu: atribúty adresára subjektu"
 
 # heading
 #: egg/egg-oid.c:149
@@ -425,7 +425,7 @@ msgstr "Digitálny podpis"
 
 #: gcr/gcr-certificate-extension-key-usage.c:65
 msgid "Non repudiation"
-msgstr "Nezavrhnutý"
+msgstr "Neodmietnuteľnosť"
 
 # usage_descriptions
 #: gcr/gcr-certificate-extension-key-usage.c:66
@@ -440,7 +440,7 @@ msgstr "Zašifrovanie údajov"
 # usage_descriptions
 #: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
-msgstr "Prijatie kľúča"
+msgstr "Dohoda na kľúči"
 
 # usage_descriptions
 #: gcr/gcr-certificate-extension-key-usage.c:69
@@ -569,7 +569,7 @@ msgstr "Identifikátor kľúča"
 # heading
 #: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
-msgstr "Využitie kľúča"
+msgstr "Použitie kľúča"
 
 # MČ: množné číslo?
 # PM: aj ked hodnot moze byt viac myslím ze to takto moze zostat
@@ -584,7 +584,6 @@ msgstr "Alternatívne názvy subjektu"
 
 # file filter
 #: gcr/gcr-certificate.c:1107
-#, fuzzy
 #| msgid "Certificate policies"
 msgid "Certificate Policies"
 msgstr "Zásady certifikátu"
@@ -677,7 +676,7 @@ msgstr "Názov vydavateľa"
 #. The Issued Parameters
 #: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
-msgstr "Vydaný cerfikát"
+msgstr "Vydaný certifikát"
 
 #: gcr/gcr-certificate.c:1380
 msgid "Version"
@@ -796,7 +795,8 @@ msgstr "Zadajte heslo na odomknutie súkromného kľúča"
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
-msgstr "Aplikácia požaduje prístup k súkromnému kľúču „%s“, ten je ale uzamknutý"
+msgstr ""
+"Aplikácia požaduje prístup k súkromnému kľúču „%s“, ten je ale uzamknutý"
 
 # GtkRadioButton label
 #: gcr/gcr-ssh-agent-interaction.c:161
@@ -1135,7 +1135,9 @@ msgstr "[súbor...]"
 
 # spinner tooltip
 #~ msgid "Cannot import because there are no compatible importers"
-#~ msgstr "Nedá sa importovať, pretože nie sú dostupné žiadne kompatibilné nástroje na importovanie"
+#~ msgstr ""
+#~ "Nedá sa importovať, pretože nie sú dostupné žiadne kompatibilné nástroje "
+#~ "na importovanie"
 
 # spinner tooltip
 #~ msgid "No data to import"
@@ -1277,11 +1279,18 @@ msgstr "[súbor...]"
 #~ msgstr "Heslo"
 
 #, c-format
-#~ msgid "The contents of “%s” are locked. In order to view the contents, enter the correct password."
-#~ msgstr "Obsah „%s“ je uzamknutý. Ak chcete tento obsah zobraziť, zadajte správne heslo."
+#~ msgid ""
+#~ "The contents of “%s” are locked. In order to view the contents, enter the "
+#~ "correct password."
+#~ msgstr ""
+#~ "Obsah „%s“ je uzamknutý. Ak chcete tento obsah zobraziť, zadajte správne "
+#~ "heslo."
 
-#~ msgid "The contents are locked. In order to view the contents, enter the correct password."
-#~ msgstr "Obsah je uzamknutý. Ak chcete tento obsah zobraziť, zadajte správne heslo."
+#~ msgid ""
+#~ "The contents are locked. In order to view the contents, enter the correct "
+#~ "password."
+#~ msgstr ""
+#~ "Obsah je uzamknutý. Ak chcete tento obsah zobraziť, zadajte správne heslo."
 
 #~ msgid "View file"
 #~ msgstr "Zobraziť súbor"

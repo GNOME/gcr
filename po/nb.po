@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gcr 3.38.x\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2025-10-15 15:04+0000\n"
-"PO-Revision-Date: 2025-10-16 15:59+0200\n"
+"POT-Creation-Date: 2025-09-09 00:33+0000\n"
+"PO-Revision-Date: 2026-05-05 20:10+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
@@ -317,16 +317,12 @@ msgid "Certificate issuer"
 msgstr "Sertifikatutsteder"
 
 #: egg/egg-oid.c:162
-#, fuzzy
-#| msgid "Basic Constraints"
 msgid "Name constraints"
-msgstr "Grunnleggende begrensninger"
+msgstr "Begrensninger på navn"
 
 #: egg/egg-oid.c:163
-#, fuzzy
-#| msgid "Certification revocation signature"
 msgid "Certificate Revocation List distribution points"
-msgstr "Signatur for tilbaketrekking av sertifisering"
+msgstr "Distribusjonspunkter for tilbaketrekkingsliste for sertifikater"
 
 #: egg/egg-oid.c:164
 msgid "Certificate policies"
@@ -334,16 +330,14 @@ msgstr "Sertifikatregler"
 
 #: egg/egg-oid.c:165
 msgid "Policy mappings"
-msgstr ""
+msgstr "Regelkoblinger"
 
 #: egg/egg-oid.c:166
-#, fuzzy
 msgid "Policy constraints"
-msgstr "Grunnleggende begrensninger"
+msgstr "Begrensninger for regelsett"
 
 #: egg/egg-oid.c:167
 #, fuzzy
-#| msgid "Subject Key Identifier"
 msgid "Authority key identifier"
 msgstr "Identifikator for subjektnøkkel"
 
@@ -358,7 +352,6 @@ msgstr "Utvidet validering"
 
 #: egg/egg-oid.c:172
 #, fuzzy
-#| msgid "Certification revocation signature"
 msgid "Certification Practices Statement"
 msgstr "Signatur for tilbaketrekking av sertifisering"
 
@@ -559,10 +552,8 @@ msgid "Subject Alternative Names"
 msgstr "Alternative navn på subjekt"
 
 #: gcr/gcr-certificate.c:1107
-#, fuzzy
-#| msgid "Certificate files"
 msgid "Certificate Policies"
-msgstr "Sertifikatfiler"
+msgstr "Sertifikatregler"
 
 #: gcr/gcr-certificate.c:1116
 msgid "Policy"
@@ -748,10 +739,9 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #: gcr/gcr-ssh-agent-interaction.c:116
-#, fuzzy, c-format
-#| msgid "Unlock: %s"
+#, c-format
 msgid "Unlock password for: %s"
-msgstr "Lås opp: %s"
+msgstr "Lås opp passord for: %s"
 
 #: gcr/gcr-ssh-agent-interaction.c:152
 msgid "Unlock private key"
@@ -808,10 +798,8 @@ msgid "Couldn’t find a place to store the pinned certificate"
 msgstr "Klarte ikke å finne en plass å lagre festet sertifikat"
 
 #: tools/viewer/viewer.c:23
-#, fuzzy
-#| msgid "Certificate Viewer"
 msgid "GCR Certificate Viewer"
-msgstr "Sertifikatvisning"
+msgstr "GCR sertifikatvisning"
 
 #: tools/viewer/viewer.c:30
 msgid "Show the application's version"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-keyring\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
-"POT-Creation-Date: 2025-08-21 12:25+0000\n"
-"PO-Revision-Date: 2025-08-27 19:48+0700\n"
+"POT-Creation-Date: 2025-09-09 00:33+0000\n"
+"PO-Revision-Date: 2026-05-17 22:49+0700\n"
 "Last-Translator: Akom Chotiphantawanon <knight2000@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "Language: th\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.9\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -259,144 +259,110 @@ msgstr "การลงเวลา"
 
 #. Extended certificate attributes
 #: egg/egg-oid.c:147
-#, fuzzy
-#| msgid "Certificate Authority"
 msgid "Certificate Authority Information Access"
-msgstr "องค์กรออกใบรับรอง"
+msgstr "การเข้าถึงข้อมูลองค์กรออกใบรับรอง"
 
 #: egg/egg-oid.c:148
 msgid "Subject directory attributes certificate extension"
-msgstr ""
+msgstr "ส่วนขยายใบรับรองแอตทริบิวต์สารบบของผู้รับการรับรอง"
 
 #: egg/egg-oid.c:149
-#, fuzzy
-#| msgid "Subject Key Identifier"
 msgid "Subject key identifier"
-msgstr "ตัวระบุกุญแจของผู้รับการรับรอง"
+msgstr "ตัวระบุคีย์ของผู้รับการรับรอง"
 
 #: egg/egg-oid.c:150
-#, fuzzy
-#| msgid "Key Usage"
 msgid "Key usage"
-msgstr "การใช้งานกุญแจ"
+msgstr "การใช้งานคีย์"
 
 #: egg/egg-oid.c:151
 msgid "Private key usage period"
-msgstr ""
+msgstr "ระยะเวลาการใช้งานคีย์ส่วนตัว"
 
 #: egg/egg-oid.c:152
-#, fuzzy
-#| msgid "Subject Alternative Names"
 msgid "Subject alternative name"
 msgstr "ชื่ออื่นของผู้รับการรับรอง"
 
 #: egg/egg-oid.c:153
-#, fuzzy
-#| msgid "Subject Alternative Names"
 msgid "Issuer alternative name"
-msgstr "ชื่ออื่นของผู้รับการรับรอง"
+msgstr "ชื่ออื่นของผู้ออกให้"
 
 #: egg/egg-oid.c:154
-#, fuzzy
-#| msgid "Basic Constraints"
 msgid "Basic constraints"
 msgstr "ข้อบังคับพื้นฐาน"
 
 #: egg/egg-oid.c:155
 msgid "CRL number"
-msgstr ""
+msgstr "หมายเลข CRL"
 
 #: egg/egg-oid.c:156
-#, fuzzy
-#| msgid "Reason"
 msgid "Reason code"
-msgstr "เหตุผล"
+msgstr "รหัสเหตุผล"
 
 #: egg/egg-oid.c:157
 msgid "Hold instruction code"
-msgstr ""
+msgstr "รหัสคำสั่งระงับ"
 
 #: egg/egg-oid.c:158
-#, fuzzy
-#| msgid "Invalid"
 msgid "Invalidity date"
-msgstr "ใช้ไม่ได้"
+msgstr "วันที่ที่ใช้ไม่ได้"
 
 #: egg/egg-oid.c:159
-#, fuzzy
-#| msgid "Certification revocation signature"
 msgid "Certificate Revocation List indicator"
-msgstr "ลายเซ็นเพิกถอนใบรับรอง"
+msgstr "ตัวชี้บอกรายการเพิกถอนใบรับรอง"
 
 #: egg/egg-oid.c:160
 msgid "Issuing distribution point"
-msgstr ""
+msgstr "จุดแจกจ่ายการออกใบรับรอง"
 
 #: egg/egg-oid.c:161
-#, fuzzy
-#| msgid "Certificate Viewer"
 msgid "Certificate issuer"
-msgstr "เครื่องมือแสดงใบรับรอง"
+msgstr "ผู้ออกใบรับรอง"
 
 #: egg/egg-oid.c:162
-#, fuzzy
-#| msgid "Basic Constraints"
 msgid "Name constraints"
-msgstr "ข้อบังคับพื้นฐาน"
+msgstr "ข้อบังคับชื่อ"
 
 #: egg/egg-oid.c:163
-#, fuzzy
-#| msgid "Certification revocation signature"
 msgid "Certificate Revocation List distribution points"
-msgstr "ลายเซ็นเพิกถอนใบรับรอง"
+msgstr "จุดแจกจ่ายรายการเพิกถอนใบรับรอง"
 
 #: egg/egg-oid.c:164
-#, fuzzy
-#| msgid "Certificate files"
 msgid "Certificate policies"
-msgstr "แฟ้มใบรับรอง"
+msgstr "นโยบายใบรับรอง"
 
 #: egg/egg-oid.c:165
 msgid "Policy mappings"
-msgstr ""
+msgstr "การแมปนโยบาย"
 
 #: egg/egg-oid.c:166
-#, fuzzy
-#| msgid "Basic Constraints"
 msgid "Policy constraints"
-msgstr "ข้อบังคับพื้นฐาน"
+msgstr "ข้อบังคับนโยบาย"
 
 #: egg/egg-oid.c:167
-#, fuzzy
-#| msgid "Subject Key Identifier"
 msgid "Authority key identifier"
-msgstr "ตัวระบุกุญแจของผู้รับการรับรอง"
+msgstr "ตัวระบุคีย์ขององค์กร"
 
 #: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
 msgid "Extended Key Usage"
-msgstr "การใช้งานกุญแจเพิ่มเติม"
+msgstr "การใช้งานคีย์เพิ่มเติม"
 
 #. Certificate Policies
 #: egg/egg-oid.c:171
 msgid "Extended Validation"
-msgstr ""
+msgstr "การตรวจสอบแบบขยาย"
 
 #: egg/egg-oid.c:172
-#, fuzzy
-#| msgid "Certification revocation signature"
 msgid "Certification Practices Statement"
-msgstr "ลายเซ็นเพิกถอนใบรับรอง"
+msgstr "แนวปฏิบัติการให้บริการใบรับรอง"
 
 #. Authority Information Access (AIA) methods
 #: egg/egg-oid.c:175
 msgid "Online Certificate Status Protocol (OCSP)"
-msgstr ""
+msgstr "โปรโตคอลตรวจสอบสถานะใบรับรองออนไลน์ (OCSP)"
 
 #: egg/egg-oid.c:176
-#, fuzzy
-#| msgid "Certificate Authority"
 msgid "Certification Authority Issuer"
-msgstr "องค์กรออกใบรับรอง"
+msgstr "ผู้ออกองค์กรออกใบรับรอง"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -428,7 +394,7 @@ msgstr "URI มีรูปแบบที่ผิดไวยากรณ์"
 
 #: gck/gck-uri.c:179
 msgid "The URI has a bad version number."
-msgstr "URI มีเลขรุ่นที่ใช้การไม่ได้"
+msgstr "URI มีเลขเวอร์ชันที่ใช้ไม่ได้"
 
 #: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
 #, c-format
@@ -445,7 +411,7 @@ msgstr "การห้ามปฏิเสธความรับผิด"
 
 #: gcr/gcr-certificate-extension-key-usage.c:66
 msgid "Key encipherment"
-msgstr "การเข้ารหัสลับกุญแจ"
+msgstr "การเข้ารหัสลับคีย์"
 
 #: gcr/gcr-certificate-extension-key-usage.c:67
 msgid "Data encipherment"
@@ -453,7 +419,7 @@ msgstr "การเข้ารหัสลับข้อมูล"
 
 #: gcr/gcr-certificate-extension-key-usage.c:68
 msgid "Key agreement"
-msgstr "การตกลงเห็นพ้องของกุญแจ"
+msgstr "การตกลงเห็นพ้องของคีย์"
 
 #: gcr/gcr-certificate-extension-key-usage.c:69
 msgid "Certificate signature"
@@ -517,23 +483,23 @@ msgstr "ID ที่ลงทะเบียนไว้"
 
 #: gcr/gcr-certificate.c:956
 msgid "Key Algorithm"
-msgstr "อัลกอริทึมของกุญแจ"
+msgstr "อัลกอริทึมของคีย์"
 
 #: gcr/gcr-certificate.c:962
 msgid "Key Parameters"
-msgstr "พารามิเตอร์สำหรับกุญแจ"
+msgstr "พารามิเตอร์สำหรับคีย์"
 
 #: gcr/gcr-certificate.c:969
 msgid "Key Size"
-msgstr "ขนาดกุญแจ"
+msgstr "ขนาดคีย์"
 
 #: gcr/gcr-certificate.c:979
 msgid "Key SHA1 Fingerprint"
-msgstr "ลายนิ้วมือ SHA1 ของกุญแจ"
+msgstr "ลายนิ้วมือ SHA1 ของคีย์"
 
 #: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
 msgid "Public Key"
-msgstr "กุญแจสาธารณะ"
+msgstr "คีย์สาธารณะ"
 
 #: gcr/gcr-certificate.c:994
 msgid "Basic Constraints"
@@ -565,15 +531,15 @@ msgstr "การใช้งานที่อนุญาต"
 
 #: gcr/gcr-certificate.c:1032
 msgid "Subject Key Identifier"
-msgstr "ตัวระบุกุญแจของผู้รับการรับรอง"
+msgstr "ตัวระบุคีย์ของผู้รับการรับรอง"
 
 #: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
 msgid "Key Identifier"
-msgstr "ตัวระบุกุญแจ"
+msgstr "ตัวระบุคีย์"
 
 #: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
-msgstr "การใช้งานกุญแจ"
+msgstr "การใช้งานคีย์"
 
 #: gcr/gcr-certificate.c:1067
 msgid "Usages"
@@ -584,46 +550,40 @@ msgid "Subject Alternative Names"
 msgstr "ชื่ออื่นของผู้รับการรับรอง"
 
 #: gcr/gcr-certificate.c:1107
-#, fuzzy
-#| msgid "Certificate files"
 msgid "Certificate Policies"
-msgstr "แฟ้มใบรับรอง"
+msgstr "แนวนโยบายใบรับรอง"
 
 #: gcr/gcr-certificate.c:1116
 msgid "Policy"
-msgstr ""
+msgstr "นโยบาย"
 
 #: gcr/gcr-certificate.c:1140
-#, fuzzy
-#| msgid "Local only"
 msgid "Location"
-msgstr "ใช้ในเครื่องเท่านั้น"
+msgstr "ตำแหน่ง"
 
 #: gcr/gcr-certificate.c:1143
-#, fuzzy
-#| msgid "Access Prompt"
 msgid "Access Method"
-msgstr "คำถามก่อนเข้าถึง"
+msgstr "วิธีการเข้าถึง"
 
 #: gcr/gcr-certificate.c:1158
 msgid "CRL Distribution Points"
-msgstr ""
+msgstr "จุดแจกจ่าย CRL"
 
 #: gcr/gcr-certificate.c:1174
 msgid "Distribution Point"
-msgstr ""
+msgstr "จุดแจกจ่าย"
 
 #: gcr/gcr-certificate.c:1181
 msgid "Distribution Point CN"
-msgstr ""
+msgstr "CN ของจุดแจกจ่าย"
 
 #: gcr/gcr-certificate.c:1184
 msgid "Distribution Point OU"
-msgstr ""
+msgstr "OU ของจุดแจกจ่าย"
 
 #: gcr/gcr-certificate.c:1187
 msgid "Distribution Point U"
-msgstr ""
+msgstr "U ของจุดแจกจ่าย"
 
 #: gcr/gcr-certificate.c:1204
 msgid "Extension"
@@ -695,7 +655,7 @@ msgstr "ลายนิ้วมือของใบรับรอง"
 #. Public Key Info
 #: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
-msgstr "ข้อมูลกุญแจสาธารณะ"
+msgstr "ข้อมูลคีย์สาธารณะ"
 
 #. Signature
 #: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
@@ -713,12 +673,12 @@ msgstr "พารามิเตอร์สำหรับลายเซ็น
 #: gcr/gcr-certificate-request.c:397
 #, c-format
 msgid "Unsupported key type for certificate request"
-msgstr "ไม่รองรับกุญแจชนิดนี้สำหรับคำร้องขอใบรับรอง"
+msgstr "ไม่รองรับคีย์ชนิดนี้สำหรับคำร้องขอใบรับรอง"
 
 #: gcr/gcr-certificate-request.c:484 gcr/gcr-certificate-request.c:568
 #, c-format
 msgid "The key cannot be used to sign the request"
-msgstr "กุญแจนี้ไม่สามารถใช้เซ็นกำกับใบคำร้องได้"
+msgstr "คีย์นี้ไม่สามารถใช้เซ็นกำกับใบคำร้องได้"
 
 #: gcr/gcr-gnupg-importer.c:94
 msgid "GnuPG Keyring"
@@ -746,11 +706,11 @@ msgstr "การกระทำถูกยกเลิก"
 
 #: gcr/gcr-parser.c:328
 msgid "Private Key"
-msgstr "กุญแจส่วนตัว"
+msgstr "คีย์ส่วนตัว"
 
 #: gcr/gcr-parser.c:337
 msgid "PGP Key"
-msgstr "กุญแจ PGP"
+msgstr "คีย์ PGP"
 
 #: gcr/gcr-parser.c:340
 msgid "Certificate Request"
@@ -783,33 +743,29 @@ msgstr "ปลดล็อกรหัสผ่านสำหรับ: %s"
 
 #: gcr/gcr-ssh-agent-interaction.c:152
 msgid "Unlock private key"
-msgstr "ปลดล็อกกุญแจส่วนตัว"
+msgstr "ปลดล็อกคีย์ส่วนตัว"
 
 #: gcr/gcr-ssh-agent-interaction.c:153
 msgid "Enter password to unlock the private key"
-msgstr ""
+msgstr "ป้อนรหัสผ่านเพื่อปลดล็อกคีย์ส่วนตัว"
 
 #. TRANSLATORS: The private key is locked
 #: gcr/gcr-ssh-agent-interaction.c:156
 #, c-format
 msgid "An application wants access to the private key “%s”, but it is locked"
-msgstr ""
+msgstr "มีแอปพลิเคชันต้องการจะใช้คีย์ส่วนตัว “%s” ซึ่งถูกล็อคอยู่"
 
 #: gcr/gcr-ssh-agent-interaction.c:161
-#, fuzzy
-#| msgid "Automatically unlock this keyring whenever I'm logged in"
 msgid "Automatically unlock this key whenever I’m logged in"
-msgstr "ปลดล็อคพวงกุญแจนี้โดยอัตโนมัติทุกครั้งที่ฉันเข้าระบบ"
+msgstr "ปลดล็อคคีย์นี้โดยอัตโนมัติทุกครั้งที่ฉันเข้าระบบ"
 
 #: gcr/gcr-ssh-agent-interaction.c:163
 msgid "Unlock"
 msgstr "ปลดล็อก"
 
 #: gcr/gcr-ssh-agent-interaction.c:166
-#, fuzzy
-#| msgid "The password was incorrect"
 msgid "The unlock password was incorrect"
-msgstr "รหัสผ่านไม่ถูกต้อง"
+msgstr "รหัสผ่านเพื่อปลดล็อกไม่ถูกต้อง"
 
 #: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
@@ -821,11 +777,11 @@ msgstr "ป้อนวลีรหัสผ่าน OpenSSH ของคุณ
 
 #: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
-msgstr "ไม่รู้จักหรือไม่มีแอตทริบิวต์สำหรับกุญแจ"
+msgstr "ไม่รู้จักหรือไม่มีแอตทริบิวต์สำหรับคีย์"
 
 #: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
-msgstr "ไม่สามารถสร้างกุญแจสาธารณะ"
+msgstr "ไม่สามารถสร้างคีย์สาธารณะ"
 
 #: gcr/gcr-system-prompt.c:896
 msgid "Another prompt is already in progress"

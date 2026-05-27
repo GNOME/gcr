@@ -1,0 +1,804 @@
+# Lao translation for gcr.
+# Copyright (C) 2025 gcr's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gcr package.
+# bone NI <bounkirdni@gmail.com>,  2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gcr main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-09-10 13:39+0000\n"
+"PO-Revision-Date: 2025-09-10 13:39+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Lao <lo@li.org>\n"
+"Language: lo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: egg/egg-oid.c:40
+msgid "Domain Component"
+msgstr "ສ່ວນປະກອບໂດເມນ"
+
+#: egg/egg-oid.c:42
+msgid "User ID"
+msgstr "ລະຫັດຜູ້ໃຊ້"
+
+#: egg/egg-oid.c:45
+msgid "Email Address"
+msgstr "ທີ່ຢູ່ອີເມວ"
+
+#: egg/egg-oid.c:53
+msgid "Date of Birth"
+msgstr "ວັນເດືອນປີເກີດ"
+
+#: egg/egg-oid.c:55
+msgid "Place of Birth"
+msgstr "ສະຖານທີ່ເກີດ"
+
+#: egg/egg-oid.c:57
+msgid "Gender"
+msgstr "ເພດ"
+
+#: egg/egg-oid.c:59
+msgid "Country of Citizenship"
+msgstr "ປະເທດສັນຊາດ"
+
+#: egg/egg-oid.c:61
+msgid "Country of Residence"
+msgstr "ປະເທດທີ່ອາໄສຢູ່"
+
+#: egg/egg-oid.c:64
+msgid "Common Name"
+msgstr "ຊື່ທົ່ວໄປ"
+
+#: egg/egg-oid.c:66
+msgid "Surname"
+msgstr "ນາມສະກຸນ"
+
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
+msgid "Serial Number"
+msgstr "ເລກລໍາດັບ"
+
+#: egg/egg-oid.c:70
+msgid "Country"
+msgstr "ປະເທດ"
+
+#: egg/egg-oid.c:72
+msgid "Locality"
+msgstr "ທ້ອງຖິ່ນ"
+
+#: egg/egg-oid.c:74
+msgid "State"
+msgstr "ລັດ"
+
+#: egg/egg-oid.c:76
+msgid "Street"
+msgstr "ຖະໜົນ"
+
+#: egg/egg-oid.c:78
+msgid "Organization"
+msgstr "ອົງກອນ"
+
+#: egg/egg-oid.c:80
+msgid "Organizational Unit"
+msgstr "ໜ່ວຍງານໃນອົງກອນ"
+
+#: egg/egg-oid.c:82
+msgid "Title"
+msgstr "ຕໍາແໜ່ງ"
+
+#: egg/egg-oid.c:84
+msgid "Telephone Number"
+msgstr "ເບີໂທລະສັບ"
+
+#: egg/egg-oid.c:86
+msgid "Given Name"
+msgstr "ຊື່"
+
+#: egg/egg-oid.c:88
+msgid "Initials"
+msgstr "ຊື່ຫຍໍ້"
+
+#: egg/egg-oid.c:90
+msgid "Generation Qualifier"
+msgstr "ຕົວລະບຸລຸ້ນຄົນ"
+
+#: egg/egg-oid.c:92
+msgid "DN Qualifier"
+msgstr "ຕົວລະບຸ DN"
+
+#: egg/egg-oid.c:94
+msgid "Pseudonym"
+msgstr "ນາມແຝງ"
+
+#. Translators: Russian: Main state registration number
+#: egg/egg-oid.c:98
+msgid "OGRN"
+msgstr "OGRN"
+
+#. Translators: Russian: Individual insurance account number
+#: egg/egg-oid.c:101
+msgid "SNILS"
+msgstr "SNILS"
+
+#. Translators: Russian: Main state registration number for individual enterpreneurs
+#: egg/egg-oid.c:104
+msgid "OGRNIP"
+msgstr "OGRNIP"
+
+#. Translators: Russian: Individual taxpayer number
+#: egg/egg-oid.c:107
+msgid "INN"
+msgstr "INN"
+
+#: egg/egg-oid.c:110
+msgid "RSA"
+msgstr "RSA"
+
+#: egg/egg-oid.c:111
+msgid "MD2 with RSA"
+msgstr "MD2 ກັບ RSA"
+
+#: egg/egg-oid.c:112
+msgid "MD5 with RSA"
+msgstr "MD5 ກັບ RSA"
+
+#: egg/egg-oid.c:113
+msgid "SHA1 with RSA"
+msgstr "SHA1 ກັບ RSA"
+
+#: egg/egg-oid.c:114
+msgid "RSA with OAEP padding"
+msgstr "RSA ກັບ OAEP padding"
+
+#: egg/egg-oid.c:115
+msgid "RSA with MGF1"
+msgstr "RSA ກັບ MGF1"
+
+#: egg/egg-oid.c:116
+msgid "RSA signature with RSA-PSS"
+msgstr "ລາຍເຊັນ RSA ກັບ RSA-PSS"
+
+#: egg/egg-oid.c:117
+msgid "SHA256 with RSA encryption"
+msgstr "SHA256 ກັບການເຂົ້າລະຫັດ RSA"
+
+#: egg/egg-oid.c:118
+msgid "SHA384 with RSA encryption"
+msgstr "SHA384 ກັບການເຂົ້າລະຫັດ RSA"
+
+#: egg/egg-oid.c:119
+msgid "SHA512 with RSA encryption"
+msgstr "SHA512 ກັບການເຂົ້າລະຫັດ RSA"
+
+#: egg/egg-oid.c:120
+msgid "SHA224 with RSA encryption"
+msgstr "SHA224 ກັບການເຂົ້າລະຫັດ RSA"
+
+#: egg/egg-oid.c:122
+msgid "DSA"
+msgstr "DSA"
+
+#: egg/egg-oid.c:123
+msgid "SHA1 with DSA"
+msgstr "SHA1 ກັບ DSA"
+
+#: egg/egg-oid.c:125
+msgid "Elliptic Curve"
+msgstr "ເສັ້ນໂຄ້ງອີລິບຕິກ"
+
+#: egg/egg-oid.c:126
+msgid "SHA1 with ECDSA"
+msgstr "SHA1 ກັບ ECDSA"
+
+#: egg/egg-oid.c:127
+msgid "SHA224 with ECDSA"
+msgstr "SHA224 ກັບ ECDSA"
+
+#: egg/egg-oid.c:128
+msgid "SHA256 with ECDSA"
+msgstr "SHA256 ກັບ ECDSA"
+
+#: egg/egg-oid.c:129
+msgid "SHA384 with ECDSA"
+msgstr "SHA384 ກັບ ECDSA"
+
+#: egg/egg-oid.c:130
+msgid "SHA512 with ECDSA"
+msgstr "SHA512 ກັບ ECDSA"
+
+#: egg/egg-oid.c:132
+msgid "GOST R 34.11-94 with GOST R 34.10-2001"
+msgstr "GOST R 34.11-94 ກັບ GOST R 34.10-2001"
+
+#: egg/egg-oid.c:133
+msgid "GOST R 34.10-2001"
+msgstr "GOST R 34.10-2001"
+
+#: egg/egg-oid.c:134
+msgid "GOST R 34.10-2012 256-bit curve"
+msgstr "GOST R 34.10-2012 256-bit curve"
+
+#: egg/egg-oid.c:135
+msgid "GOST R 34.10-2012 512-bit curve"
+msgstr "GOST R 34.10-2012 512-bit curve"
+
+#: egg/egg-oid.c:136
+msgid "GOST R 34.11-2012/256 with GOST R 34.10-2012 256-bit curve"
+msgstr "GOST R 34.11-2012/256 ກັບ GOST R 34.10-2012 256-bit curve"
+
+#: egg/egg-oid.c:137
+msgid "GOST R 34.11-2012/512 with GOST R 34.10-2012 512-bit curve"
+msgstr "GOST R 34.11-2012/512 ກັບ GOST R 34.10-2012 512-bit curve"
+
+#. Extended Key Usages
+#: egg/egg-oid.c:140
+msgid "Server Authentication"
+msgstr "ການຢືນຢັນຕົວຕົນເຊີບເວີ"
+
+#: egg/egg-oid.c:141
+msgid "Client Authentication"
+msgstr "ການຢືນຢັນຕົວຕົນໄຄລເອັນ"
+
+#: egg/egg-oid.c:142
+msgid "Code Signing"
+msgstr "ການເຊັນລະຫັດ"
+
+#: egg/egg-oid.c:143
+msgid "Email Protection"
+msgstr "ການປ້ອງກັນອີເມວ"
+
+#: egg/egg-oid.c:144
+msgid "Time Stamping"
+msgstr "ການປະທັບຕາເວລາ"
+
+#. Extended certificate attributes
+#: egg/egg-oid.c:147
+msgid "Certificate Authority Information Access"
+msgstr "ການເຂົ້າເຖິງຂໍ້ມູນຜູ້ອອກໃບຮັບຮອງ"
+
+#: egg/egg-oid.c:148
+msgid "Subject directory attributes certificate extension"
+msgstr "ສ່ວນຂະຫຍາຍໃບຮັບຮອງຄຸນສົມບັດຂອງ Subject Directory"
+
+#: egg/egg-oid.c:149
+msgid "Subject key identifier"
+msgstr "ຕົວລະບຸກຸນແຈຂອງຫົວຂໍ້"
+
+#: egg/egg-oid.c:150
+msgid "Key usage"
+msgstr "ການນໍາໃຊ້ກຸນແຈ"
+
+#: egg/egg-oid.c:151
+msgid "Private key usage period"
+msgstr "ໄລຍະເວລານໍາໃຊ້ກຸນແຈສ່ວນຕົວ"
+
+#: egg/egg-oid.c:152
+msgid "Subject alternative name"
+msgstr "ຊື່ອື່ນຂອງຫົວຂໍ້"
+
+#: egg/egg-oid.c:153
+msgid "Issuer alternative name"
+msgstr "ຊື່ອື່ນຂອງຜູ້ອອກ"
+
+#: egg/egg-oid.c:154
+msgid "Basic constraints"
+msgstr "ຂໍ້ຈຳກັດພື້ນຖານ"
+
+#: egg/egg-oid.c:155
+msgid "CRL number"
+msgstr "ໝາຍເລກ CRL"
+
+#: egg/egg-oid.c:156
+msgid "Reason code"
+msgstr "ລະຫັດເຫດຜົນ"
+
+#: egg/egg-oid.c:157
+msgid "Hold instruction code"
+msgstr "ລະຫັດຄໍາສັ່ງລະງັບ"
+
+#: egg/egg-oid.c:158
+msgid "Invalidity date"
+msgstr "ວັນທີທີ່ໃຊ້ບໍ່ໄດ້"
+
+#: egg/egg-oid.c:159
+msgid "Certificate Revocation List indicator"
+msgstr "ຕົວຊີ້ບອກລາຍການຖອນໃບຮັບຮອງ"
+
+#: egg/egg-oid.c:160
+msgid "Issuing distribution point"
+msgstr "ຈຸດແຈກຢາຍການອອກໃບຮັບຮອງ"
+
+#: egg/egg-oid.c:161
+msgid "Certificate issuer"
+msgstr "ຜູ້ອອກໃບຮັບຮອງ"
+
+#: egg/egg-oid.c:162
+msgid "Name constraints"
+msgstr "ຂໍ້ຈຳກັດຊື່"
+
+#: egg/egg-oid.c:163
+msgid "Certificate Revocation List distribution points"
+msgstr "ຈຸດແຈກຢາຍລາຍການຖອນໃບຮັບຮອງ"
+
+#: egg/egg-oid.c:164
+msgid "Certificate policies"
+msgstr "ນະໂຍບາຍໃບຮັບຮອງ"
+
+#: egg/egg-oid.c:165
+msgid "Policy mappings"
+msgstr "ການຈັບຄູ່ນະໂຍບາຍ"
+
+#: egg/egg-oid.c:166
+msgid "Policy constraints"
+msgstr "ຂໍ້ຈຳກັດນະໂຍບາຍ"
+
+#: egg/egg-oid.c:167
+msgid "Authority key identifier"
+msgstr "ຕົວລະບຸກຸນແຈຂອງຜູ້ມີອຳນາດ"
+
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "ການນໍາໃຊ້ກຸນແຈແບບຂະຫຍາຍ"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "ການກວດສອບແບບຂະຫຍາຍ"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "ຖະແຫຼງການການປະຕິບັດການອອກໃບຮັບຮອງ"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "ໂປຣໂຕຄໍກວດສອບສະຖານະໃບຮັບຮອງອອນລາຍ (OCSP)"
+
+#: egg/egg-oid.c:176
+msgid "Certification Authority Issuer"
+msgstr "ຜູ້ອອກໃບຮັບຮອງ"
+
+#: gck/gck-module.c:271
+#, c-format
+msgid "Error loading PKCS#11 module: %s"
+msgstr "ຜິດພາດໃນການໂຫຼດໂມດູນ PKCS#11: %s"
+
+#: gck/gck-module.c:286
+#, c-format
+msgid "Couldn’t initialize PKCS#11 module: %s"
+msgstr "ບໍ່ສາມາດເລີ່ມຕົ້ນໂມດູນ PKCS#11 ໄດ້: %s"
+
+#: gck/gck-modules.c:60
+#, c-format
+msgid "Couldn’t initialize registered PKCS#11 modules: %s"
+msgstr "ບໍ່ສາມາດເລີ່ມຕົ້ນໂມດູນ PKCS#11 ທີ່ລົງທະບຽນໄວ້ໄດ້: %s"
+
+#: gck/gck-uri.c:167
+#, c-format
+msgid "The URI has invalid encoding."
+msgstr "URI ມີການເຂົ້າລະຫັດທີ່ບໍ່ຖືກຕ້ອງ."
+
+#: gck/gck-uri.c:171
+msgid "The URI does not have the “pkcs11” scheme."
+msgstr "URI ບໍ່ມີ scheme “pkcs11”."
+
+#: gck/gck-uri.c:175
+msgid "The URI has bad syntax."
+msgstr "URI ມີ syntax ທີ່ບໍ່ຖືກຕ້ອງ."
+
+#: gck/gck-uri.c:179
+msgid "The URI has a bad version number."
+msgstr "URI ມີໝາຍເລກເວີຊັນທີ່ບໍ່ຖືກຕ້ອງ."
+
+#: gcr/gcr-callback-output-stream.c:56 gcr/gcr-callback-output-stream.c:73
+#, c-format
+msgid "The stream was closed"
+msgstr "ສະຕຣີມໄດ້ຖືກປິດແລ້ວ"
+
+#: gcr/gcr-certificate-extension-key-usage.c:64
+msgid "Digital signature"
+msgstr "ລາຍເຊັນດິຈິຕອນ"
+
+#: gcr/gcr-certificate-extension-key-usage.c:65
+msgid "Non repudiation"
+msgstr "ການບໍ່ປະຕິເສດຄວາມຮັບຜິດຊອບ"
+
+#: gcr/gcr-certificate-extension-key-usage.c:66
+msgid "Key encipherment"
+msgstr "ການເຂົ້າລະຫັດກຸນແຈ"
+
+#: gcr/gcr-certificate-extension-key-usage.c:67
+msgid "Data encipherment"
+msgstr "ການເຂົ້າລະຫັດຂໍ້ມູນ"
+
+#: gcr/gcr-certificate-extension-key-usage.c:68
+msgid "Key agreement"
+msgstr "ການຕົກລົງກຸນແຈ"
+
+#: gcr/gcr-certificate-extension-key-usage.c:69
+msgid "Certificate signature"
+msgstr "ລາຍເຊັນໃບຮັບຮອງ"
+
+#: gcr/gcr-certificate-extension-key-usage.c:70
+msgid "Revocation list signature"
+msgstr "ລາຍເຊັນລາຍການຖອນ"
+
+#: gcr/gcr-certificate-extension-key-usage.c:71
+msgid "Encipher only"
+msgstr "ເຂົ້າລະຫັດເທົ່ານັ້ນ"
+
+#: gcr/gcr-certificate-extension-key-usage.c:72
+msgid "Decipher only"
+msgstr "ຖອດລະຫັດເທົ່ານັ້ນ"
+
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "ຊື່ອື່ນໆ"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "ທີ່ຢູ່ XMPP"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "DNS SRV"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "ອີເມວ"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "ທີ່ຢູ່ X400"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "ຊື່ໄດເຣັກທໍຣີ"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "ຊື່ພາກສ່ວນ EDI"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "ທີ່ຢູ່ IP"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "ໄອດີທີ່ລົງທະບຽນ"
+
+#: gcr/gcr-certificate.c:956
+msgid "Key Algorithm"
+msgstr "ອັນກໍຣິທຶມກຸນແຈ"
+
+#: gcr/gcr-certificate.c:962
+msgid "Key Parameters"
+msgstr "ພາຣາມິເຕີກຸນແຈ"
+
+#: gcr/gcr-certificate.c:969
+msgid "Key Size"
+msgstr "ຂະໜາດກຸນແຈ"
+
+#: gcr/gcr-certificate.c:979
+msgid "Key SHA1 Fingerprint"
+msgstr "ລາຍນິ້ວມື SHA1 ຂອງກຸນແຈ"
+
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
+msgid "Public Key"
+msgstr "ກຸນແຈສາທາລະນະ"
+
+#: gcr/gcr-certificate.c:994
+msgid "Basic Constraints"
+msgstr "ຂໍ້ຈຳກັດພື້ນຖານ"
+
+#: gcr/gcr-certificate.c:996
+msgid "Certificate Authority"
+msgstr "ຜູ້ອອກໃບຮັບຮອງ"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "Yes"
+msgstr "ແມ່ນ"
+
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
+msgid "No"
+msgstr "ບໍ່"
+
+#: gcr/gcr-certificate.c:1000
+msgid "Unlimited"
+msgstr "ບໍ່ຈຳກັດ"
+
+#: gcr/gcr-certificate.c:1004
+msgid "Max Path Length"
+msgstr "ຄວາມຍາວເສັ້ນທາງສູງສຸດ"
+
+#: gcr/gcr-certificate.c:1018
+msgid "Allowed Purposes"
+msgstr "ຈຸດປະສົງທີ່ອະນຸຍາດ"
+
+#: gcr/gcr-certificate.c:1032
+msgid "Subject Key Identifier"
+msgstr "ຕົວລະບຸກຸນແຈຂອງຫົວຂໍ້"
+
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
+msgid "Key Identifier"
+msgstr "ຕົວລະບຸກຸນແຈ"
+
+#: gcr/gcr-certificate.c:1065
+msgid "Key Usage"
+msgstr "ການນໍາໃຊ້ກຸນແຈ"
+
+#: gcr/gcr-certificate.c:1067
+msgid "Usages"
+msgstr "ການນໍາໃຊ້"
+
+#: gcr/gcr-certificate.c:1078
+msgid "Subject Alternative Names"
+msgstr "ຊື່ອື່ນໆຂອງຫົວຂໍ້"
+
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "ນະໂຍບາຍໃບຮັບຮອງ"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "ນະໂຍບາຍ"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "ທີ່ຕັ້ງ"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "ວິທີການເຂົ້າເຖິງ"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "ຈຸດແຈກຢາຍ CRL"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "ຈຸດແຈກຢາຍ"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "CN ຂອງຈຸດແຈກຢາຍ"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "OU ຂອງຈຸດແຈກຢາຍ"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "U ຂອງຈຸດແຈກຢາຍ"
+
+#: gcr/gcr-certificate.c:1204
+msgid "Extension"
+msgstr "ສ່ວນຂະຫຍາຍ"
+
+#: gcr/gcr-certificate.c:1208
+msgid "Identifier"
+msgstr "ຕົວລະບຸ"
+
+#: gcr/gcr-certificate.c:1209
+msgid "Value"
+msgstr "ຄ່າ"
+
+#: gcr/gcr-certificate.c:1258
+msgid "Critical"
+msgstr "ສຳຄັນ"
+
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
+msgid "Certificate"
+msgstr "ໃບຮັບຮອງ"
+
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
+msgid "Unknown"
+msgstr "ບໍ່ຮູ້ຈັກ"
+
+#: gcr/gcr-certificate.c:1342
+msgid "Identity"
+msgstr "ຕົວຕົນ"
+
+#: gcr/gcr-certificate.c:1347
+msgid "Verified by"
+msgstr "ກວດສອບໂດຍ"
+
+#: gcr/gcr-certificate.c:1353
+msgid "Expires"
+msgstr "ໝົດອາຍຸ"
+
+#. The subject
+#: gcr/gcr-certificate.c:1361
+msgid "Subject Name"
+msgstr "ຊື່ຫົວຂໍ້"
+
+#. The Issuer
+#: gcr/gcr-certificate.c:1367
+msgid "Issuer Name"
+msgstr "ຊື່ຜູ້ອອກ"
+
+#. The Issued Parameters
+#: gcr/gcr-certificate.c:1373
+msgid "Issued Certificate"
+msgstr "ໃບຮັບຮອງທີ່ອອກໃຫ້"
+
+#: gcr/gcr-certificate.c:1380
+msgid "Version"
+msgstr "ເວີຊັນ"
+
+#: gcr/gcr-certificate.c:1394
+msgid "Not Valid Before"
+msgstr "ບໍ່ສາມາດໃຊ້ໄດ້ກ່ອນ"
+
+#: gcr/gcr-certificate.c:1403
+msgid "Not Valid After"
+msgstr "ບໍ່ສາມາດໃຊ້ໄດ້ຫຼັງ"
+
+#: gcr/gcr-certificate.c:1412
+msgid "Certificate Fingerprints"
+msgstr "ລາຍນິ້ວມືໃບຮັບຮອງ"
+
+#. Public Key Info
+#: gcr/gcr-certificate.c:1422
+msgid "Public Key Info"
+msgstr "ຂໍ້ມູນກຸນແຈສາທາລະນະ"
+
+#. Signature
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
+msgid "Signature"
+msgstr "ລາຍເຊັນ"
+
+#: gcr/gcr-certificate.c:1444
+msgid "Signature Algorithm"
+msgstr "ອັນກໍຣິທຶມລາຍເຊັນ"
+
+#: gcr/gcr-certificate.c:1448
+msgid "Signature Parameters"
+msgstr "ພາຣາມິເຕີລາຍເຊັນ"
+
+#: gcr/gcr-certificate-request.c:397
+#, c-format
+msgid "Unsupported key type for certificate request"
+msgstr "ປະເພດກຸນແຈບໍ່ຮອງຮັບສຳລັບການຮ້ອງຂໍໃບຮັບຮອງ"
+
+#: gcr/gcr-certificate-request.c:484 gcr/gcr-certificate-request.c:568
+#, c-format
+msgid "The key cannot be used to sign the request"
+msgstr "ບໍ່ສາມາດໃຊ້ກຸນແຈນີ້ເພື່ອເຊັນຄຳຮ້ອງຂໍໄດ້"
+
+#: gcr/gcr-gnupg-importer.c:94
+msgid "GnuPG Keyring"
+msgstr "ພວງກຸນແຈ GnuPG"
+
+#: gcr/gcr-gnupg-importer.c:96
+#, c-format
+msgid "GnuPG Keyring: %s"
+msgstr "ພວງກຸນແຈ GnuPG: %s"
+
+#: gcr/gcr-gnupg-process.c:867
+#, c-format
+msgid "Gnupg process exited with code: %d"
+msgstr "ໂປຣເຊສ Gnupg ອອກດ້ວຍລະຫັດ: %d"
+
+#: gcr/gcr-gnupg-process.c:874
+#, c-format
+msgid "Gnupg process was terminated with signal: %d"
+msgstr "ໂປຣເຊສ Gnupg ຖືກຢຸດດ້ວຍສັນຍານ: %d"
+
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
+#: gcr/gcr-system-prompt.c:916
+msgid "The operation was cancelled"
+msgstr "ການດຳເນີນການຖືກຍົກເລີກ"
+
+#: gcr/gcr-parser.c:328
+msgid "Private Key"
+msgstr "ກຸນແຈສ່ວນຕົວ"
+
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "ກຸນແຈ PGP"
+
+#: gcr/gcr-parser.c:340
+msgid "Certificate Request"
+msgstr "ຄຳຮ້ອງຂໍໃບຮັບຮອງ"
+
+#: gcr/gcr-parser.c:1793
+msgid "Unrecognized or unsupported data."
+msgstr "ຂໍ້ມູນທີ່ບໍ່ຮູ້ຈັກ ຫຼື ບໍ່ຮອງຮັບ."
+
+#: gcr/gcr-parser.c:1796
+msgid "Could not parse invalid or corrupted data."
+msgstr "ບໍ່ສາມາດແຍກວິເຄາະຂໍ້ມູນທີ່ບໍ່ຖືກຕ້ອງ ຫຼື ເສຍຫາຍໄດ້."
+
+#: gcr/gcr-parser.c:1799
+msgid "The data is locked"
+msgstr "ຂໍ້ມູນຖືກລັອກຢູ່"
+
+#: gcr/gcr-prompt.c:220
+msgid "Continue"
+msgstr "ສືບຕໍ່"
+
+#: gcr/gcr-prompt.c:229
+msgid "Cancel"
+msgstr "ຍົກເລີກ"
+
+#: gcr/gcr-ssh-agent-interaction.c:116
+#, c-format
+msgid "Unlock password for: %s"
+msgstr "ລະຫັດຜ່ານເພື່ອປົດລັອກສຳລັບ: %s"
+
+#: gcr/gcr-ssh-agent-interaction.c:152
+msgid "Unlock private key"
+msgstr "ປົດລັອກກຸນແຈສ່ວນຕົວ"
+
+#: gcr/gcr-ssh-agent-interaction.c:153
+msgid "Enter password to unlock the private key"
+msgstr "ປ້ອນລະຫັດຜ່ານເພື່ອປົດລັອກກຸນແຈສ່ວນຕົວ"
+
+#. TRANSLATORS: The private key is locked
+#: gcr/gcr-ssh-agent-interaction.c:156
+#, c-format
+msgid "An application wants access to the private key “%s”, but it is locked"
+msgstr "ແອັບພລິເຄຊັນຕ້ອງການເຂົ້າເຖິງກຸນແຈສ່ວນຕົວ “%s”, ແຕ່ມັນຖືກລັອກຢູ່"
+
+#: gcr/gcr-ssh-agent-interaction.c:161
+msgid "Automatically unlock this key whenever I’m logged in"
+msgstr "ປົດລັອກກຸນແຈນີ້ໂດຍອັດຕະໂນມັດທຸກຄັ້ງທີ່ຂ້ອຍເຂົ້າສູ່ລະບົບ"
+
+#: gcr/gcr-ssh-agent-interaction.c:163
+msgid "Unlock"
+msgstr "ປົດລັອກ"
+
+#: gcr/gcr-ssh-agent-interaction.c:166
+msgid "The unlock password was incorrect"
+msgstr "ລະຫັດຜ່ານເພື່ອປົດລັອກບໍ່ຖືກຕ້ອງ"
+
+#: gcr/gcr-ssh-agent-service.c:270
+msgid "Unnamed"
+msgstr "ບໍ່ມີຊື່"
+
+#: gcr/gcr-ssh-askpass.c:182
+msgid "Enter your OpenSSH passphrase"
+msgstr "ປ້ອນລະຫັດຜ່ານ OpenSSH ຂອງທ່ານ"
+
+#: gcr/gcr-subject-public-key.c:413
+msgid "Unrecognized or unavailable attributes for key"
+msgstr "ຄຸນສົມບັດຂອງກຸນແຈບໍ່ເປັນທີ່ຮູ້ຈັກ ຫຼື ບໍ່ສາມາດໃຊ້ງານໄດ້"
+
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
+msgid "Couldn’t build public key"
+msgstr "ບໍ່ສາມາດສ້າງກຸນແຈສາທາລະນະໄດ້"
+
+#: gcr/gcr-system-prompt.c:896
+msgid "Another prompt is already in progress"
+msgstr "ມີໜ້າຕ່າງແຈ້ງເຕືອນອື່ນກຳລັງດຳເນີນການຢູ່ແລ້ວ"
+
+#. Translators: A pinned certificate is an exception which
+#. trusts a given certificate explicitly for a purpose and
+#. communication with a certain peer.
+#: gcr/gcr-trust.c:307
+#, c-format
+msgid "Couldn’t find a place to store the pinned certificate"
+msgstr "ບໍ່ພົບທີ່ເກັບໃບຮັບຮອງທີ່ປັກໝຸດໄວ້"
+
+#: tools/viewer/viewer.c:23
+msgid "GCR Certificate Viewer"
+msgstr "ໂປຣແກຣມເບິ່ງໃບຮັບຮອງ GCR"
+
+#: tools/viewer/viewer.c:30
+msgid "Show the application's version"
+msgstr "ສະແດງເວີຊັນຂອງແອັບພລິເຄຊັນ"
+
+#: tools/viewer/viewer.c:32
+msgid "[file...]"
+msgstr "[ໄຟລ໌...]"

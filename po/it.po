@@ -5,21 +5,23 @@
 # Luca Ferretti <elle.uca@libero.it>, 2008, 2009, 2010.
 # Francesco Marletta <francesco.marletta@tiscali.it>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
 # Milo Casagrande <milo@milo.name>, 2011, 2012, 2013, 2014, 2017, 2018, 2020, 2021, 2023.
+# Leonardo Pantani <leonardo.pantani@gmail.com>, 2026.
+# Davide Ferracin <davide.ferracin@icloud.com>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues\n"
-"POT-Creation-Date: 2023-01-25 17:22+0000\n"
-"PO-Revision-Date: 2023-08-30 10:28+0200\n"
-"Last-Translator: Milo Casagrande <milo@milo.name>\n"
-"Language-Team: Italian <tp@lists.linux.it>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
+"POT-Creation-Date: 2025-09-09 00:33+0000\n"
+"PO-Revision-Date: 2026-06-08 10:35+0200\n"
+"Last-Translator: Davide Ferracin <davide.ferracin@icloud.com>\n"
+"Language-Team: Italian <gnome-it-list@gnome.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 50.0\n"
 
 #: egg/egg-oid.c:40
 msgid "Domain Component"
@@ -61,9 +63,9 @@ msgstr "Nome comune"
 msgid "Surname"
 msgstr "Cognome"
 
-#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1228
+#: egg/egg-oid.c:68 gcr/gcr-certificate.c:1387
 msgid "Serial Number"
-msgstr "Numero seriale"
+msgstr "Numero di serie"
 
 #: egg/egg-oid.c:70
 msgid "Country"
@@ -79,7 +81,7 @@ msgstr "Stato"
 
 #: egg/egg-oid.c:76
 msgid "Street"
-msgstr "Strada"
+msgstr "Via"
 
 #: egg/egg-oid.c:78
 msgid "Organization"
@@ -174,12 +176,10 @@ msgid "SHA384 with RSA encryption"
 msgstr "SHA384 con cifratura RSA"
 
 #: egg/egg-oid.c:119
-#| msgid "SHA1 with RSA"
 msgid "SHA512 with RSA encryption"
 msgstr "SHA512 con cifratura RSA"
 
 #: egg/egg-oid.c:120
-#| msgid "SHA224 with ECDSA"
 msgid "SHA224 with RSA encryption"
 msgstr "SHA224 con cifratura RSA"
 
@@ -252,7 +252,7 @@ msgstr "Autenticazione client"
 
 #: egg/egg-oid.c:142
 msgid "Code Signing"
-msgstr "Firma codice"
+msgstr "Firma del codice"
 
 #: egg/egg-oid.c:143
 msgid "Email Protection"
@@ -265,19 +265,20 @@ msgstr "Marcatura temporale"
 #. Extended certificate attributes
 #: egg/egg-oid.c:147
 msgid "Certificate Authority Information Access"
-msgstr "Accesso informazioni autorità di certificazione"
+msgstr "Accesso alle informazioni dell'autorità di certificazione"
 
 #: egg/egg-oid.c:148
 msgid "Subject directory attributes certificate extension"
-msgstr "Estensione attributi del ceritifcato"
+msgstr ""
+"Estensione del certificato degli attributi della directory del soggetto"
 
 #: egg/egg-oid.c:149
 msgid "Subject key identifier"
-msgstr "Identificatore chiave soggetto"
+msgstr "Identificatore della chiave del soggetto"
 
 #: egg/egg-oid.c:150
 msgid "Key usage"
-msgstr "Utilizzo chiave"
+msgstr "Utilizzo della chiave"
 
 #: egg/egg-oid.c:151
 msgid "Private key usage period"
@@ -285,11 +286,11 @@ msgstr "Periodo d'uso della chiave privata"
 
 #: egg/egg-oid.c:152
 msgid "Subject alternative name"
-msgstr "Nome alternativo soggetto"
+msgstr "Nome alternativo del soggetto"
 
 #: egg/egg-oid.c:153
 msgid "Issuer alternative name"
-msgstr "Nomo alternativo emittente"
+msgstr "Nome alternativo dell'emittente"
 
 #: egg/egg-oid.c:154
 msgid "Basic constraints"
@@ -301,27 +302,27 @@ msgstr "Numero CRL"
 
 #: egg/egg-oid.c:156
 msgid "Reason code"
-msgstr "Codice motivo"
+msgstr "Codice del motivo"
 
 #: egg/egg-oid.c:157
 msgid "Hold instruction code"
-msgstr "Codice istruzione"
+msgstr "Codice dell'istruzione di sospensione"
 
 #: egg/egg-oid.c:158
 msgid "Invalidity date"
-msgstr "Data scadenza"
+msgstr "Data di scadenza"
 
 #: egg/egg-oid.c:159
 msgid "Certificate Revocation List indicator"
-msgstr "Indicatore elenco revoca del certificato"
+msgstr "Indicatore dell'elenco di revoca certificati"
 
 #: egg/egg-oid.c:160
 msgid "Issuing distribution point"
-msgstr "Punto distribuzione emittente"
+msgstr "Punto di distribuzione dell'emittente"
 
 #: egg/egg-oid.c:161
 msgid "Certificate issuer"
-msgstr "Emittente certificato"
+msgstr "Emittente del certificato"
 
 #: egg/egg-oid.c:162
 msgid "Name constraints"
@@ -329,15 +330,15 @@ msgstr "Vincoli del nome"
 
 #: egg/egg-oid.c:163
 msgid "Certificate Revocation List distribution points"
-msgstr "Punti distribuzione elenco revoca del certificato"
+msgstr "Punti di distribuzione dell'elenco di revoca certificati"
 
 #: egg/egg-oid.c:164
 msgid "Certificate policies"
-msgstr "Politiche certificato"
+msgstr "Politiche del certificato"
 
 #: egg/egg-oid.c:165
 msgid "Policy mappings"
-msgstr "Politica corrispondenze"
+msgstr "Corrispondenze delle politiche"
 
 #: egg/egg-oid.c:166
 msgid "Policy constraints"
@@ -345,12 +346,35 @@ msgstr "Vincoli di politica"
 
 #: egg/egg-oid.c:167
 msgid "Authority key identifier"
-msgstr "Identificativo chiave autorità"
+msgstr "Identificativo della chiave dell'autorità"
+
+#: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
+msgid "Extended Key Usage"
+msgstr "Utilizzo della chiave esteso"
+
+#. Certificate Policies
+#: egg/egg-oid.c:171
+msgid "Extended Validation"
+msgstr "Validazione estesa"
+
+#: egg/egg-oid.c:172
+msgid "Certification Practices Statement"
+msgstr "Dichiarazione delle pratiche di certificazione"
+
+#. Authority Information Access (AIA) methods
+#: egg/egg-oid.c:175
+msgid "Online Certificate Status Protocol (OCSP)"
+msgstr "Protocollo di verifica del certificato in rete (OCSP)"
+
+# sarebbe titolo dialogo
+#: egg/egg-oid.c:176
+msgid "Certification Authority Issuer"
+msgstr "Autorità emittente della certificazione"
 
 #: gck/gck-module.c:271
 #, c-format
 msgid "Error loading PKCS#11 module: %s"
-msgstr "Errore nel caricare il modulo PKCS#11: %s"
+msgstr "Errore nel caricamento del modulo PKCS#11: %s"
 
 #: gck/gck-module.c:286
 #, c-format
@@ -385,246 +409,278 @@ msgstr "L'URI presenta un numero di versione errato."
 msgid "The stream was closed"
 msgstr "Il flusso è stato chiuso"
 
-#: gcr/gcr-certificate.c:882
+#: gcr/gcr-certificate-extension-key-usage.c:64
+msgid "Digital signature"
+msgstr "Firma digitale"
+
+#: gcr/gcr-certificate-extension-key-usage.c:65
+msgid "Non repudiation"
+msgstr "Non ripudio"
+
+#: gcr/gcr-certificate-extension-key-usage.c:66
+msgid "Key encipherment"
+msgstr "Cifratura della chiave"
+
+#: gcr/gcr-certificate-extension-key-usage.c:67
+msgid "Data encipherment"
+msgstr "Cifratura dei dati"
+
+#: gcr/gcr-certificate-extension-key-usage.c:68
+msgid "Key agreement"
+msgstr "Parametri della chiave"
+
+# sarebbe titolo dialogo
+#: gcr/gcr-certificate-extension-key-usage.c:69
+msgid "Certificate signature"
+msgstr "Firma del certificato"
+
+#: gcr/gcr-certificate-extension-key-usage.c:70
+msgid "Revocation list signature"
+msgstr "Firma dell'elenco di revoca"
+
+#: gcr/gcr-certificate-extension-key-usage.c:71
+msgid "Encipher only"
+msgstr "Solo cifratura"
+
+#: gcr/gcr-certificate-extension-key-usage.c:72
+msgid "Decipher only"
+msgstr "Solo decifratura"
+
+#: gcr/gcr-certificate-extensions-common.c:136
+msgid "Other Name"
+msgstr "Altro nome"
+
+#: gcr/gcr-certificate-extensions-common.c:152
+msgid "XMPP Addr"
+msgstr "Indirizzo XMPP"
+
+#: gcr/gcr-certificate-extensions-common.c:156
+msgid "DNS SRV"
+msgstr "SRV DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:173
+msgid "Email"
+msgstr "Email"
+
+#: gcr/gcr-certificate-extensions-common.c:185
+msgid "DNS"
+msgstr "DNS"
+
+#: gcr/gcr-certificate-extensions-common.c:197
+msgid "X400 Address"
+msgstr "Indirizzo X400"
+
+#: gcr/gcr-certificate-extensions-common.c:208
+msgid "Directory Name"
+msgstr "Nome della directory"
+
+#: gcr/gcr-certificate-extensions-common.c:220
+msgid "EDI Party Name"
+msgstr "Nome del gruppo EDI"
+
+#: gcr/gcr-certificate-extensions-common.c:231
+msgid "URI"
+msgstr "URI"
+
+#: gcr/gcr-certificate-extensions-common.c:243
+msgid "IP Address"
+msgstr "Indirizzo IP"
+
+#: gcr/gcr-certificate-extensions-common.c:255
+msgid "Registered ID"
+msgstr "ID registrato"
+
+#: gcr/gcr-certificate.c:956
 msgid "Key Algorithm"
 msgstr "Algoritmo della chiave"
 
-#: gcr/gcr-certificate.c:888
+#: gcr/gcr-certificate.c:962
 msgid "Key Parameters"
 msgstr "Parametri della chiave"
 
-#: gcr/gcr-certificate.c:895
+#: gcr/gcr-certificate.c:969
 msgid "Key Size"
 msgstr "Dimensione della chiave"
 
-#: gcr/gcr-certificate.c:905
+#: gcr/gcr-certificate.c:979
 msgid "Key SHA1 Fingerprint"
 msgstr "Impronta digitale della chiave SHA1"
 
-#: gcr/gcr-certificate.c:909 gcr/gcr-parser.c:343
+#: gcr/gcr-certificate.c:983 gcr/gcr-parser.c:334
 msgid "Public Key"
 msgstr "Chiave pubblica"
 
-#: gcr/gcr-certificate.c:923
+#: gcr/gcr-certificate.c:994
 msgid "Basic Constraints"
 msgstr "Vincoli di base"
 
 # sarebbe titolo dialogo
-#: gcr/gcr-certificate.c:924
+#: gcr/gcr-certificate.c:996
 msgid "Certificate Authority"
 msgstr "Autorità di certificazione"
 
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
 msgid "Yes"
 msgstr "Sì"
 
-#: gcr/gcr-certificate.c:924 gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:996 gcr/gcr-certificate.c:1258
 msgid "No"
 msgstr "No"
 
-#: gcr/gcr-certificate.c:927
+#: gcr/gcr-certificate.c:1000
 msgid "Unlimited"
 msgstr "Illimitata"
 
-#: gcr/gcr-certificate.c:931
+#: gcr/gcr-certificate.c:1004
 msgid "Max Path Length"
-msgstr "Lunghezza massima percorso"
+msgstr "Lunghezza massima del percorso"
 
-#: gcr/gcr-certificate.c:955
-msgid "Extended Key Usage"
-msgstr "Utilizzo esteso della chiave"
-
-#: gcr/gcr-certificate.c:956
+#: gcr/gcr-certificate.c:1018
 msgid "Allowed Purposes"
-msgstr "Obiettivi consentiti"
+msgstr "Scopi consentiti"
 
-#: gcr/gcr-certificate.c:973
+#: gcr/gcr-certificate.c:1032
 msgid "Subject Key Identifier"
-msgstr "Identificatore chiave soggetto"
+msgstr "Identificatore della chiave del soggetto"
 
-#: gcr/gcr-certificate.c:976
+#: gcr/gcr-certificate.c:1036 gcr/gcr-certificate.c:1054
 msgid "Key Identifier"
-msgstr "Identificatore chiave"
+msgstr "Identificatore della chiave"
 
-#: gcr/gcr-certificate.c:985
-msgid "Digital signature"
-msgstr "Firma digitale"
-
-#: gcr/gcr-certificate.c:986
-msgid "Non repudiation"
-msgstr "Non ripudio"
-
-#: gcr/gcr-certificate.c:987
-msgid "Key encipherment"
-msgstr "Cifratura chiave"
-
-#: gcr/gcr-certificate.c:988
-msgid "Data encipherment"
-msgstr "Cifratura dati"
-
-#: gcr/gcr-certificate.c:989
-msgid "Key agreement"
-msgstr "Parametri chiave"
-
-# sarebbe titolo dialogo
-#: gcr/gcr-certificate.c:990
-msgid "Certificate signature"
-msgstr "Firma certificato"
-
-#: gcr/gcr-certificate.c:991
-msgid "Revocation list signature"
-msgstr "Firma elenco revoca"
-
-#: gcr/gcr-certificate.c:992
-msgid "Encipher only"
-msgstr "Solo cifrazione"
-
-#: gcr/gcr-certificate.c:993
-msgid "Decipher only"
-msgstr "Solo decifrazione"
-
-#: gcr/gcr-certificate.c:1014
+#: gcr/gcr-certificate.c:1065
 msgid "Key Usage"
-msgstr "Utilizzo chiave"
+msgstr "Utilizzo della chiave"
 
-#: gcr/gcr-certificate.c:1015
+#: gcr/gcr-certificate.c:1067
 msgid "Usages"
 msgstr "Utilizzi"
 
-#: gcr/gcr-certificate.c:1033
+#: gcr/gcr-certificate.c:1078
 msgid "Subject Alternative Names"
-msgstr "Nomi alternativi soggetto"
+msgstr "Nomi alternativi del soggetto"
 
-#: gcr/gcr-certificate.c:1055
+#: gcr/gcr-certificate.c:1107
+msgid "Certificate Policies"
+msgstr "Politiche del certificato"
+
+#: gcr/gcr-certificate.c:1116
+msgid "Policy"
+msgstr "Politica"
+
+#: gcr/gcr-certificate.c:1140
+msgid "Location"
+msgstr "Luogo"
+
+#: gcr/gcr-certificate.c:1143
+msgid "Access Method"
+msgstr "Metodo di accesso"
+
+#: gcr/gcr-certificate.c:1158
+msgid "CRL Distribution Points"
+msgstr "Punti di distribuzione CRL"
+
+#: gcr/gcr-certificate.c:1174
+msgid "Distribution Point"
+msgstr "Punto di distribuzione"
+
+#: gcr/gcr-certificate.c:1181
+msgid "Distribution Point CN"
+msgstr "Punto di distribuzione CN"
+
+#: gcr/gcr-certificate.c:1184
+msgid "Distribution Point OU"
+msgstr "Punto di distribuzione OU"
+
+#: gcr/gcr-certificate.c:1187
+msgid "Distribution Point U"
+msgstr "Punto di distribuzione U"
+
+#: gcr/gcr-certificate.c:1204
 msgid "Extension"
 msgstr "Estensione"
 
-#: gcr/gcr-certificate.c:1059
+#: gcr/gcr-certificate.c:1208
 msgid "Identifier"
 msgstr "Identificatore"
 
-#: gcr/gcr-certificate.c:1060
+#: gcr/gcr-certificate.c:1209
 msgid "Value"
 msgstr "Valore"
 
-#: gcr/gcr-certificate.c:1100
+#: gcr/gcr-certificate.c:1258
 msgid "Critical"
 msgstr "Critico"
 
 # sarebbe titolo dialogo
-#: gcr/gcr-certificate.c:1176 gcr/gcr-certificate.c:1407 gcr/gcr-parser.c:340
+#: gcr/gcr-certificate.c:1334 gcr/gcr-certificate.c:1615 gcr/gcr-parser.c:331
 msgid "Certificate"
 msgstr "Certificato"
 
-#: gcr/gcr-certificate.c:1183 gcr/gcr-certificate.c:1188
+#: gcr/gcr-certificate.c:1341 gcr/gcr-certificate.c:1346
 msgid "Unknown"
 msgstr "Sconosciuta"
 
-#: gcr/gcr-certificate.c:1184
+#: gcr/gcr-certificate.c:1342
 msgid "Identity"
 msgstr "Identità"
 
-#: gcr/gcr-certificate.c:1189
+#: gcr/gcr-certificate.c:1347
 msgid "Verified by"
 msgstr "Verificato da"
 
-#: gcr/gcr-certificate.c:1195
+#: gcr/gcr-certificate.c:1353
 msgid "Expires"
 msgstr "Scadenza"
 
 #. The subject
-#: gcr/gcr-certificate.c:1203
+#: gcr/gcr-certificate.c:1361
 msgid "Subject Name"
-msgstr "Nome soggetto"
+msgstr "Nome del soggetto"
 
 #. The Issuer
-#: gcr/gcr-certificate.c:1209
+#: gcr/gcr-certificate.c:1367
 msgid "Issuer Name"
-msgstr "Nome emanatore"
+msgstr "Nome dell'emittente"
 
 # sarebbe titolo dialogo
 #. The Issued Parameters
-#: gcr/gcr-certificate.c:1215
+#: gcr/gcr-certificate.c:1373
 msgid "Issued Certificate"
 msgstr "Certificato emesso"
 
-#: gcr/gcr-certificate.c:1221
+#: gcr/gcr-certificate.c:1380
 msgid "Version"
 msgstr "Versione"
 
-#: gcr/gcr-certificate.c:1235
+#: gcr/gcr-certificate.c:1394
 msgid "Not Valid Before"
 msgstr "Non valido prima del"
 
-#: gcr/gcr-certificate.c:1244
+#: gcr/gcr-certificate.c:1403
 msgid "Not Valid After"
 msgstr "Non valido dopo il"
 
-#: gcr/gcr-certificate.c:1253
+#: gcr/gcr-certificate.c:1412
 msgid "Certificate Fingerprints"
-msgstr "Impronte digitali certificato"
+msgstr "Impronte digitali del certificato"
 
 #. Public Key Info
-#: gcr/gcr-certificate.c:1263
+#: gcr/gcr-certificate.c:1422
 msgid "Public Key Info"
-msgstr "Informazioni chiave pubblica"
+msgstr "Informazioni sulla chiave pubblica"
 
 #. Signature
-#: gcr/gcr-certificate.c:1280 gcr/gcr-certificate.c:1291
+#: gcr/gcr-certificate.c:1441 gcr/gcr-certificate.c:1452
 msgid "Signature"
 msgstr "Firma"
 
-#: gcr/gcr-certificate.c:1283
+#: gcr/gcr-certificate.c:1444
 msgid "Signature Algorithm"
 msgstr "Algoritmo di firma"
 
-#: gcr/gcr-certificate.c:1287
+#: gcr/gcr-certificate.c:1448
 msgid "Signature Parameters"
 msgstr "Parametri della firma"
-
-#: gcr/gcr-certificate-extensions.c:190
-msgid "Other Name"
-msgstr "Altro nome"
-
-#: gcr/gcr-certificate-extensions.c:200
-msgid "XMPP Addr"
-msgstr "Indirizzo XMPP"
-
-#: gcr/gcr-certificate-extensions.c:204
-msgid "DNS SRV"
-msgstr "SRV DNS"
-
-#: gcr/gcr-certificate-extensions.c:216
-msgid "Email"
-msgstr "Email"
-
-#: gcr/gcr-certificate-extensions.c:224
-msgid "DNS"
-msgstr "DNS"
-
-#: gcr/gcr-certificate-extensions.c:232
-msgid "X400 Address"
-msgstr "Indirizzo X400"
-
-#: gcr/gcr-certificate-extensions.c:239
-msgid "Directory Name"
-msgstr "Nome directory"
-
-#: gcr/gcr-certificate-extensions.c:247
-msgid "EDI Party Name"
-msgstr "Nome gruppo EDI"
-
-#: gcr/gcr-certificate-extensions.c:254
-msgid "URI"
-msgstr "URI"
-
-#: gcr/gcr-certificate-extensions.c:262
-msgid "IP Address"
-msgstr "Indirizzo IP"
-
-#: gcr/gcr-certificate-extensions.c:270
-msgid "Registered ID"
-msgstr "ID registrato"
 
 #: gcr/gcr-certificate-request.c:397
 #, c-format
@@ -645,43 +701,43 @@ msgstr "Portachiavi GnuPG"
 msgid "GnuPG Keyring: %s"
 msgstr "Portachiavi GnuPG: %s"
 
-#: gcr/gcr-gnupg-key.c:141 gcr/gcr-parser.c:346
-msgid "PGP Key"
-msgstr "Chiave PGP"
-
 #: gcr/gcr-gnupg-process.c:867
 #, c-format
 msgid "Gnupg process exited with code: %d"
-msgstr "Processo Gnupg uscito col codice %d"
+msgstr "Il processo Gnupg ha restituito il codice: %d"
 
 #: gcr/gcr-gnupg-process.c:874
 #, c-format
 msgid "Gnupg process was terminated with signal: %d"
-msgstr "Processo Gnupg terminato col segnale %d"
+msgstr "Il processo Gnupg è stato terminato col segnale: %d"
 
-#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:2592 gcr/gcr-parser.c:3188
+#: gcr/gcr-gnupg-process.c:928 gcr/gcr-parser.c:1790 gcr/gcr-parser.c:2386
 #: gcr/gcr-system-prompt.c:916
 msgid "The operation was cancelled"
 msgstr "L'operazione è stata annullata"
 
-#: gcr/gcr-parser.c:337
+#: gcr/gcr-parser.c:328
 msgid "Private Key"
 msgstr "Chiave privata"
 
-#
-#: gcr/gcr-parser.c:349
-msgid "Certificate Request"
-msgstr "Richiesta certificato"
+#: gcr/gcr-parser.c:337
+msgid "PGP Key"
+msgstr "Chiave PGP"
 
-#: gcr/gcr-parser.c:2595
+#
+#: gcr/gcr-parser.c:340
+msgid "Certificate Request"
+msgstr "Richiesta di certificato"
+
+#: gcr/gcr-parser.c:1793
 msgid "Unrecognized or unsupported data."
 msgstr "Dati non riconosciuti o non supportati."
 
-#: gcr/gcr-parser.c:2598
+#: gcr/gcr-parser.c:1796
 msgid "Could not parse invalid or corrupted data."
 msgstr "Impossibile analizzare i dati non validi o danneggiati."
 
-#: gcr/gcr-parser.c:2601
+#: gcr/gcr-parser.c:1799
 msgid "The data is locked"
 msgstr "I dati sono bloccati"
 
@@ -726,7 +782,7 @@ msgstr "Sblocca"
 msgid "The unlock password was incorrect"
 msgstr "La password di sblocco non è corretta"
 
-#: gcr/gcr-ssh-agent-service.c:259
+#: gcr/gcr-ssh-agent-service.c:270
 msgid "Unnamed"
 msgstr "Senza nome"
 
@@ -734,11 +790,11 @@ msgstr "Senza nome"
 msgid "Enter your OpenSSH passphrase"
 msgstr "Inserire la passphrase per OpenSSH"
 
-#: gcr/gcr-subject-public-key.c:407
+#: gcr/gcr-subject-public-key.c:413
 msgid "Unrecognized or unavailable attributes for key"
 msgstr "Attributi per la chiave non riconosciuti o non disponibili"
 
-#: gcr/gcr-subject-public-key.c:493 gcr/gcr-subject-public-key.c:576
+#: gcr/gcr-subject-public-key.c:499 gcr/gcr-subject-public-key.c:582
 msgid "Couldn’t build public key"
 msgstr "Impossibile generare la chiave pubblica"
 

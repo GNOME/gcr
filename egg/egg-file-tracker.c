@@ -85,6 +85,7 @@ remove_files (gpointer key, gpointer value, gpointer data)
 static gboolean
 update_file (EggFileTracker *self, gboolean force_all, const gchar *path)
 {
+	gpointer value;
 	time_t old_mtime;
 	struct stat sb;
 
@@ -94,12 +95,14 @@ update_file (EggFileTracker *self, gboolean force_all, const gchar *path)
 		return FALSE;
 	}
 
-	old_mtime = GPOINTER_TO_UINT (g_hash_table_lookup (self->files, path));
-	g_assert (old_mtime);
+	if (!g_hash_table_lookup_extended (self->files, path, NULL, &value)) {
+		g_assert_not_reached ();
+	}
+
+	old_mtime = GPOINTER_TO_UINT (value);
 
 	/* See if it has actually changed */
 	if (force_all || old_mtime != sb.st_mtime) {
-		g_assert (g_hash_table_lookup (self->files, path));
 		g_hash_table_insert (self->files, g_strdup (path), GUINT_TO_POINTER (sb.st_mtime));
 		g_signal_emit (self, signals[FILE_CHANGED], 0, path);
 	}

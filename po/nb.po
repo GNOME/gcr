@@ -2,14 +2,14 @@
 # Copyright (C) 2003 Red Hat Inc.
 # This file is distributed under the same license as the gnome-keyring package.
 #
-# Kjartan Maraas <kmaraas@gnome.org>, 2003-2020.
+# Kjartan Maraas <kmaraas@gnome.org>, 2003-2026.
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: gcr 3.38.x\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gcr/issues/\n"
 "POT-Creation-Date: 2025-09-09 00:33+0000\n"
-"PO-Revision-Date: 2026-05-05 20:10+0200\n"
+"PO-Revision-Date: 2026-07-09 12:35+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
@@ -262,7 +262,7 @@ msgstr "Tilgang til informasjon om sertifikatautoritet"
 
 #: egg/egg-oid.c:148
 msgid "Subject directory attributes certificate extension"
-msgstr ""
+msgstr "Sertifikatutvidelse for subjektkatalogattributter"
 
 #: egg/egg-oid.c:149
 msgid "Subject key identifier"
@@ -298,7 +298,7 @@ msgstr "Kode for årsak"
 
 #: egg/egg-oid.c:157
 msgid "Hold instruction code"
-msgstr ""
+msgstr "Hold instruksjonskode"
 
 #: egg/egg-oid.c:158
 msgid "Invalidity date"
@@ -310,7 +310,7 @@ msgstr "Indikator for sertifikattilbaketrekkingsliste"
 
 #: egg/egg-oid.c:160
 msgid "Issuing distribution point"
-msgstr ""
+msgstr "Utsteders distribusjonspunkt"
 
 #: egg/egg-oid.c:161
 msgid "Certificate issuer"
@@ -337,9 +337,8 @@ msgid "Policy constraints"
 msgstr "Begrensninger for regelsett"
 
 #: egg/egg-oid.c:167
-#, fuzzy
 msgid "Authority key identifier"
-msgstr "Identifikator for subjektnøkkel"
+msgstr "Identifikator for autoritetsnøkkel"
 
 #: egg/egg-oid.c:168 gcr/gcr-certificate.c:1015
 msgid "Extended Key Usage"
@@ -351,9 +350,8 @@ msgid "Extended Validation"
 msgstr "Utvidet validering"
 
 #: egg/egg-oid.c:172
-#, fuzzy
 msgid "Certification Practices Statement"
-msgstr "Signatur for tilbaketrekking av sertifisering"
+msgstr "Erklæring om sertifiseringspraksis"
 
 #. Authority Information Access (AIA) methods
 #: egg/egg-oid.c:175
@@ -361,10 +359,8 @@ msgid "Online Certificate Status Protocol (OCSP)"
 msgstr "Online Certificate Status Protocol (OCSP)"
 
 #: egg/egg-oid.c:176
-#, fuzzy
-#| msgid "Certificate Authority"
 msgid "Certification Authority Issuer"
-msgstr "Sertifikatautoritet"
+msgstr "Utsteder av sertifiseringsinstans"
 
 #: gck/gck-module.c:271
 #, c-format
@@ -569,23 +565,23 @@ msgstr "Tilgangsmetode"
 
 #: gcr/gcr-certificate.c:1158
 msgid "CRL Distribution Points"
-msgstr ""
+msgstr "Distribusjonspunkter for CRL"
 
 #: gcr/gcr-certificate.c:1174
 msgid "Distribution Point"
-msgstr ""
+msgstr "Distribusjonspunkt"
 
 #: gcr/gcr-certificate.c:1181
 msgid "Distribution Point CN"
-msgstr ""
+msgstr "CN for distribusjonspunkt"
 
 #: gcr/gcr-certificate.c:1184
 msgid "Distribution Point OU"
-msgstr ""
+msgstr "OU for distribusjonspunkt"
 
 #: gcr/gcr-certificate.c:1187
 msgid "Distribution Point U"
-msgstr ""
+msgstr "U for distribusjonspunkt"
 
 #: gcr/gcr-certificate.c:1204
 msgid "Extension"

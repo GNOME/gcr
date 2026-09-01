@@ -193,6 +193,59 @@ on_async_result (GObject *source,
 	egg_test_wait_stop ();
 }
 
+static gboolean
+on_context_source_timeout (gpointer unused)
+{
+	g_assert_not_reached ();
+	return G_SOURCE_REMOVE;
+}
+
+static void
+on_context_source_destroyed (gpointer user_data)
+{
+	gboolean *destroyed = user_data;
+	*destroyed = TRUE;
+}
+
+static void
+test_async_context_unref (Test *test,
+                          gconstpointer unused)
+{
+	GAsyncResult *result = NULL;
+	GMainContext *context;
+	GSource *source;
+	GcrPrompt *prompt;
+	GDBusConnection *connection;
+	GError *error = NULL;
+	gboolean source_destroyed = FALSE;
+
+	connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+	g_assert_no_error (error);
+
+	context = g_main_context_new ();
+	source = g_timeout_source_new_seconds (10);
+	g_source_set_callback (source, on_context_source_timeout,
+	                       &source_destroyed, on_context_source_destroyed);
+	g_source_attach (source, context);
+	g_source_unref (source);
+
+	g_main_context_push_thread_default (context);
+	gcr_system_prompt_open_for_prompter_async (g_dbus_connection_get_unique_name (connection),
+	                                           0, NULL, on_async_result, &result);
+	egg_test_wait ();
+	g_main_context_pop_thread_default (context);
+
+	prompt = gcr_system_prompt_open_finish (result, &error);
+	g_assert_error (error, G_DBUS_ERROR, G_DBUS_ERROR_UNKNOWN_METHOD);
+	g_assert_null (prompt);
+
+	g_clear_error (&error);
+	g_clear_object (&result);
+	g_object_unref (connection);
+	g_main_context_unref (context);
+	g_assert_true (source_destroyed);
+}
+
 static void
 test_async_password (Test *test,
                      gconstpointer unused)
@@ -750,6 +803,7 @@ main (int argc, char **argv)
 
 	g_test_add ("/gcr/system-prompt/open", Test, NULL, setup, test_open_prompt, teardown);
 	g_test_add ("/gcr/system-prompt/open-failure", Test, NULL, setup, test_open_failure, teardown);
+	g_test_add ("/gcr/system-prompt/async-context-unref", Test, NULL, setup, test_async_context_unref, teardown);
 	g_test_add ("/gcr/system-prompt/password", Test, NULL, setup, test_prompt_password, teardown);
 	g_test_add ("/gcr/system-prompt/password-async", Test, NULL, setup, test_async_password, teardown);
 	g_test_add ("/gcr/system-prompt/password-cancel", Test, NULL, setup, test_cancel_password, teardown);

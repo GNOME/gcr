@@ -146,6 +146,8 @@ call_closure_free (gpointer data)
 	}
 	if (closure->watch_id)
 		g_bus_unwatch_name (closure->watch_id);
+	if (closure->context)
+		g_main_context_unref (closure->context);
 	g_object_unref (closure->cancellable);
 	g_free (data);
 }

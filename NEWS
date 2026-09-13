@@ -1,3 +1,9 @@
+gcr 4.4.1:
+- gcr: Support zero mtime
+- gcr: Fix memory leak in GcrSystemPrompt call closure
+- docs: Fix a method reference in gcr_prompt_set_choice_label()
+- Updated translations
+
 gcr 4.4.0.1:
 - meson: Fix gck vesion
 
